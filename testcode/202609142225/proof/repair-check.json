@@ -1,0 +1,435 @@
+{
+ "run_utc": "2026-09-15T01:12:06.533Z",
+ "base": "http://127.0.0.1:8911/testcode/202609142225/",
+ "checks": [
+  {
+   "id": "M1 line:17 not attributed to a family",
+   "ok": true,
+   "detail": {
+    "carried": 686,
+    "composeEntity": -1,
+    "handOff": "https://ventusltd.github.io/code-generator/?blocks=Si&lines=17&from=star-generator&data=202609142326",
+    "line": {
+     "key": 17,
+     "family": null,
+     "families_carrying": 686,
+     "repo": null,
+     "commit": null,
+     "path": null,
+     "note": "carried by 686 families · none chosen"
+    },
+    "tray": "Si×line 17 · 686 families · pick one×1 block · 1 to pickHand off →",
+    "trayTitle": "1 block will travel (Si) · line 17 · carried by 686 families · pick one",
+    "trayCount": "1 block · 1 to pick"
+   }
+  },
+  {
+   "id": "M1 tray says pick one",
+   "ok": true,
+   "detail": {
+    "tray": "Si×line 17 · 686 families · pick one×1 block · 1 to pickHand off →",
+    "count": "1 block · 1 to pick",
+    "title": "1 block will travel (Si) · line 17 · carried by 686 families · pick one"
+   }
+  },
+  {
+   "id": "M1 sheet row says pick one with a chooser",
+   "ok": true,
+   "detail": "Recipe1 block will travel (Si) · line 17 · carried by 686 families · pick one✕ closeHand off →Copy recipeCopy commandblock → itself · group → itself (off the table: the code-generator cannot pick it y"
+  },
+  {
+   "id": "M1 chooser lists the families paged 40",
+   "ok": true,
+   "detail": {
+    "head": "line 17 · carried by 686 families · pick oneline",
+    "rows": 40,
+    "more": "show 40 families (646 left)"
+   }
+  },
+  {
+   "id": "M1 after a pick the chosen family and its block travel",
+   "ok": true,
+   "detail": {
+    "handOff": "https://ventusltd.github.io/code-generator/?blocks=Si,Cg&lines=17&from=star-generator&data=202609142326",
+    "line": {
+     "key": 17,
+     "family": 3,
+     "families_carrying": 686,
+     "chosen": true,
+     "block": "Cg",
+     "repo": "Ventusltd/cable-trench-or-drill",
+     "commit": "958449237b6f498677025a0e274709bc147f43f4",
+     "path": "releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/calculations.js"
+    },
+    "tray": "Si×line 17 → #3 → Cg×2 blocks · 1 noteHand off →",
+    "trayTitle": "2 blocks will travel (Si, Cg) · line 17 pinned as a note",
+    "trayCount": "2 blocks · 1 note"
+   }
+  },
+  {
+   "id": "M2 column segment/spider keep focus, trail, URL, history",
+   "ok": true,
+   "detail": {
+    "before": {
+     "focus": -1,
+     "trail": 0,
+     "url": "?lens=column&data=202609142326",
+     "hist": 3,
+     "panel": true
+    },
+    "mid": {
+     "focus": -1,
+     "trail": 0,
+     "url": "?lens=column&data=202609142326",
+     "hist": 3,
+     "panel": true,
+     "on": "show: depends on"
+    },
+    "after": {
+     "focus": -1,
+     "trail": 0,
+     "url": "?lens=column&data=202609142326",
+     "hist": 3,
+     "panel": true,
+     "spider": "column"
+    }
+   }
+  },
+  {
+   "id": "M3 show 40 more: +40 tiles, same focus/trail/URL/history",
+   "ok": true,
+   "detail": {
+    "before": {
+     "focus": 98,
+     "trail": 1,
+     "url": "?lens=table&key=block:Cg&trail=block:Cg&data=202609142326",
+     "hist": 3,
+     "groups": 40,
+     "head": "Cg · Cable trench geometryblock"
+    },
+    "after": {
+     "focus": 98,
+     "trail": 1,
+     "url": "?lens=table&key=block:Cg&trail=block:Cg&data=202609142326",
+     "hist": 3,
+     "groups": 80,
+     "head": "Cg · Cable trench geometryblock"
+    }
+   }
+  },
+  {
+   "id": "M3 show 40 more with no focus: no navigation, panel stays closed",
+   "ok": true,
+   "detail": {
+    "b2": {
+     "focus": -1,
+     "hist": 3,
+     "panel": true
+    },
+    "a2": {
+     "focus": -1,
+     "hist": 3,
+     "panel": true,
+     "groups": 80
+    }
+   }
+  },
+  {
+   "id": "M4 family focus scrolls the overlay to its block tile, inside the visible band",
+   "ok": true,
+   "detail": {
+    "scrollTop": 275,
+    "scrollH": 6389,
+    "tile": "Gc",
+    "tileTop": 160,
+    "visibleBand": 374,
+    "inBand": true,
+    "head": "#80299 haversinefamily"
+   }
+  },
+  {
+   "id": "M5 legend dim state matches lens.draws after each switch",
+   "ok": true,
+   "detail": {
+    "particle": [],
+    "chord": [],
+    "river": [],
+    "table": [],
+    "column": []
+   }
+  },
+  {
+   "id": "B6 closed panel has display none and swallows no touch",
+   "ok": true,
+   "detail": {
+    "hidden": true,
+    "display": "none",
+    "map": "oooooooooooooooooooooooooooooo?????????????????????????",
+    "tilesVisible": 18,
+    "panelHits": [
+     "BUTTON.lg cat",
+     "DETAILS.tb-cat",
+     "H3.",
+     "DIV.tile",
+     "DIV.tile"
+    ]
+   }
+  },
+  {
+   "id": "B7 swipe-right 90 px on a tile adds it to the recipe by touch",
+   "ok": true,
+   "detail": {
+    "tile": "At",
+    "tray": "At×1 blockHand off →",
+    "recipe": [
+     "block:At"
+    ],
+    "focus": -1,
+    "panel": true
+   }
+  },
+  {
+   "id": "B7 vertical finger scroll over tiles scrolls the grid only",
+   "ok": true,
+   "detail": {
+    "before": 0,
+    "scrollTop": 105,
+    "recipe": 1,
+    "focus": -1
+   }
+  },
+  {
+   "id": "M11 after Measure the code box is in view and lines are readable",
+   "ok": true,
+   "detail": {
+    "tall": true,
+    "vis": 7,
+    "n": 7,
+    "codeTop": 275,
+    "bodyTop": 52,
+    "bodyBottom": 677,
+    "sideways": false,
+    "sharedKeys": [
+     "14137 shared with 64 other families",
+     "14138 shared with 11 other families",
+     "14139 shared with 11 other families",
+     "14140 shared with 6 other families",
+     "14141 shared with 11 other families",
+     "14142 shared with 3 other families",
+     "1640 shared with 2,044 other families"
+    ],
+    "order": [
+     "Numbered lines (perman",
+     "← used by (29)",
+     "≡ shared line (23) (wh"
+    ]
+   }
+  },
+  {
+   "id": "m shared-line key coloured with a title",
+   "ok": true,
+   "detail": [
+    "14137 shared with 64 other families",
+    "14138 shared with 11 other families",
+    "14139 shared with 11 other families",
+    "14140 shared with 6 other families",
+    "14141 shared with 11 other families",
+    "14142 shared with 3 other families",
+    "1640 shared with 2,044 other families"
+   ]
+  },
+  {
+   "id": "m numbered lines before uses/used by on a phone",
+   "ok": true,
+   "detail": [
+    "Numbered lines (perman",
+    "← used by (29)",
+    "≡ shared line (23) (wh"
+   ]
+  },
+  {
+   "id": "M8 keyboard lens switch drops the panel to peek and (minor) keeps the measured text",
+   "ok": true,
+   "detail": {
+    "tall": false,
+    "hidden": false,
+    "lens": "particle",
+    "textHead": "14137 │   function distanceKm(lon1, lat1, lon2, lat2) {14138"
+   }
+  },
+  {
+   "id": "M8 lens tab tap on a phone closes the panel and shows the tiles",
+   "ok": true,
+   "detail": {
+    "hidden": true,
+    "lens": "table",
+    "tiles": 18,
+    "url": "?lens=table&key=family:511&trail=family:511&data=202609142326"
+   }
+  },
+  {
+   "id": "M12 count words say which blocks travel and what is a note",
+   "ok": true,
+   "detail": {
+    "cnt": "2 blocks · 1 note",
+    "title": "2 blocks will travel (Ss, Vd) · #511 pinned as a note"
+   }
+  },
+  {
+   "id": "M12 family chip shows its derived block; Ss and Vd outlined on the table",
+   "ok": true,
+   "detail": {
+    "chips": [
+     "#511 → Ss",
+     "Vd"
+    ],
+    "outlined": [
+     "Vd",
+     "Ss(derived)"
+    ]
+   }
+  },
+  {
+   "id": "M9 sheet rows: name button wide, ▲▼× chips 44 px, one line each",
+   "ok": true,
+   "detail": [
+    {
+     "h": 45,
+     "parts": [
+      "#511 distanceKm (248x44)",
+      "▲(44x44)",
+      "▼(44x44)",
+      "×(44x44)"
+     ]
+    },
+    {
+     "h": 45,
+     "parts": [
+      "Vd · Voltage dro(248x44)",
+      "▲(44x44)",
+      "▼(44x44)",
+      "×(44x44)"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M10 Hand off / Copy recipe / Copy command visible at the top of the sheet",
+   "ok": true,
+   "detail": [
+    {
+     "t": "Hand off →",
+     "y": 215,
+     "h": 44
+    },
+    {
+     "t": "Copy recipe",
+     "y": 215,
+     "h": 44
+    },
+    {
+     "t": "Copy command",
+     "y": 215,
+     "h": 44
+    }
+   ]
+  },
+  {
+   "id": "m needs shown as a count first, one-letter names behind show all",
+   "ok": true,
+   "detail": "needs: 27 from outside · CustomEvent, MutationObserver, XMLHttpRequest, cancelAnimationFrame, a web page, expectedArrivalEpoch, network access, guardedAddSource"
+  },
+  {
+   "id": "M13 ✕ closes the panel; trail, key and URL stay; home is the root crumb",
+   "ok": true,
+   "detail": {
+    "before": {
+     "trail": "GLOBALGRID2050 › At · Allowed technologies › Cg · Cable trench geometry",
+     "url": "?lens=ring&key=block:Cg&trail=block:At,block:Cg&data=202609142326"
+    },
+    "after": {
+     "trail": "GLOBALGRID2050 › At · Allowed technologies › Cg · Cable trench geometry",
+     "url": "?lens=ring&key=block:Cg&trail=block:At,block:Cg&data=202609142326",
+     "hidden": true,
+     "focus": 98,
+     "rootTitle": "home"
+    }
+   }
+  },
+  {
+   "id": "m tray shows the line in words after the pack (no raw key)",
+   "ok": true,
+   "detail": [
+    "line 17 · 686 families · pick one",
+    "#511 → Ss",
+    "Vd"
+   ]
+  },
+  {
+   "id": "m river labels every recipe member",
+   "ok": true,
+   "detail": [
+    "Vd",
+    "#511",
+    "Ss",
+    "ventus-grid-engine",
+    "Connections and capacity",
+    "Solar, BESS and cables"
+   ]
+  },
+  {
+   "id": "m footer build stamp comes from publish.mjs (ISO minute), pack orphans 0",
+   "ok": true,
+   "detail": {
+    "built": "built 2026-09-15 00:26 UTC ",
+    "orphans": 0
+   }
+  },
+  {
+   "id": "m category headings and search hit chips are ≥ 44 px tall; page 430 wide",
+   "ok": true,
+   "detail": {
+    "h3": [
+     45,
+     45,
+     45
+    ],
+    "hits": [
+     44,
+     44,
+     44
+    ],
+    "scrollWidth": 430
+   }
+  },
+  {
+   "id": "m a tapped tile stays visible above the sheet",
+   "ok": true,
+   "detail": {
+    "tile": "At",
+    "before": {
+     "x": 69,
+     "y": 654.5,
+     "sym": "At",
+     "scrollY": 0
+    },
+    "after": {
+     "top": 191,
+     "bottom": 247,
+     "panelTop": 436,
+     "reach": true,
+     "scrollY": 436,
+     "head": "At · Allowed technologiesblock"
+    }
+   }
+  },
+  {
+   "id": "console: no errors across the checks",
+   "ok": true,
+   "detail": []
+  }
+ ],
+ "console_errors": [],
+ "pass": 29,
+ "fail": 0
+}

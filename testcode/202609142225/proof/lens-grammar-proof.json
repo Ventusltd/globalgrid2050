@@ -1,0 +1,700 @@
+{
+  "run_utc": "2026-09-14T22:30:44.126Z",
+  "port": "8861",
+  "results": [
+    {
+      "id": "v08-ring-journey",
+      "viewport": "mobile",
+      "url": "http://127.0.0.1:8861/testcode/202609141522/v08-ring-journey/index.html",
+      "measure": {
+        "innerWidth": 430,
+        "scrollWidth": 430,
+        "bodyScrollWidth": 430,
+        "title": "GLOBALGRID2050 · v08 the 360° ring journey",
+        "h1": "GLOBALGRID2050",
+        "count": "210 named blocks · 587 unnamed groups · 10,985 function families · 250,174 unique numbered lines",
+        "legend": [
+          "contains",
+          "depends on",
+          "uses",
+          "used by",
+          "shared line"
+        ],
+        "legendColours": [
+          "rgb(139, 147, 167)",
+          "rgb(255, 213, 74)",
+          "rgb(0, 229, 255)",
+          "rgb(255, 122, 182)",
+          "rgb(57, 211, 83)"
+        ],
+        "svgText": 2,
+        "svgPaths": 1,
+        "svgCircles": 211,
+        "tiles": 0,
+        "cards": 0,
+        "footer": "v08-ring-journey · built 2026-09-14 15:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050",
+        "fail": null,
+        "hash": "",
+        "search": ""
+      },
+      "afterTap": {
+        "hash": "#block=At",
+        "search": "",
+        "trail": "GLOBALGRID2050 › At · Allowed technologies",
+        "panelShown": true,
+        "panelHead": "At · Allowed technologies",
+        "svgPaths": 2,
+        "scrollWidth": 430
+      },
+      "screenshot": "v08-ring-journey-mobile.png",
+      "failedRequests": [
+        "404 http://127.0.0.1:8861/favicon.ico"
+      ],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ]
+    },
+    {
+      "id": "v08-ring-journey",
+      "viewport": "desktop",
+      "url": "http://127.0.0.1:8861/testcode/202609141522/v08-ring-journey/index.html",
+      "measure": {
+        "innerWidth": 1280,
+        "scrollWidth": 1280,
+        "bodyScrollWidth": 1280,
+        "title": "GLOBALGRID2050 · v08 the 360° ring journey",
+        "h1": "GLOBALGRID2050",
+        "count": "210 named blocks · 587 unnamed groups · 10,985 function families · 250,174 unique numbered lines",
+        "legend": [
+          "contains",
+          "depends on",
+          "uses",
+          "used by",
+          "shared line"
+        ],
+        "legendColours": [
+          "rgb(139, 147, 167)",
+          "rgb(255, 213, 74)",
+          "rgb(0, 229, 255)",
+          "rgb(255, 122, 182)",
+          "rgb(57, 211, 83)"
+        ],
+        "svgText": 2,
+        "svgPaths": 1,
+        "svgCircles": 211,
+        "tiles": 0,
+        "cards": 0,
+        "footer": "v08-ring-journey · built 2026-09-14 15:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050",
+        "fail": null,
+        "hash": "",
+        "search": ""
+      },
+      "afterTap": {
+        "hash": "#block=At",
+        "search": "",
+        "trail": "GLOBALGRID2050 › At · Allowed technologies",
+        "panelShown": true,
+        "panelHead": "At · Allowed technologies",
+        "svgPaths": 2,
+        "scrollWidth": 1280
+      },
+      "screenshot": "v08-ring-journey-desktop.png",
+      "failedRequests": [],
+      "consoleErrors": []
+    },
+    {
+      "id": "v03-particle-universe",
+      "viewport": "mobile",
+      "url": "http://127.0.0.1:8861/testcode/202609141522/v03-particle-universe/index.html",
+      "measure": {
+        "innerWidth": 430,
+        "scrollWidth": 430,
+        "bodyScrollWidth": 430,
+        "title": "GLOBALGRID2050 · v03 particle universe",
+        "h1": "GLOBALGRID2050",
+        "count": "210 named blocks · 587 unnamed groups · 10,985 function families · 250,174 unique numbered lines",
+        "legend": [
+          "contains",
+          "depends on",
+          "uses",
+          "used by",
+          "shared line"
+        ],
+        "legendColours": [
+          "rgb(139, 147, 167)",
+          "rgb(255, 213, 74)",
+          "rgb(0, 229, 255)",
+          "rgb(255, 122, 182)",
+          "rgb(57, 211, 83)"
+        ],
+        "svgText": 0,
+        "svgPaths": 0,
+        "svgCircles": 0,
+        "tiles": 0,
+        "cards": 0,
+        "footer": "v03-particle-universe · built 2026-09-14 15:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050",
+        "fail": null,
+        "hash": "",
+        "search": ""
+      },
+      "screenshot": "v03-particle-universe-mobile.png",
+      "failedRequests": [],
+      "consoleErrors": []
+    },
+    {
+      "id": "v03-particle-universe",
+      "viewport": "desktop",
+      "url": "http://127.0.0.1:8861/testcode/202609141522/v03-particle-universe/index.html",
+      "measure": {
+        "innerWidth": 1280,
+        "scrollWidth": 1280,
+        "bodyScrollWidth": 1280,
+        "title": "GLOBALGRID2050 · v03 particle universe",
+        "h1": "GLOBALGRID2050",
+        "count": "210 named blocks · 587 unnamed groups · 10,985 function families · 250,174 unique numbered lines",
+        "legend": [
+          "contains",
+          "depends on",
+          "uses",
+          "used by",
+          "shared line"
+        ],
+        "legendColours": [
+          "rgb(139, 147, 167)",
+          "rgb(255, 213, 74)",
+          "rgb(0, 229, 255)",
+          "rgb(255, 122, 182)",
+          "rgb(57, 211, 83)"
+        ],
+        "svgText": 0,
+        "svgPaths": 0,
+        "svgCircles": 0,
+        "tiles": 0,
+        "cards": 0,
+        "footer": "v03-particle-universe · built 2026-09-14 15:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050",
+        "fail": null,
+        "hash": "",
+        "search": ""
+      },
+      "screenshot": "v03-particle-universe-desktop.png",
+      "failedRequests": [],
+      "consoleErrors": []
+    },
+    {
+      "id": "v05-chord-dependencies",
+      "viewport": "mobile",
+      "url": "http://127.0.0.1:8861/testcode/202609141522/v05-chord-dependencies/index.html",
+      "measure": {
+        "innerWidth": 430,
+        "scrollWidth": 430,
+        "bodyScrollWidth": 430,
+        "title": "GLOBALGRID2050 · v05 chord dependencies",
+        "h1": "GLOBALGRID2050",
+        "count": "210 named blocks · 587 unnamed groups · 10,985 function families · 250,174 unique numbered lines · 175 depends-on chords between named blocks",
+        "legend": [
+          "contains",
+          "depends on",
+          "uses",
+          "used by",
+          "shared line"
+        ],
+        "legendColours": [
+          "rgb(139, 147, 167)",
+          "rgb(255, 213, 74)",
+          "rgb(0, 229, 255)",
+          "rgb(255, 122, 182)",
+          "rgb(57, 211, 83)"
+        ],
+        "svgText": 210,
+        "svgPaths": 385,
+        "svgCircles": 0,
+        "tiles": 0,
+        "cards": 0,
+        "footer": "v05-chord-dependencies · built 2026-09-14 15:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050",
+        "fail": null,
+        "hash": "",
+        "search": ""
+      },
+      "afterTap": {
+        "hash": "#block=At",
+        "search": "",
+        "trail": "GLOBALGRID2050 › At · Allowed technologies",
+        "panelShown": true,
+        "panelHead": "At · Allowed technologies",
+        "svgPaths": 385,
+        "scrollWidth": 430
+      },
+      "screenshot": "v05-chord-dependencies-mobile.png",
+      "failedRequests": [],
+      "consoleErrors": []
+    },
+    {
+      "id": "v05-chord-dependencies",
+      "viewport": "desktop",
+      "url": "http://127.0.0.1:8861/testcode/202609141522/v05-chord-dependencies/index.html",
+      "measure": {
+        "innerWidth": 1280,
+        "scrollWidth": 1280,
+        "bodyScrollWidth": 1280,
+        "title": "GLOBALGRID2050 · v05 chord dependencies",
+        "h1": "GLOBALGRID2050",
+        "count": "210 named blocks · 587 unnamed groups · 10,985 function families · 250,174 unique numbered lines · 175 depends-on chords between named blocks",
+        "legend": [
+          "contains",
+          "depends on",
+          "uses",
+          "used by",
+          "shared line"
+        ],
+        "legendColours": [
+          "rgb(139, 147, 167)",
+          "rgb(255, 213, 74)",
+          "rgb(0, 229, 255)",
+          "rgb(255, 122, 182)",
+          "rgb(57, 211, 83)"
+        ],
+        "svgText": 210,
+        "svgPaths": 385,
+        "svgCircles": 0,
+        "tiles": 0,
+        "cards": 0,
+        "footer": "v05-chord-dependencies · built 2026-09-14 15:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050",
+        "fail": null,
+        "hash": "",
+        "search": ""
+      },
+      "afterTap": {
+        "hash": "#block=At",
+        "search": "",
+        "trail": "GLOBALGRID2050 › At · Allowed technologies",
+        "panelShown": true,
+        "panelHead": "At · Allowed technologies",
+        "svgPaths": 385,
+        "scrollWidth": 1280
+      },
+      "screenshot": "v05-chord-dependencies-desktop.png",
+      "failedRequests": [],
+      "consoleErrors": []
+    },
+    {
+      "id": "v07-flow-repos",
+      "viewport": "mobile",
+      "url": "http://127.0.0.1:8861/testcode/202609141522/v07-flow-repos/index.html",
+      "measure": {
+        "innerWidth": 430,
+        "scrollWidth": 430,
+        "bodyScrollWidth": 430,
+        "title": "GLOBALGRID2050 · v07 flow",
+        "h1": "GLOBALGRID2050",
+        "count": "210 named blocks · 587 unnamed groups · 10,985 function families · 250,174 unique numbered lines · 31 repositories · first 120 blocks listed on the right",
+        "legend": [
+          "contains",
+          "depends on",
+          "uses",
+          "used by",
+          "shared line"
+        ],
+        "legendColours": [
+          "rgb(139, 147, 167)",
+          "rgb(255, 213, 74)",
+          "rgb(0, 229, 255)",
+          "rgb(255, 122, 182)",
+          "rgb(57, 211, 83)"
+        ],
+        "svgText": 175,
+        "svgPaths": 209,
+        "svgCircles": 0,
+        "tiles": 0,
+        "cards": 0,
+        "footer": "v07-flow-repos · built 2026-09-14 15:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050",
+        "fail": null,
+        "hash": "",
+        "search": ""
+      },
+      "afterTap": {
+        "hash": "",
+        "search": "",
+        "trail": "GLOBALGRID2050",
+        "panelShown": false,
+        "panelHead": null,
+        "svgPaths": 209,
+        "scrollWidth": 430
+      },
+      "screenshot": "v07-flow-repos-mobile.png",
+      "failedRequests": [],
+      "consoleErrors": []
+    },
+    {
+      "id": "v07-flow-repos",
+      "viewport": "desktop",
+      "url": "http://127.0.0.1:8861/testcode/202609141522/v07-flow-repos/index.html",
+      "measure": {
+        "innerWidth": 1280,
+        "scrollWidth": 1280,
+        "bodyScrollWidth": 1280,
+        "title": "GLOBALGRID2050 · v07 flow",
+        "h1": "GLOBALGRID2050",
+        "count": "210 named blocks · 587 unnamed groups · 10,985 function families · 250,174 unique numbered lines · 31 repositories · first 120 blocks listed on the right",
+        "legend": [
+          "contains",
+          "depends on",
+          "uses",
+          "used by",
+          "shared line"
+        ],
+        "legendColours": [
+          "rgb(139, 147, 167)",
+          "rgb(255, 213, 74)",
+          "rgb(0, 229, 255)",
+          "rgb(255, 122, 182)",
+          "rgb(57, 211, 83)"
+        ],
+        "svgText": 175,
+        "svgPaths": 209,
+        "svgCircles": 0,
+        "tiles": 0,
+        "cards": 0,
+        "footer": "v07-flow-repos · built 2026-09-14 15:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050",
+        "fail": null,
+        "hash": "",
+        "search": ""
+      },
+      "afterTap": {
+        "hash": "",
+        "search": "",
+        "trail": "GLOBALGRID2050",
+        "panelShown": false,
+        "panelHead": null,
+        "svgPaths": 209,
+        "scrollWidth": 1280
+      },
+      "screenshot": "v07-flow-repos-desktop.png",
+      "failedRequests": [],
+      "consoleErrors": []
+    },
+    {
+      "id": "v10-ide-search",
+      "viewport": "mobile",
+      "url": "http://127.0.0.1:8861/testcode/202609141522/v10-ide-search/index.html",
+      "measure": {
+        "innerWidth": 430,
+        "scrollWidth": 430,
+        "bodyScrollWidth": 430,
+        "title": "GLOBALGRID2050 · v10 read-only IDE",
+        "h1": "GLOBALGRID2050",
+        "count": "210 named blocks · 587 unnamed groups · 10,985 function families · 250,174 unique numbered lines",
+        "legend": [
+          "contains",
+          "depends on",
+          "uses",
+          "used by",
+          "shared line"
+        ],
+        "legendColours": [
+          "rgb(139, 147, 167)",
+          "rgb(255, 213, 74)",
+          "rgb(0, 229, 255)",
+          "rgb(255, 122, 182)",
+          "rgb(57, 211, 83)"
+        ],
+        "svgText": 0,
+        "svgPaths": 0,
+        "svgCircles": 0,
+        "tiles": 0,
+        "cards": 0,
+        "footer": "v10-ide-search · built 2026-09-14 15:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050",
+        "fail": null,
+        "hash": "",
+        "search": ""
+      },
+      "screenshot": "v10-ide-search-mobile.png",
+      "failedRequests": [],
+      "consoleErrors": []
+    },
+    {
+      "id": "v10-ide-search",
+      "viewport": "desktop",
+      "url": "http://127.0.0.1:8861/testcode/202609141522/v10-ide-search/index.html",
+      "measure": {
+        "innerWidth": 1280,
+        "scrollWidth": 1280,
+        "bodyScrollWidth": 1280,
+        "title": "GLOBALGRID2050 · v10 read-only IDE",
+        "h1": "GLOBALGRID2050",
+        "count": "210 named blocks · 587 unnamed groups · 10,985 function families · 250,174 unique numbered lines",
+        "legend": [
+          "contains",
+          "depends on",
+          "uses",
+          "used by",
+          "shared line"
+        ],
+        "legendColours": [
+          "rgb(139, 147, 167)",
+          "rgb(255, 213, 74)",
+          "rgb(0, 229, 255)",
+          "rgb(255, 122, 182)",
+          "rgb(57, 211, 83)"
+        ],
+        "svgText": 0,
+        "svgPaths": 0,
+        "svgCircles": 0,
+        "tiles": 0,
+        "cards": 0,
+        "footer": "v10-ide-search · built 2026-09-14 15:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050",
+        "fail": null,
+        "hash": "",
+        "search": ""
+      },
+      "screenshot": "v10-ide-search-desktop.png",
+      "failedRequests": [],
+      "consoleErrors": []
+    },
+    {
+      "id": "stars-table",
+      "viewport": "mobile",
+      "url": "https://ventusltd.github.io/stars/table.html",
+      "measure": {
+        "innerWidth": 430,
+        "scrollWidth": 430,
+        "bodyScrollWidth": 430,
+        "title": "Periodic table of globalgrid2050 architecture development",
+        "h1": "Periodic table of globalgrid2050 architecture development",
+        "count": "63 named blocks and 147 blocks found automatically from source files · 9,296 functions underneath · updated 2026-09-14 19:56 UTC",
+        "legend": [],
+        "legendColours": [],
+        "svgText": 0,
+        "svgPaths": 0,
+        "svgCircles": 0,
+        "tiles": 210,
+        "cards": 0,
+        "footer": null,
+        "fail": null,
+        "hash": "",
+        "search": ""
+      },
+      "afterTap": {
+        "hash": "",
+        "search": "?block=At",
+        "trail": null,
+        "panelShown": true,
+        "panelHead": "At Allowed technologies",
+        "svgPaths": 0,
+        "scrollWidth": 430
+      },
+      "screenshot": "stars-table-mobile.png",
+      "failedRequests": [
+        "404 https://ventusltd.github.io/favicon.ico"
+      ],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 ()"
+      ]
+    },
+    {
+      "id": "stars-table",
+      "viewport": "desktop",
+      "url": "https://ventusltd.github.io/stars/table.html",
+      "measure": {
+        "innerWidth": 1280,
+        "scrollWidth": 1280,
+        "bodyScrollWidth": 1280,
+        "title": "Periodic table of globalgrid2050 architecture development",
+        "h1": "Periodic table of globalgrid2050 architecture development",
+        "count": "63 named blocks and 147 blocks found automatically from source files · 9,296 functions underneath · updated 2026-09-14 19:56 UTC",
+        "legend": [],
+        "legendColours": [],
+        "svgText": 0,
+        "svgPaths": 0,
+        "svgCircles": 0,
+        "tiles": 210,
+        "cards": 0,
+        "footer": null,
+        "fail": null,
+        "hash": "",
+        "search": ""
+      },
+      "afterTap": {
+        "hash": "",
+        "search": "?block=At",
+        "trail": null,
+        "panelShown": true,
+        "panelHead": "At Allowed technologies",
+        "svgPaths": 0,
+        "scrollWidth": 1280
+      },
+      "screenshot": "stars-table-desktop.png",
+      "failedRequests": [],
+      "consoleErrors": []
+    },
+    {
+      "id": "stars-code-511",
+      "viewport": "mobile",
+      "url": "https://ventusltd.github.io/stars/code.html?family=511",
+      "measure": {
+        "innerWidth": 430,
+        "scrollWidth": 430,
+        "bodyScrollWidth": 430,
+        "title": "Code report · globalgrid2050 architecture development",
+        "h1": "Code report",
+        "count": "10,985 functions with a permanent number · 17,043 functions and classes in the code · 250,174 unique lines · updated 2026-09-14 19:55 UTC",
+        "legend": [],
+        "legendColours": [],
+        "svgText": 0,
+        "svgPaths": 0,
+        "svgCircles": 0,
+        "tiles": 0,
+        "cards": 1,
+        "footer": null,
+        "fail": null,
+        "hash": "",
+        "search": "?family=511"
+      },
+      "screenshot": "stars-code-511-mobile.png",
+      "failedRequests": [],
+      "consoleErrors": []
+    },
+    {
+      "id": "stars-code-511",
+      "viewport": "desktop",
+      "url": "https://ventusltd.github.io/stars/code.html?family=511",
+      "measure": {
+        "innerWidth": 1280,
+        "scrollWidth": 1280,
+        "bodyScrollWidth": 1280,
+        "title": "Code report · globalgrid2050 architecture development",
+        "h1": "Code report",
+        "count": "10,985 functions with a permanent number · 17,043 functions and classes in the code · 250,174 unique lines · updated 2026-09-14 19:55 UTC",
+        "legend": [],
+        "legendColours": [],
+        "svgText": 0,
+        "svgPaths": 0,
+        "svgCircles": 0,
+        "tiles": 0,
+        "cards": 1,
+        "footer": null,
+        "fail": null,
+        "hash": "",
+        "search": "?family=511"
+      },
+      "screenshot": "stars-code-511-desktop.png",
+      "failedRequests": [],
+      "consoleErrors": []
+    },
+    {
+      "id": "grid-engine-periodic",
+      "viewport": "mobile",
+      "url": "https://ventusltd.github.io/ventus-grid-engine/?graph=periodic-table",
+      "measure": {
+        "innerWidth": 430,
+        "scrollWidth": 430,
+        "bodyScrollWidth": 430,
+        "title": "Ventus Global Grid 2050 · The Spider Sandbox",
+        "h1": "The Spider Sandbox",
+        "count": "12 dependencies  ·  0 dependents",
+        "legend": [],
+        "legendColours": [],
+        "svgText": 0,
+        "svgPaths": 0,
+        "svgCircles": 0,
+        "tiles": 0,
+        "cards": 13,
+        "footer": null,
+        "fail": null,
+        "hash": "",
+        "search": "?graph=periodic-table"
+      },
+      "screenshot": "grid-engine-periodic-mobile.png",
+      "failedRequests": [
+        "404 https://ventusltd.github.io/ventus-grid-engine/spider/data/genome-spider.json"
+      ],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 ()"
+      ]
+    },
+    {
+      "id": "grid-engine-periodic",
+      "viewport": "desktop",
+      "url": "https://ventusltd.github.io/ventus-grid-engine/?graph=periodic-table",
+      "measure": {
+        "innerWidth": 1280,
+        "scrollWidth": 1280,
+        "bodyScrollWidth": 1280,
+        "title": "Ventus Global Grid 2050 · The Spider Sandbox",
+        "h1": "The Spider Sandbox",
+        "count": "12 dependencies  ·  0 dependents",
+        "legend": [],
+        "legendColours": [],
+        "svgText": 0,
+        "svgPaths": 0,
+        "svgCircles": 0,
+        "tiles": 0,
+        "cards": 13,
+        "footer": null,
+        "fail": null,
+        "hash": "",
+        "search": "?graph=periodic-table"
+      },
+      "screenshot": "grid-engine-periodic-desktop.png",
+      "failedRequests": [
+        "404 https://ventusltd.github.io/ventus-grid-engine/spider/data/genome-spider.json"
+      ],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 ()"
+      ]
+    },
+    {
+      "id": "code-generator",
+      "viewport": "mobile",
+      "url": "https://ventusltd.github.io/code-generator/?blocks=Si,Vn",
+      "measure": {
+        "innerWidth": 430,
+        "scrollWidth": 430,
+        "bodyScrollWidth": 430,
+        "title": "Code generator",
+        "h1": "Build an app from blocks",
+        "count": "63 named blocks · 9,296 functions underneath · table updated 2026-09-14 19:56 UTC",
+        "legend": [],
+        "legendColours": [],
+        "svgText": 0,
+        "svgPaths": 0,
+        "svgCircles": 0,
+        "tiles": 0,
+        "cards": 4,
+        "footer": null,
+        "fail": null,
+        "hash": "",
+        "search": "?blocks=Si,Vn"
+      },
+      "screenshot": "code-generator-mobile.png",
+      "failedRequests": [],
+      "consoleErrors": []
+    },
+    {
+      "id": "code-generator",
+      "viewport": "desktop",
+      "url": "https://ventusltd.github.io/code-generator/?blocks=Si,Vn",
+      "measure": {
+        "innerWidth": 1280,
+        "scrollWidth": 1280,
+        "bodyScrollWidth": 1280,
+        "title": "Code generator",
+        "h1": "Build an app from blocks",
+        "count": "63 named blocks · 9,296 functions underneath · table updated 2026-09-14 19:56 UTC",
+        "legend": [],
+        "legendColours": [],
+        "svgText": 0,
+        "svgPaths": 0,
+        "svgCircles": 0,
+        "tiles": 0,
+        "cards": 4,
+        "footer": null,
+        "fail": null,
+        "hash": "",
+        "search": "?blocks=Si,Vn"
+      },
+      "screenshot": "code-generator-desktop.png",
+      "failedRequests": [],
+      "consoleErrors": []
+    }
+  ]
+}

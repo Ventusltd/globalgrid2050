@@ -1,0 +1,147 @@
+/* Star Generator — one stylesheet, one DOM order on every lens and both widths (GRAMMAR §3, §8).
+   Palette per GRAMMAR §0. The only red is .u-fail (a load error, not a verdict). */
+:root { color-scheme: dark; }
+* { box-sizing: border-box; max-width: 100%; }
+[hidden] { display: none !important; }   /* an element toggled by the hidden attribute is gone, whatever display rule it carries (the closed key panel used to stay a flex box over the stage) */
+html, body { margin: 0; background: #0b0d12; color: #d8dee9; font: 14px/1.5 ui-monospace, Menlo, Consolas, monospace; overflow-x: hidden; }
+a { color: #00e5ff; }
+button { font: inherit; }
+#app { padding: 10px 12px 140px; overflow-wrap: anywhere; }
+h1 { font-size: 18px; margin: 0; letter-spacing: .06em; color: #eef2fb; }
+.u-count { color: #7da0c8; font-size: 11px; margin: 2px 0 8px; white-space: normal; }
+.u-hint { color: #8b93a7; font-size: 11px; margin: 6px 0 8px; min-height: 16px; }
+.u-muted { color: #8b93a7; font-size: 12px; }
+.u-fail { border: 1px solid #ff5c5c; color: #ffb3b3; padding: 8px 10px; border-radius: 8px; margin: 8px 0; }
+.u-h { font-size: 16px; color: #eef2fb; margin: 4px 0; }
+.u-sub { margin: 12px 0 4px; font-size: 12px; letter-spacing: .04em; color: #d8dee9; }
+.u-eyebrow { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+.u-links { display: flex; flex-wrap: wrap; gap: 6px 8px; margin: 6px 0; }
+.u-chip { background: #12151c; border: 1px solid #385464; color: #eef2fb; padding: 6px 10px; border-radius: 14px; font: inherit; font-size: 12px; cursor: pointer; text-decoration: none; min-height: 32px; line-height: 18px; }
+.u-chip:hover { border-color: #00e5ff; }
+.u-chip.off { opacity: .35; }
+.u-code { background: #07090d; border: 1px solid #1f2633; border-radius: 8px; padding: 8px; overflow: auto; max-height: 45vh; font-size: 12px; }
+.u-line { white-space: pre; } .u-line.on { outline: 1px solid #ffd54a; } .u-key { color: #ffd54a; }
+.u-hits .u-chip { min-height: 44px; line-height: 30px; }
+.u-need { color: #ffd54a; }
+.u-foot { margin-top: 18px; color: #566079; font-size: 11px; overflow-wrap: anywhere; }
+
+/* search */
+#search { position: relative; margin: 6px 0; }
+.u-search { width: 100%; height: 44px; background: #12151c; border: 1px solid #385464; color: #eef2fb; padding: 8px 10px; border-radius: 8px; font: inherit; }
+.u-hits { display: flex; flex-wrap: wrap; gap: 6px 8px; margin: 6px 0; }
+
+/* trail: the only horizontally scrolling element, and it scrolls inside itself */
+#trail { font-size: 12px; margin: 6px 0; color: #8b93a7; white-space: nowrap; overflow-x: auto; overflow-y: hidden; padding: 6px 0; scrollbar-width: thin; }
+#trail a { color: #9fd8ff; text-decoration: none; padding: 6px 2px; display: inline-block; min-height: 32px; }
+#trail a.root { color: #eef2fb; }
+
+/* legend */
+#legend { display: flex; flex-wrap: wrap; gap: 4px 6px; margin: 4px 0 8px; align-items: center; }
+.lg { display: inline-flex; align-items: center; gap: 5px; min-height: 32px; padding: 4px 8px; border-radius: 12px; border: 1px solid transparent; background: transparent; color: #d8dee9; font-size: 11px; cursor: pointer; }
+.lg i { display: inline-block; width: 14px; height: 3px; }
+.lg.dot i { background: repeating-linear-gradient(90deg, currentColor 0 2px, transparent 2px 4px) !important; }
+.lg.dash i { background: repeating-linear-gradient(90deg, currentColor 0 5px, transparent 5px 8px) !important; }
+.lg.off { opacity: .35; } .lg.on { border-color: #385464; }
+.lg.cat { border-radius: 12px; } .lg.cat.dim { opacity: .35; }
+#legend .sep { flex-basis: 100%; height: 0; }
+
+/* stage */
+#stage { position: relative; width: 100%; height: min(62vh, 640px); background: #0b0d12; border: 1px solid #2a3140; border-radius: 10px; overflow: hidden; }
+#gl { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; display: block; }
+#labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+#labels span { position: absolute; font-size: 11px; color: #8b93a7; white-space: nowrap; transform: translate(-50%, -50%); pointer-events: none; text-shadow: 0 0 3px #0b0d12, 0 0 3px #0b0d12; }
+#labels span.lit { color: #d8dee9; }
+#overlay { position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden; }
+#tip { position: absolute; background: #0f1218; border: 1px solid #2a3140; color: #d8dee9; font-size: 11px; padding: 3px 6px; border-radius: 6px; pointer-events: none; }
+
+/* table lens overlay */
+.tb-repos { display: flex; flex-wrap: wrap; gap: 6px 8px; padding: 8px; }
+.tb-cat { padding: 6px 8px 10px; }
+.tb-cat h3 { font-size: 12px; margin: 2px 0; min-height: 44px; line-height: 44px; padding: 0 0 0 2px; border-bottom: 1px solid; font-weight: normal; letter-spacing: .04em; }
+.tb-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+.tile { width: 112px; height: 64px; background: #0f1218; border: 1px solid #2a3140; border-top-width: 3px; border-radius: 6px; padding: 3px 6px; cursor: pointer; overflow: hidden; position: relative; font-size: 10px; line-height: 1.2; color: #8b93a7; touch-action: pan-y; }   /* pan-y: a vertical finger scrolls the grid, a horizontal one reaches the tile's own swipe-right (compose) */
+.tile.recipe.derived { outline-style: dashed; }   /* the block a recipe family belongs to: it will travel, derived from the family */
+.tile b { display: block; font-size: 20px; color: #eef2fb; line-height: 1; }
+.tile .t { color: #d8dee9; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tile.focus { border-color: #00e5ff; box-shadow: 0 0 0 1px rgba(0, 229, 255, .22); }
+.tile.recipe { outline: 1px solid #d8dee9; }
+.tile.lit { background: #12151c; }
+.tile.dim { opacity: .45; }
+.tb-cat summary { color: #8b93a7; font-size: 11px; cursor: pointer; margin: 6px 0; min-height: 44px; line-height: 44px; }   /* .tb-cat summary, not .tb-cat details summary: the repositories fold IS the .tb-cat element, so its own summary was missed and sat at 21 px */
+@media (max-width: 600px) { .tile { width: 96px; height: 56px; } .tile b { font-size: 18px; } }
+
+/* column lens overlay */
+.col { padding: 8px 8px 8px 44px; }
+.col h4 { font-size: 12px; margin: 10px 0 4px; font-weight: normal; }
+.card { min-height: 64px; background: #0f1218; border: 1px solid #2a3140; border-left-width: 3px; border-radius: 6px; padding: 6px 10px; margin: 6px 0; cursor: pointer; font-size: 12px; position: relative; touch-action: pan-y; }
+.card.recipe.derived { outline-style: dashed; }
+.card .cw { color: #8b93a7; font-size: 11px; }
+.card.focus { min-height: 96px; border-color: #00e5ff; border-left-color: #00e5ff; }
+.card.recipe { outline: 1px solid #d8dee9; }
+.col .seg { display: flex; gap: 6px; margin: 6px 0; }
+.col .seg button { min-height: 44px; }
+
+/* key panel */
+#panel { background: #0f1218; border: 1px solid #2a3140; border-radius: 12px 12px 0 0; margin-top: 10px; display: flex; flex-direction: column; }
+#panel-handle { height: 20px; display: flex; align-items: center; justify-content: center; cursor: grab; touch-action: none; }
+#panel-handle::before { content: ''; width: 36px; height: 4px; border-radius: 2px; background: #385464; }
+#panel-body { padding: 4px 12px 12px; overflow-y: auto; flex: 1; }
+#panel-foot { display: flex; gap: 6px; padding: 8px; border-top: 1px solid #2a3140; flex-wrap: wrap; }
+#panel-foot button, #panel-foot .u-chip { flex: 1 1 auto; min-height: 48px; min-width: 44px; background: #12151c; border: 1px solid #385464; color: #eef2fb; border-radius: 8px; cursor: pointer; font-size: 12px; }
+#panel-foot button.x { flex: 0 0 48px; }
+.p-class { color: #8b93a7; font-size: 11px; margin-left: 6px; }
+.p-prov { color: #566079; font-size: 11px; margin: 2px 0 8px; }
+.u-page { display: flex; flex-wrap: wrap; gap: 6px 8px; margin: 6px 0; }
+.u-more { border-style: dashed; }
+.open-in { position: relative; }
+.open-in .menu[hidden] { display: none; }
+.open-in .menu { position: absolute; bottom: 52px; right: 0; min-width: 140px; white-space: nowrap; background: #0f1218; border: 1px solid #2a3140; border-radius: 8px; padding: 4px; display: flex; flex-direction: column; gap: 2px; z-index: 5; }
+.open-in .menu a { display: block; min-height: 44px; line-height: 44px; padding: 0 14px; color: #d8dee9; text-decoration: none; }
+
+/* lens bar */
+#lensbar { position: fixed; left: 0; right: 0; bottom: 0; height: 56px; display: flex; background: #0f1218; border-top: 1px solid #2a3140; z-index: 20; }
+#lensbar a { flex: 1 1 0; min-width: 0; height: 56px; line-height: 56px; text-align: center; color: #8b93a7; text-decoration: none; font-size: 12px; border-bottom: 3px solid transparent; }
+#lensbar a.on { color: #eef2fb; border-bottom-color: #00e5ff; }
+
+/* compose tray */
+#tray { position: fixed; left: 0; right: 0; bottom: 56px; height: 48px; display: flex; align-items: center; gap: 6px; padding: 0 8px; background: #0f1218; border-top: 1px solid #2a3140; z-index: 20; overflow: hidden; font-size: 11px; color: #8b93a7; cursor: pointer; }
+#tray .chips { display: flex; align-items: center; height: 44px; gap: 4px; overflow-x: auto; overflow-y: hidden; flex: 1 1 auto; min-width: 0; white-space: nowrap; scrollbar-width: none; }   /* scrolls sideways so the newest chip and its × are reachable at 430 px; height 44 lets the 44 px × sit whole inside it, and the scrollbar is not drawn so it takes none of that height */
+#tray .chips::-webkit-scrollbar { display: none; }
+#tray .rc { display: inline-flex; align-items: center; height: 32px; padding: 0 0 0 8px; border: 1px solid; border-radius: 12px; color: #eef2fb; background: #12151c; }
+#tray .rc button { width: 44px; height: 44px; margin: -6px 0; background: none; border: 0; color: #8b93a7; cursor: pointer; font-size: 14px; }
+#tray .go { flex: 0 0 auto; min-height: 44px; min-width: 44px; padding: 0 10px; background: #12151c; border: 1px solid #385464; color: #eef2fb; border-radius: 8px; cursor: pointer; }
+#tray .cnt { flex: 0 1 auto; min-width: 72px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }   /* the chips take the slack now; the short count keeps its own width and ellipses last */
+
+/* sheets (recipe, chooser, context) */
+#sheet { position: fixed; left: 0; right: 0; bottom: 104px; max-height: 70vh; overflow-y: auto; background: #0f1218; border: 1px solid #2a3140; border-radius: 12px 12px 0 0; padding: 10px 12px 12px; z-index: 30; }
+#sheet .row { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
+#sheet button, #sheet a.u-chip { min-height: 44px; }
+#sheet .ch { display: flex; align-items: center; gap: 8px; min-height: 44px; border-bottom: 1px solid #2a3140; }
+#sheet .ch button { min-height: 44px; flex: 0 0 44px; padding: 0; text-align: center; background: none; border: 0; color: #d8dee9; cursor: pointer; }
+#sheet .ch > button:first-child { flex: 1 1 auto; min-width: 0; text-align: left; padding: 4px 8px; }
+#sheet .ch > .u-chip { flex: 0 0 44px; padding: 0; text-align: center; }
+#sheet .ch > .u-chip[title] { flex: 0 0 auto; padding: 0 10px; }
+#sheet .row.act { position: sticky; top: 0; background: #0f1218; padding: 4px 0; z-index: 1; }
+.pin { font-size: 11px; color: #8b93a7; }
+
+/* desktop: same DOM, key panel docked right, lens bar top-right */
+@media (min-width: 601px) {
+  #app { display: grid; grid-template-columns: minmax(0, 1fr) 320px; grid-template-areas: "header header" "search panel" "trail panel" "legend panel" "stage panel" "hint panel" "footer footer"; column-gap: 14px; padding-bottom: 70px; }
+  #header { grid-area: header; padding-right: 460px; }
+  #search { grid-area: search; } #trail { grid-area: trail; } #legend { grid-area: legend; }
+  #stage { grid-area: stage; height: min(70vh, 760px); }
+  #hint { grid-area: hint; }
+  #panel { grid-area: panel; margin: 0; border-radius: 10px; max-height: min(760px, calc(100vh - 130px)); position: sticky; top: 8px; align-self: start; }   /* docked from the search row down, bounded by the viewport so the foot buttons are never under the tray */
+  #panel-handle { display: none; }
+  #footer { grid-area: footer; }
+  #lensbar { position: fixed; top: 8px; right: 12px; left: auto; bottom: auto; width: 444px; height: 40px; border: 1px solid #2a3140; border-radius: 8px; }
+  #lensbar a { height: 38px; line-height: 38px; }
+  #tray { bottom: 0; }
+  #sheet { bottom: 48px; left: auto; width: 420px; right: 12px; border-radius: 12px; }
+}
+@media (max-width: 600px) {
+  #panel { position: fixed; left: 0; right: 0; bottom: 104px; height: 40vh; z-index: 25; margin: 0; border-bottom: 0; transition: height .2s; }
+  #panel.tall { height: 85vh; }
+  #panel-body { -webkit-overflow-scrolling: touch; }
+  .u-line { white-space: pre-wrap; overflow-wrap: anywhere; padding-left: 6em; text-indent: -6em; }   /* a long line wraps with a hanging indent instead of a sideways scroll a finger cannot see */
+}

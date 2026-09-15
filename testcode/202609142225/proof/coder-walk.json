@@ -1,0 +1,1142 @@
+{
+ "run_utc": "2026-09-14T23:50:55.486Z",
+ "base": "http://127.0.0.1:8890/testcode/202609142225/",
+ "viewport": "430x900 dpr2 isMobile hasTouch",
+ "steps": [
+  {
+   "name": "00-load",
+   "taps": 0,
+   "drags": 0,
+   "notes": [
+    "count: 214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+    "tray says: \"Recipe: nothing yet · tap Add to recipe on any key\""
+   ],
+   "byTouch": true,
+   "facts": {
+    "scrollWidth": 430,
+    "scrollY": 0,
+    "rects": {
+     "stage": {
+      "top": 499,
+      "bottom": 1057,
+      "left": 12,
+      "right": 418,
+      "h": 558
+     },
+     "panel": null,
+     "tray": {
+      "top": 796,
+      "bottom": 844,
+      "left": 0,
+      "right": 430,
+      "h": 48
+     },
+     "lensbar": {
+      "top": 844,
+      "bottom": 900,
+      "left": 0,
+      "right": 430,
+      "h": 56
+     },
+     "sheet": null,
+     "search": {
+      "top": 97,
+      "bottom": 147,
+      "left": 12,
+      "right": 418,
+      "h": 50
+     }
+    },
+    "panelOverStage": 0,
+    "sheetOverPanel": 0,
+    "sheetOverTray": 0,
+    "trayOverLensbar": 0,
+    "clipped": [],
+    "trayChipsHidden": 0,
+    "tray": "Recipe: nothing yet · tap Add to recipe on any key",
+    "url": "?lens=ring&data=202609142326",
+    "focusHead": null,
+    "hint": "Blocks on the outer ring, in table order; tap one to open its families on the inner ring.",
+    "lens": "ring"
+   },
+   "shot": "coder-00-load.png"
+  },
+  {
+   "name": "01-search",
+   "taps": 1,
+   "drags": 0,
+   "notes": [
+    "tap 1: tap the search box → \"\" 406x44 at (215,119)",
+    "typed \"distance\" on the keyboard",
+    "17 hits: #511 distanceKm | #8462 distanceKm | #32754 distanceKm | #32774 distance_km | #8437 distanceModule | #2268 loadGridDistance | #2490 loadGridDistance | #3531 loadGridDistance | #32760 distanceToLineKm | #5544 haversine_distance | #8606 distanceToSegmentKm | #32759 distanceToSegmentKm | #32780 distance_to_line_km | #32755 distanceEllipsoidalKm | #76610 parallel_run_distance | #32779 distance_to_segment_km | #32775 distance_ellipsoidal_km",
+    "hit chip heights: 32 px; last hit bottom 521 px of 900"
+   ],
+   "byTouch": true,
+   "hits": [
+    {
+     "tag": "BUTTON",
+     "text": "#511 distanceKm",
+     "w": 121,
+     "h": 32,
+     "bottom": 179
+    },
+    {
+     "tag": "BUTTON",
+     "text": "#8462 distanceKm",
+     "w": 128,
+     "h": 32,
+     "bottom": 179
+    },
+    {
+     "tag": "BUTTON",
+     "text": "#32754 distanceKm",
+     "w": 134,
+     "h": 32,
+     "bottom": 179
+    },
+    {
+     "tag": "BUTTON",
+     "text": "#32774 distance_km",
+     "w": 141,
+     "h": 32,
+     "bottom": 217
+    },
+    {
+     "tag": "BUTTON",
+     "text": "#8437 distanceModule",
+     "w": 154,
+     "h": 32,
+     "bottom": 217
+    },
+    {
+     "tag": "BUTTON",
+     "text": "#2268 loadGridDistance",
+     "w": 167,
+     "h": 32,
+     "bottom": 255
+    },
+    {
+     "tag": "BUTTON",
+     "text": "#2490 loadGridDistance",
+     "w": 167,
+     "h": 32,
+     "bottom": 255
+    },
+    {
+     "tag": "BUTTON",
+     "text": "#3531 loadGridDistance",
+     "w": 167,
+     "h": 32,
+     "bottom": 293
+    },
+    {
+     "tag": "BUTTON",
+     "text": "#32760 distanceToLineKm",
+     "w": 174,
+     "h": 32,
+     "bottom": 293
+    },
+    {
+     "tag": "BUTTON",
+     "text": "#5544 haversine_distance",
+     "w": 180,
+     "h": 32,
+     "bottom": 331
+    },
+    {
+     "tag": "BUTTON",
+     "text": "#8606 distanceToSegmentKm",
+     "w": 187,
+     "h": 32,
+     "bottom": 331
+    },
+    {
+     "tag": "BUTTON",
+     "text": "#32759 distanceToSegmentKm",
+     "w": 194,
+     "h": 32,
+     "bottom": 369
+    },
+    {
+     "tag": "BUTTON",
+     "text": "#32780 distance_to_line_km",
+     "w": 194,
+     "h": 32,
+     "bottom": 369
+    },
+    {
+     "tag": "BUTTON",
+     "text": "#32755 distanceEllipsoidalKm",
+     "w": 207,
+     "h": 32,
+     "bottom": 407
+    },
+    {
+     "tag": "BUTTON",
+     "text": "#76610 parallel_run_distance",
+     "w": 207,
+     "h": 32,
+     "bottom": 445
+    },
+    {
+     "tag": "BUTTON",
+     "text": "#32779 distance_to_segment_km",
+     "w": 213,
+     "h": 32,
+     "bottom": 483
+    },
+    {
+     "tag": "BUTTON",
+     "text": "#32775 distance_ellipsoidal_km",
+     "w": 220,
+     "h": 32,
+     "bottom": 521
+    }
+   ],
+   "facts": {
+    "scrollWidth": 430,
+    "scrollY": 0,
+    "rects": {
+     "stage": {
+      "top": 873,
+      "bottom": 1431,
+      "left": 12,
+      "right": 418,
+      "h": 558
+     },
+     "panel": null,
+     "tray": {
+      "top": 796,
+      "bottom": 844,
+      "left": 0,
+      "right": 430,
+      "h": 48
+     },
+     "lensbar": {
+      "top": 844,
+      "bottom": 900,
+      "left": 0,
+      "right": 430,
+      "h": 56
+     },
+     "sheet": null,
+     "search": {
+      "top": 97,
+      "bottom": 521,
+      "left": 12,
+      "right": 418,
+      "h": 424
+     }
+    },
+    "panelOverStage": 0,
+    "sheetOverPanel": 0,
+    "sheetOverTray": 0,
+    "trayOverLensbar": 0,
+    "clipped": [],
+    "trayChipsHidden": 0,
+    "tray": "Recipe: nothing yet · tap Add to recipe on any key",
+    "url": "?lens=ring&data=202609142326",
+    "focusHead": null,
+    "hint": "Blocks on the outer ring, in table order; tap one to open its families on the inner ring.",
+    "lens": "ring"
+   },
+   "shot": "coder-01-search.png"
+  },
+  {
+   "name": "02-open-family",
+   "taps": 1,
+   "drags": 0,
+   "notes": [
+    "target #511 distanceKm is 121x32 px (under 44 px)",
+    "tap 1: tap the first hit → \"#511 distanceKm\" 121x32 at (72,163)",
+    "panel head: \"#511 distanceKmfamily\" · url ?lens=ring&key=family:511&trail=family:511&data=202609142326",
+    "panel rect {\"top\":436,\"bottom\":796,\"left\":0,\"right\":430,\"h\":360} · stage {\"top\":63,\"bottom\":621,\"left\":12,\"right\":418,\"h\":558} · panel covers 185 px of the stage · scrollY 436",
+    "family has 7 numbered lines listed; 0 of them visible in the panel at peek height (body 220 of 1813 px); sections: ← used by (29) / Numbered lines (permanent keys) / ≡ shared line (23) (whole pack · first 8 per line)",
+    "first three as shown before Measure: 14137 │ text on Measure || 14138 │ text on Measure || 14139 │ text on Measure"
+   ],
+   "byTouch": true,
+   "facts": {
+    "scrollWidth": 430,
+    "scrollY": 436,
+    "rects": {
+     "stage": {
+      "top": 63,
+      "bottom": 621,
+      "left": 12,
+      "right": 418,
+      "h": 558
+     },
+     "panel": {
+      "top": 436,
+      "bottom": 796,
+      "left": 0,
+      "right": 430,
+      "h": 360
+     },
+     "tray": {
+      "top": 796,
+      "bottom": 844,
+      "left": 0,
+      "right": 430,
+      "h": 48
+     },
+     "lensbar": {
+      "top": 844,
+      "bottom": 900,
+      "left": 0,
+      "right": 430,
+      "h": 56
+     },
+     "sheet": null,
+     "search": {
+      "top": -339,
+      "bottom": -289,
+      "left": 12,
+      "right": 418,
+      "h": 50
+     }
+    },
+    "panelOverStage": 185,
+    "sheetOverPanel": 0,
+    "sheetOverTray": 0,
+    "trayOverLensbar": 0,
+    "clipped": [],
+    "trayChipsHidden": 0,
+    "tray": "Recipe: nothing yet · tap Add to recipe on any key",
+    "url": "?lens=ring&key=family:511&trail=family:511&data=202609142326",
+    "focusHead": "#511 distanceKmfamily",
+    "hint": "Blocks on the outer ring; families of the open block on the inner ring. Drag to rotate.",
+    "lens": "ring"
+   },
+   "linesBefore": {
+    "n": 7,
+    "visible": 0,
+    "first3": [
+     "14137 │ text on Measure",
+     "14138 │ text on Measure",
+     "14139 │ text on Measure"
+    ],
+    "subs": [
+     "← used by (29)",
+     "Numbered lines (permanent keys)",
+     "≡ shared line (23) (whole pack · first 8 per line)"
+    ],
+    "meta": "function · 7 numbered lines · in 6 repositories · needs context · first written 2026-09-01",
+    "bodyScrollH": 1813,
+    "bodyClientH": 220
+   },
+   "shot": "coder-02-open-family.png"
+  },
+  {
+   "name": "03-read-lines",
+   "taps": 1,
+   "drags": 1,
+   "notes": [
+    "tap 1: tap Measure to fetch the line text → \"Measure\" 78x48 at (171,710)",
+    "after Measure: panel tall=true (765 px); 0 of 7 lines visible; code box top 913, panel body bottom 677; code box scrollWidth 575 vs clientWidth 402",
+    "drag 1 up the panel: body scrollTop 550 of 1188; 7 lines visible",
+    "three numbered lines read: 14137 │ function distanceKm(lon1, lat1, lon2, lat2) { || 14138 │ const dLat = (lat2 - lat1) * DEG; || 14139 │ const dLon = (lon2 - lon1) * DEG;"
+   ],
+   "byTouch": true,
+   "lines": {
+    "n": 7,
+    "visible": 7,
+    "first3": [
+     "14137 │ function distanceKm(lon1, lat1, lon2, lat2) {",
+     "14138 │ const dLat = (lat2 - lat1) * DEG;",
+     "14139 │ const dLon = (lon2 - lon1) * DEG;"
+    ],
+    "bodyScrollTop": 550,
+    "bodyScrollH": 1813,
+    "bodyClientH": 625,
+    "firstVisible": "14137 │ function distanceKm(lon1, lat1, lon2, lat2) {"
+   },
+   "facts": {
+    "scrollWidth": 430,
+    "scrollY": 436,
+    "rects": {
+     "stage": {
+      "top": 63,
+      "bottom": 621,
+      "left": 12,
+      "right": 418,
+      "h": 558
+     },
+     "panel": {
+      "top": 31,
+      "bottom": 796,
+      "left": 0,
+      "right": 430,
+      "h": 765
+     },
+     "tray": {
+      "top": 796,
+      "bottom": 844,
+      "left": 0,
+      "right": 430,
+      "h": 48
+     },
+     "lensbar": {
+      "top": 844,
+      "bottom": 900,
+      "left": 0,
+      "right": 430,
+      "h": 56
+     },
+     "sheet": null,
+     "search": {
+      "top": -339,
+      "bottom": -289,
+      "left": 12,
+      "right": 418,
+      "h": 50
+     }
+    },
+    "panelOverStage": 558,
+    "sheetOverPanel": 0,
+    "sheetOverTray": 0,
+    "trayOverLensbar": 0,
+    "clipped": [],
+    "trayChipsHidden": 0,
+    "tray": "Recipe: nothing yet · tap Add to recipe on any key",
+    "url": "?lens=ring&key=family:511&trail=family:511&data=202609142326",
+    "focusHead": "#511 distanceKmfamily",
+    "hint": "Blocks on the outer ring; families of the open block on the inner ring. Drag to rotate.",
+    "lens": "ring"
+   },
+   "shot": "coder-03-read-lines.png"
+  },
+  {
+   "name": "04-add-family",
+   "taps": 1,
+   "drags": 0,
+   "notes": [
+    "\"Add to recipe\" button rect: {\"top\":686,\"bottom\":734,\"w\":117,\"h\":48,\"reach\":true,\"hit\":\"button.u-chip \\\"Add to recipe\\\"\"}",
+    "tap 1: tap Add to recipe in the panel foot → \"Add to recipe\" 117x48 at (275,710)",
+    "tray now: \"#511×1 familyHand off →\" · url ?lens=ring&key=family:511&trail=family:511&recipe=family:511&data=202609142326",
+    "tray chips clipped/hidden: 0; clipped texts: none"
+   ],
+   "byTouch": true,
+   "facts": {
+    "scrollWidth": 430,
+    "scrollY": 436,
+    "rects": {
+     "stage": {
+      "top": 63,
+      "bottom": 621,
+      "left": 12,
+      "right": 418,
+      "h": 558
+     },
+     "panel": {
+      "top": 31,
+      "bottom": 796,
+      "left": 0,
+      "right": 430,
+      "h": 765
+     },
+     "tray": {
+      "top": 796,
+      "bottom": 844,
+      "left": 0,
+      "right": 430,
+      "h": 48
+     },
+     "lensbar": {
+      "top": 844,
+      "bottom": 900,
+      "left": 0,
+      "right": 430,
+      "h": 56
+     },
+     "sheet": null,
+     "search": {
+      "top": -339,
+      "bottom": -289,
+      "left": 12,
+      "right": 418,
+      "h": 50
+     }
+    },
+    "panelOverStage": 558,
+    "sheetOverPanel": 0,
+    "sheetOverTray": 0,
+    "trayOverLensbar": 0,
+    "clipped": [],
+    "trayChipsHidden": 0,
+    "tray": "#511×1 familyHand off →",
+    "url": "?lens=ring&key=family:511&trail=family:511&recipe=family:511&data=202609142326",
+    "focusHead": "#511 distanceKmfamily",
+    "hint": "Blocks on the outer ring; families of the open block on the inner ring. Drag to rotate.",
+    "lens": "ring"
+   },
+   "shot": "coder-04-add-family.png"
+  },
+  {
+   "name": "05-table-lens",
+   "taps": 1,
+   "drags": 0,
+   "notes": [
+    "lens tab \"table\": 72x56 at y 845-901, reach=true (a \"table\")",
+    "target table is partly off screen (top 845, bottom 901) — a finger cannot reach it without scrolling",
+    "tap 1: tap the table tab → \"table\" 72x56 at (322,873)",
+    "lens=table · url ?lens=table&key=family:511&trail=family:511&recipe=family:511&data=202609142326 · tray \"#511×1 familyHand off →\" · panel head \"#511 distanceKmfamily\"",
+    "hint: \"Tiles in table order, one section per category; found-automatically blocks with fewer than 8 functions fold away.\"",
+    "panel still open covering 558 px of the stage; stage {\"top\":63,\"bottom\":621,\"left\":12,\"right\":418,\"h\":558}, panel {\"top\":31,\"bottom\":796,\"left\":0,\"right\":430,\"h\":765}",
+    "254 tiles in the overlay (6664 px tall, 556 px window); 0 tiles visible and not under the panel: "
+   ],
+   "byTouch": true,
+   "facts": {
+    "scrollWidth": 430,
+    "scrollY": 436,
+    "rects": {
+     "stage": {
+      "top": 63,
+      "bottom": 621,
+      "left": 12,
+      "right": 418,
+      "h": 558
+     },
+     "panel": {
+      "top": 31,
+      "bottom": 796,
+      "left": 0,
+      "right": 430,
+      "h": 765
+     },
+     "tray": {
+      "top": 796,
+      "bottom": 844,
+      "left": 0,
+      "right": 430,
+      "h": 48
+     },
+     "lensbar": {
+      "top": 844,
+      "bottom": 900,
+      "left": 0,
+      "right": 430,
+      "h": 56
+     },
+     "sheet": null,
+     "search": {
+      "top": -339,
+      "bottom": -289,
+      "left": 12,
+      "right": 418,
+      "h": 50
+     }
+    },
+    "panelOverStage": 558,
+    "sheetOverPanel": 0,
+    "sheetOverTray": 0,
+    "trayOverLensbar": 0,
+    "clipped": [
+     "t \"Allowed technologies\"",
+     "t \"Hit radius edge px\"",
+     "t \"Hit radius vertex px\"",
+     "t \"Solar min exclusive\"",
+     "t \"Distance and bearing\"",
+     "t \"Area and perimeter\"",
+     "t \"Circles and shapes on the map\"",
+     "t \"Geodesy (v9 atlas copy)\"",
+     "t \"Nearest substation search\"",
+     "t \"Grid network topology\"",
+     "t \"Electrical distance\"",
+     "t \"Line and transformer ratings\"",
+     "t \"Published fault level\"",
+     "t \"Cable corridor estimate\"",
+     "t \"Electrification demand\"",
+     "t \"Diversified demand\"",
+     "t \"Connection capacity\"",
+     "t \"Interconnector economics\"",
+     "t \"streaming-parquet-bridge\"",
+     "t \"uk-gazetteer-flyto\"",
+     "t \"substation-intelligence\"",
+     "t \"REPD Grid Atlas core engine (v3 to v8)\"",
+     "t \"Grid substations\"",
+     "t \"Industrial offtakers\"",
+     "t \"Satellite imagery\"",
+     "t \"Data centres and offtakers data tools\"",
+     "t \"The MAP button (deep-link contract)\"",
+     "t \"Place search and arrival\"",
+     "t \"Pipeline News app\"",
+     "t \"Grid proximity panel\"",
+     "t \"Wider fleet panel\"",
+     "t \"Live news discovery\"",
+     "t \"Cable trench geometry\"",
+     "t \"Solar and BESS single-line sandbox\"",
+     "t \"Solar electrical topology (text engine)\"",
+     "t \"Teleprinter controls\"",
+     "t \"Proofs and checks\"",
+     "t \"Genome and spiders\"",
+     "t \"Render session markdown\"",
+     "t \"Clean clone byte survey\"",
+     "t \"Estate link crawl\"",
+     "t \"Build declared cartridges\"",
+     "t \"Build federation map\"",
+     "t \"Publish federation json\"",
+     "t \"Backfill generation aggregates year v6\"",
+     "t \"Backfill generation fuelhh halfhourly al\"",
+     "t \"Backfill generation sources year v6\"",
+     "t \"Build generation heartbeat mvp\"",
+     "t \"Build homepage catalogue\"",
+     "t \"Build news feed v9 5 1\"",
+     "t \"Build project identity v6\"",
+     "t \"Catalogue gridatlas v9\"",
+     "t \"Compare uk energy v5 v6\"",
+     "t \"Document uk energy trackers\"",
+     "t \"Download ons mwh energy use v6\"",
+     "t \"Download pvlive solar history\"",
+     "t \"Fetch generation mw year staged\"",
+     "t \"Fetch pvlive solar candidate v6\"",
+     "t \"Gridbot app repo bootstrap\"",
+     "t \"Gridbot deprecated tracker stale data au\"",
+     "t \"Gridbot feature installer\"",
+     "t \"Gridbot generation history solar\"",
+     "t \"Gridbot generation history solar recent\"",
+     "t \"Gridbot generation history v6 2 backup m\"",
+     "t \"Gridbot generation interconnector split\"",
+     "t \"Gridbot generation mwh active v6 source \"",
+     "t \"Gridbot generation mwh interconnector sp\"",
+     "t \"Gridbot generation mwh interconnector ui\"",
+     "t \"Gridbot london solar daylight geometry\"",
+     "t \"Gridbot mega upgrade\"",
+     "t \"Gridbot modularise employers requirement\"",
+     "t \"Gridbot root homepage directory audit\"",
+     "t \"Gridbot solar historic backfill\"",
+     "t \"Gridbot solar monthly backfill\"",
+     "t \"Gridbot solar peak integrity audit\"",
+     "t \"Gridbot v6 same slot reconciliation audi\"",
+     "t \"Inspect data science discipline\"",
+     "t \"Major project news v5\"",
+     "t \"Major project news v6\"",
+     "t \"Major project news v6 hardened\"",
+     "t \"Patch v3 price history correctness\"",
+     "t \"Repair public grid study period selector\"",
+     "t \"Repair v6 electricity annual year select\"",
+     "t \"Repair v6 half hourly short window modes\"",
+     "t \"Test v6 price history accuracy\"",
+     "t \"Track repository size\"",
+     "t \"Update commodities v5\"",
+     "t \"Update uk frequency daily v5\"",
+     "t \"Update uk frequency v5\"",
+     "t \"Update uk price v6\"",
+     "t \"Update v6 transport energy sources\"",
+     "t \"V6 complex upgrade installer\"",
+     "t \"Data gridatlas client\"",
+     "t \"Repd address flyto\"",
+     "t \"V9 parquet fetch bridge\"",
+     "t \"Compile atlas v9\"",
+     "t \"Compile atlas v9 live\"",
+     "t \"Build map ready v9\"",
+     "t \"Local arrival grid\"",
+     "t \"Reconcile offshore coordinates\"",
+     "t \"Compile v8 live news\"",
+     "t \"Compile v8 news chronology\"",
+     "t \"Compile v8 mobile orientation\"",
+     "t \"Compile v8 sector intelligence\"",
+     "t \"Compile v8 federated relationships\"",
+     "t \"Build pages promotion wrapper\"",
+     "t \"Pages release classifier\"",
+     "t \"Test pages promotion tooling\"",
+     "t \"Test pages release classifier\"",
+     "t \"Test release builder applicability\"",
+     "t \"Test control plane\"",
+     "t \"Civilisation map\"",
+     "t \"Frequency history ui\"",
+     "t \"Select build plan\"",
+     "t \"Place postcode search\"",
+     "t \"Neon substation links v9 6\"",
+     "t \"Atlas receiver v9 7\""
+    ],
+    "trayChipsHidden": 0,
+    "tray": "#511×1 familyHand off →",
+    "url": "?lens=table&key=family:511&trail=family:511&recipe=family:511&data=202609142326",
+    "focusHead": "#511 distanceKmfamily",
+    "hint": "Tiles in table order, one section per category; found-automatically blocks with fewer than 8 functions fold away.",
+    "lens": "table"
+   },
+   "table": {
+    "tiles": 254,
+    "visibleUncovered": 0,
+    "overlayScrollH": 6664,
+    "overlayClientH": 556,
+    "firstTiles": []
+   },
+   "shot": "coder-05-table-lens.png"
+  },
+  {
+   "name": "06-add-Vd",
+   "taps": 2,
+   "drags": 15,
+   "notes": [
+    "Vd tile before scrolling: {\"top\":1168,\"bottom\":1224,\"left\":225,\"inStage\":false,\"underPanel\":false,\"folded\":false,\"title\":\"Voltage drop\",\"text\":\"31VdVoltage drop7 functions\"}",
+    "drag 1 up the tiles: overlay scrollTop 0; Vd at y 1225-1281 inStage=false underPanel=false",
+    "drag 2 up the tiles: overlay scrollTop 0; Vd at y 1282-1338 inStage=false underPanel=false",
+    "drag 3 up the tiles: overlay scrollTop 0; Vd at y 1339-1395 inStage=false underPanel=false",
+    "drag 4 up the tiles: overlay scrollTop 0; Vd at y 1396-1452 inStage=false underPanel=false",
+    "drag 5 up the tiles: overlay scrollTop 0; Vd at y 1453-1509 inStage=false underPanel=false",
+    "drag 6 up the tiles: overlay scrollTop 0; Vd at y 1510-1566 inStage=false underPanel=false",
+    "drag 7 up the tiles: overlay scrollTop 0; Vd at y 1567-1623 inStage=false underPanel=false",
+    "drag 8 up the tiles: overlay scrollTop 0; Vd at y 1604-1660 inStage=false underPanel=false",
+    "drag 9 up the tiles: overlay scrollTop 0; Vd at y 1604-1660 inStage=false underPanel=false",
+    "drag 10 up the tiles: overlay scrollTop 0; Vd at y 1604-1660 inStage=false underPanel=false",
+    "drag 11 up the tiles: overlay scrollTop 0; Vd at y 1604-1660 inStage=false underPanel=false",
+    "drag 12 up the tiles: overlay scrollTop 0; Vd at y 1604-1660 inStage=false underPanel=false",
+    "drag 13 up the tiles: overlay scrollTop 0; Vd at y 1604-1660 inStage=false underPanel=false",
+    "drag 14 up the tiles: overlay scrollTop 0; Vd at y 1604-1660 inStage=false underPanel=false",
+    "could not bring the Vd tile into an uncovered part of the stage by dragging",
+    "swipe-right start point on Vd: (245,1632) hits \"none\"",
+    "after swipe-right 90 px on the tile: tray \"#511×1 familyHand off →\" → swipe did NOT add Vd; panel head now \"#511 distanceKmfamily\"; overlay scrollTop 0",
+    "Vd tile centre (273,1632) is covered by none",
+    "tap 1: the Vd tile 96x56 at (273,1632) [BLOCKED]",
+    "panel head now \"#511 distanceKmfamily\" · url ?lens=table&key=family:511&trail=family:511&recipe=family:511&data=202609142326",
+    "tap 2: tap Add to recipe for Vd → \"Add to recipe\" 117x48 at (275,710)",
+    "tray now: \"#511×1 familyHand off →\" · recipe in url: family:511",
+    "tray chips hidden/clipped: 0; clipped: t \"Allowed technologies\" ; t \"Hit radius edge px\" ; t \"Hit radius vertex px\" ; t \"Solar min exclusive\" ; t \"Distance and bearing\" ; t \"Area and perimeter\" ; t \"Circles and shapes on the map\" ; t \"Geodesy (v9 atlas copy)\" ; t \"Nearest substation search\" ; t \"Grid network topology\" ; t \"Electrical distance\" ; t \"Line and transformer ratings\" ; t \"Published fault level\" ; t \"Cable corridor estimate\" ; t \"Electrification demand\" ; t \"Diversified demand\" ; t \"Connection capacity\" ; t \"Interconnector economics\" ; t \"streaming-parquet-bridge\" ; t \"uk-gazetteer-flyto\" ; t \"substation-intelligence\" ; t \"REPD Grid Atlas core engine (v3 to v8)\" ; t \"Grid substations\" ; t \"Industrial offtakers\" ; t \"Satellite imagery\" ; t \"Data centres and offtakers data tools\" ; t \"The MAP button (deep-link contract)\" ; t \"Place search and arrival\" ; t \"Pipeline News app\" ; t \"Grid proximity panel\" ; t \"Wider fleet panel\" ; t \"Live news discovery\" ; t \"Cable trench geometry\" ; t \"Solar and BESS single-line sandbox\" ; t \"Solar electrical topology (text engine)\" ; t \"Teleprinter controls\" ; t \"Proofs and checks\" ; t \"Genome and spiders\" ; t \"Render session markdown\" ; t \"Clean clone byte survey\" ; t \"Estate link crawl\" ; t \"Build declared cartridges\" ; t \"Build federation map\" ; t \"Publish federation json\" ; t \"Backfill generation aggregates year v6\" ; t \"Backfill generation fuelhh halfhourly al\" ; t \"Backfill generation sources year v6\" ; t \"Build generation heartbeat mvp\" ; t \"Build homepage catalogue\" ; t \"Build news feed v9 5 1\" ; t \"Build project identity v6\" ; t \"Catalogue gridatlas v9\" ; t \"Compare uk energy v5 v6\" ; t \"Document uk energy trackers\" ; t \"Download ons mwh energy use v6\" ; t \"Download pvlive solar history\" ; t \"Fetch generation mw year staged\" ; t \"Fetch pvlive solar candidate v6\" ; t \"Gridbot app repo bootstrap\" ; t \"Gridbot deprecated tracker stale data au\" ; t \"Gridbot feature installer\" ; t \"Gridbot generation history solar\" ; t \"Gridbot generation history solar recent\" ; t \"Gridbot generation history v6 2 backup m\" ; t \"Gridbot generation interconnector split\" ; t \"Gridbot generation mwh active v6 source \" ; t \"Gridbot generation mwh interconnector sp\" ; t \"Gridbot generation mwh interconnector ui\" ; t \"Gridbot london solar daylight geometry\" ; t \"Gridbot mega upgrade\" ; t \"Gridbot modularise employers requirement\" ; t \"Gridbot root homepage directory audit\" ; t \"Gridbot solar historic backfill\" ; t \"Gridbot solar monthly backfill\" ; t \"Gridbot solar peak integrity audit\" ; t \"Gridbot v6 same slot reconciliation audi\" ; t \"Inspect data science discipline\" ; t \"Major project news v5\" ; t \"Major project news v6\" ; t \"Major project news v6 hardened\" ; t \"Patch v3 price history correctness\" ; t \"Repair public grid study period selector\" ; t \"Repair v6 electricity annual year select\" ; t \"Repair v6 half hourly short window modes\" ; t \"Test v6 price history accuracy\" ; t \"Track repository size\" ; t \"Update commodities v5\" ; t \"Update uk frequency daily v5\" ; t \"Update uk frequency v5\" ; t \"Update uk price v6\" ; t \"Update v6 transport energy sources\" ; t \"V6 complex upgrade installer\" ; t \"Data gridatlas client\" ; t \"Repd address flyto\" ; t \"V9 parquet fetch bridge\" ; t \"Compile atlas v9\" ; t \"Compile atlas v9 live\" ; t \"Build map ready v9\" ; t \"Local arrival grid\" ; t \"Reconcile offshore coordinates\" ; t \"Compile v8 live news\" ; t \"Compile v8 news chronology\" ; t \"Compile v8 mobile orientation\" ; t \"Compile v8 sector intelligence\" ; t \"Compile v8 federated relationships\" ; t \"Build pages promotion wrapper\" ; t \"Pages release classifier\" ; t \"Test pages promotion tooling\" ; t \"Test pages release classifier\" ; t \"Test release builder applicability\" ; t \"Test control plane\" ; t \"Civilisation map\" ; t \"Frequency history ui\" ; t \"Select build plan\" ; t \"Place postcode search\" ; t \"Neon substation links v9 6\" ; t \"Atlas receiver v9 7\"",
+    "tiles marked as in the recipe on the table: none"
+   ],
+   "byTouch": true,
+   "vdBeforeTap": {
+    "top": 1604,
+    "bottom": 1660,
+    "left": 225,
+    "inStage": false,
+    "underPanel": false,
+    "scrollTop": 0
+   },
+   "shot": "coder-06-Vd-added.png",
+   "swipe": {
+    "worked": false,
+    "tray": "#511×1 familyHand off →",
+    "head": "#511 distanceKmfamily"
+   },
+   "facts": {
+    "scrollWidth": 430,
+    "scrollY": 0,
+    "rects": {
+     "stage": {
+      "top": 499,
+      "bottom": 1057,
+      "left": 12,
+      "right": 418,
+      "h": 558
+     },
+     "panel": {
+      "top": 31,
+      "bottom": 796,
+      "left": 0,
+      "right": 430,
+      "h": 765
+     },
+     "tray": {
+      "top": 796,
+      "bottom": 844,
+      "left": 0,
+      "right": 430,
+      "h": 48
+     },
+     "lensbar": {
+      "top": 844,
+      "bottom": 900,
+      "left": 0,
+      "right": 430,
+      "h": 56
+     },
+     "sheet": null,
+     "search": {
+      "top": 97,
+      "bottom": 147,
+      "left": 12,
+      "right": 418,
+      "h": 50
+     }
+    },
+    "panelOverStage": 297,
+    "sheetOverPanel": 0,
+    "sheetOverTray": 0,
+    "trayOverLensbar": 0,
+    "clipped": [
+     "t \"Allowed technologies\"",
+     "t \"Hit radius edge px\"",
+     "t \"Hit radius vertex px\"",
+     "t \"Solar min exclusive\"",
+     "t \"Distance and bearing\"",
+     "t \"Area and perimeter\"",
+     "t \"Circles and shapes on the map\"",
+     "t \"Geodesy (v9 atlas copy)\"",
+     "t \"Nearest substation search\"",
+     "t \"Grid network topology\"",
+     "t \"Electrical distance\"",
+     "t \"Line and transformer ratings\"",
+     "t \"Published fault level\"",
+     "t \"Cable corridor estimate\"",
+     "t \"Electrification demand\"",
+     "t \"Diversified demand\"",
+     "t \"Connection capacity\"",
+     "t \"Interconnector economics\"",
+     "t \"streaming-parquet-bridge\"",
+     "t \"uk-gazetteer-flyto\"",
+     "t \"substation-intelligence\"",
+     "t \"REPD Grid Atlas core engine (v3 to v8)\"",
+     "t \"Grid substations\"",
+     "t \"Industrial offtakers\"",
+     "t \"Satellite imagery\"",
+     "t \"Data centres and offtakers data tools\"",
+     "t \"The MAP button (deep-link contract)\"",
+     "t \"Place search and arrival\"",
+     "t \"Pipeline News app\"",
+     "t \"Grid proximity panel\"",
+     "t \"Wider fleet panel\"",
+     "t \"Live news discovery\"",
+     "t \"Cable trench geometry\"",
+     "t \"Solar and BESS single-line sandbox\"",
+     "t \"Solar electrical topology (text engine)\"",
+     "t \"Teleprinter controls\"",
+     "t \"Proofs and checks\"",
+     "t \"Genome and spiders\"",
+     "t \"Render session markdown\"",
+     "t \"Clean clone byte survey\"",
+     "t \"Estate link crawl\"",
+     "t \"Build declared cartridges\"",
+     "t \"Build federation map\"",
+     "t \"Publish federation json\"",
+     "t \"Backfill generation aggregates year v6\"",
+     "t \"Backfill generation fuelhh halfhourly al\"",
+     "t \"Backfill generation sources year v6\"",
+     "t \"Build generation heartbeat mvp\"",
+     "t \"Build homepage catalogue\"",
+     "t \"Build news feed v9 5 1\"",
+     "t \"Build project identity v6\"",
+     "t \"Catalogue gridatlas v9\"",
+     "t \"Compare uk energy v5 v6\"",
+     "t \"Document uk energy trackers\"",
+     "t \"Download ons mwh energy use v6\"",
+     "t \"Download pvlive solar history\"",
+     "t \"Fetch generation mw year staged\"",
+     "t \"Fetch pvlive solar candidate v6\"",
+     "t \"Gridbot app repo bootstrap\"",
+     "t \"Gridbot deprecated tracker stale data au\"",
+     "t \"Gridbot feature installer\"",
+     "t \"Gridbot generation history solar\"",
+     "t \"Gridbot generation history solar recent\"",
+     "t \"Gridbot generation history v6 2 backup m\"",
+     "t \"Gridbot generation interconnector split\"",
+     "t \"Gridbot generation mwh active v6 source \"",
+     "t \"Gridbot generation mwh interconnector sp\"",
+     "t \"Gridbot generation mwh interconnector ui\"",
+     "t \"Gridbot london solar daylight geometry\"",
+     "t \"Gridbot mega upgrade\"",
+     "t \"Gridbot modularise employers requirement\"",
+     "t \"Gridbot root homepage directory audit\"",
+     "t \"Gridbot solar historic backfill\"",
+     "t \"Gridbot solar monthly backfill\"",
+     "t \"Gridbot solar peak integrity audit\"",
+     "t \"Gridbot v6 same slot reconciliation audi\"",
+     "t \"Inspect data science discipline\"",
+     "t \"Major project news v5\"",
+     "t \"Major project news v6\"",
+     "t \"Major project news v6 hardened\"",
+     "t \"Patch v3 price history correctness\"",
+     "t \"Repair public grid study period selector\"",
+     "t \"Repair v6 electricity annual year select\"",
+     "t \"Repair v6 half hourly short window modes\"",
+     "t \"Test v6 price history accuracy\"",
+     "t \"Track repository size\"",
+     "t \"Update commodities v5\"",
+     "t \"Update uk frequency daily v5\"",
+     "t \"Update uk frequency v5\"",
+     "t \"Update uk price v6\"",
+     "t \"Update v6 transport energy sources\"",
+     "t \"V6 complex upgrade installer\"",
+     "t \"Data gridatlas client\"",
+     "t \"Repd address flyto\"",
+     "t \"V9 parquet fetch bridge\"",
+     "t \"Compile atlas v9\"",
+     "t \"Compile atlas v9 live\"",
+     "t \"Build map ready v9\"",
+     "t \"Local arrival grid\"",
+     "t \"Reconcile offshore coordinates\"",
+     "t \"Compile v8 live news\"",
+     "t \"Compile v8 news chronology\"",
+     "t \"Compile v8 mobile orientation\"",
+     "t \"Compile v8 sector intelligence\"",
+     "t \"Compile v8 federated relationships\"",
+     "t \"Build pages promotion wrapper\"",
+     "t \"Pages release classifier\"",
+     "t \"Test pages promotion tooling\"",
+     "t \"Test pages release classifier\"",
+     "t \"Test release builder applicability\"",
+     "t \"Test control plane\"",
+     "t \"Civilisation map\"",
+     "t \"Frequency history ui\"",
+     "t \"Select build plan\"",
+     "t \"Place postcode search\"",
+     "t \"Neon substation links v9 6\"",
+     "t \"Atlas receiver v9 7\""
+    ],
+    "trayChipsHidden": 0,
+    "tray": "#511×1 familyHand off →",
+    "url": "?lens=table&key=family:511&trail=family:511&recipe=family:511&data=202609142326",
+    "focusHead": "#511 distanceKmfamily",
+    "hint": "Tiles in table order, one section per category; found-automatically blocks with fewer than 8 functions fold away.",
+    "lens": "table"
+   }
+  },
+  {
+   "name": "07-river-lens",
+   "taps": 1,
+   "drags": 0,
+   "notes": [
+    "target river is partly off screen (top 845, bottom 901) — a finger cannot reach it without scrolling",
+    "tap 1: tap the river tab → \"river\" 72x56 at (251,873)",
+    "lens=river · tray \"#511×1 familyHand off →\" · url ?lens=river&key=family:511&trail=family:511&recipe=family:511&data=202609142326",
+    "hint: \"Repositories flow down through categories into blocks; drag sideways along the block row.\"",
+    "both keys still in the recipe (tray text): false",
+    "tray chips: [{\"text\":\"#511\",\"w\":78,\"right\":86,\"border\":\"rgb(57, 211, 83)\"}]",
+    "river labels on screen (5): Constants and vocabularies, Map layers, Pages and interface, #511, cable-trench-or-drill"
+   ],
+   "byTouch": true,
+   "facts": {
+    "scrollWidth": 430,
+    "scrollY": 0,
+    "rects": {
+     "stage": {
+      "top": 499,
+      "bottom": 1057,
+      "left": 12,
+      "right": 418,
+      "h": 558
+     },
+     "panel": {
+      "top": 31,
+      "bottom": 796,
+      "left": 0,
+      "right": 430,
+      "h": 765
+     },
+     "tray": {
+      "top": 796,
+      "bottom": 844,
+      "left": 0,
+      "right": 430,
+      "h": 48
+     },
+     "lensbar": {
+      "top": 844,
+      "bottom": 900,
+      "left": 0,
+      "right": 430,
+      "h": 56
+     },
+     "sheet": null,
+     "search": {
+      "top": 97,
+      "bottom": 147,
+      "left": 12,
+      "right": 418,
+      "h": 50
+     }
+    },
+    "panelOverStage": 297,
+    "sheetOverPanel": 0,
+    "sheetOverTray": 0,
+    "trayOverLensbar": 0,
+    "clipped": [],
+    "trayChipsHidden": 0,
+    "tray": "#511×1 familyHand off →",
+    "url": "?lens=river&key=family:511&trail=family:511&recipe=family:511&data=202609142326",
+    "focusHead": "#511 distanceKmfamily",
+    "hint": "Repositories flow down through categories into blocks; drag sideways along the block row.",
+    "lens": "river"
+   },
+   "trayChips": [
+    {
+     "text": "#511",
+     "w": 78,
+     "right": 86,
+     "border": "rgb(57, 211, 83)"
+    }
+   ],
+   "shot": "coder-07-river-lens.png"
+  },
+  {
+   "name": "08-recipe-sheet",
+   "taps": 1,
+   "drags": 0,
+   "notes": [
+    "target #tray .cnt is 48x17 px (under 44 px)",
+    "tap 1: tap the recipe count in the tray to open the sheet → \"1 family\" 48x17 at (309,821)",
+    "sheet open 166-796 (630 px, content 879); head \"Recipe1 family\"; rows: #511 distanceKm▲▼×",
+    "sheet buttons: ✕ close(71x44@209), #511 distanceKm(91x65@299), ▲(96x44@310), ▼(96x44@310), ×(96x44@310), Hand off →(88x44@930), Copy recipe(95x44@930), Copy command(101x44@930)",
+    "hand-off url shown: https://ventusltd.github.io/code-generator/?blocks=Ss&families=511&from=star-generator&data=202609142326",
+    "sheet overlaps panel 630 px, tray 0 px"
+   ],
+   "byTouch": true,
+   "sheet": {
+    "top": 166,
+    "bottom": 796,
+    "h": 630,
+    "scrollH": 879,
+    "clientH": 628,
+    "head": "Recipe1 family",
+    "rows": [
+     "#511 distanceKm▲▼×"
+    ],
+    "buttons": [
+     {
+      "t": "✕ close",
+      "w": 71,
+      "h": 44,
+      "top": 209
+     },
+     {
+      "t": "#511 distanceKm",
+      "w": 91,
+      "h": 65,
+      "top": 299
+     },
+     {
+      "t": "▲",
+      "w": 96,
+      "h": 44,
+      "top": 310
+     },
+     {
+      "t": "▼",
+      "w": 96,
+      "h": 44,
+      "top": 310
+     },
+     {
+      "t": "×",
+      "w": 96,
+      "h": 44,
+      "top": 310
+     },
+     {
+      "t": "Hand off →",
+      "w": 88,
+      "h": 44,
+      "top": 930
+     },
+     {
+      "t": "Copy recipe",
+      "w": 95,
+      "h": 44,
+      "top": 930
+     },
+     {
+      "t": "Copy command",
+      "w": 101,
+      "h": 44,
+      "top": 930
+     }
+    ],
+    "text": "Recipe1 family✕ closeblock → itself · group → itself (off the table: the code-generator cannot pick it yet) · family → its block, the family pinned · line → its family → its block, the line kept as a highlight. The first block is the main one.#511 distanceKm▲▼×needs from outside:needs: 27 from outside · CustomEvent, MutationObserver, XMLHttpRequest, b, cancelAnimationFrame, a web page, expectedArrivalEpoch, network access, guardedAddSource, innerHeight, innerWidth, input, lastInput, linksDrawn, the page address, matchMedia, now, onReady, performance, reasserted, reject, requestAnimationFrame, spec, statedMw, what, a web page, zpinned files (8)claude/sessions/202609031559-skin-architecture/prototype/engine.js @ df9da02gridatlas/atlas/cartridges/202609080850-sld-sandbox-v9-8.js @ ece8481gridatlas/atlas/cartridges/202609050301-substation-intelligence-v9-63.js @ ece8481gridatlas/atlas/parts/",
+    "handoffText": "https://ventusltd.github.io/code-generator/?blocks=Ss&families=511&from=star-generator&data=202609142326"
+   },
+   "facts": {
+    "scrollWidth": 430,
+    "scrollY": 0,
+    "rects": {
+     "stage": {
+      "top": 499,
+      "bottom": 1057,
+      "left": 12,
+      "right": 418,
+      "h": 558
+     },
+     "panel": {
+      "top": 31,
+      "bottom": 796,
+      "left": 0,
+      "right": 430,
+      "h": 765
+     },
+     "tray": {
+      "top": 796,
+      "bottom": 844,
+      "left": 0,
+      "right": 430,
+      "h": 48
+     },
+     "lensbar": {
+      "top": 844,
+      "bottom": 900,
+      "left": 0,
+      "right": 430,
+      "h": 56
+     },
+     "sheet": {
+      "top": 166,
+      "bottom": 796,
+      "left": 0,
+      "right": 430,
+      "h": 630
+     },
+     "search": {
+      "top": 97,
+      "bottom": 147,
+      "left": 12,
+      "right": 418,
+      "h": 50
+     }
+    },
+    "panelOverStage": 297,
+    "sheetOverPanel": 630,
+    "sheetOverTray": 0,
+    "trayOverLensbar": 0,
+    "clipped": [],
+    "trayChipsHidden": 0,
+    "tray": "#511×1 familyHand off →",
+    "url": "?lens=river&key=family:511&trail=family:511&recipe=family:511&data=202609142326",
+    "focusHead": "#511 distanceKmfamily",
+    "hint": "Repositories flow down through categories into blocks; drag sideways along the block row.",
+    "lens": "river"
+   },
+   "shot": "coder-08-recipe-sheet.png"
+  },
+  {
+   "name": "09-hand-off",
+   "taps": 2,
+   "drags": 0,
+   "notes": [
+    "target Hand off → is partly off screen (top 930, bottom 974) — a finger cannot reach it without scrolling",
+    "target Hand off → at (57,952) is covered by nothing; a tap there would not reach it",
+    "tap 1: tap Hand off in the sheet → \"Hand off →\" 88x44 at (57,952) [BLOCKED by nothing]",
+    "new browser targets after the tap: 0 → none",
+    "no new tab observed; trying the tray Hand off button",
+    "tap 2: tap Hand off in the tray → \"Hand off →\" 82x44 at (381,821)",
+    "targets now: https://ventusltd.github.io/code-generator/?blocks=Ss&families=511&from=star-generator&data=202609142326",
+    "picker page: title \"Code generator\" scrollWidth 430; mentions Vd=false, families=false; text: VENTUS · GLOBAL GRID 2050 · CODE GENERATOR Build an app from blocks 63 named blocks · 9,363 functions underneath · table updated 2026-09-14 23:26 UTC WHAT ARE YOU BUILDING? Choose a starting point… Grid distance calculator — How far is a site from the nearest substation and line, by road and as the "
+   ],
+   "byTouch": true,
+   "handoffURL": "https://ventusltd.github.io/code-generator/?blocks=Ss&families=511&from=star-generator&data=202609142326",
+   "picker": {
+    "url": "https://ventusltd.github.io/code-generator/?blocks=Ss&families=511&from=star-generator&data=202609142326",
+    "title": "Code generator",
+    "text": "VENTUS · GLOBAL GRID 2050 · CODE GENERATOR Build an app from blocks 63 named blocks · 9,363 functions underneath · table updated 2026-09-14 23:26 UTC WHAT ARE YOU BUILDING? Choose a starting point… Grid distance calculator — How far is a site from the nearest substation and line, by road and as the crow flies. Substation finder on a map — A map that finds the nearest substations to any place and lands on them from a link. Connection capacity check — Can this site connect, how much, and what woul",
+    "scrollWidth": 430,
+    "hasVd": false,
+    "hasFam": false
+   },
+   "shot": "coder-09-hand-off.png"
+  }
+ ],
+ "console": [],
+ "totalTaps": 10,
+ "targets": [
+  {
+   "url": "about:blank",
+   "type": "page",
+   "at": 1789429855500
+  },
+  {
+   "url": "https://ventusltd.github.io/code-generator/?blocks=Ss&families=511&from=star-generator&data=202609142326",
+   "type": "page",
+   "at": 1789429885358
+  }
+ ]
+}

@@ -1,0 +1,213 @@
+{
+ "run_utc": "2026-09-14T23:59:00.773Z",
+ "tests": [
+  {
+   "env": {
+    "innerW": 430,
+    "innerH": 900,
+    "scrollY": 0,
+    "stage": [
+     499,
+     1057
+    ],
+    "hitMid": "DIV.",
+    "hitChainTouchAction": [
+     "DIV#panel-body:auto/auto",
+     "ASIDE#panel:auto/visible",
+     "DIV#app:auto/visible"
+    ],
+    "overlay": {
+     "scrollH": 6664,
+     "clientH": 556,
+     "overflowY": "auto",
+     "touchAction": "auto",
+     "pointerEvents": "auto",
+     "hidden": false
+    },
+    "panelOpen": false,
+    "tiles": 254
+   }
+  },
+  {
+   "A_fast_drag_6x20": {
+    "scrollTop": 0,
+    "ev": {
+     "doc_pointerdown": 1,
+     "doc_pointerdown_target": "HTML",
+     "doc_touchstart": 1,
+     "doc_touchstart_target": "HTML",
+     "doc_touchmove": 5,
+     "doc_touchmove_target": "HTML",
+     "doc_pointercancel": 1,
+     "doc_pointercancel_target": "HTML",
+     "doc_touchend": 1,
+     "doc_touchend_target": "HTML"
+    },
+    "head": null,
+    "panelOpen": false,
+    "url": "?lens=table&recipe=family:511&data=202609142326"
+   }
+  },
+  {
+   "B_slow_drag_20x30": {
+    "scrollTop": 0,
+    "ev": {
+     "doc_pointerdown": 1,
+     "doc_pointerdown_target": "HTML",
+     "doc_touchstart": 1,
+     "doc_touchstart_target": "HTML",
+     "doc_touchmove": 20,
+     "doc_touchmove_target": "HTML",
+     "doc_pointercancel": 1,
+     "doc_pointercancel_target": "HTML",
+     "doc_touchend": 1,
+     "doc_touchend_target": "HTML"
+    },
+    "head": null,
+    "panelOpen": false,
+    "url": "?lens=table&recipe=family:511&data=202609142326"
+   }
+  },
+  {
+   "C_gap_point": {
+    "y": 82.5,
+    "el": "DIV.tb-repos"
+   }
+  },
+  {
+   "C_drag_off_tile": {
+    "scrollTop": 285,
+    "ev": {
+     "doc_pointerdown": 1,
+     "doc_pointerdown_target": "u-chip",
+     "ov_pointerdown": 1,
+     "ov_pointerdown_target": "u-chip",
+     "doc_touchstart": 1,
+     "doc_touchstart_target": "u-chip",
+     "ov_touchstart": 1,
+     "ov_touchstart_target": "u-chip",
+     "ov_pointermove": 1,
+     "ov_pointermove_target": "u-chip",
+     "doc_touchmove": 9,
+     "doc_touchmove_target": "u-chip",
+     "ov_touchmove": 9,
+     "ov_touchmove_target": "u-chip",
+     "doc_pointercancel": 1,
+     "doc_pointercancel_target": "u-chip",
+     "ov_pointercancel": 1,
+     "ov_pointercancel_target": "u-chip",
+     "ov_scroll": 12,
+     "ov_scroll_target": "overlay",
+     "doc_touchend": 1,
+     "doc_touchend_target": "u-chip",
+     "ov_touchend": 1,
+     "ov_touchend_target": "u-chip"
+    },
+    "head": null,
+    "panelOpen": false,
+    "url": "?lens=table&recipe=family:511&data=202609142326"
+   }
+  },
+  {
+   "D_cdp_synthesizeScrollGesture_touch": {
+    "scrollTop": 285,
+    "ev": {
+     "doc_pointerdown": 1,
+     "doc_pointerdown_target": "panel-body",
+     "doc_touchstart": 1,
+     "doc_touchstart_target": "panel-body",
+     "doc_touchend": 1,
+     "doc_touchend_target": "panel-body"
+    },
+    "head": null,
+    "panelOpen": false,
+    "url": "?lens=table&recipe=family:511&data=202609142326"
+   }
+  },
+  {
+   "E_tap_tile_At": {
+    "scrollTop": 332,
+    "ev": {
+     "doc_pointerdown": 1,
+     "doc_pointerdown_target": "B",
+     "ov_pointerdown": 1,
+     "ov_pointerdown_target": "B",
+     "doc_touchstart": 1,
+     "doc_touchstart_target": "B",
+     "ov_touchstart": 1,
+     "ov_touchstart_target": "B",
+     "ov_pointerup": 1,
+     "ov_pointerup_target": "B",
+     "ov_scroll": 6,
+     "ov_scroll_target": "overlay"
+    },
+    "head": "At · Allowed technologiesblock",
+    "panelOpen": true,
+    "url": "?lens=table&key=block:At&trail=block:At&recipe=family:511&data=202609142326"
+   }
+  },
+  {
+   "F_swipe_right_tile_At": {
+    "before_url": "?lens=table&key=block:At&trail=block:At&recipe=family:511&data=202609142326",
+    "after_url": "?lens=table&key=block:At&trail=block:At&recipe=family:511&data=202609142326",
+    "ev": {
+     "doc_pointerdown": 1,
+     "doc_pointerdown_target": "H3",
+     "ov_pointerdown": 1,
+     "ov_pointerdown_target": "H3",
+     "doc_touchstart": 1,
+     "doc_touchstart_target": "H3",
+     "ov_touchstart": 1,
+     "ov_touchstart_target": "H3",
+     "ov_pointermove": 1,
+     "ov_pointermove_target": "H3",
+     "doc_touchmove": 5,
+     "doc_touchmove_target": "H3",
+     "ov_touchmove": 5,
+     "ov_touchmove_target": "H3",
+     "doc_pointercancel": 1,
+     "doc_pointercancel_target": "H3",
+     "ov_pointercancel": 1,
+     "ov_pointercancel_target": "H3",
+     "doc_touchend": 1,
+     "doc_touchend_target": "H3",
+     "ov_touchend": 1,
+     "ov_touchend_target": "H3"
+    },
+    "tray": "#511×1 familyHand off →"
+   }
+  },
+  {
+   "G_mouse_wheel": {
+    "scrollTop": 332,
+    "ev": {
+     "doc_pointerdown": 1,
+     "doc_pointerdown_target": "H3",
+     "ov_pointerdown": 1,
+     "ov_pointerdown_target": "H3",
+     "doc_touchstart": 1,
+     "doc_touchstart_target": "H3",
+     "ov_touchstart": 1,
+     "ov_touchstart_target": "H3",
+     "ov_pointermove": 2,
+     "ov_pointermove_target": "tile",
+     "doc_touchmove": 5,
+     "doc_touchmove_target": "H3",
+     "ov_touchmove": 5,
+     "ov_touchmove_target": "H3",
+     "doc_pointercancel": 1,
+     "doc_pointercancel_target": "H3",
+     "ov_pointercancel": 1,
+     "ov_pointercancel_target": "H3",
+     "doc_touchend": 1,
+     "doc_touchend_target": "H3",
+     "ov_touchend": 1,
+     "ov_touchend_target": "H3"
+    },
+    "head": "At · Allowed technologiesblock",
+    "panelOpen": true,
+    "url": "?lens=table&key=block:At&trail=block:At&recipe=family:511&data=202609142326"
+   }
+  }
+ ]
+}

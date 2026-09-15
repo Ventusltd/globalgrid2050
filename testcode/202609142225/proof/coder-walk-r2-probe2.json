@@ -1,0 +1,119 @@
+{
+ "two": {
+  "chipsBox": [
+   8,
+   122
+  ],
+  "chipsClientW": 114,
+  "chipsScrollW": 179,
+  "chips": [
+   {
+    "text": "#511 → Ss",
+    "box": [
+     8,
+     116
+    ],
+    "visiblePx": 108.4375,
+    "removeReachable": true,
+    "chipReachable": true
+   },
+   {
+    "text": "Vd",
+    "box": [
+     120,
+     187
+    ],
+    "visiblePx": 1.859375,
+    "removeReachable": false,
+    "chipReachable": false
+   }
+  ],
+  "cnt": "2 blocks will travel (Ss, Vd) · #511 pinned as a note",
+  "cntBox": [
+   128,
+   334
+  ],
+  "go": [
+   340,
+   422
+  ]
+ },
+ "three": {
+  "chipsBox": [
+   8,
+   142
+  ],
+  "chipsClientW": 134,
+  "chipsScrollW": 249,
+  "chips": [
+   {
+    "text": "#511 → Ss",
+    "box": [
+     8,
+     116
+    ],
+    "visiblePx": 108.4375,
+    "removeReachable": true,
+    "chipReachable": true
+   },
+   {
+    "text": "Vd",
+    "box": [
+     120,
+     187
+    ],
+    "visiblePx": 21.453125,
+    "removeReachable": false,
+    "chipReachable": false
+   },
+   {
+    "text": "Gc",
+    "box": [
+     191,
+     257
+    ],
+    "visiblePx": 0,
+    "removeReachable": false,
+    "chipReachable": false
+   }
+  ],
+  "cnt": "3 blocks will travel (Ss, Vd, Gc) · #511 pinned as a note",
+  "cntBox": [
+   148,
+   334
+  ],
+  "go": [
+   340,
+   422
+  ]
+ },
+ "oneBlock": {
+  "chipsBox": [
+   8,
+   74
+  ],
+  "chipsClientW": 66,
+  "chipsScrollW": 66,
+  "chips": [
+   {
+    "text": "Vd",
+    "box": [
+     8,
+     74
+    ],
+    "visiblePx": 66.109375,
+    "removeReachable": true,
+    "chipReachable": true
+   }
+  ],
+  "cnt": "1 block will travel (Vd)",
+  "cntBox": [
+   80,
+   334
+  ],
+  "go": [
+   340,
+   422
+  ]
+ }
+}

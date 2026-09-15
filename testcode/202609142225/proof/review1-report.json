@@ -1,0 +1,1045 @@
+{
+ "run_utc": "2026-09-14T23:52:29.750Z",
+ "base": "http://127.0.0.1:8893/testcode/202609142225/",
+ "checks": {
+  "idle-1440": {
+   "frames": 120,
+   "bufferDataPerFrame": 0,
+   "bufferSubDataPerFrame": 0,
+   "texSubImagePerFrame": 0,
+   "drawsPerFrame": 5,
+   "linesCount": 664940,
+   "linesBytes": 5984460,
+   "N": 11908,
+   "packStats": {
+    "instances": 664940,
+    "distinct": 128369,
+    "unique": 252114,
+    "orphans": 0,
+    "built": "2026-09-14T22:14:00.499Z",
+    "sha": "5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a"
+   },
+   "indexLines": 252114,
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "families17": 686,
+   "resolveLine17": "family:3",
+   "errors": [],
+   "dataResponses": [
+    [
+     200,
+     "/testcode/202609142202/data/families.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/random.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/lines.bin"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/provenance.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/entangled.json"
+    ]
+   ]
+  },
+  "idle-430": {
+   "frames": 120,
+   "bufferDataPerFrame": 0,
+   "bufferSubDataPerFrame": 0,
+   "texSubImagePerFrame": 0,
+   "drawsPerFrame": 5,
+   "linesCount": 664940,
+   "linesBytes": 5984460,
+   "N": 11908,
+   "packStats": {
+    "instances": 664940,
+    "distinct": 128369,
+    "unique": 252114,
+    "orphans": 0,
+    "built": "2026-09-14T22:14:00.499Z",
+    "sha": "5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a"
+   },
+   "indexLines": 252114,
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 430,
+   "innerWidth": 430,
+   "families17": 686,
+   "resolveLine17": "family:3",
+   "errors": [],
+   "dataResponses": [
+    [
+     200,
+     "/testcode/202609142202/data/families.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/lines.bin"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/random.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/entangled.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/provenance.json"
+    ]
+   ]
+  },
+  "switch-1440": {
+   "words": [
+    "contains|depends on|uses|used by|shared line|random link|entangled",
+    "contains|depends on|uses|used by|shared line|random link|entangled",
+    "contains|depends on|uses|used by|shared line|random link|entangled",
+    "contains|depends on|uses|used by|shared line|random link|entangled",
+    "contains|depends on|uses|used by|shared line|random link|entangled",
+    "contains|depends on|uses|used by|shared line|random link|entangled"
+   ],
+   "steps": [
+    {
+     "lens": "ring",
+     "measuredTextPresent": false,
+     "legend": [
+      {
+       "word": "contains",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "depends on",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "uses",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "used by",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "shared line",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "random link",
+       "off": false,
+       "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+      },
+      {
+       "word": "entangled",
+       "off": false,
+       "title": "69 stated · 40 listed · 29 not yet known"
+      }
+     ],
+     "draws": [
+      "contains",
+      "depends on",
+      "uses",
+      "used by",
+      "shared line",
+      "random link",
+      "entangled"
+     ],
+     "url": "?lens=ring&key=family:80299&trail=block:Gc,family:80299&recipe=block:Si,family:80299&data=202609142326"
+    },
+    {
+     "lens": "particle",
+     "url": "?lens=particle&key=family:80299&trail=block:Gc,family:80299&recipe=block:Si,family:80299&data=202609142326",
+     "focus": "family:80299",
+     "trail": [
+      "block:Gc",
+      "family:80299"
+     ],
+     "recipe": [
+      "block:Si",
+      "family:80299"
+     ],
+     "draws": [
+      "depends on",
+      "uses",
+      "used by",
+      "shared line",
+      "random link",
+      "entangled"
+     ],
+     "legend": [
+      {
+       "word": "contains",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "depends on",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "uses",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "used by",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "shared line",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "random link",
+       "off": false,
+       "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+      },
+      {
+       "word": "entangled",
+       "off": false,
+       "title": "69 stated · 40 listed · 29 not yet known"
+      }
+     ],
+     "code": "192067 │ text on Measure192068 │ text on Measure192069 │ text on Measure192070 │",
+     "scrollWidth": 1440,
+     "bounds": [
+      163,
+      -63,
+      919,
+      693
+     ],
+     "blocks": 214,
+     "measuredTextPresent": false,
+     "legendStale": [
+      "contains: off=false but draws=false (title \"\")"
+     ]
+    },
+    {
+     "lens": "chord",
+     "url": "?lens=chord&key=family:80299&trail=block:Gc,family:80299&recipe=block:Si,family:80299&data=202609142326",
+     "focus": "family:80299",
+     "trail": [
+      "block:Gc",
+      "family:80299"
+     ],
+     "recipe": [
+      "block:Si",
+      "family:80299"
+     ],
+     "draws": [
+      "depends on",
+      "uses",
+      "used by"
+     ],
+     "legend": [
+      {
+       "word": "contains",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "depends on",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "uses",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "used by",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "shared line",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "random link",
+       "off": false,
+       "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+      },
+      {
+       "word": "entangled",
+       "off": false,
+       "title": "69 stated · 40 listed · 29 not yet known"
+      }
+     ],
+     "code": "192067 │ text on Measure192068 │ text on Measure192069 │ text on Measure192070 │",
+     "scrollWidth": 1440,
+     "bounds": [
+      263.79999999999995,
+      37.799999999999955,
+      818.2,
+      592.2
+     ],
+     "blocks": 214,
+     "measuredTextPresent": false,
+     "legendStale": [
+      "contains: off=false but draws=false (title \"\")",
+      "shared line: off=false but draws=false (title \"\")",
+      "random link: off=false but draws=false (title \"300 random edges · 79 joined to families by name · seed 2026-09-14\")",
+      "entangled: off=false but draws=false (title \"69 stated · 40 listed · 29 not yet known\")"
+     ]
+    },
+    {
+     "lens": "river",
+     "url": "?lens=river&key=family:80299&trail=block:Gc,family:80299&recipe=block:Si,family:80299&data=202609142326",
+     "focus": "family:80299",
+     "trail": [
+      "block:Gc",
+      "family:80299"
+     ],
+     "recipe": [
+      "block:Si",
+      "family:80299"
+     ],
+     "draws": [
+      "contains",
+      "depends on",
+      "shared line"
+     ],
+     "legend": [
+      {
+       "word": "contains",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "depends on",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "uses",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "used by",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "shared line",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "random link",
+       "off": false,
+       "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+      },
+      {
+       "word": "entangled",
+       "off": false,
+       "title": "69 stated · 40 listed · 29 not yet known"
+      }
+     ],
+     "code": "192067 │ text on Measure192068 │ text on Measure192069 │ text on Measure192070 │",
+     "scrollWidth": 1440,
+     "bounds": [
+      0,
+      0,
+      1082,
+      3036
+     ],
+     "blocks": 214,
+     "measuredTextPresent": false,
+     "legendStale": [
+      "uses: off=false but draws=false (title \"\")",
+      "used by: off=false but draws=false (title \"\")",
+      "random link: off=false but draws=false (title \"300 random edges · 79 joined to families by name · seed 2026-09-14\")",
+      "entangled: off=false but draws=false (title \"69 stated · 40 listed · 29 not yet known\")"
+     ]
+    },
+    {
+     "lens": "table",
+     "url": "?lens=table&key=family:80299&trail=block:Gc,family:80299&recipe=block:Si,family:80299&data=202609142326",
+     "focus": "family:80299",
+     "trail": [
+      "block:Gc",
+      "family:80299"
+     ],
+     "recipe": [
+      "block:Si",
+      "family:80299"
+     ],
+     "draws": [
+      "depends on",
+      "used by"
+     ],
+     "legend": [
+      {
+       "word": "contains",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "depends on",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "uses",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "used by",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "shared line",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "random link",
+       "off": false,
+       "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+      },
+      {
+       "word": "entangled",
+       "off": false,
+       "title": "69 stated · 40 listed · 29 not yet known"
+      }
+     ],
+     "code": "192067 │ text on Measure192068 │ text on Measure192069 │ text on Measure192070 │",
+     "scrollWidth": 1440,
+     "bounds": [
+      0,
+      0,
+      1082,
+      3180
+     ],
+     "blocks": 214,
+     "measuredTextPresent": false,
+     "legendStale": [
+      "contains: off=false but draws=false (title \"\")",
+      "uses: off=false but draws=false (title \"\")",
+      "shared line: off=false but draws=false (title \"\")",
+      "random link: off=false but draws=false (title \"300 random edges · 79 joined to families by name · seed 2026-09-14\")",
+      "entangled: off=false but draws=false (title \"69 stated · 40 listed · 29 not yet known\")"
+     ]
+    },
+    {
+     "lens": "column",
+     "url": "?lens=column&key=family:80299&trail=block:Gc,family:80299&recipe=block:Si,family:80299&data=202609142326",
+     "focus": "family:80299",
+     "trail": [
+      "block:Gc",
+      "family:80299"
+     ],
+     "recipe": [
+      "block:Si",
+      "family:80299"
+     ],
+     "draws": [
+      "contains",
+      "depends on",
+      "uses",
+      "used by",
+      "shared line"
+     ],
+     "legend": [
+      {
+       "word": "contains",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "depends on",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "uses",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "used by",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "shared line",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "random link",
+       "off": false,
+       "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+      },
+      {
+       "word": "entangled",
+       "off": false,
+       "title": "69 stated · 40 listed · 29 not yet known"
+      }
+     ],
+     "code": "192067 │ text on Measure192068 │ text on Measure192069 │ text on Measure192070 │",
+     "scrollWidth": 1440,
+     "bounds": [
+      0,
+      0,
+      1082,
+      1010
+     ],
+     "blocks": 214,
+     "measuredTextPresent": false,
+     "legendStale": [
+      "random link: off=false but draws=false (title \"300 random edges · 79 joined to families by name · seed 2026-09-14\")",
+      "entangled: off=false but draws=false (title \"69 stated · 40 listed · 29 not yet known\")"
+     ]
+    }
+   ],
+   "errors": []
+  },
+  "switch-430": {
+   "words": [
+    "contains|depends on|uses|used by|shared line|random link|entangled",
+    "contains|depends on|uses|used by|shared line|random link|entangled",
+    "contains|depends on|uses|used by|shared line|random link|entangled",
+    "contains|depends on|uses|used by|shared line|random link|entangled",
+    "contains|depends on|uses|used by|shared line|random link|entangled",
+    "contains|depends on|uses|used by|shared line|random link|entangled"
+   ],
+   "steps": [
+    {
+     "lens": "ring",
+     "measuredTextPresent": true,
+     "legend": [
+      {
+       "word": "contains",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "depends on",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "uses",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "used by",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "shared line",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "random link",
+       "off": false,
+       "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+      },
+      {
+       "word": "entangled",
+       "off": false,
+       "title": "69 stated · 40 listed · 29 not yet known"
+      }
+     ],
+     "draws": [
+      "contains",
+      "depends on",
+      "uses",
+      "used by",
+      "shared line",
+      "random link",
+      "entangled"
+     ],
+     "url": "?lens=ring&key=family:80299&trail=block:Gc,family:80299&recipe=block:Si,family:80299&data=202609142326"
+    },
+    {
+     "lens": "particle",
+     "url": "?lens=particle&key=family:80299&trail=block:Gc,family:80299&recipe=block:Si,family:80299&data=202609142326",
+     "focus": "family:80299",
+     "trail": [
+      "block:Gc",
+      "family:80299"
+     ],
+     "recipe": [
+      "block:Si",
+      "family:80299"
+     ],
+     "draws": [
+      "depends on",
+      "uses",
+      "used by",
+      "shared line",
+      "random link",
+      "entangled"
+     ],
+     "legend": [
+      {
+       "word": "contains",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "depends on",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "uses",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "used by",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "shared line",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "random link",
+       "off": false,
+       "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+      },
+      {
+       "word": "entangled",
+       "off": false,
+       "title": "69 stated · 40 listed · 29 not yet known"
+      }
+     ],
+     "code": "192067 │ text on Measure192068 │ text on Measure192069 │ text on Measure192070 │",
+     "scrollWidth": 430,
+     "bounds": [
+      -40.599999999999994,
+      35.400000000000006,
+      446.6,
+      522.6
+     ],
+     "blocks": 214,
+     "measuredTextPresent": false,
+     "legendStale": [
+      "contains: off=false but draws=false (title \"\")"
+     ]
+    },
+    {
+     "lens": "chord",
+     "url": "?lens=chord&key=family:80299&trail=block:Gc,family:80299&recipe=block:Si,family:80299&data=202609142326",
+     "focus": "family:80299",
+     "trail": [
+      "block:Gc",
+      "family:80299"
+     ],
+     "recipe": [
+      "block:Si",
+      "family:80299"
+     ],
+     "draws": [
+      "depends on",
+      "uses",
+      "used by"
+     ],
+     "legend": [
+      {
+       "word": "contains",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "depends on",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "uses",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "used by",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "shared line",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "random link",
+       "off": false,
+       "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+      },
+      {
+       "word": "entangled",
+       "off": false,
+       "title": "69 stated · 40 listed · 29 not yet known"
+      }
+     ],
+     "code": "192067 │ text on Measure192068 │ text on Measure192069 │ text on Measure192070 │",
+     "scrollWidth": 430,
+     "bounds": [
+      24.359999999999985,
+      100.35999999999999,
+      381.64,
+      457.64
+     ],
+     "blocks": 214,
+     "measuredTextPresent": false,
+     "legendStale": [
+      "contains: off=false but draws=false (title \"\")",
+      "shared line: off=false but draws=false (title \"\")",
+      "random link: off=false but draws=false (title \"300 random edges · 79 joined to families by name · seed 2026-09-14\")",
+      "entangled: off=false but draws=false (title \"69 stated · 40 listed · 29 not yet known\")"
+     ]
+    },
+    {
+     "lens": "river",
+     "url": "?lens=river&key=family:80299&trail=block:Gc,family:80299&recipe=block:Si,family:80299&data=202609142326",
+     "focus": "family:80299",
+     "trail": [
+      "block:Gc",
+      "family:80299"
+     ],
+     "recipe": [
+      "block:Si",
+      "family:80299"
+     ],
+     "draws": [
+      "contains",
+      "depends on",
+      "shared line"
+     ],
+     "legend": [
+      {
+       "word": "contains",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "depends on",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "uses",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "used by",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "shared line",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "random link",
+       "off": false,
+       "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+      },
+      {
+       "word": "entangled",
+       "off": false,
+       "title": "69 stated · 40 listed · 29 not yet known"
+      }
+     ],
+     "code": "192067 │ text on Measure192068 │ text on Measure192069 │ text on Measure192070 │",
+     "scrollWidth": 430,
+     "bounds": [
+      0,
+      0,
+      3036,
+      558
+     ],
+     "blocks": 214,
+     "measuredTextPresent": false,
+     "legendStale": [
+      "uses: off=false but draws=false (title \"\")",
+      "used by: off=false but draws=false (title \"\")",
+      "random link: off=false but draws=false (title \"300 random edges · 79 joined to families by name · seed 2026-09-14\")",
+      "entangled: off=false but draws=false (title \"69 stated · 40 listed · 29 not yet known\")"
+     ]
+    },
+    {
+     "lens": "table",
+     "url": "?lens=table&key=family:80299&trail=block:Gc,family:80299&recipe=block:Si,family:80299&data=202609142326",
+     "focus": "family:80299",
+     "trail": [
+      "block:Gc",
+      "family:80299"
+     ],
+     "recipe": [
+      "block:Si",
+      "family:80299"
+     ],
+     "draws": [
+      "depends on",
+      "used by"
+     ],
+     "legend": [
+      {
+       "word": "contains",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "depends on",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "uses",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "used by",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "shared line",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "random link",
+       "off": false,
+       "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+      },
+      {
+       "word": "entangled",
+       "off": false,
+       "title": "69 stated · 40 listed · 29 not yet known"
+      }
+     ],
+     "code": "192067 │ text on Measure192068 │ text on Measure192069 │ text on Measure192070 │",
+     "scrollWidth": 430,
+     "bounds": [
+      0,
+      0,
+      406,
+      6594
+     ],
+     "blocks": 214,
+     "measuredTextPresent": false,
+     "legendStale": [
+      "contains: off=false but draws=false (title \"\")",
+      "uses: off=false but draws=false (title \"\")",
+      "shared line: off=false but draws=false (title \"\")",
+      "random link: off=false but draws=false (title \"300 random edges · 79 joined to families by name · seed 2026-09-14\")",
+      "entangled: off=false but draws=false (title \"69 stated · 40 listed · 29 not yet known\")"
+     ]
+    },
+    {
+     "lens": "column",
+     "url": "?lens=column&key=family:80299&trail=block:Gc,family:80299&recipe=block:Si,family:80299&data=202609142326",
+     "focus": "family:80299",
+     "trail": [
+      "block:Gc",
+      "family:80299"
+     ],
+     "recipe": [
+      "block:Si",
+      "family:80299"
+     ],
+     "draws": [
+      "contains",
+      "depends on",
+      "uses",
+      "used by",
+      "shared line"
+     ],
+     "legend": [
+      {
+       "word": "contains",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "depends on",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "uses",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "used by",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "shared line",
+       "off": false,
+       "title": ""
+      },
+      {
+       "word": "random link",
+       "off": false,
+       "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+      },
+      {
+       "word": "entangled",
+       "off": false,
+       "title": "69 stated · 40 listed · 29 not yet known"
+      }
+     ],
+     "code": "192067 │ text on Measure192068 │ text on Measure192069 │ text on Measure192070 │",
+     "scrollWidth": 430,
+     "bounds": [
+      0,
+      0,
+      406,
+      1010
+     ],
+     "blocks": 214,
+     "measuredTextPresent": false,
+     "legendStale": [
+      "random link: off=false but draws=false (title \"300 random edges · 79 joined to families by name · seed 2026-09-14\")",
+      "entangled: off=false but draws=false (title \"69 stated · 40 listed · 29 not yet known\")"
+     ]
+    }
+   ],
+   "errors": []
+  },
+  "column-seg-no-focus": {
+   "before": {
+    "url": "?lens=column&data=202609142326",
+    "focus": null,
+    "trail": [],
+    "recipe": [],
+    "lens": "column",
+    "hist": 2,
+    "panel": false,
+    "panelHead": null
+   },
+   "afterClickingShowDependsOn": {
+    "url": "?lens=column&data=202609142326",
+    "focus": "block:At",
+    "trail": [
+     "block:At"
+    ],
+    "recipe": [],
+    "lens": "column",
+    "hist": 2,
+    "panel": true,
+    "panelHead": "At · Allowed technologiesblock"
+   },
+   "errors": []
+  },
+  "table-more-no-focus": {
+   "before": {
+    "url": "?lens=table&data=202609142326",
+    "focus": null,
+    "trail": [],
+    "recipe": [],
+    "lens": "table",
+    "hist": 2,
+    "panel": false,
+    "panelHead": null
+   },
+   "after": {
+    "url": "?lens=table&key=group:x100&trail=group:x100&data=202609142326",
+    "focus": "group:x100",
+    "trail": [
+     "group:x100"
+    ],
+    "recipe": [],
+    "lens": "table",
+    "hist": 3,
+    "panel": true,
+    "panelHead": "x100 · (not yet named)group"
+   },
+   "errors": []
+  },
+  "table-more-with-focus": {
+   "before": {
+    "url": "?lens=table&key=block:Cg&trail=block:Cg&data=202609142326",
+    "focus": "block:Cg",
+    "trail": [
+     "block:Cg"
+    ],
+    "recipe": [],
+    "lens": "table",
+    "hist": 2,
+    "panel": true,
+    "panelHead": "Cg · Cable trench geometryblock"
+   },
+   "after": {
+    "url": "?lens=table&key=block:Cg&trail=block:Cg&data=202609142326",
+    "focus": "block:Cg",
+    "trail": [
+     "block:Cg"
+    ],
+    "recipe": [],
+    "lens": "table",
+    "hist": 3,
+    "panel": true,
+    "panelHead": "Cg · Cable trench geometryblock"
+   },
+   "errors": []
+  },
+  "table-430-family": {
+   "overlayScrollTop": 0,
+   "overlayScrollHeight": 6664,
+   "stageH": 558,
+   "focusTile": "13GcDistance and bearing2 func",
+   "focusTileTopInStage": 875,
+   "inside": false,
+   "errors": []
+  },
+  "line17": {
+   "families17": 686,
+   "resolved": "family:3",
+   "handOff": "https://ventusltd.github.io/code-generator/?blocks=Cg&lines=17&from=star-generator&data=202609142326",
+   "lines": [
+    {
+     "key": 17,
+     "family": 3,
+     "repo": "Ventusltd/cable-trench-or-drill",
+     "commit": "958449237b6f498677025a0e274709bc147f43f4",
+     "path": "releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/calculations.js"
+    }
+   ],
+   "blocks": [
+    "Cg"
+   ],
+   "tray": "line:17×1 lineHand off →",
+   "errors": []
+  }
+ }
+}

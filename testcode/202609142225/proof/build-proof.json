@@ -1,0 +1,3088 @@
+{
+ "run_utc": "2026-09-15T00:24:32.317Z",
+ "base": "http://127.0.0.1:8877/testcode/202609142225/",
+ "loads": [
+  {
+   "name": "build-ring-1440-home",
+   "url": "?lens=ring&data=202609142326",
+   "width": 1440,
+   "ms": 3581,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "hint": "Blocks on the outer ring, in table order; tap one to open its families on the inner ring.",
+   "trail": "GLOBALGRID2050",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": false,
+     "title": "69 stated · 40 listed · 29 not yet known"
+    }
+   ],
+   "lensbar": [
+    "ring*",
+    "particle",
+    "chord",
+    "river",
+    "table",
+    "column"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens ring from v08-ring-journey · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "tray": "Recipe: nothing yet · tap Add to recipe on any key",
+   "labels": 12,
+   "panelOpen": false,
+   "panelHead": null,
+   "webgl2": true,
+   "touch": 0,
+   "tapTargets": [
+    [
+     1082,
+     44
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ]
+   ]
+  },
+  {
+   "name": "tap-first-block-1440",
+   "url": "?lens=ring&key=block:At&trail=block:At&data=202609142326",
+   "trail": "GLOBALGRID2050 › At · Allowed technologies"
+  },
+  {
+   "name": "back-1440",
+   "url": "?lens=ring&data=202609142326",
+   "trail": "GLOBALGRID2050",
+   "panelOpen": false
+  },
+  {
+   "name": "build-ring-1440",
+   "url": "?lens=ring&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+   "width": 1440,
+   "ms": 4546,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "hint": "Blocks on the outer ring; families of the open block on the inner ring. Drag to rotate.",
+   "trail": "GLOBALGRID2050 › Ce · Cable corridor estimate › Pn · Pipeline News app › #8285",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": false,
+     "title": "69 stated · 40 listed · 29 not yet known"
+    }
+   ],
+   "lensbar": [
+    "ring*",
+    "particle",
+    "chord",
+    "river",
+    "table",
+    "column"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens ring from v08-ring-journey · pack 2026-09-14 22:14 UTC sha256 5a0c365 · link made against data of 2026-09-14 19:56 UTC",
+   "tray": "Si×Vn×Ug×Ps×Dt×#8285 → Sp×6 blocks will travel (Si, Vn, Ug, Ps, Dt, Sp) · #8285 pinned as a noteHand off →",
+   "labels": 10,
+   "panelOpen": true,
+   "panelHead": "#8285 sha256Hexfamily",
+   "webgl2": true,
+   "touch": 0,
+   "tapTargets": [
+    [
+     1082,
+     44
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     70,
+     48
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     81,
+     48
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     82,
+     44
+    ]
+   ]
+  },
+  {
+   "name": "build-particle-1440",
+   "url": "?lens=particle&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+   "width": 1440,
+   "ms": 4366,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "hint": "Every block is a star in its category sector; the families of the open block orbit it.",
+   "trail": "GLOBALGRID2050 › Ce · Cable corridor estimate › Pn · Pipeline News app › #8285",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the particle lens"
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": false,
+     "title": "69 stated · 40 listed · 29 not yet known"
+    }
+   ],
+   "lensbar": [
+    "ring",
+    "particle*",
+    "chord",
+    "river",
+    "table",
+    "column"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens particle from v03-particle-universe · pack 2026-09-14 22:14 UTC sha256 5a0c365 · link made against data of 2026-09-14 19:56 UTC",
+   "tray": "Si×Vn×Ug×Ps×Dt×#8285 → Sp×6 blocks will travel (Si, Vn, Ug, Ps, Dt, Sp) · #8285 pinned as a noteHand off →",
+   "labels": 23,
+   "panelOpen": true,
+   "panelHead": "#8285 sha256Hexfamily",
+   "webgl2": true,
+   "touch": 0,
+   "tapTargets": [
+    [
+     1082,
+     44
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     70,
+     48
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     81,
+     48
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     82,
+     44
+    ]
+   ]
+  },
+  {
+   "name": "build-chord-1440",
+   "url": "?lens=chord&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+   "width": 1440,
+   "ms": 4342,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "hint": "186 depends-on chords between blocks on the table.",
+   "trail": "GLOBALGRID2050 › Ce · Cable corridor estimate › Pn · Pipeline News app › #8285",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the chord lens"
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": true,
+     "title": "not drawn by the chord lens"
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the chord lens"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": true,
+     "title": "not drawn by the chord lens"
+    }
+   ],
+   "lensbar": [
+    "ring",
+    "particle",
+    "chord*",
+    "river",
+    "table",
+    "column"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens chord from v05-chord-dependencies · pack 2026-09-14 22:14 UTC sha256 5a0c365 · link made against data of 2026-09-14 19:56 UTC",
+   "tray": "Si×Vn×Ug×Ps×Dt×#8285 → Sp×6 blocks will travel (Si, Vn, Ug, Ps, Dt, Sp) · #8285 pinned as a noteHand off →",
+   "labels": 10,
+   "panelOpen": true,
+   "panelHead": "#8285 sha256Hexfamily",
+   "webgl2": true,
+   "touch": 0,
+   "tapTargets": [
+    [
+     1082,
+     44
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     70,
+     48
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     81,
+     48
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     82,
+     44
+    ]
+   ]
+  },
+  {
+   "name": "build-river-1440",
+   "url": "?lens=river&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+   "width": 1440,
+   "ms": 4353,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "hint": "Repositories flow right through categories into blocks; drag up and down along the block column.",
+   "trail": "GLOBALGRID2050 › Ce · Cable corridor estimate › Pn · Pipeline News app › #8285",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": true,
+     "title": "not drawn by the river lens"
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": true,
+     "title": "not drawn by the river lens"
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the river lens"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": true,
+     "title": "not drawn by the river lens"
+    }
+   ],
+   "lensbar": [
+    "ring",
+    "particle",
+    "chord",
+    "river*",
+    "table",
+    "column"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens river from v07-flow-repos · pack 2026-09-14 22:14 UTC sha256 5a0c365 · link made against data of 2026-09-14 19:56 UTC",
+   "tray": "Si×Vn×Ug×Ps×Dt×#8285 → Sp×6 blocks will travel (Si, Vn, Ug, Ps, Dt, Sp) · #8285 pinned as a noteHand off →",
+   "labels": 44,
+   "panelOpen": true,
+   "panelHead": "#8285 sha256Hexfamily",
+   "webgl2": true,
+   "touch": 0,
+   "tapTargets": [
+    [
+     1082,
+     44
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     70,
+     48
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     81,
+     48
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     82,
+     44
+    ]
+   ]
+  },
+  {
+   "name": "build-table-1440",
+   "url": "?lens=table&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+   "width": 1440,
+   "ms": 4382,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "hint": "Tiles in table order, one section per category; found-automatically blocks with fewer than 8 functions fold away.",
+   "trail": "GLOBALGRID2050 › Ce · Cable corridor estimate › Pn · Pipeline News app › #8285",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    }
+   ],
+   "lensbar": [
+    "ring",
+    "particle",
+    "chord",
+    "river",
+    "table*",
+    "column"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens table from stars/table.html + v04-periodic-arrows · pack 2026-09-14 22:14 UTC sha256 5a0c365 · link made against data of 2026-09-14 19:56 UTC",
+   "tray": "Si×Vn×Ug×Ps×Dt×#8285 → Sp×6 blocks will travel (Si, Vn, Ug, Ps, Dt, Sp) · #8285 pinned as a noteHand off →",
+   "labels": 2,
+   "panelOpen": true,
+   "panelHead": "#8285 sha256Hexfamily",
+   "webgl2": true,
+   "touch": 0,
+   "tapTargets": [
+    [
+     1082,
+     44
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     70,
+     48
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     81,
+     48
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     82,
+     44
+    ]
+   ]
+  },
+  {
+   "name": "build-column-1440",
+   "url": "?lens=column&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+   "width": 1440,
+   "ms": 4354,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "hint": "One column on a busbar: what the key depends on above it, what uses it below it.",
+   "trail": "GLOBALGRID2050 › Ce · Cable corridor estimate › Pn · Pipeline News app › #8285",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the column lens"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": true,
+     "title": "not drawn by the column lens"
+    }
+   ],
+   "lensbar": [
+    "ring",
+    "particle",
+    "chord",
+    "river",
+    "table",
+    "column*"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens column from ventus-grid-engine column view + v10 single-line diagram · pack 2026-09-14 22:14 UTC sha256 5a0c365 · link made against data of 2026-09-14 19:56 UTC",
+   "tray": "Si×Vn×Ug×Ps×Dt×#8285 → Sp×6 blocks will travel (Si, Vn, Ug, Ps, Dt, Sp) · #8285 pinned as a noteHand off →",
+   "labels": 1,
+   "panelOpen": true,
+   "panelHead": "#8285 sha256Hexfamily",
+   "webgl2": true,
+   "touch": 0,
+   "tapTargets": [
+    [
+     1082,
+     44
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     70,
+     48
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     81,
+     48
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     82,
+     44
+    ]
+   ]
+  },
+  {
+   "name": "build-switch-1440",
+   "url": "?lens=ring&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+   "width": 1440,
+   "ms": 2822,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "hint": "Blocks on the outer ring; families of the open block on the inner ring. Drag to rotate.",
+   "trail": "GLOBALGRID2050 › Ce · Cable corridor estimate › Pn · Pipeline News app › #8285",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": false,
+     "title": "69 stated · 40 listed · 29 not yet known"
+    }
+   ],
+   "lensbar": [
+    "ring*",
+    "particle",
+    "chord",
+    "river",
+    "table",
+    "column"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens ring from v08-ring-journey · pack 2026-09-14 22:14 UTC sha256 5a0c365 · link made against data of 2026-09-14 19:56 UTC",
+   "tray": "Si×Vn×Ug×Ps×Dt×#8285 → Sp×6 blocks will travel (Si, Vn, Ug, Ps, Dt, Sp) · #8285 pinned as a noteHand off →",
+   "labels": 12,
+   "panelOpen": true,
+   "panelHead": "#8285 sha256Hexfamily",
+   "webgl2": true,
+   "touch": 0,
+   "tapTargets": [
+    [
+     1082,
+     44
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     70,
+     48
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     81,
+     48
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     82,
+     44
+    ]
+   ]
+  },
+  {
+   "name": "switch-1440",
+   "switches": [
+    {
+     "url": "?lens=particle&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+     "scrollWidth": 1440,
+     "hint": "Every block is a star in its category sector; the families of the open block orbit it."
+    },
+    {
+     "url": "?lens=chord&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+     "scrollWidth": 1440,
+     "hint": "186 depends-on chords between blocks on the table."
+    },
+    {
+     "url": "?lens=river&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+     "scrollWidth": 1440,
+     "hint": "Repositories flow right through categories into blocks; drag up and down along the block column."
+    },
+    {
+     "url": "?lens=table&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+     "scrollWidth": 1440,
+     "hint": "Tiles in table order, one section per category; found-automatically blocks with fewer than 8 functions fold away."
+    },
+    {
+     "url": "?lens=column&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+     "scrollWidth": 1440,
+     "hint": "One column on a busbar: what the key depends on above it, what uses it below it."
+    }
+   ]
+  },
+  {
+   "name": "build-ring-430-home",
+   "url": "?lens=ring&data=202609142326",
+   "width": 430,
+   "ms": 3283,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 430,
+   "innerWidth": 430,
+   "hint": "Blocks on the outer ring, in table order; tap one to open its families on the inner ring.",
+   "trail": "GLOBALGRID2050",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": false,
+     "title": "69 stated · 40 listed · 29 not yet known"
+    }
+   ],
+   "lensbar": [
+    "ring*",
+    "particle",
+    "chord",
+    "river",
+    "table",
+    "column"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens ring from v08-ring-journey · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "tray": "Recipe: nothing yet · tap Add to recipe on any key",
+   "labels": 11,
+   "panelOpen": false,
+   "panelHead": null,
+   "webgl2": true,
+   "touch": 1,
+   "tapTargets": [
+    [
+     406,
+     44
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ]
+   ]
+  },
+  {
+   "name": "tap-first-block-430",
+   "url": "?lens=ring&key=block:At&trail=block:At&data=202609142326",
+   "trail": "GLOBALGRID2050 › At · Allowed technologies"
+  },
+  {
+   "name": "back-430",
+   "url": "?lens=ring&data=202609142326",
+   "trail": "GLOBALGRID2050",
+   "panelOpen": false
+  },
+  {
+   "name": "build-ring-430",
+   "url": "?lens=ring&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+   "width": 430,
+   "ms": 4303,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 430,
+   "innerWidth": 430,
+   "hint": "Blocks on the outer ring; families of the open block on the inner ring. Drag to rotate.",
+   "trail": "GLOBALGRID2050 › Ce · Cable corridor estimate › Pn · Pipeline News app › #8285",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": false,
+     "title": "69 stated · 40 listed · 29 not yet known"
+    }
+   ],
+   "lensbar": [
+    "ring*",
+    "particle",
+    "chord",
+    "river",
+    "table",
+    "column"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens ring from v08-ring-journey · pack 2026-09-14 22:14 UTC sha256 5a0c365 · link made against data of 2026-09-14 19:56 UTC",
+   "tray": "Si×Vn×Ug×Ps×Dt×#8285 → Sp×6 blocks will travel (Si, Vn, Ug, Ps, Dt, Sp) · #8285 pinned as a noteHand off →",
+   "labels": 5,
+   "panelOpen": true,
+   "panelHead": "#8285 sha256Hexfamily",
+   "webgl2": true,
+   "touch": 1,
+   "tapTargets": [
+    [
+     406,
+     44
+    ],
+    [
+     117,
+     48
+    ],
+    [
+     78,
+     48
+    ],
+    [
+     117,
+     48
+    ],
+    [
+     81,
+     48
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     82,
+     44
+    ]
+   ]
+  },
+  {
+   "name": "build-particle-430",
+   "url": "?lens=particle&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+   "width": 430,
+   "ms": 4328,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 430,
+   "innerWidth": 430,
+   "hint": "Every block is a star in its category sector; the families of the open block orbit it.",
+   "trail": "GLOBALGRID2050 › Ce · Cable corridor estimate › Pn · Pipeline News app › #8285",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the particle lens"
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": false,
+     "title": "69 stated · 40 listed · 29 not yet known"
+    }
+   ],
+   "lensbar": [
+    "ring",
+    "particle*",
+    "chord",
+    "river",
+    "table",
+    "column"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens particle from v03-particle-universe · pack 2026-09-14 22:14 UTC sha256 5a0c365 · link made against data of 2026-09-14 19:56 UTC",
+   "tray": "Si×Vn×Ug×Ps×Dt×#8285 → Sp×6 blocks will travel (Si, Vn, Ug, Ps, Dt, Sp) · #8285 pinned as a noteHand off →",
+   "labels": 21,
+   "panelOpen": true,
+   "panelHead": "#8285 sha256Hexfamily",
+   "webgl2": true,
+   "touch": 1,
+   "tapTargets": [
+    [
+     406,
+     44
+    ],
+    [
+     117,
+     48
+    ],
+    [
+     78,
+     48
+    ],
+    [
+     117,
+     48
+    ],
+    [
+     81,
+     48
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     82,
+     44
+    ]
+   ]
+  },
+  {
+   "name": "build-chord-430",
+   "url": "?lens=chord&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+   "width": 430,
+   "ms": 4317,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 430,
+   "innerWidth": 430,
+   "hint": "186 depends-on chords between blocks on the table.",
+   "trail": "GLOBALGRID2050 › Ce · Cable corridor estimate › Pn · Pipeline News app › #8285",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the chord lens"
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": true,
+     "title": "not drawn by the chord lens"
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the chord lens"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": true,
+     "title": "not drawn by the chord lens"
+    }
+   ],
+   "lensbar": [
+    "ring",
+    "particle",
+    "chord*",
+    "river",
+    "table",
+    "column"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens chord from v05-chord-dependencies · pack 2026-09-14 22:14 UTC sha256 5a0c365 · link made against data of 2026-09-14 19:56 UTC",
+   "tray": "Si×Vn×Ug×Ps×Dt×#8285 → Sp×6 blocks will travel (Si, Vn, Ug, Ps, Dt, Sp) · #8285 pinned as a noteHand off →",
+   "labels": 6,
+   "panelOpen": true,
+   "panelHead": "#8285 sha256Hexfamily",
+   "webgl2": true,
+   "touch": 1,
+   "tapTargets": [
+    [
+     406,
+     44
+    ],
+    [
+     117,
+     48
+    ],
+    [
+     78,
+     48
+    ],
+    [
+     117,
+     48
+    ],
+    [
+     81,
+     48
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     82,
+     44
+    ]
+   ]
+  },
+  {
+   "name": "build-river-430",
+   "url": "?lens=river&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+   "width": 430,
+   "ms": 4302,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 430,
+   "innerWidth": 430,
+   "hint": "Repositories flow down through categories into blocks; drag sideways along the block row.",
+   "trail": "GLOBALGRID2050 › Ce · Cable corridor estimate › Pn · Pipeline News app › #8285",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": true,
+     "title": "not drawn by the river lens"
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": true,
+     "title": "not drawn by the river lens"
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the river lens"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": true,
+     "title": "not drawn by the river lens"
+    }
+   ],
+   "lensbar": [
+    "ring",
+    "particle",
+    "chord",
+    "river*",
+    "table",
+    "column"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens river from v07-flow-repos · pack 2026-09-14 22:14 UTC sha256 5a0c365 · link made against data of 2026-09-14 19:56 UTC",
+   "tray": "Si×Vn×Ug×Ps×Dt×#8285 → Sp×6 blocks will travel (Si, Vn, Ug, Ps, Dt, Sp) · #8285 pinned as a noteHand off →",
+   "labels": 7,
+   "panelOpen": true,
+   "panelHead": "#8285 sha256Hexfamily",
+   "webgl2": true,
+   "touch": 1,
+   "tapTargets": [
+    [
+     406,
+     44
+    ],
+    [
+     117,
+     48
+    ],
+    [
+     78,
+     48
+    ],
+    [
+     117,
+     48
+    ],
+    [
+     81,
+     48
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     82,
+     44
+    ]
+   ]
+  },
+  {
+   "name": "build-table-430",
+   "url": "?lens=table&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+   "width": 430,
+   "ms": 4365,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 430,
+   "innerWidth": 430,
+   "hint": "Tiles in table order, one section per category; found-automatically blocks with fewer than 8 functions fold away.",
+   "trail": "GLOBALGRID2050 › Ce · Cable corridor estimate › Pn · Pipeline News app › #8285",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    }
+   ],
+   "lensbar": [
+    "ring",
+    "particle",
+    "chord",
+    "river",
+    "table*",
+    "column"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens table from stars/table.html + v04-periodic-arrows · pack 2026-09-14 22:14 UTC sha256 5a0c365 · link made against data of 2026-09-14 19:56 UTC",
+   "tray": "Si×Vn×Ug×Ps×Dt×#8285 → Sp×6 blocks will travel (Si, Vn, Ug, Ps, Dt, Sp) · #8285 pinned as a noteHand off →",
+   "labels": 1,
+   "panelOpen": true,
+   "panelHead": "#8285 sha256Hexfamily",
+   "webgl2": true,
+   "touch": 1,
+   "tapTargets": [
+    [
+     406,
+     44
+    ],
+    [
+     117,
+     48
+    ],
+    [
+     78,
+     48
+    ],
+    [
+     117,
+     48
+    ],
+    [
+     81,
+     48
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     82,
+     44
+    ]
+   ]
+  },
+  {
+   "name": "build-column-430",
+   "url": "?lens=column&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+   "width": 430,
+   "ms": 4285,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 430,
+   "innerWidth": 430,
+   "hint": "One column on a busbar: what the key depends on above it, what uses it below it.",
+   "trail": "GLOBALGRID2050 › Ce · Cable corridor estimate › Pn · Pipeline News app › #8285",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the column lens"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": true,
+     "title": "not drawn by the column lens"
+    }
+   ],
+   "lensbar": [
+    "ring",
+    "particle",
+    "chord",
+    "river",
+    "table",
+    "column*"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens column from ventus-grid-engine column view + v10 single-line diagram · pack 2026-09-14 22:14 UTC sha256 5a0c365 · link made against data of 2026-09-14 19:56 UTC",
+   "tray": "Si×Vn×Ug×Ps×Dt×#8285 → Sp×6 blocks will travel (Si, Vn, Ug, Ps, Dt, Sp) · #8285 pinned as a noteHand off →",
+   "labels": 1,
+   "panelOpen": true,
+   "panelHead": "#8285 sha256Hexfamily",
+   "webgl2": true,
+   "touch": 1,
+   "tapTargets": [
+    [
+     406,
+     44
+    ],
+    [
+     117,
+     48
+    ],
+    [
+     78,
+     48
+    ],
+    [
+     117,
+     48
+    ],
+    [
+     81,
+     48
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     82,
+     44
+    ]
+   ]
+  },
+  {
+   "name": "build-switch-430",
+   "url": "?lens=ring&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+   "width": 430,
+   "ms": 2810,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 430,
+   "innerWidth": 430,
+   "hint": "Blocks on the outer ring; families of the open block on the inner ring. Drag to rotate.",
+   "trail": "GLOBALGRID2050 › Ce · Cable corridor estimate › Pn · Pipeline News app › #8285",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": false,
+     "title": "69 stated · 40 listed · 29 not yet known"
+    }
+   ],
+   "lensbar": [
+    "ring*",
+    "particle",
+    "chord",
+    "river",
+    "table",
+    "column"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens ring from v08-ring-journey · pack 2026-09-14 22:14 UTC sha256 5a0c365 · link made against data of 2026-09-14 19:56 UTC",
+   "tray": "Si×Vn×Ug×Ps×Dt×#8285 → Sp×6 blocks will travel (Si, Vn, Ug, Ps, Dt, Sp) · #8285 pinned as a noteHand off →",
+   "labels": 5,
+   "panelOpen": true,
+   "panelHead": "#8285 sha256Hexfamily",
+   "webgl2": true,
+   "touch": 1,
+   "tapTargets": [
+    [
+     406,
+     44
+    ],
+    [
+     117,
+     48
+    ],
+    [
+     78,
+     48
+    ],
+    [
+     117,
+     48
+    ],
+    [
+     81,
+     48
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     82,
+     44
+    ]
+   ]
+  },
+  {
+   "name": "switch-430",
+   "switches": [
+    {
+     "url": "?lens=particle&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+     "scrollWidth": 430,
+     "hint": "Every block is a star in its category sector; the families of the open block orbit it."
+    },
+    {
+     "url": "?lens=chord&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+     "scrollWidth": 430,
+     "hint": "186 depends-on chords between blocks on the table."
+    },
+    {
+     "url": "?lens=river&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+     "scrollWidth": 430,
+     "hint": "Repositories flow down through categories into blocks; drag sideways along the block row."
+    },
+    {
+     "url": "?lens=table&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+     "scrollWidth": 430,
+     "hint": "Tiles in table order, one section per category; found-automatically blocks with fewer than 8 functions fold away."
+    },
+    {
+     "url": "?lens=column&key=family:8285&trail=block:Ce,block:Pn,family:8285&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285&data=202609142326",
+     "scrollWidth": 430,
+     "hint": "One column on a busbar: what the key depends on above it, what uses it below it."
+    }
+   ]
+  },
+  {
+   "name": "build-inbound-table",
+   "url": "?lens=table&key=block:Cg&trail=block:Cg&data=202609142326",
+   "width": 1440,
+   "ms": 2358,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "hint": "Tiles in table order, one section per category; found-automatically blocks with fewer than 8 functions fold away.",
+   "trail": "GLOBALGRID2050 › Cg · Cable trench geometry",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    }
+   ],
+   "lensbar": [
+    "ring",
+    "particle",
+    "chord",
+    "river",
+    "table*",
+    "column"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens table from stars/table.html + v04-periodic-arrows · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "tray": "Recipe: nothing yet · tap Add to recipe on any key",
+   "labels": 1,
+   "panelOpen": true,
+   "panelHead": "Cg · Cable trench geometryblock",
+   "webgl2": true,
+   "touch": 0,
+   "tapTargets": [
+    [
+     1082,
+     44
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     70,
+     48
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     81,
+     48
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ]
+   ]
+  },
+  {
+   "name": "build-inbound-code",
+   "url": "?lens=column&key=family:2&trail=family:2&data=202609142326",
+   "width": 1440,
+   "ms": 2296,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "hint": "One column on a busbar: what the key depends on above it, what uses it below it.",
+   "trail": "GLOBALGRID2050 › #2",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the column lens"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": true,
+     "title": "not drawn by the column lens"
+    }
+   ],
+   "lensbar": [
+    "ring",
+    "particle",
+    "chord",
+    "river",
+    "table",
+    "column*"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens column from ventus-grid-engine column view + v10 single-line diagram · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "tray": "Recipe: nothing yet · tap Add to recipe on any key",
+   "labels": 1,
+   "panelOpen": true,
+   "panelHead": "#2 effectiveGapfamily",
+   "webgl2": true,
+   "touch": 0,
+   "tapTargets": [
+    [
+     1082,
+     44
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     70,
+     48
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     81,
+     48
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ]
+   ]
+  },
+  {
+   "name": "build-inbound-dashboard",
+   "url": "?lens=column&key=block:Cg&trail=block:Cg&data=202609142326",
+   "width": 1440,
+   "ms": 2316,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "hint": "One column on a busbar: what the key depends on above it, what uses it below it.",
+   "trail": "GLOBALGRID2050 › Cg · Cable trench geometry",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the column lens"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": true,
+     "title": "not drawn by the column lens"
+    }
+   ],
+   "lensbar": [
+    "ring",
+    "particle",
+    "chord",
+    "river",
+    "table",
+    "column*"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens column from ventus-grid-engine column view + v10 single-line diagram · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "tray": "Recipe: nothing yet · tap Add to recipe on any key",
+   "labels": 1,
+   "panelOpen": true,
+   "panelHead": "Cg · Cable trench geometryblock",
+   "webgl2": true,
+   "touch": 0,
+   "tapTargets": [
+    [
+     1082,
+     44
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     70,
+     48
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     81,
+     48
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ]
+   ]
+  },
+  {
+   "name": "build-inbound-picker",
+   "url": "?lens=table&recipe=block:Si,block:Vn&data=202609142326",
+   "width": 1440,
+   "ms": 2299,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "hint": "Tiles in table order, one section per category; found-automatically blocks with fewer than 8 functions fold away.",
+   "trail": "GLOBALGRID2050",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    }
+   ],
+   "lensbar": [
+    "ring",
+    "particle",
+    "chord",
+    "river",
+    "table*",
+    "column"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens table from stars/table.html + v04-periodic-arrows · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "tray": "Si×Vn×2 blocks will travel (Si, Vn)Hand off →",
+   "labels": 0,
+   "panelOpen": false,
+   "panelHead": null,
+   "webgl2": true,
+   "touch": 0,
+   "tapTargets": [
+    [
+     1082,
+     44
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     82,
+     44
+    ]
+   ]
+  },
+  {
+   "name": "build-inbound-hash",
+   "url": "?lens=ring&key=family:2&trail=family:2&data=202609142326",
+   "width": 1440,
+   "ms": 2311,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "hint": "Blocks on the outer ring; families of the open block on the inner ring. Drag to rotate.",
+   "trail": "GLOBALGRID2050 › #2",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": false,
+     "title": "69 stated · 40 listed · 29 not yet known"
+    }
+   ],
+   "lensbar": [
+    "ring*",
+    "particle",
+    "chord",
+    "river",
+    "table",
+    "column"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens ring from v08-ring-journey · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "tray": "Recipe: nothing yet · tap Add to recipe on any key",
+   "labels": 4,
+   "panelOpen": true,
+   "panelHead": "#2 effectiveGapfamily",
+   "webgl2": true,
+   "touch": 0,
+   "tapTargets": [
+    [
+     1082,
+     44
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     70,
+     48
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     81,
+     48
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ]
+   ]
+  },
+  {
+   "name": "build-inbound-unknown",
+   "url": "?lens=ring&data=202609142326",
+   "width": 1440,
+   "ms": 2301,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "hint": "Blocks on the outer ring, in table order; tap one to open its families on the inner ring.",
+   "trail": "GLOBALGRID2050",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": false,
+     "title": "69 stated · 40 listed · 29 not yet known"
+    }
+   ],
+   "lensbar": [
+    "ring*",
+    "particle",
+    "chord",
+    "river",
+    "table",
+    "column"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens ring from v08-ring-journey · pack 2026-09-14 22:14 UTC sha256 5a0c365 · Key block:Zz is not in the published records.",
+   "tray": "Recipe: nothing yet · tap Add to recipe on any key",
+   "labels": 12,
+   "panelOpen": true,
+   "panelHead": "GLOBALGRID2050",
+   "webgl2": true,
+   "touch": 0,
+   "tapTargets": [
+    [
+     1082,
+     44
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ]
+   ]
+  },
+  {
+   "name": "build-compose-1440",
+   "url": "?lens=table&recipe=block:Si,block:Vn,block:Ug,block:Ps,block:Dt,family:8285,line:17&data=202609142326",
+   "width": 1440,
+   "ms": 4315,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "hint": "Tiles in table order, one section per category; found-automatically blocks with fewer than 8 functions fold away.",
+   "trail": "GLOBALGRID2050",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": true,
+     "title": "not drawn by the table lens"
+    }
+   ],
+   "lensbar": [
+    "ring",
+    "particle",
+    "chord",
+    "river",
+    "table*",
+    "column"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens table from stars/table.html + v04-periodic-arrows · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "tray": "Si×Vn×Ug×Ps×Dt×#8285 → Sp×line 17 · 686 families · pick one×6 blocks will travel (Si, Vn, Ug, Ps, Dt, Sp) · #8285 pinned as a note · line 17 · carried by 686 families · pick oneHand off →",
+   "labels": 0,
+   "panelOpen": false,
+   "panelHead": null,
+   "webgl2": true,
+   "touch": 0,
+   "tapTargets": [
+    [
+     1082,
+     44
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     82,
+     44
+    ]
+   ]
+  },
+  {
+   "name": "compose-1440",
+   "tray": "Si×Vn×Ug×Ps×Dt×#8285 → Sp×line 17 · 686 families · pick one×6 blocks will travel (Si, Vn, Ug, Ps, Dt, Sp) · #8285 pinned as a note · line 17 · carried by 686 families · pick oneHand off →",
+   "handOff": "https://ventusltd.github.io/code-generator/?blocks=Si,Vn,Ug,Ps,Dt,Sp&families=8285&lines=17&from=star-generator&data=202609142326",
+   "needs": 82,
+   "keys": [
+    "block:Si",
+    "block:Vn",
+    "block:Ug",
+    "block:Ps",
+    "block:Dt",
+    "family:8285",
+    "line:17"
+   ],
+   "blocks": [
+    "Si@ece8481",
+    "Vn@857ea81",
+    "Ug@ece8481",
+    "Ps@ece8481",
+    "Dt@2ffb435",
+    "Sp@ece8481"
+   ],
+   "families": [
+    "8285:Ventusltd/gridatlas@ece8481"
+   ],
+   "lines": [
+    "17:carried by 686 families · none chosen"
+   ],
+   "data": {
+    "blocks_json": "2026-09-14T23:26:35.390Z",
+    "index_json": "2026-09-14T23:25:29.936Z",
+    "pack": "2026-09-14T22:14:00.499Z"
+   },
+   "sheet": "Recipe6 blocks will travel (Si, Vn, Ug, Ps, Dt, Sp) · #8285 pinned as a note · line 17 · carried by 686 families · pick one✕ closeHand off →Copy recipeCopy commandblock → itself · group → itself (off the table: the code-generator cannot pick it yet) · family → its block, the family pinned · line → its family → its block when the line has one family or you pick one; a line carried by several families stays a note until you pick. The first block is the main one.Si · substation-intelligence×Vn · Nearest substation search×Ug · uk-gazetteer-flyto×Ps · Place search and arrival×Dt · The MAP button (d"
+  },
+  {
+   "name": "picker-handoff",
+   "url": "https://ventusltd.github.io/code-generator/?blocks=Si,Vn,Ug,Ps,Dt,Sp&families=8285&lines=17&from=star-generator&data=202609142326",
+   "title": "Code generator",
+   "text": "VENTUS · GLOBAL GRID 2050 · CODE GENERATOR Build an app from blocks 63 named blocks · 9,363 functions underneath · table updated 2026-09-14 23:26 UTC WHAT ARE YOU BUILDING? Choose a starting point… Grid distance calculator — How far is a site from the nearest substation and line, by road and as the crow flies. Substation finder on a map — A map that finds the nearest substations to any place and l",
+   "symbols": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "name": "build-gpu-facts",
+   "url": "?lens=ring&key=block:Cg&trail=block:Cg&data=202609142326",
+   "width": 1440,
+   "ms": 4850,
+   "errors": [],
+   "title": "GLOBALGRID2050 · Star Generator",
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "hint": "Blocks on the outer ring; families of the open block on the inner ring. Drag to rotate.",
+   "trail": "GLOBALGRID2050 › Cg · Cable trench geometry",
+   "legend": [
+    {
+     "word": "contains",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "depends on",
+     "colour": "rgb(255, 213, 74)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "uses",
+     "colour": "rgb(0, 229, 255)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "used by",
+     "colour": "rgb(255, 122, 182)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "shared line",
+     "colour": "rgb(57, 211, 83)",
+     "off": false,
+     "title": ""
+    },
+    {
+     "word": "random link",
+     "colour": "rgb(139, 147, 167)",
+     "off": false,
+     "title": "300 random edges · 79 joined to families by name · seed 2026-09-14"
+    },
+    {
+     "word": "entangled",
+     "colour": "rgb(184, 204, 255)",
+     "off": false,
+     "title": "69 stated · 40 listed · 29 not yet known"
+    }
+   ],
+   "lensbar": [
+    "ring*",
+    "particle",
+    "chord",
+    "river",
+    "table",
+    "column"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:22 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens ring from v08-ring-journey · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "tray": "Recipe: nothing yet · tap Add to recipe on any key",
+   "labels": 21,
+   "panelOpen": true,
+   "panelHead": "Cg · Cable trench geometryblock",
+   "webgl2": true,
+   "touch": 0,
+   "tapTargets": [
+    [
+     1082,
+     44
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     70,
+     48
+    ],
+    [
+     110,
+     48
+    ],
+    [
+     81,
+     48
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ],
+    [
+     74,
+     38
+    ]
+   ]
+  },
+  {
+   "name": "gpu-facts",
+   "linesCount": 664940,
+   "linesBytes": 5984460,
+   "N": 11908,
+   "edgeCount": 197,
+   "geomCount": 48,
+   "layoutMs": 0.10000000149011612,
+   "packStats": {
+    "instances": 664940,
+    "distinct": 128369,
+    "unique": 252114,
+    "orphans": 0,
+    "built": "2026-09-14T22:14:00.499Z",
+    "sha": "5a0c36595ccddfff5852fae262a3b69885d94981c83e683e0b4d9c0c7012c83a"
+   },
+   "randomStats": {
+    "edges": 300,
+    "drawn": 79,
+    "seed": "2026-09-14"
+   },
+   "entangledStats": {
+    "stated": 69,
+    "listed": 40,
+    "joined": 30,
+    "drawn": 68
+   },
+   "dependsOn": 186,
+   "countTitle": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "litOnly": false,
+   "frames": 269
+  }
+ ]
+}

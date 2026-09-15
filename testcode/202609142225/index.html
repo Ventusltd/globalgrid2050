@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>GLOBALGRID2050 · Star Generator</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+<script>window.BUILT = '2026-09-15 01:17';</script><!-- proof/publish.mjs writes the stamp from the clock when the manifest is made; never typed by hand -->
+</head>
+<body>
+<div id="app">
+  <header id="header">
+    <h1>GLOBALGRID2050</h1>
+    <div id="count" class="u-count">Loading live data…</div>
+  </header>
+  <div id="search"></div>
+  <nav id="trail" aria-label="journey trail"></nav>
+  <div id="legend"></div>
+  <section id="stage">
+    <canvas id="gl"></canvas>
+    <div id="labels"></div>
+    <div id="overlay" hidden></div>
+    <div id="tip" hidden></div>
+  </section>
+  <div id="hint" class="u-hint"></div>
+  <aside id="panel" hidden>
+    <div id="panel-handle"></div>
+    <div id="panel-body"></div>
+    <div id="panel-foot"></div>
+  </aside>
+  <nav id="lensbar" aria-label="lens"></nav>
+  <div id="tray"></div>
+  <div id="sheet" hidden></div>
+  <footer id="footer" class="u-foot"></footer>
+</div>
+<script type="module" src="ui.js"></script>
+</body>
+</html>

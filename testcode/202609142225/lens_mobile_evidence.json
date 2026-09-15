@@ -1,0 +1,545 @@
+{
+ "source": "testcode/202609141531/data.json + journeys.json",
+ "observed_utc": "2026-09-14T15:20:35.273Z",
+ "browser": "Chrome/153.0.8010.37",
+ "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 Ti (0x00002C05) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.16.1088)",
+ "records_total": 416,
+ "unique_urls": 209,
+ "loads": [
+  {
+   "url": "https://ventusltd.github.io/stars/table.html?block=Cg",
+   "width": 1440,
+   "status": 200,
+   "error": null,
+   "scroll_width": 1440,
+   "inner_width": 1440,
+   "load_wall_ms": 257.8,
+   "fcp_ms": 300,
+   "console_errors": [
+    "Failed to load resource: the server responded with a status of 404 ()"
+   ],
+   "bad_status": [
+    {
+     "url": "https://ventusltd.github.io/favicon.ico",
+     "status": 404
+    }
+   ],
+   "touch_points": 0,
+   "title": "Periodic table of globalgrid2050 architecture development",
+   "document_sha256": "3b59fb343a66830d80b435a307c760df7a02537b17d7c232d775d7402baf0512"
+  },
+  {
+   "url": "https://globalgrid2050.com/",
+   "width": 1440,
+   "status": 200,
+   "error": null,
+   "scroll_width": 1440,
+   "inner_width": 1440,
+   "load_wall_ms": 341,
+   "fcp_ms": 284,
+   "console_errors": [
+    "Failed to load resource: the server responded with a status of 404 ()"
+   ],
+   "bad_status": [
+    {
+     "url": "https://globalgrid2050.com/favicon.ico",
+     "status": 404
+    }
+   ],
+   "touch_points": 0,
+   "title": "GlobalGrid2050",
+   "document_sha256": "7d2ae6891cea3ff52f656136acc837a55fe9380ffaf11c6cfd1ccd2f21cdecb0"
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/table.html?block=Cg",
+   "width": 430,
+   "status": 200,
+   "error": null,
+   "scroll_width": 430,
+   "inner_width": 430,
+   "load_wall_ms": 9.5,
+   "fcp_ms": 24,
+   "console_errors": [],
+   "bad_status": [],
+   "touch_points": 1,
+   "title": "Periodic table of globalgrid2050 architecture development",
+   "document_sha256": "3b59fb343a66830d80b435a307c760df7a02537b17d7c232d775d7402baf0512"
+  },
+  {
+   "url": "https://globalgrid2050.com/",
+   "width": 430,
+   "status": 200,
+   "error": null,
+   "scroll_width": 430,
+   "inner_width": 430,
+   "load_wall_ms": 8.8,
+   "fcp_ms": 28,
+   "console_errors": [],
+   "bad_status": [],
+   "touch_points": 1,
+   "title": "GlobalGrid2050",
+   "document_sha256": "7d2ae6891cea3ff52f656136acc837a55fe9380ffaf11c6cfd1ccd2f21cdecb0"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/",
+   "width": 1440,
+   "status": 200,
+   "error": null,
+   "scroll_width": 1440,
+   "inner_width": 1440,
+   "load_wall_ms": 229.3,
+   "fcp_ms": 256,
+   "console_errors": [],
+   "bad_status": [],
+   "touch_points": 0,
+   "title": "GLOBALGRID2050 \u00b7 Spider universe, ten versions",
+   "document_sha256": "b13ba25fd5e3007b40bd1e18630aac0f8524e053e189f51ab1efe21275daa19d"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141423/",
+   "width": 1440,
+   "status": 200,
+   "error": null,
+   "scroll_width": 1440,
+   "inner_width": 1440,
+   "load_wall_ms": 477.4,
+   "fcp_ms": 500,
+   "console_errors": [],
+   "bad_status": [],
+   "touch_points": 0,
+   "title": "GLOBALGRID2050 \u00b7 Code journey",
+   "document_sha256": "58de7a0b4cf3e656cdbb0779c6f42950043322f145603f50999445dbc98cf2c9"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/",
+   "width": 430,
+   "status": 200,
+   "error": null,
+   "scroll_width": 430,
+   "inner_width": 430,
+   "load_wall_ms": 10.1,
+   "fcp_ms": 28,
+   "console_errors": [],
+   "bad_status": [],
+   "touch_points": 1,
+   "title": "GLOBALGRID2050 \u00b7 Spider universe, ten versions",
+   "document_sha256": "b13ba25fd5e3007b40bd1e18630aac0f8524e053e189f51ab1efe21275daa19d"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141423/",
+   "width": 430,
+   "status": 200,
+   "error": null,
+   "scroll_width": 430,
+   "inner_width": 430,
+   "load_wall_ms": 9,
+   "fcp_ms": 44,
+   "console_errors": [],
+   "bad_status": [],
+   "touch_points": 1,
+   "title": "GLOBALGRID2050 \u00b7 Code journey",
+   "document_sha256": "58de7a0b4cf3e656cdbb0779c6f42950043322f145603f50999445dbc98cf2c9"
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/",
+   "width": 1440,
+   "status": 200,
+   "error": null,
+   "scroll_width": 1440,
+   "inner_width": 1440,
+   "load_wall_ms": 229.8,
+   "fcp_ms": 308,
+   "console_errors": [],
+   "bad_status": [],
+   "touch_points": 0,
+   "title": "Start here \u00b7 globalgrid2050 architecture development",
+   "document_sha256": "48ce934c4c331f42f426a243567172e2171197213da21945baeb1c39139dbae1"
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/",
+   "width": 430,
+   "status": 200,
+   "error": "Could not load response body for this request. This might happen if the request is a preflight request.",
+   "scroll_width": null,
+   "inner_width": null,
+   "load_wall_ms": 8.2,
+   "fcp_ms": null,
+   "console_errors": [],
+   "bad_status": [],
+   "touch_points": null,
+   "title": null,
+   "document_sha256": null
+  },
+  {
+   "url": "https://ventusltd.github.io/ventus-grid-engine/",
+   "width": 1440,
+   "status": 200,
+   "error": null,
+   "scroll_width": 1440,
+   "inner_width": 1440,
+   "load_wall_ms": 555.9,
+   "fcp_ms": 624,
+   "console_errors": [
+    "Failed to load resource: the server responded with a status of 404 ()"
+   ],
+   "bad_status": [
+    {
+     "url": "https://ventusltd.github.io/ventus-grid-engine/spider/data/genome-spider.json",
+     "status": 404
+    }
+   ],
+   "touch_points": 0,
+   "title": "Ventus Global Grid 2050 \u00b7 The Spider Sandbox",
+   "document_sha256": "f1d21f78480d995c1b99529083ebe9b8ab6ee4a89bdfdb21e1504cbc1ccd92f9"
+  },
+  {
+   "url": "https://ventusltd.github.io/ventus-grid-engine/",
+   "width": 430,
+   "status": 200,
+   "error": null,
+   "scroll_width": 430,
+   "inner_width": 430,
+   "load_wall_ms": 10.7,
+   "fcp_ms": 36,
+   "console_errors": [
+    "Failed to load resource: the server responded with a status of 404 ()"
+   ],
+   "bad_status": [
+    {
+     "url": "https://ventusltd.github.io/ventus-grid-engine/spider/data/genome-spider.json",
+     "status": 404
+    }
+   ],
+   "touch_points": 1,
+   "title": "Ventus Global Grid 2050 \u00b7 The Spider Sandbox",
+   "document_sha256": "f1d21f78480d995c1b99529083ebe9b8ab6ee4a89bdfdb21e1504cbc1ccd92f9"
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code.html?family=2",
+   "width": 1440,
+   "status": 200,
+   "error": null,
+   "scroll_width": 1440,
+   "inner_width": 1440,
+   "load_wall_ms": 155.7,
+   "fcp_ms": 172,
+   "console_errors": [],
+   "bad_status": [],
+   "touch_points": 0,
+   "title": "Code report \u00b7 globalgrid2050 architecture development",
+   "document_sha256": "09dafea8882e41b0bec61a4e6d30dcd4d95a2bc1e58ff9deae05238d9c1022c2"
+  },
+  {
+   "url": "https://ventusltd.github.io/stars/code.html?family=2",
+   "width": 430,
+   "status": 200,
+   "error": null,
+   "scroll_width": 473,
+   "inner_width": 473,
+   "load_wall_ms": 9.1,
+   "fcp_ms": 36,
+   "console_errors": [],
+   "bad_status": [],
+   "touch_points": 1,
+   "title": "Code report \u00b7 globalgrid2050 architecture development",
+   "document_sha256": "09dafea8882e41b0bec61a4e6d30dcd4d95a2bc1e58ff9deae05238d9c1022c2"
+  },
+  {
+   "url": "https://globalgrid2050.com/grid_engine/index.html",
+   "width": 1440,
+   "status": 200,
+   "error": null,
+   "scroll_width": 1440,
+   "inner_width": 1440,
+   "load_wall_ms": 252,
+   "fcp_ms": 276,
+   "console_errors": [],
+   "bad_status": [],
+   "touch_points": 0,
+   "title": "Grid Engine Workbenches \u2014 GlobalGrid2050",
+   "document_sha256": "4366078462d5551eccfc1a5a31e24e79d7ed148a73014bfac50d47e38c066bf2"
+  },
+  {
+   "url": "https://globalgrid2050.com/grid_engine/index.html",
+   "width": 430,
+   "status": 200,
+   "error": null,
+   "scroll_width": 430,
+   "inner_width": 430,
+   "load_wall_ms": 8.6,
+   "fcp_ms": 44,
+   "console_errors": [],
+   "bad_status": [],
+   "touch_points": 1,
+   "title": "Grid Engine Workbenches \u2014 GlobalGrid2050",
+   "document_sha256": "4366078462d5551eccfc1a5a31e24e79d7ed148a73014bfac50d47e38c066bf2"
+  },
+  {
+   "url": "https://globalgrid2050.com/index.html",
+   "width": 1440,
+   "status": 200,
+   "error": null,
+   "scroll_width": 1440,
+   "inner_width": 1440,
+   "load_wall_ms": 226.1,
+   "fcp_ms": 236,
+   "console_errors": [
+    "Failed to load resource: the server responded with a status of 404 ()"
+   ],
+   "bad_status": [
+    {
+     "url": "https://globalgrid2050.com/homepage_versions/catalogue/homepage-catalogue.json",
+     "status": 404
+    }
+   ],
+   "touch_points": 0,
+   "title": "GlobalGrid2050",
+   "document_sha256": "7d2ae6891cea3ff52f656136acc837a55fe9380ffaf11c6cfd1ccd2f21cdecb0"
+  },
+  {
+   "url": "https://globalgrid2050.com/index.html",
+   "width": 430,
+   "status": 200,
+   "error": null,
+   "scroll_width": 430,
+   "inner_width": 430,
+   "load_wall_ms": 15.9,
+   "fcp_ms": 28,
+   "console_errors": [],
+   "bad_status": [],
+   "touch_points": 1,
+   "title": "GlobalGrid2050",
+   "document_sha256": "7d2ae6891cea3ff52f656136acc837a55fe9380ffaf11c6cfd1ccd2f21cdecb0"
+  }
+ ],
+ "journeys": [
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/v08-ring-journey/index.html",
+   "width": 1440,
+   "input": "mouse",
+   "errors": [],
+   "scroll_width": 1440,
+   "inner_width": 1440,
+   "fcp_ms": 344,
+   "numbered_lines_visible": true,
+   "status": "Recorded selected journey completed; other-block navigation and pinned-file opening still untested"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/v08-ring-journey/index.html",
+   "width": 430,
+   "input": "emulated touch",
+   "errors": [],
+   "scroll_width": 430,
+   "inner_width": 430,
+   "fcp_ms": 32,
+   "numbered_lines_visible": true,
+   "status": "Recorded selected journey completed; other-block navigation and pinned-file opening still untested"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/v10-ide-search/index.html",
+   "width": 1440,
+   "input": "mouse",
+   "errors": [],
+   "scroll_width": 1440,
+   "inner_width": 1440,
+   "fcp_ms": 188,
+   "numbered_lines_visible": true,
+   "status": "Recorded selected journey completed; other-block navigation and pinned-file opening still untested"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/v10-ide-search/index.html",
+   "width": 430,
+   "input": "emulated touch",
+   "errors": [],
+   "scroll_width": 430,
+   "inner_width": 430,
+   "fcp_ms": 48,
+   "numbered_lines_visible": true,
+   "status": "Recorded selected journey completed; other-block navigation and pinned-file opening still untested"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/v01-spider-drill/index.html",
+   "width": 1440,
+   "input": "mouse",
+   "errors": [],
+   "scroll_width": 1440,
+   "inner_width": 1440,
+   "fcp_ms": 204,
+   "numbered_lines_visible": true,
+   "status": "Recorded selected journey completed; other-block navigation and pinned-file opening still untested"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/v01-spider-drill/index.html",
+   "width": 430,
+   "input": "emulated touch",
+   "errors": [],
+   "scroll_width": 430,
+   "inner_width": 430,
+   "fcp_ms": 44,
+   "numbered_lines_visible": true,
+   "status": "Recorded selected journey completed; other-block navigation and pinned-file opening still untested"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/v04-periodic-arrows/index.html",
+   "width": 1440,
+   "input": "mouse",
+   "errors": [],
+   "scroll_width": 1440,
+   "inner_width": 1440,
+   "fcp_ms": 228,
+   "numbered_lines_visible": true,
+   "status": "Recorded selected journey completed; other-block navigation and pinned-file opening still untested"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/v04-periodic-arrows/index.html",
+   "width": 430,
+   "input": "emulated touch",
+   "errors": [],
+   "scroll_width": 430,
+   "inner_width": 430,
+   "fcp_ms": 56,
+   "numbered_lines_visible": true,
+   "status": "Recorded selected journey completed; other-block navigation and pinned-file opening still untested"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/v02-radial-sunburst/index.html",
+   "width": 1440,
+   "input": "mouse",
+   "errors": [],
+   "scroll_width": 1440,
+   "inner_width": 1440,
+   "fcp_ms": 160,
+   "numbered_lines_visible": true,
+   "status": "Recorded selected journey completed; other-block navigation and pinned-file opening still untested"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/v02-radial-sunburst/index.html",
+   "width": 430,
+   "input": "emulated touch",
+   "errors": [],
+   "scroll_width": 430,
+   "inner_width": 430,
+   "fcp_ms": 32,
+   "numbered_lines_visible": true,
+   "status": "Recorded selected journey completed; other-block navigation and pinned-file opening still untested"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/v03-particle-universe/index.html",
+   "width": 1440,
+   "input": "mouse",
+   "errors": [],
+   "scroll_width": 1440,
+   "inner_width": 1440,
+   "fcp_ms": 204,
+   "numbered_lines_visible": true,
+   "status": "Recorded selected journey completed; other-block navigation and pinned-file opening still untested"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/v03-particle-universe/index.html",
+   "width": 430,
+   "input": "emulated touch",
+   "errors": [],
+   "scroll_width": 430,
+   "inner_width": 430,
+   "fcp_ms": 36,
+   "numbered_lines_visible": true,
+   "status": "Recorded selected journey completed; other-block navigation and pinned-file opening still untested"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/v05-chord-dependencies/index.html",
+   "width": 1440,
+   "input": "mouse",
+   "errors": [],
+   "scroll_width": 1440,
+   "inner_width": 1440,
+   "fcp_ms": 176,
+   "numbered_lines_visible": true,
+   "status": "Recorded selected journey completed; other-block navigation and pinned-file opening still untested"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/v05-chord-dependencies/index.html",
+   "width": 430,
+   "input": "emulated touch",
+   "errors": [],
+   "scroll_width": 430,
+   "inner_width": 430,
+   "fcp_ms": 28,
+   "numbered_lines_visible": true,
+   "status": "Recorded selected journey completed; other-block navigation and pinned-file opening still untested"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/v06-treemap-lines/index.html",
+   "width": 1440,
+   "input": "mouse",
+   "errors": [],
+   "scroll_width": 1440,
+   "inner_width": 1440,
+   "fcp_ms": 212,
+   "numbered_lines_visible": true,
+   "status": "Recorded selected journey completed; other-block navigation and pinned-file opening still untested"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/v06-treemap-lines/index.html",
+   "width": 430,
+   "input": "emulated touch",
+   "errors": [
+    "Cannot read properties of undefined (reading 'reduce')",
+    "Cannot read properties of undefined (reading 'reduce')"
+   ],
+   "scroll_width": 430,
+   "inner_width": 430,
+   "fcp_ms": 48,
+   "numbered_lines_visible": true,
+   "status": "Recorded selected journey completed; other-block navigation and pinned-file opening still untested"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/v07-flow-repos/index.html",
+   "width": 1440,
+   "input": "mouse",
+   "errors": [],
+   "scroll_width": 1440,
+   "inner_width": 1440,
+   "fcp_ms": 208,
+   "numbered_lines_visible": true,
+   "status": "Recorded selected journey completed; other-block navigation and pinned-file opening still untested"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/v07-flow-repos/index.html",
+   "width": 430,
+   "input": "emulated touch",
+   "errors": [],
+   "scroll_width": 430,
+   "inner_width": 430,
+   "fcp_ms": 48,
+   "numbered_lines_visible": true,
+   "status": "Recorded selected journey completed; other-block navigation and pinned-file opening still untested"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/v09-line-river/index.html",
+   "width": 1440,
+   "input": "mouse",
+   "errors": [],
+   "scroll_width": 3497,
+   "inner_width": 1440,
+   "fcp_ms": 232,
+   "numbered_lines_visible": true,
+   "status": "Recorded selected journey completed; other-block navigation and pinned-file opening still untested"
+  },
+  {
+   "url": "https://globalgrid2050.com/testcode/202609141350/v09-line-river/index.html",
+   "width": 430,
+   "input": "emulated touch",
+   "errors": [],
+   "scroll_width": 3497,
+   "inner_width": 1720,
+   "fcp_ms": 52,
+   "numbered_lines_visible": true,
+   "status": "Recorded selected journey completed; other-block navigation and pinned-file opening still untested"
+  }
+ ],
+ "not_surveyed": [
+  "dashboard ?graph=* (13 graph ids in root index.html: overview, structure, modular, federation, chemistry, periodic-table, engine-graph, vedic, sense, random, proof-of-work, gridatlas-lineage, generated-apps) - no ?graph= URL in data.json",
+  "testcode/202609141522/* - no record",
+  "individual 202609141350/vNN pages at startup - only journeys.json covers them"
+ ]
+}

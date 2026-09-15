@@ -1,0 +1,495 @@
+{
+ "run_utc": "2026-09-15T01:09:06.897Z",
+ "base": "http://127.0.0.1:8911/testcode/202609142225/",
+ "checks": [
+  {
+   "id": "F1 category chip sets the dim bit on the GPU and clears it again",
+   "ok": true,
+   "detail": {
+    "chip": "Constants and vocabularies",
+    "before": 0,
+    "on": {
+     "dim": 11853,
+     "cat": 0,
+     "url": "?lens=ring&key=block:Gc&trail=block:Gc&cat=constants&data=202609142326"
+    },
+    "off": {
+     "dim": 0,
+     "cat": -1,
+     "url": "?lens=ring&key=block:Gc&trail=block:Gc&data=202609142326"
+    }
+   }
+  },
+  {
+   "id": "F2 depends on chip off: chord geometry drops below 400 and the view follows",
+   "ok": true,
+   "detail": {
+    "before": {
+     "geom": 400,
+     "edges": 0,
+     "kindsOn": 127,
+     "viewKinds": 127
+    },
+    "after": {
+     "geom": 214,
+     "edges": 0,
+     "kindsOn": 125,
+     "viewKinds": 125
+    },
+    "again": {
+     "geom": 400,
+     "viewKinds": 127
+    },
+    "back": true
+   }
+  },
+  {
+   "id": "F3 .tb-cat summary folds are >= 44 px at 430 (repositories fold included)",
+   "ok": true,
+   "detail": {
+    "count": 1,
+    "min": 44,
+    "repoFold": {
+     "text": "repositories (31)",
+     "h": 44
+    },
+    "scrollWidth": 430
+   }
+  },
+  {
+   "id": "F4 the newest recipe chip is on screen and its remove button is hit-testable at 430",
+   "ok": true,
+   "detail": {
+    "added": "At",
+    "one": {
+     "chips": 1,
+     "cnt": "1 block",
+     "title": "1 block will travel (Si)"
+    },
+    "two": {
+     "chips": 2,
+     "keys": [
+      "block:Si",
+      "block:At"
+     ],
+     "lastText": "At×",
+     "x": 44,
+     "y": 44,
+     "cx": 121,
+     "cy": 821,
+     "reach": true,
+     "hitTag": "BUTTON.",
+     "visible": true,
+     "scrollLeft": 0,
+     "cnt": "2 blocks",
+     "cntTitle": "2 blocks will travel (Si, At)",
+     "scrollWidth": 430
+    },
+    "afterRemove": {
+     "chips": 1,
+     "keys": [
+      "block:Si"
+     ]
+    }
+   }
+  },
+  {
+   "id": "F4 the tray count is in numerals with the full words on the title",
+   "ok": true,
+   "detail": {
+    "cnt": "2 blocks",
+    "title": "2 blocks will travel (Si, At)"
+   }
+  },
+  {
+   "id": "Table B post-repair: every measured tap target at 430 is >= 32 px and no lens scrolls sideways",
+   "ok": true,
+   "detail": [
+    [
+     "ring",
+     32,
+     "crumb"
+    ],
+    [
+     "particle",
+     32,
+     "crumb"
+    ],
+    [
+     "chord",
+     32,
+     "crumb"
+    ],
+    [
+     "river",
+     32,
+     "crumb"
+    ],
+    [
+     "table",
+     32,
+     "crumb"
+    ],
+    [
+     "column",
+     32,
+     "crumb"
+    ]
+   ]
+  },
+  {
+   "id": "Table B post-repair: the smallest tap target is no longer the 21/22 px fold or heading",
+   "ok": true,
+   "detail": [
+    [
+     "ring",
+     32,
+     "crumb"
+    ],
+    [
+     "particle",
+     32,
+     "crumb"
+    ],
+    [
+     "chord",
+     32,
+     "crumb"
+    ],
+    [
+     "river",
+     32,
+     "crumb"
+    ],
+    [
+     "table",
+     32,
+     "crumb"
+    ],
+    [
+     "column",
+     32,
+     "crumb"
+    ]
+   ]
+  },
+  {
+   "id": "Table B post-repair: all six lenses draw on screen at 430 with the same key",
+   "ok": true,
+   "detail": [
+    {
+     "lens": "ring",
+     "key": "block:Gc",
+     "geometry_segments": 48,
+     "edge_segments": 2
+    },
+    {
+     "lens": "particle",
+     "key": "block:Gc",
+     "geometry_segments": 0,
+     "edge_segments": 0
+    },
+    {
+     "lens": "chord",
+     "key": "block:Gc",
+     "geometry_segments": 400,
+     "edge_segments": 0
+    },
+    {
+     "lens": "river",
+     "key": "block:Gc",
+     "geometry_segments": 610,
+     "edge_segments": 0
+    },
+    {
+     "lens": "table",
+     "key": "block:Gc",
+     "geometry_segments": 0,
+     "edge_segments": 0
+    },
+    {
+     "lens": "column",
+     "key": "block:Gc",
+     "geometry_segments": 16,
+     "edge_segments": 0
+    }
+   ]
+  },
+  {
+   "id": "console: no errors across the checks",
+   "ok": true,
+   "detail": []
+  }
+ ],
+ "measurements": {
+  "f1": {
+   "chip": "Constants and vocabularies",
+   "dimmed_before": 0,
+   "dimmed_on": 11853,
+   "dimmed_off": 0
+  },
+  "f2": {
+   "geom_on": 400,
+   "geom_off": 214,
+   "geom_on_again": 400,
+   "arcs_only": 214,
+   "idle_chords": 186
+  },
+  "f3": {
+   "sums": [
+    {
+     "text": "repositories (31)",
+     "h": 44
+    }
+   ],
+   "h3": [
+    45,
+    45,
+    45,
+    45,
+    45,
+    45,
+    45,
+    45,
+    45,
+    45,
+    45,
+    45,
+    45
+   ],
+   "tiles": [
+    56,
+    56,
+    56
+   ],
+   "tabs": [
+    56,
+    56,
+    56,
+    56,
+    56,
+    56
+   ],
+   "crumb": 32,
+   "search": 44,
+   "scrollWidth": 430,
+   "repoFold": {
+    "text": "repositories (31)",
+    "h": 44
+   }
+  },
+  "f4": {
+   "one": {
+    "chips": 1,
+    "cnt": "1 block",
+    "title": "1 block will travel (Si)"
+   },
+   "two": {
+    "chips": 2,
+    "keys": [
+     "block:Si",
+     "block:At"
+    ],
+    "lastText": "At×",
+    "x": 44,
+    "y": 44,
+    "cx": 121,
+    "cy": 821,
+    "reach": true,
+    "hitTag": "BUTTON.",
+    "visible": true,
+    "scrollLeft": 0,
+    "cnt": "2 blocks",
+    "cntTitle": "2 blocks will travel (Si, At)",
+    "scrollWidth": 430
+   },
+   "afterRemove": {
+    "chips": 1,
+    "keys": [
+     "block:Si"
+    ]
+   }
+  },
+  "tap_430": {
+   "ring": {
+    "min": 32,
+    "who": "crumb",
+    "all": {
+     "search": 44,
+     "crumb": 32,
+     "legend": 32,
+     "tab": 56,
+     "panelBtn": 48,
+     "panelChip": 32,
+     "tile": null,
+     "card": null,
+     "summary": null,
+     "h3": null,
+     "seg": null,
+     "trayGo": null
+    },
+    "scrollWidth": 430,
+    "geom": 48,
+    "edges": 2,
+    "hint": "Blocks on the outer ring; families of the open block on the inner ring. Drag to rotate.",
+    "key": "block:Gc"
+   },
+   "particle": {
+    "min": 32,
+    "who": "crumb",
+    "all": {
+     "search": 44,
+     "crumb": 32,
+     "legend": 32,
+     "tab": 56,
+     "panelBtn": 48,
+     "panelChip": 32,
+     "tile": null,
+     "card": null,
+     "summary": null,
+     "h3": null,
+     "seg": null,
+     "trayGo": null
+    },
+    "scrollWidth": 430,
+    "geom": 0,
+    "edges": 0,
+    "hint": "Every block is a star in its category sector; the families of the open block orbit it.",
+    "key": "block:Gc"
+   },
+   "chord": {
+    "min": 32,
+    "who": "crumb",
+    "all": {
+     "search": 44,
+     "crumb": 32,
+     "legend": 32,
+     "tab": 56,
+     "panelBtn": 48,
+     "panelChip": 32,
+     "tile": null,
+     "card": null,
+     "summary": null,
+     "h3": null,
+     "seg": null,
+     "trayGo": null
+    },
+    "scrollWidth": 430,
+    "geom": 400,
+    "edges": 0,
+    "hint": "186 depends-on chords between blocks on the table.",
+    "key": "block:Gc"
+   },
+   "river": {
+    "min": 32,
+    "who": "crumb",
+    "all": {
+     "search": 44,
+     "crumb": 32,
+     "legend": 32,
+     "tab": 56,
+     "panelBtn": 48,
+     "panelChip": 32,
+     "tile": null,
+     "card": null,
+     "summary": null,
+     "h3": null,
+     "seg": null,
+     "trayGo": null
+    },
+    "scrollWidth": 430,
+    "geom": 610,
+    "edges": 0,
+    "hint": "Repositories flow down through categories into blocks; drag sideways along the block row.",
+    "key": "block:Gc"
+   },
+   "table": {
+    "min": 32,
+    "who": "crumb",
+    "all": {
+     "search": 44,
+     "crumb": 32,
+     "legend": 32,
+     "tab": 56,
+     "panelBtn": 48,
+     "panelChip": 32,
+     "tile": 56,
+     "card": null,
+     "summary": 44,
+     "h3": 45,
+     "seg": null,
+     "trayGo": null
+    },
+    "scrollWidth": 430,
+    "geom": 0,
+    "edges": 0,
+    "hint": "Tiles in table order, one section per category; found-automatically blocks with fewer than 8 functions fold away.",
+    "key": "block:Gc"
+   },
+   "column": {
+    "min": 32,
+    "who": "crumb",
+    "all": {
+     "search": 44,
+     "crumb": 32,
+     "legend": 32,
+     "tab": 56,
+     "panelBtn": 48,
+     "panelChip": 32,
+     "tile": null,
+     "card": 64,
+     "summary": null,
+     "h3": null,
+     "seg": 44,
+     "trayGo": null
+    },
+    "scrollWidth": 430,
+    "geom": 16,
+    "edges": 0,
+    "hint": "One column on a busbar: what the key depends on above it, what uses it below it.",
+    "key": "block:Gc"
+   }
+  },
+  "lens_segments_430": [
+   {
+    "lens": "ring",
+    "key": "block:Gc",
+    "geometry_segments": 48,
+    "edge_segments": 2
+   },
+   {
+    "lens": "particle",
+    "key": "block:Gc",
+    "geometry_segments": 0,
+    "edge_segments": 0
+   },
+   {
+    "lens": "chord",
+    "key": "block:Gc",
+    "geometry_segments": 400,
+    "edge_segments": 0
+   },
+   {
+    "lens": "river",
+    "key": "block:Gc",
+    "geometry_segments": 610,
+    "edge_segments": 0
+   },
+   {
+    "lens": "table",
+    "key": "block:Gc",
+    "geometry_segments": 0,
+    "edge_segments": 0
+   },
+   {
+    "lens": "column",
+    "key": "block:Gc",
+    "geometry_segments": 16,
+    "edge_segments": 0
+   }
+  ]
+ },
+ "console_errors": [],
+ "pass": 8,
+ "fail": 0
+}

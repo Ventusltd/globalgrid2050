@@ -1,0 +1,121 @@
+{
+ "run_utc": "2026-09-15T00:03:16.650Z",
+ "tests": [
+  {
+   "start": {
+    "panelOpen": false,
+    "head": "#511 distanceKmfamily",
+    "url": "?lens=table&key=family:511&trail=family:511&recipe=family:511,block:Vd&data=202609142326",
+    "trail": "GLOBALGRID2050 › #511",
+    "overlayTop": 0,
+    "scrollY": 436,
+    "tray": "#511×Vd×1 block · 1 familyHand off →",
+    "stage": [
+     63,
+     621
+    ],
+    "panelBox": [
+     436,
+     796
+    ]
+   }
+  },
+  {
+   "tile_in_band": {
+    "x": 69,
+    "y": 347.5,
+    "sym": "At",
+    "top": 320
+   }
+  },
+  {
+   "A1_slow_scroll_on_tile_At": {
+    "overlay": [
+     326,
+     411
+    ],
+    "panel": [
+     false,
+     false
+    ],
+    "head": "#511 distanceKmfamily",
+    "url": "?lens=table&key=family:511&trail=family:511&recipe=family:511,block:Vd&data=202609142326",
+    "measureInUrl": false
+   }
+  },
+  {
+   "A2_quick_short_scroll_on_tile_At": {
+    "overlay": [
+     411,
+     436
+    ],
+    "panel": [
+     false,
+     false
+    ],
+    "head": "#511 distanceKmfamily",
+    "url": "?lens=table&key=family:511&trail=family:511&recipe=family:511,block:Vd&data=202609142326"
+   }
+  },
+  {
+   "A3_long_press_tile_At": {
+    "panel": [
+     false,
+     true
+    ],
+    "head": "registry_of_all_content_in_repos_and_dependenciesrepository",
+    "url": "?lens=table&key=repo:registry_of_all_content_in_repos_and_dependencies&trail=family:511,repo:registry_of_all_content_in_repos_and_dependencies&recipe=family:511,block:Vd&data=202609142326",
+    "measureInUrl": false
+   }
+  },
+  {
+   "B_panel_x": {
+    "button": {
+     "x": 33,
+     "y": 764,
+     "w": 48,
+     "h": 48,
+     "title": "home"
+    },
+    "trailBefore": "GLOBALGRID2050 › #511 distanceKm › registry_of_all_content_in_repos_and_dependencies",
+    "trailAfter": "GLOBALGRID2050",
+    "urlBefore": "?lens=table&key=repo:registry_of_all_content_in_repos_and_dependencies&trail=family:511,repo:registry_of_all_content_in_repos_and_dependencies&recipe=family:511,block:Vd&data=202609142326",
+    "urlAfter": "?lens=table&recipe=family:511,block:Vd&data=202609142326",
+    "panelAfter": false,
+    "trayAfter": "#511×Vd×1 block · 1 familyHand off →"
+   }
+  },
+  {
+   "C_open_in_menu": {
+    "button": {
+     "x": 380.3046875,
+     "y": 710,
+     "w": 81,
+     "h": 48
+    },
+    "menu": {
+     "hidden": false,
+     "top": 444,
+     "bottom": 682,
+     "left": 281,
+     "right": 421,
+     "items": [
+      "ring(130x44@y449 reach=true)",
+      "particle(130x44@y495 reach=true)",
+      "chord(130x44@y541 reach=true)",
+      "river(130x44@y587 reach=true)",
+      "column(130x44@y633 reach=true)"
+     ]
+    }
+   }
+  },
+  {
+   "C_open_in_river": {
+    "url": "?lens=river&key=block:At&trail=block:At&recipe=family:511,block:Vd&data=202609142326",
+    "head": "At · Allowed technologiesblock",
+    "panelOpen": true,
+    "lens": "river"
+   }
+  }
+ ]
+}

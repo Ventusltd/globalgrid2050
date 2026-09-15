@@ -1,0 +1,526 @@
+{
+ "run_utc": "2026-09-15T00:31:23.007Z",
+ "base": "http://127.0.0.1:8896/testcode/202609142225/",
+ "viewport": "430x900 dpr2 isMobile hasTouch",
+ "steps": [
+  {
+   "name": "00-load",
+   "taps": 0,
+   "drags": 0,
+   "touchOnly": true,
+   "notes": [
+    "count sentence: \"214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC\"",
+    "count title: \"252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack\"",
+    "panel at load: closed (display none); stage {\"top\":499,\"bottom\":1057,\"h\":558}; document scrollWidth 430 (viewport 430); tray \"Recipe: nothing yet · tap Add to recipe on any key\"",
+    "finger map down the stage y 499→1057 every 10 px (g = canvas, P = panel): gggggggggggggggggggggggggggggg?????????????????????????"
+   ],
+   "shots": [
+    "coder-r2-00-load.png"
+   ]
+  },
+  {
+   "name": "01-search",
+   "taps": 1,
+   "drags": 0,
+   "touchOnly": true,
+   "notes": [
+    "tap 1: tap the search box → \"\" 406x44 at (215,119)",
+    "typed \"distance\" (the phone keyboard; typing is not a tap)",
+    "17 hit chips, 44-44 px tall, first at y 147, last ends at y 641 (viewport 900): #511 distanceKm | #8462 distanceKm | #32754 distanceKm | #32774 distance_km | #8437 distanceModule | #2268 loadGridDistance | #2490 loadGridDistance | #3531 loadGridDistance | #32760 distanceToLineKm | #5544 haversine_distance | #8606 distanceToSegmentKm | #32759 distanceToSegmentKm | #32780 distance_to_line_km | #32755 distanceEllipsoidalKm | #76610 parallel_run_distance | #32779 distance_to_segment_km | #32775 distance_ellipsoidal_km",
+    "hit chips a finger cannot reach: none",
+    "stage pushed to y 993-1551 by the hits; tray \"Recipe: nothing yet · tap Add to recipe on any key\""
+   ],
+   "shots": [
+    "coder-r2-01-search.png"
+   ]
+  },
+  {
+   "name": "02-open-family",
+   "taps": 1,
+   "drags": 0,
+   "touchOnly": true,
+   "notes": [
+    "tap 1: tap the first hit → \"#511 distanceKm\" 121x44 at (72,169)",
+    "panel head \"#511 distanceKmfamily\", panel {\"top\":436,\"bottom\":796,\"h\":360} tall=false; page scrolled to 436; stage {\"top\":63,\"bottom\":621,\"h\":558}; url ?lens=ring&key=family:511&trail=family:511&data=202609142326",
+    "trail \"GLOBALGRID2050 › #511 distanceKm\"; hint \"Blocks on the outer ring; families of the open block on the inner ring. Drag to rotate.\"; labels on the ring: #511, Ss",
+    "7 numbered lines (keys 14137, 14138, 14139, 14140, 14141, 14142, 1640); 0 visible at peek height (body 220 of 1813 px; lines start 232 px down); sections in order: Numbered lines (permanent keys) → ← used by (29) → ≡ shared line (23) (whole pack · first 8",
+    "lines shown as: 14137 │ text on Measure || 14138 │ text on Measure || 14139 │ text on Measure",
+    "panel top text: \"#511 distanceKmfamilyblocks.json 2026-09-14 23:26 UTC · index.json 2026-09-14 23:25 UTC · pack 2026-09-14 22:14 UTC sha256 5a0c365function · 7 numbered lines · in 6 repositories · needs context · first written 2026-09-01◂ contained in Ss · sld-sandboxFunction \"",
+    "panel foot buttons: Navigate here 117x48@y686 | Measure 78x48@y686 | Add to recipe 117x48@y686 | Open in ▾parti 81x48@y686 | ✕ 48x48@y740"
+   ],
+   "shots": [
+    "coder-r2-02-open-family.png"
+   ]
+  },
+  {
+   "name": "03-read-lines",
+   "taps": 1,
+   "drags": 0,
+   "touchOnly": true,
+   "notes": [
+    "tap 1: tap Measure to fetch the text → \"Measure\" 78x48 at (171,710)",
+    "after Measure: panel tall=true; code box top y 275, panel body y 52-677 → 7 of 7 lines visible without scrolling; sideways scroll needed: false (402 vs 402); lines wrapped onto 2+ rows: 2",
+    "read: 14137 │ function distanceKm(lon1, lat1, lon2, lat2) { || 14138 │ const dLat = (lat2 - lat1) * DEG; || 14139 │ const dLon = (lon2 - lon1) * DEG;",
+    "what the line keys say on long-press/title: shared with 64 other families | shared with 11 other families | shared with 11 other families",
+    "stage now {\"top\":63,\"bottom\":621,\"h\":558} under a panel {\"top\":31,\"bottom\":796,\"h\":765} → picture visible above the sheet: 0 px"
+   ],
+   "shots": [
+    "coder-r2-03-read-lines.png"
+   ]
+  },
+  {
+   "name": "04-add-family",
+   "taps": 1,
+   "drags": 0,
+   "touchOnly": true,
+   "notes": [
+    "tap 1: tap Add to recipe → \"Add to recipe\" 117x48 at (275,710)",
+    "tray \"#511 → Ss×1 block will travel (Ss) · #511 pinned as a noteHand off →\" · chips [\"#511 → Ss\"] · count \"1 block will travel (Ss) · #511 pinned as a note\" truncated=true (290 in 233) · url recipe=family:511",
+    "panel after adding: still open \"#511 distanceKmfamily\" tall=true; ring labels: #511, Ss, St, Gn"
+   ],
+   "shots": [
+    "coder-r2-04-add-family.png"
+   ]
+  },
+  {
+   "name": "05-table-lens",
+   "taps": 1,
+   "drags": 0,
+   "touchOnly": true,
+   "notes": [
+    "target \"table\" at y 845-901: OFF SCREEN; ",
+    "tap 1: tap the table tab → \"table\" 72x56 at (322,873) [NOT REACHABLE]",
+    "lens \"table\"; tray \"#511 → Ss×1 block will travel (Ss) · #511 pinned as a noteHand off →\"; panel closed; stage {\"top\":63,\"bottom\":621,\"h\":558}; page scrollY 436; url ?lens=table&key=family:511&trail=family:511&recipe=family:511&data=202609142326",
+    "hint \"Tiles in table order, one section per category; found-automatically blocks with fewer than 8 functions fold away.\"; trail \"GLOBALGRID2050 › #511 distanceKm\"",
+    "tiles: 254 total, 18 visible in the stage now (At, Ek, Hr, Hi, L, Mr…); outlined as recipe: Ss(derived); focus tile: Ss; overlay scrollTop 0 of 6354; stage fully in viewport: true",
+    "finger map down the stage y 63→621: ooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
+   ],
+   "shots": [
+    "coder-r2-05-table-lens.png"
+   ]
+  },
+  {
+   "name": "06-find-Vd",
+   "taps": 0,
+   "drags": 1,
+   "touchOnly": true,
+   "notes": [
+    "Vd tile at y 708-764 (overlay scrollTop 0); stage y 63-621; in stage: false",
+    "swipe 1 up the grid (y 591→93): overlay scrollTop 483; Vd y 225-281 inStage=true reachable=true (B.)",
+    "swipes to bring Vd into reach: 1"
+   ],
+   "shots": [
+    "coder-r2-06a-Vd-in-view.png"
+   ]
+  },
+  {
+   "name": "06-swipe-Vd",
+   "taps": 0,
+   "drags": 1,
+   "touchOnly": true,
+   "notes": [
+    "swipe-right 90 px across Vd (drag 1): tray \"#511 → Ss×Vd×2 blocks will travel (Ss, Vd) · #511 pinned as a noteHand off →\" → ADDED by swipe; panel closed; overlay scrollTop 483; url ?lens=table&key=family:511&trail=family:511&recipe=family:511,block:Vd&data=202609142326",
+    "was there any hint on screen that swipe-right composes? hint text: \"Tiles in table order, one section per category; found-automatically blocks with fewer than 8 functions fold away.\"",
+    "tray \"#511 → Ss×Vd×2 blocks will travel (Ss, Vd) · #511 pinned as a noteHand off →\" · recipe=family:511,block:Vd",
+    "tiles outlined as recipe: Vd, Ss(derived) · chips [{\"t\":\"#511 → Ss\",\"w\":108,\"right\":116,\"border\":\"rgb(57, 211, 83)\"},{\"t\":\"Vd\",\"w\":66,\"right\":187,\"border\":\"rgb(255, 213, 74)\"}] · count \"2 blocks will travel (Ss, Vd) · #511 pinned as a note\" box {\"left\":128,\"w\":205,\"h\":17,\"scrollW\":321,\"clientW\":205} → truncated: true · Hand off {\"left\":340,\"right\":422,\"w\":82,\"h\":44}"
+   ],
+   "shots": [
+    "coder-r2-06b-after-swipe.png",
+    "coder-r2-06d-Vd-added.png"
+   ],
+   "tableWords": {
+    "tray": "#511 → Ss×Vd×2 blocks will travel (Ss, Vd) · #511 pinned as a noteHand off →",
+    "cnt": "2 blocks will travel (Ss, Vd) · #511 pinned as a note",
+    "chips": [
+     "#511 → Ss",
+     "Vd"
+    ],
+    "hint": "Tiles in table order, one section per category; found-automatically blocks with fewer than 8 functions fold away.",
+    "head": "#511 distanceKmfamily",
+    "outlined": [
+     "Vd",
+     "Ss(derived)"
+    ]
+   }
+  },
+  {
+   "name": "07-river",
+   "taps": 1,
+   "drags": 0,
+   "touchOnly": true,
+   "notes": [
+    "target \"river\" at y 845-901: OFF SCREEN; ",
+    "tap 1: tap the river tab → \"river\" 72x56 at (251,873) [NOT REACHABLE]",
+    "lens \"river\"; tray chips [\"#511 → Ss\",\"Vd\"] → both still there: true; count \"2 blocks will travel (Ss, Vd) · #511 pinned as a note\"; url ?lens=river&key=family:511&trail=family:511&recipe=family:511,block:Vd&data=202609142326",
+    "panel closed; hint \"Repositories flow down through categories into blocks; drag sideways along the block row.\"; trail \"GLOBALGRID2050 › #511 distanceKm\"",
+    "river labels on screen: Pipeline News, Other tools, #511, Ss, Vd → Vd labelled: true, #511 labelled: true, Ss labelled: true",
+    "wording table vs river — tray: same; count: same; chips: same",
+    "finger map down the stage y 63→621: ggggggggggggggggggggggggggggggggggggggggggggggggggggggg"
+   ],
+   "shots": [
+    "coder-r2-07-river.png"
+   ]
+  },
+  {
+   "name": "08-sheet",
+   "taps": 1,
+   "drags": 0,
+   "touchOnly": true,
+   "notes": [
+    "the count text is 205x17 px but sits in a 48-px tray that opens the sheet wherever it is tapped (except on a chip or Hand off)",
+    "tap 1: tap the count in the tray → \"2 blocks will travel (Ss, Vd) · #511 pin\" 205x17 at (231,821) [under 44 px]",
+    "sheet open y 166-796, content 919 in 628, sideways 428 in 428; head \"Recipe2 blocks will travel (Ss, Vd) · #511 pinned as a note\"; ✕ close 71x44@(346,209)",
+    "row \"#511 distanceKm → Ss▲▼×\" (45 px): #511 distanceKm → (248x44) ▲(44x44) ▼(44x44) ×(44x44)",
+    "row \"Vd · Voltage drop▲▼×\" (45 px): Vd · Voltage drop(248x44) ▲(44x44) ▼(44x44) ×(44x44)",
+    "action buttons Hand off →@y215 88x44, Copy recipe@y215 95x44, Copy command@y215 101x44",
+    "rule text: \"block → itself · group → itself (off the table: the code-generator cannot pick it yet) · family → its block, the family pinned · line → its family → its block when the line has one family or you pick \"",
+    "needs: needs: 27 from outside · CustomEvent, MutationObserver, XMLHttpRequest, cancelAnimationFrame, a web page, expectedArrivalEpoch, network access, guardedAddSource",
+    "pinned files (9): claude/sessions/202609031559-skin-architecture/prototype/engine.js @ df9da02 ; gridatlas/atlas/cartridges/202609080850-sld-sandbox-v9-8.js @ ece8481 ; gridatlas/atlas/cartridges/202609050301-substation-intelligence-v9-63.js @ ece8481 …",
+    "hand-off url: https://ventusltd.github.io/code-generator/?blocks=Ss,Vd&families=511&from=star-generator&data=202609142326",
+    "wording sheet vs tray — sheet head count \"Recipe2 blocks will travel (Ss, Vd) · #511 pinned as a note\" vs tray count \"2 blocks will travel (Ss, Vd) · #511 pinned as a note\"; rows say \"#511 distanceKm → (248x44)\", \"Vd · Voltage drop(248x44)\" vs chips [\"#511 → Ss\",\"Vd\"]",
+    "no panel open"
+   ],
+   "sheetOverPanel": "no panel open",
+   "shots": [
+    "coder-r2-08-sheet.png"
+   ]
+  },
+  {
+   "name": "09-handoff",
+   "taps": 2,
+   "drags": 0,
+   "touchOnly": true,
+   "notes": [
+    "tap 1: tap Hand off in the sheet → \"Hand off →\" 88x44 at (57,237)",
+    "new tab: https://ventusltd.github.io/code-generator/?blocks=Ss,Vd&families=511&from=star-generator&data=202609142326",
+    "picker \"Code generator\" scrollWidth 430; Vd: \"Vd · #31Voltage drop\"; Ss: \"Ss · #34sld-sandbox\"; 511: \"(no mention of #511)\"; from=star-generator acknowledged: \"(no)\"; checked inputs: []",
+    "tap 2: tap Copy recipe → \"Copy recipe\" 95x44 at (154,237)",
+    "Copy recipe → 4126 chars of JSON, schema star-generator.recipe.v1, keys [\"family:511\",\"block:Vd\"], blocks Ss,Vd, families 511 @ df9da02",
+    "button reads now: \"Hand off → | Copy recipe | Copy command\""
+   ],
+   "handoffURL": "https://ventusltd.github.io/code-generator/?blocks=Ss,Vd&families=511&from=star-generator&data=202609142326",
+   "picker": {
+    "title": "Code generator",
+    "scrollWidth": 430,
+    "Vd": "Vd · #31Voltage drop",
+    "Ss": "Ss · #34sld-sandbox",
+    "fam": "",
+    "star": "",
+    "checked": [],
+    "text": "VENTUS · GLOBAL GRID 2050 · CODE GENERATOR Build an app from blocks 63 named blocks · 9,363 functions underneath · table updated 2026-09-14 23:26 UTC WHAT ARE YOU BUILDING? Choose a starting point… Grid distance calculator — How far is a site from the nearest substation and line, by road and as the crow flies. Substation finder on a map — A map that finds the nearest substations to any place and l"
+   },
+   "shots": [
+    "coder-r2-09b-picker.png",
+    "coder-r2-09-handoff.png"
+   ],
+   "recipeJSON": {
+    "schema": "star-generator.recipe.v1",
+    "made_utc": "2026-09-15T00:31:41.430Z",
+    "data": {
+     "blocks_json": "2026-09-14T23:26:35.390Z",
+     "index_json": "2026-09-14T23:25:29.936Z",
+     "pack": "2026-09-14T22:14:00.499Z"
+    },
+    "keys": [
+     "family:511",
+     "block:Vd"
+    ],
+    "blocks": [
+     {
+      "symbol": "Ss",
+      "number": 34,
+      "title": "sld-sandbox",
+      "category": "cartridges",
+      "files": [
+       {
+        "repo": "Ventusltd/claude",
+        "commit": "df9da02425fdf0c65d11a84f32cd9b3ef927b309",
+        "path": "sessions/202609031559-skin-architecture/prototype/engine.js"
+       },
+       {
+        "repo": "Ventusltd/gridatlas",
+        "commit": "ece848117a6d21b7fccb232557194877698c48a9",
+        "path": "atlas/cartridges/202609080850-sld-sandbox-v9-8.js"
+       },
+       {
+        "repo": "Ventusltd/gridatlas",
+        "commit": "ece848117a6d21b7fccb232557194877698c48a9",
+        "path": "atlas/cartridges/202609050301-substation-intelligence-v9-63.js"
+       },
+       {
+        "repo": "Ventusltd/gridatlas",
+        "commit": "ece848117a6d21b7fccb232557194877698c48a9",
+        "path": "atlas/parts/202609040400-sld-sandbox-style-hoist.js"
+       },
+       {
+        "repo": "Ventusltd/ventus-grid-engine",
+        "commit": "2e36dbf4d7963619a55606f97b1054f429ea2f9d",
+        "path": "sources/deeplink-extracts/receiver/sld-sandbox-layer-control.excerpt.js"
+       },
+       {
+        "repo": "Ventusltd/gridatlas",
+        "commit": "ece848117a6d21b7fccb232557194877698c48a9",
+        "path": "atlas/parts/202609041234-sld-sandbox-technology-buckets.js"
+       },
+       {
+        "repo": "Ventusltd/gridatlas",
+        "commit": "ece848117a6d21b7fccb232557194877698c48a9",
+        "path": "tools/interconnectors/interconnector-module.js"
+       },
+       {
+        "repo": "Ventusltd/gridatlas",
+        "commit": "ece848117a6d21b7fccb232557194877698c48a9",
+        "path": "atlas/cartridges/202608311910-neon-substation-links-v9-6.js"
+       }
+      ]
+     },
+     {
+      "symbol": "Vd",
+      "number": 31,
+      "title": "Voltage drop",
+      "category": "network",
+      "files": [
+       {
+        "repo": "Ventusltd/ventus-grid-engine",
+        "commit": "2e36dbf4d7963619a55606f97b1054f429ea2f9d",
+        "path": "engine/voltage-drop.js"
+       }
+      ]
+     }
+    ],
+    "families": [
+     {
+      "n": 511,
+      "name": "distanceKm",
+      "block": "Ss",
+      "place": {
+       "repo": "Ventusltd/claude",
+       "commit": "df9da02425fdf0c65d11a84f32cd9b3ef927b309",
+       "path": "sessions/202609031559-skin-architecture/prototype/engine.js",
+       "first": 35,
+       "last": 41
+      }
+     }
+    ],
+    "lines": [],
+    "needs": [
+     {
+      "name": "CustomEvent",
+      "meaning": "CustomEvent"
+     },
+     {
+      "name": "MutationObserver",
+      "meaning": "MutationObserver"
+     },
+     {
+      "name": "XMLHttpRequest",
+      "meaning": "XMLHttpRequest"
+     },
+     {
+      "name": "b",
+      "meaning": "b"
+     },
+     {
+      "name": "cancelAnimationFrame",
+      "meaning": "cancelAnimationFrame"
+     },
+     {
+      "name": "document",
+      "meaning": "a web page"
+     },
+     {
+      "name": "expectedArrivalEpoch",
+      "meaning": "expectedArrivalEpoch"
+     },
+     {
+      "name": "fetch",
+      "meaning": "network access"
+     },
+     {
+      "name": "guardedAddSource",
+      "meaning": "guardedAddSource"
+     },
+     {
+      "name": "innerHeight",
+      "meaning": "innerHeight"
+     },
+     {
+      "name": "innerWidth",
+      "meaning": "innerWidth"
+     },
+     {
+      "name": "input",
+      "meaning": "input"
+     },
+     {
+      "name": "lastInput",
+      "meaning": "lastInput"
+     },
+     {
+      "name": "linksDrawn",
+      "meaning": "linksDrawn"
+     },
+     {
+      "name": "location",
+      "meaning": "the page address"
+     },
+     {
+      "name": "matchMedia",
+      "meaning": "matchMedia"
+     },
+     {
+      "name": "now",
+      "meaning": "now"
+     },
+     {
+      "name": "onReady",
+      "meaning": "onReady"
+     },
+     {
+      "name": "performance",
+      "meaning": "performance"
+     },
+     {
+      "name": "reasserted",
+      "meaning": "reasserted"
+     },
+     {
+      "name": "reject",
+      "meaning": "reject"
+     },
+     {
+      "name": "requestAnimationFrame",
+      "meaning": "requestAnimationFrame"
+     },
+     {
+      "name": "spec",
+      "meaning": "spec"
+     },
+     {
+      "name": "statedMw",
+      "meaning": "statedMw"
+     },
+     {
+      "name": "what",
+      "meaning": "what"
+     },
+     {
+      "name": "window",
+      "meaning": "a web page"
+     },
+     {
+      "name": "z",
+      "meaning": "z"
+     }
+    ],
+    "trail": [
+     "family:511"
+    ]
+   }
+  },
+  {
+   "name": "10-alt-search-Vd",
+   "taps": 1,
+   "drags": 0,
+   "touchOnly": true,
+   "notes": [
+    "after the journey the search box is at y -339--295 (page scrollY 436) → off screen: the person must scroll the page up first",
+    "(scrolled the page to the top with a swipe; not counted as a tap)",
+    "tap 1: tap the search box → \"\" 406x44 at (215,119)",
+    "hits for \"Vd\": Vd · Voltage drop"
+   ],
+   "shots": [
+    "coder-r2-10-search-Vd.png"
+   ]
+  }
+ ],
+ "console": [],
+ "totalTaps": 10,
+ "totalDrags": 2,
+ "stepSummary": [
+  {
+   "name": "00-load",
+   "taps": 0,
+   "drags": 0,
+   "touchOnly": true,
+   "blocker": null
+  },
+  {
+   "name": "01-search",
+   "taps": 1,
+   "drags": 0,
+   "touchOnly": true,
+   "blocker": null
+  },
+  {
+   "name": "02-open-family",
+   "taps": 1,
+   "drags": 0,
+   "touchOnly": true,
+   "blocker": null
+  },
+  {
+   "name": "03-read-lines",
+   "taps": 1,
+   "drags": 0,
+   "touchOnly": true,
+   "blocker": null
+  },
+  {
+   "name": "04-add-family",
+   "taps": 1,
+   "drags": 0,
+   "touchOnly": true,
+   "blocker": null
+  },
+  {
+   "name": "05-table-lens",
+   "taps": 1,
+   "drags": 0,
+   "touchOnly": true,
+   "blocker": null
+  },
+  {
+   "name": "06-find-Vd",
+   "taps": 0,
+   "drags": 1,
+   "touchOnly": true,
+   "blocker": null
+  },
+  {
+   "name": "06-swipe-Vd",
+   "taps": 0,
+   "drags": 1,
+   "touchOnly": true,
+   "blocker": null
+  },
+  {
+   "name": "07-river",
+   "taps": 1,
+   "drags": 0,
+   "touchOnly": true,
+   "blocker": null
+  },
+  {
+   "name": "08-sheet",
+   "taps": 1,
+   "drags": 0,
+   "touchOnly": true,
+   "blocker": null
+  },
+  {
+   "name": "09-handoff",
+   "taps": 2,
+   "drags": 0,
+   "touchOnly": true,
+   "blocker": null
+  },
+  {
+   "name": "10-alt-search-Vd",
+   "taps": 1,
+   "drags": 0,
+   "touchOnly": true,
+   "blocker": null
+  }
+ ]
+}

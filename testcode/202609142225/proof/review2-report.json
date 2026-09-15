@@ -1,0 +1,1007 @@
+{
+ "run_utc": "2026-09-15T01:13:12.579Z",
+ "base": "http://127.0.0.1:8911/testcode/202609142225/",
+ "checks": {
+  "E-cat-dim": {
+   "before": {
+    "dim32": 0,
+    "cat": -1,
+    "url": "?lens=ring&key=block:Gc&trail=block:Gc&data=202609142326",
+    "tilesDim": 0
+   },
+   "afterClick": {
+    "dim32": 11841,
+    "cat": 2,
+    "url": "?lens=ring&key=block:Gc&trail=block:Gc&cat=network&data=202609142326",
+    "tilesDim": 0
+   },
+   "afterNavigate": {
+    "dim32": 11841,
+    "cat": 2,
+    "url": "?lens=ring&key=block:Gc&trail=block:Gc&cat=network&data=202609142326",
+    "tilesDim": 0
+   },
+   "afterUnclick": {
+    "dim32": 0,
+    "cat": -1,
+    "url": "?lens=ring&key=block:Gc&trail=block:Gc&data=202609142326",
+    "tilesDim": 0
+   },
+   "errors": []
+  },
+  "F-table-1440": {
+   "targets": {
+    "search": {
+     "px": 44,
+     "w": 1082,
+     "h": 44
+    },
+    "crumb": {
+     "px": 32,
+     "w": 96,
+     "h": 32
+    },
+    "legendChip": {
+     "px": 32,
+     "w": 85,
+     "h": 32
+    },
+    "lensTab": {
+     "px": 38,
+     "w": 74,
+     "h": 38
+    },
+    "panelButton": {
+     "px": 48,
+     "w": 110,
+     "h": 48
+    },
+    "panelChip": {
+     "px": 32,
+     "w": 286,
+     "h": 32
+    },
+    "tile": {
+     "px": 64,
+     "w": 112,
+     "h": 64
+    },
+    "repoChip": {
+     "px": 32,
+     "w": 161,
+     "h": 32
+    },
+    "catHeading": {
+     "px": 45,
+     "w": 1064,
+     "h": 45
+    },
+    "more": {
+     "px": 32,
+     "w": 174,
+     "h": 32
+    }
+   },
+   "smallest": {
+    "area": "crumb",
+    "px": 32,
+    "w": 96,
+    "h": 32
+   },
+   "overlayScrollTop": 171,
+   "tileTopInStage": 284,
+   "inBand": false,
+   "labels": [
+    "#80299"
+   ],
+   "scrollWidth": 1440,
+   "innerWidth": 1440
+  },
+  "F-table-430": {
+   "targets": {
+    "search": {
+     "px": 44,
+     "w": 406,
+     "h": 44
+    },
+    "crumb": {
+     "px": 32,
+     "w": 96,
+     "h": 32
+    },
+    "legendChip": {
+     "px": 32,
+     "w": 85,
+     "h": 32
+    },
+    "lensTab": {
+     "px": 56,
+     "w": 72,
+     "h": 56
+    },
+    "panelButton": {
+     "px": 48,
+     "w": 117,
+     "h": 48
+    },
+    "panelChip": {
+     "px": 32,
+     "w": 286,
+     "h": 32
+    },
+    "tile": {
+     "px": 56,
+     "w": 96,
+     "h": 56
+    },
+    "repoChip": {
+     "px": 32,
+     "w": 161,
+     "h": 32
+    },
+    "catHeading": {
+     "px": 45,
+     "w": 388,
+     "h": 45
+    },
+    "foldSummary": {
+     "px": 44,
+     "w": 388,
+     "h": 44
+    },
+    "more": {
+     "px": 32,
+     "w": 174,
+     "h": 32
+    }
+   },
+   "smallest": {
+    "area": "crumb",
+    "px": 32,
+    "w": 96,
+    "h": 32
+   },
+   "overlayScrollTop": 275,
+   "tileTopInStage": 160,
+   "inBand": true,
+   "labels": [
+    "#80299"
+   ],
+   "scrollWidth": 430,
+   "innerWidth": 430
+  },
+  "G-picker": {
+   "params": [
+    ".get('blocks')"
+   ],
+   "workflow": [
+    "gh workflow run generate.yml -R Ventusltd/code-generator -f name=${name} -f blocks=${syms.join(',')}"
+   ],
+   "extScripts": []
+  },
+  "H-chord-kind-toggle": {
+   "beforeToggle": {
+    "geom": 400,
+    "kindsOn": 127,
+    "viewKinds": 127
+   },
+   "afterToggle": {
+    "geom": 400,
+    "kindsOn": 125,
+    "viewKinds": 127,
+    "url": "?lens=chord&key=block:Gc&trail=block:Gc&edges=cubsre&data=202609142326"
+   },
+   "afterNavigate": {
+    "geom": 214,
+    "kindsOn": 125,
+    "viewKinds": 125
+   },
+   "errors": []
+  },
+  "H-summaries-430": [
+   {
+    "text": "repositories (31)",
+    "h": 21,
+    "parentClass": "tb-cat",
+    "matchedRule": false
+   }
+  ],
+  "H-open-in-column": {
+   "lens": "column",
+   "url": "?lens=column&key=family:80299&trail=block:Gc,family:80299&recipe=block:Si&data=202609142326",
+   "focus": "family:80299",
+   "focusKey": null,
+   "measure": null,
+   "trail": [
+    "block:Gc",
+    "family:80299"
+   ],
+   "recipe": [
+    "block:Si"
+   ],
+   "kindsOn": 127,
+   "cat": -1,
+   "panelHead": "#80299 haversinefamily",
+   "panelHidden": false,
+   "legendWords": [
+    "contains",
+    "depends on",
+    "uses",
+    "used by",
+    "shared line",
+    "random link",
+    "entangled"
+   ],
+   "legendTitles": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "not drawn by the column lens",
+    "not drawn by the column lens"
+   ]
+  },
+  "A-idle-ring-1440": {
+   "frames": 113,
+   "bufferDataPerFrame": 0,
+   "bufferSubDataPerFrame": 0,
+   "texSubImagePerFrame": 0,
+   "texImagePerFrame": 0,
+   "drawsPerFrame": 5,
+   "instancesPerFrame": 676900,
+   "linesCount": 664940,
+   "linesBytes": 5984460,
+   "packBinBytes": 2659760,
+   "N": 11908,
+   "litOnly": false,
+   "edges": 3,
+   "geom": 48,
+   "journey": 1,
+   "errors": [],
+   "dataResponses": [
+    [
+     200,
+     "/testcode/202609142202/data/families.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/lines.bin"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/random.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/entangled.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/provenance.json"
+    ]
+   ]
+  },
+  "A-idle-particle-1440": {
+   "frames": 113,
+   "bufferDataPerFrame": 0,
+   "bufferSubDataPerFrame": 0,
+   "texSubImagePerFrame": 0,
+   "texImagePerFrame": 0,
+   "drawsPerFrame": 4,
+   "instancesPerFrame": 676859,
+   "linesCount": 664940,
+   "linesBytes": 5984460,
+   "packBinBytes": 2659760,
+   "N": 11908,
+   "litOnly": false,
+   "edges": 10,
+   "geom": 0,
+   "journey": 1,
+   "errors": [],
+   "dataResponses": [
+    [
+     200,
+     "/testcode/202609142202/data/families.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/lines.bin"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/random.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/entangled.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/provenance.json"
+    ]
+   ]
+  },
+  "A-idle-chord-1440": {
+   "frames": 113,
+   "bufferDataPerFrame": 0,
+   "bufferSubDataPerFrame": 0,
+   "texSubImagePerFrame": 0,
+   "texImagePerFrame": 0,
+   "drawsPerFrame": 5,
+   "instancesPerFrame": 677250,
+   "linesCount": 664940,
+   "linesBytes": 5984460,
+   "packBinBytes": 2659760,
+   "N": 11908,
+   "litOnly": false,
+   "edges": 1,
+   "geom": 400,
+   "journey": 1,
+   "errors": [],
+   "dataResponses": [
+    [
+     200,
+     "/testcode/202609142202/data/families.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/lines.bin"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/random.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/entangled.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/provenance.json"
+    ]
+   ]
+  },
+  "A-idle-river-1440": {
+   "frames": 113,
+   "bufferDataPerFrame": 0,
+   "bufferSubDataPerFrame": 0,
+   "texSubImagePerFrame": 0,
+   "texImagePerFrame": 0,
+   "drawsPerFrame": 4,
+   "instancesPerFrame": 677465,
+   "linesCount": 664940,
+   "linesBytes": 5984460,
+   "packBinBytes": 2659760,
+   "N": 11908,
+   "litOnly": false,
+   "edges": 0,
+   "geom": 616,
+   "journey": 1,
+   "errors": [],
+   "dataResponses": [
+    [
+     200,
+     "/testcode/202609142202/data/families.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/lines.bin"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/random.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/entangled.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/provenance.json"
+    ]
+   ]
+  },
+  "A-idle-table-1440": {
+   "frames": 114,
+   "bufferDataPerFrame": 0,
+   "bufferSubDataPerFrame": 0,
+   "texSubImagePerFrame": 0,
+   "texImagePerFrame": 0,
+   "drawsPerFrame": 3,
+   "instancesPerFrame": 676849,
+   "linesCount": 664940,
+   "linesBytes": 5984460,
+   "packBinBytes": 2659760,
+   "N": 11908,
+   "litOnly": false,
+   "edges": 0,
+   "geom": 0,
+   "journey": 1,
+   "errors": [],
+   "dataResponses": [
+    [
+     200,
+     "/testcode/202609142202/data/families.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/lines.bin"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/random.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/entangled.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/provenance.json"
+    ]
+   ]
+  },
+  "A-idle-column-1440": {
+   "frames": 114,
+   "bufferDataPerFrame": 0,
+   "bufferSubDataPerFrame": 0,
+   "texSubImagePerFrame": 0,
+   "texImagePerFrame": 0,
+   "drawsPerFrame": 4,
+   "instancesPerFrame": 676862,
+   "linesCount": 664940,
+   "linesBytes": 5984460,
+   "packBinBytes": 2659760,
+   "N": 11908,
+   "litOnly": false,
+   "edges": 0,
+   "geom": 13,
+   "journey": 1,
+   "errors": [],
+   "dataResponses": [
+    [
+     200,
+     "/testcode/202609142202/data/families.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/lines.bin"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/random.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/entangled.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/provenance.json"
+    ]
+   ]
+  },
+  "A-idle-ring-430": {
+   "frames": 115,
+   "bufferDataPerFrame": 0,
+   "bufferSubDataPerFrame": 0,
+   "texSubImagePerFrame": 0,
+   "texImagePerFrame": 0,
+   "drawsPerFrame": 5,
+   "instancesPerFrame": 676900,
+   "linesCount": 664940,
+   "linesBytes": 5984460,
+   "packBinBytes": 2659760,
+   "N": 11908,
+   "litOnly": false,
+   "edges": 3,
+   "geom": 48,
+   "journey": 1,
+   "errors": [],
+   "dataResponses": [
+    [
+     200,
+     "/testcode/202609142202/data/families.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/lines.bin"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/random.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/entangled.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/provenance.json"
+    ]
+   ]
+  },
+  "A-idle-table-430": {
+   "frames": 114,
+   "bufferDataPerFrame": 0,
+   "bufferSubDataPerFrame": 0,
+   "texSubImagePerFrame": 0,
+   "texImagePerFrame": 0,
+   "drawsPerFrame": 3,
+   "instancesPerFrame": 676849,
+   "linesCount": 664940,
+   "linesBytes": 5984460,
+   "packBinBytes": 2659760,
+   "N": 11908,
+   "litOnly": false,
+   "edges": 0,
+   "geom": 0,
+   "journey": 1,
+   "errors": [],
+   "dataResponses": [
+    [
+     200,
+     "/testcode/202609142202/data/families.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/lines.bin"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/random.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/entangled.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/provenance.json"
+    ]
+   ]
+  },
+  "A-idle-river-430": {
+   "frames": 114,
+   "bufferDataPerFrame": 0,
+   "bufferSubDataPerFrame": 0,
+   "texSubImagePerFrame": 0,
+   "texImagePerFrame": 0,
+   "drawsPerFrame": 4,
+   "instancesPerFrame": 677465,
+   "linesCount": 664940,
+   "linesBytes": 5984460,
+   "packBinBytes": 2659760,
+   "N": 11908,
+   "litOnly": false,
+   "edges": 0,
+   "geom": 616,
+   "journey": 1,
+   "errors": [],
+   "dataResponses": [
+    [
+     200,
+     "/testcode/202609142202/data/families.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/lines.bin"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/random.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/entangled.json"
+    ],
+    [
+     200,
+     "/testcode/202609142202/data/provenance.json"
+    ]
+   ]
+  },
+  "B-switch-1440": {
+   "same": [
+    {
+     "lens": "ring",
+     "key": true,
+     "trail": true,
+     "recipe": true,
+     "measure": true,
+     "kindsOn": true,
+     "cat": true,
+     "urlHasKey": true,
+     "urlHasTrail": true,
+     "urlHasRecipe": true,
+     "urlHasM": true,
+     "urlHasEdges": true,
+     "urlHasCat": true,
+     "legendWords": "contains|depends on|uses|used by|shared line|random link|entangled",
+     "panelHidden": false
+    },
+    {
+     "lens": "particle",
+     "key": true,
+     "trail": true,
+     "recipe": true,
+     "measure": true,
+     "kindsOn": true,
+     "cat": true,
+     "urlHasKey": true,
+     "urlHasTrail": true,
+     "urlHasRecipe": true,
+     "urlHasM": true,
+     "urlHasEdges": true,
+     "urlHasCat": true,
+     "legendWords": "contains|depends on|uses|used by|shared line|random link|entangled",
+     "panelHidden": false
+    },
+    {
+     "lens": "chord",
+     "key": true,
+     "trail": true,
+     "recipe": true,
+     "measure": true,
+     "kindsOn": true,
+     "cat": true,
+     "urlHasKey": true,
+     "urlHasTrail": true,
+     "urlHasRecipe": true,
+     "urlHasM": true,
+     "urlHasEdges": true,
+     "urlHasCat": true,
+     "legendWords": "contains|depends on|uses|used by|shared line|random link|entangled",
+     "panelHidden": false
+    },
+    {
+     "lens": "river",
+     "key": true,
+     "trail": true,
+     "recipe": true,
+     "measure": true,
+     "kindsOn": true,
+     "cat": true,
+     "urlHasKey": true,
+     "urlHasTrail": true,
+     "urlHasRecipe": true,
+     "urlHasM": true,
+     "urlHasEdges": true,
+     "urlHasCat": true,
+     "legendWords": "contains|depends on|uses|used by|shared line|random link|entangled",
+     "panelHidden": false
+    },
+    {
+     "lens": "table",
+     "key": true,
+     "trail": true,
+     "recipe": true,
+     "measure": true,
+     "kindsOn": true,
+     "cat": true,
+     "urlHasKey": true,
+     "urlHasTrail": true,
+     "urlHasRecipe": true,
+     "urlHasM": true,
+     "urlHasEdges": true,
+     "urlHasCat": true,
+     "legendWords": "contains|depends on|uses|used by|shared line|random link|entangled",
+     "panelHidden": false
+    },
+    {
+     "lens": "column",
+     "key": true,
+     "trail": true,
+     "recipe": true,
+     "measure": true,
+     "kindsOn": true,
+     "cat": true,
+     "urlHasKey": true,
+     "urlHasTrail": true,
+     "urlHasRecipe": true,
+     "urlHasM": true,
+     "urlHasEdges": true,
+     "urlHasCat": true,
+     "legendWords": "contains|depends on|uses|used by|shared line|random link|entangled",
+     "panelHidden": false
+    },
+    {
+     "lens": "ring",
+     "via": "key 1",
+     "key": true,
+     "trail": true,
+     "recipe": true,
+     "measure": true,
+     "kindsOn": true,
+     "cat": true,
+     "urlHasKey": true,
+     "urlHasTrail": true,
+     "urlHasRecipe": true,
+     "urlHasM": true,
+     "urlHasEdges": true,
+     "urlHasCat": true,
+     "legendWords": "contains|depends on|uses|used by|shared line|random link|entangled",
+     "panelHidden": false
+    },
+    {
+     "lens": "particle",
+     "via": "key ]",
+     "key": true,
+     "trail": true,
+     "recipe": true,
+     "measure": true,
+     "kindsOn": true,
+     "cat": true,
+     "urlHasKey": true,
+     "urlHasTrail": true,
+     "urlHasRecipe": true,
+     "urlHasM": true,
+     "urlHasEdges": true,
+     "urlHasCat": true,
+     "legendWords": "contains|depends on|uses|used by|shared line|random link|entangled",
+     "panelHidden": false
+    }
+   ],
+   "wordsIdentical": true,
+   "errors": []
+  },
+  "B-switch-430": {
+   "same": [
+    {
+     "lens": "ring",
+     "key": true,
+     "trail": true,
+     "recipe": true,
+     "measure": true,
+     "kindsOn": true,
+     "cat": true,
+     "urlHasKey": true,
+     "urlHasTrail": true,
+     "urlHasRecipe": true,
+     "urlHasM": true,
+     "urlHasEdges": true,
+     "urlHasCat": true,
+     "legendWords": "contains|depends on|uses|used by|shared line|random link|entangled",
+     "panelHidden": false
+    },
+    {
+     "lens": "particle",
+     "key": true,
+     "trail": true,
+     "recipe": true,
+     "measure": true,
+     "kindsOn": true,
+     "cat": true,
+     "urlHasKey": true,
+     "urlHasTrail": true,
+     "urlHasRecipe": true,
+     "urlHasM": true,
+     "urlHasEdges": true,
+     "urlHasCat": true,
+     "legendWords": "contains|depends on|uses|used by|shared line|random link|entangled",
+     "panelHidden": true
+    },
+    {
+     "lens": "chord",
+     "key": true,
+     "trail": true,
+     "recipe": true,
+     "measure": true,
+     "kindsOn": true,
+     "cat": true,
+     "urlHasKey": true,
+     "urlHasTrail": true,
+     "urlHasRecipe": true,
+     "urlHasM": true,
+     "urlHasEdges": true,
+     "urlHasCat": true,
+     "legendWords": "contains|depends on|uses|used by|shared line|random link|entangled",
+     "panelHidden": true
+    },
+    {
+     "lens": "river",
+     "key": true,
+     "trail": true,
+     "recipe": true,
+     "measure": true,
+     "kindsOn": true,
+     "cat": true,
+     "urlHasKey": true,
+     "urlHasTrail": true,
+     "urlHasRecipe": true,
+     "urlHasM": true,
+     "urlHasEdges": true,
+     "urlHasCat": true,
+     "legendWords": "contains|depends on|uses|used by|shared line|random link|entangled",
+     "panelHidden": true
+    },
+    {
+     "lens": "table",
+     "key": true,
+     "trail": true,
+     "recipe": true,
+     "measure": true,
+     "kindsOn": true,
+     "cat": true,
+     "urlHasKey": true,
+     "urlHasTrail": true,
+     "urlHasRecipe": true,
+     "urlHasM": true,
+     "urlHasEdges": true,
+     "urlHasCat": true,
+     "legendWords": "contains|depends on|uses|used by|shared line|random link|entangled",
+     "panelHidden": true
+    },
+    {
+     "lens": "column",
+     "key": true,
+     "trail": true,
+     "recipe": true,
+     "measure": true,
+     "kindsOn": true,
+     "cat": true,
+     "urlHasKey": true,
+     "urlHasTrail": true,
+     "urlHasRecipe": true,
+     "urlHasM": true,
+     "urlHasEdges": true,
+     "urlHasCat": true,
+     "legendWords": "contains|depends on|uses|used by|shared line|random link|entangled",
+     "panelHidden": true
+    },
+    {
+     "lens": "ring",
+     "via": "key 1",
+     "key": true,
+     "trail": true,
+     "recipe": true,
+     "measure": true,
+     "kindsOn": true,
+     "cat": true,
+     "urlHasKey": true,
+     "urlHasTrail": true,
+     "urlHasRecipe": true,
+     "urlHasM": true,
+     "urlHasEdges": true,
+     "urlHasCat": true,
+     "legendWords": "contains|depends on|uses|used by|shared line|random link|entangled",
+     "panelHidden": true
+    },
+    {
+     "lens": "particle",
+     "via": "key ]",
+     "key": true,
+     "trail": true,
+     "recipe": true,
+     "measure": true,
+     "kindsOn": true,
+     "cat": true,
+     "urlHasKey": true,
+     "urlHasTrail": true,
+     "urlHasRecipe": true,
+     "urlHasM": true,
+     "urlHasEdges": true,
+     "urlHasCat": true,
+     "legendWords": "contains|depends on|uses|used by|shared line|random link|entangled",
+     "panelHidden": true
+    }
+   ],
+   "wordsIdentical": true,
+   "errors": []
+  },
+  "C-counts": {
+   "count": "214 blocks on the table (63 named · 151 found automatically) · 591 groups off the table · 11,060 function families · 252,114 unique numbered lines · 31 repositories · data 2026-09-14 23:26 UTC",
+   "title": "252,114 per code/index.json · 664,940 line instances · 128,369 distinct numbers in this pack",
+   "indexLines": 252114,
+   "indexFamilies": 11060,
+   "binEntries": 664940,
+   "distinct": 128369,
+   "entities": 11908,
+   "blocks": 214,
+   "groups": 591,
+   "families": 11060,
+   "repos": 31,
+   "randomStats": {
+    "edges": 300,
+    "drawn": 79,
+    "seed": "2026-09-14"
+   },
+   "entangledStats": {
+    "stated": 69,
+    "listed": 40,
+    "joined": 30,
+    "drawn": 68
+   },
+   "dependsOn": 186,
+   "legendTitles": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "300 random edges · 79 joined to families by name · seed 2026-09-14",
+    "69 stated · 40 listed · 29 not yet known"
+   ],
+   "footer": "star-generator 202609142225 · built 2026-09-15 00:26 UTC · live data: https://ventusltd.github.io/stars/blocks/, https://ventusltd.github.io/stars/code/, raw.githubusercontent.com · GLOBALGRID2050 · lens ring from v08-ring-journey · pack 2026-09-14 22:14 UTC sha256 5a0c365",
+   "countSaysIndexLines": true,
+   "countSaysBinLength": false
+  },
+  "D-handoff": {
+   "handOff": "https://ventusltd.github.io/code-generator/?blocks=Si,Gc&families=80299&lines=17&from=star-generator&data=202609142326",
+   "keys": [
+    "block:Si",
+    "family:80299",
+    "group:x100",
+    "line:17"
+   ],
+   "blocks": [
+    {
+     "symbol": "Si",
+     "number": 35,
+     "files": 8,
+     "inLive": true,
+     "commitsMatchLive": true,
+     "all40hex": true
+    },
+    {
+     "symbol": "Gc",
+     "number": 13,
+     "files": 1,
+     "inLive": true,
+     "commitsMatchLive": true,
+     "all40hex": true
+    }
+   ],
+   "family": {
+    "n": 80299,
+    "name": "haversine",
+    "block": "Gc",
+    "place": {
+     "repo": "Ventusltd/ventus-grid-engine",
+     "commit": "2e36dbf4d7963619a55606f97b1054f429ea2f9d",
+     "path": "engine/geo-core.js",
+     "first": 82,
+     "last": 87
+    }
+   },
+   "famCommitMatchesBucket": true,
+   "lines": [
+    {
+     "key": 17,
+     "family": null,
+     "families_carrying": 686,
+     "repo": null,
+     "commit": null,
+     "path": null,
+     "note": "carried by 686 families · none chosen"
+    }
+   ],
+   "needs": 36,
+   "trail": [],
+   "data": {
+    "blocks_json": "2026-09-14T23:26:35.390Z",
+    "index_json": "2026-09-14T23:25:29.936Z",
+    "pack": "2026-09-14T22:14:00.499Z"
+   },
+   "tray": "Si×#80299 → Gc×x100×line 17 · 686 families · pick one×2 blocks · 1 note · 1 to pick · 1 off the tableHand off →",
+   "sheetFiles": null,
+   "sheet": {
+    "pinned": [
+     "gridatlas/atlas/cartridges/202609062358-substation-intelligence-v9-63.js @ ece8481",
+     "gridatlas/atlas/modules/202609031958-menu-bar.js @ ece8481",
+     "code-generator/apps/substation-finder/Si/202609031958-menu-bar.js @ 857ea81",
+     "gridatlas/atlas/parts/202609040045-ventus-corev8engine-deep-link-receiver.js @ ece8481",
+     "gridatlas/atlas/releases/202608300453-atlas-v9/ventus-corev8engine.js @ ece8481",
+     "code-generator/apps/substation-finder/Si/202609040045-ventus-corev8engine-deep-link-receiver.js @ 857ea81",
+     "code-generator/apps/substation-finder/Si/ventus-corev7engine.js @ 857ea81",
+     "code-generator/apps/substation-finder/Si/ventus-corev8engine.js @ 857ea81",
+     "ventus-grid-engine/engine/geo-core.js @ 2e36dbf"
+    ],
+    "url": "https://ventusltd.github.io/code-generator/?blocks=Si,Gc&families=80299&lines=17&from=star-generator&data=202609142326",
+    "head": "Recipe2 blocks will travel (Si, Gc) · #80299 pinned as a note · x100 off the table · line 17 · carried by 686 families · pick one"
+   },
+   "errors": []
+  }
+ }
+}

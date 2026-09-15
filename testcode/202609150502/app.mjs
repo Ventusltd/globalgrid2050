@@ -59,12 +59,13 @@ function update(){
   view={w:rect.width||$('overlay').clientWidth,h:rect.height||480,dpr:Math.min(2,devicePixelRatio||1),mobile:innerWidth<=600,
     focus:state.focus,seed:state.seed,visible:ids.slice(0,limit),lit:new Uint8Array(core.N),params:{},recipe:new Uint32Array(),trail:new Uint32Array(),kindsOn:0,cat:-1};
   if(state.focus>=0)view.lit[state.focus]=2;
+  if(state.lens==='table')L.overlay(core,view,$('overlay'),{navigate});
   pos.fill(NaN);L.layout(core,view,pos);view.pos=pos;
   for(const cls of L.always||[])for(let i=core.range[cls][0];i<core.range[cls][1];i++)if(!Number.isFinite(pos[2*i])||!Number.isFinite(pos[2*i+1]))throw new Error('Lens left a project unanchored');
   if(state.lens==='ring'){
     if(G.ok){G.resize(view.w,view.h,view.dpr);G.setPositions(pos);G.setLit(view.lit);G.mix=1;}
     render();drawLight();
-  }else L.overlay(core,view,$('overlay'),{navigate});
+  }
   $('hint').textContent=L.hint(core,view);renderDetail();
 }
 async function boot(){

@@ -21,6 +21,7 @@ for(const [width,height,dpr] of [[1440,900,1],[430,900,2],[900,430,2]]){
   await page.reload({waitUntil:'networkidle0'});await page.waitForFunction(()=>window.__solar?.ready);
   assert(`${width}: URL reload reproduces layout`,await page.evaluate(pos=>JSON.stringify(__solar.positions)===JSON.stringify(pos),before.pos));
   await page.click('#table');assert(`${width}: lens switch preserves key/seed`,await page.evaluate(s=>__solar.state.key===s.key&&__solar.state.seed===s.seed&&__solar.state.lens==='table',before.state));
+  assert(`${width}: table positions match actual row centres`,await page.evaluate(()=>{const h=document.getElementById('overlay'),bounds=h.getBoundingClientRect();return [...h.children].every(row=>{const i=__solar.core.resolve(row.dataset.ref),r=row.getBoundingClientRect(),p=__solar.positions;return Math.abs(p[2*i]-(r.left-bounds.left+r.width/2))<.1&&Math.abs(p[2*i+1]-(r.top-bounds.top+h.scrollTop+r.height/2))<.1;});}));
   await page.click('#missing');assert(`${width}: all five nulls selectable`,await page.$$eval('#overlay .project-row',rows=>rows.length===5&&rows.every(r=>r.textContent.includes('coordinates missing'))));
   await page.click('[data-ref="1613"]');assert(`${width}: null selection deep link`,await page.$eval('#detail a',a=>a.href.endsWith('/202609050309/?repd_ref=1613')));
   await page.click('#ring');await page.click('#all');await page.type('#search','10000');await page.click('#matches [data-ref="10000"]');

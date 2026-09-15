@@ -104,13 +104,17 @@ def plan(root: Path, commit: str) -> tuple[list[dict], dict]:
     manifests = sorted(path for path in paths if re.fullmatch(r"testcode/[^/]+/publication\.json", path))
     if not manifests:
         raise ValueError("no committed publication manifests")
-    checks, manifest_only = [], []
+    checks, manifest_only, unsupported = [], [], []
     for path in manifests:
         raw = committed(root, commit, path)
         if len(raw) > MAX_FILE_BYTES:
             raise ValueError("manifest exceeds size bound")
         checks.append({"path": path, "bytes": len(raw), "sha256": digest(raw), "kind": "manifest"})
-        rows = inventory(path, strict_json(raw))
+        try:
+            rows = inventory(path, strict_json(raw))
+        except (ValueError, TypeError, AttributeError):
+            unsupported.append(path)
+            continue
         if rows is None:
             manifest_only.append(path)
         else:
@@ -118,7 +122,8 @@ def plan(root: Path, commit: str) -> tuple[list[dict], dict]:
     if sum(check["bytes"] for check in checks) > MAX_TOTAL_BYTES:
         raise ValueError("publication sweep exceeds total size bound")
     return checks, {"manifests": len(manifests), "declared_assets": len(checks)-len(manifests),
-                    "manifest_only": manifest_only, "all_manifests_have_asset_inventory": not manifest_only}
+                    "manifest_only": manifest_only, "unsupported_inventory": unsupported,
+                    "all_manifests_have_asset_inventory": not manifest_only and not unsupported}
 
 
 def fetch(url: str, limit: int, deadline: float) -> bytes:
@@ -254,7 +259,7 @@ def main(argv=None) -> int:
             report["mismatches"] = sum(not row["match"] for row in rows)
             report["public_pattern_findings"] = sum(sum(row.get("public_pattern_counts", {}).values()) for row in rows)
             report["sun"] = validate_sun_owner(args.sun_root, deadline)
-            report["checked_items_pass"] = report["mismatches"] == 0 and report["public_pattern_findings"] == 0 and report["sun"]["validated"]
+            report["checked_items_pass"] = not coverage["unsupported_inventory"] and report["mismatches"] == 0 and report["public_pattern_findings"] == 0 and report["sun"]["validated"]
             report["full_assurance"] = False  # Missing private-name comparison is an explicit open gate.
             report["status"] = "checked" if report["checked_items_pass"] else "findings"
             exit_code = 0 if report["checked_items_pass"] else 1

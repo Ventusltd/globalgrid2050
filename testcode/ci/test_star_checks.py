@@ -61,6 +61,15 @@ class PublicationChecks(unittest.TestCase):
         self.assertEqual(coverage["declared_assets"], 1)
         self.assertEqual(rows[1]["sha256"], "a"*64)
 
+    def test_unsupported_inventory_is_a_distinct_coverage_gate(self):
+        manifest = b'{"files":"unsupported"}'
+        with patch.object(checks, "git", return_value=b"testcode/123/publication.json\n"), patch.object(checks, "committed", return_value=manifest):
+            rows, coverage = checks.plan(pathlib.Path('.'),'pinned')
+        self.assertEqual(len(rows),1)
+        self.assertEqual(coverage['unsupported_inventory'],['testcode/123/publication.json'])
+        self.assertEqual(coverage['manifest_only'],[])
+        self.assertFalse(coverage['all_manifests_have_asset_inventory'])
+
     def test_public_patterns_report_counts_not_values(self):
         raw = json.dumps({"company_name":"Example Private Limited", "contact":"x@example.test", "address":"AB1 2CD", "registration":"12345678"}).encode()
         result = checks.sector_patterns(raw)

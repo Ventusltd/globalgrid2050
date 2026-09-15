@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5">
+<meta name="color-scheme" content="dark">
+<title>Ten Laws — one estate under ten physics</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='6.5' fill='none' stroke='%23d8dee9'/%3E%3Ccircle cx='8' cy='3.2' r='1.3' fill='%23ffd54a'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="stage" aria-label="Every permanently numbered line of the estate, placed by the selected physical law."></canvas>
+
+<header id="bar">
+  <span id="wordmark">TEN LAWS</span>
+  <span id="count" class="dim">loading the numbered database…</span>
+</header>
+
+<nav id="laws" aria-label="placement law"></nav>
+
+<section id="panel">
+  <h2 id="lawTitle">Wafer</h2>
+  <p id="lawBorrows" class="borrows"></p>
+  <p id="lawReads" class="dim"></p>
+  <p id="lawNote"></p>
+  <div id="beamRow" hidden>
+    <input id="beam" type="range" min="0" max="100" value="0" aria-label="beam radius">
+    <span id="beamOut" class="dim">beam at radius 0</span>
+  </div>
+</section>
+
+<footer id="foot">
+  <span id="prov" class="dim">provenance loading</span>
+  <span id="hint" class="dim">tap a law · drag to steer · pinch to zoom · keys 1 to 0</span>
+</footer>
+
+<noscript><p class="dim" style="padding:1rem">Every position here is computed from the numbered database when the page
+opens. Nothing is stored and nothing is typed in, so the page needs JavaScript.</p></noscript>
+
+<script type="module" src="app.mjs"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+[
+  {"name":"solar data loaded", "must_contain":["3,563 public solar projects","3,558 with coordinates","5 coordinates missing"],"must_not_contain":["Could not load","undefined","NaN"]},
+  {"name":"neutral data semantics", "must_contain":["across all statuses","not geographic coordinates","not a total of operational installed capacity"],"must_not_contain":["soul","Soul"]}
+]

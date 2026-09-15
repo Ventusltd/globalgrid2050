@@ -1,0 +1,782 @@
+{
+  "built_utc": "2026-09-15T05:00:49Z",
+  "globalgrid_commit": "35f07f9c0ef6bbdaae3c9f27f5a361118f49624f",
+  "scans": {
+    "solar_components": {
+      "headings": [
+        {
+          "level": 1,
+          "source_line": 1,
+          "text": "PV Inverter Installed Base and Market Structure (End 2025)"
+        },
+        {
+          "level": 2,
+          "source_line": 3,
+          "text": "PV Inverter Market Split"
+        },
+        {
+          "level": 2,
+          "source_line": 17,
+          "text": "PV Inverter Installed Base – Top 30 OEMs"
+        }
+      ],
+      "tables": [
+        {
+          "columns": [
+            "Rk",
+            "OEM",
+            "GWac IB",
+            "GWpEQ",
+            "Largest Public Project Reference",
+            "Source Anchor"
+          ],
+          "rows": [
+            {
+              "GWac IB": "515",
+              "GWpEQ": "618",
+              "Largest Public Project Reference": "Al Dhafra 2.1GWp UAE",
+              "OEM": "Sungrow",
+              "Rk": "1",
+              "Source Anchor": "PV Mag / WoodMac"
+            },
+            {
+              "GWac IB": "500",
+              "GWpEQ": "600",
+              "Largest Public Project Reference": "Kela 1GW China",
+              "OEM": "Huawei Digital Power",
+              "Rk": "2",
+              "Source Anchor": "PV Mag / WoodMac"
+            },
+            {
+              "GWac IB": "165",
+              "GWpEQ": "198",
+              "Largest Public Project Reference": "Kingston 100MW Canada",
+              "OEM": "SMA Solar Technology",
+              "Rk": "3",
+              "Source Anchor": "SMA annual report"
+            },
+            {
+              "GWac IB": "150",
+              "GWpEQ": "180",
+              "Largest Public Project Reference": "1.6GW Inner Mongolia",
+              "OEM": "Sineng Electric",
+              "Rk": "4",
+              "Source Anchor": "PV Tech / OEM"
+            },
+            {
+              "GWac IB": "140",
+              "GWpEQ": "168",
+              "Largest Public Project Reference": "100MW supply India",
+              "OEM": "Growatt",
+              "Rk": "5",
+              "Source Anchor": "PV Mag / OEM"
+            },
+            {
+              "GWac IB": "110",
+              "GWpEQ": "132",
+              "Largest Public Project Reference": "100MW Tata India",
+              "OEM": "GoodWe",
+              "Rk": "6",
+              "Source Anchor": "PV Mag / OEM"
+            },
+            {
+              "GWac IB": "100",
+              "GWpEQ": "120",
+              "Largest Public Project Reference": "300MW Tidal Flat China",
+              "OEM": "Ginlong Solis",
+              "Rk": "7",
+              "Source Anchor": "PV Mag / OEM"
+            },
+            {
+              "GWac IB": "90",
+              "GWpEQ": "108",
+              "Largest Public Project Reference": "Utility references China",
+              "OEM": "Hopewind",
+              "Rk": "8",
+              "Source Anchor": "OEM disclosures"
+            },
+            {
+              "GWac IB": "85",
+              "GWpEQ": "102",
+              "Largest Public Project Reference": "18.9GW shipments 2025 disclosure",
+              "OEM": "AISWEI Solplanet",
+              "Rk": "9",
+              "Source Anchor": "PV Mag / OEM"
+            },
+            {
+              "GWac IB": "64",
+              "GWpEQ": "77",
+              "Largest Public Project Reference": "Quaid e Azam 100MW Pakistan",
+              "OEM": "TBEA Sunoasis",
+              "Rk": "10",
+              "Source Anchor": "PV Tech"
+            },
+            {
+              "GWac IB": "60",
+              "GWpEQ": "72",
+              "Largest Public Project Reference": "Witznitz 650MW Germany",
+              "OEM": "Delta Electronics",
+              "Rk": "11",
+              "Source Anchor": "PV Mag India"
+            },
+            {
+              "GWac IB": "60",
+              "GWpEQ": "72",
+              "Largest Public Project Reference": "100MW Qinghai China",
+              "OEM": "KSTAR",
+              "Rk": "12",
+              "Source Anchor": "OEM release"
+            },
+            {
+              "GWac IB": "56",
+              "GWpEQ": "67",
+              "Largest Public Project Reference": "Distributed MLPE fleet",
+              "OEM": "SolarEdge",
+              "Rk": "13",
+              "Source Anchor": "SEC filing"
+            },
+            {
+              "GWac IB": "55",
+              "GWpEQ": "66",
+              "Largest Public Project Reference": "Nunez de Balboa 500MW Spain",
+              "OEM": "Power Electronics",
+              "Rk": "14",
+              "Source Anchor": "PV Mag"
+            },
+            {
+              "GWac IB": "46",
+              "GWpEQ": "55",
+              "Largest Public Project Reference": "200MW India solar park",
+              "OEM": "Kehua",
+              "Rk": "15",
+              "Source Anchor": "OEM release"
+            },
+            {
+              "GWac IB": "40",
+              "GWpEQ": "48",
+              "Largest Public Project Reference": "Mula 500MW Spain",
+              "OEM": "Ingeteam",
+              "Rk": "16",
+              "Source Anchor": "PV Tech"
+            },
+            {
+              "GWac IB": "37",
+              "GWpEQ": "44",
+              "Largest Public Project Reference": "300MW China utility",
+              "OEM": "SOFAR",
+              "Rk": "17",
+              "Source Anchor": "PV Mag"
+            },
+            {
+              "GWac IB": "35",
+              "GWpEQ": "42",
+              "Largest Public Project Reference": "52MW Ukraine",
+              "OEM": "Fronius",
+              "Rk": "18",
+              "Source Anchor": "OEM references"
+            },
+            {
+              "GWac IB": "25",
+              "GWpEQ": "30",
+              "Largest Public Project Reference": "580MW Vietnam",
+              "OEM": "TMEIC",
+              "Rk": "19",
+              "Source Anchor": "OEM release"
+            },
+            {
+              "GWac IB": "25",
+              "GWpEQ": "30",
+              "Largest Public Project Reference": "150MW China agri PV",
+              "OEM": "Chint Power Systems",
+              "Rk": "20",
+              "Source Anchor": "OEM release"
+            },
+            {
+              "GWac IB": "25",
+              "GWpEQ": "30",
+              "Largest Public Project Reference": "86m microinverters shipped cumulative",
+              "OEM": "Enphase Energy",
+              "Rk": "21",
+              "Source Anchor": "SEC filing"
+            },
+            {
+              "GWac IB": "20",
+              "GWpEQ": "24",
+              "Largest Public Project Reference": "India utility references",
+              "OEM": "FIMER",
+              "Rk": "22",
+              "Source Anchor": "Mercom India"
+            },
+            {
+              "GWac IB": "21",
+              "GWpEQ": "25",
+              "Largest Public Project Reference": "Distributed residential fleet",
+              "OEM": "Deye",
+              "Rk": "23",
+              "Source Anchor": "Reuters supply chain"
+            },
+            {
+              "GWac IB": "15",
+              "GWpEQ": "18",
+              "Largest Public Project Reference": "360MW India micro deal",
+              "OEM": "Hoymiles",
+              "Rk": "24",
+              "Source Anchor": "OEM release"
+            },
+            {
+              "GWac IB": "15",
+              "GWpEQ": "18",
+              "Largest Public Project Reference": "3GW Three Gorges tender",
+              "OEM": "CRRC Times Electric",
+              "Rk": "25",
+              "Source Anchor": "News Metal"
+            },
+            {
+              "GWac IB": "12",
+              "GWpEQ": "14",
+              "Largest Public Project Reference": "India central inverter supply",
+              "OEM": "Hitachi Hi Rel",
+              "Rk": "26",
+              "Source Anchor": "Mercom India"
+            },
+            {
+              "GWac IB": "10",
+              "GWpEQ": "12",
+              "Largest Public Project Reference": "US hybrid distributed",
+              "OEM": "Sol Ark",
+              "Rk": "27",
+              "Source Anchor": "Reuters"
+            },
+            {
+              "GWac IB": "8",
+              "GWpEQ": "10",
+              "Largest Public Project Reference": "Microinverter exports",
+              "OEM": "APsystems",
+              "Rk": "28",
+              "Source Anchor": "Trade reporting"
+            },
+            {
+              "GWac IB": "8",
+              "GWpEQ": "10",
+              "Largest Public Project Reference": "Export market references",
+              "OEM": "SolaX Power",
+              "Rk": "29",
+              "Source Anchor": "Trade reporting"
+            },
+            {
+              "GWac IB": "8",
+              "GWpEQ": "10",
+              "Largest Public Project Reference": "US community solar 17.5MW",
+              "OEM": "Yaskawa Solectria",
+              "Rk": "30",
+              "Source Anchor": "PV Tech"
+            }
+          ],
+          "source_line": 23
+        }
+      ]
+    },
+    "solar_deployment_statistics": {
+      "headings": [
+        {
+          "level": 1,
+          "source_line": 1,
+          "text": "Global Solar PV Deployment 2025"
+        },
+        {
+          "level": 2,
+          "source_line": 11,
+          "text": "Executive Summary"
+        },
+        {
+          "level": 2,
+          "source_line": 15,
+          "text": "Global Solar PV – Top 50 Countries"
+        },
+        {
+          "level": 2,
+          "source_line": 74,
+          "text": "Industry Sources Used"
+        }
+      ],
+      "tables": [
+        {
+          "columns": [
+            "Rank",
+            "Country",
+            "Cumulative Capacity End 2025 (GW)",
+            "2025 Additions (GW)",
+            "Reference"
+          ],
+          "rows": [
+            {
+              "2025 Additions (GW)": "315",
+              "Country": "China",
+              "Cumulative Capacity End 2025 (GW)": "1200",
+              "Rank": "1",
+              "Reference": "National Energy Administration"
+            },
+            {
+              "2025 Additions (GW)": "33",
+              "Country": "United States",
+              "Cumulative Capacity End 2025 (GW)": "215",
+              "Rank": "2",
+              "Reference": "U.S. Energy Information Administration"
+            },
+            {
+              "2025 Additions (GW)": "38",
+              "Country": "India",
+              "Cumulative Capacity End 2025 (GW)": "136",
+              "Rank": "3",
+              "Reference": "MNRE"
+            },
+            {
+              "2025 Additions (GW)": "16",
+              "Country": "Germany",
+              "Cumulative Capacity End 2025 (GW)": "117",
+              "Rank": "4",
+              "Reference": "Bundesnetzagentur"
+            },
+            {
+              "2025 Additions (GW)": "10",
+              "Country": "Japan",
+              "Cumulative Capacity End 2025 (GW)": "100",
+              "Rank": "5",
+              "Reference": "METI"
+            },
+            {
+              "2025 Additions (GW)": "11",
+              "Country": "Brazil",
+              "Cumulative Capacity End 2025 (GW)": "66",
+              "Rank": "6",
+              "Reference": "ABSolar"
+            },
+            {
+              "2025 Additions (GW)": "9",
+              "Country": "Spain",
+              "Cumulative Capacity End 2025 (GW)": "50",
+              "Rank": "7",
+              "Reference": "REE"
+            },
+            {
+              "2025 Additions (GW)": "6",
+              "Country": "Italy",
+              "Cumulative Capacity End 2025 (GW)": "44",
+              "Rank": "8",
+              "Reference": "Terna"
+            },
+            {
+              "2025 Additions (GW)": "4",
+              "Country": "South Korea",
+              "Cumulative Capacity End 2025 (GW)": "34",
+              "Rank": "9",
+              "Reference": "KEPCO"
+            },
+            {
+              "2025 Additions (GW)": "5",
+              "Country": "France",
+              "Cumulative Capacity End 2025 (GW)": "31",
+              "Rank": "10",
+              "Reference": "RTE"
+            },
+            {
+              "2025 Additions (GW)": "2",
+              "Country": "Netherlands",
+              "Cumulative Capacity End 2025 (GW)": "30",
+              "Rank": "11",
+              "Reference": "Dutch New Energy Research"
+            },
+            {
+              "2025 Additions (GW)": "5",
+              "Country": "Australia",
+              "Cumulative Capacity End 2025 (GW)": "30",
+              "Rank": "12",
+              "Reference": "Clean Energy Council"
+            },
+            {
+              "2025 Additions (GW)": "4",
+              "Country": "Poland",
+              "Cumulative Capacity End 2025 (GW)": "25",
+              "Rank": "13",
+              "Reference": "ARE Ministry"
+            },
+            {
+              "2025 Additions (GW)": "5",
+              "Country": "Turkiye",
+              "Cumulative Capacity End 2025 (GW)": "25",
+              "Rank": "14",
+              "Reference": "TEIAS"
+            },
+            {
+              "2025 Additions (GW)": "3",
+              "Country": "United Kingdom",
+              "Cumulative Capacity End 2025 (GW)": "22",
+              "Rank": "15",
+              "Reference": "DESNZ"
+            },
+            {
+              "2025 Additions (GW)": "3",
+              "Country": "Vietnam",
+              "Cumulative Capacity End 2025 (GW)": "20",
+              "Rank": "16",
+              "Reference": "MOIT"
+            },
+            {
+              "2025 Additions (GW)": "2",
+              "Country": "Mexico",
+              "Cumulative Capacity End 2025 (GW)": "18",
+              "Rank": "17",
+              "Reference": "CRE"
+            },
+            {
+              "2025 Additions (GW)": "2",
+              "Country": "Taiwan",
+              "Cumulative Capacity End 2025 (GW)": "14",
+              "Rank": "18",
+              "Reference": "Bureau of Energy"
+            },
+            {
+              "2025 Additions (GW)": "2",
+              "Country": "Belgium",
+              "Cumulative Capacity End 2025 (GW)": "13",
+              "Rank": "19",
+              "Reference": "Elia"
+            },
+            {
+              "2025 Additions (GW)": "2",
+              "Country": "Chile",
+              "Cumulative Capacity End 2025 (GW)": "12",
+              "Rank": "20",
+              "Reference": "CNE"
+            },
+            {
+              "2025 Additions (GW)": "3",
+              "Country": "Saudi Arabia",
+              "Cumulative Capacity End 2025 (GW)": "12",
+              "Rank": "21",
+              "Reference": "SEC"
+            },
+            {
+              "2025 Additions (GW)": "1",
+              "Country": "Austria",
+              "Cumulative Capacity End 2025 (GW)": "11",
+              "Rank": "22",
+              "Reference": "National Statistics"
+            },
+            {
+              "2025 Additions (GW)": "2",
+              "Country": "South Africa",
+              "Cumulative Capacity End 2025 (GW)": "11",
+              "Rank": "23",
+              "Reference": "SAPVIA"
+            },
+            {
+              "2025 Additions (GW)": "Distributed surge",
+              "Country": "Pakistan",
+              "Cumulative Capacity End 2025 (GW)": "11",
+              "Rank": "24",
+              "Reference": "Import Data"
+            },
+            {
+              "2025 Additions (GW)": "2",
+              "Country": "Switzerland",
+              "Cumulative Capacity End 2025 (GW)": "10",
+              "Rank": "25",
+              "Reference": "Swissolar"
+            },
+            {
+              "2025 Additions (GW)": "2",
+              "Country": "Greece",
+              "Cumulative Capacity End 2025 (GW)": "10",
+              "Rank": "26",
+              "Reference": "HEDNO"
+            },
+            {
+              "2025 Additions (GW)": "2",
+              "Country": "Ukraine",
+              "Cumulative Capacity End 2025 (GW)": "9",
+              "Rank": "27",
+              "Reference": "National Energy Reporting"
+            },
+            {
+              "2025 Additions (GW)": "1",
+              "Country": "Hungary",
+              "Cumulative Capacity End 2025 (GW)": "8",
+              "Rank": "28",
+              "Reference": "National Deployment Report"
+            },
+            {
+              "2025 Additions (GW)": "2",
+              "Country": "Romania",
+              "Cumulative Capacity End 2025 (GW)": "7",
+              "Rank": "29",
+              "Reference": "RPIA"
+            },
+            {
+              "2025 Additions (GW)": "1",
+              "Country": "Israel",
+              "Cumulative Capacity End 2025 (GW)": "7",
+              "Rank": "30",
+              "Reference": "IEA PVPS"
+            },
+            {
+              "2025 Additions (GW)": "2",
+              "Country": "United Arab Emirates",
+              "Cumulative Capacity End 2025 (GW)": "7",
+              "Rank": "31",
+              "Reference": "EWEC"
+            },
+            {
+              "2025 Additions (GW)": "1",
+              "Country": "Portugal",
+              "Cumulative Capacity End 2025 (GW)": "7",
+              "Rank": "32",
+              "Reference": "APREN"
+            },
+            {
+              "2025 Additions (GW)": "2",
+              "Country": "Denmark",
+              "Cumulative Capacity End 2025 (GW)": "6",
+              "Rank": "33",
+              "Reference": "Energinet"
+            },
+            {
+              "2025 Additions (GW)": "1",
+              "Country": "Bulgaria",
+              "Cumulative Capacity End 2025 (GW)": "6",
+              "Rank": "34",
+              "Reference": "National Energy Report"
+            },
+            {
+              "2025 Additions (GW)": "1",
+              "Country": "Sweden",
+              "Cumulative Capacity End 2025 (GW)": "6",
+              "Rank": "35",
+              "Reference": "Svensk Solenergi"
+            },
+            {
+              "2025 Additions (GW)": "1",
+              "Country": "Czech Republic",
+              "Cumulative Capacity End 2025 (GW)": "6",
+              "Rank": "36",
+              "Reference": "ERU"
+            },
+            {
+              "2025 Additions (GW)": "0",
+              "Country": "Canada",
+              "Cumulative Capacity End 2025 (GW)": "5",
+              "Rank": "37",
+              "Reference": "CanREA"
+            },
+            {
+              "2025 Additions (GW)": "1",
+              "Country": "Thailand",
+              "Cumulative Capacity End 2025 (GW)": "5",
+              "Rank": "38",
+              "Reference": "National Energy Office"
+            },
+            {
+              "2025 Additions (GW)": "1",
+              "Country": "Malaysia",
+              "Cumulative Capacity End 2025 (GW)": "4",
+              "Rank": "39",
+              "Reference": "National Energy Reporting"
+            },
+            {
+              "2025 Additions (GW)": "1",
+              "Country": "Philippines",
+              "Cumulative Capacity End 2025 (GW)": "4",
+              "Rank": "40",
+              "Reference": "DOE Philippines"
+            },
+            {
+              "2025 Additions (GW)": "1",
+              "Country": "Egypt",
+              "Cumulative Capacity End 2025 (GW)": "3",
+              "Rank": "41",
+              "Reference": "National Renewable Authority"
+            },
+            {
+              "2025 Additions (GW)": "1",
+              "Country": "Russia",
+              "Cumulative Capacity End 2025 (GW)": "3",
+              "Rank": "42",
+              "Reference": "National Renewable Statistics"
+            },
+            {
+              "2025 Additions (GW)": "1",
+              "Country": "Argentina",
+              "Cumulative Capacity End 2025 (GW)": "3",
+              "Rank": "43",
+              "Reference": "CAMMESA"
+            },
+            {
+              "2025 Additions (GW)": "1",
+              "Country": "Ireland",
+              "Cumulative Capacity End 2025 (GW)": "2",
+              "Rank": "44",
+              "Reference": "Government of Ireland"
+            },
+            {
+              "2025 Additions (GW)": "0",
+              "Country": "Jordan",
+              "Cumulative Capacity End 2025 (GW)": "2",
+              "Rank": "45",
+              "Reference": "National Energy Authority"
+            },
+            {
+              "2025 Additions (GW)": "1",
+              "Country": "Morocco",
+              "Cumulative Capacity End 2025 (GW)": "2",
+              "Rank": "46",
+              "Reference": "ANRE"
+            },
+            {
+              "2025 Additions (GW)": "1",
+              "Country": "Indonesia",
+              "Cumulative Capacity End 2025 (GW)": "2",
+              "Rank": "47",
+              "Reference": "MEMR"
+            },
+            {
+              "2025 Additions (GW)": "0",
+              "Country": "Peru",
+              "Cumulative Capacity End 2025 (GW)": "1",
+              "Rank": "48",
+              "Reference": "National Energy Report"
+            },
+            {
+              "2025 Additions (GW)": "0",
+              "Country": "New Zealand",
+              "Cumulative Capacity End 2025 (GW)": "1",
+              "Rank": "49",
+              "Reference": "Electricity Authority NZ"
+            },
+            {
+              "2025 Additions (GW)": "0",
+              "Country": "Finland",
+              "Cumulative Capacity End 2025 (GW)": "0",
+              "Rank": "50",
+              "Reference": "National Energy Statistics"
+            }
+          ],
+          "source_line": 21
+        }
+      ]
+    }
+  },
+  "schema": "star-solar-star.provenance.v1",
+  "sources": [
+    {
+      "bytes": 76445,
+      "fetched_utc": "2026-09-15T05:00:49Z",
+      "kind": "api-json",
+      "name": "Sheffield Solar PV Live national GSP 0",
+      "sha256": "408c87270bda07ea815505d327e7d6a437e4c294f1e8a34597241ff216519073",
+      "url": "https://api0.solar.sheffield.ac.uk/pvlive/api/v4/gsp/0?start=2026-08-16T00%3A00%3A00Z&end=2026-09-14T23%3A59%3A59Z&extra_fields=installedcapacity_mwp%2Ccapacity_mwp"
+    },
+    {
+      "bytes": 20120,
+      "commit": "35f07f9c0ef6bbdaae3c9f27f5a361118f49624f",
+      "fetched_utc": "2026-09-15T05:00:49Z",
+      "kind": "pinned-public-repository-file",
+      "name": "GlobalGrid2050 geometry",
+      "path": "scripts/gridbot_london_solar_daylight_geometry.py",
+      "repository": "Ventusltd/globalgrid2050",
+      "sha256": "095f4813b6529a8b26ccaa118f96015791b3f9474676e199bb9cef94c520dd9a",
+      "url": "https://raw.githubusercontent.com/Ventusltd/globalgrid2050/35f07f9c0ef6bbdaae3c9f27f5a361118f49624f/scripts/gridbot_london_solar_daylight_geometry.py"
+    },
+    {
+      "bytes": 1108995,
+      "commit": "35f07f9c0ef6bbdaae3c9f27f5a361118f49624f",
+      "fetched_utc": "2026-09-15T05:00:49Z",
+      "kind": "pinned-public-repository-file",
+      "name": "GlobalGrid2050 podcast",
+      "path": "podcast_transcripts/index.md",
+      "repository": "Ventusltd/globalgrid2050",
+      "sha256": "a4547d4cdf26167a9fae8f7718ab94e03d02df6ad6c98b89b8e916cc93635125",
+      "url": "https://raw.githubusercontent.com/Ventusltd/globalgrid2050/35f07f9c0ef6bbdaae3c9f27f5a361118f49624f/podcast_transcripts/index.md"
+    },
+    {
+      "bytes": 979338,
+      "commit": "35f07f9c0ef6bbdaae3c9f27f5a361118f49624f",
+      "fetched_utc": "2026-09-15T05:00:49Z",
+      "kind": "pinned-public-repository-file",
+      "name": "GlobalGrid2050 pipeline",
+      "path": "pipelinenews_intelligence/202609050309/data/202608270055-8ab1807551bc-v8-fast-projects.json",
+      "repository": "Ventusltd/globalgrid2050",
+      "sha256": "c06aedef176d2d38fd135806306a8ef81b4af9994c7be31e8bd760304149f862",
+      "url": "https://raw.githubusercontent.com/Ventusltd/globalgrid2050/35f07f9c0ef6bbdaae3c9f27f5a361118f49624f/pipelinenews_intelligence/202609050309/data/202608270055-8ab1807551bc-v8-fast-projects.json"
+    },
+    {
+      "bytes": 5330,
+      "commit": "35f07f9c0ef6bbdaae3c9f27f5a361118f49624f",
+      "fetched_utc": "2026-09-15T05:00:49Z",
+      "kind": "pinned-public-repository-file",
+      "name": "GlobalGrid2050 deployment",
+      "path": "solar_deployment_statistics/index.md",
+      "repository": "Ventusltd/globalgrid2050",
+      "sha256": "842da4893ebb145608fc6147bd02228cbe173b6ca61e8c86c9274ea98d3f81d5",
+      "url": "https://raw.githubusercontent.com/Ventusltd/globalgrid2050/35f07f9c0ef6bbdaae3c9f27f5a361118f49624f/solar_deployment_statistics/index.md"
+    },
+    {
+      "bytes": 3427,
+      "commit": "35f07f9c0ef6bbdaae3c9f27f5a361118f49624f",
+      "fetched_utc": "2026-09-15T05:00:49Z",
+      "kind": "pinned-public-repository-file",
+      "name": "GlobalGrid2050 components",
+      "path": "solar_components/index.md",
+      "repository": "Ventusltd/globalgrid2050",
+      "sha256": "6bbd52210366b8bdc4fa56f255ee5efdf13fee8d2e54c582533fb270cb9be1f9",
+      "url": "https://raw.githubusercontent.com/Ventusltd/globalgrid2050/35f07f9c0ef6bbdaae3c9f27f5a361118f49624f/solar_components/index.md"
+    },
+    {
+      "bytes": 1486,
+      "fetched_utc": "2026-09-15T05:00:49Z",
+      "kind": "robots.txt",
+      "name": "Solar Power Portal robots.txt",
+      "sha256": "b4c452c63af4b3b7f04e16ee63e4f1fc4634346f9677c869fd21925acf01a528",
+      "url": "https://www.solarpowerportal.co.uk/robots.txt"
+    },
+    {
+      "bytes": 79718,
+      "fetched_utc": "2026-09-15T05:00:49Z",
+      "fields_retained": [
+        "title",
+        "link",
+        "published",
+        "attribution"
+      ],
+      "kind": "rss",
+      "name": "Solar Power Portal public RSS feed",
+      "robots_allowed": true,
+      "robots_url": "https://www.solarpowerportal.co.uk/robots.txt",
+      "sha256": "0d6bfb65f55290ff9bf6567d3825948fdf04d52266b1be747c4684f6c66cb1d4",
+      "url": "https://www.solarpowerportal.co.uk/rss.xml?content_types=article"
+    },
+    {
+      "bytes": 193,
+      "fetched_utc": "2026-09-15T05:00:49Z",
+      "kind": "robots.txt",
+      "name": "pv magazine International robots.txt",
+      "sha256": "545df1489db4867e06111d743d19043f5f29013846cbaf791b653821bbb09d48",
+      "url": "https://www.pv-magazine.com/robots.txt"
+    },
+    {
+      "bytes": 62780,
+      "fetched_utc": "2026-09-15T05:00:49Z",
+      "fields_retained": [
+        "title",
+        "link",
+        "published",
+        "attribution"
+      ],
+      "kind": "rss",
+      "name": "pv magazine International public RSS feed",
+      "robots_allowed": true,
+      "robots_url": "https://www.pv-magazine.com/robots.txt",
+      "sha256": "8f7e7360265d0c8d51ecbabdb94171d5324b5c900231fc520734a43fd50adce4",
+      "url": "https://www.pv-magazine.com/feed/"
+    }
+  ]
+}

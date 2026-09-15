@@ -133,7 +133,7 @@ const headerCss = await readText("styles/v9-4.css");
 const frozenParentCss = await readFile(new URL("uk_renewables_pipeline/v9/styles/v9-3.css", root), "utf8");
 const projectsV94 = await readText("scripts/plugins/projects-v9-4.js");
 const app = await readText("scripts/app-v9-4.js");
-const rootIndex = await readFile(new URL("index.html", root), "utf8");
+const catalogue = JSON.parse(await readFile(new URL("catalogue/homepage-catalogue.json", root), "utf8"));
 const packageJson = await readJson("package.json");
 
 assert.match(html, /UK RENEWABLES PIPELINE V9\.4/);
@@ -178,8 +178,17 @@ assert.match(projectsV94, /document\.getElementById\("sortUpdated"\)\.onclick/);
 assert.match(projectsV94, /header\.setAttribute\("aria-sort", "descending"\)/);
 assert.match(projectsV94, /header\.setAttribute\("aria-sort", "ascending"\)/);
 
-assert.match(rootIndex, /UK Renewables Pipeline V9\.3\.1/);
-assert.match(rootIndex, /UK Renewables Pipeline V9\.4/);
+/* REACHABILITY IS ASSERTED AGAINST THE CATALOGUE, NOT AGAINST index.html - see
+   uk_renewables_pipeline/v9/tests/check_v9_3.mjs for the full reasoning. The
+   homepage became a view over catalogue/homepage-catalogue.json on 2026-09-08
+   and no longer names any version, so these matches failed on every push. The
+   claim this gate protects - a reader can reach this published directory from
+   the front door - is asserted against the data the front door reads. */
+const reachable = (url) => catalogue.entries.some((e) => e.url === url);
+assert.ok(reachable("./uk_renewables_pipeline/v9/"),
+  "V9.3.1 is not listed in catalogue/homepage-catalogue.json; the reader cannot reach it");
+assert.ok(reachable("./uk_renewables_pipeline/v9.4/"),
+  "V9.4 is not listed in catalogue/homepage-catalogue.json; the reader cannot reach it");
 assert.equal(packageJson.version, "9.4.0");
 assert.equal(packageJson.scripts.validate, "bash tests/run_v9_4.sh");
 assert.equal(packageJson.scripts["validate:browser"], "V9_BROWSER_SMOKE=1 bash tests/run_v9_4.sh");

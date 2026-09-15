@@ -131,7 +131,7 @@ const parentAdditiveCss = await readText("styles/v9-2.css");
 const projectsV92 = await readText("scripts/plugins/projects-v9-2.js");
 const projectsV93 = await readText("scripts/plugins/projects-v9-3.js");
 const app = await readText("scripts/app-v9-3.js");
-const rootIndex = await readFile(new URL("index.html", root), "utf8");
+const catalogue = JSON.parse(await readFile(new URL("catalogue/homepage-catalogue.json", root), "utf8"));
 const packageJson = await readJson("package.json");
 
 assert.match(html, /UK RENEWABLES PIPELINE V9\.3\.1/);
@@ -196,8 +196,24 @@ assert.match(projectsV93, /sortProjects/);
    someone else's editorial copy as if it were this version's contract.
    What is durable is that the published directory is REACHABLE from the front
    page. The name on the link is the homepage's business; the link existing is
-   this version's. */
-assert.match(rootIndex, /uk_renewables_pipeline\/v9\//);
+   this version's.
+
+   REACHABILITY IS ASSERTED AGAINST THE CATALOGUE, NOT AGAINST index.html.
+
+   On 2026-09-08 the homepage stopped being a document that names versions and
+   became a VIEW over catalogue/homepage-catalogue.json: index.html now ships a
+   nest renderer and fetches its rows at runtime, so it contains no version path
+   and no version name at all. Matching index.html for either has failed on
+   every push since, on releases nobody has touched.
+
+   The catalogue is the front door's own data - generated from the tree and git
+   by scripts/build_homepage_catalogue.py, never typed - so asserting against it
+   is asserting the same claim against the thing that now carries it. If this
+   version's published directory is dropped from the catalogue, the reader
+   cannot reach it, and this goes red exactly as it should. */
+const reachable = (url) => catalogue.entries.some((e) => e.url === url);
+assert.ok(reachable("./uk_renewables_pipeline/v9/"),
+  "V9.3.1 is not listed in catalogue/homepage-catalogue.json; the reader cannot reach it");
 assert.equal(packageJson.version, "9.3.1");
 assert.equal(packageJson.scripts.validate, "bash tests/run_v9_3.sh");
 assert.equal(packageJson.scripts["validate:browser"], "V9_BROWSER_SMOKE=1 bash tests/run_v9_3.sh");

@@ -135,6 +135,13 @@ def origin(url: str) -> tuple:
     return parsed.scheme, parsed.hostname, parsed.port or {"https": 443, "http": 80}.get(parsed.scheme)
 
 
+def remaining_timeout(deadline: float, maximum: float) -> float:
+    remaining = deadline - time.monotonic()
+    if remaining <= 0:
+        raise TimeoutError("sweep deadline reached")
+    return min(maximum, remaining)
+
+
 class SameOriginRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, headers, newurl):
         # Validate before urllib opens the redirect target, including scheme and
@@ -145,12 +152,10 @@ class SameOriginRedirect(urllib.request.HTTPRedirectHandler):
 
 
 def fetch(url: str, limit: int, deadline: float) -> bytes:
-    remaining = deadline - time.monotonic()
-    if remaining <= 0:
-        raise TimeoutError("sweep deadline reached")
+    timeout = remaining_timeout(deadline, 15)
     request = urllib.request.Request(url, headers={"User-Agent": "GlobalGrid2050-Publication-Integrity/1.0", "Accept-Encoding": "identity"})
     opener = urllib.request.build_opener(SameOriginRedirect())
-    with opener.open(request, timeout=min(15, remaining)) as response:
+    with opener.open(request, timeout=timeout) as response:
         if origin(response.url) != origin(url):
             raise ValueError("cross-origin redirect")
         chunks, size = [], 0
@@ -234,7 +239,7 @@ def validate_sun_owner(owner: Path, deadline: float, reader=fetch) -> dict:
         if not all(row["match"] for row in result["files"]):
             return result
         run = subprocess.run([sys.executable, str(temp_root / "validate_sun.py"), str(data)],
-                             capture_output=True, timeout=30, check=False)
+                             capture_output=True, timeout=remaining_timeout(deadline, 30), check=False)
         result["validated"] = run.returncode == 0
         result["validator_exit"] = run.returncode
         # Validator output is deliberately not included: report only execution status

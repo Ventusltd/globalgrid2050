@@ -143,6 +143,13 @@ class PublicationChecks(unittest.TestCase):
             with self.assertRaises(ValueError):
                 checks.window_open(text,at)
 
+    def test_subprocess_timeout_respects_remaining_deadline(self):
+        with patch.object(checks.time,'monotonic',return_value=100):
+            self.assertEqual(checks.remaining_timeout(105,30),5)
+            self.assertEqual(checks.remaining_timeout(150,30),30)
+            with self.assertRaises(TimeoutError):
+                checks.remaining_timeout(100,30)
+
     def test_production_pin_matches_workflow(self):
         workflow = pathlib.Path(__file__).resolve().parents[2]/'.github/workflows/star-checks.yml'
         self.assertIn(checks.SUN_COMMIT,workflow.read_text())

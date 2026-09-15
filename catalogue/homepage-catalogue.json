@@ -1,6 +1,6 @@
 {
  "schema": "globalgrid2050.homepage-catalogue.v1",
- "generated_utc": "2026-09-15T16:08:16Z",
+ "generated_utc": "2026-09-15T21:47:27Z",
  "name_format": "yyyymmddhhmm-name-of-the-project (UTC)",
  "families": [
   "pipeline-news",
@@ -17,11 +17,29 @@
   "commit",
   "tree"
  ],
- "count": 446,
+ "count": 447,
  "skipped_unresolvable": [
   "./repd_atlas_grid_model/"
  ],
  "entries": [
+  {
+   "agent": "Claude",
+   "agent_model": "Claude Opus 5",
+   "agent_source": "Co-Authored-By: Claude trailer",
+   "commit": "c23329c118",
+   "commit_full": "c23329c118cb2563336fc742198825cd37813d1d",
+   "tree": "053786caff9b2854acf4e7e10a192510d0c9d995",
+   "id": "202609151608-homepage-archive",
+   "stamp": "202609151608",
+   "family": "about-media",
+   "project": "homepage-archive",
+   "title": "Homepage archive homepage_v119",
+   "url": "./homepage_versions/homepage_v119.html",
+   "kind": "homepage",
+   "parent": null,
+   "status": "archived",
+   "stamp_source": "git first-commit time (UTC)"
+  },
   {
    "agent": "Claude",
    "agent_model": "Claude Opus 5",
@@ -41,12 +59,12 @@
    "stamp_source": "git first-commit time (UTC)"
   },
   {
-   "agent": "Codex",
-   "agent_model": null,
-   "agent_source": "testcode/ is Codex's lane (coordination board)",
-   "commit": "",
-   "commit_full": "",
-   "tree": null,
+   "agent": "Claude",
+   "agent_model": "Claude Opus 5",
+   "agent_source": "Co-Authored-By: Claude trailer",
+   "commit": "c23329c118",
+   "commit_full": "c23329c118cb2563336fc742198825cd37813d1d",
+   "tree": "34a109da031f9715e4da6c0a5c9da8d83af26bc3",
    "id": "202609151447-test-code",
    "stamp": "202609151447",
    "family": "test-code",
@@ -100,7 +118,7 @@
    "agent_source": "Co-Authored-By: Claude trailer",
    "commit": "e3212ddd15",
    "commit_full": "e3212ddd154faf6180b362cbfe63a0a98fd1a35c",
-   "tree": "20eb09a590ddf892db24bbd9bd72bd591d40897c",
+   "tree": "2c7e9356bb80324ed8cab4f735110d03b6371488",
    "id": "202609151339-test-code",
    "stamp": "202609151339",
    "family": "test-code",

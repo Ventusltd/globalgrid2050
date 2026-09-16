@@ -177,3 +177,102 @@ criterion, 25 characters and four words with the marker stripped — says so in 
 with no control and no network call. Its first version counted a block comment's opener,
 continuation stars and closer as explanation, and would have told a reader the code
 explains itself while pointing at a divider.
+
+---
+
+## Checks as places in the universe — proposed 2026-09-16 07:08Z by vikra-ac, NOT built
+
+Recorded with its own limits attached, in its author's framing, because the limits are the
+part that decides whether it is worth doing.
+
+### What tonight actually proved, taken one step further
+
+Rule 23 is unenforced **not because nobody wrote the check but because no harness stands
+where the reader stands.** Follow that further than we did:
+
+> **A non-coder cannot read `particles.check.mjs`. So a proof that protects them but that
+> they cannot read is a proof they must take on trust — and taking the code on trust is
+> precisely the dependency the mission exists to remove.**
+
+*Their inability to code should not stop them* cannot mean they build in a visual language
+and verify in a textual one. **Verification is where non-coders are ejected from every tool
+that has ever promised them this.** If the UI is the language, the proof has to be written
+in it.
+
+### Why it is possible now, from three pieces already built
+
+| piece | what it gives |
+|---|---|
+| position derived, never stored — `r = SPACING·sqrt(key)`, `theta = key·GOLDEN` | **any set of keys has a location** without anyone assigning one |
+| extensional identity — `id = sha256(keys sorted, comma-joined)`, first 12 hex, label a comment (`notation.mjs`, `ventus:set/`) | a set is nameable, shareable, and **identical for two people iff it holds the same lines** |
+| the readers-proof, which fetches the published estate and refuses non-published origins | **the only harness in the estate already standing in the right place** |
+
+None of the three was designed for this.
+
+### The shape
+
+```
+{ keys: [...], claim: <verb>, expect: <value>, build: <sha>, generated_utc: <iso> }
+```
+
+The id **is** the set id, so a check has the same identity as the constellation it is about.
+
+**The whole design rests on keeping `<verb>` a small vocabulary**, because a non-coder must
+be able to read the sentence *and* write it. Four candidates, each one a thing we got wrong
+tonight:
+
+| verb | the defect it would have caught |
+|---|---|
+| these lines are in one family | the card that denied a family the pack records |
+| this line opens a door that opens | the doors inert in production; the nine surface doors that 404'd |
+| the card for this line says N | the label carrying a typed count; the prose sentence and its number |
+| these two lines render differently | two of 24 surfaces rendering identically |
+
+Each asserts about **what the page renders**, never about the module that composes it —
+**rule 23 by construction rather than by discipline.** Reporting discipline decays because
+it lives in prose; this would not, **because it lives in the shape of the object.**
+
+### Why it becomes navigable, which is the point
+
+A check has keys, so it has a centroid, **so it is somewhere.** Status renders as light —
+**standing lit, failing dark, never measured an outline** — which is the mood already.
+
+> **A failing check stops being a red line in a terminal and becomes a dark region you can
+> fly to, and flying to it lands you on the lines it is about.**
+
+The wafer gains a layer answering the question an operating system must answer — *is the
+system healthy* — in the same visual language as everything else, at the cost of any other
+layer, because the pick index (`PER_CELL 16`, cell size derived from `SPACING`) already
+resolves a tap to a key in that neighbourhood.
+
+### And the part that is the mission
+
+**A non-coder who selects lines and names the set has already done nine tenths of writing a
+check.** `select.mjs` does the selecting today (`MAX_SET 200`). What is missing is **one
+sentence of vocabulary and a harness in the right place.**
+
+> **That is the first moment in this estate where a person who cannot code could assert
+> something about the system and have the system disagree with them. Disagreement is the
+> whole of learning to build.**
+
+It is also exactly what tonight's wrong readings were: the estate disagreeing with a
+careful reader, **every time by being looked at rather than by being reasoned about.**
+
+### The limits, in its own words, and they are why this is not built
+
+1. **The vocabulary is the hard design and it is not solved.** Too small and it cannot
+   express a real check; too large and it is a programming language with extra steps and
+   nothing has been gained.
+2. **The render-side harness needs a browser the board actually has.**
+   `tabs_context_mcp` reports the extension not connected — measured 06:52Z, not inherited.
+3. **A set is identical across people only if the document is.** The id is over keys and
+   keys are permanent, but **250,174 keys in pack `202609142202` against 283,231 rows in
+   the document generated `2026-09-16T00:54:43.415Z` are two populations.** A check must
+   carry which one it stands on or it will mean different things to two readers — the same
+   mixing error vikra-ac made and corrected at 48.7%.
+
+### Where it sits
+
+**Above the prose layer and above the family wafer**, if Vikram wants it — and it is the
+reason the permanent browser is worth having: **not to run our checks, but to let someone
+else write one.**

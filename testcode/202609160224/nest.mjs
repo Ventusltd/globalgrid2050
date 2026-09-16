@@ -227,6 +227,17 @@ function lineKeysIn(placeIdx, from, to) {
   return m;
 }
 
+/* The closest line in this block that the estate numbers against this file. Used to keep
+   a dark row from being a dead end: it has no key of its own, and it still leads
+   somewhere true. */
+function nearestNumbered(known, ln) {
+  let best = null;
+  for (const [l, key] of known) {
+    if (best === null || Math.abs(l - ln) < Math.abs(best.line - ln)) best = { line: l, key };
+  }
+  return best;
+}
+
 const sx = (i) => cx + px[i] * scale * zoom + panX;
 const sy = (i) => cy + py[i] * scale * zoom + panY;
 
@@ -973,10 +984,48 @@ async function show(i) {
             row.title = 'line ' + k2.toLocaleString() + ' — open it';
             row.addEventListener('click', () => { ensureBucket(bucketOf(k2)); show(i2); });
           } else {
+            /* DARK, AND THE REASON GIVEN WAS WRONG FOR ALMOST ALL OF THEM.
+             *
+             * It said "the numbering has not reached this line, OR its band is not loaded
+             * yet" — an `or` that hands a reader a false alternative and hides the real
+             * answer. Measured over 300 blocks and 5,960 block-line slots in band 46:
+             *
+             *   in the band already loaded   4,019   67.4%   these are the lit rows
+             *   in an adjacent band              8    0.1%
+             *   further away                    16    0.3%
+             *   NO (place, line) ENTRY AT ALL 1,917   32.2%
+             *
+             * So "its band is not loaded" accounts for 0.4%, and I was one commit away
+             * from building a band-widening fetch to win it. The 32.2% are not unloaded
+             * and not unnumbered: THE KEY EXISTS AND THE PACK RECORDS IT AGAINST A
+             * DIFFERENT FILE. particles.json collapses 3,130,777 key-place pairs onto
+             * 1,736 places — one canonical place per key, with `also` counting the rest —
+             * so a line whose text the estate first numbered elsewhere cannot be found
+             * by (place, line) from here.
+             *
+             * AND IT IS NOT A DEAD END, which is the rule that matters: the nearest
+             * numbered line in this same file is one click away, so the row stays dark —
+             * it has no key of its own — and still goes somewhere true. */
             row.classList.add('dark');
-            row.title = k2 === undefined
-              ? 'the numbering has not reached this line, or its band is not loaded yet'
-              : 'line ' + k2.toLocaleString() + ' is numbered but not in this wafer';
+            if (k2 !== undefined) {
+              row.title = 'line ' + k2.toLocaleString() + ' is numbered but not in this wafer';
+            } else {
+              const near = nearestNumbered(known, ln);
+              if (near === null) {
+                row.title = 'no numbered line in this block — the file itself opens on GitHub above';
+              } else {
+                const i3 = indexOfKey(near.key);
+                /* TYPED, IN A TOOLTIP, WITHIN AN HOUR OF FIXING THE TYPED LABEL — and
+                   check 14 reads textContent, so it would not have looked here. The
+                   figures are in the head the page has already loaded. */
+                row.title = 'not numbered against THIS file: the estate records its text under a ' +
+                  'key whose canonical place is another file, one of ' +
+                  head.key_place_pairs_collapsed.toLocaleString() + ' key-place pairs ' +
+                  'collapsed onto ' + head.places.length.toLocaleString() + ' places. ' +
+                  'Nearest numbered line here is ' + near.line + ' — click to open it.';
+                if (i3 >= 0) row.addEventListener('click', () => { ensureBucket(bucketOf(near.key)); show(i3); });
+              }
+            }
           }
         }
         pre.append(row);

@@ -475,7 +475,11 @@ check('particles equal the pack\'s in_a_family', head.particles === meta.in_a_fa
   const scan = MUTATE
     ? code.replace("textContent = 'ALL LINES'", "textContent = 'ALL 250,174 LINES'")
     : code;
-  const all = (scan.match(/textContent = '[^']*\d{1,3},\d{3}[^']*'/g) || []);
+  /* textContent AND title. Within an hour of this check going green, the chair typed
+     3,130,777 and 1,736 into a row.title — a tooltip a reader reads exactly as they read
+     a label, in the one property this check did not look at. A rule that holds one
+     property holds one property. */
+  const all = (scan.match(/(textContent|title) = '[^']*\d{1,3},\d{3}[^']*'/g) || []);
   check('no label carries a typed count',
     all.length === 0,
     all.length
@@ -682,6 +686,59 @@ check('particles equal the pack\'s in_a_family', head.particles === meta.in_a_fa
       : sampled.toLocaleString() + ' keys of ' + n.toLocaleString() + ' sampled at stride ' +
         STEP + ', each composed in BOTH load states (' + withBand.toLocaleString() +
         ' with a real band 46 resolution) · no sentence contradicts all-lines.family.bin');
+}
+
+/* 18. A DARK ROW MAY BE UNLIT; IT MAY NOT BE A DEAD END.
+ *
+ * Vikram's two rules pull in opposite directions and both are right: every particle
+ * clickable, and the ones that cannot be clicked go dark rather than absent — use light as
+ * your guide; and, never give the user a broken journey, leave no dead ends.
+ *
+ * They resolve the same way the estate resolves everything else: classify, don't exclude.
+ * A row with no key of its own stays DARK, because light means "this line has a key here".
+ * It still carries a destination, because darkness is a state and not a verdict.
+ *
+ * WHAT THE DARK ROWS ACTUALLY ARE, measured over 300 blocks and 5,960 block-line slots in
+ * band 46 rather than assumed:
+ *
+ *   in the band already loaded      4,019   67.4%     the lit rows
+ *   in an adjacent band                 8    0.1%
+ *   further away                       16    0.3%
+ *   no (place, line) entry at all   1,917   32.2%
+ *
+ * The card had told every one of those 1,917 that "the numbering has not reached this
+ * line, OR its band is not loaded yet". The second half accounts for 0.4%, and I was one
+ * commit from building a band-widening fetch to win it. The 32.2% are neither unloaded nor
+ * unnumbered: the key exists and the pack records it against a DIFFERENT file, because
+ * particles.json collapses key-place pairs onto one canonical place per key.
+ *
+ * So the rule: if a block holds any numbered line, no row in it may be inert.
+ */
+{
+  const raw = cardProse();
+  const code = raw.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|[^:])\/\/[^\n]*/g, '$1 ');
+  const from = code.indexOf("pre.className = 'code'");
+  const end = code.indexOf('holder.append(pre)', from);
+  /* The mutation removes the dark row's destination and leaves the light one, which is
+     exactly the shipped state: lit rows navigable, dark rows inert. */
+  const region = from >= 0 && end > from
+    ? (MUTATE ? code.slice(from, end).replace(/if \(i3 >= 0\) row\.addEventListener[^;]*;/, '') : code.slice(from, end))
+    : '';
+  const missing = [];
+  if (!region) missing.push('the block renderer was not found — this check cannot see what it claims to hold');
+  /* A destination for the unlit row, and an explanation that does not offer the false
+     alternative the shipped card offered. */
+  if (!/nearestNumbered\(/.test(region)) missing.push('a dark row has no nearest-numbered fallback');
+  if (!/row\.classList\.add\('dark'\)/.test(region)) missing.push('unreachable rows are not marked dark');
+  const handlers = (region.match(/row\.addEventListener\('click'/g) || []).length;
+  if (handlers < 2) missing.push('only ' + handlers + ' click handler(s) in the block — the dark row is inert, which is a dead end');
+  if (/numbering has not reached this line, or its band is not loaded/i.test(region))
+    missing.push('the dark row still offers "or its band is not loaded yet", true of 0.4% and offered to all of them');
+  check('a dark block row is unlit but never inert',
+    missing.length === 0,
+    missing.length ? missing.join(' · ')
+      : 'dark rows keep a destination via nearestNumbered() · ' + handlers +
+        ' click paths in the block · the false "band not loaded" alternative is gone');
 }
 
 let failed = 0;

@@ -45,6 +45,22 @@ if (!fs.existsSync(jp)) {
 
   const SENS = MUTATE ? [] : repos;     /* --mutate removes the refusal entirely */
 
+  /* THE MUTATION MUST INJECT, NOT DEPEND.
+     When this was written journeys.json still carried companies/scripts -> Pipeline
+     News, so removing the refusal was enough to produce a leak and the mutation
+     failed as it must. vikra-2e then stripped it at source — 0 companies entries of
+     1,563 — and the mutation silently went VACUOUS: 5/5 under --mutate, a safety
+     check that could no longer be shown capable of failing, passing for the happy
+     reason that the data was clean.
+     Check 2 below reported the change in words, which is how this was caught. But a
+     proof whose strength depends on the state of someone else's file is not a proof
+     of anything. The mutation now inserts its own sensitive entry, so the refusal is
+     testable for ever, whatever upstream does. */
+  if (MUTATE) {
+    j.entries = { ...j.entries, 'companies/scripts': 0 };
+    if (!j.places || !j.places.length) j.places = [{ name: 'Pipeline News', url: 'https://example.invalid/' }];
+  }
+
   const door = (repo, filePath) => {
     const shortRepo = repo.includes('/') ? repo.split('/').pop() : repo;
     if (SENS.includes(shortRepo)) return null;

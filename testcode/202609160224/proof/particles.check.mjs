@@ -370,6 +370,51 @@ check('particles equal the pack\'s in_a_family', head.particles === meta.in_a_fa
         ' — re-read each of the ' + lits.length + ' sentences against the fams[] rule, then re-pin');
 }
 
+/* 13. NO SURFACE DOOR MAY LEAD TO A 404.
+ *
+ * Vikram's rule, in his own words: never give the user a broken journey, leave no dead
+ * ends, the universe is endless. The card offered "OPEN THE SURFACE" for any place whose
+ * path matched testcode/<stamp>/, and four of the 68 stamps the places reach hold code
+ * and no index.html — 9 places, 9 doors straight to a 404.
+ *
+ * The manifest had been classifying those correctly as fragments for hours, and the FRONT
+ * DOOR was fixed for exactly this defect at 05:37Z. The card was not. Twice in one night,
+ * the same shape: a page offering what a manifest it does not consult already knows is
+ * unopenable.
+ *
+ * This check measures the doors the card can actually build, from the head it actually
+ * ships, against the directories that actually exist. Its mutation makes one openable
+ * stamp unopenable, which is the event: a surface loses its page and the card keeps
+ * linking to it.
+ */
+{
+  const head = JSON.parse(fs.readFileSync(path.join(SURF, 'particles.json'), 'utf8'));
+  const stamps = [...new Set(head.places
+    .map((p) => (/testcode\/(\d{10,14})\//.exec(p[2]) || [])[1])
+    .filter(Boolean))];
+  const openable = new Set(head.openable || []);
+  if (MUTATE && head.openable && head.openable.length) openable.add('202609110242');
+  /* A door is offered only for a stamp the head calls openable. So the failure is a
+     stamp the head calls openable that has no index.html on disk. */
+  /* WHAT THE CARD WOULD OFFER, not what this check would prefer. With no openable list
+     in the head the card falls back to offering EVERY stamp — which is the shipped
+     behaviour, and the retro-run has to say so rather than report a tidy zero. */
+  const carries = Array.isArray(head.openable) && head.openable.length > 0;
+  const offered = carries ? [...openable] : stamps;
+  const broken = offered.filter((st) => !fs.existsSync(path.join(SURF, '..', st, 'index.html')));
+  const unlisted = stamps.filter((st) => !offered.includes(st));
+  check('every surface door the card can offer actually opens',
+    broken.length === 0 && carries,
+    broken.length
+      ? broken.length + ' door(s) lead to a 404: ' + broken.slice(0, 4).join(', ') +
+        (carries ? '' : ' — the head carries no openability, so the card offers every stamp it sees') +
+        ' — a dead end, and the estate’s one rule against them'
+      : carries
+        ? offered.length + ' of ' + stamps.length + ' stamps open · ' +
+          unlisted.length + ' named without a door (code, no page) · no door 404s'
+        : 'the head carries no openability list, so the card cannot tell a page from a fragment');
+}
+
 let failed = 0;
 for (const r of results) {
   if (!r.ok) failed++;

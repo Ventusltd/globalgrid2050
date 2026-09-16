@@ -816,12 +816,29 @@ async function show(i) {
     gh.target = '_blank'; gh.rel = 'noopener';
     gh.textContent = 'OPEN ON GITHUB ↗';
     doors.append(gh);
+    /* A DOOR THAT 404s IS A DEAD END, AND THIS ONE WAS OFFERED 9 TIMES.
+       Any place under testcode/<stamp>/ got an OPEN THE SURFACE link, and four of the
+       68 stamps the places reach hold code and no index.html. The manifest has
+       classified those as fragments for hours; the front door was fixed for exactly
+       this and the card was not. Openability is measured at build time and carried in
+       the head, so the page never guesses. Classify, don't exclude: the stamp is still
+       named, because a reader who can see WHICH surface can reach it on GitHub. */
     const m = /testcode\/(\d{10,14})\//.exec(r.place[2]);
     if (m) {
-      const sf = document.createElement('a');
-      sf.href = '../' + m[1] + '/';
-      sf.textContent = 'OPEN THE SURFACE →';
-      doors.append(sf);
+      const openable = !head.openable || head.openable.indexOf(m[1]) >= 0;
+      if (openable) {
+        const sf = document.createElement('a');
+        sf.href = '../' + m[1] + '/';
+        sf.textContent = 'OPEN THE SURFACE →';
+        doors.append(sf);
+      } else {
+        const sf = document.createElement('a');
+        sf.href = '../';
+        sf.textContent = 'SURFACE ' + m[1] + ' HAS NO PAGE — THE NEST →';
+        sf.title = 'This line lives in testcode/' + m[1] + ', which holds code and no ' +
+          'index.html. The nest lists it; GitHub opens the file above.';
+        doors.append(sf);
+      }
     }
     panelBody.append(doors);
 
@@ -847,7 +864,9 @@ async function show(i) {
       facts.className = 'why';
       const fl = document.createElement('div');
       fl.className = 'dim';
-      fl.textContent = 'WHAT THE RECORD KNOWS ABOUT THIS FUNCTION';
+      /* "KNOWS" promised the whole record; this is a brief of seven fields. The label
+         is the promise applies to the chair's headers too, not only to vikra-ac's verb. */
+      fl.textContent = 'WHAT THE RECORD STATES ABOUT THIS FUNCTION';
       const fp = document.createElement('p');
       fp.className = 'plain';
       fp.textContent = familyNote(r);

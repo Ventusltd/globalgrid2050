@@ -30,7 +30,7 @@
  * the Grid Atlas popup from iterations/07-code-card, reused unchanged.
  */
 
-import { derive, radiation, census, nature, NATURE_NAME, NOISE, OPERATIONAL } from './derive.mjs';
+import { derive, radiation, census, nature, isExplanatory, NATURE_NAME, NOISE, OPERATIONAL } from './derive.mjs';
 
 const TAU = Math.PI * 2;
 const GOLDEN = Math.PI * (3 - Math.sqrt(5));
@@ -1079,11 +1079,7 @@ async function show(i) {
        * absolute terms. */
       const explanatory = [];
       for (let ln = from; ln <= to; ln++) {
-        const t = lines[ln - 1];
-        if (ln === r.line || t === undefined) continue;
-        if (!/^\s*(\/\/|\/\*|\*|#)/.test(t)) continue;
-        const prose = t.replace(/^\s*(\/\/+|\/\*+|\*+\/?|#+)\s*/, '').replace(/\*\/\s*$/, '').trim();
-        if (prose.length >= 25 && prose.split(/\s+/).filter(Boolean).length >= 4 && /[A-Za-z]{3}/.test(prose)) explanatory.push(ln);
+        if (ln !== r.line && isExplanatory(lines[ln - 1])) explanatory.push(ln);
       }
       if (explanatory.length) {
         const self = document.createElement('div');

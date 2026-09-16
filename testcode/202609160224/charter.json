@@ -1,173 +1,181 @@
 {
-  "schema": "ventus.charter.v1",
-  "note": "Rules established on the night of 2026-09-15/16 by three Claude seats working under Vikram. Each carries the check that ENFORCES it, or null. A rule with a null enforcer is a sentence, and vikra-ac demonstrated at 03:49Z what happens to those: it diagnosed a self-counting query, explained it, and ran the identical broken command ninety minutes later, because the explanation lived in prose and the fix did not live in the tool. This file exists so the decay is measurable rather than remembered.",
-  "not_claimed": "That a check enforces the rule it is attached to. charter.check.mjs verifies the named check EXISTS; only a person can verify it binds. An enforcer that does not enforce is the defect this whole night was about.",
-  "rules": [
-    {
-      "id": "mutation-must-bite",
-      "binds": "anyone writing a proof",
-      "rule": "A suite whose --mutate run fails nothing proves nothing. The mutation must bite strictly harder than the honest run.",
-      "why": "Four went vacuous tonight and a person caught every one: the chair's nest harness could not fail the check the Nest existed to protect; vikra-2e's generator used Math.random()*0 and reported 24 surfaces at 6/6; journeys.check went vacuous the moment companies was cleaned upstream; nest check 4b passed under mutation on the day it was written.",
-      "enforced_by": "charter.check.mjs#no mutation harness is vacuous"
-    },
-    {
-      "id": "enforcer-must-exist",
-      "binds": "anyone adding a rule to this file",
-      "rule": "A rule claiming an enforcer must name a check that exists.",
-      "why": "A charter citing a check nobody wrote is worse than one admitting the rule is unenforced.",
-      "enforced_by": "charter.check.mjs#every claimed enforcer exists"
-    },
-    {
-      "id": "classify-dont-exclude",
-      "binds": "anyone generating a manifest",
-      "rule": "A thing that is not what you expected stays in the record and stops being counted as what it is not.",
-      "why": "testcode/202609151500 is a folder with one module and no index.html. Excluding it would have hidden it; counting it as a surface made the front door promise a room that was not there.",
-      "enforced_by": "nest.check.mjs#every surface opens, and a folder is not a surface"
-    },
-    {
-      "id": "way-out-leads-somewhere",
-      "binds": "anyone shipping navigation",
-      "rule": "Every target a navigation offers must resolve, checked the way the page resolves it.",
-      "why": "A navigation whose targets do not exist is worse than none: it promises a journey and 404s.",
-      "enforced_by": "nest.check.mjs#the way out leads somewhere"
-    },
-    {
-      "id": "page-must-reach-its-data",
-      "binds": "anyone shipping a page that fetches",
-      "rule": "Resolve the path the page actually fetches, from where the page actually sits, and require it to exist inside the published tree.",
-      "why": "The app doors fetched ../../../_board/journeys.json for an hour. Code live, data unpublished, 404 swallowed by a catch, and the proof passed 5/5 because it validated the file on disk.",
-      "enforced_by": "journeys.check.mjs#the page can reach its door map"
-    },
-    {
-      "id": "no-sensitive-door",
-      "binds": "anyone rendering a destination",
-      "rule": "A sensitive repository opens no door, enforced in the page and not only at source.",
-      "why": "Vikram: the API is public, the interpretation and filtering are not. A card safe only because its data is safe is not safe.",
-      "enforced_by": "journeys.check.mjs#no sensitive repository opens a door"
-    },
-    {
-      "id": "refusal-names-what-it-lacks",
-      "binds": "anyone writing a refusal",
-      "rule": "A refusal must name the fact it wants. A refusal that does not is indistinguishable from a bug.",
-      "why": "Three of the ten laws read facts this page has no source for. Run on undefined they produce a picture, and it is a plausible lie.",
-      "enforced_by": "laws.check.mjs#every refused law names the fact it lacks"
-    },
-    {
-      "id": "starting-door-not-dust",
-      "binds": "anyone offering a visitor a first click",
-      "rule": "A door offered to a reader must be a line that carries a statement.",
-      "why": "Ranking by use crowned key 2 with 142,863 places. Key 2 is the empty line. Technically correct and the worst possible first click for a non-coder.",
-      "enforced_by": "particles.check.mjs#every starting door is a line that carries a statement"
-    },
-    {
-      "id": "raster-reaches-canvas",
-      "binds": "anyone drawing",
-      "rule": "The default camera's draw path must end in something that puts pixels on the canvas.",
-      "why": "The wafer passed 6/6 and 3/6 mutated while rendering zero pixels. Every check described the data; the failure was in the raster.",
-      "enforced_by": "particles.check.mjs#the pixel path ends in a blit, and the default zoom uses it"
-    },
-    {
-      "id": "no-shadowed-counter",
-      "binds": "anyone rewriting a loop",
-      "rule": "No loop counter may be redeclared inside its own body.",
-      "why": "The commit that added a proof of the picture broke the picture: a `c` counter in a block already holding `const c` threw on the first iteration. node --check passes it.",
-      "enforced_by": "particles.check.mjs#no loop counter is shadowed inside its own body"
-    },
-    {
-      "id": "state-the-denominator",
-      "binds": "any seat reporting a figure",
-      "rule": "Every figure carries its denominator.",
-      "why": "Line 2 read 2,281 in one artifact and 36,545 in another. Both correct: distinct families against total occurrences. The 16x scare was an unstated denominator, not a drift.",
-      "enforced_by": null,
-      "boundary": "formatting a figure — a pct(n, d) helper that cannot emit a percentage without both arguments. UNBUILT."
-    },
-    {
-      "id": "state-the-generated-utc",
-      "binds": "any seat reporting a figure",
-      "rule": "Every figure carries the generated_utc of the artifact it came from.",
-      "why": "Three family counts (10,985 / 10,805 / 13,240) and two line totals (250,174 / 283,231) were all live at once, and each looked authoritative.",
-      "enforced_by": null,
-      "boundary": "publishing an artifact — a schema gate refusing JSON without it. nest.check.mjs already does exactly this for its own manifest, so the pattern is in this repository. HALF-BUILT."
-    },
-    {
-      "id": "never-review-truncated-output",
-      "binds": "any seat reading a result",
-      "rule": "Never form a verdict from output you truncated.",
-      "why": "Four confident wrong results tonight: 867 ms/frame from a backgrounded rAF, 78-dirs-from-one-date, a 300-character stderr clip that stored closing braces instead of assertions, and the chair's own grep | head -3 that showed three PASS lines while the proof exited 1.",
-      "enforced_by": null,
-      "boundary": "no boundary can PREVENT it; one can DETECT it. End every report with \"END OF REPORT - N checks\" so a truncated read is visibly short rather than silently short. Same shape as the guard heartbeat: you cannot stop silence, you can make absence loud. DETECTABLE, UNBUILT."
-    },
-    {
-      "id": "lab-return-is-a-candidate",
-      "binds": "any seat using the lab",
-      "rule": "A model's return is a candidate. A seat opens the actual file before it is believed.",
-      "why": "1-in-20 agreement in STONE-20260915T212800Z, and a 60-of-120 template echo tonight.",
-      "enforced_by": null,
-      "boundary": "the lab-returns directory — every file carries status: CANDIDATE and a falsifiable check rule, and a reader refuses an unmarked return (vikra-2e). vikra-ac holds this binds what a seat BELIEVES and is irreducible. UNRESOLVED BETWEEN SEATS."
-    },
-    {
-      "id": "agreement-is-not-verification",
-      "binds": "any two seats",
-      "rule": "Two agents agreeing is not verification when both look in derived data instead of the source.",
-      "why": "The chair verified vikra-ac's claim that key -> (repo, path, line) did not exist, in two derived catalogues that genuinely lack it, and was confirmed in being wrong. It existed, published, at stars/code/f/.",
-      "enforced_by": null,
-      "boundary": "the moment a claim is written down as CONFIRMED. _board/provenance.py refuses a confirmation whose two readings trace to the same root artifact — it REFUSED the chair’s own family-1318 confirmation, both readings tracing to stars/code/f/*.json @ 2026-09-14T19:55:48.124Z. STRUCTURAL UP TO ONE POINT: it cannot tell that two differently-named artifacts are one data set. That lives in a hand-written LINEAGE table and only a person knows it. vikra-ac is right that the rule binds what a seat believes; vikra-2e is right that it is reducible everywhere else. NOT YET COUNTED AS ENFORCED: provenance.py lives in _board, which is never published — see enforcers/README.md.",
-      "status": "resolved-in-part"
-    },
-    {
-      "id": "published-address-is-permanent",
-      "binds": "anyone regenerating anything published",
-      "rule": "A published address never moves. It cannot be true for line keys and negotiable for surfaces.",
-      "why": "A regeneration deleted 24 published surfaces from disk, three of them linked from the homepage an hour earlier. They survived only because they were in git.",
-      "enforced_by": null,
-      "boundary": "the commit — safe-publish.mjs already refuses deletions; refusing a move or delete under testcode/<stamp>/ is the same gate with a narrower path filter. NEARLY BUILT."
-    },
-    {
-      "id": "stage-what-you-read",
-      "binds": "anyone staging a directory",
-      "rule": "Read what the stage would do before staging it.",
-      "why": "A single git add testcode/ would have staged 120 deletions and removed 24 live surfaces. The chair had made exactly that call twice that night without reading it. Nothing protected us but the order the messages arrived in.",
-      "enforced_by": "safe-publish.mjs#a deletion refuses the stage"
-    },
-    {
-      "id": "publish-must-not-cancel-publish",
-      "binds": "any seat pushing",
-      "rule": "Do not push on top of a pending deploy.",
-      "why": "Three of eight Pages deploys were cancelled by our own cadence, so every liveness check for half an hour measured a build that never completed.",
-      "enforced_by": "safe-publish.mjs#the deploy queue is readable, or refused"
-    },
-    {
-      "id": "key-on-the-hash-never-the-label",
-      "binds": "anyone indexing anything",
-      "rule": "An identifier may serve as identity only where something guarantees it is unique in the space it is matched against. A path is unique in a repo. A key is unique in the estate. A word is unique nowhere.",
-      "why": "Five instances in one night: family `state` with 369 impossible callers, stemmed wells named after fragments of repositories nobody wrote, the token `string` routing a CRM stylesheet to the Solar Topology Engine, six law names colliding with physics.mjs, and a declared storage quota read as measured mass.",
-      "enforced_by": null,
-      "boundary": "the receiver — notation.mjs collect() already keys its Map by id and carries labels as a list it never reads. Enforceable per receiver, not globally. STRUCTURAL WHERE IT MATTERS."
-    },
-    {
-      "id": "derive-the-proof-from-the-readers-position",
-      "binds": "anyone writing a proof about a published thing",
-      "rule": "A proof about the site must fetch the site. Never localhost, never the tree.",
-      "why": "Six findings were one cause: every proof ran where the code lives and none where the reader stands. A tree contains the data, the module and the sibling repository; a site contains only what was published.",
-      "enforced_by": null,
-      "boundary": "ENFORCED ALREADY by readers-proof.mjs, which REFUSES a non-published origin. It sits on another seat’s branch, so this file cannot see it. MISCOUNTED, NOT UNBUILT."
-    },
-    {
-      "id": "a-gate-must-not-be-ignorable",
-      "binds": "anyone building a gate, and anyone calling one",
-      "rule": "The check and the act must be one operation. A gate whose result the caller can ignore is advice.",
-      "why": "The chair built safe-publish.mjs to refuse a push during a deploy, then within the hour ran `safe-publish.mjs push`, read REFUSED, and ran `git push` anyway — because the refusal was an exit code in a pipeline nobody checked. It cancelled the deploy of abd5a989. A gate consulted and overridden has exactly the standing of the ten prose rules it replaced, and fails for the same reason: the discipline lived in the caller, not the tool.",
-      "enforced_by": "safe-publish.mjs#not knowing is not permission",
-      "boundary": "the push itself — `push --execute` performs the push only when the queue is clear, leaving no moment between the check and the act for a caller to skip."
-    },
-    {
-      "id": "measure-dont-declare",
-      "binds": "anyone writing an artifact that describes itself",
-      "rule": "An artifact may not declare anything about itself that it could measure. Measure, or say nothing.",
-      "why": "Six within-artifact failures tonight are one shape: a self-description diverging from behaviour. ground said (5,7,11) and the canvas was (0,0,0), so every pixel counted as lit and liveness passed on the whole canvas. FEATURE_CAP said 20,000 and evicted only hidden layers. A comment said 'tens of thousands' and the code computed 200. This is the estate's founding move pointed inward: the wafer derives a position rather than storing one because a derived thing cannot drift from what it describes. vikra-ac, 04:35Z. AND IT MATTERS MOST FOR THE MISSION — an expert reads the code and notices the divergence, which is how every one was caught tonight. A non-coder cannot: for them the self-description IS the artifact, so a drifting description does not inconvenience them, it misleads them with no way to find out.",
-      "enforced_by": "render-proof.mjs#the page tells the truth about its own ground",
-      "boundary": "the artifact's own contract. BUILT: enforcers/render-proof.mjs honesty() runs as LEVEL 0 and FAILS when a declared ground disagrees with the measured one, because every other level is vacuous until it passes — a wrong ground makes every pixel count as lit. The declaration is kept rather than removed: a claim the proof CHECKS is stronger than silence, because silence cannot catch drift. NOT COVERED: the shadowed counter, a language defect and a linter's job; and every other self-description in the estate — this holds one claim on one surface, not the rule. DERIVATION COSTS SOMETHING: every consumer pays a canvas read, so the trade is per claim rather than doctrine (vikra-ac)."
-    }
-  ],
-  "unenforced_is_a_backlog": "The unenforced rules are NOT a category and must not be filed as judgement. vikra-ac: 'they are the leftovers, and putting them together under judgement gives an accident the appearance of a principle.' The test is whether a rule can be expressed as a REFUSAL AT A BOUNDARY AN ARTIFACT MUST CROSS. Each unenforced rule below names its boundary, or says no boundary is known. Unenforced is a backlog; judgement would be a decision, and the chair made that decision by accident before either seat corrected it."
+ "schema": "ventus.charter.v1",
+ "note": "Rules established on the night of 2026-09-15/16 by three Claude seats working under Vikram. Each carries the check that ENFORCES it, or null. A rule with a null enforcer is a sentence, and vikra-ac demonstrated at 03:49Z what happens to those: it diagnosed a self-counting query, explained it, and ran the identical broken command ninety minutes later, because the explanation lived in prose and the fix did not live in the tool. This file exists so the decay is measurable rather than remembered.",
+ "not_claimed": "That a check enforces the rule it is attached to. charter.check.mjs verifies the named check EXISTS; only a person can verify it binds. An enforcer that does not enforce is the defect this whole night was about.",
+ "rules": [
+  {
+   "id": "mutation-must-bite",
+   "binds": "anyone writing a proof",
+   "rule": "A suite whose --mutate run fails nothing proves nothing. The mutation must bite strictly harder than the honest run.",
+   "why": "Four went vacuous tonight and a person caught every one: the chair's nest harness could not fail the check the Nest existed to protect; vikra-2e's generator used Math.random()*0 and reported 24 surfaces at 6/6; journeys.check went vacuous the moment companies was cleaned upstream; nest check 4b passed under mutation on the day it was written.",
+   "enforced_by": "charter.check.mjs#no mutation harness is vacuous"
+  },
+  {
+   "id": "enforcer-must-exist",
+   "binds": "anyone adding a rule to this file",
+   "rule": "A rule claiming an enforcer must name a check that exists.",
+   "why": "A charter citing a check nobody wrote is worse than one admitting the rule is unenforced.",
+   "enforced_by": "charter.check.mjs#every claimed enforcer exists"
+  },
+  {
+   "id": "classify-dont-exclude",
+   "binds": "anyone generating a manifest",
+   "rule": "A thing that is not what you expected stays in the record and stops being counted as what it is not.",
+   "why": "testcode/202609151500 is a folder with one module and no index.html. Excluding it would have hidden it; counting it as a surface made the front door promise a room that was not there.",
+   "enforced_by": "nest.check.mjs#every surface opens, and a folder is not a surface"
+  },
+  {
+   "id": "way-out-leads-somewhere",
+   "binds": "anyone shipping navigation",
+   "rule": "Every target a navigation offers must resolve, checked the way the page resolves it.",
+   "why": "A navigation whose targets do not exist is worse than none: it promises a journey and 404s.",
+   "enforced_by": "nest.check.mjs#the way out leads somewhere"
+  },
+  {
+   "id": "page-must-reach-its-data",
+   "binds": "anyone shipping a page that fetches",
+   "rule": "Resolve the path the page actually fetches, from where the page actually sits, and require it to exist inside the published tree.",
+   "why": "The app doors fetched ../../../_board/journeys.json for an hour. Code live, data unpublished, 404 swallowed by a catch, and the proof passed 5/5 because it validated the file on disk.",
+   "enforced_by": "journeys.check.mjs#the page can reach its door map"
+  },
+  {
+   "id": "no-sensitive-door",
+   "binds": "anyone rendering a destination",
+   "rule": "A sensitive repository opens no door, enforced in the page and not only at source.",
+   "why": "Vikram: the API is public, the interpretation and filtering are not. A card safe only because its data is safe is not safe.",
+   "enforced_by": "journeys.check.mjs#no sensitive repository opens a door"
+  },
+  {
+   "id": "refusal-names-what-it-lacks",
+   "binds": "anyone writing a refusal",
+   "rule": "A refusal must name the fact it wants. A refusal that does not is indistinguishable from a bug.",
+   "why": "Three of the ten laws read facts this page has no source for. Run on undefined they produce a picture, and it is a plausible lie.",
+   "enforced_by": "laws.check.mjs#every refused law names the fact it lacks"
+  },
+  {
+   "id": "starting-door-not-dust",
+   "binds": "anyone offering a visitor a first click",
+   "rule": "A door offered to a reader must be a line that carries a statement.",
+   "why": "Ranking by use crowned key 2 with 142,863 places. Key 2 is the empty line. Technically correct and the worst possible first click for a non-coder.",
+   "enforced_by": "particles.check.mjs#every starting door is a line that carries a statement"
+  },
+  {
+   "id": "raster-reaches-canvas",
+   "binds": "anyone drawing",
+   "rule": "The default camera's draw path must end in something that puts pixels on the canvas.",
+   "why": "The wafer passed 6/6 and 3/6 mutated while rendering zero pixels. Every check described the data; the failure was in the raster.",
+   "enforced_by": "particles.check.mjs#the pixel path ends in a blit, and the default zoom uses it"
+  },
+  {
+   "id": "no-shadowed-counter",
+   "binds": "anyone rewriting a loop",
+   "rule": "No loop counter may be redeclared inside its own body.",
+   "why": "The commit that added a proof of the picture broke the picture: a `c` counter in a block already holding `const c` threw on the first iteration. node --check passes it.",
+   "enforced_by": "particles.check.mjs#no loop counter is shadowed inside its own body"
+  },
+  {
+   "id": "state-the-denominator",
+   "binds": "any seat reporting a figure",
+   "rule": "Every figure carries its denominator.",
+   "why": "Line 2 read 2,281 in one artifact and 36,545 in another. Both correct: distinct families against total occurrences. The 16x scare was an unstated denominator, not a drift.",
+   "enforced_by": null,
+   "boundary": "formatting a figure — a pct(n, d) helper that cannot emit a percentage without both arguments. UNBUILT."
+  },
+  {
+   "id": "state-the-generated-utc",
+   "binds": "any seat reporting a figure",
+   "rule": "Every figure carries the generated_utc of the artifact it came from.",
+   "why": "Three family counts (10,985 / 10,805 / 13,240) and two line totals (250,174 / 283,231) were all live at once, and each looked authoritative.",
+   "enforced_by": null,
+   "boundary": "publishing an artifact — a schema gate refusing JSON without it. nest.check.mjs already does exactly this for its own manifest, so the pattern is in this repository. HALF-BUILT."
+  },
+  {
+   "id": "never-review-truncated-output",
+   "binds": "any seat reading a result",
+   "rule": "Never form a verdict from output you truncated.",
+   "why": "Four confident wrong results tonight: 867 ms/frame from a backgrounded rAF, 78-dirs-from-one-date, a 300-character stderr clip that stored closing braces instead of assertions, and the chair's own grep | head -3 that showed three PASS lines while the proof exited 1.",
+   "enforced_by": null,
+   "boundary": "no boundary can PREVENT it; one can DETECT it. End every report with \"END OF REPORT - N checks\" so a truncated read is visibly short rather than silently short. Same shape as the guard heartbeat: you cannot stop silence, you can make absence loud. DETECTABLE, UNBUILT."
+  },
+  {
+   "id": "lab-return-is-a-candidate",
+   "binds": "any seat using the lab",
+   "rule": "A model's return is a candidate. A seat opens the actual file before it is believed.",
+   "why": "1-in-20 agreement in STONE-20260915T212800Z, and a 60-of-120 template echo tonight.",
+   "enforced_by": null,
+   "boundary": "the lab-returns directory — every file carries status: CANDIDATE and a falsifiable check rule, and a reader refuses an unmarked return (vikra-2e). vikra-ac holds this binds what a seat BELIEVES and is irreducible. UNRESOLVED BETWEEN SEATS."
+  },
+  {
+   "id": "agreement-is-not-verification",
+   "binds": "any two seats",
+   "rule": "Two agents agreeing is not verification when both look in derived data instead of the source.",
+   "why": "The chair verified vikra-ac's claim that key -> (repo, path, line) did not exist, in two derived catalogues that genuinely lack it, and was confirmed in being wrong. It existed, published, at stars/code/f/.",
+   "enforced_by": null,
+   "boundary": "the moment a claim is written down as CONFIRMED. _board/provenance.py refuses a confirmation whose two readings trace to the same root artifact — it REFUSED the chair’s own family-1318 confirmation, both readings tracing to stars/code/f/*.json @ 2026-09-14T19:55:48.124Z. STRUCTURAL UP TO ONE POINT: it cannot tell that two differently-named artifacts are one data set. That lives in a hand-written LINEAGE table and only a person knows it. vikra-ac is right that the rule binds what a seat believes; vikra-2e is right that it is reducible everywhere else. NOT YET COUNTED AS ENFORCED: provenance.py lives in _board, which is never published — see enforcers/README.md.",
+   "status": "resolved-in-part"
+  },
+  {
+   "id": "published-address-is-permanent",
+   "binds": "anyone regenerating anything published",
+   "rule": "A published address never moves. It cannot be true for line keys and negotiable for surfaces.",
+   "why": "A regeneration deleted 24 published surfaces from disk, three of them linked from the homepage an hour earlier. They survived only because they were in git.",
+   "enforced_by": null,
+   "boundary": "the commit — safe-publish.mjs already refuses deletions; refusing a move or delete under testcode/<stamp>/ is the same gate with a narrower path filter. NEARLY BUILT."
+  },
+  {
+   "id": "stage-what-you-read",
+   "binds": "anyone staging a directory",
+   "rule": "Read what the stage would do before staging it.",
+   "why": "A single git add testcode/ would have staged 120 deletions and removed 24 live surfaces. The chair had made exactly that call twice that night without reading it. Nothing protected us but the order the messages arrived in.",
+   "enforced_by": "safe-publish.mjs#a deletion refuses the stage"
+  },
+  {
+   "id": "publish-must-not-cancel-publish",
+   "binds": "any seat pushing",
+   "rule": "Do not push on top of a pending deploy.",
+   "why": "Three of eight Pages deploys were cancelled by our own cadence, so every liveness check for half an hour measured a build that never completed.",
+   "enforced_by": "safe-publish.mjs#the deploy queue is readable, or refused"
+  },
+  {
+   "id": "key-on-the-hash-never-the-label",
+   "binds": "anyone indexing anything",
+   "rule": "An identifier may serve as identity only where something guarantees it is unique in the space it is matched against. A path is unique in a repo. A key is unique in the estate. A word is unique nowhere.",
+   "why": "Five instances in one night: family `state` with 369 impossible callers, stemmed wells named after fragments of repositories nobody wrote, the token `string` routing a CRM stylesheet to the Solar Topology Engine, six law names colliding with physics.mjs, and a declared storage quota read as measured mass.",
+   "enforced_by": null,
+   "boundary": "the receiver — notation.mjs collect() already keys its Map by id and carries labels as a list it never reads. Enforceable per receiver, not globally. STRUCTURAL WHERE IT MATTERS."
+  },
+  {
+   "id": "derive-the-proof-from-the-readers-position",
+   "binds": "anyone writing a proof about a published thing",
+   "rule": "A proof about the site must fetch the site. Never localhost, never the tree.",
+   "why": "Six findings were one cause: every proof ran where the code lives and none where the reader stands. A tree contains the data, the module and the sibling repository; a site contains only what was published.",
+   "enforced_by": null,
+   "boundary": "ENFORCED ALREADY by readers-proof.mjs, which REFUSES a non-published origin. It sits on another seat’s branch, so this file cannot see it. MISCOUNTED, NOT UNBUILT."
+  },
+  {
+   "id": "a-gate-must-not-be-ignorable",
+   "binds": "anyone building a gate, and anyone calling one",
+   "rule": "The check and the act must be one operation. A gate whose result the caller can ignore is advice.",
+   "why": "The chair built safe-publish.mjs to refuse a push during a deploy, then within the hour ran `safe-publish.mjs push`, read REFUSED, and ran `git push` anyway — because the refusal was an exit code in a pipeline nobody checked. It cancelled the deploy of abd5a989. A gate consulted and overridden has exactly the standing of the ten prose rules it replaced, and fails for the same reason: the discipline lived in the caller, not the tool.",
+   "enforced_by": "safe-publish.mjs#not knowing is not permission",
+   "boundary": "the push itself — `push --execute` performs the push only when the queue is clear, leaving no moment between the check and the act for a caller to skip."
+  },
+  {
+   "id": "measure-dont-declare",
+   "binds": "anyone writing an artifact that describes itself",
+   "rule": "An artifact may not declare anything about itself that it could measure. Measure, or say nothing.",
+   "why": "Six within-artifact failures tonight are one shape: a self-description diverging from behaviour. ground said (5,7,11) and the canvas was (0,0,0), so every pixel counted as lit and liveness passed on the whole canvas. FEATURE_CAP said 20,000 and evicted only hidden layers. A comment said 'tens of thousands' and the code computed 200. This is the estate's founding move pointed inward: the wafer derives a position rather than storing one because a derived thing cannot drift from what it describes. vikra-ac, 04:35Z. AND IT MATTERS MOST FOR THE MISSION — an expert reads the code and notices the divergence, which is how every one was caught tonight. A non-coder cannot: for them the self-description IS the artifact, so a drifting description does not inconvenience them, it misleads them with no way to find out.",
+   "enforced_by": "render-proof.mjs#the page tells the truth about its own ground",
+   "boundary": "the artifact's own contract. BUILT: enforcers/render-proof.mjs honesty() runs as LEVEL 0 and FAILS when a declared ground disagrees with the measured one, because every other level is vacuous until it passes — a wrong ground makes every pixel count as lit. The declaration is kept rather than removed: a claim the proof CHECKS is stronger than silence, because silence cannot catch drift. NOT COVERED: the shadowed counter, a language defect and a linter's job; and every other self-description in the estate — this holds one claim on one surface, not the rule. DERIVATION COSTS SOMETHING: every consumer pays a canvas read, so the trade is per claim rather than doctrine (vikra-ac)."
+  },
+  {
+   "id": "assert-against-what-renders",
+   "binds": "anyone writing a check about what a page SAYS",
+   "rule": "An assertion about the words a reader gets must be made against what the page renders, never against the module that composes them.",
+   "why": "vikra-ac, 06:47Z, and it is the night's whole record in one sentence: every defect that reached a reader was found by eyes, never by a proof. A surface drew nothing while passing 6/6. Two published surfaces rendered the same picture while each passed 12/12. A door was validated in a file the page could not reach. A card asserted 'no function family claims it' about a line the pack says is in one. A control was built, deployed, correct in source, and had never appeared to a visitor. The proofs were green throughout. THE CATEGORY, not the bug: source contains text that never reaches a reader and omits text a reader sees, because sentences are composed at run time from data. Check 12 of particles proves it from the other side — its first run extracted 28 fragments of COMMENT prose, because an apostrophe in a comment opens a string literal. Grepping a module for what it will say is guessing. AND IT MATTERS MOST FOR THE MISSION: a graphical language for non-coders cannot be verified by source-side proofs, because its failure mode is the interface lying to someone who cannot check. An expert reads the code and catches it, which is how every one of tonight's was caught. For a non-coder the rendered sentence IS the estate, so a false sentence is not a display bug — it is the universe being wrong.",
+   "enforced_by": null,
+   "boundary": "NOT ENFORCED, and this is the board's one structural gap rather than any individual defect. A refusal would sit in a rendered-side check: load the published page, read the card's innerText, and assert over the words a person actually gets — 'no card may assert a family fact the pack contradicts' is trivially checkable that way and was not checkable any other way, which is why it took a press to find. IT NEEDS A BROWSER, which no seat here has: the extension is not connected and puppeteer-core is absent, and that is already six of the estate's own failing proofs. Tonight two seats wrote proofs and one seat had eyes; the estate needs that capability PERMANENTLY, not as a seat that happens to have CDP for one night. WHAT THE SOURCE-SIDE CHECKS STILL BUY: particles 11 and 12, why 1/6/7, and card 15/16 hold shape and prose and each names what it cannot see. They are a floor, not a substitute — the chair has no browser and says so in every stone."
+  }
+ ],
+ "unenforced_is_a_backlog": "The unenforced rules are NOT a category and must not be filed as judgement. vikra-ac: 'they are the leftovers, and putting them together under judgement gives an accident the appearance of a principle.' The test is whether a rule can be expressed as a REFUSAL AT A BOUNDARY AN ARTIFACT MUST CROSS. Each unenforced rule below names its boundary, or says no boundary is known. Unenforced is a backlog; judgement would be a decision, and the chair made that decision by accident before either seat corrected it."
 }

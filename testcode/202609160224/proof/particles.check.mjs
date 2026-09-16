@@ -16,7 +16,7 @@
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
-import { derive, nature, radiation, NATURE_NAME, NOISE } from '../derive.mjs';
+import { derive, nature, radiation, isExplanatory, NATURE_NAME, NOISE } from '../derive.mjs';
 
 const HERE = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'));
 const SURF = path.resolve(HERE, '..');
@@ -477,13 +477,35 @@ check('particles equal the pack\'s in_a_family', head.particles === meta.in_a_fa
      delete the handler and it matched nothing, so the check reported PASS under mutation
      and would have counted as a harness that proves something. The vacuity gate exists
      for exactly this and it is the sixth time tonight. */
-  const scan = MUTATE ? code.split("row.addEventListener('click'").join('row.noHandler(') : code;
+  let missingRegion = false;
+  const whole = MUTATE ? code.split("row.addEventListener('click'").join('row.noHandler(') : code;
+  /* SCOPED TO THE BLOCK RENDERER, and the first version was not.
+   *
+   * It searched the WHOLE file for row.addEventListener('click'. renderNeighbourhood --
+   * the numbered-neighbours fallback for a line with no file -- has carried exactly that
+   * since long before this check existed, with its own comment: "Every neighbour is
+   * itself a door." So the handler assertion was satisfied by a DIFFERENT RENDERER and
+   * could never fail for the block.
+   *
+   * Retro-run against the pre-change file it still reported FAIL, on the three other
+   * signals -- which is the trap: the verdict was right and one of its four reasons was
+   * vacuous, and nothing in the output said so. vikra-ac found it sideways while
+   * searching the served file for strings it had invented, and named the same failure in
+   * itself in the same message: the right answer from the wrong evidence.
+   *
+   * Seventh instance tonight of a check describing only what it looks at, and the second
+   * inside a check written to hold a fix for that very thing. */
+  const from = whole.indexOf("pre.className = 'code'");
+  const end = whole.indexOf('holder.append(pre)', from);
+  const scan = from >= 0 && end > from ? whole.slice(from, end) : '';
   const lights = /row\.classList\.add\('live'\)/.test(scan);
   const opens = /row\.addEventListener\('click'/.test(scan);
   const darkens = /row\.classList\.add\('dark'\)/.test(scan);
   const styled = /\.cl\.live/.test(css) && /\.cl\.dark/.test(css);
-  const counts = /numbered and open/.test(scan);
+  const counts = /numbered and open/.test(whole);
+  if (from < 0 || end <= from) missingRegion = true;
   const missing = [];
+  if (missingRegion) missing.push('the block renderer was not found — this check cannot see what it claims to hold');
   if (!lights) missing.push('no row is lit');
   if (!opens) missing.push('no row carries a click handler — the block is a dead end');
   if (!darkens) missing.push('unreachable rows are not marked dark');
@@ -493,6 +515,51 @@ check('particles equal the pack\'s in_a_family', head.particles === meta.in_a_fa
     missing.length === 0,
     missing.length ? missing.join(' · ')
       : 'lit rows open their key · unreachable rows dim and say why · both styled · the count is stated');
+}
+
+/* 16. THE PROSE SENTENCE MUST NOT FIRE ON A DIVIDER.
+ *
+ * vikra-ac's second owed check, and its own note on how to run it: "the second needs no
+ * browser at all if you assert it over the rendered text rather than the source." So this
+ * exercises the card's ACTUAL PREDICATE against REAL LINES from the estate, rather than
+ * asserting that some regex appears in nest.mjs.
+ *
+ * It can do that because the predicate now has ONE definition, in derive.mjs, imported by
+ * the card and by this file. The card's first version had its own copy and counted a
+ * block comment's opener, its continuation stars and its closer as explanation — it would
+ * have told a reader "3 of these lines are written for you" and shown them a divider.
+ *
+ * The cases are hand-written and named, because the estate's own text is what they stand
+ * for: decoration must be rejected however it is spelled, and a sentence a person could
+ * read must be accepted.
+ */
+{
+  const ACCEPT = [
+    ' * MBR: actual datasheet values where confirmed; 15xOD otherwise (Utility standard).',
+    ' * Verify against manufacturer datasheet before any design or procurement.',
+    '// Model coefficients (single core, fitted to Utility/Manufacturer data)',
+    ' * so the order is asserted by proofs/geodesy.proof.mjs rather than trusted.',
+    '# set the limit before the loop runs, or the last row is dropped',
+  ];
+  const REJECT = [
+    '/**', ' *', ' */', ' * ----------------', ' * @param n', '// TODO',
+    '  const x = 1;', '', '  return null;', '  }',
+  ];
+  /* The mutation widens the predicate to "any comment marker", which is exactly the
+     shipped defect, and the dividers must then be accepted. */
+  const test = MUTATE
+    ? (t) => typeof t === 'string' && /^\s*(\/\/|\/\*|\*|#)/.test(t)
+    : isExplanatory;
+  const missedProse = ACCEPT.filter((t) => !test(t));
+  const tookDecoration = REJECT.filter((t) => test(t));
+  check('the prose sentence fires on a sentence and never on a divider',
+    missedProse.length === 0 && tookDecoration.length === 0,
+    missedProse.length || tookDecoration.length
+      ? (tookDecoration.length ? tookDecoration.length + ' decoration(s) counted as explanation: ' +
+          tookDecoration.map((t) => JSON.stringify(t)).join(' ') + ' ' : '') +
+        (missedProse.length ? missedProse.length + ' real sentence(s) missed' : '')
+      : ACCEPT.length + ' sentences accepted · ' + REJECT.length + ' decorations rejected · ' +
+        'one definition, in derive.mjs, read by the card and by this check');
 }
 
 let failed = 0;

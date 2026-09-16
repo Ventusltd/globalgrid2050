@@ -122,3 +122,30 @@ export function census(keys, lens, fams) {
   for (let i = 0; i < keys.length; i++) counts[nature(lens[i], fams[i])]++;
   return counts;
 }
+
+/* ---- explanatory prose ---------------------------------------------------
+ *
+ * vikra-ac measured the estate: over 6,835 lines in 24 contiguous runs against an index
+ * of 283,231 rows built 2026-09-16T00:54:43.415Z, comments are 5.5% and EXPLANATORY
+ * PROSE is 3.7% — about one line in twenty-seven. Its criterion, and the reason for
+ * each half: strip the marker, then require 25 characters and four words, so that a
+ * block comment's opener, its continuation stars, its closer, dividers and bare @param
+ * tags do not count as a line written for a reader.
+ *
+ * IT LIVES HERE RATHER THAN IN THE CARD because the card's first version had its own
+ * copy that counted decoration, and a rule with two copies is a rule that drifts — the
+ * same argument as NATURE_NAME, one page saying both 'noise' and 'dust'. The page, the
+ * build and the proof now read one definition, and the proof can exercise it against
+ * real source lines without a browser.
+ */
+export function isExplanatory(text) {
+  if (typeof text !== 'string') return false;
+  if (!/^\s*(\/\/|\/\*|\*|#)/.test(text)) return false;
+  const prose = text
+    .replace(/^\s*(\/\/+|\/\*+|\*+\/?|#+)\s*/, '')
+    .replace(/\*+\/\s*$/, '')
+    .trim();
+  if (prose.length < 25) return false;
+  if (prose.split(/\s+/).filter(Boolean).length < 4) return false;
+  return /[A-Za-z]{3}/.test(prose);
+}

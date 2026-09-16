@@ -1,0 +1,487 @@
+{
+ "machine": [
+  {
+   "n": 1,
+   "family": "keys",
+   "name": "count is 128,369",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 2,
+   "family": "keys",
+   "name": "no duplicate key",
+   "ok": true,
+   "ms": 4,
+   "note": ""
+  },
+  {
+   "n": 3,
+   "family": "keys",
+   "name": "max key ≤ 342,795",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 4,
+   "family": "keys",
+   "name": "every key is a positive integer",
+   "ok": true,
+   "ms": 1,
+   "note": ""
+  },
+  {
+   "n": 5,
+   "family": "keys",
+   "name": "every place index valid",
+   "ok": true,
+   "ms": 1,
+   "note": ""
+  },
+  {
+   "n": 6,
+   "family": "keys",
+   "name": "every line ≥ 1",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 7,
+   "family": "keys",
+   "name": "every name index valid or -1",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 8,
+   "family": "keys",
+   "name": "every family id has an atom",
+   "ok": true,
+   "ms": 1,
+   "note": "0 keys without atom"
+  },
+  {
+   "n": 9,
+   "family": "keys",
+   "name": "keys.json under 12 MB",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 10,
+   "family": "keys",
+   "name": "places count 1,736",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 11,
+   "family": "engine",
+   "name": "voltageDropVolts 120A 250m 0.32 pf0.95 = 15.796",
+   "ok": true,
+   "ms": 31,
+   "note": ""
+  },
+  {
+   "n": 12,
+   "family": "engine",
+   "name": "missing powerFactor is refused",
+   "ok": true,
+   "ms": 5,
+   "note": ""
+  },
+  {
+   "n": 13,
+   "family": "engine",
+   "name": "powerFactor 1.2 is refused",
+   "ok": true,
+   "ms": 11,
+   "note": ""
+  },
+  {
+   "n": 14,
+   "family": "engine",
+   "name": "negative length is refused",
+   "ok": true,
+   "ms": 15,
+   "note": ""
+  },
+  {
+   "n": 15,
+   "family": "engine",
+   "name": "dropPercent(15.796, 400) = 3.95",
+   "ok": true,
+   "ms": 16,
+   "note": "{\"schema\":\"ventus-grid-engine.voltage-drop.v1\",\"quantity\":\"v"
+  },
+  {
+   "n": 16,
+   "family": "engine",
+   "name": "lossesWatts finite",
+   "ok": true,
+   "ms": 14,
+   "note": ""
+  },
+  {
+   "n": 17,
+   "family": "engine",
+   "name": "diversifiedDemandKw(900, 3, 0.4) = 1080",
+   "ok": true,
+   "ms": 16,
+   "note": ""
+  },
+  {
+   "n": 18,
+   "family": "engine",
+   "name": "currentA(100 kVA, 400 V, three) ≈ 144.3",
+   "ok": true,
+   "ms": 16,
+   "note": ""
+  },
+  {
+   "n": 19,
+   "family": "engine",
+   "name": "apparentPowerMva(10 MW, 0.9) ≈ 11.11",
+   "ok": true,
+   "ms": 16,
+   "note": ""
+  },
+  {
+   "n": 20,
+   "family": "engine",
+   "name": "unknown function returns the list",
+   "ok": true,
+   "ms": 12,
+   "note": ""
+  },
+  {
+   "n": 21,
+   "family": "routes",
+   "name": "atlas unique keys 10,415",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 22,
+   "family": "routes",
+   "name": "atlas families 357",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 23,
+   "family": "routes",
+   "name": "five atlas files carry keys (4 cartridges + atlas index.html)",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 24,
+   "family": "routes",
+   "name": "every atlas key is on the wafer",
+   "ok": true,
+   "ms": 4,
+   "note": ""
+  },
+  {
+   "n": 25,
+   "family": "routes",
+   "name": "per-file sums exceed unique by 207 (shared)",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 26,
+   "family": "routes",
+   "name": "engine modules on wafer 15 of 22",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 27,
+   "family": "routes",
+   "name": "the 7 missing are named",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 28,
+   "family": "routes",
+   "name": "84 versions, all with keys",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 29,
+   "family": "routes",
+   "name": "19 apps qualify",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 30,
+   "family": "routes",
+   "name": "pipelinenews flagged as no index",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 31,
+   "family": "twin",
+   "name": "entangle rate 1.0",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 32,
+   "family": "twin",
+   "name": "1,736 places",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 33,
+   "family": "twin",
+   "name": "zero broken",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 34,
+   "family": "twin",
+   "name": "per-repo resolved = keys",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 35,
+   "family": "twin",
+   "name": "every hash is 10 hex",
+   "ok": true,
+   "ms": 8,
+   "note": ""
+  },
+  {
+   "n": 36,
+   "family": "twin",
+   "name": "key 39885 reads event.stopPropagation();",
+   "ok": true,
+   "ms": 33,
+   "note": "event.stopPropagation();"
+  },
+  {
+   "n": 37,
+   "family": "twin",
+   "name": "lowest key (2) reads a real line",
+   "ok": true,
+   "ms": 46,
+   "note": "line 130 is an empty line, which is a real line"
+  },
+  {
+   "n": 38,
+   "family": "twin",
+   "name": "commit hashes are hex",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 39,
+   "family": "twin",
+   "name": "no path starts with \"-\"",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 40,
+   "family": "twin",
+   "name": "unknown key → 404",
+   "ok": true,
+   "ms": 16,
+   "note": ""
+  },
+  {
+   "n": 41,
+   "family": "server",
+   "name": "foreign Origin → 403",
+   "ok": true,
+   "ms": 14,
+   "note": ""
+  },
+  {
+   "n": 42,
+   "family": "server",
+   "name": "wrong Host → 403",
+   "ok": true,
+   "ms": 4,
+   "note": ""
+  },
+  {
+   "n": 43,
+   "family": "server",
+   "name": "70 KB body refused",
+   "ok": true,
+   "ms": 11,
+   "note": ""
+  },
+  {
+   "n": 44,
+   "family": "server",
+   "name": "bad JSON body refused",
+   "ok": true,
+   "ms": 16,
+   "note": ""
+  },
+  {
+   "n": 45,
+   "family": "server",
+   "name": "unknown module → 404",
+   "ok": true,
+   "ms": 17,
+   "note": ""
+  },
+  {
+   "n": 46,
+   "family": "server",
+   "name": "module name with path chars refused",
+   "ok": true,
+   "ms": 15,
+   "note": ""
+  },
+  {
+   "n": 47,
+   "family": "server",
+   "name": "/engine/list has 22",
+   "ok": true,
+   "ms": 17,
+   "note": ""
+  },
+  {
+   "n": 48,
+   "family": "server",
+   "name": "/gpu names the card",
+   "ok": true,
+   "ms": 70,
+   "note": ""
+  },
+  {
+   "n": 49,
+   "family": "server",
+   "name": "/wafer/ serves the Line Wafer",
+   "ok": true,
+   "ms": 9,
+   "note": ""
+  },
+  {
+   "n": 50,
+   "family": "server",
+   "name": "wafer database reachable",
+   "ok": true,
+   "ms": 16,
+   "note": ""
+  },
+  {
+   "n": 51,
+   "family": "planner",
+   "name": "voltage drop sentence → engine call",
+   "ok": true,
+   "ms": 1,
+   "note": ""
+  },
+  {
+   "n": 52,
+   "family": "planner",
+   "name": "missing pf → refused with names",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 53,
+   "family": "planner",
+   "name": "houses sentence → diversified demand",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 54,
+   "family": "planner",
+   "name": "substation + floorplan",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 55,
+   "family": "planner",
+   "name": "plasma",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 56,
+   "family": "planner",
+   "name": "lightning gridatlas",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 57,
+   "family": "planner",
+   "name": "read 39885",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 58,
+   "family": "planner",
+   "name": "versions",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 59,
+   "family": "planner",
+   "name": "seed keeps the words",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  },
+  {
+   "n": 60,
+   "family": "planner",
+   "name": "nonsense → no command",
+   "ok": true,
+   "ms": 0,
+   "note": ""
+  }
+ ],
+ "pass": 60,
+ "total": 60,
+ "browser_pending": 40
+}

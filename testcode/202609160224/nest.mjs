@@ -686,8 +686,16 @@ function english(i, r) {
     : r
       ? 'This line is ' + nm + ' code inside the function ' + r.name +
         ', which the numbered database records at ' + r.place[2].split('/').pop() + ' line ' + r.line + '.'
-      : 'This line is ' + nm + ' code holding ' + len + ' characters. No function family claims it, so the estate records no file for it — one of the ' +
-        (meta.lines - meta.in_a_family).toLocaleString() + ' lines in that position.';
+      /* Same three states as the header. The second branch said "no function family
+         claims it" whenever the band had not loaded — asserting about the estate what
+         was only true of this page's downloads so far. fams[i] settles it with no
+         fetch. */
+      : fams[i]
+        ? 'This line is ' + nm + ' code holding ' + len + ' characters. A function family ' +
+          'does carry it in this build; which one, and the file it sits in, arrive when ' +
+          'this band finishes loading.'
+        : 'This line is ' + nm + ' code holding ' + len + ' characters. No function family claims it, so the estate records no file for it — one of the ' +
+          (meta.lines - meta.in_a_family).toLocaleString() + ' lines in that position.';
   /* RADIATION: has this code been used somewhere. */
   /* Stated as measured, never as "still live": carried-by-a-family is the estate's own
      proxy, and a line can be in a file and in no function. Same extensional discipline
@@ -737,7 +745,18 @@ async function show(i) {
      "still part of a named function" from "a fossil that still reads correctly".
      One byte per key, already loaded in all-lines.family.bin, and zero fetches. */
   sub.textContent = NATURE_NAME[nat[i]] + ' · ' + lens[i] + ' characters' +
-    (r ? ' · family ' + r.family + ' ' + r.name : ' · in no function family') +
+    /* THREE STATES, NOT TWO. `r` is falsy in two different situations — the line is in
+       no family, and the band has not loaded yet — and this said the first in both cases.
+       A claim whose real domain is "what I have downloaded so far", stated as "what is
+       true of the estate". Found by vikra-ac on the PUBLISHED page: key 192,067 is
+       haversine's first line, in_a_family = 1 in the very pack this card names, and the
+       card said "in no function family" while its own next sentence said "Reading this
+       band." It knew it did not know and asserted anyway.
+       fams[i] answers "is it in a family" with zero fetches and is already in memory —
+       which the comment three lines below this one says, while the code did not do it. */
+    (fams[i]
+      ? (r ? ' · family ' + r.family + ' ' + r.name : ' · in a family — reading which')
+      : ' · in no function family') +
     ' · in pack ' + (meta.built_utc || 'of unknown date');
   panelBody.append(sub);
 
@@ -865,8 +884,13 @@ async function show(i) {
     holder.className = 'block';
     panelBody.append(holder);
     await renderNeighbourhood(holder, i,
-      bucketCache.get(bucketOf(key)) === 'pending'
-        ? 'Reading this band. Meanwhile, the numbered lines either side:'
+      /* Third site of the same claim. This one branched on 'pending', which is better
+         than branching on r but still wrong twice: a band that FAILED, or one never
+         requested, is not pending and is not evidence of absence either. fams[i] is the
+         only thing here that knows, and it costs nothing. */
+      fams[i]
+        ? 'A function family carries this line in this build; the band naming it has not ' +
+          'arrived. Meanwhile, the numbered lines either side:'
         : 'No function family claims this line, so the estate records no file for it. ' +
           'LINES.md holds a row for every numbered key, so these are its numbered neighbours.');
   }

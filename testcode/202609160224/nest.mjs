@@ -1061,19 +1061,40 @@ async function show(i) {
        * so — one sentence, no control, no network call — and only when a comment is
        * actually in the block, because a page that always claims the code explains itself
        * is making the pack's mistake in a new place. */
-      const commented = [];
+      /* EXPLANATORY, NOT MERELY A COMMENT — and the first version of this got it wrong.
+       *
+       * It lit on anything starting with a slash-slash or a star, which counts a block
+       * comment's opener, its continuation stars and its closer as explanation. A card
+       * would have told a reader "3 of these lines are comments,
+       * written for a reader" and then shown them a divider. Claiming the code explains
+       * itself while pointing at decoration is the pack's mistake in a new place, which is
+       * the exact thing the guard was added to avoid.
+       *
+       * vikra-ac then measured the estate and corrected its own claim with it: over 6,835
+       * lines sampled in 24 contiguous runs (index built 2026-09-16T00:54:43.415Z,
+       * 283,231 rows), comments are 5.5% and EXPLANATORY PROSE is 3.7% — about one line
+       * in twenty-seven. Its criterion, used here: at least 25 characters and four words
+       * once the comment marker is stripped, so dividers and bare @param tags do not
+       * count. Scarce in proportion, and roughly ten and a half thousand lines in
+       * absolute terms. */
+      const explanatory = [];
       for (let ln = from; ln <= to; ln++) {
         const t = lines[ln - 1];
-        if (ln !== r.line && t !== undefined && /^\s*(\/\/|\/\*|\*|#)/.test(t) && /[A-Za-z]{3}/.test(t)) commented.push(ln);
+        if (ln === r.line || t === undefined) continue;
+        if (!/^\s*(\/\/|\/\*|\*|#)/.test(t)) continue;
+        const prose = t.replace(/^\s*(\/\/+|\/\*+|\*+\/?|#+)\s*/, '').replace(/\*\/\s*$/, '').trim();
+        if (prose.length >= 25 && prose.split(/\s+/).filter(Boolean).length >= 4 && /[A-Za-z]{3}/.test(prose)) explanatory.push(ln);
       }
-      if (commented.length) {
+      if (explanatory.length) {
         const self = document.createElement('div');
         self.className = 'dim';
         self.textContent = 'The code around this line explains itself: ' +
-          (commented.length === 1 ? 'line ' + commented[0] + ' is a comment'
-            : commented.length + ' of these lines are comments') +
-          ', written by whoever made this change, for a reader. That is usually a better ' +
-          'answer to "why is this here" than any commit message, and it costs nothing to read.';
+          (explanatory.length === 1 ? 'line ' + explanatory[0] + ' is a sentence'
+            : explanatory.length + ' of these lines are sentences') +
+          ' written by whoever made this change, for a reader. In this estate that is ' +
+          'often the real answer to "why is this here" — and it is already in front of ' +
+          'you, at no cost. Only about one line in twenty-seven carries prose like this, ' +
+          'so a block that has it is worth reading slowly.';
         holder.append(self);
       }
     }

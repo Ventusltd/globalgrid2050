@@ -97,3 +97,83 @@ That any of it renders. Nothing here has been drawn. The measurements are of the
 index, not of a canvas — and every check in this surface reads source or data, none reads
 pixels. The browser verification of the line wafer's own picture is still owed, and this
 would owe the same.
+
+---
+
+## The prose layer — measured 2026-09-16 06:38Z by vikra-ac, specified and NOT built
+
+Recorded here rather than built, for the reason the family wafer is: at 07:00Z an unbuilt
+thing is a worse legacy than a measured one. The number is attached so nobody re-measures
+it.
+
+### What was measured
+
+**6,835 lines sampled in 24 contiguous runs** across the numbering, against a text index
+built `2026-09-16T00:54:43.415Z` holding **283,231 rows**:
+
+| | of 6,835 sampled | |
+|---|---|---|
+| code | 6,458 | 94.5% |
+| comment | 375 | 5.5% |
+| **of which explanatory prose** | **250** | **3.7%** |
+| blank | 2 | 0.0% |
+
+**Prose characters: 17,059 of 689,257 sampled — 2.5%.**
+
+*Explanatory* excludes dividers, bare `@param` tags, and anything under 25 characters or
+four words: prose a person could read, not decoration. Runs were sampled **contiguously**
+on purpose — a comment is a property of a neighbourhood, and scattered keys would have
+missed whole blocks of prose and undercounted.
+
+### The finding, in vikra-ac's own terms
+
+Its first statement — *the estate answers "why" in its own source comments* — was **too
+strong, and it withdrew it on measurement**. Explanation is about **one line in
+twenty-seven**; the haversine comment was a good example, not a typical one.
+
+**But in absolute terms 3.7% of 283,231 rows is roughly 10,500 lines of human-written
+explanation**, every one already addressable by a permanent key and already returned by
+the text layer. Four from the sample:
+
+```
+167  * MBR: actual datasheet values where confirmed; 15xOD otherwise (Utility standard).
+170  * Verify against manufacturer datasheet before any design or procurement.
+172  // Model coefficients (single core, fitted to Utility/Manufacturer data)
+199  // 33kV three core ALUMINIUM unarmoured (Uo=18) - catalogue values
+```
+
+Engineering judgements, and the second is a safety instruction. **A non-coder can read
+every one without understanding a line of code around them.**
+
+> **The most readable 3.7% of the estate is the part the universe has no way to surface.**
+
+Everything built tonight helps someone navigate what they cannot read — pick, read, find,
+compare, name, share. **Those lines need none of it.** They need no family, no place, no
+commit, no band. Nothing anywhere distinguishes a prose line from a code line, so there is
+no way to ask for them. `nature()` sorts lines into five kinds and **none of them is
+"prose"**.
+
+Same shape as the WHY verb, one level further out: **an apparatus built for the unreadable,
+with the readable left unindexed.**
+
+### Why it is cheap when it is built
+
+The classification is a **regex over text the reader already returns**, so *"show me what
+this part of the estate explains about itself"* is a filter over data in hand, not a new
+artifact. A sixth `nature` is the whole of it.
+
+### One cost recorded with it
+
+The sample cost **2,589 requests and 20.02 MB**. Twenty-four runs of three hundred
+consecutive keys span most of the 588 blocks, so a *contiguous* sample spread across the
+numbering is a **scattered read at the block level** — the 15x asymmetry vikra-ac measured
+at 04:48Z, arriving unbidden in its own work four hours later. **Locality within a run does
+not buy locality across runs.**
+
+### What the card does with this today
+
+It states it only where it is true: a block showing **at least one explanatory line** — same
+criterion, 25 characters and four words with the marker stripped — says so in one sentence,
+with no control and no network call. Its first version counted a block comment's opener,
+continuation stars and closer as explanation, and would have told a reader the code
+explains itself while pointing at a divider.

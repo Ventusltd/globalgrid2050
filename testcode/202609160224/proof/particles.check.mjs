@@ -448,6 +448,53 @@ check('particles equal the pack\'s in_a_family', head.particles === meta.in_a_fa
         (code.match(/toLocaleString\(\)/g) || []).length + ' measured numbers rendered');
 }
 
+/* 15. THE BLOCK IS A JOURNEY, NOT A DESTINATION.
+ *
+ * vikra-ac, as a visitor: "there is no clickable neighbour in the card — the lines render
+ * as div.cl inside pre.code with no handler I could find — so I cannot reach a second line
+ * in an already-cached band from the card itself." The wafer was navigable and the block
+ * it opened was a dead end: twenty-one lines of real source and no way out except back to
+ * the dots. That is the one rule Vikram gave in his own words, failing one level below
+ * where it had been checked.
+ *
+ * His rule also decides HOW: every particle clickable, and the ones that are not go DARK
+ * rather than absent — use light as your guide. So this requires both halves. A block line
+ * with a numbered key must light and carry a handler; one without must be marked dark and
+ * say why. A page that only lit the reachable ones would be quietly hiding the estate's
+ * edges, which is the same defect as excluding a fragment instead of classifying it.
+ *
+ * BOUNDARY: this reads source. It proves a handler is attached to a lit row and that both
+ * classes are styled. IT CANNOT PROVE A CLICK NAVIGATES — every defect of that kind
+ * tonight was found by a person pressing something, twice on this very control.
+ */
+{
+  const raw = fs.readFileSync(path.join(SURF, 'nest.mjs'), 'utf8');
+  const code = raw.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|[^:])\/\/[^\n]*/g, '$1 ');
+  const css = fs.readFileSync(path.join(SURF, 'style.css'), 'utf8');
+  /* The mutation removes the handler, which is exactly the shipped defect: rows rendered,
+     classes maybe present, and nothing to press. */
+  /* A LITERAL, BECAUSE THE FIRST MUTATION HERE BIT NOTHING. It was a lazy regex meant to
+     delete the handler and it matched nothing, so the check reported PASS under mutation
+     and would have counted as a harness that proves something. The vacuity gate exists
+     for exactly this and it is the sixth time tonight. */
+  const scan = MUTATE ? code.split("row.addEventListener('click'").join('row.noHandler(') : code;
+  const lights = /row\.classList\.add\('live'\)/.test(scan);
+  const opens = /row\.addEventListener\('click'/.test(scan);
+  const darkens = /row\.classList\.add\('dark'\)/.test(scan);
+  const styled = /\.cl\.live/.test(css) && /\.cl\.dark/.test(css);
+  const counts = /numbered and open/.test(scan);
+  const missing = [];
+  if (!lights) missing.push('no row is lit');
+  if (!opens) missing.push('no row carries a click handler — the block is a dead end');
+  if (!darkens) missing.push('unreachable rows are not marked dark');
+  if (!styled) missing.push('style.css does not distinguish .cl.live from .cl.dark');
+  if (!counts) missing.push('the card does not say how many of the block opens');
+  check('a block line that is numbered opens, and one that is not goes dark',
+    missing.length === 0,
+    missing.length ? missing.join(' · ')
+      : 'lit rows open their key · unreachable rows dim and say why · both styled · the count is stated');
+}
+
 let failed = 0;
 for (const r of results) {
   if (!r.ok) failed++;

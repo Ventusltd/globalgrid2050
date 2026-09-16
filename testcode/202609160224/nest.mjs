@@ -209,6 +209,23 @@ function indexOfKey(k) {
   return -1;
 }
 
+/* Every numbered line this file has, within a block's range, from the bands already in
+   memory. One pass per card rather than one search per line, and no fetch at all: a
+   neighbour is reachable exactly when the estate has already paid for its band. */
+function lineKeysIn(placeIdx, from, to) {
+  const m = new Map();
+  if (placeIdx === undefined) return m;
+  for (const d of bucketCache.values()) {
+    if (!d || d === 'pending') continue;
+    for (let j = 0; j < d.key.length; j++) {
+      if (d.place[j] !== placeIdx) continue;
+      const ln = d.line[j];
+      if (ln >= from && ln <= to && !m.has(ln)) m.set(ln, d.key[j]);
+    }
+  }
+  return m;
+}
+
 const sx = (i) => cx + px[i] * scale * zoom + panX;
 const sy = (i) => cy + py[i] * scale * zoom + panY;
 
@@ -270,6 +287,7 @@ function resolve(key) {
     /* [kind, block, category, repos, files, standalone, first_written] — carried by the
        band, so it costs nothing beyond the fetch the card already made. */
     brief: b.fam ? b.fam[b.family[j]] || null : null,
+    placeIdx: b.place[j],
   };
 }
 
@@ -979,6 +997,23 @@ async function show(i) {
       const from = Math.max(1, r.line - 10), to = Math.min(lines.length, r.line + 10);
       const pre = document.createElement('pre');
       pre.className = 'code';
+      /* WHICH LINES OF THIS BLOCK THE ESTATE HAS NUMBERED.
+       *
+       * vikra-ac, pressing the card as a visitor: "there is no clickable neighbour in the
+       * card — the lines render as div.cl inside pre.code with no handler I could find —
+       * so I cannot reach a second line in an already-cached band from the card itself."
+       * The wafer is navigable and the block it opens was a dead end: twenty-one lines of
+       * real source and no way out of them except back to the dots.
+       *
+       * Vikram's rule decides how: every particle clickable, and the ones that are not go
+       * DARK rather than absent — use light as your guide. So a block line that carries a
+       * numbered key lights and opens it; a line the numbering never reached dims and says
+       * why in its tooltip. Nothing here fetches: a block is twenty-one lines, and a fetch
+       * per line would spend twenty-one requests on a journey the reader has not asked
+       * for. It reads the bands already in memory — the focused line's own band is always
+       * one of them — so a neighbour is reachable exactly when the estate has already
+       * paid for it. */
+      const known = lineKeysIn(r.placeIdx, from, to);
       for (let ln = from; ln <= to; ln++) {
         const row = document.createElement('div');
         row.className = 'cl' + (ln === r.line ? ' hit' : '');
@@ -986,13 +1021,61 @@ async function show(i) {
         num.className = 'ln'; num.textContent = String(ln).padStart(5, ' ');
         const src = document.createElement('span');
         src.textContent = lines[ln - 1] === undefined ? '' : lines[ln - 1];
-        row.append(num, src); pre.append(row);
+        row.append(num, src);
+        if (ln !== r.line) {
+          const k2 = known.get(ln);
+          const i2 = k2 === undefined ? -1 : indexOfKey(k2);
+          if (i2 >= 0) {
+            row.classList.add('live');
+            row.title = 'line ' + k2.toLocaleString() + ' — open it';
+            row.addEventListener('click', () => { ensureBucket(bucketOf(k2)); show(i2); });
+          } else {
+            row.classList.add('dark');
+            row.title = k2 === undefined
+              ? 'the numbering has not reached this line, or its band is not loaded yet'
+              : 'line ' + k2.toLocaleString() + ' is numbered but not in this wafer';
+          }
+        }
+        pre.append(row);
       }
       holder.append(pre);
       const note = document.createElement('div');
       note.className = 'dim';
-      note.textContent = 'lines ' + from + '–' + to + ' of ' + lines.length + ', at commit ' + r.place[1].slice(0, 10);
+      const live = pre.querySelectorAll('.cl.live').length;
+      note.textContent = 'lines ' + from + '–' + to + ' of ' + lines.length +
+        ', at commit ' + r.place[1].slice(0, 10) + ' · ' + live +
+        (live === 1 ? ' of these lines is numbered and opens' : ' of these lines are numbered and open');
       holder.append(note);
+      /* THE ANSWER WAS ALREADY ON THE CARD, BELOW THE FOLD.
+       *
+       * vikra-ac pressed the WHY button and then answered the question the chair had
+       * asked it — what on this card would a reader not have written? Not the commit,
+       * which is a bot syncing a manifest. Not the pack. It was four lines above the
+       * function, inside the source the RELATIONAL FIELD was already showing:
+       *
+       *   * haversine implementations take. Getting this backwards is silent and wrong,
+       *   * so the order is asserted by proofs/geodesy.proof.mjs rather than trusted.
+       *
+       * That is the real why, and it was there before either seat thought about WHY at
+       * all. In THIS estate the explanation is written next to the code. So the card says
+       * so — one sentence, no control, no network call — and only when a comment is
+       * actually in the block, because a page that always claims the code explains itself
+       * is making the pack's mistake in a new place. */
+      const commented = [];
+      for (let ln = from; ln <= to; ln++) {
+        const t = lines[ln - 1];
+        if (ln !== r.line && t !== undefined && /^\s*(\/\/|\/\*|\*|#)/.test(t) && /[A-Za-z]{3}/.test(t)) commented.push(ln);
+      }
+      if (commented.length) {
+        const self = document.createElement('div');
+        self.className = 'dim';
+        self.textContent = 'The code around this line explains itself: ' +
+          (commented.length === 1 ? 'line ' + commented[0] + ' is a comment'
+            : commented.length + ' of these lines are comments') +
+          ', written by whoever made this change, for a reader. That is usually a better ' +
+          'answer to "why is this here" than any commit message, and it costs nothing to read.';
+        holder.append(self);
+      }
     }
   } else {
     /* No family claims this line — 121,805 of them. The numbering still does,

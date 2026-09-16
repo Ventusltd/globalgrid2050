@@ -168,6 +168,13 @@ pre.code{
 .cl{display:flex; gap:.7rem; white-space:pre}
 .cl .ln{color:#555; user-select:none; flex:none}
 .cl.hit{background:#ffd54a14}
+/* Every particle clickable; the ones that are not go DARK rather than absent — Vikram's
+   rule, applied inside the code block. A line that carries a numbered key lights on
+   hover and opens it; a line the numbering never reached stays dim and says why. */
+.cl.live{cursor:pointer}
+.cl.live:hover{background:#78c8f51a}
+.cl.live:hover .ln{color:var(--lit)}
+.cl.dark{opacity:.55}
 .cl.hit .ln{color:var(--lit)}
 .cl.hit span:last-child{color:var(--lit)}
 

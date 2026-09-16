@@ -48,9 +48,22 @@ ok('the law takes no hidden state',
    !/Math\.random|Date\.now|performance\.now/.test(head), 'no randomness, no clock');
 
 /* ---- the strip must lead somewhere real ----------------------------------
- * A navigation whose targets 404 is worse than none: it promises a journey. These
- * resolve targets the way the READER does - '../<stamp>/' from this surface - not the
- * way the tree happens to be laid out.
+ * A navigation whose targets 404 is worse than none: it promises a journey.
+ *
+ * EVERY RESOLUTION IN THIS BLOCK IS readFileSync. It resolves the same RELATIVE PATH the
+ * reader would - '../<stamp>/' from this surface - but it resolves it against the TREE,
+ * on this disk. That is not the reader's question and this block cannot answer it.
+ *
+ * This sentence used to claim the block resolved "the way the READER does", which was
+ * false. Seat A caught the one check that failed loudly, that check was scoped, and this
+ * header was left making the same wrong claim about the whole block - because
+ * documentation does not fail visibly, so it does not get corrected when the code does.
+ *
+ * The window is real and was open tonight: a generated surface is in the tree the instant
+ * it is written and live only after Pages deploys. In that window these checks pass and a
+ * visitor gets a 404. Measured the same night - 7.0 minutes of deploy lag, and three
+ * Pages runs cancelled by newer pushes. The reader-side question belongs to
+ * _board/liveness.py, which nothing here wires in.
  */
 let page = readFileSync(path.join(here, '..', 'index.html'), 'utf8');
 if (MUT) page = page.replace('id="laws"', 'id="laws-broken"');
@@ -65,7 +78,7 @@ ok('the surface is not a dead end',
 ok('the strip is navigation, not content - the page draws without it',
    /nav\.hidden = false/.test(src) && /\.catch\(/.test(src),
    'starts hidden, revealed only on success, failure swallowed');
-ok('the laws index is reachable from where the reader stands',
+ok('the laws index exists IN THE TREE (says nothing about the reader)',
    !!index && Array.isArray(index.laws) && index.laws.length > 0,
    `${idxRel} -> ${index ? index.laws.length + ' laws' : 'UNREADABLE'}`);
 const targets = index ? index.laws.filter(l => l.open).map(l => l.open) : [];

@@ -36,6 +36,38 @@ const TAU = Math.PI * 2;
 const GOLDEN = Math.PI * (3 - Math.sqrt(5));
 const PACK = '../202609142202/data/';
 
+/* ---- THE TWO LAWS -------------------------------------------------------
+ * WAFER (default, permanent): r = sqrt(key). A line's place is a pure function
+ * of its own number, so it never moves and a link to it is an address for ever.
+ *
+ * CORE (?law=core), Vikram: "the code which is most used must go towards the
+ * centre as that is the CORE, the densest part of the star." Radius is usage —
+ * r = R_MAX * (1 - radiation) — so the most-copied code falls to the middle and
+ * dust sits at the rim, drawn, not hidden. Usage changes as bands load and as
+ * the estate grows, so a core radius is NOT A PERMANENT ADDRESS and the footer
+ * says so where the visitor reads it.
+ *
+ * The angle is theta = key x the golden angle under BOTH laws, so identity is
+ * never the coordinate. Vikram settled the permanence objection exactly there:
+ * "as each code has a unique key there is no conflict, chronology is not the
+ * same thing as density." The wafer encodes WHEN, the core encodes HOW MUCH,
+ * and ?key=N addresses a line under either. */
+const LAW = new URLSearchParams(location.search).get('law') || 'wafer';
+const R_MAX = 585.5;          /* sqrt(342795), so core fills the wafer's disc */
+const CORE_BAND = 22;         /* shell width: equal usage spreads, never a wire */
+
+/* A deterministic offset inside the shell, so thousands of lines at identical
+   usage form a band rather than collapsing onto one circle. Integer hash, not
+   randomness: the same key is the same offset for ever. */
+const shell = (key) => (((key * 2654435761) >>> 0) % 1000) / 1000 * CORE_BAND;
+const coreR = (key, rad) => R_MAX * (1 - rad) + shell(key);
+
+function placeXY(key, rad) {
+  const a = key * GOLDEN;
+  const r = LAW === 'core' ? coreR(key, rad) : Math.sqrt(key);
+  return { x: Math.cos(a) * r, y: Math.sin(a) * r };
+}
+
 const stage = document.getElementById('stage');
 const ctx = stage.getContext('2d', { alpha: false });
 const countEl = document.getElementById('count');
@@ -76,9 +108,28 @@ Promise.all([
   counts = census(keys, lens, fams);
   countEl.textContent = keys.length.toLocaleString() + ' unique lines · ' +
     counts[OPERATIONAL].toLocaleString() + ' operational · ' +
-    counts[NOISE].toLocaleString() + ' noise';
+    /* Read the name from NATURE_NAME rather than typing it: derive.mjs renamed
+       NOISE's display to 'dust' — Vikram, because unused code is the material stars
+       form from — and this line still said 'noise', so one page said both. A label
+       typed twice is a label that drifts. */
+    counts[NOISE].toLocaleString() + ' ' + NATURE_NAME[NOISE];
   countEl.classList.remove('dim');
   layout(); draw();
+
+  /* ?key=N is THE address, under either law. Vikram settled it: "as each code
+     has a unique key there is no conflict, chronology is not the same thing as
+     density." Identity was never the coordinate — the wafer encodes when, the
+     core encodes how much, and the key names the line under both. So a link
+     survives a change of law, and a core radius being impermanent costs nothing. */
+  const want = Number(new URLSearchParams(location.search).get('key'));
+  if (Number.isFinite(want) && want > 0) {
+    const i = indexOfKey(want);
+    if (i >= 0) show(i);
+    else {
+      countEl.textContent = 'line ' + want.toLocaleString() +
+        ' was never issued — the numbering skips it, it is not missing';
+    }
+  }
 }).catch((err) => {
   /* draw() runs inside this .then(), so a drawing bug lands in this .catch and
      used to be reported as a failed download — it sent vikra-ac looking at fetch
@@ -97,10 +148,11 @@ function buildDerived() {
   px = new Float32Array(n); py = new Float32Array(n);
   lit = new Float32Array(n); nat = new Uint8Array(n);
   for (let i = 0; i < n; i++) {
-    const key = keys[i], r = Math.sqrt(key), a = key * GOLDEN;
-    px[i] = Math.cos(a) * r; py[i] = Math.sin(a) * r;
+    const key = keys[i];
     const d = derive(key, lens[i], fams[i]);
     lit[i] = d.radiation; nat[i] = d.nature;
+    const p = placeXY(key, lit[i]);
+    px[i] = p.x; py[i] = p.y;
   }
 }
 
@@ -109,7 +161,7 @@ function layout() {
   stage.width = Math.floor(innerWidth * dpr);
   stage.height = Math.floor(innerHeight * dpr);
   if (!keys) return;
-  const maxR = Math.sqrt(meta.max);
+  const maxR = LAW === 'core' ? R_MAX + CORE_BAND : Math.sqrt(meta.max);
   scale = (Math.min(stage.width, stage.height) / 2 - 18 * dpr) / maxR;
   cx = stage.width / 2; cy = stage.height / 2;
 }
@@ -144,7 +196,11 @@ function ensureBucket(b) {
          literally "has this code been used somewhere", as it should be. */
       for (let j = 0; j < d.key.length; j++) {
         const i = indexOfKey(d.key[j]);
-        if (i >= 0) lit[i] = radiation(lens[i], fams[i], d.also[j] + 1);
+        if (i < 0) continue;
+        lit[i] = radiation(lens[i], fams[i], d.also[j] + 1);
+        /* Under wafer nothing moves, ever — that is what makes a link an address.
+           Under core the radius IS usage, so a refined count must reposition. */
+        if (LAW === 'core') { const p = placeXY(keys[i], lit[i]); px[i] = p.x; py[i] = p.y; }
       }
       draw();
     })
@@ -300,6 +356,9 @@ function draw() {
     (wantCode ? 'layer 3 · the code itself'
       : wantNames ? 'layer 2 · family names — keep zooming for the code'
       : 'layer 1 · zoom in') +
+    (LAW === 'core'
+      ? '   ·   law: CORE — radius is how much the code is used, so a radius here is not a permanent address; ?key= is'
+      : '   ·   law: WAFER — radius is sqrt(key), so a position here is permanent') +
     '   ·   ' + shown.toLocaleString() + ' on screen of ' + n.toLocaleString() +
     '   ·   ' + bucketCache.size + ' bands loaded' +
     '   ·   pack ' + meta.built_utc;
@@ -464,6 +523,7 @@ async function show(i) {
   const h = document.createElement('h2');
   h.textContent = 'line ' + key.toLocaleString();
   panelBody.append(h);
+  gripTitle.textContent = 'line ' + key.toLocaleString();
 
   const sub = document.createElement('div');
   sub.className = 'dim';
@@ -559,6 +619,7 @@ async function show(i) {
   }
 
   panel.hidden = false;
+  reopenEl.hidden = true;
   draw();
 }
 
@@ -645,9 +706,94 @@ stage.addEventListener('wheel', (e) => {
   draw();
 }, { passive: false });
 
-document.getElementById('close').addEventListener('click', () => {
-  panel.hidden = true; focusIdx = -1; draw();
+/* ---- card chrome: drag, minimise, reopen --------------------------------
+   The galaxy is the thing worth looking at, so the card must get out of the way
+   without being lost. index.html ships #grip/#min/#reopen and style.css styles
+   them; without this block those controls exist and do nothing. */
+const gripEl = document.getElementById('grip');
+const gripTitle = document.getElementById('griptitle');
+const reopenEl = document.getElementById('reopen');
+const minEl = document.getElementById('min');
+const POS_KEY = 'nest.card.v1';
+
+function clampToView() {
+  const r = panel.getBoundingClientRect();
+  const maxL = Math.max(8, innerWidth - r.width - 8);
+  const maxT = Math.max(8, innerHeight - Math.min(r.height, 120) - 8);
+  panel.style.left = Math.min(Math.max(8, r.left), maxL) + 'px';
+  panel.style.top = Math.min(Math.max(8, r.top), maxT) + 'px';
+}
+function savePos() {
+  try {
+    sessionStorage.setItem(POS_KEY, JSON.stringify({
+      left: panel.style.left, top: panel.style.top,
+      min: panel.classList.contains('min') }));
+  } catch (_) { /* blocked storage must never stop the card working */ }
+}
+function restorePos() {
+  let s = null;
+  try { s = JSON.parse(sessionStorage.getItem(POS_KEY) || 'null'); } catch (_) {}
+  if (!s) return;
+  if (innerWidth > 640 && s.left && s.top) {
+    panel.style.left = s.left; panel.style.top = s.top;
+    panel.style.right = 'auto'; panel.style.bottom = 'auto';
+    clampToView();
+  }
+  if (s.min) panel.classList.add('min');
+}
+let cdx = 0, cdy = 0, cdrag = false;
+gripEl.addEventListener('pointerdown', (e) => {
+  if (e.target.closest('button')) return;
+  if (innerWidth <= 640) return;
+  const r = panel.getBoundingClientRect();
+  cdx = e.clientX - r.left; cdy = e.clientY - r.top; cdrag = true;
+  panel.classList.add('dragging');
+  panel.style.right = 'auto'; panel.style.bottom = 'auto';
+  gripEl.setPointerCapture(e.pointerId);
 });
+gripEl.addEventListener('pointermove', (e) => {
+  if (!cdrag) return;
+  e.preventDefault();
+  panel.style.left = (e.clientX - cdx) + 'px';
+  panel.style.top = (e.clientY - cdy) + 'px';
+});
+function endDrag(e) {
+  if (!cdrag) return;
+  cdrag = false; panel.classList.remove('dragging');
+  try { gripEl.releasePointerCapture(e.pointerId); } catch (_) {}
+  clampToView(); savePos();
+}
+gripEl.addEventListener('pointerup', endDrag);
+gripEl.addEventListener('pointercancel', endDrag);
+function setMin(on) {
+  panel.classList.toggle('min', on);
+  minEl.textContent = on ? '▣' : '–';
+  minEl.title = on ? 'expand' : 'minimise';
+  minEl.setAttribute('aria-label', on ? 'expand the card' : 'minimise the card');
+  clampToView(); savePos();
+}
+minEl.addEventListener('click', () => setMin(!panel.classList.contains('min')));
+gripEl.addEventListener('dblclick', (e) => {
+  if (e.target.closest('button')) return;
+  setMin(!panel.classList.contains('min'));
+});
+document.getElementById('close').addEventListener('click', () => {
+  panel.hidden = true;
+  reopenEl.hidden = focusIdx < 0;
+  draw();
+});
+reopenEl.addEventListener('click', () => {
+  if (focusIdx < 0) return;
+  panel.hidden = false;
+  reopenEl.hidden = true; reopenEl.hidden = true;
+  setMin(false); clampToView(); draw();
+});
+addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !panel.hidden) {
+    panel.hidden = true; reopenEl.hidden = focusIdx < 0; draw();
+  }
+});
+restorePos();
 addEventListener('resize', () => { layout(); draw(); });
 
 /* ---- the hook the render proof drives ----------------------------------

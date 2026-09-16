@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-09-16T01:24:53.120Z",
+ "generated_utc": "2026-09-16T01:36:02.200Z",
  "built_from": "globalgrid2050/testcode",
  "surfaces": 97,
- "named": 95,
- "openable": 93,
- "total_files": 8133,
- "total_bytes": 841859761,
+ "named": 96,
+ "openable": 94,
+ "total_files": 8138,
+ "total_bytes": 841904681,
  "law": "r = sqrt(key) · theta = key × 2.39996…  (the golden angle)",
  "list": [
   {
@@ -1261,13 +1261,13 @@
    "stamp": "202609160224",
    "date": "2026-09-16",
    "time": "02:24",
-   "title": null,
-   "title_from": null,
-   "files": 1,
-   "bytes": 4050,
+   "title": "The Nest — every test code surface in the estate, on one die",
+   "title_from": "index.html",
+   "files": 6,
+   "bytes": 48970,
    "has_readme": false,
-   "has_proof": false,
-   "entry": null
+   "has_proof": true,
+   "entry": "202609160224/"
   }
  ]
 }

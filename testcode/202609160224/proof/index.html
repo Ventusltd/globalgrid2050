@@ -55,12 +55,13 @@ frame.addEventListener('load', async () => {
     const ctx = canvas.getContext('2d');
     const ground = W.ground;
 
-    /* One particle per thousand is a floor no real picture falls below and no
-       blank canvas reaches. Tonight's defect scored zero. */
-    const minPixels = Math.floor(W.keyCount() / 1000);
+    /* The floor is no longer a constant: liveness derives it from how many keys
+       this camera can actually show. See render-proof.mjs for why the constant
+       was too weak to catch a projection collapsed into one corner. */
+    const allKeys = W.sampleKeys(4000);
 
     const results = [
-      liveness(ctx, cam.w, cam.h, ground, minPixels),
+      liveness(ctx, cam.w, cam.h, ground, allKeys, cam),
       placement(ctx, cam.w, cam.h, ground, W.sampleKeys(20), cam, 1),
       derivation(ctx, cam.w, cam.h, (order) => W.drawWith(order)),
     ];

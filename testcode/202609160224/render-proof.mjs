@@ -43,18 +43,43 @@ export function project(key, cam) {
 
 const isGround = (d, o, g) => d[o] === g[0] && d[o + 1] === g[1] && d[o + 2] === g[2];
 
+/* How many of these keys the camera can actually show. Derived, like everything
+   else: project each key and count the ones that land on the canvas. This is what
+   makes the liveness floor honest instead of a constant. */
+export function onCamera(keys, cam, w, h) {
+  let n = 0;
+  for (const k of keys) {
+    const p = project(k, cam);
+    if (p.x >= 0 && p.y >= 0 && p.x < w && p.y < h) n++;
+  }
+  return n;
+}
+
 /* LEVEL 1 — LIVENESS. Did anything at all reach the canvas?
-   Two lines of arithmetic, and it is the one that would have caught tonight's
-   defect before publication. */
-export function liveness(ctx, w, h, ground, minPixels) {
+ *
+ * The first version took a constant, and vikra-ac was right that it was far too
+ * weak: keyCount/1000 is 250 pixels on a 1378x852 canvas — 0.02% of it — so a
+ * projection that collapsed every particle into one corner would still light
+ * hundreds of pixels and PASS. A check that a broken picture can satisfy is not
+ * a check.
+ *
+ * The floor is now derived from the camera. Count how many keys the camera can
+ * show, and require a twentieth of them to be lit: generous, because particles
+ * overlap heavily at low zoom, and still tens of thousands at the default camera
+ * where every key is on screen. At deep zoom, where few keys are visible, the
+ * floor falls with them — so the same rule serves both without a special case. */
+export function liveness(ctx, w, h, ground, keys, cam) {
+  const expected = onCamera(keys, cam, w, h);
+  const floor = Math.max(1, Math.floor(expected / 20));
   const d = ctx.getImageData(0, 0, w, h).data;
   let lit = 0;
   for (let o = 0; o < d.length; o += 4) if (!isGround(d, o, ground)) lit++;
   return {
     name: 'the canvas holds a picture',
-    ok: lit >= minPixels,
+    ok: lit >= floor,
     detail: lit.toLocaleString() + ' non-ground pixels of ' + (w * h).toLocaleString() +
-      ' (needs ' + minPixels.toLocaleString() + ')',
+      ' · ' + expected.toLocaleString() + ' keys are on camera, so the floor is ' +
+      floor.toLocaleString() + ' (a twentieth)',
   };
 }
 
@@ -75,21 +100,36 @@ export function placement(ctx, w, h, ground, keys, cam, tol = 1) {
     }
     return false;
   };
-  const checked = [], missed = [];
+  /* THE SKIP IS ONLY ALLOWED WHEN OFF-CAMERA IS LEGITIMATE.
+     The first version skipped any sample key that projected off the canvas, which
+     vikra-ac identified as the same defect shape as everything else tonight: a
+     check quietly narrowing its own scope. At the DEFAULT camera every key is on
+     screen by construction — the page's own footer says "250,174 on screen of
+     250,174" — so a skip there cannot be legitimate and is itself the bug. Under
+     the default camera an off-screen sample FAILS. Only a zoomed or panned camera
+     may skip, because there off-screen is the honest answer. */
+  const isDefault = cam.zoom === 1 && cam.panX === 0 && cam.panY === 0;
+  const checked = [], missed = [], offCamera = [];
   for (const k of keys) {
     const p = project(k, cam);
-    if (p.x < 0 || p.y < 0 || p.x >= w || p.y >= h) continue;   /* off-camera, not a miss */
+    if (p.x < 0 || p.y < 0 || p.x >= w || p.y >= h) { offCamera.push(k); continue; }
     checked.push(k);
     if (!near(p.x, p.y)) missed.push(k);
   }
+  const illegalSkip = isDefault && offCamera.length > 0;
   return {
     name: 'the picture is the picture of these keys',
-    ok: checked.length > 0 && missed.length === 0,
-    detail: checked.length === 0
-      ? 'no sample key was on camera — the sample or the camera is wrong'
-      : (checked.length - missed.length) + ' of ' + checked.length +
-        ' sampled keys found a lit pixel within ' + tol + 'px of where the law puts them' +
-        (missed.length ? ' · missing: ' + missed.slice(0, 6).join(', ') : ''),
+    ok: checked.length > 0 && missed.length === 0 && !illegalSkip,
+    detail: illegalSkip
+      ? offCamera.length + ' sampled keys projected OFF a default camera, where every key must be on screen: ' +
+        offCamera.slice(0, 6).join(', ') + ' — the projection is wrong, not the sample'
+      : checked.length === 0
+        ? 'no sample key was on camera — the sample or the camera is wrong'
+        : (checked.length - missed.length) + ' of ' + checked.length +
+          ' sampled keys found a lit pixel within ' + tol + 'px of where the law puts them' +
+          (missed.length ? ' · missing: ' + missed.slice(0, 6).join(', ') : '') +
+          (offCamera.length ? ' · ' + offCamera.length + ' off-camera, allowed because zoom ' +
+            cam.zoom.toFixed(2) + ' is not the default' : ''),
   };
 }
 

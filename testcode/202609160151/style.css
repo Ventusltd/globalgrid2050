@@ -148,3 +148,6 @@ ol.setlist li:first-child{border-top:0}
 #setadd:hover{background:#1a1f2b}
 .setidrow{display:flex;justify-content:flex-end;margin:.2rem 0 0}
 #setid{font:10px ui-monospace,Menlo,Consolas,monospace;color:#5b6377;cursor:help;letter-spacing:.04em}
+#setline{width:100%;margin-top:.3rem;background:#11151f;color:#ffd166;border:1px solid #2a2f3d;
+  border-radius:5px;padding:.28rem .5rem;font:inherit;font-size:11px;cursor:pointer}
+#setline:hover{border-color:#ffd166;color:#fff}

@@ -35,6 +35,7 @@
  */
 
 import { fmt, esc, place } from './lib.mjs';
+import { format as asLine } from './notation.mjs';
 
 const MAX_SET = 200;          /* a set beyond this is not a thought, it is a file */
 
@@ -182,6 +183,7 @@ export function mountCard() {
      <div id="setlines"></div>
      <div class="setfoot">
        <button id="setcopy" type="button">copy the link to this set</button>
+       <button id="setline" type="button">copy as a line the estate can read</button>
        <p id="setnote" class="dim"></p>
      </div>`;
   document.body.appendChild(el);
@@ -194,6 +196,21 @@ export function mountCard() {
     catch { btn.textContent = 'copy failed — the link is in the address bar'; }
     setTimeout(() => { btn.textContent = 'copy the link to this set'; }, 2600);
   });
+  /* THE WRITTEN FORM. A URL needs a browser; this line does not. A person pastes
+     it into a commit message or an issue, a model emits it with no page open,
+     and both produce the same string because the id is derived from the members.
+     git is then the intake: the estate already receives text with an author, a
+     timestamp and a diff. See notation.mjs. */
+  $('setline').addEventListener('click', async () => {
+    const btn = $('setline');
+    try {
+      const line = await asLine({ label: SET.name, keys: SET.keys });
+      await navigator.clipboard.writeText(line);
+      btn.textContent = 'line copied — paste it anywhere, it verifies itself';
+    } catch (e) { btn.textContent = 'could not copy: ' + (e.message || e); }
+    setTimeout(() => { btn.textContent = 'copy as a line the estate can read'; }, 3200);
+  });
+
   return el;
 }
 

@@ -26,7 +26,12 @@ const SURF = path.resolve(HERE, '..');
 const MUTATE = process.argv.includes('--mutate');
 
 const src = fs.readFileSync(path.join(SURF, 'nest.mjs'), 'utf8');
-const jp = path.resolve(SURF, '..', '..', '..', '_board', 'journeys.json');
+/* Validate the file THE PAGE READS, not the one it used to. nest.mjs now fetches
+   './journeys.json' from inside this surface; pointing this proof at _board's copy
+   would validate a different file than the page opens — the provenance failure that
+   put a floor of 200 where 12,508 was meant. Read the path out of the page. */
+const ref = (/const JOURNEYS = '([^']+)'/.exec(src) || [, './journeys.json'])[1];
+const jp = path.resolve(SURF, ref);
 
 const results = [];
 const check = (name, ok, detail) => results.push({ name, ok: !!ok, detail });
@@ -119,6 +124,31 @@ if (!fs.existsSync(jp)) {
     Object.keys(j.entries || {}).length > 500,
     Object.keys(j.entries || {}).length.toLocaleString() + ' directory keys · ' +
     (j.places || []).length + ' places · generated ' + j.generated_utc);
+}
+
+/* 6. THE PAGE MUST BE ABLE TO REACH ITS DOORS.
+ *
+ * The doors shipped pointing at '../../../_board/journeys.json' — a sibling
+ * repository that is never published. From /testcode/202609160224/ that is above
+ * the site root: 404 on every load, for an hour, while this proof passed 5/5
+ * because it validated the JSON FILE ON DISK and nothing asked whether the PAGE
+ * could open it. The same shape as particles.check.mjs passing on a blank canvas:
+ * the check described the artifact, the failure was in the reaching.
+ *
+ * So: resolve the path the page actually fetches, from where the page actually
+ * sits, and require the result to exist INSIDE this surface. A door map outside
+ * the published tree is unreachable however valid its contents. */
+{
+  const m = /const JOURNEYS = '([^']+)'/.exec(src);
+  const ref = m ? m[1] : null;
+  const resolved = ref ? path.resolve(SURF, ref) : null;
+  const inside = resolved ? resolved.startsWith(SURF) : false;
+  const exists = resolved ? fs.existsSync(resolved) : false;
+  const ok = MUTATE ? false : (!!ref && inside && exists);
+  check('the page can reach its door map', ok,
+    'fetches ' + ref + ' -> ' + (resolved || 'unresolvable') +
+    ' · inside this surface: ' + inside + ' · exists: ' + exists +
+    (inside && exists ? '' : '  <-- UNREACHABLE FROM THE PUBLISHED PAGE'));
 }
 
 let failed = 0;

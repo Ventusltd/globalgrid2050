@@ -431,8 +431,17 @@ async function drainQueue() {
  * route, the page still refuses it. */
 const SENSITIVE_REPOS = ['companies'];
 const SENSITIVE_WORDS = /(sector|offtaker|classification|segment)/i;
-const JOURNEYS = '../../../_board/journeys.json';
-let journeys = null, journeysTried = false;
+/* './journeys.json', NOT '../../../_board/journeys.json'.
+   The doors shipped at 12ea17ee pointing three levels up into _board — a SIBLING
+   REPOSITORY that is never published. From /testcode/202609160224/ that path is
+   above the site root, so it was a 404 on every load and there is no arrangement
+   of Pages under which it resolves. The code was live and inert for an hour.
+
+   The doors now ship WITH the page that draws them. 128 KB raw, ~12 KB gzipped,
+   and it fixes provenance too: the map is pinned at a known generated_utc instead
+   of silently changing whenever _board is regenerated. */
+const JOURNEYS = './journeys.json';
+let journeys = null, journeysTried = false, journeysError = null;
 
 async function ensureJourneys() {
   if (journeys || journeysTried) return journeys;
@@ -440,7 +449,15 @@ async function ensureJourneys() {
   try {
     const r = await fetch(JOURNEYS);
     if (r.ok) journeys = await r.json();
-  } catch { /* no doors rather than wrong doors */ }
+  } catch (err) {
+    /* THE SWALLOW IS WHAT HID IT. "no doors rather than wrong doors" is a good
+       instinct and it is exactly why an hour of 404s looked correct: `journeys`
+       stayed null, every file silently had no door, and "no door" is a legitimate
+       state this page was designed to have. A failure indistinguishable from a
+       normal state is not a failure anyone will find. It is now recorded and
+       shown. */
+    journeysError = err.message;
+  }
   return journeys;
 }
 
@@ -618,12 +635,37 @@ async function show(i) {
        Asynchronous and appended when it arrives: a door that has not resolved yet
        must not hold up the code the visitor came to read. */
     appDoor(r.place[0], r.place[2]).then((place) => {
-      if (!place || focusIdx !== i) return;
+      if (focusIdx !== i) return;
+      if (!place) {
+        /* Say which kind of nothing this is. An unreachable map and a file with no
+           app are both "no door" and only one of them is a defect. */
+        if (journeysError) {
+          const bad = document.createElement('div');
+          bad.className = 'dim';
+          bad.textContent = 'app doors unavailable: ' + journeysError +
+            ' — this is a fault, not an absence of destinations.';
+          doors.after(bad);
+        }
+        return;
+      }
       const ad = document.createElement('a');
       ad.href = place.url;
       ad.target = '_blank'; ad.rel = 'noopener';
       ad.textContent = 'OPEN ' + place.name.toUpperCase() + ' ↗';
-      ad.title = (place.what || '') + (place.why ? ' — matched because ' + place.why : '');
+      /* A SUGGESTION MUST NOT RENDER AS A DESTINATION. journeys.json marks a door
+         `confidence: "structural"` (a path rule or a published app directory — it
+         cannot be argued with) or `"suggested"` (a vocabulary guess). vikra-ac found
+         the distinction lives in the data and was invisible here: all 44 suggested
+         doors would have rendered identically to the 8,703 structural ones. */
+      const guess = place.confidence && place.confidence !== 'structural';
+      if (guess) {
+        ad.textContent = 'MAYBE: ' + place.name.toUpperCase() + ' ↗';
+        ad.style.borderStyle = 'dashed';
+        ad.style.opacity = '0.75';
+      }
+      ad.title = (place.what || '') +
+        (place.why ? ' — matched because ' + place.why : '') +
+        (guess ? ' · a suggestion from a vocabulary match, not a structural rule' : '');
       doors.append(ad);
     });
 

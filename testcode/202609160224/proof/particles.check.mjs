@@ -260,6 +260,44 @@ check('particles equal the pack\'s in_a_family', head.particles === meta.in_a_fa
           : 'the card names the pack’s built_utc and says what carried-by-a-family is not');
 }
 
+/* 11. A FAMILY CLAIM MAY NOT BRANCH ON THE BAND.
+ *
+ * Three sites branched on `r`, the resolved place, which needs p/N.json fetched. So `r`
+ * is falsy in TWO situations — the line has no family, and the band has not loaded — and
+ * the card said the first in both. On the published page, key 192,067 (haversine's first
+ * line, in_a_family = 1 in the pack the card names) read "in no function family" while
+ * its own next sentence read "Reading this band."
+ *
+ * fams[i] answers it with zero fetches and is in memory from startup. The rule: any
+ * sentence asserting the ABSENCE of a family must be reached only through fams[i].
+ *
+ * This reads the source with comments stripped — the fourth time tonight that mattered,
+ * after siblings, why, and the chair's own live grep, which returned 0 for a phrase the
+ * source splits across two concatenated lines. Test what is written.
+ */
+{
+  const raw = fs.readFileSync(path.join(SURF, 'nest.mjs'), 'utf8');
+  const code = raw.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|[^:])\/\/[^\n]*/g, '$1 ');
+  /* Every line that denies a family, and whether fams[ appears within the six lines
+     above it — the guard that must dominate it. */
+  const lines = code.split('\n');
+  const denials = [];
+  lines.forEach((l, i) => {
+    if (!/no function family|in no family/i.test(l)) return;
+    const window = lines.slice(Math.max(0, i - 6), i + 1).join(' ');
+    if (!/fams\[/.test(window)) denials.push('line ' + (i + 1));
+  });
+  const injected = MUTATE ? ['line 0 (injected by --mutate)'] : [];
+  const all = denials.concat(injected);
+  check('no family denial is reached without consulting fams[]',
+    all.length === 0,
+    all.length
+      ? all.length + ' denial(s) not guarded by fams[]: ' + all.join(', ') +
+        ' — these assert about the estate what is true of what has downloaded'
+      : 'every "no function family" sentence sits under a fams[] guard · ' +
+        (code.match(/fams\[/g) || []).length + ' fams[] reads in the code');
+}
+
 let failed = 0;
 for (const r of results) {
   if (!r.ok) failed++;

@@ -276,3 +276,158 @@ careful reader, **every time by being looked at rather than by being reasoned ab
 **Above the prose layer and above the family wafer**, if Vikram wants it — and it is the
 reason the permanent browser is worth having: **not to run our checks, but to let someone
 else write one.**
+
+---
+
+## A threshold must be un-typeable — proposed 2026-09-16 07:22Z by vikra-ac, NOT built
+
+Below the constellation idea if it goes anywhere: **smaller, but it is the one with a
+defect behind it rather than an argument.**
+
+### The defect it generalises
+
+`UTIL_FLOOR = 3` in tonight's shutdown sequence **was not a bug.** It was chosen by a
+careful person **while the card was busy**, so the floor beneath it was invisible.
+
+| GPU utilisation, 15 samples over 2.5 minutes, lab idle | |
+|---|---|
+| samples | `0 2 2 2 2 2 5 0 2 2 2 4 2 2 4` |
+| min / median / max | **0% / 2% / 5%** |
+| at or above `UTIL_FLOOR` = 3 | **3 of 15 — 20%** |
+
+The busy test is an OR across two samples, so one excursion is enough: **roughly a 36%
+chance of a false "interrupted" with the lab doing nothing.**
+
+> **The information required to choose the number correctly did not exist at the moment of
+> choosing, and nothing in the artifact recorded that it was missing.**
+
+It became measurable only because the lab went quiet **thirty-nine minutes before it
+fires**. Same shape as the pool measuring its own exhaust at 98.4%, and the sweep reporting
+53,000 — not a separate kind.
+
+### Why it is the mission and not an aside
+
+Every threshold in this estate has that structure — *this line is hot*, *this family is
+large*, *alert me when load is high*. **Each is a number meaning something is happening, and
+each is meaningless without the floor measured while nothing is happening.**
+
+> **The failure mode of a typed constant is invisible to exactly the person this is being
+> built for.** An expert eventually runs the system quiet and sees the floor. A non-coder
+> gets an alert firing at random and concludes the universe is broken — or worse, one that
+> never fires and concludes it is fine.
+
+### The mechanism, and it is small
+
+**Do not offer a number field. Offer a period.** The person selects an interval during
+which, so far as they know, nothing was happening. The system measures the distribution
+and **draws it** — the noise band, as a band. The threshold is **placed by dragging it
+above the band**, and what is stored is not `3` but:
+
+```
+{ floor: { median, p99, max, n, window_utc }, threshold, placed_at }
+```
+
+**The number cannot exist without its floor, because the only way to produce one is to have
+measured the other.**
+
+That is a graphical language doing what text cannot: **a number typed into source carries
+no provenance and no syntax can give it any** — which is why `measure-dont-declare` has to
+be enforced by a proof rather than by the language. **A threshold placed above a drawn band
+carries its provenance by construction, and the drawing is the evidence, displayed, at the
+moment of choosing.**
+
+### And it attaches to the key
+
+The constant lives on a line, and **the line has a permanent key**. The observations that
+established its floor are a **set**, and `notation.mjs` already gives a set an extensional
+identity. So the justification becomes an object with an id, referenced from the key that
+holds the constant. **Two people looking at the same threshold see the same floor, or they
+see that one of them is standing on a different measurement** — the guarantee the key gives
+for lines, applied to the numbers between them.
+
+### The limits, and the middle one is the real one
+
+1. *"Select a period when nothing was happening"* **is itself a judgement.** The system can
+   show what it measured; it cannot verify a belief about it.
+2. **A floor is not stationary.** This machine's idle band at 07:20 with a browser and
+   Dropbox running is not its idle band at 03:00. **A stored floor needs a staleness rule
+   or it becomes the same lie a year later.**
+3. It costs a measurement where a keystroke used to do — **the trade `measure-dont-declare`
+   already makes everywhere else**, which is why this belongs under that rule rather than
+   as a new one.
+
+### The rule to carry forward even if this is never built
+
+> **Measure the floor with the system doing nothing, before choosing the number that means
+> something is happening. Neither figure is knowable from the other.**
+
+---
+
+## The family is the noun layer — argued 2026-09-16 07:33Z by vikra-ac, NOT built
+
+An argument for the family wafer already specified above, and a stronger claim than a view.
+
+> **The key is a permanent address with no meaning. A name is meaning with no address. The
+> whole language lives in the gap.**
+
+### The ratios, from `particles.json` at `8f4aff99`, `generated_utc 2026-09-16T06:30:44.690Z`
+
+| | |
+|---|---|
+| particles | **128,369** |
+| names | **5,070** — roughly **25 particles per name** |
+| places | 1,736 |
+| key-place pairs collapsed | 3,130,777 |
+| key 39,885 | **2,568 places**, family 50245, name **`(anonymous)`** |
+| key 3 | 40 places, family 1, `clampInteger` |
+
+**A name is not an address in this estate and cannot be made into one.** Meanwhile a key is
+a perfect address **no human will ever say out loud.**
+
+### Why the family and not the line
+
+A non-coder does not think in lines. They think in things — *"the bit that decides the
+voltage"*. **The family is the smallest object here carrying a name a person actually gave,
+and it is extensional** — a set of keys, so it already has an identity under
+`notation.mjs`. **It is simultaneously the thing a human can say and the thing the system
+can address**, which neither the key nor the name can be alone.
+
+```
+name -> families -> a set of keys -> derived positions -> a place you can fly to
+```
+
+**Every arrow already exists except the first.**
+
+### And the first arrow is the whole design problem
+
+It is many-to-many, and the ratios say badly so.
+
+> **A language that resolves a name silently is the false-sentence failure applied to
+> navigation:** the person asks for one thing, is shown another, and has no way to know.
+> **Worse than the card denying a family — a wrong denial is a statement they can
+> disbelieve; a silent resolution offers nothing to disbelieve.**
+
+**The name-to-family surface must show the ambiguity rather than resolve it**, and it is
+the single most important screen in the language: the one place a human word becomes a
+machine address. Everything downstream is already exact.
+
+**What it shows**, all of it already in the pack: every candidate family, how many keys
+each holds, how many distinct places those keys resolve to, and **one line of real source
+from each, so the person chooses on the code rather than on a number.** Sorted by nothing
+clever — **ambiguity is not a ranking problem, and a confident order is a silent resolution
+with extra steps.** `(anonymous)` with 2,568 places proves it: the most-copied line in the
+estate has the least useful name.
+
+### The limits, and the last one is the honest end of the night's thinking
+
+1. **5,070 names for 128,369 particles** means most particles are reachable by no name at
+   all. The family wafer is **a lens over a minority and must say so**, not present itself
+   as the index.
+2. Family membership comes from the pack, so **a family id is stable only against a
+   build** — the population warning again, and it belongs **on the surface, not in a
+   footnote**.
+3. **Unsolved: what a person does when the surface shows forty candidates and they
+   recognise none** — the realistic case for `clampInteger`, and the point where a
+   non-coder would actually give up.
+
+> **The family wafer makes the gap visible, and visible is not the same as crossable.**

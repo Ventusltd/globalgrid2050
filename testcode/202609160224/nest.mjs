@@ -405,6 +405,42 @@ async function drainQueue() {
     const r = resolve(key);
     if (!r) { lineText.set(key, ''); continue; }
     lineText.set(key, '');
+    /* WHY, offered as a button rather than fetched on open: one GitHub call per card
+       against a 60-an-hour budget, so the reader spends it deliberately. */
+    const whyWrap = document.createElement('div');
+    whyWrap.className = 'why';
+    const whyBtn = document.createElement('button');
+    whyBtn.type = 'button';
+    whyBtn.className = 'whybtn';
+    whyBtn.textContent = 'WHY IS THIS HERE?';
+    whyBtn.addEventListener('click', async () => {
+      whyBtn.disabled = true;
+      whyBtn.textContent = 'reading the commit…';
+      const w = await whyOf(r.place[0], r.place[1]);
+      whyWrap.textContent = '';
+      const lead = document.createElement('div');
+      lead.className = 'dim';
+      lead.textContent = w.error
+        ? 'no commit message: ' + w.error
+        : 'The change that pinned this family said, on ' +
+          (w.date ? w.date.slice(0, 10) : 'an unrecorded date') + ':';
+      whyWrap.append(lead);
+      if (!w.error) {
+        const q = document.createElement('p');
+        q.className = 'plain';
+        q.textContent = w.subject + (w.body ? String.fromCharCode(10, 10) + w.body.slice(0, 600) : '');
+        whyWrap.append(q);
+        const caveat = document.createElement('div');
+        caveat.className = 'dim';
+        caveat.textContent = 'A commit describes a CHANGE, not a line — it covers everything ' +
+          'in that commit. And this is the commit the estate imports from, which is not ' +
+          'necessarily where the line was born.';
+        whyWrap.append(caveat);
+      }
+    });
+    whyWrap.append(whyBtn);
+    panelBody.append(whyWrap);
+
     const text = await readFile(r.place);
     if (text) {
       const l = text.split(/\r?\n/)[r.line - 1];
@@ -568,6 +604,65 @@ function nearestResolvable(i) {
     }
   }
   return -1;
+}
+
+/* ---- WHY IS THIS HERE ----------------------------------------------------
+ *
+ * vikra-ac, 05:02Z: every verb shipped tonight makes an UNREADABLE thing navigable —
+ * the reader, the pick index, find, compare. A commit message is the opposite. It is
+ * the one artifact in this estate already written for a human, in ordinary language,
+ * by the person who made the change. We built an elaborate apparatus for navigating
+ * what a non-coder cannot read, and ignored the one thing they could have read all
+ * along.
+ *
+ * And it is one hop from data the card already holds: iteration 31 fetches
+ * raw.githubusercontent at the commit the family's place pins, and the same SHA
+ * reaches the commits API. The card showed a person WHAT the line says and withheld
+ * the only sentence anyone ever wrote about why it was added.
+ *
+ * FOUR LIMITS, ON THE CARD AND NOT ONLY HERE, or this becomes the next instance of
+ * a mechanism trusted past its domain:
+ *
+ *  1. A commit explains a CHANGE, not a line. The message covers everything in that
+ *     commit. So the card says "the change that pinned this family said", never
+ *     "this line exists because" — attributing a commit to one line is the same
+ *     over-reach as a keyword match becoming a door.
+ *  2. It is the commit the PLACE pins — where the estate imports this code from, not
+ *     necessarily where the line was born. Introduction history needs git log -L,
+ *     which a static page cannot run.
+ *  3. Unauthenticated GitHub allows 60 calls an hour. So: on demand only, one call
+ *     per card, cached by sha, and a STATED REFUSAL when the budget is gone rather
+ *     than a silent blank.
+ *  4. Message quality varies from an essay to six words. The card shows what is
+ *     there and promises no insight.
+ */
+const commitCache = new Map();
+
+async function whyOf(repo, sha) {
+  const key = repo + '@' + sha;
+  if (commitCache.has(key)) return commitCache.get(key);
+  let out;
+  try {
+    const r = await fetch('https://api.github.com/repos/' + repo + '/commits/' + sha);
+    if (r.status === 403 || r.status === 429) {
+      out = { error: 'GitHub’s unauthenticated budget is 60 calls an hour and it is spent. ' +
+        'This is a refusal, not an absence of a message.' };
+    } else if (!r.ok) {
+      out = { error: 'the commit could not be read (HTTP ' + r.status + ').' };
+    } else {
+      const d = await r.json();
+      const msg = (d.commit && d.commit.message) || '';
+      out = {
+        subject: msg.split('\n')[0],
+        body: msg.split('\n').slice(1).join('\n').trim(),
+        date: d.commit && d.commit.author && d.commit.author.date,
+      };
+    }
+  } catch (err) {
+    out = { error: 'the commit could not be read: ' + err.message };
+  }
+  commitCache.set(key, out);
+  return out;
 }
 
 async function readFile([repo, commit, p]) {

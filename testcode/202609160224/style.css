@@ -148,6 +148,16 @@ body{
 }
 .doors a:hover{background:#00ffff14}
 
+.why{margin:.55rem 0 .2rem}
+.whybtn{
+  background:#0a0a0a; color:var(--lit); border:1px solid var(--lit);
+  border-radius:3px; padding:.28rem .7rem; font:11px/1 ui-monospace,Menlo,monospace;
+  cursor:pointer; min-height:28px;
+}
+.whybtn:hover{background:#ffd54a14}
+.whybtn:disabled{border-color:#444; color:#555; cursor:default}
+.why .plain{white-space:pre-wrap}
+
 /* The block: twenty-one lines, the numbered one lit. */
 .block{margin-top:.55rem}
 pre.code{

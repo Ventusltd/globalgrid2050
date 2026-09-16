@@ -27,7 +27,7 @@
 <iframe id="surface" src="../index.html" title="the wafer under proof"></iframe>
 
 <script type="module">
-import { liveness, placement, derivation, report, groundOf } from '../enforcers/render-proof.mjs';
+import { honesty, liveness, placement, derivation, report, groundOf } from '../enforcers/render-proof.mjs';
 
 const out = document.getElementById('out');
 const frame = document.getElementById('surface');
@@ -65,6 +65,9 @@ frame.addEventListener('load', async () => {
        it replaced, and 363x slack against the 72,689 pixels actually lit. Projecting
        250,174 points is one cheap loop, and it is what the rule always claimed. */
     const results = [
+      /* Level 0 first: it decides whether the other three mean anything. A declared
+         ground that disagrees with the canvas makes every pixel count as lit. */
+      honesty(g),
       liveness(ctx, cam.w, cam.h, ground, W.allKeys(), cam),
       placement(ctx, cam.w, cam.h, ground, W.sampleKeys(20), cam, 1),
       derivation(ctx, cam.w, cam.h, (order) => W.drawWith(order)),

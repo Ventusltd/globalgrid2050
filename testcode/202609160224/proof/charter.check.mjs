@@ -59,7 +59,14 @@ for (const dir of SCAN) for (const f of fs.readdirSync(dir)) {
      safe-publish.mjs an absent enforcer because it names its assertions with `say(`.
      Same correction as widening the vacuity gate: measure what is there, not what
      this file expected to find. */
+  /* Three shapes now: check('…'), say('…'), and `name: '…'` in a returned result — which
+     is how enforcers/render-proof.mjs names its levels. The chair refused to widen this
+     last cycle, correctly, because the claim being made was FALSE: groundOf reported a
+     disagreement, and reporting is not enforcing. The claim is now true — honesty() FAILS
+     on a disagreement — so the matcher widens to find a name that is really there. The
+     difference between the two cycles is the truth of the claim, not the convenience. */
   const names = [...src.matchAll(/(?:check|say)\(\s*'((?:[^'\\]|\\.)*)'/g)].map((m) => m[1].replace(/\\'/g, "'"));
+  for (const m of src.matchAll(/name:\s*'((?:[^'\\]|\\.)*)'/g)) names.push(m[1].replace(/\\'/g, "'"));
   existing.set(f, new Set(names));
 }
 

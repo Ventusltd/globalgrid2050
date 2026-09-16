@@ -223,6 +223,32 @@ export function derivation(ctx, w, h, drawWith) {
   };
 }
 
+/* LEVEL 0 — HONESTY. Does the artifact tell the truth about itself?
+ *
+ * This runs BEFORE the other three, because it decides whether they mean anything. When
+ * nest.mjs declared ground (5,7,11) and the canvas was (0,0,0), every pixel counted as
+ * lit: liveness passed on the whole canvas and placement found a "lit" pixel wherever it
+ * looked. Both were vacuous while green, across 24 surfaces, and nothing said so.
+ *
+ * groundOf() measured the disagreement and REPORTED it — which, by the charter's own rule
+ * a-gate-must-not-be-ignorable, is advice. A report the caller can ignore has the standing
+ * of prose. So the disagreement now FAILS.
+ *
+ * That is the boundary charter.json named for measure-dont-declare, and this is it built:
+ * an artifact may not declare anything about itself that it could measure, and the proof
+ * refuses rather than printing the divergence beside a pass.
+ */
+export function honesty(g) {
+  return {
+    name: 'the page tells the truth about its own ground',
+    ok: !g.declared || g.agrees,
+    detail: g.note + ' · ' + g.pixels.toLocaleString() + ' of ' + g.total.toLocaleString() +
+      ' px' + (g.declared && !g.agrees
+        ? ' — EVERY OTHER LEVEL IS VACUOUS UNTIL THIS PASSES: a wrong ground makes every pixel count as lit'
+        : ''),
+  };
+}
+
 export function report(results) {
   let failed = 0;
   const lines = results.map((r) => {

@@ -47,6 +47,47 @@ ok('the page names the law it is drawing',
 ok('the law takes no hidden state',
    !/Math\.random|Date\.now|performance\.now/.test(head), 'no randomness, no clock');
 
+/* ---- the strip must lead somewhere real ----------------------------------
+ * A navigation whose targets 404 is worse than none: it promises a journey. These
+ * resolve targets the way the READER does - '../<stamp>/' from this surface - not the
+ * way the tree happens to be laid out.
+ */
+let page = readFileSync(path.join(here, '..', 'index.html'), 'utf8');
+if (MUT) page = page.replace('id="laws"', 'id="laws-broken"');
+const idxRel = MUT ? '../no-such-index/laws-index.json'
+                   : (src.match(/LAWS_INDEX = '([^']+)'/) || [])[1];
+let index = null;
+try { index = JSON.parse(readFileSync(path.join(here, '..', idxRel), 'utf8')); } catch { }
+
+ok('the surface is not a dead end',
+   /id="laws"/.test(page) && /LAWS_INDEX/.test(src),
+   'a strip exists in the markup and the module fetches it');
+ok('the strip is navigation, not content - the page draws without it',
+   /nav\.hidden = false/.test(src) && /\.catch\(/.test(src),
+   'starts hidden, revealed only on success, failure swallowed');
+ok('the laws index is reachable from where the reader stands',
+   !!index && Array.isArray(index.laws) && index.laws.length > 0,
+   `${idxRel} -> ${index ? index.laws.length + ' laws' : 'UNREADABLE'}`);
+const targets = index ? index.laws.filter(l => l.open).map(l => l.open) : [];
+const dead = targets.filter(s => {
+  try { readFileSync(path.join(here, '..', '..', s, 'index.html')); return false; }
+  catch { return true; }
+});
+/* SCOPE, stated because this check once cried DEAD on eight surfaces that were alive.
+ * It resolves against the TREE. The tree is not the reader: a target can exist here and
+ * 404 on the site, or exist on the site after being removed here. When the generator had
+ * churning stamps this reported the map broken when it was the territory that had moved.
+ * The reader's view is _board/liveness.py, which fetches the published URLs. */
+ok('every target the strip offers exists IN THE TREE (not proof it is live)',
+   targets.length > 0 && dead.length === 0,
+   dead.length ? `ABSENT FROM TREE: ${dead.join(', ')} - check _board/liveness.py before concluding they are dead`
+               : `${targets.length} targets resolve to an index.html here; liveness is a separate question`);
+ok('the galaxy is reachable from here',
+   src.includes("'../202609160224/'"), 'a way back, not only a way across');
+ok('this law marks itself in the strip',
+   /aria-current/.test(src) && src.includes("law.id === 'grid-by-key'"),
+   'a visitor can tell which law they are looking at');
+
 const pass = checks.filter(c => c.pass).length;
 for (const c of checks) console.log(`${c.pass ? 'PASS' : 'FAIL'}  ${c.n}\n        ${c.d}`);
 console.log(`\n${pass}/${checks.length} passed` +

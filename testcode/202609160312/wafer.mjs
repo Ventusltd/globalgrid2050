@@ -84,4 +84,39 @@ function draw() {
     ' - identity is the key, not the coordinate';
 }
 addEventListener('resize', () => { layout(); draw(); });
-window.__wafer = { law: 'grid-by-key', variant: 'grid-by-key-lit', place };
+
+/* ---- the strip: this surface is not a dead end ---------------------------
+ * Every generated surface once carried exactly ONE href - its own stylesheet - so a
+ * visitor arriving from the homepage could look and then had nowhere to go. That is
+ * against the rule that the universe is endless.
+ *
+ * It is NAVIGATION, NOT CONTENT: it is fetched after the wafer has drawn, it never
+ * blocks the picture, and if the index cannot be read the strip stays hidden and the
+ * page is exactly as it was. Absent navigation is survivable; wrong navigation is not,
+ * because it promises a journey and then 404s.
+ *
+ * The index is GENERATED from each surface's own declared law, never typed - six of
+ * these law ids were renamed after the surfaces existed, and a hand-written strip
+ * would still be pointing at the old ones.
+ */
+const LAWS_INDEX = '../202609160224/laws-index.json';
+fetch(LAWS_INDEX).then(r => r.ok ? r.json() : null).then(ix => {
+  if (!ix || !Array.isArray(ix.laws) || !ix.laws.length) return;
+  const nav = document.getElementById('laws');
+  const home = document.createElement('a');
+  home.href = '../202609160224/'; home.className = 'home';
+  home.textContent = '◀ the galaxy';
+  nav.append(home);
+  for (const law of ix.laws) {
+    if (!law.open || !law.id) continue;
+    const a = document.createElement('a');
+    a.href = '../' + law.open + '/';
+    a.textContent = law.id;
+    a.title = law.title || law.id;
+    if (law.id === 'grid-by-key') a.setAttribute('aria-current', 'page');
+    nav.append(a);
+  }
+  nav.hidden = false;
+}).catch(() => { /* the picture stands on its own */ });
+
+window.__wafer = { law: 'grid-by-key', variant: 'grid-by-key-lit', place, lawsIndex: LAWS_INDEX };

@@ -1,12 +1,17 @@
 {
- "generated_utc": "2026-09-16T01:36:02.200Z",
+ "generated_utc": "2026-09-16T01:52:29.674Z",
  "built_from": "globalgrid2050/testcode",
- "surfaces": 97,
- "named": 96,
- "openable": 94,
- "total_files": 8138,
- "total_bytes": 841904681,
+ "surfaces": 98,
+ "named": 97,
+ "openable": 95,
+ "total_files": 8151,
+ "total_bytes": 842009261,
  "law": "r = sqrt(key) · theta = key × 2.39996…  (the golden angle)",
+ "star_index": {
+  "generated_utc": "2026-09-14T19:55:48.124Z",
+  "families_in_index": 10985,
+  "surfaces_reached": 80
+ },
  "list": [
   {
    "key": 1,
@@ -19,6 +24,8 @@
    "bytes": 11173513,
    "has_readme": false,
    "has_proof": false,
+   "families": 526,
+   "places": 640,
    "entry": "202609051152/"
   },
   {
@@ -32,6 +39,8 @@
    "bytes": 4006817,
    "has_readme": false,
    "has_proof": false,
+   "families": 526,
+   "places": 639,
    "entry": "202609051214/"
   },
   {
@@ -45,6 +54,8 @@
    "bytes": 3997981,
    "has_readme": false,
    "has_proof": false,
+   "families": 532,
+   "places": 636,
    "entry": "202609051300/"
   },
   {
@@ -58,6 +69,8 @@
    "bytes": 5131887,
    "has_readme": false,
    "has_proof": false,
+   "families": 542,
+   "places": 643,
    "entry": "202609051344/"
   },
   {
@@ -71,6 +84,8 @@
    "bytes": 6693488,
    "has_readme": false,
    "has_proof": false,
+   "families": 572,
+   "places": 672,
    "entry": "202609051419/"
   },
   {
@@ -84,6 +99,8 @@
    "bytes": 6832403,
    "has_readme": false,
    "has_proof": false,
+   "families": 595,
+   "places": 688,
    "entry": "202609051457/"
   },
   {
@@ -97,6 +114,8 @@
    "bytes": 6860131,
    "has_readme": false,
    "has_proof": false,
+   "families": 577,
+   "places": 626,
    "entry": "202609051517/"
   },
   {
@@ -110,6 +129,8 @@
    "bytes": 6872968,
    "has_readme": false,
    "has_proof": false,
+   "families": 568,
+   "places": 602,
    "entry": "202609051531/"
   },
   {
@@ -123,6 +144,8 @@
    "bytes": 6872974,
    "has_readme": false,
    "has_proof": false,
+   "families": 559,
+   "places": 587,
    "entry": "202609051608/"
   },
   {
@@ -136,6 +159,8 @@
    "bytes": 6874908,
    "has_readme": false,
    "has_proof": false,
+   "families": 559,
+   "places": 587,
    "entry": "202609051623/"
   },
   {
@@ -149,6 +174,8 @@
    "bytes": 8524680,
    "has_readme": false,
    "has_proof": false,
+   "families": 557,
+   "places": 580,
    "entry": "202609051817/"
   },
   {
@@ -162,6 +189,8 @@
    "bytes": 8525343,
    "has_readme": false,
    "has_proof": false,
+   "families": 543,
+   "places": 560,
    "entry": "202609051820/"
   },
   {
@@ -175,6 +204,8 @@
    "bytes": 8531787,
    "has_readme": false,
    "has_proof": false,
+   "families": 544,
+   "places": 561,
    "entry": "202609051844/"
   },
   {
@@ -188,6 +219,8 @@
    "bytes": 8538619,
    "has_readme": false,
    "has_proof": false,
+   "families": 537,
+   "places": 552,
    "entry": "202609051845/"
   },
   {
@@ -201,6 +234,8 @@
    "bytes": 8553658,
    "has_readme": false,
    "has_proof": false,
+   "families": 539,
+   "places": 554,
    "entry": "202609051847/"
   },
   {
@@ -214,6 +249,8 @@
    "bytes": 8560792,
    "has_readme": false,
    "has_proof": false,
+   "families": 539,
+   "places": 553,
    "entry": "202609051848/"
   },
   {
@@ -227,6 +264,8 @@
    "bytes": 8579227,
    "has_readme": false,
    "has_proof": false,
+   "families": 542,
+   "places": 556,
    "entry": "202609051850/"
   },
   {
@@ -240,6 +279,8 @@
    "bytes": 15999056,
    "has_readme": false,
    "has_proof": false,
+   "families": 748,
+   "places": 761,
    "entry": "202609051901/"
   },
   {
@@ -253,6 +294,8 @@
    "bytes": 16212814,
    "has_readme": false,
    "has_proof": false,
+   "families": 818,
+   "places": 838,
    "entry": "202609051905/"
   },
   {
@@ -266,6 +309,8 @@
    "bytes": 16213454,
    "has_readme": false,
    "has_proof": false,
+   "families": 800,
+   "places": 812,
    "entry": "202609051906/"
   },
   {
@@ -279,6 +324,8 @@
    "bytes": 16217595,
    "has_readme": false,
    "has_proof": false,
+   "families": 794,
+   "places": 806,
    "entry": "202609051927/"
   },
   {
@@ -292,6 +339,8 @@
    "bytes": 16220675,
    "has_readme": false,
    "has_proof": false,
+   "families": 797,
+   "places": 809,
    "entry": "202609051932/"
   },
   {
@@ -305,6 +354,8 @@
    "bytes": 16224823,
    "has_readme": false,
    "has_proof": false,
+   "families": 795,
+   "places": 807,
    "entry": "202609051936/"
   },
   {
@@ -318,6 +369,8 @@
    "bytes": 16231560,
    "has_readme": false,
    "has_proof": false,
+   "families": 800,
+   "places": 812,
    "entry": "202609051940/"
   },
   {
@@ -331,6 +384,8 @@
    "bytes": 16235248,
    "has_readme": false,
    "has_proof": false,
+   "families": 798,
+   "places": 810,
    "entry": "202609051945/"
   },
   {
@@ -344,6 +399,8 @@
    "bytes": 16240784,
    "has_readme": false,
    "has_proof": false,
+   "families": 800,
+   "places": 812,
    "entry": "202609051948/"
   },
   {
@@ -357,6 +414,8 @@
    "bytes": 16245957,
    "has_readme": false,
    "has_proof": false,
+   "families": 795,
+   "places": 807,
    "entry": "202609051953/"
   },
   {
@@ -370,6 +429,8 @@
    "bytes": 16248803,
    "has_readme": false,
    "has_proof": false,
+   "families": 784,
+   "places": 796,
    "entry": "202609051958/"
   },
   {
@@ -383,6 +444,8 @@
    "bytes": 16252632,
    "has_readme": false,
    "has_proof": false,
+   "families": 783,
+   "places": 795,
    "entry": "202609052008/"
   },
   {
@@ -396,6 +459,8 @@
    "bytes": 16255607,
    "has_readme": false,
    "has_proof": false,
+   "families": 785,
+   "places": 797,
    "entry": "202609052011/"
   },
   {
@@ -409,6 +474,8 @@
    "bytes": 16267981,
    "has_readme": false,
    "has_proof": false,
+   "families": 779,
+   "places": 780,
    "entry": "202609052015/"
   },
   {
@@ -422,6 +489,8 @@
    "bytes": 16285899,
    "has_readme": false,
    "has_proof": false,
+   "families": 769,
+   "places": 770,
    "entry": "202609052020/"
   },
   {
@@ -435,6 +504,8 @@
    "bytes": 16291976,
    "has_readme": false,
    "has_proof": false,
+   "families": 772,
+   "places": 773,
    "entry": "202609052023/"
   },
   {
@@ -448,6 +519,8 @@
    "bytes": 33060,
    "has_readme": false,
    "has_proof": false,
+   "families": 0,
+   "places": 0,
    "entry": "202609060158/"
   },
   {
@@ -461,6 +534,8 @@
    "bytes": 33060,
    "has_readme": false,
    "has_proof": false,
+   "families": 0,
+   "places": 0,
    "entry": "202609060204/"
   },
   {
@@ -474,6 +549,8 @@
    "bytes": 13666,
    "has_readme": false,
    "has_proof": false,
+   "families": 1,
+   "places": 1,
    "entry": "202609060205/"
   },
   {
@@ -487,6 +564,8 @@
    "bytes": 14127,
    "has_readme": false,
    "has_proof": false,
+   "families": 1,
+   "places": 1,
    "entry": "202609060206/"
   },
   {
@@ -500,6 +579,8 @@
    "bytes": 22160,
    "has_readme": false,
    "has_proof": false,
+   "families": 4,
+   "places": 4,
    "entry": "202609060208/"
   },
   {
@@ -513,6 +594,8 @@
    "bytes": 22696765,
    "has_readme": false,
    "has_proof": false,
+   "families": 72,
+   "places": 79,
    "entry": "202609060213/"
   },
   {
@@ -526,6 +609,8 @@
    "bytes": 2706828,
    "has_readme": false,
    "has_proof": false,
+   "families": 2,
+   "places": 2,
    "entry": "202609060228/"
   },
   {
@@ -539,6 +624,8 @@
    "bytes": 22727097,
    "has_readme": false,
    "has_proof": false,
+   "families": 77,
+   "places": 84,
    "entry": "202609060232/"
   },
   {
@@ -552,6 +639,8 @@
    "bytes": 3092160,
    "has_readme": false,
    "has_proof": false,
+   "families": 38,
+   "places": 38,
    "entry": "202609060300/"
   },
   {
@@ -565,6 +654,8 @@
    "bytes": 2952726,
    "has_readme": false,
    "has_proof": false,
+   "families": 27,
+   "places": 27,
    "entry": "202609060308/"
   },
   {
@@ -578,6 +669,8 @@
    "bytes": 2953272,
    "has_readme": false,
    "has_proof": false,
+   "families": 29,
+   "places": 29,
    "entry": "202609060309/"
   },
   {
@@ -591,6 +684,8 @@
    "bytes": 23067067,
    "has_readme": false,
    "has_proof": false,
+   "families": 79,
+   "places": 82,
    "entry": "202609060315/"
   },
   {
@@ -604,6 +699,8 @@
    "bytes": 23359856,
    "has_readme": false,
    "has_proof": false,
+   "families": 76,
+   "places": 76,
    "entry": "202609060316/"
   },
   {
@@ -617,6 +714,8 @@
    "bytes": 23361575,
    "has_readme": false,
    "has_proof": false,
+   "families": 73,
+   "places": 73,
    "entry": "202609060318/"
   },
   {
@@ -630,6 +729,8 @@
    "bytes": 2955534,
    "has_readme": false,
    "has_proof": false,
+   "families": 35,
+   "places": 35,
    "entry": "202609060320/"
   },
   {
@@ -643,6 +744,8 @@
    "bytes": 2957841,
    "has_readme": false,
    "has_proof": false,
+   "families": 37,
+   "places": 37,
    "entry": "202609060322/"
   },
   {
@@ -656,6 +759,8 @@
    "bytes": 2960211,
    "has_readme": false,
    "has_proof": false,
+   "families": 39,
+   "places": 39,
    "entry": "202609060324/"
   },
   {
@@ -669,6 +774,8 @@
    "bytes": 2962108,
    "has_readme": false,
    "has_proof": false,
+   "families": 42,
+   "places": 42,
    "entry": "202609060325/"
   },
   {
@@ -682,6 +789,8 @@
    "bytes": 2963284,
    "has_readme": false,
    "has_proof": false,
+   "families": 44,
+   "places": 44,
    "entry": "202609060327/"
   },
   {
@@ -695,6 +804,8 @@
    "bytes": 23363463,
    "has_readme": false,
    "has_proof": false,
+   "families": 75,
+   "places": 75,
    "entry": "202609060333/"
   },
   {
@@ -708,6 +819,8 @@
    "bytes": 23366733,
    "has_readme": false,
    "has_proof": false,
+   "families": 78,
+   "places": 78,
    "entry": "202609060334/"
   },
   {
@@ -721,6 +834,8 @@
    "bytes": 23368600,
    "has_readme": false,
    "has_proof": false,
+   "families": 83,
+   "places": 83,
    "entry": "202609060337/"
   },
   {
@@ -734,6 +849,8 @@
    "bytes": 23370974,
    "has_readme": false,
    "has_proof": false,
+   "families": 85,
+   "places": 85,
    "entry": "202609060338/"
   },
   {
@@ -747,6 +864,8 @@
    "bytes": 23374047,
    "has_readme": false,
    "has_proof": false,
+   "families": 88,
+   "places": 88,
    "entry": "202609060340/"
   },
   {
@@ -760,6 +879,8 @@
    "bytes": 23376032,
    "has_readme": false,
    "has_proof": false,
+   "families": 90,
+   "places": 90,
    "entry": "202609060342/"
   },
   {
@@ -773,6 +894,8 @@
    "bytes": 23376203,
    "has_readme": false,
    "has_proof": false,
+   "families": 89,
+   "places": 89,
    "entry": "202609060343/"
   },
   {
@@ -786,6 +909,8 @@
    "bytes": 23377660,
    "has_readme": false,
    "has_proof": false,
+   "families": 92,
+   "places": 92,
    "entry": "202609060345/"
   },
   {
@@ -799,6 +924,8 @@
    "bytes": 23378681,
    "has_readme": false,
    "has_proof": false,
+   "families": 92,
+   "places": 92,
    "entry": "202609060349/"
   },
   {
@@ -812,6 +939,8 @@
    "bytes": 2963791,
    "has_readme": false,
    "has_proof": false,
+   "families": 44,
+   "places": 44,
    "entry": "202609060351/"
   },
   {
@@ -825,6 +954,8 @@
    "bytes": 2965048,
    "has_readme": false,
    "has_proof": false,
+   "families": 45,
+   "places": 45,
    "entry": "202609060352/"
   },
   {
@@ -838,6 +969,8 @@
    "bytes": 2968342,
    "has_readme": false,
    "has_proof": false,
+   "families": 47,
+   "places": 47,
    "entry": "202609060400/"
   },
   {
@@ -851,6 +984,8 @@
    "bytes": 2971180,
    "has_readme": false,
    "has_proof": false,
+   "families": 48,
+   "places": 48,
    "entry": "202609060401/"
   },
   {
@@ -864,6 +999,8 @@
    "bytes": 2979143,
    "has_readme": false,
    "has_proof": false,
+   "families": 59,
+   "places": 59,
    "entry": "202609060418/"
   },
   {
@@ -877,6 +1014,8 @@
    "bytes": 88911,
    "has_readme": false,
    "has_proof": false,
+   "families": 61,
+   "places": 61,
    "entry": "202609060432/"
   },
   {
@@ -890,6 +1029,8 @@
    "bytes": 2979408,
    "has_readme": false,
    "has_proof": false,
+   "families": 59,
+   "places": 59,
    "entry": "202609060435/"
   },
   {
@@ -903,6 +1044,8 @@
    "bytes": 2979459,
    "has_readme": false,
    "has_proof": false,
+   "families": 59,
+   "places": 59,
    "entry": "202609060441/"
   },
   {
@@ -916,6 +1059,8 @@
    "bytes": 2718198,
    "has_readme": false,
    "has_proof": false,
+   "families": 2,
+   "places": 2,
    "entry": "202609060447/"
   },
   {
@@ -929,6 +1074,8 @@
    "bytes": 2718635,
    "has_readme": false,
    "has_proof": false,
+   "families": 2,
+   "places": 2,
    "entry": "202609060503/"
   },
   {
@@ -942,6 +1089,8 @@
    "bytes": 2989385,
    "has_readme": false,
    "has_proof": false,
+   "families": 60,
+   "places": 60,
    "entry": "202609060504/"
   },
   {
@@ -955,6 +1104,8 @@
    "bytes": 2990581,
    "has_readme": false,
    "has_proof": false,
+   "families": 61,
+   "places": 61,
    "entry": "202609060509/"
   },
   {
@@ -968,6 +1119,8 @@
    "bytes": 2717839,
    "has_readme": false,
    "has_proof": false,
+   "families": 3,
+   "places": 3,
    "entry": "202609060517/"
   },
   {
@@ -981,6 +1134,8 @@
    "bytes": 2991885,
    "has_readme": false,
    "has_proof": false,
+   "families": 62,
+   "places": 62,
    "entry": "202609060521/"
   },
   {
@@ -994,6 +1149,8 @@
    "bytes": 2991979,
    "has_readme": false,
    "has_proof": false,
+   "families": 63,
+   "places": 63,
    "entry": "202609060528/"
   },
   {
@@ -1007,6 +1164,8 @@
    "bytes": 2992514,
    "has_readme": false,
    "has_proof": false,
+   "families": 63,
+   "places": 63,
    "entry": "202609060537/"
   },
   {
@@ -1020,6 +1179,8 @@
    "bytes": 84833,
    "has_readme": false,
    "has_proof": false,
+   "families": 61,
+   "places": 61,
    "entry": "202609141350/"
   },
   {
@@ -1033,6 +1194,8 @@
    "bytes": 28945,
    "has_readme": false,
    "has_proof": false,
+   "families": 25,
+   "places": 25,
    "entry": "202609141423/"
   },
   {
@@ -1046,6 +1209,8 @@
    "bytes": 87447,
    "has_readme": false,
    "has_proof": false,
+   "families": 62,
+   "places": 62,
    "entry": "202609141522/"
   },
   {
@@ -1059,6 +1224,8 @@
    "bytes": 1533400,
    "has_readme": false,
    "has_proof": false,
+   "families": 2,
+   "places": 2,
    "entry": "202609141531/"
   },
   {
@@ -1072,6 +1239,8 @@
    "bytes": 178645,
    "has_readme": false,
    "has_proof": false,
+   "families": 95,
+   "places": 106,
    "entry": "202609141754/"
   },
   {
@@ -1085,6 +1254,8 @@
    "bytes": 15280232,
    "has_readme": true,
    "has_proof": true,
+   "families": 0,
+   "places": 0,
    "entry": "202609142202/"
   },
   {
@@ -1098,6 +1269,8 @@
    "bytes": 30692439,
    "has_readme": true,
    "has_proof": true,
+   "families": 0,
+   "places": 0,
    "entry": "202609142225/"
   },
   {
@@ -1111,6 +1284,8 @@
    "bytes": 62734,
    "has_readme": true,
    "has_proof": false,
+   "families": 0,
+   "places": 0,
    "entry": null
   },
   {
@@ -1124,6 +1299,8 @@
    "bytes": 2187782,
    "has_readme": true,
    "has_proof": true,
+   "families": 0,
+   "places": 0,
    "entry": "202609150125/"
   },
   {
@@ -1137,6 +1314,8 @@
    "bytes": 1943887,
    "has_readme": true,
    "has_proof": true,
+   "families": 0,
+   "places": 0,
    "entry": "202609150502/"
   },
   {
@@ -1150,6 +1329,8 @@
    "bytes": 91832,
    "has_readme": true,
    "has_proof": true,
+   "families": 0,
+   "places": 0,
    "entry": "20260915050706/"
   },
   {
@@ -1163,6 +1344,8 @@
    "bytes": 25837,
    "has_readme": false,
    "has_proof": false,
+   "families": 0,
+   "places": 0,
    "entry": "202609151230/"
   },
   {
@@ -1176,6 +1359,8 @@
    "bytes": 57296,
    "has_readme": true,
    "has_proof": true,
+   "families": 0,
+   "places": 0,
    "entry": "202609151339/"
   },
   {
@@ -1189,6 +1374,8 @@
    "bytes": 32817,
    "has_readme": false,
    "has_proof": false,
+   "families": 0,
+   "places": 0,
    "entry": "202609151413/"
   },
   {
@@ -1202,6 +1389,8 @@
    "bytes": 525056,
    "has_readme": false,
    "has_proof": false,
+   "families": 0,
+   "places": 0,
    "entry": "202609151428/"
   },
   {
@@ -1215,6 +1404,8 @@
    "bytes": 21602,
    "has_readme": false,
    "has_proof": false,
+   "families": 0,
+   "places": 0,
    "entry": "202609151447/"
   },
   {
@@ -1228,6 +1419,8 @@
    "bytes": 14267,
    "has_readme": false,
    "has_proof": false,
+   "families": 0,
+   "places": 0,
    "entry": null
   },
   {
@@ -1241,32 +1434,53 @@
    "bytes": 7950918,
    "has_readme": true,
    "has_proof": true,
+   "families": 0,
+   "places": 0,
    "entry": null
   },
   {
    "key": 96,
+   "stamp": "202609160151",
+   "date": "2026-09-16",
+   "time": "01:51",
+   "title": "The Line Wafer — testcode/202609160151",
+   "title_from": "README.md",
+   "files": 13,
+   "bytes": 96878,
+   "has_readme": true,
+   "has_proof": true,
+   "families": 0,
+   "places": 0,
+   "entry": "202609160151/"
+  },
+  {
+   "key": 97,
    "stamp": "202609160207",
    "date": "2026-09-16",
    "time": "02:07",
    "title": "The Line Wafer — testcode/202609160207",
    "title_from": "README.md",
    "files": 12,
-   "bytes": 88614,
+   "bytes": 88495,
    "has_readme": true,
    "has_proof": true,
+   "families": 0,
+   "places": 0,
    "entry": "202609160207/"
   },
   {
-   "key": 97,
+   "key": 98,
    "stamp": "202609160224",
    "date": "2026-09-16",
    "time": "02:24",
    "title": "The Nest — every test code surface in the estate, on one die",
    "title_from": "index.html",
    "files": 6,
-   "bytes": 48970,
+   "bytes": 56791,
    "has_readme": false,
    "has_proof": true,
+   "families": 0,
+   "places": 0,
    "entry": "202609160224/"
   }
  ]

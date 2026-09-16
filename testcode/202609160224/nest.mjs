@@ -165,6 +165,29 @@ const COLOUR = [
   [78, 88, 110],       /* orphan       */
 ];
 
+/* THE ZOOMED-OUT PATH IS NOT fillRect.
+ *
+ * At zoom 1 every one of the 250,174 lines is on screen, and a fillRect each is
+ * roughly 250,000 canvas state changes per frame — tens of milliseconds, felt
+ * immediately as a page that fights the finger. A particle at that zoom is one
+ * pixel, so it is written as one pixel: straight into an ImageData buffer, no
+ * canvas calls at all, then blitted once. The buffer is allocated at layout and
+ * reused, so a frame allocates nothing.
+ *
+ * Brighter wins where two lines land on the same pixel, rather than the last one
+ * drawn winning — otherwise the picture would depend on iteration order, and the
+ * whole point of a derived layout is that it does not depend on anything but the
+ * keys. Above ~1.5 px a particle is a shape rather than a pixel, and the ordinary
+ * path takes over.
+ */
+let img = null, buf32 = null;
+
+function ensureBuffer() {
+  if (img && img.width === stage.width && img.height === stage.height) return;
+  img = ctx.createImageData(stage.width, stage.height);
+  buf32 = new Uint32Array(img.data.buffer);
+}
+
 function draw() {
   ctx.fillStyle = '#05070b';
   ctx.fillRect(0, 0, stage.width, stage.height);
@@ -176,11 +199,31 @@ function draw() {
   const bands = new Set();
   let labelled = 0, asked = 0, shown = 0;
 
+  const pixelPath = size <= 1.5;
+  const W = stage.width, H = stage.height;
+  if (pixelPath) { ensureBuffer(); buf32.fill(0xff0b0705); }   /* ABGR: the ground */
+
   for (let i = 0; i < n; i++) {
     const x = sx(i), y = sy(i);
-    if (x < -10 || y < -10 || x > stage.width + 10 || y > stage.height + 10) continue;
+    if (x < -10 || y < -10 || x > W + 10 || y > H + 10) continue;
     shown++;
     const c = COLOUR[nat[i]], a = 0.22 + lit[i] * 0.78;
+
+    if (pixelPath) {
+      const xi = x | 0, yi = y | 0;
+      if (xi >= 0 && yi >= 0 && xi < W && yi < H) {
+        const o = yi * W + xi;
+        /* Composite against the ground once, then keep the brighter of the two. */
+        const r = (c[0] * a + 5 * (1 - a)) | 0;
+        const g = (c[1] * a + 7 * (1 - a)) | 0;
+        const b = (c[2] * a + 11 * (1 - a)) | 0;
+        const v = (255 << 24) | (b << 16) | (g << 8) | r;
+        const prev = buf32[o];
+        if (((prev >> 16) & 255) + ((prev >> 8) & 255) + (prev & 255) < b + g + r) buf32[o] = v;
+      }
+      continue;
+    }
+
     ctx.fillStyle = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a + ')';
     ctx.fillRect(x, y, size, size);
 
@@ -246,6 +289,89 @@ async function drainQueue() {
       draw();
     }
   }
+}
+
+/* ---- NO DEAD ENDS -------------------------------------------------------
+ *
+ * Vikram's rule: "never give the user a broken journey… leave no deadends, the
+ * universe is endless." Every particle must lead somewhere, and three of them
+ * can otherwise stop dead:
+ *
+ *   a line whose family resolves but whose file will not load,
+ *   a line that belongs to no family at all — 121,805 of them,
+ *   a line whose block has no ten lines above or below it.
+ *
+ * None of those is actually a dead end, because LINES.md holds a row for EVERY
+ * numbered key, family or no family. So when the file cannot answer, the
+ * numbering itself can: the line's own text, and its numbered neighbours, read
+ * by byte range out of a 25 MB document without downloading it.
+ *
+ * REUSED, NOT REINVENTED: the sparse anchor index is vikra-ac's, published at
+ * testcode/202609160207/line-index.json — 588 anchors every 512 rows, 9.3 KB
+ * against 1.1 MB for a dense one. Block k is bytes offs[k]..offs[k+1]. Building
+ * a second index would have been the estate's own disease.
+ */
+const LINE_INDEX = '../202609160207/line-index.json';
+const LINES_MD = 'https://ventusltd.github.io/stars/LINES.md';
+let lineIdx = null, lineIdxTried = false;
+const blockCache = new Map();          /* anchor block -> Map(key -> text) */
+
+async function ensureLineIndex() {
+  if (lineIdx || lineIdxTried) return lineIdx;
+  lineIdxTried = true;
+  try {
+    const r = await fetch(LINE_INDEX);
+    if (r.ok) lineIdx = await r.json();
+  } catch { /* the ladder simply stops one rung shorter */ }
+  return lineIdx;
+}
+
+/* Every numbered key's own text, by byte range. Verified per read rather than by
+   ETag: a row must begin with the key and a tab, so a stale index costs a wasted
+   fetch and can never return another line's code. */
+async function textByKey(key) {
+  const idx = await ensureLineIndex();
+  if (!idx) return null;
+  let k = 0;
+  while (k + 1 < idx.keys.length && idx.keys[k + 1] <= key) k++;
+  if (blockCache.has(k)) return blockCache.get(k).get(key) ?? null;
+  const from = idx.offs[k], to = idx.offs[k + 1];
+  try {
+    const r = await fetch(LINES_MD, { headers: { Range: 'bytes=' + from + '-' + (to - 1) } });
+    if (!r.ok && r.status !== 206) throw new Error('HTTP ' + r.status);
+    const rows = (await r.text()).split(/\r?\n/);
+    const map = new Map();
+    for (const row of rows) {
+      const t = row.indexOf('\t');
+      if (t <= 0) continue;
+      const n = Number(row.slice(0, t));
+      if (Number.isFinite(n)) map.set(n, row.slice(t + 1));
+    }
+    blockCache.set(k, map);
+    return map.get(key) ?? null;
+  } catch { return null; }
+}
+
+/* The numbered neighbourhood: this key and the issued keys either side of it.
+   When a file cannot give ten lines above and below, the numbering can — they
+   are not the same ten lines, and the page says so rather than pretending. */
+async function neighbourhood(i) {
+  const out = [];
+  const from = Math.max(0, i - 10), to = Math.min(keys.length - 1, i + 10);
+  for (let j = from; j <= to; j++) out.push({ i: j, key: keys[j], text: await textByKey(keys[j]) });
+  return out;
+}
+
+/* The nearest particle that DOES resolve to a file, so a line with nowhere of
+   its own still has somewhere to go. */
+function nearestResolvable(i) {
+  for (let d = 1; d < 4000; d++) {
+    for (const j of [i - d, i + d]) {
+      if (j < 0 || j >= keys.length) continue;
+      if (fams[j] && resolve(keys[j])) return j;
+    }
+  }
+  return -1;
 }
 
 async function readFile([repo, commit, p]) {
@@ -334,7 +460,10 @@ async function show(i) {
     const text = await readFile(r.place);
     holder.textContent = '';
     if (!text) {
-      holder.textContent = 'the file did not load — the commit is pinned, so the blob is gone or the network refused.';
+      /* Not a dead end: the file refused, so the numbering answers instead. */
+      await renderNeighbourhood(holder, i,
+        'The file did not load — the commit is pinned, so the blob is gone or the network refused. ' +
+        'These are the numbered lines either side instead.');
     } else {
       const lines = text.split(/\r?\n/);
       const from = Math.max(1, r.line - 10), to = Math.min(lines.length, r.line + 10);
@@ -356,16 +485,85 @@ async function show(i) {
       holder.append(note);
     }
   } else {
-    const note = document.createElement('div');
-    note.className = 'dim';
-    note.textContent = bucketCache.get(bucketOf(key)) === 'pending'
-      ? 'reading this band…'
-      : 'No family claims this line, so the estate records no file to read it from.';
-    panelBody.append(note);
+    /* No family claims this line — 121,805 of them. The numbering still does,
+       so the journey continues rather than stopping. */
+    const doors = document.createElement('div');
+    doors.className = 'doors';
+    const near = nearestResolvable(i);
+    if (near >= 0) {
+      const a = document.createElement('a');
+      a.href = '#';
+      a.textContent = 'NEAREST LINE WITH A FILE → ' + keys[near].toLocaleString();
+      a.addEventListener('click', (e) => { e.preventDefault(); show(near); });
+      doors.append(a);
+    }
+    const est = document.createElement('a');
+    est.href = 'https://ventusltd.github.io/stars/LINES.md';
+    est.target = '_blank'; est.rel = 'noopener';
+    est.textContent = 'THE NUMBERING ↗';
+    doors.append(est);
+    const gg = document.createElement('a');
+    gg.href = '../';
+    gg.textContent = 'ALL SURFACES →';
+    doors.append(gg);
+    panelBody.append(doors);
+
+    const holder = document.createElement('div');
+    holder.className = 'block';
+    panelBody.append(holder);
+    await renderNeighbourhood(holder, i,
+      bucketCache.get(bucketOf(key)) === 'pending'
+        ? 'Reading this band. Meanwhile, the numbered lines either side:'
+        : 'No function family claims this line, so the estate records no file for it. ' +
+          'LINES.md holds a row for every numbered key, so these are its numbered neighbours.');
   }
 
   panel.hidden = false;
   draw();
+}
+
+/* The last rung of the ladder, and the one that makes the universe endless: the
+   key's own text and its numbered neighbours, read by byte range out of a 25 MB
+   document. These are NOT the ten lines above and below in a file — they are the
+   keys issued around it — and the page says so rather than implying otherwise. */
+async function renderNeighbourhood(holder, i, why) {
+  holder.textContent = 'reading the numbering…';
+  const rows = await neighbourhood(i);
+  holder.textContent = '';
+  const note = document.createElement('div');
+  note.className = 'dim';
+  note.textContent = why;
+  holder.append(note);
+
+  const any = rows.some((r) => r.text !== null);
+  if (!any) {
+    const alt = document.createElement('div');
+    alt.className = 'dim';
+    alt.textContent = 'The numbering could not be read either. Nothing here is a dead end: ' +
+      'the doors above lead to the numbering itself and to every surface the estate has published.';
+    holder.append(alt);
+    return;
+  }
+  const pre = document.createElement('pre');
+  pre.className = 'code';
+  for (const r of rows) {
+    const row = document.createElement('div');
+    row.className = 'cl' + (r.i === i ? ' hit' : '');
+    const num = document.createElement('span');
+    num.className = 'ln'; num.textContent = String(r.key).padStart(7, ' ');
+    const src = document.createElement('span');
+    src.textContent = r.text === null ? '—' : r.text;
+    row.append(num, src);
+    /* Every neighbour is itself a door: the journey never runs out of next. */
+    row.style.cursor = 'pointer';
+    row.addEventListener('click', () => show(r.i));
+    pre.append(row);
+  }
+  holder.append(pre);
+  const tail = document.createElement('div');
+  tail.className = 'dim';
+  tail.textContent = 'numbered neighbours, not file neighbours — keys issued either side of this one. Tap any to travel.';
+  holder.append(tail);
 }
 
 /* ---- picking and interaction -------------------------------------------- */

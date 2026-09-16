@@ -912,6 +912,31 @@ addEventListener('keydown', (e) => {
 restorePos();
 addEventListener('resize', () => { layout(); draw(); });
 
+/* THE WAY OUT, rendered from laws-index.json rather than a typed list — six of these
+   laws were renamed hours ago and a hand-written strip would still be pointing at the
+   old names. 1,664 bytes, fetched once, and it is the only navigation between the 24
+   variations, each of which shipped with exactly one href: its own stylesheet. */
+fetch('./laws-index.json')
+  .then((r) => (r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status))))
+  .then((d) => {
+    const nav = document.getElementById('laws');
+    const here = document.createElement('a');
+    here.href = './';
+    here.textContent = 'ALL 250,174 LINES';
+    here.setAttribute('aria-current', 'page');
+    nav.append(here);
+    for (const l of d.laws) {
+      if (!l.open) continue;
+      const a = document.createElement('a');
+      a.href = '../' + l.open + '/';
+      a.textContent = (l.title || l.id).replace(/^CPU Wafer Galaxy - /, '');
+      a.title = 'the same lines placed by ' + l.id;
+      nav.append(a);
+    }
+    nav.hidden = false;
+  })
+  .catch(() => { /* the strip is navigation, not content: absent is survivable */ });
+
 /* ---- the hook the render proof drives ----------------------------------
    proof/index.html reads this page's real canvas rather than a copy of its
    drawing code — a proof that reimplements the thing it checks proves only that

@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-09-16T03:12:48.728Z",
+ "generated_utc": "2026-09-16T03:22:54.183Z",
  "built_from": "globalgrid2050/testcode",
  "surfaces": 119,
  "fragments": [
@@ -10,9 +10,51 @@
  "listed": 122,
  "named": 121,
  "openable": 119,
- "total_files": 8340,
- "total_bytes": 846198370,
+ "total_files": 8342,
+ "total_bytes": 846219141,
  "law": "r = sqrt(key) · theta = key × 2.39996…  (the golden angle)",
+ "laws": {
+  "bands-by-key": [
+   "202609160304",
+   "202609160305",
+   "202609160306"
+  ],
+  "bands-by-usage": [
+   "202609160319",
+   "202609160320",
+   "202609160321"
+  ],
+  "core": [
+   "202609160301",
+   "202609160302",
+   "202609160303"
+  ],
+  "grid-by-key": [
+   "202609160310",
+   "202609160311",
+   "202609160312"
+  ],
+  "inward-by-length-and-usage": [
+   "202609160316",
+   "202609160317",
+   "202609160318"
+  ],
+  "radius-by-length": [
+   "202609160307",
+   "202609160308",
+   "202609160309"
+  ],
+  "rings-by-membership": [
+   "202609160313",
+   "202609160314",
+   "202609160315"
+  ],
+  "wafer": [
+   "202609160258",
+   "202609160259",
+   "202609160300"
+  ]
+ },
  "unpublished": [],
  "star_index": {
   "generated_utc": "2026-09-14T19:55:48.124Z",
@@ -35,7 +77,8 @@
    "places": 640,
    "entry": "202609051152/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 2,
@@ -52,7 +95,8 @@
    "places": 639,
    "entry": "202609051214/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 3,
@@ -69,7 +113,8 @@
    "places": 636,
    "entry": "202609051300/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 4,
@@ -86,7 +131,8 @@
    "places": 643,
    "entry": "202609051344/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 5,
@@ -103,7 +149,8 @@
    "places": 672,
    "entry": "202609051419/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 6,
@@ -120,7 +167,8 @@
    "places": 688,
    "entry": "202609051457/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 7,
@@ -137,7 +185,8 @@
    "places": 626,
    "entry": "202609051517/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 8,
@@ -154,7 +203,8 @@
    "places": 602,
    "entry": "202609051531/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 9,
@@ -171,7 +221,8 @@
    "places": 587,
    "entry": "202609051608/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 10,
@@ -188,7 +239,8 @@
    "places": 587,
    "entry": "202609051623/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 11,
@@ -205,7 +257,8 @@
    "places": 580,
    "entry": "202609051817/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 12,
@@ -222,7 +275,8 @@
    "places": 560,
    "entry": "202609051820/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 13,
@@ -239,7 +293,8 @@
    "places": 561,
    "entry": "202609051844/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 14,
@@ -256,7 +311,8 @@
    "places": 552,
    "entry": "202609051845/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 15,
@@ -273,7 +329,8 @@
    "places": 554,
    "entry": "202609051847/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 16,
@@ -290,7 +347,8 @@
    "places": 553,
    "entry": "202609051848/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 17,
@@ -307,7 +365,8 @@
    "places": 556,
    "entry": "202609051850/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 18,
@@ -324,7 +383,8 @@
    "places": 761,
    "entry": "202609051901/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 19,
@@ -341,7 +401,8 @@
    "places": 838,
    "entry": "202609051905/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 20,
@@ -358,7 +419,8 @@
    "places": 812,
    "entry": "202609051906/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 21,
@@ -375,7 +437,8 @@
    "places": 806,
    "entry": "202609051927/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 22,
@@ -392,7 +455,8 @@
    "places": 809,
    "entry": "202609051932/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 23,
@@ -409,7 +473,8 @@
    "places": 807,
    "entry": "202609051936/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 24,
@@ -426,7 +491,8 @@
    "places": 812,
    "entry": "202609051940/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 25,
@@ -443,7 +509,8 @@
    "places": 810,
    "entry": "202609051945/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 26,
@@ -460,7 +527,8 @@
    "places": 812,
    "entry": "202609051948/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 27,
@@ -477,7 +545,8 @@
    "places": 807,
    "entry": "202609051953/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 28,
@@ -494,7 +563,8 @@
    "places": 796,
    "entry": "202609051958/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 29,
@@ -511,7 +581,8 @@
    "places": 795,
    "entry": "202609052008/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 30,
@@ -528,7 +599,8 @@
    "places": 797,
    "entry": "202609052011/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 31,
@@ -545,7 +617,8 @@
    "places": 780,
    "entry": "202609052015/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 32,
@@ -562,7 +635,8 @@
    "places": 770,
    "entry": "202609052020/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 33,
@@ -579,7 +653,8 @@
    "places": 773,
    "entry": "202609052023/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 34,
@@ -596,7 +671,8 @@
    "places": 0,
    "entry": "202609060158/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 35,
@@ -613,7 +689,8 @@
    "places": 0,
    "entry": "202609060204/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 36,
@@ -630,7 +707,8 @@
    "places": 1,
    "entry": "202609060205/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 37,
@@ -647,7 +725,8 @@
    "places": 1,
    "entry": "202609060206/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 38,
@@ -664,7 +743,8 @@
    "places": 4,
    "entry": "202609060208/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 39,
@@ -681,7 +761,8 @@
    "places": 79,
    "entry": "202609060213/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 40,
@@ -698,7 +779,8 @@
    "places": 2,
    "entry": "202609060228/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 41,
@@ -715,7 +797,8 @@
    "places": 84,
    "entry": "202609060232/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 42,
@@ -732,7 +815,8 @@
    "places": 38,
    "entry": "202609060300/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 43,
@@ -749,7 +833,8 @@
    "places": 27,
    "entry": "202609060308/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 44,
@@ -766,7 +851,8 @@
    "places": 29,
    "entry": "202609060309/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 45,
@@ -783,7 +869,8 @@
    "places": 82,
    "entry": "202609060315/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 46,
@@ -800,7 +887,8 @@
    "places": 76,
    "entry": "202609060316/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 47,
@@ -817,7 +905,8 @@
    "places": 73,
    "entry": "202609060318/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 48,
@@ -834,7 +923,8 @@
    "places": 35,
    "entry": "202609060320/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 49,
@@ -851,7 +941,8 @@
    "places": 37,
    "entry": "202609060322/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 50,
@@ -868,7 +959,8 @@
    "places": 39,
    "entry": "202609060324/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 51,
@@ -885,7 +977,8 @@
    "places": 42,
    "entry": "202609060325/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 52,
@@ -902,7 +995,8 @@
    "places": 44,
    "entry": "202609060327/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 53,
@@ -919,7 +1013,8 @@
    "places": 75,
    "entry": "202609060333/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 54,
@@ -936,7 +1031,8 @@
    "places": 78,
    "entry": "202609060334/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 55,
@@ -953,7 +1049,8 @@
    "places": 83,
    "entry": "202609060337/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 56,
@@ -970,7 +1067,8 @@
    "places": 85,
    "entry": "202609060338/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 57,
@@ -987,7 +1085,8 @@
    "places": 88,
    "entry": "202609060340/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 58,
@@ -1004,7 +1103,8 @@
    "places": 90,
    "entry": "202609060342/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 59,
@@ -1021,7 +1121,8 @@
    "places": 89,
    "entry": "202609060343/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 60,
@@ -1038,7 +1139,8 @@
    "places": 92,
    "entry": "202609060345/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 61,
@@ -1055,7 +1157,8 @@
    "places": 92,
    "entry": "202609060349/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 62,
@@ -1072,7 +1175,8 @@
    "places": 44,
    "entry": "202609060351/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 63,
@@ -1089,7 +1193,8 @@
    "places": 45,
    "entry": "202609060352/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 64,
@@ -1106,7 +1211,8 @@
    "places": 47,
    "entry": "202609060400/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 65,
@@ -1123,7 +1229,8 @@
    "places": 48,
    "entry": "202609060401/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 66,
@@ -1140,7 +1247,8 @@
    "places": 59,
    "entry": "202609060418/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 67,
@@ -1157,7 +1265,8 @@
    "places": 61,
    "entry": "202609060432/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 68,
@@ -1174,7 +1283,8 @@
    "places": 59,
    "entry": "202609060435/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 69,
@@ -1191,7 +1301,8 @@
    "places": 59,
    "entry": "202609060441/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 70,
@@ -1208,7 +1319,8 @@
    "places": 2,
    "entry": "202609060447/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 71,
@@ -1225,7 +1337,8 @@
    "places": 2,
    "entry": "202609060503/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 72,
@@ -1242,7 +1355,8 @@
    "places": 60,
    "entry": "202609060504/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 73,
@@ -1259,7 +1373,8 @@
    "places": 61,
    "entry": "202609060509/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 74,
@@ -1276,7 +1391,8 @@
    "places": 3,
    "entry": "202609060517/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 75,
@@ -1293,7 +1409,8 @@
    "places": 62,
    "entry": "202609060521/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 76,
@@ -1310,7 +1427,8 @@
    "places": 63,
    "entry": "202609060528/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 77,
@@ -1327,7 +1445,8 @@
    "places": 63,
    "entry": "202609060537/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 78,
@@ -1344,7 +1463,8 @@
    "places": 61,
    "entry": "202609141350/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 79,
@@ -1361,7 +1481,8 @@
    "places": 25,
    "entry": "202609141423/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 80,
@@ -1378,7 +1499,8 @@
    "places": 62,
    "entry": "202609141522/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 81,
@@ -1395,7 +1517,8 @@
    "places": 2,
    "entry": "202609141531/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 82,
@@ -1412,7 +1535,8 @@
    "places": 106,
    "entry": "202609141754/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 83,
@@ -1429,7 +1553,8 @@
    "places": 0,
    "entry": "202609142202/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 84,
@@ -1446,7 +1571,8 @@
    "places": 0,
    "entry": "202609142225/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 85,
@@ -1463,7 +1589,8 @@
    "places": 0,
    "entry": null,
    "published": true,
-   "kind": "fragment"
+   "kind": "fragment",
+   "law": null
   },
   {
    "key": 86,
@@ -1480,7 +1607,8 @@
    "places": 0,
    "entry": "202609150125/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 87,
@@ -1497,7 +1625,8 @@
    "places": 0,
    "entry": "202609150502/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 88,
@@ -1514,7 +1643,8 @@
    "places": 0,
    "entry": "20260915050706/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 89,
@@ -1531,7 +1661,8 @@
    "places": 0,
    "entry": "202609151230/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 90,
@@ -1548,7 +1679,8 @@
    "places": 0,
    "entry": "202609151339/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 91,
@@ -1565,7 +1697,8 @@
    "places": 0,
    "entry": "202609151413/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 92,
@@ -1582,7 +1715,8 @@
    "places": 0,
    "entry": "202609151428/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 93,
@@ -1599,7 +1733,8 @@
    "places": 0,
    "entry": "202609151447/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 94,
@@ -1616,7 +1751,8 @@
    "places": 0,
    "entry": null,
    "published": true,
-   "kind": "fragment"
+   "kind": "fragment",
+   "law": null
   },
   {
    "key": 95,
@@ -1633,7 +1769,8 @@
    "places": 0,
    "entry": null,
    "published": true,
-   "kind": "fragment"
+   "kind": "fragment",
+   "law": null
   },
   {
    "key": 96,
@@ -1642,15 +1779,16 @@
    "time": "01:51",
    "title": "The Line Wafer — testcode/202609160151",
    "title_from": "README.md",
-   "files": 13,
-   "bytes": 107243,
+   "files": 14,
+   "bytes": 114820,
    "has_readme": true,
    "has_proof": true,
    "families": 0,
    "places": 0,
    "entry": "202609160151/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 97,
@@ -1667,7 +1805,8 @@
    "places": 0,
    "entry": "202609160207/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 98,
@@ -1676,15 +1815,16 @@
    "time": "02:24",
    "title": "Wafer Galaxy - Navigate through our code without coding knowledge!",
    "title_from": "index.html",
-   "files": 75,
-   "bytes": 3985512,
+   "files": 76,
+   "bytes": 3998706,
    "has_readme": false,
    "has_proof": true,
    "families": 0,
    "places": 0,
    "entry": "202609160224/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": null
   },
   {
    "key": 99,
@@ -1701,7 +1841,8 @@
    "places": 0,
    "entry": "202609160258/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "wafer"
   },
   {
    "key": 100,
@@ -1718,7 +1859,8 @@
    "places": 0,
    "entry": "202609160259/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "wafer"
   },
   {
    "key": 101,
@@ -1735,7 +1877,8 @@
    "places": 0,
    "entry": "202609160300/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "wafer"
   },
   {
    "key": 102,
@@ -1752,7 +1895,8 @@
    "places": 0,
    "entry": "202609160301/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "core"
   },
   {
    "key": 103,
@@ -1769,7 +1913,8 @@
    "places": 0,
    "entry": "202609160302/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "core"
   },
   {
    "key": 104,
@@ -1786,7 +1931,8 @@
    "places": 0,
    "entry": "202609160303/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "core"
   },
   {
    "key": 105,
@@ -1803,7 +1949,8 @@
    "places": 0,
    "entry": "202609160304/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "bands-by-key"
   },
   {
    "key": 106,
@@ -1820,7 +1967,8 @@
    "places": 0,
    "entry": "202609160305/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "bands-by-key"
   },
   {
    "key": 107,
@@ -1837,7 +1985,8 @@
    "places": 0,
    "entry": "202609160306/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "bands-by-key"
   },
   {
    "key": 108,
@@ -1854,7 +2003,8 @@
    "places": 0,
    "entry": "202609160307/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "radius-by-length"
   },
   {
    "key": 109,
@@ -1871,7 +2021,8 @@
    "places": 0,
    "entry": "202609160308/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "radius-by-length"
   },
   {
    "key": 110,
@@ -1888,7 +2039,8 @@
    "places": 0,
    "entry": "202609160309/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "radius-by-length"
   },
   {
    "key": 111,
@@ -1905,7 +2057,8 @@
    "places": 0,
    "entry": "202609160310/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "grid-by-key"
   },
   {
    "key": 112,
@@ -1922,7 +2075,8 @@
    "places": 0,
    "entry": "202609160311/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "grid-by-key"
   },
   {
    "key": 113,
@@ -1939,7 +2093,8 @@
    "places": 0,
    "entry": "202609160312/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "grid-by-key"
   },
   {
    "key": 114,
@@ -1956,7 +2111,8 @@
    "places": 0,
    "entry": "202609160313/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "rings-by-membership"
   },
   {
    "key": 115,
@@ -1973,7 +2129,8 @@
    "places": 0,
    "entry": "202609160314/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "rings-by-membership"
   },
   {
    "key": 116,
@@ -1990,7 +2147,8 @@
    "places": 0,
    "entry": "202609160315/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "rings-by-membership"
   },
   {
    "key": 117,
@@ -2007,7 +2165,8 @@
    "places": 0,
    "entry": "202609160316/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "inward-by-length-and-usage"
   },
   {
    "key": 118,
@@ -2024,7 +2183,8 @@
    "places": 0,
    "entry": "202609160317/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "inward-by-length-and-usage"
   },
   {
    "key": 119,
@@ -2041,7 +2201,8 @@
    "places": 0,
    "entry": "202609160318/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "inward-by-length-and-usage"
   },
   {
    "key": 120,
@@ -2058,7 +2219,8 @@
    "places": 0,
    "entry": "202609160319/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "bands-by-usage"
   },
   {
    "key": 121,
@@ -2075,7 +2237,8 @@
    "places": 0,
    "entry": "202609160320/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "bands-by-usage"
   },
   {
    "key": 122,
@@ -2092,7 +2255,8 @@
    "places": 0,
    "entry": "202609160321/",
    "published": true,
-   "kind": "surface"
+   "kind": "surface",
+   "law": "bands-by-usage"
   }
  ]
 }

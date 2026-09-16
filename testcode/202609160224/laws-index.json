@@ -1,0 +1,86 @@
+{
+ "generated_utc": "2026-09-16T03:22:54.183Z",
+ "note": "law -> the surfaces that draw it. Read from each surface's own source, never typed.",
+ "laws": [
+  {
+   "id": "bands-by-key",
+   "stamps": [
+    "202609160304",
+    "202609160305",
+    "202609160306"
+   ],
+   "open": "202609160304",
+   "title": "CPU Wafer Galaxy - Issue bands"
+  },
+  {
+   "id": "bands-by-usage",
+   "stamps": [
+    "202609160319",
+    "202609160320",
+    "202609160321"
+   ],
+   "open": "202609160319",
+   "title": "CPU Wafer Galaxy - Usage bands"
+  },
+  {
+   "id": "core",
+   "stamps": [
+    "202609160301",
+    "202609160302",
+    "202609160303"
+   ],
+   "open": "202609160301",
+   "title": "CPU Wafer Galaxy - Density"
+  },
+  {
+   "id": "grid-by-key",
+   "stamps": [
+    "202609160310",
+    "202609160311",
+    "202609160312"
+   ],
+   "open": "202609160310",
+   "title": "CPU Wafer Galaxy - Square packing"
+  },
+  {
+   "id": "inward-by-length-and-usage",
+   "stamps": [
+    "202609160316",
+    "202609160317",
+    "202609160318"
+   ],
+   "open": "202609160316",
+   "title": "CPU Wafer Galaxy - Length x usage"
+  },
+  {
+   "id": "radius-by-length",
+   "stamps": [
+    "202609160307",
+    "202609160308",
+    "202609160309"
+   ],
+   "open": "202609160307",
+   "title": "CPU Wafer Galaxy - Line length"
+  },
+  {
+   "id": "rings-by-membership",
+   "stamps": [
+    "202609160313",
+    "202609160314",
+    "202609160315"
+   ],
+   "open": "202609160313",
+   "title": "CPU Wafer Galaxy - Family membership"
+  },
+  {
+   "id": "wafer",
+   "stamps": [
+    "202609160258",
+    "202609160259",
+    "202609160300"
+   ],
+   "open": "202609160258",
+   "title": "CPU Wafer Galaxy - Chronology"
+  }
+ ]
+}

@@ -37,6 +37,23 @@ body{
   color:#555; font-size:11px; pointer-events:none;
 }
 
+/* THE WAY OUT. The 24 generated variations each carried exactly one href — their own
+   stylesheet — so every one was a dead end, against Vikram's rule that the universe is
+   endless. They differ only by law over the same pack, so the way out of any of them is
+   the same lines under a different law. */
+#laws{
+  position:fixed; z-index:2; left:0; right:0;
+  bottom:calc(var(--bot) + 1.9rem);
+  display:flex; gap:.35rem; flex-wrap:wrap; justify-content:center;
+  padding:0 .6rem; pointer-events:auto;
+}
+#laws a{
+  font-size:10px; padding:.2rem .5rem; border-radius:3px; text-decoration:none;
+  background:#0a0a0acc; border:1px solid #2a2a2a; color:#8b93a7;
+}
+#laws a:hover{border-color:var(--beam); color:var(--beam)}
+#laws a[aria-current]{border-color:var(--lit); color:var(--lit)}
+
 /* ---- the card, per iteration 07 ---------------------------------------- */
 #panel{
   position:fixed; z-index:3; left:.5rem;

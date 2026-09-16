@@ -46,6 +46,28 @@ function readTitle(dir) {
   return { title: null, from: null };
 }
 
+/* THE LAW OF A SURFACE, read from the surface rather than assigned.
+ *
+ * The 22 generated variations are islands: each has exactly one href, its own
+ * stylesheet. A visitor arriving at Density from the homepage can look at it and
+ * then has nowhere to go — 22 dead ends, against Vikram's rule that the universe
+ * is endless and there are none.
+ *
+ * They differ only by law, over the same pack, so the natural way out of any one of
+ * them is the same lines under a different law. That needs an index, and the index
+ * must be GENERATED from the surfaces or it goes stale the moment a law is renamed —
+ * which six of them were, hours ago. So read each surface's declared law out of its
+ * own source and emit the map. Both this surface and the generator's template can
+ * consume it; neither has to hold a list. */
+function readLaw(dir) {
+  const f = path.join(dir, 'wafer.mjs');
+  if (!fs.existsSync(f)) return null;
+  const src = fs.readFileSync(f, 'utf8');
+  const m = /law[:=]\s*['"]([a-z][a-z0-9-]*)['"]/i.exec(src)
+    || /the ([a-z][a-z0-9-]*) law, generated/i.exec(src);
+  return m ? m[1] : null;
+}
+
 function walk(dir) {
   let files = 0, bytes = 0;
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -161,6 +183,7 @@ const surfaces = names.map((name, i) => {
        CLASSIFY, DON'T EXCLUDE — the estate's own rule, and it applies to itself. The
        folder stays in the record; it simply stops being counted as a surface. */
     kind: fs.existsSync(path.join(dir, 'index.html')) ? 'surface' : 'fragment',
+    law: readLaw(dir),
   };
 });
 
@@ -176,6 +199,10 @@ const out = {
   total_files: surfaces.reduce((a, s) => a + s.files, 0),
   total_bytes: surfaces.reduce((a, s) => a + s.bytes, 0),
   law: 'r = sqrt(key) · theta = key × 2.39996…  (the golden angle)',
+  /* law -> the stamps that draw it, so any surface can offer the others. */
+  laws: Object.fromEntries(
+    [...new Set(surfaces.map(s => s.law).filter(Boolean))].sort()
+      .map(l => [l, surfaces.filter(s => s.law === l && s.entry).map(s => s.stamp)])),
   unpublished: tracked ? surfaces.filter(s => s.published === false).map(s => s.stamp) : null,
   star_index: stars
     ? { generated_utc: stars.generated_utc, families_in_index: stars.families_in_index,
@@ -185,6 +212,21 @@ const out = {
 };
 
 fs.writeFileSync(path.join(HERE, 'surfaces.json'), JSON.stringify(out, null, 1));
+
+/* A SMALL FILE FOR A SMALL QUESTION. surfaces.json is 122 records wide; a page that
+   only wants "what other laws exist" should not pay for the whole manifest. Emitted
+   from the same pass, so it cannot disagree with it. */
+const lawIndex = {
+  generated_utc: out.generated_utc,
+  note: "law -> the surfaces that draw it. Read from each surface's own source, never typed.",
+  laws: Object.entries(out.laws).map(([id, stamps]) => ({
+    id,
+    stamps,
+    open: stamps[0] || null,
+    title: (surfaces.find((s) => s.stamp === stamps[0]) || {}).title || null,
+  })),
+};
+fs.writeFileSync(path.join(HERE, 'laws-index.json'), JSON.stringify(lawIndex, null, 1));
 const unpub = out.unpublished || [];
 if (unpub.length) console.log(`UNPUBLISHED (on disk, in no repository): ${unpub.join(', ')}`);
 if (out.fragments.length) console.log(`FRAGMENTS (a directory, not a surface — no index.html): ${out.fragments.join(', ')}`);

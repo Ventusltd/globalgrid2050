@@ -123,6 +123,37 @@ check('placement is deterministic and unbounded',
 check('manifest carries generated_utc', typeof manifest.generated_utc === 'string' && !Number.isNaN(Date.parse(manifest.generated_utc)),
   String(manifest.generated_utc));
 
+/* 7. THE WAY OUT LEADS SOMEWHERE.
+ *
+ * The 24 generated variations each shipped with exactly one href — their own
+ * stylesheet — so every one was a dead end, against Vikram's rule that the universe
+ * is endless. The law strip is the only navigation between them, and a navigation
+ * whose targets do not exist is worse than none: it promises a journey and 404s.
+ *
+ * So resolve every target the strip will render, the way the page resolves it —
+ * '../<stamp>/' from this surface — and require an index.html there. The strip is
+ * generated from each surface's own source rather than typed, which is what stops it
+ * pointing at the six law names that were renamed hours ago.
+ */
+{
+  const lp = path.join(SURF, 'laws-index.json');
+  if (!fs.existsSync(lp)) {
+    check('the way out leads somewhere', false, 'laws-index.json not generated');
+  } else {
+    const li = JSON.parse(fs.readFileSync(lp, 'utf8'));
+    const targets = li.laws.filter((l) => l.open).map((l) => l.open);
+    const broken = targets.filter(
+      (t) => !fs.existsSync(path.join(ROOT, t, 'index.html')));
+    const named = li.laws.filter((l) => l.title).length;
+    check('the way out leads somewhere',
+      targets.length >= 8 && broken.length === 0 && !MUTATE,
+      broken.length
+        ? 'strip points at surfaces with no index.html: ' + broken.join(', ')
+        : targets.length + ' laws offered, all resolve · ' + named +
+          ' carry a title read from their own source · ' + li.generated_utc);
+  }
+}
+
 let failed = 0;
 for (const r of results) {
   if (!r.ok) failed++;

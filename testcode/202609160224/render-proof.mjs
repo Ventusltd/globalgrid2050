@@ -64,10 +64,20 @@ export function onCamera(keys, cam, w, h) {
  * a check.
  *
  * The floor is now derived from the camera. Count how many keys the camera can
- * show, and require a twentieth of them to be lit: generous, because particles
- * overlap heavily at low zoom, and still tens of thousands at the default camera
- * where every key is on screen. At deep zoom, where few keys are visible, the
- * floor falls with them — so the same rule serves both without a special case. */
+ * show, and require a twentieth of them to be lit; at deep zoom, where few keys are
+ * visible, the floor falls with them, so one rule serves both without a special case.
+ *
+ * PASS THE WHOLE KEY ARRAY, NEVER A SAMPLE. The first wiring handed this function
+ * sampleKeys(4000), so it counted 4,000 keys on camera and set the floor at 200 —
+ * LOWER than the keyCount/1000 constant it replaced, and 363x slack against the
+ * 72,689 pixels actually lit. The comment claimed "tens of thousands"; the code
+ * produced 200. A PROVENANCE failure, not a scope one: the value was correct for
+ * the thing it was computed from and wrong for the thing it was about. With every
+ * key, the default camera gives 12,508 — which is what was always meant.
+ *
+ * vikra-ac found it only because this function PRINTS THE NUMBERS IT REASONED FROM
+ * — "4,000 keys are on camera, so the floor is 200" — and 4,000 is not 250,174.
+ * A check that prints only its verdict hides its own inputs. */
 export function liveness(ctx, w, h, ground, keys, cam) {
   const expected = onCamera(keys, cam, w, h);
   const floor = Math.max(1, Math.floor(expected / 20));
@@ -141,7 +151,13 @@ export function placement(ctx, w, h, ground, keys, cam, tol = 1) {
    measured 361 of 486 reachable channel-sums produced by more than one colour — so
    the tie-break is load-bearing. Today it is key order, which is derived. The day
    someone batches by nature or draws band by band, this fails loudly instead of the
-   picture changing in silence. */
+   picture changing in silence.
+
+   RUN AT 12ea17ee IT RETURNED A VERDICT, not an argument: reversing the iteration
+   order changed NO BYTE of 601,440. It also REFINED the measurement rather than
+   confirming it. Ties are REACHABLE — 361 of 486 channel-sums — but at that camera
+   no two co-located particles actually tie. Possibility is not occurrence. Both
+   statements are true and sound contradictory, so both are recorded. */
 export function derivation(ctx, w, h, drawWith) {
   drawWith('ascending');
   const a = ctx.getImageData(0, 0, w, h).data.slice();

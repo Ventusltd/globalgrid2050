@@ -883,6 +883,12 @@ window.__wafer = {
   camera: () => ({ cx, cy, scale, zoom, panX, panY, dpr, w: stage.width, h: stage.height }),
   ground: [5, 7, 11],                    /* #05070b, the value draw() fills with */
   keyCount: () => (keys ? keys.length : 0),
+  /* The whole key array, for a check that must reason about every line rather
+     than a sample of them. vikra-ac found liveness being handed sampleKeys(4000),
+     so its camera count was 4,000 and its floor 200 — LOWER than the constant it
+     replaced, while the comment above it claimed tens of thousands. The value was
+     right for what it was computed from and wrong for what it was about. */
+  allKeys: () => keys,
   sampleKeys: (n) => {
     if (!keys) return [];
     const out = [];

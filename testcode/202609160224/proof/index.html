@@ -55,13 +55,12 @@ frame.addEventListener('load', async () => {
     const ctx = canvas.getContext('2d');
     const ground = W.ground;
 
-    /* The floor is no longer a constant: liveness derives it from how many keys
-       this camera can actually show. See render-proof.mjs for why the constant
-       was too weak to catch a projection collapsed into one corner. */
-    const allKeys = W.sampleKeys(4000);
-
+    /* EVERY key, not a sample of them. Handing liveness sampleKeys(4000) made its
+       camera count 4,000 and its floor 200 — lower than the keyCount/1000 constant
+       it replaced, and 363x slack against the 72,689 pixels actually lit. Projecting
+       250,174 points is one cheap loop, and it is what the rule always claimed. */
     const results = [
-      liveness(ctx, cam.w, cam.h, ground, allKeys, cam),
+      liveness(ctx, cam.w, cam.h, ground, W.allKeys(), cam),
       placement(ctx, cam.w, cam.h, ground, W.sampleKeys(20), cam, 1),
       derivation(ctx, cam.w, cam.h, (order) => W.drawWith(order)),
     ];

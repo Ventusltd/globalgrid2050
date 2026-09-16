@@ -151,6 +151,14 @@
       "why": "Six findings were one cause: every proof ran where the code lives and none where the reader stands. A tree contains the data, the module and the sibling repository; a site contains only what was published.",
       "enforced_by": null,
       "boundary": "ENFORCED ALREADY by readers-proof.mjs, which REFUSES a non-published origin. It sits on another seat’s branch, so this file cannot see it. MISCOUNTED, NOT UNBUILT."
+    },
+    {
+      "id": "a-gate-must-not-be-ignorable",
+      "binds": "anyone building a gate, and anyone calling one",
+      "rule": "The check and the act must be one operation. A gate whose result the caller can ignore is advice.",
+      "why": "The chair built safe-publish.mjs to refuse a push during a deploy, then within the hour ran `safe-publish.mjs push`, read REFUSED, and ran `git push` anyway — because the refusal was an exit code in a pipeline nobody checked. It cancelled the deploy of abd5a989. A gate consulted and overridden has exactly the standing of the ten prose rules it replaced, and fails for the same reason: the discipline lived in the caller, not the tool.",
+      "enforced_by": "safe-publish.mjs#not knowing is not permission",
+      "boundary": "the push itself — `push --execute` performs the push only when the queue is clear, leaving no moment between the check and the act for a caller to skip."
     }
   ],
   "unenforced_is_a_backlog": "The unenforced rules are NOT a category and must not be filed as judgement. vikra-ac: 'they are the leftovers, and putting them together under judgement gives an accident the appearance of a principle.' The test is whether a rule can be expressed as a REFUSAL AT A BOUNDARY AN ARTIFACT MUST CROSS. Each unenforced rule below names its boundary, or says no boundary is known. Unenforced is a backlog; judgement would be a decision, and the chair made that decision by accident before either seat corrected it."

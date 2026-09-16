@@ -25,7 +25,8 @@
  * Usage:
  *   node proof/safe-publish.mjs stage <path>...     refuses if staging would delete
  *   node proof/safe-publish.mjs stage --allow-deletions <path>...
- *   node proof/safe-publish.mjs push                refuses while a deploy is in flight
+ *   node proof/safe-publish.mjs push                advisory: reports whether it is safe
+ *   node proof/safe-publish.mjs push --execute      checks AND pushes, as one operation
  *   node proof/safe-publish.mjs --self-test         proves both refusals can fire
  *
  * WHAT IT DOES NOT DO. It does not decide whether a deletion is correct — only whether a
@@ -95,7 +96,24 @@ export function deployInFlight() {
   return { known: true, runs: live };
 }
 
-function push() {
+/* `push --execute` DOES the push, and only if the queue is clear.
+ *
+ * THE CHAIR BROKE THIS RULE WITHIN AN HOUR OF WRITING IT, and the way it broke is the
+ * point. `safe-publish.mjs push` printed REFUSED — correctly, a deploy of abd5a989 was
+ * in flight — and the next command in the chain ran `git push` anyway, because the
+ * refusal was a printed exit code in a pipeline nobody was checking.
+ *
+ * A GATE WHOSE RESULT THE CALLER CAN IGNORE IS ADVICE. It has exactly the standing of
+ * the ten prose rules it was built to replace, and it failed for the same reason they
+ * do: the discipline lived in the caller rather than in the tool.
+ *
+ * So the check and the act become one operation. There is no moment between them for a
+ * caller to skip. This is the same correction as ending a report with its own count
+ * rather than trusting the reader not to truncate: put the guarantee where it cannot be
+ * stepped over.
+ */
+function push(argv = []) {
+  const execute = argv.includes('--execute');
   const d = deployInFlight();
   if (!d.known) {
     /* Not knowing is not permission. Say so and refuse, because the failure this
@@ -113,8 +131,17 @@ function push() {
     console.error('never completed. Wait for it, then push.');
     return 1;
   }
-  console.log('No Pages deploy in flight. OK to push.');
-  return 0;
+  if (!execute) {
+    console.log('No Pages deploy in flight. OK to push.');
+    console.log('(Advisory. Use `push --execute` so the check and the push are one');
+    console.log(' operation — the chair consulted this gate and pushed anyway.)');
+    return 0;
+  }
+  console.log('No Pages deploy in flight. Pushing.');
+  const out = git('push', 'origin', 'main');
+  process.stdout.write(out);
+  /* Report what git actually said, rather than assuming success. */
+  return /(rejected|error:|fatal:)/i.test(out) ? 1 : 0;
 }
 
 /* ---- the refusals must be able to fire ----------------------------------- */
@@ -145,7 +172,7 @@ const argv = process.argv.slice(2);
 const cmd = argv[0];
 let code = 2;
 if (cmd === 'stage') code = stage(argv.slice(1));
-else if (cmd === 'push') code = push();
+else if (cmd === 'push') code = push(argv.slice(1));
 else if (cmd === '--self-test') code = selfTest();
 else console.error('usage: safe-publish.mjs stage <path>... | push | --self-test');
 process.exit(code);

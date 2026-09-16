@@ -97,6 +97,12 @@ const buf = (n) => fetch(PACK + n).then((r) => {
   return r.arrayBuffer();
 });
 
+/* Anything that wants a MEASURED number before the pack has landed waits for it here,
+   rather than typing the number it expects. The law strip fetches in parallel with the
+   pack and was built first, which is how "ALL 250,174 LINES" came to be typed. */
+const packWaiters = [];
+function onPack(fn) { if (meta) fn(meta); else packWaiters.push(fn); }
+
 Promise.all([
   buf('all-lines.bin'), buf('all-lines.len.bin'), buf('all-lines.family.bin'),
   fetch(PACK + 'all-lines.meta.json').then((r) => r.json()),
@@ -104,6 +110,7 @@ Promise.all([
 ]).then(([k, l, f, m, h]) => {
   keys = new Uint32Array(k); lens = new Uint16Array(l); fams = new Uint8Array(f);
   meta = m; head = h;
+  while (packWaiters.length) packWaiters.shift()(meta);
   buildDerived();
   counts = census(keys, lens, fams);
   countEl.textContent = keys.length.toLocaleString() + ' unique lines · ' +
@@ -1214,7 +1221,13 @@ fetch('./laws-index.json')
     const nav = document.getElementById('laws');
     const here = document.createElement('a');
     here.href = './';
-    here.textContent = 'ALL 250,174 LINES';
+    /* TYPED, AND IT WAS THE ONLY TYPED COUNT LEFT ON THE PAGE.
+       Six lines above the pack loader, this file already says why: a label typed twice
+       is a label that drifts — written after NATURE_NAME was renamed and one page said
+       both 'noise' and 'dust'. The law strip then typed the estate's size anyway. It was
+       correct tonight and could not have known when it stopped being. */
+    here.textContent = 'ALL LINES';
+    onPack((m) => { here.textContent = 'ALL ' + m.lines.toLocaleString() + ' LINES'; });
     here.setAttribute('aria-current', 'page');
     nav.append(here);
     for (const l of d.laws) {

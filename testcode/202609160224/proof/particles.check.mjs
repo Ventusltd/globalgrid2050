@@ -415,6 +415,39 @@ check('particles equal the pack\'s in_a_family', head.particles === meta.in_a_fa
         : 'the head carries no openability list, so the card cannot tell a page from a fragment');
 }
 
+/* 14. NO LABEL MAY CARRY A TYPED COUNT.
+ *
+ * This file already argues it, six lines above the pack loader: a label typed twice is a
+ * label that drifts. It was written after derive.mjs renamed NOISE's display to 'dust'
+ * and one page went on saying 'noise', so the same page said both.
+ *
+ * The law strip then typed the estate's size anyway — "ALL 250,174 LINES" — and it was
+ * correct tonight and could not have known when it stopped being. It is the same defect
+ * as the front door that claimed ninety-seven surfaces when there were 119, and the front
+ * door was hand-typed twice before it was generated. A number a page cannot check is a
+ * claim it cannot retract.
+ *
+ * So: no textContent may contain a grouped number. Measured values arrive through
+ * toLocaleString() on something the page read.
+ */
+{
+  const raw = fs.readFileSync(path.join(SURF, 'nest.mjs'), 'utf8');
+  const code = raw.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|[^:])\/\/[^\n]*/g, '$1 ');
+  /* The mutation RESTORES THE DEFECT rather than injecting a finding: the label goes back
+     to the typed count it shipped with, and the check must report it. */
+  const scan = MUTATE
+    ? code.replace("textContent = 'ALL LINES'", "textContent = 'ALL 250,174 LINES'")
+    : code;
+  const all = (scan.match(/textContent = '[^']*\d{1,3},\d{3}[^']*'/g) || []);
+  check('no label carries a typed count',
+    all.length === 0,
+    all.length
+      ? all.length + ' typed count(s) in labels: ' + all.slice(0, 3).join(' · ') +
+        ' — correct until the estate changes, and unable to know when it has'
+      : 'every count in a label is read from the pack or the head · ' +
+        (code.match(/toLocaleString\(\)/g) || []).length + ' measured numbers rendered');
+}
+
 let failed = 0;
 for (const r of results) {
   if (!r.ok) failed++;

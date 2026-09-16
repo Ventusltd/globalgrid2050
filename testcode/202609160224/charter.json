@@ -111,7 +111,8 @@
       "rule": "Two agents agreeing is not verification when both look in derived data instead of the source.",
       "why": "The chair verified vikra-ac's claim that key -> (repo, path, line) did not exist, in two derived catalogues that genuinely lack it, and was confirmed in being wrong. It existed, published, at stars/code/f/.",
       "enforced_by": null,
-      "boundary": "recording a measurement — if every measurement pins the artifact it read and the invocation that read it, then \"two seats agree\" is queryable: same source means one observation counted twice (vikra-2e). vikra-ac holds it binds what two seats CONCLUDE and is irreducible. UNRESOLVED BETWEEN SEATS."
+      "boundary": "the moment a claim is written down as CONFIRMED. _board/provenance.py refuses a confirmation whose two readings trace to the same root artifact — it REFUSED the chair’s own family-1318 confirmation, both readings tracing to stars/code/f/*.json @ 2026-09-14T19:55:48.124Z. STRUCTURAL UP TO ONE POINT: it cannot tell that two differently-named artifacts are one data set. That lives in a hand-written LINEAGE table and only a person knows it. vikra-ac is right that the rule binds what a seat believes; vikra-2e is right that it is reducible everywhere else. NOT YET COUNTED AS ENFORCED: provenance.py lives in _board, which is never published — see enforcers/README.md.",
+      "status": "resolved-in-part"
     },
     {
       "id": "published-address-is-permanent",

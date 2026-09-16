@@ -46,9 +46,15 @@ const charter = JSON.parse(fs.readFileSync(path.join(SURF, 'charter.json'), 'utf
    is the same correction as widening the vacuity gate: measure what is there, not what
    this file expected to find. */
 const existing = new Map();
-for (const f of fs.readdirSync(HERE)) {
+/* proof/ AND enforcers/. An enforcer written by another seat, in another tree, had
+   nowhere to be published to — readers-proof.mjs is real and enforced hours ago, and
+   this file called the rule unenforced because it could not see it. _board/provenance.py
+   has the same problem. That is the app-doors defect applied to enforcement: real,
+   correct, and unreachable from where it is needed. */
+const SCAN = [HERE, path.join(SURF, 'enforcers')].filter((d) => fs.existsSync(d));
+for (const dir of SCAN) for (const f of fs.readdirSync(dir)) {
   if (!f.endsWith('.mjs')) continue;
-  const src = fs.readFileSync(path.join(HERE, f), 'utf8');
+  const src = fs.readFileSync(path.join(dir, f), 'utf8');
   /* Either helper. The first version read `check('…')` alone and would have called
      safe-publish.mjs an absent enforcer because it names its assertions with `say(`.
      Same correction as widening the vacuity gate: measure what is there, not what
@@ -106,7 +112,7 @@ function countFails(out) {
    `check('...')` call — and silently skipped card.check.mjs and law.check.mjs, which use
    a differently-named helper. A gate that quietly covers two thirds of what it claims is
    the defect this whole file exists to catch, in the file that catches it. */
-const suites = [...existing.keys()].filter((f) => f.endsWith('.check.mjs') && f !== 'charter.check.mjs');
+const suites = [...existing.keys()].filter((f) => f.endsWith('.check.mjs') && f !== 'charter.check.mjs' && fs.existsSync(path.join(HERE, f)));
 const vacuous = [], measured = [];
 for (const f of suites) {
   const honest = countFails(runSuite(f, false));

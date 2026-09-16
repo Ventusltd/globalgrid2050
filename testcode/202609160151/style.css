@@ -146,3 +146,5 @@ ol.setlist li:first-child{border-top:0}
 #setadd{background:#11151f;color:#ffd166;border:1px solid #ffd166;border-radius:5px;
   padding:.3rem .6rem;font:inherit;font-size:12px;cursor:pointer;width:100%}
 #setadd:hover{background:#1a1f2b}
+.setidrow{display:flex;justify-content:flex-end;margin:.2rem 0 0}
+#setid{font:10px ui-monospace,Menlo,Consolas,monospace;color:#5b6377;cursor:help;letter-spacing:.04em}

@@ -73,6 +73,61 @@ export const shareURL = () => location.href;
 
 /* ── the set ─────────────────────────────────────────────────────────────── */
 
+/* ── identity is the keys, never the name ────────────────────────────────────
+ *
+ * WHY THIS MATTERS MORE THAN THE NAME DOES. In pack 202609142202 (generated
+ * 2026-09-14T22:44:05.716Z) the estate holds 10,985 function families under only
+ * 5,550 distinct names: 962 names are used by more than one family, and 6,397
+ * families — 58.2% — share a name with another. `(anonymous)` names 2,252 of
+ * them, `main` 440. A name in this estate is the weakest identifier there is.
+ *
+ * The routing layer was wrecked by exactly that tonight. Family 1318 appeared to
+ * be the top hub with 369 callers; it is a function inside an inline <script> in
+ * an HTML file, and 218 of those callers are in other repositories and therefore
+ * impossible. It was never a hub — it was the name `state` being treated as an
+ * identity when it was only a label.
+ *
+ * This surface hands a text box to people who cannot code and invites them to
+ * name things. If the name were the identity, that defect would be planted at
+ * the exact point where non-coders enter. So it is not:
+ *
+ *     identity = SHA-256 of the keys, sorted ascending, joined with commas
+ *     name     = a label for humans, freely changeable, never an identifier
+ *
+ * It is the estate's own principle one level up. The wafer never stores a
+ * position, it derives it from the key, because a derived thing cannot drift
+ * from what it describes. An identity derived from the keys cannot drift from
+ * the lines it names.
+ *
+ * WHAT IT BUYS, and the last one is the whole point:
+ *   - two sets with one name and different keys are different things; two sets
+ *     with the same keys under different names are one thing, twice labelled
+ *   - duplicate proposals collapse without anyone policing names
+ *   - renaming is free and breaks nothing, so a bad name can be fixed later
+ *   - A PERSON WHO CLICKS FIVE POINTS AND A MODEL THAT WRITES FIVE NUMBERS
+ *     PRODUCE THE SAME ID. Agreement between a human and an AI stops being a
+ *     thing we assert and becomes a thing the surface can detect.
+ *
+ * The id is checkable away from this page, which is why it is a plain SHA-256 of
+ * an obvious string rather than anything clever:
+ *
+ *     printf '1416,192067,192068' | sha256sum
+ *
+ * DELIBERATELY NOT: this does not promote a set into the family namespace. A set
+ * whose keys collide with a real family's is an interesting event, not an
+ * authority. The card's refusal stands unchanged.
+ */
+
+export const canonical = keys => [...keys].sort((a, b) => a - b).join(',');
+
+export async function setId(keys) {
+  const s = canonical(keys);
+  if (!s) return '';
+  if (!globalThis.crypto?.subtle) return '';          /* no secure context: say nothing rather than guess */
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 12);
+}
+
 export function has(key) { return SET.keys.includes(key); }
 
 export function toggle(key) {
@@ -122,6 +177,8 @@ export function mountCard() {
        <input id="setname" type="text" placeholder="name this set…" maxlength="80" aria-label="a name for this set of lines">
        <button id="setclear" type="button" title="empty the set">clear</button>
      </div>
+     <div class="setidrow"><span id="setid" class="dim"></span>
+     </div>
      <div id="setlines"></div>
      <div class="setfoot">
        <button id="setcopy" type="button">copy the link to this set</button>
@@ -144,9 +201,25 @@ function paintNote() {
   const n = SET.keys.length;
   setText($('setnote'),
     !n ? '' :
-    `${fmt(n)} line${n === 1 ? '' : 's'}${SET.name ? ` named “${SET.name}”` : ', unnamed'}. ` +
+    `${fmt(n)} line${n === 1 ? '' : 's'}${SET.name ? ` labelled “${SET.name}”` : ', unlabelled'}. ` +
     `This set is a proposal, not a function family: nothing has checked that these lines sit together in any file, ` +
     `and the estate has issued it no number. It lives only in the address bar — no account, nothing stored here.`);
+  paintId();
+}
+
+/* The identity, shown next to the name so it is obvious which of the two is
+   which: the name is editable and the id is not, because the id is not a
+   property of the set, it IS the set. */
+async function paintId() {
+  const el = $('setid');
+  if (!el) return;
+  if (!SET.keys.length) { el.textContent = ''; el.removeAttribute('title'); return; }
+  const id = await setId(SET.keys);
+  if (!id) { el.textContent = 'id unavailable here'; return; }
+  el.textContent = 'id ' + id;
+  el.title = `SHA-256 of the keys sorted ascending — the name is a label, this is the identity.\n` +
+             `Reproduce it anywhere:\n  printf '${canonical(SET.keys)}' | sha256sum\n` +
+             `Anyone who selects these same lines, person or model, gets this same id.`;
 }
 
 const setText = (el, t) => { if (el && el.textContent !== t) el.textContent = t; };

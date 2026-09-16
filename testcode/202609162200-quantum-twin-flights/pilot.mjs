@@ -37,6 +37,10 @@ const css = document.createElement('style'); css.textContent = `
 #eg select{font:12px ui-monospace,Menlo,Consolas,monospace;background:#11151f;color:#cfe3f2;border:1px solid #1b2030;border-radius:6px;padding:.45rem .7rem}
 #plog{position:fixed;left:12px;bottom:58px;max-height:30vh;overflow:hidden;font:11px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#8b93a7;white-space:pre;pointer-events:none;z-index:19}
 #beam{bottom:58px !important}
+#core{position:fixed;left:50%;top:50%;transform:translate(-50%,calc(-50% + 9vh));display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:min(92vw,560px);z-index:15;pointer-events:none}
+#core button{pointer-events:auto;min-height:44px;min-width:44px;padding:.55rem .9rem;font:13px/1.2 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.04em;background:#0e121bf2;color:#cfe3f2;border:1px solid #5ec8f2;border-radius:8px;cursor:pointer;touch-action:manipulation}
+#core button:hover,#core button:focus-visible{background:#11151f;border-color:#f2b05e;outline:none} #core button small{display:block;color:#8b93a7;font-size:10px;letter-spacing:.06em;text-transform:uppercase}
+@media (max-width:640px){#core{transform:translate(-50%,calc(-50% + 4vh));gap:6px} #core button{flex:1 1 44%;padding:.7rem .6rem;font-size:14px}}
 #earth{position:fixed;inset:0;z-index:30;display:none;flex-direction:column;background:#0b0e15}
 #earth.open{display:flex}
 #earthbar{display:flex;align-items:center;gap:10px;padding:6px 12px;background:#11151f;border-bottom:1px solid #1b2030;font:12px ui-monospace,Menlo,Consolas,monospace;color:#cfe3f2}
@@ -165,6 +169,9 @@ cmds.space = function(){ $('earth').classList.remove('open'); $('earthframe').sr
 $('earthback').onclick = () => cmds.space();
 window.__earth = () => ({ open: $('earth').classList.contains('open'), name: $('earthname').textContent, src: $('earthframe').src });
 
+document.body.insertAdjacentHTML('beforeend', '<nav id="core" aria-label="the apps"><button data-land="gridatlas"><small>website</small>Grid Atlas</button><button data-land="pipelinenews"><small>website</small>Pipeline News</button><button data-land="spider sandbox"><small>engine</small>Spider Sandbox</button><button data-land="periodic table"><small>systems</small>Periodic Table</button><button data-land="globalgrid2050"><small>home</small>GlobalGrid2050</button></nav>');
+document.querySelectorAll('#core button').forEach(b => { b.onclick = () => run('land ' + b.dataset.land); });
+$('earthbar').insertAdjacentHTML('beforeend', '');
 window.__pilot = run;
 (async () => {
   serverMode = await fetch('/gpu', { cache: 'no-store' }).then(r => r.ok).catch(() => false);

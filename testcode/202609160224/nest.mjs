@@ -227,6 +227,25 @@ function ensureBucket(b) {
         if (LAW === 'core') { const p = placeXY(keys[i], lit[i]); px[i] = p.x; py[i] = p.y; }
       }
       draw();
+
+      /* AND REBUILD THE CARD, IF IT IS WAITING ON THIS BAND.
+       *
+       * show() calls ensureBucket() and then resolve() on the very next line, so `r` is
+       * null on every first open — the fetch cannot have returned. The band then arrives,
+       * this handler repaints the CANVAS, and the card is never touched again.
+       *
+       * The chair's previous fix made the card honest: it stopped claiming "in no function
+       * family" and started saying "in a family — reading which", which is true. vikra-ac
+       * then pressed the button and found the state it reports honestly is one it NEVER
+       * LEAVES — a reader is told, correctly and for ever, that the page is about to find
+       * out. And the WHY button lives inside the resolved branch, so the verb argued for at
+       * 05:02 and built within the hour has never been reachable by a visitor.
+       *
+       * Neither seat could see this from the code. It took pressing the button.
+       *
+       * Guarded on the focused line still belonging to the band that just landed, so a band
+       * arriving after the reader has moved on does not yank the card out from under them. */
+      if (focusIdx >= 0 && keys && bucketOf(keys[focusIdx]) === b) show(focusIdx);
     })
     .catch(() => bucketCache.set(b, null));   /* null = this band resolves to nothing */
 }

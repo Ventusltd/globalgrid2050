@@ -477,15 +477,36 @@ check('particles equal the pack\'s in_a_family', head.particles === meta.in_a_fa
     : code;
   /* textContent AND title. Within an hour of this check going green, the chair typed
      3,130,777 and 1,736 into a row.title — a tooltip a reader reads exactly as they read
-     a label, in the one property this check did not look at. A rule that holds one
-     property holds one property. */
+     a label, in the one property this check did not look at.
+     "A rule that holds one property holds one property" was the chair's sentence, and
+     vikra-ac corrected it to the sharper form: the widening took it from one property to
+     two, and WHAT IT STILL HOLDS IS ONE SYNTAX. A double-quoted string, a template
+     literal, setAttribute('title', …), an aria-label, or a bare 3130777 with no comma all
+     sit outside this regex, and two of those constructs are already in the file. None
+     carries a number today; the check cannot know that and would not notice the day one
+     does.
+     NOT WIDENED AGAIN, deliberately: the next widening buys the next spelling and no
+     more. There is no regex that closes this — the closure is to read the rendered
+     attribute from the page, because a reader gets a tooltip and a tooltip has one value
+     however it was assigned. Rule 23 again, arriving from the inside for the third time.
+     WHAT IS ADDED INSTEAD IS THE DENOMINATOR, which is the cheapest honest thing: report
+     how many label assignments were EXAMINED against how many exist by any construct, so
+     the gap is visible at a glance instead of silent. vikra-ac and Seat C converged on the
+     same missing word twenty minutes apart — state the denominator of what you examined,
+     not only of what you asserted about. */
   const all = (scan.match(/(textContent|title) = '[^']*\d{1,3},\d{3}[^']*'/g) || []);
+  const examined = (scan.match(/(textContent|title)\s*=\s*'/g) || []).length;
+  const beyond =
+    (scan.match(/(textContent|title)\s*=\s*"/g) || []).length +
+    (scan.match(/(textContent|title)\s*=\s*`/g) || []).length +
+    (scan.match(/setAttribute\(\s*'(title|aria-label)'/g) || []).length;
   check('no label carries a typed count',
     all.length === 0,
     all.length
       ? all.length + ' typed count(s) in labels: ' + all.slice(0, 3).join(' · ') +
         ' — correct until the estate changes, and unable to know when it has'
-      : 'every count in a label is read from the pack or the head · ' +
+      : examined + ' of ' + (examined + beyond) + ' literal label assignments examined · ' +
+        beyond + ' beyond this syntax could hide a typed count and are not read here · ' +
         (code.match(/toLocaleString\(\)/g) || []).length + ' measured numbers rendered');
 }
 

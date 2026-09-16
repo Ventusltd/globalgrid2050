@@ -121,6 +121,30 @@ Promise.all([
      density." Identity was never the coordinate — the wafer encodes when, the
      core encodes how much, and the key names the line under both. So a link
      survives a change of law, and a core radius being impermanent costs nothing. */
+  /* WHERE TO BEGIN, offered only when the visitor has not already asked for a key.
+     Four doors, each a superlative the build measured rather than chose. The first
+     attempt crowned key 2 — the EMPTY LINE, 142,863 places — which is technically
+     the most-used line in the estate and the worst possible first click. It now
+     requires a line to carry a statement, using derive.mjs's own SHORT_MAX. */
+  if (head.notable && head.notable.length) {
+    const nav = document.getElementById('start');
+    const lead = document.createElement('span');
+    lead.className = 'lead'; lead.textContent = 'START HERE:';
+    nav.append(lead);
+    for (const n of head.notable) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = n.name === '(anonymous)' ? 'line ' + n.key.toLocaleString() : n.name;
+      b.title = n.why;
+      b.addEventListener('click', () => {
+        const i = indexOfKey(n.key);
+        if (i >= 0) { ensureBucket(bucketOf(n.key)); show(i); }
+      });
+      nav.append(b);
+    }
+    nav.hidden = false;
+  }
+
   const want = Number(new URLSearchParams(location.search).get('key'));
   if (Number.isFinite(want) && want > 0) {
     const i = indexOfKey(want);
@@ -588,6 +612,7 @@ function english(i, r) {
 /* ---- the card ----------------------------------------------------------- */
 async function show(i) {
   focusIdx = i;
+  const sn = document.getElementById('start'); if (sn) sn.hidden = true;
   const key = keys[i];
   ensureBucket(bucketOf(key));
   const r = resolve(key);

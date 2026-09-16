@@ -182,6 +182,47 @@ check('particles equal the pack\'s in_a_family', head.particles === meta.in_a_fa
       : 'checked every `for (let X …)` in nest.mjs; none redeclares its counter');
 }
 
+/* 9. A STARTING DOOR MUST NOT BE DUST.
+ *
+ * The first attempt at "where to begin" ranked every resolvable line by how many
+ * places record it and crowned KEY 2 — 142,863 places — which is the EMPTY LINE.
+ * derive.mjs calls it dust; 1339's README said it plainly months ago: "the most-
+ * shared line in the estate is line 2, an empty line". Technically the most-used
+ * line in the estate, and the worst possible first click for the exact audience the
+ * title names.
+ *
+ * It also won two categories at once, offering the visitor the same door twice.
+ *
+ * So: every door must resolve, must carry a statement rather than be dust, and must
+ * be distinct. The threshold is derive.mjs's own SHORT_MAX, not one invented here.
+ */
+{
+  const notable = head.notable || [];
+  const packDir = path.resolve(SURF, '..', '202609142202', 'data');
+  let lenOf = null;
+  try {
+    const kb = fs.readFileSync(path.join(packDir, 'all-lines.bin'));
+    const lb = fs.readFileSync(path.join(packDir, 'all-lines.len.bin'));
+    const ka = new Uint32Array(kb.buffer, kb.byteOffset, kb.byteLength / 4);
+    const la = new Uint16Array(lb.buffer, lb.byteOffset, lb.byteLength / 2);
+    lenOf = new Map();
+    for (let i = 0; i < ka.length; i++) lenOf.set(ka[i], la[i]);
+  } catch { /* no pack: the length half of this check cannot run, and says so */ }
+
+  const SHORT_MAX = 24;
+  const injected = MUTATE ? [{ key: 2, name: '(dust)', why: 'injected by --mutate', places: 142863 }] : [];
+  const doors = notable.concat(injected);
+  const dust = lenOf ? doors.filter((n) => (lenOf.get(n.key) || 0) <= SHORT_MAX) : [];
+  const dupes = doors.filter((n, i, a) => a.findIndex((m) => m.key === n.key) !== i);
+
+  check('every starting door is a line that carries a statement',
+    doors.length >= 3 && dust.length === 0 && dupes.length === 0,
+    dust.length ? 'DUST offered as a door: ' + dust.map((n) => 'key ' + n.key).join(', ')
+      : dupes.length ? 'the same door twice: key ' + dupes[0].key
+        : doors.length + ' doors, all operational, all distinct' +
+          (lenOf ? '' : ' (length pack absent — only distinctness was checked)'));
+}
+
 let failed = 0;
 for (const r of results) {
   if (!r.ok) failed++;

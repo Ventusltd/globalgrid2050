@@ -37,6 +37,22 @@ body{
   color:#555; font-size:11px; pointer-events:none;
 }
 
+/* WHERE TO BEGIN. A person who has never written code lands on 250,174 identical
+   dots and has no opening move. These are the estate's own superlatives, derived at
+   build time and each carrying its reason, so the first click lands on real source
+   with a true sentence attached. */
+#start{
+  position:fixed; z-index:2; left:0; right:0; top:calc(var(--top) + 2.1rem);
+  display:flex; gap:.35rem; flex-wrap:wrap; justify-content:center; padding:0 .6rem;
+}
+#start button{
+  font:10px/1.4 ui-monospace,Menlo,Consolas,monospace;
+  padding:.25rem .6rem; border-radius:3px; cursor:pointer;
+  background:#0a0a0acc; border:1px solid #2a2a2a; color:#8b93a7; min-height:26px;
+}
+#start button:hover{border-color:var(--lit); color:var(--lit)}
+#start .lead{color:#555; align-self:center; padding-right:.2rem}
+
 /* THE WAY OUT. The 24 generated variations each carried exactly one href — their own
    stylesheet — so every one was a dead end, against Vikram's rule that the universe is
    endless. They differ only by law over the same pack, so the way out of any of them is

@@ -27,7 +27,7 @@
 <iframe id="surface" src="../index.html" title="the wafer under proof"></iframe>
 
 <script type="module">
-import { liveness, placement, derivation, report } from '../render-proof.mjs';
+import { liveness, placement, derivation, report, groundOf } from '../enforcers/render-proof.mjs';
 
 const out = document.getElementById('out');
 const frame = document.getElementById('surface');
@@ -53,7 +53,12 @@ frame.addEventListener('load', async () => {
     const cam = W.camera();
     const canvas = frame.contentDocument.getElementById('stage');
     const ctx = canvas.getContext('2d');
-    const ground = W.ground;
+    /* MEASURED, not taken from the page. W.ground declared [5,7,11]; vikra-ac found the
+       canvas is (0,0,0) across 74% of its pixels, so every pixel counted as lit and both
+       levels passed vacuously. The page's declaration is now a hint, reported when it
+       disagrees, never trusted. */
+    const g = groundOf(ctx, cam.w, cam.h, W.ground);
+    const ground = g.ground;
 
     /* EVERY key, not a sample of them. Handing liveness sampleKeys(4000) made its
        camera count 4,000 and its floor 200 — lower than the keyCount/1000 constant

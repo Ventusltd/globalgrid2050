@@ -43,6 +43,51 @@ export function project(key, cam) {
 
 const isGround = (d, o, g) => d[o] === g[0] && d[o + 1] === g[1] && d[o + 2] === g[2];
 
+/* MEASURE THE GROUND, NEVER TAKE IT ON THE PAGE'S WORD.
+ *
+ * nest.mjs declares `ground: [5, 7, 11]` — the colour it fills with. vikra-ac drove the
+ * live canvas and found (0,0,0) across 243,667 of 329,160 pixels: createImageData starts
+ * at zero and putImageData overwrites the fillRect ground. So the declared ground matched
+ * almost nothing, EVERY PIXEL COUNTED AS LIT, and liveness reported the entire canvas
+ * against a floor of 12,508. Both levels were vacuous while passing.
+ *
+ * That is the within-artifact failure vikra-ac named: an artifact's self-description
+ * diverging from its behaviour. Its rule is the estate's founding move pointed inward —
+ * AN ARTIFACT MAY NOT DECLARE ANYTHING ABOUT ITSELF THAT IT COULD MEASURE. The wafer
+ * derives a position rather than storing one because a derived thing cannot drift. A
+ * ground colour is exactly as derivable.
+ *
+ * The modal pixel is the ground, by construction: the wafer is sparse, so whatever colour
+ * most of the canvas is, is the background. That cannot be wrong about a canvas it just
+ * read, whatever the page believes it drew. The page's declaration is now a HINT that gets
+ * reported when it disagrees, rather than a contract that gets trusted.
+ */
+export function groundOf(ctx, w, h, declared) {
+  const d = ctx.getImageData(0, 0, w, h).data;
+  const seen = new Map();
+  for (let o = 0; o < d.length; o += 4) {
+    const k = (d[o] << 16) | (d[o + 1] << 8) | d[o + 2];
+    seen.set(k, (seen.get(k) || 0) + 1);
+  }
+  let best = 0, bestN = -1;
+  for (const [k, n] of seen) if (n > bestN) { bestN = n; best = k; }
+  const measured = [(best >> 16) & 255, (best >> 8) & 255, best & 255];
+  const agrees = declared && declared.every((v, i) => v === measured[i]);
+  return {
+    ground: measured,
+    pixels: bestN,
+    total: w * h,
+    declared: declared || null,
+    agrees: !!agrees,
+    note: declared
+      ? (agrees
+        ? 'the page declared ' + declared.join(',') + ' and the canvas agrees'
+        : 'THE PAGE DECLARED ' + declared.join(',') + ' AND THE CANVAS IS ' + measured.join(',') +
+          ' — measured, because a declaration is not evidence about the thing declaring it')
+      : 'no declaration offered; measured from the canvas',
+  };
+}
+
 /* How many of these keys the camera can actually show. Derived, like everything
    else: project each key and count the ones that land on the canvas. This is what
    makes the liveness floor honest instead of a constant. */

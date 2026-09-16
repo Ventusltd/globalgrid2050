@@ -1,0 +1,57 @@
+/* The Nest. Designed at 430 px first; the desktop is the same layout with more
+   room. One canvas, two chrome strips, nothing that scrolls the page.
+   Palette taken from testcode/202609151339 unchanged, so the nest and the
+   surfaces it opens are visibly the same estate. */
+
+:root{
+  --ink:#d8dee9; --dim:#8b93a7; --ground:#0b0d12; --edge:#1b2030;
+  --lit:#ffd54a; --beam:#5ec8f2; --cold:#3d4761;
+  --top:env(safe-area-inset-top,0px); --bot:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font:13px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  overflow:hidden; overscroll-behavior:none; -webkit-text-size-adjust:100%;
+}
+#stage{position:fixed; inset:0; width:100%; height:100%; display:block; touch-action:none; cursor:crosshair}
+
+#bar{
+  position:fixed; left:0; right:0; top:0; z-index:2;
+  display:flex; gap:.75rem; align-items:baseline; flex-wrap:wrap;
+  padding:calc(var(--top) + .5rem) .75rem .5rem;
+  background:linear-gradient(#0b0d12ee,#0b0d1200); pointer-events:none;
+}
+#wordmark{letter-spacing:.14em; font-size:11px}
+.dim{color:var(--dim)}
+.lit{color:var(--lit)}
+
+#foot{
+  position:fixed; left:0; right:0; bottom:0; z-index:2;
+  padding:.5rem .75rem calc(var(--bot) + .5rem);
+  background:linear-gradient(#0b0d1200,#0b0d12ee);
+  color:var(--dim); font-size:11px; pointer-events:none;
+}
+
+#panel{
+  position:fixed; z-index:3; left:.5rem; right:.5rem; bottom:calc(var(--bot) + 2.4rem);
+  max-width:34rem; margin:0 auto;
+  background:#05070bf2; border:1px solid var(--edge); border-radius:.4rem;
+  padding:.7rem .8rem .8rem;
+}
+#panel h2{margin:0 0 .2rem; font-size:13px; color:var(--lit); font-weight:600}
+#panel dl{display:grid; grid-template-columns:auto 1fr; gap:.1rem .6rem; margin:.45rem 0 0}
+#panel dt{color:var(--dim)}
+#panel dd{margin:0}
+#open{
+  display:inline-block; margin-top:.6rem; padding:.3rem .8rem;
+  border:1px solid var(--beam); color:var(--beam); border-radius:.2rem;
+  text-decoration:none; font-size:12px;
+}
+#open[aria-disabled="true"]{border-color:var(--cold); color:var(--cold); pointer-events:none}
+#close{
+  position:absolute; top:.35rem; right:.4rem; background:none; border:0;
+  color:var(--dim); font:inherit; cursor:pointer; padding:.2rem .35rem;
+}
+@media (min-width:40rem){ #panel{left:auto; right:.75rem; bottom:auto; top:calc(var(--top) + 2.6rem)} }

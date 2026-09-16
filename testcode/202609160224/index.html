@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5">
+<meta name="color-scheme" content="dark">
+<title>The Nest — every test code surface in the estate, on one die</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="stage" aria-label="Every published test code surface, placed by its own issue number."></canvas>
+
+<header id="bar">
+  <span id="wordmark">THE NEST</span>
+  <span id="count" class="dim">reading the directory…</span>
+</header>
+
+<section id="panel" hidden>
+  <button id="close" type="button" aria-label="close">✕</button>
+  <div id="panelbody"></div>
+</section>
+
+<footer id="foot"></footer>
+
+<script type="module" src="nest.mjs"></script>
+</body>
+</html>

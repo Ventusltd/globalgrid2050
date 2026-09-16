@@ -16,6 +16,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { execFileSync } from 'node:child_process';
 
 const HERE = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'));
 const ROOT = path.resolve(HERE, '..');            /* testcode/ */
@@ -97,6 +98,35 @@ function readStarIndex() {
 
 const stars = readStarIndex();
 
+/* WHICH SURFACES A READER CAN ACTUALLY REACH.
+ *
+ * This manifest's guarantee was "generated from the directory rather than typed, so it
+ * cannot name a surface that is not there or omit one that is". That is true and it is
+ * scoped to the wrong space: "there" means ON DISK, and the reader's "there" means ON
+ * THE SITE. Tonight those differed — vikra-ac's live sweep found 25 of 122 surfaces
+ * unreachable, and five that existed on one machine's disk and nowhere else.
+ *
+ * It is the night's single cause applied to this file: every proof runs where the code
+ * lives, not where the reader stands. A surface present but untracked is published
+ * nowhere, and a front door that offers it is advertising a room in one building only.
+ * So ask git, once, and record it. This still does not prove the surface is SERVED —
+ * only the reader's proof fetching published URLs can do that — but it closes the gap
+ * between "on this disk" and "in the repository", which is the half this file can know. */
+function readTracked() {
+  try {
+    const out = execFileSync('git', ['ls-files', '--', '.'], { cwd: ROOT, encoding: 'utf8' });
+    const dirs = new Set();
+    for (const line of out.split(String.fromCharCode(10))) {
+      const m = /^([0-9]{10,14})\//.exec(line.trim());
+      if (m) dirs.add(m[1]);
+    }
+    return dirs;
+  } catch {
+    return null;        /* not a git checkout: record unknown rather than guess false */
+  }
+}
+const tracked = readTracked();
+
 const names = fs.readdirSync(ROOT, { withFileTypes: true })
   .filter(e => e.isDirectory() && TS.test(e.name))
   .map(e => e.name)
@@ -119,18 +149,34 @@ const surfaces = names.map((name, i) => {
     families: stars ? (stars.byStamp.get(name)?.families.size ?? 0) : null,
     places: stars ? (stars.byStamp.get(name)?.places ?? 0) : null,
     entry: fs.existsSync(path.join(dir, 'index.html')) ? `${name}/` : null,
+    /* null = could not ask git. false = on this disk and in no repository, so no
+       reader will ever reach it however valid it is. */
+    published: tracked ? tracked.has(name) : null,
+    /* A DIRECTORY IS NOT A SURFACE. This manifest is generated from a directory
+       listing, which is why it cannot omit a surface that exists — and equally why
+       it could not tell a surface from a folder. testcode/202609151500 holds one
+       file, layers.mjs, and no index.html: it is committed, it is served, and it
+       404s, because there is nothing there to serve. Vikram reported that 404 hours
+       ago and it was never a deploy problem.
+       CLASSIFY, DON'T EXCLUDE — the estate's own rule, and it applies to itself. The
+       folder stays in the record; it simply stops being counted as a surface. */
+    kind: fs.existsSync(path.join(dir, 'index.html')) ? 'surface' : 'fragment',
   };
 });
 
 const out = {
   generated_utc: new Date().toISOString(),
   built_from: 'globalgrid2050/testcode',
-  surfaces: surfaces.length,
+  /* Counted honestly: a fragment is present and named, and is not a surface. */
+  surfaces: surfaces.filter(s => s.kind === 'surface').length,
+  fragments: surfaces.filter(s => s.kind === 'fragment').map(s => s.stamp),
+  listed: surfaces.length,
   named: surfaces.filter(s => s.title).length,
   openable: surfaces.filter(s => s.entry).length,
   total_files: surfaces.reduce((a, s) => a + s.files, 0),
   total_bytes: surfaces.reduce((a, s) => a + s.bytes, 0),
   law: 'r = sqrt(key) · theta = key × 2.39996…  (the golden angle)',
+  unpublished: tracked ? surfaces.filter(s => s.published === false).map(s => s.stamp) : null,
   star_index: stars
     ? { generated_utc: stars.generated_utc, families_in_index: stars.families_in_index,
         surfaces_reached: surfaces.filter(x => x.families > 0).length }
@@ -139,6 +185,9 @@ const out = {
 };
 
 fs.writeFileSync(path.join(HERE, 'surfaces.json'), JSON.stringify(out, null, 1));
+const unpub = out.unpublished || [];
+if (unpub.length) console.log(`UNPUBLISHED (on disk, in no repository): ${unpub.join(', ')}`);
+if (out.fragments.length) console.log(`FRAGMENTS (a directory, not a surface — no index.html): ${out.fragments.join(', ')}`);
 console.log(`surfaces ${out.surfaces} · named ${out.named} · openable ${out.openable} · files ${out.total_files} · ${(out.total_bytes / 1048576).toFixed(1)} MB`);
 if (out.star_index) {
   console.log(`star index ${out.star_index.generated_utc} · ${out.star_index.surfaces_reached}/${out.surfaces} surfaces reached · the rest are newer than the index`);

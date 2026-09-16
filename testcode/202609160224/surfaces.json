@@ -1,12 +1,19 @@
 {
- "generated_utc": "2026-09-16T03:05:12.066Z",
+ "generated_utc": "2026-09-16T03:12:48.728Z",
  "built_from": "globalgrid2050/testcode",
- "surfaces": 122,
+ "surfaces": 119,
+ "fragments": [
+  "202609150010",
+  "202609151500",
+  "202609152203"
+ ],
+ "listed": 122,
  "named": 121,
  "openable": 119,
  "total_files": 8340,
- "total_bytes": 846192618,
+ "total_bytes": 846198370,
  "law": "r = sqrt(key) · theta = key × 2.39996…  (the golden angle)",
+ "unpublished": [],
  "star_index": {
   "generated_utc": "2026-09-14T19:55:48.124Z",
   "families_in_index": 10985,
@@ -26,7 +33,9 @@
    "has_proof": false,
    "families": 526,
    "places": 640,
-   "entry": "202609051152/"
+   "entry": "202609051152/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 2,
@@ -41,7 +50,9 @@
    "has_proof": false,
    "families": 526,
    "places": 639,
-   "entry": "202609051214/"
+   "entry": "202609051214/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 3,
@@ -56,7 +67,9 @@
    "has_proof": false,
    "families": 532,
    "places": 636,
-   "entry": "202609051300/"
+   "entry": "202609051300/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 4,
@@ -71,7 +84,9 @@
    "has_proof": false,
    "families": 542,
    "places": 643,
-   "entry": "202609051344/"
+   "entry": "202609051344/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 5,
@@ -86,7 +101,9 @@
    "has_proof": false,
    "families": 572,
    "places": 672,
-   "entry": "202609051419/"
+   "entry": "202609051419/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 6,
@@ -101,7 +118,9 @@
    "has_proof": false,
    "families": 595,
    "places": 688,
-   "entry": "202609051457/"
+   "entry": "202609051457/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 7,
@@ -116,7 +135,9 @@
    "has_proof": false,
    "families": 577,
    "places": 626,
-   "entry": "202609051517/"
+   "entry": "202609051517/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 8,
@@ -131,7 +152,9 @@
    "has_proof": false,
    "families": 568,
    "places": 602,
-   "entry": "202609051531/"
+   "entry": "202609051531/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 9,
@@ -146,7 +169,9 @@
    "has_proof": false,
    "families": 559,
    "places": 587,
-   "entry": "202609051608/"
+   "entry": "202609051608/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 10,
@@ -161,7 +186,9 @@
    "has_proof": false,
    "families": 559,
    "places": 587,
-   "entry": "202609051623/"
+   "entry": "202609051623/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 11,
@@ -176,7 +203,9 @@
    "has_proof": false,
    "families": 557,
    "places": 580,
-   "entry": "202609051817/"
+   "entry": "202609051817/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 12,
@@ -191,7 +220,9 @@
    "has_proof": false,
    "families": 543,
    "places": 560,
-   "entry": "202609051820/"
+   "entry": "202609051820/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 13,
@@ -206,7 +237,9 @@
    "has_proof": false,
    "families": 544,
    "places": 561,
-   "entry": "202609051844/"
+   "entry": "202609051844/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 14,
@@ -221,7 +254,9 @@
    "has_proof": false,
    "families": 537,
    "places": 552,
-   "entry": "202609051845/"
+   "entry": "202609051845/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 15,
@@ -236,7 +271,9 @@
    "has_proof": false,
    "families": 539,
    "places": 554,
-   "entry": "202609051847/"
+   "entry": "202609051847/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 16,
@@ -251,7 +288,9 @@
    "has_proof": false,
    "families": 539,
    "places": 553,
-   "entry": "202609051848/"
+   "entry": "202609051848/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 17,
@@ -266,7 +305,9 @@
    "has_proof": false,
    "families": 542,
    "places": 556,
-   "entry": "202609051850/"
+   "entry": "202609051850/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 18,
@@ -281,7 +322,9 @@
    "has_proof": false,
    "families": 748,
    "places": 761,
-   "entry": "202609051901/"
+   "entry": "202609051901/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 19,
@@ -296,7 +339,9 @@
    "has_proof": false,
    "families": 818,
    "places": 838,
-   "entry": "202609051905/"
+   "entry": "202609051905/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 20,
@@ -311,7 +356,9 @@
    "has_proof": false,
    "families": 800,
    "places": 812,
-   "entry": "202609051906/"
+   "entry": "202609051906/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 21,
@@ -326,7 +373,9 @@
    "has_proof": false,
    "families": 794,
    "places": 806,
-   "entry": "202609051927/"
+   "entry": "202609051927/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 22,
@@ -341,7 +390,9 @@
    "has_proof": false,
    "families": 797,
    "places": 809,
-   "entry": "202609051932/"
+   "entry": "202609051932/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 23,
@@ -356,7 +407,9 @@
    "has_proof": false,
    "families": 795,
    "places": 807,
-   "entry": "202609051936/"
+   "entry": "202609051936/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 24,
@@ -371,7 +424,9 @@
    "has_proof": false,
    "families": 800,
    "places": 812,
-   "entry": "202609051940/"
+   "entry": "202609051940/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 25,
@@ -386,7 +441,9 @@
    "has_proof": false,
    "families": 798,
    "places": 810,
-   "entry": "202609051945/"
+   "entry": "202609051945/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 26,
@@ -401,7 +458,9 @@
    "has_proof": false,
    "families": 800,
    "places": 812,
-   "entry": "202609051948/"
+   "entry": "202609051948/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 27,
@@ -416,7 +475,9 @@
    "has_proof": false,
    "families": 795,
    "places": 807,
-   "entry": "202609051953/"
+   "entry": "202609051953/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 28,
@@ -431,7 +492,9 @@
    "has_proof": false,
    "families": 784,
    "places": 796,
-   "entry": "202609051958/"
+   "entry": "202609051958/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 29,
@@ -446,7 +509,9 @@
    "has_proof": false,
    "families": 783,
    "places": 795,
-   "entry": "202609052008/"
+   "entry": "202609052008/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 30,
@@ -461,7 +526,9 @@
    "has_proof": false,
    "families": 785,
    "places": 797,
-   "entry": "202609052011/"
+   "entry": "202609052011/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 31,
@@ -476,7 +543,9 @@
    "has_proof": false,
    "families": 779,
    "places": 780,
-   "entry": "202609052015/"
+   "entry": "202609052015/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 32,
@@ -491,7 +560,9 @@
    "has_proof": false,
    "families": 769,
    "places": 770,
-   "entry": "202609052020/"
+   "entry": "202609052020/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 33,
@@ -506,7 +577,9 @@
    "has_proof": false,
    "families": 772,
    "places": 773,
-   "entry": "202609052023/"
+   "entry": "202609052023/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 34,
@@ -521,7 +594,9 @@
    "has_proof": false,
    "families": 0,
    "places": 0,
-   "entry": "202609060158/"
+   "entry": "202609060158/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 35,
@@ -536,7 +611,9 @@
    "has_proof": false,
    "families": 0,
    "places": 0,
-   "entry": "202609060204/"
+   "entry": "202609060204/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 36,
@@ -551,7 +628,9 @@
    "has_proof": false,
    "families": 1,
    "places": 1,
-   "entry": "202609060205/"
+   "entry": "202609060205/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 37,
@@ -566,7 +645,9 @@
    "has_proof": false,
    "families": 1,
    "places": 1,
-   "entry": "202609060206/"
+   "entry": "202609060206/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 38,
@@ -581,7 +662,9 @@
    "has_proof": false,
    "families": 4,
    "places": 4,
-   "entry": "202609060208/"
+   "entry": "202609060208/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 39,
@@ -596,7 +679,9 @@
    "has_proof": false,
    "families": 72,
    "places": 79,
-   "entry": "202609060213/"
+   "entry": "202609060213/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 40,
@@ -611,7 +696,9 @@
    "has_proof": false,
    "families": 2,
    "places": 2,
-   "entry": "202609060228/"
+   "entry": "202609060228/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 41,
@@ -626,7 +713,9 @@
    "has_proof": false,
    "families": 77,
    "places": 84,
-   "entry": "202609060232/"
+   "entry": "202609060232/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 42,
@@ -641,7 +730,9 @@
    "has_proof": false,
    "families": 38,
    "places": 38,
-   "entry": "202609060300/"
+   "entry": "202609060300/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 43,
@@ -656,7 +747,9 @@
    "has_proof": false,
    "families": 27,
    "places": 27,
-   "entry": "202609060308/"
+   "entry": "202609060308/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 44,
@@ -671,7 +764,9 @@
    "has_proof": false,
    "families": 29,
    "places": 29,
-   "entry": "202609060309/"
+   "entry": "202609060309/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 45,
@@ -686,7 +781,9 @@
    "has_proof": false,
    "families": 79,
    "places": 82,
-   "entry": "202609060315/"
+   "entry": "202609060315/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 46,
@@ -701,7 +798,9 @@
    "has_proof": false,
    "families": 76,
    "places": 76,
-   "entry": "202609060316/"
+   "entry": "202609060316/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 47,
@@ -716,7 +815,9 @@
    "has_proof": false,
    "families": 73,
    "places": 73,
-   "entry": "202609060318/"
+   "entry": "202609060318/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 48,
@@ -731,7 +832,9 @@
    "has_proof": false,
    "families": 35,
    "places": 35,
-   "entry": "202609060320/"
+   "entry": "202609060320/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 49,
@@ -746,7 +849,9 @@
    "has_proof": false,
    "families": 37,
    "places": 37,
-   "entry": "202609060322/"
+   "entry": "202609060322/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 50,
@@ -761,7 +866,9 @@
    "has_proof": false,
    "families": 39,
    "places": 39,
-   "entry": "202609060324/"
+   "entry": "202609060324/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 51,
@@ -776,7 +883,9 @@
    "has_proof": false,
    "families": 42,
    "places": 42,
-   "entry": "202609060325/"
+   "entry": "202609060325/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 52,
@@ -791,7 +900,9 @@
    "has_proof": false,
    "families": 44,
    "places": 44,
-   "entry": "202609060327/"
+   "entry": "202609060327/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 53,
@@ -806,7 +917,9 @@
    "has_proof": false,
    "families": 75,
    "places": 75,
-   "entry": "202609060333/"
+   "entry": "202609060333/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 54,
@@ -821,7 +934,9 @@
    "has_proof": false,
    "families": 78,
    "places": 78,
-   "entry": "202609060334/"
+   "entry": "202609060334/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 55,
@@ -836,7 +951,9 @@
    "has_proof": false,
    "families": 83,
    "places": 83,
-   "entry": "202609060337/"
+   "entry": "202609060337/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 56,
@@ -851,7 +968,9 @@
    "has_proof": false,
    "families": 85,
    "places": 85,
-   "entry": "202609060338/"
+   "entry": "202609060338/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 57,
@@ -866,7 +985,9 @@
    "has_proof": false,
    "families": 88,
    "places": 88,
-   "entry": "202609060340/"
+   "entry": "202609060340/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 58,
@@ -881,7 +1002,9 @@
    "has_proof": false,
    "families": 90,
    "places": 90,
-   "entry": "202609060342/"
+   "entry": "202609060342/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 59,
@@ -896,7 +1019,9 @@
    "has_proof": false,
    "families": 89,
    "places": 89,
-   "entry": "202609060343/"
+   "entry": "202609060343/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 60,
@@ -911,7 +1036,9 @@
    "has_proof": false,
    "families": 92,
    "places": 92,
-   "entry": "202609060345/"
+   "entry": "202609060345/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 61,
@@ -926,7 +1053,9 @@
    "has_proof": false,
    "families": 92,
    "places": 92,
-   "entry": "202609060349/"
+   "entry": "202609060349/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 62,
@@ -941,7 +1070,9 @@
    "has_proof": false,
    "families": 44,
    "places": 44,
-   "entry": "202609060351/"
+   "entry": "202609060351/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 63,
@@ -956,7 +1087,9 @@
    "has_proof": false,
    "families": 45,
    "places": 45,
-   "entry": "202609060352/"
+   "entry": "202609060352/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 64,
@@ -971,7 +1104,9 @@
    "has_proof": false,
    "families": 47,
    "places": 47,
-   "entry": "202609060400/"
+   "entry": "202609060400/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 65,
@@ -986,7 +1121,9 @@
    "has_proof": false,
    "families": 48,
    "places": 48,
-   "entry": "202609060401/"
+   "entry": "202609060401/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 66,
@@ -1001,7 +1138,9 @@
    "has_proof": false,
    "families": 59,
    "places": 59,
-   "entry": "202609060418/"
+   "entry": "202609060418/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 67,
@@ -1016,7 +1155,9 @@
    "has_proof": false,
    "families": 61,
    "places": 61,
-   "entry": "202609060432/"
+   "entry": "202609060432/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 68,
@@ -1031,7 +1172,9 @@
    "has_proof": false,
    "families": 59,
    "places": 59,
-   "entry": "202609060435/"
+   "entry": "202609060435/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 69,
@@ -1046,7 +1189,9 @@
    "has_proof": false,
    "families": 59,
    "places": 59,
-   "entry": "202609060441/"
+   "entry": "202609060441/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 70,
@@ -1061,7 +1206,9 @@
    "has_proof": false,
    "families": 2,
    "places": 2,
-   "entry": "202609060447/"
+   "entry": "202609060447/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 71,
@@ -1076,7 +1223,9 @@
    "has_proof": false,
    "families": 2,
    "places": 2,
-   "entry": "202609060503/"
+   "entry": "202609060503/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 72,
@@ -1091,7 +1240,9 @@
    "has_proof": false,
    "families": 60,
    "places": 60,
-   "entry": "202609060504/"
+   "entry": "202609060504/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 73,
@@ -1106,7 +1257,9 @@
    "has_proof": false,
    "families": 61,
    "places": 61,
-   "entry": "202609060509/"
+   "entry": "202609060509/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 74,
@@ -1121,7 +1274,9 @@
    "has_proof": false,
    "families": 3,
    "places": 3,
-   "entry": "202609060517/"
+   "entry": "202609060517/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 75,
@@ -1136,7 +1291,9 @@
    "has_proof": false,
    "families": 62,
    "places": 62,
-   "entry": "202609060521/"
+   "entry": "202609060521/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 76,
@@ -1151,7 +1308,9 @@
    "has_proof": false,
    "families": 63,
    "places": 63,
-   "entry": "202609060528/"
+   "entry": "202609060528/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 77,
@@ -1166,7 +1325,9 @@
    "has_proof": false,
    "families": 63,
    "places": 63,
-   "entry": "202609060537/"
+   "entry": "202609060537/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 78,
@@ -1181,7 +1342,9 @@
    "has_proof": false,
    "families": 61,
    "places": 61,
-   "entry": "202609141350/"
+   "entry": "202609141350/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 79,
@@ -1196,7 +1359,9 @@
    "has_proof": false,
    "families": 25,
    "places": 25,
-   "entry": "202609141423/"
+   "entry": "202609141423/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 80,
@@ -1211,7 +1376,9 @@
    "has_proof": false,
    "families": 62,
    "places": 62,
-   "entry": "202609141522/"
+   "entry": "202609141522/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 81,
@@ -1226,7 +1393,9 @@
    "has_proof": false,
    "families": 2,
    "places": 2,
-   "entry": "202609141531/"
+   "entry": "202609141531/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 82,
@@ -1241,7 +1410,9 @@
    "has_proof": false,
    "families": 95,
    "places": 106,
-   "entry": "202609141754/"
+   "entry": "202609141754/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 83,
@@ -1256,7 +1427,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609142202/"
+   "entry": "202609142202/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 84,
@@ -1271,7 +1444,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609142225/"
+   "entry": "202609142225/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 85,
@@ -1286,7 +1461,9 @@
    "has_proof": false,
    "families": 0,
    "places": 0,
-   "entry": null
+   "entry": null,
+   "published": true,
+   "kind": "fragment"
   },
   {
    "key": 86,
@@ -1301,7 +1478,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609150125/"
+   "entry": "202609150125/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 87,
@@ -1316,7 +1495,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609150502/"
+   "entry": "202609150502/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 88,
@@ -1331,7 +1512,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "20260915050706/"
+   "entry": "20260915050706/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 89,
@@ -1346,7 +1529,9 @@
    "has_proof": false,
    "families": 0,
    "places": 0,
-   "entry": "202609151230/"
+   "entry": "202609151230/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 90,
@@ -1361,7 +1546,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609151339/"
+   "entry": "202609151339/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 91,
@@ -1376,7 +1563,9 @@
    "has_proof": false,
    "families": 0,
    "places": 0,
-   "entry": "202609151413/"
+   "entry": "202609151413/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 92,
@@ -1391,7 +1580,9 @@
    "has_proof": false,
    "families": 0,
    "places": 0,
-   "entry": "202609151428/"
+   "entry": "202609151428/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 93,
@@ -1406,7 +1597,9 @@
    "has_proof": false,
    "families": 0,
    "places": 0,
-   "entry": "202609151447/"
+   "entry": "202609151447/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 94,
@@ -1421,7 +1614,9 @@
    "has_proof": false,
    "families": 0,
    "places": 0,
-   "entry": null
+   "entry": null,
+   "published": true,
+   "kind": "fragment"
   },
   {
    "key": 95,
@@ -1436,7 +1631,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": null
+   "entry": null,
+   "published": true,
+   "kind": "fragment"
   },
   {
    "key": 96,
@@ -1451,7 +1648,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160151/"
+   "entry": "202609160151/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 97,
@@ -1466,7 +1665,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160207/"
+   "entry": "202609160207/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 98,
@@ -1476,12 +1677,14 @@
    "title": "Wafer Galaxy - Navigate through our code without coding knowledge!",
    "title_from": "index.html",
    "files": 75,
-   "bytes": 3979760,
+   "bytes": 3985512,
    "has_readme": false,
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160224/"
+   "entry": "202609160224/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 99,
@@ -1496,7 +1699,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160258/"
+   "entry": "202609160258/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 100,
@@ -1511,7 +1716,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160259/"
+   "entry": "202609160259/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 101,
@@ -1526,7 +1733,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160300/"
+   "entry": "202609160300/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 102,
@@ -1541,7 +1750,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160301/"
+   "entry": "202609160301/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 103,
@@ -1556,7 +1767,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160302/"
+   "entry": "202609160302/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 104,
@@ -1571,7 +1784,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160303/"
+   "entry": "202609160303/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 105,
@@ -1586,7 +1801,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160304/"
+   "entry": "202609160304/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 106,
@@ -1601,7 +1818,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160305/"
+   "entry": "202609160305/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 107,
@@ -1616,7 +1835,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160306/"
+   "entry": "202609160306/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 108,
@@ -1631,7 +1852,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160307/"
+   "entry": "202609160307/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 109,
@@ -1646,7 +1869,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160308/"
+   "entry": "202609160308/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 110,
@@ -1661,7 +1886,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160309/"
+   "entry": "202609160309/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 111,
@@ -1676,7 +1903,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160310/"
+   "entry": "202609160310/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 112,
@@ -1691,7 +1920,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160311/"
+   "entry": "202609160311/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 113,
@@ -1706,7 +1937,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160312/"
+   "entry": "202609160312/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 114,
@@ -1721,7 +1954,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160313/"
+   "entry": "202609160313/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 115,
@@ -1736,7 +1971,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160314/"
+   "entry": "202609160314/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 116,
@@ -1751,7 +1988,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160315/"
+   "entry": "202609160315/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 117,
@@ -1766,7 +2005,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160316/"
+   "entry": "202609160316/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 118,
@@ -1781,7 +2022,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160317/"
+   "entry": "202609160317/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 119,
@@ -1796,7 +2039,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160318/"
+   "entry": "202609160318/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 120,
@@ -1811,7 +2056,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160319/"
+   "entry": "202609160319/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 121,
@@ -1826,7 +2073,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160320/"
+   "entry": "202609160320/",
+   "published": true,
+   "kind": "surface"
   },
   {
    "key": 122,
@@ -1841,7 +2090,9 @@
    "has_proof": true,
    "families": 0,
    "places": 0,
-   "entry": "202609160321/"
+   "entry": "202609160321/",
+   "published": true,
+   "kind": "surface"
   }
  ]
 }

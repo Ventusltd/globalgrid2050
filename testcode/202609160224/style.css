@@ -77,9 +77,24 @@ body{
 }
 #reopen:hover{background:#00ffff14}
 @media (max-width:640px){
-  /* On a phone, dragging a sheet around is worse than docking it. */
+  /* On a phone, dragging a sheet around is worse than docking it — so the card
+     stays put and covers about half the viewport. That makes MINIMISE the only way
+     to see the galaxy again, and at 24x16 css px it was below WCAG 2.2 SC 2.5.8
+     (Target Size Minimum, AA: 24x24) with 6px to its neighbour, so the spacing
+     exception did not rescue it either. Measured on a 390x844 device: the card is
+     374x439, half the screen, and the only escape was a sub-minimum target sitting
+     next to another sub-minimum target that DESTROYS the card instead of hiding it.
+     A mis-tap cost the reader their card. These are 44x44 per Apple HIG, with real
+     separation. The grip has the width: the title needs nowhere near 374px. */
   #panel{left:.5rem; right:.5rem; width:auto; top:auto;
          bottom:calc(var(--bot) + 2.2rem); max-height:52vh}
+  #grip{padding:.2rem .3rem .2rem .7rem; gap:.5rem}
+  #grip button{
+    min-width:44px; min-height:44px;
+    display:inline-flex; align-items:center; justify-content:center;
+    font-size:16px; padding:0; margin-left:8px;
+  }
+  #reopen{min-height:44px; padding:.6rem 1rem; font-size:13px}
 }
 #panel h2{margin:0 0 .15rem; font-size:12px; color:var(--lit); font-weight:600}
 

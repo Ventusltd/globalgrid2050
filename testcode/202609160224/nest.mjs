@@ -410,6 +410,62 @@ async function drainQueue() {
  * against 1.1 MB for a dense one. Block k is bytes offs[k]..offs[k+1]. Building
  * a second index would have been the estate's own disease.
  */
+/* ---- APP DOORS, AND THE ONE THING THEY MUST NEVER DO -------------------
+ * Vikram: when a line belongs to a major app — pipelinenews, the spider
+ * sandboxes, gridatlas, the periodic table, the cable geometry visualiser — the
+ * card should offer to take the visitor THERE. _board/journeys.json maps
+ * <repo>/<dir> to a published place by longest-prefix match, built by vikra-2e
+ * with no model input; every entry carries its own `why`.
+ *
+ * SENSITIVE_REPOS IS ENFORCED HERE AS WELL AS AT SOURCE, DELIBERATELY.
+ * Vikram: "Calling the API is not the issue, it's my interpretation and
+ * filtering that is sensitive." The source data is public; the derived layer —
+ * sector classification, offtaker mapping — is commercial IP and must never
+ * publish. journeys.json as generated at 2026-09-16T02:37:27Z contains
+ * `companies/scripts -> Pipeline News (why: path matches /repd/)`, which is both
+ * a mis-route and a disclosure. vikra-2e is removing it at source.
+ *
+ * This list exists anyway. A card that is only safe because its data happens to
+ * be safe is not safe — the same belt-and-braces rule the chair gave vikra-ac
+ * for the shutdown. If a future build of journeys.json reintroduces a sensitive
+ * route, the page still refuses it. */
+const SENSITIVE_REPOS = ['companies'];
+const SENSITIVE_WORDS = /(sector|offtaker|classification|segment)/i;
+const JOURNEYS = '../../../_board/journeys.json';
+let journeys = null, journeysTried = false;
+
+async function ensureJourneys() {
+  if (journeys || journeysTried) return journeys;
+  journeysTried = true;
+  try {
+    const r = await fetch(JOURNEYS);
+    if (r.ok) journeys = await r.json();
+  } catch { /* no doors rather than wrong doors */ }
+  return journeys;
+}
+
+/* The door for a file, or null. Longest-prefix match on '<repo>/<dir>', exactly
+   as the file's own note specifies — this page does not invent a rule. */
+async function appDoor(repo, filePath) {
+  const j = await ensureJourneys();
+  if (!j || !j.entries) return null;
+  const shortRepo = repo.includes('/') ? repo.split('/').pop() : repo;
+  if (SENSITIVE_REPOS.includes(shortRepo)) return null;      /* refused here, not upstream */
+  const dir = filePath.includes('/') ? filePath.slice(0, filePath.lastIndexOf('/')) : '';
+  let best = null, bestLen = -1;
+  for (const [k, idx] of Object.entries(j.entries)) {
+    const full = shortRepo + (dir ? '/' + dir : '');
+    if (full === k || full.startsWith(k + '/')) {
+      if (k.length > bestLen) { bestLen = k.length; best = idx; }
+    }
+  }
+  if (best === null) return null;
+  const place = j.places && j.places[best];
+  if (!place || !place.url) return null;
+  if (SENSITIVE_WORDS.test(place.name + ' ' + (place.what || '') + ' ' + (place.why || ''))) return null;
+  return place;
+}
+
 const LINE_INDEX = '../202609160207/line-index.json';
 const LINES_MD = 'https://ventusltd.github.io/stars/LINES.md';
 let lineIdx = null, lineIdxTried = false;
@@ -490,7 +546,7 @@ function english(i, r) {
   const key = keys[i], len = lens[i], nm = NATURE_NAME[nat[i]];
   const d = derive(key, len, fams[i]);
   const what = nat[i] === NOISE
-    ? 'This line holds ' + len + ' characters and belongs to no function, so the wafer treats it as noise — present, dark, and retirable without losing any code.'
+    ? 'This line holds ' + len + ' characters and belongs to no function, so the wafer draws it as ' + NATURE_NAME[NOISE] + ' — present, dark, and not yet part of anything. Dust is not waste here: it is the material stars form from, and a universe that hid its dust would be lying about its own mass.'
     : r
       ? 'This line is ' + nm + ' code inside the function ' + r.name +
         ', which the numbered database records at ' + r.place[2].split('/').pop() + ' line ' + r.line + '.'
@@ -506,7 +562,7 @@ function english(i, r) {
     : ' RADIATION: unknown until this band loads — the pack knows only that no family claims it.';
   /* RELATIONAL FIELD: the block it sits in, and the computation it is part of. */
   const rel = nat[i] === NOISE
-    ? ' RELATIONAL FIELD: none. Noise relates to nothing, which is what makes it retirable.'
+    ? ' RELATIONAL FIELD: none yet. Dust relates to nothing so far — that is a state, not a verdict, and it is where new stars come from.'
     : ' RELATIONAL FIELD: the ten lines above and ten below, shown here' +
       (r ? ', and the computation ' + r.name + ' that carries it' : '') + '.';
   return what + rad + rel;
@@ -552,6 +608,24 @@ async function show(i) {
       doors.append(sf);
     }
     panelBody.append(doors);
+
+    /* THE APP DOOR. Vikram's own example — the cable geometry visualiser at
+       cable-trench-or-drill/…/calculations.js — had no journey at all, because a
+       surface door is only offered when the path matches testcode/<stamp>/. Now a
+       line that belongs to a published app offers to take the visitor there, with
+       the reason the resolver gave, so a wrong door can be argued with.
+
+       Asynchronous and appended when it arrives: a door that has not resolved yet
+       must not hold up the code the visitor came to read. */
+    appDoor(r.place[0], r.place[2]).then((place) => {
+      if (!place || focusIdx !== i) return;
+      const ad = document.createElement('a');
+      ad.href = place.url;
+      ad.target = '_blank'; ad.rel = 'noopener';
+      ad.textContent = 'OPEN ' + place.name.toUpperCase() + ' ↗';
+      ad.title = (place.what || '') + (place.why ? ' — matched because ' + place.why : '');
+      doors.append(ad);
+    });
 
     const holder = document.createElement('div');
     holder.className = 'block';

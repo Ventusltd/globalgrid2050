@@ -58,6 +58,12 @@ ok('reopen restores and un-minimises',
 ok('stored position never breaks the card',
    (js.match(/catch \(_\)/g) || []).length >= 2 && /sessionStorage/.test(js),
    'sessionStorage reads and writes are guarded — blocked storage must not stop the card');
+ok('phone escape targets meet WCAG 2.2 SC 2.5.8 (24x24 minimum)',
+   /@media \(max-width:640px\)[\s\S]*?#grip button\{[\s\S]*?min-width:44px[\s\S]*?min-height:44px/.test(css),
+   'on the one device class where the card cannot be dragged, minimise must be hittable');
+ok('the escape target is separated from the destructive one',
+   /@media \(max-width:640px\)[\s\S]*?#grip button\{[\s\S]*?margin-left:8px/.test(css),
+   'minimise hides the card, close destroys it — a mis-tap must not cost the reader their card');
 ok('phones dock the card instead of dragging it',
    /@media \(max-width:640px\)/.test(css) && /innerWidth <= 640/.test(js),
    'CSS dock + JS drag guard agree on the same breakpoint');

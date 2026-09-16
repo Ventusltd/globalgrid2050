@@ -39,12 +39,21 @@ const check = (n, ok, d) => results.push({ n, ok: !!ok, d });
 
 const charter = JSON.parse(fs.readFileSync(path.join(SURF, 'charter.json'), 'utf8'));
 
-/* Every check name that actually exists, read from the proofs rather than listed. */
+/* Every check name that actually exists, read from the proofs rather than listed.
+   Scans every .mjs under proof/, not only *.check.mjs, and accepts either helper name
+   — the first version read `check('...')` alone and would have called safe-publish.mjs
+   an absent enforcer because it names its assertions with `say(`. Widening the matcher
+   is the same correction as widening the vacuity gate: measure what is there, not what
+   this file expected to find. */
 const existing = new Map();
 for (const f of fs.readdirSync(HERE)) {
-  if (!f.endsWith('.check.mjs')) continue;
+  if (!f.endsWith('.mjs')) continue;
   const src = fs.readFileSync(path.join(HERE, f), 'utf8');
-  const names = [...src.matchAll(/check\(\s*'((?:[^'\\]|\\.)*)'/g)].map((m) => m[1].replace(/\\'/g, "'"));
+  /* Either helper. The first version read `check('…')` alone and would have called
+     safe-publish.mjs an absent enforcer because it names its assertions with `say(`.
+     Same correction as widening the vacuity gate: measure what is there, not what
+     this file expected to find. */
+  const names = [...src.matchAll(/(?:check|say)\(\s*'((?:[^'\\]|\\.)*)'/g)].map((m) => m[1].replace(/\\'/g, "'"));
   existing.set(f, new Set(names));
 }
 
@@ -97,7 +106,7 @@ function countFails(out) {
    `check('...')` call — and silently skipped card.check.mjs and law.check.mjs, which use
    a differently-named helper. A gate that quietly covers two thirds of what it claims is
    the defect this whole file exists to catch, in the file that catches it. */
-const suites = [...existing.keys()].filter((f) => f !== 'charter.check.mjs');
+const suites = [...existing.keys()].filter((f) => f.endsWith('.check.mjs') && f !== 'charter.check.mjs');
 const vacuous = [], measured = [];
 for (const f of suites) {
   const honest = countFails(runSuite(f, false));

@@ -73,7 +73,6 @@
       "why": "The commit that added a proof of the picture broke the picture: a `c` counter in a block already holding `const c` threw on the first iteration. node --check passes it.",
       "enforced_by": "particles.check.mjs#no loop counter is shadowed inside its own body"
     },
-
     {
       "id": "state-the-denominator",
       "binds": "any seat reporting a figure",
@@ -121,14 +120,14 @@
       "binds": "anyone staging a directory",
       "rule": "Read what the stage would do before staging it.",
       "why": "A single git add testcode/ would have staged 120 deletions and removed 24 live surfaces. The chair had made exactly that call twice that night without reading it. Nothing protected us but the order the messages arrived in.",
-      "enforced_by": null
+      "enforced_by": "safe-publish.mjs#a deletion refuses the stage"
     },
     {
       "id": "publish-must-not-cancel-publish",
       "binds": "any seat pushing",
       "rule": "Do not push on top of a pending deploy.",
       "why": "Three of eight Pages deploys were cancelled by our own cadence, so every liveness check for half an hour measured a build that never completed.",
-      "enforced_by": null
+      "enforced_by": "safe-publish.mjs#the deploy queue is readable, or refused"
     },
     {
       "id": "key-on-the-hash-never-the-label",

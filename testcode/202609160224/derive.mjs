@@ -41,7 +41,10 @@
  *              claims — not noise, because they may carry text, but unowned.
  */
 export const NOISE = 0, BOILERPLATE = 1, OPERATIONAL = 2, STRUCTURAL = 3, ORPHAN = 4;
-export const NATURE_NAME = ['noise', 'boilerplate', 'operational', 'structural', 'orphan'];
+/* The visitor-facing names. NOISE is displayed as DUST deliberately: unused code is
+   not waste in this universe, it is the material stars form from. The constant keeps
+   its old name so nothing that imports it breaks; only what a person reads changed. */
+export const NATURE_NAME = ['dust', 'boilerplate', 'operational', 'structural', 'orphan'];
 
 const NOISE_MAX = 3;          /* characters: "})" and shorter carries no statement */
 const SHORT_MAX = 24;         /* characters: below this a line is connective */

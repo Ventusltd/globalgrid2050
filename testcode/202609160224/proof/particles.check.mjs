@@ -138,6 +138,50 @@ check('particles equal the pack\'s in_a_family', head.particles === meta.in_a_fa
     ' ; labels never co-occur with the pixel path: ' + (overlap === null ? 'yes' : 'NO at ' + overlap));
 }
 
+/* 8. NO LOOP COUNTER IS SHADOWED INSIDE ITS OWN BODY.
+ *
+ * cdbade4c rewrote the particle loop to `for (let c = 0; ...)` so the render proof
+ * could drive it in reverse. The body already held `const c = COLOUR[nat[i]]`, which
+ * put the counter in that const's temporal dead zone — so the FIRST iteration threw
+ * ReferenceError and draw() never drew anything. `node --check` passes it: it is
+ * valid syntax and a runtime error.
+ *
+ * The irony is the point and it is recorded rather than tidied away: the commit that
+ * added a proof of the picture broke the picture. vikra-2e wrote the charter line an
+ * hour earlier — "the instrumentation I added to make a safety property observable
+ * briefly broke the thing it was observing" — and the chair then did it independently.
+ * Observing a thing means touching it, and touching it is the hazard.
+ *
+ * This is a pattern check, not a parser, and says so. It catches the exact shape that
+ * shipped: a `for (let X …)` whose body redeclares X.
+ */
+{
+  const src = fs.readFileSync(path.join(SURF, 'nest.mjs'), 'utf8');
+  const shadowed = [];
+  const loop = /for\s*\(\s*let\s+([A-Za-z_$][\w$]*)\s*=/g;
+  let m;
+  while ((m = loop.exec(src)) !== null) {
+    const name = m[1];
+    /* the block this loop opens: from its `{` to the matching depth-0 `}` */
+    const open = src.indexOf('{', loop.lastIndex);
+    if (open < 0) continue;
+    let depth = 0, end = open;
+    for (let i = open; i < src.length; i++) {
+      if (src[i] === '{') depth++;
+      else if (src[i] === '}') { depth--; if (depth === 0) { end = i; break; } }
+    }
+    const body = src.slice(open, end);
+    if (new RegExp('\\b(const|let)\\s+' + name + '\\b').test(body)) {
+      shadowed.push(name + ' at offset ' + m.index);
+    }
+  }
+  const injected = MUTATE ? ['c at offset 0 (injected by --mutate)'] : [];
+  const all = shadowed.concat(injected);
+  check('no loop counter is shadowed inside its own body', all.length === 0,
+    all.length ? 'temporal dead zone, throws on the first iteration: ' + all.join(' · ')
+      : 'checked every `for (let X …)` in nest.mjs; none redeclares its counter');
+}
+
 let failed = 0;
 for (const r of results) {
   if (!r.ok) failed++;

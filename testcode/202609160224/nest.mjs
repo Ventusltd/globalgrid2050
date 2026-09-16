@@ -80,8 +80,14 @@ Promise.all([
   countEl.classList.remove('dim');
   layout(); draw();
 }).catch((err) => {
-  countEl.textContent = 'the pack did not load: ' + err.message;
-  footEl.textContent = 'Expected the numbered pack at ' + PACK;
+  /* draw() runs inside this .then(), so a drawing bug lands in this .catch and
+     used to be reported as a failed download — it sent vikra-ac looking at fetch
+     paths for a variable shadow. Name what actually failed. */
+  const drew = keys !== null;
+  countEl.textContent = (drew ? 'the pack loaded; drawing failed: ' : 'the pack did not load: ') + err.message;
+  footEl.textContent = drew
+    ? 'This is a bug in the drawing code, not in the network. Pack: ' + PACK
+    : 'Expected the numbered pack at ' + PACK;
 });
 
 /* Derived once at load, then never again: two floats and two bytes per line.
@@ -220,8 +226,12 @@ function draw() {
 
   const step = drawOrder === 'descending' ? -1 : 1;
   const from = step === 1 ? 0 : n - 1;
-  for (let c = 0; c < n; c++) {
-    const i = from + c * step;
+  /* The counter is j, not c: `const c = COLOUR[...]` below is in the same block,
+     and a `c` loop counter put itself in that const's temporal dead zone, so the
+     first iteration threw ReferenceError and draw() never drew. Shipped in
+     cdbade4c, the commit that added the render proof. */
+  for (let j = 0; j < n; j++) {
+    const i = from + j * step;
     const x = sx(i), y = sy(i);
     if (x < -10 || y < -10 || x > W + 10 || y > H + 10) continue;
     shown++;

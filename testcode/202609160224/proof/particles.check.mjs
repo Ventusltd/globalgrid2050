@@ -94,6 +94,50 @@ check('particles equal the pack\'s in_a_family', head.particles === meta.in_a_fa
   head.particles.toLocaleString() + ' particles vs pack in_a_family ' +
   meta.in_a_family.toLocaleString() + ' (pack built ' + meta.built_utc + ')');
 
+/* 7. THE RASTER REACHES THE CANVAS.
+ *
+ * This file passed 6/6 honest and 3/6 mutated on a surface that drew NOTHING.
+ * Every check above describes the data; none asked whether a pixel ever reached
+ * the canvas. The pixel path wrote 250,174 particles into an ImageData buffer
+ * and never blitted it, so the page was black at its default zoom while its own
+ * counters reported every particle on screen — and it rendered correctly at
+ * dpr 2, so it worked on a phone and failed on a desktop.
+ *
+ * Node has no canvas, so this cannot count pixels the way vikra-ac did in a
+ * browser. It checks the invariant that actually broke instead: the default zoom
+ * takes the pixel path, and the pixel path must end in a blit, positioned after
+ * the buffer is written and before anything is composited over it.
+ */
+{
+  const src = fs.readFileSync(path.join(SURF, 'nest.mjs'), 'utf8');
+  const sizeAt = (zoom, dpr) => Math.max(1, 1.1 * dpr * Math.min(zoom, 2.4));
+  const defaultIsPixelPath = sizeAt(1, 1) <= 1.5;
+
+  const iWrite = src.lastIndexOf('buf32[o] =');
+  const iBlit = MUTATE ? -1 : src.indexOf('putImageData');
+
+  /* The blit overwrites rather than composites, so it must never run in a frame
+     that also draws labels. Rather than guess that from where the calls sit in
+     the file — the first version of this check did, and got the comparison
+     backwards — assert the numeric invariant: at every zoom where labels are
+     drawn, the pixel path must be off. LOD_NAMES is 8 in nest.mjs. */
+  const LOD_NAMES = 8;
+  let overlap = null;
+  for (let z = LOD_NAMES; z <= 600; z += 0.5) {
+    for (const dpr of [1, 2]) {
+      if (sizeAt(z, dpr) <= 1.5) { overlap = 'zoom ' + z + ' dpr ' + dpr; break; }
+    }
+    if (overlap) break;
+  }
+
+  const ok = defaultIsPixelPath && iWrite >= 0 && iBlit > iWrite && overlap === null;
+  check('the pixel path ends in a blit, and the default zoom uses it', ok,
+    'default zoom size ' + sizeAt(1, 1).toFixed(2) + ' -> pixel path ' + defaultIsPixelPath +
+    ' ; buffer written at ' + iWrite + ' ; putImageData at ' + iBlit +
+    (iBlit < 0 ? '  <-- NOTHING REACHES THE CANVAS' : '') +
+    ' ; labels never co-occur with the pixel path: ' + (overlap === null ? 'yes' : 'NO at ' + overlap));
+}
+
 let failed = 0;
 for (const r of results) {
   if (!r.ok) failed++;

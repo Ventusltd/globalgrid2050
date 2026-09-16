@@ -174,11 +174,24 @@ const COLOUR = [
  * canvas calls at all, then blitted once. The buffer is allocated at layout and
  * reused, so a frame allocates nothing.
  *
- * Brighter wins where two lines land on the same pixel, rather than the last one
- * drawn winning — otherwise the picture would depend on iteration order, and the
- * whole point of a derived layout is that it does not depend on anything but the
- * keys. Above ~1.5 px a particle is a shape rather than a pixel, and the ordinary
- * path takes over.
+ * WHERE TWO LINES LAND ON THE SAME PIXEL, brighter wins — but that is NOT what
+ * makes the picture independent of iteration order, and an earlier version of
+ * this comment claimed it was. vikra-ac measured it: compositing the five COLOUR
+ * entries across the full alpha range gives 486 reachable channel-sums, and 361
+ * of them (74%) are produced by more than one distinct colour. Ties are the
+ * common case, not a corner case, and with a strict `<` the FIRST particle
+ * written wins a tie — so the pixel does depend on the order of the loop.
+ *
+ * The picture is a pure function of the keys anyway, because the loop runs over
+ * `keys` ascending, so a tie breaks by lowest key, which is itself derived. That
+ * is the real guarantee and it is worth stating plainly, because it is fragile:
+ * batch by nature, draw band by band, or parallelise, and the picture changes
+ * silently. Nothing in particles.check.mjs would notice — it checks the data and
+ * never the raster.
+ *
+ * Above ~1.5 px a particle is a shape rather than a pixel and the ordinary path
+ * takes over. Note the threshold falls at zoom 1 on a dpr-1 display and NOT on a
+ * dpr-2 one, which is how the missing blit shipped: it rendered on a phone.
  */
 let img = null, buf32 = null;
 
@@ -248,6 +261,18 @@ function draw() {
       }
     }
   }
+
+  /* THE BLIT. Without this line the pixel path writes 250,174 particles into a
+     buffer and throws it away, and the page is black at its default zoom while
+     its own counters report every particle on screen. It shipped that way, and
+     was caught by vikra-ac opening the live page rather than by any proof here —
+     particles.check.mjs passed 6/6 honest and 3/6 mutated on a surface that drew
+     nothing, because every check described the DATA and none asked whether a
+     pixel ever reached the canvas.
+
+     It must come before any overlay: putImageData writes pixels, it does not
+     composite, so a label drawn first would be erased by it. */
+  if (pixelPath) ctx.putImageData(img, 0, 0);
 
   for (const b of bands) ensureBucket(b);
 

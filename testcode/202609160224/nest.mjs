@@ -700,8 +700,21 @@ async function readFile([repo, commit, p]) {
 function english(i, r) {
   const key = keys[i], len = lens[i], nm = NATURE_NAME[nat[i]];
   const d = derive(key, len, fams[i]);
+  /* FOURTH SITE OF THE SAME DEFECT, and the only one no reader reported — which is the
+     point: it was found by widening the DETECTOR, not by widening the fix. nature()
+     returns NOISE on LENGTH ALONE, three characters or fewer, so a closing brace inside a
+     function is dust AND in a family. Measured against the pack at this commit: 36 of the
+     estate's 80 dust lines are in a family — 45% of every line this sentence spoke to. It
+     told them "belongs to no function" while the very next sentence, currency, correctly
+     guarded, told the same reader "still part of a named function". One paragraph, both
+     ways. Key 2 is one of the 36, and it sits at the centre of the wafer where a reader
+     starts. */
   const what = nat[i] === NOISE
-    ? 'This line holds ' + len + ' characters and belongs to no function, so the wafer draws it as ' + NATURE_NAME[NOISE] + ' — present, dark, and not yet part of anything. Dust is not waste here: it is the material stars form from, and a universe that hid its dust would be lying about its own mass.'
+    ? 'This line holds ' + len + ' characters, too few to carry a statement, so the wafer draws it as ' + NATURE_NAME[NOISE] +
+      (fams[i]
+        ? ' — dark, and carried by a named function all the same: dust is where a function opens and closes, not only where it has nothing.'
+        : ' — present, dark, and not yet part of anything.') +
+      ' Dust is not waste here: it is the material stars form from, and a universe that hid its dust would be lying about its own mass.'
     : r
       ? 'This line is ' + nm + ' code inside the function ' + r.name +
         ', which the numbered database records at ' + r.place[2].split('/').pop() + ' line ' + r.line + '.'
@@ -730,9 +743,18 @@ function english(i, r) {
         ' places across the estate, so changing it here changes one copy of ' +
         (r.also + 1).toLocaleString() + '.'
       : ' RADIATION: the estate records exactly one use of it.')
-    : ' RADIATION: unknown until this band loads — the pack knows only that no family claims it.';
+    /* Third state here too. This branch made the pack's claim for it on r alone, so it
+       read "the pack knows only that no family claims it" for a line the pack says IS in
+       a family — one paragraph under a header that said so correctly. The guard check
+       found the other two sites and not this one, because its pattern was written from
+       the two phrasings already in hand. A check describes only what it looks at. */
+    : fams[i]
+      ? ' RADIATION: how many places carry it arrives with this band. The pack states only that a family does carry it.'
+      : ' RADIATION: unknown until this band loads — the pack records no family for it, and that is the whole of what it knows.';
   /* RELATIONAL FIELD: the block it sits in, and the computation it is part of. */
-  const rel = nat[i] === NOISE
+  /* Same length-alone trap: dust a family carries relates to that family, so it takes the
+     ordinary branch. */
+  const rel = nat[i] === NOISE && !fams[i]
     ? ' RELATIONAL FIELD: none yet. Dust relates to nothing so far — that is a state, not a verdict, and it is where new stars come from.'
     : ' RELATIONAL FIELD: the ten lines above and ten below, shown here' +
       (r ? ', and the computation ' + r.name + ' that carries it' : '') + '.';

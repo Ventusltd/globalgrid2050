@@ -13,6 +13,7 @@
  * Run:  node proof/particles.check.mjs
  *       node proof/particles.check.mjs --mutate
  */
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { derive, nature, radiation, NATURE_NAME, NOISE } from '../derive.mjs';
@@ -262,40 +263,111 @@ check('particles equal the pack\'s in_a_family', head.particles === meta.in_a_fa
 
 /* 11. A FAMILY CLAIM MAY NOT BRANCH ON THE BAND.
  *
- * Three sites branched on `r`, the resolved place, which needs p/N.json fetched. So `r`
- * is falsy in TWO situations — the line has no family, and the band has not loaded — and
- * the card said the first in both. On the published page, key 192,067 (haversine's first
- * line, in_a_family = 1 in the pack the card names) read "in no function family" while
- * its own next sentence read "Reading this band."
+ * Sites branched on `r`, the resolved place, which needs p/N.json fetched. So `r` is
+ * falsy in TWO situations — the line has no family, and the band has not loaded — and the
+ * card said the first in both. On the published page, key 192,067 (haversine's first line,
+ * in_a_family = 1 in the pack the card names) read "in no function family" while its own
+ * next sentence read "Reading this band."
  *
  * fams[i] answers it with zero fetches and is in memory from startup. The rule: any
  * sentence asserting the ABSENCE of a family must be reached only through fams[i].
  *
- * This reads the source with comments stripped — the fourth time tonight that mattered,
+ * WIDENED. The first version of this check found TWO of FOUR sites and reported green.
+ * Its pattern held exactly the two phrasings the fix in hand had just touched — "no
+ * function family" and "in no family" — so it read straight over " RADIATION: the pack
+ * knows only that no family claims it" and over "belongs to no function" in the dust
+ * branch. A check that finds two of four is worse than one that finds none, because it is
+ * then trusted. vikra-ac found the third by reading the published card. The fourth was
+ * found by widening THIS, and no reader had ever reported it.
+ *
+ * So the detector is a list of SHAPES rather than the sentences in hand, its guard window
+ * is eight lines, and its mutation removes the GUARD rather than injecting a finding the
+ * check never made. What it still cannot do is notice a shape nobody has thought of —
+ * that is check 12's job, and the two are only honest together.
+ *
+ * It reads the source with comments stripped: the fourth time tonight that mattered,
  * after siblings, why, and the chair's own live grep, which returned 0 for a phrase the
  * source splits across two concatenated lines. Test what is written.
  */
 {
   const raw = fs.readFileSync(path.join(SURF, 'nest.mjs'), 'utf8');
   const code = raw.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|[^:])\/\/[^\n]*/g, '$1 ');
-  /* Every line that denies a family, and whether fams[ appears within the six lines
-     above it — the guard that must dominate it. */
-  const lines = code.split('\n');
+  /* Shapes, not sentences. Each is a way of telling a reader that no family carries this
+     line, and all of them must sit under fams[]. */
+  const DENIAL = [
+    /no function family/i,
+    /in no family/i,
+    /no famil\w* claims?/i,
+    /records? no family/i,
+    /no named function/i,
+    /belongs to no function/i,
+    /relates to nothing/i,
+  ];
+  /* THE MUTATION REMOVES THE GUARD — the defect this check exists for — rather than
+     appending a finding the check never made. Every denial then stands unguarded, and all
+     of them must be reported. */
+  const scan = MUTATE ? code.split('fams[').join('FAMS_REMOVED(') : code;
+  const lines = scan.split('\n');
   const denials = [];
   lines.forEach((l, i) => {
-    if (!/no function family|in no family/i.test(l)) return;
-    const window = lines.slice(Math.max(0, i - 6), i + 1).join(' ');
-    if (!/fams\[/.test(window)) denials.push('line ' + (i + 1));
+    if (!DENIAL.some((re) => re.test(l))) return;
+    /* A GUARD, NOT A MENTION. The first window asked only whether `fams[` appeared in the
+       eight lines above, and `const d = derive(key, len, fams[i]);` — a plain statement
+       two lines up — answered yes for the dust denial. Retro-run against the shipped file
+       it therefore reported ONE of the two live sites and would have been believed about
+       the other. A guard is a fams[] read inside a conditional, so a line that completes
+       a statement does not count as one. */
+    const guarded = lines.slice(Math.max(0, i - 8), i + 1)
+      .some((w) => /fams\[/.test(w) && !/;\s*$/.test(w));
+    if (!guarded) denials.push('line ' + (i + 1) + ' "' + l.trim().replace(/\s+/g, ' ').slice(0, 52) + '"');
   });
-  const injected = MUTATE ? ['line 0 (injected by --mutate)'] : [];
-  const all = denials.concat(injected);
   check('no family denial is reached without consulting fams[]',
-    all.length === 0,
-    all.length
-      ? all.length + ' denial(s) not guarded by fams[]: ' + all.join(', ') +
+    denials.length === 0,
+    denials.length
+      ? denials.length + ' denial(s) not guarded by fams[]: ' + denials.slice(0, 4).join(' · ') +
         ' — these assert about the estate what is true of what has downloaded'
-      : 'every "no function family" sentence sits under a fams[] guard · ' +
+      : 'every denial shape sits under a fams[] guard · ' + DENIAL.length + ' shapes searched · ' +
         (code.match(/fams\[/g) || []).length + ' fams[] reads in the code');
+}
+
+/* 12. THE CARD'S PROSE IS THE PROSE A PERSON CLASSIFIED.
+ *
+ * Check 11 can only find shapes it has been told about, and three of the four defects it
+ * was written for were phrasings nobody had anticipated. This one makes no judgement about
+ * prose at all: it pins every sentence the card can say about a line and fails when the set
+ * changes.
+ *
+ * BOUNDARY, stated rather than implied: it cannot tell a true sentence from a false one.
+ * It guarantees only that no sentence reaches a reader without a person having re-read it
+ * against the fams[] rule and re-pinned it. That is the whole claim.
+ *
+ * Its mutation adds a sentence — not an artificial failure, but exactly the event it
+ * exists to catch.
+ */
+{
+  const raw = fs.readFileSync(path.join(SURF, 'nest.mjs'), 'utf8');
+  /* Comments FIRST, and this bit on the very first run: an apostrophe inside a comment
+     ("true of this page's downloads") opens a string literal, and the extractor returned
+     28 fragments of COMMENT PROSE as though they were the card's sentences. Pinning that
+     would have pinned the wrong text and called it classified. The fifth time tonight a
+     check read a comment as evidence. */
+  const src = raw.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|[^:])\/\/[^\n]*/g, '$1 ');
+  const from = src.indexOf('function english(');
+  const to = src.indexOf('\n}', from);
+  const body = from >= 0 && to > from ? src.slice(from, to) : '';
+  const lits = (body.match(/'(?:[^'\\]|\\.)*'/g) || [])
+    .map((t) => t.slice(1, -1))
+    .filter((t) => /[A-Za-z]{3}/.test(t) && /\s/.test(t));   /* prose, not property names */
+  const SEP = String.fromCharCode(1);
+  const joined = lits.join(SEP) + (MUTATE ? SEP + ' an added sentence' : '');
+  const h = crypto.createHash('sha256').update(joined).digest('hex').slice(0, 16);
+  const PINNED = '59758bd034b8a62b';
+  check("the card's prose is the prose a person classified",
+    h === PINNED && lits.length > 0,
+    h === PINNED
+      ? lits.length + ' sentences in english(), unchanged since classification · ' + h
+      : 'english() prose changed: ' + h + ' is not the pinned ' + PINNED +
+        ' — re-read each of the ' + lits.length + ' sentences against the fams[] rule, then re-pin');
 }
 
 let failed = 0;

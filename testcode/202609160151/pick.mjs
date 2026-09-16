@@ -54,8 +54,53 @@ export function buildPickIndex(pos, n, spacing = 1) {
   const fill = start.slice(0, cols * rows);
   for (let i = 0; i < n; i++) items[fill[cellOf(i)]++] = i;
 
+  /* ── the index measures whether its own assumption held ──────────────────
+   *
+   * The cell size above is derived ANALYTICALLY from SPACING, on the assumption
+   * that every key owns pi * SPACING^2 of the plane. That is true for the wafer
+   * law and silently false for every other one. Iteration 49 was written when
+   * the wafer law was the only law; by the same night the estate had `core`
+   * (most-used code at the centre) and a gravity law with measured masses —
+   * Pipeline News pulling 453 directories toward r = 0, Grid Atlas 382. Under
+   * those the points are deliberately clustered, which is the one distribution a
+   * uniform grid is worst at.
+   *
+   * The index would keep returning the RIGHT answer and quietly stop being fast,
+   * and nothing anywhere would say so: it would surface months later as "the
+   * middle feels slow", with nobody able to name the cause. A structure that
+   * degrades silently is the same defect as a check that passes silently, and
+   * this one was in my own file. So it now measures what it actually built —
+   * from the positions it was handed, not from the assumption — and says so.
+   *
+   * `uniform` is not a promise that the law is the wafer law. It is the weaker,
+   * checkable claim that the occupancy this index actually achieved is close
+   * enough to the target for the O(1)-per-tap argument to hold. */
+  let worst = 0, occupied = 0;
+  const occ = [];
+  for (let c = 0; c < cols * rows; c++) {
+    const k = start[c + 1] - start[c];
+    if (k > worst) worst = k;
+    if (k > 0) { occupied++; occ.push(k); }
+  }
+  occ.sort((a, b) => a - b);
+  const median = occ.length ? occ[occ.length >> 1] : 0;
+  const p99 = occ.length ? occ[Math.min(occ.length - 1, Math.floor(occ.length * 0.99))] : 0;
+
   return { start, items, cols, rows, size, minX, minY, n, pos,
-           bytes: start.byteLength + items.byteLength };
+           bytes: start.byteLength + items.byteLength,
+           occupancy: {
+             target: PER_CELL, median, p99, worst,
+             cells: cols * rows, occupied,
+             /* Ten times the target in the worst cell means a tap there costs ten
+                times what the design claims. Two hundred times means the grid has
+                stopped being an index. */
+             uniform: worst <= PER_CELL * 10,
+             why: worst <= PER_CELL * 10
+               ? `worst cell holds ${worst} of a target ${PER_CELL}`
+               : `worst cell holds ${worst}, ${(worst / PER_CELL).toFixed(0)}x the target ${PER_CELL}: ` +
+                 `these positions are not uniformly dense, so a tap in the crowded region costs ` +
+                 `far more than this index claims. It is still CORRECT; it is no longer fast.`
+           } };
 }
 
 /* The index of the nearest point within `reach` world units of (wx, wy), or -1.

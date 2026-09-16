@@ -154,6 +154,41 @@ check('manifest carries generated_utc', typeof manifest.generated_utc === 'strin
   }
 }
 
+/* 8. THE FRONT DOOR AGREES WITH THE MANIFEST.
+ *
+ * testcode/index.html was 184 bytes naming two surfaces of ninety-six, the newest
+ * eleven days stale — the defect the Nest was built to fix. The chair then replaced it
+ * with a HAND-TYPED front door, and five hours later it claimed "ninety-seven" surfaces
+ * when there were 119, listed a "most recent" set 22 surfaces out of date, and linked
+ * 202609151500 — a FRAGMENT with no index.html, which this manifest had been correctly
+ * classifying as unopenable the whole time.
+ *
+ * Same defect, same file, by the seat that wrote the fix. It is now emitted from the
+ * manifest by build.mjs, and this holds the two together: the count it prints, the
+ * surfaces it links, and the absence of fragments among them.
+ */
+{
+  const fp = path.join(ROOT, 'index.html');
+  if (!fs.existsSync(fp)) {
+    check('the front door agrees with the manifest', false, 'testcode/index.html is missing');
+  } else {
+    const front = fs.readFileSync(fp, 'utf8');
+    const surfaces = list.filter((s) => s.kind === 'surface' && s.entry);
+    const fragments = new Set(list.filter((s) => s.kind === 'fragment').map((s) => s.stamp));
+    const linked = [...front.matchAll(/href="(\d{10,14})\//g)].map((m) => m[1]);
+    const linksFragment = linked.filter((s) => fragments.has(s));
+    const linksMissing = linked.filter((s) => !list.some((x) => x.stamp === s));
+    const statesCount = new RegExp('\\b' + surfaces.length + ' surfaces\\b').test(front);
+    const ok = !MUTATE && statesCount && linksFragment.length === 0 && linksMissing.length === 0;
+    check('the front door agrees with the manifest', ok,
+      linksFragment.length ? 'links a FRAGMENT that 404s: ' + linksFragment.join(', ')
+        : linksMissing.length ? 'links a surface the manifest does not hold: ' + linksMissing.join(', ')
+          : !statesCount ? 'the front door does not state ' + surfaces.length + ' surfaces — it has drifted'
+            : 'states ' + surfaces.length + ' surfaces, links ' + linked.length +
+              ', none a fragment, none unknown to the manifest');
+  }
+}
+
 let failed = 0;
 for (const r of results) {
   if (!r.ok) failed++;

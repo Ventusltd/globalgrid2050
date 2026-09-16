@@ -47,21 +47,43 @@ if (MUTATE) {
        literals, so the phrase never appears contiguously in the source. The first lie
        targeted the joined sentence a reader sees and matched nothing, and the mutation
        reported 1-of-2 biting while claiming 2. Target what is written, not what is read. */
-    .replace(/necessarily where the line was born/g, '')
-    .replace(/The change that pinned this family said/g, 'This line exists because');
+    /* Was /necessarily where the line was born/ — and the caveat was then rewritten to
+       drop "necessarily", because measurement showed the import commit is USUALLY not
+       where the line was born. The mutation went on matching nothing and check 2 went on
+       passing under it: a lie aimed at wording the card no longer uses. */
+    .replace(/where the line was born/g, '')
+    .replace(/The estate imports this file at a commit made on/g, 'This line exists because')
+    /* The label is the promise, so the mutation restores the promise that could not be
+       kept: a verb naming the question instead of the data. */
+    .replace(/THE COMMIT THIS FILE IS PINNED AT/g, 'WHY IS THIS HERE?')
+    .replace(/The record says it was first written on/g, '');
 }
 
 const results = [];
 const check = (n, ok, d) => results.push({ n, ok: !!ok, d });
 
-/* 1. The label must attribute the message to the CHANGE, never to the line. */
-const attributes = /The change that pinned this family said/.test(src);
-const overclaims = /this line exists because/i.test(src);
-check('the card attributes the message to the change, not the line',
-  attributes && !overclaims,
-  overclaims ? 'the card says "this line exists because" — a commit covers everything in it, not one line'
-    : attributes ? 'reads "The change that pinned this family said"'
-      : 'the attributing phrase is gone; nothing stops the card implying the line caused the commit');
+/* 1. THE COMMIT IS ATTRIBUTED TO THE FILE IT PINS, NEVER TO THE LINE.
+ *
+ * This check used to pin one SENTENCE — "The change that pinned this family said" — and
+ * it went red the moment the sentence was rewritten for a better reason than it was
+ * written. A pinned phrase is not a property. What must hold is that no phrasing on the
+ * card makes a commit the cause of a line, and that the lead says what the commit
+ * actually is. Shapes, then, not a sentence — the same repair check 11 in particles
+ * needed an hour earlier, for the same reason.
+ */
+const OVERCLAIM = [
+  /this line exists because/i,
+  /the reason this line/i,
+  /this line was (added|written|created) because/i,
+  /why (is )?this line is here/i,
+];
+const over = OVERCLAIM.filter((re) => re.test(src));
+const attributes = /imports this file at a commit/.test(src);
+check('the commit is attributed to the file it pins, never to the line',
+  attributes && over.length === 0,
+  over.length ? 'the card attributes a commit to a line: ' + over.map(String).join(' · ')
+    : attributes ? 'the lead reads "The estate imports this file at a commit made on"'
+      : 'the attributing lead is gone; nothing stops the card implying the line caused the commit');
 
 /* 2. The provenance caveat: this is where the estate IMPORTS from. */
 check('the card says the commit may not be where the line was born',
@@ -91,6 +113,36 @@ const network = /fetch\(|api\.github\.com/.test(
 check('this proof makes no network call', !network,
   network ? 'this file would spend from the budget it exists to protect'
     : 'source-only; running it costs nothing from GitHub\'s 60 an hour');
+
+/* 6. A VERB MAY NOT PROMISE AN ANSWER ITS DATA CANNOT GIVE.
+ *
+ * vikra-ac's correction to its own proposal, and it is the sharpest rule of the night.
+ * It traced the button's data path with no page involved: the commit a place pins is an
+ * IMPORT, imports are updated by automation, so the button reliably returned the least
+ * meaningful commit touching the file — for haversine, a bot syncing a manifest, dated
+ * ten days after the function was first written. The apparatus was correct. The LABEL
+ * was the defect, because a reader reads the label as the promise.
+ *
+ * So: no control on this card may ask a question. A label names the data it will show.
+ */
+const asking = (src.match(/\w+Btn\.textContent = '[^']*\?'/g) || []);
+check('no control asks a question the data cannot answer', asking.length === 0,
+  asking.length ? 'a button promises an answer by asking: ' + asking.join(' · ')
+    : 'every control is named for the data it shows, not the question a reader has');
+
+/* 7. THE PACK SPEAKS FIRST, AND FOR FREE.
+ *
+ * first_written is in families.json for 10,800 of 10,985 families — 98.3% — and it is
+ * about the CODE rather than about a sync job. The band carries the brief facts for the
+ * families its own keys reach, so the card states them with no fetch and no rate limit,
+ * and the GitHub call is spent only when a reader asks for it.
+ */
+const fromMemory = /first written on/.test(src) && /r\.brief/.test(src);
+const fetchesFirst = /familyNote[\s\S]{0,400}?await fetch/.test(src);
+check('what the record knows is stated from memory, before any call',
+  fromMemory && !fetchesFirst,
+  fromMemory ? 'the card states kind, group, block, first-written, files and repos from the band it already has'
+    : 'the card no longer states what the pack knows, and spends a call to say less');
 
 let failed = 0;
 for (const r of results) {

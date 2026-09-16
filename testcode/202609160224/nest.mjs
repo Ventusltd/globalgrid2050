@@ -260,6 +260,9 @@ function resolve(key) {
   return {
     place: head.places[b.place[j]], line: b.line[j],
     family: b.family[j], name: head.names[b.name_of[j]], also: b.also[j],
+    /* [kind, block, category, repos, files, standalone, first_written] — carried by the
+       band, so it costs nothing beyond the fetch the card already made. */
+    brief: b.fam ? b.fam[b.family[j]] || null : null,
   };
 }
 
@@ -424,41 +427,12 @@ async function drainQueue() {
     const r = resolve(key);
     if (!r) { lineText.set(key, ''); continue; }
     lineText.set(key, '');
-    /* WHY, offered as a button rather than fetched on open: one GitHub call per card
-       against a 60-an-hour budget, so the reader spends it deliberately. */
-    const whyWrap = document.createElement('div');
-    whyWrap.className = 'why';
-    const whyBtn = document.createElement('button');
-    whyBtn.type = 'button';
-    whyBtn.className = 'whybtn';
-    whyBtn.textContent = 'WHY IS THIS HERE?';
-    whyBtn.addEventListener('click', async () => {
-      whyBtn.disabled = true;
-      whyBtn.textContent = 'reading the commit…';
-      const w = await whyOf(r.place[0], r.place[1]);
-      whyWrap.textContent = '';
-      const lead = document.createElement('div');
-      lead.className = 'dim';
-      lead.textContent = w.error
-        ? 'no commit message: ' + w.error
-        : 'The change that pinned this family said, on ' +
-          (w.date ? w.date.slice(0, 10) : 'an unrecorded date') + ':';
-      whyWrap.append(lead);
-      if (!w.error) {
-        const q = document.createElement('p');
-        q.className = 'plain';
-        q.textContent = w.subject + (w.body ? String.fromCharCode(10, 10) + w.body.slice(0, 600) : '');
-        whyWrap.append(q);
-        const caveat = document.createElement('div');
-        caveat.className = 'dim';
-        caveat.textContent = 'A commit describes a CHANGE, not a line — it covers everything ' +
-          'in that commit. And this is the commit the estate imports from, which is not ' +
-          'necessarily where the line was born.';
-        whyWrap.append(caveat);
-      }
-    });
-    whyWrap.append(whyBtn);
-    panelBody.append(whyWrap);
+    /* THE WHY CONTROL USED TO BE BUILT HERE, and here is a queue that fetches LINE TEXT
+       FOR THE CANVAS. It appended a button to panelBody once per drained particle, for
+       particles the reader had not clicked, into whatever card happened to be open — and
+       for a card opened while nothing was draining, never at all. vikra-ac pressed for it
+       on the published page and found the card's buttons were still only ["–", "✕"] after
+       25 seconds. It now lives in show(), beside the line it is about. */
 
     const text = await readFile(r.place);
     if (text) {
@@ -623,6 +597,34 @@ function nearestResolvable(i) {
     }
   }
   return -1;
+}
+
+/* ---- what the record knows about a family, from memory -------------------
+ *
+ * families.json holds first_written for 10,800 of 10,985 families — 98.3% — beside kind,
+ * block, category, repos, files and standalone. It is 2.2 MB, far too large for a card,
+ * so each band carries the brief facts for only the families its own keys reach: 9.8 KB
+ * a band, and no fetch at all, because the band has already loaded before a card exists.
+ *
+ * STATED, NOT INTERPRETED. `standalone` is reported as a flag the record sets, not
+ * translated into a claim about what the function needs, because nothing here measured
+ * that. Same extensional discipline as compare: say what was measured.
+ */
+function familyNote(r) {
+  if (!r || !r.brief) return '';
+  const kind = r.brief[0], block = r.brief[1], cat = r.brief[2];
+  const repos = r.brief[3], files = r.brief[4], alone = r.brief[5], first = r.brief[6];
+  const parts = [];
+  parts.push(r.name + ' is ' + (kind ? 'a ' + kind : 'code') +
+    (cat ? ' in the ' + cat + ' group' : '') + (block ? ', block ' + block : '') + '.');
+  parts.push(first
+    ? 'The record says it was first written on ' + first + '.'
+    : 'The record holds no first-written date for it — 185 of the 10,985 families have none.');
+  parts.push('The estate carries it in ' + files.toLocaleString() +
+    (files === 1 ? ' file across ' : ' files across ') + repos.toLocaleString() +
+    (repos === 1 ? ' repository' : ' repositories') + ', and ' +
+    (alone ? 'the record marks it standalone.' : 'the record does not mark it standalone.'));
+  return parts.join(' ');
 }
 
 /* ---- WHY IS THIS HERE ----------------------------------------------------
@@ -822,6 +824,75 @@ async function show(i) {
       doors.append(sf);
     }
     panelBody.append(doors);
+
+    /* WHAT THE RECORD KNOWS, AT ZERO FETCHES — and it is the better answer.
+     *
+     * vikra-ac traced the WHY button's data path end to end at 06:17Z, with no page
+     * involved, and found it works and answers the wrong question. The commit a family's
+     * PLACE pins is where the estate IMPORTS the file from, and imports are updated by
+     * automation — so for haversine the button spends one of sixty hourly GitHub calls to
+     * be told "github-actions[bot]: spider: manifest updated from registries", dated ten
+     * days AFTER the function was first written. True about the commit, useless about the
+     * code, and reliably the least meaningful commit touching that file.
+     *
+     * Its own diagnosis, and it was of its own proposal: the verb was named for the
+     * question we wanted answered rather than for the data that could answer it. "Why is
+     * this here" asks about authorship; the data available is about importing. A VERB MAY
+     * NOT PROMISE AN ANSWER ITS DATA CANNOT GIVE — the label is the promise.
+     *
+     * So the pack speaks first, from memory, for 98.3% of families, and the commit stays
+     * — relabelled as exactly what it is, and spent only when a reader asks for it. */
+    if (r.brief) {
+      const facts = document.createElement('div');
+      facts.className = 'why';
+      const fl = document.createElement('div');
+      fl.className = 'dim';
+      fl.textContent = 'WHAT THE RECORD KNOWS ABOUT THIS FUNCTION';
+      const fp = document.createElement('p');
+      fp.className = 'plain';
+      fp.textContent = familyNote(r);
+      facts.append(fl, fp);
+      panelBody.append(facts);
+    }
+
+    const whyWrap = document.createElement('div');
+    whyWrap.className = 'why';
+    const whyBtn = document.createElement('button');
+    whyBtn.type = 'button';
+    whyBtn.className = 'whybtn';
+    /* Named for the data, not for the question. */
+    whyBtn.textContent = 'THE COMMIT THIS FILE IS PINNED AT';
+    whyBtn.addEventListener('click', async () => {
+      whyBtn.disabled = true;
+      whyBtn.textContent = 'reading the commit…';
+      const w = await whyOf(r.place[0], r.place[1]);
+      if (focusIdx !== i) return;
+      whyWrap.textContent = '';
+      const lead = document.createElement('div');
+      lead.className = 'dim';
+      lead.textContent = w.error
+        ? 'no commit message: ' + w.error
+        : 'The estate imports this file at a commit made on ' +
+          (w.date ? w.date.slice(0, 10) : 'an unrecorded date') + ':';
+      whyWrap.append(lead);
+      if (!w.error) {
+        const q = document.createElement('p');
+        q.className = 'plain';
+        q.textContent = w.subject + (w.body ? String.fromCharCode(10, 10) + w.body.slice(0, 600) : '');
+        whyWrap.append(q);
+        const caveat = document.createElement('div');
+        caveat.className = 'dim';
+        caveat.textContent = 'This is the commit the estate IMPORTS this file at — not ' +
+          'where the line was born. Imports are usually updated by automation, so this ' +
+          'is often a bot syncing a manifest rather than a person deciding something: ' +
+          'measured on this surface, the commit was dated ten days after the function ' +
+          'was first written. A commit also describes a CHANGE, not a line. The date ' +
+          'above the code block is the more useful one.';
+        whyWrap.append(caveat);
+      }
+    });
+    whyWrap.append(whyBtn);
+    panelBody.append(whyWrap);
 
     /* THE APP DOOR. Vikram's own example — the cable geometry visualiser at
        cable-trench-or-drill/…/calculations.js — had no journey at all, because a

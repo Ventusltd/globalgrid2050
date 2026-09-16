@@ -1,11 +1,15 @@
-/* The Nest. Designed at 430 px first; the desktop is the same layout with more
-   room. One canvas, two chrome strips, nothing that scrolls the page.
-   Palette taken from testcode/202609151339 unchanged, so the nest and the
-   surfaces it opens are visibly the same estate. */
+/* The code wafer. Designed at 430 px first; the desktop is the same layout with
+   more room. One canvas, two chrome strips, one card.
+
+   THE CARD IS NOT NEW. Its look is the Grid Atlas popup, taken from
+   galaxies-wafers/iterations/07-code-card/code-card.mjs unchanged: black ground,
+   a #444 edge, monospace, an amber title, grey detail, bordered cyan buttons.
+   Iteration 31 reused it before this page did. Reinventing it would have made a
+   second card that had to be learned separately. */
 
 :root{
-  --ink:#d8dee9; --dim:#8b93a7; --ground:#0b0d12; --edge:#1b2030;
-  --lit:#ffd54a; --beam:#5ec8f2; --cold:#3d4761;
+  --ink:#d8dee9; --dim:#8b93a7; --ground:#05070b; --edge:#444;
+  --lit:#ffd54a; --beam:#00ffff; --card:#0a0a0a;
   --top:env(safe-area-inset-top,0px); --bot:env(safe-area-inset-bottom,0px);
 }
 *{box-sizing:border-box}
@@ -21,37 +25,62 @@ body{
   position:fixed; left:0; right:0; top:0; z-index:2;
   display:flex; gap:.75rem; align-items:baseline; flex-wrap:wrap;
   padding:calc(var(--top) + .5rem) .75rem .5rem;
-  background:linear-gradient(#0b0d12ee,#0b0d1200); pointer-events:none;
+  background:linear-gradient(#05070bee,#05070b00); pointer-events:none;
 }
-#wordmark{letter-spacing:.14em; font-size:11px}
+#wordmark{letter-spacing:.14em; font-size:11px; color:var(--lit)}
 .dim{color:var(--dim)}
-.lit{color:var(--lit)}
 
 #foot{
   position:fixed; left:0; right:0; bottom:0; z-index:2;
   padding:.5rem .75rem calc(var(--bot) + .5rem);
-  background:linear-gradient(#0b0d1200,#0b0d12ee);
-  color:var(--dim); font-size:11px; pointer-events:none;
+  background:linear-gradient(#05070b00,#05070bee);
+  color:#555; font-size:11px; pointer-events:none;
 }
 
+/* ---- the card, per iteration 07 ---------------------------------------- */
 #panel{
-  position:fixed; z-index:3; left:.5rem; right:.5rem; bottom:calc(var(--bot) + 2.4rem);
-  max-width:34rem; margin:0 auto;
-  background:#05070bf2; border:1px solid var(--edge); border-radius:.4rem;
-  padding:.7rem .8rem .8rem;
+  position:fixed; z-index:3; left:.5rem; right:.5rem;
+  top:calc(var(--top) + 2.4rem); bottom:calc(var(--bot) + 2.2rem);
+  max-width:46rem; margin:0 auto;
+  background:var(--card); border:1px solid var(--edge); border-radius:4px;
+  padding:.7rem .8rem .8rem; overflow:auto; font-size:11px;
 }
-#panel h2{margin:0 0 .2rem; font-size:13px; color:var(--lit); font-weight:600}
-#panel dl{display:grid; grid-template-columns:auto 1fr; gap:.1rem .6rem; margin:.45rem 0 0}
-#panel dt{color:var(--dim)}
-#panel dd{margin:0}
-#open{
-  display:inline-block; margin-top:.6rem; padding:.3rem .8rem;
-  border:1px solid var(--beam); color:var(--beam); border-radius:.2rem;
-  text-decoration:none; font-size:12px;
-}
-#open[aria-disabled="true"]{border-color:var(--cold); color:var(--cold); pointer-events:none}
+#panel h2{margin:0 0 .15rem; font-size:12px; color:var(--lit); font-weight:600}
 #close{
-  position:absolute; top:.35rem; right:.4rem; background:none; border:0;
-  color:var(--dim); font:inherit; cursor:pointer; padding:.2rem .35rem;
+  position:absolute; top:.3rem; right:.4rem; background:none; border:0;
+  color:#888; font:inherit; cursor:pointer; padding:.2rem .4rem;
 }
-@media (min-width:40rem){ #panel{left:auto; right:.75rem; bottom:auto; top:calc(var(--top) + 2.6rem)} }
+#close:hover{color:var(--beam)}
+
+/* The plain-English box: what the code does, before any code is shown. */
+.plain{
+  margin:.6rem 0 .1rem; padding:.55rem .6rem;
+  background:#000; border:1px solid #2a2a2a; border-radius:3px;
+  color:#aaa; line-height:1.55;
+}
+
+/* The doors. Bordered cyan buttons, iteration 07's shape. */
+.doors{display:flex; gap:6px; margin:.6rem 0 .2rem; flex-wrap:wrap}
+.doors a{
+  display:inline-block; padding:.28rem .7rem;
+  background:#0a0a0a; color:var(--beam); border:1px solid var(--beam);
+  border-radius:3px; text-decoration:none; font-size:11px;
+}
+.doors a:hover{background:#00ffff14}
+
+/* The block: twenty-one lines, the numbered one lit. */
+.block{margin-top:.55rem}
+pre.code{
+  margin:0 0 .35rem; padding:.5rem .4rem; background:#000;
+  border:1px solid #2a2a2a; border-radius:3px;
+  overflow-x:auto; font-size:11px; line-height:1.5;
+}
+.cl{display:flex; gap:.7rem; white-space:pre}
+.cl .ln{color:#555; user-select:none; flex:none}
+.cl.hit{background:#ffd54a14}
+.cl.hit .ln{color:var(--lit)}
+.cl.hit span:last-child{color:var(--lit)}
+
+@media (min-width:46rem){
+  #panel{left:auto; right:.75rem; width:40rem; bottom:auto; max-height:82vh}
+}

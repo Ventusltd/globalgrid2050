@@ -50,6 +50,8 @@ let lit = null;                                           /* radiation, derived 
 let nat = null;                                           /* nature, derived once */
 let dpr = 1, scale = 1, cx = 0, cy = 0, zoom = 1, panX = 0, panY = 0;
 let focusIdx = -1, counts = null;
+/* 'ascending' always, except while the render proof is measuring. */
+let drawOrder = 'ascending';
 
 const LOD_NAMES = 8, LOD_CODE = 30, MAX_LAZY = 48;
 const bucketCache = new Map();      /* bucket id -> resolution arrays | 'pending' */
@@ -216,7 +218,10 @@ function draw() {
   const W = stage.width, H = stage.height;
   if (pixelPath) { ensureBuffer(); buf32.fill(0xff0b0705); }   /* ABGR: the ground */
 
-  for (let i = 0; i < n; i++) {
+  const step = drawOrder === 'descending' ? -1 : 1;
+  const from = step === 1 ? 0 : n - 1;
+  for (let c = 0; c < n; c++) {
+    const i = from + c * step;
     const x = sx(i), y = sy(i);
     if (x < -10 || y < -10 || x > W + 10 || y > H + 10) continue;
     shown++;
@@ -634,3 +639,25 @@ document.getElementById('close').addEventListener('click', () => {
   panel.hidden = true; focusIdx = -1; draw();
 });
 addEventListener('resize', () => { layout(); draw(); });
+
+/* ---- the hook the render proof drives ----------------------------------
+   proof/index.html reads this page's real canvas rather than a copy of its
+   drawing code — a proof that reimplements the thing it checks proves only that
+   two implementations agree. It exposes the camera, so the proof can compute
+   where a key MUST land from the law, and a draw-order switch, so reversing the
+   order and comparing the raster turns "the picture is a pure function of the
+   keys" from an argument into a measurement. Nothing here changes what the page
+   draws for a reader. */
+window.__wafer = {
+  ready: () => keys !== null,
+  camera: () => ({ cx, cy, scale, zoom, panX, panY, dpr, w: stage.width, h: stage.height }),
+  ground: [5, 7, 11],                    /* #05070b, the value draw() fills with */
+  keyCount: () => (keys ? keys.length : 0),
+  sampleKeys: (n) => {
+    if (!keys) return [];
+    const out = [];
+    for (let i = 0; i < n; i++) out.push(keys[Math.floor((i + 0.5) * keys.length / n)]);
+    return out;
+  },
+  drawWith: (order) => { drawOrder = order; draw(); drawOrder = 'ascending'; },
+};

@@ -39,18 +39,50 @@ body{
 
 /* ---- the card, per iteration 07 ---------------------------------------- */
 #panel{
-  position:fixed; z-index:3; left:.5rem; right:.5rem;
-  top:calc(var(--top) + 2.4rem); bottom:calc(var(--bot) + 2.2rem);
-  max-width:46rem; margin:0 auto;
+  position:fixed; z-index:3; left:.5rem;
+  top:calc(var(--top) + 2.4rem);
+  width:min(30rem, calc(100vw - 1rem));
+  max-height:min(30rem, calc(100vh - var(--top) - var(--bot) - 5rem));
   background:var(--card); border:1px solid var(--edge); border-radius:4px;
-  padding:.7rem .8rem .8rem; overflow:auto; font-size:11px;
+  font-size:11px; display:flex; flex-direction:column;
+  box-shadow:0 8px 28px #000a;
+}
+/* The card no longer fills the screen: the galaxy is the point, the card is the
+   visitor. It can be dragged anywhere by its grip, minimised to the grip alone,
+   and reopened. Position is remembered for this visit only. */
+#panelbody{overflow:auto; padding:.2rem .8rem .8rem; flex:1 1 auto; min-height:0}
+#grip{
+  display:flex; align-items:center; gap:.4rem; flex:0 0 auto;
+  padding:.35rem .3rem .35rem .7rem; cursor:grab; touch-action:none;
+  border-bottom:1px solid #1e1e1e; border-radius:4px 4px 0 0; background:#0d0d0d;
+  user-select:none; -webkit-user-select:none;
+}
+#panel.dragging #grip{cursor:grabbing}
+#panel.dragging{box-shadow:0 14px 40px #000d}
+#griptitle{flex:1 1 auto; color:var(--lit); font-size:11px; overflow:hidden;
+  white-space:nowrap; text-overflow:ellipsis}
+#grip button{
+  background:none; border:0; color:#888; font:inherit; cursor:pointer;
+  padding:.15rem .45rem; line-height:1; border-radius:3px;
+}
+#grip button:hover{color:var(--beam); background:#00ffff14}
+#panel.min{max-height:none; resize:none}
+#panel.min #panelbody{display:none}
+#panel.min #grip{border-bottom:0; border-radius:4px}
+#reopen{
+  position:fixed; z-index:3; left:.5rem; bottom:calc(var(--bot) + 2.4rem);
+  background:#0a0a0a; color:var(--beam); border:1px solid var(--beam);
+  border-radius:3px; padding:.3rem .7rem; font:11px/1 ui-monospace,Menlo,monospace;
+  cursor:pointer;
+}
+#reopen:hover{background:#00ffff14}
+@media (max-width:640px){
+  /* On a phone, dragging a sheet around is worse than docking it. */
+  #panel{left:.5rem; right:.5rem; width:auto; top:auto;
+         bottom:calc(var(--bot) + 2.2rem); max-height:52vh}
 }
 #panel h2{margin:0 0 .15rem; font-size:12px; color:var(--lit); font-weight:600}
-#close{
-  position:absolute; top:.3rem; right:.4rem; background:none; border:0;
-  color:#888; font:inherit; cursor:pointer; padding:.2rem .4rem;
-}
-#close:hover{color:var(--beam)}
+
 
 /* The plain-English box: what the code does, before any code is shown. */
 .plain{

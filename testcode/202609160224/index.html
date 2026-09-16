@@ -16,10 +16,16 @@
   <span id="count" class="dim">reading the numbering...</span>
 </header>
 
-<section id="panel" hidden>
-  <button id="close" type="button" aria-label="close">✕</button>
+<section id="panel" hidden aria-labelledby="griptitle">
+  <div id="grip">
+    <span id="griptitle">line</span>
+    <button id="min" type="button" aria-label="minimise the card" title="minimise">–</button>
+    <button id="close" type="button" aria-label="close the card" title="close">✕</button>
+  </div>
   <div id="panelbody"></div>
 </section>
+
+<button id="reopen" type="button" hidden aria-label="reopen the card">▣ card</button>
 
 <footer id="foot"></footer>
 

@@ -482,9 +482,17 @@ check('particles equal the pack\'s in_a_family', head.particles === meta.in_a_fa
      vikra-ac corrected it to the sharper form: the widening took it from one property to
      two, and WHAT IT STILL HOLDS IS ONE SYNTAX. A double-quoted string, a template
      literal, setAttribute('title', …), an aria-label, or a bare 3130777 with no comma all
-     sit outside this regex, and two of those constructs are already in the file. None
-     carries a number today; the check cannot know that and would not notice the day one
-     does.
+     sit outside this regex, and ONE of them is already in the file: nest.mjs:1279,
+     setAttribute('aria-label', …). It carries no number today; the check cannot know that
+     and would not notice the day one does.
+     THIS COMMENT SAID "TWO" FOR TWENTY MINUTES. vikra-ac counted setAttribute and
+     aria-label separately and added them — 2 + 1 = 3 — and they are the same two lines,
+     of which nest.mjs:1323 is setAttribute('aria-current', 'page'), a STATE and not a
+     label a reader reads. It corrected itself to one. The chair then repeated the wrong
+     figure into a commit message and a stone WITHOUT OPENING THE FILE, while the line
+     directly below printed `beyond` = 1 from the file itself. The number was right and
+     the prose beside it was not, because the number came out of the source and the prose
+     came out of a message.
      NOT WIDENED AGAIN, deliberately: the next widening buys the next spelling and no
      more. There is no regex that closes this — the closure is to read the rendered
      attribute from the page, because a reader gets a tooltip and a tooltip has one value

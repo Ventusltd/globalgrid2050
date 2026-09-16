@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-09-16T05:37:55.650Z",
+ "generated_utc": "2026-09-16T05:50:24.901Z",
  "built_from": "globalgrid2050/testcode",
  "surfaces": 119,
  "fragments": [
@@ -11,7 +11,7 @@
  "named": 121,
  "openable": 119,
  "total_files": 8351,
- "total_bytes": 846574753,
+ "total_bytes": 846578285,
  "law": "r = sqrt(key) · theta = key × 2.39996…  (the golden angle)",
  "laws": {
   "bands-by-key": [
@@ -1816,7 +1816,7 @@
    "title": "Wafer Galaxy - Navigate through our code without coding knowledge!",
    "title_from": "index.html",
    "files": 85,
-   "bytes": 4086328,
+   "bytes": 4089860,
    "has_readme": false,
    "has_proof": true,
    "families": 0,

@@ -223,6 +223,43 @@ check('particles equal the pack\'s in_a_family', head.particles === meta.in_a_fa
           (lenOf ? '' : ' (length pack absent — only distinctness was checked)'));
 }
 
+/* 10. A FAMILY CLAIM NAMES THE BUILD IT IS TRUE OF.
+ *
+ * vikra-ac measured two packs 23.3 hours apart and the chair reproduced it exactly:
+ *
+ *   of pack 202609142202's 250,174 keys, measured against 202609152203
+ *     absent entirely ............ 0        the permanence promise, OBSERVED
+ *     lost their family ........ 198        0.154% in 23.3 hours
+ *     gained a family ........... 49
+ *
+ * Zero keys vanished. Not one of 250,174 — so a set, a notation line, a composition
+ * and an annotation are all safe for ever in the only sense that matters.
+ *
+ * But 198 lines stopped being part of any function in a day, and NOTHING SAID SO. The
+ * key still resolves, the text still reads, and the thing it described is gone. A
+ * proposal from last month that is 95% live looks byte-identical to one made this
+ * morning, and the one thing that changed is the only thing a non-coder cannot check.
+ *
+ * So a family claim must name its build. Stated as measured, never as "still live":
+ * carried-by-a-family is the estate's own proxy and a line can be in a file and in no
+ * function. And no expiry, no warning colour, no threshold — at 0.15% a day any
+ * threshold is arbitrary and would train a reader to ignore it.
+ */
+{
+  const src = fs.readFileSync(path.join(SURF, 'nest.mjs'), 'utf8')
+    .replace(/\/\*[\s\S]*?\*\//g, ' ');          /* code, not the prose about it */
+  const namesBuild = /in pack.*built_utc|built_utc.*in pack|' · in pack '/.test(src) ||
+    /in pack/.test(src) && /built_utc/.test(src);
+  const overclaims = /still live|currently live/i.test(src);
+  const hedged = /not the same as not being in a file/.test(src);
+  check('a family claim names the build it is true of',
+    !MUTATE && namesBuild && !overclaims && hedged,
+    overclaims ? 'the card says "still live" — carried-by-a-family is a proxy, not liveness'
+      : !namesBuild ? 'a family claim with no build named; 198 lines lost their family in a day'
+        : !hedged ? 'the card does not distinguish "in no function" from "not in a file"'
+          : 'the card names the pack’s built_utc and says what carried-by-a-family is not');
+}
+
 let failed = 0;
 for (const r of results) {
   if (!r.ok) failed++;

@@ -689,6 +689,14 @@ function english(i, r) {
       : 'This line is ' + nm + ' code holding ' + len + ' characters. No function family claims it, so the estate records no file for it — one of the ' +
         (meta.lines - meta.in_a_family).toLocaleString() + ' lines in that position.';
   /* RADIATION: has this code been used somewhere. */
+  /* Stated as measured, never as "still live": carried-by-a-family is the estate's own
+     proxy, and a line can be in a file and in no function. Same extensional discipline
+     as compare — say what was measured, not what it suggests. No expiry, no warning
+     colour, no threshold: the decay is 0.15% a day, so any threshold would be arbitrary
+     and would train a reader to ignore it. Report it and let them decide. */
+  const currency = fams[i]
+    ? ' As of this build it is still part of a named function.'
+    : ' In this build it is part of no named function — which is not the same as not being in a file.';
   const rad = r
     ? (r.also
       ? ' RADIATION: it is used in ' + (r.also + 1).toLocaleString() +
@@ -701,7 +709,7 @@ function english(i, r) {
     ? ' RELATIONAL FIELD: none yet. Dust relates to nothing so far — that is a state, not a verdict, and it is where new stars come from.'
     : ' RELATIONAL FIELD: the ten lines above and ten below, shown here' +
       (r ? ', and the computation ' + r.name + ' that carries it' : '') + '.';
-  return what + rad + rel;
+  return what + currency + rad + rel;
 }
 
 /* ---- the card ----------------------------------------------------------- */
@@ -720,8 +728,17 @@ async function show(i) {
 
   const sub = document.createElement('div');
   sub.className = 'dim';
+  /* A FAMILY CLAIM IS TRUE OF A BUILD, AND MUST SAY WHICH.
+     vikra-ac measured two packs 23.3 hours apart: of 250,174 keys, ZERO vanished — the
+     permanence promise is an observed property, not a design intention — but 198 lines
+     LOST their family in that day, 0.154%, and 49 gained one. A set or a line that was
+     part of a function last week can belong to none this week: the key still resolves,
+     the text still reads, and the thing it described is gone. Nothing distinguished
+     "still part of a named function" from "a fossil that still reads correctly".
+     One byte per key, already loaded in all-lines.family.bin, and zero fetches. */
   sub.textContent = NATURE_NAME[nat[i]] + ' · ' + lens[i] + ' characters' +
-    (r ? ' · family ' + r.family + ' ' + r.name : ' · in no family');
+    (r ? ' · family ' + r.family + ' ' + r.name : ' · in no function family') +
+    ' · in pack ' + (meta.built_utc || 'of unknown date');
   panelBody.append(sub);
 
   const box = document.createElement('p');

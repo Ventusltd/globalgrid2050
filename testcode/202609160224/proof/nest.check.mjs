@@ -4,12 +4,17 @@
  * surfaces out of ninety-six and could not know it was wrong, because it was
  * typed rather than generated. So the checks worth running are not "does it
  * draw" but "can it disagree with the directory". Every check below is a way
- * for the manifest and the directory to disagree, and each must be provably
- * capable of failing: run with --mutate to corrupt the manifest in memory and
- * watch the checks that should fail, fail.
+ * for the manifest and the directory to disagree.
+ *
+ * WHAT --mutate COVERS, STATED RATHER THAN IMPLIED. It corrupts the manifest in
+ * memory four ways and the four checks that read the manifest against the
+ * directory (1-4) must each fail. Checks 5 and 6 are NOT covered and cannot be:
+ * a pure function of the key cannot be falsified by corrupting a manifest, and
+ * generated_utc is not what the mutation touches. Saying so is the point - the
+ * defect this file exists to catch was a scope nobody wrote down.
  *
  * Run:  node proof/nest.check.mjs
- *       node proof/nest.check.mjs --mutate     (expect FAILs - that is the point)
+ *       node proof/nest.check.mjs --mutate     (expect 1-4 to FAIL - that is the point)
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -24,11 +29,17 @@ const manifest = JSON.parse(fs.readFileSync(path.join(SURF, 'surfaces.json'), 'u
 const list = manifest.list.map((s) => ({ ...s }));
 
 if (MUTATE) {
-  /* Three lies, one per class of check: a surface that is not on disk, a key
-     sequence with a hole, and an entry that points at nothing. */
-  list.push({ key: list.length + 1, stamp: '209901010000', entry: '209901010000/', files: 1, bytes: 1 });
-  if (list[3]) list[3].key = 999;
-  if (list[5]) list[5].entry = 'not-a-directory/';
+  /* Four lies, one per manifest-vs-directory check.
+     The fourth was missing until vikra-ac reviewed this file: the first three
+     all ADD or ALTER an entry, so check 2 - the manifest omitting a surface that
+     exists - had no lie to catch and passed under mutation. That omission is the
+     exact direction of the bug this whole surface was built to fix: a front door
+     that named two surfaces out of ninety-six. The one check guarding the
+     original defect was the one never shown capable of failing. */
+  list.splice(2, 1);                                                   /* omits a real surface  -> check 2 */
+  list.push({ key: list.length + 1, stamp: '209901010000', entry: '209901010000/', files: 1, bytes: 1 }); /* -> check 1 */
+  if (list[3]) list[3].key = 999;                                      /* -> check 3 */
+  if (list[5]) list[5].entry = 'not-a-directory/';                     /* -> check 4 */
 }
 
 const onDisk = fs.readdirSync(ROOT, { withFileTypes: true })
@@ -41,15 +52,15 @@ const check = (name, ok, detail) => results.push({ name, ok: !!ok, detail });
 
 /* 1. The manifest may not name a surface that is not in the directory. */
 const missing = list.filter((s) => !onDisk.includes(s.stamp)).map((s) => s.stamp);
-check('every named surface exists on disk', missing.length === 0,
-  missing.length ? 'not on disk: ' + missing.join(', ') : list.length + ' named, all present');
+check('every listed surface exists on disk', missing.length === 0,
+  missing.length ? 'not on disk: ' + missing.join(', ') : list.length + ' listed, all present');
 
 /* 2. The manifest may not omit a surface that is in the directory. This is the
       check the old front door would have failed 94 times. */
 const named = new Set(list.map((s) => s.stamp));
 const omitted = onDisk.filter((d) => !named.has(d));
-check('every surface on disk is named', omitted.length === 0,
-  omitted.length ? 'omitted: ' + omitted.join(', ') : onDisk.length + ' on disk, all named');
+check('every surface on disk is listed', omitted.length === 0,
+  omitted.length ? 'listed nowhere: ' + omitted.join(', ') : onDisk.length + ' on disk, all listed');
 
 /* 3. Keys are 1..n with no hole and no repeat: the placement law is a function
       of the key, so a duplicate key is two surfaces drawn on top of each other. */

@@ -1,4 +1,4 @@
-"""Step ROUTE: which wafer keys does GridAtlas own? Reads the Modular Star family buckets, writes route-gridatlas.json.
+"""Step ROUTE: which wafer keys does GridAtlas carry (memberships)? Reads the Modular Star family buckets, writes route-gridatlas.json.
 Deterministic. No model involved: a published number must come from a script that can fail."""
 import json, glob, collections, os, sys
 STARS = os.environ.get('STARS_CODE', os.path.join(os.environ.get('GITHUB_DIR', os.path.expanduser('~/Documents/GitHub')), r'stars\code'))

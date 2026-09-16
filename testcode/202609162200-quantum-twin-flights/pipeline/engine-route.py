@@ -1,4 +1,4 @@
-"""Step ENGINE-ROUTE: which wafer keys each ventus-grid-engine module owns. Writes engine-route.json. Deterministic."""
+"""Step ENGINE-ROUTE: which wafer keys each ventus-grid-engine module carries (memberships). Writes engine-route.json. Deterministic."""
 import json, glob, os, sys, collections, re
 STARS = os.environ.get('STARS_CODE', os.path.join(os.environ.get('GITHUB_DIR', os.path.expanduser('~/Documents/GitHub')), r'stars\code'))
 ENGINE = os.environ.get('ENGINE_DIR', os.path.join(os.environ.get('GITHUB_DIR', os.path.expanduser('~/Documents/GitHub')), r'ventus-grid-engine\engine'))

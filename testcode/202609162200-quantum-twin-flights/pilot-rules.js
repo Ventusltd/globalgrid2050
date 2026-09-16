@@ -8,6 +8,9 @@ function plan(sentence, ctx) {
   const dieHit = t.includes('substation') ? 'substation' : t.includes('sld') ? 'sld-sandbox' : /\bsearch\b/.test(t) ? 'search' : /(bridge|parquet)/.test(t) ? 'bridge' : DIES.find(d => t.includes(d.split('-')[0])) || null;
   const wantArrange = /(arrange|re-?arrange|layout|lay out|as a cpu|floorplan|floor plan|\brings?\b|\bgrid\b|sector|by app)/.test(t);
 
+  const earthNames = ['spider sandbox', 'periodic table', 'gridatlas', 'pipelinenews', 'pipeline news', 'globalgrid2050', 'grid-dictionary', 'spiders', 'star-solar-star', 'code-generator', 'testcode', 'galaxies-wafers', 'ventus-grid-engine', 'stars'];
+  if (/\b(back to space|to space|space)\b/.test(t) && !/\bland\b/.test(t)) return { commands: ['space'], because: 'back to the wafer' };
+  if (/\b(land|land on|take me to|go down to|visit|open|show me the app)\b/.test(t)) { const e = earthNames.find(n => t.includes(n)); if (e) return { commands: [`land ${e.replace('pipeline news', 'pipelinenews')}`], because: 'down to the live app' }; }
   if (/\bplasma\b/.test(t)) out.push('plasma');
   if (/\b(lightning|strike)\b/.test(t)) out.push(`lightning ${appHit || 'gridatlas'}`);
 
@@ -26,7 +29,7 @@ function plan(sentence, ctx) {
   }
 
   if (/(entangle|\btwin|coupl)/.test(t)) out.push('entangle');
-  const key = num(/(?:read|block|key|fly to|go to|twin|qubit|measure)\s+(\d{1,7})\b/) ?? (/(voltage|amp|metre|meter|ohm|houses|kw|kva)/.test(t) ? null : num(/\b(\d{2,7})\b/));
+  const key = num(/(?:read|block|key|fly to|go to|twin|state|qubit|measure)\s+(\d{1,7})\b/) ?? (/(voltage|amp|metre|meter|ohm|houses|kw|kva)/.test(t) ? null : num(/\b(\d{2,7})\b/));
   if (/(\bread\b|show me the code|the real line)/.test(t) && key != null) out.push(`read ${key}`);
   else if (/(fly to|go to|\bblock\b|\bkey\b)/.test(t) && key != null) out.push(`block ${key}`);
   if (/\b(seed|grow)\b/.test(t)) out.push(`seed ${sentence.replace(/^.*?\b(seed|grow)\b\s*/i, '') || sentence}`);

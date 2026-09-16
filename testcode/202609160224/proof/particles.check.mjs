@@ -17,6 +17,7 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { derive, nature, radiation, isExplanatory, NATURE_NAME, NOISE } from '../derive.mjs';
+import { plainEnglish, familyClause } from '../card-text.mjs';
 
 const HERE = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'));
 const SURF = path.resolve(HERE, '..');
@@ -40,6 +41,25 @@ if (MUTATE) {
 
 const results = [];
 const check = (name, ok, detail) => results.push({ name, ok: !!ok, detail });
+
+/* THE CARD'S PROSE IS WHEREVER THE CARD'S PROSE IS.
+ *
+ * Extracting the sentences into card-text.mjs broke two checks that named nest.mjs, and
+ * that is the lesson rather than the inconvenience: a check anchored to a FILE holds a
+ * file, not the thing it claims to hold. One of them then reported "0 sentences" with the
+ * hash of the empty string — it failed only because the pin disagreed, and a check that
+ * can pass on nothing is one edit away from passing on nothing.
+ *
+ * So the prose is read from every file that composes it, and cardProse() FAILS LOUDLY if
+ * a named file is missing rather than quietly returning less text to search. */
+function cardProse() {
+  const parts = ['nest.mjs', 'card-text.mjs'].map((f) => {
+    const p = path.join(SURF, f);
+    if (!fs.existsSync(p)) throw new Error('card prose file missing: ' + f);
+    return fs.readFileSync(p, 'utf8');
+  });
+  return parts.join('\n/* --- file boundary --- */\n');
+}
 
 /* 1. Every band the head names exists on disk. */
 const missing = buckets.filter(([b]) => !fs.existsSync(path.join(SURF, 'p', b + '.json'))).map(([b]) => b);
@@ -247,7 +267,7 @@ check('particles equal the pack\'s in_a_family', head.particles === meta.in_a_fa
  * threshold is arbitrary and would train a reader to ignore it.
  */
 {
-  const src = fs.readFileSync(path.join(SURF, 'nest.mjs'), 'utf8')
+  const src = cardProse()
     .replace(/\/\*[\s\S]*?\*\//g, ' ');          /* code, not the prose about it */
   const namesBuild = /in pack.*built_utc|built_utc.*in pack|' · in pack '/.test(src) ||
     /in pack/.test(src) && /built_utc/.test(src);
@@ -290,7 +310,7 @@ check('particles equal the pack\'s in_a_family', head.particles === meta.in_a_fa
  * source splits across two concatenated lines. Test what is written.
  */
 {
-  const raw = fs.readFileSync(path.join(SURF, 'nest.mjs'), 'utf8');
+  const raw = cardProse();
   const code = raw.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|[^:])\/\/[^\n]*/g, '$1 ');
   /* Shapes, not sentences. Each is a way of telling a reader that no family carries this
      line, and all of them must sit under fams[]. */
@@ -306,7 +326,9 @@ check('particles equal the pack\'s in_a_family', head.particles === meta.in_a_fa
   /* THE MUTATION REMOVES THE GUARD — the defect this check exists for — rather than
      appending a finding the check never made. Every denial then stands unguarded, and all
      of them must be reported. */
-  const scan = MUTATE ? code.split('fams[').join('FAMS_REMOVED(') : code;
+  const scan = MUTATE
+    ? code.split('fams[').join('FAMS_REMOVED(').split('inFamily').join('IN_FAMILY_REMOVED')
+    : code;
   const lines = scan.split('\n');
   const denials = [];
   lines.forEach((l, i) => {
@@ -317,8 +339,17 @@ check('particles equal the pack\'s in_a_family', head.particles === meta.in_a_fa
        it therefore reported ONE of the two live sites and would have been believed about
        the other. A guard is a fams[] read inside a conditional, so a line that completes
        a statement does not count as one. */
+    /* THE SYMBOL, NOT THE SPELLING — and this cost a green run. The composition moved to
+       card-text.mjs, where the pack's in-family byte arrives as the parameter `inFamily`
+       rather than as `fams[i]`. The rule was unchanged and every guard was in place, and
+       this check reported FIVE unguarded denials, because it held a NAME.
+       And the second half was worse: the first version rejected any line ending in `;`,
+       to keep `const d = derive(key, len, fams[i]);` from counting as a guard. That also
+       rejects `if (inFamily) return ...;` — a real guard, in one line, which is how the
+       subheader now reads. A completed statement is not a guard UNLESS it is a
+       conditional. */
     const guarded = lines.slice(Math.max(0, i - 8), i + 1)
-      .some((w) => /fams\[/.test(w) && !/;\s*$/.test(w));
+      .some((w) => /(fams\[|inFamily)/.test(w) && (/\bif\s*\(/.test(w) || !/;\s*$/.test(w)));
     if (!guarded) denials.push('line ' + (i + 1) + ' "' + l.trim().replace(/\s+/g, ' ').slice(0, 52) + '"');
   });
   check('no family denial is reached without consulting fams[]',
@@ -345,14 +376,20 @@ check('particles equal the pack\'s in_a_family', head.particles === meta.in_a_fa
  * exists to catch.
  */
 {
-  const raw = fs.readFileSync(path.join(SURF, 'nest.mjs'), 'utf8');
+  const raw = cardProse();
   /* Comments FIRST, and this bit on the very first run: an apostrophe inside a comment
      ("true of this page's downloads") opens a string literal, and the extractor returned
      28 fragments of COMMENT PROSE as though they were the card's sentences. Pinning that
      would have pinned the wrong text and called it classified. The fifth time tonight a
      check read a comment as evidence. */
   const src = raw.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|[^:])\/\/[^\n]*/g, '$1 ');
-  const from = src.indexOf('function english(');
+  /* IT FOUND function english( AND EXTRACTED NOTHING — 0 sentences, the hash of the
+     empty string. english() is now a four-line wrapper and the prose moved to
+     card-text.mjs, so the region this searched was real and empty. It failed loudly only
+     because the pin disagreed; had the pin ever been taken from an empty region it would
+     have passed on nothing for ever, which is why lits.length > 0 is part of the verdict
+     and not a comment. */
+  const from = src.indexOf('export function plainEnglish(');
   const to = src.indexOf('\n}', from);
   const body = from >= 0 && to > from ? src.slice(from, to) : '';
   const lits = (body.match(/'(?:[^'\\]|\\.)*'/g) || [])
@@ -560,6 +597,91 @@ check('particles equal the pack\'s in_a_family', head.particles === meta.in_a_fa
         (missedProse.length ? missedProse.length + ' real sentence(s) missed' : '')
       : ACCEPT.length + ' sentences accepted · ' + REJECT.length + ' decorations rejected · ' +
         'one definition, in derive.mjs, read by the card and by this check');
+}
+
+/* 17. NO CARD MAY ASSERT A FAMILY FACT THE PACK CONTRADICTS.
+ *
+ * vikra-ac's sentence, charter rule 23, and the one it said "is trivially checkable that
+ * way and was not checkable any other way — which is exactly why it took a press to find
+ * it." It was right that the source-side form could not do it. Every check above reads
+ * what the module SAYS it will say; this one runs the composition and reads the sentence.
+ *
+ * It became possible this cycle because the sentences moved out of the page into
+ * card-text.mjs as pure functions. So: take real keys, real lengths and the real
+ * in-family byte from all-lines.family.bin, compose the ACTUAL text a reader would get,
+ * and assert against the pack's own bytes — in BOTH load states, because the defect that
+ * reached a reader existed only in one of them. With the band resolved the card had
+ * always been right; with the band still loading it denied a family the pack records.
+ *
+ * WHAT IT STILL CANNOT SEE, and the chair has no browser to close it — measured this
+ * cycle rather than inherited, tabs_context_mcp returns "Browser extension is not
+ * connected": whether the element is appended, whether it is visible, whether CSS hides
+ * it, whether the card re-renders when the band lands. Every one of those failed tonight.
+ * This is a floor under the prose, not a substitute for a press.
+ */
+{
+  const famBytes = fs.readFileSync(path.join(PACK, 'all-lines.family.bin'));
+  const lenBytes = fs.readFileSync(path.join(PACK, 'all-lines.len.bin'));
+  const keyBytes = fs.readFileSync(path.join(PACK, 'all-lines.bin'));
+  const n = famBytes.length;
+
+  /* Shapes that DENY a family, and shapes that ASSERT one. Both directions, because a
+     card that claimed a family for a line the pack calls unclaimed is the same defect
+     wearing the other face, and nothing had ever looked for it. */
+  const DENIES = [
+    /no function family/i, /in no family/i, /no famil\w* claims?/i, /records? no family/i,
+    /no named function/i, /belongs to no function/i, /relates to nothing/i,
+  ];
+  const ASSERTS = [
+    /a function family\s+does carry it/i, /still part of a named function/i,
+    /carried by a named function/i, /a family does carry it/i, /code inside the function/i,
+  ];
+  const band46 = JSON.parse(fs.readFileSync(path.join(SURF, 'p', '46.json'), 'utf8'));
+  const head = JSON.parse(fs.readFileSync(path.join(SURF, 'particles.json'), 'utf8'));
+
+  /* A REAL resolution for a REAL key, so the loaded state is not a fiction. */
+  const resolvedFor = (key) => {
+    const j = band46.key.indexOf(key);
+    if (j < 0) return null;
+    return {
+      place: head.places[band46.place[j]], line: band46.line[j],
+      family: band46.family[j], name: head.names[band46.name_of[j]], also: band46.also[j],
+    };
+  };
+
+  const wrong = [];
+  const STEP = 37;                   /* a stride, so the sample is not one neighbourhood */
+  let sampled = 0, withBand = 0;
+  for (let i = 0; i < n; i += STEP) {
+    const key = keyBytes.readUInt32LE(i * 4);
+    const len = lenBytes.readUInt16LE(i * 2);
+    const inFamily = famBytes[i];
+    const nat = nature(len, inFamily);
+    const r = resolvedFor(key);
+    if (r) withBand++;
+    sampled++;
+    for (const state of [null, r]) {
+      if (state === null && r === null && sampled > 1) { /* still test the unloaded state */ }
+      const text = plainEnglish({ len, nat, inFamily, r: state, meta })
+        + familyClause({ inFamily, r: state });
+      const denies = DENIES.some((re) => re.test(text));
+      const asserts = ASSERTS.some((re) => re.test(text));
+      /* MUTATE flips the byte the card was handed, so the pack and the sentence disagree
+         on purpose. That is the defect vikra-ac found, reproduced rather than injected. */
+      const truth = MUTATE ? (inFamily ? 0 : 1) : inFamily;
+      if (truth && denies) wrong.push('key ' + key + (state ? ' (band loaded)' : ' (band loading)') + ' denies a family the pack records');
+      if (!truth && asserts) wrong.push('key ' + key + (state ? ' (band loaded)' : ' (band loading)') + ' asserts a family the pack does not record');
+      if (wrong.length > 6) break;
+    }
+    if (wrong.length > 6) break;
+  }
+  check('no composed sentence contradicts the pack about a family',
+    wrong.length === 0,
+    wrong.length
+      ? wrong.length + '+ contradiction(s) in the REAL text: ' + wrong.slice(0, 3).join(' · ')
+      : sampled.toLocaleString() + ' keys of ' + n.toLocaleString() + ' sampled at stride ' +
+        STEP + ', each composed in BOTH load states (' + withBand.toLocaleString() +
+        ' with a real band 46 resolution) · no sentence contradicts all-lines.family.bin');
 }
 
 let failed = 0;

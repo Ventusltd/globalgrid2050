@@ -31,6 +31,7 @@
  */
 
 import { derive, radiation, census, nature, isExplanatory, NATURE_NAME, NOISE, OPERATIONAL } from './derive.mjs';
+import { plainEnglish, familyClause } from './card-text.mjs';
 
 const TAU = Math.PI * 2;
 const GOLDEN = Math.PI * (3 - Math.sqrt(5));
@@ -724,68 +725,12 @@ async function readFile([repo, commit, p]) {
 }
 
 /* ---- plain English, generated from what the pack states ------------------ */
+/* The sentences moved to card-text.mjs so a proof can run the REAL ones over the REAL
+   estate without a browser — charter rule 23, as far as it goes from here. This wrapper
+   is all that is left: read the page's own arrays and hand them over.
+   `derive(key, len, fams[i])` was computed here and never used; it went with the move. */
 function english(i, r) {
-  const key = keys[i], len = lens[i], nm = NATURE_NAME[nat[i]];
-  const d = derive(key, len, fams[i]);
-  /* FOURTH SITE OF THE SAME DEFECT, and the only one no reader reported — which is the
-     point: it was found by widening the DETECTOR, not by widening the fix. nature()
-     returns NOISE on LENGTH ALONE, three characters or fewer, so a closing brace inside a
-     function is dust AND in a family. Measured against the pack at this commit: 36 of the
-     estate's 80 dust lines are in a family — 45% of every line this sentence spoke to. It
-     told them "belongs to no function" while the very next sentence, currency, correctly
-     guarded, told the same reader "still part of a named function". One paragraph, both
-     ways. Key 2 is one of the 36, and it sits at the centre of the wafer where a reader
-     starts. */
-  const what = nat[i] === NOISE
-    ? 'This line holds ' + len + ' characters, too few to carry a statement, so the wafer draws it as ' + NATURE_NAME[NOISE] +
-      (fams[i]
-        ? ' — dark, and carried by a named function all the same: dust is where a function opens and closes, not only where it has nothing.'
-        : ' — present, dark, and not yet part of anything.') +
-      ' Dust is not waste here: it is the material stars form from, and a universe that hid its dust would be lying about its own mass.'
-    : r
-      ? 'This line is ' + nm + ' code inside the function ' + r.name +
-        ', which the numbered database records at ' + r.place[2].split('/').pop() + ' line ' + r.line + '.'
-      /* Same three states as the header. The second branch said "no function family
-         claims it" whenever the band had not loaded — asserting about the estate what
-         was only true of this page's downloads so far. fams[i] settles it with no
-         fetch. */
-      : fams[i]
-        ? 'This line is ' + nm + ' code holding ' + len + ' characters. A function family ' +
-          'does carry it in this build; which one, and the file it sits in, arrive when ' +
-          'this band finishes loading.'
-        : 'This line is ' + nm + ' code holding ' + len + ' characters. No function family claims it, so the estate records no file for it — one of the ' +
-          (meta.lines - meta.in_a_family).toLocaleString() + ' lines in that position.';
-  /* RADIATION: has this code been used somewhere. */
-  /* Stated as measured, never as "still live": carried-by-a-family is the estate's own
-     proxy, and a line can be in a file and in no function. Same extensional discipline
-     as compare — say what was measured, not what it suggests. No expiry, no warning
-     colour, no threshold: the decay is 0.15% a day, so any threshold would be arbitrary
-     and would train a reader to ignore it. Report it and let them decide. */
-  const currency = fams[i]
-    ? ' As of this build it is still part of a named function.'
-    : ' In this build it is part of no named function — which is not the same as not being in a file.';
-  const rad = r
-    ? (r.also
-      ? ' RADIATION: it is used in ' + (r.also + 1).toLocaleString() +
-        ' places across the estate, so changing it here changes one copy of ' +
-        (r.also + 1).toLocaleString() + '.'
-      : ' RADIATION: the estate records exactly one use of it.')
-    /* Third state here too. This branch made the pack's claim for it on r alone, so it
-       read "the pack knows only that no family claims it" for a line the pack says IS in
-       a family — one paragraph under a header that said so correctly. The guard check
-       found the other two sites and not this one, because its pattern was written from
-       the two phrasings already in hand. A check describes only what it looks at. */
-    : fams[i]
-      ? ' RADIATION: how many places carry it arrives with this band. The pack states only that a family does carry it.'
-      : ' RADIATION: unknown until this band loads — the pack records no family for it, and that is the whole of what it knows.';
-  /* RELATIONAL FIELD: the block it sits in, and the computation it is part of. */
-  /* Same length-alone trap: dust a family carries relates to that family, so it takes the
-     ordinary branch. */
-  const rel = nat[i] === NOISE && !fams[i]
-    ? ' RELATIONAL FIELD: none yet. Dust relates to nothing so far — that is a state, not a verdict, and it is where new stars come from.'
-    : ' RELATIONAL FIELD: the ten lines above and ten below, shown here' +
-      (r ? ', and the computation ' + r.name + ' that carries it' : '') + '.';
-  return what + currency + rad + rel;
+  return plainEnglish({ len: lens[i], nat: nat[i], inFamily: fams[i], r, meta });
 }
 
 /* ---- the card ----------------------------------------------------------- */
@@ -822,9 +767,7 @@ async function show(i) {
        band." It knew it did not know and asserted anyway.
        fams[i] answers "is it in a family" with zero fetches and is already in memory —
        which the comment three lines below this one says, while the code did not do it. */
-    (fams[i]
-      ? (r ? ' · family ' + r.family + ' ' + r.name : ' · in a family — reading which')
-      : ' · in no function family') +
+    familyClause({ inFamily: fams[i], r }) +
     ' · in pack ' + (meta.built_utc || 'of unknown date');
   panelBody.append(sub);
 

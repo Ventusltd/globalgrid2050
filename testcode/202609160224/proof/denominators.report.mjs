@@ -13,12 +13,28 @@
  *     whose own header says the charter gate must "stay quick enough to run on every
  *     commit", a sentence I had read while writing the thing that broke it.
  *
- *  2. Moved to estate-vacuity.check.mjs it HUNG, and self-exclusion by resolved path did
- *     not fix it. The cycle is not self-invocation, it is MUTUAL: charter runs the vacuity
+ *  2. Moved to estate-vacuity.check.mjs it stopped returning inside any window I watched,
+ *     and self-exclusion by resolved path did not fix it. The cycle is not self-invocation,
+ *     it is MUTUAL: charter runs the vacuity
  *     gate over every suite, the vacuity gate runs estate-vacuity, and estate-vacuity's
  *     lint ran charter. A lint that EXECUTES suites cannot live inside the graph of suites
  *     that execute each other, and no amount of excluding itself would have found that.
- *     I did not reason either of them out. I watched three runs hang past their timeout.
+ *     I did not reason either of them out. I watched runs exceed their timeout and went
+ *     looking.
+ *
+ * CORRECTED 07:41Z, BY THE FIRST RUN ANSWERING BACK. The backgrounded charter run
+ * COMPLETED — 5/6 passed, exit 0 — while the stone already said it hung. Slow is not
+ * hung, and I wrote the stronger word because the tool had stopped showing me output:
+ * the measurer describing its own window and calling it the world, inside the hour
+ * spent writing the rule against exactly that. What survives the correction: charter
+ * DID breach its documented contract, and the charter -> vacuity gate -> estate-vacuity
+ * -> lint -> charter cycle is real BY CONSTRUCTION — verified by reading the call graph
+ * rather than by having watched it loop, and that distinction belongs in the record.
+ *
+ * AND THE TWO ARTIFACTS DISAGREE, CORRECTLY: that run reported 8 of 11 suites silent
+ * with estate-vacuity counted; this file reports 7 of 10 with it excluded and says so.
+ * Both are right, and they differ only by the frame — rule 24 demonstrating itself on
+ * the two artifacts written to serve it.
  *
  * So it lives outside the graph, is run by hand or by CI, and prints a denominator rather
  * than a verdict — which is rule 24's own boundary: a denominator makes a gap visible, it

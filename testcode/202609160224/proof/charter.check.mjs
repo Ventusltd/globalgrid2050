@@ -127,6 +127,29 @@ check('every rule names who it binds', subjectless.length === 0,
   subjectless.length ? 'no subject: ' + subjectless.map((r) => r.id).join(', ')
     : charter.rules.length + ' rules, each naming its subject');
 
+/* 5. AN UNENFORCED RULE MUST NAME ITS BOUNDARY.
+ *
+ * The chair filed eight unenforced rules as "judgement" and both seats refused it.
+ * vikra-ac's objection is the one that lands: they are not a category, they are the
+ * leftovers, and putting them together under judgement gives an accident the
+ * appearance of a principle. Unenforced is a backlog; judgement is a decision, and
+ * the chair made the decision by accident.
+ *
+ * Its test, adopted: A RULE IS STRUCTURAL IF IT CAN BE EXPRESSED AS A REFUSAL AT A
+ * BOUNDARY AN ARTIFACT MUST CROSS. So every unenforced rule names the boundary where
+ * a machine could say no, or states that no boundary is known. That is falsifiable —
+ * someone can build it, or argue the boundary is wrong — where "judgement" was not.
+ */
+{
+  const unenforced = charter.rules.filter((r) => !r.enforced_by);
+  const unnamed = unenforced.filter((r) => !r.boundary);
+  check('every unenforced rule names its boundary', unnamed.length === 0,
+    unnamed.length
+      ? 'filed as unenforced with no boundary named — a backlog item nobody can act on: ' +
+        unnamed.map((r) => r.id).join(', ')
+      : unenforced.length + ' unenforced, each naming where a refusal would sit');
+}
+
 let failed = 0;
 for (const r of results) {
   if (!r.ok) failed++;

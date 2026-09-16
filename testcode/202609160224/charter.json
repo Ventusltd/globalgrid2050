@@ -78,42 +78,48 @@
       "binds": "any seat reporting a figure",
       "rule": "Every figure carries its denominator.",
       "why": "Line 2 read 2,281 in one artifact and 36,545 in another. Both correct: distinct families against total occurrences. The 16x scare was an unstated denominator, not a drift.",
-      "enforced_by": null
+      "enforced_by": null,
+      "boundary": "formatting a figure — a pct(n, d) helper that cannot emit a percentage without both arguments. UNBUILT."
     },
     {
       "id": "state-the-generated-utc",
       "binds": "any seat reporting a figure",
       "rule": "Every figure carries the generated_utc of the artifact it came from.",
       "why": "Three family counts (10,985 / 10,805 / 13,240) and two line totals (250,174 / 283,231) were all live at once, and each looked authoritative.",
-      "enforced_by": null
+      "enforced_by": null,
+      "boundary": "publishing an artifact — a schema gate refusing JSON without it. nest.check.mjs already does exactly this for its own manifest, so the pattern is in this repository. HALF-BUILT."
     },
     {
       "id": "never-review-truncated-output",
       "binds": "any seat reading a result",
       "rule": "Never form a verdict from output you truncated.",
       "why": "Four confident wrong results tonight: 867 ms/frame from a backgrounded rAF, 78-dirs-from-one-date, a 300-character stderr clip that stored closing braces instead of assertions, and the chair's own grep | head -3 that showed three PASS lines while the proof exited 1.",
-      "enforced_by": null
+      "enforced_by": null,
+      "boundary": "no boundary can PREVENT it; one can DETECT it. End every report with \"END OF REPORT - N checks\" so a truncated read is visibly short rather than silently short. Same shape as the guard heartbeat: you cannot stop silence, you can make absence loud. DETECTABLE, UNBUILT."
     },
     {
       "id": "lab-return-is-a-candidate",
       "binds": "any seat using the lab",
       "rule": "A model's return is a candidate. A seat opens the actual file before it is believed.",
       "why": "1-in-20 agreement in STONE-20260915T212800Z, and a 60-of-120 template echo tonight.",
-      "enforced_by": null
+      "enforced_by": null,
+      "boundary": "the lab-returns directory — every file carries status: CANDIDATE and a falsifiable check rule, and a reader refuses an unmarked return (vikra-2e). vikra-ac holds this binds what a seat BELIEVES and is irreducible. UNRESOLVED BETWEEN SEATS."
     },
     {
       "id": "agreement-is-not-verification",
       "binds": "any two seats",
       "rule": "Two agents agreeing is not verification when both look in derived data instead of the source.",
       "why": "The chair verified vikra-ac's claim that key -> (repo, path, line) did not exist, in two derived catalogues that genuinely lack it, and was confirmed in being wrong. It existed, published, at stars/code/f/.",
-      "enforced_by": null
+      "enforced_by": null,
+      "boundary": "recording a measurement — if every measurement pins the artifact it read and the invocation that read it, then \"two seats agree\" is queryable: same source means one observation counted twice (vikra-2e). vikra-ac holds it binds what two seats CONCLUDE and is irreducible. UNRESOLVED BETWEEN SEATS."
     },
     {
       "id": "published-address-is-permanent",
       "binds": "anyone regenerating anything published",
       "rule": "A published address never moves. It cannot be true for line keys and negotiable for surfaces.",
       "why": "A regeneration deleted 24 published surfaces from disk, three of them linked from the homepage an hour earlier. They survived only because they were in git.",
-      "enforced_by": null
+      "enforced_by": null,
+      "boundary": "the commit — safe-publish.mjs already refuses deletions; refusing a move or delete under testcode/<stamp>/ is the same gate with a narrower path filter. NEARLY BUILT."
     },
     {
       "id": "stage-what-you-read",
@@ -134,14 +140,17 @@
       "binds": "anyone indexing anything",
       "rule": "An identifier may serve as identity only where something guarantees it is unique in the space it is matched against. A path is unique in a repo. A key is unique in the estate. A word is unique nowhere.",
       "why": "Five instances in one night: family `state` with 369 impossible callers, stemmed wells named after fragments of repositories nobody wrote, the token `string` routing a CRM stylesheet to the Solar Topology Engine, six law names colliding with physics.mjs, and a declared storage quota read as measured mass.",
-      "enforced_by": null
+      "enforced_by": null,
+      "boundary": "the receiver — notation.mjs collect() already keys its Map by id and carries labels as a list it never reads. Enforceable per receiver, not globally. STRUCTURAL WHERE IT MATTERS."
     },
     {
       "id": "derive-the-proof-from-the-readers-position",
       "binds": "anyone writing a proof about a published thing",
       "rule": "A proof about the site must fetch the site. Never localhost, never the tree.",
       "why": "Six findings were one cause: every proof ran where the code lives and none where the reader stands. A tree contains the data, the module and the sibling repository; a site contains only what was published.",
-      "enforced_by": null
+      "enforced_by": null,
+      "boundary": "ENFORCED ALREADY by readers-proof.mjs, which REFUSES a non-published origin. It sits on another seat’s branch, so this file cannot see it. MISCOUNTED, NOT UNBUILT."
     }
-  ]
+  ],
+  "unenforced_is_a_backlog": "The unenforced rules are NOT a category and must not be filed as judgement. vikra-ac: 'they are the leftovers, and putting them together under judgement gives an accident the appearance of a principle.' The test is whether a rule can be expressed as a REFUSAL AT A BOUNDARY AN ARTIFACT MUST CROSS. Each unenforced rule below names its boundary, or says no boundary is known. Unenforced is a backlog; judgement would be a decision, and the chair made that decision by accident before either seat corrected it."
 }

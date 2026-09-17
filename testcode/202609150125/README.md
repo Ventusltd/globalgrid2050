@@ -15,7 +15,8 @@ Read the modelling summary first: [MODEL.md](MODEL.md).
   subset. Four sector categories are flagged: farmers and growers, manufacturers, other high energy
   users, and the rest.
 - `data/geography.json` — the same population by region, county, postcode area and postcode district
-  with its public centroid, by straight-line distance band from HA4, and by DNO / network region.
+  with its public centroid, by straight-line distance band from London Central (Charing Cross, the
+  WC2N outcode centroid), and by DNO / network region.
 - `data/provenance.json` — sources and fetch times, the qualifying rule, the suppression rules and
   their tallies, counts in and out, the leak-check result, and the sha256 of each data file.
 - `index.html` + `star.js` + `style.css` — three lenses (map, sector, energy) that compute every
@@ -56,7 +57,7 @@ Defined once, checkable by CI, Ollama, Codex or Claude without re-reading the pr
 3. every data file carries its **source, fetch time and sha256**;
 4. **all counts on the page are computed from the JSON at run time** — no number is typed into the HTML;
 5. **URLs carry only permanent keys**: `?lens=map|sector|energy&district=<outcode>&sector=<SIC code>`,
-   for example `?district=HA4&sector=01`;
+   for example `?district=WC2N&sector=01`;
 6. **no randomness at all** — neither `proof/build.py` nor `star.js` contains any random source, and
    the map lens has no jitter, so two builds of the same input give byte-identical output;
 7. `publication.json` lists **bytes and sha256 for every shipped file**;
@@ -84,6 +85,15 @@ Its committed result is in `proof/leak-check.json`.
 
 `python proof/build.py` reads the private Ventus Companies House working set by absolute path and
 rewrites `data/`. The script is public and embeds no data. The private source is never copied here.
+
+`python proof/rebase-origin.py` moves the origin of the distance bands without touching the source:
+it recomputes `districts[].miles_from_origin` and `districts[].band` from the centroids already
+published in `data/geography.json`, re-aggregates `distance_bands[]` by summing those districts, and
+writes what that costs into `distance_bands_basis` — the bands then place the 134,564 companies that
+sit in a published district rather than all 135,064, category columns sum published district cells
+only, and band medians are null until the next build from source. It also withdraws the former
+origin's own district row, counting its 124 companies in `districts_removed`. It was run once, to
+move the origin off a private home outcode and onto WC2N.
 
 ## Links to the sibling stars
 

@@ -33,8 +33,9 @@ London 38,819 · South East 19,578 · North West 14,598 · East of England 13,64
 West Midlands 11,123 · South West 11,085 · Yorkshire and The Humber 10,241 ·
 East Midlands 8,140 · Wales 4,164 · North East 3,358.
 
-2,138 postcode districts are published (`geography.json → districts[]`); 326 companies sit in
-districts holding fewer than 5 and are withheld (`districts_withheld_n_lt_5`).
+2,137 postcode districts are published (`geography.json → districts[]`); 326 companies sit in
+districts holding fewer than 5 and are withheld (`districts_withheld_n_lt_5`), and one district of
+124 companies is withdrawn from publication at the author's request (`districts_removed`).
 
 **Where farmers cluster** (counts only, `districts[].categories.farmers`): TA1 47, YO25 43, PE12 31,
 ME13 28, SO23 26, SG8 24. The pattern is Somerset, the East Riding, the Fens, north Kent and the
@@ -60,23 +61,37 @@ of those cells is withheld. No total kWh or tCO2e passes the sum rule anywhere. 
 is: SECR coverage in this working set is too thin to estimate sector energy, and the medians must
 not be multiplied by the counts.
 
-## 4. The picture within 100 miles of Ruislip
+## 4. The picture within 100 miles of London Central
 
-By straight-line distance from the HA4 outcode centroid (`geography.json → distance_bands[]`):
+By straight-line distance from the WC2N outcode centroid — London Central, Charing Cross
+(`geography.json → distance_bands[]`):
 
 | band | companies | farmers | manufacturers | other high energy |
 |---|---:|---:|---:|---:|
-| 0–25 miles | 45,193 | 170 | 1,620 | 8,089 |
-| 25–50 miles | 14,281 | 467 | 1,239 | 3,178 |
-| 50–100 miles | 30,570 | 1,371 | 3,382 | 6,201 |
-| over 100 miles | 45,020 | 1,860 | 5,246 | 10,101 |
+| 0–25 miles | 44,862 | 33 | 1,123 | 8,038 |
+| 25–50 miles | 15,130 | 256 | 1,070 | 3,027 |
+| 50–100 miles | 23,113 | 845 | 2,165 | 4,527 |
+| over 100 miles | 51,459 | 1,239 | 5,000 | 10,571 |
 
-90,044 companies — two thirds of the population — are within 100 miles. Farmers invert the gradient:
-4.4% of the 0–25 band's farmers-plus-manufacturers mix against a rising share further out.
+83,105 companies — 62% of those placed — sit within 100 miles of Charing Cross, and the farmers
+share of each band's farmers-plus-manufacturers mix climbs from 2.9% in the 0–25 band to 28.1% in
+the 50–100 band before easing to 19.9% beyond it.
+
+Read that table with its stated basis (`geography.json → distance_bands_basis`). The origin of the
+bands moved to Charing Cross after the build, so `proof/rebase-origin.py` re-cut them from the
+district centroids already published here rather than from the private source. Two consequences,
+both counted rather than smoothed over: the table places the 134,564 companies that sit in a
+published district, not all 135,064 — the other 500 are in districts withheld at n < 5 (326), in the
+one district withdrawn from publication (124) or have no postcode (50) — and each category column sums published district cells only, so the 5,132
+companies whose district category cell was withheld at n < 5 sit in `folded_into_other` instead of a
+column. That falls hardest on farmers, who are thinly spread across many districts, so the farmers
+column reads low against the 3,868 farmers in the population. Band medians are not derivable from
+aggregates and are null until the next build. `python proof/build.py` restores the full-population
+cut from the source.
 
 Network regions (`geography.json → grid_regions`) are counts only and cover a 526-company routed
-subset within 100 miles, not the population: UKPN 227, NGED 175, National Grid transmission 62,
-SSEN 31.
+subset of the London area and its surroundings out to about 100 miles, not the population, and not
+re-cut around the current origin: UKPN 227, NGED 175, National Grid transmission 62, SSEN 31.
 
 ## 5. What this data cannot say
 
@@ -94,10 +109,11 @@ SSEN 31.
 ## 6. Modelling inputs GLOBALGRID2050 can take from this
 
 1. **Behind-the-meter demand by district** — `geography.json → districts[].categories.{farmers,
-   manufacturers,other_high_energy}` with `districts[].lat/lon`: counts per 2,138 districts, ready to
+   manufacturers,other_high_energy}` with `districts[].lat/lon`: counts per 2,137 districts, ready to
    be multiplied by a per-company load assumption per category.
-2. **Distance-banded addressable set** — `geography.json → distance_bands[]`: 90,044 companies inside
-   100 miles for a service-radius or deployment-cost model.
+2. **Distance-banded addressable set** — `geography.json → distance_bands[]`: 83,105 placed companies
+   inside 100 miles of Charing Cross for a service-radius or deployment-cost model, on the coverage
+   stated in `distance_bands_basis`.
 3. **Sector tariff assumptions** — `sectors.json → divisions[].net_worth_gbp.median` and
    `.cash_gbp.median`: an ability-to-fund proxy per SIC division, published wherever n ≥ 5.
 4. **Capital pool by sector** — `sectors.json → divisions[].net_worth_gbp.sum` where the sum rule

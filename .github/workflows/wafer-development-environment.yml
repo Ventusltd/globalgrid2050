@@ -1,5 +1,5 @@
 # Wafer Development Environment: forty checks from the outside, after every push that touches it.
-# Ten versions x four checks, each on its own self-hosted lane. Every lane waits for Pages to serve
+# Ten versions x five checks, each on its own self-hosted lane. Every lane waits for Pages to serve
 # the pushed commit, then proves one thing about the live site. A lane that cannot prove it fails.
 name: Wafer Development Environment
 
@@ -22,7 +22,7 @@ jobs:
       max-parallel: 40
       matrix:
         version: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-        check: [page, nest, data, twin]
+        check: [page, nest, data, twin, physics]
     env:
       SITE: https://globalgrid2050.com
     steps:
@@ -49,7 +49,11 @@ jobs:
               if ($page -match 'qubit|anonymous') { throw "platform language broken at $folder" }
               "OK page $v" }
             'nest' {
-              $root = Get-Live "$env:SITE/"
+              # the homepage deploys with the same commit; wait for it too
+              $deadline = (Get-Date).AddMinutes(12); $root = ''
+              do { try { $root = Get-Live "$env:SITE/" } catch { $root = '' }
+                   if ($root.Contains("wafer-development-environment/$v/")) { break }
+                   Start-Sleep -Seconds 20 } while ((Get-Date) -lt $deadline)
               if (-not $root.Contains('<summary>Wafer Development Environment</summary>')) { throw 'homepage has no Wafer Development Environment nest' }
               if (-not $root.Contains("wafer-development-environment/$v/")) { throw "homepage nest does not list $v" }
               if (-not $root.Contains('open grid development, engineering, procurement, construction and operations')) { throw 'mission sentence missing' }
@@ -72,6 +76,14 @@ jobs:
               $e = (Get-Live "${shared}entangle.json") | ConvertFrom-Json
               if ($e.resolved -ne $e.keys -or $e.broken -ne 0) { throw "key-to-code check not 100% ($($e.resolved)/$($e.keys))" }
               "OK twin $v (key-to-code $($e.resolved)/$($e.keys))" }
+            'physics' {
+              $app = Get-Live "$folder/app.mjs"; $pilot = Get-Live "$folder/pilot.mjs"
+              foreach ($w in 'gravity', 'PUPIL', 'KEPLER', 'RIM_SHARE', 'release', 'setScope', '__wafer') { if (-not $app.Contains($w)) { throw "renderer without $w in $v/app.mjs (physics left out)" } }
+              foreach ($w in 'cmds.gravity', 'cmds.release', 'cmds.scope', 'cmds.logo', 'wafer-start') { if (-not $pilot.Contains($w)) { throw "pilot without $w in $v/pilot.mjs" } }
+              if ($app.Contains([char]0xC2 + [string][char]0xB7)) { throw "stray bytes in $v/app.mjs (encoding)" }
+              $apps = Get-Live "$env:SITE/testcode/wafer-development-environment/shared/apps.json"
+              if (-not $apps.Contains('"keys"')) { throw 'shared/apps.json has no key sets; app gravity cannot work' }
+              "OK physics $v" }
           }
   summary:
     needs: check

@@ -1,0 +1,84 @@
+# Wafer Development Environment: forty checks from the outside, after every push that touches it.
+# Ten versions x four checks, each on its own self-hosted lane. Every lane waits for Pages to serve
+# the pushed commit, then proves one thing about the live site. A lane that cannot prove it fails.
+name: Wafer Development Environment
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "testcode/wafer-development-environment/**"
+      - "index.html"
+  workflow_dispatch:
+
+concurrency: wde-${{ github.ref }}
+
+jobs:
+  check:
+    runs-on: [self-hosted, msi, gpu]
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      max-parallel: 40
+      matrix:
+        version: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        check: [page, nest, data, twin]
+    env:
+      SITE: https://globalgrid2050.com
+    steps:
+      - uses: actions/checkout@v4
+        with: { sparse-checkout: "testcode/wafer-development-environment/versions.json", sparse-checkout-cone-mode: false }
+      - name: ${{ matrix.check }} for version ${{ matrix.version }}
+        shell: 'powershell -NoProfile -ExecutionPolicy Bypass -File {0}'
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $versions = Get-Content 'testcode/wafer-development-environment/versions.json' -Raw | ConvertFrom-Json
+          $v = $versions[${{ matrix.version }}]
+          $folder = "$env:SITE/testcode/wafer-development-environment/$v/"
+          function Get-Live($url) { (Invoke-WebRequest -UseBasicParsing -Uri "$url`?t=$(Get-Date -UFormat %s)" -TimeoutSec 30).Content }
+          # wait for Pages: up to 12 minutes for the version folder to answer with its own title
+          $deadline = (Get-Date).AddMinutes(12); $page = $null
+          do { try { $page = Get-Live $folder } catch { $page = $null }
+               if ($page -and $page.Contains("<title>$v</title>")) { break }
+               Start-Sleep -Seconds 20 } while ((Get-Date) -lt $deadline)
+          if (-not $page) { throw "not served: $folder" }
+          switch ('${{ matrix.check }}') {
+            'page' {
+              if (-not $page.Contains("<title>$v</title>")) { throw "wrong title at $folder" }
+              if (-not $page.Contains('wafer-start')) { throw "no start command at $folder" }
+              if ($page -match 'qubit|anonymous') { throw "platform language broken at $folder" }
+              "OK page $v" }
+            'nest' {
+              $root = Get-Live "$env:SITE/"
+              if (-not $root.Contains('<summary>Wafer Development Environment</summary>')) { throw 'homepage has no Wafer Development Environment nest' }
+              if (-not $root.Contains("wafer-development-environment/$v/")) { throw "homepage nest does not list $v" }
+              if (-not $root.Contains('open grid development, engineering, procurement, construction and operations')) { throw 'mission sentence missing' }
+              if (-not $root.Contains('Disclaimer:')) { throw 'disclaimer missing' }
+              "OK nest lists $v; mission and disclaimer present" }
+            'data' {
+              $app = Get-Live "$folder/app.mjs"
+              if (-not $app.Contains("const DATA = '../../202609142202/data/';")) { throw "data path wrong in $v/app.mjs" }
+              $idx = Get-Live "$env:SITE/testcode/202609142202/data/families.json"
+              if ($idx.Length -lt 1000) { throw 'shared data not served' }
+              "OK data $v" }
+            'twin' {
+              $shared = "$env:SITE/testcode/wafer-development-environment/shared/"
+              foreach ($f in 'keys.json', 'qubit.json', 'apps.json', 'entangle.json', 'labels.json') {
+                $r = Invoke-WebRequest -UseBasicParsing -Uri "$shared$f" -TimeoutSec 60
+                if ($r.StatusCode -ne 200) { throw "shared/$f missing" } }
+              foreach ($f in 'pilot.mjs', 'pilot-rules.js', 'app.mjs', 'line-index.json') {
+                $r = Invoke-WebRequest -UseBasicParsing -Uri "$folder$f" -TimeoutSec 60
+                if ($r.StatusCode -ne 200) { throw "$f missing in $v" } }
+              $e = (Get-Live "${shared}entangle.json") | ConvertFrom-Json
+              if ($e.resolved -ne $e.keys -or $e.broken -ne 0) { throw "key-to-code check not 100% ($($e.resolved)/$($e.keys))" }
+              "OK twin $v (key-to-code $($e.resolved)/$($e.keys))" }
+          }
+  summary:
+    needs: check
+    if: always()
+    runs-on: [self-hosted, msi, gpu]
+    steps:
+      - shell: 'powershell -NoProfile -ExecutionPolicy Bypass -File {0}'
+        run: |
+          "Wafer Development Environment: forty checks finished with result '${{ needs.check.result }}' for ${{ github.sha }}" | Out-File $env:GITHUB_STEP_SUMMARY -Append
+          if ('${{ needs.check.result }}' -ne 'success') { exit 1 }

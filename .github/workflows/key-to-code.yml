@@ -1,0 +1,43 @@
+# Key to code: forty lanes re-check that every block on the wafer is still tied to its real line of code.
+# Each lane takes the code places whose index is lane mod 40, fetches each line from the clone at its recorded
+# commit and hashes it. The summary adds the lanes up; anything short of every key found fails the run.
+name: Key to code
+
+on:
+  workflow_dispatch:
+
+concurrency: key-to-code
+
+jobs:
+  lane:
+    runs-on: [self-hosted, msi, gpu]
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      max-parallel: 40
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39]
+    env:
+      CPU_WORLD: C:\Users\vikra\Desktop\CPU WORLD
+      SHARD: ${{ matrix.shard }}
+      TOTAL: 40
+    steps:
+      - name: lane ${{ matrix.shard }} of 40
+        shell: 'powershell -NoProfile -ExecutionPolicy Bypass -File {0}'
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-Location $env:CPU_WORLD
+          $out = python pipeline\entangle.py | Select-Object -Last 1
+          $out
+          $r = $out | ConvertFrom-Json
+          if ($r.resolved -ne $r.shard_keys) { throw "lane $env:SHARD: $($r.resolved) of $($r.shard_keys) keys found at their line; broken $($r.broken)" }
+          "lane $env:SHARD: $($r.resolved) of $($r.shard_keys) keys found at their recorded line" | Out-File $env:GITHUB_STEP_SUMMARY -Append
+  summary:
+    needs: lane
+    if: always()
+    runs-on: [self-hosted, msi, gpu]
+    steps:
+      - shell: 'powershell -NoProfile -ExecutionPolicy Bypass -File {0}'
+        run: |
+          "Key to code: forty lanes finished with result '${{ needs.lane.result }}'" | Out-File $env:GITHUB_STEP_SUMMARY -Append
+          if ('${{ needs.lane.result }}' -ne 'success') { exit 1 }

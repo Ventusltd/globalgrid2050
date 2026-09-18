@@ -240,7 +240,7 @@ window.__pilot = run;
 // stops) laid out by an eight-direction schematic law, then the in-scope particles are placed along its edges and at
 // its stations by the same blend gravity and the logo use. Positions are computed, never stored; identity never moves.
 const netCache = {};
-const NETWORKS = { grid: 'the grid: 400 kV, 132 kV and every substation', underground: 'the London Underground', grid400: 'the 400 kV grid', grid132: 'the 132 kV network', substations: 'every substation', shotwick: 'Shotwick Solar Farm and its grid', uk: 'the British Isles', world: 'the world' };
+const NETWORKS = { grid: 'the grid: 400 kV, 132 kV and every substation', underground: 'the London Underground', grid400: 'the 400 kV grid', grid132: 'the 132 kV network', substations: 'every substation', shotwick: 'Shotwick Solar Farm and its grid', uk: 'the British Isles', world: 'the world', trench: 'a cable trench in flat formation (a stated arrangement, not a design)' };
 const loadNet = async name => netCache[name] || (netCache[name] = await fetch(new URL(name + '-network.json', location.href)).then(r => r.ok ? r.json() : null).catch(() => null));
 function networkTargets(N, m){
   const S = 0.85 * W().kepler().R, st = N.stations, E = N.edges, GA = 2.399963229728653;

@@ -49,7 +49,7 @@ const css = document.createElement('style'); css.textContent = `
 document.body.insertAdjacentHTML('beforeend', `
 <div id="say"></div><div id="plog"></div>
 <div id="eg"><label>examples: pick one, it lands in the box, press Enter</label><select id="egs">
-<option value="">— choose an example sentence —</option><option value="draw grid">Draw the grid: 400 kV, 132 kV and every substation</option><option value="draw grid400">Draw the 400 kV grid</option><option value="draw grid132">Draw the 132 kV network</option><option value="draw substations">Draw every substation</option><option value="draw shotwick">Draw Shotwick Solar Farm and the grid around it</option><option value="draw underground">Draw the London Underground</option><option value="draw uk">Draw the British Isles</option><option value="draw world">Draw the world</option><option value="draw trench">Draw a cable trench section</option><option value="draw fault">Draw a fault study: the paths the fault current takes (pandapower, IEC 60909)</option><option value="logo">Assemble the wordmark from the dust</option><option value="release">Release: every line back to its own place</option>
+<option value="">— choose an example sentence —</option><option value="draw grid">Draw the grid: 400 kV, 132 kV and every substation</option><option value="draw grid400">Draw the 400 kV grid</option><option value="draw grid132">Draw the 132 kV network</option><option value="draw substations">Draw every substation</option><option value="draw shotwick">Draw Shotwick Solar Farm and the grid around it</option><option value="draw underground">Draw the London Underground</option><option value="draw uk">Draw the British Isles</option><option value="draw world">Draw the world</option><option value="draw trench">Draw a cable trench section</option><option value="draw fault">Draw a fault study: the paths the fault current takes (pandapower, IEC 60909)</option><option value="logo">Assemble the wordmark from the dust</option><option value="clock">A clock: time as a law on the dust</option><option value="release">Release: every line back to its own place</option>
 <option value="block 39885">Go to the most-copied line in the estate (39885)</option>
 <option value="twin 39885">The code behind block 39885, in the card</option>
 <option value="state 39885">State of block 39885: HOME or AWAY, from its callers</option>
@@ -232,7 +232,7 @@ window.__pilot = run;
   [keysDb, qubit, apps, entangle, labels] = await Promise.all([j('keys.json'), j('qubit.json'), j('apps.json'), j('entangle.json'), j('labels.json')]);
   log(`Quantum Twin — primary key to actual code. ${keysDb ? keysDb.count.toLocaleString() : '?'} blocks with a recorded line; ${qubit ? Object.keys(qubit.atoms).length.toLocaleString() : '?'} block families.`);
   log('Type a sentence or a command. Every answer shows the command it became. Try: block 39885');
-  const start = new URLSearchParams(location.search).get('draw') ? (new URLSearchParams(location.search).get('draw') === 'logo' ? 'logo' : 'draw ' + new URLSearchParams(location.search).get('draw')) : document.querySelector('meta[name="wafer-start"]')?.content; if (start) { await new Promise(r => setTimeout(r, 1500)); const m = /^(land|visit|go|open)\s+(\S+)/.exec(start); if (m) { await run('app ' + m[2]); log(`This page stops here. To enter ${m[2]}, type: land ${m[2]} — space brings you back to the wafer.`); } else await run(start); sayEl.classList.add('min'); /* the wafer is the main event: the card starts folded to its title bar */ }
+  const start = new URLSearchParams(location.search).get('draw') ? (new URLSearchParams(location.search).['logo','clock'].includes(new URLSearchParams(location.search).get('draw')) ? new URLSearchParams(location.search).get('draw') : 'draw ' + new URLSearchParams(location.search).get('draw')) : document.querySelector('meta[name="wafer-start"]')?.content; if (start) { await new Promise(r => setTimeout(r, 1500)); const m = /^(land|visit|go|open)\s+(\S+)/.exec(start); if (m) { await run('app ' + m[2]); log(`This page stops here. To enter ${m[2]}, type: land ${m[2]} — space brings you back to the wafer.`); } else await run(start); sayEl.classList.add('min'); /* the wafer is the main event: the card starts folded to its title bar */ }
 })();
 
 // ---------- NETWORK: a whole system drawn from a typed command, on the wafer's own dust (no new looks) ----------
@@ -268,3 +268,32 @@ ${N.stations.length.toLocaleString('en-GB')} nodes and ${N.edges.length.toLocale
   log(`draw ${what}: drawn`); return { system: what, nodes: N.stations.length, edges: N.edges.length, placed: m };
 };
 cmds.underground = () => cmds.draw('underground'); cmds.tube = cmds.underground;
+
+// ---------- CLOCK: time as a law on the same dust. The face is a ring of ticks, the hands are lines of particles
+// from the centre; positions are a pure function of the clock at the moment of drawing; redrawn every 10 s while on.
+let clockTimer = null;
+function clockTargets(m, d){
+  const R = 0.85 * W().kepler().R, t = new Float32Array(m * 2); let j = 0;
+  const put = (x, y) => { if (j < m) { t[2 * j] = x; t[2 * j + 1] = y; j++; } };
+  const ring = Math.floor(m * 0.45), ticks = Math.floor(m * 0.15), hands = m - ring - ticks;
+  for (let i = 0; i < ring; i++) { const a = i / ring * 2 * Math.PI; put(R * Math.cos(a), R * Math.sin(a)); }
+  for (let i = 0; i < ticks; i++) { const h = i % 12, u = (Math.floor(i / 12) % 40) / 40, a = Math.PI / 2 - h * Math.PI / 6; const r = R * (0.86 + 0.1 * u); put(r * Math.cos(a), r * Math.sin(a)); }
+  const s = d.getSeconds() + d.getMilliseconds() / 1000, mi = d.getMinutes() + s / 60, h = (d.getHours() % 12) + mi / 60;
+  const handSpec = [[Math.PI / 2 - h * Math.PI / 6, 0.5, 0.45], [Math.PI / 2 - mi * Math.PI / 30, 0.75, 0.4], [Math.PI / 2 - s * Math.PI / 30, 0.8, 0.15]];
+  const total = handSpec.reduce((a, [, , w]) => a + w, 0);
+  for (const [a, len, w] of handSpec) { const n = Math.floor(hands * w / total); const side = 0.012 * R;
+    for (let i = 0; i < n; i++) { const u = i / n, off = ((i % 5) - 2) / 2 * side; put(u * len * R * Math.cos(a) - off * Math.sin(a), u * len * R * Math.sin(a) + off * Math.cos(a)); } }
+  while (j < m) put(R * Math.cos(j), R * Math.sin(j));
+  return t;
+}
+cmds.clock = async function(){
+  if (!W()) return log('the wafer is not ready');
+  await W().scope(null); const m = W().state().scopeN; const d = new Date();
+  await W().blend(clockTargets(m, d)); hud('clock'); scopeName = 'clock';
+  log(`clock: ${d.toTimeString().slice(0, 8)} drawn with ${m.toLocaleString('en-GB')} lines; the hands are a pure function of the time; redrawn every 10 s`);
+  say(`<b>a clock, drawn from a typed command</b>\n${d.toTimeString().slice(0, 8)}. The face, the twelve ticks and the three hands are the wafer's own particles; their positions are a pure function of the clock, so this drawing can be recomputed for any instant. Time is a law like any other.\n<i>next:</i> release · draw grid · logo`);
+  if (clockTimer) clearInterval(clockTimer);
+  clockTimer = setInterval(async () => { if (scopeName !== 'clock') { clearInterval(clockTimer); clockTimer = null; return; } await W().blend(clockTargets(W().state().scopeN, new Date())); }, 10000);
+  log('draw clock: drawn'); return { drawn: m };
+};
+cmds.time = cmds.clock;

@@ -29,6 +29,15 @@
   <div id="panelbody"></div>
 </section>
 
+<nav id="presets" aria-label="presets" style="position:fixed;left:12px;top:44px;z-index:19;display:flex;gap:6px;flex-wrap:wrap;max-width:60vw">
+  <button type="button" data-cmd="state 39885">home</button>
+  <button type="button" data-cmd="draw underground">underground</button>
+  <button type="button" data-cmd="gravity gridatlas">orbit gridatlas</button>
+  <button type="button" data-cmd="logo">logo</button>
+  <button type="button" data-cmd="release">release</button>
+</nav>
+<style>#presets button{font:11px/1.6 ui-monospace,Menlo,Consolas,monospace;color:#8b93a7;background:#0b0e14;border:1px solid #232a3a;border-radius:4px;padding:2px 9px;cursor:pointer}#presets button:hover{color:#e6e9f0;border-color:#4a5573}</style>
+<script>document.getElementById('presets').addEventListener('click',e=>{const b=e.target.closest('button');if(b&&window.__pilot)window.__pilot(b.dataset.cmd);});</script>
 <footer id="foot">
   <span id="prov" class="dim">provenance loading</span>
   <span id="hint" class="dim">drag to steer · pinch or scroll to focus the beam · tap a line</span>

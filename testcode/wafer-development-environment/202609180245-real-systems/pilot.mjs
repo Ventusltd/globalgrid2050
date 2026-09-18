@@ -49,7 +49,7 @@ const css = document.createElement('style'); css.textContent = `
 document.body.insertAdjacentHTML('beforeend', `
 <div id="say"></div><div id="plog"></div>
 <div id="eg"><label>examples: pick one, it lands in the box, press Enter</label><select id="egs">
-<option value="">— choose an example sentence —</option>
+<option value="">— choose an example sentence —</option><option value="draw grid">Draw the grid: 400 kV, 132 kV and every substation</option><option value="draw grid400">Draw the 400 kV grid</option><option value="draw grid132">Draw the 132 kV network</option><option value="draw substations">Draw every substation</option><option value="draw shotwick">Draw Shotwick Solar Farm and the grid around it</option><option value="draw underground">Draw the London Underground</option><option value="draw uk">Draw the British Isles</option><option value="draw world">Draw the world</option><option value="draw trench">Draw a cable trench section</option><option value="logo">Assemble the wordmark from the dust</option><option value="release">Release: every line back to its own place</option>
 <option value="block 39885">Go to the most-copied line in the estate (39885)</option>
 <option value="twin 39885">The code behind block 39885, in the card</option>
 <option value="state 39885">State of block 39885: HOME or AWAY, from its callers</option>

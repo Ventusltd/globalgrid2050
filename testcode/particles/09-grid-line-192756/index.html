@@ -1,0 +1,33 @@
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Particles iteration 09</title><style>body{margin:0;background:#000;color:#ccc;font:15px/1.5 ui-monospace,Consolas,monospace}main{max-width:1400px;margin:0 auto;padding:0 0 24px}h1,p,table,pre,small{margin-left:16px;margin-right:16px}h1{font-size:18px;color:#f2f2f2;margin:0 0 4px}img{width:100%;height:auto;display:block;background:#000;margin:16px 0 6px}small{color:#8a8a8a}a{color:#61d6d6}code{color:#f9f1a5}table{border-collapse:collapse}td,th{padding:2px 10px;text-align:left}</style></head><body><main>
+<iframe src="../../wafer-development-environment/202609180245-real-systems/?draw=grid" title="the wafer drawing a real system" style="width:100%;height:92vh;border:0;background:#000"></iframe>
+<p><small>Above: the wafer drawing <code>grid</code> with its own particles, live (iteration 9: system 9 mod 9 of the tour, line 192756 by the formula 1 + floor(frac(n/φ) × 342,795)); type <code>release</code>, then any button. Below: what the swarm measured in this run. The wafer does not yet answer <code>draw underground</code>; that is the next build on this renderer.</small></p>
+<h1>Iteration 9: grid drawn on the wafer; line 192756; 67,108,864 particles under two laws; the Underground, 341 stops; scope tests 4 of 9 tests; 0 failed</h1>
+<p>testcode/particles/09-grid-line-192756 · machine-made on the MSI at 20260918T0440Z by <a href="https://github.com/Ventusltd/particle-physics-drawing-engine">particle-physics-drawing-engine</a> · <a href="../">all iterations</a></p>
+<p>Same-sized particles, positions computed from the address by a named law, nothing stored. Left: one spiral. Right: a stack of layers of 262,144 slots, angle by whole-number arithmetic.</p>
+<img src="spiral-vs-stack.png" alt="spiral versus stack">
+<small>67,108,864 particles; spiral 17.26 s, stack 19.56 s; cells lit 823,777 / 824,320</small>
+<p style="margin-top:24px">A network from the typed command <code>draw underground</code>: topology from Transport for London's open data, drawn as the same particles under an eight-direction schematic law. No map artwork.</p>
+<img src="underground.png" alt="the Underground as particles">
+<small>11 lines, 341 stops, 314 edges, 5,294 particles. Powered by TfL Open Data. Contains OS data © Crown copyright and database rights 2016 and Geomni UK Map data © and database rights 2019.</small>
+<h2 style="font-size:16px;margin-top:28px">Generated layers, regenerated and hashed on this machine</h2>
+<table><tr><th>layer</th><th>size</th><th>hash of every line</th><th>time</th></tr><tr><td>layer 1</td><td>262,144 slots</td><td><code>eb7d6b7a1a0b8b7e…</code></td><td>0.66 s</td></tr><tr><td>layer 16</td><td>262,144 slots</td><td><code>b989530a3b25eb0c…</code></td><td>0.69 s</td></tr><tr><td>layer 64</td><td>262,144 slots</td><td><code>cf3849b416d8fc1c…</code></td><td>0.64 s</td></tr><tr><td>layer 256</td><td>262,144 slots</td><td><code>47f36846e448069e…</code></td><td>0.65 s</td></tr></table>
+<h2 style="font-size:16px;margin-top:28px">Scope status</h2>
+<pre style="white-space:pre-wrap;color:#aaa"># Scope status 2026-09-18T04:40:50Z
+
+Ran 4 of 9 tests; 0 failed. Tests marked NOT YET BUILT have no script yet (T1 needs a person with the phone).
+
+| test | what | status | run | last line |
+|---|---|---|---|---|
+| T1 | a physical iPhone draws one layer | **NOT YET BUILT** |  | `` |
+| T2 | exactness of the angle law | **PASS** | exit 0, 0.1 s | `PASS: limit 0.25 px within one layer` |
+| T3 | cross-device positions within a pixel | **NOT YET BUILT** |  | `` |
+| T4 | generator determinism: a layer regenerates identically | **PASS** | exit 0, 1.3 s | `DNA: regenerated 262144 of 262144 slots on Windows-11-10.0.26200-SP0; MATCH 7e8e65dc0ae61eec... vs 7e8e65dc0ae61eec...` |
+| T5 | address to source in one request | **NOT YET BUILT** |  | `` |
+| T6 | a law missing a fact refuses by name | **NOT YET BUILT** |  | `` |
+| T7 | sixteen layers served from the workstation's second drive | **NOT YET BUILT** |  | `` |
+| B1 | spiral and stack side by side | **PASS** | exit 0, 4.1 s | `{"layers": 4, "particles_per_layer": 65536, "particles": 262144, "spiral": {"cells_lit": 262144, "peak_per_cell": 1, "se` |
+| B2 | a network from a typed command (the Underground) | **PASS** | exit 0, 1.9 s | `{"command": "draw underground", "source": "https://api.tfl.gov.uk/Line/Mode/tube + /Line/&lt;id>/Route/Sequence/all", "attr` |
+</pre>
+<small>This page charts measured facts. It is not a design tool; above 100 kW a chartered electrical engineer signs.</small>
+</main></body></html>

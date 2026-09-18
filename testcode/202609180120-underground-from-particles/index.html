@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Underground from particles · testcode 202609180120</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; background: #000; color: #ccc; font: 15px/1.5 ui-monospace, Consolas, monospace; }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+  h1 { font-size: 18px; font-weight: 600; color: #f2f2f2; margin: 0 0 4px; }
+  p { margin: 8px 0; }
+  img { width: 100%; height: auto; display: block; background: #000; margin: 16px 0 6px; }
+  small { color: #8a8a8a; }
+  a { color: #61d6d6; }
+  code { color: #f9f1a5; }
+</style>
+</head>
+<body>
+<main>
+  <h1>The London Underground, drawn from particles by a typed command</h1>
+  <p>testcode 202609180120 · built 18 September 2026 · <a href="https://github.com/Ventusltd/particle-physics-drawing-engine">particle-physics-drawing-engine</a></p>
+
+  <p>The command is <code>draw underground</code>. The topology (11 lines, 341 stops, 314 edges) is read from Transport for London's open Unified API. The drawing is ours: every stop and every edge becomes the same same-sized particles, placed by a schematic law that pulls each edge towards one of eight compass directions. No map artwork is used. 6,327 particles.</p>
+  <img src="underground.png" alt="The Underground network drawn as particles" width="1024" height="1024">
+  <small>Powered by TfL Open Data. Contains OS data © Crown copyright and database rights 2016 and Geomni UK Map data © and database rights 2019.</small>
+
+  <p style="margin-top:28px">The same particles under two laws. Left: one endless spiral, 262,144 addresses, r = √address, θ = address × golden angle. Right: a stack of four layers of 65,536 slots, each its own disc, angle by whole-number arithmetic that is exact within a layer. Same count, same size; only the law differs.</p>
+  <img src="spiral-vs-stack.png" alt="Spiral law and stack law side by side" width="2064" height="1024">
+  <small>Both pictures are density rasters written by the scripts in <code>tools/</code>; every number above is measured by the script that drew the picture. This page charts data and published facts; it is not a design tool.</small>
+</main>
+</body>
+</html>

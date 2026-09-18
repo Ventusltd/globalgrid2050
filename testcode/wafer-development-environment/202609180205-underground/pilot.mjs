@@ -240,7 +240,7 @@ window.__pilot = run;
 // stops) laid out by an eight-direction schematic law, then the in-scope particles are placed along its edges and at
 // its stations by the same blend gravity and the logo use. Positions are computed, never stored; identity never moves.
 let netCache = null;
-const loadNet = async () => netCache || (netCache = await fetch(here + 'underground-network.json').then(r => r.ok ? r.json() : null).catch(() => null));
+const loadNet = async () => netCache || (netCache = await fetch(new URL('underground-network.json', location.href)).then(r => r.ok ? r.json() : null).catch(() => null));
 function networkTargets(N, m){
   const S = 0.85 * W().kepler().R, st = N.stations, E = N.edges, GA = 2.399963229728653;
   const perStation = 9, stationDots = Math.min(m, perStation * st.length), edgeDots = m - stationDots;

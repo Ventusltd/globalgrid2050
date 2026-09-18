@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5">
+<meta name="color-scheme" content="dark">
+<title>202609180245-real-systems</title>
+<meta name="wafer-data" content="../shared/">
+<meta name="wafer-start" content="draw grid400">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="stage" aria-label="Every permanently numbered line of code in the estate, placed by its own number."></canvas>
+
+<header id="bar">
+  <span id="wordmark">THE LINE WAFER</span>
+  <span id="count" class="dim">loading the numbered database…</span>
+</header>
+
+<form id="beam" autocomplete="off">
+  <input id="a" inputmode="numeric" pattern="[0-9]*" placeholder="line number" aria-label="line number to fly to">
+  <input id="b" inputmode="numeric" pattern="[0-9]*" placeholder="connect to…" aria-label="second line number to connect to">
+  <button id="go" type="submit">FLY</button>
+</form>
+
+<section id="panel" hidden>
+  <button id="close" type="button" aria-label="close">✕</button>
+  <div id="panelbody"></div>
+</section>
+
+<nav id="presets" aria-label="presets" style="position:fixed;left:12px;top:44px;z-index:19;display:flex;gap:6px;flex-wrap:wrap;max-width:62vw">
+  <button type="button" data-cmd="state 39885">home</button>
+  <button type="button" data-cmd="draw grid400">400 kV grid</button>
+  <button type="button" data-cmd="draw grid132">132 kV network</button>
+  <button type="button" data-cmd="draw substations">substations</button>
+  <button type="button" data-cmd="draw shotwick">Shotwick solar farm</button>
+  <button type="button" data-cmd="draw underground">underground</button>
+  <button type="button" data-cmd="draw uk">British Isles</button>
+  <button type="button" data-cmd="draw world">world</button>
+  <button type="button" data-cmd="gravity gridatlas">orbit gridatlas</button>
+  <button type="button" data-cmd="logo">logo</button>
+  <button type="button" data-cmd="release">release</button>
+</nav>
+<style>#presets button{font:11px/1.6 ui-monospace,Menlo,Consolas,monospace;color:#8b93a7;background:#0b0e14;border:1px solid #232a3a;border-radius:4px;padding:2px 9px;cursor:pointer}#presets button:hover{color:#e6e9f0;border-color:#4a5573}</style>
+<script>document.getElementById('presets').addEventListener('click',e=>{const b=e.target.closest('button');if(b&&window.__pilot)window.__pilot(b.dataset.cmd);});</script>
+<footer id="foot">
+  <span id="prov" class="dim">provenance loading</span>
+  <span id="hint" class="dim">drag to steer · pinch or scroll to focus the beam · tap a line</span>
+  <a id="proofs" href="proof/">check every claim on this page</a>
+</footer>
+
+<noscript><p class="dim" style="padding:1rem">This surface is drawn from the numbered database at run time, so it needs JavaScript. Nothing here is typed into the page.</p></noscript>
+
+<script type="module" src="app.mjs"></script>
+<script src="pilot-rules.js"></script>
+<script type="module" src="pilot.mjs"></script>
+</body>
+</html>

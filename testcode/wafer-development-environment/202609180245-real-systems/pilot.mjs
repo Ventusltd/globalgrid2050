@@ -198,8 +198,8 @@ function rasterLogo(){ if (logoRaster) return logoRaster; const c = document.cre
 function logoTargets(m){ const L = rasterLogo(); const t = new Float32Array(m * 2); const S = L.n;
   for (let j = 0; j < m; j++) { let q, dx = 0, dy = 0; if (m <= S) q = Math.floor(j * S / m); else { q = j % S; const c = Math.floor(j / S); dx = ((c * 7) % LOGO.step) / LOGO.step - 0.5; dy = ((c * 3) % LOGO.step) / LOGO.step - 0.5; } /* cycle with a tiny deterministic offset */
     const [X, Y] = L.toWafer(L.samples[2 * q] + dx, L.samples[2 * q + 1] + dy); t[2 * j] = X; t[2 * j + 1] = Y; } return t; }
-cmds.logo = async function(spec){ if (!W()) return log('the wafer is not ready'); const sc = scopeKeys(spec || scopeName); if (!sc) return scopeFail(spec); const r = W().scope(sc.keys); scopeName = sc.name; const L = rasterLogo();
-  log(`logo ${sc.name}: ${fmtN(r.shown)} lines → "${LOGO.lines.join(' / ')}" (${fmtN(L.n)} glyph samples, ${LOGO.font}, grid ${LOGO.step} px)`); await W().blend(logoTargets(r.shown)); hud(sc.name + ' · logo'); log(`logo ${sc.name}: assembled`); return r; };
+cmds.logo = async function(spec){ if (!W()) return log('the wafer is not ready'); const sc = scopeKeys(spec || scopeName); if (!sc) return scopeFail(spec); const r = await W().scope(sc.keys); scopeName = sc.name; const L = rasterLogo(); const m = W().state().scopeN;
+  log(`logo ${sc.name}: ${fmtN(m)} lines → "${LOGO.lines.join(' / ')}" (${fmtN(L.n)} glyph samples, ${LOGO.font}, grid ${LOGO.step} px)`); await W().blend(logoTargets(m)); hud(sc.name + ' · logo'); log(`logo ${sc.name}: assembled`); return r; };
 cmds.wordmark = cmds.logo;
 // test instrument: share of in-scope points within tolPx (screen px) of a glyph pixel
 window.__logoCheck = (tolPx = 3) => { const L = rasterLogo(); const st = W().state(); const rad = Math.max(1, Math.ceil(tolPx / (st.view.zoom * L.s))); const P = W().positions(); let hit = 0;
@@ -232,7 +232,7 @@ window.__pilot = run;
   [keysDb, qubit, apps, entangle, labels] = await Promise.all([j('keys.json'), j('qubit.json'), j('apps.json'), j('entangle.json'), j('labels.json')]);
   log(`Quantum Twin — primary key to actual code. ${keysDb ? keysDb.count.toLocaleString() : '?'} blocks with a recorded line; ${qubit ? Object.keys(qubit.atoms).length.toLocaleString() : '?'} block families.`);
   log('Type a sentence or a command. Every answer shows the command it became. Try: block 39885');
-  const start = new URLSearchParams(location.search).get('draw') ? 'draw ' + new URLSearchParams(location.search).get('draw') : document.querySelector('meta[name="wafer-start"]')?.content; if (start) { await new Promise(r => setTimeout(r, 1500)); const m = /^(land|visit|go|open)\s+(\S+)/.exec(start); if (m) { await run('app ' + m[2]); log(`This page stops here. To enter ${m[2]}, type: land ${m[2]} — space brings you back to the wafer.`); } else await run(start); sayEl.classList.add('min'); /* the wafer is the main event: the card starts folded to its title bar */ }
+  const start = new URLSearchParams(location.search).get('draw') ? (new URLSearchParams(location.search).get('draw') === 'logo' ? 'logo' : 'draw ' + new URLSearchParams(location.search).get('draw')) : document.querySelector('meta[name="wafer-start"]')?.content; if (start) { await new Promise(r => setTimeout(r, 1500)); const m = /^(land|visit|go|open)\s+(\S+)/.exec(start); if (m) { await run('app ' + m[2]); log(`This page stops here. To enter ${m[2]}, type: land ${m[2]} — space brings you back to the wafer.`); } else await run(start); sayEl.classList.add('min'); /* the wafer is the main event: the card starts folded to its title bar */ }
 })();
 
 // ---------- NETWORK: a whole system drawn from a typed command, on the wafer's own dust (no new looks) ----------
@@ -261,7 +261,10 @@ cmds.draw = async function(spec){
   await W().scope(null); const m = W().state().scopeN;
   log(`draw ${what}: ${N.stations.length} nodes, ${N.edges.length} edges; ${m.toLocaleString('en-GB')} lines placed by: ${N.law}`);
   await W().blend(networkTargets(N, m)); hud(what);
-  say(`<b>the Underground, drawn from a typed command</b>\n${N.stations.length} stations and ${N.edges.length} edges from Transport for London's open data, drawn with the wafer's own particles. Every dot is still a numbered line of code; only the law that places it changed.\n<i>next:</i> release · logo · gravity gridatlas\n<small>${N.attribution}</small>`);
-  log('draw underground: drawn'); return { stations: N.stations.length, edges: N.edges.length, placed: m };
+  say(`<b>${NETWORKS[what]}, drawn from a typed command</b>
+${N.stations.length.toLocaleString('en-GB')} nodes and ${N.edges.length.toLocaleString('en-GB')} edges from ${N.source}, drawn with the wafer's own particles. Every dot is still a numbered line of code; only the law that places it changed. It charts published data; it is not a design.
+<i>next:</i> draw ${Object.keys(NETWORKS).filter(k => k !== what).slice(0, 3).join(' · draw ')} · release · logo
+<small>${N.attribution}</small>`);
+  log(`draw ${what}: drawn`); return { system: what, nodes: N.stations.length, edges: N.edges.length, placed: m };
 };
 cmds.underground = () => cmds.draw('underground'); cmds.tube = cmds.underground;

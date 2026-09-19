@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Conductor section</title>
+<style>
+  :root{--bg:#090c13;--ink:#d5dcea;--dim:#7d8799;--cy:#2ee6e6;--gn:#22ee77;--am:#ffb000;--mg:#ff2bd6}
+  *{box-sizing:border-box} html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
+    font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow:hidden}
+  canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none}
+  #bar{position:fixed;top:0;left:0;right:0;display:flex;gap:8px;align-items:center;padding:8px 12px;z-index:5;
+    background:#090c13ee;border-bottom:1px solid #12414a;flex-wrap:wrap}
+  #bar b{color:var(--cy);letter-spacing:.16em;text-transform:uppercase;margin-right:10px}
+  button{background:#0b1a20;color:#8fb3bd;border:1px solid #12414a;padding:6px 10px;font:inherit;cursor:pointer;text-transform:uppercase;letter-spacing:.06em}
+  button.on,button:hover{border-color:var(--cy);color:var(--cy)}
+  #foot{position:fixed;left:0;right:0;bottom:0;padding:7px 12px;color:var(--dim);border-top:1px solid #12414a;background:#090c13ee;z-index:5}
+  /* THE PHONE. On a narrow screen the title block cannot stand beside the section, so the drawing
+     takes the upper part of the clear band and the block is set out beneath it (see draw()). The
+     buttons grow to a thumb's size and the footnote collapses rather than taking half the screen. */
+  @media (max-width:760px){
+    html,body{font-size:11px}
+    #bar{padding:6px 8px} #bar b{margin-right:6px}
+    button{padding:9px 11px}
+    #foot{padding:6px 8px;max-height:22vh;overflow:auto}
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="bar"><b>Conductor section</b><span id="btns"></span></div>
+<div id="foot">a section, not a design &middot; every dimension is derived from the stated inputs or marked CANDIDATE &middot; materials are told apart
+  by hatch, as on a drawing, so colour stays free to mean state &middot; no material image is shown because no real, attributed image is held:
+  a texture made to look like metal would be a lie &middot; provided as is, without warranty of any kind</div>
+<script type="module">
+// A CONDUCTOR, DRAWN FROM ARITHMETIC. A concentric stranded conductor is the hexagonal law made of
+// metal: one wire, then a layer of 6, then 12, then 18, layer k holding 6k wires on a circle of
+// radius k x d. So the wire count of n layers is 3n^2 + 3n + 1 = 1, 7, 19, 37, 61, 91, which is why
+// IEC 60228 class 2 strandings are those numbers, and the overall diameter is (2n+1) x d.
+// Everything drawn below follows from a nominal area and a wire count. Nothing is traced from a
+// photograph and nothing is decorated.
+const CASES = [
+  { id:'al400', name:'400 mm² aluminium · class 2 · 61 wires', area:400, n:61, metal:'Al', layers:4, lay:'concentric',
+    compactFill:0.90, note:'Circular compacted. Compaction deforms the round wires so the same metal fits a smaller circle.' },
+  { id:'cu6c5', name:'6 mm² tinned copper · class 5 · 84 × 0.30', area:6, n:84, d:0.30, metal:'Cu-Sn', lay:'bunched',
+    note:'Flexible, as used in H1Z2Z2-K solar cable. Bunched wires have NO fixed positions: this arrangement is an idealisation.' },
+  { id:'cu6c6', name:'6 mm² copper · class 6 · 189 × 0.20', area:6, n:189, d:0.20, metal:'Cu', lay:'bunched',
+    note:'Extra flexible. Finer wire, more of them, same metal. Bunched: an idealisation, as above.' }
+];
+const cv = document.getElementById('c'), g = cv.getContext('2d'); let cur = CASES[0];
+const btns = document.getElementById('btns');
+CASES.forEach(c => { const b = document.createElement('button'); b.textContent = c.id; b.onclick = () => { cur = c; draw(); }; c.btn = b; btns.appendChild(b); });
+
+function geometry(c){
+  const o = { wires:[] };
+  if (c.lay === 'concentric') {
+    o.d = Math.sqrt(4*c.area / (c.n*Math.PI));                 // from A = n x pi d^2 / 4
+    o.D = (2*c.layers + 1) * o.d;                              // across the layers
+    o.wires.push([0,0]);
+    for (let k = 1; k <= c.layers; k++) for (let j = 0; j < 6*k; j++) { const a = 2*Math.PI*j/(6*k) + (k%2 ? 0 : Math.PI/(6*k));
+      o.wires.push([k*o.d*Math.cos(a), k*o.d*Math.sin(a)]); }
+    o.fill = c.n*o.d*o.d / (o.D*o.D);                          // metal area over circle area
+    o.Dc = Math.sqrt(4*c.area / (Math.PI*c.compactFill));      // the circle the same metal needs at the compacted fill
+    o.metalArea = c.n*Math.PI*o.d*o.d/4;
+  } else {
+    o.d = c.d; o.metalArea = c.n*Math.PI*o.d*o.d/4; o.fill = 0.75; o.D = o.d*Math.sqrt(c.n/o.fill);
+    for (let i = 0; i < c.n; i++) { const r = (o.D/2 - o.d/2)*Math.sqrt((i+0.5)/c.n), a = i*2.399963229728653; o.wires.push([r*Math.cos(a), r*Math.sin(a)]); }
+  }
+  return o;
+}
+function hatch(x, y, r, metal){                                  // ISO 128 style: material by hatch, not by colour
+  g.save(); g.beginPath(); g.arc(x, y, r, 0, 6.2832); g.clip(); g.strokeStyle = 'rgba(201,211,230,.55)'; g.lineWidth = 1;
+  const step = Math.max(3, r/3.2), ang = metal === 'Al' ? Math.PI/4 : -Math.PI/4;
+  for (let t = -2*r; t <= 2*r; t += step) { g.beginPath(); g.moveTo(x + t - 2*r*Math.cos(ang), y - 2*r*Math.sin(ang)); g.lineTo(x + t + 2*r*Math.cos(ang), y + 2*r*Math.sin(ang)); g.stroke(); }
+  if (metal === 'Cu-Sn') { g.strokeStyle = 'rgba(201,211,230,.9)'; g.lineWidth = Math.max(1, r*0.16); g.beginPath(); g.arc(x, y, r*0.92, 0, 6.2832); g.stroke(); }
+  g.restore();
+}
+function dim(x1, x2, y, label, colour){
+  g.strokeStyle = colour; g.fillStyle = colour; g.lineWidth = 1; g.beginPath();
+  g.moveTo(x1, y-7); g.lineTo(x1, y+7); g.moveTo(x2, y-7); g.lineTo(x2, y+7); g.moveTo(x1, y); g.lineTo(x2, y); g.stroke();
+  g.textAlign = 'center'; g.fillText(label, (x1+x2)/2, y - 8); g.textAlign = 'start';
+}
+function draw(){
+  cv.width = innerWidth; cv.height = innerHeight; CASES.forEach(c => c.btn.className = c === cur ? 'on' : '');
+  // THE CLEAR BAND. The bar and the footnote are fixed, so the drawing is fitted to what is left of
+  // the window, measured, not guessed. Narrow: the section on top, the title block underneath.
+  const barH = document.getElementById('bar').getBoundingClientRect().height;
+  const footH = document.getElementById('foot').getBoundingClientRect().height;
+  const W = cv.width, H = cv.height, top = barH + 10, bot = H - footH - 10, band = Math.max(60, bot - top);
+  const narrow = W < 760;
+  const o = geometry(cur);
+  // The title block's height is known before a word of it is written: it has a fixed number of
+  // rows. On a narrow screen it is reserved first and the section is given what is left, so the
+  // block can never be pushed off the bottom of the screen by a larger drawing.
+  const rows = 9 + (o.Dc ? 1 : 0), lh = narrow ? 22 : 30;
+  const blockH = narrow ? rows*lh + 62 + 46 : 0;                    // rows, the frame, three lines of note
+  const avail = narrow ? Math.max(120, band - blockH - 12) : band;
+  const cx = narrow ? W*0.50 : W*0.40;
+  const R = narrow ? Math.min(W*0.40, (avail - 84)/2) : o.D/2 * (Math.min(W*0.62, band*0.86) / (o.D*1.12));
+  const S = 2*R/o.D;
+  const cy = narrow ? top + 10 + R : top + band*0.52;
+  g.fillStyle = '#090c13'; g.fillRect(0,0,W,H); g.font = '12px ui-monospace,Consolas,monospace';
+  for (const [x,y] of o.wires) { const px = cx + x*S, py = cy - y*S, r = o.d/2*S;
+    hatch(px, py, r, cur.metal); g.strokeStyle = '#c9d3e6'; g.lineWidth = 1.2; g.beginPath(); g.arc(px, py, r, 0, 6.2832); g.stroke(); }
+  g.strokeStyle = 'rgba(46,230,230,.55)'; g.setLineDash([6,5]); g.beginPath(); g.arc(cx, cy, R, 0, 6.2832); g.stroke(); g.setLineDash([]);
+  dim(cx - R, cx + R, cy + R + 34, 'Ø ' + o.D.toFixed(2) + ' mm  across the ' + (cur.lay === 'concentric' ? 'round wires, (2n+1) × d' : 'bundle, idealised'), '#2ee6e6');
+  if (o.Dc) { g.strokeStyle = '#ffb000'; g.lineWidth = 1.6; g.beginPath(); g.arc(cx, cy, o.Dc/2*S, 0, 6.2832); g.stroke();
+    dim(cx - o.Dc/2*S, cx + o.Dc/2*S, cy + R + 66, 'Ø ' + o.Dc.toFixed(2) + ' mm  after compaction to fill ' + cur.compactFill.toFixed(2) + '  (CANDIDATE input)', '#ffb000'); }
+  const w0 = o.wires[o.wires.length-1]; dim(cx + w0[0]*S - o.d/2*S, cx + w0[0]*S + o.d/2*S, cy - w0[1]*S - o.d/2*S - 12, 'd ' + o.d.toFixed(3) + ' mm', '#ff2bd6');
+  // the title block, as on a drawing
+  const bx = narrow ? 14 : W*0.70, by = narrow ? Math.round(top + avail + 34) : top + 24;
+  const bw = narrow ? W - 28 : W - bx, L = [];
+  L.push(['TITLE', cur.name]); L.push(['STANDARD', 'IEC 60228, conductors of insulated cables']);
+  L.push(['NOMINAL AREA', cur.area + ' mm²  (input)']); L.push(['WIRES', cur.n + (cur.lay === 'concentric' ? '  = 3n²+3n+1, n = ' + cur.layers + '  (derived)' : '  (input)')]);
+  L.push(['WIRE DIAMETER', o.d.toFixed(3) + ' mm  ' + (cur.lay === 'concentric' ? '(derived from area and count)' : '(input; CANDIDATE against the standard)')]);
+  L.push(['METAL AREA', o.metalArea.toFixed(2) + ' mm²  (derived)']);
+  L.push(['FILL, ROUND WIRES', cur.lay === 'concentric' ? cur.n + '/' + Math.pow(2*cur.layers+1,2) + ' = ' + o.fill.toFixed(3) + '  (derived, exact)' : o.fill.toFixed(2) + '  (assumed; CANDIDATE)']);
+  if (o.Dc) L.push(['DIAMETER SAVED', (o.D - o.Dc).toFixed(2) + ' mm, ' + ((1 - o.Dc/o.D)*100).toFixed(1) + '%  by compaction']);
+  L.push(['LAY', cur.lay]); L.push(['HATCH', cur.metal === 'Al' ? 'aluminium, 45°' : (cur.metal === 'Cu-Sn' ? 'copper, 135°, tin as a heavy rim' : 'copper, 135°')]);
+  if (narrow) g.font = '10px ui-monospace,Consolas,monospace';
+  g.strokeStyle = '#12414a'; g.strokeRect(bx - 12, by - 22, bw, L.length*lh + 62);
+  L.forEach(([k, v], i) => { g.fillStyle = '#2ee6e6'; g.fillText(k, bx, by + i*lh); g.fillStyle = /CANDIDATE/.test(v) ? '#ffb000' : '#d5dcea'; g.fillText(v, bx, by + i*lh + 12); });
+  g.fillStyle = '#8fb3bd'; const words = cur.note.split(' '); let line = '', yy = by + L.length*lh + 6;
+  for (const w of words) { if (g.measureText(line + w).width > bw - 24) { g.fillText(line, bx, yy); yy += 14; line = ''; } line += w + ' '; } g.fillText(line, bx, yy);
+  const blockBottom = Math.max(yy + 4, by - 22 + L.length*lh + 62);   // the lower of the note and the frame
+  g.font = '12px ui-monospace,Consolas,monospace';
+  // the drawing checks itself
+  const ring = []; if (cur.lay === 'concentric') for (let k = 1; k <= cur.layers; k++) ring.push(6*k);
+  // THE PHONE TEST, drawn into the same pass: the title block must not sit over the section, and
+  // everything drawn must be inside the clear band between the bar and the footnote.
+  const blockTop = by - 22, sectionBottom = cy + R + 70;             // the dimension lines under the circle
+  const clearOfSection = narrow ? blockTop - sectionBottom : bx - 12 - (cx + R);
+  const insideBand = (cy - R) >= top - 0.5 && blockBottom <= bot + 0.5 && bx - 12 >= 0 && bx - 12 + bw <= W + 0.5;
+  window.__selftest = { id:cur.id, viewport:[W, H], narrow, band:[Math.round(top), Math.round(bot)],
+    T4_title_block_is_clear_of_the_section: clearOfSection >= 0, clear_px:Math.round(clearOfSection),
+    T5_everything_is_inside_the_clear_band: insideBand,
+    T6_reserved_rows_match_the_rows_written: rows === L.length, rows_reserved:rows, rows_written:L.length,
+    block_bottom_px:Math.round(blockBottom), clear_band_bottom_px:Math.round(bot),
+    wires_drawn:o.wires.length, wires_declared:cur.n, T1_count_matches:o.wires.length === cur.n,
+    T2_layers_are_6k: cur.lay !== 'concentric' || ring.reduce((a,b)=>a+b,1) === cur.n, layers:ring,
+    T3_metal_area_equals_nominal: cur.lay !== 'concentric' || Math.abs(o.metalArea - cur.area) < 1e-9,
+    fill:+o.fill.toFixed(4), D_mm:+o.D.toFixed(3), Dc_mm:o.Dc ? +o.Dc.toFixed(3) : null, d_mm:+o.d.toFixed(4) };
+  window.__selftest.PASS = window.__selftest.T1_count_matches && window.__selftest.T2_layers_are_6k && window.__selftest.T3_metal_area_equals_nominal
+    && window.__selftest.T4_title_block_is_clear_of_the_section && window.__selftest.T5_everything_is_inside_the_clear_band
+    && window.__selftest.T6_reserved_rows_match_the_rows_written;
+  document.title = 'conductor ' + cur.id + ' selftest ' + (window.__selftest.PASS ? 'PASS' : 'FAIL');
+}
+addEventListener('resize', draw); draw();
+</script>
+</body>
+</html>

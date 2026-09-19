@@ -41,7 +41,13 @@
 // nothing is stored. This is the second law: positions are computed, never stored.
 //
 // Distance is time, as in the night sky: the further out, the further into the past.
-const N = 124905502;          // measured, not assumed. See MEASURED.md in Ventusltd/kuiper-belt.
+// TWO REAL NUMBERS, NEITHER STANDING FOR THE OTHER. Both measured 2026-09-19 by twelve
+// self-hosted runners, all shards present.
+//   DISTINCT  124,905,502  distinct lines git has recorded, copies collapsed by content
+//   EVERY  37,796,045,093  every line in every file in every commit, copies counted each time
+const DISTINCT = 124905502;
+const EVERY    = 37796045093;
+let N = EVERY;               // the default is everything. Press d for distinct.
 const GOLDEN = 2.399963229728653;
 
 const cv = document.getElementById('c');
@@ -112,6 +118,11 @@ let scale = 0.92, pan = [0, 0], drawn = 0, ms = 0;
 // A single draw call of 124.9 million is refused by some drivers, so the SAME complete
 // population is drawn in passes. Paging is honest: the set is unchanged. Sampling would not be.
 const CHUNK = 8000000;
+// 37.8 billion cannot be drawn in one frame by any GPU. So the SAME complete population is
+// accumulated ACROSS frames without clearing: about eighty seconds to render the universe, with
+// the progress stated every frame. Nothing is skipped and nothing is sampled. When it completes
+// it says so; until then it says how far it has got.
+let cursor = 0, started = 0;
 
 function resize() {
   const d = Math.min(devicePixelRatio || 1, 2);
@@ -119,31 +130,47 @@ function resize() {
   cv.height = Math.floor(innerHeight * d);
   gl.viewport(0, 0, cv.width, cv.height);
 }
-addEventListener('resize', resize); resize();
+addEventListener('resize', () => { resize(); cursor = 0; }); resize();
 
 function frame() {
-  const t0 = performance.now();
-  gl.clearColor(0, 0, 0, 1);
-  gl.clear(gl.COLOR_BUFFER_BIT);
+  if (cursor === 0) {
+    gl.clearColor(0, 0, 0, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    started = performance.now();
+  }
   gl.uniform1f(uN, N);
   gl.uniform1f(uS, scale);
   gl.uniform2f(uP, pan[0], pan[1]);
   gl.uniform1f(uA, cv.width / cv.height);
-  drawn = 0;
-  for (let first = 0; first < N; first += CHUNK) {
-    const n = Math.min(CHUNK, N - first);
-    gl.drawArrays(gl.POINTS, first, n);       // every particle, in passes, none skipped
-    drawn += n;
+  const budget = cursor + CHUNK * 8;                 // about 64 million per frame
+  while (cursor < N && cursor < budget) {
+    const n = Math.min(CHUNK, N - cursor);
+    gl.drawArrays(gl.POINTS, cursor, n);             // every particle, none skipped
+    cursor += n;
   }
-  ms = performance.now() - t0;
-  hud.textContent = 'showing ' + fmt(drawn) + ' of ' + fmt(N) + ' lines · universe · '
-    + ms.toFixed(0) + ' ms';
-  if (drawn !== N) hud.textContent += ' · INCOMPLETE';
+  const pct = (cursor / N * 100);
+  const secs = ((performance.now() - started) / 1000).toFixed(1);
+  hud.textContent = cursor >= N
+    ? 'showing ' + fmt(N) + ' of ' + fmt(N) + ' lines · COMPLETE in ' + secs + ' s'
+    : 'drawing ' + fmt(cursor) + ' of ' + fmt(N) + ' lines · ' + pct.toFixed(2) + '% · ' + secs + ' s';
   requestAnimationFrame(frame);
 }
 
-document.getElementById('count').textContent =
-  fmt(N) + ' lines git has recorded · 66 repositories · 42,549 blobs · 9,396,220,285 bytes';
+// changing the view restarts the render, because a half drawn universe over a new camera
+// would be a picture of two different things at once.
+function restart() { cursor = 0; }
+addEventListener('keydown', e => {
+  if (e.key === 'd') { N = (N === EVERY) ? DISTINCT : EVERY; restart(); label(); }
+});
+
+function label() {
+  document.getElementById('count').textContent = (N === EVERY)
+    ? fmt(EVERY) + ' lines — every line in every file in every commit, copies counted each time'
+      + ' · press d for ' + fmt(DISTINCT) + ' distinct'
+    : fmt(DISTINCT) + ' lines — distinct content, copies collapsed'
+      + ' · press d for ' + fmt(EVERY) + ' with copies';
+}
+label();
 
 let drag = null;
 cv.addEventListener('pointerdown', e => { drag = [e.clientX, e.clientY]; });
@@ -153,10 +180,12 @@ addEventListener('pointermove', e => {
   pan[0] += (e.clientX - drag[0]) / innerWidth * 2;
   pan[1] -= (e.clientY - drag[1]) / innerHeight * 2;
   drag = [e.clientX, e.clientY];
+  restart();
 });
 addEventListener('wheel', e => {
   scale *= e.deltaY < 0 ? 1.12 : 1 / 1.12;
   scale = Math.max(0.05, Math.min(4000, scale));
+  restart();
 }, { passive: true });
 
 requestAnimationFrame(frame);

@@ -1,7 +1,11 @@
 name: Count every line in the estate
 
-# The 8.75 GB job. Runs on the MSI's own self-hosted runners, because the 66 repositories
-# live on that machine and a cloud runner cannot see them.
+# The whole estate, counted in parallel on the MSI's own self-hosted runners.
+# The 66 repositories live on that machine, so a cloud runner cannot see them.
+#
+# Sharding is deterministic and by CONTENT: a blob belongs to the shard given by its own SHA.
+# Every shard sees a disjoint slice, no blob is counted twice, and the shards sum exactly to the
+# whole. Re-running any single shard reproduces that slice byte for byte.
 on:
   workflow_dispatch:
     inputs:
@@ -13,34 +17,85 @@ on:
     - cron: '0 4 * * *'
 
 jobs:
-  count:
+  shard:
     runs-on: self-hosted
-    timeout-minutes: 240
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     steps:
-      - name: Count every line
+      - name: Count shard ${{ matrix.shard }} of 12
         shell: 'powershell -NoProfile -ExecutionPolicy Bypass -File {0}'
         run: |
           $ErrorActionPreference = 'Stop'
           $depth = '${{ github.event.inputs.depth }}'
           if (-not $depth) { $depth = 'history' }
           $belt  = Join-Path $env:USERPROFILE 'Documents\GitHub\Kuiper-belt'
-          $roots = 'C:/Users/vikra/Documents/GitHub'
           $tool  = Join-Path $belt 'tools\count_lines.py'
+          $roots = 'C:/Users/vikra/Documents/GitHub'
           if (-not (Test-Path $tool)) { throw "count_lines.py not found at $tool" }
+          $out = Join-Path $env:RUNNER_TEMP "count-${{ matrix.shard }}"
+          New-Item -ItemType Directory -Force -Path $out | Out-Null
           Set-Location $belt
-          Write-Output "counting depth=$depth over $roots at $((Get-Date).ToUniversalTime().ToString('o'))"
-          python $tool --roots $roots --depth $depth
-          if ($LASTEXITCODE -ne 0) { throw "count_lines.py exited $LASTEXITCODE" }
-          $countsPath = Join-Path $belt 'data\counts.json'
-          if (-not (Test-Path $countsPath)) { throw 'counts.json was not written' }
-          $c = Get-Content $countsPath -Raw
-          Write-Output $c
+          python $tool --roots $roots --depth $depth --shard ${{ matrix.shard }} --of 12 --out $out
+          if ($LASTEXITCODE -ne 0) { throw "shard ${{ matrix.shard }} exited $LASTEXITCODE" }
+          $f = Get-ChildItem $out -Filter 'counts-*.json' | Select-Object -First 1
+          if (-not $f) { throw 'shard produced no counts file' }
+          Copy-Item $f.FullName (Join-Path $out 'shard.json') -Force
+          Get-Content (Join-Path $out 'shard.json') -Raw | Write-Output
+
+      - name: Keep the shard result
+        uses: actions/upload-artifact@v4
+        with:
+          name: count-shard-${{ matrix.shard }}
+          path: ${{ runner.temp }}/count-${{ matrix.shard }}/
+          retention-days: 7
+
+  total:
+    needs: shard
+    if: always()
+    runs-on: self-hosted
+    timeout-minutes: 30
+    steps:
+      - name: Collect the shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: count-shard-*
+          path: ${{ runner.temp }}/shards
+
+      - name: Sum them, and refuse if any shard is missing
+        shell: 'powershell -NoProfile -ExecutionPolicy Bypass -File {0}'
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $files = Get-ChildItem "$env:RUNNER_TEMP\shards" -Recurse -Filter 'shard.json'
+          if ($files.Count -eq 0) { throw 'no shard results: a check that examines nothing refuses' }
+          $sum = @{}
+          $seen = @()
+          foreach ($f in $files) {
+            $j = Get-Content $f.FullName -Raw | ConvertFrom-Json
+            $seen += $j.shard
+            foreach ($k in 'head_lines','head_blobs','head_text_blobs','head_binary_blobs',
+                           'history_lines','history_blobs','history_text_blobs','history_binary_blobs',
+                           'authored_added','authored_deleted','commits','tracked_paths') {
+              if ($null -ne $j.$k) { $sum[$k] = [int64]$sum[$k] + [int64]$j.$k }
+            }
+          }
+          $missing = 0..11 | Where-Object { $seen -notcontains $_ }
+          $sum['shards_seen'] = $files.Count
+          $sum['shards_missing'] = ($missing -join ',')
+          $sum['complete'] = ($missing.Count -eq 0)
+          $sum['asof'] = (Get-Date).ToUniversalTime().ToString('o')
+          $json = $sum | ConvertTo-Json -Depth 4
+          Write-Output $json
           if ($env:GITHUB_STEP_SUMMARY) {
             Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value '```json'
-            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value $c
+            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value $json
             Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value '```'
           }
           if (Test-Path 'E:\particles-runs') {
-            Copy-Item $countsPath 'E:\particles-runs\counts-latest.json' -Force
-            Write-Output 'counts-latest.json written to E:\particles-runs'
+            Set-Content -Path 'E:\particles-runs\counts-latest.json' -Value $json -Encoding utf8
+          }
+          if ($missing.Count -gt 0) {
+            throw "INCOMPLETE: shards missing: $($missing -join ',') - the total is not the whole estate"
           }

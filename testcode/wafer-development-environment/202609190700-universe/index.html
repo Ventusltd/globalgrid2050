@@ -9,7 +9,11 @@
   *{box-sizing:border-box}
   html,body{margin:0;height:100%;background:#000;color:var(--ink);
     font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow:hidden}
-  canvas{position:fixed;inset:0;width:100%;height:100%;display:block;background:#000}
+  canvas{position:fixed;inset:0;width:100%;height:100%;display:block;background:#000;
+    image-rendering:pixelated}
+  /* a 90s display: scanlines, and nothing smoothed anywhere */
+  #crt{position:fixed;inset:0;pointer-events:none;z-index:5;
+    background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.28) 2px 3px)}
   #top{position:fixed;top:0;left:0;right:0;padding:8px 12px;display:flex;gap:16px;
     align-items:baseline;flex-wrap:wrap;pointer-events:none;z-index:10}
   #name{letter-spacing:.06em}
@@ -23,6 +27,7 @@
 <body>
 <canvas id="c"></canvas>
 <div id="top"><span id="name">THE UNIVERSE</span><span id="count">everything git logged</span></div>
+<div id="crt"></div>
 <div id="hud">starting</div>
 <div id="foot">
   drag to steer &middot; scroll to zoom &middot; every particle is one line git has ever recorded &middot;
@@ -86,9 +91,9 @@ precision highp float;
 in float v_r;
 out vec4 o;
 void main() {
-  // base dust. brightness falls very slightly outward so depth reads, nothing else is encoded.
-  float a = 0.16 + 0.10 * (1.0 - v_r);
-  o = vec4(0.91, 0.90, 0.88, a);
+  // BINARY. A line either exists at this position or it does not. There is no partial
+  // brightness, because there is no such thing as a partial line. One or zero.
+  o = vec4(0.87, 0.89, 0.86, 1.0);
 }`;
 
 function sh(type, src) {
@@ -110,8 +115,9 @@ const uS = gl.getUniformLocation(prog, 'u_scale');
 const uP = gl.getUniformLocation(prog, 'u_pan');
 const uA = gl.getUniformLocation(prog, 'u_aspect');
 
-gl.enable(gl.BLEND);
-gl.blendFunc(gl.SRC_ALPHA, gl.ONE);           // additive: density becomes brightness
+// No blending. Alpha accumulation would manufacture brightness that no line possesses;
+// coverage alone shows density, exactly as a monochrome display had to.
+gl.disable(gl.BLEND);
 
 let scale = 0.92, pan = [0, 0], drawn = 0, ms = 0;
 
@@ -125,7 +131,7 @@ const CHUNK = 8000000;
 let cursor = 0, started = 0;
 
 function resize() {
-  const d = Math.min(devicePixelRatio || 1, 2);
+  const d = 1;   // one device pixel per screen pixel: hard square dots, nothing smoothed
   cv.width = Math.floor(innerWidth * d);
   cv.height = Math.floor(innerHeight * d);
   gl.viewport(0, 0, cv.width, cv.height);

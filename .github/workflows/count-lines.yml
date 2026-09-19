@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       depth:
-        description: 'head | history | authored | all'
+        description: 'head | history | authored | entries | all'
         required: false
         default: 'history'
   schedule:
@@ -19,7 +19,7 @@ on:
 jobs:
   shard:
     runs-on: self-hosted
-    timeout-minutes: 120
+    timeout-minutes: 360
     strategy:
       fail-fast: false
       matrix:
@@ -77,6 +77,7 @@ jobs:
             $seen += $j.shard
             foreach ($k in 'head_lines','head_blobs','head_text_blobs','head_binary_blobs',
                            'history_lines','history_blobs','history_text_blobs','history_binary_blobs',
+                           'entries_ever','entry_lines_ever','commits_walked',
                            'authored_added','authored_deleted','commits','tracked_paths') {
               if ($null -ne $j.$k) { $sum[$k] = [int64]$sum[$k] + [int64]$j.$k }
             }

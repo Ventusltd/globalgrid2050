@@ -1,0 +1,21 @@
+{
+ "schema": "globalgrid.current.v1",
+ "generation": "202609192301",
+ "previous_generation": null,
+ "architecture": "IMMUTABLE_SHELL_PLUS_HASHED_CARTRIDGES",
+ "live_route": "/kuiper/",
+ "release_id": "202609192301-kuiper-shell",
+ "shell": {
+  "release_id": "202609192301-kuiper-shell",
+  "index": "./releases/202609192301-kuiper-shell/index.html",
+  "base": "./releases/202609192301-kuiper-shell/",
+  "sha256": "5b59979c093d0713d05e6ab3d2c36395e5edcefaa7e5a0336c9fdb3b7f6e1e30"
+ },
+ "cartridge_order": [],
+ "cartridges": [],
+ "last_known_green": {
+  "generation": "202609192301",
+  "release": "k0031",
+  "proved": "# Kuiper: the engineering behind this site, and the code behind any line of it"
+ }
+}

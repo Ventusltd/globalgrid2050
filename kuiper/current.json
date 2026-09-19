@@ -1,7 +1,7 @@
 {
  "schema": "globalgrid.current.v1",
- "generation": "202609192301",
- "previous_generation": null,
+ "generation": "202609192311",
+ "previous_generation": "202609192301",
  "architecture": "IMMUTABLE_SHELL_PLUS_HASHED_CARTRIDGES",
  "live_route": "/kuiper/",
  "release_id": "202609192301-kuiper-shell",
@@ -11,11 +11,26 @@
   "base": "./releases/202609192301-kuiper-shell/",
   "sha256": "5b59979c093d0713d05e6ab3d2c36395e5edcefaa7e5a0336c9fdb3b7f6e1e30"
  },
- "cartridge_order": [],
- "cartridges": [],
+ "cartridge_order": [
+  "kuiper-chrome"
+ ],
+ "cartridges": [
+  {
+   "id": "kuiper-chrome",
+   "generation": "202609192311",
+   "type": "script",
+   "slot": "replace-script",
+   "replaces": "kuiper-chrome.js",
+   "path": "./cartridges/202609192311-kuiper-chrome.js",
+   "sha256": "05ee8c545607daa8a7c91644fb9a9f137e50967205019fe8727468b9bd2c8a91",
+   "bytes": 2597,
+   "release": "k0032",
+   "job": "how the page is dressed"
+  }
+ ],
  "last_known_green": {
-  "generation": "202609192301",
-  "release": "k0031",
-  "proved": "# Kuiper: the engineering behind this site, and the code behind any line of it"
+  "generation": "202609192311",
+  "release": "k0032",
+  "proved": "# Kuiper: a change released and then taken back, on purpose"
  }
 }

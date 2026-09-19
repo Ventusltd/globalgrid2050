@@ -134,7 +134,7 @@ body{
   #beam{left:auto; right:1rem; width:26rem; bottom:calc(var(--bot) + 2.9rem)}
   #foot{flex-direction:row; gap:.6rem; justify-content:space-between}
   #hint{text-align:right}
-  #panel{left:auto; right:1rem; top:calc(var(--top) + 4.4rem); bottom:auto; width:30rem; max-height:52vh}
+  #panel{left:auto; right:1rem; top:calc(var(--top) + 4.4rem); bottom:auto; width:30rem; max-height:52vh; resize:both; overflow:auto; min-width:20rem; min-height:7rem; max-width:94vw}
   #foot{font-size:11px}
 }
 /* ── reading the code ───────────────────────────────────────────────────── */

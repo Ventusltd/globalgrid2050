@@ -21,7 +21,7 @@ const css = document.createElement('style'); css.textContent = `
 #pilot:hover,#pilot:focus-within{opacity:1;background:#0e121bf2;border-top-color:#1b2030}
 #pilot input{flex:1;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#11151f;color:#cfe3f2;border:1px solid #1b2030;border-radius:6px;padding:.6rem .9rem}
 #pilot input:focus{outline:1px solid #5ec8f2}
-#say{position:fixed;left:50%;top:12vh;transform:translateX(-50%);width:min(72ch,84vw);max-height:70vh;min-width:280px;min-height:64px;background:#0e121bf2;border:1px solid #1b2030;border-radius:8px;padding:0;font:14px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#cfe3f2;display:none;z-index:20;white-space:pre-wrap;resize:both;overflow:hidden;display:none;flex-direction:column}
+#say{position:fixed;left:50%;top:12vh;transform:translateX(-50%);width:min(72ch,84vw);max-height:70vh;min-width:280px;min-height:64px;background:#0e121bf2;border:1px solid #1b2030;border-radius:8px;padding:0;font:14px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#cfe3f2;display:none;z-index:20;white-space:pre-wrap;resize:both;overflow:auto;display:none;flex-direction:column}
 #say.open{display:flex} #say.max{left:12px;top:12px;right:12px;bottom:60px;transform:none;width:auto;max-height:none;height:auto}
 #say.min{height:auto!important;max-height:none;resize:none;width:min(48ch,84vw)} #say.min #saybody{display:none}
 #saybar{display:flex;align-items:center;gap:6px;padding:4px 8px;border-bottom:1px solid #1b2030;background:#11151f;cursor:move;user-select:none;font-size:11px;color:#8b93a7;letter-spacing:.06em;text-transform:uppercase}

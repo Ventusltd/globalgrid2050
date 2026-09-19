@@ -1,0 +1,222 @@
+{
+ "schema": "kuiper-program.v1",
+ "what_it_is": "What is shown when a button is pressed: the work selected, how the pulse travels, how a dot looks off and on, and what is offered at the end.",
+ "programs": [
+  {
+   "name": "gridatlas",
+   "button": "GRIDATLAS",
+   "select": {
+    "app": "gridatlas"
+   },
+   "pulse": {
+    "origin": "centre",
+    "seconds": 1.5
+   },
+   "off": {
+    "dim": 0.1
+   },
+   "on": {
+    "colour": [
+     0.13,
+     0.93,
+     0.47
+    ]
+   },
+   "end": {
+    "tile": "https://ventusltd.github.io/gridatlas/atlas/"
+   }
+  },
+  {
+   "name": "pipelinenews",
+   "button": "PIPELINE NEWS",
+   "select": {
+    "app": "pipelinenews"
+   },
+   "pulse": {
+    "origin": "centre",
+    "seconds": 1.5
+   },
+   "off": {
+    "dim": 0.1
+   },
+   "on": {
+    "colour": [
+     0.13,
+     0.93,
+     0.47
+    ]
+   },
+   "end": {
+    "tile": "https://globalgrid2050.com/uk_renewables_pipeline/202609082224/"
+   }
+  },
+  {
+   "name": "spider",
+   "button": "SPIDER SANDBOX",
+   "select": {
+    "app": "spider"
+   },
+   "pulse": {
+    "origin": "centre",
+    "seconds": 1.5
+   },
+   "off": {
+    "dim": 0.1
+   },
+   "on": {
+    "colour": [
+     0.13,
+     0.93,
+     0.47
+    ]
+   },
+   "end": {
+    "tile": "https://ventusltd.github.io/ventus-grid-engine/?graph=engine-graph"
+   }
+  },
+  {
+   "name": "periodic-table",
+   "button": "PERIODIC TABLE",
+   "select": {
+    "app": "periodic-table"
+   },
+   "pulse": {
+    "origin": "centre",
+    "seconds": 1.5
+   },
+   "off": {
+    "dim": 0.1
+   },
+   "on": {
+    "colour": [
+     0.13,
+     0.93,
+     0.47
+    ]
+   },
+   "end": {
+    "tile": "https://ventusltd.github.io/stars/table.html"
+   }
+  },
+  {
+   "name": "real-systems",
+   "button": "REAL SYSTEMS",
+   "select": {
+    "app": "real-systems"
+   },
+   "pulse": {
+    "origin": "centre",
+    "seconds": 1.5
+   },
+   "off": {
+    "dim": 0.1
+   },
+   "on": {
+    "colour": [
+     0.13,
+     0.93,
+     0.47
+    ]
+   },
+   "end": {
+    "tile": "https://globalgrid2050.com/testcode/wafer-development-environment/202609180245-real-systems/"
+   }
+  },
+  {
+   "name": "cables",
+   "button": "CABLES",
+   "select": {
+    "app": "cables"
+   },
+   "pulse": {
+    "origin": "centre",
+    "seconds": 1.5
+   },
+   "off": {
+    "dim": 0.1
+   },
+   "on": {
+    "colour": [
+     0.13,
+     0.93,
+     0.47
+    ]
+   },
+   "end": {
+    "tile": "https://globalgrid2050.com/testcode/wafer-development-environment/202609190330-cable-cross-sections/"
+   }
+  },
+  {
+   "name": "grid-engine",
+   "button": "GRID ENGINE",
+   "select": {
+    "app": "grid-engine"
+   },
+   "pulse": {
+    "origin": "centre",
+    "seconds": 1.5
+   },
+   "off": {
+    "dim": 0.1
+   },
+   "on": {
+    "colour": [
+     0.13,
+     0.93,
+     0.47
+    ]
+   },
+   "end": {
+    "tile": "https://ventusltd.github.io/ventus-grid-engine/"
+   }
+  },
+  {
+   "name": "sun",
+   "button": "THE SUN",
+   "select": {
+    "app": "sun"
+   },
+   "pulse": {
+    "origin": "centre",
+    "seconds": 1.5
+   },
+   "off": {
+    "dim": 0.1
+   },
+   "on": {
+    "colour": [
+     0.13,
+     0.93,
+     0.47
+    ]
+   },
+   "end": {
+    "tile": "https://www.globalgrid2050.com/"
+   }
+  },
+  {
+   "name": "underground",
+   "button": "LONDON UNDERGROUND",
+   "select": {
+    "app": "underground"
+   },
+   "pulse": {
+    "origin": "centre",
+    "seconds": 1.5
+   },
+   "off": {
+    "dim": 0.1
+   },
+   "on": {
+    "colour": [
+     0.13,
+     0.93,
+     0.47
+    ]
+   },
+   "end": {
+    "tile": "https://globalgrid2050.com/testcode/wafer-development-environment/202609180205-underground/"
+   }
+  }
+ ]
+}

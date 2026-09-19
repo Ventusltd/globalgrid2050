@@ -40,7 +40,11 @@ const css = document.createElement('style'); css.textContent = `
 #eg select{font:12px ui-monospace,Menlo,Consolas,monospace;background:#11151f;color:#cfe3f2;border:1px solid #1b2030;border-radius:6px;padding:.45rem .7rem}
 #plog{position:fixed;left:12px;bottom:58px;max-width:min(60ch,62vw);max-height:30vh;overflow:hidden;font:11px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#8b93a7;white-space:pre-wrap;pointer-events:auto;cursor:pointer;z-index:19}
 #plog:empty{display:none} #plog span{display:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#plog span:last-child{display:block;opacity:.7} #plog.open span{display:block;white-space:pre-wrap;opacity:1}
+/* At rest the log is a chip, not a sentence: a truncated line of narration printed over the
+   drawing is the clutter the owner asked to remove. Click it to read everything. */
+#plog:not(.open) span{display:none}
+#plog:not(.open)::before{content:'log';display:inline-block;padding:.1rem .4rem;border:1px solid #1b2030;border-radius:4px;background:#0b0e15cc;color:#6f7789;font-size:10px;letter-spacing:.04em}
+#plog.open span{display:block;white-space:pre-wrap;opacity:1}
 #plog.open{background:#0b0e15ee;border:1px solid #1b2030;border-radius:6px;padding:.3rem .5rem}
 /* ONE THIN FRAME, NO TWO THINGS IN THE SAME LANE. The command bar, the example picker, the beam and the log used
    to be given separate fixed positions that happened to overlap, so text printed through text and the drawing was

@@ -33,7 +33,7 @@ const css = document.createElement('style'); css.textContent = `
 #saybody pre .hit{display:inline-block;width:100%;background:#1b2030;color:#f2b05e}
 #saybody a.dev{float:right;font-size:11px;color:#5b6377}
 #say code{display:block;background:#11151f;border:1px solid #1b2030;border-radius:4px;padding:2px 6px;color:#cfe3f2;margin:4px 0}
-#eg{position:fixed;right:12px;bottom:58px;background:transparent;border:0;border-radius:8px;padding:0;display:flex;flex-direction:column;gap:4px;max-width:46vw;z-index:20}
+#eg{position:fixed;right:12px;bottom:112px;background:transparent;border:0;border-radius:8px;padding:0;display:flex;flex-direction:column;gap:4px;max-width:46vw;z-index:20}
 #eg label{font:11px ui-monospace,Menlo,Consolas,monospace;letter-spacing:.08em;text-transform:uppercase;color:#8b93a7;display:none}
 #eg:hover label,#eg:focus-within label{display:block}
 #eg:hover,#eg:focus-within{background:#0e121bf2;border:1px solid #1b2030;padding:.5rem .7rem}
@@ -51,7 +51,7 @@ const css = document.createElement('style'); css.textContent = `
    covered twice over. They are stacked here, bottom upward, each in its own lane, and the belt keeps everything above. */
 #beam{bottom:calc(env(safe-area-inset-bottom,0px) + 8.8rem) !important}
 #pilot{bottom:calc(env(safe-area-inset-bottom,0px) + 3.9rem)}
-#eg{bottom:calc(env(safe-area-inset-bottom,0px) + 6.6rem)}
+#eg{bottom:calc(env(safe-area-inset-bottom,0px) + 10.2rem)}
 #plog{bottom:calc(env(safe-area-inset-bottom,0px) + 12.3rem)}
 @media (min-width:760px){#beam{bottom:calc(env(safe-area-inset-bottom,0px) + 5.1rem) !important}
 /* the beam takes the right of that lane, so the picker takes the left rather than sitting on top of it */

@@ -1,0 +1,46 @@
+name: Count every line in the estate
+
+# The 8.75 GB job. Runs on the MSI's own self-hosted runners, because the 66 repositories
+# live on that machine and a cloud runner cannot see them.
+on:
+  workflow_dispatch:
+    inputs:
+      depth:
+        description: 'head | history | authored | all'
+        required: false
+        default: 'history'
+  schedule:
+    - cron: '0 4 * * *'
+
+jobs:
+  count:
+    runs-on: self-hosted
+    timeout-minutes: 240
+    steps:
+      - name: Count every line
+        shell: 'powershell -NoProfile -ExecutionPolicy Bypass -File {0}'
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $depth = '${{ github.event.inputs.depth }}'
+          if (-not $depth) { $depth = 'history' }
+          $belt  = Join-Path $env:USERPROFILE 'Documents\GitHub\Kuiper-belt'
+          $roots = 'C:/Users/vikra/Documents/GitHub'
+          $tool  = Join-Path $belt 'tools\count_lines.py'
+          if (-not (Test-Path $tool)) { throw "count_lines.py not found at $tool" }
+          Set-Location $belt
+          Write-Output "counting depth=$depth over $roots at $((Get-Date).ToUniversalTime().ToString('o'))"
+          python $tool --roots $roots --depth $depth
+          if ($LASTEXITCODE -ne 0) { throw "count_lines.py exited $LASTEXITCODE" }
+          $countsPath = Join-Path $belt 'data\counts.json'
+          if (-not (Test-Path $countsPath)) { throw 'counts.json was not written' }
+          $c = Get-Content $countsPath -Raw
+          Write-Output $c
+          if ($env:GITHUB_STEP_SUMMARY) {
+            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value '```json'
+            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value $c
+            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value '```'
+          }
+          if (Test-Path 'E:\particles-runs') {
+            Copy-Item $countsPath 'E:\particles-runs\counts-latest.json' -Force
+            Write-Output 'counts-latest.json written to E:\particles-runs'
+          }

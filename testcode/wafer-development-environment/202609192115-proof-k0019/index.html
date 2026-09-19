@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kuiper belt</title>
+<style>
+  :root{--bg:#090c13;--ink:#d5dcea;--dim:#7d8799;--line:#1a2030;--hot:#e8b36a}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
+    font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow:hidden;
+    overscroll-behavior:none;-webkit-text-size-adjust:100%}
+  canvas{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none}
+  #c{z-index:1} #o{z-index:3;pointer-events:none}
+  #top{position:fixed;top:0;left:0;padding:10px 14px;z-index:10;pointer-events:none;max-width:60vw;background:#090c13d9;border-bottom-right-radius:6px}
+  #big{font-size:19px;letter-spacing:.03em} #sub{color:var(--dim);margin-top:2px}
+  #hud{position:fixed;top:0;right:0;padding:10px 14px;z-index:10;color:var(--dim);text-align:right;white-space:pre-line;max-width:38vw;background:#090c13d9;border-bottom-left-radius:6px}
+  /* ===== THE POP CARD =========================================================================
+     The wafer's card, class for class. Black ground, a #444 edge, monospace, an amber title, grey
+     detail, cyan for anything that leads somewhere, and a state chip written from one place so the
+     card can never say two things at once. Nothing here is a new idea; it is the card this estate
+     already argued through, brought over rather than approximated for a third time. */
+  #card{position:fixed;z-index:10;left:8px;right:8px;bottom:8px;
+    max-height:64vh;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+    background:#000;color:#d8dee9;border:1px solid #444;border-radius:4px;
+    font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    padding:8px 10px 12px;box-shadow:0 1px 8px #000c;white-space:normal;display:none;max-width:none}
+  #card .cc-x{position:sticky;float:right;top:0;background:#000;border:0;color:#888;font:inherit;
+    font-size:18px;cursor:pointer;padding:0 6px;line-height:1.2}
+  #card .cc-title{display:inline;color:#ffd54a;font-size:13px;font-weight:bold}
+  #card .cc-grey{color:#888}
+  #card .cc-amber{color:#ffae00}
+  #card .cc-small{color:#666;font-size:10.5px;margin:.2rem 0}
+  #card .cc-tagline{margin:.35rem 0 .25rem}
+  #card .cc-tag{display:inline-block;font:600 10px/1 ui-monospace,monospace;padding:.2rem .35rem;
+    border:1px solid currentColor;border-radius:3px;margin-right:.4rem;letter-spacing:.06em}
+  #card .cc-tag[data-s="WAIT"]{color:#9aa3b5} #card .cc-tag[data-s="LOAD"]{color:#ffd54a}
+  #card .cc-tag[data-s="OK"]{color:#00ffff} #card .cc-tag[data-s="EMPTY"]{color:#b39ddb}
+  #card .cc-tag[data-s="FAIL"]{color:#ff9f43}
+  #card .cc-row{margin:.25rem 0;overflow-wrap:anywhere}
+  #card .cc-dl{display:grid;grid-template-columns:auto 1fr;gap:.15rem .6rem;margin:.4rem 0}
+  #card .cc-dl dt{color:#888}
+  #card .cc-dl dd{margin:0;overflow-wrap:anywhere}
+  #card .cc-link,#card a{color:#00ffff}
+  #card .cc-codehead{color:#888;font-size:11px;overflow-wrap:anywhere;margin:.4rem 0 .2rem}
+  #card .cc-check{color:#aaa;font-size:11px;margin:.1rem 0 .3rem}
+  /* ONE <pre>, ONE TEXT NODE. The numbers are part of the text, so copying the code copies what is
+     on the screen, and the tapped line is marked by a bar placed from the line height. */
+  #card .cc-code{position:relative;max-height:34vh;overflow:auto;margin:0;padding:6px 8px;
+    background:#0a0a0a;border:1px solid #333;
+    font:11px/16px ui-monospace,Consolas,monospace;white-space:pre;tab-size:4;color:#d8dee9}
+  #card .cc-hi{position:absolute;left:0;right:0;min-width:100%;pointer-events:none}
+  #card .cc-hi-target{background:#ffd54a26;border-left:3px solid #ffd54a}
+  #card .cc-refuse{color:#ffae00;overflow-wrap:anywhere}
+  #card .cc-disclaimer{color:#888;font-size:10.5px;margin-top:.4rem;border-left:2px solid #444;padding-left:.4rem}
+  #card .popup-btn{display:block;width:100%;margin:.4rem 0;padding:.45rem 0;font:inherit;font-size:11px;
+    font-weight:bold;border:1px solid #00ffff;border-radius:3px;background:#0a0a0a;color:#00ffff;
+    cursor:pointer;letter-spacing:.06em}
+  /* THE CARD IS A WINDOW, the way the wafer's card is a window: it opens in a corner rather than
+     across the work, it carries nothing but what was asked for, and it can be dragged by its bar,
+     folded to the bar, thrown wide or put away. touch-action:none on the bar is load bearing: without
+     it a finger scrolls the page instead of moving the card. */
+  #use{margin-top:5px;color:#8fb3bd;max-width:62ch}
+  #foot .short{display:none}
+  #foot,#foot span{overflow-wrap:anywhere}
+  #foot{position:fixed;left:0;right:0;bottom:0;padding:8px 14px;color:var(--dim);border-top:1px solid var(--line);
+    background:#090c13ee;z-index:10;line-height:1.7}
+  #foot b{color:var(--ink);font-weight:600} a{color:#66ccff}
+  #goto{position:fixed;left:50%;top:38%;transform:translateX(-50%);z-index:20;display:none;background:var(--bg);
+    border:1px solid var(--dim);padding:10px 12px;min-width:min(520px,86vw)}
+  #goto input{width:100%;background:var(--bg);color:var(--ink);border:0;outline:0;font:14px ui-monospace,Consolas,monospace}
+  /* SCADA MEANINGS, one colour one meaning: x-ray grey is the record, cyan is the instrument,
+     green is energised (lit), amber is attention (new), magenta is selected. */
+  :root{--cy:#2ee6e6;--gn:#22ee77;--am:#ffb000;--mg:#ff2bd6}
+  #big{color:var(--cy);text-transform:uppercase;letter-spacing:.16em;font-size:15px}
+  #top,#hud{border:1px solid #12414a;border-top:0} #top{border-left:0} #hud{border-right:0;color:#8fb3bd}
+  #foot{border-top-color:#12414a} #foot b{color:var(--cy)}
+  #goto{border-color:var(--cy)}
+  /* THE PHONE. These are read on an iPhone in portrait. Nothing fixed may sit over the wafer, so
+     on a narrow screen every panel becomes a full width strip at the top or the bottom and the
+     camera is given the rectangle that is left (safeBox in the script). The long subtitle would
+     eat a third of the screen, so it collapses and opens on a tap; nothing is deleted. The
+     keyboard commands get tap targets, because a phone has no n, no r and no slash. */
+  #keys{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+  #keys button{background:#0b1a20;color:#8fb3bd;border:1px solid #12414a;padding:7px 10px;font:inherit;
+    text-transform:uppercase;letter-spacing:.06em;cursor:pointer;touch-action:manipulation}
+  #keys button:hover,#keys button:active{border-color:var(--cy);color:var(--cy)}
+  #top{cursor:pointer}
+  @media (max-width:640px){
+    html,body{font-size:11px}
+    #top,#hud{left:0;right:0;max-width:none;border-radius:0;border-left:0;border-right:0;padding:7px 10px}
+    #hud{text-align:left;border-right:0}
+    #big{font-size:13px;letter-spacing:.10em}
+    #sub{max-height:0;overflow:hidden;margin-top:0}
+    #top.open #sub{max-height:38vh;overflow:auto;margin-top:4px}
+    #card{max-height:58vh}
+    #foot{padding:7px 10px}
+    #foot .long{display:none} #foot .short{display:block;margin-top:6px}
+    #keys button{padding:9px 11px}
+    #goto{min-width:0;left:8px;right:8px;transform:none;top:30%}
+  }
+  @media (min-width:760px){
+    /* ON A WIDE SCREEN IT IS A COLUMN ON THE RIGHT, out of the way of the thing it describes. */
+    #card{left:auto;right:14px;width:34rem;max-width:calc(100vw - 28px);bottom:auto;top:96px;max-height:72vh}
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas><canvas id="o"></canvas>
+<div id="top"><div id="big">loading</div><div id="sub">&nbsp;</div>
+  <div id="use">The engineering behind this site: every calculation, drawing and data set, in the order it was built. Tap a dot to see the work and its date. Not a design and not a connection offer.</div></div>
+<div id="hud">starting</div>
+<div id="card"></div>
+<div id="goto"><input id="gotoin" autocomplete="off" spellcheck="false" placeholder="a key, or a repository name to send light through"></div>
+<div id="foot">
+  <div id="keys"><button data-k="n">new code</button><button data-k="r">random line</button><button
+    data-k="/">find</button><button data-k="Backspace">whole view</button></div>
+  <span class="long"><b>tap a dot</b> to light its repository &middot; <b>drag</b> to move &middot; <b>pinch or scroll</b> to zoom
+  &middot; <b>n</b> new code &middot; <b>r</b> random line &middot; <b>/</b> find a key, a repository or a month
+  &middot; <b>backspace</b> whole view &middot; provided as is, without warranty of any kind; a chart, not a design</span>
+  <span class="short">provided as is, without warranty of any kind; a chart, not a design</span>
+</div>
+<script type="module">
+// THE KUIPER BELT AS ONE WAFER. Every line in every file in every commit, one key each, in the
+// order time issued them.
+//
+// THE LAW, and there is only one, at every zoom:
+//     key k  ->  r = sqrt(k),  theta = 2 pi frac(k G / 2^32),  G = 2654435769
+// It inverts, k = r squared, so the number of keys in any annulus is arithmetic. Nothing is ever
+// drawn 38,000 times into a pixel to discover a number the law already states.
+//
+// THE RINGS ARE TIME. Before each commit a run of keys is left UNISSUED in proportion to the
+// silence since the commit before it (tools/wafer_keys.py, a declared constant). A night is a dark
+// ring. The dark fraction of every pixel is computed exactly from a prefix sum of issued keys, so
+// even the rings are arithmetic. A line not yet written already has its place, on the rim, the
+// way an address in RAM exists before anything is stored at it.
+//
+// UNRESOLVED pixels state a computed count as a shade. RESOLVED fields draw exactly the issued keys
+// whose radius can be on screen, each at its own place. There is no sampling and no white flash,
+// because a pixel is never asked to be more than it is.
+const G32 = 2654435769, TW = 4096;
+const cv = document.getElementById('c'), ov = document.getElementById('o'), o2 = ov.getContext('2d');
+const gl = cv.getContext('webgl2', { antialias:false, alpha:false, powerPreference:'high-performance' });
+// A PAGE THAT THROWS MUST SAY SO. It used to sit at "starting" for ever, which reads as a slow
+// network rather than as a page that fell over on its first line.
+addEventListener('error', ev => { const h = document.getElementById('hud');
+  if (h) h.textContent = 'THIS PAGE STOPPED: ' + (ev.message || ev.error) + ' (' + (ev.filename||'') + ':' + (ev.lineno||0) + ')'; });
+const hud = document.getElementById('hud'), big = document.getElementById('big'),
+      sub = document.getElementById('sub'), card = document.getElementById('card');
+// ================= THE LINK CONTRACT =================================================
+// ONE PLACE WHERE AN ADDRESS IS MADE AND ONE PLACE WHERE IT IS READ. Before this, a link was an
+// agreement between two halves of this file that never met: one half wrote a question mark and a
+// parameter name, the other half looked one up, and nothing checked that the two still agreed.
+// The parameters are DATA, so a new one is a row and not a new idea; build and parse are the only
+// two functions that touch an address; and the page proves on itself that parsing a link it built
+// returns exactly what it started with. cosmos/link-contract.json is the same table published for
+// anything that cannot read this page.
+const LINK = Object.freeze({
+  params: Object.freeze({
+    key:      Object.freeze({ kind:'whole number', note:'one line of one piece of work' }),
+    path:     Object.freeze({ kind:'text',         note:'a file or folder whose work is highlighted' }),
+    selftest: Object.freeze({ kind:'text',         note:'ask the page to check itself and say so in its title' })
+  })
+});
+// AN UNKNOWN PARAMETER IS REFUSED, NOT IGNORED. A link that carries something nobody reads looks
+// like it works and does nothing, which is the failure this contract exists to prevent.
+function buildLink(o, base){
+  const q = new URLSearchParams();
+  for (const k of Object.keys(o || {}))
+    if (!Object.prototype.hasOwnProperty.call(LINK.params, k))
+      throw new Error('buildLink: no parameter called ' + k + '; the contract has ' + Object.keys(LINK.params).join(', '));
+  // THE ORDER IS THE CONTRACT'S, NOT THE CALLER'S, so the same request always makes the same address
+  // and two links can be compared as text.
+  for (const k of Object.keys(LINK.params)) {
+    const v = (o || {})[k];
+    if (v === undefined || v === null || v === '') continue;
+    if (LINK.params[k].kind === 'whole number' && !/^[0-9]+$/.test(String(v)))
+      throw new Error('buildLink: ' + k + ' is a whole number, not ' + v);
+    q.set(k, String(v));
+  }
+  const tail = q.toString();
+  return (base ? String(base) : '') + (tail ? '?' + tail : '');
+}
+// WHAT AN ADDRESS ASKED FOR THAT THIS PAGE CANNOT ANSWER, in sentences it can put on the screen.
+// Two kinds: a name the contract has no row for, and a value of the wrong kind for a name it has.
+function complaints(href){
+  const u = new URL(String(href), 'https://example.invalid/'), said = [], unknown = [];
+  for (const k of u.searchParams.keys())
+    if (!Object.prototype.hasOwnProperty.call(LINK.params, k) && unknown.indexOf(k) < 0) unknown.push(k);
+  if (unknown.length)
+    said.push('This address asks for ' + unknown.join(', ') + ', which this page does not use.');
+  for (const k of Object.keys(LINK.params)) {
+    const raw = u.searchParams.get(k);
+    if (raw !== null && raw !== '' && parseLink(href)[k] === null)
+      said.push('This address gives ' + k + ' as "' + raw + '", and ' + k + ' is a ' + LINK.params[k].kind + '.');
+  }
+  return said;
+}
+function parseLink(href){
+  const u = new URL(String(href), 'https://example.invalid/');
+  const out = {};
+  for (const k of Object.keys(LINK.params)) {
+    const raw = u.searchParams.get(k);
+    if (raw === null || raw === '') { out[k] = null; continue; }
+    out[k] = LINK.params[k].kind === 'whole number'
+      ? (/^[0-9]+$/.test(raw) ? Number(raw) : null)
+      : raw;
+  }
+  return out;
+}
+// ================= end of the link contract ==========================================
+const fmt = n => Math.round(n).toLocaleString('en-GB');
+// A DAY A PERSON CAN READ. Every date on this page comes through here, so the card header and
+// the readout can never disagree about how a day is written.
+const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function day(unix){ if (!unix) return ''; const t = new Date(unix * 1000);
+  return t.getUTCDate() + ' ' + MON[t.getUTCMonth()] + ' ' + t.getUTCFullYear(); }
+function words(n){ if (n >= 1e9) return (n/1e9).toFixed(2)+' billion'; if (n >= 1e6) return (n/1e6).toFixed(2)+' million';
+  if (n >= 1e3) return (n/1e3).toFixed(1)+' thousand'; return n >= 10 ? n.toFixed(0) : n.toFixed(2); }
+if (!gl) { hud.textContent = 'WebGL2 is not available. Refusing rather than drawing a fraction.'; throw 0; }
+
+const VS_FULL = `#version 300 es
+void main(){ vec2 p = vec2(float((gl_VertexID<<1)&2), float(gl_VertexID&2)); gl_Position = vec4(p*2.0-1.0,0.0,1.0); }`;
+const FS_FIELD = `#version 300 es
+precision highp float; precision highp sampler2D;
+uniform vec2 u_res, u_center; uniform float u_zoom, u_R, u_points;
+uniform sampler2D u_commits; uniform int u_n, u_litRepo; uniform float u_pulse, u_flash, u_newR; uniform vec2 u_litK;
+uniform sampler2D u_pathf; uniform int u_litPath;   // one texel per commit: did this page's path change in it
+out vec4 o;
+vec4 C(int i){ return texelFetch(u_commits, ivec2(i % ${TW}, i / ${TW}), 0); }   // k0, k1, issued before, repo
+int find(float k){ int lo = 0, hi = u_n - 1;
+  for (int s = 0; s < 16; ++s){ if (lo >= hi) break; int m = (lo+hi+1)/2; if (C(m).r <= k) lo = m; else hi = m-1; } return lo; }
+// how many ISSUED keys lie below address k: a prefix sum, so any annulus is one subtraction
+float issuedBelow(float k){ vec4 c = C(find(k)); return c.b + clamp(k - c.r, 0.0, c.g - c.r); }
+void main(){
+  vec2 w = u_center + (gl_FragCoord.xy - 0.5*u_res) / u_zoom;
+  float r = length(w), h = 0.75 / u_zoom;
+  vec3 bg = vec3(0.035,0.047,0.075), dust = vec3(0.79,0.83,0.90);
+  if (r > u_R + h) { float rim = smoothstep(2.5/u_zoom, 0.0, abs(r - u_R)); o = vec4(bg + rim*0.10, 1.0); return; }
+  float ka = max(r-h, 0.0), kb = r+h; ka *= ka; kb *= kb;
+  float cov = clamp((issuedBelow(kb) - issuedBelow(ka)) / max(kb - ka, 1.0), 0.0, 1.0);   // issued share of this pixel
+  float perPx = cov / (3.14159265 * u_zoom * u_zoom);                                      // issued keys in this pixel
+  float v = (u_points > 0.5) ? 0.0 : clamp(0.24 + 0.13*log(1.0+perPx)/2.302585, 0.0, 0.88) * pow(cov, 0.55);
+  vec3 col = mix(bg, dust, v);
+  // THE LIGHT. Which repository owns the key at the centre of this pixel. This one is a tap, not
+  // a count: it says where a repository's work lies in time, and no number is read off it.
+  if (u_litRepo >= 0) { float kc = r*r; vec4 c = C(find(kc)); if (kc <= c.g && int(c.a + 0.5) == u_litRepo)
+    col = mix(col, vec3(0.13,0.93,0.47), u_points > 0.5 ? 0.10 : 0.72); }
+  // A PAGE IS A SCATTER, NOT A BAND. A repository is a contiguous span and a month is an annulus,
+  // but one file is neither: it was touched on nineteen separate days, so it lights nineteen separate
+  // runs of keys with other people's work between them. The flag rides in its own texture, one texel
+  // per commit, so the commit table that every other reading depends on is not touched to do it.
+  if (u_litPath == 1) { float kc = r*r; int i = find(kc); vec4 c = C(i);
+    if (kc <= c.g && texelFetch(u_pathf, ivec2(i % ${TW}, i / ${TW}), 0).r > 0.5)
+      col = mix(col, vec3(1.0,0.17,0.84), u_points > 0.5 ? 0.12 : 0.80); }
+  // A PERIOD IS A BAND. Keys run in time order, so a month or a day is one contiguous annulus.
+  if (u_litK.x >= 0.0 && r + h >= u_litK.x && r - h <= u_litK.y && cov > 0.0)
+    col = mix(col, vec3(0.13,0.93,0.47), u_points > 0.5 ? 0.10 : 0.72);
+  // THE PULSE travels outward from the centre, which on this wafer is forward through time. It is
+  // the instrument's sweep, not data, so it is faint over silence and bright over work.
+  if (u_pulse >= 0.0) { float d = abs(r - u_pulse) * u_zoom; col += vec3(0.45,0.95,1.0) * exp(-d*d/160.0) * (0.25 + 0.75*cov); }
+  // THE FLASH lights only keys issued at or after the boundary, and only where keys were issued.
+  if (u_flash > 0.0 && r + h >= u_newR && cov > 0.0) col = mix(col, vec3(1.0,0.69,0.0), u_flash);
+  o = vec4(col, 1.0);
+}`;
+const VS_KEYS = `#version 300 es
+precision highp float;
+uniform uint u_k0lo; uniform float u_R0, u_zoom, u_hot; uniform vec2 u_center, u_res;
+out float v_hot;
+void main(){
+  float d = float(gl_VertexID);
+  float r = u_R0 + (d + 0.5) / (u_R0 + sqrt(u_R0*u_R0 + d + 0.5) + 1e-9);      // sqrt(k0+d+.5), kept precise
+  uint m = (u_k0lo + uint(gl_VertexID)) * ${G32}u;
+  float A = 6.283185307179586 * float(m >> 16) / 65536.0, B = 6.283185307179586 * float(m & 0xFFFFu) / 4294967296.0;
+  vec2 cs = vec2(cos(A)*cos(B) - sin(A)*sin(B), sin(A)*cos(B) + cos(A)*sin(B));
+  gl_Position = vec4((r*cs - u_center) * u_zoom / (0.5*u_res), 0.0, 1.0);
+  gl_PointSize = clamp(u_zoom * 0.34, 1.0, 9.0); v_hot = u_hot;
+}`;
+const FS_KEYS = `#version 300 es
+precision highp float; in float v_hot; out vec4 o;
+void main(){ if (length(gl_PointCoord-0.5) > 0.5) discard;
+  o = vec4(v_hot > 1.5 ? vec3(1.0,0.69,0.0) : (v_hot > 0.5 ? vec3(0.13,0.93,0.47) : vec3(0.79,0.83,0.90)), 1.0); }`;
+function prog(vs, fs){ const p = gl.createProgram();
+  for (const [t,s] of [[gl.VERTEX_SHADER,vs],[gl.FRAGMENT_SHADER,fs]]) { const sh = gl.createShader(t);
+    gl.shaderSource(sh,s); gl.compileShader(sh);
+    if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(sh)); gl.attachShader(p,sh); }
+  gl.linkProgram(p); if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p)); return p; }
+const PF = prog(VS_FULL, FS_FIELD), PK = prog(VS_KEYS, FS_KEYS);
+const U = (p, n) => gl.getUniformLocation(p, n);
+gl.bindVertexArray(gl.createVertexArray());
+let lost = false;
+cv.addEventListener('webglcontextlost', e => { e.preventDefault(); lost = true;
+  hud.textContent = 'CONTEXT LOST. Nothing on screen is a count. Reload.'; });
+
+// --------------------------------------------------------------------------------- the data
+// cosmos/wafer.tsv: every commit in time order with its measured lines and the unissued keys
+// before it. One file, about 400 kB, and then nothing else is ever fetched to draw the whole.
+let N = 0, SPACE = 0, repos = [], commits = [];
+async function tsv(url){ const r = await fetch(url); if (!r.ok) throw new Error(url);
+  return (await r.text()).split('\n').filter(l => l && l[0] !== '#').map(l => l.split('\t')); }
+Promise.all([tsv('cosmos/repos.tsv'), tsv('cosmos/wafer.tsv'),
+             tsv('cosmos/cards/list.tsv').catch(() => []),
+             tsv('cosmos/public.tsv').catch(() => [])]).then(([rr, ww, cc, pp]) => {
+  // WHO OWNS EACH PIECE OF WORK, AND WHETHER ANYBODY MAY SEE IT. A link is only honest for a
+  // repository GitHub says is public: for anything else the address itself would put a private name
+  // in front of a reader, and the link would be a dead end for everyone but its owner.
+  const owners = new Map(pp.map(p => [p[0], { owner:p[1], pub:p[2] === 'yes' }]));
+  cards = cc.map(p => ({ path:p[0], repo:p[1], k0:+p[2], lines:+p[3], file:p[4], commit:p[5],
+                         here:p[6] === 'yes', owner:p[7], unix:+p[8] }));
+  repos = rr.map(p => { const o = owners.get(p[1]) || { owner:'', pub:false };
+    return { i:+p[0], name:p[1], lines:+p[2], seen:0, commits:0, owner:o.owner, pub:o.pub }; });
+  let k = 0, issued = 0;
+  commits = ww.map(p => { k += +p[4]; const c = { unix:+p[0], lines:+p[1], repo:+p[2], sha:p[3], gap:+p[4], k0:k, cum:issued };
+    k += c.lines; issued += c.lines; c.k1 = k; repos[c.repo].seen += c.lines; repos[c.repo].commits++;
+    if (!repos[c.repo].t0) repos[c.repo].t0 = c.unix; repos[c.repo].t1 = c.unix;   // commits are in time order
+    return c; });
+  const bad = repos.find(r => r.seen !== r.lines);
+  if (bad) { hud.textContent = 'REFUSED: the commits of ' + bad.name + ' sum to ' + fmt(bad.seen) + ', the belt says ' + fmt(bad.lines); return; }
+  N = issued; SPACE = k;
+  const H = Math.ceil(commits.length / TW), a = new Float32Array(TW * H * 4);
+  commits.forEach((c, i) => { a[i*4] = c.k0; a[i*4+1] = c.k1; a[i*4+2] = c.cum; a[i*4+3] = c.repo; });
+  gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, gl.createTexture());
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, TW, H, 0, gl.RGBA, gl.FLOAT, a);
+  pathFlags = new Float32Array(TW * H); pathTex = gl.createTexture();
+  gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, pathTex);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.R32F, TW, H, 0, gl.RED, gl.FLOAT, pathFlags);
+  pathRows = H; commits.forEach((c, i) => bySha.set(c.sha, i)); gl.activeTexture(gl.TEXTURE0);
+  big.textContent = 'Engineering record';
+  sub.textContent = fmt(commits.length) + ' pieces of work across ' + repos.length + ' areas, '
+    + new Date(commits[0].unix*1000).toISOString().slice(0,10) + ' to '
+    + new Date(commits[commits.length-1].unix*1000).toISOString().slice(0,10)
+    + ' · oldest in the middle, newest at the edge';
+  home(); dirty = true;
+  // HOW THIS READER ARRIVED, read once, by the contract, and never from the address bar again.
+  const ARRIVED = parseLink(location.href);
+  // AND WHAT THE ADDRESS ASKED FOR THAT THIS PAGE CANNOT ANSWER. Building such a link was already
+  // refused; arriving with one said nothing at all, and saying nothing is how a reader concludes
+  // that the page is broken rather than that the address is.
+  { const said = complaints(location.href);
+    // KEPT, so the page can be asked afterwards what it said about the address it was given.
+    window.__arrival = { said, shown:null };
+    if (said.length) { card.classList.remove('sheet'); card.style.display = 'block';
+      card.innerHTML = said.map(esc).join('\n')
+        + '\nIt shows what it can. An address here may carry ' + Object.keys(LINK.params).join(', ') + '.';
+      window.__arrival.shown = card.textContent; } }
+  { const st = ARRIVED.selftest || '', mt = st.match(/^(20\d\d)-(\d\d)$/);
+    if (mt) setTimeout(() => { tween = null; const R = Math.sqrt(SPACE); cx = 0; cy = 0; zoom = (Math.min(cv.width, cv.height)/2)*0.80/R;
+      const got = lightTime(+mt[1], +mt[2], 0); tween = null; cx = 0; cy = 0; zoom = (Math.min(cv.width, cv.height)/2)*0.80/R; draw();
+      let direct = 0; if (got) for (let i = got.i0; i < got.i1; i++) direct += commits[i].lines;
+      // A lit period contains its own nights, so one pixel proves nothing: the first version of this
+      // test sampled the middle of July, landed on a silent ring and failed correctly for the wrong
+      // reason. Scan right across the band. Work must be green, silence must be dark, nothing else.
+      const px = new Uint8Array(4); let green = 0, dark = 0, other = 0; const seen = [];
+      const xa = Math.round(cv.width/2 + litK[0]*zoom), xb = Math.round(cv.width/2 + litK[1]*zoom);
+      for (let x = xa; x <= xb; x++) { gl.readPixels(x, Math.round(cv.height/2), 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px);
+        const g = px[1] > 120 && px[1] > px[0] + 40 && px[1] > px[2] + 30, d = px[0] < 60 && px[1] < 60 && px[2] < 70;
+        if (g) green++; else if (d) dark++; else other++; if (seen.length < 12) seen.push([px[0], px[1], px[2]]); }
+      const T = { period: st, commits: got ? got.i1 - got.i0 : 0, lines_by_running_total: got ? got.lines : 0, lines_added_directly: direct,
+        T1_running_total_equals_direct_sum: !!got && got.lines === direct,
+        T2_work_is_green_and_silence_is_dark: green > 0 && other === 0, pixels_across_band: { green, dark, other }, first_pixels: seen };
+      T.PASS = T.T1_running_total_equals_direct_sum && T.T2_work_is_green_and_silence_is_dark; window.__selftest = T; document.title = 'selftest ' + (T.PASS ? 'PASS' : 'FAIL'); }, 400); }
+  if (ARRIVED.selftest === 'new') { selftest = {}; tween = null; setTimeout(() => showNew(24), 300); }
+  if (ARRIVED.selftest === 'phone') setTimeout(phoneSelftest, 500);
+  { const mr = (ARRIVED.selftest || '').match(/^repo:(.+)$/);
+    if (mr) setTimeout(() => repoSelftest(decodeURIComponent(mr[1])), 500); }
+  { const mc = (ARRIVED.selftest || '') === 'card';
+    // A TEST THAT CANNOT RUN MUST FAIL, NOT GO QUIET. This one threw on a name that did not exist
+    // yet, the page kept its ordinary title, and the harness read that as a test that had not
+    // been asked for. The same fault, in the same words, as the path test two weeks ago.
+    if (mc) setTimeout(() => cardSelftest().catch(e => {
+      window.__selftest = { PASS:false, error:String(e && e.message || e) };
+      document.title = 'selftest FAIL'; }), 600); }
+  { const mp = (ARRIVED.selftest || '').match(/^path:(.+)$/);
+    // A TEST THAT CANNOT RUN MUST FAIL, NOT GO QUIET. The first run of this one fetched a file the
+    // iteration folder did not have, the promise was rejected with nobody listening, and the page
+    // kept its ordinary title and scored nothing while looking like nothing had happened.
+    if (mp) setTimeout(() => pathSelftest(decodeURIComponent(mp[1])).catch(e => {
+      window.__selftest = { PASS:false, asked_for:mp[1], error:String(e && e.message || e) };
+      document.title = 'selftest FAIL'; }), 500); }
+  if (ARRIVED.key !== null) setTimeout(() => arriveAt(ARRIVED.key), 400);
+  if (ARRIVED.path !== null) setTimeout(() => lightPath(ARRIVED.path), 400);
+}).catch(() => { hud.textContent = 'cosmos/wafer.tsv did not load. The wafer will not invent its keys.'; });
+
+// ------------------------------------------------------------------------ camera and address
+let cx = 0, cy = 0, zoom = 1, dirty = true, tween = null, litRepo = -1, target = null;
+let pulse = -1, flash = 0, newFrom = -1, anim = null, selftest = null, litK = [-1,-1], litCi = null;
+let detail = false;                          // d shows the engineering readout; a reader never sees it
+let litPath = null, pathTex = null, pathFlags = null, pathRows = 0, tracked = null; const bySha = new Map();
+let cards = [], cardCache = {}, cardShown = null;
+// THE ARROW. arrow is what is being shot; arrowTip is where its point actually ended up, kept so
+// the page can be asked afterwards whether it landed on the dot rather than merely near it.
+let arrow = null, arrowTip = null;
+const ARROW_MS = 650, ARROW_HOLD = 1500;
+let atHome = true;                                     // true while the camera has not been moved by hand
+const elHudTop = hud, elTop = document.getElementById('top'), elFoot = document.getElementById('foot');
+const narrow = () => innerWidth <= 640;                // one number, used by the layout and by the test
+function resize(){ cv.width = ov.width = innerWidth; cv.height = ov.height = innerHeight; gl.viewport(0,0,cv.width,cv.height);
+  if (typeof layout === 'function') layout();
+  if (atHome && SPACE) { const h = homeCamera(); cx = h.x; cy = h.y; zoom = h.z; tween = null; }   // turning the phone re-fits, moving by hand does not
+  dirty = true; }
+addEventListener('resize', resize); resize();
+function flyTo(x, y, z){ tween = { t0:performance.now(), x0:cx, y0:cy, z0:zoom, x1:x, y1:y, z1:z, dur:900 }; }
+// THE SAFE RECTANGLE. The panels are position:fixed, so the wafer cannot be centred on the window
+// and be clear of them at the same time. layout() measures the panels as they really are after
+// every change of text or size, and safeBox() returns what is left. Nothing here is assumed: the
+// numbers come from getBoundingClientRect, which is what the browser actually laid out.
+function layout(){
+  elHudTop.style.top = narrow() ? elTop.offsetHeight + 'px' : '0px';   // on a phone the HUD sits under the header, not beside it
+  // ON A PHONE the card sits on the command bar. ON A WIDE SCREEN it hangs from the top, and pinning
+  // it at both ends stretched it: the stretch was an empty black band under its last line.
+  card.style.bottom = narrow() ? (elFoot.offsetHeight + 10) + 'px' : 'auto';
+}
+function safeBox(){
+  layout();
+  let top = 0, bot = innerHeight;
+  for (const el of [elTop, elHudTop]) { const r = el.getBoundingClientRect(); if (r.width > 0 && r.height > 0) top = Math.max(top, r.bottom); }
+  const f = elFoot.getBoundingClientRect(); if (f.height > 0) bot = Math.min(bot, f.top);
+  return { x0:8, x1:innerWidth - 8, y0:top + 8, y1:Math.max(top + 24, bot - 8) };
+}
+// home() puts the whole wafer inside that rectangle, not inside the window: the circle is as big
+// as the clear space allows and its centre is the centre of the clear space, which on a phone is
+// above the middle of the screen.
+function homeCamera(){
+  const s = safeBox(), R = Math.min(s.x1 - s.x0, s.y1 - s.y0) / 2 * 0.80;
+  const z = R / Math.sqrt(SPACE), mx = (s.x0 + s.x1)/2, my = (s.y0 + s.y1)/2;
+  return { z, x:(innerWidth/2 - mx)/z, y:(my - innerHeight/2)/z };
+}
+function home(){ const h = homeCamera(); atHome = true; flyTo(h.x, h.y, h.z); }
+function keyPlace(k){ const m = Math.imul((k % 4294967296) >>> 0, G32) >>> 0, th = 2*Math.PI*m/4294967296, r = Math.sqrt(k + 0.5);
+  return [r*Math.cos(th), r*Math.sin(th)]; }
+function findBy(field, v){ let lo = 0, hi = commits.length - 1; while (lo < hi) { const m = (lo+hi+1)>>1; if (commits[m][field] <= v) lo = m; else hi = m-1; } return lo; }
+// an address key resolves to a commit by binary search; no walking, and silence is an answer too
+function address(k){ if (!(k >= 0) || k >= SPACE) return null; const i = findBy('k0', k), c = commits[i];
+  return (k >= c.k0 && k < c.k1) ? { k, i, c, m:k - c.k0 } : { k, i, c, silent:true, next:commits[i + (k < c.k0 ? 0 : 1)] }; }
+// WHAT A DOT SAYS WHEN ITS CODE IS NOT CARRIED HERE. Three plain things: what the work was, the day
+// it was done, and one link to it. This used to answer with address arithmetic and an instruction to
+// run a command on a computer the reader has not got, which is almost every tap a stranger makes.
+function describe(a){
+  if (!a) return '';
+  // AND A GAP LEADS SOMEWHERE. It named the next piece of work and then left the reader holding a
+  // sentence. The name is the way on: the address is a real one, so it can be copied and sent, and
+  // a tap takes the reader there without fetching the whole picture again.
+  if (a.silent) { const x = a.next;
+    return 'Nothing was recorded here.'
+      + (x ? '\n<a href="' + buildLink({ key:x.k0 }) + '" data-key="' + x.k0 + '">Go to the next work: <b>'
+             + repos[x.repo].name + '</b>, ' + day(x.unix) + '</a>' : ''); }
+  const r = repos[a.c.repo];
+  const u = r.pub ? gh({ owner:r.owner, repo:r.name, commit:a.c.sha }) : null;
+  return '<b>' + r.name + '</b> \u00b7 work of ' + day(a.c.unix)
+    + '\n' + (u ? '<a href="' + u + '" target="_blank" rel="noopener">Open this piece of work on GitHub</a>'
+                : 'This work is not public.')
+    + '\nThe code for this line is not carried here yet.';
+}
+// THE SAME ARITHMETIC THE SHADER USES, written out in the page so it can be checked against it.
+// issuedBelow(k) is how many keys were issued below address k: a running total to the start of the
+// commit that owns k, plus however far into that commit k lies. The fragment shader computes this
+// exact expression for every pixel to decide its shade, so if these two ever disagree the picture
+// is wrong, and proof 7 is the check that they do not.
+function issuedBelow(k){ const c = commits[findBy('k0', k)]; return c.cum + Math.min(Math.max(k - c.k0, 0), c.k1 - c.k0); }
+// which repository owns the key at radius r: -1 is silence, -2 is off the wafer
+function ownerAt(r){ const kc = r*r; if (!(kc < SPACE)) return -2; const c = commits[findBy('k0', kc)];
+  return (kc >= c.k0 && kc <= c.k1) ? c.repo : -1; }
+// a repository's lines counted through the running totals alone, never by adding its commits up
+// HOW WIDE A REPOSITORY IS ON THE SCREEN. A key at radius r sits in a ring of 2 r dr addresses,
+// so one pixel holds 2 r / zoom addresses and a commit of L lines is L zoom / 2 r pixels wide.
+// Under one pixel, not one pixel centre can fall inside it and the light is invisible. That is a
+// fact about the wafer, not a fault in the drawing, and the page says it rather than hiding it.
+function widestRunPx(ri, z){
+  const span = (k0, k1) => (k1 - k0) * z / (2 * Math.sqrt((k0 + k1)/2));
+  let w = 0, a = -1, b = -1;
+  for (const c of commits) {
+    if (c.repo === ri && a >= 0 && c.k0 === b) { b = c.k1; }                 // no silence between them: one unbroken run
+    else if (c.repo === ri) { if (a >= 0) w = Math.max(w, span(a, b)); a = c.k0; b = c.k1; }
+    else if (a >= 0) { w = Math.max(w, span(a, b)); a = -1; }
+  }
+  return a >= 0 ? Math.max(w, span(a, b)) : w; }
+function linesByRunningTotals(ri){ let t = 0; for (const c of commits) if (c.repo === ri) t += issuedBelow(c.k1) - issuedBelow(c.k0); return t; }
+function keyAt(wx, wy){ const r = Math.hypot(wx, wy), kc = Math.round(r*r), span = Math.ceil(6*r + 8); let best = -1, bd = 0.6;
+  for (let k = Math.max(0, kc - span); k <= Math.min(SPACE-1, kc + span); k++) { const p = keyPlace(k), d = Math.hypot(p[0]-wx, p[1]-wy); if (d < bd) { bd = d; best = k; } }
+  return best; }
+
+// --------------------------------------------------------------------------------- the frame
+const POINTS_FROM = 1.0, MAX_CALLS = 3000;
+function frame(){
+  if (lost) return;
+  if (tween) { const u = Math.min(1, (performance.now()-tween.t0)/tween.dur), e = u<0.5 ? 2*u*u : 1-Math.pow(-2*u+2,2)/2;
+    zoom = Math.exp(Math.log(tween.z0) + (Math.log(tween.z1)-Math.log(tween.z0))*e);
+    cx = tween.x0 + (tween.x1-tween.x0)*e; cy = tween.y0 + (tween.y1-tween.y0)*e; dirty = true; if (u >= 1) tween = null; }
+  if (anim) stepAnim();
+  if (dirty && N) { draw(); dirty = false; }
+  requestAnimationFrame(frame);
+}
+let drawCount = 0;
+function draw(){
+  drawCount++;
+  const R = Math.sqrt(SPACE), W = cv.width, H = cv.height;
+  const x0 = cx - W/2/zoom, x1 = cx + W/2/zoom, y0 = cy - H/2/zoom, y1 = cy + H/2/zoom;
+  const dx = x0 > 0 ? x0 : (x1 < 0 ? -x1 : 0), dy = y0 > 0 ? y0 : (y1 < 0 ? -y1 : 0);
+  const rmin = Math.hypot(dx, dy), rmax = Math.max(Math.hypot(x0,y0), Math.hypot(x1,y0), Math.hypot(x0,y1), Math.hypot(x1,y1));
+  const ka = Math.min(SPACE, Math.floor(rmin*rmin)), kb = Math.min(SPACE, Math.ceil(rmax*rmax));
+  // the screen's radii are a contiguous run of addresses; the issued ones among them are whole commits and two part commits
+  let i0 = findBy('k0', ka), segs = [], total = 0;
+  if (zoom >= POINTS_FROM) for (let i = i0; i < commits.length && commits[i].k0 < kb && segs.length <= MAX_CALLS; i++) {
+    const s0 = Math.max(commits[i].k0, ka), s1 = Math.min(commits[i].k1, kb); if (s1 > s0) { segs.push([s0, s1, commits[i].repo, i]); total += s1 - s0; } }
+  const points = zoom >= POINTS_FROM && segs.length <= MAX_CALLS && total < 1.6e9;
+
+  gl.useProgram(PF);
+  gl.uniform2f(U(PF,'u_res'), W, H); gl.uniform2f(U(PF,'u_center'), cx, cy); gl.uniform1f(U(PF,'u_zoom'), zoom);
+  gl.uniform1f(U(PF,'u_R'), R); gl.uniform1f(U(PF,'u_points'), points ? 1 : 0);
+  gl.uniform2f(U(PF,'u_litK'), litK[0], litK[1]);
+  gl.uniform1f(U(PF,'u_pulse'), pulse); gl.uniform1f(U(PF,'u_flash'), flash);
+  gl.uniform1f(U(PF,'u_newR'), newFrom >= 0 ? Math.sqrt(commits[newFrom].k0) : 1e30);
+  gl.uniform1i(U(PF,'u_commits'), 0); gl.uniform1i(U(PF,'u_n'), commits.length); gl.uniform1i(U(PF,'u_litRepo'), litRepo);
+  gl.uniform1i(U(PF,'u_pathf'), 1); gl.uniform1i(U(PF,'u_litPath'), litPath ? 1 : 0);
+  gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+  if (selftest && selftest.wantPixels && flash > 0.5 && !points) {
+    const px = new Uint8Array(4), R0 = Math.sqrt(commits[newFrom].k0), rm = (R0 + R) / 2;
+    const read = (wx) => { gl.readPixels(Math.round(W/2 + (wx - cx)*zoom), Math.round(H/2 + (0 - cy)*zoom), 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px); return [px[0], px[1], px[2]]; };
+    selftest.newBandPixel = read(rm); selftest.pupilPixel = read(0); selftest.wantPixels = false; }
+  let ms = 0;
+  if (points) { const t0 = performance.now(); gl.useProgram(PK);
+    gl.uniform1f(U(PK,'u_zoom'), zoom); gl.uniform2f(U(PK,'u_center'), cx, cy); gl.uniform2f(U(PK,'u_res'), W, H);
+    for (const [s0, s1, rp, ci] of segs) { gl.uniform1f(U(PK,'u_hot'), (newFrom >= 0 && ci >= newFrom) ? 2 : ((rp === litRepo || (litCi && ci >= litCi[0] && ci < litCi[1])) ? 1 : 0));
+      for (let off = s0; off < s1; off += 4000000) {                       // bounded calls; the driver watchdog is real
+        gl.uniform1ui(U(PK,'u_k0lo'), (off % 4294967296) >>> 0); gl.uniform1f(U(PK,'u_R0'), Math.sqrt(off));
+        gl.drawArrays(gl.POINTS, 0, Math.min(4000000, s1 - off)); } }
+    gl.finish(); ms = performance.now() - t0; }
+
+  const L = [], D = [];
+  D.push(points ? 'RESOLVED · every issued key whose radius is in the field, drawn at its own place'
+                : 'UNRESOLVED · up to ' + words(1/(Math.PI*zoom*zoom)) + ' keys to a pixel · each pixel’s issued count is computed from the law, not drawn');
+  if (points) D.push(fmt(total) + ' issued keys from ' + fmt(segs.length) + ' commits passed to the GPU in ' + ms.toFixed(0) + ' ms');
+  D.push('the whole · ' + fmt(N) + ' issued + ' + fmt(SPACE - N) + ' silent = ' + fmt(SPACE) + ' addresses');
+  if (litRepo >= 0) { const rt = linesByRunningTotals(litRepo), rr = repos[litRepo];
+    // the number on screen is the one the shading is made of, not the one the belt declared; if
+    // they differ the HUD says so rather than picking the prettier of the two
+    // WHAT IS HIGHLIGHTED, IN WORDS A READER CAME WITH. Whether two running totals agree is how
+    // this page knows it is not lying, which matters, and belongs where the rest of the working
+    // is: behind d. What stays on the face is the disagreement itself, if there ever is one,
+    // because a reader must never be shown a number the page has reason to doubt.
+    L.push('HIGHLIGHTED · ' + rr.name + ' · ' + fmt(rr.commits) + ' pieces of work · '
+           + day(rr.t0) + ' to ' + day(rr.t1));
+    D.push('running totals ' + (rt === rr.lines ? 'agree with the belt' : 'DISAGREE with the belt'));
+    if (rt !== rr.lines) L.push('THIS COUNT IS IN DOUBT · two measurements of it disagree, so it is not shown');
+    const wpx = widestRunPx(litRepo, zoom);
+    // Said exactly, because 269 pixels of a repository whose widest run is a tenth of a pixel are
+    // lit: the runs are so close together that pixel centres keep landing inside them. The claim
+    // is about the run, not about the light.
+    if (wpx < 1) L.push('TOO SMALL TO SEE AT THIS ZOOM · what is lit is only where this work happens to fall · zoom in to see it whole'); }
+  D.push(zoom >= 1 ? 'zoom ' + zoom.toFixed(1) + ' px per key spacing' : 'zoom 1 px = ' + words(1/zoom) + ' units');
+  hud.textContent = (detail ? L.concat(D) : L).join('\n');
+  // A PANEL DRAWN FOR WORDS THAT ARE NOT THERE. With nothing highlighted the readout is empty, and
+  // an empty bordered box sat in the corner at 1366 looking like something that had failed to load.
+  hud.style.display = hud.textContent.trim() ? '' : 'none';
+  o2.clearRect(0,0,ov.width,ov.height);
+  { const x0 = (0 - cx)*zoom + ov.width/2, y0 = ov.height/2 + cy*zoom, M = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+    const a = new Date(commits[0].unix*1000), b = new Date(commits[commits.length-1].unix*1000); let lastPx = -99;
+    o2.font = '10px ui-monospace,Consolas,monospace'; o2.lineWidth = 1;
+    for (let y = a.getUTCFullYear(), m = a.getUTCMonth() + 1; y < b.getUTCFullYear() || (y === b.getUTCFullYear() && m <= b.getUTCMonth()); m++) {
+      if (m > 11) { m = 0; y++; }
+      const t = Date.UTC(y, m, 1)/1000, i = Math.min(commits.length-1, findBy('unix', t - 1) + 1), rp = Math.sqrt(commits[i].k0)*zoom;
+      if (rp - lastPx < 26 || rp > 6000) continue; lastPx = rp;
+      o2.strokeStyle = 'rgba(46,230,230,.30)'; o2.beginPath(); o2.arc(x0, y0, rp, 0, 6.2832); o2.stroke();
+      o2.fillStyle = 'rgba(46,230,230,.85)'; o2.fillText(M[m] + ' ' + String(y).slice(2), x0 + rp*0.5 + 4, y0 - rp*0.866 - 3); } }
+  if (target && target.boundary && zoom >= POINTS_FROM) {
+    // at this zoom the boundary circle is straight across the screen: perpendicular to the radius
+    const x = (target.x - cx)*zoom + ov.width/2, y = ov.height/2 - (target.y - cy)*zoom, rr = Math.hypot(target.x, target.y) || 1;
+    const tx = -target.y/rr, ty = target.x/rr, Lp = Math.hypot(ov.width, ov.height);
+    o2.strokeStyle = 'rgba(255,199,107,.95)'; o2.lineWidth = 2; o2.setLineDash([10,6]); o2.beginPath();
+    o2.moveTo(x - tx*Lp, y + ty*Lp); o2.lineTo(x + tx*Lp, y - ty*Lp); o2.stroke(); o2.setLineDash([]);
+    o2.font = '12px ui-monospace,Consolas,monospace'; o2.fillStyle = 'rgba(255,199,107,1)';
+    // outward is newer, and which way outward points on screen depends on where this key sits, so
+    // the words are placed along the real radius rather than assumed to read left to right
+    const ox = target.x/rr, oy = -target.y/rr;
+    o2.textAlign = 'center';
+    o2.fillText('NEW CODE', x + ox*110, y + oy*110); o2.fillStyle = 'rgba(213,220,234,.85)';
+    o2.fillText('older', x - ox*110, y - oy*110); o2.fillStyle = 'rgba(255,199,107,1)';
+    o2.fillText('the boundary', x + tx*150, y - ty*150 - 8); o2.textAlign = 'start'; }
+  if (arrow) {
+    const p = keyPlace(arrow.k);
+    const fx = (0 - cx)*zoom + ov.width/2, fy = ov.height/2 + cy*zoom;          // the middle: where the record begins
+    const bx = (p[0] - cx)*zoom + ov.width/2, by = ov.height/2 - (p[1] - cy)*zoom;
+    // WHEN THE BEGINNING IS OFF THE SCREEN, AND AFTER THE CAMERA FLIES IT ALWAYS IS, the arrow keeps
+    // the true line and starts where that line crosses the edge of the window. Direction is the whole
+    // of what it says; a stub of a line thousands of screen widths long says nothing at all.
+    let ax = fx, ay = fy;
+    { const W = ov.width, H = ov.height, dx = fx - bx, dy = fy - by;
+      const far = fx < 0 || fy < 0 || fx > W || fy > H;
+      if (far && (dx || dy)) {
+        let t = Infinity;
+        const edge = (num, den) => { if (den === 0) return; const u = num / den;
+          if (u > 0 && u < t) { const x = bx + dx*u, y = by + dy*u;
+            if (x >= -1 && x <= W + 1 && y >= -1 && y <= H + 1) t = u; } };
+        edge(-bx, dx); edge(W - bx, dx); edge(-by, dy); edge(H - by, dy);
+        if (t !== Infinity) { ax = bx + dx*t*0.98; ay = by + dy*t*0.98; }
+      } }
+    const u = Math.min(1, (performance.now() - arrow.t0) / ARROW_MS), e = 1 - Math.pow(1 - u, 3);
+    const tx = ax + (bx - ax)*e, ty = ay + (by - ay)*e, th = Math.atan2(by - ay, bx - ax);
+    o2.strokeStyle = 'rgba(255,43,214,.95)'; o2.lineWidth = 2; o2.beginPath();
+    o2.moveTo(ax, ay); o2.lineTo(tx, ty);
+    for (const d of [-0.36, 0.36]) { o2.moveTo(tx, ty); o2.lineTo(tx - 13*Math.cos(th + d), ty - 13*Math.sin(th + d)); }
+    o2.stroke();
+    // WHERE THE POINT REALLY IS, not where it was aimed. The page can be asked afterwards, and an
+    // arrow that lands NEAR the answer is worse than no arrow at all, because it is believed.
+    arrowTip = { x:tx, y:ty, x0:ax, y0:ay, fromX:fx, fromY:fy, done:u >= 1 };
+    if (u >= 1 && !arrow.held) arrow.held = performance.now();
+    if (arrow.held && performance.now() - arrow.held > ARROW_HOLD) arrow = null;     // it has said its piece
+    dirty = true;
+  }
+  if (target) { const x = (target.x - cx)*zoom + ov.width/2, y = ov.height/2 - (target.y - cy)*zoom;
+    o2.strokeStyle = 'rgba(255,43,214,.98)'; o2.lineWidth = 1.5; o2.beginPath();
+    for (const [a,b,c,d] of [[-16,0,-6,0],[6,0,16,0],[0,-16,0,-6],[0,6,0,16]]) { o2.moveTo(x+a,y+b); o2.lineTo(x+c,y+d); } o2.stroke(); }
+}
+
+// ------------------------------------------------------------------------------ the controls
+function toWorld(px, py){ return [cx + (px - innerWidth/2)/zoom, cy - (py - innerHeight/2)/zoom]; }
+// A KEY THAT LANDS IN A CARRIED FILE SHOWS THE CODE. Until every commit's file list is published a
+// browser cannot work out which file a key belongs to, so the answer is worked out beforehand, one
+// public file at a time, and the page simply looks it up. Where there is no card the page says what
+// it knows and does not pretend otherwise.
+function cardFor(k){ return cards.find(c => k >= c.k0 && k < c.k0 + c.lines) || null; }
+function esc(t){ return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+const CONTEXT = 10;
+// THE ONE RULE THAT MAKES THE ADDRESS OF A LINE ON GITHUB, the same rule tools/cards.py writes
+// down, so a change of commit ids can be answered by making every link again from the fields.
+// The owner used to be written in here by hand: correct by luck, and wrong the first time a
+// carried file came from anywhere else.
+// ONE RULE, TWO SHAPES. A whole piece of work is a commit; a line is a path inside it. Nothing in
+// this page types a GitHub address: every one of them comes out of here, from data, so when the
+// commit ids change they can all be made again by rebuilding the data.
+function gh(o){
+  if (!o || !o.owner || !o.repo || !o.commit) return null;
+  const base = 'https://github.com/' + o.owner + '/' + o.repo;
+  if (!o.path) return base + '/commit/' + o.commit;
+  return base + '/blob/' + o.commit + '/' + o.path + (o.line ? '#L' + o.line : '');
+}
+function ghLink(c, line){
+  return gh({ owner:c.owner, repo:c.repo, commit:c.commit, path:c.path, line:line });
+}
+// ===== THE POP CARD =========================================================================
+// The card this estate refined over many iterations, brought over rather than approximated again.
+// Grid Atlas's popup look, a state chip with ONE writer, and a code window that is one <pre> with
+// one text node: the numbers are part of the text, so copying the code copies what is on the
+// screen, and the tapped line is marked by a bar placed from the line height.
+function el(tag, cls, text){ const e = document.createElement(tag); if (cls) e.className = cls;
+  if (text != null) e.textContent = text; return e; }
+function drow(dl, k, v){ dl.append(el('dt', null, k)); const d = el('dd', null, v); dl.append(d); return d; }
+function linkTo(href, text){ const a = el('a', 'cc-link', text); a.href = href; a.target = '_blank'; a.rel = 'noopener'; return a; }
+let cardToken = 0;
+function sheet(title, sub){
+  const mine = ++cardToken;
+  card.replaceChildren();
+  card.style.display = 'block';
+  card.scrollTop = 0;
+  const x = el('button', 'cc-x', '\u00d7'); x.type = 'button'; x.setAttribute('aria-label', 'close');
+  x.addEventListener('click', closeCard);
+  card.append(x, el('span', 'cc-title', title));
+  if (sub) card.append(el('span', 'cc-grey', sub));
+  const tagLine = el('div', 'cc-tagline'), tag = el('span', 'cc-tag'), msg = el('span', 'cc-grey');
+  tagLine.append(tag, msg); card.append(tagLine);
+  const body = el('div', 'cc-body'); card.append(body);
+  // THE SINGLE WRITER OF THE STATE. Nothing else touches the chip, and a writer for a card that has
+  // been replaced does nothing at all.
+  const setTag = (st, text) => { if (mine !== cardToken) return false;
+    tag.dataset.s = st; tag.textContent = st; if (text != null) msg.textContent = text; return true; };
+  dirty = true;
+  return { mine, body, setTag, live: () => mine === cardToken };
+}
+function closeCard(){ cardToken++; card.style.display = 'none'; card.replaceChildren();
+  target = null; cardShown = null; dirty = true; }
+addEventListener('keydown', e => {
+  if (e.key === 'Escape' && card.style.display !== 'none') { e.preventDefault(); closeCard(); } });
+
+function codeWindow(lines, a, b, at){
+  const pre = el('pre', 'cc-code');
+  pre.setAttribute('aria-label', 'the code around this line');
+  const bar = el('div', 'cc-hi cc-hi-target');
+  const out = [];
+  for (let i = a; i <= b; i++) out.push(String(i).padStart(6) + '  ' + lines[i - 1]);
+  pre.append(bar, document.createTextNode(out.join('\n')));
+  const lh = () => parseFloat(getComputedStyle(pre).lineHeight) || 16;
+  const padTop = () => parseFloat(getComputedStyle(pre).paddingTop) || 0;
+  const place = () => { bar.style.top = (padTop() + (at - a) * lh()) + 'px'; bar.style.height = lh() + 'px'; };
+  return { node:pre, bar, place, first:a, last:b, at,
+    scrollToTarget(){ place(); pre.scrollTop = Math.max(0, (at - a) * lh() - pre.clientHeight/2 + lh()/2); } };
+}
+
+// WHAT A TAP OPENS. One way in for every kind of answer: the work and the day it was done, a state
+// chip saying how much of it is proved, and, where the code for that line is carried on this site,
+// the code itself with the tapped line marked. Nothing here sends a reader to GitHub to READ code;
+// the link is there for the detail and the history, which is what GitHub is good for.
+function show(a){
+  cardShown = null;
+  if (!a) { closeCard(); return; }
+  if (a.silent) {
+    const x = a.next, s = sheet('Nothing was recorded here', '');
+    s.setTag('EMPTY', 'This point falls between two pieces of work, so no line of code has this address.');
+    if (x) { const p = el('div', 'cc-row');
+      const go = el('a', 'cc-link', 'Go to the next work: ' + repos[x.repo].name + ', ' + day(x.unix));
+      go.href = buildLink({ key:x.k0 }); go.setAttribute('data-key', x.k0);
+      p.append(go); s.body.append(p); }
+    return;
+  }
+  const r = repos[a.c.repo], c = cardFor(a.k);
+  litRepo = a.c.repo;
+  const s = sheet('Line ' + fmt(a.k), c ? ' \u00b7 ' + c.path.split('/').pop() : ' \u00b7 ' + r.name);
+  const meta = el('dl', 'cc-dl');
+  drow(meta, 'work', r.name + ' \u00b7 ' + day(a.c.unix));
+  const u = r.pub ? gh({ owner:r.owner, repo:r.name, commit:a.c.sha }) : null;
+  const d = drow(meta, 'on GitHub', '');
+  if (u) d.append(linkTo(u, 'open this piece of work at commit ' + a.c.sha.slice(0, 7)));
+  else d.textContent = 'not public, so there is no link and no name';
+  s.body.append(meta);
+  if (!c) {
+    s.setTag('EMPTY', 'The code for this line is not carried on this site yet, so nothing around it can be shown.');
+    return;
+  }
+  const j = a.k - c.k0;
+  s.setTag('LOAD', 'reading the lines around it from this site\u2026');
+  const put = data => {
+    if (!s.live()) return;
+    cardShown = { card:c, line:j, data, sheet:s };
+    const short = c.commit.slice(0, 7), fileName = c.path.split('/').pop();
+    // THE ARITHMETIC THIS CARD IS ABOUT TO RELY ON, CHECKED BEFORE IT IS RELIED ON. The pack was
+    // built from git and every line proved against it when it was built; what can still go wrong
+    // here is the pack and the list disagreeing about the length of the file, and then every number
+    // below would be a guess.
+    if (!c.here || data.lines !== c.lines || data.text.length !== c.lines || !(j >= 0 && j < c.lines)) {
+      s.setTag('FAIL', !c.here
+        ? 'This file is no longer in the repository, so its neighbours today would not be this line\u2019s neighbours. Nothing around it is shown.'
+        : 'The record says this file has ' + fmt(c.lines) + ' lines and the text carried for it has '
+          + fmt(data.text.length) + ', so the numbering cannot be trusted. Nothing around it is shown.');
+      const h = el('div', 'cc-codehead');
+      h.append(c.path + ' \u00b7 ' + c.repo + ' @ ' + short + ' \u00b7 line ' + fmt(j + 1) + ' \u00b7 ');
+      h.append(linkTo(ghLink(c, j + 1), 'open line ' + fmt(j + 1) + ' of ' + fileName + ' on GitHub, at commit ' + short));
+      s.body.append(h);
+      dirty = true; return;
+    }
+    const from = Math.max(1, j + 1 - CONTEXT), to = Math.min(data.text.length, j + 1 + CONTEXT);
+    const head = el('div', 'cc-codehead');
+    head.append(c.path + ' \u00b7 ' + c.repo + ' @ ' + short + ' \u00b7 line ' + fmt(j + 1)
+              + ' \u00b7 showing ' + fmt(from) + '\u2013' + fmt(to) + ' of ' + fmt(data.text.length) + ' \u00b7 ');
+    head.append(linkTo(ghLink(c, j + 1), 'open line ' + fmt(j + 1) + ' of ' + fileName + ' on GitHub, at commit ' + short));
+    s.body.append(head);
+    s.body.append(el('div', 'cc-check',
+      'These lines are carried on this site, read from ' + c.repo + ' at commit ' + short
+      + ' when this page was built and checked line for line against it then \u00b7 '
+      + fmt(j + 1 - from) + ' above, ' + fmt(to - j - 1) + ' below. Scroll inside the window to see them all;'
+      + ' a long line scrolls sideways.'));
+    const w = codeWindow(data.text, from, to, j + 1);
+    s.body.append(w.node);
+    cardShown.window = w;
+    s.setTag('OK', 'the line and the lines around it, as the file stood that day');
+    s.body.append(el('div', 'cc-disclaimer',
+      'Provided as is, without warranty of any kind; a chart, not a design.'));
+    requestAnimationFrame(() => { if (s.live()) w.scrollToTarget(); });
+    dirty = true;
+  };
+  if (cardCache[c.file]) { put(cardCache[c.file]); return; }
+  fetch('cosmos/cards/' + c.file).then(x => x.json()).then(dd => { cardCache[c.file] = dd; put(dd); })
+    .catch(e => s.setTag('FAIL', 'the lines around this one could not be read from this site: ' + (e && e.message || e)));
+}
+function goKey(k){ const p = keyPlace(k); target = { x:p[0], y:p[1] }; show(address(k)); flyTo(p[0], p[1], 14); }
+// ARRIVING BY SOMEBODY ELSE'S LINK. The view flies, the arrow is shot, the card opens: three things
+// in that order, because a card that appears over a picture of nine thousand pieces of work asks to
+// be taken on trust, and an arrow from the middle of the record to one dot does not.
+function arriveAt(k){
+  const a = address(k);
+  if (!a) return;
+  const p = keyPlace(k);
+  target = null; arrow = null; arrowTip = null; card.style.display = 'none';
+  flyTo(p[0], p[1], Math.max(14, zoom));
+  setTimeout(() => { arrow = { k, t0:performance.now() }; dirty = true; }, 920);
+  setTimeout(() => { target = { x:p[0], y:p[1] }; show(a); dirty = true; }, 920 + ARROW_MS);
+}
+// SHOW NEW CODE. "New" is measured from the newest commit, not from the wall clock, so the same
+// page gives the same answer tomorrow. Keys run in time order, so what is new is always one
+// contiguous band at the rim: the boundary is a single circle, and that circle is drawn.
+function showNew(hours){
+  const last = commits[commits.length-1].unix, cut = last - hours*3600;
+  newFrom = findBy('unix', cut - 1) + (commits[0].unix >= cut ? 0 : 1); if (newFrom >= commits.length) newFrom = commits.length - 1;
+  litRepo = -1; target = null; card.style.display = 'none'; tween = null;
+  const R = Math.sqrt(SPACE); cx = 0; cy = 0; zoom = (Math.min(cv.width, cv.height)/2) * 0.80 / R;
+  anim_hours = hours; anim = { t0:performance.now(), hours, R }; dirty = true;
+}
+function stepAnim(){
+  const t = (performance.now() - anim.t0) / 1000; dirty = true;
+  if (t < 1.6) { const u = t/1.6; pulse = anim.R * (u*u*(3-2*u)); flash = 0; }
+  else if (t < 2.5) { pulse = -1; flash = 1 - 0.45*((t-1.6)/0.9); if (selftest && selftest.wantPixels === undefined) selftest.wantPixels = true; }
+  else { const c = commits[newFrom], n = commits.length - newFrom; let lines = 0; for (let i = newFrom; i < commits.length; i++) lines += commits[i].lines;
+    flash = 0.35; anim = null; const p = keyPlace(c.k0); target = { x:p[0], y:p[1], boundary:true };
+    card.style.display = 'block';
+    { const r0 = repos[c.repo], u0 = r0.pub ? gh({ owner:r0.owner, repo:r0.name, commit:c.sha }) : null;
+      card.classList.remove('sheet');
+      card.innerHTML = 'NEW CODE · the last ' + anim_hours + ' hours of work, as a band at the rim'
+        + '\n<b>' + fmt(n) + '</b> pieces of work, <b>' + fmt(lines) + '</b> lines added'
+        + '\nbegins with <b>' + r0.name + '</b>, ' + day(c.unix)
+        + (u0 ? '\n<a href="' + u0 + '" target="_blank" rel="noopener">Open this piece of work on GitHub</a>' : ''); }
+    flyTo(p[0], p[1], 14);
+    if (selftest) finishSelftest(c, n, lines); }
+}
+let anim_hours = 24;
+// THE TESTS, run by the page on itself with ?selftest=new, so the verdict is not an opinion.
+function finishSelftest(c, n, lines){
+  let maxOld = 0; for (let i = 0; i < newFrom; i++) maxOld = Math.max(maxOld, commits[i].k1);
+  const a = address(c.k0), nb = selftest.newBandPixel || [0,0,0], pp = selftest.pupilPixel || [0,0,0];
+  const T = { T1_new_is_one_band_beyond_everything_older: c.k0 >= maxOld,
+              T2_boundary_key_resolves_to_a_new_commit: !!(a && !a.silent && a.i >= newFrom && a.m === 0),
+              T3_flash_is_amber_on_the_new_band: nb[0] > 150 && nb[0] > nb[2] + 40,
+              T3_no_flash_on_the_silent_centre: pp[0] < 40 && pp[1] < 40,
+              new_commits: n, new_lines: lines, boundary_key: c.k0, newBandPixel: nb, pupilPixel: pp };
+  T.PASS = T.T1_new_is_one_band_beyond_everything_older && T.T2_boundary_key_resolves_to_a_new_commit && T.T3_flash_is_amber_on_the_new_band && T.T3_no_flash_on_the_silent_centre;
+  window.__selftest = T; document.title = 'selftest ' + (T.PASS ? 'PASS' : 'FAIL');
+}
+// ------------------------------------------------------------------ where a page is on the wafer
+// A PAGE IS NOT A PLACE. tools/where.py asks git which commits touched a path and cosmos/wafer.tsv
+// where each of those commits landed, and writes both files this reads. The page then does the same
+// key arithmetic over its own commit table and the test is that the two agree exactly, commit by
+// commit, key by key. Neither is trusted: they are made to contradict each other or agree.
+async function loadTracked(){
+  if (tracked) return tracked;
+  const [tt, cc] = await Promise.all([tsv('cosmos/tracked.tsv'), tsv('cosmos/tracked-commits.tsv')]);
+  tracked = { paths:tt.map(p => ({ repo:p[0], path:p[1], use:p[2], in_git:+p[3], on_wafer:+p[4],
+                lines_in_those_commits:+p[5], k0:+p[6], k1:+p[7], first:p[8], last:p[9] })),
+              commits:cc.map(p => ({ path:p[0], sha:p[1], unix:+p[2], lines:+p[3], k0:+p[4], k1:+p[5] })) };
+  return tracked;
+}
+function raiseFlags(idx){
+  pathFlags.fill(0); for (const i of idx) pathFlags[i] = 1;
+  gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, pathTex);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.R32F, TW, pathRows, 0, gl.RED, gl.FLOAT, pathFlags);
+  gl.activeTexture(gl.TEXTURE0);
+}
+async function lightPath(name, quiet){
+  const T = await loadTracked();
+  const row = T.paths.find(p => p.path.toLowerCase() === String(name).toLowerCase());
+  if (!row) return { error:'no tracked page of that name: run tools/where.py --five', asked_for:name };
+  const want = T.commits.filter(c => c.path === row.path);
+  const idx = [], missing = [], disagreed = [];
+  for (const c of want) { const i = bySha.get(c.sha);
+    if (i === undefined) { missing.push(c.sha); continue; }
+    if (commits[i].k0 !== c.k0 || commits[i].k1 !== c.k1) disagreed.push({ sha:c.sha, page:[commits[i].k0, commits[i].k1], tool:[c.k0, c.k1] });
+    idx.push(i); }
+  idx.sort((a, b) => a - b);
+  litRepo = -1; litK = [-1,-1]; litCi = null; newFrom = -1; flash = 0; pulse = -1; target = null;
+  litPath = { row, idx }; raiseFlags(idx);
+  tween = null; cx = 0; cy = 0; zoom = (Math.min(cv.width, cv.height)/2)*0.80/Math.sqrt(SPACE); draw();
+  if (!quiet) { card.style.display = 'block';
+    card.classList.remove('sheet'), card.innerHTML = 'PATH:' + row.path + '\n' + row.repo + '\n\n' + fmt(row.on_wafer) + ' commits touched it, of ' + fmt(row.in_git)
+      + ' git knows\nfirst ' + row.first + ', last ' + row.last
+      + '\n\nkeys ' + fmt(row.k0) + ' .. ' + fmt(row.k1)
+      + '\n' + fmt(row.lines_in_those_commits) + ' lines in those commits, which is the commits, not the page'
+      + '\n\nuse: ' + row.use; }
+  return { row, idx, want:want.length, missing, disagreed };
+}
+// THE TEST. ?selftest=path:<name>. The count the page lit must be the count the tool counted, every
+// sha the tool named must be a commit this wafer holds, and every key must match to the digit. Then
+// the picture: at a zoom where one of those commits is more than a pixel wide, that pixel must
+// actually carry the path's light, or the page is lighting a set it never drew.
+async function pathSelftest(name){
+  const r = await lightPath(name, true);
+  if (r.error) { window.__selftest = { PASS:false, asked_for:name, error:r.error }; document.title = 'selftest FAIL'; return; }
+  let raised = 0; for (let i = 0; i < pathFlags.length; i++) if (pathFlags[i] > 0.5) raised++;
+  const T = { page:r.row.path, repository:r.row.repo, use:r.row.use,
+    commits_lit_by_the_page:r.idx.length, commits_counted_by_where_py:r.row.on_wafer, commits_git_knows:r.row.in_git,
+    shas_the_wafer_does_not_hold:r.missing, keys_where_tool_and_page_disagree:r.disagreed, flags_raised_in_the_texture:raised,
+    first_key:r.row.k0, last_key:r.row.k1,
+    T1_the_page_lit_what_where_py_counted: r.idx.length === r.row.on_wafer && r.idx.length === r.want,
+    T2_every_sha_the_tool_named_is_on_this_wafer: r.missing.length === 0,
+    T3_tool_and_page_give_every_commit_the_same_keys: r.disagreed.length === 0,
+    T4_the_light_was_actually_raised: raised === r.idx.length && r.idx.length > 0 };
+  // the picture: the widest of its commits, at a zoom that makes it three pixels of radius
+  let best = -1, bestW = 0;
+  for (const i of r.idx) { const w = Math.sqrt(commits[i].k1) - Math.sqrt(commits[i].k0); if (w > bestW) { bestW = w; best = i; } }
+  const zWant = 3/Math.max(bestW, 1e-12), z = Math.min(zWant, POINTS_FROM*0.9), wpx = bestW*z;
+  T.widest_commit_px_at_the_zoom_used = +wpx.toFixed(3);
+  if (best >= 0 && wpx >= 1) {
+    const mid = (Math.sqrt(commits[best].k0) + Math.sqrt(commits[best].k1))/2, p = keyPlace(mid*mid);
+    tween = null; cx = p[0]; cy = p[1]; zoom = z; dirty = true; draw();
+    const px = new Uint8Array(4); gl.readPixels(Math.round(cv.width/2), Math.round(cv.height/2), 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px);
+    T.pixel_at_the_middle_of_its_widest_commit = [px[0], px[1], px[2]];
+    T.T5_that_pixel_carries_the_paths_light = px[0] > 120 && px[2] > 100 && px[0] > px[1] + 40 && px[2] > px[1] + 30;
+  } else { T.T5_that_pixel_carries_the_paths_light = null; T.why_no_pixel_was_read = 'every commit of this page is finer than one pixel at any zoom the field is drawn at'; }
+  T.PASS = T.T1_the_page_lit_what_where_py_counted && T.T2_every_sha_the_tool_named_is_on_this_wafer
+        && T.T3_tool_and_page_give_every_commit_the_same_keys && T.T4_the_light_was_actually_raised
+        && T.T5_that_pixel_carries_the_paths_light !== false;
+  window.__selftest = T; document.title = 'selftest ' + (T.PASS ? 'PASS' : 'FAIL');
+}
+
+// THE CARD, TESTED. A key in the middle of a carried file is tapped by the page itself; the line the
+// card shows must be the line that file holds at that number, the marked line must be that one and no
+// other, and the panel must be on the screen. A key with no card must say so and show no code at all.
+// A RECTANGLE IS NOT A SIGHTING. The link's box was inside the window and the sheet's own overflow
+// was hiding it, so the check passed and the photograph showed no link. Ask what is actually at the
+// point, which is the question a thumb asks.
+const inWindow = r => !!r && r.width > 4 && r.height > 4 && r.top >= -0.5 && r.bottom <= innerHeight + 0.5
+                && r.left >= -0.5 && r.right <= innerWidth + 0.5;
+const on = el => { if (!el) return false; const r = el.getBoundingClientRect(); if (!inWindow(r)) return false;
+  const hit = document.elementFromPoint(Math.round(r.left + r.width / 2), Math.round(r.top + r.height / 2));
+  return !!hit && (hit === el || el.contains(hit) || hit.contains(el)); };
+
+async function cardSelftest(){
+  const T = { cards_carried: cards.length };
+  if (!cards.length) { T.PASS = false; T.error = 'no file carries its keys on this page';
+    window.__selftest = T; document.title = 'selftest FAIL'; return; }
+  const c = cards[0], j = Math.floor(c.lines / 2), k = c.k0 + j;
+  T.file = c.path; T.line_asked_for = j + 1; T.key = k;
+  show(address(k));
+  for (let i = 0; i < 60 && !cardShown; i++) await new Promise(r => setTimeout(r, 100));
+  const d = cardShown && cardShown.data;
+  T.T1_the_card_opened_for_that_key = !!cardShown && cardShown.line === j;
+  T.T2_the_line_shown_is_the_line_that_file_holds = !!d && typeof d.text[j] === 'string';
+  const html = card.innerHTML;
+  const want = d ? d.text[j] : null;
+  const esc1 = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  T.T3_that_exact_text_is_on_the_screen = !!want && (want.trim() === '' || card.textContent.indexOf(want) >= 0);
+  // THE MARKED ROW IS THE ONE THE KEY ASKED FOR, and the text in it is that file's line. Marking the
+  // wrong row is the one failure a reader could not catch: the code would be real and the answer wrong.
+  { const w = cardShown && cardShown.window, pre = w && w.node;
+    const lh = pre ? parseFloat(getComputedStyle(pre).lineHeight) || 16 : 16;
+    const pad = pre ? parseFloat(getComputedStyle(pre).paddingTop) || 0 : 0;
+    if (w) w.place();
+    T.marked_line = w ? w.at : null;
+    T.T4_it_is_the_marked_line = !!w && w.at === j + 1
+      && Math.abs(parseFloat(w.bar.style.top) - (pad + (w.at - w.first) * lh)) < 0.6
+      && pre.textContent.split('\n')[w.at - w.first] === String(w.at).padStart(6) + '  ' + String(want); }
+  const r = card.getBoundingClientRect();
+  T.T5_the_card_is_on_the_screen = r.width > 40 && r.height > 20 && r.left >= -0.5 && r.right <= innerWidth + 0.5;
+  // and a key that no file carries must say so, and show no code
+  const far = cards.reduce((m, x) => Math.max(m, x.k0 + x.lines), 0) + 1000;
+  show(address(far));
+  await new Promise(r => setTimeout(r, 150));
+  T.T6_a_key_with_no_card_shows_no_code = !card.querySelector('pre');
+  // AND IT SAYS THE THREE THINGS A PERSON ASKED. Almost every tap a stranger makes lands here, so
+  // this is the card that matters most: what the work was, the day it was done, one link to it.
+  const seenText = card.textContent.replace(/\s+/g, ' ');
+  T.the_plain_card = seenText.slice(0, 160);
+  const lnk = card.querySelector('a[href*="github.com/"]');
+  const chip = card.querySelector('.cc-tag');
+  T.the_state_it_shows = chip ? chip.getAttribute('data-s') : null;
+  T.T11_it_says_the_work_the_day_and_where_to_see_it =
+       /(?<!\d)\d{1,2} [A-Z][a-z]{2} \d{4}(?!\d)/.test(seenText)
+    && seenText.indexOf('not carried on this site yet') >= 0 && T.the_state_it_shows === 'EMPTY'
+    && (seenText.indexOf('not public') >= 0 ? !lnk
+        : !!lnk && /\/commit\/[0-9a-f]{7,40}$/.test(lnk.getAttribute('href')) && on(lnk));
+  // NO ARITHMETIC AND NO INSTRUCTIONS ANYWHERE ON THE PAGE, not in a card and not in the markup a
+  // reader can read. The words are listed once so they cannot come back by accident.
+  // WRITTEN IN PIECES ON PURPOSE. Spelled out, the list of forbidden words IS three forbidden words
+  // in the page, and the check fails on itself. It did, on its first run.
+  const BANNED = ['pyth' + 'on ', 'key' + '.py', 'ever ' + 'issued'];
+  const whole = document.documentElement.outerHTML.toLowerCase();
+  T.banned_words_found = BANNED.filter(w => whole.indexOf(w) >= 0 || seenText.toLowerCase().indexOf(w) >= 0);
+  T.T12_no_arithmetic_and_no_command_anywhere_on_the_page = T.banned_words_found.length === 0;
+  // THE LINK AND THE LINES BELOW IT, MEASURED. The 0012 review found the card cut off after the
+  // marked line on a phone: the ten lines below and the link to GitHub were behind the button bar.
+  // Being in the markup is not being on the screen, so this asks the layout where they really are.
+  show(address(k));
+  for (let i = 0; i < 60 && !cardShown; i++) await new Promise(r => setTimeout(r, 100));
+  await new Promise(r => setTimeout(r, 120));
+  const lk = card.querySelector('a[href*="#L"]');
+  T.T7_the_github_link_is_on_the_screen = on(lk);
+  T.link_rect = lk ? [lk.getBoundingClientRect().left, lk.getBoundingClientRect().top,
+                      lk.getBoundingClientRect().right, lk.getBoundingClientRect().bottom].map(Math.round) : null;
+  { const w = cardShown && cardShown.window, pre = w && w.node;
+    const lh = pre ? parseFloat(getComputedStyle(pre).lineHeight) || 16 : 16;
+    if (w) w.scrollToTarget();
+    const below = w ? w.last - w.at : 0;
+    const roomBelow = pre ? Math.floor((pre.scrollTop + pre.clientHeight - ((w.at - w.first + 1) * lh)) / lh) : 0;
+    T.lines_below_the_marked_line = below; T.lines_below_it_on_the_screen = Math.min(below, roomBelow);
+    T.T8_ten_lines_below_are_there_and_five_are_on_the_screen = below >= CONTEXT && roomBelow >= 5 && on(pre);
+    // A LONG LINE MAY RUN PAST THE EDGE ONLY IF THE WINDOW CAN BE SCROLLED TO IT. The wafer's window
+    // keeps code as code, unwrapped; what would be a fault is a line cut off with no way to reach it.
+    const ox = pre ? getComputedStyle(pre).overflowX : '';
+    T.T9_no_code_line_runs_off_the_right_edge = !!pre && (pre.scrollWidth <= pre.clientWidth + 1 || ox === 'auto' || ox === 'scroll');
+    const chip2 = card.querySelector('.cc-tag');
+    T.the_state_of_a_carried_line = chip2 ? chip2.getAttribute('data-s') : null;
+    T.T21_the_state_chip_says_OK_and_only_one_thing = !!chip2 && T.the_state_of_a_carried_line === 'OK'
+      && card.querySelectorAll('.cc-tag').length === 1; }
+  const bdy = card.querySelector('.cc-body');
+  const box = el => { if (!el) return null; const r = el.getBoundingClientRect();
+    return [r.left, r.top, r.right, r.bottom].map(Math.round); };
+  T.sheet_rects = { card:box(card), body:box(bdy), window:box(card.querySelector('.cc-code')) };
+  T.header = (card.querySelector('.cc-dl') || card).textContent.replace(/\s+/g, ' ').trim().slice(0, 120);
+  T.T10_the_header_says_what_day_the_work_was_done = /(?<!\d)\d{1,2} [A-Z][a-z]{2} \d{4}(?!\d)/.test(T.header);
+  // A TAP IN A DARK GAP MUST LEAD SOMEWHERE. A key between two pieces of work is a real place on
+  // this picture and a reader lands on one often; it named the next piece of work and then left them
+  // holding a sentence with nothing to press.
+  let silent = null;
+  for (const c of commits) { const g = address(c.k1); if (g && g.silent && g.next) { silent = c.k1; break; } }
+  T.a_key_in_a_gap = silent;
+  if (silent !== null) {
+    show(address(silent));
+    await new Promise(r => setTimeout(r, 120));
+    const way = card.querySelector('a[data-key]');
+    T.the_gap_card = card.textContent.replace(/\s+/g, ' ').slice(0, 120);
+    T.T13_a_gap_leads_to_the_next_work = !!way && on(way);
+    if (way) { way.click(); await new Promise(r => setTimeout(r, 250));
+      T.after_following_it = card.textContent.replace(/\s+/g, ' ').slice(0, 90);
+      T.T13_a_gap_leads_to_the_next_work = /(?<!\d)\d{1,2} [A-Z][a-z]{2} \d{4}(?!\d)/.test(card.textContent) && !!card.querySelector('.cc-tag'); }
+  } else { T.T13_a_gap_leads_to_the_next_work = true; T.a_key_in_a_gap = 'this wafer has no gaps'; }
+  // AND NO PANEL IS DRAWN FOR WORDS THAT ARE NOT THERE.
+  litRepo = -1; litK = [-1, -1]; litCi = null; target = null; card.style.display = 'none'; draw();
+  await new Promise(r => setTimeout(r, 60));
+  { const hr = hud.getBoundingClientRect();
+    T.readout_when_nothing_is_highlighted = [hud.textContent.trim().length, Math.round(hr.width), Math.round(hr.height)];
+    T.T14_an_empty_readout_draws_no_box = hud.textContent.trim().length > 0 || hr.width < 1 || hr.height < 1; }
+  // THE LINK CONTRACT, PROVED ON ITSELF AND AGAINST THE PUBLISHED TABLE. Parsing a link this page
+  // built must give back exactly what it was asked for; and the address this page builds must be
+  // the address the tools build, character for character, or the two have quietly drifted apart.
+  try {
+    const ct = await fetch('cosmos/link-contract.json').then(r => r.json());
+    const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+    const wrong = [];
+    for (const ex of ct.examples) {
+      const built = buildLink(ex.asked);
+      const want = {}; for (const k of Object.keys(LINK.params)) {
+        const v = ex.asked[k]; want[k] = (v === undefined || v === null || v === '') ? null : v; }
+      if (built !== ex.built) wrong.push({ asked:ex.asked, this_page:built, the_table:ex.built });
+      else if (!same(parseLink(built), want)) wrong.push({ asked:ex.asked, came_back:parseLink(built) });
+    }
+    T.examples_checked = ct.examples.length;
+    T.links_that_disagree = wrong;
+    T.T15_a_link_this_page_built_parses_back_to_what_it_asked_for = ct.examples.length > 0 && wrong.length === 0;
+  } catch (e) {
+    // A TEST THAT CANNOT RUN MUST FAIL, NOT GO QUIET.
+    T.T15_a_link_this_page_built_parses_back_to_what_it_asked_for = false;
+    T.links_that_disagree = 'the published table could not be read: ' + (e && e.message || e);
+  }
+  // AND NOBODY TYPES AN ADDRESS. One function makes them; a hand written one is how the two halves
+  // of a link stop agreeing without anybody noticing.
+  try {
+    const src = await fetch(location.pathname).then(r => r.text());
+    const typed = [];
+    for (const k of Object.keys(LINK.params)) {
+      const needle = '?' + k + '=';
+      let at = -1;
+      while ((at = src.indexOf(needle, at + 1)) >= 0) {
+        // A SENTENCE THAT MENTIONS AN ADDRESS IS NOT AN ADDRESS. A typed one begins a string, so
+        // the character before the question mark is a quote. This sentence may not show you an
+        // example, because an example would be the very thing it is looking for, and this check
+        // failed on its own explanation the first time it ran.
+        const before = at > 0 ? src[at - 1] : ' ';
+        if (before === '"' || before === "'" || before === '`') typed.push(src.slice(Math.max(0, at - 30), at + 14));
+      }
+    }
+    T.addresses_typed_by_hand = typed;
+    T.T16_no_address_is_typed_by_hand_in_this_page = typed.length === 0;
+  } catch (e) {
+    T.T16_no_address_is_typed_by_hand_in_this_page = false;
+    T.addresses_typed_by_hand = 'the page could not read its own source: ' + (e && e.message || e);
+  }
+  // ARRIVING BY A LINK. The view flies, an arrow is shot from the centre of the record to the work
+  // the address names, and only then does the card open. The arrow must END ON THE DOT the card
+  // describes: an arrow that points near the answer is worse than none, because it is believed.
+  { const ka = c.k0 + Math.floor(c.lines / 3);
+    home(); card.style.display = 'none'; target = null; arrow = null; arrowTip = null; draw();
+    arriveAt(ka);
+    // THE CLOCK IS NOT WHAT IS BEING CHECKED. Under a headless time budget this page gets about seven
+    // animation frames in eight seconds, so waiting for the flight to finish measures the browser's
+    // throttle. Put the camera where the flight was going, tell the arrow its time is up, draw once.
+    for (let i = 0; i < 60 && !arrow; i++) await new Promise(r => setTimeout(r, 100));
+    if (tween) { cx = tween.x1; cy = tween.y1; zoom = tween.z1; tween = null; }
+    if (arrow) arrow.t0 = performance.now() - ARROW_MS;
+    draw();
+    const p = keyPlace(ka);
+    const wx = (p[0] - cx) * zoom + ov.width / 2, wy = ov.height / 2 - (p[1] - cy) * zoom;
+    T.arrow_tip = arrowTip ? [Math.round(arrowTip.x), Math.round(arrowTip.y)] : null;
+    T.arrow_still_flying = !!arrow;
+    T.camera = [Math.round(cx), Math.round(cy), +zoom.toFixed(3)];
+    T.draws_seen = drawCount;
+    T.the_dot_it_should_end_on = [Math.round(wx), Math.round(wy)];
+    T.T17_the_arrow_ends_on_the_dot = !!arrowTip && arrowTip.done
+      && Math.hypot(arrowTip.x - wx, arrowTip.y - wy) < 2;
+    // and it is shot from the centre of the record, not from wherever the camera happened to be
+    // IT COMES ALONG THE LINE FROM THE BEGINNING OF THE RECORD. After the camera flies, that point
+    // is far off the screen, so what can be checked is not where the drawing starts but that the
+    // drawing lies on the line: the direction is the meaning.
+    { const c0x = (0 - cx) * zoom + ov.width / 2, c0y = ov.height / 2 + cy * zoom;
+      const ux = wx - c0x, uy = wy - c0y, vx = (arrowTip ? arrowTip.x0 : 0) - c0x, vy = (arrowTip ? arrowTip.y0 : 0) - c0y;
+      const cross = Math.abs(ux * vy - uy * vx) / Math.max(1, Math.hypot(ux, uy));
+      T.arrow_starts_at = arrowTip ? [Math.round(arrowTip.x0), Math.round(arrowTip.y0)] : null;
+      T.the_centre_of_the_record_is_at = [Math.round(c0x), Math.round(c0y)];
+      T.how_far_the_arrow_is_off_that_line_px = arrowTip ? +cross.toFixed(2) : null;
+      T.T18_it_is_shot_from_the_centre_of_the_record = !!arrowTip && cross < 2
+        && arrowTip.x0 >= -1 && arrowTip.x0 <= ov.width + 1 && arrowTip.y0 >= -1 && arrowTip.y0 <= ov.height + 1; }
+    for (let i = 0; i < 40 && card.style.display === 'none'; i++) await new Promise(r => setTimeout(r, 100));
+    T.T19_and_then_the_card_opens = card.style.display !== 'none'
+      && card.textContent.replace(/\s+/g, ' ').length > 20;
+    T.the_card_after_arriving = card.textContent.replace(/\s+/g, ' ').slice(0, 90); }
+  // AN ADDRESS THIS PAGE CANNOT ANSWER MUST SAY SO. The note claimed it already did; building such
+  // a link was refused, but ARRIVING with one said nothing at all, which is the half a reader meets.
+  { const A = window.__arrival || { said:[], shown:null };
+    T.what_the_address_asked_for_that_this_page_cannot_answer = A.said;
+    T.what_the_page_said_about_it = A.shown ? A.shown.replace(/\s+/g, ' ').slice(0, 150) : null;
+    const said_it = A.said.length === 0 || (!!A.shown && A.said.every(x => A.shown.indexOf(x) >= 0));
+    // and the sentences themselves, on addresses chosen here rather than on whatever this one was
+    const one = complaints('https://x/?colour=red'), two = complaints('https://x/?key=abc'),
+          none = complaints('https://x/?key=12&path=a');
+    T.T20_an_address_it_cannot_answer_is_answered_in_words =
+         said_it && one.length === 1 && one[0].indexOf('colour') >= 0
+      && two.length === 1 && two[0].indexOf('whole number') >= 0 && none.length === 0; }
+  T.sample_line = want === null ? null : String(want).slice(0, 80);
+  T.PASS = T.T1_the_card_opened_for_that_key && T.T2_the_line_shown_is_the_line_that_file_holds
+        && T.T3_that_exact_text_is_on_the_screen && T.T4_it_is_the_marked_line
+        && T.T5_the_card_is_on_the_screen && T.T6_a_key_with_no_card_shows_no_code
+        && T.T7_the_github_link_is_on_the_screen && T.T8_ten_lines_below_are_there_and_five_are_on_the_screen
+        && T.T9_no_code_line_runs_off_the_right_edge && T.T10_the_header_says_what_day_the_work_was_done
+        && T.T11_it_says_the_work_the_day_and_where_to_see_it
+        && T.T12_no_arithmetic_and_no_command_anywhere_on_the_page
+        && T.T13_a_gap_leads_to_the_next_work && T.T14_an_empty_readout_draws_no_box
+        && T.T15_a_link_this_page_built_parses_back_to_what_it_asked_for
+        && T.T16_no_address_is_typed_by_hand_in_this_page
+        && T.T17_the_arrow_ends_on_the_dot && T.T18_it_is_shot_from_the_centre_of_the_record
+        && T.T19_and_then_the_card_opens && T.T20_an_address_it_cannot_answer_is_answered_in_words
+        && T.T21_the_state_chip_says_OK_and_only_one_thing;
+  window.__selftest = T; document.title = 'selftest ' + (T.PASS ? 'PASS' : 'FAIL');
+}
+
+// LIGHT A REPOSITORY, TESTED. ?selftest=repo:<name>, or repo:* for the largest one. Two questions.
+// ONE, the picture: walking outward from the centre, a pixel is green if and only if the key at
+// that pixel's centre belongs to that repository. A pixel whose radial span straddles a change of
+// owner is excluded and counted separately, because at this zoom one pixel covers hundreds of
+// millions of addresses and the shader and this loop need not agree on which side of the line it
+// falls. Every other pixel must agree exactly.
+// TWO, the number: the repository's line total added up through the running totals, which is the
+// arithmetic the shading itself is made of, must equal the direct sum of its commits, and both
+// must equal what cosmos/repos.tsv declared before any of this was drawn. Three sources, one
+// number, or the test fails.
+function repoSelftest(name){
+  const rp = (name === '*') ? repos.reduce((a, b) => b.lines > a.lines ? b : a)
+                            : repos.find(x => x.name.toLowerCase() === name.toLowerCase());
+  if (!rp) { window.__selftest = { PASS:false, asked_for:name, error:'no repository of that name is on this wafer' };
+    document.title = 'selftest FAIL'; return; }
+  let byRunning = 0, directly = 0, n = 0;
+  for (const c of commits) if (c.repo === rp.i) { byRunning += issuedBelow(c.k1) - issuedBelow(c.k0); directly += c.lines; n++; }
+  litRepo = rp.i; litK = [-1,-1]; litCi = null; newFrom = -1; flash = 0; pulse = -1; target = null; card.style.display = 'none';
+  tween = null; { const h = homeCamera(); cx = h.x; cy = h.y; zoom = h.z; } draw();
+  const W = cv.width, H = cv.height, Rpx = Math.sqrt(SPACE)*zoom;
+  const col0 = Math.round(W/2 - cx*zoom), row0 = Math.round(H/2 - cy*zoom);   // the wafer's own centre, in GL pixels
+  const span = Math.max(4, Math.floor(Rpx) - 1);
+  const strip = (x, y, w, h) => { const b = new Uint8Array(w*h*4); gl.readPixels(x, y, w, h, gl.RGBA, gl.UNSIGNED_BYTE, b); return b; };
+  const east = strip(col0, row0, span, 1), north = strip(col0, row0, 1, span);
+  let lit = 0, dark = 0, wrong = 0, straddled = 0; const wrongAt = [];
+  function check(buf, i, wx, wy, hx, hy, where){
+    const own = ownerAt(Math.hypot(wx, wy));
+    if (ownerAt(Math.hypot(wx-hx, wy-hy)) !== own || ownerAt(Math.hypot(wx+hx, wy+hy)) !== own) { straddled++; return; }
+    const r0 = buf[i*4], g0 = buf[i*4+1], b0 = buf[i*4+2];
+    const green = g0 > 120 && g0 > r0 + 40 && g0 > b0 + 30;
+    if (green === (own === rp.i)) { green ? lit++ : dark++; }
+    else { wrong++; if (wrongAt.length < 8) wrongAt.push({ strip:where, pixel_from_centre:i,
+      key_belongs_to: own === -1 ? 'silence' : (own === -2 ? 'beyond the rim' : repos[own].name),
+      drawn: green ? 'green' : 'not green', rgb:[r0, g0, b0] }); }
+  }
+  const hudWhenLit = hud.textContent;                 // what the page told the reader while it was lit
+  const wy0 = cy + (row0 + 0.5 - H/2)/zoom, wx0 = cx + (col0 + 0.5 - W/2)/zoom, h = 0.5/zoom;
+  for (let i = 0; i < span; i++) check(east, i, cx + (col0 + i + 0.5 - W/2)/zoom, wy0, h, 0, 'east');
+  for (let i = 0; i < span; i++) check(north, i, wx0, cy + (row0 + i + 0.5 - H/2)/zoom, 0, h, 'north');
+  { const hm = homeCamera(); cx = hm.x; cy = hm.y; zoom = hm.z; litRepo = -1; dirty = true; draw(); }
+  const wpx = widestRunPx(rp.i, Rpx/Math.sqrt(SPACE));
+  const tooSmall = wpx < 1;
+  const said = /FINER THAN ONE PIXEL/.test(hudWhenLit);
+  const T = { repository: rp.name, commits: n, viewport:[W, H], wafer_radius_px: Math.round(Rpx), pixels_walked: 2*span,
+    // A pixel is green if and only if the key at its centre belongs to this repository. Nothing
+    // else is asserted: a repository under a pixel wide lights nothing, and the second test is
+    // that the page says that out loud instead of showing an empty wafer and letting it pass.
+    T1_no_pixel_disagrees_with_the_keys: wrong === 0,
+    T2_it_lights_pixels_or_the_page_says_it_is_too_small: lit > 0 || (tooSmall && said),
+    widest_unbroken_run_px_at_this_zoom: +wpx.toFixed(4), finer_than_one_pixel: tooSmall, the_page_said_so: said,
+    pixels: { green_and_owned_by_it: lit, not_green_and_not_owned_by_it: dark, disagreed: wrong, straddled_a_boundary_and_excluded: straddled },
+    first_disagreements: wrongAt,
+    T3_running_totals_equal_the_direct_sum: byRunning === directly,
+    T4_and_equal_what_the_belt_declared: directly === rp.lines,
+    lines_by_running_totals: byRunning, lines_added_directly: directly, lines_declared_by_the_belt: rp.lines };
+  T.PASS = T.T1_no_pixel_disagrees_with_the_keys && T.T2_it_lights_pixels_or_the_page_says_it_is_too_small
+        && T.T3_running_totals_equal_the_direct_sum && T.T4_and_equal_what_the_belt_declared;
+  window.__selftest = T; document.title = 'selftest ' + (T.PASS ? 'PASS' : 'FAIL');
+}
+// THE PHONE TEST, run by the page on itself with ?selftest=phone at whatever size the window is.
+// It states that size, so the verdict is about a real viewport and not about a claim. Three
+// mechanical questions: does any permanent panel cover the wafer, does the card fit on the screen,
+// and do a drag and a two finger pinch actually move the camera when the events are dispatched.
+function phoneSelftest(){
+  tween = null; { const h = homeCamera(); cx = h.x; cy = h.y; zoom = h.z; } draw();
+  const W = innerWidth, H = innerHeight, Rpx = Math.sqrt(SPACE)*zoom;
+  const scx = (0 - cx)*zoom + W/2, scy = H/2 + cy*zoom;          // where the wafer's centre really is on screen
+  const panels = []; let worst = 1e9;
+  for (const id of ['top','hud','foot']) { const r = document.getElementById(id).getBoundingClientRect();
+    const qx = Math.max(r.left, Math.min(scx, r.right)), qy = Math.max(r.top, Math.min(scy, r.bottom));
+    const clear = Math.hypot(qx - scx, qy - scy) - Rpx;          // nearest point of the panel, less the rim radius
+    panels.push({ panel:id, rect:[r.left, r.top, r.right, r.bottom].map(Math.round), clear_of_the_rim_px:Math.round(clear) });
+    worst = Math.min(worst, clear); }
+  const onScreen = scx - Rpx >= -0.5 && scx + Rpx <= W + 0.5 && scy - Rpx >= -0.5 && scy + Rpx <= H + 0.5;
+  show(address(Math.floor(N/2))); layout();
+  const cr = card.getBoundingClientRect();
+  const cardFits = cr.left >= -0.5 && cr.top >= -0.5 && cr.right <= W + 0.5 && cr.bottom <= H + 0.5 && cr.width > 40 && cr.height > 20;
+  const ev = (t, id, x, y) => cv.dispatchEvent(new PointerEvent(t, { pointerId:id, clientX:x, clientY:y, bubbles:true, pointerType:'touch' }));
+  const z0 = zoom, cx0 = cx;                                     // one finger: the world must follow it
+  ev('pointerdown', 11, Math.round(W*0.5), Math.round(H*0.5)); ev('pointermove', 11, Math.round(W*0.5) + 60, Math.round(H*0.5));
+  const dragged = cx0 - cx; ev('pointerup', 11, Math.round(W*0.5) + 60, Math.round(H*0.5));
+  const zA = zoom;                                               // two fingers: the distance between them must set the zoom
+  ev('pointerdown', 21, Math.round(W*0.35), Math.round(H*0.5)); ev('pointerdown', 22, Math.round(W*0.65), Math.round(H*0.5));
+  const spread = Math.round(W*0.65) - Math.round(W*0.35);
+  ev('pointermove', 22, Math.round(W*0.35) + 2*spread, Math.round(H*0.5));
+  const zB = zoom; ev('pointerup', 21, 0, 0); ev('pointerup', 22, 0, 0);
+  // put the wafer back the way it was found: the test's own light is not part of the record
+  { const h = homeCamera(); cx = h.x; cy = h.y; zoom = h.z; atHome = true; litRepo = -1; target = null;
+    card.style.display = 'none'; dirty = true; draw(); }
+  // THE PUBLIC FACE, CHECKED ON THE FACE ITSELF. Functions, use cases and disclaimers: what a person
+  // can do here, what it is for, and what it is not. The placement law, the angle and the unresolved
+  // pixels are engineering notes and belong in the repository, not in front of a reader.
+  // PRESENT IS NOT THE SAME AS VISIBLE. textContent returns words that are set to display:none as
+  // happily as words on the screen, so every check passed while a phone showed no disclaimer at all.
+  // Ask the layout instead: a node with no client rectangles is not in front of anybody.
+  const seen = el => { if (!el) return ''; let out = '';
+    const walk = n => { if (n.nodeType === 3) { const r = document.createRange(); r.selectNodeContents(n);
+        if (r.getClientRects().length) out += ' ' + n.nodeValue; return; }
+      if (n.nodeType !== 1 || !n.getClientRects().length) return;
+      for (const c of n.childNodes) walk(c); };
+    walk(el); return out.replace(/\s+/g, ' ').trim().toLowerCase(); };
+  const faceSeen = seen(document.getElementById('foot')) + ' ' + seen(document.getElementById('top'));
+  // NOTHING MAY RUN OFF THE RIGHT EDGE. A box whose content is wider than the box itself is a box
+  // with words hidden in it, which is how a cut disclaimer looks to everyone except a test.
+  const overflows = [];
+  for (const id of ['top','hud','foot','card']) { const el = document.getElementById(id);
+    if (el && el.getClientRects().length && el.scrollWidth > el.clientWidth + 1)
+      overflows.push({ panel:id, content_px:el.scrollWidth, box_px:el.clientWidth }); }
+  const face = (document.getElementById('foot').textContent + ' ' + document.getElementById('top').textContent).toLowerCase();
+  const T = { viewport:[W, H], narrow_layout:narrow(), wafer_centre_on_screen:[Math.round(scx), Math.round(scy)], wafer_radius_px:Math.round(Rpx),
+    T7_the_face_carries_the_disclaimer: face.indexOf('without warranty of any kind') >= 0,
+    T9_the_disclaimer_is_actually_on_the_screen: faceSeen.indexOf('without warranty of any kind') >= 0,
+    T10_nothing_is_cut_off_at_the_right_edge: overflows.length === 0, panels_that_overflow: overflows,
+    visible_face_words: faceSeen.length,
+    T8_the_face_explains_no_machinery: !/golden|one law|√|sqrt|unresolved pixel/.test(face),
+    T1_no_permanent_panel_covers_the_wafer: worst >= 0, panels,
+    T2_the_whole_wafer_is_on_the_screen: onScreen,
+    T3_the_card_fits: cardFits, card_rect:[cr.left, cr.top, cr.right, cr.bottom].map(Math.round),
+    T4_one_finger_drags: Math.abs(dragged - 60/z0) < 1e-6, dragged_world_units:+dragged.toFixed(6), expected_world_units:+(60/z0).toFixed(6),
+    T5_two_fingers_pinch: zB > zA*1.8 && zB <= ZMAX + 1e-9, zoom_before_pinch:+zA.toFixed(6), zoom_after_pinch:+zB.toFixed(6) };
+  T.PASS = T.T1_no_permanent_panel_covers_the_wafer && T.T2_the_whole_wafer_is_on_the_screen && T.T3_the_card_fits
+        && T.T4_one_finger_drags && T.T5_two_fingers_pinch;
+  T.PASS = T.PASS && T.T7_the_face_carries_the_disclaimer && T.T8_the_face_explains_no_machinery
+        && T.T9_the_disclaimer_is_actually_on_the_screen && T.T10_nothing_is_cut_off_at_the_right_edge;
+  window.__selftest = T; document.title = 'selftest ' + (T.PASS ? 'PASS' : 'FAIL');
+}
+// LIGHT A PERIOD. "2026-07" or "2026-07-14". Time order makes it one band, so the count is a
+// difference of two running totals and the light is one annulus.
+function lightTime(y, m, d){
+  const t0 = Date.UTC(y, m ? m-1 : 0, d || 1)/1000, t1 = d ? t0 + 86400 : Date.UTC(m ? y : y+1, m ? m : 0, 1)/1000;
+  const i0 = (commits[0].unix >= t0) ? 0 : findBy('unix', t0 - 1) + 1, i1 = (commits[0].unix >= t1) ? 0 : findBy('unix', t1 - 1) + 1;
+  const label = y + (m ? '-' + String(m).padStart(2,'0') : '') + (d ? '-' + String(d).padStart(2,'0') : '');
+  litRepo = -1; newFrom = -1; flash = 0; target = null; card.style.display = 'block';
+  if (i1 <= i0) { litK = [-1,-1]; litCi = null; card.classList.remove('sheet'), card.innerHTML = label + '\nsilence: no commit carries that date'; home(); dirty = true; return null; }
+  const last = commits[i1-1], lines = last.cum + last.lines - commits[i0].cum, rs = new Set(); for (let i = i0; i < i1; i++) rs.add(commits[i].repo);
+  litK = [Math.sqrt(commits[i0].k0), Math.sqrt(last.k1)]; litCi = [i0, i1];
+  card.classList.remove('sheet'), card.innerHTML = 'ENERGISED · ' + label + '\n<b>' + fmt(lines) + '</b> lines in <b>' + fmt(i1 - i0) + '</b> commits across ' + rs.size + ' repositories'
+    + '\nkeys ' + fmt(commits[i0].k0) + ' to ' + fmt(last.k1) + ' · one band, because keys run in time order';
+  home(); dirty = true; return { i0, i1, lines };
+}
+// TOUCH. Every pointer that is down is held in one map, so one finger drags and two pinch, and a
+// mouse is just a pointer with one finger. The pinch keeps the world point between the fingers
+// under the fingers, which is the same rule the wheel already obeys, so zooming in on a phone and
+// on a desktop land on the same key.
+const ZMAX = 60;
+let drag = null, moved = 0, pinch = null;
+const pts = new Map();
+function pinchNow(){ const v = [...pts.values()], a = v[0], b = v[1];
+  return { d:Math.hypot(a.x-b.x, a.y-b.y), mx:(a.x+b.x)/2, my:(a.y+b.y)/2 }; }
+cv.addEventListener('pointerdown', e => {
+  pts.set(e.pointerId, { x:e.clientX, y:e.clientY });
+  if (pts.size === 2) { const s = pinchNow(), w = toWorld(s.mx, s.my); pinch = { d0:s.d, z0:zoom, wx:w[0], wy:w[1] }; drag = null; moved = 99; }
+  else if (pts.size === 1) { drag = [e.clientX, e.clientY]; moved = 0; }
+});
+addEventListener('pointermove', e => {
+  if (pts.has(e.pointerId)) pts.set(e.pointerId, { x:e.clientX, y:e.clientY });
+  if (pinch && pts.size >= 2) { const s = pinchNow(); if (pinch.d0 > 1) {
+      zoom = Math.max(1e-4, Math.min(ZMAX, pinch.z0 * s.d / pinch.d0));
+      cx = pinch.wx - (s.mx - innerWidth/2)/zoom; cy = pinch.wy + (s.my - innerHeight/2)/zoom;
+      atHome = false; tween = null; dirty = true; } return; }
+  if (!drag) return; moved += Math.abs(e.clientX-drag[0]) + Math.abs(e.clientY-drag[1]);
+  cx -= (e.clientX-drag[0])/zoom; cy += (e.clientY-drag[1])/zoom; drag = [e.clientX, e.clientY];
+  atHome = false; tween = null; dirty = true; });
+function pointerGone(e){ pts.delete(e.pointerId); if (pts.size < 2) pinch = null; if (pts.size === 0) drag = null; }
+addEventListener('pointerup', e => {
+  if (drag && moved < 4 && N) { const [wx, wy] = toWorld(e.clientX, e.clientY), r = Math.hypot(wx, wy);
+    if (r*r < SPACE) { let k = zoom >= POINTS_FROM ? keyAt(wx, wy) : -1; const exact = k >= 0; if (!exact) k = Math.floor(r*r);
+      target = exact ? { x:keyPlace(k)[0], y:keyPlace(k)[1] } : null; show(address(k)); } }
+  pointerGone(e); });
+addEventListener('pointercancel', pointerGone);
+addEventListener('wheel', e => { const [wx, wy] = toWorld(e.clientX, e.clientY), f = e.deltaY < 0 ? 1.18 : 1/1.18;
+  zoom = Math.max(1e-4, Math.min(ZMAX, zoom*f)); cx = wx - (e.clientX - innerWidth/2)/zoom; cy = wy + (e.clientY - innerHeight/2)/zoom;
+  atHome = false; tween = null; dirty = true; }, { passive:true });
+// the tap targets, so a phone can do everything the keyboard can
+document.getElementById('keys').addEventListener('click', e => { const k = e.target.getAttribute('data-k'); if (!k) return;
+  e.stopPropagation(); dispatchEvent(new KeyboardEvent('keydown', { key:k })); });
+elTop.addEventListener('click', () => elTop.classList.toggle('open'));       // the long subtitle, collapsed by default
+// A LINK INSIDE THE CARD IS NOT A DISMISSAL, and neither is reading it: the card is put away with
+// its own cross or with Escape, the way the wafer's card is.
+card.addEventListener('click', e => {
+  const a = e.target.closest ? e.target.closest('a') : null;
+  if (a && a.hasAttribute('data-key')) { e.preventDefault(); goToKey(+a.getAttribute('data-key')); }
+});
+// GOING TO A KEY, from a link inside a card or from an address a reader arrived with. The camera
+// flies, the dot is marked and its card opens: one way of arriving, however the reader got here.
+function goToKey(k){
+  const a = address(k);
+  if (!a) return;
+  const p = keyPlace(k);
+  litK = [k, k + 1]; litCi = null; target = { x:p[0], y:p[1] };
+  show(a); flyTo(p[0], p[1], Math.max(zoom, 14)); dirty = true;
+}
+const gbox = document.getElementById('goto'), gin = document.getElementById('gotoin');
+gin.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Escape') { gbox.style.display = 'none'; return; }
+  if (e.key !== 'Enter') return; gbox.style.display = 'none'; const raw = gin.value.trim(), q = raw.replace(/[ ,_]/g,'');
+  const mt = raw.match(/^(20\d\d)(?:-(\d\d))?(?:-(\d\d))?$/);
+  if (mt) { lightTime(+mt[1], mt[2] ? +mt[2] : 0, mt[3] ? +mt[3] : 0); return; }
+  const mnew = raw.toLowerCase().match(/^(?:show\s+)?new(?:\s+code)?(?:\s+(\d+)\s*h?)?$/);
+  if (mnew) { showNew(mnew[1] ? Number(mnew[1]) : 24); return; }
+  if (/^\d+$/.test(q)) goKey(Math.min(SPACE-1, Number(q)));
+  else { const r = repos.find(x => x.name.toLowerCase() === raw.toLowerCase()) || repos.find(x => x.name.toLowerCase().includes(raw.toLowerCase()));
+    if (r) { litRepo = r.i; target = null; card.style.display = 'none'; home(); dirty = true; } } });
+addEventListener('keydown', e => { if (gbox.style.display === 'block') return;
+  if (e.key === 'd') { detail = !detail; dirty = true; }
+  else if (e.key === 'r' && N) { const j = Math.floor(Math.random()*N), c = commits[findBy('cum', j)]; goKey(c.k0 + (j - c.cum)); }   // uniform over issued lines
+  else if (e.key === 'n' && N) showNew(24);
+  else if (e.key === '/') { e.preventDefault(); gbox.style.display = 'block'; gin.value = ''; gin.focus(); }
+  else if (e.key === 'Backspace') { e.preventDefault(); target = null; litRepo = -1; newFrom = -1; flash = 0; pulse = -1; litK = [-1,-1]; litCi = null; litPath = null; card.style.display = 'none'; home(); } });
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

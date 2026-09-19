@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>phone rig</title>
+<style>
+  :root{--bg:#090c13;--ink:#d5dcea;--dim:#7d8799;--cy:#2ee6e6;--gn:#22ee77;--am:#ffb000}
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);
+    font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  h1{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--cy);margin:14px 14px 4px}
+  p{margin:0 14px 12px;color:var(--dim);max-width:60em}
+  .rig{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;padding:0 14px 20px}
+  .screen{border:1px solid #12414a;background:#000;flex:0 0 auto}
+  iframe{border:0;display:block;background:#090c13}
+  pre{margin:0;padding:10px 12px;border:1px solid #12414a;background:#0b1016;color:var(--ink);
+    max-width:min(760px,96vw);overflow:auto;max-height:844px;white-space:pre-wrap;word-break:break-word}
+  b{color:var(--am)}
+  .v{color:var(--gn)} .x{color:#ff5566}
+</style>
+</head>
+<body>
+<h1>Phone rig &middot; 390 &times; 844</h1>
+<p>A browser window on this machine will not go as narrow as a phone, so the page is given a real
+  390 by 844 viewport inside a frame. Inside that frame <code>innerWidth</code> is 390, the media
+  queries fire, and <code>getBoundingClientRect</code> returns the rectangles the browser actually
+  laid out. The verdict below is the frame's own <code>window.__selftest</code>, copied up
+  unaltered. Provided as is, without warranty of any kind; a chart, not a design.</p>
+<div class="rig">
+  <div class="screen"><iframe id="fw" width="390" height="844" src="index.html?selftest=phone"></iframe></div>
+  <div class="screen"><iframe id="fc" width="390" height="844" src="conductor.html"></iframe></div>
+  <pre id="out">waiting for the frames to answer</pre>
+</div>
+<script type="module">
+// The rig asserts nothing of its own. It waits for each page under test to publish its own verdict
+// and then states both. If a frame never answers, that is a failure and it says so.
+const out = document.getElementById('out');
+const frames = [['wafer', document.getElementById('fw')], ['conductor', document.getElementById('fc')]];
+let waited = 0;
+const tick = setInterval(() => {
+  waited += 200;
+  const got = {};
+  for (const [name, f] of frames) {
+    try { got[name] = f.contentWindow.__selftest || null; }
+    catch (e) { got[name] = { PASS:false, error:'the frame could not be read: ' + e.message }; }
+  }
+  const missing = frames.filter(([n]) => !got[n]).map(([n]) => n);
+  if (missing.length && waited <= 12000) return;
+  clearInterval(tick);
+  for (const n of missing) got[n] = { PASS:false, error:'the frame did not answer in 12 s' };
+  const T = { viewport_given_to_each_page:[390, 844], wafer:got.wafer, conductor:got.conductor,
+              PASS: !!(got.wafer && got.wafer.PASS && got.conductor && got.conductor.PASS) };
+  window.__selftest = T;
+  out.innerHTML = JSON.stringify(T, null, 2).replace(/true/g, '<span class="v">true</span>').replace(/false/g, '<span class="x">false</span>');
+  document.title = 'phone rig ' + (T.PASS ? 'PASS' : 'FAIL');
+}, 200);
+</script>
+</body>
+</html>

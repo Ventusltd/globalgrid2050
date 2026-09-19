@@ -428,6 +428,21 @@ function setScope(keys) { const s = partition(keys); return new Promise(res => b
 function gravity(keys) { const s = partition(keys); return new Promise(res => blendTo(fullTargets(keplerTargets()), () => res(s))); }
 /* any law the pilot computes for the in-scope points (2·scopeN, scope order): same core, same rim. */
 function blendScope(scopeTargets) { return new Promise(res => blendTo(fullTargets(scopeTargets), res)); }
+/* frame: the same law as blend, applied in this frame instead of eased over MOVE_MS.
+   It exists for a law that is itself a function of time, where a 2 s ease would make the
+   drawing lag its own clock. It changes nothing per point — not size, not brightness, not
+   colour — only where the in-scope particles are, exactly as blend does. It cancels any
+   blend in flight so the two can never fight over the buffer. The pick index is rebuilt
+   only when settle is asked for, because rebuilding it every frame costs more than the
+   frame; until then a tap reads the last settled frame, and the caller must settle at the
+   end of its animation. Nothing else in the page calls this. */
+function frameScope(scopeTargets, settle) {
+  moving++;                                    /* cancel any blend in flight */
+  U.posB.set(fullTargets(scopeTargets));
+  uploadPos(); render();
+  if (settle) U.pick = buildPickIndex(U.posB, U.n, SPACING);
+}
+
 /* Release: every point back to the wafer law exactly; everything in scope. */
 function release() {
   const s = partition(null);
@@ -450,7 +465,7 @@ function pixels(x, y, w, h) {
   return hist;
 }
 window.__wafer = {
-  scope: setScope, gravity, release, blend: blendScope,
+  scope: setScope, gravity, release, blend: blendScope, frame: frameScope,
   kepler: () => ({ e: KEPLER.e, p: 0.5 * waferR(), R: waferR(), rs: PUPIL * waferR(), coreIn: 3 * PUPIL * waferR(), coreOut: CORE_R * waferR(), rimShare: RIM_SHARE }),
   state: () => ({ n: U.n, scopeN: U.scopeN, coreN: U.coreN ?? 0, rimN: U.rimN ?? 0, rimStartKey: U.keys[rimStart()], drawn: drawnLast, max: U.meta?.max ?? 0, moving,
                   view: { x: view.x, y: view.y, zoom: view.zoom, w: view.w, h: view.h, dpr: view.dpr },

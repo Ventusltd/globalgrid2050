@@ -49,7 +49,7 @@ const css = document.createElement('style'); css.textContent = `
 document.body.insertAdjacentHTML('beforeend', `
 <div id="say"></div><div id="plog"></div>
 <div id="eg"><label>examples: pick one, it lands in the box, press Enter</label><select id="egs">
-<option value="">— choose an example sentence —</option><option value="draw grid">Draw the grid: 400 kV, 132 kV and every substation</option><option value="draw grid400">Draw the 400 kV grid</option><option value="draw grid132">Draw the 132 kV network</option><option value="draw substations">Draw every substation</option><option value="draw shotwick">Draw Shotwick Solar Farm and the grid around it</option><option value="draw underground">Draw the London Underground</option><option value="draw uk">Draw the British Isles</option><option value="draw world">Draw the world</option><option value="draw trench">Draw a cable trench section</option><option value="draw fault">Draw a fault study: the paths the fault current takes (pandapower, IEC 60909)</option><option value="draw kuiper">Draw the Kuiper belt: every repository, including duplicates</option><option value="logo">Assemble the wordmark from the dust</option><option value="clock">A clock: time as a law on the dust</option><option value="release">Release: every line back to its own place</option>
+<option value="">— choose an example sentence —</option><option value="draw grid">Draw the grid: 400 kV, 132 kV and every substation</option><option value="draw grid400">Draw the 400 kV grid</option><option value="draw grid132">Draw the 132 kV network</option><option value="draw substations">Draw every substation</option><option value="draw shotwick">Draw Shotwick Solar Farm and the grid around it</option><option value="draw underground">Draw the London Underground</option><option value="draw uk">Draw the British Isles</option><option value="draw world">Draw the world</option><option value="draw trench">Draw a cable trench section</option><option value="draw fault">Draw a fault study: the paths the fault current takes (pandapower, IEC 60909)</option><option value="draw kuiper">Draw the Kuiper belt: every repository, including duplicates</option><option value="pulse">Inject a pulse into the Kuiper belt: a propagation pattern over code bodies, not an electrical result</option><option value="logo">Assemble the wordmark from the dust</option><option value="clock">A clock: time as a law on the dust</option><option value="release">Release: every line back to its own place</option>
 <option value="block 39885">Go to the most-copied line in the estate (39885)</option>
 <option value="twin 39885">The code behind block 39885, in the card</option>
 <option value="state 39885">State of block 39885: HOME or AWAY, from its callers</option>
@@ -105,7 +105,7 @@ const describeLine = line => { for (const [re, note] of DESCRIBE_RULES) { const 
 window.__describe = describeLine;
 
 const cmds = {
-  help(){ say(`<b>commands</b>\nblock &lt;key&gt; · twin &lt;key&gt; · read &lt;key&gt; · state &lt;key&gt; · measure &lt;key&gt; [seed] · connect &lt;a&gt; &lt;b&gt; · land &lt;app&gt; · space · app &lt;name&gt; · apps · engine · run &lt;module&gt;.&lt;fn&gt; {…} · entangle · reset\nor a sentence: "fly to 39885", "show me gridatlas", "voltage drop for 120 A over 250 m at 0.32 ohm pf 0.95"\n\nEach dot has a permanent key and stands for one real line of code. Moving dots never changes keys.`); },
+  help(){ say(`<b>commands</b>\nblock &lt;key&gt; · twin &lt;key&gt; · read &lt;key&gt; · state &lt;key&gt; · measure &lt;key&gt; [seed] · connect &lt;a&gt; &lt;b&gt; · land &lt;app&gt; · space · app &lt;name&gt; · apps · engine · run &lt;module&gt;.&lt;fn&gt; {…} · entangle · reset\ndraw kuiper · pulse [&lt;blob SHA&gt; | &lt;x,y&gt;] · pulse stop — pulse injects a disturbance into the Kuiper belt and watches it travel outward. It is a propagation PATTERN over code bodies at geometric distance, not an electrical result; draw fault is the real fault study.\nor a sentence: "fly to 39885", "show me gridatlas", "voltage drop for 120 A over 250 m at 0.32 ohm pf 0.95"\n\nEach dot has a permanent key and stands for one real line of code. Moving dots never changes keys.`); },
   block(k){ k = parseInt(k, 10); if (!Number.isFinite(k)) return log('block <key>'); fly(k); say(`<b>block ${k}</b>\nthe beam is on line ${k}; the panel on the left shows what it is.\n<i>next:</i> twin ${k}`); log(`block ${k}`); },
   fly(k){ return cmds.block(k); }, goto(k){ return cmds.block(k); },
   async twin(k){ k = parseInt(k, 10); const t = twinOf(k); if (!t) return log(`twin ${k}: this block has no recorded line`); fly(k); return cmds.showCode(k, t, 'twin'); },
@@ -261,9 +261,11 @@ cmds.draw = async function(spec){
   await W().scope(null); const m = W().state().scopeN;
   log(`draw ${what}: ${N.stations.length} nodes, ${N.edges.length} edges; ${m.toLocaleString('en-GB')} lines placed by: ${N.law}`);
   await W().blend(networkTargets(N, m)); hud(what);
+  const c = N.counts;   /* counts, when the file carries measured ones. No count is typed into this page. */
+  if (c) log(`draw ${what}: ${fmtN(c.bodies)} bodies · ${fmtN(c.duplicated)} duplicated · ${fmtN(c.unique)} unique · ${fmtN(c.repositories)} repositories · ${fmtN(c.tracked_paths)} tracked paths · ${fmtN(W().state().n)} numbered lines (run ${c.run})`);
   say(`<b>${NETWORKS[what]}, drawn from a typed command</b>
 ${N.stations.length.toLocaleString('en-GB')} nodes and ${N.edges.length.toLocaleString('en-GB')} edges from ${N.source}, drawn with the wafer's own particles. Every dot is still a numbered line of code; only the law that places it changed. It charts published data; it is not a design.
-<i>next:</i> draw ${Object.keys(NETWORKS).filter(k => k !== what).slice(0, 3).join(' · draw ')} · release · logo
+${c ? `<i>the count is the spectacle:</i> ${fmtN(c.bodies)} bodies · ${fmtN(c.duplicated)} duplicated · ${fmtN(c.unique)} unique · ${fmtN(c.repositories)} repositories · ${fmtN(c.tracked_paths)} tracked paths · ${fmtN(W().state().n)} numbered lines. Every one of these is read from ${esc(c.source_file)} of run ${esc(c.run)}; ${fmtN(c.measured)} of ${fmtN(c.bodies)} bodies carry a measured copy count and ${fmtN(c.unmeasured)} do not, and those stay base dust.\n` : ''}<i>next:</i> ${what === 'kuiper' ? 'pulse · ' : ''}draw ${Object.keys(NETWORKS).filter(k => k !== what).slice(0, 3).join(' · draw ')} · release · logo
 <small>${N.attribution}</small>`);
   log(`draw ${what}: drawn`); return { system: what, nodes: N.stations.length, edges: N.edges.length, placed: m };
 };
@@ -297,3 +299,161 @@ cmds.clock = async function(){
   log('draw clock: drawn'); return { drawn: m };
 };
 cmds.time = cmds.clock;
+
+// ---------- PULSE: a disturbance injected into the Kuiper belt and watched travel outward ----------
+//
+// WHAT THIS IS NOT. It is not an electrical result and it must never be read as one. `draw fault` on
+// this same page is a real fault study: pandapower, IEC 60909, a published example network. This is
+// not that. Here the bodies are files of code, the distances are the geometric distances of the
+// belt's own drawing, and there are no edges in the dataset at all, so nothing here is an impedance,
+// a travelling-wave velocity, a surge or a current. It is a pattern explorer: a way to look at how a
+// disturbance injected at one place sweeps a population, so that the shape can be thought about
+// before any real network is modelled. A chart, not a design.
+//
+// HOW IT IS DRAWN. The engine's rule holds: nothing per point may change — not size, not brightness,
+// not colour. So light is made the only way the wafer allows, by how much dust a body is given. A
+// body's share of the m in-scope particles is its response s_q, and the particles it receives are
+// laid out in the same phyllotaxis cluster the networks already use, so a body with a large share is
+// a wide bright bloom and a body with a small share is a point of base dust. The total dust is
+// conserved in every frame: the light moves, it is never created.
+//
+// THE LAW, in full, printed with every run:
+//   d_q      geometric distance, in the belt's own unit coordinates, from the injection point to
+//            body q, taken from the belt's own computed positions. NOT electrical distance.
+//   R(t)     the wavefront radius, R = v*t, with v = d_max / PULSE.T so the front crosses the whole
+//            belt exactly once in T seconds, and t the seconds since injection.
+//   f_q      the wavefront, a Gaussian of half-width sigma: f = exp(-((d_q - R)/sigma)^2).
+//   g_q      the decay, geometric attenuation with distance travelled: g = exp(-d_q/lambda).
+//   w_q      the response weight: copies, the MEASURED number of tracked paths whose bytes hash to
+//            this body's blob SHA. A body with no measured copy count is weight 1 — base dust. No
+//            intensity is ever invented.
+//   s_q      the share of the dust: s = 1 + GAIN*f_q*g_q*w_q. The 1 is the base dust every body
+//            always keeps, so the belt stays visible behind the front.
+// Particles are handed out by exact cumulative share, so the counts sum to m with no rounding drift.
+const PULSE = { T: 9, SIGMA: 0.035, LAMBDA: 0.9, GAIN: 14, CLUSTER: 0.0016, FPS: 24 };
+const pulseLawText = (v, dmax) => `d = geometric distance in the drawing (NOT electrical distance; this dataset has no edges); R(t) = v·t with v = ${v.toFixed(4)} belt units/s so the front crosses d_max = ${dmax.toFixed(3)} once in ${PULSE.T} s; wavefront f = exp(−((d−R)/${PULSE.SIGMA})²); decay g = exp(−d/${PULSE.LAMBDA}); response weight w = copies (measured), unmeasured bodies weight 1; dust share s = 1 + ${PULSE.GAIN}·f·g·w, total dust conserved every frame`;
+
+// measured copies per station, or null when the file carries none. A check that examines nothing refuses.
+function stationCopies(N){
+  const st = N.stations; let measured = 0;
+  const w = new Float64Array(st.length);
+  for (let i = 0; i < st.length; i++) { const c = st[i][3]; if (Number.isFinite(c) && c > 0) { w[i] = c; measured++; } else w[i] = 1; }
+  return measured ? { w, measured, unmeasured: st.length - measured } : null;
+}
+
+// distances from the injection point to every station, in the network's own unit coordinates
+function pulseDistances(N, ox, oy){
+  const st = N.stations, d = new Float64Array(st.length); let dmax = 0;
+  for (let i = 0; i < st.length; i++) { const x = st[i][0] - ox, y = st[i][1] - oy; const r = Math.sqrt(x * x + y * y); d[i] = r; if (r > dmax) dmax = r; }
+  return { d, dmax };
+}
+
+// one frame of the pulse: 2·m scope-order coordinates. The buffers are reused across frames, because
+// a 2 MB allocation thirty times a second is the one cost that would make the front stutter.
+let pulseBuf = null, pulseShare = null;
+function pulseTargets(N, m, w, d, R){
+  const S = 0.85 * W().kepler().R, st = N.stations, GA = 2.399963229728653;
+  const n = st.length;
+  if (!pulseShare || pulseShare.length !== n) pulseShare = new Float64Array(n);
+  const s = pulseShare; let tot = 0;
+  for (let q = 0; q < n; q++) {
+    const u = (d[q] - R) / PULSE.SIGMA;
+    const f = u * u > 36 ? 0 : Math.exp(-u * u);
+    const v = 1 + PULSE.GAIN * f * Math.exp(-d[q] / PULSE.LAMBDA) * w[q];
+    s[q] = v; tot += v;
+  }
+  if (!pulseBuf || pulseBuf.length !== m * 2) pulseBuf = new Float32Array(m * 2);
+  const t = pulseBuf;
+  let cum = 0, j = 0;
+  for (let q = 0; q < n; q++) {
+    cum += s[q];
+    const end = q === n - 1 ? m : Math.min(m, Math.floor(m * cum / tot));
+    for (let i = 0; j < end; i++, j++) {
+      const th = i * GA, r = PULSE.CLUSTER * S * Math.sqrt(i);
+      t[2 * j] = S * st[q][0] + r * Math.cos(th);
+      t[2 * j + 1] = S * st[q][1] + r * Math.sin(th);
+    }
+  }
+  return t;
+}
+
+// the origin: a blob SHA (or a unique prefix of one), or "x,y" in the belt's own coordinates, or
+// nothing — in which case it is the most-copied body in the estate, which is a measurement, not a choice.
+function pulseOrigin(N, spec){
+  const st = N.stations, a = (spec || '').trim().toLowerCase();
+  if (/^-?[\d.]+\s*,\s*-?[\d.]+$/.test(a)) { const [x, y] = a.split(',').map(Number); return { x, y, how: `the position ${x}, ${y} in the belt's own coordinates` }; }
+  if (/^[0-9a-f]{4,40}$/.test(a)) {
+    const hit = st.findIndex(s => String(s[2]).startsWith(a));
+    if (hit < 0) return null;
+    return { x: st[hit][0], y: st[hit][1], i: hit, how: `body ${st[hit][2]} (blob SHA), copies ${st[hit][3] == null ? 'not measured' : st[hit][3]}` };
+  }
+  if (a) return null;
+  let best = 0; for (let i = 0; i < st.length; i++) if ((st[i][3] || 0) > (st[best][3] || 0)) best = i;
+  return { x: st[best][0], y: st[best][1], i: best, how: `the most-copied body in the estate, ${st[best][2]}, copies ${st[best][3]} — chosen by measurement, not by hand` };
+}
+
+let pulseRaf = null;
+function pulseStop(){ if (pulseRaf) { cancelAnimationFrame(pulseRaf); pulseRaf = null; } }
+
+cmds.pulse = async function(spec){
+  const arg = (spec || '').trim().toLowerCase();
+  if (/^(stop|off|end|halt)$/.test(arg)) { if (!pulseRaf) return log('pulse: nothing is running'); pulseStop(); scopeName = 'kuiper'; hud('kuiper'); log('pulse: stopped; the belt is left drawn. release returns every line to its own place'); return { stopped: true }; }
+  if (!W()) return log('the wafer is not ready');
+  const N = await loadNet('kuiper'); if (!N) return log('pulse: kuiper-network.json missing');
+  const C = stationCopies(N);
+  if (!C) return log('pulse: refused — kuiper-network.json carries no measured copy count per body, and this draws nothing without one. Regenerate it with kuiper-weigh.mjs.');
+  const O = pulseOrigin(N, arg);
+  if (!O) return log(`pulse ${arg}: refused — no body in the belt has a blob SHA starting "${arg}", and "${arg}" is not an x,y position. Nothing was drawn.`);
+
+  pulseStop();
+  await W().scope(null); const m = W().state().scopeN;
+  const { d, dmax } = pulseDistances(N, O.x, O.y);
+  const v = dmax / PULSE.T;
+  const c = N.counts || {};
+  log(`pulse: injected at ${O.how}`);
+  log(`pulse law: ${pulseLawText(v, dmax)}`);
+  log(`pulse: ${fmtN(N.stations.length)} bodies, ${fmtN(C.measured)} with a measured copy count, ${fmtN(C.unmeasured)} left as base dust; ${fmtN(m)} numbered lines carry the light`);
+  log('pulse: this is NOT an electrical result. Geometric distance over code bodies. draw fault is the real fault study on this page.');
+
+  say(`<b>a pulse injected into the Kuiper belt — a propagation PATTERN, not an electrical result</b>
+<b>This charts nothing about any real network.</b> The bodies are files of code, the distances are the geometric distances of this drawing, and this dataset has no edges at all — so there is no impedance here, no travelling-wave velocity, no surge and no current. It is a pattern explorer: a way to see the shape a disturbance makes as it sweeps a population, before any real network is modelled. The real fault study on this page is <code>draw fault</code>: pandapower, IEC 60909, on a published example network. This is not that, and must not be read as that.
+Injected at ${esc(O.how)}.
+<i>the law, in full:</i> ${esc(pulseLawText(v, dmax))}
+<i>the count is the spectacle:</i> ${fmtN(c.bodies ?? N.stations.length)} bodies · ${fmtN(c.duplicated ?? 0)} duplicated · ${fmtN(c.unique ?? 0)} unique · ${fmtN(c.repositories ?? 0)} repositories · ${fmtN(c.tracked_paths ?? 0)} tracked paths · ${fmtN(W().state().n)} numbered lines. How brightly a body answers the front is its copy count, measured; a body with no measured count stays base dust.
+<i>next:</i> pulse stop · draw kuiper · draw fault · release
+<small>${esc(N.attribution)}</small>`);
+
+  scopeName = 'pulse';
+  const t0 = performance.now(); const step = 1000 / PULSE.FPS; let last = -1e9;
+  return await new Promise(res => {
+    const tick = now => {
+      if (scopeName !== 'pulse') { pulseRaf = null; return res({ ended: 'scope changed' }); }
+      if (now - last < step) { pulseRaf = requestAnimationFrame(tick); return; }
+      last = now;
+      const t = (now - t0) / 1000, R = v * t;
+      const done = R > dmax + 4 * PULSE.SIGMA;
+      /* when the front has left the belt the wafer is settled back onto draw kuiper's own placement,
+         so the resting state after a pulse is exactly the resting state after draw kuiper — not a
+         half-lit frame — and the pick index is rebuilt to match it. */
+      W().frame(done ? networkTargets(N, m) : pulseTargets(N, m, C.w, d, R), done);
+      if (done) { pulseRaf = null; scopeName = 'kuiper'; hud('kuiper · pulse passed'); log(`pulse: the front has crossed the whole belt, d_max = ${dmax.toFixed(3)} in ${PULSE.T} s; the belt is settled back on draw kuiper's placement. release returns every line to its own place`); return res({ crossed: dmax, seconds: PULSE.T, bodies: N.stations.length, lines: m }); }
+      hud(`kuiper · pulse R = ${R.toFixed(3)} of ${dmax.toFixed(3)}`);
+      pulseRaf = requestAnimationFrame(tick);
+    };
+    pulseRaf = requestAnimationFrame(tick);
+  });
+};
+cmds.inject = cmds.pulse;
+
+// release stops the pulse first, then does exactly what it always did: every line back to its own place.
+{ const _release = cmds.release;
+  cmds.release = async function(){ pulseStop(); scopeName = 'all'; return _release.call(cmds); }; }
+
+// Two laws must never share the position buffer. Every command that moves the dust stops the pulse
+// first, so the wafer is never left half under one law and half under another.
+for (const name of ['draw', 'clock', 'logo', 'scope', 'gravity']) {
+  const f = cmds[name];
+  cmds[name] = function(...a){ pulseStop(); if (scopeName === 'pulse') scopeName = 'kuiper'; return f.apply(cmds, a); };
+}
+cmds.time = cmds.clock; cmds.wordmark = cmds.logo; cmds.orbit = cmds.gravity; cmds.isolate = cmds.gravity;
+cmds.underground = () => cmds.draw('underground'); cmds.tube = cmds.underground;

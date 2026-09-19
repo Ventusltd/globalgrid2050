@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kuiper belt</title>
+<style>
+  :root{--bg:#090c13;--ink:#d5dcea;--dim:#7d8799;--line:#1a2030;--hot:#e8b36a}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
+    font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow:hidden}
+  canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+  #c{z-index:1} #o{z-index:3;pointer-events:none}
+  #top{position:fixed;top:0;left:0;padding:10px 14px;z-index:10;pointer-events:none;max-width:60vw;background:#090c13d9;border-bottom-right-radius:6px}
+  #big{font-size:19px;letter-spacing:.03em} #sub{color:var(--dim);margin-top:2px}
+  #hud{position:fixed;top:0;right:0;padding:10px 14px;z-index:10;color:var(--dim);text-align:right;white-space:pre-line;max-width:38vw;background:#090c13d9;border-bottom-left-radius:6px}
+  #card{position:fixed;left:14px;bottom:64px;z-index:10;color:var(--ink);background:#090c13ee;
+    border:1px solid var(--line);padding:9px 12px;white-space:pre-line;display:none;max-width:min(680px,92vw)}
+  #card b{color:var(--hot);font-weight:600}
+  #foot{position:fixed;left:0;right:0;bottom:0;padding:8px 14px;color:var(--dim);border-top:1px solid var(--line);
+    background:#090c13ee;z-index:10;line-height:1.7}
+  #foot b{color:var(--ink);font-weight:600} a{color:#66ccff}
+  #goto{position:fixed;left:50%;top:38%;transform:translateX(-50%);z-index:20;display:none;background:var(--bg);
+    border:1px solid var(--dim);padding:10px 12px;min-width:min(520px,86vw)}
+  #goto input{width:100%;background:var(--bg);color:var(--ink);border:0;outline:0;font:14px ui-monospace,Consolas,monospace}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas><canvas id="o"></canvas>
+<div id="top"><div id="big">loading</div><div id="sub">&nbsp;</div></div>
+<div id="hud">starting</div>
+<div id="card"></div>
+<div id="goto"><input id="gotoin" autocomplete="off" spellcheck="false" placeholder="a key, or a repository name to send light through"></div>
+<div id="foot">
+  <b>r</b> random line &middot; <b>/</b> a key, or a repository to light &middot; <b>click</b> lights the repository under the
+  pointer through all of time &middot; drag &middot; scroll &middot; <b>backspace</b> whole wafer &middot; one law at every zoom:
+  r = &radic;key, &theta; = key &times; golden angle &middot; dark rings are silence between commits, measured &middot; unresolved
+  pixels are computed from the law, not drawn &middot; provided as is, without warranty of any kind; a chart, not a design
+  &middot; <a href="https://github.com/Ventusltd/law">the laws</a>
+</div>
+<script type="module">
+// THE KUIPER BELT AS ONE WAFER. Every line in every file in every commit, one key each, in the
+// order time issued them.
+//
+// THE LAW, and there is only one, at every zoom:
+//     key k  ->  r = sqrt(k),  theta = 2 pi frac(k G / 2^32),  G = 2654435769
+// It inverts, k = r squared, so the number of keys in any annulus is arithmetic. Nothing is ever
+// drawn 38,000 times into a pixel to discover a number the law already states.
+//
+// THE RINGS ARE TIME. Before each commit a run of keys is left UNISSUED in proportion to the
+// silence since the commit before it (tools/wafer_keys.py, a declared constant). A night is a dark
+// ring. The dark fraction of every pixel is computed exactly from a prefix sum of issued keys, so
+// even the rings are arithmetic. A line not yet written already has its place, on the rim, the
+// way an address in RAM exists before anything is stored at it.
+//
+// UNRESOLVED pixels state a computed count as a shade. RESOLVED fields draw exactly the issued keys
+// whose radius can be on screen, each at its own place. There is no sampling and no white flash,
+// because a pixel is never asked to be more than it is.
+const G32 = 2654435769, TW = 4096;
+const cv = document.getElementById('c'), ov = document.getElementById('o'), o2 = ov.getContext('2d');
+const gl = cv.getContext('webgl2', { antialias:false, alpha:false, powerPreference:'high-performance' });
+const hud = document.getElementById('hud'), big = document.getElementById('big'),
+      sub = document.getElementById('sub'), card = document.getElementById('card');
+const fmt = n => Math.round(n).toLocaleString('en-GB');
+function words(n){ if (n >= 1e9) return (n/1e9).toFixed(2)+' billion'; if (n >= 1e6) return (n/1e6).toFixed(2)+' million';
+  if (n >= 1e3) return (n/1e3).toFixed(1)+' thousand'; return n >= 10 ? n.toFixed(0) : n.toFixed(2); }
+if (!gl) { hud.textContent = 'WebGL2 is not available. Refusing rather than drawing a fraction.'; throw 0; }
+
+const VS_FULL = `#version 300 es
+void main(){ vec2 p = vec2(float((gl_VertexID<<1)&2), float(gl_VertexID&2)); gl_Position = vec4(p*2.0-1.0,0.0,1.0); }`;
+const FS_FIELD = `#version 300 es
+precision highp float; precision highp sampler2D;
+uniform vec2 u_res, u_center; uniform float u_zoom, u_R, u_points;
+uniform sampler2D u_commits; uniform int u_n, u_litRepo;
+out vec4 o;
+vec4 C(int i){ return texelFetch(u_commits, ivec2(i % ${TW}, i / ${TW}), 0); }   // k0, k1, issued before, repo
+int find(float k){ int lo = 0, hi = u_n - 1;
+  for (int s = 0; s < 16; ++s){ if (lo >= hi) break; int m = (lo+hi+1)/2; if (C(m).r <= k) lo = m; else hi = m-1; } return lo; }
+// how many ISSUED keys lie below address k: a prefix sum, so any annulus is one subtraction
+float issuedBelow(float k){ vec4 c = C(find(k)); return c.b + clamp(k - c.r, 0.0, c.g - c.r); }
+void main(){
+  vec2 w = u_center + (gl_FragCoord.xy - 0.5*u_res) / u_zoom;
+  float r = length(w), h = 0.75 / u_zoom;
+  vec3 bg = vec3(0.035,0.047,0.075), dust = vec3(0.79,0.83,0.90);
+  if (r > u_R + h) { float rim = smoothstep(2.5/u_zoom, 0.0, abs(r - u_R)); o = vec4(bg + rim*0.10, 1.0); return; }
+  float ka = max(r-h, 0.0), kb = r+h; ka *= ka; kb *= kb;
+  float cov = clamp((issuedBelow(kb) - issuedBelow(ka)) / max(kb - ka, 1.0), 0.0, 1.0);   // issued share of this pixel
+  float perPx = cov / (3.14159265 * u_zoom * u_zoom);                                      // issued keys in this pixel
+  float v = (u_points > 0.5) ? 0.0 : clamp(0.24 + 0.13*log(1.0+perPx)/2.302585, 0.0, 0.88) * pow(cov, 0.55);
+  vec3 col = mix(bg, dust, v);
+  // THE LIGHT. Which repository owns the key at the centre of this pixel. This one is a tap, not
+  // a count: it says where a repository's work lies in time, and no number is read off it.
+  if (u_litRepo >= 0) { float kc = r*r; vec4 c = C(find(kc)); if (kc <= c.g && int(c.a + 0.5) == u_litRepo)
+    col = mix(col, vec3(0.95,0.72,0.40), u_points > 0.5 ? 0.10 : 0.72); }
+  o = vec4(col, 1.0);
+}`;
+const VS_KEYS = `#version 300 es
+precision highp float;
+uniform uint u_k0lo; uniform float u_R0, u_zoom, u_hot; uniform vec2 u_center, u_res;
+out float v_hot;
+void main(){
+  float d = float(gl_VertexID);
+  float r = u_R0 + (d + 0.5) / (u_R0 + sqrt(u_R0*u_R0 + d + 0.5) + 1e-9);      // sqrt(k0+d+.5), kept precise
+  uint m = (u_k0lo + uint(gl_VertexID)) * ${G32}u;
+  float A = 6.283185307179586 * float(m >> 16) / 65536.0, B = 6.283185307179586 * float(m & 0xFFFFu) / 4294967296.0;
+  vec2 cs = vec2(cos(A)*cos(B) - sin(A)*sin(B), sin(A)*cos(B) + cos(A)*sin(B));
+  gl_Position = vec4((r*cs - u_center) * u_zoom / (0.5*u_res), 0.0, 1.0);
+  gl_PointSize = clamp(u_zoom * 0.34, 1.0, 9.0); v_hot = u_hot;
+}`;
+const FS_KEYS = `#version 300 es
+precision highp float; in float v_hot; out vec4 o;
+void main(){ if (length(gl_PointCoord-0.5) > 0.5) discard;
+  o = vec4(mix(vec3(0.79,0.83,0.90), vec3(0.97,0.74,0.40), v_hot), 1.0); }`;
+function prog(vs, fs){ const p = gl.createProgram();
+  for (const [t,s] of [[gl.VERTEX_SHADER,vs],[gl.FRAGMENT_SHADER,fs]]) { const sh = gl.createShader(t);
+    gl.shaderSource(sh,s); gl.compileShader(sh);
+    if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(sh)); gl.attachShader(p,sh); }
+  gl.linkProgram(p); if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p)); return p; }
+const PF = prog(VS_FULL, FS_FIELD), PK = prog(VS_KEYS, FS_KEYS);
+const U = (p, n) => gl.getUniformLocation(p, n);
+gl.bindVertexArray(gl.createVertexArray());
+let lost = false;
+cv.addEventListener('webglcontextlost', e => { e.preventDefault(); lost = true;
+  hud.textContent = 'CONTEXT LOST. Nothing on screen is a count. Reload.'; });
+
+// --------------------------------------------------------------------------------- the data
+// cosmos/wafer.tsv: every commit in time order with its measured lines and the unissued keys
+// before it. One file, about 400 kB, and then nothing else is ever fetched to draw the whole.
+let N = 0, SPACE = 0, repos = [], commits = [];
+async function tsv(url){ const r = await fetch(url); if (!r.ok) throw new Error(url);
+  return (await r.text()).split('\n').filter(l => l && l[0] !== '#').map(l => l.split('\t')); }
+Promise.all([tsv('cosmos/repos.tsv'), tsv('cosmos/wafer.tsv')]).then(([rr, ww]) => {
+  repos = rr.map(p => ({ i:+p[0], name:p[1], lines:+p[2], seen:0, commits:0 }));
+  let k = 0, issued = 0;
+  commits = ww.map(p => { k += +p[4]; const c = { unix:+p[0], lines:+p[1], repo:+p[2], sha:p[3], gap:+p[4], k0:k, cum:issued };
+    k += c.lines; issued += c.lines; c.k1 = k; repos[c.repo].seen += c.lines; repos[c.repo].commits++; return c; });
+  const bad = repos.find(r => r.seen !== r.lines);
+  if (bad) { hud.textContent = 'REFUSED: the commits of ' + bad.name + ' sum to ' + fmt(bad.seen) + ', the belt says ' + fmt(bad.lines); return; }
+  N = issued; SPACE = k;
+  const H = Math.ceil(commits.length / TW), a = new Float32Array(TW * H * 4);
+  commits.forEach((c, i) => { a[i*4] = c.k0; a[i*4+1] = c.k1; a[i*4+2] = c.cum; a[i*4+3] = c.repo; });
+  gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, gl.createTexture());
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, TW, H, 0, gl.RGBA, gl.FLOAT, a);
+  big.textContent = words(N) + ' lines · one wafer';
+  sub.textContent = fmt(N) + ' keys issued, one per line in every file in every commit · ' + fmt(commits.length) + ' commits in '
+    + repos.length + ' repositories, in the order time issued them · ' + words(SPACE - N) + ' keys left unissued as silence · '
+    + new Date(commits[0].unix*1000).toISOString().slice(0,10) + ' at the centre, ' + new Date(commits[commits.length-1].unix*1000).toISOString().slice(0,10)
+    + ' at the rim, and the next line ever written lands beyond it';
+  home(); dirty = true;
+}).catch(() => { hud.textContent = 'cosmos/wafer.tsv did not load. The wafer will not invent its keys.'; });
+
+// ------------------------------------------------------------------------ camera and address
+let cx = 0, cy = 0, zoom = 1, dirty = true, tween = null, litRepo = -1, target = null;
+function resize(){ cv.width = ov.width = innerWidth; cv.height = ov.height = innerHeight; gl.viewport(0,0,cv.width,cv.height); dirty = true; }
+addEventListener('resize', resize); resize();
+function flyTo(x, y, z){ tween = { t0:performance.now(), x0:cx, y0:cy, z0:zoom, x1:x, y1:y, z1:z, dur:900 }; }
+function home(){ flyTo(0, 0, (Math.min(cv.width, cv.height)/2) * 0.9 / Math.sqrt(SPACE)); }
+function keyPlace(k){ const m = Math.imul((k % 4294967296) >>> 0, G32) >>> 0, th = 2*Math.PI*m/4294967296, r = Math.sqrt(k + 0.5);
+  return [r*Math.cos(th), r*Math.sin(th)]; }
+function findBy(field, v){ let lo = 0, hi = commits.length - 1; while (lo < hi) { const m = (lo+hi+1)>>1; if (commits[m][field] <= v) lo = m; else hi = m-1; } return lo; }
+// an address key resolves to a commit by binary search; no walking, and silence is an answer too
+function address(k){ if (!(k >= 0) || k >= SPACE) return null; const i = findBy('k0', k), c = commits[i];
+  return (k >= c.k0 && k < c.k1) ? { k, i, c, m:k - c.k0 } : { k, i, c, silent:true, next:commits[i + (k < c.k0 ? 0 : 1)] }; }
+function describe(a){
+  if (!a) return '';
+  if (a.silent) { const n = a.next; return 'key <b>' + fmt(a.k) + '</b> was never issued\nsilence' + (n ? ' of ' + words((n.gap/ (n.gap ? 1 : 1))) + ' keys before ' + repos[n.repo].name + ' / ' + n.sha + ', '
+      + new Date(n.unix*1000).toISOString().slice(0,16) + 'Z' : ''); }
+  const r = repos[a.c.repo];
+  return 'key <b>' + fmt(a.k) + '</b> · line ' + fmt(a.c.cum + a.m + 1) + ' of ' + fmt(N) + ' ever issued\n' + r.name + '  (' + words(r.lines) + ' lines in ' + fmt(r.commits) + ' commits)'
+    + '\ncommit <b>' + a.c.sha + '</b>  ' + new Date(a.c.unix*1000).toISOString().slice(0,16) + 'Z  ·  line ' + fmt(a.m + 1) + ' of ' + fmt(a.c.lines)
+    + '\nthe text itself:  python tools/key.py ' + a.k;
+}
+function keyAt(wx, wy){ const r = Math.hypot(wx, wy), kc = Math.round(r*r), span = Math.ceil(6*r + 8); let best = -1, bd = 0.6;
+  for (let k = Math.max(0, kc - span); k <= Math.min(SPACE-1, kc + span); k++) { const p = keyPlace(k), d = Math.hypot(p[0]-wx, p[1]-wy); if (d < bd) { bd = d; best = k; } }
+  return best; }
+
+// --------------------------------------------------------------------------------- the frame
+const POINTS_FROM = 1.0, MAX_CALLS = 3000;
+function frame(){
+  if (lost) return;
+  if (tween) { const u = Math.min(1, (performance.now()-tween.t0)/tween.dur), e = u<0.5 ? 2*u*u : 1-Math.pow(-2*u+2,2)/2;
+    zoom = Math.exp(Math.log(tween.z0) + (Math.log(tween.z1)-Math.log(tween.z0))*e);
+    cx = tween.x0 + (tween.x1-tween.x0)*e; cy = tween.y0 + (tween.y1-tween.y0)*e; dirty = true; if (u >= 1) tween = null; }
+  if (dirty && N) { draw(); dirty = false; }
+  requestAnimationFrame(frame);
+}
+function draw(){
+  const R = Math.sqrt(SPACE), W = cv.width, H = cv.height;
+  const x0 = cx - W/2/zoom, x1 = cx + W/2/zoom, y0 = cy - H/2/zoom, y1 = cy + H/2/zoom;
+  const dx = x0 > 0 ? x0 : (x1 < 0 ? -x1 : 0), dy = y0 > 0 ? y0 : (y1 < 0 ? -y1 : 0);
+  const rmin = Math.hypot(dx, dy), rmax = Math.max(Math.hypot(x0,y0), Math.hypot(x1,y0), Math.hypot(x0,y1), Math.hypot(x1,y1));
+  const ka = Math.min(SPACE, Math.floor(rmin*rmin)), kb = Math.min(SPACE, Math.ceil(rmax*rmax));
+  // the screen's radii are a contiguous run of addresses; the issued ones among them are whole commits and two part commits
+  let i0 = findBy('k0', ka), segs = [], total = 0;
+  if (zoom >= POINTS_FROM) for (let i = i0; i < commits.length && commits[i].k0 < kb && segs.length <= MAX_CALLS; i++) {
+    const s0 = Math.max(commits[i].k0, ka), s1 = Math.min(commits[i].k1, kb); if (s1 > s0) { segs.push([s0, s1, commits[i].repo]); total += s1 - s0; } }
+  const points = zoom >= POINTS_FROM && segs.length <= MAX_CALLS && total < 1.6e9;
+
+  gl.useProgram(PF);
+  gl.uniform2f(U(PF,'u_res'), W, H); gl.uniform2f(U(PF,'u_center'), cx, cy); gl.uniform1f(U(PF,'u_zoom'), zoom);
+  gl.uniform1f(U(PF,'u_R'), R); gl.uniform1f(U(PF,'u_points'), points ? 1 : 0);
+  gl.uniform1i(U(PF,'u_commits'), 0); gl.uniform1i(U(PF,'u_n'), commits.length); gl.uniform1i(U(PF,'u_litRepo'), litRepo);
+  gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+  let ms = 0;
+  if (points) { const t0 = performance.now(); gl.useProgram(PK);
+    gl.uniform1f(U(PK,'u_zoom'), zoom); gl.uniform2f(U(PK,'u_center'), cx, cy); gl.uniform2f(U(PK,'u_res'), W, H);
+    for (const [s0, s1, rp] of segs) { gl.uniform1f(U(PK,'u_hot'), rp === litRepo ? 1 : 0);
+      for (let off = s0; off < s1; off += 4000000) {                       // bounded calls; the driver watchdog is real
+        gl.uniform1ui(U(PK,'u_k0lo'), (off % 4294967296) >>> 0); gl.uniform1f(U(PK,'u_R0'), Math.sqrt(off));
+        gl.drawArrays(gl.POINTS, 0, Math.min(4000000, s1 - off)); } }
+    gl.finish(); ms = performance.now() - t0; }
+
+  const L = [];
+  L.push(points ? 'RESOLVED · every issued key whose radius is in the field, drawn at its own place'
+                : 'UNRESOLVED · up to ' + words(1/(Math.PI*zoom*zoom)) + ' keys to a pixel · each pixel’s issued count is computed from the law, not drawn');
+  if (points) L.push(fmt(total) + ' issued keys from ' + fmt(segs.length) + ' commits passed to the GPU in ' + ms.toFixed(0) + ' ms');
+  L.push('the whole · ' + fmt(N) + ' issued + ' + fmt(SPACE - N) + ' silent = ' + fmt(SPACE) + ' addresses');
+  if (litRepo >= 0) L.push('LIGHT · ' + repos[litRepo].name + ' · ' + words(repos[litRepo].lines) + ' lines in ' + fmt(repos[litRepo].commits) + ' commits, wherever in time they fall');
+  L.push(zoom >= 1 ? 'zoom ' + zoom.toFixed(1) + ' px per key spacing' : 'zoom 1 px = ' + words(1/zoom) + ' units');
+  hud.textContent = L.join('\n');
+  o2.clearRect(0,0,ov.width,ov.height);
+  if (target) { const x = (target.x - cx)*zoom + ov.width/2, y = ov.height/2 - (target.y - cy)*zoom;
+    o2.strokeStyle = 'rgba(232,179,106,.95)'; o2.lineWidth = 1; o2.beginPath();
+    for (const [a,b,c,d] of [[-16,0,-6,0],[6,0,16,0],[0,-16,0,-6],[0,6,0,16]]) { o2.moveTo(x+a,y+b); o2.lineTo(x+c,y+d); } o2.stroke(); }
+}
+
+// ------------------------------------------------------------------------------ the controls
+function toWorld(px, py){ return [cx + (px - innerWidth/2)/zoom, cy - (py - innerHeight/2)/zoom]; }
+function show(a){ card.style.display = 'block'; card.innerHTML = describe(a); if (a && !a.silent) litRepo = a.c.repo; dirty = true; }
+function goKey(k){ const p = keyPlace(k); target = { x:p[0], y:p[1] }; show(address(k)); flyTo(p[0], p[1], 14); }
+let drag = null, moved = 0;
+cv.addEventListener('pointerdown', e => { drag = [e.clientX, e.clientY]; moved = 0; });
+addEventListener('pointerup', e => {
+  if (drag && moved < 4 && N) { const [wx, wy] = toWorld(e.clientX, e.clientY), r = Math.hypot(wx, wy);
+    if (r*r < SPACE) { let k = zoom >= POINTS_FROM ? keyAt(wx, wy) : -1; const exact = k >= 0; if (!exact) k = Math.floor(r*r);
+      target = exact ? { x:keyPlace(k)[0], y:keyPlace(k)[1] } : null; show(address(k)); } }
+  drag = null; });
+addEventListener('pointermove', e => { if (!drag) return; moved += Math.abs(e.clientX-drag[0]) + Math.abs(e.clientY-drag[1]);
+  cx -= (e.clientX-drag[0])/zoom; cy += (e.clientY-drag[1])/zoom; drag = [e.clientX, e.clientY]; tween = null; dirty = true; });
+addEventListener('wheel', e => { const [wx, wy] = toWorld(e.clientX, e.clientY), f = e.deltaY < 0 ? 1.18 : 1/1.18;
+  zoom = Math.max(1e-4, Math.min(60, zoom*f)); cx = wx - (e.clientX - innerWidth/2)/zoom; cy = wy + (e.clientY - innerHeight/2)/zoom;
+  tween = null; dirty = true; }, { passive:true });
+const gbox = document.getElementById('goto'), gin = document.getElementById('gotoin');
+gin.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Escape') { gbox.style.display = 'none'; return; }
+  if (e.key !== 'Enter') return; gbox.style.display = 'none'; const raw = gin.value.trim(), q = raw.replace(/[ ,_]/g,'');
+  if (/^\d+$/.test(q)) goKey(Math.min(SPACE-1, Number(q)));
+  else { const r = repos.find(x => x.name.toLowerCase() === raw.toLowerCase()) || repos.find(x => x.name.toLowerCase().includes(raw.toLowerCase()));
+    if (r) { litRepo = r.i; target = null; card.style.display = 'none'; home(); dirty = true; } } });
+addEventListener('keydown', e => { if (gbox.style.display === 'block') return;
+  if (e.key === 'r' && N) { const j = Math.floor(Math.random()*N), c = commits[findBy('cum', j)]; goKey(c.k0 + (j - c.cum)); }   // uniform over issued lines
+  else if (e.key === '/') { e.preventDefault(); gbox.style.display = 'block'; gin.value = ''; gin.focus(); }
+  else if (e.key === 'Backspace') { e.preventDefault(); target = null; litRepo = -1; card.style.display = 'none'; home(); } });
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

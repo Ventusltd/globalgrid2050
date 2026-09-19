@@ -13,6 +13,14 @@ on:
     paths:
       - 'index.html'
       - 'testcode/**'
+      # The Kuiper and Real Systems now live at permanent addresses, /kuiper/ and /systems/,
+      # as an immutable shell plus hashed cartridges behind current.json. Neither folder was in
+      # this list, so on 2026-09-20 the first shell release (k0031) triggered no deploy at all and
+      # /kuiper/ sat at HTTP 404 for seven minutes until a deploy was started by hand; the next
+      # cartridge then blocked the release timer, which waits for published bytes. Third time
+      # this file has learned the same lesson: a folder that is published must be listed here.
+      - 'kuiper/**'
+      - 'systems/**'
       # A new PipelineNews release is a directory under uk_renewables_pipeline.
       # It was NOT in this list, so a push that only added a release triggered
       # no deploy at all: 202609061329 sat at HTTP 404 through eight polls after

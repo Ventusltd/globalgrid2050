@@ -1,7 +1,7 @@
 {
  "schema": "globalgrid.current.v1",
- "generation": "202609192355",
- "previous_generation": "202609192341",
+ "generation": "202609192341",
+ "previous_generation": "202609192321",
  "architecture": "IMMUTABLE_SHELL_PLUS_HASHED_CARTRIDGES",
  "live_route": "/kuiper/",
  "release_id": "202609192301-kuiper-shell",
@@ -14,8 +14,7 @@
  "cartridge_order": [
   "kuiper-chrome",
   "kuiper-programs",
-  "kuiper-tests",
-  "kuiper-work"
+  "kuiper-tests"
  ],
  "cartridges": [
   {
@@ -53,23 +52,11 @@
    "bytes": 74410,
    "release": "k0034",
    "job": "the page's own checks"
-  },
-  {
-   "id": "kuiper-work",
-   "generation": "202609192355",
-   "type": "script",
-   "slot": "import-map",
-   "replaces": "kuiper-work.mjs",
-   "path": "./cartridges/202609192355-kuiper-work.mjs",
-   "sha256": "29fac46b6a7796597c7c23188316966087fe3d65d173c02c2d30391358ebf111",
-   "bytes": 1195864,
-   "release": "k0035",
-   "job": "what every piece of public work changed"
   }
  ],
  "last_known_green": {
-  "generation": "202609192355",
-  "release": "k0035",
-  "proved": "# Kuiper: what every piece of work changed"
+  "generation": "202609192341",
+  "release": "k0034",
+  "proved": "# Kuiper: the page's own checks, matched to the one palette"
  }
 }

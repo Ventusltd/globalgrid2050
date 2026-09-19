@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Conductor section</title>
+<style>
+  :root{--bg:#090c13;--ink:#d5dcea;--dim:#7d8799;--cy:#2ee6e6;--gn:#22ee77;--am:#ffb000;--mg:#ff2bd6}
+  *{box-sizing:border-box} html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
+    font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow:hidden}
+  canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none}
+  #bar{position:fixed;top:0;left:0;right:0;display:flex;gap:8px;align-items:center;padding:8px 12px;z-index:5;
+    background:#090c13ee;border-bottom:1px solid #12414a;flex-wrap:wrap}
+  #bar b{color:var(--cy);letter-spacing:.16em;text-transform:uppercase;margin-right:10px}
+  button{background:#0b1a20;color:#8fb3bd;border:1px solid #12414a;padding:6px 10px;font:inherit;cursor:pointer;text-transform:uppercase;letter-spacing:.06em}
+  button.on,button:hover{border-color:var(--cy);color:var(--cy)}
+  #foot{position:fixed;left:0;right:0;bottom:0;padding:7px 12px;color:var(--dim);border-top:1px solid #12414a;background:#090c13ee;z-index:5}
+  /* THE PHONE. On a narrow screen the title block cannot stand beside the section, so the drawing
+     takes the upper part of the clear band and the block is set out beneath it (see draw()). The
+     buttons grow to a thumb's size and the footnote collapses rather than taking half the screen. */
+  @media (max-width:760px){
+    html,body{font-size:11px}
+    #bar{padding:6px 8px} #bar b{margin-right:6px}
+    button{padding:9px 11px}
+    #foot{padding:6px 8px;max-height:22vh;overflow:auto}
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="bar"><b>Conductor section</b><span id="btns"></span></div>
+<div id="foot">a section, not a design &middot; every dimension is derived from the stated inputs or marked CANDIDATE &middot; materials are told apart
+  by hatch, as on a drawing, so colour stays free to mean state &middot; no material image is shown because no real, attributed image is held:
+  a texture made to look like metal would be a lie &middot; provided as is, without warranty of any kind</div>
+<script type="module">
+// A CONDUCTOR, DRAWN FROM ARITHMETIC. A concentric stranded conductor is the hexagonal law made of
+// metal: one wire, then a layer of 6, then 12, then 18, layer k holding 6k wires on a circle of
+// radius k x d. So the wire count of n layers is 3n^2 + 3n + 1 = 1, 7, 19, 37, 61, 91, which is why
+// IEC 60228 class 2 strandings are those numbers, and the overall diameter is (2n+1) x d.
+// Everything drawn below follows from a nominal area and a wire count. Nothing is traced from a
+// photograph and nothing is decorated.
+// THE STANDARD'S OWN LIMITS. Each one is a single value read from IEC 60228:2004 (ed. 3.0) against
+// the row for that class and that nominal area, and each carries the table it came from. A value
+// with a source is KEYED; a value without one stays CANDIDATE and is drawn in amber. No table and
+// no column of a table is reproduced here: the standard is licensed, and a column is disclosure.
+// The drawing is then checked against these limits by the page itself, at the bottom of draw().
+const IEC = 'IEC 60228:2004 (ed. 3.0)';
+// THE RESISTIVITY THAT TURNS A RESISTANCE INTO AN AREA. IEC 60228 does not define a conductor by its
+// area: it sets a maximum resistance, and a nominal size is a name. The least metal that can meet a
+// maximum R is rho / R. Copper's rho here is the international annealed copper standard, a published
+// reference value, not a reading from the licensed table.
+const RHO_CU = 17.241;   // ohm mm2 per km at 20 C, 100 % IACS
+const RHO_CU_SRC = 'copper at 20 \u00b0C, 17.241 \u03a9 mm\u00b2/km, the international annealed copper standard (100 % IACS)';
+const PUBD = 'a published datasheet for a 1500 V DC photovoltaic string cable, keyed 19 September 2026';
+const CASES = [
+  { id:'al400', name:'400 mm² aluminium · class 2 · 61 wires', area:400, n:61, metal:'Al', layers:4, lay:'concentric',
+    compactFill:0.90,
+    minWires:61, minWiresSrc:IEC + ', Table 2, circular',
+    minWiresCompacted:53, minWiresCompactedSrc:IEC + ', Table 2, circular compacted',
+    Rmax:0.0778, RmaxSrc:IEC + ', Table 2, aluminium, maximum at 20 °C',
+    note:'Circular compacted. Compaction deforms the round wires so the same metal fits a smaller circle, and it also frees the conductor from the circular minimum: the standard asks 61 wires round, 53 compacted.' },
+  { id:'cu6c5', name:'6 mm² tinned copper · class 5 · 84 wires in a published Ø 3.00 mm', area:6, n:84, d:0.30, metal:'Cu-Sn', lay:'bunched',
+    Dpub:3.00, DpubSrc:PUBD, rho:RHO_CU, rhoSrc:RHO_CU_SRC,
+    dMax:0.31, dMaxSrc:IEC + ', Table 3, class 5, maximum diameter of wires',
+    Rmax:3.39, RmaxSrc:IEC + ', Table 3, metal coated, maximum at 20 °C',
+    note:'Flexible, as used in H1Z2Z2-K solar cable, which is TINNED: the metal coated resistance is the one that applies to it, not the plain copper one. Bunched wires have NO fixed positions: this arrangement is an idealisation: a full ring seated on a round wall, the rest settled until none overlap. The DIAMETER is no longer guessed from a fill: it is the one a maker publishes, 3.00 mm, and the METAL inside it is the least that can meet 3.39 \u03a9/km. The wire diameter then follows, derived, and comes out under the nominal 0.30 mm: the nominal count and size were never a measurement.' },
+  { id:'cu6c6', name:'6 mm² copper · class 6 · 189 × 0.20', area:6, n:189, d:0.20, metal:'Cu', lay:'bunched',
+    dMax:0.21, dMaxSrc:IEC + ', Table 4, class 6, maximum diameter of wires',
+    Rmax:3.30, RmaxSrc:IEC + ', Table 4, plain, maximum at 20 °C',
+    note:'Extra flexible. Finer wire, more of them, same metal. Bunched: an idealisation, as above.' }
+];
+const cv = document.getElementById('c'), g = cv.getContext('2d'); let cur = CASES[0];
+const foot = document.getElementById('foot'), FOOT0 = foot.innerHTML;   // the fixed footnote, kept to put back
+const btns = document.getElementById('btns');
+CASES.forEach(c => { const b = document.createElement('button'); b.textContent = c.id; b.onclick = () => { cur = c; draw(); }; c.btn = b; btns.appendChild(b); });
+const Q = new URLSearchParams(location.search);
+{ const want = (Q.get('c') || '').toLowerCase().replace(/[^a-z0-9]/g, ''); if (want) cur = CASES.find(c => c.id === want) || cur; }
+let compact = Q.get('k') !== '0';                                  // a compacted conductor opens compacted; ?k=0 shows the round wires
+const kb = document.createElement('button'); kb.onclick = () => { compact = !compact; draw(); }; btns.appendChild(kb);
+
+// BUNCHED WIRES, SETTLED AGAINST A ROUND WALL AND EVENED OUT. The die is round and the wires are free:
+// a full ring seats on the wall, the rest start on the sunflower law inside it. Then two things are
+// repeated: wires nearer than a little over one diameter push each other gently apart, which spreads
+// the empty space evenly instead of leaving bare patches, and wires that overlap are pushed apart
+// fully, which is the hard rule. The gentle push fades to nothing, so the hard rule has the last word.
+// No random numbers: same input, same places.
+function settle(n, d, D, iters) {
+  const R = D/2 - d/2, m = Math.min(n, Math.floor(Math.PI / Math.asin(d / (2*R)))), w = [];
+  for (let j = 0; j < m; j++) { const a = 2*Math.PI*j/m; w.push([R*Math.cos(a), R*Math.sin(a)]); }
+  const Ri = Math.max(0, R - d), k = n - m, N = iters === undefined ? 9000 : iters, soft = N*0.7;
+  for (let i = 0; i < k; i++) { const r = Ri*Math.sqrt((i + 0.5)/k), a = i*2.399963229728653; w.push([r*Math.cos(a), r*Math.sin(a)]); }
+  for (let it = 0; it < N; it++) {
+    const reach = it < soft ? d*(1 + 0.22*(1 - it/soft)) : d; let moved = 0;
+    for (let i = 0; i < n; i++) for (let j = Math.max(i + 1, m); j < n; j++) {
+      let dx = w[j][0] - w[i][0], dy = w[j][1] - w[i][1], q = dx*dx + dy*dy;
+      if (q < reach*reach) { let s = Math.sqrt(q); if (s < 1e-9) { dx = Math.cos(i); dy = Math.sin(i); s = 1; }
+        const ux = dx/s, uy = dy/s, push = s < d ? d - s : (reach - s)*0.12;
+        if (i < m) { w[j][0] += ux*push; w[j][1] += uy*push; }
+        else { w[i][0] -= ux*push/2; w[i][1] -= uy*push/2; w[j][0] += ux*push/2; w[j][1] += uy*push/2; }
+        if (s < d) moved += push; }
+    }
+    for (let i = m; i < n; i++) { const s = Math.hypot(w[i][0], w[i][1]); if (s > R) { w[i][0] *= R/s; w[i][1] *= R/s; } }
+    if (it >= soft && moved < 1e-7*d) break;
+  }
+  return w;
+}
+function measureBundle(w, d, D) {
+  const n = w.length, R = D/2 - d/2; let minGap = Infinity, out = 0, rim = 0;
+  for (let i = 0; i < n; i++) { const s = Math.hypot(w[i][0], w[i][1]); if (s > R + 1e-6*d) out++; if (s > R - 0.1*d) rim++;
+    for (let j = i + 1; j < n; j++) minGap = Math.min(minGap, Math.hypot(w[j][0] - w[i][0], w[j][1] - w[i][1])); }
+  let lo = Infinity, hi = 0;
+  for (let k = 0; k < 16; k++) { const a = Math.PI*k/16, ux = Math.cos(a), uy = Math.sin(a); let p = -Infinity, q = Infinity;
+    for (const [x, y] of w) { const t = x*ux + y*uy; p = Math.max(p, t); q = Math.min(q, t); } lo = Math.min(lo, p - q + d); hi = Math.max(hi, p - q + d); }
+  let bare = 0; const G = 90;                                       // the largest bare patch: the biggest circle that fits between wires, inside the wall
+  for (let a = 0; a <= G; a++) for (let b = 0; b <= G; b++) { const x = (2*a/G - 1)*D/2, y = (2*b/G - 1)*D/2, s = Math.hypot(x, y); if (s > D/2) continue;
+    let near = D/2 - s; for (const [u, v] of w) near = Math.min(near, Math.hypot(u - x, v - y) - d/2); bare = Math.max(bare, near); }
+  return { closest_over_d:+(minGap/d).toFixed(4), outside_wall:out, on_rim:rim, rim_capacity:Math.floor(Math.PI/Math.asin(d/(2*R))), ovality:+((hi - lo)/hi).toFixed(4), widest_mm:+hi.toFixed(3), largest_bare_patch_over_d:+(2*bare/d).toFixed(3) };
+}
+function geometry(c){
+  const o = { wires:[] };
+  if (c.lay === 'concentric') {
+    o.d = Math.sqrt(4*c.area / (c.n*Math.PI));                 // from A = n x pi d^2 / 4
+    o.D = (2*c.layers + 1) * o.d;                              // across the layers
+    o.wires.push([0,0]);
+    for (let k = 1; k <= c.layers; k++) for (let j = 0; j < 6*k; j++) { const a = 2*Math.PI*j/(6*k) + (k%2 ? 0 : Math.PI/(6*k));
+      o.wires.push([k*o.d*Math.cos(a), k*o.d*Math.sin(a)]); }
+    o.fill = c.n*o.d*o.d / (o.D*o.D);                          // metal area over circle area
+    o.Dsrc = 'derived, (2n+1) \u00d7 d'; o.dSrc = 'derived from area and count'; o.metalSrc = 'derived from the wire count and size';
+    o.Dc = Math.sqrt(4*c.area / (Math.PI*c.compactFill));      // the circle the same metal needs at the compacted fill
+    o.metalArea = c.n*Math.PI*o.d*o.d/4;
+  } else {
+    // A published conductor diameter is worth more than an assumed fill, and a maximum resistance is
+    // worth more than a nominal area. Where both are keyed, D is the input, the metal is rho/Rmax, and
+    // the wire diameter is what is left over: derived, not nominal. Where they are not, the old road.
+    if (c.Dpub && c.rho && c.Rmax) {
+      o.D = c.Dpub; o.Dsrc = 'published, input';
+      o.metalArea = c.rho / c.Rmax; o.metalSrc = 'derived from ' + c.Rmax + ' \u03a9/km';
+      o.d = Math.sqrt(4*o.metalArea/(c.n*Math.PI)); o.dSrc = 'derived from the metal and the wire count';
+    } else {
+      o.d = c.d; o.dSrc = 'input; CANDIDATE against the standard';
+      o.metalArea = c.n*Math.PI*o.d*o.d/4; o.metalSrc = 'derived from the wire count and size';
+      o.D = o.d*Math.sqrt(c.n/0.75); o.Dsrc = 'derived from an assumed fill of 0.75; CANDIDATE';
+    }
+    o.fill = o.metalArea / (Math.PI*o.D*o.D/4);
+    o.wires = settle(c.n, o.d, o.D);
+  }
+  return o;
+}
+// COMPACTION, DRAWN. A die squeezes the round wires until the gaps close to the stated fill. Metal is
+// conserved: every wire keeps its area a = pi d^2 / 4. Layer k is given the ring of area 6k a / fill,
+// so r_k^2 = r_(k-1)^2 + 6k a / (pi fill), and the last r is exactly Dc / 2. Inside its share of the ring
+// each wire becomes a keystone whose depth and angle are both the cell's times sqrt(fill): its area is
+// then cell x fill = a, exactly. Real keystones have rounded corners; these do not. The fill is CANDIDATE.
+function compacted(c, o){
+  const a = Math.PI*o.d*o.d/4, f = c.compactFill, q = Math.sqrt(f), cells = []; let r0 = Math.sqrt(a/(Math.PI*f)), area = a;
+  cells.push({ centre:true, r:o.d/2 });
+  for (let k = 1; k <= c.layers; k++) { const r1 = Math.sqrt(r0*r0 + 6*k*a/(Math.PI*f)), dr = r1 - r0, rm = (r0 + r1)/2, dth = 2*Math.PI/(6*k);
+    for (let j = 0; j < 6*k; j++) { const th = dth*j + (k%2 ? 0 : dth/2); cells.push({ ra:rm - dr*q/2, rb:rm + dr*q/2, ta:th - dth*q/2, tb:th + dth*q/2, rm, th });
+      area += ((rm + dr*q/2)**2 - (rm - dr*q/2)**2)/2 * dth*q; }
+    r0 = r1; }
+  return { cells, metalArea:area, outerR:r0 };
+}
+function keystone(cx, cy, S, k){ g.beginPath(); const N = 14;
+  for (let i = 0; i <= N; i++) { const t = k.ta + (k.tb - k.ta)*i/N; g.lineTo(cx + k.rb*S*Math.cos(t), cy - k.rb*S*Math.sin(t)); }
+  for (let i = N; i >= 0; i--) { const t = k.ta + (k.tb - k.ta)*i/N; g.lineTo(cx + k.ra*S*Math.cos(t), cy - k.ra*S*Math.sin(t)); }
+  g.closePath(); }
+function hatchShape(px, py, r, metal){ g.save(); g.clip(); g.strokeStyle = 'rgba(201,211,230,.55)'; g.lineWidth = 1;
+  const step = Math.max(3, r/3.2), ang = metal === 'Al' ? Math.PI/4 : -Math.PI/4;
+  for (let t = -2*r; t <= 2*r; t += step) { g.beginPath(); g.moveTo(px + t - 2*r*Math.cos(ang), py - 2*r*Math.sin(ang)); g.lineTo(px + t + 2*r*Math.cos(ang), py + 2*r*Math.sin(ang)); g.stroke(); }
+  g.restore(); }
+function hatch(x, y, r, metal){                                  // ISO 128 style: material by hatch, not by colour
+  g.save(); g.beginPath(); g.arc(x, y, r, 0, 6.2832); g.clip(); g.strokeStyle = 'rgba(201,211,230,.55)'; g.lineWidth = 1;
+  const step = Math.max(3, r/3.2), ang = metal === 'Al' ? Math.PI/4 : -Math.PI/4;
+  for (let t = -2*r; t <= 2*r; t += step) { g.beginPath(); g.moveTo(x + t - 2*r*Math.cos(ang), y - 2*r*Math.sin(ang)); g.lineTo(x + t + 2*r*Math.cos(ang), y + 2*r*Math.sin(ang)); g.stroke(); }
+  if (metal === 'Cu-Sn') { g.strokeStyle = 'rgba(201,211,230,.9)'; g.lineWidth = Math.max(1, r*0.16); g.beginPath(); g.arc(x, y, r*0.92, 0, 6.2832); g.stroke(); }
+  g.restore();
+}
+function dim(x1, x2, y, label, colour){
+  g.strokeStyle = colour; g.fillStyle = colour; g.lineWidth = 1; g.beginPath();
+  g.moveTo(x1, y-7); g.lineTo(x1, y+7); g.moveTo(x2, y-7); g.lineTo(x2, y+7); g.moveTo(x1, y); g.lineTo(x2, y); g.stroke();
+  g.textAlign = 'center'; g.fillText(label, (x1+x2)/2, y - 8); g.textAlign = 'start';
+}
+function draw(){
+  // The note is moved BEFORE the bar and the footnote are measured, so everything below is laid
+  // out against the footnote's real height and one pass is enough.
+  foot.innerHTML = FOOT0 + (innerWidth < 760 ? ' &middot; <b>' + cur.name + '</b> &middot; ' + cur.note : '');
+  cv.width = innerWidth; cv.height = innerHeight; CASES.forEach(c => c.btn.className = c === cur ? 'on' : '');
+  // THE CLEAR BAND. The bar and the footnote are fixed, so the drawing is fitted to what is left of
+  // the window, measured, not guessed. Narrow: the section on top, the title block underneath.
+  const barH = document.getElementById('bar').getBoundingClientRect().height;
+  const footH = document.getElementById('foot').getBoundingClientRect().height;
+  const W = cv.width, H = cv.height, top = barH + 10, bot = H - footH - 10, band = Math.max(60, bot - top);
+  const narrow = W < 760;
+  const o = geometry(cur);
+  const mb = cur.lay === 'bunched' ? measureBundle(o.wires, o.d, o.D) : null;
+  const outline = mb ? mb.widest_mm : o.D;                          // how wide the drawing actually came out
+  const fillDrawn = o.metalArea / (Math.PI*outline*outline/4);
+  const Rdrawn = cur.rho ? cur.rho / o.metalArea : null;            // the resistance the drawn metal would have
+  // The title block's height is known before a word of it is written: it has a fixed number of
+  // rows. On a narrow screen it is reserved first and the section is given what is left, so the
+  // block can never be pushed off the bottom of the screen by a larger drawing.
+  const rows = 9 + (o.Dc ? 1 : 0) + 2*((cur.dMax ? 1 : 0) + (cur.minWires ? 1 : 0) + (cur.minWiresCompacted ? 1 : 0) + (cur.Rmax ? 1 : 0));
+  // THE ROW HEIGHT FOLLOWS THE SCREEN. The block holds a known number of rows, so the height it needs
+  // is known before anything is drawn; what was not true is that 22 pixels a row always fits. Sixteen
+  // rows on a 390 wide phone want 352 pixels and the band has 323 to give, so the frame ran off the
+  // bottom however the drawing was squeezed. Solve it the other way round: pick the row height that
+  // leaves the section its minimum, and only then give the section what is left.
+  const MINSECT = 120;
+  const lh = narrow ? Math.max(12, Math.min(22, Math.floor((band - MINSECT - 84)/Math.max(rows, 1)))) : 30;
+  const blockH = narrow ? rows*lh + 72 : 0;                         // rows and the frame: on a phone the note is in the footnote
+  const avail = narrow ? Math.max(Math.max(40, Math.min(MINSECT, band - rows*lh - 84)), band - blockH - 12) : band;
+  const cx = narrow ? W*0.50 : W*0.40;
+  const R = narrow ? Math.min(W*0.40, (avail - 84)/2) : o.D/2 * (Math.min(W*0.62, band*0.86) / (o.D*1.12));
+  const S = 2*R/o.D;
+  const cy = narrow ? top + 10 + R : top + band*0.52;
+  g.fillStyle = '#090c13'; g.fillRect(0,0,W,H); g.font = '12px ui-monospace,Consolas,monospace';
+  const showK = compact && !!o.Dc, K = showK ? compacted(cur, o) : null;
+  kb.style.display = o.Dc ? '' : 'none'; kb.textContent = showK ? 'COMPACTED · show round wires' : 'ROUND WIRES · show compacted'; kb.className = showK ? 'on' : '';
+  if (showK) for (const k of K.cells) { g.strokeStyle = '#c9d3e6'; g.lineWidth = 1.2;
+    if (k.centre) { hatch(cx, cy, k.r*S, cur.metal); g.beginPath(); g.arc(cx, cy, k.r*S, 0, 6.2832); g.stroke(); }
+    else { keystone(cx, cy, S, k); hatchShape(cx + k.rm*S*Math.cos(k.th), cy - k.rm*S*Math.sin(k.th), Math.max(k.rb - k.ra, k.rm*(k.tb - k.ta))*S, cur.metal); keystone(cx, cy, S, k); g.stroke(); } }
+  else for (const [x,y] of o.wires) { const px = cx + x*S, py = cy - y*S, r = o.d/2*S;
+    hatch(px, py, r, cur.metal); g.strokeStyle = '#c9d3e6'; g.lineWidth = 1.2; g.beginPath(); g.arc(px, py, r, 0, 6.2832); g.stroke(); }
+  g.strokeStyle = 'rgba(46,230,230,.55)'; g.setLineDash([6,5]); g.beginPath(); g.arc(cx, cy, R, 0, 6.2832); g.stroke(); g.setLineDash([]);
+  dim(cx - R, cx + R, cy + R + 34, '\u00d8 ' + o.D.toFixed(2) + ' mm  across the ' + (cur.lay === 'concentric' ? 'round wires' : 'bundle') + ', ' + o.Dsrc, '#2ee6e6');
+  if (o.Dc) { g.strokeStyle = '#ffb000'; g.lineWidth = 1.6; g.beginPath(); g.arc(cx, cy, o.Dc/2*S, 0, 6.2832); g.stroke();
+    dim(cx - o.Dc/2*S, cx + o.Dc/2*S, cy + R + 66, 'Ø ' + o.Dc.toFixed(2) + ' mm  after compaction to fill ' + cur.compactFill.toFixed(2) + '  (CANDIDATE input)', '#ffb000'); }
+  const w0 = o.wires[o.wires.length-1]; if (!showK) dim(cx + w0[0]*S - o.d/2*S, cx + w0[0]*S + o.d/2*S, cy - w0[1]*S - o.d/2*S - 12, 'd ' + o.d.toFixed(3) + ' mm', '#ff2bd6');
+  // the title block, as on a drawing
+  const bx = narrow ? 14 : W*0.70, by = narrow ? Math.round(top + avail + 34) : top + 24;
+  const bw = narrow ? W - 28 : W - bx, L = [];
+  L.push(['TITLE', cur.name]); L.push(['STANDARD', 'IEC 60228, conductors of insulated cables']);
+  // THREE NUMBERS, NEVER ONE. The nominal area is a name; the metal is what the resistance allows; the
+  // fill is what the drawing came out at. Side by side they cannot be mistaken for one another.
+  L.push(['NOMINAL \u00b7 METAL \u00b7 FILL', cur.area + ' mm\u00b2 a name  \u00b7  ' + o.metalArea.toFixed(2) + ' mm\u00b2 ' + (cur.rho ? 'from R' : 'from the wires') + '  \u00b7  ' + fillDrawn.toFixed(3) + (cur.lay === 'concentric' ? ' exact' : ' drawn')]);
+  L.push(['HOW THE METAL IS GOT', cur.rho ? cur.rho + ' \u03a9 mm\u00b2/km \u00f7 ' + cur.Rmax + ' \u03a9/km = ' + o.metalArea.toFixed(2) + ' mm\u00b2, ' + (100*o.metalArea/cur.area).toFixed(0) + ' % of the name' : o.metalSrc]);
+  L.push(['CONDUCTOR DIAMETER', o.D.toFixed(2) + ' mm  (' + o.Dsrc + ')']);
+  L.push(['WIRES', cur.n + (cur.lay === 'concentric' ? '  = 3n\u00b2+3n+1, n = ' + cur.layers + '  (derived)' : '  (input, nominal)')]);
+  L.push(['WIRE DIAMETER', o.d.toFixed(3) + ' mm  (' + o.dSrc + ')']);
+  if (o.Dc) L.push(['DIAMETER SAVED', (o.D - o.Dc).toFixed(2) + ' mm, ' + ((1 - o.Dc/o.D)*100).toFixed(1) + '%  by compaction']);
+  // WHAT THE STANDARD ASKS, and whether this drawing obeys it. One value, one citation, each time.
+  if (cur.dMax) L.push(['MAX WIRE DIAMETER', cur.dMax.toFixed(2) + ' mm  ' + (o.d <= cur.dMax + 1e-12 ? 'drawn ' + o.d.toFixed(2) + ' mm, within' : 'drawn ' + o.d.toFixed(2) + ' mm, OVER')]);
+  if (cur.dMaxSrc) L.push(['  its source', cur.dMaxSrc]);
+  if (cur.minWires) L.push(['MIN WIRES, CIRCULAR', cur.minWires + '  drawn ' + cur.n + (cur.n >= cur.minWires ? ', at or over' : ', UNDER')]);
+  if (cur.minWiresSrc) L.push(['  its source', cur.minWiresSrc]);
+  if (cur.minWiresCompacted) L.push(['MIN WIRES, COMPACTED', cur.minWiresCompacted + '  the same metal, freed from the circular minimum']);
+  if (cur.minWiresCompactedSrc) L.push(['  its source', cur.minWiresCompactedSrc]);
+  if (cur.Rmax) L.push(['MAX RESISTANCE, 20 °C', cur.Rmax + ' Ω/km']);
+  if (cur.RmaxSrc) L.push(['  its source', cur.RmaxSrc + (cur.rhoSrc ? ' \u00b7 ' + cur.rhoSrc : '') + (cur.DpubSrc ? ' \u00b7 diameter: ' + cur.DpubSrc : '')]);
+  L.push(['LAY', cur.lay]); L.push(['HATCH', cur.metal === 'Al' ? 'aluminium, 45°' : (cur.metal === 'Cu-Sn' ? 'copper, 135°, tin as a heavy rim' : 'copper, 135°')]);
+  if (narrow) g.font = '10px ui-monospace,Consolas,monospace';
+  g.strokeStyle = '#12414a'; g.strokeRect(bx - 12, by - 22, bw, L.length*lh + 62);
+  L.forEach(([k, v], i) => { g.fillStyle = '#2ee6e6'; g.fillText(k, bx, by + i*lh); g.fillStyle = /CANDIDATE/.test(v) ? '#ffb000' : '#d5dcea'; g.fillText(v, bx, by + i*lh + 12); });
+  let yy = by + L.length*lh + 6;
+  if (!narrow) { g.fillStyle = '#8fb3bd'; const words = cur.note.split(' '); let line = '';
+    for (const w of words) { if (g.measureText(line + w).width > bw - 24) { g.fillText(line, bx, yy); yy += 14; line = ''; } line += w + ' '; } g.fillText(line, bx, yy); }
+  const frameBottom = by - 22 + L.length*lh + 62;
+  const blockBottom = narrow ? frameBottom : Math.max(yy + 4, frameBottom);   // the lower of the note and the frame
+  g.font = '12px ui-monospace,Consolas,monospace';
+  // the drawing checks itself
+  const ring = []; if (cur.lay === 'concentric') for (let k = 1; k <= cur.layers; k++) ring.push(6*k);
+  // THE PHONE TEST, drawn into the same pass: the title block must not sit over the section, and
+  // everything drawn must be inside the clear band between the bar and the footnote.
+  const blockTop = by - 22, sectionBottom = cy + R + 70;             // the dimension lines under the circle
+  const clearOfSection = narrow ? blockTop - sectionBottom : bx - 12 - (cx + R);
+  const insideBand = (cy - R) >= top - 0.5 && blockBottom <= bot + 0.5 && bx - 12 >= 0 && bx - 12 + bw <= W + 0.5;
+  window.__selftest = { id:cur.id, viewport:[W, H], narrow, band:[Math.round(top), Math.round(bot)],
+    T4_title_block_is_clear_of_the_section: clearOfSection >= 0, clear_px:Math.round(clearOfSection),
+    T5_everything_is_inside_the_clear_band: insideBand,
+    T6_reserved_rows_match_the_rows_written: rows === L.length, rows_reserved:rows, rows_written:L.length,
+    // NOTHING MAY BE LOST BY BEING MOVED. The note left the canvas on a narrow screen; these two ask
+    // whether it is still on the page a reader is holding, and whether the warranty line survived it.
+    T20_the_note_is_on_the_page_when_it_is_not_on_the_canvas: !narrow || foot.textContent.indexOf(cur.note.slice(0, 40)) >= 0,
+    T21_the_footnote_still_carries_the_warranty_line: foot.textContent.indexOf('without warranty') >= 0,
+    // THE STANDARD'S LIMITS, checked against what was actually drawn, not against what was intended
+    T7_every_wire_is_at_or_under_the_table_maximum: !cur.dMax || o.d <= cur.dMax + 1e-12,
+    T8_the_wire_count_is_at_or_over_the_table_minimum: !cur.minWires || cur.n >= cur.minWires,
+    wire_diameter_drawn_mm: +o.d.toFixed(4), wire_diameter_maximum_mm: cur.dMax || null,
+    wires_drawn_count: cur.n, wires_minimum_circular: cur.minWires || null, wires_minimum_compacted: cur.minWiresCompacted || null,
+    maximum_resistance_ohm_per_km_at_20C: cur.Rmax || null, cited_to: cur.dMaxSrc || cur.minWiresSrc || null,
+    block_bottom_px:Math.round(blockBottom), clear_band_bottom_px:Math.round(bot),
+    wires_drawn:o.wires.length, wires_declared:cur.n, T1_count_matches:o.wires.length === cur.n,
+    T2_layers_are_6k: cur.lay !== 'concentric' || ring.reduce((a,b)=>a+b,1) === cur.n, layers:ring,
+    T3_metal_area_equals_nominal: cur.lay !== 'concentric' || Math.abs(o.metalArea - cur.area) < 1e-9,
+    fill:+o.fill.toFixed(4), D_mm:+o.D.toFixed(3), Dc_mm:o.Dc ? +o.Dc.toFixed(3) : null, d_mm:+o.d.toFixed(4) };
+  window.__selftest.PASS = window.__selftest.T1_count_matches && window.__selftest.T2_layers_are_6k && window.__selftest.T3_metal_area_equals_nominal
+    && window.__selftest.T4_title_block_is_clear_of_the_section && window.__selftest.T5_everything_is_inside_the_clear_band
+    && window.__selftest.T6_reserved_rows_match_the_rows_written
+    && window.__selftest.T20_the_note_is_on_the_page_when_it_is_not_on_the_canvas
+    && window.__selftest.T21_the_footnote_still_carries_the_warranty_line
+    && window.__selftest.T7_every_wire_is_at_or_under_the_table_maximum
+    && window.__selftest.T8_the_wire_count_is_at_or_over_the_table_minimum;
+  if (showK) { const T = window.__selftest; T.compacted = { cells:K.cells.length, metal_area_mm2:+K.metalArea.toFixed(6), outer_diameter_mm:+(2*K.outerR).toFixed(4) };
+    T.T13_compaction_conserves_the_metal = Math.abs(K.metalArea - cur.area) < 1e-6; T.T14_the_compacted_layers_end_exactly_at_Dc = Math.abs(2*K.outerR - o.Dc) < 1e-9;
+    T.T15_one_shape_for_every_wire = K.cells.length === cur.n; T.PASS = T.PASS && T.T13_compaction_conserves_the_metal && T.T14_the_compacted_layers_end_exactly_at_Dc && T.T15_one_shape_for_every_wire; }
+  // A2. A keyed conductor is drawn at the diameter somebody published, holding the least metal that
+  // meets the maximum resistance, and the fill written down is measured off the drawing.
+  { const T = window.__selftest; T.metal_area_drawn_mm2 = +o.metalArea.toFixed(4); T.fill_drawn = +fillDrawn.toFixed(4);
+    T.outline_drawn_mm = +outline.toFixed(3); T.resistance_of_the_drawn_metal_ohm_per_km = Rdrawn ? +Rdrawn.toFixed(4) : null;
+    T.T16_the_drawn_conductor_matches_the_published_diameter = !cur.Dpub || Math.abs(o.D - cur.Dpub) <= 0.05;
+    T.T17_the_metal_is_the_least_that_meets_the_maximum_resistance = !cur.rho || Math.abs(o.metalArea - cur.rho/cur.Rmax) < 1e-9;
+    T.T18_the_drawn_metal_would_meet_the_maximum_resistance = !Rdrawn || Rdrawn <= cur.Rmax + 1e-9;
+    T.T19_the_drawn_fill_is_below_the_honeycomb_limit = fillDrawn <= Math.PI/Math.sqrt(12) + 1e-9;
+    T.PASS = T.PASS && T.T16_the_drawn_conductor_matches_the_published_diameter && T.T17_the_metal_is_the_least_that_meets_the_maximum_resistance
+      && T.T18_the_drawn_metal_would_meet_the_maximum_resistance && T.T19_the_drawn_fill_is_below_the_honeycomb_limit; }
+  if (cur.lay === 'bunched') { const T = window.__selftest; T.bundle = mb;
+    T.T9_no_two_wires_overlap = mb.closest_over_d >= 0.999; T.T10_every_wire_is_inside_the_wall = mb.outside_wall === 0;
+    T.T11_the_rim_is_fully_seated = mb.on_rim >= mb.rim_capacity; T.T12_ovality_is_within_15_percent = mb.ovality <= 0.15;
+    T.PASS = T.PASS && T.T9_no_two_wires_overlap && T.T10_every_wire_is_inside_the_wall && T.T11_the_rim_is_fully_seated && T.T12_ovality_is_within_15_percent; }
+  document.title = 'conductor ' + cur.id + ' selftest ' + (window.__selftest.PASS ? 'PASS' : 'FAIL');
+}
+addEventListener('resize', draw); draw();
+</script>
+</body>
+</html>

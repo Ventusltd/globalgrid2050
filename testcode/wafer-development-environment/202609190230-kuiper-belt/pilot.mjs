@@ -17,7 +17,8 @@ function atomOf(k){ if (!keysDb || !qubit) return null; const i = keysDb.keys.in
 function twinOf(k){ if (!keysDb) return null; const i = keysDb.keys.indexOf(k); if (i < 0) return null; const pl = keysDb.places[keysDb.place[i]]; return { repo: pl[0], commit: pl[1], path: pl[2], line: keysDb.line[i] }; }
 
 const css = document.createElement('style'); css.textContent = `
-#pilot{position:fixed;left:0;right:0;bottom:0;display:flex;gap:8px;padding:8px 12px;background:#0e121bf2;border-top:1px solid #1b2030;z-index:20}
+#pilot{position:fixed;left:0;right:0;bottom:0;display:flex;gap:8px;padding:8px 12px;background:transparent;border-top:1px solid #1b203055;z-index:20;opacity:.45;transition:opacity .15s,background .15s}
+#pilot:hover,#pilot:focus-within{opacity:1;background:#0e121bf2;border-top-color:#1b2030}
 #pilot input{flex:1;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#11151f;color:#cfe3f2;border:1px solid #1b2030;border-radius:6px;padding:.6rem .9rem}
 #pilot input:focus{outline:1px solid #5ec8f2}
 #say{position:fixed;left:50%;top:12vh;transform:translateX(-50%);width:min(72ch,84vw);max-height:70vh;min-width:280px;min-height:64px;background:#0e121bf2;border:1px solid #1b2030;border-radius:8px;padding:0;font:14px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#cfe3f2;display:none;z-index:20;white-space:pre-wrap;resize:both;overflow:hidden;display:none;flex-direction:column}
@@ -32,11 +33,26 @@ const css = document.createElement('style'); css.textContent = `
 #saybody pre .hit{display:inline-block;width:100%;background:#1b2030;color:#f2b05e}
 #saybody a.dev{float:right;font-size:11px;color:#5b6377}
 #say code{display:block;background:#11151f;border:1px solid #1b2030;border-radius:4px;padding:2px 6px;color:#cfe3f2;margin:4px 0}
-#eg{position:fixed;right:12px;bottom:58px;background:#0e121bf2;border:1px solid #1b2030;border-radius:8px;padding:.5rem .7rem;display:flex;flex-direction:column;gap:4px;max-width:46vw;z-index:20}
-#eg label{font:11px ui-monospace,Menlo,Consolas,monospace;letter-spacing:.08em;text-transform:uppercase;color:#8b93a7}
+#eg{position:fixed;right:12px;bottom:58px;background:transparent;border:0;border-radius:8px;padding:0;display:flex;flex-direction:column;gap:4px;max-width:46vw;z-index:20}
+#eg label{font:11px ui-monospace,Menlo,Consolas,monospace;letter-spacing:.08em;text-transform:uppercase;color:#8b93a7;display:none}
+#eg:hover label,#eg:focus-within label{display:block}
+#eg:hover,#eg:focus-within{background:#0e121bf2;border:1px solid #1b2030;padding:.5rem .7rem}
 #eg select{font:12px ui-monospace,Menlo,Consolas,monospace;background:#11151f;color:#cfe3f2;border:1px solid #1b2030;border-radius:6px;padding:.45rem .7rem}
-#plog{position:fixed;left:12px;bottom:58px;max-height:30vh;overflow:hidden;font:11px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#8b93a7;white-space:pre;pointer-events:none;z-index:19}
-#beam{bottom:58px !important}
+#plog{position:fixed;left:12px;bottom:58px;max-width:min(60ch,62vw);max-height:30vh;overflow:hidden;font:11px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#8b93a7;white-space:pre-wrap;pointer-events:auto;cursor:pointer;z-index:19}
+#plog:empty{display:none} #plog span{display:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#plog span:last-child{display:block;opacity:.7} #plog.open span{display:block;white-space:pre-wrap;opacity:1}
+#plog.open{background:#0b0e15ee;border:1px solid #1b2030;border-radius:6px;padding:.3rem .5rem}
+/* ONE THIN FRAME, NO TWO THINGS IN THE SAME LANE. The command bar, the example picker, the beam and the log used
+   to be given separate fixed positions that happened to overlap, so text printed through text and the drawing was
+   covered twice over. They are stacked here, bottom upward, each in its own lane, and the belt keeps everything above. */
+#beam{bottom:calc(env(safe-area-inset-bottom,0px) + 8.8rem) !important}
+#pilot{bottom:calc(env(safe-area-inset-bottom,0px) + 3.9rem)}
+#eg{bottom:calc(env(safe-area-inset-bottom,0px) + 6.6rem)}
+#plog{bottom:calc(env(safe-area-inset-bottom,0px) + 12.3rem)}
+@media (min-width:760px){#beam{bottom:calc(env(safe-area-inset-bottom,0px) + 5.1rem) !important}
+/* the beam takes the right of that lane, so the picker takes the left rather than sitting on top of it */
+#eg{left:12px;right:auto;bottom:calc(env(safe-area-inset-bottom,0px) + 5.1rem);max-width:34vw}
+#plog{bottom:calc(env(safe-area-inset-bottom,0px) + 8.6rem)}}
 #core button{pointer-events:auto;min-height:44px;min-width:44px;padding:.55rem .9rem;font:13px/1.2 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.04em;background:#0e121bf2;color:#cfe3f2;border:1px solid #5ec8f2;border-radius:8px;cursor:pointer;touch-action:manipulation}
 #core button:hover,#core button:focus-visible{background:#11151f;border-color:#f2b05e;outline:none} #core button small{display:block;color:#8b93a7;font-size:10px;letter-spacing:.06em;text-transform:uppercase}
 @media (max-width:640px){#earth{position:fixed;inset:0;z-index:30;display:none;flex-direction:column;background:#0b0e15}
@@ -49,7 +65,7 @@ const css = document.createElement('style'); css.textContent = `
 document.body.insertAdjacentHTML('beforeend', `
 <div id="say"></div><div id="plog"></div>
 <div id="eg"><label>examples: pick one, it lands in the box, press Enter</label><select id="egs">
-<option value="">— choose an example sentence —</option><option value="draw grid">Draw the grid: 400 kV, 132 kV and every substation</option><option value="draw grid400">Draw the 400 kV grid</option><option value="draw grid132">Draw the 132 kV network</option><option value="draw substations">Draw every substation</option><option value="draw shotwick">Draw Shotwick Solar Farm and the grid around it</option><option value="draw underground">Draw the London Underground</option><option value="draw uk">Draw the British Isles</option><option value="draw world">Draw the world</option><option value="draw trench">Draw a cable trench section</option><option value="draw fault">Draw a fault study: the paths the fault current takes (pandapower, IEC 60909)</option><option value="draw kuiper">Draw the Kuiper belt: every repository, including duplicates</option><option value="pulse">Inject a pulse into the Kuiper belt: a propagation pattern over code bodies, not an electrical result</option><option value="logo">Assemble the wordmark from the dust</option><option value="clock">A clock: time as a law on the dust</option><option value="release">Release: every line back to its own place</option>
+<option value="">— choose an example command —</option><option value="draw grid">Draw the grid: 400 kV, 132 kV and every substation</option><option value="draw grid400">Draw the 400 kV grid</option><option value="draw grid132">Draw the 132 kV network</option><option value="draw substations">Draw every substation</option><option value="draw shotwick">Draw Shotwick Solar Farm and the grid around it</option><option value="draw underground">Draw the London Underground</option><option value="draw uk">Draw the British Isles</option><option value="draw world">Draw the world</option><option value="draw trench">Draw a cable trench section</option><option value="draw fault">Draw a fault study: the paths the fault current takes (pandapower, IEC 60909)</option><option value="draw kuiper">Draw the Kuiper belt: every repository, including duplicates</option><option value="pulse">Inject a pulse into the Kuiper belt: a propagation pattern over code bodies, not an electrical result</option><option value="logo">Assemble the wordmark from the dust</option><option value="clock">A clock: time as a law on the dust</option><option value="release">Release: every line back to its own place</option>
 <option value="block 39885">Go to the most-copied line in the estate (39885)</option>
 <option value="twin 39885">The code behind block 39885, in the card</option>
 <option value="state 39885">State of block 39885: HOME or AWAY, from its callers</option>
@@ -66,7 +82,11 @@ document.body.insertAdjacentHTML('beforeend', `
 <form id="pilot"><input id="pin" autocomplete="off" autofocus placeholder="type a sentence or a command: block 39885 · twin 39885 · state 39885 · measure 39885 · app gridatlas · run voltage-drop… · help"></form>`);
 
 const EARTH_HTML = '<div id="earth"><div id="earthbar"><b>EARTH</b><span id="earthname"></span><a id="earthtab" target="_blank">open in its own tab</a><button id="earthback">back to space</button></div><iframe id="earthframe" title="the live app"></iframe></div>';
-const lines = []; const log = s => { lines.push(s); if (lines.length > 12) lines.shift(); $('plog').textContent = lines.join('\n'); };
+const lines = []; const plogEsc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+// The run's narration used to print twelve lines of faint text straight across the belt, and the card
+// printed through it. It is folded to its newest line; a tap opens the whole run and a second tap folds it.
+const log = s => { lines.push(s); if (lines.length > 12) lines.shift(); $('plog').innerHTML = lines.map(l => `<span>${plogEsc(l)}</span>`).join(''); };
+$('plog').addEventListener('click', () => $('plog').classList.toggle('open'));
 // the card is a small window: minimise, maximise, resize (drag the corner), close; any new answer reopens it
 const sayEl = $('say'); sayEl.innerHTML = '<div id="saybar"><span id="saytitle">card</span><button id="saymin" title="minimise">–</button><button id="saymax" title="maximise">▢</button><button id="sayclose" title="close">×</button></div><div id="saybody"></div>';
 let lastCard = '';
@@ -105,7 +125,12 @@ const describeLine = line => { for (const [re, note] of DESCRIBE_RULES) { const 
 window.__describe = describeLine;
 
 const cmds = {
-  help(){ say(`<b>commands</b>\nblock &lt;key&gt; · twin &lt;key&gt; · read &lt;key&gt; · state &lt;key&gt; · measure &lt;key&gt; [seed] · connect &lt;a&gt; &lt;b&gt; · land &lt;app&gt; · space · app &lt;name&gt; · apps · engine · run &lt;module&gt;.&lt;fn&gt; {…} · entangle · reset\ndraw kuiper · pulse [&lt;blob SHA&gt; | &lt;x,y&gt;] · pulse stop — pulse injects a disturbance into the Kuiper belt and watches it travel outward. It is a propagation PATTERN over code bodies at geometric distance, not an electrical result; draw fault is the real fault study.\nor a sentence: "fly to 39885", "show me gridatlas", "voltage drop for 120 A over 250 m at 0.32 ohm pf 0.95"\n\nEach dot has a permanent key and stands for one real line of code. Moving dots never changes keys.`); },
+  help(){ say(`<b>commands</b>\nblock &lt;key&gt; · twin &lt;key&gt; · read &lt;key&gt; · state &lt;key&gt; · measure &lt;key&gt; [seed] · connect &lt;a&gt; &lt;b&gt; · land &lt;app&gt; · space · app &lt;name&gt; · apps · engine · run &lt;module&gt;.&lt;fn&gt; {…} · entangle · reset\ndraw kuiper · pulse [&lt;blob SHA&gt; | &lt;x,y&gt;] · pulse stop — pulse injects a disturbance into the Kuiper belt and watches it travel outward. It is a propagation PATTERN over code bodies at geometric distance, not an electrical result; draw fault is the real fault study.\nor a sentence: "fly to 39885", "show me gridatlas", "voltage drop for 120 A over 250 m at 0.32 ohm pf 0.95"\n\nEach dot has a permanent key and stands for one real line of code. Moving dots never changes keys.
+
+<b>every command this page answers</b>, read from the table itself rather than typed here, so nothing can go missing:
+${Object.keys(cmds).sort().join(' · ')}
+<b>every system draw can draw:</b>
+${Object.keys(NETWORKS).sort().join(' · ')}`); },
   block(k){ k = parseInt(k, 10); if (!Number.isFinite(k)) return log('block <key>'); fly(k); say(`<b>block ${k}</b>\nthe beam is on line ${k}; the panel on the left shows what it is.\n<i>next:</i> twin ${k}`); log(`block ${k}`); },
   fly(k){ return cmds.block(k); }, goto(k){ return cmds.block(k); },
   async twin(k){ k = parseInt(k, 10); const t = twinOf(k); if (!t) return log(`twin ${k}: this block has no recorded line`); fly(k); return cmds.showCode(k, t, 'twin'); },
@@ -219,10 +244,16 @@ window.__earth = () => ({ open: $('earth').classList.contains('open'), name: $('
 
 // the particles do the work: when the wafer's own panel opens for a line, add one plain link to the app that line belongs to
 const APP_OF_REPO = { gridatlas: 'gridatlas', pipelinenews: 'pipelinenews', globalgrid2050: 'globalgrid2050', 'ventus-grid-engine': 'spider sandbox', elements: 'periodic table', 'grid-dictionary': 'grid-dictionary', spiders: 'spiders', 'star-solar-star': 'star-solar-star', 'code-generator': 'code-generator', testcode: 'testcode', 'galaxies-wafers': 'galaxies-wafers', stars: 'stars' };
+// THE CARD IS A NAVIGATION SURFACE, not a viewer with a dead end. A body's card already shows the code and the
+// way to the source; these are the ways onward from it. The repository the line belongs to is read from the key
+// index, never guessed, and a repository this page cannot name an app for gets no route rather than a wrong one.
 const panelLink = () => { const body = $('panelbody'); if (!body || body.querySelector('.landlink')) return; const m = (body.innerText || '').match(/Line\s+([\d,]+)/); if (!m) return; const key = +m[1].replace(/,/g, ''); const t = twinOf(key); if (!t) return;
   const repo = t.repo.split('/')[1]; const app = APP_OF_REPO[repo]; if (!app) return; const url = EARTH[app] || `https://ventusltd.github.io/${repo}/`;
-  body.insertAdjacentHTML('beforeend', `<p class="landlink" style="margin:.6rem 0 0"><a href="${url}" style="color:#5ec8f2">land on ${app} — this line's app</a> <span style="color:#8b93a7">· or type: land ${app}</span></p>`);
-  body.querySelector('.landlink a').addEventListener('click', e => { e.preventDefault(); run('land ' + app); }); };
+  body.insertAdjacentHTML('beforeend', `<p class="landlink" style="margin:.7rem 0 0;display:flex;flex-wrap:wrap;gap:.2rem .9rem">`
+    + `<a href="${url}" data-go="land ${app}" style="color:#5ec8f2">land on ${app}, this line's app</a>`
+    + `<a href="#" data-go="app ${app}" style="color:#5ec8f2">pull ${esc(app)}'s lines into orbit</a>`
+    + `<a href="#" data-go="apps" style="color:#8b93a7">every app on the wafer</a></p>`);
+  for (const a of body.querySelectorAll('.landlink a')) a.addEventListener('click', e => { e.preventDefault(); run(a.dataset.go); }); };
 new MutationObserver(panelLink).observe($('panelbody'), { childList: true, subtree: true });
 window.__pilot = run;
 (async () => {
@@ -230,6 +261,11 @@ window.__pilot = run;
   if (serverMode) (async function poll(){ try { const { lines: L } = await (await fetch('/pilot/next')).json(); for (const l of L) { log(`[powershell] ${l}`); await run(l); } } catch {} setTimeout(poll, 500); })();
   const j = async f => fetch(here + f).then(r => r.ok ? r.json() : null).catch(() => null);
   [keysDb, qubit, apps, entangle, labels] = await Promise.all([j('keys.json'), j('qubit.json'), j('apps.json'), j('entangle.json'), j('labels.json')]);
+  // the key index, published once for the whole page: app.mjs asks it which real line a block stands for, so the
+  // card can show the lines around it and link to the source. Three answers, kept apart: the twin, null (this key
+  // has no recorded line), or {error} (the index itself is not here). Until this line runs there is no __twin at
+  // all, which is how "still loading" is told from "no record".
+  window.__twin = k => keysDb ? twinOf(k) : { error: 'the key index (keys.json) did not load on this page' };
   log(`Quantum Twin — primary key to actual code. ${keysDb ? keysDb.count.toLocaleString() : '?'} blocks with a recorded line; ${qubit ? Object.keys(qubit.atoms).length.toLocaleString() : '?'} block families.`);
   log('Type a sentence or a command. Every answer shows the command it became. Try: block 39885');
   const qd = new URLSearchParams(location.search).get('draw'); const start = qd ? (['logo', 'clock'].includes(qd) ? qd : 'draw ' + qd) : document.querySelector('meta[name="wafer-start"]')?.content; if (start) { await new Promise(r => setTimeout(r, 4000)); const m = /^(land|visit|go|open)\s+(\S+)/.exec(start); if (m) { await run('app ' + m[2]); log(`This page stops here. To enter ${m[2]}, type: land ${m[2]} — space brings you back to the wafer.`); } else await run(start); sayEl.classList.add('min'); /* the wafer is the main event: the card starts folded to its title bar */ }

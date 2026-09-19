@@ -15,6 +15,7 @@
 
 <header id="bar">
   <span id="wordmark">THE LINE WAFER</span>
+  <nav id="menubar" aria-label="wafer menu"></nav>
   <span id="count" class="dim">loading the numbered database…</span>
 </header>
 
@@ -25,31 +26,125 @@
 </form>
 
 <section id="panel" hidden>
-  <button id="close" type="button" aria-label="close">✕</button>
+  <div id="panelbar">
+    <span id="paneltitle">line</span>
+    <button id="panelmin" type="button" title="minimise" aria-label="minimise">–</button>
+    <button id="panelmax" type="button" title="maximise" aria-label="maximise">▢</button>
+    <button id="close" type="button" title="close" aria-label="close">✕</button>
+  </div>
   <div id="panelbody"></div>
 </section>
 
-<nav id="presets" aria-label="presets" style="position:fixed;left:12px;top:44px;z-index:19;display:flex;gap:6px;flex-wrap:wrap;max-width:62vw">
-  <button type="button" data-cmd="state 39885">home</button>
-  <button type="button" data-cmd="draw grid">the grid</button>
-  <button type="button" data-cmd="draw grid400">400 kV</button>
-  <button type="button" data-cmd="draw grid132">132 kV</button>
-  <button type="button" data-cmd="draw substations">substations</button>
-  <button type="button" data-cmd="draw shotwick">Shotwick solar farm</button>
-  <button type="button" data-cmd="draw underground">underground</button>
-  <button type="button" data-cmd="draw uk">British Isles</button>
-  <button type="button" data-cmd="draw world">world</button>
-  <button type="button" data-cmd="draw trench">cable trench</button>
-  <button type="button" data-cmd="draw fault">fault study</button>
-  <button type="button" data-cmd="draw kuiper">kuiper belt</button>
-  <button type="button" data-cmd="pulse" title="a propagation pattern over code bodies at geometric distance — not an electrical result">pulse the belt</button>
-  <button type="button" data-cmd="gravity gridatlas">orbit gridatlas</button>
-  <button type="button" data-cmd="logo">logo</button>
-  <button type="button" data-cmd="clock">clock</button>
-  <button type="button" data-cmd="release">release</button>
-</nav>
-<style>#presets button{font:11px/1.6 ui-monospace,Menlo,Consolas,monospace;color:#8b93a7;background:#0b0e14;border:1px solid #232a3a;border-radius:4px;padding:2px 9px;cursor:pointer}#presets button:hover{color:#e6e9f0;border-color:#4a5573}</style>
-<script>document.getElementById('presets').addEventListener('click',e=>{const b=e.target.closest('button');if(b&&window.__pilot)window.__pilot(b.dataset.cmd);});</script>
+<script>
+/* THE MENU, BORROWED FROM GRIDATLAS (atlas/modules/202609031958-menu-bar.js).
+   The pattern copied: one strip of title buttons, each with aria-haspopup="menu",
+   aria-expanded and aria-controls pointing at a sibling panel that is `hidden` at
+   rest; clicking a title closes every other panel and toggles its own; Escape
+   closes; ArrowLeft/ArrowRight walk the titles and ArrowDown enters the open
+   panel; a click anywhere else closes everything. GridAtlas calls that state
+   closed_at_rest, and it is the whole point here: at rest the belt has the frame.
+   Nothing has been removed — every preset button that used to sit in two rows
+   across the top is a row in one of these panels, with more beside it. */
+(function () {
+  var MENUS = [
+    ['Systems', [
+      ['the grid: 400 kV, 132 kV and every substation', 'draw grid'],
+      ['the 400 kV grid', 'draw grid400'],
+      ['the 132 kV network', 'draw grid132'],
+      ['every substation', 'draw substations'],
+      ['Shotwick solar farm and its grid', 'draw shotwick'],
+      ['the London Underground', 'draw underground'],
+      ['the British Isles', 'draw uk'],
+      ['the world', 'draw world'],
+      ['a cable trench section', 'draw trench'],
+      ['a fault study (pandapower, IEC 60909)', 'draw fault'],
+      ['the Kuiper belt: every repository', 'draw kuiper']
+    ]],
+    ['Belt', [
+      ['pulse the belt — a propagation pattern over code bodies, not an electrical result', 'pulse'],
+      ['stop the pulse', 'pulse stop'],
+      ['orbit gridatlas', 'gravity gridatlas'],
+      ['the wordmark from the dust', 'logo'],
+      ['a clock: time as a law', 'clock'],
+      ['release: every line back to its own place', 'release']
+    ]],
+    ['Code', [
+      ['go to the most-copied line in the estate (39885)', 'block 39885'],
+      ['the code behind block 39885, in the card', 'twin 39885'],
+      ['state of block 39885: HOME or AWAY', 'state 39885'],
+      ['measure block 39885: one recorded draw', 'measure 39885'],
+      ['connect two lines with the beam', 'connect 39885 1217'],
+      ['how many blocks are found at their recorded line', 'entangle']
+    ]],
+    ['Apps', [
+      ['every app on the wafer', 'apps'],
+      ['GridAtlas', 'app gridatlas'],
+      ['land on GridAtlas: the live app, inside this page', 'land gridatlas'],
+      ['land on Pipeline News', 'land pipelinenews'],
+      ['back to space: the wafer', 'space'],
+      ['the engine’s published modules', 'engine']
+    ]],
+    ['Help', [
+      ['every command this page answers', 'help'],
+      ['clear the beam and the card', 'reset']
+    ]]
+  ];
+  var bar = document.getElementById('menubar'), titles = [], panels = [];
+  function closeAll(except) {
+    for (var i = 0; i < titles.length; i++) {
+      if (titles[i] === except) continue;
+      titles[i].setAttribute('aria-expanded', 'false');
+      titles[i].parentNode.classList.remove('gm-open');
+      panels[i].hidden = true;
+    }
+  }
+  MENUS.forEach(function (m, i) {
+    var menu = document.createElement('div'); menu.className = 'gm-menu';
+    var title = document.createElement('button');
+    title.type = 'button'; title.className = 'gm-title'; title.textContent = m[0];
+    title.id = 'gm-title-' + i;
+    title.setAttribute('aria-haspopup', 'menu');
+    title.setAttribute('aria-expanded', 'false');
+    title.setAttribute('aria-controls', 'gm-panel-' + i);
+    var panel = document.createElement('div');
+    panel.className = 'gm-panel'; panel.id = 'gm-panel-' + i; panel.hidden = true;
+    panel.setAttribute('role', 'group'); panel.setAttribute('aria-labelledby', title.id);
+    m[1].forEach(function (row) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.dataset.cmd = row[1];
+      b.innerHTML = '<span>' + row[0] + '</span><code>' + row[1] + '</code>';
+      panel.appendChild(b);
+    });
+    title.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var wasOpen = !panel.hidden;
+      closeAll();
+      if (wasOpen) return;
+      panel.hidden = false; menu.classList.add('gm-open');
+      title.setAttribute('aria-expanded', 'true');
+    });
+    menu.appendChild(title); menu.appendChild(panel);
+    bar.appendChild(menu); titles.push(title); panels.push(panel);
+  });
+  bar.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-cmd]');
+    if (!b) return;
+    closeAll();                       /* the drawing is the point: the menu shuts the moment it is used */
+    if (window.__pilot) window.__pilot(b.dataset.cmd);
+  });
+  bar.addEventListener('keydown', function (e) {
+    var i = titles.indexOf(document.activeElement);
+    if (e.key === 'Escape') { closeAll(); if (i < 0 && document.activeElement.closest) { var t = document.activeElement.closest('.gm-menu'); if (t) t.querySelector('.gm-title').focus(); } e.preventDefault(); return; }
+    if (i < 0) return;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      titles[(i + (e.key === 'ArrowRight' ? 1 : -1) + titles.length) % titles.length].focus(); e.preventDefault();
+    } else if (e.key === 'ArrowDown') {
+      titles[i].click(); var f = panels[i].querySelector('button'); if (f) f.focus(); e.preventDefault();
+    }
+  });
+  document.addEventListener('click', function (e) { if (!e.target.closest || !e.target.closest('#menubar')) closeAll(); });
+})();
+</script>
 <footer id="foot">
   <span id="prov" class="dim">provenance loading</span>
   <span id="hint" class="dim">drag to steer · pinch or scroll to focus the beam · tap a line · provided as is, without warranty of any kind; a chart, not a design</span>

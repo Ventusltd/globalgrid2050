@@ -113,7 +113,9 @@ async function tier2() {
   const owner = ownersOf(families, famLines);
   U.ownerOf = owner;
   U.fanout = fanoutCount(owner);
-  if (view.focus >= 0) paintPanel(view.focus);
+  /* The card carries only the code now, so tier 2 has nothing to repaint there
+     and a card already open is left exactly where it was put. `connect` does
+     read the family index, so that one is still repainted. */
   if (view.link) connect(view.link[0], view.link[1]);
 }
 
@@ -507,11 +509,59 @@ function reader() {
   return READER;
 }
 
-/* One line's code, written into an element that is already on screen, so the
-   panel appears immediately and the text lands when the network answers. The
-   key is checked against the row before anything is shown: a stale index
-   produces a stated refusal, never another line's code pretending to be this
-   one. */
+/* ── the twin: which real line a key stands for ───────────────────────────
+   The key index (keys.json) maps a key to (repo, commit, path, line). It is
+   loaded by pilot.mjs, which publishes the lookup as window.__twin, so this
+   page holds one copy of a 2.7 MB document rather than two. Three answers are
+   possible and they are kept apart, because they mean different things:
+   an object with repo/commit/path/line, null (the index has no record for this
+   key), or {error} (the index itself is not here). "Not loaded yet" is a
+   fourth, and it is waited for rather than reported as an absence. */
+const TWIN_WAIT_MS = 25000;
+async function twinFor(key) {
+  const t0 = Date.now();
+  while (!window.__twin) {
+    if (Date.now() - t0 > TWIN_WAIT_MS) return { error: 'the key index did not load on this page' };
+    await new Promise(r => setTimeout(r, 120));
+  }
+  try { return window.__twin(key); } catch (e) { return { error: 'the key index refused: ' + (e.message || e) }; }
+}
+
+const ghUrl = t => `https://github.com/${t.repo}/blob/${t.commit}/${t.path}#L${t.line}`;
+const rawUrl = t => `https://raw.githubusercontent.com/${t.repo}/${t.commit}/${t.path}`;
+
+/* The file itself, at the commit the key records. Held by URL, a few at a
+   time, because the next line clicked is usually in the same file. */
+const FILES = new Map();
+const FILE_CACHE = 6;
+function fileAt(t) {
+  const url = rawUrl(t);
+  if (FILES.has(url)) return FILES.get(url);
+  const p = fetch(url, { cache: 'default' })
+    .then(r => r.ok ? r.text().then(s => ({ lines: s.split('\n').map(x => x.replace(/\r$/, '')) }))
+                    : { why: `${url} returned HTTP ${r.status}` })
+    .catch(e => ({ why: 'the file could not be fetched from this page: ' + (e.message || e) }));
+  FILES.set(url, p);
+  if (FILES.size > FILE_CACHE) FILES.delete(FILES.keys().next().value);
+  return p;
+}
+
+const CONTEXT = 10;                                   /* ten lines up, ten lines down */
+const codeRow = (n, text, hit) =>
+  `<span class="row${hit ? ' hit' : ''}"><span class="ln">${fmt(n)}</span>${esc(text) || ' '}</span>`;
+
+/* One line's code with the ten lines either side of it, written into an
+   element that is already on screen, so the panel appears immediately and the
+   text lands when the network answers. The key is checked against the row
+   before anything is shown: a stale index produces a stated refusal, never
+   another line's code pretending to be this one.
+
+   The surrounding lines are held to the same rule. They are read from the real
+   file at the recorded commit, and they are only drawn once THAT file's own
+   line agrees with the row LINES.md gave for this key. Two keyed sources have
+   to say the same thing before a neighbour is shown. If the file cannot be
+   reached, or it disagrees, the card says so and shows the single line it can
+   prove. Nothing around a line is ever composed here. */
 async function fillCode(el, key) {
   const store = await reader();
   if (!store) { el.className = 'code refuse'; el.textContent = readerWhy; return; }
@@ -519,11 +569,66 @@ async function fillCode(el, key) {
   if (Number(el.dataset.key) !== key) return;          /* the beam moved on */
   if (got.text === null) { el.className = 'code refuse'; el.textContent = got.why; return; }
   el.className = 'code';
-  el.textContent = got.text === '' ? '' : got.text;
   el.dataset.empty = got.text.trim() === '' ? '1' : '';
+  const note = el.parentElement?.querySelector(`.ctxnote[data-key="${key}"]`);
+  const single = t => { el.innerHTML = codeRow(t.line, got.text, true); };
+
   const s = store.stats();
   setStoreLine(`${fmt(s.bytes)} bytes read in ${s.requests} request${s.requests === 1 ? '' : 's'} · ` +
     `${s.blocksHeld} block${s.blocksHeld === 1 ? '' : 's'} held · ${store.drifted ? 'offsets by search' : 'offsets exact'}`);
+
+  const twin = await twinFor(key);
+  if (Number(el.dataset.key) !== key) return;
+  if (!note) return;
+  const say = (cls, text) => { note.className = 'ctxnote' + (cls ? ' ' + cls : ''); note.textContent = text; };
+
+  if (twin && twin.error) {
+    el.textContent = got.text;
+    say('refuse', `No surrounding lines and no source link: ${twin.error}. This is the one line the numbered database proves.`);
+    return;
+  }
+  if (!twin) {
+    el.textContent = got.text;
+    say('refuse', 'This line has no recorded repository, commit and path in the key index, so neither the '
+      + 'lines around it nor a link to the source can be built. Only the line itself is shown.');
+    return;
+  }
+
+  single(twin);
+  say('', `${twin.repo} · ${twin.path} · line ${fmt(twin.line)} — reading the file at commit ${twin.commit.slice(0, 7)} for the lines around it…`);
+  const link = el.parentElement.querySelector(`.srclink[data-key="${key}"]`);
+  if (link) { link.href = ghUrl(twin); link.textContent = `open line ${fmt(twin.line)} of ${twin.path.split('/').pop()} on GitHub, at commit ${twin.commit.slice(0, 7)}`; link.hidden = false; }
+
+  const file = await fileAt(twin);
+  if (Number(el.dataset.key) !== key) return;
+  if (file.why) {
+    say('refuse', `Context was not available: ${file.why}. The one line above is what the numbered database proves; `
+      + `the link opens the recorded line on GitHub.`);
+    return;
+  }
+  const atLine = file.lines[twin.line - 1];
+  if (atLine === undefined) {
+    say('refuse', `Context was not available: the file at commit ${twin.commit.slice(0, 7)} has only `
+      + `${fmt(file.lines.length)} lines, so it has no line ${fmt(twin.line)}. Nothing around this line is shown.`);
+    return;
+  }
+  const exact = atLine === got.text;
+  const loose = !exact && atLine.trim() === got.text.trim();
+  if (!exact && !loose) {
+    say('refuse', `Context was not available: line ${fmt(twin.line)} of that file does not carry this line's text, `
+      + `so the file has moved under the index and its neighbours would not be this line's neighbours. `
+      + `Nothing around it is shown, and the link points at the position the index records.`);
+    return;
+  }
+  const from = Math.max(1, twin.line - CONTEXT), to = Math.min(file.lines.length, twin.line + CONTEXT);
+  const rows = [];
+  for (let n = from; n <= to; n++) rows.push(codeRow(n, n === twin.line ? got.text : file.lines[n - 1], n === twin.line));
+  el.innerHTML = rows.join('');
+  say('', `lines ${fmt(from)} to ${fmt(to)} of ${twin.path}, read from ${twin.repo} at commit ${twin.commit.slice(0, 7)}`
+    + `${loose ? ' — the file and the numbered row agree on this line apart from surrounding whitespace' : ''}`
+    + ` · ${fmt(twin.line - from)} above, ${fmt(to - twin.line)} below`);
+  const hit = el.querySelector('.row.hit');
+  if (hit) el.scrollTop = Math.max(0, hit.offsetTop - el.clientHeight / 2 + hit.offsetHeight / 2);
 }
 
 function setStoreLine(text) {
@@ -533,9 +638,75 @@ function setStoreLine(text) {
 
 /* ── the panel: what the beam found ──────────────────────────────────────── */
 
+/* The estate's word for a function with no name is "unnamed". The pack stores
+   it as "(anonymous)"; that spelling never reaches a reader. */
+const famName = fa => (!fa.name || fa.name === '(anonymous)') ? 'unnamed' : fa.name;
+
 function famsOf(key) {
   if (!U.ownerOf) return null;
   return U.ownerOf.get(key) || [];
+}
+
+/* The card is a window. It opens with a name in its title bar, it is dragged by
+   that bar with a mouse, a pen or a finger, and it is kept inside the viewport
+   — the code it is covering is the thing you are trying to read. The idiom is
+   the one the narration card already uses: pointer events with capture, so one
+   path serves every input, and `touch-action:none` on the bar so a finger drags
+   the card instead of scrolling the page. */
+function openPanel(title) {
+  $('paneltitle').textContent = title;
+  $('panel').classList.remove('min');
+  $('panel').hidden = false;
+  clampPanel();
+}
+
+function clampPanel() {
+  const el = $('panel');
+  if (!el.style.left || el.classList.contains('max')) return;   /* the stylesheet still owns it */
+  const r = el.getBoundingClientRect();
+  const maxL = Math.max(0, innerWidth - r.width), maxT = Math.max(0, innerHeight - r.height);
+  el.style.left = Math.min(Math.max(0, parseFloat(el.style.left) || 0), maxL) + 'px';
+  el.style.top = Math.min(Math.max(0, parseFloat(el.style.top) || 0), maxT) + 'px';
+}
+
+function dragPanel() {
+  const el = $('panel'), bar = $('panelbar');
+  if (!bar) return;
+  let grab = null;
+  bar.addEventListener('pointerdown', e => {
+    if (e.target.closest('button') || el.classList.contains('max')) return;
+    const r = el.getBoundingClientRect();
+    grab = { dx: e.clientX - r.left, dy: e.clientY - r.top, w: r.width, h: r.height };
+    el.style.right = 'auto'; el.style.bottom = 'auto';
+    el.style.width = r.width + 'px';
+    el.style.left = r.left + 'px'; el.style.top = r.top + 'px';
+    try { bar.setPointerCapture(e.pointerId); } catch {}   /* capture is what lets the pointer leave the bar */
+    e.preventDefault();
+  });
+  bar.addEventListener('pointermove', e => {
+    if (!grab) return;
+    const h = el.getBoundingClientRect().height;
+    el.style.left = Math.min(Math.max(0, e.clientX - grab.dx), Math.max(0, innerWidth - grab.w)) + 'px';
+    el.style.top = Math.min(Math.max(0, e.clientY - grab.dy), Math.max(0, innerHeight - h)) + 'px';
+    e.preventDefault();
+  });
+  const drop = () => { grab = null; clampPanel(); };
+  bar.addEventListener('pointerup', drop);
+  bar.addEventListener('pointercancel', drop);
+  /* The three glyphs, wired the way the narration card wires its own: fold to
+     the bar, throw the card wide, put it away. Maximise drops whatever the drag
+     set, so the stylesheet can place it edge to edge and the card comes back to
+     the corner it was dragged to when it is restored. */
+  let placed = null;
+  const fold = () => { el.classList.remove('max'); el.classList.toggle('min'); clampPanel(); };
+  bar.addEventListener('dblclick', fold);
+  $('panelmin').addEventListener('click', fold);
+  $('panelmax').addEventListener('click', () => {
+    el.classList.remove('min');
+    if (el.classList.toggle('max')) { placed = el.style.cssText; el.style.cssText = ''; }
+    else { el.style.cssText = placed || ''; clampPanel(); }
+  });
+  addEventListener('resize', clampPanel);
 }
 
 function paintPanel(key) {
@@ -547,47 +718,21 @@ function paintPanel(key) {
        <p class="refuse">This number was never issued. The numbering runs 1 to ${fmt(U.meta.max)} and
        ${fmt(U.meta.max - U.n)} of those numbers were skipped, so a gap is a real answer rather than a
        missing record. The surface still has a place for it, and the beam is pointing at it.</p>`;
-    $('panel').hidden = false; return;
+    openPanel(`line ${fmt(key)} — never issued`); return;
   }
-  const chars = U.lens[i], carried = U.inFam[i] === 1;
-  const fams = famsOf(key);
-  let body =
+  /* THE CARD CARRIES THE CODE AND NOTHING ELSE. It used to print the character
+     count, a sentence about permanence and a list of up to twelve function
+     families, most of them unnamed, and that filled the window with rows that
+     did not carry a name and pushed the code out of sight. The card is now the
+     line number, the code with the lines around it, and the way to the source.
+     The family index is still built and still answers `connect`; it is simply
+     not printed here. */
+  p.innerHTML =
     `<h2>Line <span class="n">${fmt(key)}</span></h2>
      <pre class="code loading" data-key="${key}">reading this line from the numbered database…</pre>
-     <dl>
-       <dt>characters</dt><dd>${chars === 65535
-          ? 'at least 65,535 — the pack stores this in sixteen bits and this line reaches the ceiling, so its true length is not known here'
-          : fmt(chars) + (chars === 0 ? ' (an empty line)' : '')}</dd>
-       <dt>permanent</dt><dd>this number is never reused, so it means this line for ever</dd>
-       <dt>carried by</dt><dd>${carried ? 'at least one function family' : 'no function family'}</dd>
-     </dl>`;
-  if (!carried) {
-    body += `<p class="refuse">Nothing can be connected to this line. It is numbered and it exists, but no
-      function family in the estate carries it, so it has no partner to join it to.</p>`;
-  } else if (fams === null) {
-    body += `<p class="dim">The family index is still loading; the families carrying this line will appear here.</p>`;
-  } else if (fams.length === 0) {
-    body += `<p class="refuse">The pack marks this line as carried, but no family range in this build
-      contains it. That disagreement is shown rather than smoothed over.</p>`;
-  } else {
-    const show = fams.slice(0, 12);
-    body += `<p>Carried by <span class="fam">${fmt(fams.length)}</span> ${fams.length === 1 ? 'family' : 'families'}${fams.length > 12 ? ', first twelve' : ''}:</p><ul>` +
-      show.map(f => {
-        const fa = U.families[f];
-        const cat = fa.category ?? 'no category recorded';
-        return `<li><button type="button" class="famopen" data-fam="${f}">` +
-          `<span class="fam">${esc(fa.name)}</span> <span class="dim">#${fmt(fa.n)} · ${esc(fa.kind)} · ` +
-          `${esc(cat)} · ${fmt(fa.lineCount)} lines</span></button></li>`;
-      }).join('') + `</ul>`;
-    if (fams.length > 60) {
-      body += `<p class="dim">A line carried by this many families is almost certainly trivial: a brace, a
-        blank, an import. Its connection count is drawn here rather than hidden, so you can see that for
-        yourself.</p>`;
-    }
-  }
-  body += `<p id="storeline" class="dim"></p>`;
-  p.innerHTML = body;
-  $('panel').hidden = false;
+     <p class="ctxnote" data-key="${key}">looking for the file this line came from…</p>
+     <a class="srclink" data-key="${key}" target="_blank" rel="noopener" href="" hidden></a>`;
+  openPanel(`line ${fmt(key)}`);
   const code = p.querySelector('.code[data-key]');
   if (code) fillCode(code, key);
 }
@@ -612,7 +757,7 @@ async function openFamily(fIdx) {
   const rows = await Promise.all(keys.map(k => store.get(k)));
   if (!host.isConnected) return;
   host.innerHTML =
-    '<div class="famhead">' + esc(fa.name) + ' <span class="dim">' + esc(fa.kind) +
+    '<div class="famhead">' + esc(famName(fa)) + ' <span class="dim">' + esc(fa.kind) +
     ' · ' + fmt(fa.lineCount) + ' lines · in ' + fmt(fa.files) + ' files across ' + fmt(fa.repos) + ' repos</span></div>' +
     '<ol class="block">' + rows.map(r =>
       '<li><button type="button" class="blockline" data-key="' + r.key + '">' +
@@ -659,7 +804,7 @@ function connect(ka, kb) {
   if (!U.ownerOf) {
     p.innerHTML = head + `<p class="dim">The family index is still loading. The answer will appear here
       without another tap.</p>`;
-    $('panel').hidden = false; draw(); return;
+    openPanel(`connect ${fmt(ka)} to ${fmt(kb)}`); draw(); return;
   }
 
   const a = connectAnswer(ka, kb, { keys: U.keys, owner: U.ownerOf });
@@ -704,7 +849,7 @@ function connect(ka, kb) {
   }
 
   p.innerHTML = body;
-  $('panel').hidden = false;
+  openPanel(`connect ${fmt(ka)} to ${fmt(kb)}`);
 
   /* Frame both ends. */
   const [ax, ay] = placeOne(ka), [bx, by] = placeOne(kb);
@@ -790,7 +935,7 @@ function refuse(sentence) {
   const h = document.createElement('h2'); h.textContent = 'Refused';
   const p2 = document.createElement('p'); p2.className = 'refuse'; p2.textContent = sentence;
   $('panelbody').append(h, p2);
-  $('panel').hidden = false;
+  openPanel('refused');
 }
 function writeURL(a, b) {
   const q = new URLSearchParams();
@@ -827,7 +972,8 @@ function writeURL(a, b) {
     else { view.focus = pa.key; view.link = null; paintPanel(pa.key); flyTo(pa.key); writeURL(pa.key, null); }
     document.activeElement?.blur();
   });
-  $('close').addEventListener('click', () => { $('panel').hidden = true; view.focus = -1; view.link = null; draw(); });
+  $('close').addEventListener('click', () => { $('panel').hidden = true; $('panel').classList.remove('min', 'max'); view.focus = -1; view.link = null; draw(); });
+  dragPanel();
 
   readURL();
   tier2().catch(e => { $('prov').textContent = 'family index unavailable: ' + e.message; });

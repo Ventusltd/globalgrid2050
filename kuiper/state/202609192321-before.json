@@ -1,7 +1,7 @@
 {
  "schema": "globalgrid.current.v1",
- "generation": "202609192321",
- "previous_generation": "202609192311",
+ "generation": "202609192311",
+ "previous_generation": "202609192301",
  "architecture": "IMMUTABLE_SHELL_PLUS_HASHED_CARTRIDGES",
  "live_route": "/kuiper/",
  "release_id": "202609192301-kuiper-shell",
@@ -12,8 +12,7 @@
   "sha256": "5b59979c093d0713d05e6ab3d2c36395e5edcefaa7e5a0336c9fdb3b7f6e1e30"
  },
  "cartridge_order": [
-  "kuiper-chrome",
-  "kuiper-programs"
+  "kuiper-chrome"
  ],
  "cartridges": [
   {
@@ -27,23 +26,11 @@
    "bytes": 2597,
    "release": "k0032",
    "job": "how the page is dressed"
-  },
-  {
-   "id": "kuiper-programs",
-   "generation": "202609192321",
-   "type": "script",
-   "slot": "replace-script",
-   "replaces": "kuiper-programs.js",
-   "path": "./cartridges/202609192321-kuiper-programs.js",
-   "sha256": "3d6a52c16dd80afa8bd1711b57d7539d053f7df1cd67dd927fa2cab71922f5c5",
-   "bytes": 16929,
-   "release": "k0033",
-   "job": "the programs: isolate an application, the small Kuiper, its name"
   }
  ],
  "last_known_green": {
-  "generation": "202609192321",
-  "release": "k0033",
-  "proved": "# Kuiper: the light of the one pulse"
+  "generation": "202609192311",
+  "release": "k0032",
+  "proved": "# Kuiper: a change released and then taken back, on purpose"
  }
 }

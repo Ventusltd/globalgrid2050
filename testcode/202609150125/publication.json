@@ -1,8 +1,8 @@
 {
  "page": "testcode/202609150125 — Sector Star: real-economy energy users by sector and district",
  "url": "https://globalgrid2050.com/testcode/202609150125/",
- "built_utc": "2026-09-15T01:43:43.975Z",
- "node": "v24.19.0",
+ "built_utc": "2026-09-17T00:01:34.679Z",
+ "node": "v22.22.2",
  "what": "Aggregates only. No company name, registration number, address line, full postcode, telephone, e-mail, web address, Companies House link or per-company row appears in any shipped file.",
  "population": 135064,
  "suppression": {
@@ -102,28 +102,28 @@
   ],
   "count_sentence": "135,064 qualifying companies · 21 SIC sections · 87 divisions · 258 groups · 2,138 postcode districts · 10 regions · 3,868 farmers · 11,487 manufacturers · 27,569 other high energy · accounts 12 monthly files, register 2026-09-01 · data 2026-09-15 01:42 UTC"
  },
- "file_count": 17,
- "total_bytes": 2181476,
+ "file_count": 18,
+ "total_bytes": 2204014,
  "files": [
   {
    "file": "MODEL.md",
-   "bytes": 7152,
-   "sha256": "9e10c04cd0ecb549adee657490bfaefff6d2ec8eb58dc7cc45f7f790ecaae496"
+   "bytes": 8578,
+   "sha256": "dd58f5e2feaf741ec1be4d88a979154c097d4e235ba24da609702251dd6d89c9"
   },
   {
    "file": "README.md",
-   "bytes": 5211,
-   "sha256": "eb9bcfaf1ea14199fb4b2e1d84aed954eb81036ea9aced2f12f1f478d822fed5"
+   "bytes": 6019,
+   "sha256": "79a7403f2c09902684767144fd0f379ef2613a76ae7a1bf77889779d6325c6ff"
   },
   {
    "file": "data/geography.json",
-   "bytes": 1152154,
-   "sha256": "0c316fee71385d42834ba46b9951a54a24373969f6e7b6182ab832ab1ee8e6cb"
+   "bytes": 1160033,
+   "sha256": "faeb7f9ee4ebdfa146bf07c1bcf307243e7b1488f0b566d3ccb640b665b94ed0"
   },
   {
    "file": "data/provenance.json",
-   "bytes": 6725,
-   "sha256": "e897a167b6c58b1c2b590ddc53de1e9d2fe09d8c9e1d4a0be951de05cedfc5cf"
+   "bytes": 7755,
+   "sha256": "4488923f653d570f67d4863ae4339fea0f664ed765cbb4ce8350ecf4fa8e7d63"
   },
   {
    "file": "data/sectors.json",
@@ -137,8 +137,8 @@
   },
   {
    "file": "proof/build.py",
-   "bytes": 36012,
-   "sha256": "2c2220cd72ed778d5fe62465ebcde0ec1775d17c22552906c5e0877c9968d402"
+   "bytes": 37496,
+   "sha256": "23808cb4f609d229eb235753cc25b7bbbb2d1229c085f818f77f08e5e99a64bc"
   },
   {
    "file": "proof/ci-checks.json",
@@ -162,13 +162,18 @@
   },
   {
    "file": "proof/leak-check.py",
-   "bytes": 6472,
-   "sha256": "8d52aa861ecffa4c4af9b0c98117fc2f52c4384021042b01a0887fa39022ed3e"
+   "bytes": 6559,
+   "sha256": "4a08879eb135b1b52c2490be003253ee2ca71cae80d5a863d065f7cbc1f5ac8e"
   },
   {
    "file": "proof/publish.mjs",
    "bytes": 3549,
    "sha256": "bea33d22281f9170001b7cd968e954480bb2a3b3914d3cf590f4f5872ba949da"
+  },
+  {
+   "file": "proof/rebase-origin.py",
+   "bytes": 9258,
+   "sha256": "55b08bf2cbba0660283e28a977b54f44c1775b1cf55f86bd3e6cc547aa1bcea4"
   },
   {
    "file": "proof/sector-star-1440.png",
@@ -182,8 +187,8 @@
   },
   {
    "file": "star.js",
-   "bytes": 20053,
-   "sha256": "85a7ab76b3d80c61690694de671231319083296fd0f1ecdad02fc6085c921a41"
+   "bytes": 20619,
+   "sha256": "973104fe23857e1a495089451cdee05a1d9b30f95a1da2800a3b56f876870847"
   },
   {
    "file": "style.css",

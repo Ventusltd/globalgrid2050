@@ -1,0 +1,73 @@
+{
+ "schema": "kuiper-link.v1",
+ "what_it_is": "The parameters a link to this page may carry, and examples of the addresses they make. The page and the tools build and read addresses from this table and from nothing else.",
+ "params": {
+  "key": {
+   "kind": "whole number",
+   "note": "one line of one piece of work"
+  },
+  "path": {
+   "kind": "text",
+   "note": "a file or folder whose work is highlighted"
+  },
+  "selftest": {
+   "kind": "text",
+   "note": "ask the page to check itself and say so in its title"
+  }
+ },
+ "order": [
+  "key",
+  "path",
+  "selftest"
+ ],
+ "examples": [
+  {
+   "asked": {
+    "key": 9128980453
+   },
+   "built": "?key=9128980453"
+  },
+  {
+   "asked": {
+    "key": 2
+   },
+   "built": "?key=2"
+  },
+  {
+   "asked": {
+    "path": "solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   },
+   "built": "?path=solar-bess-topology-v5%2Fcable-geometry-visualiser-v5.html"
+  },
+  {
+   "asked": {
+    "path": "a folder with spaces & an ampersand"
+   },
+   "built": "?path=a+folder+with+spaces+%26+an+ampersand"
+  },
+  {
+   "asked": {
+    "path": "café/ångström"
+   },
+   "built": "?path=caf%C3%A9%2F%C3%A5ngstr%C3%B6m"
+  },
+  {
+   "asked": {
+    "selftest": "card"
+   },
+   "built": "?selftest=card"
+  },
+  {
+   "asked": {
+    "key": 9128980453,
+    "path": "conductor_resistances",
+    "selftest": "phone"
+   },
+   "built": "?key=9128980453&path=conductor_resistances&selftest=phone"
+  },
+  {
+   "asked": {},
+   "built": ""
+  }
+ ]
+}

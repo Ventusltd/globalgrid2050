@@ -41,6 +41,12 @@
   .more:hover { border-color:#00ffff; color:#00ffff; }
   .noresult { color:#888; padding:20px 0; }
   .footer { margin-top:50px; font-size:14px; color:#aaa; line-height:1.5; }
+  .compute { margin-top:18px; padding-top:14px; border-top:1px solid #1f2a20;
+    color:#4ade80; font-size:13px; line-height:1.6; }
+  .compute strong { color:#86efac; font-weight:600; }
+  .compute .figs { color:#34d399; font-variant-numeric:tabular-nums; }
+  .compute a { color:#4ade80; text-decoration:underline; }
+  .compute .cond { color:#3f9c6a; font-size:12px; }
   .footer a { color:#5a5a5a; }
   details.nest { margin:0 0 14px 18px; border-bottom:0; } details.nest > summary { font-size:18px; padding:8px 0; } details.nest .current { font-size:18px; margin:0; padding:8px 0; border-top:0; } details.nest .current small { font-size:13px; font-weight:normal; }
 @media(max-width:600px){ body{padding:22px;font-size:18px} details.area>summary{font-size:22px} .current{font-size:22px} }
@@ -61,6 +67,30 @@
 <div class="footer">
   <p><strong>Disclaimer:</strong> Content provided for general technical documentation and research purposes only.</p>
   <p><a href="./historical_builds.html">Full archive</a></p>
+  <div class="compute">
+    <p><strong>GlobalGrid2050 explores current technology with Claude and Codex AI,
+    and actively studies <a href="https://github.com/cupy/cupy">CuPy</a> for faster
+    independent compute on local machines.</strong> The engineering arithmetic on this
+    site is enumerated on our own hardware rather than estimated, and no result is
+    published until it has been verified against a reference implementation.</p>
+    <p class="figs">Taken on one machine, 20 September 2026 &mdash; a complete solar
+    string-and-block design space of <strong>1,020,600,000</strong> designs:
+    <strong>177,289,777</strong> cases/s on the GPU with CuPy against
+    <strong>12,767,553</strong> cases/s on twelve CPU workers, a <strong>13.89&times;</strong>
+    difference, the billion run in <strong>5.6 s</strong>. A second kernel reached
+    <strong>306,440,267</strong> cases/s, <strong>40.82&times;</strong> its CPU reference.
+    Verification: 100,000 cases on a coprime stride, <strong>0 differ</strong> between the
+    scalar reference, the CPU vectorisation and the GPU, worst relative difference
+    0.00e+00 against a 1e-9 tolerance.</p>
+    <p class="cond">Conditions, because a rate without them is not evidence: one
+    machine, one 16 GB card that was shared with other work during the runs, single
+    and double precision both checked and agreeing on every verdict. CPU watts were
+    never recorded &mdash; no wall meter, no RAPL read &mdash; so no efficiency ratio
+    between processor and card is stated here or anywhere else in this work. A claim
+    of &ldquo;tens of millions a second&rdquo; for a third kernel was tested and
+    <em>not</em> reached, falling 3.0&times; short; it is recorded as not reached.
+    Method and code: <a href="https://github.com/Ventusltd/gpu-drivers-for-global-grid">gpu-drivers-for-global-grid</a>.</p>
+  </div>
 </div>
 <script>
 /* THREE NESTS, THREE ROWS EACH, EVERYTHING ELSE ON DEMAND.

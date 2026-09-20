@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Independent compute and solar block modelling</title>
+<style>
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;padding:24px 16px 64px;background:#07090d;color:#cfe3f2;
+ font:16px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;-webkit-text-size-adjust:100%}
+main{max-width:46rem;margin:0 auto}
+h1{font-size:23px;line-height:1.25;color:#fff;margin:0 0 4px;letter-spacing:.01em}
+h2{font-size:18px;color:#4ade80;margin:34px 0 8px;line-height:1.3}
+h3{font-size:15px;color:#e6e9f0;margin:22px 0 6px}
+p{margin:.7rem 0;overflow-wrap:break-word}
+strong{color:#fff;font-weight:600}
+em{color:#86efac;font-style:normal}
+code{background:#11151f;border:1px solid #1b2030;border-radius:4px;padding:1px 5px;
+ font-size:13.5px;color:#cfe3f2;overflow-wrap:break-word}
+pre{background:#11151f;border:1px solid #1b2030;border-radius:6px;padding:10px 12px;margin:10px 0;
+ font-size:12.5px;line-height:1.55;color:#cfe3f2;overflow-x:auto;white-space:pre-wrap;word-break:break-word}
+ul{margin:.7rem 0;padding-left:1.1rem}
+li{margin:.45rem 0}
+hr{border:0;border-top:1px solid #1b2030;margin:30px 0}
+a{color:#4ade80;overflow-wrap:break-word}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #1b2030;vertical-align:top}
+th{color:#86efac;font-weight:600}
+td.n{text-align:right;font-variant-numeric:tabular-nums}
+.note{color:#8b93a7;font-size:13px}
+.stamp{font:12px monospace;opacity:.7;margin:8px 0 0}
+@media(max-width:420px){body{padding:18px 16px 56px}h1{font-size:21px}h2{font-size:17px}pre{font-size:12px}
+ table{font-size:12.5px}th,td{padding:5px 4px}}
+</style>
+</head>
+<body>
+<p class="stamp">Release 202609210030 (21 September 2026). Ventus Ltd.</p>
+<main>
+<h1>Independent compute and solar block modelling</h1>
+
+<p>GlobalGrid2050 enumerates its engineering arithmetic on its own hardware
+rather than estimating it. This page states the method, the figures it has
+produced, and — as plainly — what it does not establish.</p>
+
+<h2>Why it matters commercially</h2>
+
+<p>A design question such as <em>how many modules may be placed in series on
+this site</em> has a finite number of answers. The usual practice is to test a
+handful of representative cases and reason about the rest. Enumerating the
+whole space instead removes the reasoning step, and with it the cases nobody
+thought to test.</p>
+
+<p>The constraint has always been time. A complete solar string-and-block
+design space of a billion configurations is not something a spreadsheet
+finishes. On a consumer graphics card, using the open
+<a href="https://github.com/cupy/cupy">CuPy</a> library, it now takes under six
+seconds. That is the whole finding: the space became small enough to read in
+full.</p>
+
+<h2>The method</h2>
+
+<ul>
+<li><strong>Closed forms first.</strong> The rules are written and asserted
+before any sweep runs, so the sweep can only confirm or break them — never
+discover them.</li>
+<li><strong>Three independent implementations.</strong> A plain scalar
+reference, a vectorised processor version, and a graphics-card version. All
+three must agree before a single figure is quoted.</li>
+<li><strong>Conditions travel with every number.</strong> A rate without the
+conditions it was taken under is not evidence, and is not published as though
+it were.</li>
+<li><strong>A check that reached nothing fails.</strong> A run over zero cases
+raises an error rather than returning a clean result. This is enforced in the
+code, not by discipline.</li>
+</ul>
+
+<h2>What has been produced</h2>
+
+<p>All figures below were taken on one machine on 20 September 2026, on a
+16&nbsp;GB consumer card that was shared with other work during the runs.</p>
+
+<table>
+<tr><th>Work</th><th class="n">Processor</th><th class="n">Graphics card</th><th class="n">Ratio</th></tr>
+<tr><td>Solar string-and-block space,<br>1,020,600,000 designs</td>
+    <td class="n">12,767,553/s<br><span class="note">12 workers</span></td>
+    <td class="n">177,289,777/s</td><td class="n">13.89&times;</td></tr>
+<tr><td>Network layout scoring</td>
+    <td class="n">630,553/s<br><span class="note">8 workers</span></td>
+    <td class="n">3,343,329/s</td><td class="n">5.30&times;</td></tr>
+<tr><td>Cold-voltage limit sweep,<br>27,297,270 cases</td>
+    <td class="n">7,507,811/s</td>
+    <td class="n">306,440,267/s</td><td class="n">40.82&times;</td></tr>
+</table>
+
+<p><strong>Verification.</strong> 100,000 cases on a coprime stride through the
+space: <strong>0 differ</strong> between the scalar reference, the processor
+version and the card. Worst relative difference 0.00e+00 against a 1e-9
+tolerance. Seven of seven previously published library answers reproduced.
+Single precision was run against double precision over the entire billion and
+changed <strong>0 verdicts</strong>.</p>
+
+<p><strong>A claim that failed, published as failed.</strong> A fourth kernel
+was expected to reach tens of millions of evaluations a second. It did not —
+it fell 3.0&times; short. The shortfall is recorded rather than quietly
+dropped, and its cause is understood: the gain came from batch size, which is
+the signature of launch overhead rather than arithmetic.</p>
+
+<h2>What it does not establish</h2>
+
+<ul>
+<li>No figure describes any hardware other than the one machine named.</li>
+<li>Processor power draw was never recorded — no wall meter, no direct
+read — so <strong>no efficiency comparison between processor and card is
+stated</strong>, here or anywhere in this work.</li>
+<li>A speed ratio belongs to a particular calculation, not to a card. The three
+ratios above differ by a factor of eight for exactly that reason.</li>
+<li>The card was shared during every run. Where that limited a figure, the
+limit is stated rather than corrected for.</li>
+</ul>
+
+<hr>
+
+<h2>Solar block modelling</h2>
+
+<p>The first engineering use is the DC side of a utility solar plant: what a
+string may contain, how many strings a machine may carry, and what that gives
+across a whole site. The array is a parameter, not a preset — series count,
+strings per machine, module rating and site minimum temperature are all
+supplied by the user.</p>
+
+<h3>The worked reference block</h3>
+
+<p>Five modules in portrait per plane, east&ndash;west, 30 in series, 24 strings
+on one 352&nbsp;kVA class machine:</p>
+
+<pre>19.80 kW DC per string      = 30 x 660 Wp
+475.20 kW DC per machine    = 19.80 x 24
+1.350 DC:AC ratio
+48 mated pairs, machine side = 24 strings x 2 poles</pre>
+
+<h3>At site scale, 1,000 machines</h3>
+
+<table>
+<tr><th>Machine class</th><th class="n">Strings</th><th class="n">DC</th><th class="n">AC</th><th class="n">Modules</th></tr>
+<tr><td>352 kVA class<br><span class="note">documented, in volume production</span></td>
+    <td class="n">24</td><td class="n">475.20 MWp</td><td class="n">352 MVA</td><td class="n">720,000</td></tr>
+<tr><td>500 kW class<br><span class="note">seen in hardware; specification not published</span></td>
+    <td class="n">34</td><td class="n">673.20 MWp</td><td class="n">500 MVA</td><td class="n">1,020,000</td></tr>
+</table>
+
+<p><strong>The string does not scale with the machine.</strong> Thirty modules
+in series is fixed by the 1500&nbsp;V system ceiling and the temperature
+clause, not by the inverter rating. A larger machine therefore changes only how
+many strings connect to it. The 500&nbsp;kW figures above are that ratio, and
+nothing more: the input architecture of that machine has not been published,
+so its string count is arithmetic rather than a specification.</p>
+
+<h3>The finding worth a designer's attention</h3>
+
+<p>Across 463,590 configurations of the east&ndash;west block,
+<strong>4.35%</strong> are buildable under one reading of the cold-voltage
+clause and not under the other. The reference block is among them: it holds to
+&minus;10&nbsp;&deg;C on the strict reading, and at &minus;11&nbsp;&deg;C the
+reading of the clause alone decides it.</p>
+
+<p>Both readings are therefore computed and printed everywhere in this work,
+and never collapsed into one answer. Thirty modules in series should not be
+quoted without the site minimum temperature beside it.</p>
+
+<h3>Not included, and not implied</h3>
+
+<p>Yield, energy, export, land area, cable schedules and cost are not computed
+by these models and no such figure appears in them. Nothing here is a design.
+Every published view states the limitations of what it draws, and a qualified
+engineer should be consulted before any commitment.</p>
+
+<hr>
+
+<h2>Method and code</h2>
+
+<p>The implementations, the verification runs and the results files are
+published at
+<a href="https://github.com/Ventusltd/gpu-drivers-for-global-grid">gpu-drivers-for-global-grid</a>
+— lanes <code>cuda-maths</code> (the three benchmarked workloads) and
+<code>engine</code> (the arithmetic engine and the solar block models).</p>
+
+<p class="note">GlobalGrid2050 explores current technology with Claude and
+Codex AI, and actively studies CuPy for faster independent compute on local
+machines. This page is technical documentation for research purposes. Code:
+Apache-2.0. No warranty is given.</p>
+
+<p><a href="../">Return to GlobalGrid2050</a></p>
+</main>
+</body>
+</html>

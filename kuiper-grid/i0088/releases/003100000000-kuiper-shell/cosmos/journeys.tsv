@@ -1,0 +1,17 @@
+journey	order	step	what_you_get	address	answers
+grid-connection	1	Find the project	Every UK renewable project in planning, by stage and size, from the public register	https://globalgrid2050.com/uk_renewables_pipeline/202609082224/	200
+grid-connection	2	See it on the map	The project on the grid map: nearest transmission substation at 400 kV and above, a corridor estimate	https://ventusltd.github.io/gridatlas/atlas/	200
+grid-connection	3	Where capacity is coming	Public 132 kV cable works as early signs of new capacity: counts, dates and links	https://github.com/Ventusltd/132kV	200
+grid-connection	4	Draw the system	A single line view of a real system, drawn from its description	https://globalgrid2050.com/testcode/wafer-development-environment/202609180245-real-systems/	200
+cable-engineering	1	What is inside a cable	A conductor drawn to scale: the resistance and the largest wire its standard allows	https://globalgrid2050.com/testcode/wafer-development-environment/202609192001-proof-k0014/conductor.html?c=cu6c5	200
+cable-engineering	2	Conductor resistances	Class 2 copper and aluminium: maximum resistance at 20 C and at 90 C, verified diameters	https://globalgrid2050.com/conductor_resistances/	200
+cable-engineering	3	Cable cross sections	Whole cable sections, layer by layer, from public figures	https://globalgrid2050.com/testcode/wafer-development-environment/202609190330-cable-cross-sections/	200
+cable-engineering	4	Cables in a trench	Spacing, bending radius and grouping for a cable route	https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html	200
+cable-engineering	5	AC and DC cable knowledge	What matters when choosing AC and DC cable, and where real sizing starts	https://globalgrid2050.com/ac_cables_knowledge/	200
+electrical-engineering	1	Real systems	Estimated fault current and voltage drop on worked networks; not a study	https://globalgrid2050.com/testcode/wafer-development-environment/202609180245-real-systems/	200
+electrical-engineering	2	The grid engine	The engine behind the map: rating envelope, route obstacles, published fault levels	https://ventusltd.github.io/ventus-grid-engine/	200
+electrical-engineering	3	The engineering record	Every calculation, drawing and data set in the order it was built	https://globalgrid2050.com/testcode/wafer-development-environment/202609192001-proof-k0014/	200
+procurement	1	Who is building what	Projects by stage and size: what is coming to market and when	https://globalgrid2050.com/uk_renewables_pipeline/202609082224/	200
+procurement	2	What to ask for	A nominal size is a resistance, not an area: what a cable specification must state	https://globalgrid2050.com/testcode/wafer-development-environment/202609192001-proof-k0014/conductor.html?c=cu6c5	200
+procurement	3	DC cable risk	Why DC cable quality matters on a solar site, with the public record	https://globalgrid2050.com/dc_cables_knowledge/	200
+procurement	4	Arc protection	An open design for a circuit that detects DC arcs	https://github.com/Ventusltd/pv-arc-protection-circuit	200

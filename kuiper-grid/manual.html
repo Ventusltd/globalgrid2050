@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ten network simulations you can run in the Kuiper</title>
+<style>
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;padding:24px 16px 64px;background:#07090d;color:#cfe3f2;
+ font:16px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;-webkit-text-size-adjust:100%}
+main{max-width:46rem;margin:0 auto}
+h1{font-size:23px;line-height:1.25;color:#fff;margin:0 0 4px;letter-spacing:.01em}
+h2{font-size:18px;color:#5ec8f2;margin:34px 0 8px;line-height:1.3}
+h3{font-size:15px;color:#e6e9f0;margin:22px 0 6px}
+p{margin:.7rem 0;overflow-wrap:break-word}
+strong{color:#fff;font-weight:600}
+em{color:#f2b05e;font-style:normal}
+code{background:#11151f;border:1px solid #1b2030;border-radius:4px;padding:1px 5px;
+ font-size:13.5px;color:#cfe3f2;overflow-wrap:break-word}
+pre{background:#11151f;border:1px solid #1b2030;border-radius:6px;padding:10px 12px;margin:10px 0;
+ font-size:12.5px;line-height:1.55;color:#cfe3f2;overflow-x:auto;white-space:pre-wrap;word-break:break-word}
+ul{margin:.7rem 0;padding-left:1.1rem}
+li{margin:.45rem 0}
+hr{border:0;border-top:1px solid #1b2030;margin:30px 0}
+a{color:#5ec8f2;overflow-wrap:break-word}
+figure{margin:14px 0}
+figure img{display:block;width:100%;max-width:280px;height:auto;border:1px solid #1b2030;border-radius:8px;background:#0b0e14}
+figcaption{font-size:11.5px;color:#8b93a7;margin-top:5px;overflow-wrap:break-word}
+@media(max-width:420px){body{padding:18px 16px 56px}h1{font-size:21px}h2{font-size:17px}pre{font-size:12px}}
+</style>
+</head>
+<body>
+<main>
+<h1>Ten network simulations you can run in the Kuiper</h1>
+<p>Ventus Ltd</p>
+<h2>How the Kuiper works in one minute</h2>
+<p>The Kuiper is a drawing engine on a static page. Nothing is installed and nothing is sent anywhere: the page draws.</p>
+<ul><li><strong>The bar.</strong> At the bottom of the screen there is a command bar. It says <em>tap here for the commands</em>. Tap it, type a command, press Enter.</li><li><strong>The pop-up.</strong> If you would rather not type, tap the bar and pick a command from the list that opens. The list fills the bar with a working command, so you can see what you just chose and change one number in it.</li><li><strong>The pulse.</strong> Every command fires a ring that sweeps out from the middle. The ring is the search: whatever it touches and keeps is left lit, and everything it did not keep stays dark. The pulse is how the page shows you the size of the answer before you read a word of it.</li><li><strong>The cage.</strong> When the pulse settles, a thin outline is drawn around the set it kept. The cage is the boundary of the answer: inside it is what the command selected, outside it is the rest of the drawing.</li><li><strong>The card.</strong> A card opens with the sentence, the numbers, and a line saying how the answer was got. You can drag the card, shrink it, or close it and keep the picture.</li><li><strong>Solid and dashed.</strong> A solid line is drawn from data. A dashed line is assumed: the drawing is showing you a join it inferred rather than read. Counts of assumptions are printed on the card.</li></ul>
+<p>Everything below was run on a phone-sized screen, 390 pixels wide.</p>
+<p><strong>What none of it tells you.</strong> The map is drawn from open map data. It says nothing about capacity, nothing about headroom, and nothing about what is actually connected to what at any moment. Assumed things are drawn dashed. Do not read a route on this map as a circuit.</p>
+<hr>
+<h2>1. Look at the whole network</h2>
+<p><strong>Open:</strong> <code>kuiper-grid/i0089/</code></p>
+<p><strong>Type:</strong></p>
+<pre>fire grid</pre>
+<p><strong>First five seconds.</strong> The ring sweeps out and leaves the whole drawn network lit: about 5,800 stations and the links between them, laid out as an Underground-style map rather than as geography. The card says <em>tap a station, or type a place, to throw the cage around it.</em></p>
+<p><strong>Pulse and cage.</strong> The pulse here selects everything, so no cage is drawn. This is the starting picture that every other grid command narrows down.</p>
+<p><strong>It does not tell you</strong> what any of it can carry. The map is drawn from open map data and says nothing about capacity, headroom or what is connected. Assumed things are drawn dashed.</p>
+<figure><img src="manual-shots/0089-s01-whole-network.png" alt="phone screenshot"><figcaption>manual-shots/0089-s01-whole-network.png</figcaption></figure>
+<hr>
+<h2>2. Order a ticket to one station</h2>
+<p><strong>Open:</strong> <code>kuiper-grid/i0089/</code></p>
+<p><strong>Type:</strong></p>
+<pre>fire grid {&quot;place&quot;:&quot;Minety Substation&quot;}</pre>
+<p><strong>First five seconds.</strong> The ring sweeps out from that station, leaves it and its immediate neighbours lit, draws a cage around them and opens a card: <em>the cage is around Minety Substation: 7 stations within 2 hops.</em></p>
+<p><strong>Pulse and cage.</strong> Two hops is the default. The pulse walks two stops out along the drawn network; the cage is the outline of everything it reached.</p>
+<p><strong>If the name is not found</strong> the card lists the nearest names in the data, so you can try again. Any name printed in the data works; this one is an example.</p>
+<p><strong>It does not tell you</strong> whether those seven are electrically connected today. The map is drawn from open map data and says nothing about capacity, headroom or what is connected. Assumed things are drawn dashed.</p>
+<figure><img src="manual-shots/0089-s02-one-station.png" alt="phone screenshot"><figcaption>manual-shots/0089-s02-one-station.png</figcaption></figure>
+<hr>
+<h2>3. Reach three stops out instead of two</h2>
+<p><strong>Open:</strong> <code>kuiper-grid/i0089/</code></p>
+<p><strong>Type:</strong></p>
+<pre>fire grid {&quot;place&quot;:&quot;Minety Substation&quot;,&quot;hops&quot;:3}</pre>
+<p><strong>First five seconds.</strong> The same station, but the ring travels one stop further before it stops. The cage grows to match. The card names the hop count it used so you always know which picture you are looking at.</p>
+<p><strong>Pulse and cage.</strong> Hops are counted along the drawn network, not across the ground. One, two and three are the range.</p>
+<p><strong>It does not tell you</strong> that three hops is a route anyone could use. The map is drawn from open map data and says nothing about capacity, headroom or what is connected. Assumed things are drawn dashed.</p>
+<figure><img src="manual-shots/0089-s04-three-hops.png" alt="phone screenshot"><figcaption>manual-shots/0089-s04-three-hops.png</figcaption></figure>
+<hr>
+<h2>4. Keep one voltage class only</h2>
+<p><strong>Open:</strong> <code>kuiper-grid/i0089/</code></p>
+<p><strong>Type:</strong></p>
+<pre>fire grid {&quot;place&quot;:&quot;Minety Substation&quot;,&quot;hops&quot;:3,&quot;kv&quot;:400}</pre>
+<p><strong>First five seconds.</strong> The same sweep, but the ring only keeps links drawn at the class you named. The cage shrinks, sometimes to a single station, and the card counts what survived.</p>
+<p><strong>Pulse and cage.</strong> This is the cheapest way to see how thin one class is on its own. If you name a class the drawing does not hold, the card lists the classes it does hold.</p>
+<p><strong>It does not tell you</strong> the operating voltage of anything. The class is a label in the map data. The map says nothing about capacity, headroom or what is connected. Assumed things are drawn dashed.</p>
+<figure><img src="manual-shots/0089-s05-voltage-class.png" alt="phone screenshot"><figcaption>manual-shots/0089-s05-voltage-class.png</figcaption></figure>
+<hr>
+<h2>5. Draw a region measured on the ground</h2>
+<p><strong>Open:</strong> <code>kuiper-grid/i0089/</code></p>
+<p><strong>Type:</strong></p>
+<pre>fire grid {&quot;view&quot;:&quot;region&quot;,&quot;place&quot;:&quot;Minety Substation&quot;,&quot;km&quot;:45}</pre>
+<p><strong>First five seconds.</strong> A circle is measured on the ground around the named place, and every station inside it is laid out as a tube map. The card reads <em>the region within 45 km of Minety Substation: 169 stations.</em></p>
+<p><strong>Pulse and cage.</strong> This cage is a distance, not a walk. Hops follow the network; a region ignores it and takes everything within the radius. Comparing a region with a cage of the same size is the quickest way to see how little the network follows the map. The radius runs from 5 to 120 km.</p>
+<p><strong>A region needs a place.</strong> Without one the card says so rather than quietly drawing the whole network instead.</p>
+<p><strong>It does not tell you</strong> what any of those 169 stations do. The map is drawn from open map data and says nothing about capacity, headroom or what is connected. Assumed things are drawn dashed.</p>
+<figure><img src="manual-shots/0089-s03-region.png" alt="phone screenshot"><figcaption>manual-shots/0089-s03-region.png</figcaption></figure>
+<hr>
+<h2>6. List the local systems that have been written up</h2>
+<p><strong>Open:</strong> <code>kuiper-grid/i0089/</code></p>
+<p><strong>Type:</strong></p>
+<pre>fire local</pre>
+<p><strong>First five seconds.</strong> The card names each local system that has been written up and tells you to name one. It is the index for simulation 7.</p>
+<p><strong>Pulse and cage.</strong> No cage is thrown yet: this is a question about the drawing, not a selection inside it.</p>
+<p><strong>It does not tell you</strong> anything about real sites. The systems listed here are <strong>example fixtures</strong>, written to exercise the drawing. Real data is not wired in yet.</p>
+<figure><img src="manual-shots/0089-s06-local.png" alt="phone screenshot"><figcaption>manual-shots/0089-s06-local.png</figcaption></figure>
+<hr>
+<h2>7. Open one local system</h2>
+<p><strong>Open:</strong> <code>kuiper-grid/i0089/</code></p>
+<p><strong>Type:</strong></p>
+<pre>fire local {&quot;station&quot;:&quot;Hartmoor (fixture)&quot;}</pre>
+<p><strong>First five seconds.</strong> The view drops from the national tube map to one station&#x27;s own system: its incomers, its outgoers, and where each one goes. The card counts what it had to assume, in plain words: <em>1 of 5 outgoers end at the edge of the map; 1 join is guessed.</em></p>
+<p><strong>Pulse and cage.</strong> The cage here is the boundary of the local system itself. An outgoer that leaves the cage is drawn running off the edge, not invented.</p>
+<p><strong>It does not tell you</strong> anything about a real place. <strong>This view&#x27;s data is an example fixture.</strong> The word <em>(fixture)</em> is in the name for that reason. Assumed joins are drawn dashed and counted on the card.</p>
+<figure><img src="manual-shots/0089-s07-local-one.png" alt="phone screenshot"><figcaption>manual-shots/0089-s07-local-one.png</figcaption></figure>
+<hr>
+<h2>8. One substation and every way out of it</h2>
+<p><strong>Open:</strong> <code>kuiper-grid/i0090/</code></p>
+<p><strong>Type:</strong></p>
+<pre>fire substation {&quot;site&quot;:&quot;Barking&quot;}</pre>
+<p><strong>First five seconds.</strong> One substation is drawn with every way out of it. The card reads <em>Barking: 4 ways out, 6 circuits, 400 kV</em>, and then, without being asked, <em>4 of 20 values assumed (far end identity)</em>.</p>
+<p><strong>Pulse and cage.</strong> The pulse gathers the ways out one at a time; the cage is the substation&#x27;s own boundary, with each outgoer crossing it. Assumed far ends are dashed.</p>
+<p><strong>To go back</strong> to the previous picture, type:</p>
+<pre>back</pre>
+<p><strong>It does not tell you</strong> what those circuits carry or whether they are in service. The map is drawn from open map data and says nothing about capacity, headroom or what is connected. A quarter of the values on this card are assumptions, and the card says so.</p>
+<figure><img src="manual-shots/0090-s09-substation.png" alt="phone screenshot"><figcaption>manual-shots/0090-s09-substation.png</figcaption></figure>
+<hr>
+<h2>9. Wire one solar string and see the cable</h2>
+<p><strong>Open:</strong> <code>kuiper-grid/i0091/</code></p>
+<p><strong>Type:</strong></p>
+<pre>fire string {&quot;mounting&quot;:&quot;fixed&quot;,&quot;modules_high&quot;:1,&quot;routing&quot;:&quot;leapfrog&quot;}</pre>
+<p>or tap the bar and choose a preset such as <strong>1P leapfrog</strong> or <strong>2P sequential</strong>. Twelve presets are supplied; each one fills the bar with the command it ran, so you can change one number and fire it again.</p>
+<p><strong>First five seconds.</strong> A row of modules is drawn with the string cable threaded through it: leapfrog wiring goes out along every other module and comes back through the ones it skipped. The card opens with the sentence, the picture&#x27;s own numbers, and the standing line <em>Not real cable or array sizing — consult a design engineer.</em></p>
+<p><strong>Pulse and cage.</strong> The pulse runs along the string in the order the cable does, so you watch the route being made rather than being told about it. The cage is the string.</p>
+<p><strong>Try changing one thing:</strong> <code>&quot;routing&quot;:&quot;one-after-another&quot;</code> draws the same row wired in order, and the long cable that has to come back from the far end appears. That single cable is the whole argument for leapfrog, drawn rather than argued.</p>
+<p><strong>It does not tell you</strong> what to buy. Nothing here is measured; the numbers are estimates from a model, and the page says so on every card.</p>
+<figure><img src="manual-shots/0091-s16-string-leapfrog.png" alt="phone screenshot"><figcaption>manual-shots/0091-s16-string-leapfrog.png</figcaption></figure>
+<hr>
+<h2>10. Draw a whole inverter block</h2>
+<p><strong>Open:</strong> <code>kuiper-grid/i0091/</code></p>
+<p><strong>Type:</strong></p>
+<pre>fire block {}</pre>
+<p><strong>First five seconds.</strong> Not one string but every string on one inverter: twenty-four of them, each drawn with its own pair of home runs landing on its own named inverter input. This is the richest picture in the set and takes the longest to settle.</p>
+<p><strong>Pulse and cage.</strong> The pulse fills the block string by string. The cage is the block boundary; the inverter inputs sit on it, named, so you can follow any one string from module to terminal.</p>
+<p><strong>It does not tell you</strong> whether the block is buildable. Nothing here is measured. The same standing line — <em>Not real cable or array sizing</em> — is on this card too.</p>
+<figure><img src="manual-shots/0091-s18-block.png" alt="phone screenshot"><figcaption>manual-shots/0091-s18-block.png</figcaption></figure>
+<hr>
+<h2>Tried and not working yet</h2>
+<p>Honest list, from the same run:</p>
+<ul><li><strong>Tapping a station on the map to open its card</strong> — the map draws and the typed commands cage correctly, but opening a station&#x27;s card by tapping it did not complete on the phone-sized screen. Use simulation 2 instead.</li><li><strong><code>neighbours</code> and <code>pulse</code> typed on i0090</strong> — offered in the pop-up list, but no command of that name runs yet. The card says so plainly rather than drawing something wrong.</li><li><strong><code>outage &lt;station&gt;</code> typed on i0090</strong> — no outage command runs yet; the bar falls through to a text search and finds nothing.</li><li><strong><code>systems</code> and <code>system single line diagrams</code> typed on i0086</strong> — the words appear in the pop-up list but nothing is registered behind them yet.</li></ul>
+<p>These, and everything else known to be unfinished, are written up in <code>ISSUES-NEXT-WEEK.md</code> alongside this manual.</p>
+<hr>
+<h2>Attribution and licence</h2>
+<p>Contains open map data (c) OpenStreetMap contributors, available under the Open Database License (ODbL) v1.0; any derived database is shared alike. <a href="https://www.openstreetmap.org/copyright">https://www.openstreetmap.org/copyright</a></p>
+<p>Code: Apache-2.0. No warranty is given.</p>
+</main>
+</body>
+</html>

@@ -1,7 +1,7 @@
 {
  "schema": "globalgrid.current.v1",
- "generation": "202609200104",
- "previous_generation": "202609200051",
+ "generation": "202609200051",
+ "previous_generation": "202609200037",
  "architecture": "IMMUTABLE_SHELL_PLUS_HASHED_CARTRIDGES",
  "live_route": "/kuiper/",
  "release_id": "202609192301-kuiper-shell",
@@ -69,20 +69,20 @@
   },
   {
    "id": "kuiper-card",
-   "generation": "202609200104",
+   "generation": "202609200051",
    "type": "script",
    "slot": "replace-script",
    "replaces": "kuiper-card.js",
-   "path": "./cartridges/202609200104-kuiper-card.js",
-   "sha256": "704370dd2bf1fd85a14e0b4b5793f6482e9ce6e754436e34177226633922e70d",
-   "bytes": 21403,
-   "release": "k0040",
+   "path": "./cartridges/202609200051-kuiper-card.js",
+   "sha256": "f0f6e017cd77cc235bc3e19ba877969c84c29d55b45322d2337a7e4d25310663",
+   "bytes": 19920,
+   "release": "k0039",
    "job": "what a tap opens: the tile, the brand block, the code window"
   }
  ],
  "last_known_green": {
-  "generation": "202609200104",
-  "release": "k0040",
-  "proved": "# Kuiper: the header stays"
+  "generation": "202609200051",
+  "release": "k0039",
+  "proved": "# Kuiper: the code window can be checked from outside"
  }
 }

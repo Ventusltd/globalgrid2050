@@ -5,15 +5,19 @@ name: GPU engine check
 # agreeing - which is the only thing that would make the published rates
 # meaningless.
 #
-# Requires a runner with the gpu label, and the CuPy environment at
-# E:\swarm\gpu-bench\venv. If either is missing the job FAILS rather than
-# skipping: a check that reached nothing is not a pass.
+# SHELL NOTE: bash.exe is NOT on the MSI machine PATH and pwsh is not
+# installed, so every step uses `shell: powershell` (5.1). A `shell: bash`
+# step here does not fail loudly - it is skipped with "bash: command not
+# found" and the check silently verifies nothing.
+#
+# If the card or the CuPy environment is missing, this job FAILS. A check that
+# reached nothing is not a pass.
 
 on:
   workflow_dispatch:
   schedule:
     # every two hours, off the half hour so it does not collide with the
-    # language gate or the half-hourly night tests
+    # language gate at :35 or the half-hourly night tests
     - cron: '15 */2 * * *'
 
 permissions:
@@ -22,6 +26,9 @@ permissions:
 concurrency:
   group: gpu-engine-check
   cancel-in-progress: false
+
+env:
+  VENV_PY: 'E:\swarm\gpu-bench\venv\Scripts\python.exe'
 
 jobs:
   engine:
@@ -37,56 +44,59 @@ jobs:
           fetch-depth: 1
 
       - name: The environment must exist
-        shell: bash
+        shell: powershell
         run: |
-          set -e
-          PY="/e/swarm/gpu-bench/venv/Scripts/python.exe"
-          if [ ! -f "$PY" ]; then
-            echo "FAIL: the CuPy environment is missing at $PY."
-            echo "This check reached nothing, so it fails rather than passing."
+          if (-not (Test-Path $env:VENV_PY)) {
+            Write-Host "FAIL: the CuPy environment is missing at $env:VENV_PY."
+            Write-Host "This check reached nothing, so it fails rather than passing."
             exit 1
-          fi
-          "$PY" -c "import numpy, cupy; print('numpy', numpy.__version__, '| cupy', cupy.__version__)"
+          }
+          & $env:VENV_PY -c "import numpy, cupy; print('numpy', numpy.__version__, '| cupy', cupy.__version__)"
 
       - name: Card present and answering
-        shell: bash
+        shell: powershell
         run: |
-          set -e
           nvidia-smi --query-gpu=name,memory.free,memory.total,power.draw,temperature.gpu --format=csv,noheader
-          "/e/swarm/gpu-bench/venv/Scripts/python.exe" -c "import cupy; d=cupy.cuda.Device(0); f,t=d.mem_info; print('free %.2f GB of %.2f GB' % (f/1e9, t/1e9)); assert float(cupy.arange(1000, dtype=cupy.float64).sum()) == 499500.0"
+          & $env:VENV_PY -c "import cupy; d=cupy.cuda.Device(0); f,t=d.mem_info; print('free %.2f GB of %.2f GB' % (f/1e9, t/1e9)); assert float(cupy.arange(1000, dtype=cupy.float64).sum()) == 499500.0; print('kernel ok')"
 
       - name: Engine self-test, both backends must agree
-        shell: bash
+        shell: powershell
         working-directory: gpu-repo/engine
         run: |
-          set -e
-          "/e/swarm/gpu-bench/venv/Scripts/python.exe" selftest.py | tee engine.log
-          grep -q "BOTH BACKENDS AGREE" engine.log
-          grep -q "0 differ" engine.log
+          & $env:VENV_PY selftest.py | Tee-Object -FilePath engine.log
+          if ($LASTEXITCODE -ne 0) { Write-Host "FAIL: selftest exited $LASTEXITCODE"; exit 1 }
+          $log = Get-Content engine.log -Raw
+          if ($log -notmatch 'BOTH BACKENDS AGREE') { Write-Host "FAIL: the backends did not agree"; exit 1 }
+          if ($log -notmatch '0 differ') { Write-Host "FAIL: verification did not report 0 differ"; exit 1 }
+          Write-Host "PASS: both backends agree and verification reports 0 differ"
 
       - name: The east-west block still reproduces its closed forms
-        shell: bash
+        shell: powershell
         working-directory: gpu-repo/engine
         run: |
-          set -e
-          "/e/swarm/gpu-bench/venv/Scripts/python.exe" east_west_block.py | tee block.log
-          grep -q "0 differ" block.log
-          grep -q "19.80 kW DC a string" block.log
+          & $env:VENV_PY east_west_block.py | Tee-Object -FilePath block.log
+          if ($LASTEXITCODE -ne 0) { Write-Host "FAIL: east_west_block exited $LASTEXITCODE"; exit 1 }
+          $log = Get-Content block.log -Raw
+          if ($log -notmatch '0 differ') { Write-Host "FAIL: block verification did not report 0 differ"; exit 1 }
+          if ($log -notmatch '19\.80 kW DC a string') { Write-Host "FAIL: the reference block figures changed"; exit 1 }
+          Write-Host "PASS: the reference block still reproduces 19.80 kW a string"
 
       - name: Farm model, both machine classes
-        shell: bash
+        shell: powershell
         working-directory: gpu-repo/engine
         run: |
-          set -e
-          python farm.py --inverters 1000 | tee farm352.log
-          grep -q "475.20 MWp" farm352.log
-          python farm.py --class 500 --inverters 1000 --solve-dcac 1.35 | tee farm500.log
-          grep -q "673.20 MWp" farm500.log
+          python farm.py --inverters 1000 | Tee-Object -FilePath farm352.log
+          if ((Get-Content farm352.log -Raw) -notmatch '475\.20 MWp') { Write-Host "FAIL: the 352 kVA farm total changed"; exit 1 }
+          python farm.py --class 500 --inverters 1000 --solve-dcac 1.35 | Tee-Object -FilePath farm500.log
+          if ((Get-Content farm500.log -Raw) -notmatch '673\.20 MWp') { Write-Host "FAIL: the 500 kW farm total changed"; exit 1 }
+          Write-Host "PASS: both farm classes reproduce their totals"
 
       - name: Record the run
         if: always()
-        shell: bash
+        shell: powershell
         working-directory: gpu-repo/engine
         run: |
-          echo "--- engine ---"; tail -20 engine.log 2>/dev/null || echo "(no engine log)"
-          echo "--- block ---";  tail -12 block.log  2>/dev/null || echo "(no block log)"
+          Write-Host "--- engine ---"
+          if (Test-Path engine.log) { Get-Content engine.log -Tail 20 } else { Write-Host "(no engine log)" }
+          Write-Host "--- block ---"
+          if (Test-Path block.log) { Get-Content block.log -Tail 12 } else { Write-Host "(no block log)" }

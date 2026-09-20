@@ -5,7 +5,12 @@ name: Public language gate
 # the published manual carried twenty reserved words, every one inside a
 # disclaimer written to protect the reader. Intent is not the test.
 #
-# This runs on the MSI runners, like everything else.
+# SHELL NOTE, learned the hard way at 00:30 on 21 September: this runs on the
+# MSI runners, where bash.exe is NOT on the machine PATH and pwsh is not
+# installed. A step with `shell: bash` does not fail loudly - the step is
+# skipped with "bash: command not found" and the gate silently checks nothing.
+# Every step here uses `shell: powershell` (5.1). Do not change that without
+# checking the runner PATH first.
 
 on:
   push:
@@ -42,20 +47,30 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Python must be present
+        shell: powershell
+        run: |
+          $py = Get-Command python -ErrorAction SilentlyContinue
+          if (-not $py) {
+            Write-Host "FAIL: python is not on this runner's PATH."
+            Write-Host "A check that cannot run is not a pass."
+            exit 1
+          }
+          Write-Host ("python: " + $py.Source)
+          python --version
+
       - name: Show the published surface
-        shell: bash
+        shell: powershell
         run: python scripts/check_public_language.py --list
 
       - name: Gate
-        shell: bash
-        run: |
-          set -e
-          python scripts/check_public_language.py
+        shell: powershell
+        run: python scripts/check_public_language.py
 
       - name: What a failure means
         if: failure()
-        shell: bash
+        shell: powershell
         run: |
-          echo "This page must not be published as it stands."
-          echo "Either the wording changes, or the rule does - deliberately,"
-          echo "in scripts/check_public_language.py, with a reason."
+          Write-Host "This page must not be published as it stands."
+          Write-Host "Either the wording changes, or the rule does - deliberately,"
+          Write-Host "in scripts/check_public_language.py, with a reason."

@@ -21,6 +21,11 @@ on:
       # this file has learned the same lesson: a folder that is published must be listed here.
       - 'kuiper/**'
       - 'systems/**'
+      # The compute method page is published from its own folder at /compute/.
+      # Fourth time this file learns the lesson: on 2026-09-21 it went live as a
+      # 404 because the folder was not listed here, and the manual dispatches
+      # that would have covered it were cancelled by the concurrency group.
+      - 'compute/**'
       # A new PipelineNews release is a directory under uk_renewables_pipeline.
       # It was NOT in this list, so a push that only added a release triggered
       # no deploy at all: 202609061329 sat at HTTP 404 through eight polls after

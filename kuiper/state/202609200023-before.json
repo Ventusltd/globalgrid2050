@@ -1,7 +1,7 @@
 {
  "schema": "globalgrid.current.v1",
- "generation": "202609200023",
- "previous_generation": "202609200009",
+ "generation": "202609200009",
+ "previous_generation": "202609192355",
  "architecture": "IMMUTABLE_SHELL_PLUS_HASHED_CARTRIDGES",
  "live_route": "/kuiper/",
  "release_id": "202609192301-kuiper-shell",
@@ -15,8 +15,7 @@
   "kuiper-chrome",
   "kuiper-programs",
   "kuiper-tests",
-  "kuiper-work",
-  "kuiper-card"
+  "kuiper-work"
  ],
  "cartridges": [
   {
@@ -66,23 +65,11 @@
    "bytes": 17738,
    "release": "k0036",
    "job": "the programs: isolate an application, the small Kuiper, its name"
-  },
-  {
-   "id": "kuiper-card",
-   "generation": "202609200023",
-   "type": "script",
-   "slot": "replace-script",
-   "replaces": "kuiper-card.js",
-   "path": "./cartridges/202609200023-kuiper-card.js",
-   "sha256": "688255b8e029dc7fcf3cb2b47abab8b3af1d1b07e2cde2dda3a2947a9552a7d9",
-   "bytes": 19143,
-   "release": "k0037",
-   "job": "what a tap opens: the tile, the brand block, the code window"
   }
  ],
  "last_known_green": {
-  "generation": "202609200023",
-  "release": "k0037",
-  "proved": "# Kuiper: every dot shows the code behind it"
+  "generation": "202609200009",
+  "release": "k0036",
+  "proved": "# Kuiper: the gathered work gathers again"
  }
 }

@@ -1,7 +1,7 @@
 {
  "schema": "globalgrid.current.v1",
- "generation": "202609200300",
- "previous_generation": "202609200232",
+ "generation": "202609200232",
+ "previous_generation": "202609200118",
  "architecture": "IMMUTABLE_SHELL_PLUS_HASHED_CARTRIDGES",
  "live_route": "/kuiper/",
  "release_id": "202609192301-kuiper-shell",
@@ -69,11 +69,11 @@
   },
   {
    "id": "kuiper-chrome",
-   "generation": "202609200300",
+   "generation": "202609200232",
    "type": "script",
    "slot": "replace-script",
    "replaces": "kuiper-chrome.js",
-   "path": "./cartridges/202609200300-kuiper-chrome.js",
+   "path": "./cartridges/202609200232-kuiper-chrome.js",
    "sha256": "1f68f73470709b022a1d78e7299f009215b5920c06ad54db1b4e74a9c2bf9f30",
    "bytes": 2678,
    "release": "k0044",
@@ -81,7 +81,7 @@
   }
  ],
  "last_known_green": {
-  "generation": "202609200300",
+  "generation": "202609200232",
   "release": "k0044",
   "proved": "minimal face: top left box gone, one grey footnote"
  }

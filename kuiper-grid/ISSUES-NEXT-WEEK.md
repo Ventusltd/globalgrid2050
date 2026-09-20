@@ -1,3 +1,5 @@
+> Release 202609202048 (20 September 2026, 20:48 BST). Builds i0073, i0083 to i0091. Issues as known at this release.
+
 # Issues to fix next week
 
 Ventus Ltd. This is the trail left with the ten published simulations: what we

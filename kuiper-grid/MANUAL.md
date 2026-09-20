@@ -1,3 +1,5 @@
+> Release 202609202048 (20 September 2026, 20:48 BST). Builds i0073, i0083 to i0091.
+
 # Ten network simulations you can run in the Kuiper
 
 Ventus Ltd

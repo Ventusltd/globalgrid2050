@@ -1,7 +1,7 @@
 {
  "schema": "globalgrid.current.v1",
- "generation": "202609200037",
- "previous_generation": "202609200023",
+ "generation": "202609200023",
+ "previous_generation": "202609200009",
  "architecture": "IMMUTABLE_SHELL_PLUS_HASHED_CARTRIDGES",
  "live_route": "/kuiper/",
  "release_id": "202609192301-kuiper-shell",
@@ -30,6 +30,18 @@
    "bytes": 2597,
    "release": "k0032",
    "job": "how the page is dressed"
+  },
+  {
+   "id": "kuiper-tests",
+   "generation": "202609192341",
+   "type": "script",
+   "slot": "replace-script",
+   "replaces": "kuiper-tests.js",
+   "path": "./cartridges/202609192341-kuiper-tests.js",
+   "sha256": "94f07e130ed676feba8595a89a4383455c3394b96111f09f52bb62119a79b373",
+   "bytes": 74410,
+   "release": "k0034",
+   "job": "the page's own checks"
   },
   {
    "id": "kuiper-work",
@@ -66,23 +78,11 @@
    "bytes": 19143,
    "release": "k0037",
    "job": "what a tap opens: the tile, the brand block, the code window"
-  },
-  {
-   "id": "kuiper-tests",
-   "generation": "202609200037",
-   "type": "script",
-   "slot": "replace-script",
-   "replaces": "kuiper-tests.js",
-   "path": "./cartridges/202609200037-kuiper-tests.js",
-   "sha256": "6969b153a8eb865bb893f08a43bc86abd4269cc0ac7db6ebfad52c4dd4d7becc",
-   "bytes": 76527,
-   "release": "k0038",
-   "job": "the page's own checks"
   }
  ],
  "last_known_green": {
-  "generation": "202609200037",
-  "release": "k0038",
-  "proved": "# Kuiper: the page's own checks for code on every dot"
+  "generation": "202609200023",
+  "release": "k0037",
+  "proved": "# Kuiper: every dot shows the code behind it"
  }
 }

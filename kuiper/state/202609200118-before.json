@@ -1,7 +1,7 @@
 {
  "schema": "globalgrid.current.v1",
- "generation": "202609200118",
- "previous_generation": "202609200104",
+ "generation": "202609200104",
+ "previous_generation": "202609200051",
  "architecture": "IMMUTABLE_SHELL_PLUS_HASHED_CARTRIDGES",
  "live_route": "/kuiper/",
  "release_id": "202609192301-kuiper-shell",
@@ -56,6 +56,18 @@
    "job": "the programs: isolate an application, the small Kuiper, its name"
   },
   {
+   "id": "kuiper-tests",
+   "generation": "202609200037",
+   "type": "script",
+   "slot": "replace-script",
+   "replaces": "kuiper-tests.js",
+   "path": "./cartridges/202609200037-kuiper-tests.js",
+   "sha256": "6969b153a8eb865bb893f08a43bc86abd4269cc0ac7db6ebfad52c4dd4d7becc",
+   "bytes": 76527,
+   "release": "k0038",
+   "job": "the page's own checks"
+  },
+  {
    "id": "kuiper-card",
    "generation": "202609200104",
    "type": "script",
@@ -66,23 +78,11 @@
    "bytes": 21403,
    "release": "k0040",
    "job": "what a tap opens: the tile, the brand block, the code window"
-  },
-  {
-   "id": "kuiper-tests",
-   "generation": "202609200118",
-   "type": "script",
-   "slot": "replace-script",
-   "replaces": "kuiper-tests.js",
-   "path": "./cartridges/202609200118-kuiper-tests.js",
-   "sha256": "fefa0a309b92da778bc2c92fcc837ecf2521826d189a666019b8c2a470f82693",
-   "bytes": 78353,
-   "release": "k0041",
-   "job": "the page's own checks"
   }
  ],
  "last_known_green": {
-  "generation": "202609200118",
-  "release": "k0041",
-  "proved": "# Kuiper: the page's own checks for the header"
+  "generation": "202609200104",
+  "release": "k0040",
+  "proved": "# Kuiper: the header stays"
  }
 }

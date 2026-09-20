@@ -1,7 +1,7 @@
 {
  "schema": "globalgrid.current.v1",
- "generation": "202609200009",
- "previous_generation": "202609192355",
+ "generation": "202609192355",
+ "previous_generation": "202609192341",
  "architecture": "IMMUTABLE_SHELL_PLUS_HASHED_CARTRIDGES",
  "live_route": "/kuiper/",
  "release_id": "202609192301-kuiper-shell",
@@ -31,6 +31,18 @@
    "job": "how the page is dressed"
   },
   {
+   "id": "kuiper-programs",
+   "generation": "202609192321",
+   "type": "script",
+   "slot": "replace-script",
+   "replaces": "kuiper-programs.js",
+   "path": "./cartridges/202609192321-kuiper-programs.js",
+   "sha256": "3d6a52c16dd80afa8bd1711b57d7539d053f7df1cd67dd927fa2cab71922f5c5",
+   "bytes": 16929,
+   "release": "k0033",
+   "job": "the programs: isolate an application, the small Kuiper, its name"
+  },
+  {
    "id": "kuiper-tests",
    "generation": "202609192341",
    "type": "script",
@@ -53,23 +65,11 @@
    "bytes": 1195864,
    "release": "k0035",
    "job": "what every piece of public work changed"
-  },
-  {
-   "id": "kuiper-programs",
-   "generation": "202609200009",
-   "type": "script",
-   "slot": "replace-script",
-   "replaces": "kuiper-programs.js",
-   "path": "./cartridges/202609200009-kuiper-programs.js",
-   "sha256": "a9675c6b9c3e20969c3847ff230eaa3c1d90fbed6366bf23ec068b47999132ed",
-   "bytes": 17738,
-   "release": "k0036",
-   "job": "the programs: isolate an application, the small Kuiper, its name"
   }
  ],
  "last_known_green": {
-  "generation": "202609200009",
-  "release": "k0036",
-  "proved": "# Kuiper: the gathered work gathers again"
+  "generation": "202609192355",
+  "release": "k0035",
+  "proved": "# Kuiper: what every piece of work changed"
  }
 }

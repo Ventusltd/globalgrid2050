@@ -1,0 +1,61 @@
+name: Public language gate
+
+# Register entry 24: the rule that certain words must not appear in public text
+# was enforced by reading, and reading does not enforce. On 20 September 2026
+# the published manual carried twenty reserved words, every one inside a
+# disclaimer written to protect the reader. Intent is not the test.
+#
+# This runs on the MSI runners, like everything else.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'status.html'
+      - 'historical_builds.html'
+      - 'compute/**'
+      - 'kuiper-grid/**'
+      - 'scripts/check_public_language.py'
+      - '.github/workflows/public-language-gate.yml'
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    # hourly, so a page that drifts is caught even without a push
+    - cron: '35 * * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: public-language-gate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gate:
+    runs-on: [self-hosted, msi]
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Show the published surface
+        shell: bash
+        run: python scripts/check_public_language.py --list
+
+      - name: Gate
+        shell: bash
+        run: |
+          set -e
+          python scripts/check_public_language.py
+
+      - name: What a failure means
+        if: failure()
+        shell: bash
+        run: |
+          echo "This page must not be published as it stands."
+          echo "Either the wording changes, or the rule does - deliberately,"
+          echo "in scripts/check_public_language.py, with a reason."

@@ -1,0 +1,92 @@
+name: GPU engine check
+
+# Keeps the GPU arithmetic honest while nobody is watching. It runs the engine
+# on the real card on the MSI and fails if the processor and the card stop
+# agreeing - which is the only thing that would make the published rates
+# meaningless.
+#
+# Requires a runner with the gpu label, and the CuPy environment at
+# E:\swarm\gpu-bench\venv. If either is missing the job FAILS rather than
+# skipping: a check that reached nothing is not a pass.
+
+on:
+  workflow_dispatch:
+  schedule:
+    # every two hours, off the half hour so it does not collide with the
+    # language gate or the half-hourly night tests
+    - cron: '15 */2 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gpu-engine-check
+  cancel-in-progress: false
+
+jobs:
+  engine:
+    runs-on: [self-hosted, msi, gpu]
+    timeout-minutes: 20
+    steps:
+      - name: Fetch the engine
+        uses: actions/checkout@v4
+        with:
+          repository: Ventusltd/gpu-drivers-for-global-grid
+          ref: main
+          path: gpu-repo
+          fetch-depth: 1
+
+      - name: The environment must exist
+        shell: bash
+        run: |
+          set -e
+          PY="/e/swarm/gpu-bench/venv/Scripts/python.exe"
+          if [ ! -f "$PY" ]; then
+            echo "FAIL: the CuPy environment is missing at $PY."
+            echo "This check reached nothing, so it fails rather than passing."
+            exit 1
+          fi
+          "$PY" -c "import numpy, cupy; print('numpy', numpy.__version__, '| cupy', cupy.__version__)"
+
+      - name: Card present and answering
+        shell: bash
+        run: |
+          set -e
+          nvidia-smi --query-gpu=name,memory.free,memory.total,power.draw,temperature.gpu --format=csv,noheader
+          "/e/swarm/gpu-bench/venv/Scripts/python.exe" -c "import cupy; d=cupy.cuda.Device(0); f,t=d.mem_info; print('free %.2f GB of %.2f GB' % (f/1e9, t/1e9)); assert float(cupy.arange(1000, dtype=cupy.float64).sum()) == 499500.0"
+
+      - name: Engine self-test, both backends must agree
+        shell: bash
+        working-directory: gpu-repo/engine
+        run: |
+          set -e
+          "/e/swarm/gpu-bench/venv/Scripts/python.exe" selftest.py | tee engine.log
+          grep -q "BOTH BACKENDS AGREE" engine.log
+          grep -q "0 differ" engine.log
+
+      - name: The east-west block still reproduces its closed forms
+        shell: bash
+        working-directory: gpu-repo/engine
+        run: |
+          set -e
+          "/e/swarm/gpu-bench/venv/Scripts/python.exe" east_west_block.py | tee block.log
+          grep -q "0 differ" block.log
+          grep -q "19.80 kW DC a string" block.log
+
+      - name: Farm model, both machine classes
+        shell: bash
+        working-directory: gpu-repo/engine
+        run: |
+          set -e
+          python farm.py --inverters 1000 | tee farm352.log
+          grep -q "475.20 MWp" farm352.log
+          python farm.py --class 500 --inverters 1000 --solve-dcac 1.35 | tee farm500.log
+          grep -q "673.20 MWp" farm500.log
+
+      - name: Record the run
+        if: always()
+        shell: bash
+        working-directory: gpu-repo/engine
+        run: |
+          echo "--- engine ---"; tail -20 engine.log 2>/dev/null || echo "(no engine log)"
+          echo "--- block ---";  tail -12 block.log  2>/dev/null || echo "(no block log)"

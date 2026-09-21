@@ -1,7 +1,7 @@
 {
  "schema": "globalgrid.current.v1",
- "generation": "008900000000",
- "previous_generation": null,
+ "generation": "009200000000",
+ "previous_generation": "008900000000",
  "architecture": "IMMUTABLE_SHELL_PLUS_HASHED_CARTRIDGES",
  "live_route": "/kuiper/",
  "release_id": "003100000000-kuiper-shell",
@@ -21,13 +21,13 @@
  "cartridges": [
   {
    "id": "kuiper-chrome",
-   "generation": "008600000000",
+   "generation": "009200000000",
    "type": "script",
    "slot": "replace-script",
    "replaces": "kuiper-chrome.js",
-   "path": "./cartridges/008600000000-kuiper-chrome.js",
-   "sha256": "bc16d9ac517b2285eb6427607321c881e688276deb05bd1e6fb5cca5b333de19",
-   "release": "k0086"
+   "path": "./cartridges/009200000000-kuiper-chrome.js",
+   "sha256": "f55f48f7de07647a5f9b9834da77097471010cb3083b34f20878e77f3f60f8ec",
+   "release": "k0092"
   },
   {
    "id": "kuiper-programs",

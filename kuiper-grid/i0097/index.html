@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>globalgrid2050</title>
+  <style>
+    html,body{height:100%;margin:0;background:#0b0d12;color:#d8dee9;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace}
+    #composer{display:grid;place-items:center;height:100%;padding:24px;text-align:center}
+    #composer strong{color:#5ec8f2;letter-spacing:.1em}
+    #composer small{color:#8b93a7}
+  </style>
+</head>
+<body data-composer="loading">
+  <main id="composer"><div><strong>GLOBALGRID2050</strong><br>checking this page against its record…<br><small>provided as is, without warranty of any kind; a chart, not a design</small></div></main>
+  <script type="module">
+    // THE COMPOSER. GridAtlas's pattern as it stands (gridatlas/atlas/index.html): one frozen shell, features as hashed
+    // cartridges, and current.json, the pointer, saying which. This page is the ONE ADDRESS that never changes. It reads
+    // the pointer, fetches the shell, fetches every cartridge the pointer names, and lets a cartridge in ONLY if its
+    // bytes hash to what the pointer says. A release is a change to the pointer; a rollback is the pointer put back;
+    // the shell is never edited. If anything does not match, nothing runs and the page says so in plain words.
+    //
+    // Two slots:  replace-script  the shell's <script src="…/NAME"> is pointed at the cartridge instead
+    //             import-map      an import of NAME anywhere in the shell resolves to the cartridge instead
+    // A cartridge is ONE file with no imports of its own neighbours: one file, one job.
+    const CLOSE = '</scr' + 'ipt>';
+    const box = document.getElementById('composer');
+    const must = (ok, why) => { if (!ok) throw new Error(why); };
+    const attr = v => String(v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+    const sha256 = async bytes => [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(b => b.toString(16).padStart(2, '0')).join('');
+
+    try {
+      const r = await fetch('./current.json', { cache: 'no-store' });
+      must(r.ok, 'the record of this page could not be read (' + r.status + ')');
+      const cur = await r.json();
+      must(cur && cur.schema === 'globalgrid.current.v1', 'the record of this page is in a form this page does not know');
+      must(cur.architecture === 'IMMUTABLE_SHELL_PLUS_HASHED_CARTRIDGES', 'the record of this page names another architecture');
+      must(Array.isArray(cur.cartridge_order) && Array.isArray(cur.cartridges) && cur.shell, 'the record of this page is incomplete');
+
+      const shellUrl = new URL(cur.shell.index, location.href), shellBase = new URL(cur.shell.base, location.href).href;
+      const sr = await fetch(shellUrl, { cache: 'no-store' });
+      must(sr.ok, 'the page itself could not be fetched (' + sr.status + ')');
+      const shellBytes = await sr.arrayBuffer();
+      must(await sha256(shellBytes) === cur.shell.sha256, 'the page itself is not the one that was released');
+      let html = new TextDecoder('utf-8').decode(shellBytes);
+      must(/<head\b/i.test(html) && /<body\b/i.test(html), 'the page itself is not a page');
+
+      const byId = new Map(cur.cartridges.map(c => [c.id, c])), loaded = [], imports = {};
+      const tags = new RegExp('<script\\b([^>]*)\\bsrc=(["\'])([^"\']+)\\2([^>]*)>\\s*<\\/script>', 'gi');
+      for (const id of cur.cartridge_order) {
+        const c = byId.get(id);
+        must(c, 'a part named in the record is missing from it: ' + id);
+        must(/^[a-f0-9]{64}$/.test(c.sha256 || ''), id + ': the record holds no fingerprint for it');
+        must(c.slot === 'replace-script' || c.slot === 'import-map', id + ': a slot this page does not have');
+        must(typeof c.replaces === 'string' && c.replaces, id + ': the record does not say what it replaces');
+        const url = new URL(c.path, location.href);
+        const cr = await fetch(url, { cache: 'no-store' });
+        must(cr.ok, id + ' could not be fetched (' + cr.status + ')');
+        must(await sha256(await cr.arrayBuffer()) === c.sha256, id + ' is not the file that was released');
+        if (c.slot === 'import-map') imports[new URL(c.replaces, shellBase).href] = url.href;
+        else {
+          let done = false;
+          html = html.replace(tags, (full, a, q, src, b) => {
+            if (done || String(src).split(/[?#]/)[0].split('/').pop() !== c.replaces) return full;   // matched by file name
+            done = true;
+            return '<script' + a + 'data-cartridge="' + attr(id) + '" src="' + attr(url.href) + '"' + b + '>' + CLOSE;
+          });
+          must(done, id + ': the page has no place for it (' + c.replaces + ')');
+        }
+        loaded.push({ id, generation: c.generation, sha256: c.sha256 });
+      }
+      const state = JSON.stringify({ schema: cur.schema, generation: cur.generation, shell: cur.shell, cartridges: loaded }).replace(/</g, '\\u003c');
+      const head = '\n<base href="' + attr(shellBase) + '">'
+        + (Object.keys(imports).length ? '\n<script type="importmap">' + JSON.stringify({ imports }).replace(/</g, '\\u003c') + CLOSE : '')
+        + '\n<script>window.__COMPOSED__=' + state + ';document.documentElement.dataset.generation=' + JSON.stringify(cur.generation) + ';' + CLOSE;
+      html = html.replace(/<head([^>]*)>/i, m => m + head);
+      document.open(); document.write(html); document.close();
+    } catch (e) {
+      console.error('[composer]', e);
+      document.body.dataset.composer = 'refused';
+      box.innerHTML = '<div><strong>THIS PAGE DID NOT OPEN</strong><br>' + String(e && e.message || e).replace(/[<>&]/g, '')
+        + '<br><small>Nothing was run. The released page has not been changed.<br>provided as is, without warranty of any kind; a chart, not a design</small></div>';
+    }
+  </script>
+</body>
+</html>

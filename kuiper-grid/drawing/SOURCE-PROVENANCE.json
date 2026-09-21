@@ -1,11 +1,11 @@
 {
-  "release": "20260921-generic-v1",
+  "release": "20260922-generic-v2-content",
   "nativePublicCommit": "9f498d57538a92506d14b6bffd1882d3618454e3",
   "files": [
     {
       "path": "index.html",
       "source": "Original generic release code or asset",
-      "changes": "Generic entry; explicit scripts; same-origin CSP; source artwork removed",
+      "changes": "Generic entry; explicit scripts; same-origin CSP; source artwork removed; 2026-09-22: drawing title and header scope clarified, structure unchanged",
       "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
     },
     {

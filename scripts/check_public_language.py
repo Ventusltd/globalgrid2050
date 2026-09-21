@@ -39,6 +39,14 @@ SURFACE = [
     # unchecked while the gate still prints PASS. plant/ is added with the
     # page, not after it.
     "plant/*.html",
+    # SIXTH TIME THE ALLOW-LIST DEFECT ABOVE BIT. On 21 September 2026 the
+    # composer shell at kuiper/ and all sixteen build shells under
+    # kuiper-grid/i0*/ were given visible prose - navigation, a scope note
+    # and the unsourced-limit warning - and NONE of them were on this list,
+    # so the gate read eight files, printed PASS, and had not looked at any
+    # of the seventeen pages the text had just been added to.
+    "kuiper/*.html",
+    "kuiper-grid/i0*/*.html",
 ]
 
 # ---- what must never appear in public text

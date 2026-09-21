@@ -5,14 +5,36 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>globalgrid2050</title>
   <style>
-    html,body{height:100%;margin:0;background:#0b0d12;color:#d8dee9;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace}
-    #composer{display:grid;place-items:center;height:100%;padding:24px;text-align:center}
+    html,body{margin:0;background:#0b0d12;color:#d8dee9;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace}
+    #composer{display:grid;place-items:center;min-height:50vh;padding:24px;text-align:center}
     #composer strong{color:#5ec8f2;letter-spacing:.1em}
     #composer small{color:#8b93a7}
+    #waysout{max-width:44rem;margin:0 auto;padding:0 20px 40px;border-top:1px solid #1b2030}
+    #waysout h2{font-size:14px;color:#5ec8f2;letter-spacing:.06em;text-transform:uppercase;margin:24px 0 8px}
+    #waysout p{color:#8b93a7;margin:8px 0}
+    #waysout ul{margin:10px 0;padding-left:1.1rem}
+    #waysout li{margin:7px 0;color:#8b93a7}
+    #waysout a{color:#5ec8f2;font-weight:600}
+    #waysout .small{font-size:12px;color:#6f7789}
   </style>
 </head>
 <body data-composer="loading">
   <main id="composer"><div><strong>GLOBALGRID2050</strong><br>checking this page against its record…<br><small>provided as is, without warranty of any kind; a chart, not a design</small></div></main>
+  <!-- THE WAY OUT. This page is a composer: with script off, or with a refused
+       record, it renders nothing a reader can click. Plain anchors, in the
+       served bytes, so this build is never a dead end. -->
+  <nav id="waysout">
+    <h2>Build i0091 &mdash; part of the Kuiper</h2>
+    <p>This address loads one development build. If it has not loaded, or you have script switched off, start from the plain pages:</p>
+    <ul>
+      <li><a href="/kuiper-grid/manual.html">The manual</a> &mdash; what this is, what to type, what the answer means, and what it refuses</li>
+      <li><a href="/plant/">Will this string go over 1500&nbsp;V on the coldest morning?</a> &mdash; three commands ready to copy</li>
+      <li><a href="/kuiper-grid/">All development builds</a></li>
+      <li><a href="/compute/">Independent compute</a> &nbsp;&middot;&nbsp; <a href="/">Everything else published here</a></li>
+    </ul>
+    <p class="small">A development build. Two of the four limits this engine measures a design against have no source in any document, and a verdict that turns on one of them is provisional. <a href="/kuiper-grid/manual.html#unsourced">The manual says which.</a></p>
+    <p class="small">A chart, not a design. Not a connection offer, not a constructability assessment, not a consenting design. No output of it is engineering.</p>
+  </nav>
   <script type="module">
     // THE COMPOSER. GridAtlas's pattern as it stands (gridatlas/atlas/index.html): one frozen shell, features as hashed
     // cartridges, and current.json, the pointer, saying which. This page is the ONE ADDRESS that never changes. It reads
@@ -79,7 +101,7 @@
       console.error('[composer]', e);
       document.body.dataset.composer = 'refused';
       box.innerHTML = '<div><strong>THIS PAGE DID NOT OPEN</strong><br>' + String(e && e.message || e).replace(/[<>&]/g, '')
-        + '<br><small>Nothing was run. The released page has not been changed.<br>provided as is, without warranty of any kind; a chart, not a design</small></div>';
+        + '<br><small>Nothing was run. The released page has not been changed. The plain pages below still work.<br>provided as is, without warranty of any kind; a chart, not a design</small></div>';
     }
   </script>
 </body>

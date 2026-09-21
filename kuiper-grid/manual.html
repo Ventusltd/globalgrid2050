@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ten network simulations you can run in the Kuiper</title>
+<title>The Kuiper manual: what it is, what to type, and what it will not tell you</title>
 <style>
 :root{color-scheme:dark}
 *{box-sizing:border-box}
@@ -27,19 +27,76 @@ a{color:#5ec8f2;overflow-wrap:break-word}
 figure{margin:14px 0}
 figure img{display:block;width:100%;max-width:280px;height:auto;border:1px solid #1b2030;border-radius:8px;background:#0b0e14}
 figcaption{font-size:11.5px;color:#8b93a7;margin-top:5px;overflow-wrap:break-word}
+.box{border:1px solid #2a3142;border-radius:6px;padding:12px 14px;margin:14px 0;background:#0b0e14}
+.box.red{border-color:#5a2230;background:#130a0d}
+.box.red strong{color:#ff8a8a}
+.box.amber{border-color:#5a4520;background:#130f07}
+.box.amber strong{color:#f2b05e}
+dl.grammar{margin:10px 0}
+dl.grammar dt{color:#e6e9f0;font-weight:600;margin-top:10px}
+dl.grammar dd{margin:2px 0 0 0;color:#a9b4c6}
+table.fig{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0}
+table.fig th,table.fig td{border-bottom:1px solid #1b2030;padding:6px 8px;text-align:left;vertical-align:top}
+table.fig th{color:#5ec8f2;font-weight:600}
+table.fig td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
 @media(max-width:420px){body{padding:18px 16px 56px}h1{font-size:21px}h2{font-size:17px}pre{font-size:12px}}
 </style>
 </head>
 <body>
-<p style="font:12px monospace;opacity:.7;margin:8px 16px">Release 202609202048 (20 September 2026, 20:48 BST). Builds i0073, i0083 to i0091.</p>
+<p style="font:12px monospace;opacity:.7;margin:8px 16px">Builds i0073 and i0083 to i0097. &middot; <a href="/">home</a> &middot; <a href="/kuiper-grid/">all builds</a> &middot; <a href="/plant/">the plant drawing</a> &middot; <a href="/compute/">independent compute</a></p>
 <main>
-<h1>Ten network simulations you can run in the Kuiper</h1>
+<h1>The Kuiper manual: what it is, what to type, and what it will not tell you</h1>
 <p>Ventus Ltd</p>
+<div class="box">
+<p><strong>If you have never seen this before, read this box and nothing else.</strong></p>
+<p>This is a drawing engine that runs in your browser. You type a short command; it draws a picture of part of an electrical system and opens a card with the numbers and with a statement of how it got them. Nothing is installed and nothing you type leaves your device.</p>
+<p>Every command has the same shape:</p>
+<pre>fire &lt;what&gt; {&lt;arguments as JSON&gt;}</pre>
+<p><code>fire</code> is always the first word. <code>&lt;what&gt;</code> names the thing to draw &mdash; <code>grid</code>, <code>substation</code>, <code>local</code>, <code>string</code>, <code>block</code>, <code>site</code>. The braces hold ordinary JSON: double quotes around names and around text, bare digits for numbers, commas between pairs. <code>{}</code> means &ldquo;no arguments, use the defaults&rdquo;, and for some commands the braces can be left off entirely. Copy a line below, paste it into the bar at the foot of the build, and press Enter.</p>
+<p><strong>What the answer means.</strong> The card is a reading of a drawing, not a result of a study. A <em>solid</em> line was read from data. A <em>dashed</em> line was assumed by the engine, and the card counts its assumptions out loud. Where the engine tests a design against a limit, it names the limit and says whether that limit can be pointed at in a document &mdash; see <a href="#unsourced">the honest limit</a> below, because two of the four cannot.</p>
+</div>
+
+<div class="box amber">
+<p><strong>It refuses, and that is the feature.</strong></p>
+<p>Given something it cannot stand behind, the engine writes a refusal in words and draws nothing. It does not quietly substitute a default and answer anyway. Three things it refuses:</p>
+<ul>
+<li><strong>A value of the wrong kind.</strong> <code>fire site {&quot;modules_in_series&quot;:&quot;thirty&quot;}</code> &mdash; a count given as words. It says so; nothing is drawn.</li>
+<li><strong>A name it does not hold.</strong> Ask for a station that is not in the data and it lists the nearest names it does hold, so the question can be asked again. It does not pick the closest match for you.</li>
+<li><strong>A missing argument a default would have to invent.</strong> <code>fire grid {&quot;view&quot;:&quot;region&quot;}</code> with no place: a region has to be a radius around somewhere, so it says a place is required rather than silently taking the whole network.</li>
+</ul>
+<p>A refusal is the most useful output this engine produces, because the alternative &mdash; a plausible number standing in for one nobody supplied &mdash; is indistinguishable from an answer.</p>
+</div>
+
+<div class="box red">
+<p><strong>What this is not.</strong></p>
+<ul>
+<li>It is <strong>not a connection offer</strong> and not a connection assessment. It says nothing about what any asset can carry, how much of that capacity is already committed, or what is connected to what at any moment.</li>
+<li>It is <strong>not a constructability assessment</strong>. It does not establish that anything drawn here can be built.</li>
+<li>It is <strong>not a consenting design</strong> and carries no planning, environmental or land status.</li>
+<li><strong>No output of it is engineering.</strong> Engineering carries a named, qualified engineer who takes responsibility for it. Nothing here does. It is a chart that says where to look and where to simulate properly; it does not say what a proper simulation will find.</li>
+<li>No project, site, client, maker or model is named anywhere in this work. Any name you see in an example is either printed in open map data or is a written fixture, and is labelled as such.</li>
+</ul>
+</div>
+
+<h2 id="unsourced">The honest limit: two of the four limits have no source</h2>
+<p>When the engine judges a solar design, it measures it against four limits. Two of them are printed on the source documents. Two of them are not, and were carried in the code as if they were.</p>
+<table class="fig">
+<tr><th>Limit</th><th>Value</th><th>Where it comes from</th></tr>
+<tr><td>Maximum system voltage</td><td class="n">1500 V DC</td><td>Printed on the source documents, on every bin.</td></tr>
+<tr><td>Maximum series fuse</td><td class="n">35 A</td><td>Printed on the source documents, per bin.</td></tr>
+<tr><td>Per-input current limit</td><td class="n">40 A</td><td><strong>No source.</strong> Recorded as <em>absent</em> from both source documents.</td></tr>
+<tr><td>String current limit</td><td class="n">20 A</td><td><strong>No source.</strong> It appears nowhere in the evidence base at all.</td></tr>
+</table>
+<p><strong>A verdict that turns on either of the bottom two is provisional and is marked as such.</strong> It is a fact about an invented constant, not about any hardware. This is stated here, in the public text, because the alternative &mdash; publishing four limits as though they were equally well founded &mdash; is the exact failure this manual exists to prevent.</p>
+<p>It is not a small corner of the problem. Swept over a fixed box of 1,000,008,375,000 cases, the rule resting on the unsourced 40 A constant claims 605,428,046,670 of them &mdash; <strong>about three cases in five</strong>. The rule resting on the unsourced 20 A constant claims 349,356,466,155, about one in three. The rule resting on the printed 1500 V rating claims 319,769,650,900, just under one in three. The majority of this space is decided by a number nobody can point at in a document.</p>
+<p class="note"><em>Read those figures carefully.</em> A rule&rsquo;s volume is a property of that rule over that box at that step size. Change the box or halve the step and the numbers change; that is geometry, not physics. And the two arithmetic paths that produced them were both built here, so their agreement proves consistency, never truth.</p>
+<hr>
+
 <p>The Kuiper turns energy-system data into interactive engineering drawings. It is built to explore network topology, local systems and solar electrical layouts visually, while distinguishing source data from inferred relationships at every point. It is an exploration and communication environment, not a substitute for detailed engineering design or network studies.</p>
 <h2>How the Kuiper works</h2>
 <p>The Kuiper is a drawing engine that runs entirely in the browser on a static page. Nothing is installed, and no data leaves the device.</p>
 <ul><li><strong>The bar.</strong> A command bar sits at the foot of the screen, labelled <em>tap here for the commands</em>. Select it, type a command and press Enter.</li><li><strong>The pop-up.</strong> If you would rather not type, select the bar and choose from the list that opens. Each entry fills the bar with a complete, working command, so you can see what you have chosen and amend a single value before firing it.</li><li><strong>The pulse.</strong> Every command fires a ring that sweeps outward from the centre. The ring is the search: whatever it reaches and retains is left lit, and everything it does not retain stays dark. The pulse conveys the scale of the result before a word of it is read.</li><li><strong>The cage.</strong> When the pulse settles, a thin outline is drawn around the retained set. The cage is the boundary of the result: inside it is the selection, outside it is the remainder of the drawing.</li><li><strong>The card.</strong> A card opens with the finding, the figures, and a statement of how the result was obtained. The card can be moved, reduced or closed without losing the drawing.</li><li><strong>Solid and dashed.</strong> A solid line is drawn from source data. A dashed line is inferred: the drawing is showing a join it has assumed rather than read. The number of assumptions is printed on the card.</li></ul>
-<p>Every simulation below was run on a phone-sized screen, 390 pixels wide.</p>
+<p>Eleven worked simulations follow. Every one of them was run on a phone-sized screen, 390 pixels wide.</p>
 <p><strong>Scope and limitations.</strong> The drawing is derived from open map data. It does not state what any asset can carry, how much of that is already committed, or what is connected to what at any given moment. Inferred joins are drawn dashed. A route on this map must not be read as a circuit.</p>
 <hr>
 <h2>1. View the complete drawn network</h2>
@@ -137,6 +194,58 @@ figcaption{font-size:11.5px;color:#8b93a7;margin-top:5px;overflow-wrap:break-wor
 <p><strong>Pulse and cage.</strong> The pulse fills the block string by string. The cage is the block boundary; the inverter inputs sit on it, named, so any one string can be followed from module to terminal.</p>
 <p><strong>Limitations.</strong> The drawing does not establish whether the block is buildable. No figure here is taken from a physical test. The same standing statement — <em>Not real cable or array sizing</em> — appears on this card.</p>
 <figure><img src="manual-shots/0091-s18-block.png" alt="phone screenshot"><figcaption>manual-shots/0091-s18-block.png</figcaption></figure>
+<hr>
+
+<hr>
+<h2>11. Will this string go over 1500&nbsp;V on the coldest morning?</h2>
+<p><strong>Open:</strong> <a href="i0097/index.html">kuiper-grid/i0097/</a> &nbsp;(or the plain page at <a href="/plant/">/plant/</a>, which carries the same three commands ready to copy)</p>
+<p><strong>Type:</strong></p>
+<pre>fire site {"module_class":"T660","modules_in_series":30,"site_min_c":-10}</pre>
+<p><strong>On firing.</strong> The whole plant is drawn &mdash; grid, interface, collection busbar, one column per block &mdash; and the card states, in volts, where that string sits against the 1500&nbsp;V equipment rating. This one clears it by <strong>2.5&nbsp;V</strong>. That is the entire margin: two and a half volts on fifteen hundred.</p>
+<p><strong>The three arguments.</strong></p>
+<dl class="grammar">
+<dt><code>"module_class"</code> &mdash; text, in quotes</dt><dd>Which bin of the module family, written as its class label. The bin decides the open-circuit voltage and therefore the answer.</dd>
+<dt><code>"modules_in_series"</code> &mdash; a whole number</dt><dd>How many modules are wired end to end in one string. Given words instead of digits it refuses.</dd>
+<dt><code>"site_min_c"</code> &mdash; a number, degrees Celsius, negative for below freezing</dt><dd>The coldest cell temperature the design has to survive. Cold raises open-circuit voltage; this is the argument the answer is most sensitive to.</dd>
+</dl>
+<p><strong>Change one value and it fails.</strong> One bin up, same thirty modules, same &minus;10&nbsp;&deg;C:</p>
+<pre>fire site {"module_class":"T665","modules_in_series":30,"site_min_c":-10}</pre>
+<p>&mdash; now <strong>over the rating by 4.0&nbsp;V</strong>. The bin that is actually delivered decides it, not the bin on the offer. A 6.5&nbsp;V swing between a pass and a fail is the whole point of the exercise.</p>
+<p><strong>And a refusal.</strong></p>
+<pre>fire site {"modules_in_series":"thirty"}</pre>
+<p>It says, in words, that it cannot stand behind a count written as text. Nothing is drawn. No default answers in its place.</p>
+<p><strong>Limitations.</strong> Read <a href="#unsourced">the honest limit</a> above before reading any verdict: only the 1500&nbsp;V rating and the 35&nbsp;A series fuse are printed on the source documents. A verdict that turns on the 40&nbsp;A or the 20&nbsp;A limit rests on a constant with no source and is provisional. Separately: voltage margin does not divide by plant size. One design stamped out N times means every string is identical, and a cold morning reaches the whole site inside the same hour. Scale multiplies the consequence and never the tolerance.</p>
+
+<hr>
+<h2 id="proof">The proof behind the numbers: what survives, and what is destroyed</h2>
+<p>The verdicts above are not produced once and trusted. The space around them is searched continuously on a graphics card, and almost everything the search touches is destroyed on purpose. Only what survives is written to disk. This section is the accounting, because a page that shows you only its survivors is showing you a selected sample.</p>
+<p><strong>What a survivor is.</strong> A candidate is kept only if all three of these hold:</p>
+<ul>
+<li><strong>It was computed twice and the two answers agreed.</strong> Every candidate is evaluated along two arithmetic routes &mdash; a factored form, and the same expression expanded by the distributive law, which rounds twice where the factored form rounds once. If the two routes disagree on the verdict, the candidate is destroyed and <em>nothing at all is written</em>: no log line, no warning, no count sitting in a file beside the word SUCCESS.</li>
+<li><strong>Its verdict rests on a limit that traces to a document.</strong> If the only thing that decided it was the unsourced 40&nbsp;A or the unsourced 20&nbsp;A constant, it is destroyed. Provenance is part of the arithmetic, not a note added afterwards.</li>
+<li><strong>It sits within one step of changing its answer.</strong> A point deep inside a settled region only repeats what is already known. It is the expensive kind of nothing, because it looks like work.</li>
+</ul>
+<p><strong>One completed run, thirty seconds.</strong></p>
+<table class="fig">
+<tr><th>Measure</th><th>Value</th></tr>
+<tr><td>Candidates evaluated</td><td class="n">18,194,890,752</td></tr>
+<tr><td>Candidates carried forward</td><td class="n">6,036,015,418</td></tr>
+<tr><td>Rate</td><td class="n">about 606 million per second</td></tr>
+<tr><td>Generations</td><td class="n">4,338</td></tr>
+<tr><td>Times the drive was written</td><td class="n">38</td></tr>
+<tr><td>Evaluations per line written to disk</td><td class="n">478,812,914</td></tr>
+</table>
+<p>About one candidate in three survives; two in three are destroyed and leave no trace. Thirty-eight lines reached the drive from eighteen billion evaluations, because the drive is written only when the shape of the surviving set actually moves. The card&rsquo;s own memory runs about a hundred times faster than the drive beneath it, so a search that sent every evaluation through the drive would run at under one per cent of the card&rsquo;s speed and wear it out carrying numbers nobody reads.</p>
+
+<div class="box amber">
+<p><strong>Three things this proof does not prove. Do not read past them.</strong></p>
+<ul>
+<li><strong>Zero destroyed pairs is not evidence.</strong> The two arithmetic routes really do differ on a large share of candidates &mdash; by at most one unit in the last place of a double-precision number. But no candidate in this space lands close enough to a limit for that last bit to flip the verdict. A parting count of zero is therefore the <em>expected</em> result of the arithmetic, not a demonstration that the arithmetic is sound. Anyone quoting the count without this sentence is quoting it wrongly.</li>
+<li><strong>Agreement is not truth.</strong> Both routes were written here. Both can be wrong in the same way, and a second channel that inherits a mistake from the first will confirm it forever. In a separate five-pair test, one pair agreed to the last digit and <em>both halves were wrong the same way</em>, having taken the error from the wording of the task they were given. Verification between two things one has built is closed under one&rsquo;s own belief: it proves consistency, never truth.</li>
+<li><strong>A generation count is not a coverage fraction.</strong> Later generations deliberately resample the boundary that earlier ones found, so the evaluations are concentrated at the edge, not spread across the space. Calling evaluations &ldquo;cases covered&rdquo; is exactly the error that put a figure forty-eight times too large into a published file on 21 September 2026.</li>
+</ul>
+</div>
+
 <hr>
 <h2>Functions under development</h2>
 <p>The following are not available in this release:</p>

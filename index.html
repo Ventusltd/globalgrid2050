@@ -49,6 +49,17 @@
   .compute .cond { color:#3f9c6a; font-size:12px; }
   .footer a { color:#5a5a5a; }
   details.nest { margin:0 0 14px 18px; border-bottom:0; } details.nest > summary { font-size:18px; padding:8px 0; } details.nest .current { font-size:18px; margin:0; padding:8px 0; border-top:0; } details.nest .current small { font-size:13px; font-weight:normal; }
+
+  /* THE DOORS. Static bytes, no JavaScript, no fetch. Everything below this
+     block is drawn by script from a 289 KB catalogue; until 21 September 2026
+     that meant the served HTML contained no link to the work at all, so a
+     scraper, a link preview or a reader with script disabled saw an empty
+     page. A door costs nothing and survives a failed fetch. */
+  nav.doors { margin: 0 0 26px; border-top: 1px solid #333; border-bottom: 1px solid #333; padding: 6px 0 10px; }
+  nav.doors h2 { font-size: 15px; color: #00ffff; letter-spacing: .5px; margin: 12px 0 8px; text-transform: uppercase; }
+  nav.doors a { display: block; font-size: 19px; font-weight: bold; color: #66ccff; padding: 7px 0; border-bottom: 1px solid #1c1c1c; }
+  nav.doors a small { display: block; color: #9aa3af; font-size: 13px; font-weight: normal; margin-top: 2px; }
+  nav.doors p.note { color: #8a8a8a; font-size: 13px; margin: 10px 0 0; }
 @media(max-width:600px){ body{padding:22px;font-size:18px} details.area>summary{font-size:22px} .current{font-size:22px} }
 </style>
 </head>
@@ -57,6 +68,24 @@
   <h1>GlobalGrid2050</h1>
   <p>An open grid development, engineering, procurement, construction and operations platform dedicated to documenting, analysing and improving the world's electrical energy systems as they undergo rapid electrification.</p>
 </header>
+<nav class="doors">
+  <h2>Start here</h2>
+  <a href="/kuiper-grid/manual.html">The manual &mdash; read this first
+    <small>What the Kuiper is, what to type, what the answer means, and what it refuses. Worked examples you can paste.</small></a>
+  <a href="/plant/">Will this string go over 1500&nbsp;V on the coldest morning?
+    <small>Type a module class, a count in series and a site minimum temperature. It answers in volts, or it refuses.</small></a>
+  <a href="/kuiper-grid/">The Kuiper &mdash; the grid as a map
+    <small>Every development build, newest first: the network as a transit map, one substation and every way out, the solar string picture.</small></a>
+  <a href="/kuiper/">The Kuiper work browser
+    <small>The permanent address. One frozen shell and hashed cartridges; it refuses to run anything whose bytes do not match the record.</small></a>
+  <a href="/compute/">Independent compute
+    <small>The method behind the figures on this page, and the solar block models.</small></a>
+  <a href="/historical_builds.html">Full archive
+    <small>Every build ever published, as a plain list.</small></a>
+  <p class="note">Provided as is, without warranty of any kind. A chart, not a design. Nothing here is a connection assessment, a constructability assessment or a consenting design, and no output of it is engineering.</p>
+  <noscript><p class="note">The searchable catalogue below this block is drawn by script. With script off, the six links above are the whole site's front doors and each one works.</p></noscript>
+</nav>
+
 <main>
   <input type="text" id="q" placeholder="Search everything… (name, stamp, commit)" autocomplete="off">
   <div class="controls">

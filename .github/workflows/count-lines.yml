@@ -21,6 +21,10 @@ jobs:
     runs-on: self-hosted
     timeout-minutes: 360
     strategy:
+      # JOB CAP. A 50-lane matrix on the same push that publishes a page can
+      # starve the Pages deploy behind it, and then "pushed" is reported as
+      # "live" while the site still serves the old bytes. Capped at 12.
+      max-parallel: 12
       fail-fast: false
       matrix:
         shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
@@ -33,7 +37,9 @@ jobs:
           if (-not $depth) { $depth = 'history' }
           $belt  = Join-Path $env:USERPROFILE 'Documents\GitHub\Kuiper-belt'
           $tool  = Join-Path $belt 'tools\count_lines.py'
-          $roots = 'C:/Users/vikra/Documents/GitHub'
+          # No absolute path and no account name in a public file: derive it
+          # from the runner's own profile.
+          $roots = (Join-Path $env:USERPROFILE 'Documents/GitHub') -replace '\','/'
           if (-not (Test-Path $tool)) { throw "count_lines.py not found at $tool" }
           $out = Join-Path $env:RUNNER_TEMP "count-${{ matrix.shard }}"
           New-Item -ItemType Directory -Force -Path $out | Out-Null

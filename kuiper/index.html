@@ -5,14 +5,43 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>globalgrid2050</title>
   <style>
-    html,body{height:100%;margin:0;background:#0b0d12;color:#d8dee9;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace}
-    #composer{display:grid;place-items:center;height:100%;padding:24px;text-align:center}
+    html,body{margin:0;background:#0b0d12;color:#d8dee9;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace}
+    #composer{display:grid;place-items:center;min-height:50vh;padding:24px;text-align:center}
     #composer strong{color:#5ec8f2;letter-spacing:.1em}
     #composer small{color:#8b93a7}
+    #waysout{max-width:44rem;margin:0 auto;padding:0 20px 40px;border-top:1px solid #1b2030}
+    #waysout h2{font-size:15px;color:#5ec8f2;letter-spacing:.06em;text-transform:uppercase;margin:26px 0 10px}
+    #waysout p{color:#8b93a7;margin:10px 0}
+    #waysout ul{margin:12px 0;padding-left:1.1rem}
+    #waysout li{margin:8px 0;color:#8b93a7}
+    #waysout a{color:#5ec8f2;font-weight:600}
+    #waysout .small{font-size:12px;color:#6f7789}
+    /* Once the composer has written the real page over this one, these bytes are
+       gone with it; while it is still loading they sit below the fold. */
+    body[data-composer="loading"] #composer{height:auto;min-height:50vh}
   </style>
 </head>
 <body data-composer="loading">
   <main id="composer"><div><strong>GLOBALGRID2050</strong><br>checking this page against its record…<br><small>provided as is, without warranty of any kind; a chart, not a design</small></div></main>
+
+  <!-- THE WAY OUT. This page is a composer: with script off, or with a refused
+       record, it renders nothing a reader can click. Until 21 September 2026 it
+       was a byte-perfect 200 with zero navigable links, declared live by every
+       record on the host and linked to by nothing. These are plain anchors in
+       the served bytes. They cost nothing and they survive a failed fetch. -->
+  <nav id="waysout">
+    <h2>The Kuiper</h2>
+    <p>This address loads the work browser. If it has not loaded, or you have script switched off, everything it can show you is also published as plain pages:</p>
+    <ul>
+      <li><a href="/kuiper-grid/manual.html">The manual</a> &mdash; what this is, what to type, what the answer means, and what it refuses</li>
+      <li><a href="/plant/">Will this string go over 1500&nbsp;V on the coldest morning?</a> &mdash; three commands ready to copy</li>
+      <li><a href="/kuiper-grid/">All development builds</a> &mdash; the grid as a map, one substation and every way out, the solar string picture</li>
+      <li><a href="/compute/">Independent compute</a> &mdash; the method behind the figures</li>
+      <li><a href="/">Everything else published here</a></li>
+    </ul>
+    <p class="small">Two of the four limits this engine measures a design against have no source in any document. A verdict that turns on one of them is provisional and is marked so. <a href="/kuiper-grid/manual.html#unsourced">The manual says which, and how much of the space each decides.</a></p>
+    <p class="small">A chart, not a design. Not a connection offer, not a constructability assessment, not a consenting design. No output of it is engineering.</p>
+  </nav>
   <script type="module">
     // THE COMPOSER. GridAtlas's pattern as it stands (gridatlas/atlas/index.html): one frozen shell, features as hashed
     // cartridges, and current.json, the pointer, saying which. This page is the ONE ADDRESS that never changes. It reads
@@ -79,7 +108,7 @@
       console.error('[composer]', e);
       document.body.dataset.composer = 'refused';
       box.innerHTML = '<div><strong>THIS PAGE DID NOT OPEN</strong><br>' + String(e && e.message || e).replace(/[<>&]/g, '')
-        + '<br><small>Nothing was run. The released page has not been changed.<br>provided as is, without warranty of any kind; a chart, not a design</small></div>';
+        + '<br><small>Nothing was run. The released page has not been changed. The plain pages below still work.<br>provided as is, without warranty of any kind; a chart, not a design</small></div>';
     }
   </script>
 </body>

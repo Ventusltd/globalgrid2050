@@ -26,6 +26,21 @@ on:
       # 404 because the folder was not listed here, and the manual dispatches
       # that would have covered it were cancelled by the concurrency group.
       - 'compute/**'
+      # FIFTH TIME. The Kuiper grid builds are published from kuiper-grid/, a
+      # different folder from kuiper/, and it was not in this list - so i0092
+      # was pushed, gated, hashed and merged on 21 September and the live site
+      # went on showing i0091. Nothing failed. No run went red. The commit said
+      # PUBLISHED and the page said otherwise, which is the worst shape a
+      # failure can take.
+      #
+      # THIS LIST IS THE BUG. An allow-list of published folders has now been
+      # wrong five times, and it will be wrong again the next time a folder is
+      # added, because nothing anywhere checks that the two agree. It should be
+      # inverted to paths-ignore, so a new published folder deploys by default
+      # and only what is deliberately excluded does not. Left as a list for now
+      # because inverting it changes how often this deploys, and that is a
+      # decision about the runners, not a typo fix.
+      - 'kuiper-grid/**'
       # A new PipelineNews release is a directory under uk_renewables_pipeline.
       # It was NOT in this list, so a push that only added a release triggered
       # no deploy at all: 202609061329 sat at HTTP 404 through eight polls after

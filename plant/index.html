@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Will this string go over 1500 V on the coldest morning?</title>
+<style>
+  :root { color-scheme: dark; }
+  html, body { margin: 0; padding: 0; background: #000; color: #e6e6e6; }
+  body {
+    font-family: ui-monospace, Consolas, "Courier New", monospace;
+    font-size: 16px;
+    line-height: 1.55;
+    padding: 20px 16px 48px;
+    max-width: 44rem;
+    overflow-x: hidden;
+  }
+  h1 { font-size: 1.25rem; line-height: 1.35; margin: 0 0 1rem; font-weight: 700; }
+  h2 { font-size: 1rem; margin: 2rem 0 0.5rem; font-weight: 700; color: #9fd0ff; }
+  p { margin: 0 0 1rem; }
+  a { color: #7fc4ff; }
+  a:visited { color: #b79bff; }
+  .warn {
+    border: 1px solid #ff4d4d;
+    color: #ff6b6b;
+    padding: 12px;
+    margin: 0 0 1.5rem;
+    font-weight: 700;
+  }
+  .lead { font-size: 1.05rem; }
+  ol.steps { margin: 0 0 1rem; padding-left: 1.4rem; }
+  ol.steps li { margin: 0 0 0.5rem; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  .case { border: 1px solid #333; padding: 12px; margin: 0 0 1.25rem; }
+  .name { display: block; font-weight: 700; font-size: 1.05rem; margin-bottom: 0.35rem; }
+  .note { display: block; color: #bdbdbd; margin-bottom: 0.6rem; }
+  .fault { color: #ffb37a; }
+  .cmd {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    background: #0d0d0d;
+    border: 1px solid #444;
+    color: #e6e6e6;
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 1.4;
+    padding: 10px;
+    min-height: 44px;
+    resize: vertical;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: stretch; margin-top: 10px; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1px solid #7fc4ff;
+    color: #7fc4ff;
+    text-decoration: none;
+    font-weight: 700;
+  }
+  button.btn { background: transparent; cursor: pointer; font-family: inherit; font-size: 16px; }
+  .limits li { margin: 0 0 0.6rem; }
+  footer { margin-top: 2.5rem; border-top: 1px solid #333; padding-top: 1rem; color: #b0b0b0; font-size: 0.9rem; }
+  footer a { word-break: break-all; }
+</style>
+</head>
+<body>
+
+<h1>Will this string go over 1500 V on the coldest morning &mdash; and by how much?</h1>
+
+<p class="lead">Type the module class, how many you put in series and the site&rsquo;s coldest temperature, and the page draws the plant and tells you, in volts, whether that string sits under the 1500 V equipment rating or over it.</p>
+
+<p class="warn">DEVELOPMENT ENVIRONMENT. A chart, not a design. Not a connection assessment. Consult qualified engineers.</p>
+
+<h2>How to use it</h2>
+<ol class="steps">
+  <li>Open the build.</li>
+  <li>Type one of the commands below into its command box and press Enter.</li>
+</ol>
+<p>There is no query route yet, so the command has to be typed rather than carried in the link. Copy it here, then open the build.</p>
+
+<h2>Three worth typing</h2>
+<ul>
+
+  <li class="case">
+    <span class="name">Thirty in series, coldest &minus;10 &deg;C &mdash; passes</span>
+    <span class="note">Clears the 1500 V rating by <strong>2.5 V</strong>. That is the whole margin: two and a half volts on fifteen hundred.</span>
+    <textarea class="cmd" rows="2" readonly onclick="this.select()">fire site {"module_class":"T660","modules_in_series":30,"site_min_c":-10}</textarea>
+    <div class="row">
+      <button class="btn" type="button" onclick="var t=this.closest('.case').querySelector('.cmd');t.select();document.execCommand('copy');this.textContent='copied';">copy command</button>
+      <a class="btn" href="/kuiper-grid/i0094/index.html">open the build</a>
+    </div>
+  </li>
+
+  <li class="case">
+    <span class="name">Same string, the top bin that actually turned up &mdash; fails</span>
+    <span class="note fault">One bin up, same thirty modules, same &minus;10 &deg;C: <strong>over the rating by 4.0 V</strong>. The delivered bin is what decides it, not the one on the offer.</span>
+    <textarea class="cmd" rows="2" readonly onclick="this.select()">fire site {"module_class":"T665","modules_in_series":30,"site_min_c":-10}</textarea>
+    <div class="row">
+      <button class="btn" type="button" onclick="var t=this.closest('.case').querySelector('.cmd');t.select();document.execCommand('copy');this.textContent='copied';">copy command</button>
+      <a class="btn" href="/kuiper-grid/i0094/index.html">open the build</a>
+    </div>
+  </li>
+
+  <li class="case">
+    <span class="name">A bad input &mdash; it refuses</span>
+    <span class="note">Given a count it cannot stand behind, it says so in words. Nothing is drawn and no default answers in its place.</span>
+    <textarea class="cmd" rows="2" readonly onclick="this.select()">fire site {"modules_in_series":"thirty"}</textarea>
+    <div class="row">
+      <button class="btn" type="button" onclick="var t=this.closest('.case').querySelector('.cmd');t.select();document.execCommand('copy');this.textContent='copied';">copy command</button>
+      <a class="btn" href="/kuiper-grid/i0094/index.html">open the build</a>
+    </div>
+  </li>
+
+</ul>
+
+<h2>What it is not</h2>
+<ul class="limits">
+  <li>It is a <strong>chart, not a design</strong>. It says where to look and where to simulate; it does not say what the simulation will find.</li>
+  <li>It measures against <strong>four limits, and two of them have no source</strong> in the evidence base. Two are printed on the source documents: the 1500 V system rating and the 35 A maximum series fuse. Two are not: the 40 A per-input limit is recorded absent from both documents, and the 20 A string-current limit appears nowhere in the evidence base at all. Treat any verdict that turns on those two as unsourced.</li>
+  <li>Nothing here is a <strong>connection assessment</strong>. It says nothing about what any asset can carry, how much of that is already committed, or what is connected.</li>
+  <li>Voltage margin does not divide by plant size. One design stamped out N times means every string is identical, and the trigger &mdash; a cold morning &mdash; reaches the whole site inside the same hour. Scale multiplies the consequence and never the tolerance.</li>
+</ul>
+
+<footer>
+  <p>The build: <a href="/kuiper-grid/i0094/index.html">/kuiper-grid/i0094/index.html</a>. All builds: <a href="/kuiper-grid/index.html">/kuiper-grid/index.html</a>.</p>
+  <p>No project, site, client or manufacturer is named anywhere in this work.</p>
+</footer>
+
+</body>
+</html>

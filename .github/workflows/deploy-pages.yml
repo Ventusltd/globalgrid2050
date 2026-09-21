@@ -41,6 +41,11 @@ on:
       # because inverting it changes how often this deploys, and that is a
       # decision about the runners, not a typo fix.
       - 'kuiper-grid/**'
+      # SIXTH TIME, and added WITH the folder rather than after it. The
+      # comments above count to five because each was found by a page
+      # being published and not appearing. This one is listed before
+      # anything is served from it.
+      - 'plant/**'
       # A new PipelineNews release is a directory under uk_renewables_pipeline.
       # It was NOT in this list, so a push that only added a release triggered
       # no deploy at all: 202609061329 sat at HTTP 404 through eight polls after

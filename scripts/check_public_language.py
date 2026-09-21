@@ -33,6 +33,12 @@ SURFACE = [
     "compute/*.html",
     "kuiper-grid/*.html",
     "kuiper-grid/*.md",
+    # A NEW PUBLISHED FOLDER MUST BE ADDED HERE OR IT IS NEVER READ. This
+    # list has the same defect the deploy workflow has learned five times:
+    # it is an allow-list, and a page nobody adds to it is published
+    # unchecked while the gate still prints PASS. plant/ is added with the
+    # page, not after it.
+    "plant/*.html",
 ]
 
 # ---- what must never appear in public text

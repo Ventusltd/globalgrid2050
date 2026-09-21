@@ -1,0 +1,73 @@
+{
+ "schema": "globalgrid.current.v1",
+ "generation": "009500000000",
+ "previous_generation": "009400000000",
+ "architecture": "IMMUTABLE_SHELL_PLUS_HASHED_CARTRIDGES",
+ "live_route": "/kuiper/",
+ "release_id": "003100000000-kuiper-shell",
+ "shell": {
+  "release_id": "003100000000-kuiper-shell",
+  "index": "./releases/003100000000-kuiper-shell/index.html",
+  "base": "./releases/003100000000-kuiper-shell/",
+  "sha256": "5b59979c093d0713d05e6ab3d2c36395e5edcefaa7e5a0336c9fdb3b7f6e1e30"
+ },
+ "cartridge_order": [
+  "kuiper-chrome",
+  "kuiper-programs",
+  "kuiper-tests",
+  "kuiper-work",
+  "kuiper-card"
+ ],
+ "cartridges": [
+  {
+   "id": "kuiper-chrome",
+   "generation": "008600000000",
+   "type": "script",
+   "slot": "replace-script",
+   "replaces": "kuiper-chrome.js",
+   "path": "./cartridges/008600000000-kuiper-chrome.js",
+   "sha256": "bc16d9ac517b2285eb6427607321c881e688276deb05bd1e6fb5cca5b333de19",
+   "release": "k0086"
+  },
+  {
+   "id": "kuiper-programs",
+   "generation": "009500000000",
+   "type": "script",
+   "slot": "replace-script",
+   "replaces": "kuiper-programs.js",
+   "path": "./cartridges/009500000000-kuiper-programs.js",
+   "sha256": "de6a3fbe587488a2ddfd7f96fa12bc161d91547a6930910771294e7b81651ab9",
+   "release": "k0095"
+  },
+  {
+   "id": "kuiper-tests",
+   "generation": "005300000000",
+   "type": "script",
+   "slot": "replace-script",
+   "replaces": "kuiper-tests.js",
+   "path": "./cartridges/005300000000-kuiper-tests.js",
+   "sha256": "e18bd6d8b405127bbe6c6f034d42f908e03fac89cb2271275edb768c26617191",
+   "release": "k0053"
+  },
+  {
+   "id": "kuiper-work",
+   "generation": "003500000000",
+   "type": "script",
+   "slot": "import-map",
+   "replaces": "kuiper-work.mjs",
+   "path": "./cartridges/003500000000-kuiper-work.mjs",
+   "sha256": "29fac46b6a7796597c7c23188316966087fe3d65d173c02c2d30391358ebf111",
+   "release": "k0035"
+  },
+  {
+   "id": "kuiper-card",
+   "generation": "004000000000",
+   "type": "script",
+   "slot": "replace-script",
+   "replaces": "kuiper-card.js",
+   "path": "./cartridges/004000000000-kuiper-card.js",
+   "sha256": "704370dd2bf1fd85a14e0b4b5793f6482e9ce6e754436e34177226633922e70d",
+   "release": "k0040"
+  }
+ ]
+}

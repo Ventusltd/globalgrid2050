@@ -1947,7 +1947,7 @@ function makeFireBar(){
     + '#presets button{font:11px/1.6 ui-monospace,Menlo,Consolas,monospace;color:#8b93a7;background:#0b0e14;border:1px solid #232a3a;'
     + 'border-radius:4px;padding:2px 9px;cursor:pointer}'
     + '#presets button:hover,#presets button:focus-visible{color:#e6e9f0;border-color:#4a5573;outline:none}'
-    + '#say{position:fixed;left:50%;top:20px;transform:translateX(-50%);width:min(72ch,84vw);'
+    + '#say{position:fixed;right:14px;left:auto;top:20px;transform:none;width:min(54ch,38vw);'
     + 'max-height:calc(100vh - var(--footh) - 56px);min-width:280px;min-height:64px;background:#0e121bf2;'
     + 'border:1px solid #1b2030;border-radius:8px;padding:0;font:14px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#cfe3f2;'
     + 'z-index:21;resize:both;overflow:hidden;display:none;flex-direction:column}'
@@ -2419,7 +2419,7 @@ function fireCommand(text, rec, inPlace){
     if (FIRE_DRAWS.includes(out.name)) {
       // THE BLOCK IS DRAWN BY THE SAME PASS AS THE STRING. Its drawing is already made and carried on
       // out.block.__draw, so it is handed over as the same kind and nothing downstream changes.
-      fp.sld = FIRE_SLD_KIND[out.name] ? { kind:FIRE_SLD_KIND[out.name], g:(out[out.name] || out.string || out.block) } : out.name === 'network' ? { kind:'network', net:out.net, solved:out.solved, inputs:c0(text) } : c0(text);
+      fp.sld = (out.sld && Array.isArray(out.sld.pieces)) ? out.sld : FIRE_SLD_KIND[out.name] ? { kind:FIRE_SLD_KIND[out.name], g:(out[out.name] || out.string || out.block) } : out.name === 'network' ? { kind:'network', net:out.net, solved:out.solved, inputs:c0(text) } : c0(text);
       // THE WORK DOES NOT FLY HOME FOR A CHANGED DECIMAL. The same dots are given the new places at once,
       // the camera is left exactly where the reader put it, and the front runs again over the new drawing.
       // THE ISOLATE HOLDS ITS OWN COPY OF THE PROGRAM, so the new drawing has to be put there too or
@@ -2474,7 +2474,7 @@ function sldPieces(net){
 }
 function sldLayout(net, m){
   // A PROGRAM MAY HAND IN ITS OWN PIECES. The chain below named every drawing the file knew about, so
-  // every new drawing meant another band editing this one line. A program that already knows its own
+  // every new drawing meant another hand editing this one line. A program that already knows its own
   // shape hands the list over and this stops growing. The three below keep working untouched.
   const P = Array.isArray(net.pieces) ? net.pieces : net.kind === 'string' ? stringPieces(net.g) : net.kind === 'network' ? netPieces(net.net) : sldPieces(net), total = P.reduce((t, p) => t + p.len, 0), s = total / m;
   // A SYMBOL IS NOT A LENGTH. Dots were handed out in proportion to how long each piece is, so a cable
@@ -2514,7 +2514,11 @@ function sldFinal(net, tag){
     return load > 100 ? 2 : 0.3 + 0.65 * Math.min(1, load / 100); });
 }
 function makeSldBody(st){
-  const net = (st.prog.sld && (st.prog.sld.kind === 'network' || st.prog.sld.kind === 'string')) ? st.prog.sld : sldNetwork(st.prog.sld || {}); if (!net) return null;
+  // THE SAME CHAIN AGAIN, AND THIS IS THE ONE THAT DREW NOTHING. A kind this line did not name fell
+  // through to the network solver, which answered null - so the sky dimmed, the card filled in with
+  // correct numbers, and no drawing ever arrived. It failed SILENTLY, because a null body is how this
+  // function says 'not a diagram'. A drawing that brought its own pieces is already a drawing.
+  const net = (st.prog.sld && (Array.isArray(st.prog.sld.pieces) || st.prog.sld.kind === 'network' || st.prog.sld.kind === 'string')) ? st.prog.sld : sldNetwork(st.prog.sld || {}); if (!net) return null;
   // EVERY DOT OF THE SKY CAN BE CALLED: the diagram's dots are lines of code from the whole record, evenly through all the keys,
   // so they leave from everywhere on the disc at once.
   // EVERY DOT OF THE DIAGRAM IS A REAL LINE OF CODE, AND SAYS WHOSE. The shell answers a tap on dot j with the piece of work
@@ -2547,7 +2551,7 @@ function makeSldBody(st){
     lay.spacing *= k; }
   for (let q = 0; q < 2 * m; q++) to[q] = lay.unit[q] * R * frac;
   const gap = closestPair(lay.unit) * R * frac;
-  sldNow = { net, lay, final:net.kind === 'string' ? stringFinal(net, lay.tag) : net.kind === 'network' ? netFinal(net, lay.tag) : sldFinal(net, lay.tag), t0:0, vals:new Float32Array(SLD_MAX) };
+  sldNow = { net, lay, final:typeof net.finalFor === 'function' ? net.finalFor(net.state, lay.tag) : net.kind === 'string' ? stringFinal(net, lay.tag) : net.kind === 'network' ? netFinal(net, lay.tag) : sldFinal(net, lay.tag), t0:0, vals:new Float32Array(SLD_MAX) };
   // THE SOLID DRAWING COMES FROM THE SAME DESCRIPTION THE DOTS CAME FROM, so the two can never disagree.
   shapeLayer(); sldShapes = net.kind === 'string' ? (net.g.__draw || stringDrawing(net.g)) : null;
   if (sldShapes) { sldShapes.front = -1; sldShapes.head = -1; sldShapes.walk = null; sldShapes.t0 = 0; shapeHover = null; }
@@ -3818,10 +3822,19 @@ setTimeout(function(){
       line('dc' + i, d0 + 0.44, x, -0.062, x, -0.150); /* the DC it eats */
       var w = 0.072;
       line('dc' + i, d0 + 0.50, x - w, -0.150, x + w, -0.150);
+      /* THE TEETH ARE NOT TAGGED 'pv', AND THAT IS NOT A NAMING WHIM.
+         sldLayout decides which pieces are SYMBOLS - pieces given a floor of
+         dots so they read as the thing they are - with a PREFIX match:
+         t.startsWith('pv'). That was written when a network drawing had one
+         solar symbol on it. Tagging 32 comb pieces 'pv' claimed 32 symbol
+         floors, which is 704 of the 896 dots the whole drawing gets, and the
+         rounding loop cannot take a symbol below its floor. The collection
+         busbar - the spine of the picture - was left with scraps and did not
+         appear at all. The blocks hung off nothing. */
       for (var j = 0; j < TEETH; j++) {                /* teeth are GROUPS of strings */
         var tx = x - w + 2 * w * j / (TEETH - 1);
-        line('pv' + i, d0 + 0.54, tx, -0.150, tx, -0.300);
-        ring('pv' + i, d0 + 0.62, tx, -0.340, 0.020);
+        line('sr' + i, d0 + 0.54, tx, -0.150, tx, -0.300);
+        ring('sr' + i, d0 + 0.62, tx, -0.340, 0.020);
       }
     }
     return P;
@@ -3834,7 +3847,7 @@ setTimeout(function(){
       if (t === 'tx' || t === 'board') return 0.90;
       if (t.indexOf('sk') === 0) return 0.85;
       if (t === 'inv') return s.over_mppt ? 2 : 1;          /* the machine's own input */
-      if (t.indexOf('pv') === 0) return s.over_volts ? 2 : 1;  /* the array's voltage */
+      if (t.indexOf('sr') === 0) return s.over_volts ? 2 : 1;  /* the array's voltage */
       if (t.indexOf('dc') === 0) return s.over_string ? 2 : 0.9;  /* the string's current */
       return 0.55;
     });

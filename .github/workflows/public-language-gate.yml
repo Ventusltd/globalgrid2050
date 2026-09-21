@@ -12,6 +12,16 @@ name: Public language gate
 # Every step here uses `shell: powershell` (5.1). Do not change that without
 # checking the runner PATH first.
 
+#
+# SPARSE NOTE, learned at 08:30 on 21 September: a self-hosted runner keeps its
+# _work folder between jobs, so anything set in that clone STAYS SET. All twelve
+# workspaces had core.sparseCheckout=true pinned to one unrelated file, left by
+# some earlier job. actions/checkout happily checked out the right commit into a
+# sliver of the tree: scripts/ did not exist, and the gate died on a missing
+# file. It failed LOUDLY, which is the only reason nothing bad shipped - but for
+# those runs the gate checked no language at all. A check that cannot run is not
+# a pass, and it must not be able to look like a content failure either.
+
 on:
   push:
     branches: [main]
@@ -42,10 +52,35 @@ jobs:
     runs-on: [self-hosted, msi]
     timeout-minutes: 10
     steps:
+      - name: The workspace must not be sparse
+        shell: powershell
+        run: |
+          $w = "${{ github.workspace }}"
+          if (Test-Path (Join-Path $w ".git")) {
+            $sp = (& git -C $w config --get core.sparseCheckout) 2>$null
+            if ($sp -eq "true") {
+              Write-Host "This workspace was left sparse by an earlier job."
+              Write-Host "Clearing it, because a partial tree makes a missing"
+              Write-Host "check look exactly like a failed one."
+              & git -C $w sparse-checkout disable
+            }
+          }
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+
+      - name: The gate itself must be present
+        shell: powershell
+        run: |
+          if (-not (Test-Path "scripts/check_public_language.py")) {
+            Write-Host "FAIL: the gate script is not in this workspace."
+            Write-Host "This is NOT a language failure. Nothing was checked."
+            Write-Host "A check that cannot run is not a pass."
+            exit 1
+          }
+          Write-Host "gate script present"
 
       - name: Python must be present
         shell: powershell

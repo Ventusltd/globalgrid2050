@@ -1648,3 +1648,18 @@ Pre-edit snapshot of 282368be79f443d91a2e837b610f5acac8760bd5; restore3401425291
 ## homepage_v087
 
 Pre-edit snapshot of 93961b0d3388de4576eeb58afd3695a56384d381; restore34014509647 passed. Measurements: homepage_v087-measurement.json. Publish0537 immediate measurement visibility after0528 acceptance and exact CI34014494672. Source d66ac93905c4cbeb5526ac840d650e7dd876e25f; exact CI passed373 scoped checks including24 fresh-draw readout visibility cases. Preserve control DOM/handlers, two-column phone layout and every older link. Earlier0528 three visibility failures retained.
+
+
+## Version 123
+
+Version: `homepage_v123.html`
+Source: `index.html` at 9f498d57538a92506d14b6bffd1882d3618454e3.
+Purpose: pre-edit restore point before adding the generic Kuiper drawing route.
+Measurement workflow: https://github.com/Ventusltd/globalgrid2050/actions/runs/35665687954 (success).
+
+Before snapshot: 204 files in homepage_versions.
+Lines: 260; words: 3217; characters: 36302.
+SHA-256: `c53d3d6e1234bfee190712a3ff6d9ffb6f555efc80b88f7e61ef8709d658b0ec`.
+After snapshot: 205 files.
+
+Change intention: Point the existing Kuiper current link at the generic drawing tool and retain the earlier plant examples. Add the drawing to the existing Kuiper Start here list. No CSS or page redesign. All existing href values are retained.

@@ -1,0 +1,217 @@
+{
+  "release": "20260921-generic-v1",
+  "nativePublicCommit": "9f498d57538a92506d14b6bffd1882d3618454e3",
+  "files": [
+    {
+      "path": "index.html",
+      "source": "Original generic release code or asset",
+      "changes": "Generic entry; explicit scripts; same-origin CSP; source artwork removed",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "array-lab.js",
+      "source": "Original generic release code or asset",
+      "changes": "Generic models/assets and enclosure; no remote geometry feed; strict recipe field allowlist; preserves native renderer adapter, camera correction, editor and routes",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "site-scale.js",
+      "source": "Original generic release code or asset",
+      "changes": "Generic synthetic hierarchy only; distinct public browser-storage namespace",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "view-mode.js",
+      "source": "Original generic release code or asset",
+      "changes": "Generic same-model UI / current-table export; no embedded project data or service access",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "design-record.js",
+      "source": "Original generic release code or asset",
+      "changes": "Generic same-model UI / current-table export; no embedded project data or service access",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "renderer.html",
+      "source": "https://github.com/Ventusltd/globalgrid2050/blob/9f498d57538a92506d14b6bffd1882d3618454e3/kuiper-grid/i0097/releases/003100000000-kuiper-shell/index.html",
+      "changes": "Same native renderer with generic synthetic bootstrap, no historical query entry, extracted pointer runtime and same-origin CSP",
+      "licence": "CERN-OHL-S-2.0",
+      "upstreamSha256": "5b59979c093d0713d05e6ab3d2c36395e5edcefaa7e5a0336c9fdb3b7f6e1e30"
+    },
+    {
+      "path": "kuiper-programs.js",
+      "source": "https://github.com/Ventusltd/globalgrid2050/blob/9f498d57538a92506d14b6bffd1882d3618454e3/kuiper-grid/i0097/cartridges/009700000000-kuiper-programs.js",
+      "changes": "Remote command-catalogue fetch disabled; native FIRE/string/shape renderer retained",
+      "licence": "CERN-OHL-S-2.0",
+      "upstreamSha256": "5f3377a29ea309e71eca89fc8bc1b9998db219caba0a1d878bbb45ab46bb4a8c"
+    },
+    {
+      "path": "kuiper-chrome.js",
+      "source": "https://github.com/Ventusltd/globalgrid2050/blob/9f498d57538a92506d14b6bffd1882d3618454e3/kuiper-grid/i0097/cartridges/008600000000-kuiper-chrome.js",
+      "changes": "Unmodified public upstream source",
+      "licence": "CERN-OHL-S-2.0",
+      "upstreamSha256": "bc16d9ac517b2285eb6427607321c881e688276deb05bd1e6fb5cca5b333de19"
+    },
+    {
+      "path": "kuiper-controls.js",
+      "source": "https://github.com/Ventusltd/globalgrid2050/blob/9f498d57538a92506d14b6bffd1882d3618454e3/kuiper-grid/i0097/releases/003100000000-kuiper-shell/kuiper-controls.js",
+      "changes": "Unmodified public upstream source",
+      "licence": "CERN-OHL-S-2.0",
+      "upstreamSha256": "6d65dde3a052c3e26831cc9f13c5b902d919eec9977ead48359d4a7e3b63af26"
+    },
+    {
+      "path": "assemble.mjs",
+      "source": "https://github.com/Ventusltd/globalgrid2050/blob/9f498d57538a92506d14b6bffd1882d3618454e3/kuiper-grid/i0097/releases/003100000000-kuiper-shell/assemble.mjs",
+      "changes": "Unmodified public upstream source",
+      "licence": "CERN-OHL-S-2.0",
+      "upstreamSha256": "8b3fae634599b8582704915fe72fa1f80ceed589049b53d89d10ce7ba0d936d5"
+    },
+    {
+      "path": "kuiper-card.js",
+      "source": "https://github.com/Ventusltd/globalgrid2050/blob/9f498d57538a92506d14b6bffd1882d3618454e3/kuiper-grid/i0097/cartridges/004000000000-kuiper-card.js",
+      "changes": "Native shared UI/camera helpers retained; historical work-table import and remote raw-source browsing disabled",
+      "licence": "CERN-OHL-S-2.0",
+      "upstreamSha256": "704370dd2bf1fd85a14e0b4b5793f6482e9ce6e754436e34177226633922e70d"
+    },
+    {
+      "path": "kuiper-pointer.js",
+      "source": "https://github.com/Ventusltd/globalgrid2050/blob/9f498d57538a92506d14b6bffd1882d3618454e3/kuiper-grid/i0097/cartridges/005300000000-kuiper-tests.js",
+      "changes": "Only pointer/pinch runtime retained; test suites excluded",
+      "licence": "CERN-OHL-S-2.0",
+      "upstreamSha256": "e18bd6d8b405127bbe6c6f034d42f908e03fac89cb2271275edb768c26617191"
+    },
+    {
+      "path": "public-start.js",
+      "source": "Original generic release code or asset",
+      "changes": "Generic release assembly",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "cosmos/repos.tsv",
+      "source": "Original generic release code or asset",
+      "changes": "Generic release assembly",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "cosmos/wafer.tsv",
+      "source": "Original generic release code or asset",
+      "changes": "Generic release assembly",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "cosmos/cards/list.tsv",
+      "source": "Original generic release code or asset",
+      "changes": "Generic release assembly",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "cosmos/public.tsv",
+      "source": "Original generic release code or asset",
+      "changes": "Generic release assembly",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "cosmos/apps.tsv",
+      "source": "Original generic release code or asset",
+      "changes": "Generic release assembly",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "cosmos/journeys.tsv",
+      "source": "Original generic release code or asset",
+      "changes": "Generic release assembly",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "cosmos/pages.tsv",
+      "source": "Original generic release code or asset",
+      "changes": "Generic release assembly",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "cosmos/sentences.tsv",
+      "source": "Original generic release code or asset",
+      "changes": "Generic release assembly",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "cosmos/work-pages.tsv",
+      "source": "Original generic release code or asset",
+      "changes": "Generic release assembly",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "cosmos/work-fronts.tsv",
+      "source": "Original generic release code or asset",
+      "changes": "Generic release assembly",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "cosmos/app-commits.tsv",
+      "source": "Original generic release code or asset",
+      "changes": "Generic release assembly",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "cosmos/programs.json",
+      "source": "Original generic release code or asset",
+      "changes": "Generic release assembly",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "generic-models.json",
+      "source": "Original generic release code or asset",
+      "changes": "Generic release assembly",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "generic-assets/module-front.svg",
+      "source": "Original generic release code or asset",
+      "changes": "Generic release assembly",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "generic-assets/module-rear.svg",
+      "source": "Original generic release code or asset",
+      "changes": "Generic release assembly",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "generic-assets/plug.svg",
+      "source": "Original generic release code or asset",
+      "changes": "Generic release assembly",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "generic-assets/socket.svg",
+      "source": "Original generic release code or asset",
+      "changes": "Generic release assembly",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "licenses/CERN-OHL-S-2.0.txt",
+      "source": "https://github.com/Ventusltd/globalgrid2050/blob/9f498d57538a92506d14b6bffd1882d3618454e3/LICENSE.txt",
+      "changes": "Retained licence text",
+      "licence": "CERN-OHL-S-2.0"
+    },
+    {
+      "path": "licenses/Apache-2.0.txt",
+      "source": "https://www.apache.org/licenses/LICENSE-2.0",
+      "changes": "Retained wrapper licence text",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "NOTICE.md",
+      "source": "Original generic release code or asset",
+      "changes": "Generic release assembly",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "README.md",
+      "source": "Original generic release code or asset",
+      "changes": "Generic release assembly",
+      "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    }
+  ]
+}

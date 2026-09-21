@@ -57,13 +57,23 @@ jobs:
         run: |
           $w = "${{ github.workspace }}"
           if (Test-Path (Join-Path $w ".git")) {
-            $sp = (& git -C $w config --get core.sparseCheckout) 2>$null
-            if ($sp -eq "true") {
-              Write-Host "This workspace was left sparse by an earlier job."
-              Write-Host "Clearing it, because a partial tree makes a missing"
-              Write-Host "check look exactly like a failed one."
-              & git -C $w sparse-checkout disable
+            # THREE THINGS MAKE A TREE SPARSE AND CLEARING ONE IS NOT ENOUGH.
+            # The config says whether to apply it; a file in .git/info holds the
+            # pattern and can re-arm it; and the INDEX carries a skip-worktree
+            # bit per path, which is what actually stops a file appearing.
+            # Clearing only the config left the bits set and the tree still
+            # partial, which is how this looked fixed when it was not.
+            & git -C $w sparse-checkout disable 2>$null | Out-Null
+            & git -C $w config --unset core.sparseCheckout 2>$null | Out-Null
+            Remove-Item (Join-Path $w ".git/info/sparse-checkout") -ErrorAction SilentlyContinue
+            $skipped = & git -C $w ls-files -v 2>$null | Where-Object { $_ -cmatch '^S ' }
+            if ($skipped) {
+              Write-Host ("clearing skip-worktree on " + $skipped.Count + " path(s)")
+              foreach ($line in $skipped) {
+                & git -C $w update-index --no-skip-worktree $line.Substring(2) 2>$null | Out-Null
+              }
             }
+            & git -C $w read-tree -mu HEAD 2>$null | Out-Null
           }
 
       - name: Checkout

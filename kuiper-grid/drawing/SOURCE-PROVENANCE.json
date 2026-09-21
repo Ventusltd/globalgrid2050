@@ -1,11 +1,11 @@
 {
-  "release": "20260922-generic-v2-content",
+  "release": "20260922-generic-v3-power-blocks",
   "nativePublicCommit": "9f498d57538a92506d14b6bffd1882d3618454e3",
   "files": [
     {
       "path": "index.html",
       "source": "Original generic release code or asset",
-      "changes": "Generic entry; explicit scripts; same-origin CSP; source artwork removed; 2026-09-22: drawing title and header scope clarified, structure unchanged",
+      "changes": "Generic entry; explicit scripts; same-origin CSP; source artwork removed; 2026-09-22: drawing title and header scope clarified, structure unchanged; 2026-09-22: load generic power-block proposal panel",
       "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
     },
     {
@@ -212,6 +212,13 @@
       "source": "Original generic release code or asset",
       "changes": "Generic release assembly",
       "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "power-block-planner.js",
+      "source": "Original generic planner developed in kuiper-ship",
+      "upstreamSha256": "fffe297b868ea6fe30531020d916efb5f1159be6604529476804a026a75435ff",
+      "changes": "2026-09-22: selectively included self-contained generic proposal arithmetic and optional panel; no external dependencies or project assets",
+      "licence": "Apache-2.0; assembled native derivatives retain applicable CERN-OHL-S obligations (see NOTICE.md)"
     }
   ]
 }

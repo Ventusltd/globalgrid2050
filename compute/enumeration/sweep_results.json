@@ -1,0 +1,661 @@
+{
+ "annihilation": {
+  "agreement_is_not_truth": "Both routes were written here. Both can be wrong in the same way, and a second channel that inherits a mistake from the first will confirm it forever.",
+  "compared_on": "the verdict, not the digits",
+  "compiled_with": [
+   "--fmad=false"
+  ],
+  "compiled_without": [
+   "--use_fast_math"
+  ],
+  "partings": 0,
+  "routes": [
+   "factored",
+   "distributive expansion, reassociated"
+  ],
+  "zero_partings_is_not_evidence": "The two routes do differ, by at most one unit in the last place of a double. No case in this box lands close enough to a limit for that last bit to flip a verdict, so zero is the expected result of the arithmetic and not a demonstration that the arithmetic is sound."
+ },
+ "anonymised": "No maker, brand, model, site, client or project name anywhere in this file.",
+ "classes": [
+  {
+   "bifacial_current_chain": {
+    "band_at_the_hot_point": [
+     {
+      "hot_current_a": 19.956,
+      "printed_rear_gain_pct": 5
+     },
+     {
+      "hot_current_a": 21.856,
+      "printed_rear_gain_pct": 15
+     },
+     {
+      "hot_current_a": 23.757,
+      "printed_rear_gain_pct": 25
+     }
+    ],
+    "band_not_a_point": "These are the rear gains this family's own sheet prints. Where the sheet does not define the irradiance condition behind its rear column, the provenance supports a band and nothing narrower, so a band is what is reported.",
+    "hot_cell_c": 85.0,
+    "printed_rear_condition_isc_a": 20.69,
+    "ratio": 1.1148,
+    "ratio_source": "DERIVED",
+    "rear_gain_table": "sheet also publishes Pmax and efficiency at 5 %, 15 % and 25 % rear gain for all five bins",
+    "stc_isc_a": 18.56,
+    "the_condition_is_defined_on_the_document": true,
+    "why": "BNPI condition printed on the sheet: front 1000 W/m2, rear 135 W/m2, cell 25 C, AM 1.5"
+   },
+   "class": "W750",
+   "family": "DOC-A",
+   "series_envelope": {
+    "coldest_cell_c": -30.0,
+    "headroom_at_one_more_v": -29.3915,
+    "headroom_at_that_count_v": 27.2526,
+    "headroom_in_degrees_of_further_cold": 9.429,
+    "limit": "the equipment rating printed on the document",
+    "most_modules_in_series_under_the_rating": 26,
+    "sourced": true,
+    "voc_at_that_temperature_v": 56.6441
+   },
+   "tally": {
+    "cases": 967218015,
+    "cold_current_changes_the_fuse_verdict": 0,
+    "cold_current_changes_the_machine_input_verdict_UNSOURCED": 97340745,
+    "cold_current_changes_the_string_input_verdict_UNSOURCED": 97340745,
+    "cold_current_was_optimistic": 0,
+    "cold_current_was_optimistic_on_the_machine_input_UNSOURCED": 97340745,
+    "cold_current_was_optimistic_on_the_string_input_UNSOURCED": 97340745,
+    "cold_current_was_pessimistic": 0,
+    "failed_ONLY_on_an_invented_number": 391494607,
+    "failed_on_a_sourced_limit": 467287706,
+    "inside_every_limit": 108435702,
+    "over_equipment_rating": 467287706,
+    "over_machine_input_UNSOURCED": 757426845,
+    "over_module_fuse": 0,
+    "over_string_input_UNSOURCED": 757426845,
+    "parted": 0
+   }
+  },
+  {
+   "bifacial_current_chain": {
+    "band_at_the_hot_point": [
+     {
+      "hot_current_a": 19.988,
+      "printed_rear_gain_pct": 5
+     },
+     {
+      "hot_current_a": 21.892,
+      "printed_rear_gain_pct": 15
+     },
+     {
+      "hot_current_a": 23.795,
+      "printed_rear_gain_pct": 25
+     }
+    ],
+    "band_not_a_point": "These are the rear gains this family's own sheet prints. Where the sheet does not define the irradiance condition behind its rear column, the provenance supports a band and nothing narrower, so a band is what is reported.",
+    "hot_cell_c": 85.0,
+    "printed_rear_condition_isc_a": 20.73,
+    "ratio": 1.1151,
+    "ratio_source": "DERIVED",
+    "rear_gain_table": "sheet also publishes Pmax and efficiency at 5 %, 15 % and 25 % rear gain for all five bins",
+    "stc_isc_a": 18.59,
+    "the_condition_is_defined_on_the_document": true,
+    "why": "BNPI condition printed on the sheet: front 1000 W/m2, rear 135 W/m2, cell 25 C, AM 1.5"
+   },
+   "class": "W755",
+   "family": "DOC-A",
+   "series_envelope": {
+    "coldest_cell_c": -30.0,
+    "headroom_at_one_more_v": -30.2995,
+    "headroom_at_that_count_v": 26.3782,
+    "headroom_in_degrees_of_further_cold": 9.121,
+    "limit": "the equipment rating printed on the document",
+    "most_modules_in_series_under_the_rating": 26,
+    "sourced": true,
+    "voc_at_that_temperature_v": 56.6778
+   },
+   "tally": {
+    "cases": 967218015,
+    "cold_current_changes_the_fuse_verdict": 0,
+    "cold_current_changes_the_machine_input_verdict_UNSOURCED": 97160295,
+    "cold_current_changes_the_string_input_verdict_UNSOURCED": 97160295,
+    "cold_current_was_optimistic": 0,
+    "cold_current_was_optimistic_on_the_machine_input_UNSOURCED": 97160295,
+    "cold_current_was_optimistic_on_the_string_input_UNSOURCED": 97160295,
+    "cold_current_was_pessimistic": 0,
+    "failed_ONLY_on_an_invented_number": 393330840,
+    "failed_on_a_sourced_limit": 468574114,
+    "inside_every_limit": 105313061,
+    "over_equipment_rating": 468574114,
+    "over_machine_input_UNSOURCED": 762942600,
+    "over_module_fuse": 0,
+    "over_string_input_UNSOURCED": 762942600,
+    "parted": 0
+   }
+  },
+  {
+   "bifacial_current_chain": {
+    "band_at_the_hot_point": [
+     {
+      "hot_current_a": 20.02,
+      "printed_rear_gain_pct": 5
+     },
+     {
+      "hot_current_a": 21.927,
+      "printed_rear_gain_pct": 15
+     },
+     {
+      "hot_current_a": 23.834,
+      "printed_rear_gain_pct": 25
+     }
+    ],
+    "band_not_a_point": "These are the rear gains this family's own sheet prints. Where the sheet does not define the irradiance condition behind its rear column, the provenance supports a band and nothing narrower, so a band is what is reported.",
+    "hot_cell_c": 85.0,
+    "printed_rear_condition_isc_a": 20.76,
+    "ratio": 1.1149,
+    "ratio_source": "DERIVED",
+    "rear_gain_table": "sheet also publishes Pmax and efficiency at 5 %, 15 % and 25 % rear gain for all five bins",
+    "stc_isc_a": 18.62,
+    "the_condition_is_defined_on_the_document": true,
+    "why": "BNPI condition printed on the sheet: front 1000 W/m2, rear 135 W/m2, cell 25 C, AM 1.5"
+   },
+   "class": "W760",
+   "family": "DOC-A",
+   "series_envelope": {
+    "coldest_cell_c": -30.0,
+    "headroom_at_one_more_v": -31.2075,
+    "headroom_at_that_count_v": 25.5039,
+    "headroom_in_degrees_of_further_cold": 8.813,
+    "limit": "the equipment rating printed on the document",
+    "most_modules_in_series_under_the_rating": 26,
+    "sourced": true,
+    "voc_at_that_temperature_v": 56.7114
+   },
+   "tally": {
+    "cases": 967218015,
+    "cold_current_changes_the_fuse_verdict": 0,
+    "cold_current_changes_the_machine_input_verdict_UNSOURCED": 97015935,
+    "cold_current_changes_the_string_input_verdict_UNSOURCED": 97015935,
+    "cold_current_was_optimistic": 0,
+    "cold_current_was_optimistic_on_the_machine_input_UNSOURCED": 97015935,
+    "cold_current_was_optimistic_on_the_string_input_UNSOURCED": 97015935,
+    "cold_current_was_pessimistic": 0,
+    "failed_ONLY_on_an_invented_number": 395161680,
+    "failed_on_a_sourced_limit": 469860522,
+    "inside_every_limit": 102195813,
+    "over_equipment_rating": 469860522,
+    "over_machine_input_UNSOURCED": 768476400,
+    "over_module_fuse": 0,
+    "over_string_input_UNSOURCED": 768476400,
+    "parted": 0
+   }
+  },
+  {
+   "bifacial_current_chain": {
+    "band_at_the_hot_point": [
+     {
+      "hot_current_a": 20.052,
+      "printed_rear_gain_pct": 5
+     },
+     {
+      "hot_current_a": 21.962,
+      "printed_rear_gain_pct": 15
+     },
+     {
+      "hot_current_a": 23.872,
+      "printed_rear_gain_pct": 25
+     }
+    ],
+    "band_not_a_point": "These are the rear gains this family's own sheet prints. Where the sheet does not define the irradiance condition behind its rear column, the provenance supports a band and nothing narrower, so a band is what is reported.",
+    "hot_cell_c": 85.0,
+    "printed_rear_condition_isc_a": 20.8,
+    "ratio": 1.1153,
+    "ratio_source": "DERIVED",
+    "rear_gain_table": "sheet also publishes Pmax and efficiency at 5 %, 15 % and 25 % rear gain for all five bins",
+    "stc_isc_a": 18.65,
+    "the_condition_is_defined_on_the_document": true,
+    "why": "BNPI condition printed on the sheet: front 1000 W/m2, rear 135 W/m2, cell 25 C, AM 1.5"
+   },
+   "class": "W765",
+   "family": "DOC-A",
+   "series_envelope": {
+    "coldest_cell_c": -30.0,
+    "headroom_at_one_more_v": -32.1155,
+    "headroom_at_that_count_v": 24.6295,
+    "headroom_in_degrees_of_further_cold": 8.506,
+    "limit": "the equipment rating printed on the document",
+    "most_modules_in_series_under_the_rating": 26,
+    "sourced": true,
+    "voc_at_that_temperature_v": 56.745
+   },
+   "tally": {
+    "cases": 967218015,
+    "cold_current_changes_the_fuse_verdict": 0,
+    "cold_current_changes_the_machine_input_verdict_UNSOURCED": 96865560,
+    "cold_current_changes_the_string_input_verdict_UNSOURCED": 96865560,
+    "cold_current_was_optimistic": 0,
+    "cold_current_was_optimistic_on_the_machine_input_UNSOURCED": 96865560,
+    "cold_current_was_optimistic_on_the_string_input_UNSOURCED": 96865560,
+    "cold_current_was_pessimistic": 0,
+    "failed_ONLY_on_an_invented_number": 397072534,
+    "failed_on_a_sourced_limit": 470986129,
+    "inside_every_limit": 99159352,
+    "over_equipment_rating": 470986129,
+    "over_machine_input_UNSOURCED": 773944035,
+    "over_module_fuse": 0,
+    "over_string_input_UNSOURCED": 773944035,
+    "parted": 0
+   }
+  },
+  {
+   "bifacial_current_chain": {
+    "band_at_the_hot_point": [
+     {
+      "hot_current_a": 20.085,
+      "printed_rear_gain_pct": 5
+     },
+     {
+      "hot_current_a": 21.998,
+      "printed_rear_gain_pct": 15
+     },
+     {
+      "hot_current_a": 23.91,
+      "printed_rear_gain_pct": 25
+     }
+    ],
+    "band_not_a_point": "These are the rear gains this family's own sheet prints. Where the sheet does not define the irradiance condition behind its rear column, the provenance supports a band and nothing narrower, so a band is what is reported.",
+    "hot_cell_c": 85.0,
+    "printed_rear_condition_isc_a": 20.83,
+    "ratio": 1.1151,
+    "ratio_source": "DERIVED",
+    "rear_gain_table": "sheet also publishes Pmax and efficiency at 5 %, 15 % and 25 % rear gain for all five bins",
+    "stc_isc_a": 18.68,
+    "the_condition_is_defined_on_the_document": true,
+    "why": "BNPI condition printed on the sheet: front 1000 W/m2, rear 135 W/m2, cell 25 C, AM 1.5"
+   },
+   "class": "W770",
+   "family": "DOC-A",
+   "series_envelope": {
+    "coldest_cell_c": -30.0,
+    "headroom_at_one_more_v": -33.0235,
+    "headroom_at_that_count_v": 23.7551,
+    "headroom_in_degrees_of_further_cold": 8.199,
+    "limit": "the equipment rating printed on the document",
+    "most_modules_in_series_under_the_rating": 26,
+    "sourced": true,
+    "voc_at_that_temperature_v": 56.7786
+   },
+   "tally": {
+    "cases": 967218015,
+    "cold_current_changes_the_fuse_verdict": 0,
+    "cold_current_changes_the_machine_input_verdict_UNSOURCED": 96715185,
+    "cold_current_changes_the_string_input_verdict_UNSOURCED": 96715185,
+    "cold_current_was_optimistic": 0,
+    "cold_current_was_optimistic_on_the_machine_input_UNSOURCED": 96715185,
+    "cold_current_was_optimistic_on_the_string_input_UNSOURCED": 96715185,
+    "cold_current_was_pessimistic": 0,
+    "failed_ONLY_on_an_invented_number": 398850318,
+    "failed_on_a_sourced_limit": 472272537,
+    "inside_every_limit": 96095160,
+    "over_equipment_rating": 472272537,
+    "over_machine_input_UNSOURCED": 779429715,
+    "over_module_fuse": 0,
+    "over_string_input_UNSOURCED": 779429715,
+    "parted": 0
+   }
+  },
+  {
+   "bifacial_current_chain": {
+    "band_at_the_hot_point": [
+     {
+      "hot_current_a": 19.687,
+      "printed_rear_gain_pct": 5
+     },
+     {
+      "hot_current_a": 20.624,
+      "printed_rear_gain_pct": 10
+     }
+    ],
+    "band_not_a_point": "These are the rear gains this family's own sheet prints. Where the sheet does not define the irradiance condition behind its rear column, the provenance supports a band and nothing narrower, so a band is what is reported.",
+    "hot_cell_c": 85.0,
+    "printed_rear_condition_isc_a": 20.04,
+    "ratio": 1.0945,
+    "ratio_source": "DERIVED",
+    "rear_gain_table": "sheet also publishes Pmax, Vmp, Imp, Voc and Isc at 5 % and 10 % backside gain for all five bins",
+    "stc_isc_a": 18.31,
+    "the_condition_is_defined_on_the_document": false,
+    "why": "the BNPI column is headed BNPI but this sheet does not define the BNPI irradiance condition anywhere; only STC and NOCT conditions are defined in its footnote"
+   },
+   "class": "T645",
+   "family": "DOC-B",
+   "series_envelope": {
+    "coldest_cell_c": -30.0,
+    "headroom_at_one_more_v": -45.8625,
+    "headroom_at_that_count_v": 5.6663,
+    "headroom_in_degrees_of_further_cold": 1.725,
+    "limit": "the equipment rating printed on the document",
+    "most_modules_in_series_under_the_rating": 29,
+    "sourced": true,
+    "voc_at_that_temperature_v": 51.5287
+   },
+   "tally": {
+    "cases": 967218015,
+    "cold_current_changes_the_fuse_verdict": 0,
+    "cold_current_changes_the_machine_input_verdict_UNSOURCED": 98658030,
+    "cold_current_changes_the_string_input_verdict_UNSOURCED": 98658030,
+    "cold_current_was_optimistic": 0,
+    "cold_current_was_optimistic_on_the_machine_input_UNSOURCED": 98658030,
+    "cold_current_was_optimistic_on_the_string_input_UNSOURCED": 98658030,
+    "cold_current_was_pessimistic": 0,
+    "failed_ONLY_on_an_invented_number": 503546776,
+    "failed_on_a_sourced_limit": 281884153,
+    "inside_every_limit": 181787086,
+    "over_equipment_rating": 281884153,
+    "over_machine_input_UNSOURCED": 710660220,
+    "over_module_fuse": 0,
+    "over_string_input_UNSOURCED": 710660220,
+    "parted": 0
+   }
+  },
+  {
+   "bifacial_current_chain": {
+    "band_at_the_hot_point": [
+     {
+      "hot_current_a": 19.73,
+      "printed_rear_gain_pct": 5
+     },
+     {
+      "hot_current_a": 20.669,
+      "printed_rear_gain_pct": 10
+     }
+    ],
+    "band_not_a_point": "These are the rear gains this family's own sheet prints. Where the sheet does not define the irradiance condition behind its rear column, the provenance supports a band and nothing narrower, so a band is what is reported.",
+    "hot_cell_c": 85.0,
+    "printed_rear_condition_isc_a": 20.08,
+    "ratio": 1.0943,
+    "ratio_source": "DERIVED",
+    "rear_gain_table": "sheet also publishes Pmax, Vmp, Imp, Voc and Isc at 5 % and 10 % backside gain for all five bins",
+    "stc_isc_a": 18.35,
+    "the_condition_is_defined_on_the_document": false,
+    "why": "the BNPI column is headed BNPI but this sheet does not define the BNPI irradiance condition anywhere; only STC and NOCT conditions are defined in its footnote"
+   },
+   "class": "T650",
+   "family": "DOC-B",
+   "series_envelope": {
+    "coldest_cell_c": -30.0,
+    "headroom_at_one_more_v": -0.9313,
+    "headroom_at_that_count_v": 50.825,
+    "headroom_in_degrees_of_further_cold": 15.958,
+    "limit": "the equipment rating printed on the document",
+    "most_modules_in_series_under_the_rating": 28,
+    "sourced": true,
+    "voc_at_that_temperature_v": 51.7563
+   },
+   "tally": {
+    "cases": 967218015,
+    "cold_current_changes_the_fuse_verdict": 0,
+    "cold_current_changes_the_machine_input_verdict_UNSOURCED": 98447505,
+    "cold_current_changes_the_string_input_verdict_UNSOURCED": 98447505,
+    "cold_current_was_optimistic": 0,
+    "cold_current_was_optimistic_on_the_machine_input_UNSOURCED": 98447505,
+    "cold_current_was_optimistic_on_the_string_input_UNSOURCED": 98447505,
+    "cold_current_was_pessimistic": 0,
+    "failed_ONLY_on_an_invented_number": 502353663,
+    "failed_on_a_sourced_limit": 290728208,
+    "inside_every_limit": 174136144,
+    "over_equipment_rating": 290728208,
+    "over_machine_input_UNSOURCED": 718245135,
+    "over_module_fuse": 0,
+    "over_string_input_UNSOURCED": 718245135,
+    "parted": 0
+   }
+  },
+  {
+   "bifacial_current_chain": {
+    "band_at_the_hot_point": [
+     {
+      "hot_current_a": 19.784,
+      "printed_rear_gain_pct": 5
+     },
+     {
+      "hot_current_a": 20.726,
+      "printed_rear_gain_pct": 10
+     }
+    ],
+    "band_not_a_point": "These are the rear gains this family's own sheet prints. Where the sheet does not define the irradiance condition behind its rear column, the provenance supports a band and nothing narrower, so a band is what is reported.",
+    "hot_cell_c": 85.0,
+    "printed_rear_condition_isc_a": 20.14,
+    "ratio": 1.0946,
+    "ratio_source": "DERIVED",
+    "rear_gain_table": "sheet also publishes Pmax, Vmp, Imp, Voc and Isc at 5 % and 10 % backside gain for all five bins",
+    "stc_isc_a": 18.4,
+    "the_condition_is_defined_on_the_document": false,
+    "why": "the BNPI column is headed BNPI but this sheet does not define the BNPI irradiance condition anywhere; only STC and NOCT conditions are defined in its footnote"
+   },
+   "class": "T655",
+   "family": "DOC-B",
+   "series_envelope": {
+    "coldest_cell_c": -30.0,
+    "headroom_at_one_more_v": -7.5287,
+    "headroom_at_that_count_v": 44.455,
+    "headroom_in_degrees_of_further_cold": 13.897,
+    "limit": "the equipment rating printed on the document",
+    "most_modules_in_series_under_the_rating": 28,
+    "sourced": true,
+    "voc_at_that_temperature_v": 51.9838
+   },
+   "tally": {
+    "cases": 967218015,
+    "cold_current_changes_the_fuse_verdict": 0,
+    "cold_current_changes_the_machine_input_verdict_UNSOURCED": 98188860,
+    "cold_current_changes_the_string_input_verdict_UNSOURCED": 98188860,
+    "cold_current_was_optimistic": 0,
+    "cold_current_was_optimistic_on_the_machine_input_UNSOURCED": 98188860,
+    "cold_current_was_optimistic_on_the_string_input_UNSOURCED": 98188860,
+    "cold_current_was_pessimistic": 0,
+    "failed_ONLY_on_an_invented_number": 501800152,
+    "failed_on_a_sourced_limit": 300215467,
+    "inside_every_limit": 165202396,
+    "over_equipment_rating": 300215467,
+    "over_machine_input_UNSOURCED": 727658610,
+    "over_module_fuse": 0,
+    "over_string_input_UNSOURCED": 727658610,
+    "parted": 0
+   }
+  },
+  {
+   "bifacial_current_chain": {
+    "band_at_the_hot_point": [
+     {
+      "hot_current_a": 19.837,
+      "printed_rear_gain_pct": 5
+     },
+     {
+      "hot_current_a": 20.782,
+      "printed_rear_gain_pct": 10
+     }
+    ],
+    "band_not_a_point": "These are the rear gains this family's own sheet prints. Where the sheet does not define the irradiance condition behind its rear column, the provenance supports a band and nothing narrower, so a band is what is reported.",
+    "hot_cell_c": 85.0,
+    "printed_rear_condition_isc_a": 20.19,
+    "ratio": 1.0943,
+    "ratio_source": "DERIVED",
+    "rear_gain_table": "sheet also publishes Pmax, Vmp, Imp, Voc and Isc at 5 % and 10 % backside gain for all five bins",
+    "stc_isc_a": 18.45,
+    "the_condition_is_defined_on_the_document": false,
+    "why": "the BNPI column is headed BNPI but this sheet does not define the BNPI irradiance condition anywhere; only STC and NOCT conditions are defined in its footnote"
+   },
+   "class": "T660",
+   "family": "DOC-B",
+   "series_envelope": {
+    "coldest_cell_c": -30.0,
+    "headroom_at_one_more_v": -14.1263,
+    "headroom_at_that_count_v": 38.085,
+    "headroom_in_degrees_of_further_cold": 11.853,
+    "limit": "the equipment rating printed on the document",
+    "most_modules_in_series_under_the_rating": 28,
+    "sourced": true,
+    "voc_at_that_temperature_v": 52.2112
+   },
+   "tally": {
+    "cases": 967218015,
+    "cold_current_changes_the_fuse_verdict": 0,
+    "cold_current_changes_the_machine_input_verdict_UNSOURCED": 97906155,
+    "cold_current_changes_the_string_input_verdict_UNSOURCED": 97906155,
+    "cold_current_was_optimistic": 0,
+    "cold_current_was_optimistic_on_the_machine_input_UNSOURCED": 97906155,
+    "cold_current_was_optimistic_on_the_string_input_UNSOURCED": 97906155,
+    "cold_current_was_pessimistic": 0,
+    "failed_ONLY_on_an_invented_number": 502001313,
+    "failed_on_a_sourced_limit": 308416318,
+    "inside_every_limit": 156800384,
+    "over_equipment_rating": 308416318,
+    "over_machine_input_UNSOURCED": 737011935,
+    "over_module_fuse": 0,
+    "over_string_input_UNSOURCED": 737011935,
+    "parted": 0
+   }
+  },
+  {
+   "bifacial_current_chain": {
+    "band_at_the_hot_point": [
+     {
+      "hot_current_a": 19.891,
+      "printed_rear_gain_pct": 5
+     },
+     {
+      "hot_current_a": 20.838,
+      "printed_rear_gain_pct": 10
+     }
+    ],
+    "band_not_a_point": "These are the rear gains this family's own sheet prints. Where the sheet does not define the irradiance condition behind its rear column, the provenance supports a band and nothing narrower, so a band is what is reported.",
+    "hot_cell_c": 85.0,
+    "printed_rear_condition_isc_a": 20.25,
+    "ratio": 1.0946,
+    "ratio_source": "DERIVED",
+    "rear_gain_table": "sheet also publishes Pmax, Vmp, Imp, Voc and Isc at 5 % and 10 % backside gain for all five bins",
+    "stc_isc_a": 18.5,
+    "the_condition_is_defined_on_the_document": false,
+    "why": "the BNPI column is headed BNPI but this sheet does not define the BNPI irradiance condition anywhere; only STC and NOCT conditions are defined in its footnote"
+   },
+   "class": "T665",
+   "family": "DOC-B",
+   "series_envelope": {
+    "coldest_cell_c": -30.0,
+    "headroom_at_one_more_v": -20.7237,
+    "headroom_at_that_count_v": 31.715,
+    "headroom_in_degrees_of_further_cold": 9.828,
+    "limit": "the equipment rating printed on the document",
+    "most_modules_in_series_under_the_rating": 28,
+    "sourced": true,
+    "voc_at_that_temperature_v": 52.4387
+   },
+   "tally": {
+    "cases": 967218015,
+    "cold_current_changes_the_fuse_verdict": 0,
+    "cold_current_changes_the_machine_input_verdict_UNSOURCED": 97653525,
+    "cold_current_changes_the_string_input_verdict_UNSOURCED": 97653525,
+    "cold_current_was_optimistic": 0,
+    "cold_current_was_optimistic_on_the_machine_input_UNSOURCED": 97653525,
+    "cold_current_was_optimistic_on_the_string_input_UNSOURCED": 97653525,
+    "cold_current_was_pessimistic": 0,
+    "failed_ONLY_on_an_invented_number": 501895510,
+    "failed_on_a_sourced_limit": 316777970,
+    "inside_every_limit": 148544535,
+    "over_equipment_rating": 316777970,
+    "over_machine_input_UNSOURCED": 746329170,
+    "over_module_fuse": 0,
+    "over_string_input_UNSOURCED": 746329170,
+    "parted": 0
+   }
+  }
+ ],
+ "coverage": {
+  "enumerated": "exhaustively; every lattice point visited once",
+  "fraction_of_the_box": 1.0,
+  "not_claimed": "Coverage of the LATTICE is not coverage of the box, and coverage of the box is not coverage of the world. Halve the step and every count below changes; that is geometry. A count of evaluations is not a count of cases covered.",
+  "probability_a_lattice_point_was_missed": 0.0
+ },
+ "families": {
+  "DOC-A": [
+   "W750",
+   "W755",
+   "W760",
+   "W765",
+   "W770"
+  ],
+  "DOC-B": [
+   "T645",
+   "T650",
+   "T655",
+   "T660",
+   "T665"
+  ]
+ },
+ "families_are_kept_apart": "One family's document defines the rear-irradiance condition its printed column was taken at; the other names the column and defines no condition for it. Carrying one family's condition across to the other is the trap this split exists to prevent, so no ratio here is averaged, shared or defaulted across families.",
+ "headline": {
+  "cases_failing_ONLY_on_an_invented_number": 4487507393,
+  "cases_failing_on_a_sourced_limit": 3847003124,
+  "cases_inside_every_limit": 1337669633,
+  "every_one_of_those_was_optimistic": true,
+  "so": "Over this box, judging current at the cold point instead of the hot one changes NO verdict that rests on a limit printed in a document, because the only sourced current limit - the module fuse - does not fire anywhere in the box. Every verdict the distinction changes is a verdict decided by a number with no source, and every one of them moves the same way: the cold assessment understates the current and therefore flatters the design. The correct assessment is the harsher one.",
+  "the_module_fuse_never_fires_in_this_box": true,
+  "the_two_unsourced_limits_are_one_predicate_written_twice": true,
+  "verdicts_it_changes_on_a_limit_with_NO_SOURCE": 975951795,
+  "verdicts_the_hot_cold_distinction_changes_on_a_SOURCED_limit": 0,
+  "why": "The string input fires when I > A_str and the machine input when 2I > A_mppt. With A_mppt = 2 A_str these are the same inequality, and the counts are equal case for case. Two of the four limits this estate measures against are not two checks. They are one invented number, counted twice."
+ },
+ "limits": {
+  "equipment_rating_v": {
+   "sourced": true,
+   "where": "printed on both documents"
+  },
+  "machine_input_a": {
+   "publishable": false,
+   "sourced": false,
+   "value": 40.0,
+   "where": "recorded ABSENT from both documents"
+  },
+  "module_fuse_a": {
+   "sourced": true,
+   "where": "printed on both documents, per bin"
+  },
+  "string_input_a": {
+   "publishable": false,
+   "sourced": false,
+   "value": 20.0,
+   "where": "no occurrence anywhere in the evidence base"
+  }
+ },
+ "not_claimed": [
+  "Nothing here is a connection offer, a constructability assessment or a consenting design, and no output of it is engineering.",
+  "Every count that rests only on the string input or the machine input is reported under its own name and is NOT a finding: those two numbers appear in no document.",
+  "No cable, diode, machine, tracker or wiring loss is modelled."
+ ],
+ "rate_cases_per_second": 3506255660.6,
+ "schema": "ggs.sweep.hotcold/1",
+ "space": {
+  "cases_per_class": 967218015,
+  "cases_total": 9672180150,
+  "classes": 10,
+  "cold_cell_c": [
+   -30.0,
+   0.0,
+   401
+  ],
+  "hot_cell_c": [
+   25.0,
+   85.0,
+   401
+  ],
+  "modules_in_series": [
+   20,
+   34,
+   15
+  ],
+  "rear_gain": [
+   0.0,
+   0.3,
+   401
+  ]
+ },
+ "wall_seconds": 2.76
+}

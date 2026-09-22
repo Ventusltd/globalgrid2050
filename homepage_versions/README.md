@@ -1667,3 +1667,7 @@ Change intention: Point the existing Kuiper current link at the generic drawing 
 ## Version 124
 
 Pre-edit restore point: `homepage_v124.html`. Measurements and change intention: `homepage_v124-metrics.json`. Source commit `660f58e7e87c9a288b1ed2996e1473233cbaf332`.
+
+## Version 125
+
+Pre-refresh exact restore point: `homepage_v125.html`; measurements: `homepage_v125-metrics.json`. Browse the archived homepage at `/homepage_versions/20260922-before-refresh/`; it adds only a root base URL so archived relative links keep working.

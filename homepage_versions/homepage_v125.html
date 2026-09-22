@@ -67,67 +67,54 @@
   .working-release a { display:block; color:#53ff4c; padding:7px 0; font-size:18px; font-weight:bold; }
   .working-release a.older { color:#53ff4c; font-size:13px; font-weight:normal; }
   details.working-release > summary, details.working-release > summary:hover { color:#53ff4c; }
-
-/* Current tools first, complete version history retained. */
-body{max-width:1040px;padding:28px 32px;font:16px/1.5 "Courier New",Courier,monospace}h1{font-size:28px;letter-spacing:.03em}.mission{max-width:880px;margin:10px 0 24px;color:#bac4c0;font-size:15px}
-a:focus-visible,summary:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid #baffb5;outline-offset:4px}
-.working-release{padding:12px 18px;margin-bottom:24px;border:1px solid #53ff4c;background:#040c06}details.working-release>summary{font-size:20px;padding:8px 0}.release-label{display:inline-block;font-size:12px;letter-spacing:.03em}.working-release>a{border-top:1px solid #17351e;font-size:17px;padding:12px 0;line-height:1.4}.working-release>a small{display:block;font-size:12px;font-weight:normal;color:#a3cda7;margin-top:3px}.working-release p{color:#a3cda7;font-size:11px}.older-release{font-size:12px;margin:8px 0 0;color:#a3cda7}.older-release>summary{cursor:pointer;padding:6px 0}.working-release .older{padding:8px 0}
-h2{font-size:13px;letter-spacing:.1em;margin:0 0 8px;color:#b2bcb8}.tool-list>a{display:grid;grid-template-columns:220px 1fr 20px;align-items:center;gap:14px;min-height:48px;padding:8px 0;border-top:1px solid #25302c;color:#53ff4c;font-size:17px;font-weight:bold}.tool-list small{color:#acb8b2;font-size:13px;font-weight:normal}.reference-links{display:flex;flex-wrap:wrap;gap:4px 24px;margin:12px 0 22px;font-size:13px}.reference-links a{padding:8px 0;color:#bdcdc5}
-.archive-panel{border-top:1px solid #34403a;border-bottom:1px solid #34403a;padding:4px 0}.archive-panel>summary{cursor:pointer;color:#b9c9c0;padding:14px 0;font-size:14px;font-weight:bold;letter-spacing:.04em}.archive-help,.search-label{color:#a3b2aa;font-size:13px}#q{font-size:14px}#menu details.area>summary{font-size:18px;padding:12px 0}#menu details.nest>summary{font-size:15px}#menu .current{font-size:17px}#menu .current small{font-size:12px}.archive-links{display:flex;flex-wrap:wrap;gap:10px 24px;padding:18px 0;font-size:13px}
-.contribute{margin:24px 0}.contribute p{color:#bac4c0;margin:8px 0;font-size:14px}.contribute a{display:inline-block;color:#53ff4c;padding:8px 0;margin-right:24px;font-size:13px}.footer{border-top:1px solid #25302c;padding-top:14px;margin-top:18px;font-size:11px;color:#829188}.footer p{margin:7px 0}.footer .funding{color:#a3b2aa;font-size:12px}.compute{font-size:11px;margin-top:12px}.compute>summary{cursor:pointer;color:#b9c9c0;padding:12px 0;font-size:14px;font-weight:bold;letter-spacing:.04em}.compute .cond{font-size:11px;color:#97afa0}
-@media(max-width:600px){body{padding:20px 18px}h1{font-size:25px}.mission{font-size:13px;margin-bottom:18px}.working-release{padding:10px 12px}.release-label{display:block;margin-left:38px;font-size:10px}details.working-release>summary{font-size:18px}.tool-list>a{grid-template-columns:1fr 20px;gap:2px 8px;font-size:16px}.tool-list small{grid-column:1;grid-row:2;font-size:12px}.tool-list span{grid-column:2;grid-row:1/3}.reference-links{gap:0 18px}.working-release>a{font-size:15px}.working-release>a small{font-size:11px}}
 </style>
-<meta name="description" content="Open-source knowledge and tools for electrical energy systems. Explore wiring, renewable energy projects and the electricity network.">
 </head>
 <body>
 <header>
-<h1>GLOBALGRID2050</h1>
-<p class="mission">Open-source knowledge and tools for electrical energy systems. Document, understand and improve the grid &mdash; together.</p>
+  <h1>GlobalGrid2050</h1>
+  <p>An open grid development, engineering, procurement, construction and operations platform dedicated to documenting, analysing and improving the world's electrical energy systems as they undergo rapid electrification.</p>
 </header>
-<main id="primary-content">
 <details id="current-working-release" class="area working-release" open>
-<summary id="working-release-title">VENTUS WIRING <span class="release-label">CURRENT WORKING RELEASE</span></summary>
-<p>20260922-A &middot; Simulation environment &middot; NOT A REAL DESIGN</p>
-<a href="/ventus/wiring/inverter-48.html">&rarr; DC STRING WIRING <small>24 connected strings &middot; 48 cables &middot; one animated string</small></a>
-<a href="/ventus/wiring/inverter-station.html">&rarr; AC LV WIRING <small>28 inverters &middot; 84 phase cables &middot; two transformer sections</small></a>
-<details class="older-release"><summary>Previous drawing</summary><a class="older" href="/kuiper-grid/drawing/">Older version: solar array drawing</a></details>
+  <summary id="working-release-title">VENTUS WIRING &mdash; CURRENT WORKING RELEASE</summary>
+  <p>20260922-A &middot; Simulation environment &middot; NOT A REAL DESIGN</p>
+  <a href="/ventus/wiring/inverter-48.html">&rarr; OPEN DC WIRING &mdash; 24 strings / 48 cables</a>
+  <a href="/ventus/wiring/inverter-station.html">&rarr; OPEN AC LV &mdash; 28 inverters / 2 transformer sections</a>
+  <a class="older" href="/kuiper-grid/drawing/">Older version: solar array drawing</a>
 </details>
-<nav class="tool-list" aria-labelledby="tools-title">
-<h2 id="tools-title">TOOLS</h2>
-<a href="./uk_renewables_pipeline/202609082224/">Pipeline News <small>Renewable energy project register</small><span aria-hidden="true">&rarr;</span></a>
-<a href="https://ventusltd.github.io/gridatlas/atlas/">Grid Atlas <small>Electricity network mapping</small><span aria-hidden="true">&rarr;</span></a>
-<a href="/kuiper-grid/">Kuiper <small>Grid, substation and solar string views</small><span aria-hidden="true">&rarr;</span></a>
-<a href="/plant/">Solar string voltage <small>Module count and cold-weather voltage check</small><span aria-hidden="true">&rarr;</span></a>
+<nav class="doors">
+  <h2>Start here</h2>
+  <a href="/kuiper-grid/manual.html">The manual &mdash; read this first
+    <small>What the Kuiper is, what to type, what the answer means, and what it refuses. Worked examples you can paste.</small></a>
+  <a href="/plant/">Will this string go over 1500&nbsp;V on the coldest morning?
+    <small>Type a module class, a count in series and a site minimum temperature. It answers in volts, or it refuses.</small></a>
+  <a href="/kuiper-grid/">The Kuiper &mdash; the grid as a map
+    <small>Every development build, newest first: the network as a transit map, one substation and every way out, the solar string picture.</small></a>
+  <a href="/kuiper/">The Kuiper work browser
+    <small>The permanent address. One frozen shell and hashed cartridges; it refuses to run anything whose bytes do not match the record.</small></a>
+  <a href="/compute/">Independent compute
+    <small>The method behind the figures on this page, and the solar block models.</small></a>
+  <a href="/historical_builds.html">Full archive
+    <small>Every build ever published, as a plain list.</small></a>
+  <p class="note">Provided as is, without warranty of any kind. A chart, not a design. Nothing here is a connection assessment, a constructability assessment or a consenting design, and no output of it is engineering.</p>
+  <noscript><p class="note">The searchable catalogue below this block is drawn by script. With script off, the six links above are the whole site's front doors and each one works.</p></noscript>
 </nav>
-<nav class="reference-links" aria-label="Guides and methods">
-<a href="/kuiper-grid/manual.html">User guide</a><a href="/compute/">Calculation methods</a><a href="/kuiper/">Kuiper work browser</a>
-</nav>
-<details id="version-archive" class="archive-panel">
-<summary>ALL TOOLS &amp; VERSION HISTORY</summary>
-<p class="archive-help">Earlier releases, development tools and the complete navigation tree. Search the recorded builds by name, date or commit.</p>
-<div class="archive-search">
-  <label class="search-label" for="q">Search recorded builds</label>
-<input type="text" id="q" placeholder="Name, date or commit" autocomplete="off">
+
+<main>
+  <input type="text" id="q" placeholder="Search everything… (name, stamp, commit)" autocomplete="off">
   <div class="controls">
     <span class="count" id="count"></span>
   </div>
   <div id="menu"></div>
-</div>
-<nav class="archive-links" aria-label="Archive and recovery"><a href="/historical_builds.html">Full build archive</a><a href="/homepage_versions/20260922-before-refresh/">Previous homepage &mdash; 22 September 2026</a></nav>
-</details>
-<section class="contribute" aria-labelledby="contribute-title"><h2 id="contribute-title">CONTRIBUTE</h2>
-<p>You do not need to code. Share a source, document a process, report a problem or improve a tool.</p>
-<a href="/how_to_work_with_globalgrid2050/">How to contribute &rarr;</a><a href="https://github.com/Ventusltd/globalgrid2050">Source code &rarr;</a>
-</section>
 </main>
-<footer class="footer">
-<p class="funding">Funded by VENTUS LTD. Built through open collaboration.</p>
+<div class="footer">
   <p><strong>Disclaimer:</strong> Content provided for general technical documentation and research purposes only.</p>
   <p><a href="./historical_builds.html">Full archive</a></p>
-  <details id="gpu-compute" class="compute"><summary>GPU COMPUTE &amp; VERIFICATION</summary>
+  <div class="compute">
     <p><strong>GlobalGrid2050 explores current technology with Claude and Codex AI,
     and actively studies <a href="https://github.com/cupy/cupy">CuPy</a> for faster
-    independent compute on local machines.</strong> Selected numerical studies use local hardware and comparisons against reference implementations.</p>
+    independent compute on local machines.</strong> The engineering arithmetic on this
+    site is enumerated on our own hardware rather than estimated, and no result is
+    published until it has been verified against a reference implementation.</p>
     <p class="figs">Taken on one machine, 20 September 2026 &mdash; a complete solar
     string-and-block design space of <strong>1,020,600,000</strong> designs:
     <strong>177,289,777</strong> cases/s on the GPU with CuPy against
@@ -145,8 +132,8 @@ h2{font-size:13px;letter-spacing:.1em;margin:0 0 8px;color:#b2bcb8}.tool-list>a{
     of &ldquo;tens of millions a second&rdquo; for a third kernel was tested and
     <em>not</em> reached, falling 3.0&times; short; it is recorded as not reached.
     Method, figures and the solar block models: <a href="./compute/">Independent compute</a> &middot; code at <a href="https://github.com/Ventusltd/gpu-drivers-for-global-grid">gpu-drivers-for-global-grid</a>.</p>
-  </details>
-</footer>
+  </div>
+</div>
 <script>
 /* THREE NESTS, THREE ROWS EACH, EVERYTHING ELSE ON DEMAND.
  *

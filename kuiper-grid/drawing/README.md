@@ -15,3 +15,5 @@ Power-block proposals: open the Power blocks panel, enter a DC/AC ratio and inve
 Editing proposal inputs clears the previous proposal and its routes until rebuilt. Changing the selected station or route dimensions clears only the prepared routes. Downloads are available only for the current prepared results; invalid rebuilds also clear prior results.
 
 The selected-station route preview uses equal-axis local metres, actual proposal inverter IDs and the partial final station count. Hover for trench occupancy or expand the ID list. Road width is an assumption; symbols are enlarged. Changes clear the preview until routes are prepared again. This is generic station geometry, not whole-site placement or electrical approval.
+
+Download station plan SVG saves the current prepared preview as a standalone vector drawing with station/inverter IDs, metre units, equal-axis geometry, route-summary metadata and visible provisional-use limitations. Changing proposal, station or route inputs disables export until routes are prepared again. It does not certify equipment, site fit or installation.

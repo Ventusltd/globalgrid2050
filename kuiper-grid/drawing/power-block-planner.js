@@ -66,12 +66,22 @@ function mount(){
   const schedule=document.createElement('details'),heading=document.createElement('summary'),scope=document.createElement('p'),segments=document.createElement('ol');
   schedule.id='pb-trench-schedule';heading.textContent='Trench segments and circuit occupancy';scope.className='note';scope.textContent='Each shared trench segment is counted once. Circuit counts identify proposed feeders, not conductor cores, cable sizes or thermal capacity.';
   for(const segment of data.segments){const item=document.createElement('li'),label=document.createElement('p'),circuits=document.createElement('details'),title=document.createElement('summary'),members=document.createElement('ul');item.dataset.segmentId=segment.id;item.style.overflowWrap='anywhere';label.textContent=segment.id+': '+fmt(segment.lengthM)+' m; ('+segment.points[0][0]+', '+segment.points[0][1]+') to ('+segment.points[1][0]+', '+segment.points[1][1]+') m';title.textContent=segment.circuitIds.length+' proposed circuits';for(const id of segment.circuitIds){const member=document.createElement('li');member.textContent=id;members.append(member);}circuits.append(title,members);item.append(label,circuits);segments.append(item);}
-  schedule.append(heading,scope,segments);q('pb-route-view').replaceChildren(svg,legend,ids,schedule);
+  const inspect=document.createElement('label'),select=document.createElement('select'),status=document.createElement('p');
+  inspect.textContent='Trace proposed feeder ';select.id='pb-feeder';select.style.cssText='max-width:100%';select.setAttribute('aria-label','Trace proposed feeder');
+  const blank=document.createElement('option');blank.value='';blank.textContent='Select a proposed circuit';select.append(blank);
+  for(const feeder of data.feeders){const option=document.createElement('option');option.value=feeder.id;option.textContent=feeder.id;select.append(option);}
+  status.id='pb-feeder-state';status.className='note';status.setAttribute('role','status');status.textContent='Select a circuit to highlight its route. No electrical connection or cable rating is approved.';
+  select.onchange=()=>{svg.querySelector('[data-kind="selected-feeder"]')?.remove();const feeder=data.feeders.find(f=>f.id===select.value);if(!feeder){status.textContent='No circuit selected.';return;}
+   const trace=node('polyline',{points:feeder.points.map(p=>xy(p).join(',')).join(' '),fill:'none',stroke:'#ffffff','stroke-width':4,'stroke-dasharray':'5 3','pointer-events':'none','data-kind':'selected-feeder','data-circuit-id':feeder.id});trace.append(node('title',{},feeder.id+'; '+feeder.routeM+' m proposed route'));svg.append(trace);
+   status.textContent=feeder.id+': '+fmt(feeder.routeM)+' m from '+feeder.from+' to '+feeder.to+'. White dashed trace; proposed circuit route, not conductor length or electrical approval.';
+  };
+  inspect.append(select);schedule.append(heading,scope,segments);q('pb-route-view').replaceChildren(svg,legend,inspect,status,ids,schedule);
  }
  function stationPlanSvg(){
   if(!route)throw Error('Prepare station routes first');
   const source=q('pb-route-view svg');if(!source)throw Error('Station preview unavailable');
   const svg=source.cloneNode(true),ns='http://www.w3.org/2000/svg';
+  svg.querySelector('[data-kind="selected-feeder"]')?.remove();
   svg.setAttribute('viewBox','0 0 340 460');svg.setAttribute('width','680');svg.setAttribute('height','920');
   svg.removeAttribute('style');
   const background=document.createElementNS(ns,'rect');background.setAttribute('width','340');background.setAttribute('height','460');background.setAttribute('fill','#101820');svg.prepend(background);

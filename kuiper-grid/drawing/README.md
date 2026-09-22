@@ -19,3 +19,5 @@ The selected-station route preview uses equal-axis local metres, actual proposal
 Download station plan SVG saves the current prepared preview as a standalone vector drawing with station/inverter IDs, metre units, equal-axis geometry, route-summary metadata and visible provisional-use limitations. Changing proposal, station or route inputs disables export until routes are prepared again. It does not certify equipment, site fit or installation.
 
 The station trench schedule lists each shared segment once with local endpoints, length and expandable proposed circuit IDs. It supports touch and keyboard inspection without hovering. Occupancy counts are feeders, not conductor counts, cable sizing or thermal approval. Editing inputs clears the schedule until routes are prepared again.
+
+The station plan feeder selector highlights one proposed circuit with a white dashed route and reports its endpoint IDs and route length. Input changes clear the preview and selection. The standalone SVG remains an unselected station plan. This trace does not establish conductor quantities, connectivity approval or cable ratings.

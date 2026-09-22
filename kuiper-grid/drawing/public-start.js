@@ -10,7 +10,7 @@ const start=setInterval(()=>{
     appWork['generic-drawing']=['synthetic-scene'];
     const inheritedFire=FIRE.fire;
     FIRE.fire=function(command){
-      if(!/^fire (?:string|array-lab-table|synthetic-site)(?: |$)/.test(command))throw Error('This release exposes drawing geometry only.');
+      if(!/^fire (?:string|array-lab-table|synthetic-site|whole-site-routes)(?: |$)/.test(command))throw Error('This release exposes drawing geometry only.');
       const result=inheritedFire.call(this,command),seen=new WeakSet();
       function finiteTree(value){if(typeof value==='number'&&!Number.isFinite(value))throw Error('Drawing calculation returned a non-finite value.');if(value&&typeof value==='object'&&!seen.has(value)){seen.add(value);for(const v of Object.values(value))finiteTree(v);}}
       finiteTree(result);return result;

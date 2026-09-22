@@ -1,11 +1,11 @@
 {
-  "release": "20260922-generic-v8-feeder-trace",
+  "release": "20260922-generic-v9-whole-site-routes",
   "nativePublicCommit": "9f498d57538a92506d14b6bffd1882d3618454e3",
   "files": [
     {
       "path": "index.html",
       "source": "Original generic release code or asset",
-      "changes": "Generic entry; explicit scripts; same-origin CSP; source artwork removed; 2026-09-22: drawing title and header scope clarified, structure unchanged; 2026-09-22: load generic power-block proposal panel",
+      "changes": "Generic entry; explicit scripts; same-origin CSP; source artwork removed; 2026-09-22: drawing title and header scope clarified, structure unchanged; 2026-09-22: load generic power-block proposal panel; explicit whole-site geometry command/import added, finite-output guard retained",
       "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
     },
     {
@@ -84,7 +84,7 @@
     {
       "path": "public-start.js",
       "source": "Original generic release code or asset",
-      "changes": "Generic release assembly",
+      "changes": "Generic release assembly; explicit whole-site geometry command/import added, finite-output guard retained",
       "licence": "Apache-2.0; assembled native derivatives also retain applicable CERN-OHL-S obligations (see NOTICE.md)"
     },
     {
@@ -219,6 +219,18 @@
       "upstreamSha256": "fffe297b868ea6fe30531020d916efb5f1159be6604529476804a026a75435ff",
       "changes": "2026-09-22: selectively included self-contained generic proposal arithmetic and optional panel; no external dependencies or project assets; 2026-09-22: invalidate stale proposal/route results and disable downloads until rebuilt; original generic DOM logic, no new imports or assets; 2026-09-22: original generic SVG station preview from existing public collection geometry, accessible ID list and stale-preview clearing; no new imports, private source, assets or dependencies; 2026-09-22: original standalone station SVG export from existing public preview, route metadata and visible scope limitations; no new imports or dependencies; 2026-09-22: original accessible trench-segment and circuit-occupancy schedule from existing public geometry; no imports or new dependencies; 2026-09-22: original generic proposed-feeder selection and route trace using existing public geometry; no new imports or dependencies",
       "licence": "Apache-2.0; assembled native derivatives retain applicable CERN-OHL-S obligations (see NOTICE.md)"
+    },
+    {
+      "path": "whole-site-routes.js",
+      "source": "Original generic Kuiper drawing code authored in this development session",
+      "changes": "Generic station grid, road union and guarded native drawing adapter; no imported project datasets, manufacturer assets, standards text, external requests or local services. Inputs from existing power-block-planner.js only.",
+      "licence": "Apache-2.0; native renderer retains CERN-OHL-S-2.0 notices"
+    },
+    {
+      "path": "whole-site-route-view.js",
+      "source": "Original generic Kuiper drawing code authored in this development session",
+      "changes": "Generic station grid, road union and guarded native drawing adapter; no imported project datasets, manufacturer assets, standards text, external requests or local services. Inputs from existing power-block-planner.js only.",
+      "licence": "Apache-2.0; native renderer retains CERN-OHL-S-2.0 notices"
     }
   ]
 }

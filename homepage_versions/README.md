@@ -1663,3 +1663,7 @@ SHA-256: `c53d3d6e1234bfee190712a3ff6d9ffb6f555efc80b88f7e61ef8709d658b0ec`.
 After snapshot: 205 files.
 
 Change intention: Point the existing Kuiper current link at the generic drawing tool and retain the earlier plant examples. Add the drawing to the existing Kuiper Start here list. No CSS or page redesign. All existing href values are retained.
+
+## Version 124
+
+Pre-edit restore point: `homepage_v124.html`. Measurements and change intention: `homepage_v124-metrics.json`. Source commit `660f58e7e87c9a288b1ed2996e1473233cbaf332`.

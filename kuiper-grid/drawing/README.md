@@ -13,3 +13,5 @@ See NOTICE.md, SOURCE-PROVENANCE.json and licenses/ for licensing, source identi
 Power-block proposals: open the Power blocks panel, enter a DC/AC ratio and inverter assumptions, then build. Whole strings are allocated to inverter nameplates, with actual partial final stations. Download the proposal or selected-station generic route quantities. These proposal IDs are separate from the synthetic site hierarchy. No MPPT, voltage, current, transformer, surveyed routing or equipment approval is established.
 
 Editing proposal inputs clears the previous proposal and its routes until rebuilt. Changing the selected station or route dimensions clears only the prepared routes. Downloads are available only for the current prepared results; invalid rebuilds also clear prior results.
+
+The selected-station route preview uses equal-axis local metres, actual proposal inverter IDs and the partial final station count. Hover for trench occupancy or expand the ID list. Road width is an assumption; symbols are enlarged. Changes clear the preview until routes are prepared again. This is generic station geometry, not whole-site placement or electrical approval.

@@ -1,5 +1,5 @@
 {
-  "release": "20260922-generic-v4-current-exports",
+  "release": "20260922-generic-v5-station-preview",
   "nativePublicCommit": "9f498d57538a92506d14b6bffd1882d3618454e3",
   "files": [
     {
@@ -217,7 +217,7 @@
       "path": "power-block-planner.js",
       "source": "Original generic planner developed in kuiper-ship",
       "upstreamSha256": "fffe297b868ea6fe30531020d916efb5f1159be6604529476804a026a75435ff",
-      "changes": "2026-09-22: selectively included self-contained generic proposal arithmetic and optional panel; no external dependencies or project assets; 2026-09-22: invalidate stale proposal/route results and disable downloads until rebuilt; original generic DOM logic, no new imports or assets",
+      "changes": "2026-09-22: selectively included self-contained generic proposal arithmetic and optional panel; no external dependencies or project assets; 2026-09-22: invalidate stale proposal/route results and disable downloads until rebuilt; original generic DOM logic, no new imports or assets; 2026-09-22: original generic SVG station preview from existing public collection geometry, accessible ID list and stale-preview clearing; no new imports, private source, assets or dependencies",
       "licence": "Apache-2.0; assembled native derivatives retain applicable CERN-OHL-S obligations (see NOTICE.md)"
     }
   ]

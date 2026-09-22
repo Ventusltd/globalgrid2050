@@ -46,6 +46,8 @@ on:
       # being published and not appearing. This one is listed before
       # anything is served from it.
       - 'plant/**'
+      - 'ventus/**'
+      - 'why_ventusltd_building_globalgrid2050/**'
       # A new PipelineNews release is a directory under uk_renewables_pipeline.
       # It was NOT in this list, so a push that only added a release triggered
       # no deploy at all: 202609061329 sat at HTTP 404 through eight polls after
@@ -213,6 +215,35 @@ jobs:
           TARGET_SHA: ${{ needs.build.outputs.deployed_sha }}
           V9_BASE_URL: https://globalgrid2050.com/uk_renewables_pipeline/v9.7/?deployment=${{ needs.build.outputs.deployed_sha }}
         run: node uk_renewables_pipeline/v9.7/tests/browser_smoke_v9_7.mjs
+
+      - name: Verify VENTUS wiring on Linux Chromium
+        working-directory: uk_renewables_pipeline/v9.7
+        env:
+          TARGET_SHA: ${{ needs.build.outputs.deployed_sha }}
+        run: |
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          import {chromium} from 'playwright';
+          const browser=await chromium.launch({headless:true});
+          const report=[];
+          try {
+            for(const [file,kind] of [['inverter-48.html','dc'],['inverter-station.html','ac']]) {
+              const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
+              page.on('pageerror',e=>errors.push(e.message));
+              const start=Date.now();
+              const response=await page.goto('https://globalgrid2050.com/ventus/wiring/'+file+'?release='+process.env.TARGET_SHA,{waitUntil:'domcontentloaded'});
+              assert.equal(response.status(),200);
+              await page.waitForFunction(k=>k==='dc'?window.__inverter48?.ready&&window.__inverter48.animatedHomeCount===2:!!window.__inverterStation,kind,{timeout:45000});
+              const state=await page.evaluate(k=>k==='dc'?{modules:__inverter48.model.modules.length,homes:__inverter48.model.homes.length,playing:__inverter48.playing,activeHomes:__inverter48.animatedHomeCount}:{inverters:__inverterStation.model.inverters.length,cables:__inverterStation.model.cables.length,paused:document.querySelector('#drawing').classList.contains('paused')},kind);
+              if(kind==='dc'){assert.equal(state.modules,900);assert.equal(state.homes,48);assert.equal(state.playing,true);assert.equal(state.activeHomes,2);}
+              else{assert.equal(state.inverters,28);assert.equal(state.cables,84);assert.equal(state.paused,true);}
+              assert.deepEqual(errors,[]);
+              report.push({file,platform:process.platform,state,readyMs:Date.now()-start,errors});
+              await page.close();
+            }
+            console.log(JSON.stringify({passed:true,release:process.env.TARGET_SHA,report},null,2));
+          }finally{await browser.close();}
+          JS
 
   report:
     if: always()

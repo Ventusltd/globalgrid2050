@@ -47,6 +47,8 @@ SURFACE = [
     # of the seventeen pages the text had just been added to.
     "kuiper/*.html",
     "kuiper-grid/i0*/*.html",
+    "ventus/*.html",
+    "ventus/wiring/*.html",
 ]
 
 # ---- what must never appear in public text

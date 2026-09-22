@@ -1,0 +1,56 @@
+import {calculateElectrical,emptyElectricalState,electricalBasis,conductorReference} from './inverter-48-electrical.mjs';
+const fmt=(n,d=2)=>n===null||n===undefined?'—':Number(n).toFixed(d);
+const cableFields=[['r20','R20 · Ω/km'],['temperature','Conductor · °C'],['alpha','α20 · 1/K'],['baseAmpacity','Base ampacity · A'],['temperatureFactor','Temperature factor'],['groupingFactor','Grouping factor'],['otherFactor','Other factor'],['size','Conductor · mm²'],['conductorClass','Conductor class'],['coating','Coating / material'],['ratingSource','Rating / resistance evidence'],['installation','Installation / grouping basis']];
+const stringFields=[['current','Operating current · A'],['voltage','String source voltage · V'],['designCurrent','Design current · A'],['seriesCopperOhm','All series-lead copper · Ω at temperature']];
+export function mountElectrical(container,{getModel,getCableLength=h=>h.routeM,onChange=()=>{}}) {
+  let state=emptyElectricalState(),report,scope='all',stringScope='all';
+  container.classList.add('electrical-hud');
+  container.innerHTML=`<details class="electrical-panel"><summary>DC ANALYSIS <span data-total>INPUTS REQUIRED</span></summary><div class="electrical-body"><p class="electrical-note">Entered scenarios · 48 home cables · 24 complete string loops. Blank values stay unresolved. Expand controls to type values.</p><div data-stats class="electrical-stats"></div><details><summary>Current &amp; string circuit</summary><label>Apply to <select data-string-scope><option value="all">All 24 strings</option></select></label><div data-string-fields class="electrical-grid"></div><button type="button" data-stc>Use module STC reference</button><p class="electrical-note" data-basis></p><label>Series mated pairs · mΩ each, comma separated<textarea data-series placeholder="Enter 29 pair resistances; one value per mated pair" rows="2"></textarea></label><div class="electrical-inline"><input data-series-uniform type="number" min="0" step="any" placeholder="mΩ per series pair"><button type="button" data-fill-series>Fill 29 pairs</button></div><p class="electrical-note">29 intermodule mated pairs per string; separate from home-end contacts. Series-lead Ω excludes every contact. Contact resistance must cover both halves as one mated pair.</p><button type="button" data-clear-string>Clear selected string overrides</button></details><details><summary>Conductor &amp; derating</summary><label>Apply to <select data-cable-scope><option value="all">All 48 cables</option></select></label><div data-cable-fields class="electrical-grid"></div><label>Home mated pairs · mΩ each, comma separated<input data-home-contacts type="text" placeholder="module extension pair, inverter input pair"></label><p class="electrical-note">Normally two mated interfaces per extension home cable; enter one value per actual pair. Add entries only for additional physical pairs. No default contact resistance. Derating factors need installation evidence; 48 cables does not imply one group of 48. Use the limiting segment rating or split the assessment externally.</p><button type="button" data-clear-cable>Clear selected cable overrides</button></details><details><summary>24 string results</summary><div class="electrical-table-wrap"><table><thead><tr><th>String</th><th>Home ΔV</th><th>Full ΔV</th><th>Full %</th><th>Loss W</th><th>Contacts W</th><th>Iz check</th></tr></thead><tbody data-string-results></tbody></table></div></details><details><summary>48 cable results</summary><div class="electrical-table-wrap"><table><thead><tr><th>Cable</th><th>m</th><th>R Ω</th><th>ΔV</th><th>W</th><th>Iz A</th><th>Margin A</th></tr></thead><tbody data-cable-results></tbody></table></div></details><details><summary>Method &amp; evidence</summary><p data-method></p><p data-resistance></p><p data-standard></p><p data-scope></p><p class="electrical-note">Operating I is used for losses; entered maximum design I is checked against derated ampacity. A conductor-temperature input changes resistance; an ambient-temperature factor changes the entered ampacity. Neither solves cable temperature. IEC 60228 is a conductor resistance/classification basis, not an installation ampacity table. IEC 62548 checks remain incomplete until equipment, protection, thermal, routing and connector evidence are resolved.</p><ul data-evidence></ul></details><button type="button" data-save>Save electrical scenario + report</button><p data-error role="status" class="electrical-note"></p></div></details>`;
+  const $=key=>container.querySelector(`[data-${key}]`),inputs={};
+  for(const [key,label]of cableFields.concat(stringFields)) {
+    const l=document.createElement('label');l.textContent=label;const input=document.createElement('input');input.dataset.field=key;
+    input.type=['conductorClass','coating','ratingSource','installation'].includes(key)?'text':'number';if(input.type==='number')input.step='any';
+    input.placeholder='Enter value';l.append(input);$(cableFields.some(f=>f[0]===key)?'cable-fields':'string-fields').append(l);inputs[key]=input;
+    input.addEventListener('input',()=>{const cable=cableFields.some(f=>f[0]===key),target=cable?scope:stringScope;const dest=target==='all'?state.defaults:(cable?(state.overrides[target]??={}):(state.stringOverrides[target]??={}));dest[key]=input.value;state.basis='entered scenario';update();});
+  }
+  for(const home of getModel().homes)$('cable-scope').add(new Option(home.id,home.id));
+  for(const s of getModel().strings.filter(s=>s.connected))$('string-scope').add(new Option(s.id,s.id));
+  const referenceButton=document.createElement('button');referenceButton.type='button';referenceButton.textContent='Use cable 6 mm² reference';
+  $('cable-fields').before(referenceButton);
+  const referenceLink=document.createElement('a');referenceLink.href=conductorReference.url;referenceLink.target='_blank';referenceLink.rel='noreferrer';referenceLink.textContent='Generic reference assumptions';referenceButton.after(referenceLink);
+  const referenceNote=document.createElement('p');referenceNote.className='electrical-note';referenceNote.textContent='cable DC copper cable: class 5 tinned copper, 1500 V DC. The 6 mm² preset uses EN 50618:2014 Table A.3: 57 A, two loaded cables touching on a surface, 60°C ambient, 120°C conductor limit. Temperature factor 1 applies up to 60°C ambient; use 0.92 at 70°C, 0.84 at 80°C or 0.75 at 90°C. Additional grouping stays entered. Maximum-temperature use has a 20,000-hour limit in this standard. Existing per-cable overrides take precedence.';referenceLink.after(referenceNote);
+  referenceButton.onclick=()=>{const selected=scope==='all'?state.defaults:(state.overrides[scope]??={});Object.assign(selected,conductorReference.sizes[1],{alpha:conductorReference.alpha,conductorClass:conductorReference.conductorClass,coating:conductorReference.coating,ratingSource:conductorReference.title+' pp. 1–2; '+conductorReference.url+'; BS EN 50618:2014 Tables A.3/A.4 for ampacity',installation:conductorReference.ampacityBasis,temperatureFactor:1});sync();update();};
+  for(const key of ['method','resistance','standard','scope'])$(key).textContent=electricalBasis[key];
+  for(const e of electricalBasis.missingEvidence){const li=document.createElement('li');li.textContent=e;$('evidence').append(li);}
+  function effective(cable) {const selected=cable?scope:stringScope;return {...state.defaults,...(selected==='all'?{}:(cable?state.overrides[selected]:state.stringOverrides[selected])||{})};}
+  function sync() {
+    const c=effective(true),s=effective(false);
+    for(const [key]of cableFields)inputs[key].value=c[key]??'';
+    for(const [key]of stringFields)inputs[key].value=s[key]??'';
+    $('home-contacts').value=c.homeContacts??'';$('series').value=s.seriesContacts??'';
+    $('clear-cable').disabled=scope==='all';$('clear-string').disabled=stringScope==='all';
+  }
+  function saveField(cable,key,value){const selected=cable?scope:stringScope;const target=selected==='all'?state.defaults:(cable?(state.overrides[selected]??={}):(state.stringOverrides[selected]??={}));target[key]=value;update();}
+  $('cable-scope').onchange=e=>{scope=e.target.value;sync();};$('string-scope').onchange=e=>{stringScope=e.target.value;sync();};
+  $('home-contacts').oninput=e=>saveField(true,'homeContacts',e.target.value);$('series').oninput=e=>saveField(false,'seriesContacts',e.target.value);
+  $('fill-series').onclick=()=>{const value=$('series-uniform').value;if(value===''||!Number.isFinite(Number(value))||Number(value)<0){$('error').textContent='Enter a non-negative mΩ value for each series mated pair.';return;}saveField(false,'seriesContacts',Array(29).fill(value).join(', '));sync();};
+  $('clear-cable').onclick=()=>{if(scope!=='all')delete state.overrides[scope];sync();update();};
+  $('clear-string').onclick=()=>{if(stringScope!=='all')delete state.stringOverrides[stringScope];sync();update();};
+  $('stc').onclick=()=>{saveField(false,'current',17.35);saveField(false,'voltage',30*38.1);state.basis='STC module reference: 17.35 A, 30 × 38.1 V; not a solved operating point';sync();update();};
+  $('save').onclick=()=>{const blob=new Blob([JSON.stringify({state,report},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='inverter-48-electrical-scenario.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);};
+  function rows(host,data,keys) {host.replaceChildren();for(const row of data){const tr=document.createElement('tr');for(const k of keys){const td=document.createElement('td');const value=row[k];td.textContent=typeof value==='string'?value:fmt(value,k==='totalOhm'?4:2);tr.append(td);}host.append(tr);}}
+  function update() {
+    report=calculateElectrical(getModel(),state,getCableLength);const t=report.totals;
+    $('total').textContent=t.completeLossW===null?`${t.completeStrings}/24 LOOPS`:`${fmt(t.completeLossW,1)} W LOSS`;
+    $('stats').textContent=`Home loss ${fmt(t.homeLossW,1)} W · complete loss ${fmt(t.completeLossW,1)} W · contact loss ${fmt(t.contactLossW,1)} W · ${t.ampacityExceeded} cable rating exceedances · ${t.unresolvedCables} cables with missing inputs`;
+    $('basis').textContent=state.basis==='entered'?'Enter operating I and source V. STC reference is an optional comparison, not an operating-point prediction.':state.basis;
+    rows($('string-results'),report.strings,['id','homeDropV','dropV','dropPercent','lossW','contactLossW','ampacityState']);
+    rows($('cable-results'),report.cables,['id','lengthM','totalOhm','dropV','lossW','ampacityA','ampacityMarginA']);
+    const wrong=report.strings.filter(s=>s.seriesCountMatches===false).map(s=>s.id),invalid=report.strings.filter(s=>s.invalidOperatingPoint).map(s=>s.id);
+    $('error').textContent=[wrong.length?`Review series-pair counts: ${wrong.join(', ')}; model has 29 per string.`:'',invalid.length?`Entered loss exceeds source voltage: ${invalid.join(', ')}.`:''].filter(Boolean).join(' ');
+    onChange(report);
+  }
+  sync();update();
+  return {refresh(){update();},getState(){return structuredClone(state);},setState(next){state={...emptyElectricalState(),...structuredClone(next)};sync();update();},getReport(){return structuredClone(report);}};
+}
+export const mount=mountElectrical;

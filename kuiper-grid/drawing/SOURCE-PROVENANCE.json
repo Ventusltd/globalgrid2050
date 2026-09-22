@@ -1,5 +1,5 @@
 {
-  "release": "20260922-generic-v9-whole-site-routes",
+  "release": "20260922-generic-v10-station-navigation",
   "nativePublicCommit": "9f498d57538a92506d14b6bffd1882d3618454e3",
   "files": [
     {
@@ -229,7 +229,7 @@
     {
       "path": "whole-site-route-view.js",
       "source": "Original generic Kuiper drawing code authored in this development session",
-      "changes": "Generic station grid, road union and guarded native drawing adapter; no imported project datasets, manufacturer assets, standards text, external requests or local services. Inputs from existing power-block-planner.js only.",
+      "changes": "Generic station grid, road union and guarded native drawing adapter; no imported project datasets, manufacturer assets, standards text, external requests or local services. Inputs from existing power-block-planner.js only.; native station inspection from existing validated materializeStation data, partial station membership preserved, overview/table return and invalidation tested",
       "licence": "Apache-2.0; native renderer retains CERN-OHL-S-2.0 notices"
     }
   ]

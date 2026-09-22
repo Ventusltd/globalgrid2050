@@ -1,5 +1,5 @@
 {
-  "release": "20260922-generic-v3-power-blocks",
+  "release": "20260922-generic-v4-current-exports",
   "files": {
     "array-lab.js": "e7273e94f2ab01a14d1ee26bbd143839fe85f23e7f39c57a9999247697a8aad6",
     "assemble.mjs": "8b3fae634599b8582704915fe72fa1f80ceed589049b53d89d10ce7ba0d936d5",
@@ -13,10 +13,10 @@
     "kuiper-programs.js": "b62e9418bc019fbd2c39144827ac5bf415cb0b57d8ced8cd973d196e0e20144b",
     "NOTICE.md": "fa4f4714bca0d5260d41fc43cbfa4d51fc4d3ea4bcf727ac608215d31b57c26a",
     "public-start.js": "eebd5bfb4fd0b8fbd1505b188fde896235373bbbe78782c814bdc7699cc64a0c",
-    "README.md": "440bf26ff54713ee9f63602126cf4cebeea743a9535969a5e4546aac96f23d78",
+    "README.md": "c2af1e02e6d9588a395472d66a263aa3bcb25c3a2a0b448ed8b4bfe3fb863973",
     "renderer.html": "5ba9e9f8c920be44cd0fca55f14b0ae31b13530e90b44f8c198a7e38446beee5",
     "site-scale.js": "d1d0f1a36173f5de33563c8329c6a8056e940ced95f6bb723475595d1b159196",
-    "SOURCE-PROVENANCE.json": "ad6ab9902264dc290c8d3f629ec70a109f59b4c56620c04118a16f741a09b438",
+    "SOURCE-PROVENANCE.json": "6b4bf2187412c508197531d993e1acb880f883fede17cfc6b557ee331442ea54",
     "view-mode.js": "c7950d68c251493eddbf551072192986c7d5252a32315d59dc9f70ceaf72520a",
     "cosmos/app-commits.tsv": "f5bf8644048c16defec28e16acdcfd8acc42425dca30e813bc934ab2f176a1d2",
     "cosmos/apps.tsv": "f5bf8644048c16defec28e16acdcfd8acc42425dca30e813bc934ab2f176a1d2",
@@ -36,6 +36,6 @@
     "licenses/Apache-2.0.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
     "licenses/CERN-OHL-S-2.0.txt": "b76e339bfb98ce26308087b503a6c8d6f962f711e10216cd6116bbd2883ec036",
     "cosmos/cards/list.tsv": "f5bf8644048c16defec28e16acdcfd8acc42425dca30e813bc934ab2f176a1d2",
-    "power-block-planner.js": "2ab3ad2a91afda8881e2c662333de7077a8a0ef8093093b2ee4861e9f11332a9"
+    "power-block-planner.js": "d8fe7f14b24edf9a272765a1b2efdd41386d0b7a047d279a13fa9c864e245983"
   }
 }

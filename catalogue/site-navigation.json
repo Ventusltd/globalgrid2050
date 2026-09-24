@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "nests": [
+    {
+      "id": "kuiper",
+      "title": "Original Kuiper",
+      "subtitle": "The animated universe of code",
+      "description": "Explore the original Kuiper and trace the work behind it. This is our starting point for rebuilding the collection.",
+      "url": "https://globalgrid2050.com/kuiper/",
+      "label": "Enter original Kuiper",
+      "open": true
+    },
+    {
+      "id": "gridatlas",
+      "title": "GridAtlas",
+      "subtitle": "Explore the electricity network",
+      "description": "Find sites, explore network layers and inspect the connections around them.",
+      "url": "https://ventusltd.github.io/gridatlas/atlas/",
+      "label": "Open GridAtlas",
+      "open": false
+    },
+    {
+      "id": "pipeline-news",
+      "title": "Pipeline News",
+      "subtitle": "Follow renewable energy projects",
+      "description": "Explore the project register and follow the renewable energy pipeline.",
+      "url": "https://globalgrid2050.com/uk_renewables_pipeline/202609082224/",
+      "label": "Open Pipeline News",
+      "open": false
+    },
+    {
+      "id": "solar-design-studio",
+      "title": "Solar Design Studio",
+      "subtitle": "Maps, electrical layouts and project economics",
+      "description": "The GIS, SLD & Financial Sandbox, brought together under a shorter name. Explore the existing modelling workspace.",
+      "url": "https://globalgrid2050.com/solar-bess-topology-v7/gis-sld-financial-sandbox/index.html",
+      "label": "Open Solar Design Studio",
+      "open": false
+    }
+  ],
+  "archive": {
+    "url": "https://globalgrid2050.com/historical_builds.html",
+    "label": "Explore the archive"
+  }
+}

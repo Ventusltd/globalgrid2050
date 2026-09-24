@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<title>GlobalGrid2050</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { color-scheme: dark; }
+  html { background:#000; }
+  body { background:#000; color:#fff; font-family:Courier,monospace; padding:40px; max-width:980px; margin:0 auto; font-size:20px; line-height:1.6; }
+  h1 { margin:0 0 6px; }
+  a { color:#66ccff; text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .lede { color:#aaa; font-size:16px; margin:0 0 22px; }
+  #q { width:100%; padding:12px; background:#111; color:#fff; border:1px solid #444; font-family:Courier,monospace; font-size:18px; margin:6px 0 10px; box-sizing:border-box; }
+  #q:focus { outline:none; border-color:#66ccff; }
+  .controls { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:0 0 18px; font-size:14px; }
+  .controls button, .controls select { background:#000; color:#aab3bf; border:1px solid #343b45; padding:7px 10px; font:700 12px Courier,monospace; cursor:pointer; text-transform:uppercase; }
+  .controls button.on, .controls button:hover, .controls select:hover { border-color:#00ffff; color:#00ffff; }
+  .controls .count { margin-left:auto; color:#7a7a7a; }
+  details.area { border-bottom:1px solid #333; }
+  details.area > summary { list-style:none; cursor:pointer; padding:14px 0; color:#00ffff; font-weight:bold; letter-spacing:.5px; font-size:24px; }
+  details.area > summary::-webkit-details-marker { display:none; }
+  details.area > summary::before { content:"[+] "; }
+  details.area[open] > summary::before { content:"[−] "; }
+  details.area > summary:hover { color:#66ffff; }
+  .current { display:block; margin:4px 0 14px; padding:12px 0; border-top:1px solid #333; border-bottom:1px solid #333; color:#00ffff; font-weight:bold; font-size:26px; line-height:1.15; }
+  .current small { display:block; color:#53ff4c; font-size:14px; font-weight:bold; margin-top:4px; }
+  .tablewrap { overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0 0 10px; }
+  table { width:100%; border-collapse:collapse; font-size:14px; min-width:760px; }
+  th { text-align:left; color:#00ffff; padding:8px 10px; border-bottom:1px solid #333; cursor:pointer; white-space:nowrap; user-select:none; }
+  th[data-sort]:hover { color:#66ffff; }
+  th .dir { color:#7a7a7a; }
+  td { padding:8px 10px; border-bottom:1px solid #1c1c1c; vertical-align:top; overflow-wrap:anywhere; }
+  td.name a { color:#66ccff; font-weight:bold; }
+  td.name .title { display:block; color:#aaa; font-size:12px; }
+  .status-current { color:#53ff4c; font-weight:bold; } .status-test { color:#ffbe45; } .status-archived, .status-live { color:#7a7a7a; }
+  code { color:#9aa3af; font-size:12px; }
+  .more { background:#000; color:#aab3bf; border:1px solid #343b45; padding:8px 14px; font:700 12px Courier,monospace; cursor:pointer; margin:0 0 18px; text-transform:uppercase; }
+  .more:hover { border-color:#00ffff; color:#00ffff; }
+  .noresult { color:#888; padding:20px 0; }
+  .footer { margin-top:50px; font-size:14px; color:#aaa; line-height:1.5; }
+  .compute { margin-top:18px; padding-top:14px; border-top:1px solid #1f2a20;
+    color:#4ade80; font-size:13px; line-height:1.6; }
+  .compute strong { color:#86efac; font-weight:600; }
+  .compute .figs { color:#34d399; font-variant-numeric:tabular-nums; }
+  .compute a { color:#4ade80; text-decoration:underline; }
+  .compute .cond { color:#3f9c6a; font-size:12px; }
+  .footer a { color:#5a5a5a; }
+  details.nest { margin:0 0 14px 18px; border-bottom:0; } details.nest > summary { font-size:18px; padding:8px 0; } details.nest .current { font-size:18px; margin:0; padding:8px 0; border-top:0; } details.nest .current small { font-size:13px; font-weight:normal; }
+
+  /* THE DOORS. Static bytes, no JavaScript, no fetch. Everything below this
+     block is drawn by script from a 289 KB catalogue; until 21 September 2026
+     that meant the served HTML contained no link to the work at all, so a
+     scraper, a link preview or a reader with script disabled saw an empty
+     page. A door costs nothing and survives a failed fetch. */
+  nav.doors { margin: 0 0 26px; border-top: 1px solid #333; border-bottom: 1px solid #333; padding: 6px 0 10px; }
+  nav.doors h2 { font-size: 15px; color: #00ffff; letter-spacing: .5px; margin: 12px 0 8px; text-transform: uppercase; }
+  nav.doors a { display: block; font-size: 19px; font-weight: bold; color: #66ccff; padding: 7px 0; border-bottom: 1px solid #1c1c1c; }
+  nav.doors a small { display: block; color: #9aa3af; font-size: 13px; font-weight: normal; margin-top: 2px; }
+  nav.doors p.note { color: #8a8a8a; font-size: 13px; margin: 10px 0 0; }
+@media(max-width:600px){ body{padding:22px;font-size:18px} details.area>summary{font-size:22px} .current{font-size:22px} }
+  .working-release { margin:0 0 24px; padding:16px 20px; border:1px solid #53ff4c; background:#07130b; color:#53ff4c; font-family:"Courier New",monospace; }
+  .working-release > summary { color:#53ff4c; margin:0 0 6px; font-size:20px; line-height:1.35; letter-spacing:.06em; }
+  .working-release p { margin:4px 0 10px; font-size:13px; }
+  .working-release a { display:block; color:#53ff4c; padding:7px 0; font-size:18px; font-weight:bold; }
+  .working-release a.older { color:#53ff4c; font-size:13px; font-weight:normal; }
+  details.working-release > summary, details.working-release > summary:hover { color:#53ff4c; }
+
+/* Current tools first, complete version history retained. */
+body{max-width:1040px;padding:28px 32px;font:16px/1.5 "Courier New",Courier,monospace}h1{font-size:28px;letter-spacing:.03em}.mission{max-width:880px;margin:10px 0 24px;color:#bac4c0;font-size:15px}
+a:focus-visible,summary:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid #baffb5;outline-offset:4px}
+.working-release{padding:12px 18px;margin-bottom:24px;border:1px solid #53ff4c;background:#040c06}details.working-release>summary{font-size:20px;padding:8px 0}.release-label{display:inline-block;font-size:12px;letter-spacing:.03em}.working-release>a{border-top:1px solid #17351e;font-size:17px;padding:12px 0;line-height:1.4}.working-release>a small{display:block;font-size:12px;font-weight:normal;color:#a3cda7;margin-top:3px}.working-release p{color:#a3cda7;font-size:11px}.older-release{font-size:12px;margin:8px 0 0;color:#a3cda7}.older-release>summary{cursor:pointer;padding:6px 0}.working-release .older{padding:8px 0}
+h2{font-size:13px;letter-spacing:.1em;margin:0 0 8px;color:#b2bcb8}.tool-list>a{display:grid;grid-template-columns:220px 1fr 20px;align-items:center;gap:14px;min-height:48px;padding:8px 0;border-top:1px solid #25302c;color:#53ff4c;font-size:17px;font-weight:bold}.tool-list small{color:#acb8b2;font-size:13px;font-weight:normal}.reference-links{display:flex;flex-wrap:wrap;gap:4px 24px;margin:12px 0 22px;font-size:13px}.reference-links a{padding:8px 0;color:#bdcdc5}
+.archive-panel{border-top:1px solid #34403a;border-bottom:1px solid #34403a;padding:4px 0}.archive-panel>summary{cursor:pointer;color:#b9c9c0;padding:14px 0;font-size:14px;font-weight:bold;letter-spacing:.04em}.archive-help,.search-label{color:#a3b2aa;font-size:13px}#q{font-size:14px}#menu details.area>summary{font-size:18px;padding:12px 0}#menu details.nest>summary{font-size:15px}#menu .current{font-size:17px}#menu .current small{font-size:12px}.archive-links{display:flex;flex-wrap:wrap;gap:10px 24px;padding:18px 0;font-size:13px}
+.contribute{margin:24px 0}.contribute p{color:#bac4c0;margin:8px 0;font-size:14px}.contribute a{display:inline-block;color:#53ff4c;padding:8px 0;margin-right:24px;font-size:13px}.footer{border-top:1px solid #25302c;padding-top:14px;margin-top:18px;font-size:11px;color:#829188}.footer p{margin:7px 0}.footer .funding{color:#a3b2aa;font-size:12px}.compute{font-size:11px;margin-top:12px}.compute>summary{cursor:pointer;color:#b9c9c0;padding:12px 0;font-size:14px;font-weight:bold;letter-spacing:.04em}.compute .cond{font-size:11px;color:#97afa0}
+@media(max-width:600px){body{padding:20px 18px}h1{font-size:25px}.mission{font-size:13px;margin-bottom:18px}.working-release{padding:10px 12px}.release-label{display:block;margin-left:38px;font-size:10px}details.working-release>summary{font-size:18px}.tool-list>a{grid-template-columns:1fr 20px;gap:2px 8px;font-size:16px}.tool-list small{grid-column:1;grid-row:2;font-size:12px}.tool-list span{grid-column:2;grid-row:1/3}.reference-links{gap:0 18px}.working-release>a{font-size:15px}.working-release>a small{font-size:11px}}
+</style>
+<meta name="description" content="Open-source knowledge and tools for electrical energy systems. Explore wiring, renewable energy projects and the electricity network.">
+</head>
+<body>
+<header>
+<h1>GLOBALGRID2050</h1>
+<p class="mission">Open-source knowledge and tools for electrical energy systems. Document, understand and improve the grid &mdash; together.</p>
+</header>
+<main id="primary-content">
+<details id="current-working-release" class="area working-release" open>
+<summary id="working-release-title">VENTUS WIRING <span class="release-label">CURRENT WORKING RELEASE</span></summary>
+<p>20260922-A &middot; Simulation environment &middot; NOT A REAL DESIGN</p>
+<a href="/ventus/wiring/inverter-48.html">&rarr; DC STRING WIRING <small>24 connected strings &middot; 48 cables &middot; one animated string</small></a>
+<a href="/ventus/wiring/inverter-station.html">&rarr; AC LV WIRING <small>28 inverters &middot; 84 phase cables &middot; two transformer sections</small></a>
+<details class="older-release"><summary>Previous drawing</summary><a class="older" href="/kuiper-grid/drawing/">Older version: solar array drawing</a></details>
+</details>
+<nav class="tool-list" aria-labelledby="tools-title">
+<h2 id="tools-title">TOOLS</h2>
+<a href="./uk_renewables_pipeline/202609082224/">Pipeline News <small>Renewable energy project register</small><span aria-hidden="true">&rarr;</span></a>
+<a href="https://ventusltd.github.io/gridatlas/atlas/">Grid Atlas <small>Electricity network mapping</small><span aria-hidden="true">&rarr;</span></a>
+<a href="/kuiper-grid/">Kuiper <small>Grid, substation and solar string views</small><span aria-hidden="true">&rarr;</span></a>
+<a href="/plant/">Solar string voltage <small>Module count and cold-weather voltage check</small><span aria-hidden="true">&rarr;</span></a>
+</nav>
+<nav class="reference-links" aria-label="Guides and methods">
+<a href="/kuiper-grid/manual.html">User guide</a><a href="/compute/">Calculation methods</a><a href="/kuiper/">Kuiper work browser</a>
+</nav>
+<details id="version-archive" class="archive-panel">
+<summary>ALL TOOLS &amp; VERSION HISTORY</summary>
+<p class="archive-help">Earlier releases, development tools and the complete navigation tree. Search the recorded builds by name, date or commit.</p>
+<div class="archive-search">
+  <label class="search-label" for="q">Search recorded builds</label>
+<input type="text" id="q" placeholder="Name, date or commit" autocomplete="off">
+  <div class="controls">
+    <span class="count" id="count"></span>
+  </div>
+  <div id="menu"></div>
+</div>
+<nav class="archive-links" aria-label="Archive and recovery"><a href="/historical_builds.html">Full build archive</a><a href="/homepage_versions/20260922-before-refresh/">Previous homepage &mdash; 22 September 2026</a></nav>
+</details>
+<section class="contribute" aria-labelledby="contribute-title"><h2 id="contribute-title">CONTRIBUTE</h2>
+<p>You do not need to code. Share a source, document a process, report a problem or improve a tool.</p>
+<a href="/how_to_work_with_globalgrid2050/">How to contribute &rarr;</a><a href="https://github.com/Ventusltd/globalgrid2050">Source code &rarr;</a>
+</section>
+</main>
+<footer class="footer">
+<p class="funding">Funded by VENTUS LTD. Built through open collaboration.</p>
+  <p><strong>Disclaimer:</strong> Content provided for general technical documentation and research purposes only.</p>
+  <p><a href="./historical_builds.html">Full archive</a></p>
+  <details id="gpu-compute" class="compute"><summary>GPU COMPUTE &amp; VERIFICATION</summary>
+    <p><strong>GlobalGrid2050 explores current technology with Claude and Codex AI,
+    and actively studies <a href="https://github.com/cupy/cupy">CuPy</a> for faster
+    independent compute on local machines.</strong> Selected numerical studies use local hardware and comparisons against reference implementations.</p>
+    <p class="figs">Taken on one machine, 20 September 2026 &mdash; a complete solar
+    string-and-block design space of <strong>1,020,600,000</strong> designs:
+    <strong>177,289,777</strong> cases/s on the GPU with CuPy against
+    <strong>12,767,553</strong> cases/s on twelve CPU workers, a <strong>13.89&times;</strong>
+    difference, the billion run in <strong>5.6 s</strong>. A second kernel reached
+    <strong>306,440,267</strong> cases/s, <strong>40.82&times;</strong> its CPU reference.
+    Verification: 100,000 cases on a coprime stride, <strong>0 differ</strong> between the
+    scalar reference, the CPU vectorisation and the GPU, worst relative difference
+    0.00e+00 against a 1e-9 tolerance.</p>
+    <p class="cond">Conditions, because a rate without them is not evidence: one
+    machine, one 16 GB card that was shared with other work during the runs, single
+    and double precision both checked and agreeing on every verdict. CPU watts were
+    never recorded &mdash; no wall meter, no RAPL read &mdash; so no efficiency ratio
+    between processor and card is stated here or anywhere else in this work. A claim
+    of &ldquo;tens of millions a second&rdquo; for a third kernel was tested and
+    <em>not</em> reached, falling 3.0&times; short; it is recorded as not reached.
+    Method, figures and the solar block models: <a href="./compute/">Independent compute</a> &middot; code at <a href="https://github.com/Ventusltd/gpu-drivers-for-global-grid">gpu-drivers-for-global-grid</a>.</p>
+  </details>
+</footer>
+<script>
+/* THREE NESTS, THREE ROWS EACH, EVERYTHING ELSE ON DEMAND.
+ *
+ * The data is ./catalogue/homepage-catalogue.json, generated - never typed -
+ * from the tree and git. The page is a VIEW over it: the nest headline is the
+ * one current release, the table beneath shows the three newest rows, and the
+ * rest are behind "show more" and the search. At 409 rows or a million, the DOM
+ * only ever carries what is on screen; filtering and sorting happen on the
+ * array. The same slice-the-view-never-the-data rule as Pipeline News.
+ *
+ * Columns: stamp-name (yyyymmddhhmm-name-of-the-project, UTC) · status ·
+ * commit · barcode. There is no agent column: a version is identified by its
+ * UTC stamp-name and its git tree hash, and which agent cut it is not part of
+ * that identity. It was drawing attention away from both references, so it is
+ * off the page - the agent fields stay in the catalogue and stay searchable. The barcode is the git tree hash, `git rev-parse
+ * HEAD:<path>`: a content address that changes if and only if the version
+ * changes - the same role the REPD REF plays for a project in Pipeline News.
+ * It is what every runner pins, so a CI pin is copied from the table. */
+const NESTS = [
+  { key: "pipeline-news", title: "Pipeline News", families: ["pipeline-news"], testProject: "test-code-pipeline-news" },
+  { key: "grid-atlas",    title: "Grid Atlas",    families: ["grid-atlas"],    testProject: "test-code-grid-atlas" },
+  { key: "about-media",   title: "About & Media", families: ["about-media"],   testProject: null },
+];
+const PAGE = 3;
+const state = { q: "", agent: "", status: "", sort: { key: "stamp", dir: -1 }, open: {} };
+let ALL = [];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+function rowsFor(nest) {
+  return ALL.filter(e => nest.families.includes(e.family) || (nest.testProject && e.project === nest.testProject) || (nest.key === "grid-atlas" && e.project === "test-code-cable-geometry") || (nest.key === "about-media" && e.project === "test-code"));
+}
+function passes(e) {
+  if (state.agent && (e.agent || "") !== state.agent) return false;
+  if (state.status && (e.status || "") !== state.status) return false;
+  if (state.q) {
+    const hay = [e.id, e.title, e.agent, e.agent_source, e.commit, e.tree, e.family, e.status, e.kind].join(" ").toLowerCase();
+    if (!hay.includes(state.q)) return false;
+  }
+  return true;
+}
+function sortRows(rows) {
+  const { key, dir } = state.sort;
+  return rows.slice().sort((a, b) => {
+    const x = String(a[key] ?? ""), y = String(b[key] ?? "");
+    if (x === y) return (b.stamp || "").localeCompare(a.stamp || "");
+    return x < y ? -dir : dir;
+  });
+}
+function row(e) {
+  const tree = e.tree ? `<code title="${esc(e.tree)} — click to copy" data-copy="${esc(e.tree)}" style="cursor:copy">${esc(e.tree.slice(0, 12))}</code>` : `<code>—</code>`;
+  const commit = e.commit ? `<code title="${esc(e.commit_full || e.commit)}">${esc(e.commit)}</code>` : `<code>—</code>`;
+  return `<tr>
+    <td class="name"><a href="${encodeURI(e.url)}">${esc(e.id)}</a><span class="title">${esc(e.title)}</span></td>
+    <td class="status-${esc(e.status || "")}">${esc(e.status || "")}</td>
+    <td>${commit}</td><td>${tree}</td></tr>`;
+}
+function th(label, key) {
+  const on = state.sort.key === key;
+  return `<th data-sort="${key}">${label} <span class="dir">${on ? (state.sort.dir < 0 ? "▼" : "▲") : "↕"}</span></th>`;
+}
+/* ARCHIVED, NOT DELETED.
+ *
+ * The owner asked for the site to be archived down to a search box and Pipeline
+ * News. Archived is the operative word: the catalogue still carries all 400-odd
+ * versions, the generator is untouched, and nothing has been removed from the
+ * data. What changed is the VIEW - the same slice-the-view-never-the-data rule
+ * the table has always followed.
+ *
+ * So Pipeline News is the page. Grid Atlas and About & Media are not shown
+ * until the reader asks for them, and the moment anything is typed in the
+ * search box or a filter is pressed, every nest returns and the search runs
+ * across all of them. A homepage that hid its own history behind a link nobody
+ * clicks would not be an archive, it would be a loss. */
+const DEFAULT_NESTS = ["pipeline-news"];
+function browsing() { return Boolean(state.q || state.agent || state.status); }
+
+function build() {
+  const menu = document.getElementById("menu");
+  let html = "", total = 0, shown = 0;
+  const nests = browsing() ? NESTS : NESTS.filter(n => DEFAULT_NESTS.includes(n.key));
+  for (const nest of nests) {
+    const all = rowsFor(nest);
+    const current = all.find(e => e.status === "current");
+    const rows = sortRows(all.filter(passes));
+    total += rows.length;
+    const limit = state.open[nest.key] ? rows.length : PAGE;
+    const visible = rows.slice(0, limit); shown += visible.length;
+    const head = current && !state.q && !state.agent && !state.status
+      ? `<a class="current" href="${encodeURI(current.url)}">${esc(current.id)}</a>` : "";
+    const table = rows.length ? `<div class="tablewrap"><table><thead><tr>${th("Version · UTC stamp-name", "id")}${th("Status", "status")}${th("Commit", "commit")}<th title="git rev-parse HEAD:&lt;path&gt; — a content address: it changes if and only if the version changes. The value every runner pins.">Barcode · git tree</th></tr></thead><tbody>${visible.map(row).join("")}</tbody></table></div>` : `<p class="noresult">No match in ${esc(nest.title)}.</p>`;
+    const more = rows.length > PAGE ? `<button class="more" data-more="${nest.key}">${state.open[nest.key] ? "show 3" : `show all ${rows.length}`}</button>` : "";
+    const open = browsing() ? " open" : "";
+    /* JUST THE WORKING VERSION.
+     *
+     * The owner, after publishing 202609081016 on the offshore cable engine:
+     * archive everything else, leave just this working version. So the default
+     * view is the one current release and nothing beneath it - no table of older
+     * releases, no show-all. Every one of them is still in the catalogue and
+     * returns the moment anything is typed in the search or a filter is pressed;
+     * the notice below says how many and how. Archived, not deleted. */
+    const body = browsing() ? `${table}${more}` : "";
+    const summary = browsing()
+      ? `${esc(nest.title)} <span style="color:#7a7a7a;font-size:15px">(${rows.length})</span>`
+      : esc(nest.title);
+    html += `<details class="area"${open}><summary>${summary}</summary>${head}${body}</details>`;
+  }
+  /* Say what is being withheld and how to reach it, in the place the reader is
+     already looking. An archive nobody can find is indistinguishable from a
+     deletion. */
+  if (!browsing()) {
+    html += `<details class="area"><summary>Grid Atlas</summary><a class="current" href="https://ventusltd.github.io/gridatlas/atlas/">Grid Atlas</a></details>`;
+    html += `<details class="area"><summary>Grid Engine</summary><details class="area nest"><summary>Sandbox</summary><a class="current" href="https://ventusltd.github.io/ventus-grid-engine/?graph=overview">Overview</a><a class="current" href="https://ventusltd.github.io/ventus-grid-engine/?graph=engine-graph">Module Map</a><a class="current" href="https://ventusltd.github.io/stars/table.html?block=Vd">Block Register</a><a class="current" href="https://globalgrid2050.com/testcode/202609141350/">Code Map &middot; 202609141350</a><a class="current" href="https://globalgrid2050.com/testcode/202609141423/">Code Navigation (Prototype) &middot; 202609141423</a><details class="area nest"><summary>Relational mapping</summary><a class="current" href="https://ventusltd.github.io/ventus-grid-engine/?graph=generated-apps">Applications</a><a class="current" href="https://ventusltd.github.io/ventus-grid-engine/?graph=sense">Assessment</a><a class="current" href="https://ventusltd.github.io/ventus-grid-engine/?graph=proof-of-work">Audit</a><a class="current" href="https://ventusltd.github.io/ventus-grid-engine/?graph=vedic">Classification</a><a class="current" href="https://ventusltd.github.io/ventus-grid-engine/?graph=chemistry">Compatibility</a><a class="current" href="https://ventusltd.github.io/ventus-grid-engine/?graph=engine-graph">Engine</a><a class="current" href="https://ventusltd.github.io/ventus-grid-engine/?graph=periodic-table">Inventory</a><a class="current" href="https://ventusltd.github.io/ventus-grid-engine/?graph=gridatlas-lineage">Lineage</a><a class="current" href="https://ventusltd.github.io/ventus-grid-engine/?graph=federation">Repositories</a><a class="current" href="https://ventusltd.github.io/ventus-grid-engine/?graph=modular">Reuse</a><a class="current" href="https://ventusltd.github.io/ventus-grid-engine/?graph=random">Sampling</a><a class="current" href="https://ventusltd.github.io/ventus-grid-engine/?graph=structure">Structure</a></details></details></details>`;
+    html += `<details class="area"><summary>Integrated Development Environments</summary><details class="area nest"><summary>Energy Data</summary><a class="current" href="https://globalgrid2050.com/testcode/202609151428/">UK Renewables Project Register &middot; 202609151428</a><a class="current" href="https://globalgrid2050.com/testcode/202609150125/">Energy Demand by Sector &middot; 202609150125</a></details><details class="area nest"><summary>Code Explorers</summary><a class="current" href="https://globalgrid2050.com/testcode/202609142202/">Platform Code Explorer &middot; 202609142202</a><a class="current" href="https://globalgrid2050.com/testcode/202609141522/">Code Map &middot; 202609141522</a><a class="current" href="https://globalgrid2050.com/testcode/202609151447/">Code Block Overview &middot; 202609151447</a><a class="current" href="https://ventusltd.github.io/galaxies-wafers/iterations/31-code-card-everywhere/">Code Inspector &middot; Iteration 31</a><a class="current" href="https://ventusltd.github.io/galaxies-wafers/iterations/32-spider-and-galaxy/">Dependency Cross-Reference &middot; Iteration 32</a><a class="current" href="https://globalgrid2050.com/testcode/202609142225/?lens=ring">Code Composer &middot; 202609142225</a><a class="current" href="https://globalgrid2050.com/testcode/202609151339/">Code Line Register &middot; 202609151339</a></details><details class="area nest"><summary>Visual Studies</summary><a class="current" href="https://ventusltd.github.io/galaxies-wafers/iterations/04-400kv-engine/">Module Size View &middot; Iteration 04</a><a class="current" href="https://globalgrid2050.com/testcode/202609151230/">Timeline Viewer &middot; 202609151230</a><a class="current" href="https://globalgrid2050.com/testcode/202609151413/">Alternative Code Layouts &middot; 202609151413</a></details></details>`;
+    html += `<details class="area"><summary>Testcode</summary><details class="area nest"><summary>Code Wafer</summary><a class="current" href="https://globalgrid2050.com/testcode/202609160224/">GlobalGrid2050 code represented on a wafer &middot; 202609160224</a><a class="current" href="https://globalgrid2050.com/testcode/202609160207/">Line Wafer &middot; 202609160207</a></details></details>`;
+    html += `<details class="area"><summary>The Translator of Systems</summary><details class="area nest"><summary>One wafer, every system</summary><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192215-proof-s0004/">The real-systems wafer &middot; 202609180245</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609180205-underground/">The Underground on the wafer &middot; 202609180205</a><a class="current" href="https://globalgrid2050.com/testcode/particles/">Numbered iterations, one an hour</a><a class="current" href="https://github.com/Ventusltd/particle-physics-drawing-engine">The translator and its rules (GitHub)</a></details><details class="area nest"><summary>Systems</summary><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192215-proof-s0004/?draw=grid">System 1 &middot; The grid: 400 kV, 132 kV and every substation</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192215-proof-s0004/?draw=grid400">System 2 &middot; The 400 kV grid</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192215-proof-s0004/?draw=grid132">System 3 &middot; The 132 kV network</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192215-proof-s0004/?draw=substations">System 4 &middot; Every substation</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192215-proof-s0004/?draw=shotwick">System 5 &middot; Shotwick Solar Farm and the grid around it</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192215-proof-s0004/?draw=underground">System 6 &middot; The London Underground</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192215-proof-s0004/?draw=uk">System 7 &middot; The British Isles</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192215-proof-s0004/?draw=world">System 8 &middot; The world</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192215-proof-s0004/?draw=trench">System 9 &middot; A cable trench section</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192215-proof-s0004/?draw=fault">System 10 &middot; A fault study: the current paths (pandapower, IEC 60909)</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192215-proof-s0004/?draw=logo">System 11 &middot; The wordmark from the dust</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192215-proof-s0004/?draw=clock">System 12 &middot; A clock: time as a law</a></details></details>`;
+    html += `<details class="area" open><summary>Kuiper<a class="current" href="/kuiper-grid/drawing/">Solar array drawing<small>Place modules, edit string wiring and explore a generic farm</small></a></summary><details class="area nest"><summary>Earlier examples, development builds and manual</summary><a class="current" href="/plant/">Earlier plant examples<small>Cold-morning string voltage examples</small></a><a class="current" href="https://globalgrid2050.com/kuiper-grid/">202609202048-kuiper-grid<small># Ten development builds of the Kuiper: the grid as an underground-style map, one substation and every way out, the systems pulse, the solar string picture</small></a><a class="current" href="https://globalgrid2050.com/kuiper-grid/manual.html">202609202048-manual<small># Ten worked simulations, step by step, with the limitations of each</small></a><a class="current" href="https://globalgrid2050.com/kuiper-grid/i0089/">202609202048-i0089-grid-tube-map<small># fire grid, then tap a station</small></a><a class="current" href="https://globalgrid2050.com/kuiper-grid/i0090/">202609202048-i0090-one-substation<small># fire substation {"site":"Barking"}</small></a></details></details>`
+    html += `<details class="area"><summary>Kuiper: proofs</summary><details class="area nest"><summary>Every line ever written, one wafer</summary><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192238-proof-k0030/">202609192238-proof-k0030<small># Kuiper: the engineering behind this site, and the code behind any line of it</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192208-proof-k0026/">202609192208-proof-k0026<small># The engineering record, and the code behind any line of it</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192158-proof-k0025/">202609192158-proof-k0025<small># The engineering record, and the code behind any line of it</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192148-proof-k0024/">202609192148-proof-k0024<small># The engineering record, and the code behind any line of it</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192138-proof-k0022/">202609192138-proof-k0022<small># The engineering record, and the code behind any line of it</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192128-proof-k0021/">202609192128-proof-k0021<small># The engineering record, and the code behind any line of it</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192115-proof-k0019/">202609192115-proof-k0019<small># The engineering record, and the code behind any line of it</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192105-proof-k0018/">202609192105-proof-k0018<small># The engineering record, and the code behind any line of it</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192047-proof-k0017/">202609192047-proof-k0017<small># The engineering record, and the code behind any line of it</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192016-proof-k0015/">202609192016-proof-k0015<small># The engineering record, and the code behind any line of it</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192001-proof-k0014/">202609192001-proof-k0014<small># The engineering record, and the code behind any line of it</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609191800-proof-k0010/">202609191800-proof-k0010<small>Both pages are now laid out and checked at the width of a phone screen, 390 by 844, rather than at the wider w</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609191739-proof-k0009/">202609191739-proof-k0009<small>Conductor page. The title block now folds every value to the width of the block, so no reading, source or disc</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609191700-proof-k0006/">202609191700-proof-k0006<small>0006: tools/pulse.py sends an iteration's new lines through the whole estate by their content keys and writes </small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609191608-proof-k0005/">202609191608-proof-k0005<small>0005: the 6 mm2 title block fits a phone, and every page in the folder carries the warranty line.</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609191547-proof-k0003/">202609191547-proof-k0003<small>A2: the 6 mm2 class 5 conductor is no longer drawn from a nominal wire count at an assumed fill. Its diameter </small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609191527-proof-k0002/">202609191527-proof-k0002<small>The conductor made true: bunched wires settle against a round wall with a full seated rim and no overlaps, com</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609191415-proof-10/">202609191415-proof-10<small>bend radius by source across the cable geometry visualiser's own table: the first cables cartridge</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609191405-proof-9/">202609191405-proof-9<small>headless Chrome runs the WebGL self tests in a second; the baseline scores 4 of 5 and the bench says so</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609191355-proof-8/">202609191355-proof-8<small>every proof checked twice by checkers that did not build it: live, sums, privacy digests, keys followed to text</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609191345-proof-7/">202609191345-proof-7<small>green exactly where a repository's keys lie, three line totals that agree, and the standard's own wire limits checked on the drawing</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609191335-proof-6/">202609191335-proof-6<small>the wafer and the IEC 60228 conductor section on a 390 px portrait screen, with a rig that proves it</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609191325-proof-3/">202609191325-proof-3<small>press n: 171 commits and 1.73 billion lines in the last 24 hours, found, lit and marked; the page tests itself and passes 4 of 4</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609191315-proof-4/">202609191315-proof-4<small>type 2026-07: July lights green, 838,447,910 lines in 952 commits; SCADA palette and a time graticule; self test 2 of 2</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609191305-proof-2/">202609191305-proof-2<small>9,848 of 9,848 addresses issued this morning unchanged after a day of new commits; and what the dark centre is</small></a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609191255-one-wafer/">202609191255-one-wafer<small>37.93 billion lines, one key each; any key resolves to its text; three counts agree to the digit</small></a></details></details>`;
+    html += `<details class="area"><summary>Cable Cross-sections</summary><details class="area nest"><summary>Drawn on the wafer, layer by layer</summary><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609190330-cable-cross-sections/?draw=cable">Single core 800 mm&sup2; aluminium, 19/33 kV &middot; overall 63.0 mm</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609190330-cable-cross-sections/?draw=cable132">Single core 1600 mm&sup2; aluminium Milliken, 76/132(145) kV &middot; overall 104.0 mm</a></details><details class="area nest"><summary>What is drawn, and what is not</summary><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609190330-cable-cross-sections/">Every dimension is a stated input carried inside the file. No standard is reproduced.</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609190330-cable-cross-sections/">An arrangement drawn from inputs, not a design. A design carries a named engineer.</a></details></details><details class="area"><summary>Overnight Coding Runs</summary><details class="area nest"><summary>Numbered iterations, one an hour</summary><a class="current" href="https://globalgrid2050.com/testcode/particles/">All iterations &middot; published hourly while nobody is awake</a><a class="current" href="https://globalgrid2050.com/testcode/particles/">Each one draws a system on the wafer and records the command it became</a></details><details class="area nest"><summary>What the machines do unattended</summary><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609191255-one-wafer/">The Kuiper, drawn from every repository &middot; 202609191255</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609192215-proof-s0004/">The real-systems wafer, twelve systems &middot; 202609180245</a></details></details><details class="area"><summary>Wafer Development Environment</summary><details class="area nest"><summary>Quantum Twin</summary><a class="current" href="https://globalgrid2050.com/testcode/202609170129-quantum-twin-flights/">Quantum Twin &middot; 202609170129</a></details><details class="area nest"><summary>Versions</summary><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/">All versions &middot; 202609170036</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609170036-estate/">Estate &middot; 202609170036</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609170037-block-39885/">Block 39885 &middot; 202609170037</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609170038-twin-39885/">Twin 39885 &middot; 202609170038</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609170039-state-39885/">State 39885 &middot; 202609170039</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609170040-measure-39885/">Measure 39885 &middot; 202609170040</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609170041-gridatlas/">GridAtlas &middot; 202609170041</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609170042-voltage-drop/">Voltage drop &middot; 202609170042</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609170043-diversified-demand/">Diversified demand &middot; 202609170043</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609170044-key-to-code/">Key to code &middot; 202609170044</a><a class="current" href="https://globalgrid2050.com/testcode/wafer-development-environment/202609170045-land-gridatlas/">Land on GridAtlas &middot; 202609170045</a></details></details>`;
+  }
+  menu.innerHTML = html;
+  document.getElementById("count").textContent = browsing() ? `${shown} of ${total} shown` : "";
+}
+document.addEventListener("click", ev => {
+  const c = ev.target.closest("[data-copy]");
+  if (c && navigator.clipboard) { navigator.clipboard.writeText(c.dataset.copy); c.textContent = "copied"; setTimeout(() => { c.textContent = c.dataset.copy.slice(0, 12); }, 900); return; }
+  const t = ev.target.closest("[data-more],[data-status],th[data-sort]");
+  if (!t) return;
+  if (t.dataset.more !== undefined) { state.open[t.dataset.more] = !state.open[t.dataset.more]; build(); }
+  else if (t.dataset.status !== undefined) { state.status = t.dataset.status; document.querySelectorAll("[data-status]").forEach(b => b.classList.toggle("on", b === t)); build(); }
+  else if (t.dataset.sort) { const k = t.dataset.sort; state.sort = { key: k, dir: state.sort.key === k ? -state.sort.dir : -1 }; build(); }
+});
+document.getElementById("q").addEventListener("input", e => { state.q = e.target.value.trim().toLowerCase(); build(); });
+fetch("./catalogue/homepage-catalogue.json").then(r => r.json()).then(d => { ALL = d.entries; build(); })
+  .catch(err => { document.getElementById("menu").innerHTML = `<p class="noresult">Catalogue unavailable: ${esc(err.message)}. <a href="./historical_builds.html">Full archive</a>.</p>`; });
+</script>
+</body>
+</html>

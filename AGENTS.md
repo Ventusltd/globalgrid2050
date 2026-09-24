@@ -9,3 +9,21 @@ This repository owns public publication/composition. Keep collectors and dataset
 Follow [homepage version rules](homepage_versions/README.md) for every homepage edit: measurement workflow, numbered pre-edit snapshot and metrics, existing-link preservation and exact served-byte verification. Never replace a failed historical release in place or call a successful workflow engineering acceptance.
 
 Before transferring YAML/Python, require a confirmed destination plus pinned workflow/script/import/input/environment/output dependency evidence. Refer to the canonical Spider graph; no competing registry or unassigned staging copy.
+
+## Stable public navigation
+
+The owner requested four homepage nests on 25 September 2026: Original Kuiper,
+GridAtlas, Pipeline News and Solar Design Studio (the existing GIS/SLD/financial
+sandbox). `catalogue/site-navigation.json` owns their names, URLs and order.
+Edit that configuration for navigation; run `python scripts/render_site_navigation.py`
+to refresh the local preview. Pages renders it automatically before publication.
+`index.html` is generated; presentation lives in `scripts/homepage.template.html`.
+Product releases and the historical catalogue must not automatically add nests,
+rename them or change their order. Structural changes require an owner request.
+Keep experiments inside their product and all older tools reachable via
+`historical_builds.html`. This explicitly supersedes the earlier requirement to
+put every older release directly on the homepage; preservation still applies.
+The pre-change homepage, including its complete searchable catalogue, is at
+`homepage-before-four-nests-20260925.html`; its byte-identical numbered restore
+point is `homepage_versions/homepage_v126.html`. Never overwrite either.
+This change does not enable paused collectors or scheduled workflows.

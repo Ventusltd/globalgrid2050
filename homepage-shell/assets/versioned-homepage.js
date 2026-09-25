@@ -87,8 +87,9 @@
     track.append(group);
     const clone = group.cloneNode(true);
     clone.setAttribute('aria-hidden', 'true');
-    clone.setAttribute('inert', '');
     clone.querySelectorAll('a').forEach(a => a.tabIndex = -1);
+    // Keep the visible repeat clickable without moving focus into hidden content.
+    clone.addEventListener('pointerdown', event => event.preventDefault());
     track.append(clone);
     viewport.append(track);
     const pause = node('button', 'Pause', 'ticker-pause');

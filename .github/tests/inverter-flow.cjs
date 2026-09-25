@@ -1,0 +1,27 @@
+const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+const root=path.resolve(__dirname,'../..');
+const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+decodeURIComponent(req.url.split('?')[0]));if(!file.startsWith(root+path.sep)||!fs.existsSync(file)||!fs.statSync(file).isFile()){res.writeHead(404).end();return;}res.setHeader('Content-Type',/\.(mjs|js)$/.test(file)?'text/javascript':file.endsWith('.css')?'text/css':file.endsWith('.json')?'application/json':'text/html');res.end(fs.readFileSync(file));});
+(async()=>{let browser;try{
+ if(process.platform==='win32')throw Error('Run browser checks on hosted Linux');
+ await new Promise(r=>server.listen(0,'127.0.0.1',r));browser=await chromium.launch();
+ const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('http://127.0.0.1:'+server.address().port+'/ventus/wiring/inverter-48.html');
+ await page.waitForFunction(()=>window.__inverter48?.ready&&__inverter48.flowStats.homePaths===48,{},{timeout:60000});
+ const initial=await page.evaluate(()=>({strings:__inverter48.model.strings.filter(s=>s.connected).length,homes:__inverter48.model.homes.length,stats:__inverter48.flowStats,walks:__inverter48.nativeWalks.length}));
+ assert.equal(initial.strings,24);assert.equal(initial.homes,48);assert.equal(initial.walks,24);assert.equal(initial.stats.strings,24);
+ const frame=()=>page.evaluate(()=>document.querySelector('#engine').contentDocument.querySelector('#inverter-flow').toDataURL());
+ const a=await frame();await page.waitForTimeout(250);assert.notEqual(await frame(),a,'Flow overlay must actually change pixels');
+ await page.locator('#flow-scope').click();await page.waitForFunction(()=>__inverter48.flowStats.homePaths===2);assert.equal(await page.evaluate(()=>__inverter48.flowStats.strings),1);
+ await page.locator('#menu').click();await page.locator('#string').selectOption('S02');await page.waitForFunction(()=>__inverter48.selected==='S02');
+ await page.locator('#flow').click();await page.waitForFunction(()=>__inverter48.flowStats.homePaths===0);const paused=await frame();await page.waitForTimeout(200);assert.equal(await frame(),paused);
+ await page.locator('#flow').click();await page.locator('#flow-scope').click();await page.waitForFunction(()=>__inverter48.flowStats.homePaths===48);
+ await page.locator('#menu').click();await page.locator('#hud-toggle').click();await page.locator('#length-string').selectOption('S02');await page.locator('#length-plus').fill('0');await page.locator('#length-plus').dispatchEvent('change');
+ await page.waitForFunction(()=>__inverter48.flowStats.homePaths===46);assert.equal(await page.evaluate(()=>__inverter48.nativeWalks.find(s=>s.stringId==='S02').open),true);
+ await page.locator('#length-reset').click();await page.waitForFunction(()=>__inverter48.flowStats.homePaths===48);await page.locator('#hud-close').click();
+ assert.equal(await page.evaluate(()=>getComputedStyle(document.documentElement).colorScheme),'dark');assert.deepEqual(errors,[]);
+ fs.mkdirSync('inverter-flow-evidence',{recursive:true});await page.screenshot({path:'inverter-flow-evidence/overview.png'});
+ await page.locator('#menu').click();await page.locator('#focus').click();await page.locator('#menu').click();await page.waitForTimeout(200);await page.screenshot({path:'inverter-flow-evidence/string-detail.png'});
+ await page.setViewportSize({width:390,height:844});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert.deepEqual(errors,[]);
+ const report={status:'pass',initial,checks:['24 closed circuits and 48 animated home conductors','changing flow pixels','single-string inspection','pause/resume','short cable stops only its circuit','reset restores 48 conductors','dark theme','mobile overflow','no runtime errors']};fs.writeFileSync('inverter-flow-evidence/results.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report));
+ }catch(e){console.error(e);process.exitCode=1;}finally{if(browser)await browser.close();server.close();}})();

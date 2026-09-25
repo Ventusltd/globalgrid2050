@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "entities": [
+    {
+      "id": "kuiper",
+      "title": "Kuiper",
+      "subtitle": "The animated universe of code",
+      "description": "Explore Kuiper and trace the work behind it.",
+      "launch_label": "Enter Kuiper",
+      "operative_release_id": "202609200300",
+      "releases": [
+        {
+          "id": "202609200300",
+          "label": "20 September 2026",
+          "url": "https://globalgrid2050.com/kuiper/",
+          "published_at": "2026-09-20T03:00:00Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/7c64560d282f3412a3dfd79939e236a37ee5e8da",
+          "archive_url": "https://github.com/Ventusltd/globalgrid2050/blob/7c64560d282f3412a3dfd79939e236a37ee5e8da/kuiper/current.json",
+          "archive_kind": "manifest"
+        },
+        {
+          "id": "202609191255-one-wafer",
+          "label": "19 September 2026 - one wafer",
+          "url": "https://globalgrid2050.com/testcode/wafer-development-environment/202609191255-one-wafer/index.html",
+          "published_at": "2026-09-19T12:55:00Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/7c64560d282f3412a3dfd79939e236a37ee5e8da"
+        }
+      ]
+    },
+    {
+      "id": "gridatlas",
+      "title": "GridAtlas",
+      "subtitle": "Explore the electricity network",
+      "description": "Find sites, explore network layers and inspect the connections around them.",
+      "launch_label": "Open GridAtlas",
+      "operative_release_id": "202609241334",
+      "releases": [
+        {
+          "id": "202609241334",
+          "label": "V9.156 - 24 September 2026",
+          "url": "https://ventusltd.github.io/gridatlas/atlas/",
+          "published_at": "2026-09-24T13:34:00Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/gridatlas",
+          "archive_url": "https://ventusltd.github.io/gridatlas/atlas/manifests/202609241334-composition.json",
+          "archive_kind": "manifest"
+        }
+      ]
+    },
+    {
+      "id": "pipeline-news",
+      "title": "Pipeline News",
+      "subtitle": "Follow renewable energy projects",
+      "description": "Explore the project register and follow the renewable energy pipeline.",
+      "launch_label": "Open Pipeline News",
+      "operative_release_id": "202609082224",
+      "releases": [
+        {
+          "id": "202609082224",
+          "label": "8 September 2026",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202609082224/",
+          "published_at": "2026-09-08T22:24:00Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/7c64560d282f3412a3dfd79939e236a37ee5e8da"
+        }
+      ]
+    },
+    {
+      "id": "solar-design-studio",
+      "title": "Solar Design Studio",
+      "subtitle": "Maps, electrical layouts and project economics",
+      "description": "The GIS, SLD & Financial Sandbox, brought together under a shorter name. Explore the existing modelling workspace.",
+      "launch_label": "Open Solar Design Studio",
+      "operative_release_id": "v7",
+      "releases": [
+        {
+          "id": "v7",
+          "label": "V7",
+          "url": "https://globalgrid2050.com/solar-bess-topology-v7/gis-sld-financial-sandbox/index.html",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/7c64560d282f3412a3dfd79939e236a37ee5e8da"
+        }
+      ]
+    }
+  ],
+  "view": {
+    "items": [
+      {
+        "entity_id": "kuiper",
+        "open": true
+      },
+      {
+        "entity_id": "gridatlas",
+        "open": false
+      },
+      {
+        "entity_id": "pipeline-news",
+        "open": false
+      },
+      {
+        "entity_id": "solar-design-studio",
+        "open": false
+      }
+    ],
+    "archive_url": "https://globalgrid2050.com/historical_builds.html"
+  },
+  "development": [
+    {
+      "entity_id": "kuiper",
+      "label": "Kuiper drawing engine",
+      "status": "In development",
+      "url": "https://github.com/Ventusltd/kuiper-drawing-engine"
+    }
+  ],
+  "promotions": []
+}

@@ -4,22 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GlobalGrid2050 &mdash; Kuiper and the energy system</title>
-<meta name="description" content="Explore the original Kuiper, GridAtlas, Pipeline News and Solar Design Studio. Four entrances to an evolving energy system.">
-<style>
-:root{color-scheme:dark;--ink:#e8f2ed;--muted:#a7bab0;--line:#283e34;--green:#85ffb0;--cyan:#8de5ff}
-*{box-sizing:border-box}body{margin:0;background:#070c0a;color:var(--ink);font:16px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace}main,header,footer{max-width:960px;margin:auto;padding:0 28px}header{padding-top:64px;padding-bottom:38px}.brand{font-size:14px;letter-spacing:.16em;color:var(--green)}h1{font-size:clamp(32px,6vw,58px);font-weight:500;line-height:1.12;letter-spacing:-.045em;margin:26px 0 18px}header p{max-width:650px;color:var(--muted);margin:0}a{color:var(--green);text-underline-offset:5px}a:hover{color:white}a:focus-visible,summary:focus-visible{outline:2px solid var(--cyan);outline-offset:6px}details{border-top:1px solid var(--line)}details:last-child{border-bottom:1px solid var(--line)}summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:42px 1fr 28px;gap:12px;align-items:center;padding:25px 0}summary::-webkit-details-marker{display:none}summary::after{content:'+';color:var(--green);font-size:26px}details[open]>summary::after{content:'-' }.number{font-size:12px;color:var(--muted)}.title{font-size:clamp(21px,4vw,30px);line-height:1.3}summary small{display:block;margin-top:6px;font-size:13px;font-weight:normal;color:var(--muted)}.inside{padding:0 40px 28px 54px;max-width:770px}.inside p{margin:0 0 20px;color:var(--muted);font-size:14px}.launch{display:inline-block;border:1px solid #47755a;padding:11px 17px;text-decoration:none}.launch:hover{background:#11291c}.archive{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:30px 0;font-size:14px}.archive span{color:var(--muted)}footer{padding-top:28px;padding-bottom:38px;color:var(--muted);font-size:12px}footer p{margin:0}@media(max-width:540px){header{padding-top:34px;padding-bottom:30px}main,header,footer{padding-left:20px;padding-right:20px}summary{grid-template-columns:26px 1fr 20px;gap:8px}.inside{padding-left:34px;padding-right:0}.launch{font-size:14px}}
-</style>
+<meta name="description" content="Explore Kuiper, GridAtlas, Pipeline News and Solar Design Studio. Four entrances to an evolving energy system.">
+<link rel="stylesheet" href="./homepage-shell/assets/versioned-homepage.css">
+<script defer src="./homepage-shell/assets/versioned-homepage.js"></script>
 </head>
 <body>
 <header><div class="brand">GLOBALGRID2050</div><h1>A universe to build from.</h1><p>Start with Kuiper. Explore the network, follow projects and shape a solar design.</p></header>
 <main>
-<section aria-label="Four nests">
-<details id="kuiper" open><summary><span class="number">01</span><span class="title">Original Kuiper<small>The animated universe of code</small></span></summary><div class="inside"><p>Explore the original Kuiper and trace the work behind it. This is our starting point for rebuilding the collection.</p><a class="launch" href="https://globalgrid2050.com/kuiper/">Enter original Kuiper &rarr;</a></div></details>
+<div class="search" id="searchControls" hidden><label for="homepageSearch">Search tools and versions</label><input id="homepageSearch" type="search" autocomplete="off" placeholder="Search this collection..."></div><p id="searchStatus" class="search-status" role="status"></p>
+<section id="nests" aria-label="Tools and versions">
+<details id="kuiper" open><summary><span class="number">01</span><span class="title">Kuiper<small>The animated universe of code</small></span></summary><div class="inside"><p>Explore Kuiper and trace the work behind it. This is our starting point for rebuilding the collection.</p><a class="launch" href="https://globalgrid2050.com/kuiper/">Enter Kuiper &rarr;</a></div></details>
 <details id="gridatlas"><summary><span class="number">02</span><span class="title">GridAtlas<small>Explore the electricity network</small></span></summary><div class="inside"><p>Find sites, explore network layers and inspect the connections around them.</p><a class="launch" href="https://ventusltd.github.io/gridatlas/atlas/">Open GridAtlas &rarr;</a></div></details>
 <details id="pipeline-news"><summary><span class="number">03</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">Open Pipeline News &rarr;</a></div></details>
 <details id="solar-design-studio"><summary><span class="number">04</span><span class="title">Solar Design Studio<small>Maps, electrical layouts and project economics</small></span></summary><div class="inside"><p>The GIS, SLD &amp; Financial Sandbox, brought together under a shorter name. Explore the existing modelling workspace.</p><a class="launch" href="https://globalgrid2050.com/solar-bess-topology-v7/gis-sld-financial-sandbox/index.html">Open Solar Design Studio &rarr;</a></div></details>
 </section>
-<nav class="archive" aria-label="History"><a href="https://globalgrid2050.com/historical_builds.html">Explore the archive &rarr;</a><span>Earlier tools and versions, preserved.</span></nav>
+<nav class="archive" aria-label="History"><a id="archiveLink" href="https://globalgrid2050.com/historical_builds.html">Explore the archive &rarr;</a><span>Earlier tools and versions, preserved.</span></nav>
 </main>
 <footer><p>Funded by VENTUS LTD. Built through open collaboration.</p></footer>
 </body>

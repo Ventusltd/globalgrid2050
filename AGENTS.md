@@ -12,18 +12,27 @@ Before transferring YAML/Python, require a confirmed destination plus pinned wor
 
 ## Stable public navigation
 
-The owner requested four homepage nests on 25 September 2026: Original Kuiper,
-GridAtlas, Pipeline News and Solar Design Studio (the existing GIS/SLD/financial
-sandbox). `catalogue/site-navigation.json` owns their names, URLs and order.
-Edit that configuration for navigation; run `python scripts/render_site_navigation.py`
-to refresh the local preview. Pages renders it automatically before publication.
-`index.html` is generated; presentation lives in `scripts/homepage.template.html`.
-Product releases and the historical catalogue must not automatically add nests,
-rename them or change their order. Structural changes require an owner request.
-Keep experiments inside their product and all older tools reachable via
-`historical_builds.html`. This explicitly supersedes the earlier requirement to
-put every older release directly on the homepage; preservation still applies.
-The pre-change homepage, including its complete searchable catalogue, is at
-`homepage-before-four-nests-20260925.html`; its byte-identical numbered restore
-point is `homepage_versions/homepage_v126.html`. Never overwrite either.
-This change does not enable paused collectors or scheduled workflows.
+The dedicated owner is https://github.com/Ventusltd/globalgrid2050-homepage .
+Edit data/homepage.json THERE for product labels, releases, development entries
+and selected nests. Its scripts/releases.py validates and promotes explicit
+operative pointers while retaining historical records. Preserve retro styles.
+
+This repository retains the custom domain, historical tools and publication.
+Its catalogue/homepage-owner.json pins the accepted owner commit and four file
+hashes. scripts/import_homepage_owner.py verifies and assembles only that bundle
+into homepage-shell/ and the root index.html during Pages publication. Do not
+edit those generated copies or maintain a second active navigation config here.
+The prior catalogue/site-navigation.json and render_site_navigation.py are
+retained historical implementation, not the active source of navigation.
+
+Promote only after owner validation/browser checks; update the pinned manifest,
+run the importer, and verify exact served bytes after Pages deploys. Homepage
+pointer changes do not promote the underlying applications. The domain's
+restore-point workflow and numbered snapshot rules still apply. Older product
+links stay accessible through historical_builds.html; the owner requested a
+curated front page rather than every archived release on its face.
+
+Before this integration the four-nest page was saved in homepage_v127.html.
+The earlier full searchable homepage catalogue remains preserved at
+homepage-before-four-nests-20260925.html. Do not overwrite either restore point.
+No scheduled collectors were enabled by this migration.

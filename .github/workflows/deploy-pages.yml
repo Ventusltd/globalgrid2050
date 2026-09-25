@@ -12,8 +12,8 @@ on:
     branches: [main]
     paths:
       - 'index.html'
-      - 'scripts/render_site_navigation.py'
-      - 'scripts/homepage.template.html'
+      - 'scripts/import_homepage_owner.py'
+      - 'homepage-shell/**'
       - 'testcode/**'
       # The Kuiper and Real Systems now live at permanent addresses, /kuiper/ and /systems/,
       # as an immutable shell plus hashed cartridges behind current.json. Neither folder was in
@@ -155,8 +155,8 @@ jobs:
             -f context='globalgrid/pages-deploy' \
             -f description='GlobalGrid2050 Pages deployment running' \
             -f target_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
-      - name: Render stable homepage navigation
-        run: python3 scripts/render_site_navigation.py
+      - name: Import hash-pinned homepage owner bundle
+        run: python3 scripts/import_homepage_owner.py
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Build with Jekyll

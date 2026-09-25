@@ -16,6 +16,8 @@ function esc(s) { return String(s === null || s === undefined ? '' : s).replace(
 function withheld(reason) { return '<span class="withheld">withheld (' + esc(reason) + ')</span>'; }
 function catName(id) { var c = (D.sectors.categories || []).filter(function (x) { return x.id === id; })[0]; return c ? c.name : id; }
 function catColour(id) { return (D.sectors.category_colours || {})[id] || '#8b93a7'; }
+/* the origin of the distance bands, named by the data, never typed into the page */
+function originName() { var g = D.geography; return g.home_label || g.home_outcode || 'the origin'; }
 
 /* ---- URL state (permanent keys only) ---- */
 function q() { return new URLSearchParams(location.search); }
@@ -109,7 +111,7 @@ function districtCard(code) {
     'either it is not in the qualifying population, or it holds fewer than 5 companies and is withheld.</p></div>';
   return '<div class="panel"><h2>Postcode district ' + esc(d.outcode) + '</h2>' +
     '<p class="k">' + esc(d.region || 'region not stated') + (d.county ? ' · ' + esc(d.county) : '') +
-    (d.miles_from_ha4 === null || d.miles_from_ha4 === undefined ? '' : ' · ' + d.miles_from_ha4 + ' miles from HA4 (straight line) · ' + esc(d.band)) + '</p>' +
+    (d.miles_from_origin === null || d.miles_from_origin === undefined ? '' : ' · ' + d.miles_from_origin + ' miles from ' + esc(originName()) + ' (straight line) · ' + esc(d.band)) + '</p>' +
     '<table><tr><th>companies</th><td class="n">' + n(d.count) + '</td></tr>' + catRow(d) +
     (d.folded_into_other ? '<tr><td class="withheld">folded into other (n &lt; 5)</td><td class="n">' + n(d.folded_into_other) + '</td></tr>' : '') +
     '<tr><th>median net worth</th><td class="n">' + (d.median_net_worth_gbp === null ? withheld('n &lt; 5') : money(d.median_net_worth_gbp)) + '</td></tr>' +
@@ -137,12 +139,12 @@ function mapLens() {
   }).join('');
   return '<canvas id="map" aria-label="postcode district centroids sized by company count"></canvas>' +
     '<p class="k">Each disc is one postcode district, area proportional to its company count, coloured by its largest ' +
-    'category. The cross is HA4. Districts with fewer than 5 companies are not drawn: ' + n(g.districts_withheld_n_lt_5) +
-    ' companies sit in those withheld districts. Tap a disc for the district card.</p>' +
+    'category. The cross is the origin, ' + esc(originName()) + '. Districts with fewer than 5 companies are not drawn: ' + n(g.districts_withheld_n_lt_5) +
+    ' companies sit in those withheld districts' + (g.districts_removed && g.districts_removed.companies ? '; ' + n(g.districts_removed.companies) + ' sit in ' + n(g.districts_removed.districts) + ' district withdrawn from publication' : '') + '. Tap a disc for the district card.</p>' +
     (dcode ? districtCard(dcode) : '') +
-    '<div class="panel"><h2>By straight-line distance from HA4</h2><div class="wrap"><table>' +
+    '<div class="panel"><h2>By straight-line distance from ' + esc(originName()) + '</h2><div class="wrap"><table>' +
     '<tr><th>band</th><th class="n">companies</th><th class="n">farm</th><th class="n">mfg</th><th class="n">high</th><th class="n">rest</th></tr>' +
-    bands + '</table></div></div>' +
+    bands + '</table></div>' + (g.distance_bands_basis ? '<p class="k">' + esc(g.distance_bands_basis) + '</p>' : '') + '</div>' +
     '<div class="panel"><h2>By England region and Wales</h2><div class="wrap"><table>' +
     '<tr><th>region</th><th class="n">companies</th><th class="n">farm</th><th class="n">mfg</th><th class="n">high</th><th class="n">rest</th></tr>' +
     regions + '</table></div><p class="k">' + n(g.regions_withheld_n_lt_5) + ' companies sit in regions with fewer than 5 and are withheld.</p></div>' +

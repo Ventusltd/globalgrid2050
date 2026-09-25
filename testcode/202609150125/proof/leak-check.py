@@ -32,8 +32,9 @@ RULES = [
 
 TEXT_SUFFIXES = {".html", ".js", ".css", ".json", ".md", ".py", ".mjs", ".txt", ".sh", ".csv"}
 
-# Vikram's own outcode, published deliberately as the origin of the distance bands.
-ALLOWED_LITERALS = ["HA4 0LT"]
+# The origin of the distance bands is an outcode (WC2N, Charing Cross), never a full postcode, so
+# nothing is exempt from the full-postcode rule and this list is empty by design.
+ALLOWED_LITERALS = []
 
 
 def strip_allowed(text):

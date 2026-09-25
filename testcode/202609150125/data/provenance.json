@@ -178,8 +178,24 @@
   },
   {
    "file": "geography.json",
-   "bytes": 1152154,
-   "sha256": "0c316fee71385d42834ba46b9951a54a24373969f6e7b6182ab832ab1ee8e6cb"
+   "bytes": 1160033,
+   "sha256": "faeb7f9ee4ebdfa146bf07c1bcf307243e7b1488f0b566d3ccb640b665b94ed0"
   }
- ]
+ ],
+ "rebase": {
+  "what": "the origin of the distance bands moved from a private home outcode to WC2N, London Central (Charing Cross), after the build",
+  "script": "proof/rebase-origin.py",
+  "rebased_utc": "2026-09-17T00:00:21.209450+00:00",
+  "recomputed": [
+   "geography.json -> home_outcode, home_label, home_centroid",
+   "geography.json -> districts[]: the former origin's own district row withdrawn, its 124 companies counted in districts_removed",
+   "geography.json -> districts[].miles_from_origin (was miles_from_ha4) and districts[].band",
+   "geography.json -> distance_bands[] summed from the published districts, with distance_bands_basis stating the coverage"
+  ],
+  "not_recomputed": [
+   "distance_bands[].median_net_worth_gbp and median_cash_gbp are null until the next build from source",
+   "grid_regions is the routed subset as built and is not re-cut around the new origin"
+  ],
+  "checks": "leak-check.json and headless-check.json record runs made before this rebase; both are re-run at the next build"
+ }
 }

@@ -1,0 +1,22 @@
+{
+  "schema": "cvaa.gpu-reuse.v1",
+  "inventory_sources": [
+    "docs/GPU-REUSE-INVENTORY.md"
+  ],
+  "implementations": [
+    {
+      "script": "https://github.com/Ventusltd/worlds-/blob/main/src/annihilate.py",
+      "receipt": "https://github.com/Ventusltd/worlds-/blob/main/night-results/annihilate.json"
+    }
+  ],
+  "workload_scope": "Fused numerical batch enumeration, paired comparisons and compact receipts; not a GPU replacement for DOM, browser or CI publishing checks.",
+  "runner_status": {
+    "checked_at": "2026-09-25T00:38:56Z",
+    "source": "docs/GPU-REUSE-INVENTORY.md",
+    "status": "Twelve existing globalgrid2050 runners registered, all offline and idle; local CuPy execution independently worked."
+  },
+  "decision": {
+    "mode": "reuse",
+    "reason": "Reuse established fused GPU and receipt patterns for numerical batches; keep homepage DOM, release validation and publication on their appropriate CPU/browser paths."
+  }
+}

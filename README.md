@@ -1,3 +1,14 @@
+<!-- CVAA:GPU-REUSE:START -->
+> **AI READ FIRST - reuse the established GPU method.** Inspect the existing code,
+> receipts and runner status before proposing new infrastructure. Record why the
+> next task reuses, extends or does not need it. Offline does not mean absent.
+> [CVAA vaccine](https://github.com/Ventusltd/cvaa/blob/main/vaccines/202609250037-gpu-reuse-before-new-infrastructure.md) | [Reuse contract](.cvaa/gpu-reuse.json) |
+> [Existing capability and runner observation](docs/GPU-REUSE-INVENTORY.md) |
+> [Paired-channel implementation](https://github.com/Ventusltd/worlds-/blob/main/src/annihilate.py) | [Recorded result](https://github.com/Ventusltd/worlds-/blob/main/night-results/annihilate.json).
+> Preserve paused workflows and private inputs. This check enforces an explicit
+> evidence reference and decision; it cannot prove attention or GPU performance.
+<!-- CVAA:GPU-REUSE:END -->
+
 # README audit record: GridBot operating process
 
 Dated: 2026-06-14 00:14 Europe/London

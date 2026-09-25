@@ -3,7 +3,7 @@ import {createNativeAdapter} from './inverter-48-native.mjs';
 import {mountElectrical} from './inverter-48-electrical-ui.mjs';
 const $=id=>document.getElementById(id), frame=$('engine');
 let model=build(),ready=false,playing=true,selected='S01',clock=0,last=performance.now(),drawing;
-let flowCanvas=null,flowFrames=0;
+let flowCanvas=null,flowFrames=0,flowScope='all',flowStats={strings:0,homePaths:0};
 let nativeAdapter=null,nativeWalks=[],electrical=null,electricalReport=null,tolerance=3;
 const enteredLengths=new Map();
 const win=()=>frame.contentWindow;
@@ -117,7 +117,7 @@ for(const [field,sign]of [['length-plus','+'],['length-minus','-']])$(field).onc
 $('tolerance').onchange=()=>{const v=Number($('tolerance').value);if(!Number.isFinite(v)||v<0||v>50){$('error').textContent='Allowance must be 0–50%.';return;}tolerance=v;$('error').textContent='';lengthsChanged();};
 $('length-reset').onclick=()=>{for(const sign of ['+','-'])enteredLengths.delete($('length-string').value+sign);lengthsChanged();};
 $('module-source').href=sources.module;$('inverter-source').href=sources.inverter;
-$('flow').onclick=()=>{playing=!playing;$('flow').textContent=playing?'Pause selected string':'Animate selected string';$('flow').setAttribute('aria-pressed',String(playing));};
+$('flow').onclick=()=>{playing=!playing;$('flow').textContent=playing?'Pause flow':'Animate flow';$('flow').setAttribute('aria-pressed',String(playing));};
 $('overview').onclick=()=>{$('viewport').classList.remove('desk');setTimeout(()=>fit(),80);};
 $('desk').onclick=()=>{$('viewport').classList.add('desk');setTimeout(()=>fit(),80);};
 $('ports').onclick=()=>{$('viewport').classList.remove('desk');setTimeout(()=>fit(drawing.shapes.filter(s=>s.role==='inverter'||model.ports.some(p=>p.id===s.node)).flatMap(s=>s.pts)),80);};
@@ -129,8 +129,8 @@ $('svg').onclick=()=>save('inverter-48-NOT-TO-SCALE.svg','image/svg+xml',svg());
 $('rebuild').onclick=()=>{try{const next=build({physicalOffset:Number($('physical-offset').value),drawingOffset:Number($('drawing-offset').value)});model=next;applyLengths();summary();lengthControls();electrical?.refresh();$('error').textContent='';render();}catch(e){$('error').textContent=e.message;}};
 function render(){if(!ready)return;win().fireCommand('fire inverter-48 {}',null);setTimeout(()=>fit(),220);}
 applyLengths();summary();lengthControls();electrical=mountElectrical($('electrical-hud'),{getModel:()=>model,getCableLength:supplied,onChange:report=>{electricalReport=report;}});
-const activeWalks=()=>nativeWalks.filter(w=>w.stringId===selected&&!w.open&&w.operatingCurrentA!==0&&!w.invalidOperatingPoint);
-window.__inverter48={get model(){return structuredClone(model);},get ready(){return ready;},get playing(){return playing;},get selected(){return selected;},get flowFrames(){return flowFrames;},get pulseCount(){return playing?activeWalks().length:0;},selectString(id){if(!model.strings.some(s=>s.id===id))return;selected=id;},get animatedHomeCount(){return playing?activeWalks().length*2:0;},get animatedSeriesCount(){return playing?activeWalks().length*29:0;},get nativeWalks(){return nativeWalks.map(w=>({stringId:w.stringId,open:w.open,legs:w.legs.length,currentA:w.operatingCurrentA}));},electrical,csv,svg,build,fit};
+const activeWalks=()=>nativeWalks.filter(w=>(flowScope==='all'||w.stringId===selected)&&!w.open&&w.operatingCurrentA!==0&&!w.invalidOperatingPoint);
+window.__inverter48={get model(){return structuredClone(model);},get ready(){return ready;},get playing(){return playing;},get selected(){return selected;},get flowScope(){return flowScope;},get flowStats(){return {...flowStats};},get flowFrames(){return flowFrames;},get pulseCount(){return playing?activeWalks().length*3:0;},selectString(id){if(!model.strings.some(s=>s.id===id))return;selected=id;},get animatedHomeCount(){return playing?activeWalks().length*2:0;},get animatedSeriesCount(){return playing?activeWalks().length*29:0;},get nativeWalks(){return nativeWalks.map(w=>({stringId:w.stringId,open:w.open,legs:w.legs.length,currentA:w.operatingCurrentA}));},electrical,csv,svg,build,fit};
 let tries=0;
 const poll=setInterval(async()=>{try{
   const w=win();if(++tries>300)throw Error('Native renderer did not become ready.');
@@ -153,11 +153,13 @@ function drawFlowOverlay(){
   if(!ready)return;
   const w=win();
   for(const walk of nativeWalks){const r=electricalReport?.strings.find(s=>s.id===walk.stringId);walk.operatingCurrentA=r?.currentA??null;walk.invalidOperatingPoint=r?.invalidOperatingPoint??false;}
-  if(!flowCanvas){flowCanvas=w.document.createElement('canvas');flowCanvas.id='single-string-flow';flowCanvas.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:10';w.document.body.append(flowCanvas);}
+  if(!flowCanvas){flowCanvas=w.document.createElement('canvas');flowCanvas.id='inverter-flow';flowCanvas.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:10';w.document.body.append(flowCanvas);}
   const dpr=Math.min(2,w.devicePixelRatio||1),width=w.innerWidth,height=w.innerHeight;
   if(flowCanvas.width!==Math.round(width*dpr)||flowCanvas.height!==Math.round(height*dpr)){flowCanvas.width=Math.round(width*dpr);flowCanvas.height=Math.round(height*dpr);flowCanvas.style.width=width+'px';flowCanvas.style.height=height+'px';}
   const ctx=flowCanvas.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,width,height);
-  if(playing&&!document.hidden){nativeAdapter?.drawFlow(ctx,activeWalks(),clock,{selected});flowFrames++;}
+  flowStats={strings:0,homePaths:0};if(playing&&!document.hidden){flowStats=nativeAdapter?.drawFlow(ctx,activeWalks(),clock,{selected})??{strings:0,homePaths:0};flowFrames++;}
 }
 let previousFrame=0;
 function tick(now){const dt=Math.min(.1,(now-last)/1000);last=now;if(playing&&!document.hidden)clock+=dt;if(now-previousFrame>=50){previousFrame=now;drawFlowOverlay();}requestAnimationFrame(tick);}requestAnimationFrame(tick);
+
+$('flow-scope').onclick=()=>{flowScope=flowScope==='all'?'selected':'all';$('flow-scope').textContent=flowScope==='all'?'All 24 strings':'Selected string';$('flow-scope').setAttribute('aria-pressed',String(flowScope==='all'));$('selection').textContent=flowScope==='all'?'24 connected strings / 48 DC cables. Open or invalid circuits do not animate.':'Following the selected string; all wiring remains visible.';};

@@ -45,7 +45,7 @@ export function buildNativeWalks(w, model) {
 }
 
 export function drawElectronFlow(w, ctx, walks, clock, {selected=null, spacingPx=150, speedPx=48}={}) {
-  const scale=w.shapeScale();
+  const scale=w.shapeScale(),stats={strings:0,homePaths:0};
   const path=pts=>{ctx.beginPath();pts.map(w.shapePoint).forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));};
   ctx.save();ctx.globalCompositeOperation='lighter';ctx.shadowColor='#7ff0ff';
   for(const walk of walks) {
@@ -53,12 +53,18 @@ export function drawElectronFlow(w, ctx, walks, clock, {selected=null, spacingPx
     // Optional entered current uses the native renderer's restrained glow-weight
     // emphasis. Null/unknown remains illustrative and supplies no physical value.
     const currentWeight=Number.isFinite(walk.operatingCurrentA)&&walk.operatingCurrentA>0?1+.5*Math.min(1,walk.operatingCurrentA/20):1;
-    const pixels=walk.total*scale,count=1;
-    const tail=Math.min(.055,18/Math.max(1,pixels));
-    for(let k=0;k<count;k++) {
-      const head=((k/count-clock*speedPx/Math.max(1,pixels))%1+1)%1;
-      const spans=head+tail>1?[[head,1],[0,head+tail-1]]:[[head,head+tail]];
-      for(const leg of walk.legs)for(const [a0,b0]of spans) {
+    stats.strings++;
+    const phase=(Number(walk.stringId.slice(1))*.38196601125)%1;
+    // One circuit trace plus a trace on each home conductor, so both polarities
+    // remain visibly animated even when the full circuit is much longer.
+    const pulses=[{legs:walk.legs,start:0,end:1,phase},...walk.legs.filter(l=>l.s?.home).map((leg,i)=>({legs:[leg],start:leg.u0,end:leg.u1,phase:(phase+i*.5)%1,home:true}))];
+    for(const pulse of pulses) {
+      if(pulse.home)stats.homePaths++;
+      const range=pulse.end-pulse.start,pixels=walk.total*scale*range;
+      const tail=Math.min(.12,18/Math.max(1,pixels));
+      const head=((pulse.phase-clock*speedPx/Math.max(1,pixels))%1+1)%1;
+      const spans=(head+tail>1?[[head,1],[0,head+tail-1]]:[[head,head+tail]]).map(([a,b])=>[pulse.start+a*range,pulse.start+b*range]);
+      for(const leg of pulse.legs)for(const [a0,b0]of spans) {
         const a=Math.max(leg.u0,a0),b=Math.min(leg.u1,b0);if(b<=a)continue;
         const d=Math.max(1e-9,leg.u1-leg.u0),pts=leg.s?.pts||leg.mod?.electronPath;
         if(!pts)continue;
@@ -71,7 +77,7 @@ export function drawElectronFlow(w, ctx, walks, clock, {selected=null, spacingPx
       }
     }
   }
-  ctx.restore();
+  ctx.restore();return stats;
 }
 
 export async function createNativeAdapter(w, {}={}) {

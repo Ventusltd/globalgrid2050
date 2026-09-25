@@ -6,7 +6,7 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-FILES = {'index.html', 'assets/versioned-homepage.css', 'assets/versioned-homepage.js', 'data/homepage.json'}
+FILES = {'index.html', 'assets/versioned-homepage.css', 'assets/versioned-homepage.js', 'data/homepage.json', 'data/active-pages.json', 'data/presentation.json', 'data/entity-types.json'}
 
 def main():
     pin = json.loads((ROOT/'catalogue/homepage-owner.json').read_text(encoding='utf-8'))

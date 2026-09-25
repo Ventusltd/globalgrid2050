@@ -1,0 +1,290 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "label": "Solar Design Studio",
+      "url": "https://globalgrid2050.com/solar-bess-topology-v7/gis-sld-financial-sandbox/index.html",
+      "repository": "Ventusltd/globalgrid2050",
+      "activity_count": 100,
+      "activity_capped": true,
+      "last_activity": "2026-09-25T01:59:57Z",
+      "verified_at": "2026-09-25T02:39:58Z",
+      "pages_status": "built",
+      "verification": "Pages API configured; final HTTPS HTML HTTP 200"
+    },
+    {
+      "label": "Pipeline News",
+      "url": "https://globalgrid2050.com/uk_renewables_pipeline/202609082224/",
+      "repository": "Ventusltd/globalgrid2050",
+      "activity_count": 100,
+      "activity_capped": true,
+      "last_activity": "2026-09-25T01:59:57Z",
+      "verified_at": "2026-09-25T02:39:58Z",
+      "pages_status": "built",
+      "verification": "Pages API configured; final HTTPS HTML HTTP 200"
+    },
+    {
+      "label": "Metals & Cable Prices",
+      "url": "https://globalgrid2050.com/copper_and_aluminium_prices_historic_trends/",
+      "repository": "Ventusltd/globalgrid2050",
+      "activity_count": 100,
+      "activity_capped": true,
+      "last_activity": "2026-09-25T01:59:57Z",
+      "verified_at": "2026-09-25T02:39:58Z",
+      "pages_status": "built",
+      "verification": "Pages API configured; final HTTPS HTML HTTP 200"
+    },
+    {
+      "label": "Kuiper",
+      "url": "https://globalgrid2050.com/kuiper/",
+      "repository": "Ventusltd/globalgrid2050",
+      "activity_count": 100,
+      "activity_capped": true,
+      "last_activity": "2026-09-25T01:59:57Z",
+      "verified_at": "2026-09-25T02:39:58Z",
+      "pages_status": "built",
+      "verification": "Pages API configured; final HTTPS HTML HTTP 200"
+    },
+    {
+      "label": "Electricity Market Intelligence",
+      "url": "https://globalgrid2050.com/uk_energy_tracking_v6/",
+      "repository": "Ventusltd/globalgrid2050",
+      "activity_count": 100,
+      "activity_capped": true,
+      "last_activity": "2026-09-25T01:59:57Z",
+      "verified_at": "2026-09-25T02:39:58Z",
+      "pages_status": "built",
+      "verification": "Pages API configured; final HTTPS HTML HTTP 200"
+    },
+    {
+      "label": "Cable Engineering",
+      "url": "https://globalgrid2050.com/ac_cables_knowledge/",
+      "repository": "Ventusltd/globalgrid2050",
+      "activity_count": 100,
+      "activity_capped": true,
+      "last_activity": "2026-09-25T01:59:57Z",
+      "verified_at": "2026-09-25T02:39:58Z",
+      "pages_status": "built",
+      "verification": "Pages API configured; final HTTPS HTML HTTP 200"
+    },
+    {
+      "label": "Stars",
+      "url": "https://ventusltd.github.io/stars/",
+      "repository": "Ventusltd/stars",
+      "activity_count": 100,
+      "activity_capped": true,
+      "last_activity": "2026-09-25T01:38:57Z",
+      "verified_at": "2026-09-25T02:39:58Z",
+      "pages_status": "built",
+      "verification": "Pages API configured; final HTTPS HTML HTTP 200"
+    },
+    {
+      "label": "VENTUS Grid Engine",
+      "url": "https://ventusltd.github.io/ventus-grid-engine/",
+      "repository": "Ventusltd/ventus-grid-engine",
+      "activity_count": 100,
+      "activity_capped": true,
+      "last_activity": "2026-09-25T01:23:58Z",
+      "verified_at": "2026-09-25T02:39:58Z",
+      "pages_status": "built",
+      "verification": "Pages API configured; final HTTPS HTML HTTP 200"
+    },
+    {
+      "label": "GridAtlas",
+      "url": "https://ventusltd.github.io/gridatlas/atlas/",
+      "repository": "Ventusltd/gridatlas",
+      "activity_count": 100,
+      "activity_capped": true,
+      "last_activity": "2026-09-24T13:45:09Z",
+      "verified_at": "2026-09-25T02:39:58Z",
+      "pages_status": "built",
+      "verification": "Pages API configured; final HTTPS HTML HTTP 200"
+    },
+    {
+      "label": "Spiders",
+      "url": "https://ventusltd.github.io/spiders/",
+      "repository": "Ventusltd/spiders",
+      "activity_count": 100,
+      "activity_capped": true,
+      "last_activity": "2026-09-21T12:47:10Z",
+      "verified_at": "2026-09-25T02:39:58Z",
+      "pages_status": "built",
+      "verification": "Pages API configured; final HTTPS HTML HTTP 200"
+    },
+    {
+      "label": "Testcode",
+      "url": "https://ventusltd.github.io/testcode/",
+      "repository": "Ventusltd/testcode",
+      "activity_count": 100,
+      "activity_capped": true,
+      "last_activity": "2026-09-15T19:41:48Z",
+      "verified_at": "2026-09-25T02:39:58Z",
+      "pages_status": "built",
+      "verification": "Pages API configured; final HTTPS HTML HTTP 200"
+    },
+    {
+      "label": "Kuiper Belt",
+      "url": "https://ventusltd.github.io/kuiper-belt/",
+      "repository": "Ventusltd/kuiper-belt",
+      "activity_count": 88,
+      "activity_capped": false,
+      "last_activity": "2026-09-24T21:36:14Z",
+      "verified_at": "2026-09-25T02:39:58Z",
+      "pages_status": "built",
+      "verification": "Pages API configured; final HTTPS HTML HTTP 200"
+    }
+  ],
+  "updated_at": "2026-09-25T02:39:58Z",
+  "window_days": 30,
+  "method": {
+    "description": "Rank live app routes by their repository's default-branch commits in the last 30 days. Shared-repository apps share counts; this is not per-app activity. At most 100 commits are read per repository; capped counts are lower bounds and do not resolve ordering beyond the cap. Discover additional public Pages repositories from one page of at most 100 public repositories ordered by pushed time; inspect at most 20 routes including curated routes. This is a bounded sample, not a complete owner-wide ranking. Ignore only configured self-refresh commit prefixes; other automation commits count. URL is the unique output key.",
+    "grain": "one verified final app URL",
+    "key": "url",
+    "repository_sample_size": 79,
+    "routes_considered": 20,
+    "commits_per_repository_cap": 100,
+    "checks": [
+      {
+        "repository": "Ventusltd/gridatlas",
+        "url": "https://ventusltd.github.io/gridatlas/atlas/",
+        "status": "verified_https_html_200",
+        "activity_count": 100,
+        "activity_capped": true
+      },
+      {
+        "repository": "Ventusltd/globalgrid2050",
+        "url": "https://globalgrid2050.com/kuiper/",
+        "status": "verified_https_html_200",
+        "activity_count": 100,
+        "activity_capped": true
+      },
+      {
+        "repository": "Ventusltd/globalgrid2050",
+        "url": "https://globalgrid2050.com/uk_renewables_pipeline/202609082224/",
+        "status": "verified_https_html_200",
+        "activity_count": 100,
+        "activity_capped": true
+      },
+      {
+        "repository": "Ventusltd/globalgrid2050",
+        "url": "https://globalgrid2050.com/solar-bess-topology-v7/gis-sld-financial-sandbox/index.html",
+        "status": "verified_https_html_200",
+        "activity_count": 100,
+        "activity_capped": true
+      },
+      {
+        "repository": "Ventusltd/globalgrid2050-ip-and-mac-addresses",
+        "url": "https://ventusltd.github.io/globalgrid2050-ip-and-mac-addresses/",
+        "status": "verified_https_html_200",
+        "activity_count": 5,
+        "activity_capped": false
+      },
+      {
+        "repository": "Ventusltd/sld",
+        "url": "https://ventusltd.github.io/sld/",
+        "status": "verified_https_html_200",
+        "activity_count": 8,
+        "activity_capped": false
+      },
+      {
+        "repository": "Ventusltd/ventus-grid-engine",
+        "url": "https://ventusltd.github.io/ventus-grid-engine/",
+        "status": "verified_https_html_200",
+        "activity_count": 100,
+        "activity_capped": true
+      },
+      {
+        "repository": "Ventusltd/globalgrid2050",
+        "url": "https://globalgrid2050.com/uk_energy_tracking_v6/",
+        "status": "verified_https_html_200",
+        "activity_count": 100,
+        "activity_capped": true
+      },
+      {
+        "repository": "Ventusltd/globalgrid2050",
+        "url": "https://globalgrid2050.com/copper_and_aluminium_prices_historic_trends/",
+        "status": "verified_https_html_200",
+        "activity_count": 100,
+        "activity_capped": true
+      },
+      {
+        "repository": "Ventusltd/globalgrid2050",
+        "url": "https://globalgrid2050.com/ac_cables_knowledge/",
+        "status": "verified_https_html_200",
+        "activity_count": 100,
+        "activity_capped": true
+      },
+      {
+        "repository": "Ventusltd/stars",
+        "url": "https://ventusltd.github.io/stars/",
+        "status": "verified_https_html_200",
+        "activity_count": 100,
+        "activity_capped": true
+      },
+      {
+        "repository": "Ventusltd/kuiper-belt",
+        "url": "https://ventusltd.github.io/kuiper-belt/",
+        "status": "verified_https_html_200",
+        "activity_count": 88,
+        "activity_capped": false
+      },
+      {
+        "repository": "Ventusltd/star-solar-star",
+        "url": "https://ventusltd.github.io/star-solar-star/",
+        "status": "verified_https_html_200",
+        "activity_count": 25,
+        "activity_capped": false
+      },
+      {
+        "repository": "Ventusltd/faraday",
+        "url": "https://ventusltd.github.io/faraday/",
+        "status": "verified_https_html_200",
+        "activity_count": 46,
+        "activity_capped": false
+      },
+      {
+        "repository": "Ventusltd/spiders",
+        "url": "https://ventusltd.github.io/spiders/",
+        "status": "verified_https_html_200",
+        "activity_count": 100,
+        "activity_capped": true
+      },
+      {
+        "repository": "Ventusltd/grid-distance-maths",
+        "url": "https://ventusltd.github.io/grid-distance-maths/",
+        "status": "verified_https_html_200",
+        "activity_count": 7,
+        "activity_capped": false
+      },
+      {
+        "repository": "Ventusltd/solar-dc-string-wiring-and-topology",
+        "url": "https://ventusltd.github.io/solar-dc-string-wiring-and-topology/",
+        "status": "verified_https_html_200",
+        "activity_count": 1,
+        "activity_capped": false
+      },
+      {
+        "repository": "Ventusltd/testcode",
+        "url": "https://ventusltd.github.io/testcode/",
+        "status": "verified_https_html_200",
+        "activity_count": 100,
+        "activity_capped": true
+      },
+      {
+        "repository": "Ventusltd/star-quantum-twin",
+        "url": "https://ventusltd.github.io/star-quantum-twin/",
+        "status": "verified_https_html_200",
+        "activity_count": 4,
+        "activity_capped": false
+      },
+      {
+        "repository": "Ventusltd/star-electron-star",
+        "url": "https://ventusltd.github.io/star-electron-star/",
+        "status": "verified_https_html_200",
+        "activity_count": 11,
+        "activity_capped": false
+      }
+    ],
+    "skipped": []
+  }
+}

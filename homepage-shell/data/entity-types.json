@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "records": {
+    "kuiper": {
+      "type": "engine",
+      "purpose": "Help humans and LLM-assisted workflows isolate patterns across code, text and mathematics, supporting faster iteration and discovery. Intended adaptations include GIS drawing, design studios and construction proposals.",
+      "audience": [
+        "humans",
+        "LLM-assisted workflows"
+      ],
+      "capability_evidence": {
+        "summary": "The catalogue records a current Kuiper workspace and an earlier one-wafer release; this does not establish automated LLM integration.",
+        "url": "https://globalgrid2050.com/kuiper/"
+      },
+      "roles": [
+        "pattern-exploration",
+        "design-studio",
+        "drawing-workspace",
+        "proposal-authoring"
+      ]
+    },
+    "gridatlas": {
+      "type": "application",
+      "purpose": "Explore electricity-network sites, layers and connections.",
+      "audience": [
+        "network researchers",
+        "project developers"
+      ],
+      "roles": []
+    },
+    "ventus-grid-engine": {
+      "type": "engine",
+      "purpose": "Bring together drawing, topology and network experiments for energy-system development.",
+      "audience": [
+        "developers",
+        "network researchers"
+      ],
+      "roles": []
+    },
+    "faraday-pulse": {
+      "type": "engine",
+      "purpose": "Investigate pulse propagation and memory through recorded experiments.",
+      "audience": [
+        "developers",
+        "researchers"
+      ],
+      "capability_evidence": {
+        "summary": "The linked destination is an experiment log; its recorded experiments are distinct from a production engineering capability.",
+        "url": "https://ventusltd.github.io/faraday/"
+      },
+      "roles": []
+    },
+    "dc-string-drawing": {
+      "type": "drawing",
+      "purpose": "Explore a string-inverter DC topology drawing workspace.",
+      "audience": [
+        "solar designers",
+        "learners"
+      ],
+      "roles": []
+    },
+    "ac-block-diagram": {
+      "type": "drawing",
+      "purpose": "Inspect inverter, skid and ring blocks as a block diagram, without implying a complete electrical system or SLD.",
+      "audience": [
+        "solar designers",
+        "learners"
+      ],
+      "roles": []
+    },
+    "deep-grid-engine": {
+      "type": "reference",
+      "purpose": "Explore the grid engine's module and dependency map.",
+      "audience": [
+        "developers"
+      ],
+      "roles": []
+    },
+    "pipeline-news": {
+      "type": "catalogue",
+      "purpose": "Find renewable-energy projects and follow the project pipeline.",
+      "audience": [
+        "project developers",
+        "researchers"
+      ],
+      "roles": []
+    },
+    "solar-design-studio": {
+      "type": "application",
+      "purpose": "Explore solar and storage modelling through maps, electrical layouts and project economics.",
+      "audience": [
+        "solar designers",
+        "project developers"
+      ],
+      "roles": []
+    },
+    "identity-registry": {
+      "type": "catalogue",
+      "purpose": "Find permanent asset identities, scannable labels and preserved history; the first release contains demonstration assets.",
+      "audience": [
+        "asset teams",
+        "developers"
+      ],
+      "roles": []
+    },
+    "electricity-market-intelligence": {
+      "type": "application",
+      "purpose": "Explore electricity and price dashboards using snapshots dated 18 June 2026, rather than live market data.",
+      "audience": [
+        "market researchers",
+        "energy analysts"
+      ],
+      "roles": []
+    },
+    "generation-history": {
+      "type": "application",
+      "purpose": "Explore historical electricity-generation charts.",
+      "audience": [
+        "energy analysts",
+        "learners"
+      ],
+      "roles": []
+    },
+    "metals-cable-prices": {
+      "type": "application",
+      "purpose": "Explore historical metal trends and dated cable-cost estimates.",
+      "audience": [
+        "cost planners",
+        "researchers"
+      ],
+      "roles": []
+    },
+    "lv-ac-dc-prices": {
+      "type": "application",
+      "purpose": "Explore indicative LV AC and DC cable estimates dated 18 June 2026; these are not live supplier quotations.",
+      "audience": [
+        "cost planners",
+        "cable designers"
+      ],
+      "roles": []
+    },
+    "33kv-cable-prices": {
+      "type": "application",
+      "purpose": "Explore indicative UK DAP 33 kV cable estimates dated 18 June 2026.",
+      "audience": [
+        "cost planners",
+        "cable designers"
+      ],
+      "roles": []
+    },
+    "cable-engineering": {
+      "type": "reference",
+      "purpose": "Learn about AC cables and find related cable guidance and tools.",
+      "audience": [
+        "cable designers",
+        "learners"
+      ],
+      "roles": []
+    },
+    "dc-cable-guide": {
+      "type": "reference",
+      "purpose": "Learn about DC cables through the existing knowledge pages.",
+      "audience": [
+        "cable designers",
+        "learners"
+      ],
+      "roles": []
+    },
+    "conductor-resistance": {
+      "type": "reference",
+      "purpose": "Consult information about conductor resistance.",
+      "audience": [
+        "cable designers",
+        "learners"
+      ],
+      "roles": []
+    },
+    "cable-selection": {
+      "type": "application",
+      "purpose": "Explore cable-selection options using the existing tool.",
+      "audience": [
+        "cable designers"
+      ],
+      "roles": []
+    },
+    "cable-geometry": {
+      "type": "application",
+      "purpose": "Explore cable geometry visually.",
+      "audience": [
+        "cable designers",
+        "learners"
+      ],
+      "roles": []
+    }
+  }
+}

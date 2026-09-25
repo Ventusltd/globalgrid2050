@@ -5,7 +5,7 @@
       "id": "kuiper",
       "title": "Kuiper",
       "subtitle": "The animated universe of code",
-      "description": "Explore Kuiper and trace the work behind it.",
+      "description": "Explore patterns across code, text and mathematics, with intended adaptations for drawing and proposal work.",
       "launch_label": "Enter Kuiper",
       "operative_release_id": "202609200300",
       "releases": [
@@ -48,6 +48,100 @@
           "archive_kind": "manifest"
         }
       ]
+    },
+    {
+      "id": "ventus-grid-engine",
+      "title": "VENTUS Grid Engine",
+      "subtitle": "Drawing, topology and network experiments",
+      "description": "Explore the grid engines, their drawing tools and existing experiments.",
+      "launch_label": "Open VENTUS Grid Engine",
+      "operative_release_id": "existing-workspace",
+      "releases": [
+        {
+          "id": "existing-workspace",
+          "label": "Current workspace",
+          "url": "https://ventusltd.github.io/ventus-grid-engine/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/ventus-grid-engine"
+        }
+      ]
+    },
+    {
+      "id": "faraday-pulse",
+      "title": "Faraday pulse",
+      "subtitle": "Grid engine experiments",
+      "description": "Recorded pulse-propagation and memory experiments; an experiment log.",
+      "launch_label": "Open Faraday pulse",
+      "operative_release_id": "existing-workspace",
+      "releases": [
+        {
+          "id": "existing-workspace",
+          "label": "Current workspace",
+          "url": "https://ventusltd.github.io/faraday/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/faraday"
+        }
+      ],
+      "parent_id": "ventus-grid-engine"
+    },
+    {
+      "id": "dc-string-drawing",
+      "title": "DC string drawing",
+      "subtitle": "Grid engine / DC topology",
+      "description": "Open the string-inverter topology workspace.",
+      "launch_label": "Open DC string drawing",
+      "operative_release_id": "existing-workspace",
+      "releases": [
+        {
+          "id": "existing-workspace",
+          "label": "Current workspace",
+          "url": "https://globalgrid2050.com/solar-bess-topology-v7/dc-ac-lv-topology-review/index.html#topo_tab_string",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050"
+        }
+      ],
+      "parent_id": "ventus-grid-engine"
+    },
+    {
+      "id": "ac-block-diagram",
+      "title": "AC block diagram",
+      "subtitle": "Grid engine / AC topology",
+      "description": "Inspect inverter, skid and ring blocks. This is a block diagram, not an SLD or a complete electrical system.",
+      "launch_label": "Open AC block diagram",
+      "operative_release_id": "existing-workspace",
+      "releases": [
+        {
+          "id": "existing-workspace",
+          "label": "Current workspace",
+          "url": "https://globalgrid2050.com/solar-bess-topology-v7/dc-ac-lv-topology-review/index.html#topo_scada",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050"
+        }
+      ],
+      "parent_id": "ventus-grid-engine"
+    },
+    {
+      "id": "deep-grid-engine",
+      "title": "Deep grid engine",
+      "subtitle": "Grid engine / dependency map",
+      "description": "Explore the engine module and dependency map.",
+      "launch_label": "Open Deep grid engine",
+      "operative_release_id": "existing-workspace",
+      "releases": [
+        {
+          "id": "existing-workspace",
+          "label": "Current workspace",
+          "url": "https://ventusltd.github.io/ventus-grid-engine/genome/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/ventus-grid-engine"
+        }
+      ],
+      "parent_id": "ventus-grid-engine"
     },
     {
       "id": "pipeline-news",
@@ -102,16 +196,207 @@
           "source_ref": "https://github.com/Ventusltd/globalgrid2050-ip-and-mac-addresses/tree/2ba77a48351e70648ab8d122c187a87c47d0f6fc"
         }
       ]
+    },
+    {
+      "id": "electricity-market-intelligence",
+      "title": "Electricity Market Intelligence",
+      "subtitle": "GB electricity markets and generation",
+      "description": "Explore the original V6 electricity dashboards. The backing electricity and price snapshots are dated 18 June 2026; the separate data federation remains in development.",
+      "launch_label": "Open Electricity Market Intelligence",
+      "operative_release_id": "existing-workspace",
+      "releases": [
+        {
+          "id": "existing-workspace",
+          "label": "Existing workspace",
+          "url": "https://globalgrid2050.com/uk_energy_tracking_v6/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/b860c70ac6d1ad4fc20235800bd6d8d5ce2a288f"
+        }
+      ]
+    },
+    {
+      "id": "generation-history",
+      "title": "Generation history",
+      "subtitle": "Electricity market intelligence",
+      "description": "Explore the existing generation-history charts.",
+      "launch_label": "Open Generation history",
+      "operative_release_id": "existing-workspace",
+      "releases": [
+        {
+          "id": "existing-workspace",
+          "label": "Existing workspace",
+          "url": "https://globalgrid2050.com/uk_energy_tracking_v6/generation_history/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/b860c70ac6d1ad4fc20235800bd6d8d5ce2a288f"
+        }
+      ],
+      "parent_id": "electricity-market-intelligence"
+    },
+    {
+      "id": "metals-cable-prices",
+      "title": "Metals & Cable Prices",
+      "subtitle": "Copper, aluminium and cable estimates",
+      "description": "Explore historical metal trends and the AC/DC cable estimators. These are historical datasets and dated estimates, not live market quotations.",
+      "launch_label": "Open Metals & Cable Prices",
+      "operative_release_id": "existing-workspace",
+      "releases": [
+        {
+          "id": "existing-workspace",
+          "label": "Existing workspace",
+          "url": "https://globalgrid2050.com/copper_and_aluminium_prices_historic_trends/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/b860c70ac6d1ad4fc20235800bd6d8d5ce2a288f"
+        }
+      ]
+    },
+    {
+      "id": "lv-ac-dc-prices",
+      "title": "LV AC & DC cable estimates",
+      "subtitle": "Metals and cable prices",
+      "description": "Indicative cable estimates dated 18 June 2026; not live supplier quotations.",
+      "launch_label": "Open LV AC & DC cable estimates",
+      "operative_release_id": "existing-workspace",
+      "releases": [
+        {
+          "id": "existing-workspace",
+          "label": "Existing workspace",
+          "url": "https://globalgrid2050.com/lv_ac_dc_price_estimator/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/b860c70ac6d1ad4fc20235800bd6d8d5ce2a288f"
+        }
+      ],
+      "parent_id": "metals-cable-prices"
+    },
+    {
+      "id": "33kv-cable-prices",
+      "title": "33 kV cable estimates",
+      "subtitle": "Metals and cable prices",
+      "description": "UK DAP cable estimates dated 18 June 2026; not live supplier quotations.",
+      "launch_label": "Open 33 kV cable estimates",
+      "operative_release_id": "existing-workspace",
+      "releases": [
+        {
+          "id": "existing-workspace",
+          "label": "Existing workspace",
+          "url": "https://globalgrid2050.com/33kv_uk_dap_price_estimator/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/b860c70ac6d1ad4fc20235800bd6d8d5ce2a288f"
+        }
+      ],
+      "parent_id": "metals-cable-prices"
+    },
+    {
+      "id": "cable-engineering",
+      "title": "Cable Engineering",
+      "subtitle": "AC and DC cable guides and tools",
+      "description": "Read the AC cable guide, with DC guidance, conductor resistance, selection and geometry tools below.",
+      "launch_label": "Open Cable Engineering",
+      "operative_release_id": "existing-workspace",
+      "releases": [
+        {
+          "id": "existing-workspace",
+          "label": "Existing workspace",
+          "url": "https://globalgrid2050.com/ac_cables_knowledge/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/b860c70ac6d1ad4fc20235800bd6d8d5ce2a288f"
+        }
+      ]
+    },
+    {
+      "id": "dc-cable-guide",
+      "title": "DC cable guide",
+      "subtitle": "Cable engineering",
+      "description": "Explore the existing DC cable knowledge pages.",
+      "launch_label": "Open DC cable guide",
+      "operative_release_id": "existing-workspace",
+      "releases": [
+        {
+          "id": "existing-workspace",
+          "label": "Existing workspace",
+          "url": "https://globalgrid2050.com/dc_cables_knowledge/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/b860c70ac6d1ad4fc20235800bd6d8d5ce2a288f"
+        }
+      ],
+      "parent_id": "cable-engineering"
+    },
+    {
+      "id": "conductor-resistance",
+      "title": "Conductor resistance",
+      "subtitle": "Cable engineering",
+      "description": "Explore the conductor-resistance reference.",
+      "launch_label": "Open Conductor resistance",
+      "operative_release_id": "existing-workspace",
+      "releases": [
+        {
+          "id": "existing-workspace",
+          "label": "Existing workspace",
+          "url": "https://globalgrid2050.com/conductor_resistances/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/b860c70ac6d1ad4fc20235800bd6d8d5ce2a288f"
+        }
+      ],
+      "parent_id": "cable-engineering"
+    },
+    {
+      "id": "cable-selection",
+      "title": "Cable selection",
+      "subtitle": "Cable engineering",
+      "description": "Open the existing cable-selection tool.",
+      "launch_label": "Open Cable selection",
+      "operative_release_id": "existing-workspace",
+      "releases": [
+        {
+          "id": "existing-workspace",
+          "label": "Existing workspace",
+          "url": "https://globalgrid2050.com/cable_selection/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/b860c70ac6d1ad4fc20235800bd6d8d5ce2a288f"
+        }
+      ],
+      "parent_id": "cable-engineering"
+    },
+    {
+      "id": "cable-geometry",
+      "title": "Cable geometry visualiser",
+      "subtitle": "Cable engineering",
+      "description": "Explore cable geometry in the existing visual workspace.",
+      "launch_label": "Open Cable geometry visualiser",
+      "operative_release_id": "existing-workspace",
+      "releases": [
+        {
+          "id": "existing-workspace",
+          "label": "Existing workspace",
+          "url": "https://globalgrid2050.com/solar-bess-topology-v7/cable-geometry-visualiser/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/b860c70ac6d1ad4fc20235800bd6d8d5ce2a288f"
+        }
+      ],
+      "parent_id": "cable-engineering"
     }
   ],
   "view": {
     "items": [
       {
         "entity_id": "kuiper",
-        "open": true
+        "open": false
       },
       {
         "entity_id": "gridatlas",
+        "open": false
+      },
+      {
+        "entity_id": "ventus-grid-engine",
         "open": false
       },
       {
@@ -124,6 +409,18 @@
       },
       {
         "entity_id": "identity-registry",
+        "open": false
+      },
+      {
+        "entity_id": "electricity-market-intelligence",
+        "open": false
+      },
+      {
+        "entity_id": "metals-cable-prices",
+        "open": false
+      },
+      {
+        "entity_id": "cable-engineering",
         "open": false
       }
     ],

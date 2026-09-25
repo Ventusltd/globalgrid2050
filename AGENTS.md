@@ -18,10 +18,17 @@ and selected nests. Its scripts/releases.py validates and promotes explicit
 operative pointers while retaining historical records. Preserve retro styles.
 
 This repository retains the custom domain, historical tools and publication.
-Its catalogue/homepage-owner.json pins the accepted owner commit and four file
+Its catalogue/homepage-owner.json pins the accepted owner commit and seven file
 hashes. scripts/import_homepage_owner.py verifies and assembles only that bundle
 into homepage-shell/ and the root index.html during Pages publication. Do not
 edit those generated copies or maintain a second active navigation config here.
+The fifth file, data/active-pages.json, is an owner-generated activity feed for
+the live-app ticker. It does not promote app releases or replace homepage.json.
+The sixth file, data/presentation.json, selects curated highlights and the
+catalogue page size. It references permanent entity IDs in homepage.json.
+The seventh file, data/entity-types.json, describes entity types, purposes and
+audiences by those same IDs. It does not imply API availability or engineering
+approval. Keep semantic metadata separate from visual placement.
 The prior catalogue/site-navigation.json and render_site_navigation.py are
 retained historical implementation, not the active source of navigation.
 

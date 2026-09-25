@@ -84,6 +84,24 @@
           "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/7c64560d282f3412a3dfd79939e236a37ee5e8da"
         }
       ]
+    },
+    {
+      "id": "identity-registry",
+      "title": "Identity Registry",
+      "subtitle": "One identity. A record you can find.",
+      "description": "Permanent asset IDs, scannable labels and preserved history. The first release contains clearly labelled demonstration assets.",
+      "launch_label": "Open Identity Registry",
+      "operative_release_id": "20260925-v1",
+      "releases": [
+        {
+          "id": "20260925-v1",
+          "label": "25 September 2026 - identity registry",
+          "url": "https://ventusltd.github.io/globalgrid2050-ip-and-mac-addresses/",
+          "published_at": "2026-09-25T01:45:00Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050-ip-and-mac-addresses/tree/2ba77a48351e70648ab8d122c187a87c47d0f6fc"
+        }
+      ]
     }
   ],
   "view": {
@@ -103,6 +121,10 @@
       {
         "entity_id": "solar-design-studio",
         "open": false
+      },
+      {
+        "entity_id": "identity-registry",
+        "open": false
       }
     ],
     "archive_url": "https://globalgrid2050.com/historical_builds.html"
@@ -112,7 +134,17 @@
       "entity_id": "kuiper",
       "label": "Kuiper drawing engine",
       "status": "In development",
-      "url": "https://github.com/Ventusltd/kuiper-drawing-engine"
+      "url": "https://github.com/Ventusltd/kuiper-drawing-engine",
+      "description": "Explore the next drawing workspace, built around reusable shapes and electrical connections.",
+      "evidence_summary": "Follow the work in its project repository."
+    },
+    {
+      "entity_id": "identity-registry",
+      "label": "Inspection connections",
+      "status": "In development",
+      "url": "https://github.com/Ventusltd/globalgrid2050-ip-and-mac-addresses/blob/main/docs/KUIPER-INSPECTION-LINKS.md",
+      "description": "Connect factory and field inspections to a module’s permanent identity.",
+      "evidence_summary": "Identity registry available. Kuiper inspection readers are the next step."
     }
   ],
   "promotions": []

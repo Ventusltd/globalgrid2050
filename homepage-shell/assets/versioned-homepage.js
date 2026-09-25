@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
   'use strict';
   const configUrl = new URL('../data/homepage.json', document.currentScript.src);
   const mount = document.getElementById('nests');
@@ -78,8 +78,8 @@
   function developmentStrip(items) {
     if (!items.length) return;
     const strip = node('section', undefined, 'development-strip');
-    strip.setAttribute('aria-label', 'Apps in development');
-    const label = node('span', 'IN DEVELOPMENT', 'development-label');
+    strip.setAttribute('aria-label', 'GlobalGrid2050 apps and build status');
+    const label = node('span', 'GLOBALGRID2050', 'development-label');
     const viewport = node('div', undefined, 'development-viewport');
     const track = node('div', undefined, 'development-track');
     const group = node('div', undefined, 'development-group');
@@ -141,7 +141,30 @@
     data.view.items.forEach((item, index) => fragment.append(entityNode(byId.get(item.entity_id), String(index + 1).padStart(2, '0'), item.open)));
     mount.replaceChildren(fragment);
     document.getElementById('archiveLink').href = safeUrl(data.view.archive_url);
-    developmentStrip(data.development || []);
+    const development = (data.development || []).slice(0, 3);
+    const highlights = node('section', undefined, 'build-highlights');
+    highlights.setAttribute('aria-labelledby', 'buildHeading');
+    const heading = node('h2', 'In build');
+    heading.id = 'buildHeading';
+    const cards = node('div', undefined, 'build-list');
+    const buildRecords = development.map(item => {
+      const card = node('article', undefined, 'build-card');
+      const title = node('h3');
+      title.append(link(item.label + ' ↗', item.url));
+      card.append(node('span', item.status, 'build-state'), title);
+      if (item.description) card.append(node('p', item.description));
+      if (item.evidence_summary) card.append(node('p', item.evidence_summary, 'build-evidence'));
+      cards.append(card);
+      return {card, text:[item.label, item.status, item.description, item.evidence_summary, item.url].join(' ').toLocaleLowerCase()};
+    });
+    highlights.append(heading, cards);
+    highlights.hidden = !buildRecords.length;
+    mount.before(highlights);
+    const available = data.view.items.slice(0, 8).map(item => {
+      const entity = byId.get(item.entity_id);
+      return {label:entity.title,status:'Available',url:entity.releases.find(release=>release.id===entity.operative_release_id).url};
+    });
+    developmentStrip([...available, ...development]);
     document.getElementById('searchControls').hidden = false;
     let saved = null;
     search.addEventListener('input', () => {
@@ -162,8 +185,11 @@
         saved.forEach((open, detail) => { detail.open = open; });
         saved = null;
       }
+      buildRecords.forEach(record => {record.card.hidden = Boolean(query) && !record.text.includes(query);});
+      const builds = buildRecords.filter(record=>!record.card.hidden).length;
+      highlights.hidden = builds === 0;
       const count = [...matches.values()].filter(Boolean).length;
-      status.textContent = query ? count ? count + ' matching tools and variants.' : 'No matching tools or versions.' : '';
+      status.textContent = query ? count || builds ? count + ' matching tools and variants; ' + builds + ' builds.' : 'No matching tools, versions or builds.' : '';
     });
   }
   fetch(configUrl).then(response => {

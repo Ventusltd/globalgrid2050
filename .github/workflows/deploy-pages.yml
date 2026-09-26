@@ -23,6 +23,9 @@ on:
       # this file has learned the same lesson: a folder that is published must be listed here.
       - 'kuiper/**'
       - 'systems/**'
+      # The Solar Design Studio site world ships as dated release folders; a manifest fix on
+      # 2026-09-26 did not deploy because this folder was missing here. Fourth time.
+      - 'solar-design-studio/**'
       # The compute method page is published from its own folder at /compute/.
       # Fourth time this file learns the lesson: on 2026-09-21 it went live as a
       # 404 because the folder was not listed here, and the manual dispatches

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Site world</title>
+<link rel="icon" href="data:,">
+<style>
+  :root { --bg: #0a0a0a; --line: #9cdbff; --text: #cfe9ff; --dim: #6f8ea6; --panel: rgba(10, 10, 10, 0.86); --edge: #1c2c3a; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font: 12px/1.45 system-ui, sans-serif; overflow: hidden; }
+  #view { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; outline: none; }
+  #where { position: fixed; left: 10px; bottom: 26px; color: var(--dim); pointer-events: none; }
+  #help-toggle { position: fixed; right: 10px; bottom: 26px; height: 28px; border-radius: 4px; padding: 0 10px;
+    background: var(--panel); color: var(--dim); border: 1px solid var(--edge); font: inherit; cursor: pointer; }
+  #help-toggle[aria-expanded="true"] { color: var(--text); border-color: var(--line); }
+  #help { position: fixed; right: 10px; bottom: 60px; width: min(320px, calc(100vw - 20px)); box-sizing: border-box;
+    background: var(--panel); border: 1px solid var(--edge); border-radius: 6px; padding: 10px 12px; }
+  #help[hidden] { display: none; }
+  #help dl { display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; margin: 0 0 8px; }
+  #help dt { color: var(--text); white-space: nowrap; } #help dd { margin: 0; color: var(--dim); }
+  #dash { position: fixed; top: 8px; right: 8px; display: flex; gap: 4px; }
+  #dash button { background: var(--panel); color: var(--dim); border: 1px solid var(--edge); border-radius: 4px;
+    padding: 5px 9px; font: inherit; cursor: pointer; min-height: 30px; }
+  #dash button[aria-pressed="true"] { color: #fff; border-color: var(--line); }
+  #lift { position: fixed; right: 10px; bottom: 50%; display: flex; flex-direction: column; gap: 6px; transform: translateY(50%); }
+  #lift[hidden] { display: none; }
+  #lift button { width: 56px; height: 44px; background: var(--panel); color: var(--text); border: 1px solid var(--edge);
+    border-radius: 6px; font: inherit; touch-action: none; user-select: none; -webkit-user-select: none; cursor: pointer; }
+  #lift button:active { border-color: var(--line); }
+  #status { color: var(--dim); font-size: 11px; overflow-wrap: anywhere; }
+  #attribution { position: fixed; left: 0; right: 0; bottom: 0; padding: 3px 10px 4px; font-size: 10px; line-height: 1.3;
+    color: var(--dim); background: rgba(10, 10, 10, 0.72); pointer-events: none; }
+  #pad { position: fixed; left: 24px; bottom: 56px; width: 120px; height: 120px; border-radius: 50%; touch-action: none;
+    border: 1px solid var(--edge); background: rgba(156, 219, 255, 0.04); display: none; }
+  #pad span { position: absolute; left: 36px; top: 36px; width: 48px; height: 48px; border-radius: 50%;
+    border: 1px solid var(--line); background: rgba(156, 219, 255, 0.12); pointer-events: none; }
+  @media (pointer: coarse) { #pad { display: block; } #where { bottom: auto; top: 48px; } }
+  @media (pointer: coarse) { .keys { display: none; } }
+  @media (pointer: fine) { .touch { display: none; } }
+</style>
+</head>
+<body>
+<canvas id="view" tabindex="0" aria-label="Site world. Move with W and S or the joypad, turn with A and D; look by dragging."></canvas>
+<div id="where" role="status"></div>
+<nav id="dash" aria-label="View">
+  <button type="button" data-view="standing" aria-pressed="true">Walk</button>
+  <button type="button" data-view="aerial" aria-pressed="false">Drone</button>
+</nav>
+<div id="lift" hidden>
+  <button type="button" data-lift="1" aria-label="Fly up">Up</button>
+  <button type="button" data-lift="-1" aria-label="Fly down">Down</button>
+</div>
+<div id="pad" aria-label="Joypad: up to move forward, sideways to turn"><span></span></div>
+<button id="help-toggle" type="button" aria-expanded="false" aria-controls="help">Controls</button>
+<section id="help" hidden aria-label="Controls">
+  <dl class="keys">
+    <dt>W / S</dt><dd>forward and back (or up / down arrows)</dd>
+    <dt>A / D</dt><dd>turn left and right (or left / right arrows)</dd>
+    <dt>Drag</dt><dd>look around</dd>
+    <dt>Shift</dt><dd>hold to move slowly and precisely</dd>
+    <dt>F</dt><dd>drone on and off · Space up, Q down · flies low enough to pass under tables</dd>
+  </dl>
+  <dl class="touch">
+    <dt>Joypad</dt><dd>up to go forward, sideways to turn</dd>
+    <dt>Drag</dt><dd>anywhere else to look around</dd>
+  </dl>
+  <div id="status"></div>
+</section>
+<footer id="attribution">Terrain: Environment Agency LIDAR Composite DTM 1 m ·
+  © Environment Agency copyright and/or database right 2022. All rights reserved. · Open Government Licence v3.0</footer>
+<script type="module" src="world/substrate.mjs"></script>
+</body>
+</html>

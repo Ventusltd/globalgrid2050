@@ -191,6 +191,17 @@
         "learners"
       ],
       "roles": []
+    },
+    "electrical-scene-explorer": {
+      "type": "drawing",
+      "purpose": "Inspect illustrative electrical geometry and modelled cable routes in a browser prototype.",
+      "audience": [
+        "drawing reviewers",
+        "developers"
+      ],
+      "roles": [
+        "drawing-workspace"
+      ]
     }
   }
 }

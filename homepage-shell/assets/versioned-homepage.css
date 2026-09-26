@@ -7,3 +7,9 @@
 
 /* The directory is primary; highlights are compact text navigation. */
 header{padding-top:30px;padding-bottom:22px}.highlights{margin-bottom:18px}.highlight-cards{display:flex;flex-wrap:wrap;gap:8px 24px}.highlight-card{display:inline-flex;flex-direction:row;align-items:baseline;gap:8px;padding:0;border:0}.highlight-card strong{font-size:13px;font-weight:normal;text-decoration:underline;text-underline-offset:4px}.highlight-description{display:none}.highlight-label{font-size:10px}.catalogue{margin-top:12px}.sections-heading{font-size:20px;font-weight:500;margin:38px 0 16px}.catalogue th,.catalogue td{padding-top:9px;padding-bottom:9px}
+header h1.brand{font-size:14px;letter-spacing:.16em;line-height:1.4;margin:0}
+header .mission{max-width:780px;margin-top:22px;color:var(--ink);font-size:clamp(18px,2.4vw,24px);line-height:1.45}
+.catalogue-archive{margin-top:38px;border-top:1px solid var(--line);padding-top:18px}
+.catalogue-archive>summary{display:block;cursor:pointer;color:var(--muted);font-size:14px;padding:6px 0}
+.catalogue-archive[open]>summary{margin-bottom:18px}
+footer p+p{margin-top:8px}

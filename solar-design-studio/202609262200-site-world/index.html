@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Site world</title>
+<link rel="icon" href="data:,">
+<style>
+  :root { --bg: #0a0a0a; --line: #9cdbff; --text: #cfe9ff; --dim: #6f8ea6; --panel: rgba(10, 10, 10, 0.86); --edge: #1c2c3a; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font: 12px/1.45 system-ui, sans-serif; overflow: hidden; }
+  #view { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; outline: none; }
+  #where { position: fixed; left: 10px; bottom: 10px; color: var(--dim); pointer-events: none; }
+  #help-toggle { position: fixed; right: 10px; bottom: 8px; width: 28px; height: 28px; border-radius: 50%; padding: 0;
+    background: var(--panel); color: var(--dim); border: 1px solid var(--edge); font: inherit; cursor: pointer; }
+  #help-toggle[aria-expanded="true"] { color: var(--text); border-color: var(--line); }
+  #help { position: fixed; right: 10px; bottom: 44px; width: min(320px, calc(100vw - 20px)); box-sizing: border-box;
+    background: var(--panel); border: 1px solid var(--edge); border-radius: 6px; padding: 10px 12px; }
+  #help[hidden] { display: none; }
+  #help dl { display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; margin: 0 0 8px; }
+  #help dt { color: var(--text); white-space: nowrap; } #help dd { margin: 0; color: var(--dim); }
+  #help .views { display: flex; gap: 6px; margin: 4px 0 8px; }
+  #help .views button { flex: 1; background: transparent; color: var(--text); border: 1px solid var(--edge); border-radius: 4px;
+    padding: 6px 4px; font: inherit; cursor: pointer; }
+  #help .views button[aria-pressed="true"] { border-color: var(--line); }
+  #status { color: var(--dim); font-size: 11px; overflow-wrap: anywhere; }
+  .credit { margin: 8px 0 0; color: var(--dim); font-size: 11px; }
+  @media (pointer: coarse) { .keys { display: none; } }
+  @media (pointer: fine) { .touch { display: none; } }
+</style>
+</head>
+<body>
+<canvas id="view" tabindex="0" aria-label="Site world. Move with W A S D or the left thumb; look by dragging."></canvas>
+<div id="where" role="status"></div>
+<button id="help-toggle" type="button" aria-expanded="false" aria-controls="help" aria-label="Controls">?</button>
+<section id="help" hidden aria-label="Controls">
+  <dl class="keys">
+    <dt>W A S D</dt><dd>move · arrows turn</dd>
+    <dt>Drag</dt><dd>look around</dd>
+    <dt>Shift</dt><dd>hold to move slowly and precisely</dd>
+    <dt>C</dt><dd>crouch, to see under tables and equipment</dd>
+    <dt>V</dt><dd>raised view, 4 m</dd>
+    <dt>F</dt><dd>aerial view · Space up, Q down</dd>
+  </dl>
+  <dl class="touch">
+    <dt>Left thumb</dt><dd>move</dd>
+    <dt>Right thumb</dt><dd>look around</dd>
+  </dl>
+  <div class="views">
+    <button type="button" data-view="crouched" aria-pressed="false">Crouch</button>
+    <button type="button" data-view="raised" aria-pressed="false">Raised</button>
+    <button type="button" data-view="aerial" aria-pressed="false">Aerial</button>
+  </div>
+  <div id="status"></div>
+  <p class="credit">Originated with Google Gemini; built by Ventus with Claude. The ground is shown flat until a terrain layer is added.</p>
+</section>
+<script type="module" src="world/substrate.mjs"></script>
+</body>
+</html>

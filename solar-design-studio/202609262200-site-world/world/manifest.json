@@ -1,0 +1,11 @@
+{
+ "schema": "world.manifest.v1",
+ "generation": "202609261940",
+ "layers": [
+  {
+   "id": "ground-grid",
+   "path": "./layers/ground-grid.mjs",
+   "sha256": "a2da092b1af513acff96cffe3e9f2fa29dac4c6ce1d7c5d233912510eed7ec66"
+  }
+ ]
+}

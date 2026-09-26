@@ -79,6 +79,22 @@ jobs:
             const meta = (await page.locator('#newsMeta').innerText()).trim();
             const headlines = await page.locator('#stories h3').allTextContents();
             const sourceLabels = await page.locator('#stories .news-quality').allTextContents();
+            console.log('OBSERVED_META=' + JSON.stringify(meta));
+            console.log('OBSERVED_HEADLINES=' + JSON.stringify(headlines.slice(0,20)));
+            console.log('OBSERVED_SOURCE_LABELS=' + JSON.stringify(sourceLabels.slice(0,20)));
+            fs.writeFileSync(process.env.EVIDENCE, JSON.stringify({
+              schema:'globalgrid2050.pipeline-news-live-readback.v1',
+              status:'observed-before-assertions',
+              checked_url:contract.url,
+              release_id:contract.release_id,
+              source_product_commit:contract.source_product_commit,
+              title, meta,
+              expected_headlines:contract.expected_headlines,
+              observed_headlines:headlines.slice(0,20),
+              observed_source_labels:sourceLabels.slice(0,20),
+              console_errors:consoleErrors,
+              checked_at:new Date().toISOString()
+            },null,2)+'\\n');
             for (const headline of contract.expected_headlines) assert(headlines.includes(headline), 'missing live headline: ' + headline);
             for (const priority of contract.expected_source_priorities) assert(sourceLabels.some(x => x.includes('UK SOURCE P' + priority)), 'missing source priority P' + priority);
             assert(meta.includes('priority UK source items'), 'live metadata does not identify priority source items');

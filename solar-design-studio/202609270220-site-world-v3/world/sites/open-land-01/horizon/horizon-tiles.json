@@ -1,0 +1,666 @@
+{
+ "format": "ghz1",
+ "crs": "EPSG:27700",
+ "site": {
+  "name": "open-land-01",
+  "origin_e": 399104,
+  "origin_n": 208896
+ },
+ "tile_m": 256,
+ "cell_m": 4,
+ "azimuths": 32,
+ "azimuth": "clockwise from grid north, k * 11.25 degrees",
+ "unit": "centidegrees",
+ "nodata": -32768,
+ "min_reach_m": 100,
+ "source": "bare-earth DTM, 1 m",
+ "caveat": "computed from terrain only; hedges, trees and buildings cast no shadow",
+ "near_field": "exact maximum on the bilinear surface out to 32 m, then a sample every 1 m",
+ "attribution": "\u00a9 Environment Agency copyright and/or database right 2022. All rights reserved.",
+ "licence": "Open Government Licence v3.0",
+ "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+ "derived_from": "Environment Agency LIDAR Composite DTM 1 m",
+ "tiles": [
+  {
+   "key": "0_0",
+   "file": "tiles/0_0.ghz",
+   "sha256": "bc4224be3596204e153b24dffd0215eaabf13a68c5fec2ee8abe9a811e5f3844",
+   "e0": 399104,
+   "n0": 208896,
+   "bytes": 270432,
+   "nodata": 32068,
+   "max_deg": 33.06
+  },
+  {
+   "key": "1_0",
+   "file": "tiles/1_0.ghz",
+   "sha256": "54ffb7da52a7b5b1dc8b6698b697177aa4f7ebc538329da1d9ae9f0b0ca93664",
+   "e0": 399360,
+   "n0": 208896,
+   "bytes": 270432,
+   "nodata": 16900,
+   "max_deg": 37.46
+  },
+  {
+   "key": "2_0",
+   "file": "tiles/2_0.ghz",
+   "sha256": "e0d9213558f9405e0a3375ecf73392fada073ab3141004c25046166247045a1c",
+   "e0": 399616,
+   "n0": 208896,
+   "bytes": 270432,
+   "nodata": 16900,
+   "max_deg": 33.32
+  },
+  {
+   "key": "3_0",
+   "file": "tiles/3_0.ghz",
+   "sha256": "54227a018ff285f28d1413443e6ac916b1371f04388cb43bfc4d81292f1372af",
+   "e0": 399872,
+   "n0": 208896,
+   "bytes": 270432,
+   "nodata": 16900,
+   "max_deg": 30.37
+  },
+  {
+   "key": "4_0",
+   "file": "tiles/4_0.ghz",
+   "sha256": "fef5f8c0502a996160c5bbe02479cdf372eba259b7ec88bd3853bce75eb06a28",
+   "e0": 400128,
+   "n0": 208896,
+   "bytes": 270432,
+   "nodata": 16900,
+   "max_deg": 29.25
+  },
+  {
+   "key": "5_0",
+   "file": "tiles/5_0.ghz",
+   "sha256": "b4cd7a582c6878872c7c651a49ccbcfd464a74733bf11d0b7d6d78e6979dc96e",
+   "e0": 400384,
+   "n0": 208896,
+   "bytes": 270432,
+   "nodata": 16900,
+   "max_deg": 33.15
+  },
+  {
+   "key": "6_0",
+   "file": "tiles/6_0.ghz",
+   "sha256": "8c053eb5fb751bbe63d84e70ed413f9096ec0ae949c92ecffc9dc19265730c37",
+   "e0": 400640,
+   "n0": 208896,
+   "bytes": 270432,
+   "nodata": 16900,
+   "max_deg": 10.42
+  },
+  {
+   "key": "7_0",
+   "file": "tiles/7_0.ghz",
+   "sha256": "57e3810af541c932c7c60892c0385042802df71266c97d3b42eb24d039bc9aa7",
+   "e0": 400896,
+   "n0": 208896,
+   "bytes": 270432,
+   "nodata": 32093,
+   "max_deg": 20.4
+  },
+  {
+   "key": "0_1",
+   "file": "tiles/0_1.ghz",
+   "sha256": "cd9aaf2a2a3143304e14df9c6b142f75b90a07e75c0a2643e6850cabc49e9691",
+   "e0": 399104,
+   "n0": 209152,
+   "bytes": 270432,
+   "nodata": 16835,
+   "max_deg": 45.45
+  },
+  {
+   "key": "1_1",
+   "file": "tiles/1_1.ghz",
+   "sha256": "9ce79fb2ac959c4b937d85255421b122b945db1a57bb4614fd61c99336cf4a9d",
+   "e0": 399360,
+   "n0": 209152,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 45.38
+  },
+  {
+   "key": "2_1",
+   "file": "tiles/2_1.ghz",
+   "sha256": "0d8b629df0d35a6a6a62dadbd319148c930b928295ac6f9cea97a319e126a984",
+   "e0": 399616,
+   "n0": 209152,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 37.24
+  },
+  {
+   "key": "3_1",
+   "file": "tiles/3_1.ghz",
+   "sha256": "053a077d82097d2e06e489d10810809c38249c6e9bc691777be51020ee4d31a8",
+   "e0": 399872,
+   "n0": 209152,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 35.29
+  },
+  {
+   "key": "4_1",
+   "file": "tiles/4_1.ghz",
+   "sha256": "01218e164fa2186a762689c2c1ee537b271f8704f073b1228a4bf8e5038559f7",
+   "e0": 400128,
+   "n0": 209152,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 18.24
+  },
+  {
+   "key": "5_1",
+   "file": "tiles/5_1.ghz",
+   "sha256": "ce6fb00f3d9cd7ed93ef106ed72b9457c370084ee2557de2a50b89b7a43ea9b2",
+   "e0": 400384,
+   "n0": 209152,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 18.88
+  },
+  {
+   "key": "6_1",
+   "file": "tiles/6_1.ghz",
+   "sha256": "5cce638e31df47a760b99aa466fac82ee849f08b326999c88f0913dc5079f81d",
+   "e0": 400640,
+   "n0": 209152,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 47.81
+  },
+  {
+   "key": "7_1",
+   "file": "tiles/7_1.ghz",
+   "sha256": "3d43315766b200744c6089e1e2402e1d9679cc079adff9065385af561796f3f1",
+   "e0": 400896,
+   "n0": 209152,
+   "bytes": 270432,
+   "nodata": 16835,
+   "max_deg": 36.94
+  },
+  {
+   "key": "0_2",
+   "file": "tiles/0_2.ghz",
+   "sha256": "38d91e4767fd427615f58edea80d0e6e448a91e5e85ba1cfe7caef3668320845",
+   "e0": 399104,
+   "n0": 209408,
+   "bytes": 270432,
+   "nodata": 16835,
+   "max_deg": 60.4
+  },
+  {
+   "key": "1_2",
+   "file": "tiles/1_2.ghz",
+   "sha256": "073b070a015d4d17433c210791a30545c21995b1a6218302a3ab73ac2e4ffb25",
+   "e0": 399360,
+   "n0": 209408,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 22.07
+  },
+  {
+   "key": "2_2",
+   "file": "tiles/2_2.ghz",
+   "sha256": "2151a5e5bb0e5ef1a6dffd10e0db63c1f36f5ed781c99ec87dae7ed6cc5a3de4",
+   "e0": 399616,
+   "n0": 209408,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 20.12
+  },
+  {
+   "key": "3_2",
+   "file": "tiles/3_2.ghz",
+   "sha256": "2dc298f297c647ca30d39d2feccdf3bd0aab0e893f88f04db0d5f000dfd8a819",
+   "e0": 399872,
+   "n0": 209408,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 14.61
+  },
+  {
+   "key": "4_2",
+   "file": "tiles/4_2.ghz",
+   "sha256": "7e7c967f5ad00289045b89add1c0870a41566b1be7bfd5ab737bca12b590550b",
+   "e0": 400128,
+   "n0": 209408,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 17.49
+  },
+  {
+   "key": "5_2",
+   "file": "tiles/5_2.ghz",
+   "sha256": "2ecdce000b1084049a92aa21594f94767cbbd48a4a429b5cd94f0ff34d812441",
+   "e0": 400384,
+   "n0": 209408,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 14.72
+  },
+  {
+   "key": "6_2",
+   "file": "tiles/6_2.ghz",
+   "sha256": "b9f0264091e97549513c0b55e09085ba3f5493c30ddf74ef08aa81124cb17504",
+   "e0": 400640,
+   "n0": 209408,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 35.11
+  },
+  {
+   "key": "7_2",
+   "file": "tiles/7_2.ghz",
+   "sha256": "e52bfb4e0789728360ba43692e55c88c89a596cb96630cd18e8006cfcab3e529",
+   "e0": 400896,
+   "n0": 209408,
+   "bytes": 270432,
+   "nodata": 16835,
+   "max_deg": 36.83
+  },
+  {
+   "key": "0_3",
+   "file": "tiles/0_3.ghz",
+   "sha256": "40ba1723a539f99de7bb93cc9f5995f68b52f4aec7e9d0b902a1d92b1533b8fe",
+   "e0": 399104,
+   "n0": 209664,
+   "bytes": 270432,
+   "nodata": 16835,
+   "max_deg": 39.78
+  },
+  {
+   "key": "1_3",
+   "file": "tiles/1_3.ghz",
+   "sha256": "be2bd7b79dbb1ffa15047b18de7c092501ac93dddf0ab3577a756d11f71378e1",
+   "e0": 399360,
+   "n0": 209664,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 29.41
+  },
+  {
+   "key": "2_3",
+   "file": "tiles/2_3.ghz",
+   "sha256": "41df3fe4cb6590f84f204bc2f621564655d2a13dd39dd0ef36040f38005ec466",
+   "e0": 399616,
+   "n0": 209664,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 18.86
+  },
+  {
+   "key": "3_3",
+   "file": "tiles/3_3.ghz",
+   "sha256": "3475ecd154a81e016ea7424277a9d704773ae46ac644ba68049979b301b46df9",
+   "e0": 399872,
+   "n0": 209664,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 17.73
+  },
+  {
+   "key": "4_3",
+   "file": "tiles/4_3.ghz",
+   "sha256": "1ac6f907177df2cec4bd1c0e7577e8bf59f2d184d1ad02be729b380e3f0f05a0",
+   "e0": 400128,
+   "n0": 209664,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 35.26
+  },
+  {
+   "key": "5_3",
+   "file": "tiles/5_3.ghz",
+   "sha256": "17fbf208a71eb22d294698542d2c6df370ef3a614cb425e434bac5f9b0ff307c",
+   "e0": 400384,
+   "n0": 209664,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 38.17
+  },
+  {
+   "key": "6_3",
+   "file": "tiles/6_3.ghz",
+   "sha256": "cebaa5ac8eac22d2e3b0e67678a64dbc861044ce653446a9897ed318a0186c02",
+   "e0": 400640,
+   "n0": 209664,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 34.09
+  },
+  {
+   "key": "7_3",
+   "file": "tiles/7_3.ghz",
+   "sha256": "b0ad982898670ea0c2bc17d5f651b3c09a2455d235cf1c6163455536c58d7fb0",
+   "e0": 400896,
+   "n0": 209664,
+   "bytes": 270432,
+   "nodata": 16835,
+   "max_deg": 32.82
+  },
+  {
+   "key": "0_4",
+   "file": "tiles/0_4.ghz",
+   "sha256": "9b18e9ba1aeb35b713e7cfec2ce443b9fc406ae0e438fb19a84de653f2231750",
+   "e0": 399104,
+   "n0": 209920,
+   "bytes": 270432,
+   "nodata": 16835,
+   "max_deg": 32.57
+  },
+  {
+   "key": "1_4",
+   "file": "tiles/1_4.ghz",
+   "sha256": "2de6aa6e3f8dadd6613cd2bb57f26e88efe5b700c56d7ea01ada38ebbd7037f2",
+   "e0": 399360,
+   "n0": 209920,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 19.67
+  },
+  {
+   "key": "2_4",
+   "file": "tiles/2_4.ghz",
+   "sha256": "4722e83a86eae87e0d70764d70e0690f0169a0f512700224e489c5b4e9178ea8",
+   "e0": 399616,
+   "n0": 209920,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 21.88
+  },
+  {
+   "key": "3_4",
+   "file": "tiles/3_4.ghz",
+   "sha256": "cb979d13a614bab0634b1ec7ca41dc8f644fd68aff4b4cf3536a323cba77b966",
+   "e0": 399872,
+   "n0": 209920,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 28.32
+  },
+  {
+   "key": "4_4",
+   "file": "tiles/4_4.ghz",
+   "sha256": "60f7ff575ffcdb5d5441a5b77e3b5d5629648c3bbdb594f15863f60581e313b7",
+   "e0": 400128,
+   "n0": 209920,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 36.14
+  },
+  {
+   "key": "5_4",
+   "file": "tiles/5_4.ghz",
+   "sha256": "77f507903ac03c2bd1edd29c24ec7ec4b599e3353436580049c71355664b8a06",
+   "e0": 400384,
+   "n0": 209920,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 41.58
+  },
+  {
+   "key": "6_4",
+   "file": "tiles/6_4.ghz",
+   "sha256": "dab35383776f8def106db2088484f4a5f874aead39e6dc5ae17a8aa8eb0d0d1c",
+   "e0": 400640,
+   "n0": 209920,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 50.77
+  },
+  {
+   "key": "7_4",
+   "file": "tiles/7_4.ghz",
+   "sha256": "64e5880e5e799f2b53a7ffec2ef795a12311f7ef2522405e669bbc841f3b1c7f",
+   "e0": 400896,
+   "n0": 209920,
+   "bytes": 270432,
+   "nodata": 16835,
+   "max_deg": 38.25
+  },
+  {
+   "key": "0_5",
+   "file": "tiles/0_5.ghz",
+   "sha256": "00f45bd843dd3a95d0defbfb971bcbd7bd41f7507fe2765e533ca87e14a74af3",
+   "e0": 399104,
+   "n0": 210176,
+   "bytes": 270432,
+   "nodata": 16835,
+   "max_deg": 13.88
+  },
+  {
+   "key": "1_5",
+   "file": "tiles/1_5.ghz",
+   "sha256": "b7896a01fb94ee65c6cbbfc52bc07b67473cf26c564689a6e3220b8d8146ab62",
+   "e0": 399360,
+   "n0": 210176,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 38.32
+  },
+  {
+   "key": "2_5",
+   "file": "tiles/2_5.ghz",
+   "sha256": "71b9bf5c0bbcedeac111ebe8fa746362931f31962b1a9fdca236b3d7b62670ca",
+   "e0": 399616,
+   "n0": 210176,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 25.81
+  },
+  {
+   "key": "3_5",
+   "file": "tiles/3_5.ghz",
+   "sha256": "5bfdb7be64adac2f1ae5f529469e6da3041e64d690b9ae34b1b3bdc45c94efa1",
+   "e0": 399872,
+   "n0": 210176,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 14.31
+  },
+  {
+   "key": "4_5",
+   "file": "tiles/4_5.ghz",
+   "sha256": "2de5d84e8e00b1553234154638d4c0a7f6c6ec54ed4c7faab1612b7efb09e348",
+   "e0": 400128,
+   "n0": 210176,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 19.82
+  },
+  {
+   "key": "5_5",
+   "file": "tiles/5_5.ghz",
+   "sha256": "0703b44de6e4019539c2a72d0f8492851c8b7049039f4ea281dd8b6eecb59ce9",
+   "e0": 400384,
+   "n0": 210176,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 28.56
+  },
+  {
+   "key": "6_5",
+   "file": "tiles/6_5.ghz",
+   "sha256": "fef7297c4b294390c15d1553bb4fd54a4006501b56c4eb561c03c430cf2f4465",
+   "e0": 400640,
+   "n0": 210176,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 44.91
+  },
+  {
+   "key": "7_5",
+   "file": "tiles/7_5.ghz",
+   "sha256": "9097fd4eb67be26a9a4a523e10bda27bcf52c4aa5b939887e603ad700bc33311",
+   "e0": 400896,
+   "n0": 210176,
+   "bytes": 270432,
+   "nodata": 16835,
+   "max_deg": 28.73
+  },
+  {
+   "key": "0_6",
+   "file": "tiles/0_6.ghz",
+   "sha256": "fe6661bdfc4f5e178289439700211278b5c4c6559469d3b9a97d3b7a5d64f83c",
+   "e0": 399104,
+   "n0": 210432,
+   "bytes": 270432,
+   "nodata": 16835,
+   "max_deg": 26.59
+  },
+  {
+   "key": "1_6",
+   "file": "tiles/1_6.ghz",
+   "sha256": "7219727b93e073dcd2f7be44912115a7817af822dd1d00229271e2a2bb43bc64",
+   "e0": 399360,
+   "n0": 210432,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 33.0
+  },
+  {
+   "key": "2_6",
+   "file": "tiles/2_6.ghz",
+   "sha256": "4571299405d75d0cb9e60b3f2ef9b724999a20e2514acc3debd80fc8ebbc2b3b",
+   "e0": 399616,
+   "n0": 210432,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 20.41
+  },
+  {
+   "key": "3_6",
+   "file": "tiles/3_6.ghz",
+   "sha256": "81d51a46ad52ab81263740d9d4057603e206662dd244c8eb0217aa181251d4b7",
+   "e0": 399872,
+   "n0": 210432,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 31.3
+  },
+  {
+   "key": "4_6",
+   "file": "tiles/4_6.ghz",
+   "sha256": "138049f665d492d1285deed54ccd833bd9a5832366299f530e733698a2c251b7",
+   "e0": 400128,
+   "n0": 210432,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 43.23
+  },
+  {
+   "key": "5_6",
+   "file": "tiles/5_6.ghz",
+   "sha256": "c212a35b389cff5767b2fdd599fc08cbdb7bbc57901e5ac2b4df98504dee09bb",
+   "e0": 400384,
+   "n0": 210432,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 33.91
+  },
+  {
+   "key": "6_6",
+   "file": "tiles/6_6.ghz",
+   "sha256": "d3bb710e1160ddebf68305c3ae9e4f98108183bcf8fca79d0481a31f6e063bf8",
+   "e0": 400640,
+   "n0": 210432,
+   "bytes": 270432,
+   "nodata": 0,
+   "max_deg": 44.66
+  },
+  {
+   "key": "7_6",
+   "file": "tiles/7_6.ghz",
+   "sha256": "67b89c25de2cf1e97877f2e358e90d21e2a6ed4b7851cdf97b3ad73bae6f65f9",
+   "e0": 400896,
+   "n0": 210432,
+   "bytes": 270432,
+   "nodata": 16835,
+   "max_deg": 26.35
+  },
+  {
+   "key": "0_7",
+   "file": "tiles/0_7.ghz",
+   "sha256": "bb80e641749f5ea6d938b89d55a4cb2ec278658d30c33efa241ae1eb2c7a8e7e",
+   "e0": 399104,
+   "n0": 210688,
+   "bytes": 270432,
+   "nodata": 32028,
+   "max_deg": 45.6
+  },
+  {
+   "key": "1_7",
+   "file": "tiles/1_7.ghz",
+   "sha256": "4d40e1ec2e5afbc8269da978d84f72c0c554e6adf611018519b2070dcc82d0d0",
+   "e0": 399360,
+   "n0": 210688,
+   "bytes": 270432,
+   "nodata": 16835,
+   "max_deg": 57.8
+  },
+  {
+   "key": "2_7",
+   "file": "tiles/2_7.ghz",
+   "sha256": "05cad3d8ce9ad083bd4ea5572bf6b4f942b16bb1ad0e10a9c06240a3b33bce95",
+   "e0": 399616,
+   "n0": 210688,
+   "bytes": 270432,
+   "nodata": 16835,
+   "max_deg": 21.2
+  },
+  {
+   "key": "3_7",
+   "file": "tiles/3_7.ghz",
+   "sha256": "e6c271af6c2a0e41ece301dd75ffeafe570e7b4a871c8fefe0c455347591978a",
+   "e0": 399872,
+   "n0": 210688,
+   "bytes": 270432,
+   "nodata": 16835,
+   "max_deg": 44.75
+  },
+  {
+   "key": "4_7",
+   "file": "tiles/4_7.ghz",
+   "sha256": "e7744bcbbc464c29c8ae1ff2ab79b9da47cc214a09523a6d1b89b694cc70e961",
+   "e0": 400128,
+   "n0": 210688,
+   "bytes": 270432,
+   "nodata": 16835,
+   "max_deg": 40.99
+  },
+  {
+   "key": "5_7",
+   "file": "tiles/5_7.ghz",
+   "sha256": "9cf86eabe0cc67c6edcf91e7b0d9c7647d84b6e50872d127f0fbd02190f1574e",
+   "e0": 400384,
+   "n0": 210688,
+   "bytes": 270432,
+   "nodata": 16835,
+   "max_deg": 31.79
+  },
+  {
+   "key": "6_7",
+   "file": "tiles/6_7.ghz",
+   "sha256": "0b302b776faf69997741e29f821836c91e21f7a6f47aaba6fa51554d15d83358",
+   "e0": 400640,
+   "n0": 210688,
+   "bytes": 270432,
+   "nodata": 16835,
+   "max_deg": 24.86
+  },
+  {
+   "key": "7_7",
+   "file": "tiles/7_7.ghz",
+   "sha256": "8724a046e5ae5b46db0c9de926cfce3856cefa99ef167da659c5c7145d4a2b4f",
+   "e0": 400896,
+   "n0": 210688,
+   "bytes": 270432,
+   "nodata": 32028,
+   "max_deg": 38.04
+  }
+ ],
+ "generated_utc": "2026-09-26T21:55:54Z"
+}

@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Site world</title>
+<link rel="icon" href="data:,">
+<style>
+  :root { --bg: #0a0a0a; --line: #9cdbff; --text: #cfe9ff; --dim: #6f8ea6; --panel: rgba(10, 10, 10, 0.86); --edge: #1c2c3a;
+    --foot: 20px; --btn: 30px; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font: 12px/1.45 system-ui, sans-serif; overflow: hidden; }
+  button, select { font: inherit; }
+  #view { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; outline: none; }
+  #where { position: fixed; left: 10px; bottom: calc(var(--foot) + 8px); color: var(--dim); pointer-events: none; }
+  #help-toggle { position: fixed; right: 10px; bottom: calc(var(--foot) + 6px); min-height: 28px; border-radius: 4px; padding: 0 10px;
+    background: var(--panel); color: var(--dim); border: 1px solid var(--edge); cursor: pointer; }
+  #help-toggle[aria-expanded="true"] { color: var(--text); border-color: var(--line); }
+  .panel { position: fixed; box-sizing: border-box; background: var(--panel); border: 1px solid var(--edge); border-radius: 6px;
+    padding: 10px 12px; overflow: auto; }
+  .panel[hidden] { display: none; }
+  /* right: 76px leaves the drone lift buttons (56 px at right 10 px) clear of Controls */
+  #help { right: 76px; bottom: calc(var(--foot) + 42px); width: min(380px, calc(100vw - 86px)); max-height: calc(100vh - var(--foot) - 110px); }
+  #help dl, #design dl { display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; margin: 0 0 8px; }
+  #help dt, #design dt { color: var(--text); white-space: nowrap; }
+  #help dd, #design dd { margin: 0; color: var(--dim); }
+  #help .credit { margin: 8px 0 0; padding: 0; list-style: none; color: var(--dim); font-size: 10px; }
+  #help .credit a { color: var(--dim); }
+  #layers .lp.in-help { position: static; width: auto; max-height: none; overflow: visible; background: none; border: 0;
+    border-top: 1px solid var(--edge); border-radius: 0; padding: 8px 0 0; margin: 8px 0 0; }
+  #layers .sun-time { border: 0; margin: 4px 0 0; padding: 0; display: grid; gap: 4px; }
+  #layers .sun-time[hidden] { display: none; }
+  #layers .sun-time legend { color: var(--dim); font-size: 11px; padding: 0; }
+  #layers .sun-time label { display: grid; gap: 2px; color: var(--dim); }
+  #layers .sun-time input { min-height: var(--btn); background: #111; color: var(--text); border: 1px solid var(--edge); border-radius: 4px; }
+  #layers .sun-time .note { margin: 0; color: var(--dim); font-size: 11px; }
+  #dash { position: fixed; top: 8px; right: 8px; display: flex; gap: 4px; }
+  #dash button, #design button, #help button { background: var(--panel); color: var(--dim); border: 1px solid var(--edge); border-radius: 4px;
+    padding: 5px 9px; cursor: pointer; min-height: var(--btn); }
+  #dash button[aria-pressed="true"], #dash button[aria-expanded="true"], #design button[aria-pressed="true"],
+    #help button[aria-pressed="true"] { color: #fff; border-color: var(--line); }
+  #design button:disabled { opacity: 0.45; cursor: default; }
+  #layers { top: calc(var(--btn) + 20px); right: 8px; width: min(360px, calc(100vw - 16px)); max-height: calc(100vh - 120px); }
+  #layers .lp > h2 { display: none; } /* the panel header names it, beside the GridAtlas link */
+  #layers .head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0 0 8px; }
+  #layers h2 { margin: 0; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; color: var(--dim); text-transform: uppercase; }
+  #layers button { background: var(--panel); color: var(--text); border: 1px solid var(--edge); border-radius: 4px;
+    padding: 5px 9px; cursor: pointer; min-height: var(--btn); }
+  #layers button[aria-pressed="true"] { color: #fff; border-color: var(--line); }
+  #layers dl { display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; margin: 0 0 8px; }
+  #layers dt { color: var(--text); white-space: nowrap; } #layers dd { margin: 0; color: var(--dim); overflow-wrap: anywhere; }
+  #help .row { display: flex; gap: 4px; flex-wrap: wrap; margin: 0 0 8px; }
+  #headset-row:has(> #headset[hidden]) { display: none; } /* shown only where a headset session is supported */
+  #design .note { margin: 0 0 8px; color: var(--dim); font-size: 11px; overflow-wrap: anywhere; }
+  #design .note:empty { display: none; }
+  #design input[type="text"] { box-sizing: border-box; width: 100%; background: #111; color: var(--text);
+    border: 1px solid var(--edge); border-radius: 4px; min-height: var(--btn); margin: 0 0 8px; }
+  #design input[type="text"][hidden] { display: none; }
+  #design .fold { margin: 0 0 8px; }
+  #design .fold > summary { cursor: pointer; color: var(--text); min-height: var(--btn); display: flex; align-items: center; }
+  #design .phase-slider input { width: 100%; min-height: var(--btn); margin: 0; }
+  #design .phase-slider-label { color: var(--text); font-size: 11px; margin: 0 0 4px; }
+  #find .site-section { margin: 8px 0 0; }
+  #find .site-select { display: grid; gap: 4px; color: var(--dim); font-size: 11px; }
+  #find .site-select select { min-height: var(--btn); background: #111; color: var(--text); border: 1px solid var(--edge); border-radius: 4px; }
+  #tour-caption { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(var(--foot) + 44px); max-width: min(480px, 60vw);
+    padding: 4px 10px; background: var(--panel); border: 1px solid var(--edge); border-radius: 4px; color: var(--text); pointer-events: none; }
+  #tour-caption[hidden] { display: none; }
+  #design { top: calc(var(--btn) + 20px); right: 8px; width: min(300px, calc(100vw - 16px)); max-height: calc(100vh - 120px); }
+  #design .row { display: flex; gap: 4px; flex-wrap: wrap; margin: 0 0 8px; }
+  #design button:disabled { opacity: 0.45; cursor: default; }
+  #design label { display: grid; gap: 2px; margin: 0 0 8px; color: var(--dim); }
+  #design label[hidden], #design a[hidden] { display: none; }
+  #design a.btn { display: inline-flex; align-items: center; min-height: var(--btn); padding: 0 9px; box-sizing: border-box;
+    color: var(--text); border: 1px solid var(--edge); border-radius: 4px; text-decoration: none; }
+  #design select { background: #111; color: var(--text); border: 1px solid var(--edge); border-radius: 4px; min-height: var(--btn); max-width: 100%; }
+  #design-readout dd { color: var(--text); font-variant-numeric: tabular-nums; }
+  #design-readout .warn, #spec-status.warn, #plant-status.warn, #block-status.warn { color: #ff8a7a; }
+  #plant-readout dd, #block-readout dd { color: var(--text); font-variant-numeric: tabular-nums; }
+  #block-stage { color: var(--text); margin: 0 0 6px; }
+  #design input[type=number] { background: #111; color: var(--text); border: 1px solid var(--edge); border-radius: 4px; min-height: var(--btn); }
+  #spec-status { color: var(--dim); margin: 0; font-size: 12px; }
+  #design figure { margin: 0 0 8px; } #design figure[hidden] { display: none; }
+  #design svg { display: block; width: 100%; height: 90px; }
+  #design svg polyline { fill: none; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+  #design svg .ground { stroke: var(--line); } #design svg .floor { stroke: #ffc773; stroke-dasharray: 4 3; }
+  #design svg text { fill: var(--dim); font-size: 12px; }
+  #design figcaption { color: var(--dim); font-size: 10px; }
+  #find.find-panel { top: calc(var(--btn) + 20px); right: 8px; }
+  #lift { position: fixed; right: 10px; bottom: 50%; display: flex; flex-direction: column; gap: 6px; transform: translateY(50%); }
+  #lift[hidden] { display: none; }
+  #design:not([hidden]) ~ #lift { right: calc(min(300px, 100vw - 16px) + 18px); } /* Up/Down stay beside an open Design panel */
+  #layers:not([hidden]) ~ #lift { right: calc(min(360px, 100vw - 16px) + 18px); } /* and beside an open Layers panel */
+  #lift button { width: 56px; height: 44px; background: var(--panel); color: var(--text); border: 1px solid var(--edge);
+    border-radius: 6px; touch-action: none; user-select: none; -webkit-user-select: none; cursor: pointer; }
+  #lift button:active { border-color: var(--line); }
+  #ground-feet { display: block; color: var(--text); opacity: 0.8; } #ground-feet[hidden] { display: none; }
+  #ground-readout { border-top: 1px solid var(--edge); padding-top: 6px; margin: 0 0 8px; } #ground-readout[hidden] { display: none; }
+  #ground-readout h3 { font-size: 12px; font-weight: 600; margin: 0 0 4px; }
+  #ground-readout dl { display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; margin: 0; }
+  #ground-readout dt { color: var(--text); } #ground-readout dd { margin: 0; color: var(--dim); overflow-wrap: anywhere; }
+  #ground-readout dd.warn { color: #ffb27a; } #ground-readout ul { margin: 2px 0 0; padding-left: 14px; }
+  #ground-readout a { color: var(--line); }
+  #help .lp { position: static; width: auto; max-height: none; overflow: visible; background: none; border: 0; border-top: 1px solid var(--edge);
+    border-radius: 0; padding: 6px 0 0; margin: 0 0 8px; }
+  #layer-details { margin: 0 0 8px; color: var(--dim); } #layer-details > summary { cursor: pointer; min-height: var(--btn); display: flex; align-items: center; }
+  #where-detail { margin: 0 0 6px; color: var(--dim); font-variant-numeric: tabular-nums; }
+  #design .hint { margin: 0 0 8px; color: var(--text); }
+  #design[data-state="choose"] #design-draw, #design[data-state="choose"] #design-readout,
+  #design[data-state="result"] #design-draw { display: none; }
+  #design-options[hidden] { display: none; }
+  /* Small cards over the world: the first step, and the place just found. Hidden while any panel is open. */
+  /* Centred along the top, clear of the plan inset (top left) and the dash (top right). */
+  .card { position: fixed; top: 8px; left: 50%; transform: translateX(-50%); width: min(340px, calc(100vw - 16px)); box-sizing: border-box; display: flex;
+    align-items: stretch; gap: 4px; background: var(--panel); border: 1px solid var(--edge); border-radius: 6px; padding: 4px; }
+  .card[hidden], body[data-panel] .card { display: none; }
+  .card button { background: none; border: 0; color: var(--text); cursor: pointer; min-height: var(--btn); border-radius: 4px; }
+  .card button:hover { background: rgba(156, 219, 255, 0.08); }
+  #start-go { flex: 1; text-align: left; padding: 4px 8px; }
+  .card .close { min-width: var(--btn); font-size: 16px; color: var(--dim); }
+  #place > div { flex: 1; padding: 4px 8px; display: grid; gap: 2px; }
+  #place-name { color: #fff; } #place-grid, #place-terrain { color: var(--dim); } #place-terrain:empty { display: none; }
+  /* While Design is open, the joypad, Up and Down step aside so taps land on the ground or the panel. */
+  body[data-panel="design"] #pad, body[data-panel="design"] #lift { display: none !important; }
+  @media (max-width: 900px) and (pointer: fine) { .card { top: calc(var(--btn) + 20px); } }
+  @media (pointer: fine) { body[data-panel="help"] #lift { display: none; } } /* keys still fly the drone */
+  #status { color: var(--dim); font-size: 11px; overflow-wrap: anywhere; }
+  #attribution { position: fixed; left: 0; right: 0; bottom: 0; height: var(--foot); box-sizing: border-box; padding: 3px 10px 4px;
+    font-size: 10px; line-height: 13px; color: var(--dim); background: rgba(10, 10, 10, 0.72); pointer-events: none;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #attribution .short { display: none; }
+  #pad { position: fixed; left: 24px; bottom: calc(var(--foot) + 36px); width: 120px; height: 120px; border-radius: 50%; touch-action: none;
+    border: 1px solid var(--edge); background: rgba(156, 219, 255, 0.04); display: none; }
+  #pad span { position: absolute; left: 36px; top: 36px; width: 48px; height: 48px; border-radius: 50%;
+    border: 1px solid var(--line); background: rgba(156, 219, 255, 0.12); pointer-events: none; }
+  @media (max-width: 900px) { #attribution .full { display: none; } #attribution .short { display: inline; } }
+  /* Narrow screens: the credit may take two lines; everything above the footer moves up with --foot. */
+  @media (max-width: 600px) { :root { --foot: max(33px, var(--foot-fit, 33px)); } #attribution { white-space: normal; height: auto; } }
+  @media (pointer: fine) { #help dl.touch { display: none; } }
+  /* Touch screens: 44 px targets; panels open as a sheet under the dash so the joypad, Up and Down stay clear. */
+  @media (pointer: coarse) {
+    :root { --btn: 44px; }
+    #pad { display: block; }
+    #help dl.keys, #design dl.keys { display: none; }
+    #where { bottom: auto; top: calc(var(--btn) + 16px); right: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    #dash button { min-width: 48px; }
+    #design button, #design a.btn, #help button, #layers button { min-width: 44px; }
+    #help-toggle { min-height: 44px; min-width: 44px; bottom: calc(var(--foot) + 8px); }
+    #lift, #design:not([hidden]) ~ #lift, #layers:not([hidden]) ~ #lift { right: 10px; bottom: calc(var(--foot) + 64px); transform: none; }
+    #help, #design, #layers, #find.find-panel { top: calc(var(--btn) + 40px); left: 8px; right: 8px; bottom: auto; width: auto;
+      max-height: calc(100vh - var(--btn) - 40px - var(--foot) - 180px); overflow: auto; }
+    #find.find-panel input { height: 44px; }
+    .card { top: calc(var(--btn) + 40px); left: 8px; transform: none; width: auto; right: 8px; max-width: 420px; }
+    /* Design is a short sheet along the bottom: tools, one line of guidance, Undo / Done / Clear; results after Done. */
+    /* the ground above stays clear to tap; a taller footer (--foot-fit) shortens the sheet, never lifts it */
+    #design { top: auto; bottom: calc(var(--foot) + 4px); max-height: min(35vh, calc(35vh + 33px - var(--foot))); }
+    /* While drawing, the sheet keeps the hint, the tool in use (tap it again to choose another), Options and Undo / Done / Clear. */
+    #design[data-state="draw"] > :not(#design-hint):not([role="group"][aria-label$="tool"]):not(#design-draw):not(#design-options):not(#works-option-box) { display: none; }
+    #design[data-state="draw"] [data-tool][aria-pressed="false"] { display: none; }
+    #design[data-state="draw"] #design-readout, #design[data-state="draw"] #design-profile-box,
+    #design[data-state="draw"] #design-keys, #design[data-state="choose"] #design-keys { display: none; }
+    #design[data-state="result"] #design-keys { display: none; }
+    #design-draw { flex-wrap: nowrap; } #design-draw button { flex: 1; }
+    body[data-panel="design"] #help-toggle { display: none; }
+    #help .credit a, #layers .credit a { display: flex; align-items: center; min-height: 40px; }
+  }
+</style>
+</head>
+<body>
+<canvas id="view" tabindex="0" aria-label="Site world. Move with W and S or the joypad, turn with A and D; look by dragging."></canvas>
+<div id="where" role="status"><span id="where-line"></span><span id="ground-feet" hidden></span></div>
+<nav id="dash" aria-label="View">
+  <button type="button" data-view="standing" aria-pressed="true">Walk</button>
+  <button type="button" data-view="aerial" aria-pressed="false">Drone</button>
+  <button type="button" id="find-toggle" aria-expanded="false" aria-controls="find">Find</button>
+  <button type="button" id="design-toggle" aria-expanded="false" aria-controls="design">Design</button>
+  <button type="button" id="layers-toggle" aria-expanded="false" aria-controls="layers">Layers</button>
+</nav>
+<section id="layers" class="panel" hidden aria-labelledby="layers-title">
+  <header class="head"><h2 id="layers-title">Layers</h2>
+    <button type="button" id="to-gridatlas" title="Open GridAtlas at this spot">Open in GridAtlas</button></header>
+  <div id="layers-slot"></div>
+</section>
+<p id="tour-caption" role="status" hidden></p>
+<section id="design" class="panel" hidden aria-label="Design" data-state="choose">
+  <div class="row" role="group" aria-label="File">
+    <button type="button" id="project-save" title="Download the design as a .json file">Save</button>
+    <button type="button" id="project-open" title="Open a design or tour .json file">Open</button>
+    <button type="button" id="project-share" title="Put the design in a link you can send">Share</button>
+    <button type="button" id="project-print" title="Plan sheet with the current view">Print</button>
+  </div>
+  <input type="file" id="project-file" accept=".json,application/json" hidden>
+  <input type="text" id="project-link" readonly hidden aria-label="Share link">
+  <p id="project-note" class="note" aria-live="polite"></p>
+  <p id="design-hint" class="hint" role="status">Choose a design tool</p>
+  <div class="row" role="group" aria-label="Design tool">
+    <button type="button" data-tool="trench" aria-pressed="false">Trench</button>
+    <button type="button" data-tool="cable" aria-pressed="false">Cable</button>
+    <button type="button" id="design-options-toggle" aria-expanded="false" aria-controls="design-options">Options</button>
+  </div>
+  <div class="row" role="group" aria-label="Earthworks tool">
+    <button type="button" data-tool="road" aria-pressed="false">Road</button>
+    <button type="button" data-tool="pad" aria-pressed="false">Pad</button>
+    <button type="button" data-tool="fence" aria-pressed="false">Fence</button>
+    <button type="button" data-tool="piles" aria-pressed="false">Pile row</button>
+    <button type="button" data-tool="hdd" aria-pressed="false">Drilled crossing</button>
+  </div>
+  <label id="works-option-box" hidden><span id="works-option-label">Option</span> <select id="works-option"></select></label>
+  <div id="design-options" hidden>
+    <label>Trench section <select id="trench-section"></select></label>
+    <label>Cable (voltage and size) <select id="cable-type"></select></label>
+  </div>
+  <div class="row" id="design-draw">
+    <button type="button" id="design-undo">Undo</button>
+    <button type="button" id="design-finish">Done</button>
+    <button type="button" id="design-clear">Clear</button>
+  </div>
+  <div class="row" role="group" aria-label="Schedules">
+    <button type="button" id="design-drums">Drum schedule</button>
+    <button type="button" id="design-boq">Bill of quantities</button>
+    <a id="works-csv" class="btn" hidden download="bill-of-quantities.csv">Download CSV</a>
+  </div>
+  <div class="row">
+    <button type="button" id="design-to-substation" disabled
+      title="Draws a straight first draft from the last point to the nearest substation">Route to nearest substation</button>
+  </div>
+  <dl id="design-readout" aria-live="polite"></dl>
+  <p id="design-disclaimer" class="note">Estimates for early design. Confirm with the network operator and a qualified engineer.</p>
+  <figure id="design-profile-box" hidden>
+    <svg id="design-profile" role="img" aria-label="Level profile along the route"></svg>
+    <figcaption>Ground level (solid) and trench floor (dashed) along the route</figcaption>
+  </figure>
+  <details class="fold" id="phases-fold"><summary>Construction phases</summary>
+    <div id="phases-box"></div>
+    <p id="phases-check" class="note"></p>
+  </details>
+  <details class="fold" id="tour-fold"><summary>Tour</summary>
+    <div class="row">
+      <button type="button" id="tour-record" aria-pressed="false">Record</button>
+      <button type="button" id="tour-play" aria-pressed="false" disabled>Play</button>
+      <button type="button" id="tour-save" disabled>Save tour</button>
+    </div>
+  </details>
+  <div id="ground-readout" hidden aria-live="polite"></div>
+  <dl id="design-keys"></dl>
+</section>
+<div id="start" class="card" hidden>
+  <button type="button" id="start-go">Enter a postcode or planning reference — e.g. GL7 5</button>
+  <button type="button" id="start-close" class="close" aria-label="Dismiss">×</button>
+</div>
+<div id="place" class="card" hidden role="status">
+  <div><strong id="place-name"></strong><span id="place-grid"></span><span id="place-terrain"></span></div>
+  <button type="button" id="place-close" class="close" aria-label="Close">×</button>
+</div>
+<div id="lift" hidden>
+  <button type="button" data-lift="1" aria-label="Fly up">Up</button>
+  <button type="button" data-lift="-1" aria-label="Fly down">Down</button>
+</div>
+<div id="pad" aria-label="Joypad: up to move forward, sideways to turn"><span></span></div>
+<button id="help-toggle" type="button" aria-expanded="false" aria-controls="help">Controls</button>
+<section id="help" class="panel" hidden aria-label="Controls">
+  <dl class="keys">
+    <dt>W / S</dt><dd>forward and back (or up / down arrows)</dd>
+    <dt>A / D</dt><dd>turn left and right (or left / right arrows)</dd>
+    <dt>Drag</dt><dd>look around</dd>
+    <dt>Shift</dt><dd>hold to move slowly and precisely</dd>
+    <dt>F</dt><dd>drone on and off · Space up, Q down · flies low enough to pass under tables</dd>
+  </dl>
+  <dl class="touch">
+    <dt>Joypad</dt><dd>up to go forward, sideways to turn</dd>
+    <dt>Drag</dt><dd>anywhere else to look around</dd>
+  </dl>
+  <div class="row" id="help-links">
+    <span id="headset-row"><button type="button" id="headset" aria-pressed="false" hidden>Headset view</button></span>
+  </div>
+  <details id="layer-details"><summary>Layer details</summary><p id="where-detail"></p><div id="status"></div></details>
+  <ul id="credits" class="credit"><li>Terrain: Environment Agency LIDAR Composite DTM 1 m · © Environment Agency copyright and/or
+    database right 2022. All rights reserved. · Open Government Licence v3.0</li></ul>
+</section>
+<footer id="attribution"><span class="full" id="credit-full">Terrain: Environment Agency LIDAR Composite DTM 1 m ·
+  © Environment Agency copyright and/or database right 2022. All rights reserved. · Open Government Licence v3.0</span><span
+  class="short" id="credit-short">Terrain © Environment Agency 2022 · OGL v3.0</span></footer>
+<script type="module" src="world/substrate.mjs"></script>
+</body>
+</html>

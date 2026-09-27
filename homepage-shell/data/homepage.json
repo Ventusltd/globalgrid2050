@@ -167,7 +167,7 @@
       "subtitle": "Walk, fly and design on real terrain",
       "description": "Walk and fly over real ground from Environment Agency LiDAR, then design on it. The GIS, SLD & Financial Sandbox remains available among the earlier releases.",
       "launch_label": "Open Solar Design Studio",
-      "operative_release_id": "world-202609262041",
+      "operative_release_id": "world-202609270056",
       "releases": [
         {
           "id": "v7",
@@ -184,6 +184,14 @@
           "published_at": "2026-09-26",
           "status": "available",
           "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/main/solar-design-studio/202609262041-site-world"
+        },
+        {
+          "id": "world-202609270056",
+          "label": "Site world v3 - 27 September 2026",
+          "url": "https://globalgrid2050.com/solar-design-studio/202609270056-site-world-v3/",
+          "published_at": "2026-09-27",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/b30a75f9/solar-design-studio/202609270056-site-world-v3"
         }
       ]
     },
@@ -501,6 +509,13 @@
       "to_release_id": "world-202609262041",
       "reason": "Vikram, 26 Sept 2026: Site World is the main event of Solar Design Studio; the GIS SLD Financial Sandbox (V7) stays as an earlier release",
       "promoted_at": "2026-09-26T22:41:27Z"
+    },
+    {
+      "entity_id": "solar-design-studio",
+      "from_release_id": "world-202609262041",
+      "to_release_id": "world-202609270056",
+      "reason": "Team mode (vikra-ed review): v02 passed android-touch on the live URL, plain Controls, Find with postcodes and REPD credits, tampered share refused, first frame 5.88 s",
+      "promoted_at": "2026-09-27T00:04:42Z"
     }
   ]
 }

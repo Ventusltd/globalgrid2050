@@ -1,0 +1,224 @@
+{
+ "schema": "world.manifest.v1",
+ "generation": "202609271608",
+ "site": {
+  "name": "open-land-01",
+  "centre_e": 400128,
+  "centre_n": 209920,
+  "sun": {
+   "climate": {
+    "path": "sites/open-land-01/sun/sun-climate.json",
+    "sha256": "380b8af1d92cf5d6884ceb1c6e8002512cff2fcf6f5ac3f27a24559ff8983a8f"
+   },
+   "cells": {
+    "index": "sites/open-land-01/sun/cells/sun-cells.json",
+    "sha256": "04643cdeea19c995c3c0b842e5a35b868e313e54fbcc71ac75018548eb7892d0"
+   }
+  },
+  "cables": {
+   "path": "sites/open-land-01/cables/cable-checks.json",
+   "sha256": "b69da8d4ce53c9a94f203c819b4d65ddce3098bec98499b72a7907489a9f7e4e"
+  },
+  "staged": [
+   "gpu-prototype",
+   "gpu-export",
+   "gpu-compounds"
+  ]
+ },
+ "lib": {
+  "version": 1,
+  "files": [
+   {
+    "id": "tiles",
+    "path": "./lib/tiles.mjs",
+    "sha256": "6879215b7d8e09d47197bc4d1f82f8c2806cffe4374b2d2bf0d0e9fbd2e40743"
+   },
+   {
+    "id": "drape",
+    "path": "./lib/drape.mjs",
+    "sha256": "2202a07424f860a1002129b5b7a2333df353352411748e67e8ff69018ac03430"
+   },
+   {
+    "id": "earthworks",
+    "path": "./lib/earthworks.mjs",
+    "sha256": "161e045668727a421c48b59e0301168756b23adb209f80b6e7ebedbf5e1adbdb"
+   }
+  ]
+ },
+ "layers": [
+  {
+   "id": "ground-grid",
+   "path": "./layers/ground-grid.mjs",
+   "sha256": "0556afb378177d8a8647776f2c70406a658f0ca1013b382d969dbf9712eb8d46"
+  },
+  {
+   "id": "imagery",
+   "path": "./layers/imagery.mjs",
+   "sha256": "7ade5496aa8a40cf75c48216aa07830fd800ea5eedb6f558a8c6ce2bc1c5c6dd",
+   "config": {
+    "index": "sites/open-land-01/imagery/index.json",
+    "sha256": "dadab964d04f1422af645163ad8ee306f09e33e18b4da3ad386c2665fe2fc903"
+   }
+  },
+  {
+   "id": "buffers",
+   "path": "./layers/buffers.mjs",
+   "sha256": "4c5f71e1d869718aa6c649997201a56afe8a6b8e8b6d1ccd8e222bbacbc0bb9d"
+  },
+  {
+   "id": "canopy",
+   "path": "./layers/canopy.mjs",
+   "sha256": "8dd78c22cca651dadfd1e04e7922ea6effb198a749e90eda13eb2b8c1770c1cf",
+   "lib": 1,
+   "config": {
+    "index": "sites/open-land-01/canopy/canopy-tiles.json",
+    "sha256": "63563ae2923d73d34552dbf43c8ddb2a75c1c9d7bc2995d9adf46b6e627d3ee9"
+   }
+  },
+  {
+   "id": "construction",
+   "path": "./layers/construction.mjs",
+   "sha256": "868d5c6b2651e616a1521fc6ebc80fabcce6223cf8230bacd62f98e186336b25",
+   "config": {
+    "path": "sites/open-land-01/construction/construction.odbl.json",
+    "sha256": "5b7830c969b83f0d8769d4d603065ef854e63e68d44052d2cc70fc7959b98d98"
+   }
+  },
+  {
+   "id": "contours",
+   "path": "./layers/contours.mjs",
+   "sha256": "7d8a7a3d5384cb1de00f101ac1064a3dc33daeceb1ea7eaf75764c868c758d56",
+   "lib": 1,
+   "config": {
+    "index": "sites/open-land-01/contours/contour-tiles.json",
+    "sha256": "9e394fc7167290dcf37ad5d23b48064778f2d864f1acbe52126ea53e9e588b7a"
+   }
+  },
+  {
+   "id": "flow",
+   "path": "./layers/flow.mjs",
+   "sha256": "b79bb6bae26b5c720428720b5ebeedf531d25b183e1c0d0adfc604d7f7264ce3",
+   "config": {
+    "index": "sites/open-land-01/flow/flow-tiles.json",
+    "sha256": "59494e153c89f0d3e93be19597620019ec63fdcd4e70d066540ba5e3baafb21c",
+    "hollows": {
+     "path": "sites/open-land-01/flow/flow-hollows.json",
+     "sha256": "134ac019c1ef6183712b40510807111c1ca2928396b77e6094fa652e9373e9f3"
+    }
+   }
+  },
+  {
+   "id": "grid",
+   "path": "./layers/grid.mjs",
+   "sha256": "c46e5a787dcf79e4a2a6b538f791242f2834f820bcd30fad88536bebbe45dab9",
+   "config": {
+    "national": {
+     "index": "data/substations/index.odbl.json",
+     "sha256": "5f2f324bfd6deb1e6b613266323532b086efe8f0ac4db79dd69e8a1d74a327c4"
+    },
+    "path": "sites/open-land-01/grid.odbl.json",
+    "sha256": "105d416c30422dda35e8af11c75c1f6595d5ae69af693204312fee81c352efe4"
+   }
+  },
+  {
+   "id": "ground",
+   "path": "./layers/ground.mjs",
+   "sha256": "d10956a5550acefdb8e11638c14db14e72d5788bc27b34c6af891310ffa001a3",
+   "config": {
+    "path": "sites/open-land-01/ground.json",
+    "sha256": "56cbbf6dcddd2598fb6f79fc77ebbfde88a39edf4fce7bcafea0cf4aab3e1f38"
+   }
+  },
+  {
+   "id": "land",
+   "path": "./layers/land.mjs",
+   "sha256": "cd761cc0fc1de3db89ed2f95a75d0a3a74517c228dae4bb825f2e73ba93e8cff",
+   "lib": 1,
+   "config": {
+    "index": "sites/open-land-01/land/land.json",
+    "sha256": "e4ee19218fe1bfcd68de3135aad5b778e0bba85ceba3340a7c8547e93b243962"
+   }
+  },
+  {
+   "id": "national",
+   "path": "./layers/national.mjs",
+   "sha256": "4f58914ba5a32ba4f49243458150c43572eff047ad1536b657abef7933fd8628",
+   "config": {
+    "index": "../../shared/national-6b100b5f/index.json",
+    "sha256": "852ef02330cfa4c54ca90140ce298832fd0baf83918e4bb5b7c472319c3702e4",
+    "range_miles": 5,
+    "kinds": [
+     "roads",
+     "osroads",
+     "rail"
+    ]
+   }
+  },
+  {
+   "id": "shade",
+   "path": "./layers/shade.mjs",
+   "sha256": "90a5f6830d8649968a2af8061678020f163b8490f2d74082c650e04e146b76d9",
+   "lib": 1,
+   "config": {
+    "index": "sites/open-land-01/horizon/horizon-tiles.json",
+    "sha256": "13f0b5817053b22a83219cd4a4a1324eeacb6f01bda4de9947006a1f03f0e53b"
+   }
+  },
+  {
+   "id": "slope",
+   "path": "./layers/slope.mjs",
+   "sha256": "8a721f26884ac5361a1c2e3e277a3ea93514b105dc2743a1d5cc44a81239b844",
+   "lib": 1,
+   "config": {
+    "index": "sites/open-land-01/slope/slope-tiles.json",
+    "sha256": "bd152c4a08f40124eaf0fe8e86f52cb26b3f1823d06dd1f0311b73f9c2aa5d7a"
+   }
+  },
+  {
+   "id": "terrain",
+   "path": "./layers/terrain.mjs",
+   "sha256": "ffc9dd787167caa5cd36efc2ca6fad821510ceffe9e2b4de4c36d9f27acc0e85",
+   "lib": 1,
+   "config": {
+    "index": "sites/open-land-01/tiles.json",
+    "sha256": "913a86796321785a4528b8d34f1161ac00bc232e177e2acf6a057cb761c63ea1"
+   }
+  },
+  {
+   "id": "visibility",
+   "path": "./layers/visibility.mjs",
+   "sha256": "2975165ec7874441d28c48fa20f76b18abda0be4b0ff0d418b7ba2f381ffe4f6",
+   "lib": 1,
+   "config": {
+    "index": "sites/open-land-01/visibility/visibility-tiles.json",
+    "sha256": "8889c7b6701d014be2053da451a20e5248f4676f837e72665e3de4d53ed1d8ee"
+   }
+  },
+  {
+   "id": "water",
+   "path": "./layers/water.mjs",
+   "sha256": "a5b4c02d43a2c4cb2e94c8dac146e46a1e65802a547f28600d62148d6c9c518d",
+   "lib": 1,
+   "config": {
+    "index": "sites/open-land-01/water/rivers.json",
+    "sha256": "65989b8c9c98d306fb32518548a7e46c834658a7318a55e780397de8fc510ea4"
+   }
+  },
+  {
+   "id": "ways",
+   "path": "./layers/ways.mjs",
+   "sha256": "551f1315c5a409bdcb46b8df2c43c80486973bf3ab3c8341d84855da31ec954a",
+   "lib": 1,
+   "config": {
+    "roads": {
+     "path": "sites/open-land-01/ways/roads.json",
+     "sha256": "73079568c72d9f30325b199d53776a06433acd64811bef401dedebb47f3be8b1"
+    },
+    "rail": {
+     "path": "sites/open-land-01/ways/rail.json",
+     "sha256": "8dc873d3e2b81e204912204af7933253ef8dc998b040bec32bf83b6fdf8aa37f"
+    }
+   }
+  }
+ ]
+}

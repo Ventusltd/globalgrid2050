@@ -1,0 +1,1566 @@
+{
+ "format": "ggc1",
+ "crs": "EPSG:27700",
+ "site": {
+  "name": "open-land-01",
+  "origin_e": 399104,
+  "origin_n": 208896
+ },
+ "tile_m": 256,
+ "step_m": 0.5,
+ "intervals_m": [
+  0.5,
+  1.0,
+  5.0
+ ],
+ "index_every_m": 5.0,
+ "dp_tol_m": 0.25,
+ "dp_tol_basis": "dp_tol_m is the distance from the traced marching-squares line, not from the true contour of the DTM; in cells near saddles the traced chords themselves depart from it by up to about 0.3 m, so a stored line can lie up to about 0.55 m from the true contour (tester 3 measured 0.553 m on open-land-01)",
+ "topology": "no two stored lines touch or cross",
+ "unit_m": 0.01,
+ "heights": "metres above Ordnance Datum Newlyn",
+ "caveat": "computed from bare-earth terrain only; hedges, trees and buildings are not included",
+ "attribution": "\u00a9 Environment Agency copyright and/or database right 2022. All rights reserved.",
+ "licence": "Open Government Licence v3.0",
+ "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+ "derived_from": "Environment Agency LIDAR Composite DTM 1 m",
+ "tiles": [
+  {
+   "key": "0_0",
+   "file": "tiles/0_0.json",
+   "sha256": "dcf39cfdd0f6b1e230cffd71617e90b4c5047fa3b5dea48e9dc1025310e6414f",
+   "e0": 399104,
+   "n0": 208896,
+   "bytes": 46997,
+   "z_min": 156.5,
+   "z_max": 196.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 141,
+     "length_m": 21786.6
+    },
+    "1.0": {
+     "lines": 70,
+     "length_m": 10886.1
+    },
+    "5.0": {
+     "lines": 14,
+     "length_m": 2180.4
+    }
+   }
+  },
+  {
+   "key": "1_0",
+   "file": "tiles/1_0.json",
+   "sha256": "c8368cddc0df1ac3e764e1889ca18be9f467b1ffb226549061dd9281ea6f114d",
+   "e0": 399360,
+   "n0": 208896,
+   "bytes": 50024,
+   "z_min": 164.5,
+   "z_max": 208.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 115,
+     "length_m": 24782.3
+    },
+    "1.0": {
+     "lines": 52,
+     "length_m": 12370.6
+    },
+    "5.0": {
+     "lines": 13,
+     "length_m": 2508.9
+    }
+   }
+  },
+  {
+   "key": "2_0",
+   "file": "tiles/2_0.json",
+   "sha256": "5693e5368b113d695a7cea91d17d91b248136f20aba7bd5ca88fbaef7fc3136b",
+   "e0": 399616,
+   "n0": 208896,
+   "bytes": 29353,
+   "z_min": 202.0,
+   "z_max": 215.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 89,
+     "length_m": 6870.7
+    },
+    "1.0": {
+     "lines": 38,
+     "length_m": 3348.3
+    },
+    "5.0": {
+     "lines": 9,
+     "length_m": 648.9
+    }
+   }
+  },
+  {
+   "key": "3_0",
+   "file": "tiles/3_0.json",
+   "sha256": "92e9ce96060ba9e3075016da82dab69af2664f455aa52481aa91c1acedf64407",
+   "e0": 399872,
+   "n0": 208896,
+   "bytes": 43913,
+   "z_min": 200.0,
+   "z_max": 215.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 94,
+     "length_m": 8649.3
+    },
+    "1.0": {
+     "lines": 53,
+     "length_m": 4438.3
+    },
+    "5.0": {
+     "lines": 10,
+     "length_m": 943.3
+    }
+   }
+  },
+  {
+   "key": "4_0",
+   "file": "tiles/4_0.json",
+   "sha256": "d1ab0c739ea08c2e2a1cb3e32eed9a1cc8ffe09fd1b9a1e0951b6dc91d31ef23",
+   "e0": 400128,
+   "n0": 208896,
+   "bytes": 41271,
+   "z_min": 204.5,
+   "z_max": 217.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 131,
+     "length_m": 6975.0
+    },
+    "1.0": {
+     "lines": 62,
+     "length_m": 3416.4
+    },
+    "5.0": {
+     "lines": 9,
+     "length_m": 756.6
+    }
+   }
+  },
+  {
+   "key": "5_0",
+   "file": "tiles/5_0.json",
+   "sha256": "d0a4e1d5e19943702ea43c5a47ccebb81cb3fc515476a89433710ab54f035780",
+   "e0": 400384,
+   "n0": 208896,
+   "bytes": 39681,
+   "z_min": 204.5,
+   "z_max": 217.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 138,
+     "length_m": 7174.0
+    },
+    "1.0": {
+     "lines": 66,
+     "length_m": 3586.9
+    },
+    "5.0": {
+     "lines": 12,
+     "length_m": 685.8
+    }
+   }
+  },
+  {
+   "key": "6_0",
+   "file": "tiles/6_0.json",
+   "sha256": "f7785e4cd1f6ddaab7ada5a8f02ae59d22390c333720f3939ea078f23ec027f6",
+   "e0": 400640,
+   "n0": 208896,
+   "bytes": 29049,
+   "z_min": 212.0,
+   "z_max": 215.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 201,
+     "length_m": 3636.0
+    },
+    "1.0": {
+     "lines": 123,
+     "length_m": 1819.5
+    },
+    "5.0": {
+     "lines": 38,
+     "length_m": 444.4
+    }
+   }
+  },
+  {
+   "key": "7_0",
+   "file": "tiles/7_0.json",
+   "sha256": "53af3a585213347d4238f60586aaf9f1e1743a824b84a86bde50620da00b8960",
+   "e0": 400896,
+   "n0": 208896,
+   "bytes": 30407,
+   "z_min": 203.0,
+   "z_max": 214.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 73,
+     "length_m": 6128.0
+    },
+    "1.0": {
+     "lines": 27,
+     "length_m": 3016.5
+    },
+    "5.0": {
+     "lines": 4,
+     "length_m": 588.6
+    }
+   }
+  },
+  {
+   "key": "0_1",
+   "file": "tiles/0_1.json",
+   "sha256": "13b5d3ee54dd5a7fe0cd844e470d71d2fcde96250074ef2e6b394f49f8ca5e4c",
+   "e0": 399104,
+   "n0": 209152,
+   "bytes": 79279,
+   "z_min": 172.0,
+   "z_max": 217.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 169,
+     "length_m": 27522.1
+    },
+    "1.0": {
+     "lines": 89,
+     "length_m": 13790.7
+    },
+    "5.0": {
+     "lines": 18,
+     "length_m": 2775.9
+    }
+   }
+  },
+  {
+   "key": "1_1",
+   "file": "tiles/1_1.json",
+   "sha256": "870c91f21f5b90f673426c1ee8343532da9aeb6c2af56e5f90f01db16dde4e2c",
+   "e0": 399360,
+   "n0": 209152,
+   "bytes": 50262,
+   "z_min": 183.0,
+   "z_max": 216.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 110,
+     "length_m": 20058.3
+    },
+    "1.0": {
+     "lines": 48,
+     "length_m": 9951.0
+    },
+    "5.0": {
+     "lines": 10,
+     "length_m": 1975.1
+    }
+   }
+  },
+  {
+   "key": "2_1",
+   "file": "tiles/2_1.json",
+   "sha256": "818cd992bf96fa93d5edbd4b28cb306283aa13646122cfe8b14127124be1d80d",
+   "e0": 399616,
+   "n0": 209152,
+   "bytes": 33955,
+   "z_min": 192.5,
+   "z_max": 217.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 73,
+     "length_m": 12645.5
+    },
+    "1.0": {
+     "lines": 34,
+     "length_m": 6395.8
+    },
+    "5.0": {
+     "lines": 6,
+     "length_m": 1337.1
+    }
+   }
+  },
+  {
+   "key": "3_1",
+   "file": "tiles/3_1.json",
+   "sha256": "6c58c2aa0eab6aa0bb155fced08902db8f90696023b3c0a8a845a3f737f21c44",
+   "e0": 399872,
+   "n0": 209152,
+   "bytes": 32398,
+   "z_min": 214.0,
+   "z_max": 223.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 86,
+     "length_m": 5609.8
+    },
+    "1.0": {
+     "lines": 43,
+     "length_m": 2791.1
+    },
+    "5.0": {
+     "lines": 5,
+     "length_m": 597.3
+    }
+   }
+  },
+  {
+   "key": "4_1",
+   "file": "tiles/4_1.json",
+   "sha256": "2e825ebe3141139667fc4fe4ef2d39698d5de8ba4e6b259e9950227cf759cad5",
+   "e0": 400128,
+   "n0": 209152,
+   "bytes": 27126,
+   "z_min": 214.0,
+   "z_max": 223.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 60,
+     "length_m": 4495.6
+    },
+    "1.0": {
+     "lines": 27,
+     "length_m": 2216.6
+    },
+    "5.0": {
+     "lines": 4,
+     "length_m": 371.4
+    }
+   }
+  },
+  {
+   "key": "5_1",
+   "file": "tiles/5_1.json",
+   "sha256": "455c2919ccccc1878ea2319afa138c2a75ecbf830ebc63e69c7c1e5b30e00eab",
+   "e0": 400384,
+   "n0": 209152,
+   "bytes": 27614,
+   "z_min": 213.5,
+   "z_max": 221.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 83,
+     "length_m": 5377.8
+    },
+    "1.0": {
+     "lines": 38,
+     "length_m": 2457.3
+    },
+    "5.0": {
+     "lines": 8,
+     "length_m": 545.9
+    }
+   }
+  },
+  {
+   "key": "6_1",
+   "file": "tiles/6_1.json",
+   "sha256": "b17f7d04c72d260941bdb46043b4c8a1c7c66db213c5bb0ddbab28c5dabd6736",
+   "e0": 400640,
+   "n0": 209152,
+   "bytes": 34167,
+   "z_min": 180.5,
+   "z_max": 215.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 99,
+     "length_m": 12029.1
+    },
+    "1.0": {
+     "lines": 47,
+     "length_m": 5904.5
+    },
+    "5.0": {
+     "lines": 7,
+     "length_m": 1067.5
+    }
+   }
+  },
+  {
+   "key": "7_1",
+   "file": "tiles/7_1.json",
+   "sha256": "6018a863bdba60078cfc2e948ac695d2ba4fb80b66e056c8ea89d39395b7c66a",
+   "e0": 400896,
+   "n0": 209152,
+   "bytes": 51478,
+   "z_min": 165.5,
+   "z_max": 212.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 105,
+     "length_m": 21850.6
+    },
+    "1.0": {
+     "lines": 52,
+     "length_m": 10981.0
+    },
+    "5.0": {
+     "lines": 9,
+     "length_m": 2149.3
+    }
+   }
+  },
+  {
+   "key": "0_2",
+   "file": "tiles/0_2.json",
+   "sha256": "d1f472384cacd49bf0bbec6c7a16864bf63a64d31eb8111000cf92ec799671c8",
+   "e0": 399104,
+   "n0": 209408,
+   "bytes": 55936,
+   "z_min": 193.0,
+   "z_max": 222.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 149,
+     "length_m": 18898.1
+    },
+    "1.0": {
+     "lines": 77,
+     "length_m": 9525.8
+    },
+    "5.0": {
+     "lines": 16,
+     "length_m": 2166.5
+    }
+   }
+  },
+  {
+   "key": "1_2",
+   "file": "tiles/1_2.json",
+   "sha256": "c609a6a33a41b77c7c80c81ea6976c5c910c98d04abee9fcd4288dec7c241fcf",
+   "e0": 399360,
+   "n0": 209408,
+   "bytes": 32833,
+   "z_min": 213.0,
+   "z_max": 226.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 49,
+     "length_m": 6491.2
+    },
+    "1.0": {
+     "lines": 26,
+     "length_m": 3230.1
+    },
+    "5.0": {
+     "lines": 4,
+     "length_m": 648.2
+    }
+   }
+  },
+  {
+   "key": "2_2",
+   "file": "tiles/2_2.json",
+   "sha256": "a3129b4fc70646e1aeed83313e737c64a2943a08f8211c6d0fdd8fac31916f54",
+   "e0": 399616,
+   "n0": 209408,
+   "bytes": 30422,
+   "z_min": 215.5,
+   "z_max": 226.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 59,
+     "length_m": 6043.9
+    },
+    "1.0": {
+     "lines": 22,
+     "length_m": 2986.7
+    },
+    "5.0": {
+     "lines": 4,
+     "length_m": 581.8
+    }
+   }
+  },
+  {
+   "key": "3_2",
+   "file": "tiles/3_2.json",
+   "sha256": "c442fcef8205a63c19af8570b06caf89e2278460577a47d89e3b34869b205ebe",
+   "e0": 399872,
+   "n0": 209408,
+   "bytes": 21185,
+   "z_min": 217.0,
+   "z_max": 224.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 79,
+     "length_m": 4377.3
+    },
+    "1.0": {
+     "lines": 31,
+     "length_m": 2136.4
+    },
+    "5.0": {
+     "lines": 2,
+     "length_m": 261.7
+    }
+   }
+  },
+  {
+   "key": "4_2",
+   "file": "tiles/4_2.json",
+   "sha256": "8f367f353e721153f320e990dd87d955e433f3309860baca8c09302e62ab17e8",
+   "e0": 400128,
+   "n0": 209408,
+   "bytes": 19767,
+   "z_min": 220.5,
+   "z_max": 225.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 83,
+     "length_m": 3194.6
+    },
+    "1.0": {
+     "lines": 36,
+     "length_m": 1440.6
+    },
+    "5.0": {
+     "lines": 6,
+     "length_m": 62.4
+    }
+   }
+  },
+  {
+   "key": "5_2",
+   "file": "tiles/5_2.json",
+   "sha256": "b5073a6867d7e25142debb9c8055387a1aad60877a057bdc8325109300f68275",
+   "e0": 400384,
+   "n0": 209408,
+   "bytes": 24275,
+   "z_min": 208.5,
+   "z_max": 223.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 62,
+     "length_m": 7072.4
+    },
+    "1.0": {
+     "lines": 32,
+     "length_m": 3629.1
+    },
+    "5.0": {
+     "lines": 4,
+     "length_m": 686.3
+    }
+   }
+  },
+  {
+   "key": "6_2",
+   "file": "tiles/6_2.json",
+   "sha256": "b2d973f51a53ee5a6c67e994d03b0fcdc59813f0e01754ed601f90d85f08ce1a",
+   "e0": 400640,
+   "n0": 209408,
+   "bytes": 36746,
+   "z_min": 180.5,
+   "z_max": 213.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 82,
+     "length_m": 13797.7
+    },
+    "1.0": {
+     "lines": 44,
+     "length_m": 6868.2
+    },
+    "5.0": {
+     "lines": 8,
+     "length_m": 1294.9
+    }
+   }
+  },
+  {
+   "key": "7_2",
+   "file": "tiles/7_2.json",
+   "sha256": "0b8f58f61d73d6dc4213b7f15e744bd98b66f8b58b59a27136c56b0cf0ebdc41",
+   "e0": 400896,
+   "n0": 209408,
+   "bytes": 45372,
+   "z_min": 153.5,
+   "z_max": 196.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 110,
+     "length_m": 21048.7
+    },
+    "1.0": {
+     "lines": 55,
+     "length_m": 10503.1
+    },
+    "5.0": {
+     "lines": 9,
+     "length_m": 2150.7
+    }
+   }
+  },
+  {
+   "key": "0_3",
+   "file": "tiles/0_3.json",
+   "sha256": "bbd406c32323622b12c337d87b8393b741d038f38dfc5162205fcf2246554ca9",
+   "e0": 399104,
+   "n0": 209664,
+   "bytes": 40523,
+   "z_min": 213.5,
+   "z_max": 227.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 91,
+     "length_m": 9337.7
+    },
+    "1.0": {
+     "lines": 42,
+     "length_m": 4657.8
+    },
+    "5.0": {
+     "lines": 10,
+     "length_m": 816.5
+    }
+   }
+  },
+  {
+   "key": "1_3",
+   "file": "tiles/1_3.json",
+   "sha256": "4e5561c085cc223f09e0c25ddc0ef01f7e11ff371e0bd061573a0c5d975b125c",
+   "e0": 399360,
+   "n0": 209664,
+   "bytes": 25538,
+   "z_min": 218.5,
+   "z_max": 230.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 61,
+     "length_m": 5130.1
+    },
+    "1.0": {
+     "lines": 23,
+     "length_m": 2462.1
+    },
+    "5.0": {
+     "lines": 5,
+     "length_m": 528.1
+    }
+   }
+  },
+  {
+   "key": "2_3",
+   "file": "tiles/2_3.json",
+   "sha256": "88194cef5af3c26b23a0b8938a57d858d8c5161ee62fb0ce88cc198d24f5da29",
+   "e0": 399616,
+   "n0": 209664,
+   "bytes": 24546,
+   "z_min": 225.0,
+   "z_max": 230.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 82,
+     "length_m": 3941.3
+    },
+    "1.0": {
+     "lines": 46,
+     "length_m": 1893.8
+    },
+    "5.0": {
+     "lines": 7,
+     "length_m": 267.0
+    }
+   }
+  },
+  {
+   "key": "3_3",
+   "file": "tiles/3_3.json",
+   "sha256": "705ccdd346c750f6213c239d16fb3c7c60c459db5abee6abfd6239f22261f65d",
+   "e0": 399872,
+   "n0": 209664,
+   "bytes": 29471,
+   "z_min": 219.5,
+   "z_max": 229.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 121,
+     "length_m": 4570.2
+    },
+    "1.0": {
+     "lines": 78,
+     "length_m": 2519.9
+    },
+    "5.0": {
+     "lines": 10,
+     "length_m": 441.2
+    }
+   }
+  },
+  {
+   "key": "4_3",
+   "file": "tiles/4_3.json",
+   "sha256": "3193133541c33e7e19eb98d4b88d8feeabec1b85c77dac1033560dcdc19ef65a",
+   "e0": 400128,
+   "n0": 209664,
+   "bytes": 43855,
+   "z_min": 196.5,
+   "z_max": 224.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 92,
+     "length_m": 17650.8
+    },
+    "1.0": {
+     "lines": 47,
+     "length_m": 8841.6
+    },
+    "5.0": {
+     "lines": 7,
+     "length_m": 1725.5
+    }
+   }
+  },
+  {
+   "key": "5_3",
+   "file": "tiles/5_3.json",
+   "sha256": "9a5577a3e138c903b3144d94c54793f7e30ff0816252ac60b4cf1204f96ba86f",
+   "e0": 400384,
+   "n0": 209664,
+   "bytes": 64304,
+   "z_min": 176.0,
+   "z_max": 220.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 136,
+     "length_m": 24844.2
+    },
+    "1.0": {
+     "lines": 65,
+     "length_m": 12403.7
+    },
+    "5.0": {
+     "lines": 12,
+     "length_m": 2432.0
+    }
+   }
+  },
+  {
+   "key": "6_3",
+   "file": "tiles/6_3.json",
+   "sha256": "c2b397bd53811d9678dcc103c651731b49199bdc911badfedd7ba8ccfed75f2c",
+   "e0": 400640,
+   "n0": 209664,
+   "bytes": 58675,
+   "z_min": 165.5,
+   "z_max": 208.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 134,
+     "length_m": 24331.2
+    },
+    "1.0": {
+     "lines": 67,
+     "length_m": 12132.4
+    },
+    "5.0": {
+     "lines": 15,
+     "length_m": 2472.2
+    }
+   }
+  },
+  {
+   "key": "7_3",
+   "file": "tiles/7_3.json",
+   "sha256": "9f98b1d3ad309390f0c3a20ae272cfed953d494f81bd7176eaf068abc9ce9dfe",
+   "e0": 400896,
+   "n0": 209664,
+   "bytes": 48810,
+   "z_min": 153.0,
+   "z_max": 194.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 119,
+     "length_m": 24607.6
+    },
+    "1.0": {
+     "lines": 60,
+     "length_m": 12336.5
+    },
+    "5.0": {
+     "lines": 10,
+     "length_m": 2430.0
+    }
+   }
+  },
+  {
+   "key": "0_4",
+   "file": "tiles/0_4.json",
+   "sha256": "3de3469f8f2c53665a4178cf88017f427d91b8d9cccd9c118072bd8da32faf88",
+   "e0": 399104,
+   "n0": 209920,
+   "bytes": 22259,
+   "z_min": 223.0,
+   "z_max": 234.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 51,
+     "length_m": 6103.2
+    },
+    "1.0": {
+     "lines": 22,
+     "length_m": 3016.3
+    },
+    "5.0": {
+     "lines": 4,
+     "length_m": 528.1
+    }
+   }
+  },
+  {
+   "key": "1_4",
+   "file": "tiles/1_4.json",
+   "sha256": "0d2a617641d1e7f946f822f8edd12fea0697f245d66ce0d503c0608eb6dd3c97",
+   "e0": 399360,
+   "n0": 209920,
+   "bytes": 21701,
+   "z_min": 223.5,
+   "z_max": 234.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 54,
+     "length_m": 5735.1
+    },
+    "1.0": {
+     "lines": 28,
+     "length_m": 2947.4
+    },
+    "5.0": {
+     "lines": 3,
+     "length_m": 650.3
+    }
+   }
+  },
+  {
+   "key": "2_4",
+   "file": "tiles/2_4.json",
+   "sha256": "3a7c5b1ff7e2bbed0da4cc4b8b53d8e4607e998beea1f12ba780cd6141910aad",
+   "e0": 399616,
+   "n0": 209920,
+   "bytes": 24535,
+   "z_min": 229.0,
+   "z_max": 235.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 94,
+     "length_m": 3525.5
+    },
+    "1.0": {
+     "lines": 47,
+     "length_m": 1775.3
+    },
+    "5.0": {
+     "lines": 17,
+     "length_m": 306.3
+    }
+   }
+  },
+  {
+   "key": "3_4",
+   "file": "tiles/3_4.json",
+   "sha256": "31d4cbd51ca056b1850f7bba6262481cdde8e60389ec7840a8bd64936aa81d80",
+   "e0": 399872,
+   "n0": 209920,
+   "bytes": 38563,
+   "z_min": 221.0,
+   "z_max": 235.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 88,
+     "length_m": 6554.7
+    },
+    "1.0": {
+     "lines": 44,
+     "length_m": 3301.9
+    },
+    "5.0": {
+     "lines": 13,
+     "length_m": 725.6
+    }
+   }
+  },
+  {
+   "key": "4_4",
+   "file": "tiles/4_4.json",
+   "sha256": "d713eec02c37651f31076601c83ef3f9da17f2989c7608376cfbb30e71fd220a",
+   "e0": 400128,
+   "n0": 209920,
+   "bytes": 37444,
+   "z_min": 213.5,
+   "z_max": 230.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 97,
+     "length_m": 6809.0
+    },
+    "1.0": {
+     "lines": 44,
+     "length_m": 3416.6
+    },
+    "5.0": {
+     "lines": 10,
+     "length_m": 592.0
+    }
+   }
+  },
+  {
+   "key": "5_4",
+   "file": "tiles/5_4.json",
+   "sha256": "f082227a917693b3be09a5c0c0117685859b94c7f6b982163b73be90dff24d77",
+   "e0": 400384,
+   "n0": 209920,
+   "bytes": 52057,
+   "z_min": 192.5,
+   "z_max": 228.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 105,
+     "length_m": 17243.7
+    },
+    "1.0": {
+     "lines": 53,
+     "length_m": 8663.9
+    },
+    "5.0": {
+     "lines": 10,
+     "length_m": 1734.6
+    }
+   }
+  },
+  {
+   "key": "6_4",
+   "file": "tiles/6_4.json",
+   "sha256": "1107f8e0c3764637e7732d3b7e634bb5edf13bdbd87771e73bb5f2c47623e7c7",
+   "e0": 400640,
+   "n0": 209920,
+   "bytes": 54559,
+   "z_min": 180.0,
+   "z_max": 221.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 121,
+     "length_m": 19056.0
+    },
+    "1.0": {
+     "lines": 55,
+     "length_m": 9447.2
+    },
+    "5.0": {
+     "lines": 12,
+     "length_m": 1883.2
+    }
+   }
+  },
+  {
+   "key": "7_4",
+   "file": "tiles/7_4.json",
+   "sha256": "5a6d63db5124fd57185fd0228990ee38d8628aea31b2885b070caa0c2f1f9fa3",
+   "e0": 400896,
+   "n0": 209920,
+   "bytes": 47737,
+   "z_min": 172.0,
+   "z_max": 206.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 98,
+     "length_m": 14290.0
+    },
+    "1.0": {
+     "lines": 47,
+     "length_m": 7137.7
+    },
+    "5.0": {
+     "lines": 11,
+     "length_m": 1526.3
+    }
+   }
+  },
+  {
+   "key": "0_5",
+   "file": "tiles/0_5.json",
+   "sha256": "633af2029b40dc2d7611e2e44b071e6c5227666eabe73f5515d1d997323aadbc",
+   "e0": 399104,
+   "n0": 210176,
+   "bytes": 23515,
+   "z_min": 234.0,
+   "z_max": 240.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 76,
+     "length_m": 4177.2
+    },
+    "1.0": {
+     "lines": 35,
+     "length_m": 2061.6
+    },
+    "5.0": {
+     "lines": 13,
+     "length_m": 502.0
+    }
+   }
+  },
+  {
+   "key": "1_5",
+   "file": "tiles/1_5.json",
+   "sha256": "0658f35f03e087ac8023339c2ee4ac95e7f7ce60e6546b5e9c2559e5ddd5bd35",
+   "e0": 399360,
+   "n0": 210176,
+   "bytes": 29167,
+   "z_min": 231.0,
+   "z_max": 241.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 83,
+     "length_m": 5979.2
+    },
+    "1.0": {
+     "lines": 35,
+     "length_m": 3006.0
+    },
+    "5.0": {
+     "lines": 8,
+     "length_m": 634.3
+    }
+   }
+  },
+  {
+   "key": "2_5",
+   "file": "tiles/2_5.json",
+   "sha256": "0aea93f34541fbd4d6281dd42226cfe07f8bb978e6f08cfbc3d07cebca5f3923",
+   "e0": 399616,
+   "n0": 210176,
+   "bytes": 24169,
+   "z_min": 232.0,
+   "z_max": 237.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 116,
+     "length_m": 3691.4
+    },
+    "1.0": {
+     "lines": 66,
+     "length_m": 1910.9
+    },
+    "5.0": {
+     "lines": 18,
+     "length_m": 683.7
+    }
+   }
+  },
+  {
+   "key": "3_5",
+   "file": "tiles/3_5.json",
+   "sha256": "cc0a333aabf66608411d0c28f9e4c30d25bcbdaf9ada3d04b2b76f06cc7a358f",
+   "e0": 399872,
+   "n0": 210176,
+   "bytes": 22266,
+   "z_min": 231.0,
+   "z_max": 237.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 83,
+     "length_m": 3272.3
+    },
+    "1.0": {
+     "lines": 32,
+     "length_m": 1556.7
+    },
+    "5.0": {
+     "lines": 8,
+     "length_m": 524.6
+    }
+   }
+  },
+  {
+   "key": "4_5",
+   "file": "tiles/4_5.json",
+   "sha256": "5d4f4f9a000217087c25c492c3293b57be73bae259579cd676686ee87e087da4",
+   "e0": 400128,
+   "n0": 210176,
+   "bytes": 26598,
+   "z_min": 229.0,
+   "z_max": 235.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 101,
+     "length_m": 4238.3
+    },
+    "1.0": {
+     "lines": 54,
+     "length_m": 2074.9
+    },
+    "5.0": {
+     "lines": 13,
+     "length_m": 395.9
+    }
+   }
+  },
+  {
+   "key": "5_5",
+   "file": "tiles/5_5.json",
+   "sha256": "24e6293375a9bde61277f6deb365550e414bb1d6a4664edc0f97a994a359d85a",
+   "e0": 400384,
+   "n0": 210176,
+   "bytes": 33780,
+   "z_min": 221.5,
+   "z_max": 230.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 122,
+     "length_m": 6915.0
+    },
+    "1.0": {
+     "lines": 48,
+     "length_m": 3464.5
+    },
+    "5.0": {
+     "lines": 8,
+     "length_m": 656.4
+    }
+   }
+  },
+  {
+   "key": "6_5",
+   "file": "tiles/6_5.json",
+   "sha256": "1cc01c7e65c2b443902d29e9cb477b307a716f66b4d7b64fbc98b90eea8c5813",
+   "e0": 400640,
+   "n0": 210176,
+   "bytes": 35551,
+   "z_min": 207.0,
+   "z_max": 225.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 62,
+     "length_m": 10461.4
+    },
+    "1.0": {
+     "lines": 36,
+     "length_m": 5221.1
+    },
+    "5.0": {
+     "lines": 8,
+     "length_m": 1079.2
+    }
+   }
+  },
+  {
+   "key": "7_5",
+   "file": "tiles/7_5.json",
+   "sha256": "50e21c1600b3c2f6b74ba716e8f2d28385bae6d2253da207e465f80b8721cfef",
+   "e0": 400896,
+   "n0": 210176,
+   "bytes": 30565,
+   "z_min": 173.5,
+   "z_max": 210.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 86,
+     "length_m": 17310.5
+    },
+    "1.0": {
+     "lines": 45,
+     "length_m": 8653.0
+    },
+    "5.0": {
+     "lines": 11,
+     "length_m": 1653.8
+    }
+   }
+  },
+  {
+   "key": "0_6",
+   "file": "tiles/0_6.json",
+   "sha256": "b76ec364e0c3d09df437344023f15df295a901dcdc7d61017c4040309cb523e6",
+   "e0": 399104,
+   "n0": 210432,
+   "bytes": 33851,
+   "z_min": 218.5,
+   "z_max": 241.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 96,
+     "length_m": 6726.3
+    },
+    "1.0": {
+     "lines": 38,
+     "length_m": 3270.2
+    },
+    "5.0": {
+     "lines": 14,
+     "length_m": 709.1
+    }
+   }
+  },
+  {
+   "key": "1_6",
+   "file": "tiles/1_6.json",
+   "sha256": "ca31a3d777d345766fc9560852fcf6603316b9a9113f2b3ea4886c6d76be9fa5",
+   "e0": 399360,
+   "n0": 210432,
+   "bytes": 32678,
+   "z_min": 233.5,
+   "z_max": 241.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 132,
+     "length_m": 4951.4
+    },
+    "1.0": {
+     "lines": 80,
+     "length_m": 2559.3
+    },
+    "5.0": {
+     "lines": 20,
+     "length_m": 588.8
+    }
+   }
+  },
+  {
+   "key": "2_6",
+   "file": "tiles/2_6.json",
+   "sha256": "8a600a159bc384974119b20529cdd03e1f5712df090ce4dc1971e251bcdf6a71",
+   "e0": 399616,
+   "n0": 210432,
+   "bytes": 34891,
+   "z_min": 223.0,
+   "z_max": 238.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 110,
+     "length_m": 6556.6
+    },
+    "1.0": {
+     "lines": 52,
+     "length_m": 3214.2
+    },
+    "5.0": {
+     "lines": 9,
+     "length_m": 639.3
+    }
+   }
+  },
+  {
+   "key": "3_6",
+   "file": "tiles/3_6.json",
+   "sha256": "1614829899076c605a7d70725683ba1b035e69a0fdf2abd004dd403188abf634",
+   "e0": 399872,
+   "n0": 210432,
+   "bytes": 33295,
+   "z_min": 220.5,
+   "z_max": 236.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 101,
+     "length_m": 7661.2
+    },
+    "1.0": {
+     "lines": 47,
+     "length_m": 3788.4
+    },
+    "5.0": {
+     "lines": 23,
+     "length_m": 957.5
+    }
+   }
+  },
+  {
+   "key": "4_6",
+   "file": "tiles/4_6.json",
+   "sha256": "db9913ccdd7d24d938fe04db98929d32f800e46e6ca506ded17ad1e99a0d94ee",
+   "e0": 400128,
+   "n0": 210432,
+   "bytes": 44986,
+   "z_min": 190.0,
+   "z_max": 234.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 107,
+     "length_m": 18417.9
+    },
+    "1.0": {
+     "lines": 56,
+     "length_m": 9223.2
+    },
+    "5.0": {
+     "lines": 14,
+     "length_m": 1862.9
+    }
+   }
+  },
+  {
+   "key": "5_6",
+   "file": "tiles/5_6.json",
+   "sha256": "9e8c5fc7878c2e02916519c5cd74fec4f106d61f06cd9c93e48fe9b51d4c472d",
+   "e0": 400384,
+   "n0": 210432,
+   "bytes": 62511,
+   "z_min": 167.5,
+   "z_max": 229.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 133,
+     "length_m": 26653.5
+    },
+    "1.0": {
+     "lines": 67,
+     "length_m": 13323.4
+    },
+    "5.0": {
+     "lines": 13,
+     "length_m": 2679.7
+    }
+   }
+  },
+  {
+   "key": "6_6",
+   "file": "tiles/6_6.json",
+   "sha256": "2ddd13f986ccf55ec0dd66cc8ce551429494f9c09156946aacb10b8cf17e71ee",
+   "e0": 400640,
+   "n0": 210432,
+   "bytes": 57664,
+   "z_min": 158.5,
+   "z_max": 221.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 140,
+     "length_m": 29484.6
+    },
+    "1.0": {
+     "lines": 66,
+     "length_m": 14681.2
+    },
+    "5.0": {
+     "lines": 13,
+     "length_m": 2940.2
+    }
+   }
+  },
+  {
+   "key": "7_6",
+   "file": "tiles/7_6.json",
+   "sha256": "b020c9f378335810a265eb59375fe5dcce5f9f092cf0dcf4afde280b54fcf080",
+   "e0": 400896,
+   "n0": 210432,
+   "bytes": 37199,
+   "z_min": 160.0,
+   "z_max": 208.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 123,
+     "length_m": 17369.5
+    },
+    "1.0": {
+     "lines": 61,
+     "length_m": 8666.1
+    },
+    "5.0": {
+     "lines": 14,
+     "length_m": 1777.4
+    }
+   }
+  },
+  {
+   "key": "0_7",
+   "file": "tiles/0_7.json",
+   "sha256": "8243bf5e85d51bf277a53456c02007afcf6740b155fe192948732cd94d047393",
+   "e0": 399104,
+   "n0": 210688,
+   "bytes": 51747,
+   "z_min": 197.5,
+   "z_max": 236.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 109,
+     "length_m": 20459.5
+    },
+    "1.0": {
+     "lines": 56,
+     "length_m": 10248.6
+    },
+    "5.0": {
+     "lines": 10,
+     "length_m": 2031.8
+    }
+   }
+  },
+  {
+   "key": "1_7",
+   "file": "tiles/1_7.json",
+   "sha256": "81f37e86a285644bdff0e1183aa3b60df106749dc3ca9ee476686a9fcbe8142c",
+   "e0": 399360,
+   "n0": 210688,
+   "bytes": 27330,
+   "z_min": 218.5,
+   "z_max": 237.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 69,
+     "length_m": 7449.7
+    },
+    "1.0": {
+     "lines": 36,
+     "length_m": 3782.7
+    },
+    "5.0": {
+     "lines": 9,
+     "length_m": 798.5
+    }
+   }
+  },
+  {
+   "key": "2_7",
+   "file": "tiles/2_7.json",
+   "sha256": "7073dfe77fb04068fe795ad628ebfa77a3629b426fadf2f10d81d161a49c590d",
+   "e0": 399616,
+   "n0": 210688,
+   "bytes": 43896,
+   "z_min": 216.5,
+   "z_max": 235.5,
+   "by_interval": {
+    "0.5": {
+     "lines": 97,
+     "length_m": 10621.2
+    },
+    "1.0": {
+     "lines": 38,
+     "length_m": 5226.4
+    },
+    "5.0": {
+     "lines": 11,
+     "length_m": 1107.2
+    }
+   }
+  },
+  {
+   "key": "3_7",
+   "file": "tiles/3_7.json",
+   "sha256": "f8ddba3c4660f6c6969317f5f3320add46e7954d41ab0e48d1742f0bae930a25",
+   "e0": 399872,
+   "n0": 210688,
+   "bytes": 63873,
+   "z_min": 191.5,
+   "z_max": 230.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 114,
+     "length_m": 23852.4
+    },
+    "1.0": {
+     "lines": 56,
+     "length_m": 11892.3
+    },
+    "5.0": {
+     "lines": 13,
+     "length_m": 2337.4
+    }
+   }
+  },
+  {
+   "key": "4_7",
+   "file": "tiles/4_7.json",
+   "sha256": "b16b4597ec125a85dbb68c45c48096a6f717cd6e83fef7fd98649ffd4bf37ab7",
+   "e0": 400128,
+   "n0": 210688,
+   "bytes": 70715,
+   "z_min": 174.0,
+   "z_max": 220.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 138,
+     "length_m": 25602.4
+    },
+    "1.0": {
+     "lines": 67,
+     "length_m": 12761.1
+    },
+    "5.0": {
+     "lines": 11,
+     "length_m": 2513.7
+    }
+   }
+  },
+  {
+   "key": "5_7",
+   "file": "tiles/5_7.json",
+   "sha256": "7af53f501befd8f76a12a6da852e3b84771361b330f3d5a2be183646ce5977c0",
+   "e0": 400384,
+   "n0": 210688,
+   "bytes": 44213,
+   "z_min": 163.0,
+   "z_max": 190.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 103,
+     "length_m": 18313.6
+    },
+    "1.0": {
+     "lines": 53,
+     "length_m": 9162.5
+    },
+    "5.0": {
+     "lines": 11,
+     "length_m": 1822.3
+    }
+   }
+  },
+  {
+   "key": "6_7",
+   "file": "tiles/6_7.json",
+   "sha256": "ee5d2eba08fe9b4681b2fa13756fb4f01f1d2884117c9102289ab719d28e7e5c",
+   "e0": 400640,
+   "n0": 210688,
+   "bytes": 42679,
+   "z_min": 156.0,
+   "z_max": 186.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 95,
+     "length_m": 15654.9
+    },
+    "1.0": {
+     "lines": 46,
+     "length_m": 7850.7
+    },
+    "5.0": {
+     "lines": 7,
+     "length_m": 1511.7
+    }
+   }
+  },
+  {
+   "key": "7_7",
+   "file": "tiles/7_7.json",
+   "sha256": "7080b9adecf81de37c2c57dfe9913702772fb51f0ccd59f9ed946b19313cac18",
+   "e0": 400896,
+   "n0": 210688,
+   "bytes": 54925,
+   "z_min": 150.0,
+   "z_max": 180.0,
+   "by_interval": {
+    "0.5": {
+     "lines": 124,
+     "length_m": 26500.0
+    },
+    "1.0": {
+     "lines": 62,
+     "length_m": 13245.0
+    },
+    "5.0": {
+     "lines": 14,
+     "length_m": 2650.5
+    }
+   }
+  }
+ ],
+ "generated_utc": "2026-09-26T21:56:23Z"
+}

@@ -1,0 +1,21 @@
+{
+ "name": "open-land-01",
+ "origin_e": 399104,
+ "origin_n": 208896,
+ "index": "sites/open-land-01/tiles.json",
+ "sha256": "913a86796321785a4528b8d34f1161ac00bc232e177e2acf6a057cb761c63ea1",
+ "sun": {
+  "climate": {
+   "path": "sites/open-land-01/sun/sun-climate.json",
+   "sha256": "380b8af1d92cf5d6884ceb1c6e8002512cff2fcf6f5ac3f27a24559ff8983a8f"
+  },
+  "cells": {
+   "index": "sites/open-land-01/sun/cells/sun-cells.json",
+   "sha256": "04643cdeea19c995c3c0b842e5a35b868e313e54fbcc71ac75018548eb7892d0"
+  }
+ },
+ "cables": {
+  "path": "sites/open-land-01/cables/cable-checks.json",
+  "sha256": "b69da8d4ce53c9a94f203c819b4d65ddce3098bec98499b72a7907489a9f7e4e"
+ }
+}

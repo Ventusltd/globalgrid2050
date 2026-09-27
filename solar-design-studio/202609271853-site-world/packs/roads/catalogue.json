@@ -1,0 +1,8 @@
+{
+  "app": "roads",
+  "type": "cartridge",
+  "area": "construction",
+  "version": "20260927.01",
+  "purpose": "Road-build simulation layer (illustrative): from a design road line, stages the build (strip topsoil, cut and fill to formation, geotextile, sub-base, compaction, surface, drainage) with volumes per stage, gradient and cross-fall checks, a play, pause and step sequence, and events a machinery pack can follow.",
+  "execution": { "gpu_engine": "none", "cpu_engine": "javascript", "ci_cd_compatible": true }
+}

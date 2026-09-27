@@ -1,0 +1,72 @@
+{
+  "contract": "world.pack.v1",
+  "id": "sun",
+  "version": "1.0.0",
+  "kind": "sim",
+  "title": "Sun and sky",
+  "description": "Solar position, date and time scrubbing, the day's sun path with sunrise, noon and sunset lines, terrain and table shadows, and clear-sky irradiance on a plane. Illustrative.",
+  "entry": "src/sun.mjs",
+  "sha256": "c93fd8969a6ddc55441db8c540df237f27eab61eef2f3028c1130cf682d9dd97",
+  "requires": {
+    "api": "1.0"
+  },
+  "provides": {
+    "commands": [
+      {
+        "verb": "sun",
+        "usage": "sun 21 dec 12:00  ·  sun +1h  ·  sun play 60  ·  sun stop  ·  sun rise  ·  sun plane 30 180",
+        "words": "sun sky solar position shadow sunrise sunset noon irradiance daylight time date scrub"
+      }
+    ],
+    "hud": [
+      {
+        "id": "time",
+        "label": "Sun time and position"
+      },
+      {
+        "id": "day",
+        "label": "Sunrise, noon and sunset"
+      },
+      {
+        "id": "sky",
+        "label": "Clear-sky irradiance"
+      },
+      {
+        "id": "shade",
+        "label": "Terrain shadow"
+      }
+    ],
+    "toggle": {
+      "label": "Sun and sky",
+      "group": "Environment",
+      "on": false
+    },
+    "keys": [
+      {
+        "key": "Shift+n",
+        "command": "sun +1h",
+        "summary": "move the sun one hour later"
+      },
+      {
+        "key": "Shift+m",
+        "command": "sun -1h",
+        "summary": "move the sun one hour earlier"
+      }
+    ],
+    "events": {
+      "emits": [
+        "sun/position",
+        "sun/irradiance"
+      ],
+      "listens": []
+    }
+  },
+  "budget": {
+    "maxVertices": 8000,
+    "maxMsPerFrame": 4,
+    "lazy": true
+  },
+  "licence": "Apache-2.0",
+  "illustrative": true,
+  "data": []
+}

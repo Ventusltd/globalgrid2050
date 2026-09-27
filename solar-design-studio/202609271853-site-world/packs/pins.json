@@ -1,0 +1,32 @@
+{
+ "about": "Layer packs installed in this world (contract world.pack.v1). tools/world-manifest.mjs pins each entry by SHA-256 in web/world/manifest.json. Illustrative packs.",
+ "packs": [
+  {
+   "id": "sun",
+   "on": false
+  },
+  {
+   "id": "grids",
+   "config": {
+    "demo": true
+   },
+   "on": false
+  },
+  {
+   "id": "body",
+   "on": false
+  },
+  {
+   "id": "drone",
+   "on": false
+  },
+  {
+   "id": "roads",
+   "on": false
+  },
+  {
+   "id": "lightning",
+   "on": false
+  }
+ ]
+}

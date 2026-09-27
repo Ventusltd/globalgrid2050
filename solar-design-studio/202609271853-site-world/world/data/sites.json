@@ -1,0 +1,16 @@
+{
+ "schema": "world.sites.v1",
+ "sites": [
+  {
+   "name": "open-land-01",
+   "centre_e": 400128,
+   "centre_n": 209920,
+   "min_m": 149.52,
+   "max_m": 241.38,
+   "relief_m": 91.86,
+   "tiles": "sites/open-land-01/tiles.json",
+   "sha256": "913a86796321785a4528b8d34f1161ac00bc232e177e2acf6a057cb761c63ea1",
+   "tile_count": 64
+  }
+ ]
+}

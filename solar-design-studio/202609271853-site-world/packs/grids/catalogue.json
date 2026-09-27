@@ -1,0 +1,8 @@
+{
+  "app": "grids",
+  "type": "cartridge",
+  "area": "visualisation",
+  "version": "20260927.01",
+  "purpose": "Grid layers for our 3D worlds: overhead lines with catenary sag and conductor bundles by voltage class, towers on measured ground, substations as fenced compounds, underground cable routes and a load-flow colouring hook. Illustrative geometry, loaded as a hash-pinned lazy layer.",
+  "execution": { "gpu_engine": "none", "cpu_engine": "javascript", "ci_cd_compatible": true }
+}

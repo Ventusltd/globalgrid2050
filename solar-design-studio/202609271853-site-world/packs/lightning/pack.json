@@ -1,0 +1,70 @@
+{
+  "contract": "world.pack.v1",
+  "id": "lightning",
+  "version": "1.0.0",
+  "kind": "sim",
+  "title": "Lightning",
+  "description": "Illustrative lightning: strike map from ground flash density, rolling sphere by protection level over terrain, tables, stations and towers, an animated strike, and rings round a known earthing grid. Never a statement of safety.",
+  "entry": "src/lightning.mjs",
+  "sha256": "4ac2a7a6523d5f16ff0919c6240e91c2d8ac152d26e7ab62eb950259d98cc949",
+  "requires": {
+    "api": "1.0"
+  },
+  "provides": {
+    "commands": [
+      {
+        "verb": "lightning",
+        "usage": "lightning map  ·  lightning lpl III  ·  lightning ng 0.5  ·  lightning strike [x y [kA]]  ·  lightning report",
+        "words": "lightning strike thunder storm flash rolling sphere protection level exposure earthing step voltage ring ground flash density"
+      }
+    ],
+    "hud": [
+      {
+        "id": "level",
+        "label": "Flash density and sphere"
+      },
+      {
+        "id": "object",
+        "label": "Most exposed object"
+      },
+      {
+        "id": "strike",
+        "label": "Last strike"
+      },
+      {
+        "id": "rings",
+        "label": "Earthing rings"
+      }
+    ],
+    "toggle": {
+      "label": "Lightning",
+      "group": "Weather",
+      "on": false
+    },
+    "keys": [
+      {
+        "key": "Shift+l",
+        "command": "lightning strike",
+        "summary": "show an illustrative lightning strike"
+      }
+    ],
+    "events": {
+      "emits": [
+        "lightning/strike",
+        "lightning/exposure",
+        "lightning/need-earthing"
+      ],
+      "listens": [
+        "earthing/grid"
+      ]
+    }
+  },
+  "budget": {
+    "maxVertices": 80000,
+    "maxMsPerFrame": 4,
+    "lazy": true
+  },
+  "licence": "Apache-2.0",
+  "illustrative": true,
+  "data": []
+}

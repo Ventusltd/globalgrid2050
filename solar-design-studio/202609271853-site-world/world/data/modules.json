@@ -1,0 +1,144 @@
+{
+  "schema": "module-catalogue/1",
+  "label": "Generic module classes for close-up drawing and string checks. Not any product; no product names are held here.",
+  "units": "mm, V, A, W, kg; temperature coefficients in % per kelvin; positions are fractions of the module (s across the width, t along the length) seen from the back",
+  "coldest_cell_C": -10,
+  "coldest_note": "Coldest cell temperature, assumed (the plant template's default for the site); used for the cold open-circuit voltage.",
+  "system_voltage_V": 1500,
+  "classes": [
+    {
+      "id": "A", "label": "Module A — 655-660 W, 132 half-cells, 210 mm", "source": "manufacturer datasheet (sample)",
+      "technology": "p-type PERC, bifacial", "construction": "glass/glass", "glass_mm": [2.0, 2.0], "weight_kg": 38.3,
+      "size_mm": [2384, 1303, 33], "laminate_mm": [2345, 1264],
+      "frame": { "profile": "anodised aluminium alloy, 33 mm deep", "flange_mm": 23, "flange_short_mm": 28.5 },
+      "cells": { "count": 132, "columns": 6, "rows": 22, "cut": "half", "cell_mm": [210, 105], "busbars": 12, "split": "centre" },
+      "junction_boxes": { "count": 3, "layout": "split", "rating": "IP68", "bypass_diodes": 3, "box_mm": [110, 60, 18],
+        "positions": [[0.176, 0.5], [0.5, 0.5], [0.824, 0.5]] },
+      "cable": { "csa_mm2": 4.0, "plus_mm": 350, "minus_mm": 280, "connector": "PV connector to IEC 62852" },
+      "holes": [
+        { "kind": "mounting", "size_mm": [7, 10], "t_mm": [-700, -395, 395, 700] },
+        { "kind": "mounting (tracker)", "size_mm": [9, 14], "t_mm": [-200, 200] },
+        { "kind": "grounding", "size_mm": [4.3, 4.3], "t_mm": [-1000, -600, 0, 600, 1000, 1150] }
+      ],
+      "drain_holes": 8,
+      "electrical": { "nominal_W": 660, "bins": [
+        { "pmax": 645, "vmp": 37.5, "imp": 17.23, "voc": 45.3, "isc": 18.31 },
+        { "pmax": 650, "vmp": 37.7, "imp": 17.27, "voc": 45.5, "isc": 18.35 },
+        { "pmax": 655, "vmp": 37.9, "imp": 17.31, "voc": 45.7, "isc": 18.40 },
+        { "pmax": 660, "vmp": 38.1, "imp": 17.35, "voc": 45.9, "isc": 18.45 },
+        { "pmax": 665, "vmp": 38.3, "imp": 17.39, "voc": 46.1, "isc": 18.50 } ] },
+      "temp_coeff": { "pmax": -0.34, "voc": -0.25, "isc": 0.04 }, "noct_C": 43, "bifaciality": 0.70,
+      "max_system_V": 1500, "max_fuse_A": 35,
+      "assumed": ["busbar count (datasheet: multi-busbar)", "junction box size", "which lead is + (not marked; + taken on the right of the back)", "grounding hole positions"]
+    },
+    {
+      "id": "B", "label": "Module B — 750-770 W bifacial, 198 third-cut cells", "source": "manufacturer datasheet (sample)",
+      "technology": "n-type, bifacial", "construction": "glass/glass", "glass_mm": [2.0, 2.0], "weight_kg": 37.5,
+      "size_mm": [2384, 1303, 33], "laminate_mm": [2343, 1262],
+      "frame": { "profile": "anodised aluminium alloy, 33 mm deep", "flange_mm": 23 },
+      "cells": { "count": 198, "columns": 6, "rows": 33, "cut": "third", "cell_mm": [210, 70], "busbars": 16, "split": "row", "split_row": 11 },
+      "junction_boxes": { "count": 3, "layout": "split", "rating": "IP68", "bypass_diodes": 3, "box_mm": [110, 60, 18],
+        "positions": [[0.175, 0.946], [0.5, 0.321], [0.825, 0.946]] },
+      "cable": { "csa_mm2": 4.0, "plus_mm": 400, "minus_mm": 200, "connector": "PV connector to IEC 62852" },
+      "holes": [
+        { "kind": "mounting", "size_mm": [7, 10], "t_mm": [-700, -395, 395, 700] },
+        { "kind": "mounting (tracker)", "size_mm": [9, 14], "t_mm": [-200, 200] },
+        { "kind": "grounding", "size_mm": [4, 4], "t_mm": [-1000, 1000] }
+      ],
+      "drain_holes": 8,
+      "electrical": { "nominal_W": 760, "bins": [
+        { "pmax": 750, "vmp": 42.38, "imp": 17.70, "voc": 50.53, "isc": 18.56 },
+        { "pmax": 755, "vmp": 42.47, "imp": 17.78, "voc": 50.56, "isc": 18.59 },
+        { "pmax": 760, "vmp": 42.58, "imp": 17.85, "voc": 50.59, "isc": 18.62 },
+        { "pmax": 765, "vmp": 42.67, "imp": 17.93, "voc": 50.62, "isc": 18.65 },
+        { "pmax": 770, "vmp": 42.78, "imp": 18.00, "voc": 50.65, "isc": 18.68 } ] },
+      "temp_coeff": { "pmax": -0.24, "voc": -0.22, "isc": 0.04 }, "noct_C": null, "bifaciality": 0.90,
+      "max_system_V": 1500, "max_fuse_A": 35,
+      "assumed": ["busbar count (not printed)", "junction box size", "grounding hole positions", "drain hole count (not called out)"]
+    },
+    {
+      "id": "C", "label": "Module C — 545-550 W, 144 half-cells, 182 mm, glass/backsheet", "source": "typical class values (assumed)",
+      "technology": "p-type PERC, monofacial", "construction": "glass/backsheet", "glass_mm": [3.2, 0], "weight_kg": 28.6,
+      "size_mm": [2279, 1134, 35], "laminate_mm": [2240, 1096],
+      "frame": { "profile": "anodised aluminium alloy, 35 mm deep", "flange_mm": 25 },
+      "cells": { "count": 144, "columns": 6, "rows": 24, "cut": "half", "cell_mm": [182, 91], "busbars": 10, "split": "centre" },
+      "junction_boxes": { "count": 3, "layout": "split", "rating": "IP68", "bypass_diodes": 3, "box_mm": [100, 55, 18],
+        "positions": [[0.176, 0.5], [0.5, 0.5], [0.824, 0.5]] },
+      "cable": { "csa_mm2": 4.0, "plus_mm": 300, "minus_mm": 300, "connector": "PV connector to IEC 62852" },
+      "holes": [
+        { "kind": "mounting", "size_mm": [9, 14], "t_mm": [-700, -395, 395, 700] },
+        { "kind": "grounding", "size_mm": [4, 4], "t_mm": [-1000, 1000] }
+      ],
+      "drain_holes": 8,
+      "electrical": { "nominal_W": 550, "bins": [
+        { "pmax": 545, "vmp": 41.6, "imp": 13.10, "voc": 49.5, "isc": 13.95 },
+        { "pmax": 550, "vmp": 41.8, "imp": 13.16, "voc": 49.6, "isc": 14.00 } ] },
+      "temp_coeff": { "pmax": -0.35, "voc": -0.27, "isc": 0.048 }, "noct_C": 45, "bifaciality": 0,
+      "max_system_V": 1500, "max_fuse_A": 25,
+      "assumed": ["every value: typical of the class, not from a datasheet"]
+    },
+    {
+      "id": "D", "label": "Module D — 580-590 W bifacial, 144 half-cells, 182 mm", "source": "typical class values (assumed)",
+      "technology": "n-type, bifacial", "construction": "glass/glass", "glass_mm": [2.0, 2.0], "weight_kg": 32.0,
+      "size_mm": [2278, 1134, 30], "laminate_mm": [2240, 1096],
+      "frame": { "profile": "anodised aluminium alloy, 30 mm deep", "flange_mm": 23 },
+      "cells": { "count": 144, "columns": 6, "rows": 24, "cut": "half", "cell_mm": [182, 91], "busbars": 16, "split": "centre" },
+      "junction_boxes": { "count": 3, "layout": "split", "rating": "IP68", "bypass_diodes": 3, "box_mm": [100, 55, 18],
+        "positions": [[0.176, 0.5], [0.5, 0.5], [0.824, 0.5]] },
+      "cable": { "csa_mm2": 4.0, "plus_mm": 300, "minus_mm": 300, "connector": "PV connector to IEC 62852" },
+      "holes": [
+        { "kind": "mounting", "size_mm": [9, 14], "t_mm": [-700, -395, 395, 700] },
+        { "kind": "grounding", "size_mm": [4, 4], "t_mm": [-1000, 1000] }
+      ],
+      "drain_holes": 8,
+      "electrical": { "nominal_W": 590, "bins": [
+        { "pmax": 580, "vmp": 43.1, "imp": 13.46, "voc": 51.8, "isc": 14.10 },
+        { "pmax": 590, "vmp": 43.5, "imp": 13.57, "voc": 52.1, "isc": 14.20 } ] },
+      "temp_coeff": { "pmax": -0.29, "voc": -0.25, "isc": 0.045 }, "noct_C": 43, "bifaciality": 0.80,
+      "max_system_V": 1500, "max_fuse_A": 30,
+      "assumed": ["every value: typical of the class, not from a datasheet"]
+    },
+    {
+      "id": "E", "label": "Module E — 620-630 W bifacial, 132 half-cells, 182 x 210 mm", "source": "typical class values (assumed)",
+      "technology": "n-type, bifacial", "construction": "glass/glass", "glass_mm": [2.0, 2.0], "weight_kg": 33.5,
+      "size_mm": [2382, 1134, 30], "laminate_mm": [2344, 1096],
+      "frame": { "profile": "anodised aluminium alloy, 30 mm deep", "flange_mm": 23 },
+      "cells": { "count": 132, "columns": 6, "rows": 22, "cut": "half", "cell_mm": [182, 105], "busbars": 16, "split": "centre" },
+      "junction_boxes": { "count": 3, "layout": "split", "rating": "IP68", "bypass_diodes": 3, "box_mm": [100, 55, 18],
+        "positions": [[0.176, 0.5], [0.5, 0.5], [0.824, 0.5]] },
+      "cable": { "csa_mm2": 4.0, "plus_mm": 300, "minus_mm": 300, "connector": "PV connector to IEC 62852" },
+      "holes": [
+        { "kind": "mounting", "size_mm": [9, 14], "t_mm": [-700, -395, 395, 700] },
+        { "kind": "grounding", "size_mm": [4, 4], "t_mm": [-1000, 1000] }
+      ],
+      "drain_holes": 8,
+      "electrical": { "nominal_W": 630, "bins": [
+        { "pmax": 620, "vmp": 40.0, "imp": 15.50, "voc": 48.2, "isc": 16.20 },
+        { "pmax": 630, "vmp": 40.4, "imp": 15.60, "voc": 48.5, "isc": 16.30 } ] },
+      "temp_coeff": { "pmax": -0.29, "voc": -0.25, "isc": 0.045 }, "noct_C": 43, "bifaciality": 0.80,
+      "max_system_V": 1500, "max_fuse_A": 30,
+      "assumed": ["every value: typical of the class, not from a datasheet"]
+    },
+    {
+      "id": "F", "label": "Module F — 430-440 W bifacial, 108 half-cells, 182 mm (roof size)", "source": "typical class values (assumed)",
+      "technology": "n-type, bifacial", "construction": "glass/glass", "glass_mm": [1.6, 1.6], "weight_kg": 21.5,
+      "size_mm": [1722, 1134, 30], "laminate_mm": [1684, 1096],
+      "frame": { "profile": "anodised aluminium alloy, 30 mm deep", "flange_mm": 20 },
+      "cells": { "count": 108, "columns": 6, "rows": 18, "cut": "half", "cell_mm": [182, 91], "busbars": 16, "split": "centre" },
+      "junction_boxes": { "count": 3, "layout": "split", "rating": "IP68", "bypass_diodes": 3, "box_mm": [100, 55, 18],
+        "positions": [[0.176, 0.5], [0.5, 0.5], [0.824, 0.5]] },
+      "cable": { "csa_mm2": 4.0, "plus_mm": 300, "minus_mm": 300, "connector": "PV connector to IEC 62852" },
+      "holes": [
+        { "kind": "mounting", "size_mm": [9, 14], "t_mm": [-550, -200, 200, 550] },
+        { "kind": "grounding", "size_mm": [4, 4], "t_mm": [-700, 700] }
+      ],
+      "drain_holes": 8,
+      "electrical": { "nominal_W": 440, "bins": [
+        { "pmax": 430, "vmp": 32.6, "imp": 13.19, "voc": 39.0, "isc": 13.90 },
+        { "pmax": 440, "vmp": 32.9, "imp": 13.38, "voc": 39.3, "isc": 14.00 } ] },
+      "temp_coeff": { "pmax": -0.29, "voc": -0.25, "isc": 0.045 }, "noct_C": 43, "bifaciality": 0.80,
+      "max_system_V": 1500, "max_fuse_A": 25,
+      "assumed": ["every value: typical of the class, not from a datasheet"]
+    }
+  ]
+}

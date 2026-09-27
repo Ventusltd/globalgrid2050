@@ -1,0 +1,8 @@
+{
+  "app": "sun",
+  "type": "cartridge",
+  "area": "visualisation",
+  "version": "20260927.01",
+  "purpose": "Sun and sky layer for 3D worlds: solar position to the published NREL solar position algorithm, date and time scrubbing, sun path with sunrise, noon and sunset lines, terrain and table shadows by ray casting, and illustrative clear-sky irradiance on a plane.",
+  "execution": { "gpu_engine": "none", "cpu_engine": "javascript", "ci_cd_compatible": true }
+}

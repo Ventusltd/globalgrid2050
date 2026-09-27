@@ -1,0 +1,70 @@
+{
+  "contract": "world.pack.v1",
+  "id": "body",
+  "version": "1.0.0",
+  "kind": "body",
+  "title": "Body: walk, run and jump",
+  "description": "How the viewer moves on foot: walk, run with Shift held (3.5 to 6 m/s, eased), jump with Space under real gravity, land on solids, and an optional footstep bob. Illustrative.",
+  "entry": "src/body.mjs",
+  "sha256": "420939e7195813665df38db6781e2300cdf4efe3ae2e9ecd670c8fc3653fb5cd",
+  "requires": {
+    "api": "1.0"
+  },
+  "provides": {
+    "commands": [
+      {
+        "verb": "jump",
+        "usage": "jump  ·  jump high",
+        "words": "hop leap space bar gravity height"
+      },
+      {
+        "verb": "run",
+        "usage": "run  ·  run on  ·  run off",
+        "words": "sprint jog faster shift speed gait"
+      },
+      {
+        "verb": "body",
+        "usage": "body  ·  body move 1  ·  body move 0 -1  ·  body stop  ·  body bob on  ·  body at 10 20",
+        "words": "walk move stop step on foot camera bob place stand"
+      }
+    ],
+    "hud": [
+      {
+        "id": "gait",
+        "label": "Gait and speed"
+      },
+      {
+        "id": "jump",
+        "label": "Jump height and air time"
+      }
+    ],
+    "toggle": {
+      "label": "Body: walk, run, jump",
+      "group": "Move",
+      "on": false
+    },
+    "keys": [
+      {
+        "key": "Space",
+        "command": "jump",
+        "summary": "jump (the world passes a held Space in ctx.input for a higher jump)"
+      }
+    ],
+    "events": {
+      "emits": [
+        "body/pose",
+        "body/jumped",
+        "body/landed"
+      ],
+      "listens": []
+    }
+  },
+  "budget": {
+    "maxVertices": 0,
+    "maxMsPerFrame": 0.5,
+    "lazy": true
+  },
+  "licence": "Apache-2.0",
+  "illustrative": true,
+  "data": []
+}

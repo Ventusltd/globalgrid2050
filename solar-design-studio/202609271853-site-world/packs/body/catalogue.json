@@ -1,0 +1,8 @@
+{
+  "app": "body",
+  "type": "cartridge",
+  "area": "visualisation",
+  "version": "20260927.01",
+  "purpose": "How the viewer moves on foot in a 3D world: walk, run with eased acceleration from 3.5 to 6 m/s, jump under real gravity with coyote time and a press buffer, and land on solids. A hash-pinned, lazy layer pack; the model is illustrative.",
+  "execution": { "gpu_engine": "none", "cpu_engine": "javascript", "ci_cd_compatible": true }
+}

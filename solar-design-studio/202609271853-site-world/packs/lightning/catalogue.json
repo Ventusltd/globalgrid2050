@@ -1,0 +1,8 @@
+{
+  "app": "lightning",
+  "type": "cartridge",
+  "area": "simulation",
+  "version": "20260927.01",
+  "purpose": "An illustrative lightning layer for a 3D site world: a strike map from ground flash density with IEC 62305-2 collection areas, the rolling-sphere method by protection level over terrain, tables, stations and towers, an animated strike, and equipotential rings round an earthing grid when one is known. It never states that anything is safe.",
+  "execution": { "gpu_engine": "none", "cpu_engine": "javascript", "ci_cd_compatible": true }
+}

@@ -1,0 +1,8 @@
+{
+  "app": "drone",
+  "type": "cartridge",
+  "area": "simulation",
+  "version": "20260927.01",
+  "purpose": "Drone flight as a world layer: a light multirotor model with thrust, drag and wind, hover hold over the ground model, speed limits, a legal-height note, orbit and lawnmower survey modes with overlap, and the camera footprint on the ground. Illustrative.",
+  "execution": { "gpu_engine": "none", "cpu_engine": "javascript", "ci_cd_compatible": true }
+}

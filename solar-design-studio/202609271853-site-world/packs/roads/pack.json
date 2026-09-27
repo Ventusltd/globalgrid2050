@@ -1,0 +1,71 @@
+{
+  "contract": "world.pack.v1",
+  "id": "roads",
+  "version": "1.0.0",
+  "kind": "sim",
+  "title": "Road build",
+  "description": "Illustrative road-build sequence from a design road line: strip topsoil, cut and fill to formation, geotextile, stone layers, compaction and drainage, with volumes per stage and gradient and cross-fall checks.",
+  "entry": "src/roads.mjs",
+  "sha256": "0d47defc7aef9f6500833930c3b38310218abe3a9654f9d7d8896c19e455f9db",
+  "requires": {
+    "api": "1.0"
+  },
+  "provides": {
+    "commands": [
+      {
+        "verb": "road",
+        "usage": "road play  ·  road pause  ·  road step  ·  road stage earthworks  ·  road line 0 0 100 20  ·  road report  ·  road check",
+        "words": "road build construction earthworks topsoil cut fill formation geotextile sub-base stone compaction roller drainage swale culvert gradient cross-fall volumes"
+      }
+    ],
+    "hud": [
+      {
+        "id": "stage",
+        "label": "Road build stage"
+      },
+      {
+        "id": "volumes",
+        "label": "Road earthworks volumes"
+      },
+      {
+        "id": "checks",
+        "label": "Road gradient and cross-fall"
+      },
+      {
+        "id": "clock",
+        "label": "Road build clock"
+      }
+    ],
+    "toggle": {
+      "label": "Road build",
+      "group": "Construction",
+      "on": false
+    },
+    "keys": [
+      {
+        "key": "Shift+r",
+        "command": "road toggle",
+        "summary": "play or pause the road build"
+      }
+    ],
+    "events": {
+      "emits": [
+        "roads/stage",
+        "roads/task",
+        "roads/progress",
+        "roads/done"
+      ],
+      "listens": [
+        "machinery/pace"
+      ]
+    }
+  },
+  "budget": {
+    "maxVertices": 30000,
+    "maxMsPerFrame": 2,
+    "lazy": true
+  },
+  "licence": "Apache-2.0",
+  "illustrative": true,
+  "data": []
+}

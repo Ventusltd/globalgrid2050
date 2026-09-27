@@ -1,0 +1,72 @@
+{
+  "contract": "world.pack.v1",
+  "id": "drone",
+  "version": "1.0.0",
+  "kind": "vehicle",
+  "title": "Drone",
+  "entry": "src/drone.mjs",
+  "sha256": "574142339bd3412151a3f16328cb18be7233b798ec2bf04e2d0b421767b4a750",
+  "requires": {
+    "api": "1.0"
+  },
+  "provides": {
+    "commands": [
+      {
+        "verb": "drone",
+        "usage": "drone launch  ·  hold 50  ·  goto 200 80  ·  orbit 0 0 40  ·  survey x y x y x y ...  ·  view  ·  land",
+        "words": "drone multirotor fly flight hover orbit survey lawnmower overlap camera footprint aerial wind altitude height"
+      }
+    ],
+    "hud": [
+      {
+        "id": "mode",
+        "label": "Drone mode and speed"
+      },
+      {
+        "id": "height",
+        "label": "Height above ground"
+      },
+      {
+        "id": "wind",
+        "label": "Wind and tilt"
+      },
+      {
+        "id": "camera",
+        "label": "Camera footprint"
+      }
+    ],
+    "toggle": {
+      "label": "Drone",
+      "group": "Vehicles",
+      "on": false
+    },
+    "keys": [
+      {
+        "key": "Shift+d",
+        "command": "drone launch",
+        "summary": "launch the drone where you stand"
+      },
+      {
+        "key": "Shift+v",
+        "command": "drone view",
+        "summary": "fly as the drone (aerial view with height and footprint)"
+      }
+    ],
+    "events": {
+      "emits": [
+        "drone/pose",
+        "drone/survey",
+        "drone/view"
+      ],
+      "listens": []
+    }
+  },
+  "budget": {
+    "maxVertices": 12000,
+    "maxMsPerFrame": 1,
+    "lazy": true
+  },
+  "licence": "Apache-2.0",
+  "illustrative": true,
+  "data": []
+}

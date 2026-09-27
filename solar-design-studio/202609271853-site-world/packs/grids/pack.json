@@ -1,0 +1,67 @@
+{
+  "contract": "world.pack.v1",
+  "id": "grids",
+  "version": "1.0.0",
+  "kind": "layer",
+  "title": "Grids",
+  "description": "Overhead lines with catenary sag and conductor bundles by voltage class (400, 275, 220, 132, 66, 33 and 11 kV kept separate), towers on the measured ground, substations as compounds, cable routes and load-flow colours. Illustrative.",
+  "entry": "src/grids.mjs",
+  "sha256": "17f29b84262cffcdf0c85e5228fa7c017e4bbca99a2355130004dff18fa8561a",
+  "requires": {
+    "api": "1.0"
+  },
+  "provides": {
+    "commands": [
+      {
+        "verb": "grids",
+        "usage": "grids demo  ·  grids show 400 132  ·  grids hide 11  ·  grids flow on  ·  grids flow D33 95  ·  grids sag 3.5",
+        "words": "grid overhead lines pylons towers conductors bundle sag catenary substations compounds cables load flow loading voltage kV"
+      }
+    ],
+    "hud": [
+      {
+        "id": "network",
+        "label": "Grid network"
+      },
+      {
+        "id": "classes",
+        "label": "Voltage classes shown"
+      },
+      {
+        "id": "flow",
+        "label": "Load flow"
+      },
+      {
+        "id": "clearance",
+        "label": "Lowest conductor"
+      }
+    ],
+    "toggle": {
+      "label": "Grids",
+      "group": "Grid",
+      "on": false
+    },
+    "keys": [
+      {
+        "key": "Shift+g",
+        "command": "grids flow toggle",
+        "summary": "switch load-flow colours on or off"
+      }
+    ],
+    "events": {
+      "emits": [
+        "grids/summary",
+        "grids/overload"
+      ],
+      "listens": []
+    }
+  },
+  "budget": {
+    "maxVertices": 600000,
+    "maxMsPerFrame": 6,
+    "lazy": true
+  },
+  "licence": "Apache-2.0",
+  "illustrative": true,
+  "data": []
+}

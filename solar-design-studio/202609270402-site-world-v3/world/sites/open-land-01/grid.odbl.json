@@ -1,0 +1,150 @@
+{
+ "licence": "ODbL-1.0",
+ "attribution": "© OpenStreetMap contributors, ODbL",
+ "note": "ODbL derived database. Keep separate from other site data. Towers are inferred from line vertices with both adjacent spans 150-450 m; not surveyed.",
+ "site": "open-land-01",
+ "crs": "EPSG:27700",
+ "box": {
+  "e0": 399104.0,
+  "n0": 208896.0,
+  "size": 2048.0,
+  "margin": 500.0
+ },
+ "sources": [
+  {
+   "url": "https://ventusltd.github.io/data-gridatlas/202608291237-data-gridatlas/data/derived/grid_400kv_snapped.parquet",
+   "sha256": "53663da46fb270f92454399419318840c9a47f5ab3a68e858702eaa2c05dc048"
+  },
+  {
+   "url": "https://ventusltd.github.io/data-gridatlas/202608291237-data-gridatlas/data/derived/grid_275kv_snapped.parquet",
+   "sha256": "c70aa02dd097efecd99c23f82036b25908a9ef1f88db6db12de294e2b4d719e5"
+  },
+  {
+   "url": "https://ventusltd.github.io/data-gridatlas/202608291237-data-gridatlas/data/derived/grid_220kv_snapped.parquet",
+   "sha256": "e66e10d413b3f4cde590c0647e49c2367890dbcadf0e9f648ff3351b079c8bd2"
+  },
+  {
+   "url": "https://ventusltd.github.io/data-gridatlas/202608291237-data-gridatlas/data/derived/grid_132kv_snapped.parquet",
+   "sha256": "8d6c6b020c6ee261f85c322f0e7c7c3536e63c4bf2863aa470585f40c79c2a64"
+  },
+  {
+   "url": "https://ventusltd.github.io/data-gridatlas/202608291237-data-gridatlas/data/derived/grid_66kv_snapped.parquet",
+   "sha256": "86532e8ac22b8c7803df17480e8603d7ee34345f959a8bc49a8f912517d09a35"
+  },
+  {
+   "url": "https://ventusltd.github.io/data-gridatlas/202608291237-data-gridatlas/data/partitions/grid_33kv_east_of_england.parquet",
+   "sha256": "ec4098761f8ddc18c207728f88d3607eea35f3eba01c4f2a3cc8875ea5147738"
+  },
+  {
+   "url": "https://ventusltd.github.io/data-gridatlas/202608291237-data-gridatlas/data/partitions/grid_33kv_london_area.parquet",
+   "sha256": "17710086b2d82aa8bdef48fb1950ad0128ae84558e40a230c0c370ffd38d7c02"
+  },
+  {
+   "url": "https://ventusltd.github.io/data-gridatlas/202608291237-data-gridatlas/data/partitions/grid_33kv_north_east_england.parquet",
+   "sha256": "d251604f674f5292a6c20d963e6590178a23019b58c88aaea03ce3fd6a04d945"
+  },
+  {
+   "url": "https://ventusltd.github.io/data-gridatlas/202608291237-data-gridatlas/data/partitions/grid_33kv_north_west_england.parquet",
+   "sha256": "d913f643160b30a163c63c63d878eb0a9d139b6c4501e30c527ece0bc3c98307"
+  },
+  {
+   "url": "https://ventusltd.github.io/data-gridatlas/202608291237-data-gridatlas/data/partitions/grid_33kv_scotland_north.parquet",
+   "sha256": "b1717172fe715a5b3408072d9fafc67dfeabbb8bd733f4e17f9116830e5c01d3"
+  },
+  {
+   "url": "https://ventusltd.github.io/data-gridatlas/202608291237-data-gridatlas/data/partitions/grid_33kv_scotland_south.parquet",
+   "sha256": "b20786862df3d3e7d140fd7a4b6b92fcecb682453b3d36f9a934012ae102ffda"
+  },
+  {
+   "url": "https://ventusltd.github.io/data-gridatlas/202608291237-data-gridatlas/data/partitions/grid_33kv_south_east_england.parquet",
+   "sha256": "909c08a8c4623a05e65fc20fc82e8e5494061abe36ca5baa2ca784494321cd40"
+  },
+  {
+   "url": "https://ventusltd.github.io/data-gridatlas/202608291237-data-gridatlas/data/partitions/grid_33kv_south_west_england.parquet",
+   "sha256": "e02acc18b4b851255d574f055d9ef6c07df7dffc91f1e6e88729a05c338ccd82"
+  },
+  {
+   "url": "https://ventusltd.github.io/data-gridatlas/202608291237-data-gridatlas/data/partitions/grid_33kv_wales_north.parquet",
+   "sha256": "badbd182291234b0f4511479fa96fe8ff26794dad1d7db0445a07e7ecea875f7"
+  },
+  {
+   "url": "https://ventusltd.github.io/data-gridatlas/202608291237-data-gridatlas/data/partitions/grid_33kv_wales_south.parquet",
+   "sha256": "b84371cb74a7b18a2c02b92c72dcb4513b6f289814bd7bedeee76663874282c5"
+  },
+  {
+   "url": "https://ventusltd.github.io/data-gridatlas/202608291237-data-gridatlas/data/partitions/grid_33kv_yorkshire.parquet",
+   "sha256": "eb8a8bb9c35dc51030af51f7f046acd93dbb60601808407ccd78dfeb3fa76e2f"
+  },
+  {
+   "url": "https://ventusltd.github.io/data-gridatlas/202608291237-data-gridatlas/data/partitions/grid_substations.parquet",
+   "sha256": "1e2d2b6123d9070e866de66d0490c27f3a812f8e2536a1b6b86c792215e9c423"
+  }
+ ],
+ "lines": [
+  {
+   "voltage_kv": 400,
+   "operator": "National Grid",
+   "points": [
+    [
+     399439.88,
+     211444.0
+    ],
+    [
+     399522.63,
+     211280.25
+    ],
+    [
+     399696.57,
+     210943.46
+    ],
+    [
+     399887.19,
+     210572.28
+    ],
+    [
+     400033.87,
+     210281.54
+    ],
+    [
+     400188.74,
+     209974.41
+    ],
+    [
+     400386.17,
+     209589.91
+    ],
+    [
+     400542.44,
+     209279.35
+    ],
+    [
+     400738.69,
+     208891.27
+    ],
+    [
+     400827.07,
+     208556.99
+    ],
+    [
+     400869.32,
+     208396.0
+    ]
+   ],
+   "towers": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "towers_status": "inferred",
+   "source": "derived/grid_400kv_snapped.parquet",
+   "name": "National Grid Seven Springs - Minety"
+  }
+ ],
+ "substations": []
+}

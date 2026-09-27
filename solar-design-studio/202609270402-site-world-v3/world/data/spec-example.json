@@ -1,0 +1,21 @@
+{
+ "schema": "spec-rules.v1",
+ "label": "Example project specification (made-up values)",
+ "note": "EXAMPLE ONLY. Every figure here is invented to show the file format. It is not taken from any project. Load your own project specification from a local file; it stays on your machine.",
+ "marker": { "tape_above_service_m": 0.3 },
+ "backfill": { "layer_mm": 200, "max_particle_mm": 60, "imported": "example granular fill" },
+ "ducts": { "road_concrete_surround_mm": 120, "dc_mains_ducted": true },
+ "separation": { "signal_from_mv_mm": 400, "signal_from_lv_mm": 200 },
+ "spoil": { "stockpile_max_m": 1.5, "topsoil_separate": true },
+ "ground": {
+  "alluvium": {
+   "label": "Alluvium / soft wet ground (example)",
+   "basis": "Example values only.",
+   "support_below_m": 1.5, "batter_h_per_v": 0.75, "working_extra_m": 1.5, "overdig_m": 0.2,
+   "formation": "example: granular fill on geotextile", "bulking": 1.25,
+   "dewatering": "example: pump to a settlement tank, no discharge to watercourses",
+   "spoil": "example: stockpile away from ditches, covered",
+   "ducts_preferred": true
+  }
+ }
+}

@@ -1,0 +1,73 @@
+{
+ "schema": "ggw-substations/1",
+ "licence": "ODbL-1.0",
+ "attribution": "© OpenStreetMap contributors, ODbL",
+ "note": "ODbL derived database (OpenStreetMap via GridAtlas). Keep separate from other data. Points only: compound outlines, capacity and connection terms are not in the source. Converted to British National Grid with a Helmert transformation (about 3.5 m). Names left out.",
+ "site": "open-land-01",
+ "crs": "EPSG:27700",
+ "radius_m": 10000,
+ "box": {
+  "e0": 399104,
+  "n0": 208896,
+  "e1": 401152,
+  "n1": 210944
+ },
+ "source": {
+  "url": "https://ventusltd.github.io/data-gridatlas/202608291237-data-gridatlas/data/partitions/grid_substations.parquet",
+  "sha256": "1e2d2b6123d9070e866de66d0490c27f3a812f8e2536a1b6b86c792215e9c423"
+ },
+ "substations": [
+  {
+   "id": "gs2828",
+   "e": 402078.5,
+   "n": 203022,
+   "voltage_kv": 33,
+   "voltages_kv": [
+    33
+   ],
+   "operator": null
+  },
+  {
+   "id": "gs1166",
+   "e": 391101.3,
+   "n": 209756.1,
+   "voltage_kv": 33,
+   "voltages_kv": [
+    33,
+    11
+   ],
+   "operator": "National Grid Electricity Distribution"
+  },
+  {
+   "id": "gs636",
+   "e": 402700.9,
+   "n": 200364.2,
+   "voltage_kv": 132,
+   "voltages_kv": [
+    132,
+    33
+   ],
+   "operator": "Scottish and Southern Electricity Networks"
+  },
+  {
+   "id": "gs2829",
+   "e": 403896.2,
+   "n": 219101.8,
+   "voltage_kv": 33,
+   "voltages_kv": [
+    33
+   ],
+   "operator": null
+  },
+  {
+   "id": "gs2830",
+   "e": 410534.9,
+   "n": 214268.7,
+   "voltage_kv": 33,
+   "voltages_kv": [
+    33
+   ],
+   "operator": null
+  }
+ ]
+}

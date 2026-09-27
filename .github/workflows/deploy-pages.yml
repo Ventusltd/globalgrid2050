@@ -51,6 +51,10 @@ on:
       # being published and not appearing. This one is listed before
       # anything is served from it.
       - 'plant/**'
+      # SEVENTH TIME. The Energy Transition Simulator ships dated versions under
+      # energy-transition-simulator/ (v1 202609280014 on 28 September). It was not
+      # listed, so its first push deployed nothing and served 404. Listed now.
+      - 'energy-transition-simulator/**'
       - 'ventus/**'
       - 'why_ventusltd_building_globalgrid2050/**'
       # A new PipelineNews release is a directory under uk_renewables_pipeline.

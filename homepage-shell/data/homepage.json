@@ -167,7 +167,7 @@
       "subtitle": "Walk, fly and design on real terrain",
       "description": "Walk and fly over real ground from Environment Agency LiDAR, then design on it. The GIS, SLD & Financial Sandbox remains available among the earlier releases.",
       "launch_label": "Open Solar Design Studio",
-      "operative_release_id": "world-202609270145",
+      "operative_release_id": "world-202609270220",
       "releases": [
         {
           "id": "v7",
@@ -200,6 +200,14 @@
           "published_at": "2026-09-27",
           "status": "available",
           "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/83e5f1f8/solar-design-studio/202609270145-site-world-v3"
+        },
+        {
+          "id": "world-202609270220",
+          "label": "Site world v4 - 27 September 2026",
+          "url": "https://globalgrid2050.com/solar-design-studio/202609270220-site-world-v3/",
+          "published_at": "2026-09-27",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/bbffb57d/solar-design-studio/202609270220-site-world-v3"
         }
       ]
     },
@@ -531,6 +539,13 @@
       "to_release_id": "world-202609270145",
       "reason": "Team mode (vikra-ed): v03 passed android-touch on live URL; overhead line zones illustrative with GS6 wording and no safe/clear claims; REPD names in Find",
       "promoted_at": "2026-09-27T00:46:49Z"
+    },
+    {
+      "entity_id": "solar-design-studio",
+      "from_release_id": "world-202609270145",
+      "to_release_id": "world-202609270220",
+      "reason": "Team mode (vikra-ed): v04 passed android-touch on live URL; town and place search works (Cirencester Town, Swindon, Manchester); 0 page errors",
+      "promoted_at": "2026-09-27T01:46:10Z"
     }
   ]
 }

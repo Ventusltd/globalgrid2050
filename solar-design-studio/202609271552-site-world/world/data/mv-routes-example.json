@@ -1,0 +1,186 @@
+{
+ "schema": "mv-routes.v1",
+ "label": "Example MV route file (made-up drawing)",
+ "note": "EXAMPLE ONLY: invented drawing coordinates for a 20 MW template plant. Units are drawing units, y down; place it in the world with a scale and rotation.",
+ "units": "drawing",
+ "y_down": true,
+ "template": {
+  "targetMW": 20
+ },
+ "nodes": {
+  "POC": [
+   60,
+   40
+  ],
+  "MVB1": [
+   60,
+   220
+  ],
+  "S1": [
+   60,
+   472
+  ],
+  "R1": [
+   60,
+   400
+  ],
+  "S2": [
+   180,
+   472
+  ],
+  "R2": [
+   180,
+   400
+  ],
+  "S3": [
+   60,
+   652
+  ],
+  "R3": [
+   60,
+   580
+  ],
+  "S4": [
+   180,
+   652
+  ],
+  "R4": [
+   180,
+   580
+  ]
+ },
+ "links": [
+  {
+   "from": "MVB1",
+   "to": "R1",
+   "points": [
+    [
+     60,
+     220
+    ],
+    [
+     60,
+     310
+    ],
+    [
+     60,
+     310
+    ],
+    [
+     60,
+     400
+    ]
+   ]
+  },
+  {
+   "from": "R1",
+   "to": "R2",
+   "points": [
+    [
+     60,
+     400
+    ],
+    [
+     60,
+     400
+    ],
+    [
+     180,
+     400
+    ],
+    [
+     180,
+     400
+    ]
+   ]
+  },
+  {
+   "from": "R2",
+   "to": "MVB1",
+   "points": [
+    [
+     180,
+     400
+    ],
+    [
+     180,
+     310
+    ],
+    [
+     60,
+     310
+    ],
+    [
+     60,
+     220
+    ]
+   ]
+  },
+  {
+   "from": "MVB1",
+   "to": "R3",
+   "points": [
+    [
+     60,
+     220
+    ],
+    [
+     60,
+     400
+    ],
+    [
+     60,
+     400
+    ],
+    [
+     60,
+     580
+    ]
+   ]
+  },
+  {
+   "from": "R3",
+   "to": "R4",
+   "points": [
+    [
+     60,
+     580
+    ],
+    [
+     60,
+     580
+    ],
+    [
+     180,
+     580
+    ],
+    [
+     180,
+     580
+    ]
+   ]
+  },
+  {
+   "from": "R4",
+   "to": "MVB1",
+   "points": [
+    [
+     180,
+     580
+    ],
+    [
+     180,
+     400
+    ],
+    [
+     60,
+     400
+    ],
+    [
+     60,
+     220
+    ]
+   ]
+  }
+ ]
+}

@@ -1,0 +1,104 @@
+// Page wiring for the Layers panel. The panel sits inside the Controls panel (no dash button of its own).
+// Switching a layer on calls its setEnabled(true) when it has one and lets the substrate draw it; switching it off
+// hides it (item.hidden, which the substrate skips). The footer credits exactly the data on screen: every loaded
+// base layer plus the optional layers switched on (layers-panel.mjs sourceKeysFor, attribution.mjs footerText).
+import { OPTIONAL_LAYERS, START_OFF, createLayersPanel, shownIds, sourceKeysFor } from './layers-panel.mjs';
+import { REFUSED } from './layers.mjs';
+import { footerText, aboutList } from './attribution.mjs';
+import { mountRange } from './range-ui.mjs';
+import { MILE_M } from './fade.mjs';
+
+const OPTIONAL = new Set(OPTIONAL_LAYERS.map(l => l.id));
+export const DEFAULT_ON = Object.freeze(['grid', 'ohl-safety']); // the grid network and its overhead line zones show from the start
+
+// The loader's items as the panel reads them: a loaded layer's own status line follows the hash check.
+export function panelLayers(items) {
+  return (items || []).map(it => {
+    const own = it.layer && typeof it.layer.status === 'string' && it.layer.status ? it.layer.status : '';
+    const loaded = !!it.layer && String(it.status).startsWith('loaded');
+    const status = loaded && own ? (REFUSED.test(own) ? `${String(it.status).replace(/,? hash matches/, '')}; ${own}` : `${it.status}; ${own}`) : String(it.status);
+    // The public words: the layer's own short summary if it gives one, else a plain word (the details stay in status).
+    const short = /^ready/.test(String(it.status)) ? 'Off: loads when switched on.' : !loaded ? 'Not available here.' : own && REFUSED.test(own) ? 'Not available here: its data was refused.'
+      : typeof it.layer?.summary === 'string' && it.layer.summary ? it.layer.summary : 'On.';
+    return { id: it.id, status, short };
+  });
+}
+
+// { full, short } footer text for the ids on screen.
+export function footerFor(items, on, attribution, year) {
+  const keys = sourceKeysFor(shownIds(panelLayers(items), on));
+  const byLine = new Map(); // sources that share one required line (OS Open Rivers and Roads) are credited once
+  for (const a of aboutList(keys, attribution, { year })) {
+    const k = `${a.line} · ${a.licence_name}`;
+    byLine.set(k, [...(byLine.get(k) || []), a.name]);
+  }
+  const full = [...byLine].map(([k, names]) => `${names.join(', ')}: ${k}`).join(' · ');
+  return { full, short: footerText(keys, attribution, { year }) };
+}
+
+// Marks each optional item hidden unless it is on, and tells layers that load on demand.
+export function applyOn(items, on) {
+  const set = new Set(on);
+  for (const it of items || []) {
+    if (!OPTIONAL.has(it.id)) continue;
+    const want = set.has(it.id);
+    it.hidden = !want;
+    if (want && !it.layer && typeof it.load === 'function') { it.load(); continue; } // first switch-on: fetch, check, start
+    if (it.layer && typeof it.layer.setEnabled === 'function' && !!it.layer.enabled !== want) {
+      try { it.layer.setEnabled(want); } catch (e) { it.layer = null; it.status = 'failed to switch and switched off: ' + e.message; }
+    }
+  }
+}
+
+// items: loadLayers(...).layers (live objects). host: element the panel goes in. footer: the #attribution element.
+// Returns { panel, refresh() } or null when there is nothing to host it.
+// onChange(ids) is called with the ids switched on, at start and after every change (e.g. to show the sun control).
+export function mountLayersUi({ items, host, footer, attribution, invalidate = () => {}, on = DEFAULT_ON, year, onChange = () => {} } = {}) {
+  if (!host) return null;
+  const start = on.filter(id => !START_OFF.includes(id)).filter(id => panelLayers(items).some(l => l.id === id && l.status.startsWith('loaded')));
+  applyOn(items, start);
+  const writeFooter = ids => {
+    if (!footer || !attribution) return;
+    const f = footerFor(items, ids, attribution, year), full = footer.querySelector('.full'), short = footer.querySelector('.short');
+    if (full) full.textContent = f.full; if (short) short.textContent = f.short;
+    footer.title = f.full;
+    fitFooter();
+  };
+  // On a phone the footer wraps to as many lines as the credit needs (world.html, max-width 600px); --foot-fit tells
+  // everything placed above the footer how tall it came out, so no credit line is cut off.
+  const fitFooter = () => {
+    const h = footer?.scrollHeight, root = footer?.ownerDocument?.documentElement;
+    if (Number.isFinite(h) && h > 0 && root?.style?.setProperty) root.style.setProperty('--foot-fit', `${h}px`);
+  };
+  if (footer && typeof globalThis.addEventListener === 'function') globalThis.addEventListener('resize', fitFooter);
+  const panel = createLayersPanel(host, {
+    layers: panelLayers(items), attribution, on: start, year,
+    onToggle: (_id, _on, ids) => { applyOn(items, ids); writeFooter(ids); showRange(ids); onChange(ids); invalidate(); }
+  });
+  panel.element.classList.add('in-help');
+  // Range (2, 5 or 10 miles) for the wider-area roads and rail, shown under the panel while that layer is on.
+  let store = null;
+  try { store = globalThis.localStorage || null; } catch { /* no storage */ }
+  let range = null;
+  try {
+    range = mountRange(host, { store, coarse: !!globalThis.matchMedia?.('(pointer: coarse)').matches,
+      layer: () => (items || []).find(it => it.id === 'national')?.layer || null, onChange: () => invalidate() });
+  } catch { /* no document to draw it in (tests) */ }
+  const showRange = ids => range?.show(ids.includes('national'));
+  panel.element.addEventListener('close', () => { panel.element.hidden = false; }); // Escape closes Controls, not this part of it
+  writeFooter(panel.onIds());
+  showRange(panel.onIds());
+  onChange(panel.onIds());
+  let last = '';
+  const refresh = () => { // statuses change as data streams in; redraw the panel only when they do
+    if (panel.isOn('national')) range?.apply(); // the layer loads after its first switch-on, at its own start range
+    const now = panelLayers(items), key = JSON.stringify(now);
+    if (key === last) return;
+    last = key;
+    panel.update(now);
+    applyOn(items, panel.onIds());
+    writeFooter(panel.onIds());
+  };
+  // The wider-area range in metres while that layer is on (the drone's fade reaches it), else 0.
+  return { panel, refresh, range, rangeM: () => (range && panel.isOn('national') ? range.miles() * MILE_M : 0) };
+}

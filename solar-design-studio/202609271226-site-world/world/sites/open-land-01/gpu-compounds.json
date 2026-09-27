@@ -1,0 +1,123 @@
+{
+ "assumed": {
+  "formation_fall": 0.01,
+  "hypothetical_m": [
+   60.0,
+   40.0
+  ],
+  "no_batters": "vertical edges; retaining height stands in",
+  "outfall_ring_m": 30,
+  "size_by_kv_m": {
+   "132": [
+    90.0,
+    70.0
+   ],
+   "275": [
+    140.0,
+    100.0
+   ],
+   "33": [
+    40.0,
+    30.0
+   ],
+   "400": [
+    160.0,
+    120.0
+   ],
+   "66": [
+    60.0,
+    45.0
+   ]
+  }
+ },
+ "body_sha256": "0a89f833c52f0c78cb8dda2f62516a16bd0668a065b07ecfe161fd4f9b60239b",
+ "cases": {
+  "channel_pairs": 7,
+  "compounds": 1
+ },
+ "compounds": [
+  {
+   "centre": [
+    400128.89,
+    209920.46
+   ],
+   "cut_e": 1324.1852,
+   "cut_p": 1324.1837,
+   "fall_dir_deg": -39.6393,
+   "fill_e": 1356.1652,
+   "fill_p": 1356.1674,
+   "ground_fall_pct": 7.8915,
+   "ground_max": 223.1012,
+   "ground_min": 217.2241,
+   "id": "H0",
+   "kind": "HYPOTHETICAL connection compound",
+   "kv": null,
+   "level_e": 220.4736,
+   "level_p": 220.4737,
+   "outfall_head_e": 5.385,
+   "outfall_head_p": 5.3853,
+   "photons": [],
+   "poly": [
+    [
+     400097.4,
+     209938.01
+    ],
+    [
+     400124.8,
+     209884.63
+    ],
+    [
+     400160.38,
+     209902.9
+    ],
+    [
+     400132.98,
+     209956.28
+    ]
+   ],
+   "ret_e": 3.2519,
+   "ret_p": 3.2518,
+   "size_m_ASSUMED": [
+    60.0,
+    40.0
+   ],
+   "tcut_e": 1155.0047,
+   "tcut_p": 1155.0028,
+   "tfill_e": 1185.9312,
+   "tfill_p": 1185.9327,
+   "tilt_level_e": 220.4732,
+   "turn_deg": -62.82
+  }
+ ],
+ "device": "NVIDIA GeForce RTX 5070 Ti",
+ "illustrative": "Outlines ASSUMED from voltage; the source has points only. H0 is HYPOTHETICAL. Volumes, retaining heights and outfall heads are illustrative numbers, not verdicts.",
+ "inputs": {
+  "grid_odbl_sha256": "1e9d6397d79295fbad84c5b0c4d316ab79bd2f8314a94d2207c45d0d1a06415f",
+  "source_npy_sha256": "be4d16fb08cd950a3d47082d47d4f25979d2f06218636562464daad9734a03cf"
+ },
+ "item": "3 substation compounds",
+ "photons": {
+  "total": 0
+ },
+ "schema": "gpu-night-a.compounds/1",
+ "script_sha256": "431f32f0c5f57ea1bebce6fd5c598254176cc1c94a50d6dbcd804a10967f7e7e",
+ "site": "open-land-01",
+ "timing_not_in_digest": {
+  "at": "2026-09-27T01:15:15+01:00",
+  "gpu_s": 6.334
+ },
+ "tolerances": {
+  "level_m": 0.02,
+  "retaining_m": 0.05,
+  "volume_abs_m3": 0.05,
+  "volume_rel": 0.005,
+  "witness_rel": 1e-09,
+  "witness_searched_level_rel": 5e-06
+ },
+ "witness": {
+  "compound": "H0",
+  "max_rel": 1.6034032759869134e-12,
+  "photons": 0,
+  "values": 15
+ }
+}

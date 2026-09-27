@@ -1,0 +1,441 @@
+{
+ "schema": "world.attribution.v1",
+ "checked": "2026-09-26",
+ "human": "../ATTRIBUTION.md",
+ "rule": "footerText() in ../attribution.mjs shows one line per on-screen source whose id appears under a loaded layer, de-duplicated by source id and by rendered text, in the order of \"sources\" below, each followed by its licence short name unless the line already names the licence. aboutList() gives the longer list for the Controls/About panel. Sources with on_screen=false are credited in ATTRIBUTION.md only. {year} is replaced by the source year, else the caller year, else the current year.",
+ "code_licence": {
+  "spdx": "MIT",
+  "holder": "Ventus Ltd",
+  "covers": "code authored by Ventus under web/, tools/, tests/; not third-party data"
+ },
+ "layers": {
+  "ground-grid": [],
+  "terrain": [
+   "ea-lidar-dtm-1m"
+  ],
+  "terrain-live": [
+   "ea-lidar-dtm-1m"
+  ],
+  "slope": [
+   "ea-lidar-dtm-1m"
+  ],
+  "flow": [
+   "ea-lidar-dtm-1m"
+  ],
+  "contours": [
+   "ea-lidar-dtm-1m"
+  ],
+  "shade": [
+   "ea-lidar-dtm-1m"
+  ],
+  "visibility": [
+   "ea-lidar-dtm-1m",
+   "os-open-roads"
+  ],
+  "grid": [
+   "osm"
+  ],
+  "national": [
+   "osm"
+  ],
+  "national-os": [
+   "os-open-roads"
+  ],
+  "water": [
+   "os-open-rivers"
+  ],
+  "ways": [
+   "os-open-roads",
+   "os-openmap-local"
+  ],
+  "search": [
+   "repd"
+  ],
+  "projects": [
+   "repd"
+  ],
+  "grid-lines": [
+   "osm"
+  ],
+  "substations": [
+   "osm-substations"
+  ],
+  "terrain-fallback": [
+   "copernicus-dem-glo30"
+  ],
+  "flood": [
+   "ea-flood-map-planning"
+  ],
+  "sssi": [
+   "ne-sssi"
+  ],
+  "postcodes": [
+   "postcodes-io"
+  ],
+  "names": [
+   "os-open-names"
+  ],
+  "rivers": [
+   "os-open-rivers"
+  ],
+  "roads": [
+   "os-open-roads"
+  ],
+  "trench": [
+   "dno-figures"
+  ],
+  "cables": [
+   "dno-figures"
+  ],
+  "land": [
+   "ne-alc",
+   "rpa-crome"
+  ],
+  "alc": [
+   "ne-alc"
+  ],
+  "canopy": [
+   "ea-lidar-dtm-1m",
+   "ea-lidar-fz-dsm-1m",
+   "ea-lidar-lz-dsm-1m"
+  ],
+  "buffers": [
+   "ea-lidar-dtm-1m",
+   "ea-lidar-fz-dsm-1m",
+   "ea-lidar-lz-dsm-1m",
+   "os-open-rivers",
+   "os-open-roads",
+   "osm"
+  ],
+  "ground": [
+   "bgs-geology-625k-bedrock",
+   "bgs-geology-625k-superficial",
+   "bgs-sobi",
+   "coal-development-high-risk-area",
+   "ea-spz-merged"
+  ],
+  "imagery": [
+   "copernicus-sentinel-2"
+  ],
+  "construction": [
+   "osm",
+   "ea-lidar-dtm-1m"
+  ]
+ },
+ "sources": {
+  "ea-lidar-dtm-1m": {
+   "name": "Environment Agency LIDAR Composite DTM 1m",
+   "status": "used",
+   "licence": "OGL-UK-3.0",
+   "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+   "line": "© Environment Agency copyright and/or database right 2022. All rights reserved.",
+   "link": "https://www.data.gov.uk/dataset/01b3ee39-da3f-47b6-83da-dc98e73a461f/lidar-composite-digital-terrain-model-dtm-1m",
+   "on_screen": true,
+   "checked": "2026-09-26"
+  },
+  "ea-lidar-fz-dsm-1m": {
+   "name": "Environment Agency LIDAR Composite First Return DSM 1m",
+   "status": "used",
+   "licence": "OGL-UK-3.0",
+   "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+   "line": "© Environment Agency copyright and/or database right 2022. All rights reserved.",
+   "link": "https://www.data.gov.uk/dataset/92534f24-0b92-4b28-9986-347cf6678b39/lidar-composite-first-return-digital-surface-model-fz-dsm-1m",
+   "on_screen": true,
+   "checked": "2026-09-26"
+  },
+  "ea-lidar-lz-dsm-1m": {
+   "name": "Environment Agency LIDAR Composite DSM 1m (last return)",
+   "status": "used",
+   "licence": "OGL-UK-3.0",
+   "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+   "line": "© Environment Agency copyright and/or database right 2022. All rights reserved.",
+   "link": "https://www.data.gov.uk/dataset/cf3f1137-c12b-44a1-a835-e80fe4a60b92/lidar-composite-digital-surface-model-dsm-1m",
+   "on_screen": true,
+   "checked": "2026-09-26"
+  },
+  "repd": {
+   "name": "DESNZ Renewable Energy Planning Database (via GridAtlas)",
+   "status": "used",
+   "licence": "OGL-UK-3.0",
+   "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+   "line": "Contains public sector information licensed under the Open Government Licence v3.0. Source: DESNZ Renewable Energy Planning Database, via GridAtlas.",
+   "link": "https://www.gov.uk/government/publications/renewable-energy-planning-database-monthly-extract",
+   "on_screen": true,
+   "checked": "2026-09-26"
+  },
+  "postcodes-io": {
+   "name": "postcodes.io (Great Britain postcodes from OS Code-Point Open, Royal Mail and ONS data)",
+   "status": "used",
+   "licence": "OGL-UK-3.0",
+   "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+   "line": "Postcodes via postcodes.io. Contains Ordnance Survey data © Crown copyright and database right 2025. Contains Royal Mail data © Royal Mail copyright and database right 2025. Contains National Statistics data © Crown copyright and database right 2025. Contains NRS data © Crown copyright and database right 2025.",
+   "link": "https://postcodes.io/docs/licences",
+   "on_screen": true,
+   "note": "Wording copied from postcodes.io/docs/licences (GB data under the OS OpenData licence, i.e. OGL v3.0). Service code is MIT. Northern Ireland (BT) postcodes are non-commercial only and are not searched.",
+   "checked": "2026-09-26"
+  },
+  "os-guide-coordinates": {
+   "name": "Ordnance Survey, A Guide to Coordinate Systems in Great Britain v3.6",
+   "status": "used",
+   "licence": "method-citation",
+   "line": "Coordinate conversion after Ordnance Survey, A Guide to Coordinate Systems in Great Britain v3.6 (2020), Annexes B and C.",
+   "link": "https://docs.os.uk/more-than-maps/a-guide-to-coordinate-systems-in-great-britain",
+   "on_screen": false,
+   "checked": "2026-09-26"
+  },
+  "os-codepoint-open": {
+   "name": "OS Code-Point Open",
+   "status": "planned",
+   "licence": "OGL-UK-3.0",
+   "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+   "line": "Contains OS data © Crown copyright and database right {year}. Contains Royal Mail data © Royal Mail copyright and database right {year}. Contains National Statistics data © Crown copyright and database right {year}.",
+   "link": "https://www.ordnancesurvey.co.uk/customers/public-sector/public-sector-licensing/copyright-acknowledgments",
+   "on_screen": true,
+   "checked": "2026-09-26",
+   "year": null
+  },
+  "os-open-names": {
+   "name": "OS Open Names",
+   "status": "used",
+   "licence": "OGL-UK-3.0",
+   "line": "Contains OS data © Crown copyright and database right {year}.",
+   "link": "https://www.ordnancesurvey.co.uk/customers/public-sector/public-sector-licensing/copyright-acknowledgments",
+   "on_screen": true,
+   "checked": "2026-09-27",
+   "year": 2026,
+   "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+  },
+  "os-open-rivers": {
+   "name": "OS Open Rivers",
+   "status": "used",
+   "licence": "OGL-UK-3.0",
+   "line": "Contains OS data © Crown copyright and database right {year}.",
+   "link": "https://www.ordnancesurvey.co.uk/customers/public-sector/public-sector-licensing/copyright-acknowledgments",
+   "on_screen": true,
+   "checked": "2026-09-26",
+   "year": null,
+   "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+  },
+  "os-open-roads": {
+   "name": "OS Open Roads",
+   "status": "used",
+   "licence": "OGL-UK-3.0",
+   "line": "Contains OS data © Crown copyright and database right {year}.",
+   "link": "https://www.ordnancesurvey.co.uk/customers/public-sector/public-sector-licensing/copyright-acknowledgments",
+   "on_screen": true,
+   "checked": "2026-09-26",
+   "year": null,
+   "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+  },
+  "os-openmap-local": {
+   "name": "OS OpenMap - Local",
+   "status": "used",
+   "licence": "OGL-UK-3.0",
+   "line": "Contains OS data © Crown copyright and database right {year}.",
+   "link": "https://www.ordnancesurvey.co.uk/customers/public-sector/public-sector-licensing/copyright-acknowledgments",
+   "on_screen": true,
+   "checked": "2026-09-26",
+   "year": null,
+   "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+  },
+  "osm": {
+   "name": "OpenStreetMap (grid lines, substations, roads and railways via GridAtlas)",
+   "status": "used",
+   "licence": "ODbL-1.0",
+   "licence_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+   "line": "Data © OpenStreetMap contributors, available under the Open Database License.",
+   "link": "https://www.openstreetmap.org/copyright",
+   "on_screen": true,
+   "share_alike": "Per-site extract files are Derivative Databases: publish them under ODbL-1.0, in separate files, never merged with MIT or OGL files.",
+   "checked": "2026-09-26",
+   "short": "© OpenStreetMap contributors, ODbL"
+  },
+  "osm-substations": {
+   "name": "OpenStreetMap substations (national substation index, GridAtlas-derived)",
+   "status": "used",
+   "licence": "ODbL-1.0",
+   "licence_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+   "line": "Substations: Data © OpenStreetMap contributors, available under the Open Database License.",
+   "link": "https://www.openstreetmap.org/copyright",
+   "on_screen": true,
+   "share_alike": "The national substation index (web/world/data/substations/) is a Derivative Database: published under ODbL-1.0 in files of its own.",
+   "checked": "2026-09-26",
+   "short": "Substations: © OpenStreetMap contributors, ODbL"
+  },
+  "copernicus-dem-glo30": {
+   "name": "Copernicus DEM GLO-30",
+   "status": "planned",
+   "licence": "Copernicus-DEM-GLO-30",
+   "licence_url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+   "line": "produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved",
+   "link": "https://doi.org/10.5270/ESA-c5d3d65",
+   "on_screen": true,
+   "checked": "2026-09-26"
+  },
+  "ea-flood-map-planning": {
+   "name": "Environment Agency Flood Map for Planning",
+   "status": "planned",
+   "licence": "OGL-UK-3.0",
+   "line": "© Environment Agency copyright and/or database right {year}. All rights reserved. Some features of this map are based on digital spatial data from the Centre for Ecology & Hydrology, © NERC (CEH).",
+   "link": "https://environment.data.gov.uk/dataset/87446770-d465-11e4-b97a-f0def148f590",
+   "on_screen": true,
+   "note": "Flood Zone 2/3 datasets are marked retired; re-copy the statement from the current product when built.",
+   "checked": "2026-09-26",
+   "year": null
+  },
+  "ne-sssi": {
+   "name": "Natural England Sites of Special Scientific Interest (England)",
+   "status": "planned",
+   "licence": "OGL-UK-3.0",
+   "line": "© Natural England copyright. Contains Ordnance Survey data © Crown copyright and database right {year}.",
+   "link": "https://naturalengland-defra.opendata.arcgis.com/datasets/Defra::sites-of-special-scientific-interest-england/about",
+   "on_screen": true,
+   "note": "Wording to re-confirm on the dataset page when the layer is built.",
+   "checked": "2026-09-26",
+   "year": null
+  },
+  "dno-figures": {
+   "name": "UK DNO specifications and public planning documents (figures quoted with citation)",
+   "status": "used",
+   "licence": "quotation-with-citation",
+   "line": "Trench and cable figures quoted with citation from ENWL, UK Power Networks, Northern Powergrid and public planning documents; no endorsement implied.",
+   "link": "../../docs/trench-sources.md",
+   "on_screen": false,
+   "note": "Figures only. Never republish the source PDFs, BSI tables or DCO drawings.",
+   "checked": "2026-09-26"
+  },
+  "ne-alc": {
+   "name": "Natural England Agricultural Land Classification (provisional and post-1988)",
+   "status": "used",
+   "licence": "OGL-UK-3.0",
+   "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+   "line": "© Natural England copyright. Contains Ordnance Survey data © Crown copyright and database right {year}.",
+   "link": "https://naturalengland-defra.opendata.arcgis.com/datasets/5d2477d8d04b41d4bbc9a8742f858f4d",
+   "on_screen": true,
+   "checked": "2026-09-26",
+   "year": null
+  },
+  "rpa-crome": {
+   "name": "Rural Payments Agency Crop Map of England (CROME) 2024",
+   "status": "used in the land report; not drawn",
+   "licence": "OGL-UK-3.0",
+   "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+   "line": "© Rural Payments Agency copyright and/or database right 2024. All rights reserved.",
+   "link": "https://www.data.gov.uk/dataset/crop-map-of-england-crome-2024",
+   "on_screen": false,
+   "checked": "2026-09-26",
+   "year": 2024
+  },
+  "bgs-geology-625k-bedrock": {
+   "name": "BGS Geology 625k (DiGMapGB-625) bedrock (British Geological Survey (UKRI))",
+   "status": "used",
+   "licence": "OGL-UK-3.0",
+   "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+   "line": "Contains British Geological Survey materials © UKRI 2026.",
+   "link": "https://www.bgs.ac.uk/datasets/bgs-geology-625k-digmapgb/",
+   "on_screen": true,
+   "note": "National-scale generalised interpretation. Unit boundaries can be hundreds of metres from their ground position. Not a site investigation.",
+   "checked": "2026-09-26"
+  },
+  "bgs-geology-625k-superficial": {
+   "name": "BGS Geology 625k (DiGMapGB-625) superficial deposits (British Geological Survey (UKRI))",
+   "status": "used",
+   "licence": "OGL-UK-3.0",
+   "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+   "line": "Contains British Geological Survey materials © UKRI 2026.",
+   "link": "https://www.bgs.ac.uk/datasets/bgs-geology-625k-digmapgb/",
+   "on_screen": true,
+   "note": "Only large superficial bodies are shown at this scale. An empty result means none mapped at 1:625k, not that no superficial deposits exist.",
+   "checked": "2026-09-26"
+  },
+  "bgs-sobi": {
+   "name": "BGS Single Onshore Borehole Index (SOBI) (British Geological Survey (UKRI))",
+   "status": "used",
+   "licence": "OGL-UK-3.0",
+   "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+   "line": "Contains British Geological Survey materials © UKRI 2026.",
+   "link": "https://www.bgs.ac.uk/datasets/boreholes-index/",
+   "on_screen": true,
+   "note": "An index entry is not a log. Length codes below zero mean unknown or confidential and are left missing. Location precision is recorded per borehole. Borehole scans are linked only (free to view from BGS under OGL), never copied.",
+   "checked": "2026-09-26"
+  },
+  "coal-development-high-risk-area": {
+   "name": "Development High Risk Area (coal) (Mining Remediation Authority (formerly The Coal Authority))",
+   "status": "used",
+   "licence": "OGL-UK-3.0",
+   "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+   "line": "© Crown copyright; Mining Remediation Authority (formerly The Coal Authority) data, Open Government Licence v3.0.",
+   "link": "https://www.gov.uk/government/publications/coal-mining-data-development-high-risk-areas/development-high-risk-area-metadata",
+   "on_screen": true,
+   "note": "Screening area for planning, derived by the authority from recorded features. Absence is not proof of no mining.",
+   "checked": "2026-09-26"
+  },
+  "ea-spz-merged": {
+   "name": "Source Protection Zones [Merged] (Environment Agency)",
+   "status": "used",
+   "licence": "OGL-UK-3.0",
+   "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+   "line": "© Environment Agency copyright and/or database right 2016. All rights reserved.",
+   "link": "https://www.data.gov.uk/dataset/09889a48-0439-4bbe-8f2a-87bba26fbbf5/source-protection-zones-merged1",
+   "on_screen": true,
+   "note": "Zones are modelled from groundwater travel time around public abstractions; merged outlines drop per-source detail.",
+   "checked": "2026-09-26"
+  },
+  "copernicus-sentinel-2": {
+   "name": "Copernicus Sentinel-2 L2A (via Microsoft Planetary Computer)",
+   "status": "used",
+   "licence": "Copernicus-Sentinel-data",
+   "licence_url": "https://sentinels.copernicus.eu/documents/247904/690755/Sentinel_Data_Legal_Notice",
+   "line": "Contains modified Copernicus Sentinel data {year}",
+   "year": "2025-2026",
+   "link": "https://planetarycomputer.microsoft.com/dataset/sentinel-2-l2a",
+   "on_screen": true,
+   "note": "Free, full and open (Regulation (EU) No 377/2014); commercial use allowed. Composites, clear dates and indices are modified data. year = the years of the scenes in the staged site's imagery/index.json (licence.credit); the imagery panel shows that exact line. See docs/imagery-licences.md.",
+   "checked": "2026-09-26"
+  }
+ },
+ "layer_notes": {
+  "terrain": "Past a staged site's 1 m tiles, a far ring to about 4 km at 8 m and 16 m spacing, decimated from the EA LIDAR Composite DTM (the mean of the 1 m nodes round each node), OGL v3.0.",
+  "slope": "Slope derived from EA LIDAR Composite DTM 1m (Horn 1981).",
+  "flow": "Flow derived from EA LIDAR Composite DTM 1m.",
+  "ways": "Roads from OS Open Roads; rail from OS OpenMap - Local (both OGL).",
+  "terrain-fallback": "Copernicus GLO-30 is a 30 m surface model, not bare earth.",
+  "land": "ALC grade boundaries; the provisional map is about 1:250,000 and does not split grade 3. CROME crops are not drawn yet (on_screen false until they are).",
+  "buffers": "Zones drawn round the grid lines (OSM), watercourses (OS Open Rivers), roads (OS Open Roads) and hedges (EA LIDAR DSMs); distances cited in web/world/buffers.mjs.",
+  "ground": "Desktop study only, not a substitute for ground investigation. Not imported (licensed or no open vector service): BGS Geology 50k, coal mine entries, coal mining reporting area, aquifer designations, GeoSure, radon, Soilscapes.",
+  "terrain-live": "Away from staged sites, EA LIDAR Composite DTM 1m is fetched live from the Environment Agency WCS.",
+  "construction": "Construction study (GPU, illustrative): tower positions inferred from OpenStreetMap (ODbL, its own file and credit line); levels from EA LIDAR Composite DTM 1m; sizes, heights and sag assumed."
+ },
+ "licences": {
+  "OGL-UK-3.0": {
+   "short": "OGL v3.0",
+   "long": "Open Government Licence v3.0",
+   "url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+  },
+  "ODbL-1.0": {
+   "short": "ODbL",
+   "long": "Open Database License",
+   "url": "https://opendatacommons.org/licenses/odbl/1-0/"
+  },
+  "Copernicus-DEM-GLO-30": {
+   "short": "Copernicus free licence",
+   "long": "ESA User License with the Copernicus Contributing Missions annex (free licence, GLO-30)",
+   "url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM"
+  },
+  "method-citation": {
+   "short": "cited method",
+   "long": "method citation",
+   "url": null
+  },
+  "quotation-with-citation": {
+   "short": "quoted with citation",
+   "long": "quotation with citation",
+   "url": null
+  },
+  "Copernicus-Sentinel-data": {
+   "short": "Copernicus free and open",
+   "long": "Copernicus Sentinel data legal notice",
+   "url": "https://sentinels.copernicus.eu/documents/247904/690755/Sentinel_Data_Legal_Notice"
+  }
+ }
+}

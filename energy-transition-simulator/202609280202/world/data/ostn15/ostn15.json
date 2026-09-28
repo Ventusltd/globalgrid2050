@@ -1,0 +1,238 @@
+{
+ "schema": "world.ostn15.v1",
+ "source": "OSTN15_NTv2_OSGBtoETRS (OS, via PROJ data, BSD 2-Clause)",
+ "units": "1e-5 arc-second",
+ "block_deg": 1,
+ "cols": 61,
+ "rows": 121,
+ "blocks": [
+  {
+   "lat0": 49,
+   "lon0": -7,
+   "file": "49_-7.o15",
+   "sha256": "2bd14132bd088c19ef81474ad64880df60e427d9013a2e759c4092896281ae6d"
+  },
+  {
+   "lat0": 49,
+   "lon0": -6,
+   "file": "49_-6.o15",
+   "sha256": "5797468ec5bd9500f39858d6eadee01e5e9402a0e504f7a9b316e0354a5bb31d"
+  },
+  {
+   "lat0": 50,
+   "lon0": -6,
+   "file": "50_-6.o15",
+   "sha256": "e6e9dd564eb24c9e293cd6459caf575a133ff359f022c2f32304325470ff9578"
+  },
+  {
+   "lat0": 50,
+   "lon0": -5,
+   "file": "50_-5.o15",
+   "sha256": "3bcb007e5b0bc6d75129a68b2067944e804c9f69764e0a78dd289255291a6bf4"
+  },
+  {
+   "lat0": 50,
+   "lon0": -4,
+   "file": "50_-4.o15",
+   "sha256": "98744a9ad11a00224cce2f63f899079af8611833835d408da1537bb7b9cf19b8"
+  },
+  {
+   "lat0": 50,
+   "lon0": -3,
+   "file": "50_-3.o15",
+   "sha256": "ea498f6c595eced57f2435c09db0f10eae5c24cd03af2600b38a25af2ac193f0"
+  },
+  {
+   "lat0": 50,
+   "lon0": -2,
+   "file": "50_-2.o15",
+   "sha256": "f070f715277f0c17543a6845c11f1578dc418d4702670cad0e907247da1aba54"
+  },
+  {
+   "lat0": 50,
+   "lon0": -1,
+   "file": "50_-1.o15",
+   "sha256": "d96d4bbeef43d66e20b70e610fa0f0b4b191add324867aad025ae16dfc260c90"
+  },
+  {
+   "lat0": 50,
+   "lon0": 0,
+   "file": "50_0.o15",
+   "sha256": "e4bea579f8dd2404e60f164e56e4ef7f0f30239a9301b7f8aee8f415f59ecb16"
+  },
+  {
+   "lat0": 50,
+   "lon0": 1,
+   "file": "50_1.o15",
+   "sha256": "729493933ff68f4a3e981f5b128f23f301dda7cc76387a539a77b4d371bf47fe"
+  },
+  {
+   "lat0": 51,
+   "lon0": -5,
+   "file": "51_-5.o15",
+   "sha256": "1fc8b530757bcbe49eda12a64c7c29dd936cb6bd3e5a427d85324791f126cdef"
+  },
+  {
+   "lat0": 51,
+   "lon0": -4,
+   "file": "51_-4.o15",
+   "sha256": "78ccd003dc66626c425a910408067a09efdb4fb42eba354802e130d7ceba431f"
+  },
+  {
+   "lat0": 51,
+   "lon0": -3,
+   "file": "51_-3.o15",
+   "sha256": "0c2037b3fc899a68fbdfc0b8b789b8f5f90da35beffb5a73b4653d837b622781"
+  },
+  {
+   "lat0": 51,
+   "lon0": -2,
+   "file": "51_-2.o15",
+   "sha256": "7582dffa1a0dfbfb6a5a192c087c8e5aeffaa621d34e1122b0083ac0a2bdfeff"
+  },
+  {
+   "lat0": 51,
+   "lon0": -1,
+   "file": "51_-1.o15",
+   "sha256": "8beccb5ba9a0ba266b2cdbe3597ba891296f044a0a7d6ffa9e23f982c0fa60bd"
+  },
+  {
+   "lat0": 51,
+   "lon0": 0,
+   "file": "51_0.o15",
+   "sha256": "4ddf62402ea2b18f3a736aed0b46de54d693edb9127912b9b09bfbf05c46a0af"
+  },
+  {
+   "lat0": 51,
+   "lon0": 1,
+   "file": "51_1.o15",
+   "sha256": "9643387225a8cc5666790abd468200450b17602a094bf01273c157244fc156d0"
+  },
+  {
+   "lat0": 52,
+   "lon0": -5,
+   "file": "52_-5.o15",
+   "sha256": "658ce7ac41d1b707785bfb2ce80de6cf4ac9e6d8edbe96cab086f6e9b42b3f87"
+  },
+  {
+   "lat0": 52,
+   "lon0": -4,
+   "file": "52_-4.o15",
+   "sha256": "c7f34dc16719a6016b28c34479062787c2cf7da6436a0df24fbc24b3ba29be3d"
+  },
+  {
+   "lat0": 52,
+   "lon0": -3,
+   "file": "52_-3.o15",
+   "sha256": "c74ea52b8ca1afdc83a28b66c8a202b62560dd3e8bfb8b0587f09b1e7430058e"
+  },
+  {
+   "lat0": 52,
+   "lon0": -2,
+   "file": "52_-2.o15",
+   "sha256": "eb59d0ba620004de0001eb8be5526adfdf291ed17d5259afe9631fe574737de7"
+  },
+  {
+   "lat0": 52,
+   "lon0": -1,
+   "file": "52_-1.o15",
+   "sha256": "873d5fbc456cc440346e49f72d75695c370f1b11010a17539fe3ffd730883c6a"
+  },
+  {
+   "lat0": 52,
+   "lon0": 0,
+   "file": "52_0.o15",
+   "sha256": "cf263b35cff4023ecffbec804a7d39796ce84c3f1cdaace4fe9deae253a5c483"
+  },
+  {
+   "lat0": 52,
+   "lon0": 1,
+   "file": "52_1.o15",
+   "sha256": "304360f02b48d9102de581a69af276d480fc62c0bc4f8ba0bbebee859168ac95"
+  },
+  {
+   "lat0": 53,
+   "lon0": -5,
+   "file": "53_-5.o15",
+   "sha256": "e1d96390556aca023c8955e763f21c5131de3f9356155e5259efb8f062087101"
+  },
+  {
+   "lat0": 53,
+   "lon0": -4,
+   "file": "53_-4.o15",
+   "sha256": "d59bfa985aa96fa44238afa06bbe60a6ba67e326614b696a1b0227a34559b8b0"
+  },
+  {
+   "lat0": 53,
+   "lon0": -3,
+   "file": "53_-3.o15",
+   "sha256": "bd6e09bc61d9f96aeb4556f884e5a5fab619eb6153606740b45357997e5bd805"
+  },
+  {
+   "lat0": 53,
+   "lon0": -2,
+   "file": "53_-2.o15",
+   "sha256": "2c5778cf53206f667e5fe23fd7203bd5122bbc8d852b4799f90182c1c362a530"
+  },
+  {
+   "lat0": 53,
+   "lon0": -1,
+   "file": "53_-1.o15",
+   "sha256": "e7ae880cff129e91e70f1b26db2682b2d2a87540b4d23b08124658701962cc5f"
+  },
+  {
+   "lat0": 53,
+   "lon0": 0,
+   "file": "53_0.o15",
+   "sha256": "affd6bfb833fb19ebae752685cee3b8bdaf6380f949571004a72b8a3a71ba8b4"
+  },
+  {
+   "lat0": 54,
+   "lon0": -4,
+   "file": "54_-4.o15",
+   "sha256": "0a4ddc69be794f1b45d75e914ff5b2ae92cc1b8ea29f7b441920808e697c94b6"
+  },
+  {
+   "lat0": 54,
+   "lon0": -3,
+   "file": "54_-3.o15",
+   "sha256": "54ae716247ddb11ea384c9115e32c460abf0574238bae876cd6c63951162c224"
+  },
+  {
+   "lat0": 54,
+   "lon0": -2,
+   "file": "54_-2.o15",
+   "sha256": "02f051b95a19c9a34e117fad7ac60faefd8ec57f1d9b5c91855e7459b98bdad9"
+  },
+  {
+   "lat0": 54,
+   "lon0": -1,
+   "file": "54_-1.o15",
+   "sha256": "a62cc3714de58d9749740656ce44680b9dc37939312dc1c3685bcb8ac3e4da75"
+  },
+  {
+   "lat0": 54,
+   "lon0": 0,
+   "file": "54_0.o15",
+   "sha256": "7711e2c1043578f387b28fc9b0277c53e5106f4c8719000082bd6c225a8635ac"
+  },
+  {
+   "lat0": 55,
+   "lon0": -3,
+   "file": "55_-3.o15",
+   "sha256": "2f2bf47f6570b08174a6ce90cc4f104b22b4f839edccce2666f4bc26cff53917"
+  },
+  {
+   "lat0": 55,
+   "lon0": -2,
+   "file": "55_-2.o15",
+   "sha256": "9ddcbd75d5b821cef6bf25f4800bcee5a2a8791b3372f6f725ee60b0aad8d802"
+  },
+  {
+   "lat0": 55,
+   "lon0": -1,
+   "file": "55_-1.o15",
+   "sha256": "464468fca547919b40d43cf628538b306983062dbbaa56be7e1fe64bb9e230f7"
+  }
+ ]
+}

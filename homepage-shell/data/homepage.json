@@ -295,6 +295,25 @@
       "parent_id": "solar-design-studio"
     },
     {
+      "id": "energy-transition-simulator",
+      "title": "Energy Transition Simulator",
+      "subtitle": "Solar farming with power grids, on real UK ground (preview)",
+      "description": "Walk and fly anywhere in the UK over measured Environment Agency LiDAR, streamed where you arrive. Tables, trenches, lines and stations are modelled on the satellite and labelled as measured, documented or estimated. A preview, not a surveyed site or an approved engineering design.",
+      "launch_label": "Open the simulator preview",
+      "operative_release_id": "ets-202609281316",
+      "parent_id": "solar-design-studio",
+      "releases": [
+        {
+          "id": "ets-202609281316",
+          "label": "Preview - 28 September 2026, 13:16",
+          "url": "https://globalgrid2050.com/energy-transition-simulator/202609281316/overlay.html",
+          "published_at": "2026-09-28",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/energy-transition-simulator/tree/900fd7c"
+        }
+      ]
+    },
+    {
       "id": "identity-registry",
       "title": "Identity Registry",
       "subtitle": "One identity. A record you can find.",

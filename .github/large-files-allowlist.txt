@@ -1,0 +1,32 @@
+# Files already tracked at over 5 MB when the PR file size guard was added (2026-09-29).
+# The guard (.github/workflows/pr-file-size-guard.yml) skips these paths so existing
+# content does not fail pull requests. Exact paths or shell globs, one per line.
+# Do not add new entries without a reason in the PR: publish large data as a release
+# asset instead (see docs/REPO-HYGIENE.md).
+
+# Monthly Elexon generation archives (12-19 MB each), maintained by scheduled bots on main.
+data/generation/archive/*/elexon_generation_sources_*.csv
+# The 20 MB project_identity_v6.json fixture, copied into every pipeline snapshot folder.
+uk_renewables_pipeline/*/fixtures/v6/project_identity_v6.json
+# Generation history CSVs carried by the v6 / v6.2 tracker snapshots.
+uk_energy_tracking_v6*/generation_history/*
+
+# Individual files.
+data/confirmed/generation_daily_mw_spine_fuelhh_candidate.json
+data/electricity/elexon_system_prices_half_hourly.csv
+data/generation/elexon_generation_sources_2026.csv
+data/generation/elexon_generation_sources_half_hourly.csv
+dist/project_identity_v6.json
+global_ports.geojson
+# Grid-proximity fixture (8 MB) copied into each pipelinenews_intelligence snapshot.
+pipelinenews_intelligence/*/data/202608311610-grid-proximity.json
+repd_grid_atlasv6/data/global_ports.geojson
+repd_grid_atlasv7/data/global_ports.geojson
+repd_grid_atlasv8/data/global_ports.geojson
+testcode/202609051152/evidence/all-records.csv
+# Grid-proximity fixture copied into each testcode snapshot.
+testcode/*/pipeline/data/202608311610-grid-proximity.json
+uk_mainline_railways.geojson
+uk_motorways.geojson
+uk_primary_roads.geojson
+uk_trunk_roads.geojson

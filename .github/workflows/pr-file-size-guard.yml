@@ -1,0 +1,106 @@
+name: PR file size guard
+
+# Fails a pull request that adds or grows a file beyond MAX_MB, unless the path
+# is listed in .github/large-files-allowlist.txt (exact paths or shell globs,
+# one per line, '#' comments). Runs on pull requests only: pushes to main are
+# deliberately not checked so the existing bots that commit generated data to
+# main keep working. Existing large files are allowlisted so current content
+# does not break the check; the goal is to stop NEW bulk data arriving via PR.
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-file-size-guard-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  size-guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      MAX_MB: '5'
+      ALLOWLIST: .github/large-files-allowlist.txt
+    steps:
+      # Blobless and sparse: only .github/ is materialised, so this stays fast
+      # even in repositories that carry hundreds of megabytes of data. Blobs
+      # for the PR's own changed files are fetched lazily when sized below.
+      - name: Checkout the PR merge commit (blobless, sparse, no history)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: .github
+          sparse-checkout-cone-mode: true
+
+      - name: Fetch the base commit
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: git fetch --no-tags --depth=1 --filter=blob:none origin "$BASE_SHA"
+
+      - name: Check added or modified files against the size budget
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          limit=$(( MAX_MB * 1024 * 1024 ))
+
+          allow=()
+          if [ -f "$ALLOWLIST" ]; then
+            while IFS= read -r line || [ -n "$line" ]; do
+              line="${line%%#*}"
+              line="${line#"${line%%[![:space:]]*}"}"
+              line="${line%"${line##*[![:space:]]}"}"
+              [ -n "$line" ] && allow+=("$line")
+            done < "$ALLOWLIST"
+          fi
+
+          allowed() {
+            local p="$1" pat
+            for pat in "${allow[@]+"${allow[@]}"}"; do
+              # shellcheck disable=SC2053
+              [[ "$p" == $pat ]] && return 0
+            done
+            return 1
+          }
+
+          failed=0
+          checked=0
+          {
+            echo "## PR file size guard"
+            echo ""
+            echo "Limit: ${MAX_MB} MB per file (added or modified files, allowlist: \`$ALLOWLIST\`)."
+            echo ""
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          # HEAD is the merge of the PR into its base, so diffing it against the
+          # base commit yields exactly the PR's own additions and modifications.
+          while IFS= read -r -d '' path; do
+            [ -n "$path" ] || continue
+            size=$(git cat-file -s "HEAD:$path" 2>/dev/null || echo 0)
+            checked=$((checked + 1))
+            if [ "$size" -gt "$limit" ]; then
+              mb=$(awk -v b="$size" 'BEGIN { printf "%.1f", b / 1048576 }')
+              if allowed "$path"; then
+                echo "allowlisted  ${mb} MB  $path"
+                echo "- allowlisted: \`$path\` (${mb} MB)" >> "$GITHUB_STEP_SUMMARY"
+              else
+                echo "::error file=$path::$path is ${mb} MB, over the ${MAX_MB} MB limit. Publish it as a release asset, a workflow artifact, or an external dataset, or add it to $ALLOWLIST with a reason."
+                echo "- FAIL: \`$path\` (${mb} MB)" >> "$GITHUB_STEP_SUMMARY"
+                failed=1
+              fi
+            fi
+          done < <(git diff --name-only -z --diff-filter=AM "$BASE_SHA" HEAD)
+
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Files checked: $checked" >> "$GITHUB_STEP_SUMMARY"
+          echo "checked $checked added/modified files against a ${MAX_MB} MB limit"
+          if [ "$failed" -ne 0 ]; then
+            echo "One or more files exceed the size budget. See the annotations above." >&2
+            exit 1
+          fi
+          echo "All files within budget."

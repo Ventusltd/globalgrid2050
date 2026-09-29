@@ -109,3 +109,17 @@ testcode/compatibility-*/**/*.jpeg
 testcode/**/evidence*/**/*.webp
 testcode/**/compatibility*/**/*.webp
 testcode/compatibility-*/**/*.webp
+
+# Bulk download outputs: publish as release assets or workflow artifacts,
+# never commit (see docs/REPO-HYGIENE.md). None of these matched a tracked
+# file when added on 2026-09-29.
+*.geojson.gz
+*.csv.gz
+*.sqlite
+*.sqlite.gz
+*.mbtiles
+*.pmtiles
+# Scratch copies of snapshot folders.
+*_backup/
+*-backup/
+*.orig

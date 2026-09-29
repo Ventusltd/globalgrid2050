@@ -84,3 +84,11 @@
 # as an attested artefact. A data file that parses identically either way is
 # none of those.
 *.csv   -text
+
+# SUGGESTION (not enabled): Git LFS for bulk datasets. Enabling LFS on files
+# that are already tracked rewrites history and needs the LFS quota confirmed
+# first, so these lines stay commented. See docs/REPO-HYGIENE.md.
+#*.geojson                          filter=lfs diff=lfs merge=lfs -text
+#data/generation/archive/**/*.csv   filter=lfs diff=lfs merge=lfs -text
+#**/fixtures/**/*.json              filter=lfs diff=lfs merge=lfs -text
+#*.parquet                          filter=lfs diff=lfs merge=lfs -text

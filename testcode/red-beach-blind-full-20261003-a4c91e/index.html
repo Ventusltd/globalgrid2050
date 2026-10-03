@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Red Beach — Procedural Single Line Diagram</title>
+<style>
+:root{
+  --bg:#071018;
+  --panel:#0d1822;
+  --panel2:#111f2c;
+  --text:#eaf2f8;
+  --muted:#90a4b5;
+  --line:#8ca2b3;
+  --kv33:#ffb347;
+  --kv11:#5dd5ff;
+  --future:#9aa6b2;
+  --accent:#8cf0c8;
+  --danger:#ff7b7b;
+  --grid:rgba(255,255,255,.035);
+  --border:rgba(255,255,255,.10);
+  --shadow:0 14px 40px rgba(0,0,0,.32);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{overflow:hidden}
+button,input{font:inherit}
+button{color:var(--text);background:var(--panel2);border:1px solid var(--border);border-radius:9px;padding:8px 10px;cursor:pointer}
+button:hover{border-color:rgba(255,255,255,.28)}
+button.active{border-color:var(--accent);box-shadow:0 0 0 1px rgba(140,240,200,.22) inset}
+button.primary{background:#14382f;border-color:#276c5b}
+input[type="search"]{background:#08131c;color:var(--text);border:1px solid var(--border);border-radius:9px;padding:8px 10px;min-width:180px}
+.app{display:grid;grid-template-rows:auto 1fr;height:100%}
+header{
+  display:flex;gap:12px;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--border);background:rgba(7,16,24,.96);
+  backdrop-filter:blur(12px);z-index:20
+}
+.titlewrap{min-width:230px}
+h1{font-size:16px;line-height:1.1;margin:0;font-weight:720;letter-spacing:.02em}
+.sub{font-size:11px;color:var(--muted);margin-top:3px}
+.controls{display:flex;gap:7px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.workspace{display:grid;grid-template-columns:minmax(0,1fr) 330px;min-height:0}
+.stage{
+  position:relative;min-width:0;min-height:0;overflow:hidden;
+  background:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px, transparent 1px),
+    radial-gradient(circle at 45% 35%,#10202d 0,#08131c 48%,#050c12 100%);
+  background-size:32px 32px,32px 32px,100% 100%;
+  touch-action:none
+}
+svg{width:100%;height:100%;display:block;user-select:none;-webkit-user-select:none}
+.world{transform-origin:0 0}
+.panel{border-left:1px solid var(--border);background:var(--panel);display:flex;flex-direction:column;min-height:0}
+.panel-head{padding:14px 14px 11px;border-bottom:1px solid var(--border)}
+.panel-head strong{font-size:13px}
+.panel-scroll{overflow:auto;padding:12px 14px 30px}
+.card{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:11px 12px;margin-bottom:10px}
+.card h2{font-size:12px;margin:0 0 8px;color:#fff;letter-spacing:.04em;text-transform:uppercase}
+.kv{display:grid;grid-template-columns:112px 1fr;gap:5px 8px;font-size:12px}
+.kv div:nth-child(odd){color:var(--muted)}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;word-break:break-word}
+.pill{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--border);border-radius:999px;padding:4px 7px;font-size:10px;color:#d6e0e8}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.legend{position:absolute;left:12px;bottom:12px;display:flex;gap:7px;flex-wrap:wrap;z-index:10}
+.legend .pill{background:rgba(6,14,20,.82);backdrop-filter:blur(8px)}
+.notice{position:absolute;top:12px;left:12px;max-width:540px;background:rgba(8,19,28,.88);border:1px solid var(--border);border-radius:10px;padding:8px 10px;font-size:11px;color:#b8c6d0;z-index:10;backdrop-filter:blur(8px);pointer-events:none}
+.toast{position:absolute;right:12px;bottom:12px;background:#10212e;border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-size:11px;opacity:0;transform:translateY(6px);transition:.2s;pointer-events:none}
+.toast.show{opacity:1;transform:none}
+.statusbar{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:10px;margin-top:8px;flex-wrap:wrap}
+.statusbar span{border:1px solid var(--border);border-radius:999px;padding:3px 6px}
+svg text{fill:#dfe9ef;font-family:ui-sans-serif,system-ui,sans-serif;pointer-events:none}
+.enclosure{fill:rgba(255,255,255,.012);stroke:#516474;stroke-width:1.5;stroke-dasharray:16 10;vector-effect:non-scaling-stroke}
+.route,.bus,.equipment-stroke{fill:none;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.route{stroke-width:2.25}
+.bus{stroke-width:5}
+.solid{}
+.dashed{stroke-dasharray:10 8}
+.long_dash{stroke-dasharray:18 10}
+.kv33{stroke:var(--kv33)}
+.kv11{stroke:var(--kv11)}
+.unknownkv{stroke:var(--line)}
+.future{opacity:.62}
+.hit{stroke:transparent;stroke-width:20;fill:none;cursor:pointer;pointer-events:stroke;vector-effect:non-scaling-stroke}
+.eqhit{cursor:pointer}
+.breaker-body{stroke-width:2.2;fill:none}
+.breaker-cross{stroke-width:1.6}
+.transformer-circle{fill:rgba(255,255,255,.025);stroke-width:2.2}
+.external-cap{stroke-width:2}
+.eq-label{font-size:15px;font-weight:650}
+.small-label{font-size:11px;fill:#9fb0bd}
+.bay-label{font-size:13px;font-weight:700;fill:#cbd7df}
+.annotation{font-size:13px;fill:#93a7b6}
+.voltage-label{font-size:13px;font-weight:800}
+.selected .breaker-body,.selected .breaker-cross,.selected .transformer-circle,.selected .external-cap{stroke:var(--accent)!important;filter:drop-shadow(0 0 5px rgba(140,240,200,.55))}
+.highlight{stroke:var(--accent)!important;opacity:1!important;filter:drop-shadow(0 0 4px rgba(140,240,200,.45))}
+.trace-overlay{
+  fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:3 16;animation:march 1s linear infinite;vector-effect:non-scaling-stroke;
+  filter:drop-shadow(0 0 5px rgba(140,240,200,.45));pointer-events:none
+}
+@keyframes march{to{stroke-dashoffset:-38}}
+.hiddenSystem{opacity:.08;pointer-events:none}
+.hiddenFuture{display:none}
+.noLabels .human-label{display:none}
+.crosshair{pointer-events:none;display:none}
+.search-results{position:absolute;right:345px;top:56px;width:310px;max-height:320px;overflow:auto;background:#0a1620;border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow);z-index:30;display:none}
+.search-results.show{display:block}
+.search-item{padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.06);cursor:pointer}
+.search-item:hover{background:#142332}
+.search-item:last-child{border-bottom:0}
+.search-item b{font-size:12px}
+.search-item div{font-size:10px;color:var(--muted);margin-top:2px}
+dialog{background:#0b1721;color:var(--text);border:1px solid var(--border);border-radius:14px;max-width:720px;width:min(92vw,720px);box-shadow:var(--shadow);padding:0}
+dialog::backdrop{background:rgba(0,0,0,.66)}
+.modal-head{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.modal-body{padding:16px;max-height:70vh;overflow:auto;font-size:13px;line-height:1.5}
+.modal-body h3{font-size:12px;text-transform:uppercase;letter-spacing:.05em;margin:18px 0 6px}
+.modal-body ul{padding-left:19px}
+.modal-body code{color:#b7f5df}
+input[type=file]{display:none}
+@media(max-width:900px){
+  body{overflow:auto}
+  .app{height:auto;min-height:100%}
+  header{align-items:flex-start;flex-direction:column}
+  .controls{justify-content:flex-start;width:100%}
+  input[type="search"]{flex:1;min-width:140px}
+  .workspace{grid-template-columns:1fr;grid-template-rows:68vh auto}
+  .panel{border-left:0;border-top:1px solid var(--border)}
+  .search-results{right:10px;left:10px;top:108px;width:auto}
+  .notice{max-width:calc(100% - 24px)}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="titlewrap">
+      <h1 id="title">Procedural SLD</h1>
+      <div class="sub" id="subtitle"></div>
+      <div class="statusbar" id="statusbar"></div>
+    </div>
+    <div class="controls">
+      <input id="search" type="search" placeholder="Find bay, circuit, transformer…" autocomplete="off" />
+      <button id="fitBtn" title="Fit drawing">Fit</button>
+      <button id="traceBtn" title="Animate structural connectivity">Trace topology</button>
+      <button id="futureBtn" class="active" title="Show/hide future or dashed provisions">Future</button>
+      <button id="labelsBtn" class="active" title="Show/hide human-readable labels">Labels</button>
+      <button id="infoBtn" title="Source and assumptions">Source / assumptions</button>
+      <label><button id="loadBtn" title="Load another compatible JSON">Load JSON</button><input id="fileInput" type="file" accept=".json,application/json"/></label>
+    </div>
+  </header>
+
+  <div class="workspace">
+    <main class="stage" id="stage">
+      <div class="notice">Interactive design-topology visualisation. Breaker operating states are unknown; animation shows structural connectivity, <b>not validated power flow</b>.</div>
+      <svg id="svg" role="img" aria-label="Procedural single-line diagram">
+        <g id="viewport"></g>
+      </svg>
+      <div class="legend">
+        <span class="pill"><span class="dot" style="background:var(--kv33)"></span>33 kV</span>
+        <span class="pill"><span class="dot" style="background:var(--kv11)"></span>11 kV</span>
+        <span class="pill"><span style="width:16px;border-top:1px dashed #aab5bd;display:inline-block"></span>future / dashed</span>
+      </div>
+      <div id="toast" class="toast"></div>
+      <div id="searchResults" class="search-results"></div>
+    </main>
+
+    <aside class="panel">
+      <div class="panel-head"><strong>Inspector</strong><div class="sub">Click equipment, busbar or connection.</div></div>
+      <div class="panel-scroll" id="inspector"></div>
+    </aside>
+  </div>
+</div>
+
+<dialog id="infoDialog">
+  <div class="modal-head"><strong>Source / assumptions</strong><button id="closeInfo">Close</button></div>
+  <div class="modal-body" id="infoBody"></div>
+</dialog>
+
+<script id="source-json" type="application/json">{"format": "substation_single_line_model", "format_version": "1.0.0", "id": "red_beach_4256_0010_B", "title": "RED BEACH SINGLE LINE DIAGRAM", "description": "Electrical connectivity and schematic layout transcribed from the supplied single-page drawing.", "source": {"filename": "4256-0010 (B).pdf", "drawing_number": "4256-0010", "revision": "B", "sheet": 1, "sheet_count": 1, "organisation": "Vector", "copyright_holder": "Vector Limited", "drawing_category": "ZONE SUBSTATIONS", "drawing_function": "B1", "document_type": "B", "scale_at_A3": "NTS", "contract_number": "AP01027", "drawn_by": "J.B.", "checked_by": "SM", "drawing_date": "2005-07-14", "approval_stamp": "APPROVED BY CLIENT", "revision_history": [{"revision": "A", "amendment": "ISSUED FOR CLIENT APPROVAL", "date": "2005-07-15", "name": "JB"}, {"revision": "B", "amendment": "APPROVED BY CLIENT", "date": "2005-09-22", "name": "LCT"}], "referenced_drawings": [{"drawing_number": "4256-0005", "purpose": "Relay and instrumentation details", "available_in_this_model": false}, {"drawing_number": "4256-0030", "purpose": "Cable details", "available_in_this_model": false}], "notes": [{"number": 1, "text": "FOR RELAY AND INSTRUMENTATION DETAILS, SEE DRAWING 4256-0005."}, {"number": 2, "text": "FOR CABLE DETAILS, SEE DRAWING 4256-0030."}], "extraction": {"method": "Manual visual transcription from raster PDF", "page": 1, "created_date": "2026-10-02", "verification_status": "Visually transcribed; engineering review pending"}}, "conventions": {"units": {"voltage": "kV", "current": "A", "short_time_current": "kA", "duration": "s", "apparent_power": "MVA"}, "null": "Unknown or not stated in the source; never means zero.", "ids": "Stable model identifiers; original drawing references are stored separately.", "connectivity": "Each connection assigns one equipment terminal to one electrical node. Terminals on the same node are electrically joined. Breakers and transformers connect distinct nodes through equipment, not through wires.", "bus_sections": "Left and right bus sections are separate electrical nodes joined only through their bus-section breaker.", "operating_state": "All breaker operating states are unknown. The open-looking source symbol is recorded only as drawing appearance.", "scope": "Design topology, including dashed provisions. This model does not assert the current installed or energised network.", "future_status": "Explicit FUTURE labels are observed. Future status of T2 and dashed bus extensions is inferred from dashed styling.", "layout": "Approximate page coordinates after rotating the PDF 90 degrees counterclockwise; origin top-left, x right, y down. Coordinates are schematic and not physical distances.", "equipment_types": ["busbar_section", "circuit_breaker", "power_transformer", "external_circuit"], "external_circuit": "Boundary of the drawing. Remote source/load topology and power-flow direction are unspecified."}, "substation": {"id": "red_beach", "name": "RED BEACH", "nominal_voltage_levels_kv": [33, 11]}, "switchboards": [{"id": "SB33", "label": "33 kV SWITCHBOARD", "nominal_voltage_kv": 33, "rated_current_a": 1250, "short_time_withstand": {"current_ka": 25, "duration_s": 3}, "busbar_section_ids": ["BUS33_L", "BUS33_R"], "source_rating_text": "(1250A, 25kA, 3 sec)"}, {"id": "SB11", "label": "11 kV SWITCHBOARD", "nominal_voltage_kv": 11, "rated_current_a": 2000, "short_time_withstand": {"current_ka": 25, "duration_s": 3}, "busbar_section_ids": ["BUS11_L", "BUS11_R"], "source_rating_text": "(2000A, 25kA, 3 sec)"}], "bays": [{"id": "H01", "source_reference": "=H01", "switchboard_id": "SB33", "role": "external_circuit", "label": "FUTURE", "equipment_ids": ["H01_Q0", "H01_CIRCUIT"]}, {"id": "H02", "source_reference": "=H02", "switchboard_id": "SB33", "role": "external_circuit", "label": "SILVERDALE", "equipment_ids": ["H02_Q0", "H02_CIRCUIT"]}, {"id": "H03", "source_reference": "=H03", "switchboard_id": "SB33", "role": "transformer_hv", "label": null, "equipment_ids": ["H03_Q0", "T1"]}, {"id": "H04", "source_reference": "=H04", "switchboard_id": "SB33", "role": "bus_section", "label": null, "equipment_ids": ["H04_Q0"]}, {"id": "H05", "source_reference": "=H05", "switchboard_id": "SB33", "role": "transformer_hv", "label": null, "equipment_ids": ["H05_Q0", "T2"]}, {"id": "H06", "source_reference": "=H06", "switchboard_id": "SB33", "role": "external_circuit", "label": "MANLY", "equipment_ids": ["H06_Q0", "H06_CIRCUIT"]}, {"id": "H07", "source_reference": "=H07", "switchboard_id": "SB33", "role": "external_circuit", "label": "FUTURE", "equipment_ids": ["H07_Q0", "H07_CIRCUIT"]}, {"id": "K01", "source_reference": "=K01", "switchboard_id": "SB11", "role": "external_circuit", "label": "SPARE", "equipment_ids": ["K01_Q0", "K01_CIRCUIT"]}, {"id": "K02", "source_reference": "=K02", "switchboard_id": "SB11", "role": "external_circuit", "label": "FANTAIL COURT", "equipment_ids": ["K02_Q0", "K02_CIRCUIT"]}, {"id": "K03", "source_reference": "=K03", "switchboard_id": "SB11", "role": "external_circuit", "label": "BAY STREET", "equipment_ids": ["K03_Q0", "K03_CIRCUIT"]}, {"id": "K04", "source_reference": "=K04", "switchboard_id": "SB11", "role": "transformer_lv", "label": null, "equipment_ids": ["K04_Q0", "T1"]}, {"id": "K05", "source_reference": "=K05", "switchboard_id": "SB11", "role": "external_circuit", "label": "JELAS ROAD", "equipment_ids": ["K05_Q0", "K05_CIRCUIT"]}, {"id": "K06", "source_reference": "=K06", "switchboard_id": "SB11", "role": "external_circuit", "label": "VIPOND ROAD", "equipment_ids": ["K06_Q0", "K06_CIRCUIT"]}, {"id": "K07", "source_reference": "=K07", "switchboard_id": "SB11", "role": "bus_section", "label": null, "equipment_ids": ["K07_Q0"]}, {"id": "K08", "source_reference": "=K08", "switchboard_id": "SB11", "role": "external_circuit", "label": "SHADON PLACE", "equipment_ids": ["K08_Q0", "K08_CIRCUIT"]}, {"id": "K09", "source_reference": "=K09", "switchboard_id": "SB11", "role": "external_circuit", "label": "TITAN PLACE", "equipment_ids": ["K09_Q0", "K09_CIRCUIT"]}, {"id": "K10", "source_reference": "=K10", "switchboard_id": "SB11", "role": "transformer_lv", "label": null, "equipment_ids": ["K10_Q0", "T2"]}, {"id": "K11", "source_reference": "=K11", "switchboard_id": "SB11", "role": "external_circuit", "label": "FUTURE", "equipment_ids": ["K11_Q0", "K11_CIRCUIT"]}, {"id": "K12", "source_reference": "=K12", "switchboard_id": "SB11", "role": "external_circuit", "label": "FUTURE", "equipment_ids": ["K12_Q0", "K12_CIRCUIT"]}, {"id": "K13", "source_reference": "=K13", "switchboard_id": "SB11", "role": "external_circuit", "label": "FUTURE", "equipment_ids": ["K13_Q0", "K13_CIRCUIT"]}], "equipment": [{"id": "BUS33_L", "type": "busbar_section", "terminals": [{"id": "bus"}], "switchboard_id": "SB33", "nominal_voltage_kv": 33, "label": "33 kV left section", "installed_status": "unknown", "representation_basis": "Bus split at depicted section breaker"}, {"id": "BUS33_R", "type": "busbar_section", "terminals": [{"id": "bus"}], "switchboard_id": "SB33", "nominal_voltage_kv": 33, "label": "33 kV right section", "installed_status": "unknown", "representation_basis": "Bus split at depicted section breaker"}, {"id": "BUS11_L", "type": "busbar_section", "terminals": [{"id": "bus"}], "switchboard_id": "SB11", "nominal_voltage_kv": 11, "label": "11 kV left section", "installed_status": "unknown", "representation_basis": "Bus split at depicted section breaker"}, {"id": "BUS11_R", "type": "busbar_section", "terminals": [{"id": "bus"}], "switchboard_id": "SB11", "nominal_voltage_kv": 11, "label": "11 kV right section", "installed_status": "unknown", "representation_basis": "Bus split at depicted section breaker"}, {"id": "H01_Q0", "type": "circuit_breaker", "terminals": [{"id": "a"}, {"id": "b"}], "bay_id": "H01", "switchboard_id": "SB33", "source_reference": "=H01-Q0", "source_local_marking": "-Q0", "nominal_voltage_kv": 33, "rated_current_a": null, "breaking_current_ka": null, "operating_state": "unknown", "installed_status": "unknown", "drawing_line_style": "dashed", "drawing_symbol_appearance": "open_angled_contact_with_cross"}, {"id": "H01_CIRCUIT", "type": "external_circuit", "terminals": [{"id": "local"}], "bay_id": "H01", "source_reference": "=H01", "label": "FUTURE", "nominal_voltage_kv": 33, "role": "unspecified_external_circuit", "power_flow_direction": "unspecified", "provision_status": "future_explicit", "installed_status": "unknown", "via": null, "source_label": "FUTURE"}, {"id": "H02_Q0", "type": "circuit_breaker", "terminals": [{"id": "a"}, {"id": "b"}], "bay_id": "H02", "switchboard_id": "SB33", "source_reference": "=H02-Q0", "source_local_marking": "-Q0", "nominal_voltage_kv": 33, "rated_current_a": 1250, "breaking_current_ka": null, "operating_state": "unknown", "installed_status": "unknown", "drawing_line_style": "solid", "drawing_symbol_appearance": "open_angled_contact_with_cross"}, {"id": "H02_CIRCUIT", "type": "external_circuit", "terminals": [{"id": "local"}], "bay_id": "H02", "source_reference": "=H02", "label": "SILVERDALE", "nominal_voltage_kv": 33, "role": "unspecified_external_circuit", "power_flow_direction": "unspecified", "provision_status": "depicted_solid", "installed_status": "unknown", "via": null, "source_label": "SILVERDALE"}, {"id": "H06_Q0", "type": "circuit_breaker", "terminals": [{"id": "a"}, {"id": "b"}], "bay_id": "H06", "switchboard_id": "SB33", "source_reference": "=H06-Q0", "source_local_marking": "-Q0", "nominal_voltage_kv": 33, "rated_current_a": 1250, "breaking_current_ka": null, "operating_state": "unknown", "installed_status": "unknown", "drawing_line_style": "solid", "drawing_symbol_appearance": "open_angled_contact_with_cross"}, {"id": "H06_CIRCUIT", "type": "external_circuit", "terminals": [{"id": "local"}], "bay_id": "H06", "source_reference": "=H06", "label": "MANLY", "nominal_voltage_kv": 33, "role": "unspecified_external_circuit", "power_flow_direction": "unspecified", "provision_status": "depicted_solid", "installed_status": "unknown", "via": null, "source_label": "MANLY"}, {"id": "H07_Q0", "type": "circuit_breaker", "terminals": [{"id": "a"}, {"id": "b"}], "bay_id": "H07", "switchboard_id": "SB33", "source_reference": "=H07-Q0", "source_local_marking": "-Q0", "nominal_voltage_kv": 33, "rated_current_a": null, "breaking_current_ka": null, "operating_state": "unknown", "installed_status": "unknown", "drawing_line_style": "dashed", "drawing_symbol_appearance": "open_angled_contact_with_cross"}, {"id": "H07_CIRCUIT", "type": "external_circuit", "terminals": [{"id": "local"}], "bay_id": "H07", "source_reference": "=H07", "label": "FUTURE", "nominal_voltage_kv": 33, "role": "unspecified_external_circuit", "power_flow_direction": "unspecified", "provision_status": "future_explicit", "installed_status": "unknown", "via": null, "source_label": "FUTURE"}, {"id": "K01_Q0", "type": "circuit_breaker", "terminals": [{"id": "a"}, {"id": "b"}], "bay_id": "K01", "switchboard_id": "SB11", "source_reference": "=K01-Q0", "source_local_marking": "-Q0", "nominal_voltage_kv": 11, "rated_current_a": 630, "breaking_current_ka": null, "operating_state": "unknown", "installed_status": "unknown", "drawing_line_style": "solid", "drawing_symbol_appearance": "open_angled_contact_with_cross"}, {"id": "K01_CIRCUIT", "type": "external_circuit", "terminals": [{"id": "local"}], "bay_id": "K01", "source_reference": "=K01", "label": "SPARE", "nominal_voltage_kv": 11, "role": "unspecified_external_circuit", "power_flow_direction": "unspecified", "provision_status": "spare_explicit", "installed_status": "unknown", "via": null, "source_label": "SPARE"}, {"id": "K02_Q0", "type": "circuit_breaker", "terminals": [{"id": "a"}, {"id": "b"}], "bay_id": "K02", "switchboard_id": "SB11", "source_reference": "=K02-Q0", "source_local_marking": "-Q0", "nominal_voltage_kv": 11, "rated_current_a": 630, "breaking_current_ka": null, "operating_state": "unknown", "installed_status": "unknown", "drawing_line_style": "solid", "drawing_symbol_appearance": "open_angled_contact_with_cross"}, {"id": "K02_CIRCUIT", "type": "external_circuit", "terminals": [{"id": "local"}], "bay_id": "K02", "source_reference": "=K02", "label": "FANTAIL COURT", "nominal_voltage_kv": 11, "role": "unspecified_external_circuit", "power_flow_direction": "unspecified", "provision_status": "depicted_solid", "installed_status": "unknown", "via": "RING MAIN UNIT", "source_label": "FANTAIL COURT (VIA RING MAIN UNIT)"}, {"id": "K03_Q0", "type": "circuit_breaker", "terminals": [{"id": "a"}, {"id": "b"}], "bay_id": "K03", "switchboard_id": "SB11", "source_reference": "=K03-Q0", "source_local_marking": "-Q0", "nominal_voltage_kv": 11, "rated_current_a": 630, "breaking_current_ka": null, "operating_state": "unknown", "installed_status": "unknown", "drawing_line_style": "solid", "drawing_symbol_appearance": "open_angled_contact_with_cross"}, {"id": "K03_CIRCUIT", "type": "external_circuit", "terminals": [{"id": "local"}], "bay_id": "K03", "source_reference": "=K03", "label": "BAY STREET", "nominal_voltage_kv": 11, "role": "unspecified_external_circuit", "power_flow_direction": "unspecified", "provision_status": "depicted_solid", "installed_status": "unknown", "via": null, "source_label": "BAY STREET"}, {"id": "K05_Q0", "type": "circuit_breaker", "terminals": [{"id": "a"}, {"id": "b"}], "bay_id": "K05", "switchboard_id": "SB11", "source_reference": "=K05-Q0", "source_local_marking": "-Q0", "nominal_voltage_kv": 11, "rated_current_a": 630, "breaking_current_ka": null, "operating_state": "unknown", "installed_status": "unknown", "drawing_line_style": "solid", "drawing_symbol_appearance": "open_angled_contact_with_cross"}, {"id": "K05_CIRCUIT", "type": "external_circuit", "terminals": [{"id": "local"}], "bay_id": "K05", "source_reference": "=K05", "label": "JELAS ROAD", "nominal_voltage_kv": 11, "role": "unspecified_external_circuit", "power_flow_direction": "unspecified", "provision_status": "depicted_solid", "installed_status": "unknown", "via": null, "source_label": "JELAS ROAD"}, {"id": "K06_Q0", "type": "circuit_breaker", "terminals": [{"id": "a"}, {"id": "b"}], "bay_id": "K06", "switchboard_id": "SB11", "source_reference": "=K06-Q0", "source_local_marking": "-Q0", "nominal_voltage_kv": 11, "rated_current_a": 630, "breaking_current_ka": null, "operating_state": "unknown", "installed_status": "unknown", "drawing_line_style": "solid", "drawing_symbol_appearance": "open_angled_contact_with_cross"}, {"id": "K06_CIRCUIT", "type": "external_circuit", "terminals": [{"id": "local"}], "bay_id": "K06", "source_reference": "=K06", "label": "VIPOND ROAD", "nominal_voltage_kv": 11, "role": "unspecified_external_circuit", "power_flow_direction": "unspecified", "provision_status": "depicted_solid", "installed_status": "unknown", "via": null, "source_label": "VIPOND ROAD"}, {"id": "K08_Q0", "type": "circuit_breaker", "terminals": [{"id": "a"}, {"id": "b"}], "bay_id": "K08", "switchboard_id": "SB11", "source_reference": "=K08-Q0", "source_local_marking": "-Q0", "nominal_voltage_kv": 11, "rated_current_a": 630, "breaking_current_ka": null, "operating_state": "unknown", "installed_status": "unknown", "drawing_line_style": "solid", "drawing_symbol_appearance": "open_angled_contact_with_cross"}, {"id": "K08_CIRCUIT", "type": "external_circuit", "terminals": [{"id": "local"}], "bay_id": "K08", "source_reference": "=K08", "label": "SHADON PLACE", "nominal_voltage_kv": 11, "role": "unspecified_external_circuit", "power_flow_direction": "unspecified", "provision_status": "depicted_solid", "installed_status": "unknown", "via": null, "source_label": "SHADON PLACE"}, {"id": "K09_Q0", "type": "circuit_breaker", "terminals": [{"id": "a"}, {"id": "b"}], "bay_id": "K09", "switchboard_id": "SB11", "source_reference": "=K09-Q0", "source_local_marking": "-Q0", "nominal_voltage_kv": 11, "rated_current_a": 630, "breaking_current_ka": null, "operating_state": "unknown", "installed_status": "unknown", "drawing_line_style": "solid", "drawing_symbol_appearance": "open_angled_contact_with_cross"}, {"id": "K09_CIRCUIT", "type": "external_circuit", "terminals": [{"id": "local"}], "bay_id": "K09", "source_reference": "=K09", "label": "TITAN PLACE", "nominal_voltage_kv": 11, "role": "unspecified_external_circuit", "power_flow_direction": "unspecified", "provision_status": "depicted_solid", "installed_status": "unknown", "via": null, "source_label": "TITAN PLACE"}, {"id": "K11_Q0", "type": "circuit_breaker", "terminals": [{"id": "a"}, {"id": "b"}], "bay_id": "K11", "switchboard_id": "SB11", "source_reference": "=K11-Q0", "source_local_marking": "-Q0", "nominal_voltage_kv": 11, "rated_current_a": null, "breaking_current_ka": null, "operating_state": "unknown", "installed_status": "unknown", "drawing_line_style": "dashed", "drawing_symbol_appearance": "open_angled_contact_with_cross"}, {"id": "K11_CIRCUIT", "type": "external_circuit", "terminals": [{"id": "local"}], "bay_id": "K11", "source_reference": "=K11", "label": "FUTURE", "nominal_voltage_kv": 11, "role": "unspecified_external_circuit", "power_flow_direction": "unspecified", "provision_status": "future_explicit", "installed_status": "unknown", "via": null, "source_label": "FUTURE"}, {"id": "K12_Q0", "type": "circuit_breaker", "terminals": [{"id": "a"}, {"id": "b"}], "bay_id": "K12", "switchboard_id": "SB11", "source_reference": "=K12-Q0", "source_local_marking": "-Q0", "nominal_voltage_kv": 11, "rated_current_a": null, "breaking_current_ka": null, "operating_state": "unknown", "installed_status": "unknown", "drawing_line_style": "dashed", "drawing_symbol_appearance": "open_angled_contact_with_cross"}, {"id": "K12_CIRCUIT", "type": "external_circuit", "terminals": [{"id": "local"}], "bay_id": "K12", "source_reference": "=K12", "label": "FUTURE", "nominal_voltage_kv": 11, "role": "unspecified_external_circuit", "power_flow_direction": "unspecified", "provision_status": "future_explicit", "installed_status": "unknown", "via": null, "source_label": "FUTURE"}, {"id": "K13_Q0", "type": "circuit_breaker", "terminals": [{"id": "a"}, {"id": "b"}], "bay_id": "K13", "switchboard_id": "SB11", "source_reference": "=K13-Q0", "source_local_marking": "-Q0", "nominal_voltage_kv": 11, "rated_current_a": null, "breaking_current_ka": null, "operating_state": "unknown", "installed_status": "unknown", "drawing_line_style": "dashed", "drawing_symbol_appearance": "open_angled_contact_with_cross"}, {"id": "K13_CIRCUIT", "type": "external_circuit", "terminals": [{"id": "local"}], "bay_id": "K13", "source_reference": "=K13", "label": "FUTURE", "nominal_voltage_kv": 11, "role": "unspecified_external_circuit", "power_flow_direction": "unspecified", "provision_status": "future_explicit", "installed_status": "unknown", "via": null, "source_label": "FUTURE"}, {"id": "H04_Q0", "type": "circuit_breaker", "terminals": [{"id": "a"}, {"id": "b"}], "bay_id": "H04", "switchboard_id": "SB33", "source_reference": "=H04-Q0", "source_local_marking": "-Q0", "nominal_voltage_kv": 33, "rated_current_a": 1250, "breaking_current_ka": null, "operating_state": "unknown", "installed_status": "unknown", "drawing_line_style": "solid", "drawing_symbol_appearance": "open_angled_contact_with_cross"}, {"id": "K07_Q0", "type": "circuit_breaker", "terminals": [{"id": "a"}, {"id": "b"}], "bay_id": "K07", "switchboard_id": "SB11", "source_reference": "=K07-Q0", "source_local_marking": "-Q0", "nominal_voltage_kv": 11, "rated_current_a": 2000, "breaking_current_ka": null, "operating_state": "unknown", "installed_status": "unknown", "drawing_line_style": "solid", "drawing_symbol_appearance": "open_angled_contact_with_cross"}, {"id": "H03_Q0", "type": "circuit_breaker", "terminals": [{"id": "a"}, {"id": "b"}], "bay_id": "H03", "switchboard_id": "SB33", "source_reference": "=H03-Q0", "source_local_marking": "-Q0", "nominal_voltage_kv": 33, "rated_current_a": 630, "breaking_current_ka": null, "operating_state": "unknown", "installed_status": "unknown", "drawing_line_style": "solid", "drawing_symbol_appearance": "open_angled_contact_with_cross"}, {"id": "K04_Q0", "type": "circuit_breaker", "terminals": [{"id": "a"}, {"id": "b"}], "bay_id": "K04", "switchboard_id": "SB11", "source_reference": "=K04-Q0", "source_local_marking": "-Q0", "nominal_voltage_kv": 11, "rated_current_a": 2000, "breaking_current_ka": null, "operating_state": "unknown", "installed_status": "unknown", "drawing_line_style": "solid", "drawing_symbol_appearance": "open_angled_contact_with_cross"}, {"id": "T1", "type": "power_transformer", "terminals": [{"id": "hv"}, {"id": "lv"}], "label": "T1", "source_reference": "=H03-T1", "hv_bay_id": "H03", "lv_bay_id": "K04", "rated_power_mva": 20, "rated_voltage_kv": {"hv": 33, "lv": 11}, "vector_group": "Dyn11", "impedance_percent": null, "earthing_arrangement": null, "installed_status": "unknown", "provision_status": "depicted_solid", "review_item_ids": [], "source_rating_text": "33/11 kV; 20MVA; Dyn11"}, {"id": "H05_Q0", "type": "circuit_breaker", "terminals": [{"id": "a"}, {"id": "b"}], "bay_id": "H05", "switchboard_id": "SB33", "source_reference": "=H05-Q0", "source_local_marking": "-Q0", "nominal_voltage_kv": 33, "rated_current_a": 630, "breaking_current_ka": null, "operating_state": "unknown", "installed_status": "unknown", "drawing_line_style": "dashed", "drawing_symbol_appearance": "open_angled_contact_with_cross"}, {"id": "K10_Q0", "type": "circuit_breaker", "terminals": [{"id": "a"}, {"id": "b"}], "bay_id": "K10", "switchboard_id": "SB11", "source_reference": "=K10-Q0", "source_local_marking": "-Q0", "nominal_voltage_kv": 11, "rated_current_a": 2000, "breaking_current_ka": null, "operating_state": "unknown", "installed_status": "unknown", "drawing_line_style": "dashed", "drawing_symbol_appearance": "open_angled_contact_with_cross"}, {"id": "T2", "type": "power_transformer", "terminals": [{"id": "hv"}, {"id": "lv"}], "label": "T2", "source_reference": "=H05-T1", "hv_bay_id": "H05", "lv_bay_id": "K10", "rated_power_mva": 20, "rated_voltage_kv": {"hv": 33, "lv": 11}, "vector_group": "Dyn11", "impedance_percent": null, "earthing_arrangement": null, "installed_status": "unknown", "provision_status": "future_inferred_from_dashed_style", "review_item_ids": ["R01", "R02"], "source_rating_text": "33/11 kV; 20MVA; Dyn11"}], "nodes": [{"id": "N33_L", "nominal_voltage_kv": 33, "kind": "busbar"}, {"id": "N33_R", "nominal_voltage_kv": 33, "kind": "busbar"}, {"id": "N11_L", "nominal_voltage_kv": 11, "kind": "busbar"}, {"id": "N11_R", "nominal_voltage_kv": 11, "kind": "busbar"}, {"id": "N_H01_EXT", "nominal_voltage_kv": 33, "kind": "external_circuit_connection"}, {"id": "N_H02_EXT", "nominal_voltage_kv": 33, "kind": "external_circuit_connection"}, {"id": "N_H06_EXT", "nominal_voltage_kv": 33, "kind": "external_circuit_connection"}, {"id": "N_H07_EXT", "nominal_voltage_kv": 33, "kind": "external_circuit_connection"}, {"id": "N_K01_EXT", "nominal_voltage_kv": 11, "kind": "external_circuit_connection"}, {"id": "N_K02_EXT", "nominal_voltage_kv": 11, "kind": "external_circuit_connection"}, {"id": "N_K03_EXT", "nominal_voltage_kv": 11, "kind": "external_circuit_connection"}, {"id": "N_K05_EXT", "nominal_voltage_kv": 11, "kind": "external_circuit_connection"}, {"id": "N_K06_EXT", "nominal_voltage_kv": 11, "kind": "external_circuit_connection"}, {"id": "N_K08_EXT", "nominal_voltage_kv": 11, "kind": "external_circuit_connection"}, {"id": "N_K09_EXT", "nominal_voltage_kv": 11, "kind": "external_circuit_connection"}, {"id": "N_K11_EXT", "nominal_voltage_kv": 11, "kind": "external_circuit_connection"}, {"id": "N_K12_EXT", "nominal_voltage_kv": 11, "kind": "external_circuit_connection"}, {"id": "N_K13_EXT", "nominal_voltage_kv": 11, "kind": "external_circuit_connection"}, {"id": "N_T1_HV", "nominal_voltage_kv": 33, "kind": "transformer_terminal_connection"}, {"id": "N_T1_LV", "nominal_voltage_kv": 11, "kind": "transformer_terminal_connection"}, {"id": "N_T2_HV", "nominal_voltage_kv": 33, "kind": "transformer_terminal_connection"}, {"id": "N_T2_LV", "nominal_voltage_kv": 11, "kind": "transformer_terminal_connection"}], "connections": [{"id": "wire_BUS33_L_bus", "terminal": {"equipment_id": "BUS33_L", "terminal_id": "bus"}, "node_id": "N33_L"}, {"id": "wire_BUS33_R_bus", "terminal": {"equipment_id": "BUS33_R", "terminal_id": "bus"}, "node_id": "N33_R"}, {"id": "wire_BUS11_L_bus", "terminal": {"equipment_id": "BUS11_L", "terminal_id": "bus"}, "node_id": "N11_L"}, {"id": "wire_BUS11_R_bus", "terminal": {"equipment_id": "BUS11_R", "terminal_id": "bus"}, "node_id": "N11_R"}, {"id": "wire_H01_Q0_a", "terminal": {"equipment_id": "H01_Q0", "terminal_id": "a"}, "node_id": "N33_L"}, {"id": "wire_H01_Q0_b", "terminal": {"equipment_id": "H01_Q0", "terminal_id": "b"}, "node_id": "N_H01_EXT"}, {"id": "wire_H01_CIRCUIT_local", "terminal": {"equipment_id": "H01_CIRCUIT", "terminal_id": "local"}, "node_id": "N_H01_EXT"}, {"id": "wire_H02_Q0_a", "terminal": {"equipment_id": "H02_Q0", "terminal_id": "a"}, "node_id": "N33_L"}, {"id": "wire_H02_Q0_b", "terminal": {"equipment_id": "H02_Q0", "terminal_id": "b"}, "node_id": "N_H02_EXT"}, {"id": "wire_H02_CIRCUIT_local", "terminal": {"equipment_id": "H02_CIRCUIT", "terminal_id": "local"}, "node_id": "N_H02_EXT"}, {"id": "wire_H06_Q0_a", "terminal": {"equipment_id": "H06_Q0", "terminal_id": "a"}, "node_id": "N33_R"}, {"id": "wire_H06_Q0_b", "terminal": {"equipment_id": "H06_Q0", "terminal_id": "b"}, "node_id": "N_H06_EXT"}, {"id": "wire_H06_CIRCUIT_local", "terminal": {"equipment_id": "H06_CIRCUIT", "terminal_id": "local"}, "node_id": "N_H06_EXT"}, {"id": "wire_H07_Q0_a", "terminal": {"equipment_id": "H07_Q0", "terminal_id": "a"}, "node_id": "N33_R"}, {"id": "wire_H07_Q0_b", "terminal": {"equipment_id": "H07_Q0", "terminal_id": "b"}, "node_id": "N_H07_EXT"}, {"id": "wire_H07_CIRCUIT_local", "terminal": {"equipment_id": "H07_CIRCUIT", "terminal_id": "local"}, "node_id": "N_H07_EXT"}, {"id": "wire_K01_Q0_a", "terminal": {"equipment_id": "K01_Q0", "terminal_id": "a"}, "node_id": "N11_L"}, {"id": "wire_K01_Q0_b", "terminal": {"equipment_id": "K01_Q0", "terminal_id": "b"}, "node_id": "N_K01_EXT"}, {"id": "wire_K01_CIRCUIT_local", "terminal": {"equipment_id": "K01_CIRCUIT", "terminal_id": "local"}, "node_id": "N_K01_EXT"}, {"id": "wire_K02_Q0_a", "terminal": {"equipment_id": "K02_Q0", "terminal_id": "a"}, "node_id": "N11_L"}, {"id": "wire_K02_Q0_b", "terminal": {"equipment_id": "K02_Q0", "terminal_id": "b"}, "node_id": "N_K02_EXT"}, {"id": "wire_K02_CIRCUIT_local", "terminal": {"equipment_id": "K02_CIRCUIT", "terminal_id": "local"}, "node_id": "N_K02_EXT"}, {"id": "wire_K03_Q0_a", "terminal": {"equipment_id": "K03_Q0", "terminal_id": "a"}, "node_id": "N11_L"}, {"id": "wire_K03_Q0_b", "terminal": {"equipment_id": "K03_Q0", "terminal_id": "b"}, "node_id": "N_K03_EXT"}, {"id": "wire_K03_CIRCUIT_local", "terminal": {"equipment_id": "K03_CIRCUIT", "terminal_id": "local"}, "node_id": "N_K03_EXT"}, {"id": "wire_K05_Q0_a", "terminal": {"equipment_id": "K05_Q0", "terminal_id": "a"}, "node_id": "N11_L"}, {"id": "wire_K05_Q0_b", "terminal": {"equipment_id": "K05_Q0", "terminal_id": "b"}, "node_id": "N_K05_EXT"}, {"id": "wire_K05_CIRCUIT_local", "terminal": {"equipment_id": "K05_CIRCUIT", "terminal_id": "local"}, "node_id": "N_K05_EXT"}, {"id": "wire_K06_Q0_a", "terminal": {"equipment_id": "K06_Q0", "terminal_id": "a"}, "node_id": "N11_L"}, {"id": "wire_K06_Q0_b", "terminal": {"equipment_id": "K06_Q0", "terminal_id": "b"}, "node_id": "N_K06_EXT"}, {"id": "wire_K06_CIRCUIT_local", "terminal": {"equipment_id": "K06_CIRCUIT", "terminal_id": "local"}, "node_id": "N_K06_EXT"}, {"id": "wire_K08_Q0_a", "terminal": {"equipment_id": "K08_Q0", "terminal_id": "a"}, "node_id": "N11_R"}, {"id": "wire_K08_Q0_b", "terminal": {"equipment_id": "K08_Q0", "terminal_id": "b"}, "node_id": "N_K08_EXT"}, {"id": "wire_K08_CIRCUIT_local", "terminal": {"equipment_id": "K08_CIRCUIT", "terminal_id": "local"}, "node_id": "N_K08_EXT"}, {"id": "wire_K09_Q0_a", "terminal": {"equipment_id": "K09_Q0", "terminal_id": "a"}, "node_id": "N11_R"}, {"id": "wire_K09_Q0_b", "terminal": {"equipment_id": "K09_Q0", "terminal_id": "b"}, "node_id": "N_K09_EXT"}, {"id": "wire_K09_CIRCUIT_local", "terminal": {"equipment_id": "K09_CIRCUIT", "terminal_id": "local"}, "node_id": "N_K09_EXT"}, {"id": "wire_K11_Q0_a", "terminal": {"equipment_id": "K11_Q0", "terminal_id": "a"}, "node_id": "N11_R"}, {"id": "wire_K11_Q0_b", "terminal": {"equipment_id": "K11_Q0", "terminal_id": "b"}, "node_id": "N_K11_EXT"}, {"id": "wire_K11_CIRCUIT_local", "terminal": {"equipment_id": "K11_CIRCUIT", "terminal_id": "local"}, "node_id": "N_K11_EXT"}, {"id": "wire_K12_Q0_a", "terminal": {"equipment_id": "K12_Q0", "terminal_id": "a"}, "node_id": "N11_R"}, {"id": "wire_K12_Q0_b", "terminal": {"equipment_id": "K12_Q0", "terminal_id": "b"}, "node_id": "N_K12_EXT"}, {"id": "wire_K12_CIRCUIT_local", "terminal": {"equipment_id": "K12_CIRCUIT", "terminal_id": "local"}, "node_id": "N_K12_EXT"}, {"id": "wire_K13_Q0_a", "terminal": {"equipment_id": "K13_Q0", "terminal_id": "a"}, "node_id": "N11_R"}, {"id": "wire_K13_Q0_b", "terminal": {"equipment_id": "K13_Q0", "terminal_id": "b"}, "node_id": "N_K13_EXT"}, {"id": "wire_K13_CIRCUIT_local", "terminal": {"equipment_id": "K13_CIRCUIT", "terminal_id": "local"}, "node_id": "N_K13_EXT"}, {"id": "wire_H04_Q0_a", "terminal": {"equipment_id": "H04_Q0", "terminal_id": "a"}, "node_id": "N33_L"}, {"id": "wire_H04_Q0_b", "terminal": {"equipment_id": "H04_Q0", "terminal_id": "b"}, "node_id": "N33_R"}, {"id": "wire_K07_Q0_a", "terminal": {"equipment_id": "K07_Q0", "terminal_id": "a"}, "node_id": "N11_L"}, {"id": "wire_K07_Q0_b", "terminal": {"equipment_id": "K07_Q0", "terminal_id": "b"}, "node_id": "N11_R"}, {"id": "wire_H03_Q0_a", "terminal": {"equipment_id": "H03_Q0", "terminal_id": "a"}, "node_id": "N33_L"}, {"id": "wire_H03_Q0_b", "terminal": {"equipment_id": "H03_Q0", "terminal_id": "b"}, "node_id": "N_T1_HV"}, {"id": "wire_K04_Q0_a", "terminal": {"equipment_id": "K04_Q0", "terminal_id": "a"}, "node_id": "N11_L"}, {"id": "wire_K04_Q0_b", "terminal": {"equipment_id": "K04_Q0", "terminal_id": "b"}, "node_id": "N_T1_LV"}, {"id": "wire_T1_hv", "terminal": {"equipment_id": "T1", "terminal_id": "hv"}, "node_id": "N_T1_HV"}, {"id": "wire_T1_lv", "terminal": {"equipment_id": "T1", "terminal_id": "lv"}, "node_id": "N_T1_LV"}, {"id": "wire_H05_Q0_a", "terminal": {"equipment_id": "H05_Q0", "terminal_id": "a"}, "node_id": "N33_R"}, {"id": "wire_H05_Q0_b", "terminal": {"equipment_id": "H05_Q0", "terminal_id": "b"}, "node_id": "N_T2_HV"}, {"id": "wire_K10_Q0_a", "terminal": {"equipment_id": "K10_Q0", "terminal_id": "a"}, "node_id": "N11_R"}, {"id": "wire_K10_Q0_b", "terminal": {"equipment_id": "K10_Q0", "terminal_id": "b"}, "node_id": "N_T2_LV"}, {"id": "wire_T2_hv", "terminal": {"equipment_id": "T2", "terminal_id": "hv"}, "node_id": "N_T2_HV"}, {"id": "wire_T2_lv", "terminal": {"equipment_id": "T2", "terminal_id": "lv"}, "node_id": "N_T2_LV"}], "layout": {"canvas": {"width": 1888, "height": 1334, "units": "page_coordinate", "source_image_size": [2978, 2105]}, "symbol_library": {"circuit_breaker": {"description": "IEC-style angled break with cross marking, matching source appearance; no operational state implied"}, "power_transformer": {"description": "Two overlapping circles arranged vertically"}, "busbar_section": {"description": "Horizontal line"}, "external_circuit": {"description": "Line terminating at drawing boundary with circuit label"}}, "equipment_placements": [{"equipment_id": "H01_Q0", "position": [380, 300], "line_style": "dashed", "orientation": "vertical"}, {"equipment_id": "H01_CIRCUIT", "position": [380, 135], "line_style": "dashed", "label_rotation": -90}, {"equipment_id": "H02_Q0", "position": [469, 300], "line_style": "solid", "orientation": "vertical"}, {"equipment_id": "H02_CIRCUIT", "position": [469, 135], "line_style": "solid", "label_rotation": -90}, {"equipment_id": "H06_Q0", "position": [1188, 300], "line_style": "solid", "orientation": "vertical"}, {"equipment_id": "H06_CIRCUIT", "position": [1188, 135], "line_style": "solid", "label_rotation": -90}, {"equipment_id": "H07_Q0", "position": [1278, 300], "line_style": "dashed", "orientation": "vertical"}, {"equipment_id": "H07_CIRCUIT", "position": [1278, 135], "line_style": "dashed", "label_rotation": -90}, {"equipment_id": "K01_Q0", "position": [199, 901], "line_style": "solid", "orientation": "vertical"}, {"equipment_id": "K01_CIRCUIT", "position": [199, 1102], "line_style": "solid", "label_rotation": -90}, {"equipment_id": "K02_Q0", "position": [289, 901], "line_style": "solid", "orientation": "vertical"}, {"equipment_id": "K02_CIRCUIT", "position": [289, 1102], "line_style": "solid", "label_rotation": -90}, {"equipment_id": "K03_Q0", "position": [469, 901], "line_style": "solid", "orientation": "vertical"}, {"equipment_id": "K03_CIRCUIT", "position": [469, 1102], "line_style": "solid", "label_rotation": -90}, {"equipment_id": "K05_Q0", "position": [649, 901], "line_style": "solid", "orientation": "vertical"}, {"equipment_id": "K05_CIRCUIT", "position": [649, 1102], "line_style": "solid", "label_rotation": -90}, {"equipment_id": "K06_Q0", "position": [739, 901], "line_style": "solid", "orientation": "vertical"}, {"equipment_id": "K06_CIRCUIT", "position": [739, 1102], "line_style": "solid", "label_rotation": -90}, {"equipment_id": "K08_Q0", "position": [918, 901], "line_style": "solid", "orientation": "vertical"}, {"equipment_id": "K08_CIRCUIT", "position": [918, 1102], "line_style": "solid", "label_rotation": -90}, {"equipment_id": "K09_Q0", "position": [1008, 901], "line_style": "solid", "orientation": "vertical"}, {"equipment_id": "K09_CIRCUIT", "position": [1008, 1102], "line_style": "solid", "label_rotation": -90}, {"equipment_id": "K11_Q0", "position": [1188, 901], "line_style": "dashed", "orientation": "vertical"}, {"equipment_id": "K11_CIRCUIT", "position": [1188, 1102], "line_style": "dashed", "label_rotation": -90}, {"equipment_id": "K12_Q0", "position": [1278, 901], "line_style": "dashed", "orientation": "vertical"}, {"equipment_id": "K12_CIRCUIT", "position": [1278, 1102], "line_style": "dashed", "label_rotation": -90}, {"equipment_id": "K13_Q0", "position": [1368, 901], "line_style": "dashed", "orientation": "vertical"}, {"equipment_id": "K13_CIRCUIT", "position": [1368, 1102], "line_style": "dashed", "label_rotation": -90}, {"equipment_id": "H04_Q0", "position": [805, 366], "line_style": "solid", "orientation": "horizontal"}, {"equipment_id": "K07_Q0", "position": [815, 849], "line_style": "solid", "orientation": "horizontal"}, {"equipment_id": "H03_Q0", "position": [560, 426], "line_style": "solid", "orientation": "vertical"}, {"equipment_id": "K04_Q0", "position": [560, 792], "line_style": "solid", "orientation": "vertical"}, {"equipment_id": "T1", "position": [560, 610], "line_style": "solid", "symbol_circle_centres": [[560, 585], [560, 635]], "symbol_circle_radius": 34, "label_position": [622, 570]}, {"equipment_id": "H05_Q0", "position": [1098, 426], "line_style": "dashed", "orientation": "vertical"}, {"equipment_id": "K10_Q0", "position": [1098, 792], "line_style": "dashed", "orientation": "vertical"}, {"equipment_id": "T2", "position": [1098, 610], "line_style": "dashed", "symbol_circle_centres": [[1098, 585], [1098, 635]], "symbol_circle_radius": 34, "label_position": [1160, 570]}, {"equipment_id": "BUS33_L", "position": [560, 366], "line_style": "solid"}, {"equipment_id": "BUS33_R", "position": [1098, 366], "line_style": "solid"}, {"equipment_id": "BUS11_L", "position": [560, 849], "line_style": "solid"}, {"equipment_id": "BUS11_R", "position": [1098, 849], "line_style": "solid"}], "wire_routes": [{"connection_id": "wire_H01_Q0_a", "points": [[380, 366], [380, 315]], "line_style": "dashed"}, {"connection_id": "wire_H01_Q0_b", "points": [[380, 285], [380, 135]], "line_style": "dashed"}, {"connection_id": "wire_H01_CIRCUIT_local", "points": [[380, 135]], "line_style": "dashed"}, {"connection_id": "wire_H02_Q0_a", "points": [[469, 366], [469, 315]], "line_style": "solid"}, {"connection_id": "wire_H02_Q0_b", "points": [[469, 285], [469, 135]], "line_style": "solid"}, {"connection_id": "wire_H02_CIRCUIT_local", "points": [[469, 135]], "line_style": "solid"}, {"connection_id": "wire_H06_Q0_a", "points": [[1188, 366], [1188, 315]], "line_style": "solid"}, {"connection_id": "wire_H06_Q0_b", "points": [[1188, 285], [1188, 135]], "line_style": "solid"}, {"connection_id": "wire_H06_CIRCUIT_local", "points": [[1188, 135]], "line_style": "solid"}, {"connection_id": "wire_H07_Q0_a", "points": [[1278, 366], [1278, 315]], "line_style": "dashed"}, {"connection_id": "wire_H07_Q0_b", "points": [[1278, 285], [1278, 135]], "line_style": "dashed"}, {"connection_id": "wire_H07_CIRCUIT_local", "points": [[1278, 135]], "line_style": "dashed"}, {"connection_id": "wire_K01_Q0_a", "points": [[199, 849], [199, 886]], "line_style": "solid"}, {"connection_id": "wire_K01_Q0_b", "points": [[199, 916], [199, 1102]], "line_style": "solid"}, {"connection_id": "wire_K01_CIRCUIT_local", "points": [[199, 1102]], "line_style": "solid"}, {"connection_id": "wire_K02_Q0_a", "points": [[289, 849], [289, 886]], "line_style": "solid"}, {"connection_id": "wire_K02_Q0_b", "points": [[289, 916], [289, 1102]], "line_style": "solid"}, {"connection_id": "wire_K02_CIRCUIT_local", "points": [[289, 1102]], "line_style": "solid"}, {"connection_id": "wire_K03_Q0_a", "points": [[469, 849], [469, 886]], "line_style": "solid"}, {"connection_id": "wire_K03_Q0_b", "points": [[469, 916], [469, 1102]], "line_style": "solid"}, {"connection_id": "wire_K03_CIRCUIT_local", "points": [[469, 1102]], "line_style": "solid"}, {"connection_id": "wire_K05_Q0_a", "points": [[649, 849], [649, 886]], "line_style": "solid"}, {"connection_id": "wire_K05_Q0_b", "points": [[649, 916], [649, 1102]], "line_style": "solid"}, {"connection_id": "wire_K05_CIRCUIT_local", "points": [[649, 1102]], "line_style": "solid"}, {"connection_id": "wire_K06_Q0_a", "points": [[739, 849], [739, 886]], "line_style": "solid"}, {"connection_id": "wire_K06_Q0_b", "points": [[739, 916], [739, 1102]], "line_style": "solid"}, {"connection_id": "wire_K06_CIRCUIT_local", "points": [[739, 1102]], "line_style": "solid"}, {"connection_id": "wire_K08_Q0_a", "points": [[918, 849], [918, 886]], "line_style": "solid"}, {"connection_id": "wire_K08_Q0_b", "points": [[918, 916], [918, 1102]], "line_style": "solid"}, {"connection_id": "wire_K08_CIRCUIT_local", "points": [[918, 1102]], "line_style": "solid"}, {"connection_id": "wire_K09_Q0_a", "points": [[1008, 849], [1008, 886]], "line_style": "solid"}, {"connection_id": "wire_K09_Q0_b", "points": [[1008, 916], [1008, 1102]], "line_style": "solid"}, {"connection_id": "wire_K09_CIRCUIT_local", "points": [[1008, 1102]], "line_style": "solid"}, {"connection_id": "wire_K11_Q0_a", "points": [[1188, 849], [1188, 886]], "line_style": "dashed"}, {"connection_id": "wire_K11_Q0_b", "points": [[1188, 916], [1188, 1102]], "line_style": "dashed"}, {"connection_id": "wire_K11_CIRCUIT_local", "points": [[1188, 1102]], "line_style": "dashed"}, {"connection_id": "wire_K12_Q0_a", "points": [[1278, 849], [1278, 886]], "line_style": "dashed"}, {"connection_id": "wire_K12_Q0_b", "points": [[1278, 916], [1278, 1102]], "line_style": "dashed"}, {"connection_id": "wire_K12_CIRCUIT_local", "points": [[1278, 1102]], "line_style": "dashed"}, {"connection_id": "wire_K13_Q0_a", "points": [[1368, 849], [1368, 886]], "line_style": "dashed"}, {"connection_id": "wire_K13_Q0_b", "points": [[1368, 916], [1368, 1102]], "line_style": "dashed"}, {"connection_id": "wire_K13_CIRCUIT_local", "points": [[1368, 1102]], "line_style": "dashed"}, {"connection_id": "wire_H04_Q0_a", "points": [[790, 366], [780, 366]], "line_style": "solid"}, {"connection_id": "wire_H04_Q0_b", "points": [[820, 366], [830, 366]], "line_style": "solid"}, {"connection_id": "wire_K07_Q0_a", "points": [[800, 849], [790, 849]], "line_style": "solid"}, {"connection_id": "wire_K07_Q0_b", "points": [[830, 849], [840, 849]], "line_style": "solid"}, {"connection_id": "wire_H03_Q0_a", "points": [[560, 366], [560, 411]], "line_style": "solid"}, {"connection_id": "wire_H03_Q0_b", "points": [[560, 441], [560, 551]], "line_style": "solid"}, {"connection_id": "wire_T1_hv", "points": [[560, 551]], "line_style": "solid"}, {"connection_id": "wire_T1_lv", "points": [[560, 669]], "line_style": "solid"}, {"connection_id": "wire_K04_Q0_b", "points": [[560, 777], [560, 669]], "line_style": "solid"}, {"connection_id": "wire_K04_Q0_a", "points": [[560, 807], [560, 849]], "line_style": "solid"}, {"connection_id": "wire_H05_Q0_a", "points": [[1098, 366], [1098, 411]], "line_style": "dashed"}, {"connection_id": "wire_H05_Q0_b", "points": [[1098, 441], [1098, 551]], "line_style": "dashed"}, {"connection_id": "wire_T2_hv", "points": [[1098, 551]], "line_style": "dashed"}, {"connection_id": "wire_T2_lv", "points": [[1098, 669]], "line_style": "dashed"}, {"connection_id": "wire_K10_Q0_b", "points": [[1098, 777], [1098, 669]], "line_style": "dashed"}, {"connection_id": "wire_K10_Q0_a", "points": [[1098, 807], [1098, 849]], "line_style": "dashed"}, {"connection_id": "wire_BUS33_L_bus", "points": [[560, 366]], "line_style": "solid"}, {"connection_id": "wire_BUS33_R_bus", "points": [[1098, 366]], "line_style": "solid"}, {"connection_id": "wire_BUS11_L_bus", "points": [[560, 849]], "line_style": "solid"}, {"connection_id": "wire_BUS11_R_bus", "points": [[1098, 849]], "line_style": "solid"}], "busbar_segments": [{"id": "bus_segment_1", "equipment_id": "BUS33_L", "points": [[335, 366], [415, 366]], "line_style": "dashed", "provision_status": "future_inferred_from_dashed_style"}, {"id": "bus_segment_2", "equipment_id": "BUS33_L", "points": [[415, 366], [790, 366]], "line_style": "solid", "provision_status": "depicted_solid"}, {"id": "bus_segment_3", "equipment_id": "BUS33_R", "points": [[820, 366], [1243, 366]], "line_style": "solid", "provision_status": "depicted_solid"}, {"id": "bus_segment_4", "equipment_id": "BUS33_R", "points": [[1243, 366], [1323, 366]], "line_style": "dashed", "provision_status": "future_inferred_from_dashed_style"}, {"id": "bus_segment_5", "equipment_id": "BUS11_L", "points": [[154, 849], [800, 849]], "line_style": "solid", "provision_status": "depicted_solid"}, {"id": "bus_segment_6", "equipment_id": "BUS11_R", "points": [[830, 849], [1043, 849]], "line_style": "solid", "provision_status": "depicted_solid"}, {"id": "bus_segment_7", "equipment_id": "BUS11_R", "points": [[1043, 849], [1413, 849]], "line_style": "dashed", "provision_status": "future_inferred_from_dashed_style"}], "enclosures": [{"switchboard_id": "SB33", "bounds": [290, 248, 1168, 236], "line_style": "long_dash", "end_labels": {"left": "LHS", "right": "RHS"}}, {"switchboard_id": "SB11", "bounds": [110, 736, 1348, 225], "line_style": "long_dash", "end_labels": {"left": "LHS", "right": "RHS"}}], "bay_labels": [{"bay_id": "H01", "text": "=H01", "position": [380, 119]}, {"bay_id": "H02", "text": "=H02", "position": [469, 119]}, {"bay_id": "H03", "text": "=H03", "position": [560, 119]}, {"bay_id": "H04", "text": "=H04", "position": [805, 119]}, {"bay_id": "H05", "text": "=H05", "position": [1098, 119]}, {"bay_id": "H06", "text": "=H06", "position": [1188, 119]}, {"bay_id": "H07", "text": "=H07", "position": [1278, 119]}, {"bay_id": "K01", "text": "=K01", "position": [199, 1119]}, {"bay_id": "K02", "text": "=K02", "position": [289, 1119]}, {"bay_id": "K03", "text": "=K03", "position": [469, 1119]}, {"bay_id": "K04", "text": "=K04", "position": [560, 1119]}, {"bay_id": "K05", "text": "=K05", "position": [649, 1119]}, {"bay_id": "K06", "text": "=K06", "position": [739, 1119]}, {"bay_id": "K07", "text": "=K07", "position": [815, 1119]}, {"bay_id": "K08", "text": "=K08", "position": [918, 1119]}, {"bay_id": "K09", "text": "=K09", "position": [1008, 1119]}, {"bay_id": "K10", "text": "=K10", "position": [1098, 1119]}, {"bay_id": "K11", "text": "=K11", "position": [1188, 1119]}, {"bay_id": "K12", "text": "=K12", "position": [1278, 1119]}, {"bay_id": "K13", "text": "=K13", "position": [1368, 1119]}], "annotations": [{"text": "33 kV SWITCHBOARD\n(1250A, 25kA, 3 sec)", "position": [1312, 265], "related_id": "SB33"}, {"text": "11 kV SWITCHBOARD\n(2000A, 25kA, 3 sec)", "position": [1317, 753], "related_id": "SB11"}, {"text": "FOR RELAY AND INSTRUMENTATION DETAILS, SEE DRAWING 4256-0005.", "position": [1480, 200], "source_note_number": 1}, {"text": "FOR CABLE DETAILS, SEE DRAWING 4256-0030.", "position": [1480, 260], "source_note_number": 2}]}, "review_items": [{"id": "R01", "severity": "source_inconsistency", "equipment_id": "T2", "observed": "Transformer symbol says T2; adjacent reference says =H05-T1.", "handling": "Preserve T2 as the model ID and =H05-T1 as the uncorrected source reference."}, {"id": "R02", "severity": "interpretation", "observed": "T2 and its connections are dashed, without a local FUTURE label.", "handling": "Record future/provision status as inferred; installed status remains unknown."}, {"id": "R03", "severity": "interpretation", "observed": "33 kV outer bus extensions and the right-hand 11 kV extension are dashed.", "handling": "Record dashed extension segments separately from solid segments on the same conceptual bus section."}, {"id": "R04", "severity": "missing_data", "observed": "No operational breaker states, cable parameters, relay settings, CT/VT details, transformer impedance or earthing arrangement are supplied.", "handling": "Do not invent these values; related drawings have not been supplied."}, {"id": "R05", "severity": "missing_data", "observed": "Future circuit breakers have no individual current rating printed.", "handling": "Leave their rated_current_a null; switchboard ratings are not substituted for equipment ratings."}], "coverage": {"switchboard_count": 2, "bay_count": 20, "busbar_section_count": 4, "circuit_breaker_count": 20, "transformer_count": 2, "external_circuit_count": 14, "included": ["All labelled H01-H07 and K01-K13 bays", "All depicted circuit breakers", "Both transformers and vector groups", "Solid and dashed busbar portions", "External circuit names and ring-main-unit note", "Switchboard ratings", "Drawing notes, references and title-block metadata", "Approximate equipment positions and wire routes"], "not_available": ["Referenced relay/instrumentation drawing", "Referenced cable drawing", "Actual operating states", "As-built installation status"]}}</script>
+<script>
+(() => {
+'use strict';
+
+const NS='http://www.w3.org/2000/svg';
+const $=s=>document.querySelector(s);
+const svg=$('#svg'), viewport=$('#viewport'), stage=$('#stage'), inspector=$('#inspector');
+const search=$('#search'), results=$('#searchResults'), toast=$('#toast');
+let model=JSON.parse($('#source-json').textContent);
+let index=null, view=null, drag=null, selected=null, traceOn=false, showFuture=true, showLabels=true;
+
+const fmt=v => v===null||v===undefined ? '—' : typeof v==='object' ? JSON.stringify(v) : String(v);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const S=(tag,attrs={},text=null)=>{
+  const e=document.createElementNS(NS,tag);
+  for(const [k,v] of Object.entries(attrs)){
+    if(v===null||v===undefined) continue;
+    if(k==='class') e.setAttribute('class',v); else e.setAttribute(k,String(v));
+  }
+  if(text!==null) e.textContent=text;
+  return e;
+};
+function add(parent,tag,attrs,text){const e=S(tag,attrs,text);parent.appendChild(e);return e}
+function lineClass(kv,style,extra=''){return `${kv===33?'kv33':kv===11?'kv11':'unknownkv'} ${style||'solid'} ${extra}`.trim()}
+function isFutureEquipment(eq,placement){
+  const s=(eq?.provision_status||'')+' '+(eq?.drawing_line_style||'')+' '+(placement?.line_style||'');
+  return /future|dashed/.test(s);
+}
+function kvOfEquipment(eq){
+  if(!eq) return null;
+  if(typeof eq.nominal_voltage_kv==='number') return eq.nominal_voltage_kv;
+  if(eq.rated_voltage_kv?.hv) return null;
+  return null;
+}
+function buildIndex(){
+  const equipment=new Map(model.equipment.map(x=>[x.id,x]));
+  const bays=new Map(model.bays.map(x=>[x.id,x]));
+  const nodes=new Map(model.nodes.map(x=>[x.id,x]));
+  const connections=new Map(model.connections.map(x=>[x.id,x]));
+  const placements=new Map((model.layout?.equipment_placements||[]).map(x=>[x.equipment_id,x]));
+  const byEq=new Map(), byNode=new Map();
+  for(const c of model.connections){
+    if(!byEq.has(c.terminal.equipment_id))byEq.set(c.terminal.equipment_id,[]);
+    byEq.get(c.terminal.equipment_id).push(c);
+    if(!byNode.has(c.node_id))byNode.set(c.node_id,[]);
+    byNode.get(c.node_id).push(c);
+  }
+  return {equipment,bays,nodes,connections,placements,byEq,byNode};
+}
+function setMeta(){
+  $('#title').textContent=model.title||model.substation?.name||'Single Line Diagram';
+  const s=model.source||{};
+  $('#subtitle').textContent=[s.drawing_number&&`Drawing ${s.drawing_number}`,s.revision&&`Rev ${s.revision}`,model.substation?.name].filter(Boolean).join(' · ');
+  const cov=model.coverage||{};
+  const chips=[
+    `${model.switchboards?.length||0} switchboards`,
+    `${model.bays?.length||0} bays`,
+    `${cov.circuit_breaker_count ?? model.equipment.filter(e=>e.type==='circuit_breaker').length} breakers`,
+    `${cov.transformer_count ?? model.equipment.filter(e=>e.type==='power_transformer').length} transformers`
+  ];
+  $('#statusbar').innerHTML=chips.map(x=>`<span>${esc(x)}</span>`).join('');
+}
+function render(){
+  index=buildIndex(); setMeta(); selected=null; traceOn=false; $('#traceBtn').classList.remove('active');
+  viewport.replaceChildren();
+  const canvas=model.layout?.canvas||{width:1888,height:1334};
+  view={x:0,y:0,w:canvas.width,h:canvas.height};
+  svg.setAttribute('viewBox',`0 0 ${canvas.width} ${canvas.height}`);
+
+  const gBack=add(viewport,'g',{id:'back'});
+  const gRoutes=add(viewport,'g',{id:'routes'});
+  const gBus=add(viewport,'g',{id:'buses'});
+  const gEq=add(viewport,'g',{id:'equipment'});
+  const gLabels=add(viewport,'g',{id:'labels'});
+  const gTrace=add(viewport,'g',{id:'trace'});
+
+  for(const enc of model.layout?.enclosures||[]){
+    const [x,y,w,h]=enc.bounds;
+    add(gBack,'rect',{x,y,width:w,height:h,rx:8,class:`enclosure ${enc.line_style||''}`});
+    if(enc.end_labels){
+      add(gLabels,'text',{x:x+8,y:y+18,class:'small-label human-label'},enc.end_labels.left||'');
+      add(gLabels,'text',{x:x+w-8,y:y+18,'text-anchor':'end',class:'small-label human-label'},enc.end_labels.right||'');
+    }
+  }
+
+  for(const r of model.layout?.wire_routes||[]){
+    const c=index.connections.get(r.connection_id);
+    const eq=c ? index.equipment.get(c.terminal.equipment_id) : null;
+    const node=c ? index.nodes.get(c.node_id) : null;
+    const kv=kvOfEquipment(eq) ?? node?.nominal_voltage_kv ?? null;
+    if(!r.points?.length) continue;
+    const pts=r.points.map(p=>p.join(',')).join(' ');
+    const fut=(r.line_style==='dashed'||isFutureEquipment(eq,index.placements.get(eq?.id)))?' future':'';
+    const p=add(gRoutes,'polyline',{points:pts,class:`route ${lineClass(kv,r.line_style)}${fut}`,'data-connection':r.connection_id,'data-node':c?.node_id||'','data-equipment':eq?.id||''});
+    const h=add(gRoutes,'polyline',{points:pts,class:'hit','data-pick-kind':'connection','data-pick-id':r.connection_id});
+    h.addEventListener('click',ev=>{ev.stopPropagation();selectItem('connection',r.connection_id)});
+  }
+
+  for(const b of model.layout?.busbar_segments||[]){
+    const eq=index.equipment.get(b.equipment_id), kv=kvOfEquipment(eq);
+    const pts=b.points.map(p=>p.join(',')).join(' ');
+    const fut=(b.line_style==='dashed'||/future/.test(b.provision_status||''))?' future':'';
+    add(gBus,'polyline',{points:pts,class:`bus ${lineClass(kv,b.line_style)}${fut}`,'data-bus-equipment':b.equipment_id,'data-bus-segment':b.id});
+    const h=add(gBus,'polyline',{points:pts,class:'hit','data-pick-kind':'equipment','data-pick-id':b.equipment_id});
+    h.addEventListener('click',ev=>{ev.stopPropagation();selectItem('equipment',b.equipment_id)});
+  }
+
+  for(const p of model.layout?.equipment_placements||[]){
+    const eq=index.equipment.get(p.equipment_id); if(!eq) continue;
+    if(eq.type==='busbar_section') continue;
+    drawEquipment(gEq,gLabels,eq,p);
+  }
+
+  for(const bl of model.layout?.bay_labels||[]){
+    add(gLabels,'text',{x:bl.position[0],y:bl.position[1],class:'bay-label human-label','text-anchor':'middle'},bl.text);
+  }
+
+  for(const a of model.layout?.annotations||[]){
+    const lines=String(a.text||'').split('\n');
+    const t=add(gLabels,'text',{x:a.position[0],y:a.position[1],class:'annotation human-label'});
+    lines.forEach((ln,i)=>add(t,'tspan',{x:a.position[0],dy:i?16:0},ln));
+  }
+
+  // explicit voltage labels, derived from switchboard objects, placed beside enclosure bounds
+  for(const enc of model.layout?.enclosures||[]){
+    const sb=model.switchboards.find(s=>s.id===enc.switchboard_id); if(!sb) continue;
+    const [x,y]=enc.bounds;
+    add(gLabels,'text',{x:x+12,y:y-12,class:`voltage-label human-label ${sb.nominal_voltage_kv===33?'kv33':'kv11'}`,style:`fill:${sb.nominal_voltage_kv===33?'var(--kv33)':'var(--kv11)'}`},`${sb.nominal_voltage_kv} kV`);
+  }
+
+  stage.onclick=()=>clearSelection();
+  fit();
+  inspectorHome();
+  applyVisibility();
+}
+function drawEquipment(g,gLabels,eq,p){
+  const [x,y]=p.position;
+  const kv=kvOfEquipment(eq);
+  const klass=lineClass(kv,p.line_style, isFutureEquipment(eq,p)?'future':'');
+  const group=add(g,'g',{class:`eq eqhit ${isFutureEquipment(eq,p)?'future':''}`,'data-equipment-id':eq.id});
+  group.addEventListener('click',ev=>{ev.stopPropagation();selectItem('equipment',eq.id)});
+
+  if(eq.type==='circuit_breaker'){
+    const horizontal=p.orientation==='horizontal';
+    if(horizontal){
+      add(group,'line',{x1:x-15,y1:y,x2:x-6,y2:y,class:`equipment-stroke breaker-body ${klass}`});
+      add(group,'line',{x1:x+6,y1:y,x2:x+15,y2:y,class:`equipment-stroke breaker-body ${klass}`});
+      add(group,'line',{x1:x-6,y1:y,x2:x+7,y2:y-10,class:`equipment-stroke breaker-body ${klass}`});
+      add(group,'line',{x1:x-4,y1:y-7,x2:x+5,y2:y+7,class:`equipment-stroke breaker-cross ${klass}`});
+      add(group,'line',{x1:x-4,y1:y+7,x2:x+5,y2:y-7,class:`equipment-stroke breaker-cross ${klass}`});
+      add(group,'rect',{x:x-18,y:y-18,width:36,height:36,fill:'transparent'});
+    }else{
+      add(group,'line',{x1:x,y1:y-15,x2:x,y2:y-6,class:`equipment-stroke breaker-body ${klass}`});
+      add(group,'line',{x1:x,y1:y+6,x2:x,y2:y+15,class:`equipment-stroke breaker-body ${klass}`});
+      add(group,'line',{x1:x,y1:y+6,x2:x+10,y2:y-7,class:`equipment-stroke breaker-body ${klass}`});
+      add(group,'line',{x1:x-7,y1:y-4,x2:x+7,y2:y+5,class:`equipment-stroke breaker-cross ${klass}`});
+      add(group,'line',{x1:x+7,y1:y-4,x2:x-7,y2:y+5,class:`equipment-stroke breaker-cross ${klass}`});
+      add(group,'rect',{x:x-18,y:y-18,width:36,height:36,fill:'transparent'});
+    }
+    add(gLabels,'text',{x:x+17,y:y+5,class:'small-label human-label'},eq.source_local_marking||eq.id);
+  }
+  else if(eq.type==='power_transformer'){
+    const centers=p.symbol_circle_centres||[[x,y-24],[x,y+24]], r=p.symbol_circle_radius||32;
+    for(const c of centers) add(group,'circle',{cx:c[0],cy:c[1],r,class:`equipment-stroke transformer-circle ${klass}`});
+    const lp=p.label_position||[x+r+20,y-28];
+    add(gLabels,'text',{x:lp[0],y:lp[1],class:'eq-label human-label'},eq.label||eq.id);
+    add(gLabels,'text',{x:lp[0],y:lp[1]+18,class:'small-label human-label'},eq.source_rating_text||'');
+    add(group,'rect',{x:x-r-8,y:centers[0][1]-r-8,width:2*r+16,height:(centers[1][1]-centers[0][1])+2*r+16,fill:'transparent'});
+  }
+  else if(eq.type==='external_circuit'){
+    add(group,'line',{x1:x-8,y1:y,x2:x+8,y2:y,class:`equipment-stroke external-cap ${klass}`});
+    add(group,'circle',{cx:x,cy:y,r:12,fill:'transparent'});
+    const rot=p.label_rotation||0;
+    const label=eq.source_label||eq.label||eq.id;
+    const tx=x+(rot?-13:14), ty=y+(rot?-10:4);
+    add(gLabels,'text',{x:tx,y:ty,class:'eq-label human-label',transform:rot?`rotate(${rot} ${tx} ${ty})`:null,'text-anchor':rot?'start':'start'},label);
+    if(eq.via){
+      const vy=y+(rot?110:19);
+      add(gLabels,'text',{x:tx,y:vy,class:'small-label human-label',transform:rot?`rotate(${rot} ${tx} ${vy})`:null},`via ${eq.via}`);
+    }
+  }
+}
+function renderInspector(title,rows,extra=''){
+  inspector.innerHTML=`<div class="card"><h2>${esc(title)}</h2><div class="kv">${
+    rows.map(([k,v])=>`<div>${esc(k)}</div><div class="${typeof v==='string'&&v.length>30?'mono':''}">${esc(fmt(v))}</div>`).join('')
+  }</div>${extra}</div>`;
+}
+function inspectorHome(){
+  const s=model.source||{}, c=model.conventions||{};
+  inspector.innerHTML=`
+    <div class="card"><h2>${esc(model.substation?.name||'Model')}</h2>
+      <div class="kv">
+        <div>Drawing</div><div>${esc(s.drawing_number||'—')}</div>
+        <div>Revision</div><div>${esc(s.revision||'—')}</div>
+        <div>Source</div><div>${esc(s.filename||'—')}</div>
+        <div>Verification</div><div>${esc(s.extraction?.verification_status||'—')}</div>
+      </div>
+    </div>
+    <div class="card"><h2>How to use</h2>
+      <div style="font-size:12px;line-height:1.55;color:#b9c7d1">
+        Drag to pan. Wheel or pinch-style trackpad gesture to zoom. Click a breaker, transformer, external circuit, busbar or route to inspect it. Use <b>Trace topology</b> after selection to animate the structurally connected design graph.
+      </div>
+    </div>
+    <div class="card"><h2>Critical source rule</h2>
+      <div style="font-size:12px;line-height:1.55;color:#b9c7d1">${esc(c.operating_state||'Breaker states are not supplied.')}</div>
+    </div>`;
+}
+function clearSelection(){
+  selected=null; traceOn=false; $('#traceBtn').classList.remove('active');
+  viewport.querySelectorAll('.selected,.highlight').forEach(e=>e.classList.remove('selected','highlight'));
+  $('#trace').replaceChildren(); inspectorHome();
+}
+function selectItem(kind,id){
+  selected={kind,id}; traceOn=false; $('#traceBtn').classList.remove('active'); $('#trace').replaceChildren();
+  viewport.querySelectorAll('.selected,.highlight').forEach(e=>e.classList.remove('selected','highlight'));
+  if(kind==='equipment'){
+    const eq=index.equipment.get(id); if(!eq)return;
+    viewport.querySelectorAll(`[data-equipment-id="${CSS.escape(id)}"]`).forEach(e=>e.classList.add('selected'));
+    viewport.querySelectorAll(`[data-bus-equipment="${CSS.escape(id)}"]`).forEach(e=>e.classList.add('highlight'));
+    const p=index.placements.get(id), bay=eq.bay_id?index.bays.get(eq.bay_id):null;
+    const rows=[
+      ['ID',eq.id],['Type',eq.type],['Bay',eq.bay_id||eq.hv_bay_id||'—'],['Label',eq.label||eq.source_label||'—'],
+      ['Voltage',eq.nominal_voltage_kv ? `${eq.nominal_voltage_kv} kV` : eq.rated_voltage_kv ? `${eq.rated_voltage_kv.hv}/${eq.rated_voltage_kv.lv} kV`:'—'],
+      ['Rating',eq.rated_current_a ? `${eq.rated_current_a} A` : eq.rated_power_mva ? `${eq.rated_power_mva} MVA`:'—'],
+      ['Source ref',eq.source_reference||'—'],['Operating state',eq.operating_state||'—'],['Provision',eq.provision_status||p?.line_style||'—']
+    ];
+    if(eq.vector_group) rows.push(['Vector group',eq.vector_group]);
+    if(eq.via) rows.push(['Via',eq.via]);
+    const conns=index.byEq.get(id)||[];
+    const extra=`<div style="margin-top:10px;font-size:11px;color:#91a4b4">Nodes: ${conns.map(c=>`<span class="pill mono">${esc(c.node_id)}</span>`).join(' ')||'—'}</div>
+      ${bay?`<div style="margin-top:8px;font-size:11px;color:#91a4b4">Bay role: ${esc(bay.role)}</div>`:''}`;
+    renderInspector('Equipment',rows,extra);
+  }else{
+    const c=index.connections.get(id); if(!c)return;
+    viewport.querySelectorAll(`[data-connection="${CSS.escape(id)}"]`).forEach(e=>e.classList.add('highlight'));
+    const eq=index.equipment.get(c.terminal.equipment_id), node=index.nodes.get(c.node_id);
+    renderInspector('Connection',[
+      ['ID',c.id],['Equipment',c.terminal.equipment_id],['Terminal',c.terminal.terminal_id],['Node',c.node_id],
+      ['Node kind',node?.kind||'—'],['Voltage',node?.nominal_voltage_kv?`${node.nominal_voltage_kv} kV`:'—'],
+      ['Equipment type',eq?.type||'—']
+    ]);
+  }
+}
+function structuralReach(startEq){
+  // Design-topology traversal. It intentionally treats multi-terminal breakers and transformers as graph bridges.
+  // This is structural connectivity only because operating states are not provided.
+  const eqSeen=new Set(), nodeSeen=new Set(), connSeen=new Set(), q=[];
+  if(startEq){eqSeen.add(startEq);q.push({t:'eq',id:startEq})}
+  while(q.length){
+    const cur=q.shift();
+    if(cur.t==='eq'){
+      for(const c of index.byEq.get(cur.id)||[]){
+        connSeen.add(c.id);
+        if(!nodeSeen.has(c.node_id)){nodeSeen.add(c.node_id);q.push({t:'node',id:c.node_id})}
+      }
+    }else{
+      for(const c of index.byNode.get(cur.id)||[]){
+        connSeen.add(c.id);
+        const eid=c.terminal.equipment_id;
+        if(!eqSeen.has(eid)){eqSeen.add(eid);q.push({t:'eq',id:eid})}
+      }
+    }
+  }
+  return {eqSeen,nodeSeen,connSeen};
+}
+function traceSelected(){
+  $('#trace').replaceChildren();
+  if(!selected){showToast('Select equipment or a connection first.');return}
+  let startEq=selected.kind==='equipment'?selected.id:index.connections.get(selected.id)?.terminal.equipment_id;
+  if(!startEq)return;
+  const reach=structuralReach(startEq);
+  for(const r of model.layout?.wire_routes||[]){
+    if(!reach.connSeen.has(r.connection_id)||!r.points?.length)continue;
+    add($('#trace'),'polyline',{points:r.points.map(p=>p.join(',')).join(' '),class:'trace-overlay'});
+  }
+  for(const b of model.layout?.busbar_segments||[]){
+    if(!reach.eqSeen.has(b.equipment_id))continue;
+    add($('#trace'),'polyline',{points:b.points.map(p=>p.join(',')).join(' '),class:'trace-overlay'});
+  }
+  // Trace through multi-terminal equipment themselves.
+  for(const eid of reach.eqSeen){
+    viewport.querySelectorAll(`[data-equipment-id="${CSS.escape(eid)}"] .breaker-body, [data-equipment-id="${CSS.escape(eid)}"] .transformer-circle`).forEach(el=>{
+      const clone=el.cloneNode(true); clone.setAttribute('class','trace-overlay'); $('#trace').appendChild(clone);
+    });
+  }
+  showToast(`${reach.eqSeen.size} equipment items · ${reach.nodeSeen.size} nodes in design topology`);
+}
+function applyVisibility(){
+  viewport.classList.toggle('noLabels',!showLabels);
+  viewport.querySelectorAll('.future').forEach(e=>e.classList.toggle('hiddenFuture',!showFuture));
+}
+function fit(){
+  const c=model.layout?.canvas||{width:1888,height:1334};
+  view={x:0,y:0,w:c.width,h:c.height};
+  svg.setAttribute('viewBox',`${view.x} ${view.y} ${view.w} ${view.h}`);
+}
+function zoomAt(clientX,clientY,factor){
+  const rect=svg.getBoundingClientRect();
+  const px=(clientX-rect.left)/rect.width, py=(clientY-rect.top)/rect.height;
+  const wx=view.x+px*view.w, wy=view.y+py*view.h;
+  const nw=Math.max(220,Math.min((model.layout?.canvas?.width||1888)*3,view.w*factor));
+  const nh=nw*(rect.height/rect.width);
+  view.x=wx-px*nw; view.y=wy-py*nh; view.w=nw; view.h=nh;
+  svg.setAttribute('viewBox',`${view.x} ${view.y} ${view.w} ${view.h}`);
+}
+svg.addEventListener('wheel',e=>{e.preventDefault();zoomAt(e.clientX,e.clientY,Math.exp(e.deltaY*0.0012))},{passive:false});
+stage.addEventListener('pointerdown',e=>{
+  if(e.button!==0)return;
+  stage.setPointerCapture(e.pointerId);
+  drag={x:e.clientX,y:e.clientY,vx:view.x,vy:view.y,moved:false};
+});
+stage.addEventListener('pointermove',e=>{
+  if(!drag)return;
+  const rect=svg.getBoundingClientRect();
+  const dx=(e.clientX-drag.x)*view.w/rect.width, dy=(e.clientY-drag.y)*view.h/rect.height;
+  if(Math.abs(dx)+Math.abs(dy)>2)drag.moved=true;
+  view.x=drag.vx-dx; view.y=drag.vy-dy;
+  svg.setAttribute('viewBox',`${view.x} ${view.y} ${view.w} ${view.h}`);
+});
+stage.addEventListener('pointerup',e=>{drag=null;});
+
+$('#fitBtn').onclick=fit;
+$('#traceBtn').onclick=()=>{
+  if(!selected){showToast('Select equipment or a connection first.');return}
+  traceOn=!traceOn; $('#traceBtn').classList.toggle('active',traceOn);
+  if(traceOn) traceSelected(); else $('#trace').replaceChildren();
+};
+$('#futureBtn').onclick=()=>{showFuture=!showFuture;$('#futureBtn').classList.toggle('active',showFuture);applyVisibility()};
+$('#labelsBtn').onclick=()=>{showLabels=!showLabels;$('#labelsBtn').classList.toggle('active',showLabels);applyVisibility()};
+$('#infoBtn').onclick=()=>showInfo();
+$('#closeInfo').onclick=()=>$('#infoDialog').close();
+$('#loadBtn').onclick=()=>$('#fileInput').click();
+$('#fileInput').onchange=async e=>{
+  const f=e.target.files?.[0]; if(!f)return;
+  try{
+    const candidate=JSON.parse(await f.text());
+    const required=['equipment','nodes','connections','layout'];
+    if(required.some(k=>!candidate[k])) throw new Error('JSON is missing required model sections: '+required.join(', '));
+    model=candidate; render(); showToast(`Loaded ${f.name}`);
+  }catch(err){showToast('Could not load JSON: '+err.message,true)}
+  e.target.value='';
+};
+function showInfo(){
+  const s=model.source||{}, c=model.conventions||{}, reviews=model.review_items||[];
+  $('#infoBody').innerHTML=`
+    <p><b>Directly used from the JSON:</b> equipment, bays, voltage levels, node/terminal connectivity, approximate page coordinates, wire routes, busbar segments, source labels, line styles, switchboard bounds and source review items.</p>
+    <p><b>Invented by this viewer:</b> screen colours, typography, inspector layout, pan/zoom controls, search UI, selection highlighting and the animated structural-topology overlay.</p>
+    <p><b>Not inferred:</b> live breaker state, actual energisation, power-flow direction, protection behaviour, cable parameters, relay settings, transformer impedance or earthing values.</p>
+    <h3>Source</h3>
+    <div class="kv">
+      <div>File</div><div>${esc(s.filename||'—')}</div>
+      <div>Drawing</div><div>${esc(s.drawing_number||'—')}</div>
+      <div>Revision</div><div>${esc(s.revision||'—')}</div>
+      <div>Extraction</div><div>${esc(s.extraction?.method||'—')}</div>
+      <div>Verification</div><div>${esc(s.extraction?.verification_status||'—')}</div>
+      <div>Layout basis</div><div>${esc(c.layout||'—')}</div>
+    </div>
+    <h3>Review items from source model</h3>
+    <ul>${reviews.map(r=>`<li><b>${esc(r.id)} · ${esc(r.severity)}</b>: ${esc(r.observed)}<br><span style="color:#92a6b5">${esc(r.handling)}</span></li>`).join('')}</ul>`;
+  $('#infoDialog').showModal();
+}
+function showToast(msg,bad=false){
+  toast.textContent=msg; toast.style.borderColor=bad?'var(--danger)':'var(--border)';toast.classList.add('show');
+  clearTimeout(showToast.t); showToast.t=setTimeout(()=>toast.classList.remove('show'),2600);
+}
+function searchableItems(){
+  return model.equipment.map(e=>({kind:'equipment',id:e.id,label:e.label||e.source_label||e.source_reference||'',type:e.type}))
+    .concat(model.bays.map(b=>({kind:'bay',id:b.id,label:b.label||b.source_reference||'',type:b.role})));
+}
+search.addEventListener('input',()=>{
+  const q=search.value.trim().toLowerCase();
+  if(!q){results.classList.remove('show');return}
+  const hits=searchableItems().filter(x=>(x.id+' '+x.label+' '+x.type).toLowerCase().includes(q)).slice(0,14);
+  results.innerHTML=hits.map((x,i)=>`<div class="search-item" data-i="${i}"><b>${esc(x.id)}</b><div>${esc(x.label||x.type)}</div></div>`).join('');
+  results.classList.toggle('show',hits.length>0);
+  [...results.children].forEach((el,i)=>el.onclick=()=>{
+    const x=hits[i]; results.classList.remove('show');
+    if(x.kind==='equipment') focusEquipment(x.id);
+    else{
+      const bay=index.bays.get(x.id); const eid=bay?.equipment_ids?.find(id=>index.placements.has(id))||bay?.equipment_ids?.[0];
+      if(eid)focusEquipment(eid);
+    }
+  });
+});
+function focusEquipment(id){
+  const p=index.placements.get(id);
+  selectItem('equipment',id);
+  if(!p)return;
+  const rect=svg.getBoundingClientRect(), targetW=Math.min(700,model.layout?.canvas?.width||1888), targetH=targetW*rect.height/rect.width;
+  view={x:p.position[0]-targetW/2,y:p.position[1]-targetH/2,w:targetW,h:targetH};
+  svg.setAttribute('viewBox',`${view.x} ${view.y} ${view.w} ${view.h}`);
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){results.classList.remove('show');if($('#infoDialog').open)$('#infoDialog').close()}
+  if(e.key==='0')fit();
+});
+
+render();
+})();
+</script>
+</body>
+</html>

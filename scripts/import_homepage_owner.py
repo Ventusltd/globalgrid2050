@@ -33,6 +33,12 @@ def main():
         if index.count(source) != 1:
             raise ValueError(f'Unexpected index reference: {name}')
         index = index.replace(source, f'./homepage-shell/assets/{name}')
+    # The owner serves its catalogue beside index.html; the domain assembles it
+    # under homepage-shell, just like the stylesheet and JavaScript above.
+    source = 'href="data/homepage.json"'
+    if index.count(source) != 1:
+        raise ValueError('Unexpected catalogue fallback reference')
+    index = index.replace(source, 'href="./homepage-shell/data/homepage.json"')
     # All remote inputs are verified before any output changes. Site promotion is
     # performed by Pages after the complete build, not while these files write.
     for name, data in bundle.items():

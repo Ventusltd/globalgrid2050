@@ -1671,3 +1671,14 @@ Pre-edit restore point: `homepage_v124.html`. Measurements and change intention:
 ## Version 125
 
 Pre-refresh exact restore point: `homepage_v125.html`; measurements: `homepage_v125-metrics.json`. Browse the archived homepage at `/homepage_versions/20260922-before-refresh/`; it adds only a root base URL so archived relative links keep working.
+
+
+## Version 131
+
+Source: exact committed pre-edit publisher `index.html` at `85f59c8c04c9123d43b9ff39e9ce4d1c2f0f314a`. This is a source restore point, not a fresh live download. The earlier prepared owner-assembled candidate differs from this committed index and was not used.
+
+Intention: retain What is the Kuiper? beneath Kuiper with JavaScript disabled and correct the fallback catalogue data link, preserving every existing app/release link.
+
+Measurement: restore-point workflow [37218687498](https://github.com/Ventusltd/globalgrid2050/actions/runs/37218687498) passed before publication. Rechecked v130 as highest snapshot; folder had 221 entries before adding v131 and its metrics.
+
+Metrics: 64 lines, 1931 words, 35984 characters, 35984 bytes; SHA-256 `c12474699a4c2d3586e0b89cc4a94f1527e2fb49cd8993a358338bf3dd715b67`. Details are in `homepage_v131-metrics.json`.

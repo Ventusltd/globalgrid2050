@@ -214,6 +214,16 @@
       "roles": [
         "design-studio"
       ]
+    },
+    "what-is-kuiper": {
+      "type": "reference",
+      "purpose": "Explain why Kuiper exists, what its Keys represent, how its deterministic placement law works, and how the visualisation can develop into a procedural computational environment.",
+      "audience": [
+        "developers",
+        "grid researchers",
+        "learners"
+      ],
+      "roles": []
     }
   }
 }

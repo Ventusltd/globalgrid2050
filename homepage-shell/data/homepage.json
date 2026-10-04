@@ -30,6 +30,25 @@
       ]
     },
     {
+      "id": "what-is-kuiper",
+      "parent_id": "kuiper",
+      "title": "What is the Kuiper?",
+      "subtitle": "Why the code estate became a mathematical address space",
+      "description": "A plain-English explanation of why Kuiper exists, what a Key means, how the placement law works, and how the visualisation is becoming a procedural computational engine.",
+      "launch_label": "Read What is the Kuiper?",
+      "operative_release_id": "20261004-explainer",
+      "releases": [
+        {
+          "id": "20261004-explainer",
+          "label": "4 October 2026",
+          "url": "https://ventusltd.github.io/kuiper-belt/what-is-kuiper.html",
+          "published_at": "2026-10-04T15:30:00Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/kuiper-belt/commit/7a65dd315b0c60b1baf9a7090206c900b2cfd0a1"
+        }
+      ]
+    },
+    {
       "id": "gridatlas",
       "title": "GridAtlas",
       "subtitle": "Explore the electricity network",

@@ -17,6 +17,7 @@
 <h2>Contents</h2>
 
 <ul style="padding-left: 20px; margin-left: 0; list-style-position: inside;">
+  <li><a href="#william-fraser-habitat-biodiversity-uk-largest-solar-farm">William Fraser on Habitat, Biodiversity and the UK's Largest Solar Farm</a></li>
   <li><a href="#doug-krause-on-cattle-solar-&-cable-mounted-pv">Doug Krause on Cattle Solar & Cable-Mounted PV </a></li>
   <li><a href="#martin-heathcote-cleve-hill-major-solar-delivery">Martin Heathcote: from Cleve Hill to Major Solar Delivery</a></li>
   <li><a href="#david-mack-solar-om-rural-growth-resilience">David Mack: Solar O&amp;M, Rural Growth and Resilience</a></li>
@@ -38,6 +39,305 @@
   <li><a href="#guy-atherton-solar-pv-expert-developer">Guy Atherton: Solar PV Expert &amp; Developer</a></li>
   <li><a href="#matthew-xenakis-perspectives-solar-panel-manufacturers">Matthew Xenakis: Perspectives from Solar Panel Manufacturers</a></li>
 </ul>
+
+---
+h2 id="william-fraser-habitat-biodiversity-uk-largest-solar-farm">William Fraser on Habitat, Biodiversity and the UK's Largest Solar Farm</h2>
+
+Vikram Kumar (00:01.26)
+Welcome to the Future of Solar Photovoltaics podcast. We are doing a super series in the Nat former Natwest Tower Tower 42 on the Heathcote Holdings for family and friends and all the great things that they're doing in solar. Again, you know, we have an amateur podcast which is used to benefit the industry in learning at the super speed the solar's growing up worldwide. You know, again, three terawatts installed worldwide.
+
+There's a pipeline of seventy five terawatts according to the NREL, the new r the renewable energy laboratory in the in the in the States. So solar is happening around the world. It's definitely happening in the UK. So today I've ha I've got the absolute pleasure of welcoming Mr William Fraser from the Heathcote Holdings Group. Will, do you want to introduce yourself? Who who are you?
+
+Will Fraser (00:52.29)
+Hello, thanks. Thanks for having us first of all. So I'm Will Fraser. run Habitat Regeneration, which is part of the Heathcote Holdings Group. So our side of the business is more ecological and habitat management and restoration projects. So anything from an offset scheme, say for a development site, through to we work with government bodies and conservation charities across the country.
+
+delivering some of their biodiversity enhancement schemes.
+
+Vikram Kumar (01:26.136)
+Fantastic. And how long have you been with the Heathcote Holdings Group?
+
+Will Fraser (01:30.382)
+So I've worked with the Inca Holdings Group for coming up to 15 years on and off, but I've worked for them two years now, full time. It's been an exciting time, lot of growth in that two year time frame.
+
+Vikram Kumar (01:47.904)
+And and just to make it clear, you know, it is a family business, you know, and relationships are very important. You know, how do you know each other?
+
+Will Fraser (01:56.376)
+So I'm slightly compromising that I grew up with Martin and Nathan Heathcote. Them like me both got farming backgrounds. I was a family farm down the road. So we knew each other as children, got up to a lot of mischief. And then I went off my separate ways, went to university, did a degree in rural land management.
+
+and I went off and trained as a surveyor in the, I tried surveying the rural faculty. looking at farms and rural estate management. Worked for another company in East Sussex for five years and Then I set up on my own in 2019 and worked for myself for six years. But at the same time at the back end of that, I was focusing a lot in rural planning.
+
+and we were seeing an increasing need for planning betterment. So effectively, we wanted to convert a building or build a house, and the planners wanted to see some environmental improvements, some habitat improvement. This was pre-B NG but I went to Trevor and Martin and Nathan and said, think there's a bit of a, there's potential here. You've got all of the equipment and all of the skillset. What is BNG?
+
+So B NG is biodiversity net gain. So, yeah, went to the family and said, I think there's a good opportunity here. We've got the skill set, we've got the kit, we just need to maybe focus in on this sector. And that was pushing five years ago now. And from there we grew into...
+
+won government contracts for woodland creation schemes, doing work with wildlife charities, private landowners and corporates. And in the last couple of years, as biodiversity net gain has been adopted, and there's this obligation on developers now to deliver, preferably on-site biodiversity net gain, but in some cases off-site, we've really picked up momentum in that sector, taken on a lot more work.
+
+Vikram Kumar (04:13.048)
+Fantastic. So, I think you mentioned offline you you've been in solar for about two years. Yeah. And your first experience is the UK's largest ever solar farm. Over a thousand acres. we'll get more into that. in the future. But w what did you do for fifteen years? And and and and can you tell us a bit more about your studies?
+
+Will Fraser (04:21.825)
+Yeah.
+
+Will Fraser (04:32.578)
+So, my studies were kind of specifically into anything to do with land, countryside, how rural businesses can look at diversification, alternative income streams, and then the systems needed to manage them and put them in place. So, I got involved in anything from farming tenancies through to...
+
+diversifications that did often include planning for roof mounted solar arrays in the early days, change of use on buildings to commercial and yeah everything in between really.
+
+Vikram Kumar (05:12.078)
+And you know, Martin mentioned earlier and Clark as well, you know, there's twelve hundred people in the business, there's several companies, you guys are a big team. Yeah. You try not to be corporate, you cre you have a lovely family environment, but in terms of having a kind of structure, can you tell your very nice cardigan, you know, What is habitat regeneration? Which company does this sit in?
+
+Will Fraser (05:33.974)
+Yeah, so habitat regeneration sits under FGS Agri. So we're the kind of land management and environmental side of the group. wider FGS Agri is involved in everything from farm contracting to organic materials being applied to land. And then, yeah, more recently we've got involved in the last five years in the habitat management and creation works.
+
+Vikram Kumar (06:02.443)
+And I hear the word lemp mentioned a lot. What does that mean?
+
+Will Fraser (06:06.19)
+So LEMP is Landscape and Ecological Management Plan. So that's effectively an overarching document for these larger infrastructure and development projects that say how the...
+
+environment, the ecology on site and the landscape should be managed and then ultimately what they're wanting the site to look like at the end, how it should be implemented and how it should be managed long term to get the desired outcome. say for example with a solar farm you're going to say in your planning applications that you can deliver x increase in biodiversity on the site. This document is going to tell you how you're going to do that, what
+
+habitat types you're going to create, where they're best located and then what the expected management obligations of them are over time.
+
+Vikram Kumar (07:04.93)
+Fantastic. And w What what are the top five most important things that you wanna cover?
+
+Will Fraser (07:12.408)
+So I think specific to solar, naturally you get a big solar project, want to get things up and running, and it's quite easy for the ecology and habitat elements to kind of fall into the background. But actually we've seen some of the getting involved early and applying a practical...
+
+mindset to some of these reports and surveys means that when you come to delivering them you're not having to go back and retrospectively alter things. For example, we've dealt with schemes where hedgerows are put over cable routes that's obviously got potential, were proposed to be put over cable routes that's obviously got significant issues long term with route structures. Likewise trees with shading of solar and then certain habits
+
+types that aren't going to be so, they're quite sensitive so they're not going to deal with let's say a lot of vehicular traffic going over the top of them and it's just sitting there early doors and going actually this is something you're obliged to do let's make it practical let's make it deliverable because if we can make it practical early on this is going to be something you've got to manage for 25 years and an increased annual cost for 25 years can start to add up.
+
+So yeah, that's a big one. In terms of habitat types we work with, very broad spectrum really, anything through to from wetland creation works, river restorations, through to wildflower habitat, tree planting, hedge planting, scrub creation. So to give a good indication talking about Cleve Hill as my first experience in the solar industry.
+
+Part of the site included a degraded SSSI, a SSSI that hadn't been that well looked after historically. So although it was designated as quite a key ecological site, there wasn't anything that exciting there. So the Cleve Hill scheme included a proposal to improve that by creating a large wetland, included blocking land drains, retaining water in the landscape for longer, creating scrapes and swales.
+
+Will Fraser (09:31.024)
+to hold water and provide habitat for wading birds.
+
+and overwintering wildfowl. So that was really quite an impressive project. It shows the benefit that can come from these large scale solar schemes is what's then going on around it. Cleve Hill, for example, is right next to a Ramsar site, so a very highly designated site for protecting the environment. And if we can start to offer these habitat types next to it, fantastic. And it's a great route for getting funding into these habitat creation schemes.
+
+Wildflower wise, Cleve Hill as you say, pushing a thousand acres. So we did all of the establishment across the site pre-construction. It was part of a planning condition discharge. So with our background in farming, the massive transition now in solar like you say, it's gone from a 5, 10, 15 meg scheme being considered big, maybe 30, 50 acres.
+
+Now, yeah, now we are talking three, four, 500 meg, which is thousands of acres.
+
+Exactly, so but what you need to address that and what you need to be able to deal with that is equipment that can work at scale. And with our agricultural background we're used to getting kit that can work at scale and applying it to do a job accurately and precisely. So that's exactly what we did. We've fallen back on our larger scale drills and cultivation equipment to establish a variety of wild flower
+
+Will Fraser (11:14.0)
+and grass and mixes across the whole site. So that was our first real involvement really in the Cleve Hill scheme and the relationship kind of developed from there.
+
+Vikram Kumar (11:26.894)
+Exactly. So, you know, with myself, I've got an unusual background. I study law, I got into cables as a as a temp job. Yeah. And then been doing s solar and cables for almost twenty years, fourteen years under my own banner. But in the course of this podcast we've interviewed some amazing people. Yeah. you know, other than that, many of them worked in the army, in the navy. We should have a gentleman from the RF soon as well. Yeah. what surprised me most is is the aggregation.
+
+Agricultural backgrounds of the people involved. Like Clive Crosby was a farmer or did farming of some sort in Devon. He says he grew up in an i idyllic background, idyllic background. Gar Atherton, who's developing software now, he used to be head of engineering solar century and BioA, one of the big agricultural groups in Germany. He was a farmer in Queensland. And you know, one of the things, one of the bad reps the solar gets is, you know, we are destroying the countryside, you know, we are competing with
+
+food production and I think here we have to put things into perspective because intensive farming can also be as bad if not worse for the waterways, for the quality of the land itself. So you know speak about how you are rewilding, how you're helping to restore the countryside and how can solar coexist, you know, Valerie says agri voltaics and not greenwashing. Yeah.
+
+Will Fraser (12:52.856)
+So I think as with anything, it's a balancing act, isn't it? And ultimately, There is a need for energy. And much like as we have got a more challenging political world issues, food and energy are two of the key things that you're going to fall back on and look at how can you try and bring them in-house and maintain national security. it's going to be selecting the right sites. Sites that aren't as productive for food production is going to be key.
+
+then actually how can you still incorporate an element of agriculture into the solar farm. So With Cleve there's going to be quite an involved livestock fencing scheme to enable the site to be grazed by sheep. So yes, it's not an arable production anymore, but it is still going to deliver agricultural output. So I think site selection is key and making sure that
+
+We're delivering.
+
+what's put in the application, what's effectively consented at the outset, it's followed through and delivered to a quality standard because it's a frightening thing at the moment because it's not something that the nation, the general public, are used to. But much like when wind turbines first went in, there was uproar. Now a lot of people would say a wind turbine is part of their landscape, it's part of the backdrop to the place that they live.
+
+making sure it's done right, making sure there's a balanced approach and making sure that everything's delivered. If we say it's going to be delivered to that standard, we make sure it is.
+
+Vikram Kumar (14:35.102)
+There is a  a popular saying in the industry that a solar spill is a sunny day. I think we've had the first sunny day in three months in in the UK. And you know, I wouldn't downplay solar so much because you're still dealing with high voltages, you know, heavy machinery, you know, ho difficult ground conditions, with flooding risks, you know, but at the same time it's it's nowhere near as challenging as building a nuclear power plant or unfortunately with what's going on in the in in
+
+Gulf of Persia or Gulf of Arabia, depending on which part of the country you're from. Yeah. You know, when a tanker is spills, you can have tens of millions of barrels of oil leak. So solar is not you know as controversial. but you know I'm not green-eyed about fossil fuels versus renewables. I think there has to be a just transition because you know, I I said to Valerio, he's a big, big developer in agri voltaics, nice Italian chap, engineer engineer as well.
+
+know, I said to him, you know, even your solar panels have to arrive on ships which is powered by marine oil. You know, so exactly we can't be, you know, two leftists or extremists of any kind and say, you know, we we we need to just stop with oil. You know, without oil the economy shuts down entirely. So, you know, we have to be clear eyed about what we're doing and we have to take people forward with us. And so do you want to speak about, you know, at what stage do you get involved?
+
+do you talk to developers before there's an EPC contract? And what do you do after there's an EPC contract?
+
+Will Fraser (16:11.246)
+Yeah, so it kind of depends project by project really. Some of these schemes we've looked at and been asked to look through the LEMPs and see, get maybe a practical perspective on what we might...
+
+consider amendments that might help with cost, might help with delivery and ultimately ensuring they're managed well into the future. But otherwise, in some cases, it is all of the reports are up and running, done, ready to go. And we come in and provide a turnkey kind of habitat solution. So that might be everything from initial pre-discharge conditions. Like I said, at Cleve, we deliver the wildflower meadows and the herbal lays.
+
+through to ecological mitigation. So ultimately there's going to be an element of wildlife on site and everyone wants to ensure that we mitigate any potential impact on them. So it might be exclusion fencing to make sure that certain animals, great crested newts, water voles, whatever it might be, aren't getting into construction areas so that they can't be caused harm. And then it's setting up receptor sites. if certain species needs to be moved.
+
+setting up a site that you can move them to that's suitable and then from there there's generally ongoing
+
+management across the site during construction and then once other contractors are off site it's the finishing touches so it's finishing the delivery of the landscape and ecological management plans that might be tree planting, hedge planting, touching up wildflower mixes and grass mixes that might have been damaged a bit during construction and then you're going into O&M so that's going to be just general management of the site so for the wildflower
+
+Will Fraser (18:02.252)
+as it might be cutting and collecting the material and taking it off site. Might be pruning trees, cutting hedges.
+
+and the ongoing management is quite key to us because in a lot of what we do elsewhere, the job comes in, it's not contracted, it's we're as good as our next client and the phone call comes in and we go to the job. This long-term security of contract with a management contract enables us to invest in the kit, enables us to invest in tech and to improve the efficiency of what we do and the quality of what we deliver. So we're really keen
+
+to look at some of these longer term relationships with the EPCS and site managers so that we can start to develop what's best for the site.
+
+Vikram Kumar (18:52.588)
+ what w water voles there was a big topic. why why are they important? Well sorry. ... the water voles is that
+
+Will Fraser (18:59.832)
+ Cleve. There was a very high density of water voles at Cleve. They're a protected species, become increasingly rare in the UK. So it was basically taking areas that they currently were living on the site. created a complete...
+
+some of the group created a completely new habitat on the site. Right. And we then were involved in actually, we didn't do the physical translocation works there, we did the...
+
+gradual reduction of habitat and then ecologists move the water voles into this translocation site. But it's like with it on Cleve it was water voles but on others there's always going likely it is there's always going to have to be something mitigated and it's making sure it's done properly and the right controls are put in place at the start and like you say everyone really wants a good solar is under scrutiny we want to demonstrate that it can really deliver positive.
+
+And so doing it right from the start and then demonstrating that habitat increase and biodiversity increase is in everyone's interest really.
+
+Vikram Kumar (20:15.894)
+Mm-hmm. And in terms of agriPV or agricultural land use, do you make any assessments on how you could still use the land for farming and specifically with these large NCIP nationally significant infrastructure projects? The biggest change I've noticed and there's also a six hundred and fifty megawatt solar farm in Germany, which we discussed with Delta because they've got a lovely YouTube video about you know this the new layouts, the east west system.
+
+or five modules in portrait, they're they're not like usual solar farms where you can just about get the grass cut cutting equipment in. Yeah. You know, these are actual huge arrays. You can have people walking under them. So what kind of agricultural use do you foresee for these kind of developments?
+
+Will Fraser (20:57.139)
+Yeah
+
+Will Fraser (21:04.312)
+Well on the Cleve site with that set up the proposal is for livestock for sheep to be grazed across it. So we've been involved in trying to set up the fencing systems, practical out of water, all of the welfare considerations for making sure that the site can be grazed effectively and managed well because
+
+It probably isn't something that naturally you'd expect to be dealing with on a solar farm is looking at a site from a sheep grazing perspective. But that's probably where it needs to go to continue showing there's multiple benefits of a solar farm. If you can incorporate an element of food production, clean energy generation and show those habitat gains, then it's a win-win-win really.
+
+Vikram Kumar (21:58.83)
+ course sheep sheep grazing important because if you got overgrown grass, you know, in the UK not so much, but in California and other places like Spain, you know, wildfire wildfire is a big concern. but electrically as well. if you've got overgrown grass, you know, you've got 1500V equipment, you've got high voltage transformers. A hundred percent. You you don't you know the reason why they put gravel down on substations is because they don't want
+
+Will Fraser (22:28.216)
+Yeah, yeah, yeah.
+
+Vikram Kumar (22:29.218)
+So grass growing into enviroments which can cause operational failure
+
+Will Fraser (22:34.638)
+It is a balancing act in that in one sense you're trying to promote that vegetation and in the other sense you're trying to manage it and mitigate your risk. So like you say these new larger systems, East-West, more space underneath them, it does practically make management a lot more accessible.
+
+Vikram Kumar (22:54.86)
+Well when was you know, sheep are actually good because they they will eat the grass.
+
+Will Fraser (22:58.892)
+Well it's more cost effective, there's something positive that comes out of it. Yeah definitely, it's quite a positive step forward I think.
+
+Vikram Kumar (23:09.016)
+So wildf wildflowers I I hear a lot about on the news and and people discussing, how is that part of a proactive strategy? Do you just let the land alone leave the land alone within safety bounds and the wildflower develops on its own, or do you what do you do to have wildflower meadows?
+
+Will Fraser (23:26.294)
+So what you often find is, if a solar farm's historically been in arable production, there can be quite a high nutrient level in the soil. And actually you'd think that's a good thing, with wild flowers they're quite finicky, they're quite sensitive too. They generally want a lower nutrient level so other more aggressive, competitive weeds and grasses can't out-compete them. So part of the management is actually how can we draw that nutrient
+
+level out of the soil. So it's generally ensuring no more organic materials applied to the land and then cutting and taking away that grass material, gradually reducing the nutrient level and that allows the wild flowers to then come through and start to establish. It's a kind of site by site assessment really, so what we've got in house is we've also got a team
+
+that can do the soil sampling so we can monitor how the nutrient levels are changing over time through management. But also what we're developing now, was touched on earlier, is...
+
+using drones and AI to monitor biodiversity across the site. So at quite a high brow level, it might be looking at colour variants in the summer. by default, you would assume that more colour when plants are in flower means more different types of flowers. But then what we're also working on is something that is a technique and ID 1600 different plant species.
+
+you would then do drone flights over the site and you could do it year on year and overlay to see how that site is developing over time. And if you're not necessarily getting the outcomes that you desired, then you can go, well, hang on a second here, by year five, the LEMP said we were going to be at this stage, we're not. Let's take stock and see if we might want to change the management, the management, because what we're doing at the moment isn't working. So I think...
+
+Will Fraser (25:35.18)
+Delivery is really important, but monitoring and baselining is as important to make sure you're achieving the outcomes that you set out for in the first place.
+
+Vikram Kumar (25:45.538)
+So a couple of more things, you know, one one is
+
+you know, environmental net gain. Yeah. which is if you had a intensive potato farming or whatever it may have been before, were they using for industrial amounts of industrial quantities of fertilizer? Yeah. And with solar, you know, is their calculation on how do you calculate the biodiversity gain when you stop using fertilizer? One. And two, with wildflowers do you also consider you know another environmental crisis like bees?
+
+Will Fraser (26:16.236)
+Yeah, 100%. So I think nitrogen and fertiliser and biodiversity, they're not necessarily, there's kind of two things there.
+
+Generally, if you're taking an arable site, the baseline is very low from a biodiversity perspective. Baselines are calculated, so biodiversity net gain has to work through a government system called the Defra Metric. So that's effectively a calculator. You input what your habitat is when you take the site on, and that gives you a base level of what the biodiversity value is for the site. As a minimum,
+
+most local authorities need you to deliver at least 10 % increase in what the site was before the development. What it seems Solar's doing is to demonstrate that betterment, most Solar schemes are actually delivering significantly more than that. So sometimes more than 100 % increase in, know, serious increases in biodiversity. But that's because...
+
+on the ground there's a lot of space actually to, there is if you were doing housing development, that land's completely changed from, you know.
+
+countryside to bricks and mortar. There is in this case, you've still got the land underneath the panels to do something positive with. yeah, you take your baseline survey, identify what the baseline is, calculate how much additional, what your net gain needs to be. And then from there, you look at what habitat types are best suited to that site based on what's in the surrounding area, what it historically might have been. Soil
+
+Will Fraser (28:02.362)
+types, etc. Everything in between. And then from there you might identify that wildflowers are best suited to part of the site. Hedge planting, tree planting, another part of the site. And as we did at Cleve, wetland creation. And to deliver that you have to develop a document called a habitat management and monitoring plan. And that again sets out...
+
+how you're going to deliver the habitat, how you're going to measure it over time, what kind of KPIs you should be hitting year one, two, three, four, five. And you're Then monitored by an independent external who monitors to make sure that you're meeting all of those goals and key targets over the management period, which is up to 30 years.
+
+Vikram Kumar (28:54.092)
+And in terms of now that y Arabo Arable activity I presume means farming and since it becomes a joint mutual use site between agriculture and and solar, do you Do you do any calculations about water quality?
+
+Will Fraser (29:12.046)
+We haven't, but it is...
+
+There's certain catchments in the UK at the moment, water catchments, so river catchments, that are caught up by nutrient neutrality issues, so where there's excessive nitrate and phosphate in the water course. there is a potential there, we haven't been directly involved with it, but there's certainly a potential there to say the site historically had these nitrate and phosphate inputs over a calendar year. We're converting it to a very low input system that's not going to generate that level of
+
+nutrient and there is actually a potential to probably offset other developments locally with the land use change that you've delivered on the solar farm. And you can stack biodiversity net gain and nutrient neutrality benefits on top of one another. So you could be using the site for BNG and nutrient neutrality. So kind of a double benefit on that front
+
+Vikram Kumar (30:11.086)
+Fantastic because you water is a controversial issue right now. you know, there's protests happening about sewage discharges, but also I've got friends in the environmental agency and they mention a lot and I read a lot as well because I question my life, you know, are we are we wait are we destroying the countryside? And the answer to me is not really, because once you s once you give the land time to recover from intensive farming, the land starts to regenerate. But also there's more importantly, water benefits. but in terms of practical
+
+application, you know, who pays for all of this? At what state do you sell internally to your group companies? Do you s do you contract commercially with the developers? You know, at what stage do you like to get
+
+Will Fraser (30:55.38)
+So yeah, there's a, again, it's a mixture, so we've got some of our own.
+
+in-house land bank where we're looking at delivering B &G for other development sites within the region. But also it may well be someone's got all of their survey work up and running, ready to go, and we simply come in and deliver the habitat or deliver and manage the habitat long term. We'll work on anything. At the moment, we've got some sites where we've had an initial delivery contract and then that's back to back with a five-year management contract.
+
+or we're in going ad hoc, they're managing the site themselves and then they call us in as and when needed. So paying for it is a...
+
+variety of funding routes for a lot of these habitat schemes. There's a lot of government funding going in at the moment, particularly into woodland creation. So we do a lot with some government bodies who are buying significant blocks of annually. And we do everything from taking the site from arable ground through to planted woodland and then manage it to ensure success for the first five, six years.
+
+But then like you say, sometimes developers are buying sites themselves to deliver their own BNG or they're developing it as part of their green space strategy. So it might be you have a development site with green space out the back of it, which they're using to meet their BNG requirements.
+
+Vikram Kumar (32:29.26)
+Yeah. Fantastic. One of the reasons why I go into sales or sales engineering is you know I love visiting project places. Yeah. You know, there's a Toyota philosophy, I think it's called Jenji Jambutsu, which means go to the place of the work to see what's actually happening. Because it's one thing to look at spreadsheets, yeah. And another thing to go you know, you wouldn't buy a house ideally without looking at it. No, you know, because you don't know what the neighborhood's like, you know what the environment's like and in construction and engineering is similar, but the biggest story about Cleve Hill that's
+
+Going on for over ten years is you know there is a sea de forming a sea defense wall. Yes. Yeah. So you know, someone's worried about the tide coming in. Yeah. And the other thing is a sea defense wall is very good at keeping water in. Yeah. So what are your thoughts about the water management within the site and how does that affect your environmental regeneration efforts?
+
+Will Fraser (33:21.39)
+So think Managing water, looking at the Cleve Hill site, that was historically under the sea way back when and effectively was reclaimed, drained and converted into productive arable land. So there's always got to be an eye on that, on that site, and a lot of that is through managing land drainage, managing your internal ditches and drains. making sure, like you say, that water quality is maintained, but at the same time it's being...
+
+managed so it doesn't cause issues of flooding. The seawall again, there's actually an opportunity there. It's a great grass bank for quite a large habitat feature that kind of connects that whole coastal line between Seasalter that's just downstream where there's a load of wetland projects and the wider landscape. yes, it poses a threat, the location, but there's...
+
+believe quite a detailed management plan for the flood defences there. I can't see it being too much of an issue to be fair.
+
+Vikram Kumar (34:26.976)
+ y and your scope of works, because after the site's finished, yeah. There's gonna be twenty plus years of operation and maintenance O and Yeah. And so How do you get involved in operations of the project? Do you is it self sustaining once you planted the trees and wildflowers?
+
+Will Fraser (34:43.694)
+No, with trees and hedges you'd have kind of beat up surveys so that means going back and looking at the sites annually, inspecting where trees haven't done so well, are you going to replace them and replant them and then it might be in the first few years if you have drought years like we've had some really you know extreme weather conditions in the last few years some very dry summers so it might be having a watering regime
+
+Really, it's those first two, three years are key to establishment.
+
+Vikram Kumar (35:17.016)
+Fantastic and do you enjoy it most of all?
+
+Will Fraser (35:20.302)
+Love it, yeah absolutely. It's a great change and my job previously was very much 95 % office based. Still heavily office based but like you say the ability to get out on site.
+
+meet with customers, see how these projects evolve and actually see them something that you've taken from concept and talking about on a plan to three, four years later, seeing it out there on site working, it's really, really satisfying. Great. And It's something I'm passionate about. always been farming background, grown up and lived in the countryside my whole life. I'm really passionate about nature and the great outdoors. So it's kind of pairing up a personal
+
+passion with my job, which is fantastic.
+
+Vikram Kumar (36:09.888)
+The theme of our podcast is the future of solar photovoltaics. You know, when you Google and you know AI tells you if you want serious utility in engineering advancement, you should listen to our podcast. You know, and I still can't believe it that you you can have solar cells and suddenly there's electricity. Yeah. You know, it's intuitive when you think about it, but it's still hard to imagine that you know there are solar farms the size of mini nuclear power plants. There's of course things called capacity factor because solar's not generating all the time. Yeah. But no other technology works twenty four
+
+seven so there's no single silver bullet, there has to be a mix of technologies and you know even Shell they say in the sky scenario the solar's gonna be the largest source of energy in the future. Yeah. And this is what I've been working at for 14 years. You know, I've had some of the best experiences of my life working in solar. I've been to you know over twenty countries. Yeah. You know, so and it's just the beginning. And so what do you think from your two year you you've only had two years of experience with solar, but it's the the most hectic sight to ever be attempted. Yeah.
+
+What do you think is the future of solar photovoltaics? And a second question, you know, what kind of people do you want to engage with in the next year coming?
+
+Will Fraser (37:19.33)
+Yeah, so think from my perspective on the habitat side, it's going to kind of key to...
+
+show that delivery through so that we can show people the positive outcomes that are achievable from solar outside of just clean energy from a land use perspective. Once people start to see that and they've got a scheme and you can show them around it and you can give them the figures and the facts on the real benefits, it becomes more of a norm. At the moment it's very daunting talking about these six, seven, eight hundred acre sites. know naturally people are going to be concerned about it but as we start to
+
+deliver and see the quality come through then yeah I think it hopefully should be more positively received for the general public and like you say we've got to look at alternative energy sources and a spill with oil is catastrophic. What is the worst case scenario with solar really? And we're all pushing for a sustainable future and we're all pushing for more energy security and for the UK solar is going to play a
+
+role in that.
+
+Vikram Kumar (38:25.068)
+Fantastic. I first had the idea to work in solar in the 2008 financial crisis. Yeah. The whole industry shut down, construction started shut down and the only sectors that were booming at the time was solar and wind power. Yeah. And so you know, I'm looking forward to many more years in this business and you know, there's there's a lot to think about.
+
+In terms of habitat regeneration. And one of the things I enjoy most is, you know, the people that join this industry. You know, now it's sometimes it can become all about money, which can be the dark side of energy of all kinds. But on the positive side, we've always had a great industry where most people that enter, they want to make a change in the world. Yeah. And we have some of those great people. We have many of the ex forces people, but we have farmers, but also in terms of habitat regeneration, we've had
+
+interview with Mr Rob Tippett who is MD or managing director of Bluefield Operations and Maintenance. Yeah. It's a FTSE two fifty I believe if I'm not wrong. It's listed on Stock Exchange Fund. And so he got into this, you know, because because of improving the environment. So what you're doing is really fantastic and and thanks for joining us today.
+
+Will Fraser (39:27.693)
+Yeah.
+
+Will Fraser (39:37.72)
+Thank you very much, and I really appreciate the time. you.
 
 ---
 

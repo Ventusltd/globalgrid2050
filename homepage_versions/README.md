@@ -1682,3 +1682,14 @@ Intention: retain What is the Kuiper? beneath Kuiper with JavaScript disabled an
 Measurement: restore-point workflow [37218687498](https://github.com/Ventusltd/globalgrid2050/actions/runs/37218687498) passed before publication. Rechecked v130 as highest snapshot; folder had 221 entries before adding v131 and its metrics.
 
 Metrics: 64 lines, 1931 words, 35984 characters, 35984 bytes; SHA-256 `c12474699a4c2d3586e0b89cc4a94f1527e2fb49cd8993a358338bf3dd715b67`. Details are in `homepage_v131-metrics.json`.
+
+
+## Version 132
+
+Pre-edit restore point: `homepage_v132.html`; measurements: `homepage_v132-metrics.json`. Source: the currently served homepage, rebuilt byte-for-byte by `scripts/import_homepage_owner.py` from the pre-edit pin (owner `4a3557202726095b015224b2628de0d7611789b6`) at main `da7d8f6e6a7806ad5039701f5c86637d84be0704`; the committed root `index.html` is stale and replaced at build.
+
+Intention: promote the owner bundle so GridAtlas shows V9.172 - 28 October 2026 (generation 202610281340) with one line on the optional UK lightning overlay. V9.156 remains as an archived release; all existing links retained.
+
+Measurement: restore-point workflow [40796068645](https://github.com/Ventusltd/globalgrid2050/actions/runs/40796068645) passed. 223 entries before adding v132 and its metrics.
+
+Metrics: 67 lines, 2384 words, 41350 characters, 41350 bytes; SHA-256 `0f004b40197118c9300bcb278a97f5acd8f25edc58cb292d05b0bf6f5e13f816`.

@@ -1,0 +1,13 @@
+{
+  "file": "homepage_v133.html",
+  "source": "Currently served homepage: scripts/import_homepage_owner.py output for the pre-edit pin (owner commit cb741ca6825b875c29dc9441cf0d10e4656b1b9d) on globalgrid2050 main 4f0f3a9bf9fcd9560adf6ce2058adab4936fbe9f. Deploy-pages assembles index.html this way during the build, so these are the served bytes; the committed root index.html is stale and is overwritten at build.",
+  "homepage_versions_entries_before": 225,
+  "lines": 67,
+  "words": 2408,
+  "characters": 41665,
+  "bytes": 41665,
+  "sha256": "5321699588235f339e279e859be4267004f684a1e0fa5052fdd83c9bb1b450f2",
+  "intention": "Promote the homepage owner bundle at globalgrid2050-homepage bbf1dbd (PR #2) so the footer carries a Privacy section: no analytics, GitHub Pages logs IP addresses, third parties listed. Only index.html and the stylesheet change in the bundle; data/homepage.json, the JavaScript and every link are unchanged.",
+  "measurement_workflow": "Passed https://github.com/Ventusltd/globalgrid2050/actions/runs/40807823610 at main 4f0f3a9bf9fcd9560adf6ce2058adab4936fbe9f",
+  "numbering": "Checked remote main: v132 was highest; v133 created without overwriting history."
+}

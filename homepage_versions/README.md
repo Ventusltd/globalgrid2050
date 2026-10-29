@@ -1693,3 +1693,14 @@ Intention: promote the owner bundle so GridAtlas shows V9.172 - 28 October 2026 
 Measurement: restore-point workflow [40796068645](https://github.com/Ventusltd/globalgrid2050/actions/runs/40796068645) passed. 223 entries before adding v132 and its metrics.
 
 Metrics: 67 lines, 2384 words, 41350 characters, 41350 bytes; SHA-256 `0f004b40197118c9300bcb278a97f5acd8f25edc58cb292d05b0bf6f5e13f816`.
+
+
+## Version 133
+
+Pre-edit restore point: `homepage_v133.html`; measurements: `homepage_v133-metrics.json`. Source: the currently served homepage, rebuilt byte-for-byte by `scripts/import_homepage_owner.py` from the pre-edit pin (owner `cb741ca6825b875c29dc9441cf0d10e4656b1b9d`) at main `4f0f3a9bf9fcd9560adf6ce2058adab4936fbe9f`; the committed root `index.html` is stale and replaced at build.
+
+Intention: promote the owner bundle at `bbf1dbd223cba53182efb5034ce0d6719728d4ee` (globalgrid2050-homepage PR #2) so the footer carries a Privacy section (no analytics; GitHub Pages logs IP addresses; third parties listed). Only `index.html` and `assets/versioned-homepage.css` change in the bundle; `data/homepage.json`, the JavaScript and all existing links are unchanged.
+
+Measurement: restore-point workflow [40807823610](https://github.com/Ventusltd/globalgrid2050/actions/runs/40807823610) passed. 225 entries before adding v133 and its metrics.
+
+Metrics: 67 lines, 2408 words, 41665 characters, 41665 bytes; SHA-256 `5321699588235f339e279e859be4267004f684a1e0fa5052fdd83c9bb1b450f2`.

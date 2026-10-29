@@ -1,0 +1,46 @@
+{
+  "contract_sha256": "6425d81381eda13d204d88a2cd95a409d27d73561b33d65420e2b08428353397",
+  "features_sha256": "0d56316ee3bfbcccacafaa81fdb37240259b19fc7ac12353b61a32c44cdfdeab",
+  "geometry_policy": {
+    "output_crs": "RFC 7946 WGS84",
+    "source_crs": "EPSG:27700",
+    "transform": "documented OSGB36-to-WGS84 seven-parameter Helmert approximation",
+    "use": "market map context only; never evidence of a grid connection or cadastral boundary"
+  },
+  "input_bytes": {
+    "uk_renewables_pipeline/v7/fixtures/v6/project_identity_v6.json": 20701945,
+    "uk_renewables_pipeline/v7/fixtures/v7.2/repd_q2_coordinates.json": 2336155
+  },
+  "inputs": {
+    "uk_renewables_pipeline/v7/fixtures/v6/project_identity_v6.json": "d614084c05c0380862cf2d9da58309c43cdb128d6917458db4dc53717062ea95",
+    "uk_renewables_pipeline/v7/fixtures/v7.2/repd_q2_coordinates.json": "8ca7a99a9f3a95b4de6f1dff79af64ead3aaa14627356eb198ae7be21539741f"
+  },
+  "metrics": {
+    "bess_count": 382,
+    "bess_mw": 106338.18,
+    "development_count": 718,
+    "geometry_count": 766,
+    "missing_geometry_count": 0,
+    "project_count": 766,
+    "solar_count": 384,
+    "solar_mwp": 34073.49
+  },
+  "output_bytes": {
+    "uk_renewables_pipeline/v7/data/v7.2/projects.geojson": 1023218,
+    "uk_renewables_pipeline/v7/data/v7.2/projects.json": 964717
+  },
+  "outputs": {
+    "uk_renewables_pipeline/v7/data/v7.2/projects.geojson": "74ccd73f3ee77a069c646cba0bcb5984609cdd68ea681292b8f3d7f33fe4bf8d",
+    "uk_renewables_pipeline/v7/data/v7.2/projects.json": "ce7e0a7681da47c6d2bfe66c292e61c3727d9db02db667053be4fbe5e0952de9"
+  },
+  "projects_sha256": "753afa29cd3d13eb9ad7e38be3d2344d2c43046deea59cd52d90da07cec83ceb",
+  "schema": "globalgrid2050.v7.project-spine-build.v1",
+  "source_provenance": {
+    "canonical_identity_source_xlsx_sha256": "624a0a9712c58a7a93716e51f2bf054eec8b1af7170f6f9516cc10cd248e2657",
+    "coordinate_workbook_copy_sha256": "99ec4d0509a9fdfb999116e33c459084ce9ab59b44e3fafba5fc9b280ae2d5a6",
+    "dataset": "DESNZ Renewable Energy Planning Database Q2 2026",
+    "reconciliation": "14657/14657 Ref IDs; technology and capacity exact; site names exact after missing-value and _x000D_ normalization"
+  },
+  "status": "VALIDATED_DATA_ONLY_NOT_LIVE",
+  "version": "7.2"
+}

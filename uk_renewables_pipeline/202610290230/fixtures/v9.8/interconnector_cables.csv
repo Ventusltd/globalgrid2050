@@ -1,0 +1,17 @@
+bmrsCode,country,interconnectorName,capacityGW,status,flowDataStatus,targetOperational,projectLink,notes
+INTFR,France,IFA,2.0,operational,WIRED,,,Current operational BMRS interconnector code
+INTIFA2,France,IFA2,1.0,operational,WIRED,,,Current operational BMRS interconnector code
+INTELEC,France,ElecLink,1.0,operational,WIRED,,,Current operational BMRS interconnector code
+INTNED,Netherlands,BritNed,1.0,operational,WIRED,,,Current operational BMRS interconnector code
+INTNEM,Belgium,Nemo Link,1.0,operational,WIRED,,,Current operational BMRS interconnector code
+INTNSL,Norway,North Sea Link,1.4,operational,WIRED,,,Current operational BMRS interconnector code
+INTVKL,Denmark,Viking Link,1.4,operational,WIRED,,,Current operational BMRS interconnector code
+INTEW,Ireland,East West Interconnector,0.5,operational,WIRED,,,Current operational BMRS interconnector code
+INTGRNL,Ireland,Greenlink,0.5,operational,WIRED,,,Current operational BMRS interconnector code
+INTIRL,Northern Ireland,Moyle,0.5,operational,WIRED,,,Current operational BMRS interconnector code
+,Germany,NeuConnect,1.4,future,DATA NOT WIRED,2028,neuconnect-interconnector.com,No BMRS code yet. Add only when operational code exists.
+,Germany,Tarchon Energy,1.4,future,DATA NOT WIRED,2032,,No BMRS code yet. Add only when operational code exists.
+,Netherlands,LionLink,2.0,future,DATA NOT WIRED,2032,,No BMRS code yet. Offshore hybrid project.
+,Belgium,Nautilus,1.4,future,DATA NOT WIRED,2032,,No BMRS code yet. Offshore hybrid project.
+,Ireland,MaresConnect,0.75,future,DATA NOT WIRED,2032,,No BMRS code yet.
+,Northern Ireland,LirIC,0.7,future,DATA NOT WIRED,2032,,No BMRS code yet.

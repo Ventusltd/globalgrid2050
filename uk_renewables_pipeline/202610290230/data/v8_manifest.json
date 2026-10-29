@@ -1,0 +1,23 @@
+{
+  "schema": "globalgrid2050.v8.release-manifest.v1",
+  "version": "8.1",
+  "feature": "canonical-utility-project-mvp",
+  "status": "LIVE_VALIDATED",
+  "project_source": "data/v7.2/projects.json",
+  "project_count": 766,
+  "development_count": 718,
+  "solar_count": 384,
+  "solar_mwp": 34073.49,
+  "bess_count": 382,
+  "bess_mw": 106338.18,
+  "wind_count": 0,
+  "newspaper": {
+    "source_release": "V5",
+    "headline_count": 125,
+    "identity_status": "legacy/unverified"
+  },
+  "fallback": {
+    "release": "V7",
+    "tree": "9ad8cfe9cdf26948ed3ad3898822977f9198006a"
+  }
+}

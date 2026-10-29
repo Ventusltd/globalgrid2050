@@ -1,0 +1,2077 @@
+{
+  "schema": "globalgrid2050.regional-news-decisions.v9.7",
+  "release": "9.7",
+  "classifier_version": "v9.7.0",
+  "generated_from": "bootstrap-v9-5-1-discovery-snapshot",
+  "decisions": [
+    {
+      "article_id": "GG2050-REGION-97F3EF4741AA6B69",
+      "headline": "Solar farm plan for North Tawton field",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOZ0UzaHRwbjVaRmRIVWYzLWJYV3VrTUZXTk1kUjFWN0FZbzhzd0gwc3Y1bmV5Z0huS3Qwd1B4Y0hFcEp6OVZlZkxMaDlXb1kyTlJ6ZjhTUFl4T0FfUGkyNkpkWmpxRkt4Ull1VUo4WmQzUWZrMHhhS0pCQVV2b19yZWtKWU51WEtXOWwteXFhYWhLVFVrYS1Maw?oc=5",
+      "source": "Crediton Courier",
+      "published": "2026-08-21",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-148ABC4549F449C2",
+      "headline": "New Jersey Board of Public Utilities releases 150MW BTM energy storage proposal - Energy-Storage.News",
+      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQekF5Q0thenh4UnBQcXB4Z2lpbENGMW9xSnpRTkgtZXFPVlo5ZXdUdWhhWjRxMFdJRWE1TFZhWjNwQzJYX2NoS3I1S2x4bGhjN2lYUnRVd196aXg4RlBoOVJaUHBxNkVqNHRmYm9ub1NpUDdaTVVZalJOSTlmYUltNGMyaU0xbC1KQlNjRjBxd1dIWGxQYmI3T1puLUVkSjJCUjBDMzh1T0NrbEd4QlJwb3VR?oc=5",
+      "source": "Energy-Storage.News",
+      "published": "2026-08-21",
+      "decision": "ACCEPT_REGIONAL",
+      "reason": "explicit non-UK geography with utility-scale solar or battery context",
+      "evidence": [
+        "energy storage",
+        "Utilities",
+        "New Jersey"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-6A70DE15FB21700C",
+      "headline": "Low Carbon wins permit for 400MW UK solar farm",
+      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPMjhWOUFjOTNhVUFFRkV5Zk9yS1d0a2hFQ2ZHck9nZHZza1o5NGEtSC1jRUkwRTNyMHBuaS12Q0p6YzY3Ung1QmVKdTZkbUlOcE1vUFFZZnU5WnBuSXF6eVZZRy1HY3JMT3FjMm5DaGZ2QjM2YVk1b01pZ0kyY0NXWmNB?oc=5",
+      "source": "reNEWS",
+      "published": "2026-08-21",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: UK",
+        "solar"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-5E069E6170B228C0",
+      "headline": "Beacon Fen Energy Park development consent decision announced",
+      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPWDQydUp0MHVEVzBaQWg4amx2ejVQUU9CZlVoaE9oR2habGdxTUkxaEdtNmtIMDhXOFc5TFpsSzRTbHVIX3FPaGRPSjNJVWx5dk1IWTlPVHRPYkRVNUNQc0ZwcDA1QmFndjF5dWtxdXJFU0RjT1B2enRwcUFnWHIwNXU2bWR6cS02c3MxTFJ5aWthekpiblNPeE1FWHk?oc=5",
+      "source": "GOV.UK",
+      "published": "2026-08-21",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-C88D0D6357D48387",
+      "headline": "‘One market into many’: AER says battery storage systems are reshaping Australia’s NEM - Energy-Storage.News",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQR0wyRjZOampzbGJwMDhINzBLSF9iT3hPMGpPMDAwZm42bm80UHhHUnpnQ2hhVHlrX041NVN3eU8xSE9Vc3FXSF9CMGZRRXZITEJIVzZCalNQS0F0cjFhWDNOajVYSWIwMlB4cHFTSG1XOC1KQWlPQzhQeExyN1pNdm44OGp1MEZQemxnVDRGUXlzNEVLYzNzYi1YQ2ZvV2JhSERkVkQ3cFd1NW9kMExieDk4WDE3dw?oc=5",
+      "source": "Energy-Storage.News",
+      "published": "2026-08-20",
+      "decision": "ACCEPT_REGIONAL",
+      "reason": "explicit non-UK geography with utility-scale solar or battery context",
+      "evidence": [
+        "battery",
+        "market",
+        "Australia"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-61BFEAE6973F25C9",
+      "headline": "US ROUNDUP: BESS projects and deals for EDP Renewables, Tucson Electric Power, and EDF - Energy-Storage.News",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNY2pSS0NlQUVvZk5fV21TMjlQUkROaWhfWFVkaEttbG5mMGpvVWM2WFFEZXJDeElfc3REcGdBMnRlRE1tUXQ3SEVZTE9FS0s3c25aOWlrVnpUMWlCN1lSNmQ1cTRvVFlNOFZvdDVKOVZ4MFcyMXA2dnJDWnI4TmJhN0s3MzQwSkVJclJacllDZFc1SjFjUW1HeUxuRHItSFQ2eGQ0bmIwU1FibktwV3pueHRCTU5tQW8?oc=5",
+      "source": "Energy-Storage.News",
+      "published": "2026-08-20",
+      "decision": "ACCEPT_REGIONAL",
+      "reason": "explicit non-UK geography with utility-scale solar or battery context",
+      "evidence": [
+        "BESS",
+        "ROUNDUP",
+        "US"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-666D4AD931248C9E",
+      "headline": "The Grange celebrates Forest Healthcare’s National Care Award",
+      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOei1FYWl2MGhNbGRhb0owa3FIWXZ6ejFuZGJvcGp1NHJRYS05Y1EzM21wRFctdVVibHVsVDRtczlkaEg1YTQzZUw1THFYQXpWcGl0azhyQmZqWHNFc2puaVRMaW04OXNQTmhLWmI0aFRlMzZZZUlYaG5jMHo2YmNFeFNrYzBMcndSX21kQUhn?oc=5",
+      "source": "Yahoo News UK",
+      "published": "2026-08-20",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "inherited UK project veto: grange"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-39FF188343E13B90",
+      "headline": "Harmony Energy energises new 35MW/70MWh BESS in North Yorkshire",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQS3lTYndlaUZZT2g0cDhraldfN05jWURLZVhwbFYtQlMyRllxR3F1eTF1dlJpYnFZZ2ZSTVQxUllQR2xpUFluOXBoX3lkNzlHWHBpSG9MTTVjWnZYWmtoWjFjMkJPd2E2b2J1dzk1V3dqX3NqVDNZRFhwOTBVdkZfNzBoUUJSOE15NE9GM052Q2gyNlgxVjZiQ09pYWUtMURWZUFwR1FVY0g0TmhHTTlla05rV2U?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-08-20",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: North Yorkshire",
+        "BESS"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-B8FA54C48BFB72CB",
+      "headline": "Capital Dynamics acquires 170MW/680MWh BESS in County Kerry, Ireland",
+      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOMGI5Y3R3NVY2NDV3UUFja2p2eGs4ODdreV90NkdBY3NoMTFSNTNEMDVrUXpsMjZjaDRrd2I4dUp4ZG1xdlhqUjlkNmdURUhGSlRuMkJKQ2l3UnFzLTA0S1p2RWpmRDJ2eWMzdWZ5SGU0ZVQ4aUw0NUlDR3IyR3NCTTgyTXVpdFpCSHBqeDlocUI5U3owLWlqa05FSXpEeGczNE5tYmRORkVGVVpQZ1ZiLUM5YS1pSDJXTmc?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-08-20",
+      "decision": "ACCEPT_REGIONAL",
+      "reason": "explicit non-UK geography with utility-scale solar or battery context",
+      "evidence": [
+        "BESS",
+        "acquires",
+        "Ireland"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-8E0B4957AB88DE48",
+      "headline": "Blocked BESS in Britain: Clearstone’s appeal fails for 150 MW site at Axminster",
+      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxORlMxRnpkRWNSZ1AwQzU4azhnejRsS2pTNHg0WXhidGIxMndESVl2WlFXQjQtSXdHUE5wVU5rNVNwU1ZIZUJobG1BYkM1SGlPcmE4enIzTGphWTh2VENTVm5MeWh2ZUJCd2JQeV9BdERBREI3a2VkTGE5OFNLeFdvS0FTWWRaaGczWXYzeGhrajdUMTktQWVuY2pWS29XYlFNejhfbjk5MnJ1RTJabFJyMFBxMWtSRjhI?oc=5",
+      "source": "pv magazine Global",
+      "published": "2026-08-20",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: Britain",
+        "BESS"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-558762FD2EF80DFF",
+      "headline": "APA to build 104MWh battery storage system for Evolution Mining's Ernest Henry operations in Australia - Energy-Storage.News",
+      "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxOcDdGY2NleS1rcFkxMGV3UFE2b3J3em50R09uRi1WRlVkVXVmZHh5TmtmN2JLeUk0eGNfbG1sWEVwTDVIbEs1dVpNaVdfRy1vajF6R1NlR01WRUwxQ1Vab1lKRWZSWkp3OU5fYjkxWGlLTlhITVlUbWZVSFV6OWh4VTdNMnJDVkFRTHlBM3F5Qld3VkFuZXJBUmpyRUM0S05xczBZWUpsOFZsdm1tWG9BcFRJRENLY296Y0Y2clpkSjF4dVJWdGl0OEtLVFllLTQ?oc=5",
+      "source": "Energy-Storage.News",
+      "published": "2026-08-20",
+      "decision": "ACCEPT_REGIONAL",
+      "reason": "explicit non-UK geography with utility-scale solar or battery context",
+      "evidence": [
+        "battery",
+        "system",
+        "Australia"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-D6417466AEC848E1",
+      "headline": "US utilities Appalachian Power and 3CE launch RFPS seeking BESS capacity in Virginia, California - Energy-Storage.News",
+      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQMjJNb3dlRmVheS1WNmdncTJMWlBvYmJxbV9qUlJUUzVRMG9KUlF1OUN1anJvd0thNGhNazEyOTFNdG16bXl6elc0ZDg4LWtOczhFbXFEYmpGRGRUOFpmR285TkxwUEtZWnJFaTVHNnFUWWFBV1pGZzBocWktdTlvQ05ybDBKRm4xN2xyem0tV05LZVQ3NnpBYm9PSVlCSm9adDlSRDY3c0xTQUpCNlNDZ2FkZW5qclowQjNNV0NOTzVKbW1rM0tR?oc=5",
+      "source": "Energy-Storage.News",
+      "published": "2026-08-19",
+      "decision": "ACCEPT_REGIONAL",
+      "reason": "explicit non-UK geography with utility-scale solar or battery context",
+      "evidence": [
+        "BESS",
+        "utilities",
+        "US"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-3616AC022175915A",
+      "headline": "Copenhagen Infrastructure Partners closes US$3 billion energy fund targeting 'high-growth, middle-income markets' - Energy-Storage.News",
+      "url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxPTnV0U29uc3dhN0QwcC1GQWhEVk5xQ1lONjNLUU5IRzRJVjFBWElKeW9Qd2tlTndWVzdnNkNwVTUtcDBxdlRUd0tjS2ZQNjhaMGl5NUJzYUtGWU9icnJVT1Q3cUctbTFUTXB1dmF1bkZ0VWpHUXV2ZENEbUFjbTVzWDJLYTRNMnNaa0xwTVRiZ1daSkxfbXZWM1Y5MUZZeEpHVEZhT0Zua2RSemdldnFVSzdEMWtHQ3BKQUZQMjd2VmpQeVcyZFM0TVEyNmZ4RHBaTENLc1VTYmdsQQ?oc=5",
+      "source": "Energy-Storage.News",
+      "published": "2026-08-19",
+      "decision": "ABSTAIN_NO_TECHNOLOGY",
+      "reason": "no explicit solar or battery technology evidence",
+      "evidence": [],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-08B354A09926158A",
+      "headline": "Triple Point acquires 49.2MW Hessay Solar project from Recurrent Energy",
+      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQVHZ6NXhSdjhiT1J1bm9DY3poR3I3dG5wM3MwOHNIS1JLUVZuRXhrS0p6ZlVzQ2xKRnlId3JfbldHVzZtNzFUM1kzSkJSbThYbGY3VEFmWWNNWDdveVptQzJrakE3YXVHODNvVmN5QXZtZWZtM2d2OUh4NjBmeHlsQ0VRR00wck80SnlJbVVVOFNFcUVNWU15RjZSNi03d1UtcmVhOGNscUQzcEV1YXltamFEZjZ1cVE5c2RSMm96ZVZTQWhW?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-08-18",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-9835D0B26B588889",
+      "headline": "Statkraft’s Cornish solar farm secures planning permission after appeal",
+      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNMjNlbi1xTWRuMTk4YlhYeHlQQXBfOEZoSHE2U0lYRjdvME91Slh2VmVhV1dfc2laLXotZTNvSTNkTFowcWltR3J6UUlsY1ZYY0l4Rl94ZXlJdVpyMTdJSzNnbkNBWWV1VlhaU1I0a1lGZUhfWXhoSGFzNm5lTk1yUDk2cXhzejBfU0paQ09iRlpPdFJLVzVrbk15Q25XdkZYcEp1UFZHVE90RmxpaUNBWGR6OFNNemFETW1ZWGVTRzNSVWRP?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-08-18",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: Cornish",
+        "solar"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-ABDEA2491EF216E4",
+      "headline": "NextEnergy UK I Acquires 107 MW Battery Storage Portfolio in the UK",
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOOFN4ay1KQ1JocnJNRHUzN3pRbEFIem53TTY0blBlZ053a1N6cDZiUnpkQ2N0NGtoRHFqX0pyVFYzTTJHdWV6RWZ6emNzUGpLS2pCWEptejlvcHQ3cHhWc1RVbGRXV1pnMjBtdWZXeldBRDdWOWc2QVRsYW0yV1JLVV8wR2ZqaS1UaVdtMEJyYw?oc=5",
+      "source": "Mercom Capital Group",
+      "published": "2026-08-18",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: UK",
+        "Battery"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-14933EF6741E5593",
+      "headline": "Canadian Solar says patent dispute with Maxeon is formally terminated",
+      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNMW1wNEFpM3lTU2RlVzh0Z0tQVkZNSVZYZndHYkZydUNCQjJWaW9FbkdIUlVfY3VJcFN3Rl9HQmlpV0FldHNwV3MtZ19SX3JXbTl6TXZfeG85V1BvanFhbHZKQllHcmY1VVQ2d1BpSXd2Nm5veUpEa3JxQWJma2Eza0MxMXc4dGx4M3k2S2I4S1F1VWJFY2hHelV2cUlLZGs3eDBvaWNWNHl0RWpsWWc?oc=5",
+      "source": "pv magazine Global",
+      "published": "2026-08-18",
+      "decision": "ABSTAIN_NO_UTILITY_CONTEXT",
+      "reason": "technology term lacks utility-scale project or market context",
+      "evidence": [
+        "Solar"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-F6EB89B025D1B1CD",
+      "headline": "California advances two bills to expand virtual power plants, reduce energy rates - Energy-Storage.News",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQVzh4RlJ4NHBZQzkzVWZzbG93Nm9xbzNuai1lZDJVOW0zQTJwYTU4cW00LUl1ZnYwb2tCVzh3ZWFhb2ZPOUkyb3g0TW15RDFhcl9BMU5xYmVyRHMtWFZnUWhKNGZoS3ZwVEFjelpfVUxMSWFWbmlUdGVrVmxMQnZzWVpxZ2tBUkcwNkdWYS0wSFA2VUUtMXJHeGxJajdqZmRHNW1vSWt2RkJTZG5na08zSW55Yw?oc=5",
+      "source": "Energy-Storage.News",
+      "published": "2026-08-18",
+      "decision": "ABSTAIN_NO_TECHNOLOGY",
+      "reason": "no explicit solar or battery technology evidence",
+      "evidence": [],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-9FF78498304CC4E8",
+      "headline": "NextEnergy Capital acquires 107 MW UK operational BESS portfolio",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQTTV5N1N5c3IzRTE3Ujh6T0d0SnVpS09CVjdNeFJ4Q05QR0EzRDhuWWNzN0FhRzFJczE5T3FoN29mSFZPMEdmNy1JM2xFWTc1MUpCdTJmekJ4UU5JZl9ac3BFTE8xOWxGT0tBQkROa3FDbm1uUjVDQnByUVVfYWdfLTBPdm9oSmd5bTJpUkEwTWtsRXlSVTktUC0tc3RrVzJmejRFbjBYUm9kbmdLeUc4RzVnNA?oc=5",
+      "source": "Solarbytes",
+      "published": "2026-08-17",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: UK",
+        "BESS"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-9ABD9377636B54D5",
+      "headline": "Fluence and German utility LEAG begin construction of second large-scale BESS project under partnership - Energy-Storage.News",
+      "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPZUFPRmpwX1hVY3BzSzRpajY4YWVoeFlEc2lUeFYxaWFTTHhCVWd5N1piU1Z5RThqYUVfZm5EUFJjZ21uODVzd2JrN0J6Nl9EMGtLM1dFckVyOUc1N2RVaXZvSlhKVzB1VXh3VEpRVzdVWkpBTE5uSGIyT204LWVEVDVaSHkyWGVMbHp1N0wtZ0ZjRUQ2QXdBRmlhUTF0a0NHS2NYbjNpUWFSZkRCWjhxZE1lcTJHTXZGcWRXbm9GRklBZERXT0VUbUZ1b0x1WDI3d3c?oc=5",
+      "source": "Energy-Storage.News",
+      "published": "2026-08-17",
+      "decision": "ACCEPT_REGIONAL",
+      "reason": "explicit non-UK geography with utility-scale solar or battery context",
+      "evidence": [
+        "BESS",
+        "utility",
+        "German"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-D835B862E089D1E4",
+      "headline": "Econergy signs financing agreements for 150MW solar-plus-storage project in Romania - Energy-Storage.News",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQeEtyRHNSWDB5c2h5WFF2VFVBMHBFUGlzM00zRDAxQ2VETDkzbUUyeWg1c2hoQVQ1UjZ4eEtncGlCUkFzcFJ2RFdoLTh6WkpKcWpaa0tqX0kzVXMzeDdIMDR2U3lOZnJKQTBTVUVUZGtGUklTak93VW9ocUM2Q04yd0RHX0NFcFIwRkM0dlZzaVZjakpnSmZ5LUR0OFIxdS1HQWhaVE1lNVVfR3NXZUFVcU9qUzNWN1k?oc=5",
+      "source": "Energy-Storage.News",
+      "published": "2026-08-17",
+      "decision": "ACCEPT_REGIONAL",
+      "reason": "explicit non-UK geography with utility-scale solar or battery context",
+      "evidence": [
+        "solar",
+        "financing",
+        "Romania"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-FF68F4CA426D0ACA",
+      "headline": "British households earn £100 million from solar in past year, Octopus says",
+      "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNQXM0d05TVHVIOGRWclZYX1VoemtpOFUzeEFqcUFFa2stMzR5LUlMWnl6YXVnUWRWZi1fRldEaDcyQzNFbFE4Nzh6b01lQVUxZ29odjhMb3JOYUpUVkZLbTZ2QWNMVVlOempHQ1duRzQtNWtlbjVMam45dE5jVW4xbTR2d1Y5RUtLYmxITHA3blF5QU9rRTNUNi1XMF9pNWtNWUhRX0l3bzNRdjhNVDhCM2ltd3pLOFAxcl91ZlE0dlJ4Y2JGYkVYdUhTcFVPY3VITEx1T2N0bVk?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-08-17",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: British",
+        "solar"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-035805F2D23D163A",
+      "headline": "Pathfinder Clean Energy reaches investment decision on Hertfordshire solar and BESS",
+      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNQ2F2ZjlhZGUtVFQ1ZWZYSGdiU1luc1A4T25YODB0NkdaU0Q3bGpIZkFDS19IWUtiU2tQQmt0OWVZX040TURjSldpOTUxZll6Mmk4SmlZX0l3RTZHLWRmd05rbThkLWR4SHBaWkliVm1Ccjd3emdxWG9LRnpGbG9zbjdIZlI5Q0xGSVh4elNkYjU1NXBDblhwbTJRaldBUVpTM0pvNWVMa1VZVDVkT2VGZnpRVVExZ2xMOHJYWlllVTlObW1CQVFvTEt0eC0?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-08-14",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: Hertfordshire",
+        "solar",
+        "BESS"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-05F80C5792A048D0",
+      "headline": "1GWh Coalburn 1 battery energy storage enters operations in Scotland",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQTm1iamxWcUgyd2NOTS13cWgwbExYOGpqM0tLczhsY0hpTThiZ1N1U3V4eXJoT0dxLTFIREhqaHNuRUk2NV9FR3dWVUpyYVBNUDBpajRiZDRFMkRPY2dfbDdNWW90YWZ0UzBuSURpZTdXTDFUS3p2UXJuTzYtNDhNa0RjWU5tZzdoYmpLYklyZm1KMnRGeGkxX2tTTDlMZ0xkZm9EaVNpNURjYmlodnJCYjd6ZEU5Zw?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-08-13",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-E42F4EB0CA0A7AAB",
+      "headline": "More data centres approved for west London",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE0zb1B1aHBPd0FjZkxDYVM2eDJZb3B4dkdTRTNBRWFSX2ViaWs2SUVZWlZhS2FtcnNqZ2ZqdEtvbjJGNTI4OUl3SWhfa01xQ2ZNcUFWV0NBTEhMbGlh?oc=5",
+      "source": "BBC",
+      "published": "2026-08-12",
+      "decision": "ABSTAIN_NO_TECHNOLOGY",
+      "reason": "no explicit solar or battery technology evidence",
+      "evidence": [],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-AF397525306425EA",
+      "headline": "Push Power solar-plus-storage project bags approval in Essex",
+      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQWFRFQ0RyXzNnR2VNRFFTekJ5TzVoR0dWS0RsYTVkV3NocHAyeWRlWE1DanFfNTZvakZRU1loS3VzQ0k3ZGZpSS1lcFIxaWE0UTl1VXhmTmUzQy0zS3g1UHdaTFNCTmd6SHM1dWx0OENVNFB6MWtmLWlSSVpDS1N1M0VHNXdsUl8zeU5lREhHYVJhdnBrMFQ0UnFmcmhFeWVUUXhjNS1jckEwbVltYmZj?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-08-05",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: Essex",
+        "solar"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-34377EDEF0CD2FCF",
+      "headline": "KKR’s ContourGlobal begins construction of ‘Sun at Night’ solar-plus-storage project in Chile - Energy-Storage.News",
+      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOMnpoYmlFalN4S0M2STZnXzdNWGpTa0d4dnJBa0tPMHp4ZUJsQnR6d0dycDkza2JFVkxJSlU1U1JRZnktNXVDNTNXYTV0VzNqc1VWUUpld3lUV2tpV3BMY1hGUm1lU1Q0NEhoUzN1eU10Q0JtT0Eza2k0MDZxYmN5WGItZmNjcUNSMmVZWWpMTzg4QUZFWkgtdjJjX3ZwZGdxbUtVNFllQkdGalJUcWw4d2J4cERPdGhNVXNCWUxid2Y?oc=5",
+      "source": "Energy-Storage.News",
+      "published": "2026-08-05",
+      "decision": "ACCEPT_REGIONAL",
+      "reason": "explicit non-UK geography with utility-scale solar or battery context",
+      "evidence": [
+        "solar",
+        "construction",
+        "Chile"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-A09D893715DE8A01",
+      "headline": "Analysis: Recent AI data centre BESS technology and deployment partnerships - Energy-Storage.News",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPZ3dwLTRiNkhGT3FZR19NbWZhNWZaUDdyQVJCN2tBRkF3MDdTaHFMMEFvTDV6UUM3UmV3dU1qcG9BMThRUjJVemtuUVB6UElDNEFYbHB2eXhxN3p6YlVmcTdrZ292UU1kdDVjSEotNFcwc3AtcHZiLTJ1N0hkYWk5ZjVHcmdvZ0ZEZE1waDYwOE9IdzluS0taT1FqRlF0VndlLUxIQW4wTVRhWGc?oc=5",
+      "source": "Energy-Storage.News",
+      "published": "2026-07-23",
+      "decision": "ABSTAIN_NO_UTILITY_CONTEXT",
+      "reason": "technology term lacks utility-scale project or market context",
+      "evidence": [
+        "BESS"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-C8928AADEE367D7E",
+      "headline": "WFW advises lenders on £231m financing for Fidra Energy’s West Burton C BESS project",
+      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOcjlLaE55TWQyamhHYUNOWjBaZVl4bDJFV3NLNllSLWlCODcyTDl0RDNGWllvSHFrYTN1ZWJCUGU0Z3NxcFBteFlEVEhMcEFSYTRMaFpXSWUzZ3BCYVEtVlMyVXBWeWhuc2dLV0NtZmR2LTZvSzVhWFV2UWl3S1dlNFQ2ZFpmLVFLUXFISXc3RVFLbXBlblgxYVNTQmRkVTZjNGlBajk5ck42aXI2T3c?oc=5",
+      "source": "Watson Farley & Williams",
+      "published": "2026-07-20",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "inherited UK project veto: burton",
+        "BESS"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-FB2C7E48BB783A75",
+      "headline": "Sol Systems reaches financial close on 123MW Illinois solar portfolio",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNQVk3MVZwVHo1T2QycjZlMkYyRThIUS1ONVRIRzgyUVFONVJMcHFSUXZ0Q0xUOWs0YjFYTEtJNTRDMG9EanI2dzBRazFlVjc5S0w5cHZfNzY0UG1wbC1LWHowWDNiWUV0WjBtaWN5bDE2S19JNVh4TlZkTUMxUG01ZmhwdkFYRlAzVVAxc28tRkFrQ1d5T0NibENB?oc=5",
+      "source": "PV Tech",
+      "published": "2026-07-17",
+      "decision": "ACCEPT_REGIONAL",
+      "reason": "explicit non-UK geography with utility-scale solar or battery context",
+      "evidence": [
+        "solar",
+        "Systems",
+        "Illinois"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-26C4751F38DF1F85",
+      "headline": "Fidra Energy reaches financial close on 500 MW West Burton C BESS project",
+      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPVXlfMGdRWEU5T0FucEFrWkFHSC1ldkI1ZlZoOWNlSFk1emE4dHlIR1o5VkFCQUFOME1SS3BUWUdXeF9yRU1yMEhrUlgtd1VDdmVmaVFVdElHSHZZMHBySTA5WTh6YXFtMVowanJxTkhJNWRqa1BJbW85MHVuYkpHYUZKMlNSTnJKbEYxV1k5YVJQQ1F6X05XRC1aSG9GUmtzTEwtYVJXVF9ES3dFTllMWF9vYzhNekIxMzF1ODFLRG9TM1AxYUE?oc=5",
+      "source": "Energy Global",
+      "published": "2026-07-17",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "inherited UK project veto: burton",
+        "BESS"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-03EFD5361982DD40",
+      "headline": "Enviromena solar plant on South Yorkshire green belt recommended for planning approval",
+      "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPd21vcDYwRXVCUTdma05QOHhKRVdKUE9McHFfaDBvOU13UzZ2cmEzWVZwUmg4YlFXMjZPTVBhNm5wTkplRmZMZFB2ZU1kMXlOdWVWd24yWWx6b2dRdmhGN1hYRFAyNkQzWjFHOTlsQzg3SG1rRFdjQ3NDNFJuQUwyaHo3QS1nRVlNTjBzVjhhWFJKb3NqWXQ5ZkxFcVhxRWJDNWUwZ1U2TjB6ZTVlaWFHUUR4cEVQQlA5eXR3LXNIQXNFU2t1MGpYdmRPb0JBT1lHWVE?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-07-13",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: Yorkshire",
+        "solar"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-5AEE4343678B10E4",
+      "headline": "Dean Moor Solar farm will be Cumbria's largest",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5fRHNsY202RTZwellHTmxuZU0ycnViaFl2YzBvMnNMRDNDbV9UWXlQNUtUbFBfQ0d5dmVCNHhubk02Ny0wOHFKTTFoT2JnNXB0c1Z5VFlqRkQ5TXBE?oc=5",
+      "source": "BBC",
+      "published": "2026-07-11",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-18154525FD776346",
+      "headline": "Construction and delivery risk in BESS projects: why risk allocation matters for financing",
+      "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxQTTh5d0lfUFk1Wm9WbHUwelhaek52b1VrZDMzLU1iWXpBVzRyTlVZU1FWbW1vOU1SUk93VEJkOGEwcHJuYl9Bb2t1YXJld21iamJBYm1qcC1hTlg3RG9Rdk1NY3JfdFliU1I5NDRNS1lkdVd3eER5QXZidV9TOEZxMm42QmQ1eGtPQ2c1MWQtMkFVcloxalpjMFZDeV9HLVotbzVzOVdKMmYtTU50Zy1GazZpMlZBNExydENaZXVoVE9vZWw2cEN1dE1Qel90bmpha25XVFRJQQ?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-07-10",
+      "decision": "ABSTAIN_NO_EXPLICIT_GEOGRAPHY",
+      "reason": "no explicit, case-safe non-UK geography",
+      "evidence": [
+        "BESS",
+        "Construction"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-C73A3193EAF676E4",
+      "headline": "Why are thousands of people opposing a new data centre?",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFAwV1poMWRqWmJHZ3dCWWc2bUhsSU9JRVdLd2UtZnpRRFFIeWxOaEtGY3lEdFNKYklRdWpSUHhleHI1c0xYbmltSnQzWlhNeHpQNzU4cm5NTzJqQy1O?oc=5",
+      "source": "BBC",
+      "published": "2026-07-09",
+      "decision": "ABSTAIN_NO_TECHNOLOGY",
+      "reason": "no explicit solar or battery technology evidence",
+      "evidence": [],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-2701C9CB3E2C5484",
+      "headline": "UK ROUNDUP: Field closes financing on 1GWh portfolio; Pulse Clean Energy selects Envision for 310MWh project - Energy-Storage.News",
+      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQWDlQYlI4UmZFZ3hXV19UREg3c1pldHhjY1Jid3M0SWVjZTJXY0o1bW11ZjE2U3ZKOWFIQm1NSnlqeERmU1pCVDdmajhVQk9BZm1CNGh3S2V6QUdJTUt3YWZtMUlpdEEwV2R2RXh4MjdJQmF2TTQweVFZUk1qVzhoWlRvVHFwbm1ZeThrVnl5R0d1ZDVyOVBxQ2VfUHlsZTduS0JYNThRd0xIRDZYM2p1R3ZSY1lrOUxEZnh6ZFV1dzhhUGY5NW5vOHBPNUxfZjlaUk5Ob0x3?oc=5",
+      "source": "Energy-Storage.News",
+      "published": "2026-07-09",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: UK"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-2356ADAA978A7703",
+      "headline": "Swiss firm Alpiq acquires 90% stake in BESS developer-operator Harmony Energy - Energy-Storage.News",
+      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFBQTXlubWtHQnlUTVgzbE52ZXEwTENWS1lscnZXdHpsQkFTZV9kV3J2UzlKdVdyMWRtYW1tVnQ1Zk9vM0xRSkhzTHF0ckNDeC1SN3ZvR1ZKc0Y5WUd3TUtra0Z6NDJ4WmNieEFMdTdGbw?oc=5",
+      "source": "Energy-Storage.News",
+      "published": "2026-07-09",
+      "decision": "ACCEPT_REGIONAL",
+      "reason": "explicit non-UK geography with utility-scale solar or battery context",
+      "evidence": [
+        "BESS",
+        "acquires",
+        "Swiss"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-E136B29AA050116C",
+      "headline": "UK approves 740MW One Earth solar farm",
+      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1ncXRpRTR1MjRmNHVQY1Z3RFkzdXN2ZEZFSHBManRGamo3SkV3Z0N3X1hBZ0ptOUFPaGYtcU12TFF3QTIzY0JKNmNzTk5fU3NiR0lpVkNEbE14QnpoX2ptS3hSQlNmZzU4aHRCSHhUQUVRSkNuc3VJ?oc=5",
+      "source": "reNEWS",
+      "published": "2026-07-08",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-C9D13B2ECA81CB46",
+      "headline": "British govt says yes to 740-MW One Earth solar project",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOTFlSQkQxcmVXUnJTWmZVQlZKeldTZVB4UjZtcndUVk5aOWFlMEZiR0YzRVd0NEtjdUtQdFZlbnRORTF2eGo3dTBNSkIxNzJNTktfQ05IMW5iU2Zkem5Jdi0ta1FOS0hsSmpVOXNYYy1nVmtMWFhxWll1c0JCQmUxWHIxYWVaRVdCVTNXUkc1TE1hRXRvRWhESDI1SQ?oc=5",
+      "source": "Renewables Now",
+      "published": "2026-07-08",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: British",
+        "solar"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-52E7905F2C40D828",
+      "headline": "Akaysha Energy begins construction of 82MWh BESS in southern Japan with Itochu-Tokyo Century JV - Energy-Storage.News",
+      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOeF9vamdRNkRLdHhyQlRUcTROTUt3X3d1ZmU1RTJJd291RHlkNUlTV0twT0lRcFA1UzVHeEE3UjllVy1rRlRWYWVNZ1UwVUI3dWxCekJlaW5QNFlHNENaZ1lBaGFYdVB0MGNJT2hORENBSVctVU9kODZtak05cXdpNGpmTlZwSXZlMnp6YXNUVGRLLXg1b3lIcEtBU2d2N29rRFVxWHN1QlNJRFUyMktBOWZhQnY2MWdvN213YzFZRnhvRkFyVDg0?oc=5",
+      "source": "Energy-Storage.News",
+      "published": "2026-07-08",
+      "decision": "ACCEPT_REGIONAL",
+      "reason": "explicit non-UK geography with utility-scale solar or battery context",
+      "evidence": [
+        "BESS",
+        "construction",
+        "Japan"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-6FBE1786B4FD8551",
+      "headline": "Fvs Dean Moor Ltd Receives Development Consent For Dean Moor Solar Farm",
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNaG5QNlhBMzZzVFdKVkwtcGpNT2hDamNVdUNUOWhyNTM2N1BqR3RFZTlfY29vNXZXLU9oVDFzcmo3enJZcDNsWjdDTUVSX2VJUVVIRlhyQmJldzctaDZyYk1uaWR4MkNidFB4TW1vc19CRVpVWjdNT0pWUGpyYmRfRFp6UjlKRFFlZWV0SjBoTjlEdHVxcW00dXFxVm43OTlqampvYjNlcjZ1RGlBTWNOcg?oc=5",
+      "source": "megaproject.com",
+      "published": "2026-07-07",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-A02698F23321C42F",
+      "headline": "Field reaches financial close on 1GWh UK BESS portfolio",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQelZOSTJiQjQ1ZUxWRW1ReGhTdktwYVplTkxGdDM2LTVOb1QzVEFZb2dNN0ZGdWstc2RnN3FJc0ZGbnVrVEp4eUJsYXZQcnFiSTFoVmY1SWxZYWM3RzhiUEdUNVc2QUdZLVE4Y2xjUVlDd3I5UlFodHBkYThMNEdyemFjV0hyNkVWdngyM19fOUpvczdVNDJCTGEzbkh5MHE2MjdiVS1VRDZqZw?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-07-07",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: UK",
+        "BESS"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-97A2B93E1F9D5742",
+      "headline": "Dean Moor Solar Farm Secures Development Consent for 150 MW Solar Project in Cumbria",
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQekdWd2JIV1hDSW0zdWdUQng0N3NaUVJ5YldvX2FYNU82M0hJUUVyQmJCUnlxbUdFX3dfTklUNXVQZ1hmVHVzb2R5LVhXOGFmRlByUXprYllyYTNPenhxeEVHbFVla3lXVW9rMk5HOGhZYVpOWjVQYk91TnpianhyM2lDazJNZVE4bWQtWjNTZ19GempXcFJ6SVpHbTZXR3RVUU8tOFhyZHJJMExCM1VnYklRLU14MlhKNDh0Rm53?oc=5",
+      "source": "SolarQuarter",
+      "published": "2026-07-07",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-C4B81BFE4B6BC007",
+      "headline": "Peartree Hill solar farm near Beverley approved",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9WeVBuUWQ3VGhtOWkzTFpmczZmbnJuaXhadC15ajRSMlVXaWhQc21PelRxS1NuSzRHXy04dzM1YVF4LUFEV3NVV0pRWmlVRlYteFQyWHFrQk95dTVD?oc=5",
+      "source": "BBC",
+      "published": "2026-07-03",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-D8137DD5DD4D5770",
+      "headline": "DESNZ grants DCO for 150MW Dean Moor solar project in Cumbria",
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNb0daVWdoSFdOR1JCWjNjY0tyd3IteE54cWR4WVhPMFNGemlEaUhwYUNPMTAycGlKX1NKYjlLLUNySW9iT0hMeXRDcU10d0JqNUhTczF5R1lOa1Jwd0RrQzFyOFZQc3ZJZUJZVS0yZldmSTh4ZExSeHdnZkc2Ym9abVNDaUU5RnhCbVdXOENpMmtzY0Y1eFZmY1hEQWFwc3NHZUE4YlVLeFlfTVR0RFVEYQ?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-07-03",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-0D305749C4CCF78B",
+      "headline": "RWE scores DCO for 320MW East Riding solar power plant",
+      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOTHRsYUN1ck0taTFwN05VM0RVZlhkLXlhNWh0Z083REpybUY1VS1kaTc5aUtBSlJ6eUFVTmNUYk5BMXVFb21sc0p2ZVpkLW4yb010X3NZNkdIWVFRQk5YUGQwbl9tcmh4M1YzYTBtd2p1Vm0tZkEyS3FYQlFxNlNqOTVEb1hTcGl3Q0wxd2xORXAxSEstUkV2Tk5oUmxySURqdEh6TTR6ZGhyc2ZOc2c?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-07-02",
+      "decision": "ABSTAIN_NO_EXPLICIT_GEOGRAPHY",
+      "reason": "no explicit, case-safe non-UK geography",
+      "evidence": [
+        "solar",
+        "plant"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-1797F92B8AFB3EC9",
+      "headline": "Peartree Hill Solar Farm development consent decision announced",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNeWdvRFItQ05Wd2ZKSThwR1E4cmVXV2xwQW9oVVg1N1NWWEE4SnFESlR0RnB2dFJCcEVhSllhMFAybk1mbEEzSGkxNWZDZk1UZjgxRUdDeGRIbTl4R1BZTWxHbC04U3dybkpMMkc2cUxKNURJWnFJUkZ4WGRMQVh4alNHMkc3Nl9sdmpkclZXenRUX3JSR0dhMGVHdlN5LTg?oc=5",
+      "source": "GOV.UK",
+      "published": "2026-07-02",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-436FBDAA40813EDB",
+      "headline": "Dean Moor Solar Farm development consent decision announced",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNZDNGdGtoRlhzRWhhWGpaczUzRllKdHJtMUh0c2sxc2dFeHVpY2d2NGdablFYVUVfRUxZclJNSGtsY0RONm83dk9IV0VDUXNEdHJRNU52TUk3NHhhaW5xWGV6RHhscGgwV1oyeU1EQXFKTmhZWTFnLVdyOEFhZXYyZWFRUjNvc2ZlTDhFRmxUMUxFYUl4a0xQSFNR?oc=5",
+      "source": "GOV.UK",
+      "published": "2026-07-02",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-A967BBBF8F5ABC65",
+      "headline": "Data centre planned for Microsoft UK HQ at Thames Valley Park",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFAzaHc5dklrR29UOURjWVJ2bVRwdWtTS2xKdWVmQlFPYWdnakxtdXppeGlISENpVFA1NFktb3ZnSUhzOHhWS0JOcHU2LURIYTVYS2xoNVl6enBFdURk?oc=5",
+      "source": "BBC",
+      "published": "2026-07-02",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: UK"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-AE5214A4B0492619",
+      "headline": "RWE, PPC complete 930 MW solar cluster in Greece",
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQcC1hQlRTejJtN3BuQ3hBUEQyaUYxWE1OcXhMTVhIZzNfalZJOEx5eXI3YUxOQlBNVkJ1ODU5aUV2elB1WDZJZU5tZktvbjFYSDZvblRXOHRKQTRnbDBrbEFZQmtjempWUW9ZT01ZUXlmWGdibms0ZTBxZHZ0S3BqTnRlRlVoZ2lUN044RGExX2g?oc=5",
+      "source": "pv magazine Global",
+      "published": "2026-07-01",
+      "decision": "ACCEPT_REGIONAL",
+      "reason": "explicit non-UK geography with utility-scale solar or battery context",
+      "evidence": [
+        "solar",
+        "MW",
+        "Greece"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-DF84028417415746",
+      "headline": "Neoen Australia begins construction on 963MWh battery storage system at 440MWp solar PV plant - Energy-Storage.News",
+      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQOGVhOUNKTmRfZ24zU1dMeEpoelhOZl9CUTBfY3F4LWRHUERseUVLQ1pWNkJoZVJLcnhETGIyaXB5Tld3MHRha2w0UEJEOS0yd1dUa2IwMlY2OEN1cF9tVlc5R0JKcGRXYS13bzU1aTQ1WHJKOEZXUTJIMGNHUUtfVGFHRHQ4S01mNmdCWk90WXEyRFZqT2ZNbkwzXzl1NVFMX2daWld3cHJPdXdSazI3WVBJa005eHBEUzlKTVZPS3QzR1gz?oc=5",
+      "source": "Energy-Storage.News",
+      "published": "2026-06-30",
+      "decision": "ACCEPT_REGIONAL",
+      "reason": "explicit non-UK geography with utility-scale solar or battery context",
+      "evidence": [
+        "solar",
+        "battery",
+        "construction",
+        "Australia"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-49B10971CFF69CBE",
+      "headline": "ees Europe 2026: Grid-forming PCS, DC-coupling, C&I and data centre solutions among product launches and market debuts - Energy-Storage.News",
+      "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxORGQ2aElGby03UjNVRW00NzBZN2JWRFc5cXk0a1BGUFhpUWpOVzhNczJpT0t6aUJmSVh5TjFEei11bjlzM21pOHZQT1pYUEFjSFViSFFPd0Z2cndhX0NnYk5uaktJdlo3cGR3YkFfTnVRWmpUYnd2UXY4M205QWJFdE8wenpJWnVOeU4wd3JFYVNwckh0cGlaa09sU2pWbWRTUU91Qmd1QUZsQmhBejlINldiXzFMYzNmOWV5dFZrSzc4dnVTWjl0c2Fycmw0Y3lfcHNPRlZBX3RBcF9xUWZsYg?oc=5",
+      "source": "Energy-Storage.News",
+      "published": "2026-06-25",
+      "decision": "ABSTAIN_NO_TECHNOLOGY",
+      "reason": "no explicit solar or battery technology evidence",
+      "evidence": [],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-EB02914DF244C0C9",
+      "headline": "Will our peaceful rural life be destroyed by a huge AI data centre?",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE95YmVjckUtWDVaZFJyekN1QWV4SjlTcVJ1dU14ZDJ0UGVXdjllQVlaaEpqaUFUMEtfbU5sM0V1MEw3S2FRTFRUWHhUb3Z2RC1RMGE3Nm9vSDRReG1X?oc=5",
+      "source": "BBC",
+      "published": "2026-06-25",
+      "decision": "ABSTAIN_NO_TECHNOLOGY",
+      "reason": "no explicit solar or battery technology evidence",
+      "evidence": [],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-652FA76B6977DE56",
+      "headline": "ContourGlobal enters UK market with 500MW/2,000MWh Scottish BESS acquisition",
+      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPZDlSMmFUMzQxZ2JWOFROM2ZmTTRTMzJaZ0E3UzkxdXlmQVRxdDF0bWtoUklTcVpESE83TTUwYmJuUWVVQVVMMERyanI1RGxucUVoZ0FkbVA5cmhtUV96cVRkYTJNaEVYOXFrRnNmWUhYNVY0clBSWUhiTGllZmsybm0yWDJQMVNxdUJOa05vMEFRLXNKWGRLMlNybjlteS1Ucy0yZmRHME5WSGRfcm5ySEZ3M2p4MGp6ZjZ0aDR5QlZTNmFBdkE?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-06-25",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: UK",
+        "BESS"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-AF1A236174C2F928",
+      "headline": "Innagreen acquires Longhedge solar farm from RES",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNZ1NSTDZmY3ZzSTM2VU5DUm55TVpjckw5c3hXV3llZTN2MHFSV2JrVXByRHJFQ01QTHZjTTdVX1gwVExKMDZReTY0anFJR3h1ak1VR3ZicVR3N3ZUN0NnOHppSDJ5WFRzQlB1R3NoT3hQTkVFdWswZ1k3NlR4TDlGSEk3ekN3MFF5bUsyMWVPRFRHNEJHb1I5QQ?oc=5",
+      "source": "Energy Global",
+      "published": "2026-06-24",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-2A5C2BAB23B0D350",
+      "headline": "Innagreen acquires 50MW UK PV site from RES | Solar",
+      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBJNWdrUzRaU0tLaHdRaXczUHgtYUdoTG9WalcyZExUamktNnREcEVjYTlzSFprWDJzQTF1TC1jSUlnbDJDYVdTZ2VLM1dwR0h6WGd0M3BOT18yQUVHSkdPd3JUWERyZHp6TTNSVzlkY1I0S2NPUS1Eek9idGRqZw?oc=5",
+      "source": "reNEWS",
+      "published": "2026-06-24",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: UK",
+        "PV"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-4D2A732CF3AE1738",
+      "headline": "Meadow Partners Acquires Ground Lease for Coalburn II Battery Storage Project in Scotland",
+      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxObWZLSUpHUktYY3hnNzBuMWw0RkJPd1AzRjlTN0o0bzkwZ2d0S2ZGSnpQV0ItbHhuU25yXzgtSks4R0lwbXpqNzRRNGY3YVZreUF5NThFVW05UEJtN282eUs5NFRIQkJHUXF0ejY3bzJEU1ZBTnRuUmNNWkZtbkZITnFNcnY4d1lzMGtkM09YZWVianJ1ZmRuVlJ4bzZpU2tfdzY4aGpGM01iY0xIR1lFenNzNUlWeVBEWkRheHJQZXRyVHJ6LU5n?oc=5",
+      "source": "citybiz",
+      "published": "2026-06-23",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-12A4DEDB1402056C",
+      "headline": "Meadow Partners Acquires 113-Acre Ground Lease for 1,000 MWh Coalburn II Battery Energy Storage System",
+      "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxQY1ZUamJVSVMySFhvNkNOVDlSQ2p5Z1BBVWlMOFhqQ0RJZk00R3QtRXJmMEpfeXZPYVR4U2IyMjF3b1FlMVkwRDRzR21FUUQ5MnNkZld1UWlIMTFMWUw2NjdieEw1ejlwN0tfbno2ekVTanJnd28wS1doUDdsZ1ZxenRCNWxCX2FxQ1Rkekt5TTRjR2VjTTV0VE1XMTg0RWpEQnVSQmwyazY2VjlPUlk3aUlfRHFZYzdhVmU0S284cUlQeTJ6Tnh6dnlJZTlDc2lpbFJFZmNfUHBLemU5WnMyM3lZYUhINnotMnptdTd3SQ?oc=5",
+      "source": "Business Wire",
+      "published": "2026-06-23",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-2C89B6EC6DA2F8F6",
+      "headline": "Zenobē reaches financial close for four-hour Scottish BESS",
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQQUlWeDBjWVhLd1l2NWdzbllOOVQ2MHd5dU9qWXdkVDFMMWNTYTMzRU1Ud1Jzb0xlNWJGcjdYcmtZVXFwWFl3VjRTZUEtQ1BvX3ZlalZvLVFpNVFZMWdfdS1nOFdFTGtRelJTYjV6VnR5RmRaZ01BajZiMnZKaXlTVHZIUVpxQjJ4Y3BiV3h5Rl9rUjBmZXBkU0poVzkzbWRJZ19VY0o4dEt4UHFB?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-06-19",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: Scottish",
+        "BESS"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-CA266E9CA83F8A18",
+      "headline": "Zenobe closes financing for 200-MW Coalburn BESS project in Scotland",
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPZnlqdmdwUVB3TjFoa3BxV2EzbUI5QTJJV19XOENTSkxSbHdDS2tIVFRfZFp6M1Q5bmJVbGludVd1NklGTXM0ZkhEVllyYXNWam1YREcxSkJBWFo0LUF4cTY0a19tWVpwYkw0dkZmOVZSMGE1U0lGMkZDMWd2WldWck53ZmFTNTJRU0FtNnhwUWtjbExqaC1odkg2NkYwUUl4c0RPdnlzeVpTZHI4?oc=5",
+      "source": "Renewables Now",
+      "published": "2026-06-18",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-B46F499B6104C923",
+      "headline": "Approval for East Yorkshire offshore wind farm substation",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9zSUNDcUEtWTNOYnd2VXI5c1hCQ2tSV3dDcEZ4RVBmU29qY0tYcWhLOW5SYUhrUHRrQXlvUWhwTzZOMmR3VGs3ZDNhWk9OcmlSenROWGFBUVdOWkN5?oc=5",
+      "source": "BBC",
+      "published": "2026-06-18",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: Yorkshire"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-B58DA2894CF9A46D",
+      "headline": "Frontier Power acquires zinc LDES projects in Scotland from Apatura Energy",
+      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxQb08ya2dESUw3c1hQd0NfRHowNDNES1lKcFoxMXg4VDQ0RVRhTHNjT21kUmp0NVhGWFliRm5yRGNUTl9oeEhFRmt2QkdGRGU5NmFrNUY1TGV6amNBb1RPeXM0YnZtUWNNWmVmSUxGTW54REpjTGlUalNzNWd1QzUtTkZEYWNHRTNuSXhDanhPM2VocTVlOTlfN1pBN1BEQ19DMktlQnllSldNdmR2dVRQa1pSTW10LWRVQThVSlp1RDdNX28?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-06-17",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: Scotland"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-DF957D4EC86A957D",
+      "headline": "IPP Elgin launches construction on 112MW of solar PV across England and Wales",
+      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNWVIyVzR6alMyZmd1cER6eE5felBGcDVLQkhVSkQwbzNGQzFMSXBtb1JEVWlZZXIySjB3ZHF0Sy1aaEh2T3JCYnpPZTE5MzBnWDJIX012bjg2ZWxoZDVyNDhLVVBEZHUtLVZjNjFPejRYUWJCZDFOZ1ZnMllIUW9Rd2Y2T2Jjb2ZsanNRamRMNTFIWWtralhwZjFJcEZIRk1WSWR5WDk4Z2s3TzhYLWFJR3JvNDRfenJ0UzhwdEszclVFMUxw?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-06-15",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: England",
+        "solar"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-3B84FAB9DA087621",
+      "headline": "UK High Court dismisses legal challenge against BOOM Power’s 29.7MW Yorkshire solar PV project",
+      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxNZnBKZmdTZUxIUnhmUTRuSGZTZW9oRlRLRGYweDJqWmM3YVlCTlM0eTlGY1FUcXNYRTJXZkNhb2t4aWRDaFdxaTVIcmZiWklhQXdiRzJqQ3M4VU1MUm1OQnVFNGpDWHVva2todkRUTzBMSzByVEtpSHFBQ0lBbTFJcGQzZ2huVUx4ajUzS1NPMGQ1RHNoMUxrVUR0QklDSlRhcHEzYzY1R3J6VkNpY2F5YnBaVnBTOEtDUFpMSFBYbWJqV0I3YjU0TUR0SEhXaTVINkZrckFROEtoM19Y?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-06-12",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: UK",
+        "solar"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-084DD204329FF5BC",
+      "headline": "Enray Power Secures GBP 43 Million Financing for 71-MW Carlton Solar Farm in North Yorkshire",
+      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQTnNCOHM3WG5DMkZRbnpGLTFMYnlNcFBfU1R5MFNoYWpqblBad3pJYjFYOE5zcG1CaVZ2by1ndEdjYlExQ1V6QTRERkJEcWtxdGVfbHhTUUJ4LTRrZm1jdnFkWGp3cm1MeFdKZkZXdEt4UkFRd181WUg1ZlhpeGY3b0lFSDEyUnVhdGI4SkFfQ3lRV2pLTFAwTzBZOS01ZHhYTWZEVFAzeG8xdjF2Nm9jTXNkTF84SVl5NThfOURpR0JDRERPb1k3UQ?oc=5",
+      "source": "SolarQuarter",
+      "published": "2026-06-12",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-812E3CB83E9E4B2A",
+      "headline": "Exagen Secures Planning Approval for 50 MW Solar and Battery Storage Project in England",
+      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPdUlUS2JEVWxjTEhBUWR6RGgwaWpjTEdfXzRpUm12M0ttYnNvYTF0MldjWUZrVWpQMUotMGxzQlJ6VWtvT2pKSVRfQ040UTZvNk5JQk9tSFBkb24zT0NCTjluWUdkZGlaZXlOX2x4YTFXXzdpWm16ekE5UHp4QkRwN3ltZU5MTklCekw1Tk1YWkZObGlHWV9KX0dSRkpsXy13NkpPb1ZEZDNEemNlaWhzMlI0a3ZJZHhPM1ZUZF92bHg5Zw?oc=5",
+      "source": "SolarQuarter",
+      "published": "2026-06-11",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: England",
+        "Solar",
+        "Battery"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-B2A969ED31288F7A",
+      "headline": "Enviromena secures £175 million financing for UK solar portfolio",
+      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOUUxicTY4T2ZHTFVINzhRbWFNQ2gzdk8xa2VUMUtfeld2QU9WN1dJUy05ZnZycjBJRThOOGVGREthc3pEMUhNd3hHZFZSQXAwU09BMFFUakZYOTBmTWFhMTY4TzVmZU05VkhNcUpJeDFVek05UlVqTkI1TE4tUDk3LURwLUpEeElHeFduWFItYmhCYkJQLWFkdTgwSUxPRGFfZmtBeFFWbWhhZ3VicnVGUkJnYnhQWU9XUDVrVm1fbl9VbTRzVzA0?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-06-11",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: UK",
+        "solar"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-B804244982C673D4",
+      "headline": "Qair reaches financial close on 46 MWp Brecks Solar Farm, its first UK project to secure financing",
+      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE92U0czNXdXMll4MUtrRmJacWxLaGFuSmNzQ29Ra1VZUWtjY1Z2eDFSZDhCZFFHZFl3bktlX3Ywc0hRNGlmczB0UmxZQzV3cWdvMzFkX3cwdjdrYnZDUlZUbU80V3ZvbkRseUlJQ1RiUE5VcUk?oc=5",
+      "source": "Energies Media",
+      "published": "2026-06-10",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-855E814E3410AA3F",
+      "headline": "Qair reaches financial close on first UK solar PV project",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOZDFKUGhMOEU2eDh2cV9ucE5fVUFrWEsxZkt6YzNGak9VQ2ZXeUZYQnVpeGl2a3pFVzh6X21HRk5GZ1BTamNtbXdGYm5zYkt0cFhjWk1OSXpNeDVmRTU3WmdjZUhDa2k5T2xXV1p5YTJ1ZWtqWlNpNTZCaThZVXFNdGhDb3VONk5ucUhlOWFxc1E5bG5rb1hfSS0yNkVpdXh3VGxwR2pqbERYdw?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-06-09",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: UK",
+        "solar"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-590656EA462F1793",
+      "headline": "Qair secures its first UK financial close for 46 MWp Brecks solar farm",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOWEdFa1pQSE5GMmJaYjFfQ19oOGY0YUtOalJiM2JEUzM2QjlidDNFcDJjSThqWUU5SmlNZjFJczc3YnF6VWYzbndVMEl0T0RFRlRub2NIQ29ZbDB2Vm1KZVpsTENhWjcwUkxpWHJoRGkzd2NxcmxraDNyaUtSd1JjNmRlT1ZGd3A5OF9FX0lpbjIwZk5uMXJNajd6V25PZzNiR2JHNXcxVmNDMy1PSWRzd1ZpTlkzZw?oc=5",
+      "source": "Energy Global",
+      "published": "2026-06-05",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-46B10CACBECA2E5B",
+      "headline": "Drax signs 10-year PPA with Global Switch, attempts $755m Bluefield Solar purchase",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPZk8yWXRKZE9wd081STB3MXN2cExnakJxYlZJX0psbFZTa3BLZ3FuUGhIUjh5RlhWUFdtVDVJMFNOTWRkMlVDMkJPR1ZaY2NXMUN4SWY0U2ZIakVZTXJ1cjk4Z1VVQ3djQTZGekx4aVgtUzVEVlI3SFBiN0gxSnI4akNIdVZwMm5lUFdvT0NGSTBneWZBUFRiSmhZVGtDb3QxRHdjUkVBNGtKaWdCWEEzaDlTSG1lODdndFQybw?oc=5",
+      "source": "pv magazine Global",
+      "published": "2026-06-05",
+      "decision": "ABSTAIN_NO_UTILITY_CONTEXT",
+      "reason": "technology term lacks utility-scale project or market context",
+      "evidence": [
+        "Solar"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-081B06B1753FDCFA",
+      "headline": "Sonnedix closes financing on 102MW PV portfolio in Spain and Italy",
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQZjNXQnNIUmoxN0VWbjNUb2NXRE9FQVRUa2l0ZHpHZ2VKUVZvNjlnTm80RHd2M1VmMy11Z0ZSTWVtRV9HOGxFcTNSb2tXTjRaQ2NFUXhMU3NRRjhPWVV1X2NiNmhnZG1ncHlFbzRzY1NsbW85dzJnR3hFeWdoel8tdU5GanlEV2pLNTBTek00eVYza0dUb0E?oc=5",
+      "source": "PV Tech",
+      "published": "2026-06-04",
+      "decision": "ACCEPT_REGIONAL",
+      "reason": "explicit non-UK geography with utility-scale solar or battery context",
+      "evidence": [
+        "PV",
+        "financing",
+        "Spain"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-4E9AF92E7B044216",
+      "headline": "Aura Power secures financing for 49.9MWp Staffordshire solar project",
+      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPZEszSHJsZDRibHJybjZ3RXRFN1Y3eWNSeWZURFkyUFkxR3NMMVZrUl9ZYWRhRy1zdVdSVXZUaUt2VjZldkxVY1BkNjRBVWRPdlY3WENRUHo2Nl9RWDB1QTRZWUt3NFVfRXR4d18xTGhuQ2RRc0NFYTRqb3h2dzZ3R1FFSkIyWXJ1SE84RUktRVFKaTRGYUluTFZsejJreUpKLUxuN3hVWkRfd1ViUW1NZnAtVXJXOWZ6?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-06-04",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: Staffordshire",
+        "solar"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-62BA5F63DC9C6CA5",
+      "headline": "Greencells signs 71 MW Carlton solar farm EPC deal",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPbFRoREg3SWowMm1sbGd5ZlBlU25FNThUT05KbEtYX0hjOGloV25qcXF2cHJVeU56XzdkdnNvZUlXSHVGMWxyS3Vua2VaTjB6RUJQVkpNal80Z2tSc09pVElpVmlwV1RGUkdPNE1OZWczaW1LWGQ1X0pOdi1UZnRrZ0VGa0JjelMwa3VmVzJuekREMVk5OTVSSzBqMkVMWXlJTUFOYzE3QVlzZEE?oc=5",
+      "source": "Solarbytes",
+      "published": "2026-06-03",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "inherited UK project veto: carlton",
+        "solar"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-06206463C7ACEAC4",
+      "headline": "Lightsource bp secures planning approval at 57MW solar-plus-storage project in Wales",
+      "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNRjZjQWJwUzFJZHlqdS1zTzJhT19vcHc1TVUzZklZUkhHWHdvTHpqdlJTZTVqSUk4Yy1lb0x2WlRySmsyN29xUXZycThfT3dkYjZzWE42N0hKNHQzQk9nVU9Icy1xN2hXaEJSeUpVMG9WWXRZZXVjSE1KbG9FdGZuc19OYno1LXF3T3hMYTVfNVROQVRoQXpjc0lvcW1Db0p3dnVEdVBTUC1FbnJVVFpWRGZEU05VMUdkT0FGakhlMk44R2ZFS3Z3TnM3QU1kTU0?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-06-02",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: Wales",
+        "solar"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-26B1FCEA0A9A0B77",
+      "headline": "Drax buys Bluefield Solar Income Fund in £548 million deal",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOVVRSckpSNDFTWXhMdWphd3FWZEl2YU84bEt2TmRoRlVnNDE2Nm02U0xscWRnTDJYWGxOZzVMU04zbFZfUWt2eFpTRHo1Q21hVXVzdlVfc21tUUVZZnlhMDYwTjJEYkZhVDIwbnNrTE1SNE91dnZ6OXVMTGZKcE1Mb3VjZ0NfUHhpZlF0UlphN0pXUHVmTFhpMDZZSjUwMDdadFFFVVZMRDVnQQ?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-06-01",
+      "decision": "ABSTAIN_NO_EXPLICIT_GEOGRAPHY",
+      "reason": "no explicit, case-safe non-UK geography",
+      "evidence": [
+        "Solar",
+        "deal"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-9EA17B279491E6BF",
+      "headline": "Eelpower Energy acquires 50MW/100MWh BESS project in Devon",
+      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQdTJKZ3ZJVFo4YjI3U2oxWlhhTjVWeHdfZU5JUGdvUG16T2xEUWFmeU1mMmYwZzUzLUxabjZaQzBQTkVPYlE3ZHZtckhCUDZwOG5yc1FrZllPcmpQRW1VcjU4THFBaTl5MmY3SXlIWjFjT05VemdvUWFKbUdPcWR1dm91cVBkWS0zMjh2ZjZBUlE1ejI2UDQtcjVTRGN3eElRYkhRWUhjTVFQeVFNNVE?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-05-28",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: Devon",
+        "BESS"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-1443FBE6DB0048D9",
+      "headline": "EU Roundup: TagEnergy, Iberdrola commission France and Spain's largest batteries, construction launched elsewhere - Energy-Storage.News",
+      "url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxQb1FWNDRyRC16TVNxWFdaNGM0TVlZVzhEeWxUNlY2WjhQNWpOeGdDczVjc2hKcnVDbVZzcVlwbEUwbmtzWE5SNWJpS3hBVHEzckVpTm91ekZjU2ZGdHkxbWFUc19VUXRxalRpLThKYVlUUHpRM2xiUlBpVnNva2Q0TV8yUDRWM3FZNmh4WGcxdUpKcVpSQ3hMb3ZWblcyOHVNQW9PSEx1dlVGU1ZhcHNwaHpnWWxHaE9aQTNNZEtoVjdCb3czSFE5UE9od2tRMTVGRWlUYm9fSTQxUQ?oc=5",
+      "source": "Energy-Storage.News",
+      "published": "2026-05-28",
+      "decision": "ACCEPT_REGIONAL",
+      "reason": "explicit non-UK geography with utility-scale solar or battery context",
+      "evidence": [
+        "batteries",
+        "Roundup",
+        "EU"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-93B6B38EF812C80C",
+      "headline": "Chelmsford: Longfield Solar Farm Limited to close Wheelers Hill and Cranham Road",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQMUNNMi0wamo3SExnYmdzQmJyOXRuYnJDRGEtR0txb1lkMnFrS0g3cUkzSHExNFozanpzRWQ5ZUNsLW5Yc0dTRGFUYWRsZW9OLXh3WnlBQllra2cxVU5sd3BGUmZldWkzUFNlQXl1aUx0aVN2MmlKbXQya2ZxbDQzcmQzRFJpQ2F5MDRsYUpJVVhLSENSZnJUU3piendwZUJiVldlcjVlT190ekNZS3l0TWlDOA?oc=5",
+      "source": "InYourArea",
+      "published": "2026-05-28",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-6B027B9E4E16537D",
+      "headline": "AGR Renewables closes financing on 310MW/250MWh solar, storage assets",
+      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPdXJYSURuQXZFeTAyZUVOc1JLQTBrTDdHd1ZsLUdsUDF3Y1BUaUpUOElWUTZZNU42YXpISGNYSmNZSVdKU251aTlGZFVvZHc2WUVCcm5PNHNTbUJ6cXFMSmJ3Szl2dGVWaG9ONzg0bnNpeEY2WW81czdULUVobkswMXFoRjRwbDBoVERqNmtsdlR0TFZxNzl6emRTN0VlRUllNEZmLWtpcFZ6UlljaFJKUmJmdng2TGU1VVE?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-05-27",
+      "decision": "ABSTAIN_NO_EXPLICIT_GEOGRAPHY",
+      "reason": "no explicit, case-safe non-UK geography",
+      "evidence": [
+        "solar",
+        "financing"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-B6C435D99211EE22",
+      "headline": "Gresham House to acquire 480MW BESS, completes financing on 397MW portfolio",
+      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxQMFdFSjgwV2c1WE8yQm9HYkpzbk05UWI0R1NPUHRxa09KVURmZUJFZjVqdC1SZXJMWjYxQk1aV3NNcTVyT2g1UnhJTW4wTGJGVVJnU2szYlJPOFlxUEpUZ0V6QnFwdk9rMDFwaks5d0JBRTNIR3pHZDYyWjB2SkwwZlFiTnRGaElaYkRBOXQ5TGRxU2hPdUp5WE5tSkUtb1lVXzBHa0IxZjEtM0xucGNTUUFlWm8zM0x1VTY5R0Fia0pXMGM?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-05-26",
+      "decision": "ABSTAIN_NO_EXPLICIT_GEOGRAPHY",
+      "reason": "no explicit, case-safe non-UK geography",
+      "evidence": [
+        "BESS",
+        "acquire"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-6B5EE3AA3CAD657F",
+      "headline": "More reaction after plans revealed for major new solar farm near Burton Joyce bypass",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQSjFPTTI3ZV9samJpWUh0cHFMdW9Ed096TVRKSFBHX0ZReDlZMTI4QmlDRzlvQ1JLZ2pTdFdfWGNTNkU1WmY3Rkl2NDc0aUtHU005UGZOWmNwa2liT0NMT29FbkF1Z2JnS1VLRmJST1FvSGE1aEg4OXR5czl1N2NVc203OG8ycHJwX1dkRVdrMVhiUDR2X1g5R29KOWpsM1YwSHlVVW0xUzdXX1M5cUJKbVdMRy0?oc=5",
+      "source": "Gedling Eye",
+      "published": "2026-05-15",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-FFE5B02702FD9BAA",
+      "headline": "British Solar Renewables buys 56MW Essex PV plant",
+      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNcmthTC1RamxLTUVBVFZHcFJScGdEQ3p3bXpRVzdsWGkwOFVucmZZWGh6a3phRlZnUTBSUGZuT3dWbEpuNjV3MXZyMk56SUlyWUctcVNRMlhWLUREM1BFaTgzWktNMy1ST2VGdXZZcVgzZ213cmFZMWM5NmhDRnhrT05KQVBBSTlXSHhiVU1kMUZQOHhocUYzUG9fZGk3YXR3?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-05-13",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: British",
+        "Solar"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-F9D4B29B7F10633B",
+      "headline": "Work on solar farm at former Williamthorpe Colliery site starts",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9tanJsVVNFbjdTdy1hc0NWajFnLVhwYnlUQm5EbGFFZXRJY3Y1dUp0bzRNelNwaDNHWUpmNzRiblg4RmhTTUZpUzc0WklZRkZ0a2g0aDZZN2RTRmtF?oc=5",
+      "source": "BBC",
+      "published": "2026-05-12",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-AAB46A8FDE71030F",
+      "headline": "Qair contracts INTEC to provide EPC and O&M services at 46.5MW Brecks solar farm",
+      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPYUVOUi1jemV6VW9FdnJOdlZ1QVdveGt4S0c4YVdpR1RkeDZaNmRsSEhUN0Z5M1JZZURDNkRjR19qRndaSXJuU3c0UUhUQXV2SXlYemV3aVRtWVJhdjg2UHl3ckxQbHZ2SFhrekd6aTEzM2R4ZU5FMTNzc0RVY25YalpZbEtpMDgzZ3oyUjM0c1NaZFlIZi1NLWxLRGpLek5zUW9fVUlpWE5nV2JnUXRwQmlTNUZIV3ZWRnE1MEx2VUxtMU9iRTE2R1hB?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-05-08",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-3FBFFB14462DB2D5",
+      "headline": "Elements Green acquires 300 MW Newarthill BESS project",
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQbU9icGRUcGtHQlhHMkRLMGRxeWhwZFRIWDIwQ2FmYjNIZmhRSkJkVjBDQTNzRFdHMlY0YWFoUktvOFdvN2x0V1lJX2ZMc1NvRnNzWlRldEFRTFc4SlROUnJqUmExMlBCQzJselhZdXRoX0RZQVhiNVpxcXY5VzFrWVppaVhYTUptajRrZFNHQjBxNnl6OS03ekNzMFp3UG1QMmdyQ2U5emlhMU1H?oc=5",
+      "source": "Energy Global",
+      "published": "2026-05-08",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-AEC7A3443012B029",
+      "headline": "Eccles battery storage system plan secures £245m finance deal",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9YVkJpOW84bzh0UmRXcGtETnRHcEZSb1c4bC0wWWc5OGlkd3kyUU5qSVVPVHU4TU9zeWFwc2o1R2JDZG56OTFzOGpVTlRmM1UxWlM4Q05aMmhFa190?oc=5",
+      "source": "BBC",
+      "published": "2026-04-28",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "inherited UK project veto: eccles",
+        "battery"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-CBCD199E6C40FF2C",
+      "headline": "EDF to optimise BW ESS’s 350MW/1,243MWh Hams Hall BESS project",
+      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNS3VQT1piNnRuc1Q1ZXJ3YmRnaUcydlB4MnpTM1pkT2V6SmZZeU1iTGFOeWhhOTRORGdnODJwbi1CclRiRzBQWE5hbjdoRkpyd0dXLTNwWjJ6UEdJZEJyaWNoSlhibF95QVhucVRsall3elY0bzgzSjlaSVhLZGdHMnJ4b3ROc0x2eU9yemlKbXBFXzNCd1JTRnA5dlExMTNXdk1Yb3lQNEFoTktPaU5vbXRjMXc5aGtMMzhhVkpCZDhHWk9n?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-04-28",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-CDC4942D40AA5467",
+      "headline": "EDF and BW ESS partner on 350MW Hams Hall battery storage project",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNY3FBRVJQOWtXdVFlZklLSzk5eTI3X0Y4Z2dUSzh0cFVCelJ5dUtaOUtxdWx6RGdCNUxMOGdKTTNLN1kyMVJqdVNVc25IaXBxVURmS0hoQmVQc25xUDhNRm5EMTlzNi1kSWRPTUcwOVppeG1faGd1d0xFendacURubjJEemJJV2V0U0h2bVN1NGJyTV9B?oc=5",
+      "source": "theenergyst.com",
+      "published": "2026-04-28",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-B78F478BD961DDF1",
+      "headline": "New ring road surrounding 'gigafactory' approved",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1KQm1yQ3pMZzhkaW9HUWpYSTJORl9pcGJNZFh5M1dDWVNSemdDSmtNQ0FIWkVHc0wwcmowTUhYdWYtRWRONWtoMkN4V3Y3YzBKcE9SYkh2YzhlMF9M?oc=5",
+      "source": "BBC",
+      "published": "2026-04-20",
+      "decision": "ABSTAIN_NO_TECHNOLOGY",
+      "reason": "no explicit solar or battery technology evidence",
+      "evidence": [],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-BF68650F7DDC786A",
+      "headline": "Monk Fryston BESS Set to Become One of the UK’s Largest Battery Storage Assets",
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQc1ZBeWFqVUFkWGc3SGQ2b0hSaV9ORy1oZ1FNN2xLMUladjZMeDNWU1pzcllrTk9HNV9VQnEwMU5vVHBqZk5fQ0hQWldXelRWOVRud1lwTHRRWmdKWXZCOEtGV3RqMm1rbl9xUmpTQlJLemZaT29YOU02eHRON2ZVY1B5LVpLT3I0bmc1T1FVSFZ6OUlHZFE?oc=5",
+      "source": "Construction Review",
+      "published": "2026-04-16",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: UK",
+        "BESS"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-3831F073A5777AD3",
+      "headline": "British Gas owner Centrica activates 40MW BESS projects in Sweden, subsidiary to optimise - Energy-Storage.News",
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOSUVyYWdTT0g1X3dseXY4OVJhNVhtR251MFpXaVRMN09wRF9kUVVqRjFOMXNSbHgwWWpzVmRTYVdSdzFEQVlwRlVaVmpEeW1BZkVfQmE0TG9sOXUzVXkyc2tXNEJiQ0ZZWHVnUVZGSGU3MGIyTlh3ZlJ5Mmo1TzRCMk5HcTcyLTRpNmZLNnNkSVQxUjRrTFVTeFQyc0xFNTlRallNLUFfSllta2x4MHJjWjJSRDVpWlZZVGdGOGlR?oc=5",
+      "source": "Energy-Storage.News",
+      "published": "2026-04-15",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: British",
+        "BESS"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-6A78036A693D155B",
+      "headline": "Country lane solar farm could power 13,000 homes",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1nZDVYLXBJQ3NVMXlaSFVwdWlHWC1OS2EwZnlwTGpMQW1HdWJ0NldGeEhTeUF1YkhRdEpNOWNKRnk0NmVhZjVYU2d3RTFaclRDQm1CM0FOSGxseHZG?oc=5",
+      "source": "BBC",
+      "published": "2026-04-13",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "inherited UK project veto: country",
+        "solar"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-CBAC76C632F2315B",
+      "headline": "EDF receives development consent order for 800MW PV project in England",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOUEx2QkRRemc3VjhyYnZxdkllM2Q2TXE3R21PdUx3dGhsTDRHMndpQ0dnX1hWalV3ODlsTjdBOFJpSGtMX3RIS1A3U3R6cGEzRTFFNi1BUFZUY2pTTVVQbjRldmJrUFdzaXRHUWxnOEQzMlo1WFhhV1VvelRrb3JWWkYwb3JNZ0Z3djhCSHZURFdtbXVRc0g3YzVXVQ?oc=5",
+      "source": "PV Tech",
+      "published": "2026-04-09",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: England",
+        "PV"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-4115E5681E97986B",
+      "headline": "Rag Lane Solar Farm",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNcEV1el93SjRoV2FZYTlDRlhRaDREWTVCb1JWVXJZSkQ0UDJlTnk2TjBtc0ZwTnhqUmZ3ODNxT2VNRmc3REwxOVN0eG1jSjVLS1lmdURHZ2NkWmY5NExmb2VqNUpYNHllSVlrRXd1Ulh0V2swcEdOVnZoTjU0RU9EUExMQm9IN3NNNjZkcEV6TFVvQXRxQ3JaVg?oc=5",
+      "source": "libertyglobal.com",
+      "published": "2026-04-04",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-5B857D03019176F0",
+      "headline": "Kells solar farm refusal of planning appealed",
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPZUVlbFJiQjNYMHduem1GZmlQV08taUxUQk9tX3pCQlVqb2J1VGNDcWhPVjdCc1RINDVDZ1RkZHAtVGg4dHFYOFh3VVpLYjl4THhYSENjQmJwYW9uUU1pRDU4Tk01cWZsR3ZsMV9nbVI4cUZTTFZ3YkdXSlR4cVRGTjJySWoxYTJTYTFFRjI0a20?oc=5",
+      "source": "Meath Chronicle",
+      "published": "2026-04-03",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-714877FD55ACEF5A",
+      "headline": "Drax acquires UK-based AI-enabled asset optimisation platform Flexitricity",
+      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPRmhTN0R3X2V4eFBjNFpzaGpOTHNWd181ODJtbEsyTGYzaENuQkt3M2NqbFdhNlV2YnI0NHpsRWpLc2ZZaW52VVl3dzVvZ3lURThwZ1dEQXpHUFUzQU5iWXpGRENyV2ZnOWJNSDhKaVVvUGNRdDRWZmQzMHV6YjZiMWtiWVRFS1ozMG1McUFIZ1A2dTQ5YlVVM2psbmhsRU1SZzI3eVI2ajhlTWtreWxVUUNpSW40ckdmVlpFS1YtX3pHc2M?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-04-02",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: UK"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-A58F5F54D07B64D1",
+      "headline": "New solar farm heading for Gloucestershire Highnam - Punchline-Gloucester.com",
+      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxObXRfaXZTSktQVEliMVV3cWZoOVRUdXpVaWJrLVNndFJFcHlteXRxRElYTHp6WXBjakVBQkRmSzVxZFNnWmFpOFFFQnl5ZkVkNGpsclBwMlhNdGZydTdEUFlOWVdJS0R2VkFraUJ3aGhaVUZsNWxMZzdnSE1JZmMtaHRFdzhLUWMyeDVJRVVKRWpBX09iZW5CNGtvVEtXcHBmOTRYMmxn?oc=5",
+      "source": "Punchline-Gloucester.com",
+      "published": "2026-03-27",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-7D3E179AB71DE326",
+      "headline": "The Grange Care Centre Faringdon recognised as Top 20 Care Home",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPMnVPdFVnZVhYQTFuSlhIMVJYUFVpQ2JKSXNuMFNCNlZUMG41d2l3aUt6V1RJSzRHM1owenRqWnNNWXNaVlBoTXpDd3FXaHR3VFBpYlE5ZHNTbXRuU1loWFRVRldDRWNMYW9vejlrUVR2MTdjbDdpXzFjaGpGOUt6ZHA2bnBFUTh4ZmtlQ0dxOXZ2MndjNGJaMjdNeXl6aEFMQ0gtelJtVDRYbzg?oc=5",
+      "source": "Swindon Advertiser",
+      "published": "2026-02-26",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "inherited UK project veto: grange"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-5DF75CABD2386061",
+      "headline": "Campaigners speak of 'shock' at sale of massive East Yorkshire solar power scheme",
+      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPOF9icWczcnlORzNmQjViLW1udlNRM0hvU3VwQUROWHl1dS00UnpaVkZGVEVWbFZsSEVTY1l0RGpRYzI5d3dQTEppR1JWOHFqX181SFdTZHFhREExMVZ2Tm4xQ2lJLW1ITHpXVG4tSElsSFFRUW5QZFA2THQ2QXR5UGNacVo0Tmk4ZTh4WnpmNm5KS29uZTJJ?oc=5",
+      "source": "The York Press",
+      "published": "2026-02-23",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-F7EF99C1132B8948",
+      "headline": "UK: Ampyr Solar Europe announces acquisition of East Yorkshire Solar Farm Project in the UK - energy-pedia.com",
+      "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOUk9TYWEtOUo1Z19jeXFzdHdsQ1dELVVLQ1dTWWFPQ0h2LTlKVFhDeHN0VVZfZ3VmUXI2X3N5ck5pbTdyMEM3ZlBYSlFPRHM5SHpnbDNVQWRqUFJOeXprTUJ4WnRrZy1xN285bllVUzBzX2FFTnRLd0dfLXMxdnZ3T284TnViZHByNTdlMF84Slg5d3BDLUpwcFJIMllaRUlPMnpBd3dFa0YzWWYyNGhsNDkySGZPaHVTVG5pSUlXQWQ4ZFVVa18zRkF1eWVYeU9XWkE?oc=5",
+      "source": "energy-pedia.com",
+      "published": "2026-02-22",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-338F10B1491D159D",
+      "headline": "New owners for East Yorkshire solar farm 'as big as the city of Durham'",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQVHZ2SjR1ODFqa0ROcEUtOFVmWWNYbVhKNS1hejFnbE9QdThQLWhtS3ZXZTVQNlBEN2xlVHJKZGZwWGs2WXlHSi1pbURVVWVLSDVqRXFsRkNJM09Ybk9jdDhKU3M2bkVHNzNkdUpwR1hEWVlKZ0dvWHJON0FWNWZNRmRCcmc5OXZMc3lkSU1WX053UkVELXFVZ2txb1ZoOTVTV2c?oc=5",
+      "source": "The York Press",
+      "published": "2026-02-20",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-254A53E31E1461AD",
+      "headline": "Ampyr acquires 530MW East Yorkshire Solar Farm",
+      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNdndmMVZ0T2djS2Z0VEVnS3RkN21LRHF1TTg0OVBza2lwb3hBZ3ZuNmt2UEZKSWY1U1dnOEdlNlVXd3VpVlU3YU1tLTJnWER6YkswS3h4VHowTHl3LVZ1V1VMVm9ydVhnMFd1OXdGa0kyY05pU21mcFJuS3l6d0VKMUdEbEJKeHZOclBsaA?oc=5",
+      "source": "reNEWS",
+      "published": "2026-02-20",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-3F6E5EF80BB45CEF",
+      "headline": "Fenwick Solar Farm development consent decision announced",
+      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOYzd6VWl5bXY4TmVRNDNUaFB0bW1JNk9sdF9Qdi1VV0YzWnhWLXVjYlBubXZxaEI0NG4wMU9FT3lNYk91ZXdFaW56OVZrUGpkX21TUFFJMFRCZ0ZWd252ZDlHVVFzSmx5dS1VNUxfcHJtZkNHYnp2bFpEbTlhTFlVNHZuSWtwSV9ZdUJERDdZaWtDOEVRMlhr?oc=5",
+      "source": "GOV.UK",
+      "published": "2026-02-18",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-449B58CF417A4A0B",
+      "headline": "EDF inks Tye Lane solar CPPAs UK",
+      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE1XRGxyaVp3Mm1nUnFYcDE5Y3RldGtwTWNYMTVCNlV1ZFVxUEJLVnlzcm01U01vWDVCV0RvOTh2RFRvdFpxNi1KMTlSWUJnTkppLWVVN2VNdUk4djA0THRzSlNjelZmQ1N4YXlsVUtJQXRra0V3OENNMzh3?oc=5",
+      "source": "reNEWS",
+      "published": "2026-02-05",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-F8D401503CA0BF2F",
+      "headline": "Drax signs tolling agreement with West Burton C for 250MW/500MWh UK BESS",
+      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPU3ZBUG03UGRFdndhd0VFTmo4a3YwejZYc0Nlek9YWjVDZUlFNE1UTW4ycEhXS1RCYTRFSTJuM2xaQWVvZEZMSTNUaV9vOGlfRUFLN0JzZWVYOEduUC0zSW44NnMyMXlnaDFEZU1QYWRoMzd5SmtkVkx1X2o4N0dyWmtJVjJqYk9POUdlUTJNM0RNQ0txX1QtVWMySjExUFZlNUh5d0REN255NFlTOWk0SGoza2N0OXU1Nk9IRzF0OA?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-01-30",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: UK",
+        "BESS"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-72F716617103B700",
+      "headline": "RWE starting construction on 400MW/800MWh Germany BESS - Energy-Storage.News",
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOaWk1Rkp0RUxCcVh0ckJjT2xScVNkbmE5QVJpVF9uOGRwYWNmQVE2dmEycjF0c3BReWp2OXBhSkgzNDlzdEg4ME52Z0x4QmJYOHhqZDJLV1ZtdHpNZ2lab0NmcWFDcFZ0STZMZHBPMTAydGU0RE51azNaalpjbG1PM2JtemI2OXY5T0J5V2FyQk0?oc=5",
+      "source": "Energy-Storage.News",
+      "published": "2026-01-29",
+      "decision": "ACCEPT_REGIONAL",
+      "reason": "explicit non-UK geography with utility-scale solar or battery context",
+      "evidence": [
+        "BESS",
+        "construction",
+        "Germany"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-E0CB37D90DB1ADC5",
+      "headline": "Masdar reaches financial close on 300 MW Uzbek solar project",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPdW43TmJrMlVzZ19HRksydjFzVTNRdmFYYXk0RzlLUVBCRjl0N1J3eEtKdEl2UUZWX04yMTU2MVVfRVRybXlaRWZXZHVYN1h3Q2NoTmI4dWVwQWRhbkhvMjBnVHQyaWlwbl9scnBSaUt3VHpvU01lS1FpVTM5SXVSLTFRVGRXRkEyR3JWQmctSkYwekEwVzc4Si1zaWZzOW9Qa2c?oc=5",
+      "source": "pv magazine Global",
+      "published": "2026-01-19",
+      "decision": "ABSTAIN_NO_EXPLICIT_GEOGRAPHY",
+      "reason": "no explicit, case-safe non-UK geography",
+      "evidence": [
+        "solar",
+        "financial"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-A5676F8C414ED270",
+      "headline": "Statera secures planning consent for 8-hour energy storage site in Bedfordshire",
+      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQd2czZ0NiNGgwaXNQT2lDTHVEWW4zT2g3MmdQNnlRb0lncnV3eFVYeHlNNFM5c3BvWEhFc2JPOEN2UEZadWJERllzaUtscHRhbUI0X0IwcWpjMEFUQzZmbHNsR1UtWXFSVUVqVURtR0ZJSUZwUFNFVTZhbTdlYVhsVGdEXzdKWnBWdHFocTFPSEpkYTFKa0loWU1pYl9hRG9WMzNNUVNpQjZvbV84aTJ5d1FaS3NPT24ycTlTbmRSMUxTX2sxQURqTkhB?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-01-16",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: Bedfordshire",
+        "energy storage"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-97DF6E903C33F964",
+      "headline": "UK secures record supply of offshore wind but price rises",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE02X1dld2o3R0VCWERadjZYMVR6Z1JGSEUyb1U1RU1OME9VdGt2SnZGRi1DcXNLSHltOFpWRTY5WG40cGY0Q0xvU1dJOHY1WWJvTEN2azRWaUpNV1NO?oc=5",
+      "source": "BBC",
+      "published": "2026-01-14",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: UK"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-6E38D3C38B0E332B",
+      "headline": "Neoen and French TSO to trial grid-forming services with retrofitted BESS - Energy-Storage.News",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQUktkbkY1bXZvQUZrUTVLNUE1TjVpSHlUbEpSQXB0Tm1BZ3lRNGxrX3VBazB5NDJXSUVqbDdOM3lrbUUyd1lEaTc2NEljRGxOSGFwM0pNT2hUTTloNWx5TWhiRFU4eHloaGR6Wjk0ZDRUQmpTQ1YxSHZZLVVmN00ybHVETFpOeVFBRlY3Q1lVdkw1TXdWd01PU245Qk9sUV9maHFPZ1RGc0xGUQ?oc=5",
+      "source": "Energy-Storage.News",
+      "published": "2026-01-14",
+      "decision": "ACCEPT_REGIONAL",
+      "reason": "explicit non-UK geography with utility-scale solar or battery context",
+      "evidence": [
+        "BESS",
+        "TSO",
+        "French"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-A41F5179D928C2C5",
+      "headline": "Project acquisition: Elements Green’s 149MW BESS, Downing’s 72.1MW solar PV portfolio",
+      "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOTDNsWjVLZ3pOcE04eTcxRFR6VW5ta0tKU2JuSHVCQkwyb0lhZEFlN1A1ZFBQcld0SjVDRUQ4bXQ2cWR4STYxQUlTNzlSaEMyR3p1ZEViN3J3NUlXLV9kcXZCb1RvWEg2eGtydzZqMkdCTUpSZWd1NzNNX3REakFCZm9SMm4wTWxkcTV3c3RZWExJallubGJ0QWZaa2NWN1hOOVZlMzJiX3BpX28xQnEtZ3pqeExEVElwTC1sNE1PNXcycTIwemNTZklURkxEUQ?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2026-01-13",
+      "decision": "ABSTAIN_NO_EXPLICIT_GEOGRAPHY",
+      "reason": "no explicit, case-safe non-UK geography",
+      "evidence": [
+        "solar",
+        "BESS",
+        "Project"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-C2444729E5562D80",
+      "headline": "Elements Green completes acquisition of 149MW Bolney Green Energy Hub",
+      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNQWRYak4yU1EzR3BLTUd2N3ZxVTRxNG1WX252cURUczhUYUZhOVlpcXl0NlJ3eEtodVhZRGttdFhXMzVTcTNIODRMZjJqVG5xbzd6bU9OZHpzSFNrcllHTnp4TG1wMGV2T3FzQ2dRWWNxNW9BWlhJV1FEYmcxejU1VVZENlRxOTA5NmMzLUpwdjh2N1V3NEJHMzlYS2MwVG9QeURkM285QTNSU1pJaHNGazRnRG9ycjJQUkRyblVaeUZ6MDQy?oc=5",
+      "source": "theenergyst.com",
+      "published": "2026-01-12",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "inherited UK project veto: bolney"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-1236ABC4F45F23D7",
+      "headline": "METLEN to deliver EPC work at EDF’s 400MW Longfield solar farm",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxON1BZWWZXbW9DZ21jZWg0ZnBwelRLNExOYVVuTUxzb1cxOWZEUWJJYlp2c3RBZG1kQUtFSWU0MjBNbzVPZzlXVTdqRi01S2xwbWQ3QTEtQ1ZCTVpjQ3YzdnhXUlZ4UU8zTXNHYzFlWkVuVnQ4M0JDTnF6WThvOVBmMlFiY01HMERQVTNoenJuSFdLMUtYOGI5WW80dDhicVMxbFBaYzRETTJKXzlHUFk1V0xxdw?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2025-12-19",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-E82DAAC1588C8F67",
+      "headline": "Hatton solar farm approved on appeal after 378 objections",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE43R3Q5N0R1dmk3Z08wRkl0eXhidVEyc2wxX29PNEQ2d3Y4TVhmaEc3dkQ0ZzN1U3FCOXNkWHl6UW9xRHVJWldyZEJzd0xjUWs0TzQ0MEpQZ2hMUTJS?oc=5",
+      "source": "BBC",
+      "published": "2025-12-19",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-924281FD15D7870D",
+      "headline": "Green light for offshore wind farm to power 1m homes",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1JUTBBR3M4YXV6YW54MXlqSy1PRmV1R2ZjZXhCT01qYWlfLWRuWVZzNDdsdF8xWlg4OEpYZEI3dklTWnB0Mmt3Sm00dldPVUlvbzNENUZRSTZZbmlw?oc=5",
+      "source": "BBC",
+      "published": "2025-12-18",
+      "decision": "ABSTAIN_NO_TECHNOLOGY",
+      "reason": "no explicit solar or battery technology evidence",
+      "evidence": [],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-E807A6BD7C8FECE6",
+      "headline": "Enviromena wins approval for 40MW solar plant at appeal",
+      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOVUNHa0huZ1hRQUJRYkVnWUlLaUdJQkhUdVQ0TkNKRUNVcUN5b1JGTjlJODhwNElONUJsNkFvc0VtWGFtUFVKZUhDRW5ialZpZTNGWUtweURsSVBSWF9uaGRqNnhudW5fQ1lqS0w4NkRIZ1J2YUJNTW5MLWJRYkU5QV9fclhycE9PSG9JNXFiaXpIbzU3SDJfejhydGZWeU5KS05MWXNHRFY?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2025-12-16",
+      "decision": "ABSTAIN_NO_EXPLICIT_GEOGRAPHY",
+      "reason": "no explicit, case-safe non-UK geography",
+      "evidence": [
+        "solar",
+        "plant"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-2E28883029F2CE99",
+      "headline": "Consent awarded for Clifton Marsh Solar Farm",
+      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOX3ZfYXVMemQ1TEhTREtKYjlFUzh4cHBZY3RIQTdZWF9KcjJDRFkzVVRhRUZOSDdKcFgxZW5lR2owb0tQRTE0Xzh1WjBidmMteHhtdFRZQ0EyVmdTU0o2Sk91ekgtbVQ1Wi1WRXNFTnIxdGd5Y3B6V0ZRbEVVVExFRHhmNWk2QnNtMjRrM1A0dDNldW5xMW9LZjU0a0pMbHNtVExoSnFfTQ?oc=5",
+      "source": "Vattenfall",
+      "published": "2025-12-11",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-8E13078302F7D539",
+      "headline": "Government approves new 1,900MW Camblesforth solar farm",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1OTFFtWkV1Wm9SUnpvU3pzdDZhdHh5blZCWG82ZjdweURsYVFLWlRyWG1FUjZvTG5SSmwxSlZ0TlRxU29Hc0Q1VGJ3SklVT3UtVFRfU0I0WmxqTThW?oc=5",
+      "source": "BBC",
+      "published": "2025-12-04",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-D315472D1E7BF366",
+      "headline": "Helios Renewable Energy Project development consent decision announced",
+      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOMjFhNGpENExHdWl1WjlaLVF2U3VjZEJpUHV6NVAtdk9YQ1RjbkoxYTFodGNUaEJaVkplQXNwWnJ0MGU5eUNrUHEwTU9OYjc3TV9wQmhhNWdDSGVpYjZ2QmFnaV9CLWphSS1QelRPRlpNOVRYWWxJZFhfY0U5cnNUTG05cHN1QUJ2X0xBTkE3R05sRzFJSmQxRTVzMFJiVmprNFBYNl9Ob0w?oc=5",
+      "source": "GOV.UK",
+      "published": "2025-12-03",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-2750E17614EEFAF5",
+      "headline": "EDF to optimise Chinese lithium giant Ganfeng’s 160MWh Kintore battery storage system",
+      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQZ1g1STVvMzJIM0hFVE5samJ0d1hScF9hcEd1OWpLRkJlTno3UzQ3NUtubThzWVJvMGF5VHdmSmNreHR4VU9CbXBLUzhvY2xLSkdNXy1JVFVSN0szYk5XWFg5cFFqY1U3RDdIQVhZZXcyRUZ5QnVQeW1faEhIZFFvREZPQXNLVld3UjJYTWx3SUdJOHhCbzRTdjNlMW5YSU8xVnVJQVF2U0U1b3hpdUVtZE0xVXZpdjFWckUtS2trb040cHUwNWNyeVZCY0xTajZa?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2025-11-25",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "inherited UK project veto: kintore",
+        "battery"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-24564D87D919BDEC",
+      "headline": "Kells solar farm plan setback after archaeological find",
+      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPcXQtaEIwMFhobDVWQ1kwM2I3cXYxck51ZFRvdk1xQ21FcjU2YjRzTGpCdk4yMDAtazR5MXdpMmNMZklZVVpWd0RyZ0J1YmE4X2pKdDY2SDhrM2xtUlI4WWg0SjZyck1jTWdicnVETWxLYmtjSUJnOWVCM194R1ExSkdJOGowQmUzNENJXzVhTVNraVNJQ2RlNmZGdG9KUQ?oc=5",
+      "source": "Meath Chronicle",
+      "published": "2025-11-13",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-EEF293A75E538379",
+      "headline": "Miliband grants DCO for Stonestreet Green solar-plus-storage NSIP",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPSnVYYV95d2szYmtjTVlLVnIwMU80SXRnTmo3RlFxY3Q2RHhkMVRnaGJKNUp3aVpKS2FONXotTk1WOUhBSjk3TzdvRWU4czBpTUllYW5RcTVtU2pRZnpVRWliOS00ZTRBVlZlaXZYdTN0V2w1Mzk4ZWFrMEVqaHluNENsV1N2c2s3M3Rab3VxSk10bWlKWlpRZkE2cU1mbXpka2xYRkx4ZUsyWWloQkpGOTB2d0NQZw?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2025-10-24",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-7CDD7B02DC6D3854",
+      "headline": "Stonestreet Green Solar development consent decision announced",
+      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNZjhycEY0MTNSS1J4R1BWcU02MlFVS1dFTXZxZ2pYbmNpV2dMcXhsRXJpVkVCbUY2LXB1cEVVMU9iZDYtWnVWLWhScHdtelEtSzBZemtnZXlYTmxVX1lkeThhNUNKeFJEakx3c2RVaUFoMUZna2E5VHJwSWxPYXdvNGdQaVFwZFhxSzlFSFEzNUlnOWtjeXVwZ3FNVXBoUQ?oc=5",
+      "source": "GOV.UK",
+      "published": "2025-10-23",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-40A4D6179DEB8FB5",
+      "headline": "Downing Renewable Developments Cornwall solar approved",
+      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNSHRHQjYyczFESGVXY2VqMjNQN04wUTVXZFVQWWVKUVdqWjBSM0JpTVlyY1JzNEFQNVVOYlRoOTJtUXNHVXRJS25JVWhVUnB6ZWZzaXdpT2xMRk5EUkk1ZDRJaTRfNi1oMm53QjV0VHBRc2lrS09OZk5aY3lwRlBTWFZjbFdCNWhTN0dyWHJDWEN5Z3JaaEdZOVVKcUlWM2dIcVdJU3o4YjI4d0xKUlFrSGdwbWZVZVN3aWc?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2025-10-23",
+      "decision": "ABSTAIN_NO_UTILITY_CONTEXT",
+      "reason": "technology term lacks utility-scale project or market context",
+      "evidence": [
+        "solar"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-1E770E8E12684F15",
+      "headline": "RWE submits planning application for £125m Tween Bridge Solar development project",
+      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOQlFHZVV0aVVHUG9fNUt1NFNXdTlLQVM5c3ZOYnhua3d2akRsLTVjZ1JLWlFHQWpwNkZHSDZ0Y3pZLTh4UkIzZmlyQWgyUXMyUTNXd2o2WGFXMEFPZlJwWmFrbllieFhTbTd2MjlfVTg5cTRjM1BWY1RabFhqQnZQX2pKRS1IUHNpSUtnaXRYQzdMWmx6LWdwWHg2QzdpVFJqc2JsUXh5TmM1MFhWeE81aU9pZnI1Skt0YXpkdVloWnpRdThwNFljbUtMbWl0UXBTQ1ZvcktpQWMyNGtF?oc=5",
+      "source": "Doncaster Free Press",
+      "published": "2025-10-20",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-D2C19619C8517399",
+      "headline": "UK’s Cleve Hill Solar Park begins operations with 373 MW capacity and battery storage",
+      "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1sWGhmZHp6QTI0bXh0RXRhelFDcjh4cnRpSzRSQUVUa3RoVHlsR0tyVDZhbFhDSXdsT0llZ1lZeW9xTDA4SmF4LXV4dHd5YU43RDM5cVRUS18zSnY0SDRIeXoxQzRzU09GWDNibzc4UXY0WGdOX1N4RS00QkE?oc=5",
+      "source": "Energies Media",
+      "published": "2025-10-16",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "explicit UK geography: UK",
+        "Solar",
+        "battery"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-33238597C55AA627",
+      "headline": "Epic Energy brings 200MWh Mannum battery storage system online in South Australia - Energy-Storage.News",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNMkpxSWwwMjVXYXM2NEk4dEl6QUtjTXRTMkp0aFNfbXp0QnYzcm44SV9XSlZNT054SHpaVnd1LVJEdVNkM1JINWFtcEFqU3VZYl9GdWhrUVo5WjZKNDRHSnVjcHg3d2hkNHZFUmd4ZkJoOHBFTUF3OFpwYWNUUWtxTjVvTXlGeFg0cUxPUkJKWHJmbUc4enZPblVETHhnTzBpOE8wM0pleTQ5U3FXQlFleHJKdlQ?oc=5",
+      "source": "Energy-Storage.News",
+      "published": "2025-10-14",
+      "decision": "ACCEPT_REGIONAL",
+      "reason": "explicit non-UK geography with utility-scale solar or battery context",
+      "evidence": [
+        "battery",
+        "system",
+        "Australia"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-AD6AF9B3BB4936EC",
+      "headline": "More than 1,000 people have say on Green Hill Solar Farm",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5CYnNDc2czUDZucmRILVZLb0hCT2l5M2ZaVlVDMnJlOUUzOXFXd1pVV0Z2cUJPcVB1S3B1RVJKV1htNEJtWl9aMERHOU0zVjRhRnFRYWxmeHVJdw?oc=5",
+      "source": "BBC",
+      "published": "2025-10-13",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "inherited UK project veto: green",
+        "Solar"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-5E8F1BE0DA4846C9",
+      "headline": "RES secures three-year O&M contract for Cleve Hill solar project",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxORVFHckdrTkwybUZZUG9ITHFoQ21nNWM3TF9MdXp2eG1LOXlwdjN4QUh1LUo3TVdnUWJ4OTdrdjNMdml0N0Y3eDV2enZxdkUxLWRJc3F6YThZZm5ISlZMRFZDbF9lTlpOR0ZUT2RWTmtvWU1KaUpINzlNX201Qm5VZlJGRWt4bVhjcnF2cVRtVEwyazEwLVVWcDZ4UQ?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2025-09-26",
+      "decision": "UK_CANONICAL",
+      "reason": "canonical UK story stays outside the regional pipeline",
+      "evidence": [
+        "canonical REPD PRIMARY_MATCH"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-A40CB0A815AA1506",
+      "headline": "Adaptogen Capital closes battery storage fund with 100MW BESS acquisition",
+      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNMjdmcGNkcUpSQlJzRkF2ZjF6ZXhyVEdKM2Fza0wxUlQ5bEQ4b0I2aDFQVHkyQzNmR0JXQ044eVpDVUd5RHk0Zzk5V2UzcUNXZVg1THVkM0NlNVJfVVM0YzBtbDZuN24ybXpsQVRUTXRkVnJMbzNXcDI5SHFVTVdhMGthd1VjS0NZMFZBYlVqaTlDMjNZVWZmMnVMZ0hZQ1NaN0F6dXV4UHVNNXl5NHhuQUk2Z3RCN1N1QjA1Wk5QZDU?oc=5",
+      "source": "Solar Power Portal",
+      "published": "2025-09-24",
+      "decision": "ABSTAIN_NO_EXPLICIT_GEOGRAPHY",
+      "reason": "no explicit, case-safe non-UK geography",
+      "evidence": [
+        "battery",
+        "acquisition"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-452F1C6507FD9DE5",
+      "headline": "Plans to build Solent Gateway 2 on Dibden Bay near Southampton",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1PbjdYRms1VkNwQlZSZWVfMlRWS2ZKU3U0RVBiWUE4SzM3a2lLbl9kcFp6WnFjUXR5V1I4aFVselNQNWk2dTdDUHBCMjhqckxHZ3ZuNndSeEhvaHpo?oc=5",
+      "source": "BBC",
+      "published": "2025-09-16",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "inherited UK project veto: gateway"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    },
+    {
+      "article_id": "GG2050-REGION-3D98F32DF1CCDC56",
+      "headline": "Proposed Sutton-on-the-Forest solar farm attracts local criticism",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE90NWdoSFdMaHBNb0FUT0tpQ3VXRlpOUVh6ZnpyTnBWUUtRYnVXSzhBbFFKTnByZDk2eXU0cDJDMGxjakg2ZG1YQmw2bnIwcnpqZ3hDZS1hMGhfeEdf?oc=5",
+      "source": "BBC",
+      "published": "2025-08-24",
+      "decision": "REJECT_UK_EVIDENCE",
+      "reason": "UK evidence vetoed regional classification",
+      "evidence": [
+        "inherited UK project veto: sutton",
+        "solar"
+      ],
+      "classifier_version": "v9.7.0",
+      "project_signal_eligible": false,
+      "canonical_identity": false
+    }
+  ]
+}

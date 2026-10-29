@@ -1,0 +1,37 @@
+{
+  "schema": "globalgrid2050.v8.fallback-contract.v1",
+  "release": "8.0",
+  "status": "TEST_COPY",
+  "source": {
+    "commit": "b6d0b39ec510f8b0bc670bef93184632df3b94a8",
+    "v7_tree": "9ad8cfe9cdf26948ed3ad3898822977f9198006a",
+    "fallback_path": "uk_renewables_pipeline/v7",
+    "copy_path": "uk_renewables_pipeline/v8"
+  },
+  "urls": {
+    "fallback": "https://globalgrid2050.com/uk_renewables_pipeline/v7/",
+    "test": "https://globalgrid2050.com/uk_renewables_pipeline/v8/"
+  },
+  "policy": {
+    "v7_immutable": true,
+    "v8_not_production": true,
+    "promotion_requires_clean_checkout": true,
+    "one_feature_per_release": true,
+    "operation_target_seconds": 30,
+    "operation_hard_stop_seconds": 500
+  },
+  "allowed_inherited_differences": [
+    "README.md",
+    "index.html",
+    "package-lock.json",
+    "package.json"
+  ],
+  "canonical_checkpoint": {
+    "project_count": 766,
+    "solar_count": 384,
+    "bess_count": 382,
+    "development_count": 718,
+    "geometry_count": 766,
+    "coordinate_record_count": 14657
+  }
+}

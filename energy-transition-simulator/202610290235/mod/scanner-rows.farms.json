@@ -1,0 +1,49 @@
+{
+ "schema": "scanner-rows.farms.v1",
+ "label": "estimated from imagery by the Wire Frame Scanner",
+ "note": "One entry per public register farm. 'rows' names a lon/lat row file baked by the GPU lab: {rows: [[[lon,lat],[lon,lat]], ...], metres_per_pixel, sample_step_px, ...}. Register points are the public register's own point, not a survey. Rule R5-9: rows come from LiDAR only where every DSM and DTM survey year under the farm is later than its build year; otherwise the LiDAR is pre-construction ground and rows come from imagery, labelled estimated.",
+ "farms": [
+  {
+   "register": "REPD 6502",
+   "point": {
+    "lat": 51.338767,
+    "lon": 0.913885,
+    "tag": "derived",
+    "source": "DESNZ REPD Q2 2026 (July 2026 edition), point basis: retained Pipeline index; register coordinates, not a survey"
+   },
+   "site_area_m2": {
+    "value": 3640000,
+    "tag": "estimated",
+    "source": "DESNZ REPD Q2 2026 site area field, as declared in the register"
+   },
+   "rows": "gpu-rows-6502.json",
+   "sample_step_px": {
+    "value": 3,
+    "tag": "derived",
+    "source": "GPU lab detect.py: runs sampled every 3 px across the row direction"
+   },
+   "build_year": {
+    "value": 2025,
+    "tag": "derived",
+    "source": "DESNZ REPD operational date (year), as carried in the register record"
+   },
+   "lidar_survey_years": {
+    "dsm": [
+     2022
+    ],
+    "dtm": [
+     2022
+    ],
+    "tag": "derived",
+    "source": "Environment Agency survey index for the 5 km tile under the farm, products lidar_composite_first_return_dsm and lidar_composite_dtm (read 27 September 2026)"
+   },
+   "imagery": {
+    "provider": "Esri World Imagery (Vantor Vivid)",
+    "capture_date": "2025-03-29",
+    "stated_accuracy_m": 8.47,
+    "tag": "derived",
+    "source": "Esri World Imagery metadata identify at the register point, release Raster Basemaps 2026.R03 (read 27 September 2026); the bake's tiles are assumed to be this capture"
+   }
+  }
+ ]
+}

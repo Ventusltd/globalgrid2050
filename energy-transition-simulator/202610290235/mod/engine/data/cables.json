@@ -1,0 +1,387 @@
+{
+ "generated": "2026-09-26",
+ "notes": [
+  "Every rule is a multiple of the cable outer diameter (radius = multiple x OD); treat as minimums and use the governing (largest) applicable rule.",
+  "od_status 'catalogue' = value taken from a manufacturer catalogue or utility schedule, not a model; it has not been re-checked against a product drawing in this pass.",
+  "Source keys S1..S8 are listed in docs/cables-sources.md."
+ ],
+ "rules": [
+  {
+   "voltage_kv": 33,
+   "construction": "single_core_unarmoured",
+   "when": "installation",
+   "multiple_of_od": 20,
+   "source": "Single-core unarmoured 11-33 kV (BS 7870-4.10 / 4.11): 20 x OD during installation, a manufacturer installation rule (S2)",
+   "status": "verified"
+  },
+  {
+   "voltage_kv": 33,
+   "construction": "single_core_unarmoured",
+   "when": "final",
+   "multiple_of_od": 15,
+   "source": "Same class: 15 x OD in the final position, bent with a former at joints and terminations (BS 6622) (S2)",
+   "status": "verified"
+  },
+  {
+   "voltage_kv": 33,
+   "construction": "single_core_armoured",
+   "when": "installation",
+   "multiple_of_od": 15,
+   "source": "Single-core armoured 6.6-33 kV (BS 6622 / BS 7835): 15 x OD during installation (S2)",
+   "status": "verified"
+  },
+  {
+   "voltage_kv": 33,
+   "construction": "single_core_armoured",
+   "when": "final",
+   "multiple_of_od": 12,
+   "source": "Same class: 12 x OD in the final position (S2)",
+   "status": "verified"
+  },
+  {
+   "voltage_kv": 33,
+   "construction": "single_core",
+   "when": "installation",
+   "multiple_of_od": 20,
+   "source": "Our generic rule for XLPE single-core 33 kV: 20 x OD during and after installation; consistent with a UK network operator policy (S3 Table 8, cited by number only)",
+   "status": "derived"
+  },
+  {
+   "voltage_kv": 33,
+   "construction": "trefoil_assembly",
+   "when": "final",
+   "multiple_of_od": 10.775,
+   "source": "US practice (AEIC/ICEA, NEC 300.34): training radius of three single 5-35 kV wire-shielded cables, 5 x the assembly diameter (about 2.155 x single-cable OD); final position only (S5)",
+   "status": "verified"
+  },
+  {
+   "voltage_kv": 132,
+   "construction": "single_core_metallic_sheath",
+   "when": "installation",
+   "multiple_of_od": 35,
+   "source": "XLPE single-core 66-132 kV with a solid metallic sheath, pulled into ducts: 35 x OD (S3 Table 8)",
+   "status": "verified"
+  },
+  {
+   "voltage_kv": 132,
+   "construction": "single_core_metallic_sheath",
+   "when": "installation",
+   "multiple_of_od": 30,
+   "source": "Same class, laid direct: 30 x OD (S3 Table 8)",
+   "status": "verified"
+  },
+  {
+   "voltage_kv": 132,
+   "construction": "single_core_metallic_sheath",
+   "when": "final",
+   "multiple_of_od": 20,
+   "source": "Same class, next to joints and terminations: 20 x OD (S3 Table 8)",
+   "status": "verified"
+  },
+  {
+   "voltage_kv": 132,
+   "construction": "single_core",
+   "when": "installation",
+   "multiple_of_od": 30,
+   "source": "Manufacturer installation advice for 66 kV and above: of the order of 30 x OD minimum (S2)",
+   "status": "verified"
+  },
+  {
+   "voltage_kv": 132,
+   "construction": "single_core",
+   "when": "installation",
+   "multiple_of_od": 20,
+   "source": "Public utility tender specification (2019), 132 kV single core: 20 x OD during installation (S7)",
+   "status": "verified"
+  },
+  {
+   "voltage_kv": 132,
+   "construction": "single_core_metallic_sheath",
+   "when": "installation",
+   "multiple_of_od": 18,
+   "source": "An HV XLPE land cable user's guide, laminated or lead-sheathed design: 18 x OD at laying (S4)",
+   "status": "verified"
+  },
+  {
+   "voltage_kv": 132,
+   "construction": "single_core_metallic_sheath",
+   "when": "final",
+   "multiple_of_od": 12,
+   "source": "Same guide: 12 x OD when installed (S4)",
+   "status": "verified"
+  },
+  {
+   "voltage_kv": 132,
+   "construction": "single_core_wire_screen",
+   "when": "installation",
+   "multiple_of_od": 15,
+   "source": "Same guide, standard design (copper wire screen only): 15 x OD at laying (S4)",
+   "status": "verified"
+  },
+  {
+   "voltage_kv": 132,
+   "construction": "single_core_wire_screen",
+   "when": "final",
+   "multiple_of_od": 10,
+   "source": "Same guide: 10 x OD when installed (S4)",
+   "status": "verified"
+  },
+  {
+   "voltage_kv": 132,
+   "construction": "trefoil_assembly",
+   "when": "installation",
+   "multiple_of_od": null,
+   "source": "No open source found for a 132 kV trefoil-specific rule; the operator policy applies the multiple per single cable whatever the formation (S3, S8)",
+   "status": "unverified"
+  }
+ ],
+ "cables": [
+  {
+   "id": "33kv-1c-al-xlpe-35",
+   "voltage_kv": 33,
+   "conductor": "Al",
+   "csa_mm2": 35,
+   "od_mm": 36.5,
+   "od_status": "catalogue",
+   "source": "Generic manufacturer catalogue value; catalogue-confirmed, not re-checked against a product drawing (S1)"
+  },
+  {
+   "id": "33kv-1c-al-xlpe-50",
+   "voltage_kv": 33,
+   "conductor": "Al",
+   "csa_mm2": 50,
+   "od_mm": 37.5,
+   "od_status": "catalogue",
+   "source": "Generic manufacturer catalogue value; catalogue-confirmed, not re-checked against a product drawing (S1)"
+  },
+  {
+   "id": "33kv-1c-al-xlpe-70",
+   "voltage_kv": 33,
+   "conductor": "Al",
+   "csa_mm2": 70,
+   "od_mm": 39.5,
+   "od_status": "catalogue",
+   "source": "Generic manufacturer catalogue value; catalogue-confirmed, not re-checked against a product drawing (S1)"
+  },
+  {
+   "id": "33kv-1c-al-xlpe-95",
+   "voltage_kv": 33,
+   "conductor": "Al",
+   "csa_mm2": 95,
+   "od_mm": 41.0,
+   "od_status": "catalogue",
+   "source": "Generic manufacturer catalogue value; catalogue-confirmed, not re-checked against a product drawing (S1)"
+  },
+  {
+   "id": "33kv-1c-al-xlpe-120",
+   "voltage_kv": 33,
+   "conductor": "Al",
+   "csa_mm2": 120,
+   "od_mm": 43.0,
+   "od_status": "catalogue",
+   "source": "Generic manufacturer catalogue value; catalogue-confirmed, not re-checked against a product drawing (S1)"
+  },
+  {
+   "id": "33kv-1c-al-xlpe-150",
+   "voltage_kv": 33,
+   "conductor": "Al",
+   "csa_mm2": 150,
+   "od_mm": 44.5,
+   "od_status": "catalogue",
+   "source": "Generic manufacturer catalogue value; catalogue-confirmed, not re-checked against a product drawing (S1)"
+  },
+  {
+   "id": "33kv-1c-al-xlpe-185",
+   "voltage_kv": 33,
+   "conductor": "Al",
+   "csa_mm2": 185,
+   "od_mm": 46.5,
+   "od_status": "catalogue",
+   "source": "Generic manufacturer catalogue value; catalogue-confirmed, not re-checked against a product drawing (S1)"
+  },
+  {
+   "id": "33kv-1c-al-xlpe-240",
+   "voltage_kv": 33,
+   "conductor": "Al",
+   "csa_mm2": 240,
+   "od_mm": 49.5,
+   "od_status": "catalogue",
+   "source": "Generic manufacturer catalogue value; catalogue-confirmed, not re-checked against a product drawing (S1)"
+  },
+  {
+   "id": "33kv-1c-al-xlpe-300",
+   "voltage_kv": 33,
+   "conductor": "Al",
+   "csa_mm2": 300,
+   "od_mm": 51.5,
+   "od_status": "catalogue",
+   "source": "Generic manufacturer catalogue value; catalogue-confirmed, not re-checked against a product drawing (S1)"
+  },
+  {
+   "id": "33kv-1c-al-xlpe-400",
+   "voltage_kv": 33,
+   "conductor": "Al",
+   "csa_mm2": 400,
+   "od_mm": 55.0,
+   "od_status": "catalogue",
+   "source": "Generic manufacturer catalogue value; catalogue-confirmed, not re-checked against a product drawing (S1)"
+  },
+  {
+   "id": "33kv-1c-al-xlpe-500",
+   "voltage_kv": 33,
+   "conductor": "Al",
+   "csa_mm2": 500,
+   "od_mm": 58.0,
+   "od_status": "catalogue",
+   "source": "Generic manufacturer catalogue value; catalogue-confirmed, not re-checked against a product drawing (S1)"
+  },
+  {
+   "id": "33kv-1c-al-xlpe-630",
+   "voltage_kv": 33,
+   "conductor": "Al",
+   "csa_mm2": 630,
+   "od_mm": 62.0,
+   "od_status": "catalogue",
+   "source": "Generic manufacturer catalogue value; catalogue-confirmed, not re-checked against a product drawing (S1)"
+  },
+  {
+   "id": "33kv-1c-al-xlpe-800",
+   "voltage_kv": 33,
+   "conductor": "Al",
+   "csa_mm2": 800,
+   "od_mm": 67.5,
+   "od_status": "estimated",
+   "source": "Generic single-core outer-diameter model OD=21.408+1.3736*sqrt(CSA)+0.353*Uo, Uo=18, rounded to 2.5 mm; extrapolated beyond the catalogue's 33 kV list (35-630) (S1)"
+  },
+  {
+   "id": "33kv-1c-al-xlpe-1000",
+   "voltage_kv": 33,
+   "conductor": "Al",
+   "csa_mm2": 1000,
+   "od_mm": 70.0,
+   "od_status": "estimated",
+   "source": "Generic single-core outer-diameter model OD=21.408+1.3736*sqrt(CSA)+0.353*Uo, Uo=18, rounded to 2.5 mm; extrapolated beyond the catalogue's 33 kV list (35-630) (S1)"
+  },
+  {
+   "id": "132kv-1c-xlpe-300",
+   "voltage_kv": 132,
+   "conductor": "unstated",
+   "csa_mm2": 300,
+   "od_mm": 72.0,
+   "od_status": "catalogue",
+   "source": "Utility schedule value; conductor metal not stated in the catalogue (S1)"
+  },
+  {
+   "id": "132kv-1c-xlpe-400",
+   "voltage_kv": 132,
+   "conductor": "unstated",
+   "csa_mm2": 400,
+   "od_mm": 75.0,
+   "od_status": "estimated",
+   "source": "Generic single-core outer-diameter model, Uo=76, rounded to 2.5 mm (S1)"
+  },
+  {
+   "id": "132kv-1c-xlpe-500",
+   "voltage_kv": 132,
+   "conductor": "unstated",
+   "csa_mm2": 500,
+   "od_mm": 80.0,
+   "od_status": "estimated",
+   "source": "Generic single-core outer-diameter model, Uo=76, rounded to 2.5 mm (S1)"
+  },
+  {
+   "id": "132kv-1c-xlpe-630",
+   "voltage_kv": 132,
+   "conductor": "unstated",
+   "csa_mm2": 630,
+   "od_mm": 83.0,
+   "od_status": "catalogue",
+   "source": "Utility schedule value; conductor metal not stated in the catalogue (S1)"
+  },
+  {
+   "id": "132kv-1c-xlpe-800",
+   "voltage_kv": 132,
+   "conductor": "unstated",
+   "csa_mm2": 800,
+   "od_mm": 87.5,
+   "od_status": "estimated",
+   "source": "Generic single-core outer-diameter model, Uo=76, rounded to 2.5 mm (S1)"
+  },
+  {
+   "id": "132kv-1c-xlpe-1000",
+   "voltage_kv": 132,
+   "conductor": "unstated",
+   "csa_mm2": 1000,
+   "od_mm": 91.0,
+   "od_status": "catalogue",
+   "source": "Utility schedule value; conductor metal not stated in the catalogue (S1)"
+  },
+  {
+   "id": "132kv-1c-xlpe-1200",
+   "voltage_kv": 132,
+   "conductor": "unstated",
+   "csa_mm2": 1200,
+   "od_mm": 97.0,
+   "od_status": "catalogue",
+   "source": "Utility schedule value; conductor metal not stated in the catalogue (S1)"
+  },
+  {
+   "id": "132kv-1c-xlpe-1600",
+   "voltage_kv": 132,
+   "conductor": "unstated",
+   "csa_mm2": 1600,
+   "od_mm": 104.0,
+   "od_status": "catalogue",
+   "source": "Utility schedule value; conductor metal not stated in the catalogue (S1)"
+  },
+  {
+   "id": "132kv-1c-xlpe-2000",
+   "voltage_kv": 132,
+   "conductor": "unstated",
+   "csa_mm2": 2000,
+   "od_mm": 110.0,
+   "od_status": "estimated",
+   "source": "Generic single-core outer-diameter model, Uo=76, rounded to 2.5 mm (S1)"
+  },
+  {
+   "id": "33kv-1c-cu-xlpe-300-armoured-spec",
+   "voltage_kv": 33,
+   "conductor": "Cu",
+   "csa_mm2": 300,
+   "od_mm": 51.0,
+   "od_status": "estimated",
+   "mass_kg_m": 5.46,
+   "source": "Public utility technical specification (overseas, 2019), 'Approx.' purchaser values for armoured cable, not a product drawing (S7)"
+  },
+  {
+   "id": "33kv-1c-cu-xlpe-630-armoured-spec",
+   "voltage_kv": 33,
+   "conductor": "Cu",
+   "csa_mm2": 630,
+   "od_mm": 72.0,
+   "od_status": "estimated",
+   "mass_kg_m": 12.0,
+   "source": "Public utility technical specification (overseas, 2019), 'Approx.' purchaser values for armoured cable, not a product drawing (S7)"
+  },
+  {
+   "id": "132kv-1c-cu-xlpe-630-armoured-spec",
+   "voltage_kv": 132,
+   "conductor": "Cu",
+   "csa_mm2": 630,
+   "od_mm": 107.0,
+   "od_status": "estimated",
+   "mass_kg_m": 16.3,
+   "source": "Public utility technical specification (overseas, 2019), 'Approx.' purchaser values for armoured cable, not a product drawing (S7)"
+  },
+  {
+   "id": "132kv-1c-cu-xlpe-1000-armoured-spec",
+   "voltage_kv": 132,
+   "conductor": "Cu",
+   "csa_mm2": 1000,
+   "od_mm": 115.0,
+   "od_status": "estimated",
+   "mass_kg_m": 25.9,
+   "source": "Public utility technical specification (overseas, 2019), 'Approx.' purchaser values for armoured cable, not a product drawing (S7)"
+  }
+ ]
+}

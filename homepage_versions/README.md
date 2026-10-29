@@ -1704,3 +1704,14 @@ Intention: promote the owner bundle at `bbf1dbd223cba53182efb5034ce0d6719728d4ee
 Measurement: restore-point workflow [40807823610](https://github.com/Ventusltd/globalgrid2050/actions/runs/40807823610) passed. 225 entries before adding v133 and its metrics.
 
 Metrics: 67 lines, 2408 words, 41665 characters, 41665 bytes; SHA-256 `5321699588235f339e279e859be4267004f684a1e0fa5052fdd83c9bb1b450f2`.
+
+
+## Version 134
+
+Pre-edit restore point: `homepage_v134.html`; measurements: `homepage_v134-metrics.json`. Source: the currently served homepage, rebuilt byte-for-byte by `scripts/import_homepage_owner.py` from the pre-edit pin (owner `bbf1dbd223cba53182efb5034ce0d6719728d4ee`) at main `da169420e232ae3719631f240791ded11dbb99d4`; the committed root `index.html` is stale and replaced at build.
+
+Intention: Promote the owner bundle at globalgrid2050-homepage 448f238fd85b400aad6d6a0512775249749ab45f so GridAtlas shows V9.186 (generation 202610291044): optional UK lightning overlay (observed optical flashes, 12-month history) with nearest substations and REPD projects, plus a Potential offtakers screening layer. Earlier GridAtlas releases stay listed; all existing links retained.
+
+Measurement: restore-point workflow [40865627589](https://github.com/Ventusltd/globalgrid2050/actions/runs/40865627589) passed. 227 entries before adding v134 and its metrics.
+
+Metrics: 68 lines, 3267 words, 50065 characters, 50069 bytes; SHA-256 `39a08ae0ba63e9461a1b7eeb1dbfb3d9dfa70160151a580783c647fc785d6044`.

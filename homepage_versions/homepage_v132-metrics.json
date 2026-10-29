@@ -1,0 +1,13 @@
+{
+  "file": "homepage_v132.html",
+  "source": "Currently served homepage: scripts/import_homepage_owner.py output for the pre-edit pin (owner commit 4a3557202726095b015224b2628de0d7611789b6) on globalgrid2050 main da7d8f6e6a7806ad5039701f5c86637d84be0704. Deploy-pages assembles index.html this way during the build, so these are the served bytes; the committed root index.html (sha256 e97c964e...) is stale and is overwritten at build.",
+  "homepage_versions_entries_before": 223,
+  "lines": 67,
+  "words": 2384,
+  "characters": 41350,
+  "bytes": 41350,
+  "sha256": "0f004b40197118c9300bcb278a97f5acd8f25edc58cb292d05b0bf6f5e13f816",
+  "intention": "Promote the homepage owner bundle so GridAtlas shows V9.172 - 28 October 2026 (generation 202610281340) with one line on the optional UK lightning overlay. V9.156 stays as an archived release; every existing link is retained.",
+  "measurement_workflow": "Passed https://github.com/Ventusltd/globalgrid2050/actions/runs/40796068645 at main da7d8f6e6a7806ad5039701f5c86637d84be0704",
+  "numbering": "Checked remote main: v131 was highest; v132 created without overwriting history."
+}

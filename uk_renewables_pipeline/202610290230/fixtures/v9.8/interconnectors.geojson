@@ -1,0 +1,141 @@
+{
+ "type": "FeatureCollection",
+ "crs": {
+  "type": "name",
+  "properties": {
+   "name": "EPSG:4326"
+  }
+ },
+ "generated_utc": "2026-09-07T03:46:03Z",
+ "note": "Straight lines between converter stations, not surveyed cable routes. Midpoints carry offshore-project property names so the existing rendering and MAP button apply unchanged.",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "link": "ElecLink",
+    "bmrs_code": "INTELEC",
+    "gb_converter": "Sellindge Converter Station",
+    "far_converter": "ElecLink Converter Station",
+    "straight_line_km": 59.93,
+    "geometry_kind": "STRAIGHT_LINE_CONVERTER_TO_CONVERTER",
+    "far_end_source": "OpenStreetMap way/775577826",
+    "country": "France",
+    "flow_years": "2020-2026",
+    "import_mwh": 19748067.4,
+    "export_mwh": -4586523.3,
+    "net_mwh": 15161544.2,
+    "net_direction": "net import to GB",
+    "feature_role": "link-line"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      0.97618,
+      51.10662
+     ],
+     [
+      1.78009,
+      50.92029
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "link": "ElecLink",
+    "bmrs_code": "INTELEC",
+    "gb_converter": "Sellindge Converter Station",
+    "far_converter": "ElecLink Converter Station",
+    "straight_line_km": 59.93,
+    "geometry_kind": "STRAIGHT_LINE_CONVERTER_TO_CONVERTER",
+    "far_end_source": "OpenStreetMap way/775577826",
+    "country": "France",
+    "flow_years": "2020-2026",
+    "import_mwh": 19748067.4,
+    "export_mwh": -4586523.3,
+    "net_mwh": 15161544.2,
+    "net_direction": "net import to GB",
+    "feature_role": "midpoint",
+    "name": "ElecLink",
+    "technology": "interconnector",
+    "repd_ref": "INTELEC",
+    "capacity_mw": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     1.37813,
+     51.01346
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "link": "BritNed",
+    "bmrs_code": "INTNED",
+    "gb_converter": "Grain Static Inverter Plant",
+    "far_converter": "HVDC Britned",
+    "straight_line_km": 234.9,
+    "geometry_kind": "STRAIGHT_LINE_CONVERTER_TO_CONVERTER",
+    "far_end_source": "OpenStreetMap way/230124965",
+    "country": "Netherlands",
+    "flow_years": "2020-2026",
+    "import_mwh": 20052382.2,
+    "export_mwh": -8921782.7,
+    "net_mwh": 11130599.5,
+    "net_direction": "net import to GB",
+    "known_submarine_cable_km": 245,
+    "route_factor": 1.043,
+    "feature_role": "link-line"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      0.71616,
+      51.4405
+     ],
+     [
+      4.0213,
+      51.95741
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "link": "BritNed",
+    "bmrs_code": "INTNED",
+    "gb_converter": "Grain Static Inverter Plant",
+    "far_converter": "HVDC Britned",
+    "straight_line_km": 234.9,
+    "geometry_kind": "STRAIGHT_LINE_CONVERTER_TO_CONVERTER",
+    "far_end_source": "OpenStreetMap way/230124965",
+    "country": "Netherlands",
+    "flow_years": "2020-2026",
+    "import_mwh": 20052382.2,
+    "export_mwh": -8921782.7,
+    "net_mwh": 11130599.5,
+    "net_direction": "net import to GB",
+    "known_submarine_cable_km": 245,
+    "route_factor": 1.043,
+    "feature_role": "midpoint",
+    "name": "BritNed",
+    "technology": "interconnector",
+    "repd_ref": "INTNED",
+    "capacity_mw": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     2.36873,
+     51.69895
+    ]
+   }
+  }
+ ]
+}

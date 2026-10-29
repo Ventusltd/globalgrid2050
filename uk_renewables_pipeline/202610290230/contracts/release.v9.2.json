@@ -1,0 +1,61 @@
+{
+  "schema": "globalgrid2050.uk-renewables.release.v9.2",
+  "release": "9.2",
+  "feature": "restore-v5-interface-and-mobile-contract-without-removing-v9-features",
+  "frozen_parent": {
+    "release": "9.1",
+    "commit": "59f74e319fbaad62abdb995107dba5759d7f3ca2",
+    "tree": "e9dc244b74d9c983e4557a23bd2b745c1daeb105"
+  },
+  "data_parent": {
+    "release": "9.1",
+    "contract": "contracts/release.v9.1.json",
+    "manifest": "data/v9.1/build_manifest.json",
+    "data_changed": false
+  },
+  "scope": {
+    "capacity_mw_inclusive_minimum": 1.0,
+    "technologies": ["solar", "bess", "wind_onshore", "wind_offshore"],
+    "all_official_statuses": true,
+    "default_universe": "all_qualifying_records",
+    "record_identity_preserved": true,
+    "development_deduplication_forbidden": true
+  },
+  "expected": {
+    "project_count": 7680,
+    "capacity_mw": 356474.09,
+    "largest_mw": 4100.0,
+    "valid_geometry_count": 7652,
+    "missing_geometry_count": 28,
+    "solar_count": 3563,
+    "bess_count": 1609,
+    "wind_onshore_count": 2399,
+    "wind_offshore_count": 109
+  },
+  "ui_contract": {
+    "reference": "V5 latest working shell; V1 numerical method",
+    "legacy_stylesheet": "styles/v7.css",
+    "additive_stylesheet": "styles/v9-2.css",
+    "forbidden_runtime_overrides": ["styles/mobile.css", "styles/v8.css"],
+    "primary_gauges": 3,
+    "desktop_gauge_columns": 3,
+    "legacy_mobile_breakpoint_px": 768,
+    "mobile_gauge_columns": 1,
+    "project_table_columns": 8,
+    "retain": [
+      "canonical_ids",
+      "official_update_date",
+      "filtered_csv",
+      "legacy_news",
+      "exact_atlas_link",
+      "missing_geometry_records"
+    ]
+  },
+  "algorithms": {
+    "pipeline": "load all qualifying records before applying optional user filters",
+    "project_search": "normalised multi-token AND search across canonical identity, planning, geography, operator and relationship fields",
+    "filter_state": "optional shareable URL parameters; no parameters means the full universe",
+    "news": "exact project-name and technology binding followed by headline relevance scoring; all results remain explicitly unverified",
+    "engagement": ["results summary", "clear filters", "copy project ID", "expandable project record", "disabled NO MAP state"]
+  }
+}

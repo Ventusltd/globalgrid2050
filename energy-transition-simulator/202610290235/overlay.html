@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Simulator overlay</title>
+<link href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<style>
+  html,body,#map{margin:0;height:100%;background:#000}
+  #bar{position:absolute;left:8px;top:8px;z-index:2;display:flex;gap:6px;flex-wrap:wrap}
+  #bar button{font:14px sans-serif;padding:10px 12px;border-radius:6px;border:1px solid #456;background:#0b1220;color:#dfe;min-height:44px}
+  #bar button.on{background:#1d4ed8}
+  #info{position:absolute;left:8px;bottom:28px;z-index:2;font:13px sans-serif;color:#dfe;background:rgba(0,0,0,.6);padding:6px 8px;border-radius:6px}
+  #joy{position:absolute;right:24px;bottom:40px;z-index:3;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.3);touch-action:none}
+  #knob{position:absolute;left:40px;top:40px;width:40px;height:40px;border-radius:50%;background:rgba(160,220,255,.6)}
+</style></head><body>
+<div id="map"></div>
+<div id="bar"><button id="sat" class="on">Satellite</button><button id="dark">Dark</button><button id="wire">Wire</button><button id="tilt">3D tilt</button><button id="here">Build here</button><button id="survey">Survey</button><button id="rows">Solar rows</button><button id="detect">Rows from satellite</button><button id="pylons">Pylons</button><button id="walk">Walk</button><button id="drone">Drone</button><button id="map2d">Map</button><span id="spd" style="align-self:center;font:13px sans-serif;color:#dfe;background:rgba(0,0,0,.6);padding:6px 8px;border-radius:6px"></span></div>
+<div id="joy"><div id="knob"></div></div><div id="here-readout" style="position:absolute;right:8px;top:62px;z-index:2;font:13px monospace;color:#dfe;background:rgba(0,0,0,.65);padding:6px 8px;border-radius:6px"></div><div id="pf-readout" style="position:absolute;right:8px;top:100px;z-index:2;font:12px monospace;color:#dfe;background:rgba(0,0,0,.7);padding:6px 8px;border-radius:6px;white-space:pre"></div><div id="info">Walk (1), Drone (2), Map (3). W A S D or the joystick to move, Q and E to turn, R and F to tilt, Shift for fast. "Solar rows" stands up the real mapped panel rows (OpenStreetMap) in 3D. "Build here" drops a 3D wireframe solar block at the map centre, fixed in real coordinates. "Survey" shows the onsite ground grid (LiDAR topography plugs in here).</div>
+<script type="module">
+// ONE coordinate system: every wireframe object is authored in metres around a place key (100 m lattice) and
+// turned into Mercator by place-frame.mjs (WGS84 ellipsoid). Inside GB the world's own bng.mjs + OSTN15 give the grid ref.
+import * as PF from './place-frame.mjs';
+import * as BNG from './world/bng.mjs';
+import { createOstn15, etrsToBng, bngToEtrs } from './world/ostn15.mjs';
+const OSTN = createOstn15();
+PF.useWorld(BNG, { blocks: OSTN.blocks, etrsToBng, bngToEtrs });
+// Place lines (metres around lon/lat) on the lattice: anchor = placeKey(centre); the lines shift by the centre's
+// metres from the anchor, so the object lands where asked and the key is the anchor. pre=true: lines already around the anchor.
+function placed(lon, lat, lines, extra = {}, pre = false) {
+  const anchor = PF.placeKey(lat, lon), off = pre ? { x: 0, y: 0 } : PF.toLocal(anchor, lat, lon, 0);
+  const L = off.x || off.y ? lines.map(([a, b, c, d, e, f]) => [a + off.x, b + off.y, c, d + off.x, e + off.y, f]) : lines;
+  return { lon, lat, anchor, lines: L, buf: PF.wireBuffer(anchor, L), ...extra };
+}
+// Anchor-relative float32 vertices; the anchor's Mercator point (float64) goes into the matrix: m * T(o).
+function withAnchor(m, o) {
+  const r = Array.from(m);
+  for (let k = 0; k < 4; k++) r[12 + k] = m[k] * o.x + m[4 + k] * o.y + m[8 + k] * o.z + m[12 + k];
+  return new Float32Array(r);
+}
+// Proof: GridAtlas is the ground (its satellite and dark basemaps, its grid layers), and the 3D wireframe is drawn
+// INSIDE the map's own camera as a custom WebGL layer, so it stays fixed to real coordinates when the map
+// pans, zooms, tilts or rotates. Positions are in metres around a local origin, turned into Mercator units
+// with the map's own scale at that latitude.
+const SAT = { type: 'raster', tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'], tileSize: 256, maxzoom: 17, attribution: 'Imagery: Esri, Maxar, Earthstar Geographics · Rows © OpenStreetMap contributors, ODbL' };
+const GA = 'https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/data';
+const FADE = { 'raster-opacity': 1 };
+const DEM = { type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], tileSize: 256, encoding: 'terrarium', maxzoom: 15, attribution: 'Terrain: AWS Terrain Tiles (open)' };
+const DARK = 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
+const q = new URLSearchParams(location.search);
+const start = [Number(q.get('lon') ?? -1.78), Number(q.get('lat') ?? 51.215)];
+const map = new maplibregl.Map({ container: 'map', center: start, zoom: 15, pitch: 55, bearing: -20, maxPitch: 85, maxZoom: 20,
+  style: { version: 8, sources: { sat: SAT }, layers: [{ id: 'sat', type: 'raster', source: 'sat', paint: FADE }] }, antialias: true });
+map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }));
+
+const GRID = [['400', '#0054ff', 3], ['275', '#ff0000', 2.5], ['132', '#00b050', 2]];
+function addGrid() {
+  for (const [kv, color, w] of GRID) {
+    if (map.getSource('g' + kv)) continue;
+    map.addSource('g' + kv, { type: 'geojson', data: `${GA}/grid_${kv}kv.geojson` });
+    map.addLayer({ id: 'g' + kv, type: 'line', source: 'g' + kv, paint: { 'line-color': color, 'line-width': w, 'line-opacity': 0.9 } });
+  }
+  if (!map.getSource('subs')) {
+    map.addSource('subs', { type: 'geojson', data: `${GA}/grid_substations.geojson` });
+    map.addLayer({ id: 'subs', type: 'circle', source: 'subs', paint: { 'circle-radius': 5, 'circle-color': '#ffd400', 'circle-stroke-color': '#000', 'circle-stroke-width': 1 } });
+  }
+  if (!map.getLayer('wire')) map.addLayer(wire);
+}
+
+// The 3D wireframe layer: blocks of lines, each in local metres around its own lon/lat anchor.
+const blocks = [];
+function block(lon, lat) {
+  // A 200 m x 120 m solar block: table rows every 10 m, 2.5 m tall at the back, plus a compound cube.
+  const L = [], row = (x0, x1, y, h) => { L.push([x0, y, 0, x1, y, 0], [x0, y, 0, x0, y + 4, h], [x1, y, 0, x1, y + 4, h], [x0, y + 4, h, x1, y + 4, h]); };
+  for (let y = -60; y <= 56; y += 10) row(-100, 100, y, 2.5);
+  const c = (x, y, s, h) => { const p = [[x, y], [x + s, y], [x + s, y + s], [x, y + s]]; for (let i = 0; i < 4; i++) { const a = p[i], b = p[(i + 1) % 4]; L.push([a[0], a[1], 0, b[0], b[1], 0], [a[0], a[1], h, b[0], b[1], h], [a[0], a[1], 0, a[0], a[1], h]); } };
+  c(110, -10, 20, 6);
+  const b = placed(lon, lat, L, { built: true }); blocks.push(b); lastBuilt = b; pfReadout();
+  map.triggerRepaint(); return b;
+}
+const wire = {
+  id: 'wire', type: 'custom', renderingMode: '3d',
+  onAdd(m, gl) {
+    const vs = `uniform mat4 u; uniform float u_zscale; attribute vec3 p; void main(){ gl_Position = u * vec4(p.xy, p.z * u_zscale, 1.0); }`;   // u_zscale (default 1.0): the block heights, so the wire world can be flattened and raised (mod/morph.js)
+    const fs = `precision mediump float; void main(){ gl_FragColor = vec4(0.55, 0.9, 1.0, 1.0); }`;
+    const sh = (t, s) => { const o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); return o; };
+    this.pr = gl.createProgram(); gl.attachShader(this.pr, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(this.pr, sh(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(this.pr);
+    this.buf = gl.createBuffer();
+  },
+  render(gl, args) {
+    const m = args.defaultProjectionData?.mainMatrix || args;
+    gl.useProgram(this.pr);
+    { const zl = gl.getUniformLocation(this.pr, 'u_zscale'); if (zl) gl.uniform1f(zl, 1.0); }   // u_zscale: 1.0 = today's 3D; mod/morph.js lowers it per frame while it animates
+    for (const b of blocks) {
+      const a = b.anchor, gz = (map.queryTerrainElevation && map.queryTerrainElevation([a.lon, a.lat])) || 0;
+      const o = PF.toMercator(a.lat, a.lon, gz), v = b.buf;
+      gl.bindBuffer(gl.ARRAY_BUFFER, this.buf); gl.bufferData(gl.ARRAY_BUFFER, v, gl.DYNAMIC_DRAW);
+      const loc = gl.getAttribLocation(this.pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 3, gl.FLOAT, false, 0, 0);
+      gl.uniformMatrix4fv(gl.getUniformLocation(this.pr, 'u'), false, withAnchor(m, o));
+      gl.drawArrays(gl.LINES, 0, v.length / 3);
+    }
+  }
+};
+// Zoomed in: a wireframe ground of 10 m squares, 600 m across, anchored at a fixed 100 m national-style
+// lattice so it never swims as you move (drawn in real metres; LiDAR heights plug in here next).
+let groundKey = '', survey = false;
+function ground() {
+  const z = map.getZoom(); const i = blocks.findIndex(b => b.ground);
+  if (!survey || z < 16.5) { if (i >= 0) { blocks.splice(i, 1); groundKey = ''; map.triggerRepaint(); } return; }
+  const c = map.getCenter(), an = PF.placeKey(c.lat, c.lng), key = an.key; if (key === groundKey) return; groundKey = key;
+  const L = []; for (let k = -300; k <= 300; k += 10) { L.push([-300, k, 0.2, 300, k, 0.2], [k, -300, 0.2, k, 300, 0.2]); }
+  if (i >= 0) blocks.splice(i, 1); blocks.unshift(placed(an.lon, an.lat, L, { ground: true }, true)); map.triggerRepaint();
+}
+
+// ---- Walk and fly over the real map: fast, virtual movement (owner). ----
+const MODES = { walk: { pitch: 80, zoom: 18.5, speed: 10 }, drone: { pitch: 60, zoom: 16.5, speed: 60 }, map: { pitch: 0, zoom: 14, speed: 300 } };
+let mode = 'map', boost = 1; const keys = new Set(), joy = { x: 0, y: 0 };
+function setMode(m) { mode = m; const c = MODES[m]; map.easeTo({ pitch: c.pitch, zoom: c.zoom, duration: 900 });
+  for (const b of ['walk', 'drone', 'map2d']) document.getElementById(b).classList.toggle('on', b === (m === 'map' ? 'map2d' : m)); }
+document.getElementById('walk').onclick = () => setMode('walk');
+document.getElementById('drone').onclick = () => setMode('drone');
+document.getElementById('map2d').onclick = () => setMode('map');
+addEventListener('keydown', e => { if (e.target.tagName === 'INPUT') return; keys.add(e.key.toLowerCase()); if (e.key === 'Shift') boost = 3;
+  if (e.key === '1') setMode('walk'); if (e.key === '2') setMode('drone'); if (e.key === '3') setMode('map'); });
+addEventListener('keyup', e => { keys.delete(e.key.toLowerCase()); if (e.key === 'Shift') boost = 1; });
+const joyEl = document.getElementById('joy'), knob = document.getElementById('knob');
+function joyAt(e) { const r = joyEl.getBoundingClientRect(); let x = (e.clientX - r.left - 60) / 50, y = (e.clientY - r.top - 60) / 50; const d = Math.hypot(x, y); if (d > 1) { x /= d; y /= d; }
+  joy.x = x; joy.y = y; knob.style.left = (40 + x * 40) + 'px'; knob.style.top = (40 + y * 40) + 'px'; }
+joyEl.addEventListener('pointerdown', e => { joyEl.setPointerCapture(e.pointerId); joyAt(e); });
+joyEl.addEventListener('pointermove', e => { if (e.buttons) joyAt(e); });
+joyEl.addEventListener('pointerup', () => { joy.x = joy.y = 0; knob.style.left = knob.style.top = '40px'; });
+let last = performance.now();
+function tick(t) {
+  const dt = Math.min(0.1, (t - last) / 1000); last = t;
+  const f = (keys.has('w') || keys.has('arrowup') ? 1 : 0) - (keys.has('s') || keys.has('arrowdown') ? 1 : 0) - joy.y;
+  const r = (keys.has('d') ? 1 : 0) - (keys.has('a') ? 1 : 0);
+  const turn = (keys.has('e') || keys.has('arrowright') ? 1 : 0) - (keys.has('q') || keys.has('arrowleft') ? 1 : 0) + joy.x;
+  const tilt = (keys.has('r') ? 1 : 0) - (keys.has('f') ? 1 : 0);
+  if (f || r || turn || tilt) {
+    const sp = MODES[mode].speed * boost, b = map.getBearing() * Math.PI / 180, c = map.getCenter();
+    const dn = (f * Math.cos(b) - r * Math.sin(b)) * sp * dt, de = (f * Math.sin(b) + r * Math.cos(b)) * sp * dt;
+    const lat = c.lat + dn / 111320, lng = c.lng + de / (111320 * Math.cos(c.lat * Math.PI / 180));
+    map.jumpTo({ center: [lng, lat], bearing: map.getBearing() + turn * 60 * dt, pitch: Math.max(0, Math.min(85, map.getPitch() + tilt * 30 * dt)) });
+  }
+  document.getElementById('spd').textContent = `${mode} · ${Math.round(MODES[mode].speed * boost)} m/s · ${(MODES[mode].speed * boost * 3.6).toFixed(0)} km/h`;
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+
+
+// ---- Real solar rows from OpenStreetMap (ODbL), stood up as 3D wireframe tables on the map. ----
+// One polite Overpass request per press, for the area in view. Each mapped panel outline becomes a table:
+// its outline at 1 m, a top edge at 2.6 m on the northern side, and legs at the corners. No names shown.
+const M_LAT = 111320;
+async function loadRows() {
+  const bt = document.getElementById('rows'); bt.textContent = 'Loading rows...';
+  const b = map.getBounds(), bbox = [b.getSouth(), b.getWest(), b.getNorth(), b.getEast()].map(v => v.toFixed(5)).join(',');
+  const q = `[out:json][timeout:25];(way["power"="generator"]["generator:source"="solar"](${bbox});way["generator:method"="photovoltaic"](${bbox});way["power"="plant"]["plant:source"="solar"](${bbox}););out geom 4000;`;
+  try {
+    const r = await fetch('https://overpass-api.de/api/interpreter', { method: 'POST', body: 'data=' + encodeURIComponent(q) });
+    const j = await r.json(); let n = 0;
+    for (const w of j.elements || []) {
+      const g = w.geometry; if (!g || g.length < 3) continue;
+      const plant = w.tags && w.tags.power === 'plant';
+      const lat0 = g[0].lat, lon0 = g[0].lon, an = PF.placeKey(lat0, lon0);
+      const P = g.map(p => { const q = PF.toLocal(an, p.lat, p.lon, 0); return [q.x, q.y]; });
+      const L = [];
+      if (plant) { for (let i = 0; i + 1 < P.length; i++) L.push([P[i][0], P[i][1], 0.3, P[i + 1][0], P[i + 1][1], 0.3]); }
+      else {
+        let yMax = -1e9, yMin = 1e9; for (const p of P) { yMax = Math.max(yMax, p[1]); yMin = Math.min(yMin, p[1]); }
+        const h = y => 1.0 + 1.6 * (y - yMin) / Math.max(0.5, yMax - yMin);   // higher at the north (back) edge
+        for (let i = 0; i + 1 < P.length; i++) { const a = P[i], c = P[i + 1]; L.push([a[0], a[1], h(a[1]), c[0], c[1], h(c[1])], [a[0], a[1], 0, a[0], a[1], h(a[1])]); }
+      }
+      blocks.push(placed(an.lon, an.lat, L, { plant }, true)); n++;
+    }
+    bt.textContent = n ? `Solar rows (${n})` : 'No rows mapped here';
+    map.triggerRepaint();
+  } catch (e) { bt.textContent = 'Rows: try again'; }
+}
+document.getElementById('rows').onclick = loadRows;
+
+
+// ---- Pylons from GridAtlas's own line vertices (exact coordinates), stood up as 3D wireframe towers,
+// with conductors at arm height. Heights are illustrative by voltage class. Only lines in view, zoom 14+.
+const PYLON_H = { '400': 50, '275': 45, '132': 27 };
+let pylonsOn = false;
+function tower(h) { const L = [], b = h * 0.12, t = h * 0.03, arm = h * 0.8, w = h * 0.3;
+  const legs = [[-b, -b], [b, -b], [b, b], [-b, b]], top = [[-t, -t], [t, -t], [t, t], [-t, t]];
+  for (let i = 0; i < 4; i++) { L.push([legs[i][0], legs[i][1], 0, top[i][0], top[i][1], h]); const j = (i + 1) % 4; L.push([legs[i][0], legs[i][1], 0, legs[j][0], legs[j][1], 0]); }
+  L.push([-w, 0, arm, w, 0, arm], [-w * 0.8, 0, arm - h * 0.15, w * 0.8, 0, arm - h * 0.15]);
+  return L; }
+function buildPylons() {
+  for (let i = blocks.length - 1; i >= 0; i--) if (blocks[i].pylon) blocks.splice(i, 1);
+  if (!pylonsOn || map.getZoom() < 14) { map.triggerRepaint(); return 0; }
+  const b = map.getBounds(); let n = 0;
+  for (const kv of Object.keys(PYLON_H)) {
+    if (!map.getSource('g' + kv)) continue;
+    const h = PYLON_H[kv], seen = new Set();
+    for (const f of map.querySourceFeatures('g' + kv)) {
+      const lines = f.geometry.type === 'LineString' ? [f.geometry.coordinates] : f.geometry.coordinates;
+      for (const line of lines) for (let i = 0; i < line.length; i++) {
+        const [lon, lat] = line[i]; if (!b.contains([lon, lat])) continue;
+        const key = lon.toFixed(6) + lat.toFixed(6); if (seen.has(key)) continue; seen.add(key);
+        const L = tower(h);
+        if (i + 1 < line.length) { const [lon2, lat2] = line[i + 1], q = PF.toLocal(PF.placeKey(lat, lon), lat2, lon2, 0), q0 = PF.toLocal(PF.placeKey(lat, lon), lat, lon, 0);
+          const dx = q.x - q0.x, dy = q.y - q0.y; if (Math.hypot(dx, dy) < 800) for (const o of [-h * 0.3, h * 0.3]) L.push([o, 0, h * 0.8, dx + o, dy, h * 0.8]); }
+        blocks.push(placed(lon, lat, L, { pylon: true })); n++; if (n > 600) break;
+      }
+    }
+  }
+  map.triggerRepaint(); return n;
+}
+document.getElementById('pylons').onclick = e => { pylonsOn = !pylonsOn; e.target.classList.toggle('on', pylonsOn); const n = buildPylons(); e.target.textContent = pylonsOn ? `Pylons (${n})` : 'Pylons'; };
+map.on('moveend', () => { if (pylonsOn) { const n = buildPylons(); document.getElementById('pylons').textContent = `Pylons (${n})`; } });
+// Exact position readout: the map centre (where you stand), from GridAtlas's own coordinates.
+function readout() { const c = map.getCenter(); document.getElementById('here-readout').textContent = `${c.lat.toFixed(6)}, ${c.lng.toFixed(6)}  z${map.getZoom().toFixed(1)}  heading ${Math.round((map.getBearing() + 360) % 360)}°`; }
+map.on('move', readout); map.on('load', readout);
+// Place-frame readout: the key, lat/lon, National Grid ref (GB) and the OSTN15 correction applied (Helmert -> OSTN15).
+let lastBuilt = null;
+function pfLine(tag, lat, lon) {
+  const a = PF.placeKey(lat, lon); let s = `${tag} ${a.key}  ${lat.toFixed(6)}, ${lon.toFixed(6)}`;
+  const t = PF.toBng(lat, lon);
+  if (t.e >= 0 && t.e < 700000 && t.n >= 0 && t.n < 1300000 && lat > 49 && lat < 61.5 && lon > -9 && lon < 2.5)
+    s += `
+  BNG ${BNG.gridRef(t.e, t.n, 10)}  (${t.engine}${t.gapToOstn15 != null ? `, OSTN15 correction ${t.gapToOstn15.toFixed(2)} m` : ', OSTN15 not loaded'})`;
+  else s += `
+  outside GB: no National Grid, WGS84 place frame only`;
+  return s;
+}
+function pfReadout() {
+  const c = map.getCenter(); OSTN.need(c.lat, c.lng).then(ok => { if (ok) render(); });
+  if (lastBuilt) OSTN.need(lastBuilt.lat, lastBuilt.lon);
+  const render = () => { document.getElementById('pf-readout').textContent = pfLine('centre', c.lat, c.lng) + (lastBuilt ? `
+` + pfLine('block ', lastBuilt.lat, lastBuilt.lon) + `
+  anchor ${lastBuilt.anchor.lat.toFixed(7)}, ${lastBuilt.anchor.lon.toFixed(7)}` : ''); };
+  render();
+}
+map.on('moveend', pfReadout); map.on('load', pfReadout);
+// Test hooks (headless proof): build a block at lon/lat; read placed blocks.
+window.__pf = { PF, build: (lon, lat) => { const b = block(lon, lat); return { key: b.anchor.key, lat: b.anchor.lat, lon: b.anchor.lon }; }, blocks: () => blocks.filter(b => b.built).map(b => ({ key: b.anchor.key, lon: b.lon, lat: b.lat })), map };
+
+
+// ---- Procedural rows from the satellite itself (the owner's logic): read the imagery around you, find the dark
+// panel pixels, and stand them up as 3D wireframe tables where they are. Estimated from satellite, not measured.
+const TILE_URL = SAT.tiles[0];
+function lonLatToTile(lon, lat, z) { const n = 2 ** z, r = lat * Math.PI / 180;
+  return [(lon + 180) / 360 * n, (1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2 * n]; }
+function tileToLonLat(x, y, z) { const n = 2 ** z, lon = x / n * 360 - 180, lat = Math.atan(Math.sinh(Math.PI * (1 - 2 * y / n))) * 180 / Math.PI; return [lon, lat]; }
+const loadImg = u => new Promise((ok, no) => { const im = new Image(); im.crossOrigin = 'anonymous'; im.onload = () => ok(im); im.onerror = no; im.src = u; });
+async function detectRows() {
+  const bt = document.getElementById('detect'); bt.textContent = 'Reading satellite...';
+  for (let i = blocks.length - 1; i >= 0; i--) if (blocks[i].sat) blocks.splice(i, 1);
+  const Z = 17, c = map.getCenter(), [tx, ty] = lonLatToTile(c.lng, c.lat, Z), x0 = Math.floor(tx) - 1, y0 = Math.floor(ty) - 1;
+  const cv = document.createElement('canvas'); cv.width = cv.height = 768; const g = cv.getContext('2d', { willReadFrequently: true });
+  try {
+    await Promise.all([0, 1, 2].flatMap(j => [0, 1, 2].map(i => loadImg(TILE_URL.replace('{z}', Z).replace('{x}', x0 + i).replace('{y}', y0 + j)).then(im => g.drawImage(im, i * 256, j * 256)))));
+  } catch (e) { bt.textContent = 'Satellite read failed'; return; }
+  const d = g.getImageData(0, 0, 768, 768).data;
+  const dark = (px, py) => { const k = (py * 768 + px) * 4, r = d[k], gg = d[k + 1], b = d[k + 2]; const lum = 0.3 * r + 0.59 * gg + 0.11 * b; return lum < 60 && b >= r - 6; };
+  const [lon0, lat0] = tileToLonLat(x0, y0, Z), kx = 111320 * Math.cos(c.lat * Math.PI / 180);
+  const mpp = (tileToLonLat(x0 + 1, y0, Z)[0] - lon0) * kx / 256;   // metres per pixel east-west
+  const L = []; let n = 0; const an = PF.placeKey(c.lat, c.lng);
+  for (let py = 0; py < 768; py += 3) {           // sample every third pixel row (about 2 m)
+    let run = -1;
+    for (let px = 0; px <= 768; px++) {
+      const on = px < 768 && dark(px, py);
+      if (on && run < 0) run = px;
+      if (!on && run >= 0) { if (px - run >= 4) {
+          const [aLon, aLat] = tileToLonLat(x0 + run / 256, y0 + py / 256, Z), [bLon, bLat] = tileToLonLat(x0 + px / 256, y0 + py / 256, Z);
+          const A0 = PF.toLocal(an, aLat, aLon, 0), B0 = PF.toLocal(an, bLat, bLon, 0), ax = A0.x, ay = A0.y, bx = B0.x, by = B0.y;
+          L.push([ax, ay, 2.2, bx, by, 2.2], [ax, ay, 0, ax, ay, 2.2], [bx, by, 0, bx, by, 2.2]); n++; }
+        run = -1; }
+    }
+  }
+  blocks.push(placed(an.lon, an.lat, L, { sat: true }, true)); map.triggerRepaint();
+  bt.textContent = `Rows from satellite (${n})`;
+  document.getElementById('info').textContent = `Rows estimated from satellite imagery (not measured): ${n} panel runs over about ${Math.round(768 * mpp)} m square around you. Walk (1) to walk between them.`;
+}
+document.getElementById('detect').onclick = detectRows;
+
+
+// ---- Plug-in API for modules in prototype/mod/*.js (each attaches to window.SIM). ----
+window.SIM = {
+  map, blocks, wire,
+  addBlock(b) { blocks.push(b); map.triggerRepaint(); return b; },
+  removeWhere(fn) { for (let i = blocks.length - 1; i >= 0; i--) if (fn(blocks[i])) blocks.splice(i, 1); map.triggerRepaint(); },
+  repaint() { map.triggerRepaint(); },
+  info(t) { document.getElementById('info').textContent = t; },
+  addButton(label, onclick) { const b = document.createElement('button'); b.textContent = label; b.onclick = onclick; document.getElementById('bar').appendChild(b); return b; }
+};
+
+map.on('moveend', ground); map.on('zoomend', ground);
+map.on('load', () => { addGrid(); ground(); });
+const on = id => { for (const b of ['sat', 'dark', 'wire']) document.getElementById(b).classList.toggle('on', b === id); };
+document.getElementById('sat').onclick = () => { map.setStyle({ version: 8, sources: { sat: SAT }, layers: [{ id: 'sat', type: 'raster', source: 'sat', paint: FADE }] }); on('sat'); };
+document.getElementById('dark').onclick = () => { map.setStyle(DARK); on('dark'); };
+document.getElementById('wire').onclick = () => { map.setStyle({ version: 8, sources: {}, layers: [{ id: 'bg', type: 'background', paint: { 'background-color': '#0a0a0a' } }] }); on('wire'); survey = true; groundKey = ''; setTimeout(ground, 300); document.getElementById('survey').classList.add('on'); };
+map.on('style.load', () => { addGrid(); if (!map.getSource('dem')) map.addSource('dem', DEM); map.setTerrain({ source: 'dem', exaggeration: 1 }); });
+document.getElementById('tilt').onclick = () => map.easeTo({ pitch: map.getPitch() > 10 ? 0 : 60, duration: 800 });
+document.getElementById('survey').onclick = e => { survey = !survey; e.target.classList.toggle('on', survey); groundKey = ''; ground(); };
+document.getElementById('here').onclick = () => { const c = map.getCenter(); block(c.lng, c.lat); };
+</script><script>fetch('mod/index.json').then(r => r.ok ? r.json() : []).then(list => { for (const n of list) { const t = document.createElement('script'); t.src = 'mod/' + n + '.js'; document.body.appendChild(t); } }).catch(() => {});</script>
+</body></html>

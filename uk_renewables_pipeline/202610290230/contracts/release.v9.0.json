@@ -1,0 +1,40 @@
+{
+  "schema": "globalgrid2050.v9.interim-release.v1",
+  "release": "9.0",
+  "status": "LIVE_VALIDATED",
+  "copied_from": {
+    "release": "8.1",
+    "git_tree": "b319b66d78bee2f5c4a6171fd4df3768a2fb94f6"
+  },
+  "canonical_projects": {
+    "source": "data/v7.2/projects.json",
+    "sha256": "ce7e0a7681da47c6d2bfe66c292e61c3727d9db02db667053be4fbe5e0952de9",
+    "project_count": 766,
+    "development_count": 718,
+    "solar_count": 384,
+    "bess_count": 382,
+    "wind_count": 0
+  },
+  "features": {
+    "filtered_csv": {
+      "scope": "current filtered rows only",
+      "zero_results": "header only",
+      "includes_repd_record_updated": true,
+      "includes_coordinates": true,
+      "includes_atlas_url": true
+    },
+    "repd_record_updated": {
+      "source_field": "repd_record_updated",
+      "authority": "official REPD",
+      "missing_value": "not supplied by REPD",
+      "current_date_substitution_forbidden": true
+    },
+    "atlas_v8": {
+      "url": "https://globalgrid2050.com/repd_grid_atlasv8/",
+      "link_parameters": ["repd_ref", "project", "technology", "capacity_mw", "latitude", "longitude", "zoom"],
+      "exact_focus_supported": true,
+      "identity_resolution": "Atlas V8 resolves repd_ref against V9 canonical GeoJSON before flying and opening the popup."
+    }
+  },
+  "legacy_integrity_contract": "contracts/legacy-integrity.v9.json"
+}

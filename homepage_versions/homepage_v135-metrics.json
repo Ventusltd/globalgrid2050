@@ -1,0 +1,13 @@
+{
+  "file": "homepage_v135.html",
+  "source": "Currently served homepage: scripts/import_homepage_owner.py output for the pre-edit pin (owner commit 448f238fd85b400aad6d6a0512775249749ab45f) on globalgrid2050 main c66759f0d7ac3489df9158da6eaa1330a37c069f. Deploy-pages assembles index.html this way during the build, so these are the served bytes; the committed root index.html is stale and is overwritten at build.",
+  "homepage_versions_entries_before": 229,
+  "lines": 68,
+  "words": 3281,
+  "characters": 50307,
+  "bytes": 50311,
+  "sha256": "1bb626877819088fd191ddf2abb9e8ae1a66e66144953e2c00fe874d1c63ea34",
+  "intention": "Promote the owner bundle at globalgrid2050-homepage 30470e127ab6359957cefd7cbf6919574f192f2e so GridAtlas shows V9.188 (generation 202610312138): the data-centre overlay re-pinned to the 226-record UK pipeline at data-grid-gb 01a4491 (225 drawn, Wapseys Wood one site) and the composition note corrected. V9.186 and earlier GridAtlas releases stay listed; all existing links retained.",
+  "measurement_workflow": "Passed https://github.com/Ventusltd/globalgrid2050/actions/runs/41250539956 at main c66759f0d7ac3489df9158da6eaa1330a37c069f",
+  "numbering": "Checked remote main: v134 was highest; v135 created without overwriting history."
+}

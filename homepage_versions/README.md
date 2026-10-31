@@ -1715,3 +1715,13 @@ Intention: Promote the owner bundle at globalgrid2050-homepage 448f238fd85b400aa
 Measurement: restore-point workflow [40865627589](https://github.com/Ventusltd/globalgrid2050/actions/runs/40865627589) passed. 227 entries before adding v134 and its metrics.
 
 Metrics: 68 lines, 3267 words, 50065 characters, 50069 bytes; SHA-256 `39a08ae0ba63e9461a1b7eeb1dbfb3d9dfa70160151a580783c647fc785d6044`.
+
+## Version 135
+
+Pre-edit restore point: `homepage_v135.html`; measurements: `homepage_v135-metrics.json`. Source: the currently served homepage, rebuilt byte-for-byte by `scripts/import_homepage_owner.py` from the pre-edit pin (owner `448f238fd85b400aad6d6a0512775249749ab45f`) at main `c66759f0d7ac3489df9158da6eaa1330a37c069f`; the committed root `index.html` is stale and replaced at build.
+
+Intention: Promote the owner bundle at globalgrid2050-homepage 30470e127ab6359957cefd7cbf6919574f192f2e so GridAtlas shows V9.188 (generation 202610312138): the data-centre overlay re-pinned to the 226-record UK pipeline at data-grid-gb 01a4491 (225 drawn, Wapseys Wood one site) and the composition note corrected. V9.186 and earlier GridAtlas releases stay listed; all existing links retained.
+
+Measurement: restore-point workflow [41250539956](https://github.com/Ventusltd/globalgrid2050/actions/runs/41250539956) passed. 229 entries before adding v135 and its metrics.
+
+Metrics: 68 lines, 3281 words, 50307 characters, 50311 bytes; SHA-256 `1bb626877819088fd191ddf2abb9e8ae1a66e66144953e2c00fe874d1c63ea34`.

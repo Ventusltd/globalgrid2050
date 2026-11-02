@@ -1730,7 +1730,7 @@ Metrics: 68 lines, 3281 words, 50307 characters, 50311 bytes; SHA-256 `1bb626877
 
 Pre-edit restore point: `homepage_v136.html`; measurements: `homepage_v136-metrics.json`. Source: the currently served homepage, rebuilt byte-for-byte by `scripts/import_homepage_owner.py` from the pre-edit pin (owner `30470e127ab6359957cefd7cbf6919574f192f2e`) at main `0b3369d066c3466b3c68db26623c1f8ce2e24dea`; the committed root `index.html` is stale and replaced at build.
 
-Intention: Promote the owner bundle at globalgrid2050-homepage 741c502df86c4f6102664225d6a0adf74c578c8a (branch kuiper-editions-card) so the Kuiper nest carries a Kuiper editions entry: Edition 4 (202611012027) opening the door on this domain, /kuiper-editions/, which forwards to the kuiper-belt editions pointer, with Editions 1 to 3 listed as earlier releases at their dated folders and See Through named in its description. See Through keeps its own entry; all existing entries and links retained.
+Intention: Promote the owner bundle at globalgrid2050-homepage 5a4abe41b7a9e19988faaedace252077a1646fc8 (branch kuiper-editions-card) so the Kuiper nest carries a Kuiper editions entry: Edition 4 (202611012027) opening the door on this domain, /kuiper-editions/, which forwards to the kuiper-belt editions pointer, with Editions 1 to 3 listed as earlier releases at their dated folders and See Through named in its description. See Through keeps its own entry; all existing entries and links retained.
 
 Measurement: restore-point workflow [41366798722](https://github.com/Ventusltd/globalgrid2050/actions/runs/41366798722) passed. 231 entries before adding v136 and its metrics.
 

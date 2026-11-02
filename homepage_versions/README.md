@@ -1735,3 +1735,13 @@ Intention: Promote the owner bundle at globalgrid2050-homepage 5a4abe41b7a9e1998
 Measurement: restore-point workflow [41366798722](https://github.com/Ventusltd/globalgrid2050/actions/runs/41366798722) passed. 231 entries before adding v136 and its metrics.
 
 Metrics: 68 lines, 3289 words, 50506 characters, 50510 bytes; SHA-256 `c85ca230dcf1712dc797fcb04e0b6f790b9b5943557f28a47d53c19e3b49e7df`.
+
+## Version 137
+
+Pre-edit restore point: `homepage_v137.html`; measurements: `homepage_v137-metrics.json`. Source: the currently served homepage, rebuilt byte-for-byte by `scripts/import_homepage_owner.py` from the pre-edit pin (owner `5a4abe41b7a9e19988faaedace252077a1646fc8`) at main `18aa446e978898f73c39399cc070fd1e28722120`; the committed root `index.html` is stale and replaced at build.
+
+Intention: Promote the owner bundle at globalgrid2050-homepage 2a19351ab6d2d2f0d1245efab98edf5487bb56e3 (PR #7) so the See Through entry in the Kuiper nest opens the new See Through: release 202611020012 (2 November 2026) launching the stable pointer https://ventusltd.github.io/kuiper-belt/see-through/, with its dated folder see-through/202611020012/ as the archive, and 5 October 2026 (202610050609) kept as an archived release. All other entries and links retained.
+
+Measurement: restore-point workflow [41377989579](https://github.com/Ventusltd/globalgrid2050/actions/runs/41377989579) passed. 233 entries before adding v137 and its metrics.
+
+Metrics: 68 lines, 3454 words, 52107 characters, 52111 bytes; SHA-256 `77a5739de17180dd16c6cdf44c053af079aad8588618ee5d8e43ba4fe163b138`.

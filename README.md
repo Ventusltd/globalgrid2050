@@ -153,3 +153,7 @@ Managed and maintained by [Ventus Ltd](https://www.ventusltd.com).
 
 Run `20260919T005001Z`, digest `d21f8eab1a1bfa28fe0ac9c822335b25496ea29efbe3b19aa3e02e7c9dc90660`. LAWS.md L10.
 <!-- DRIFT:END -->
+
+## Independent electrical-resilience research
+
+[2026-11-07: Google Cloud London power-path sensing failure — an independently reasoned, source-backed case study](docs/research/2026-11-google-cloud-power-resilience.md). Demonstrates why upstream voltage at an open breaker does not establish load-side power availability. This post-incident research is **not a Google investigation, design audit, or claim of an existing VENTUS appointment**. It includes an evidence register, falsifiable counterexample and follow-up testing questions.

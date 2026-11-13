@@ -63,3 +63,61 @@ jobs:
           path: .repd-staging/2026-10/
           retention-days: 90
           if-no-files-found: error
+
+  publish-independent-evidence:
+    name: Deliver immutable Q3 source bytes to agent evidence branch
+    needs: validate-and-stage
+    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == 'Ventusltd/globalgrid2050' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout reviewed candidate HEAD
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: true
+      - name: Download Q3 source and audit artifact from THIS successful run
+        uses: actions/download-artifact@v4
+        with:
+          name: repd-october-2026-staging-${{ github.run_number }}
+          path: .repd-staging/2026-10
+      - name: Create standalone, unmerged, byte-preserving evidence branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          evidence_branch='repd/2026-10-raw-evidence-20261113'
+          dest='evidence/repd-2026-q3'
+          if git ls-remote --exit-code --heads origin "$evidence_branch"; then
+            echo "Evidence branch already exists; refusing to overwrite"
+            exit 0
+          fi
+          mkdir -p "$dest/official-sources"
+          printf '* -text\n' > "$dest/.gitattributes"
+          src='.repd-staging/2026-10'
+          cp "$src/official-sources/REPD_Publication_Q3_2026.csv" "$dest/official-sources/"
+          cp "$src/official-sources/REPD_Publication_Q3_2026.xlsx" "$dest/official-sources/"
+          for file in Q3_CANONICAL_STAGED.csv Q3_RECONCILIATION.json INGESTION-LOG.txt Q2_BASELINE_SHA256_AUDIT.json INTEGRITY-VERIFICATION.json; do
+            cp "$src/$file" "$dest/"
+          done
+          sha256sum "$dest/official-sources/REPD_Publication_Q3_2026.csv" | grep '^48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862 '
+          sha256sum "$dest/official-sources/REPD_Publication_Q3_2026.xlsx" | grep '^87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea '
+          {
+            echo 'REPD Q3 October 2026 raw evidence — non-production only'
+            echo 'Official page: https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract'
+            echo 'CSV: https://assets.publishing.service.gov.uk/media/6af42ff0a4004bdbe54e54a5/REPD_Publication_Q3_2026.csv'
+            echo 'Excel: https://assets.publishing.service.gov.uk/media/6af42ffdb83b3cae0d0a21c9/REPD_Publication_Q3_2026.xlsx'
+            echo "Evidence generated UTC: $(date -u +%FT%TZ)"
+            echo "Build SHA: ${{ github.event.pull_request.head.sha }}"
+            echo 'Original source files are byte-identical to published Q3 files in source artifact.'
+            echo 'Historical true Q2 original bytes are unavailable; Q2 comparison is UNVERIFIED.'
+            echo 'Never treat this evidence branch as the live website or approved release.'
+          } > "$dest/SOURCES.txt"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch -c "$evidence_branch"
+          git add -f "$dest"
+          git diff --cached --check
+          git commit -m 'evidence(repd): immutable Q3 official CSV/Excel and independent QA source receipt'
+          git push origin "HEAD:refs/heads/$evidence_branch"

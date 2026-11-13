@@ -51,7 +51,7 @@ def main():
     assert raw.endswith(b"\n") and candidate.endswith(b"\n")
     input_columns, source_rows = csv_rows(raw)
     output_columns, output_rows = csv_rows(candidate)
-    normalized_columns = [re.sub(r"\\s+", " ", name.strip()) for name in input_columns]
+    normalized_columns = [re.sub(r"\s+", " ", name.strip()) for name in input_columns]
     assert normalized_columns == output_columns, "Column loss, collision or reordering beyond whitespace canonicalisation"
     assert len(set(normalized_columns)) == len(output_columns), "Input header normalisation collision"
     src = Counter(row["Ref ID"].strip() for row in source_rows)

@@ -1745,3 +1745,13 @@ Intention: Promote the owner bundle at globalgrid2050-homepage 2a19351ab6d2d2f0d
 Measurement: restore-point workflow [41377989579](https://github.com/Ventusltd/globalgrid2050/actions/runs/41377989579) passed. 233 entries before adding v137 and its metrics.
 
 Metrics: 68 lines, 3454 words, 52107 characters, 52111 bytes; SHA-256 `77a5739de17180dd16c6cdf44c053af079aad8588618ee5d8e43ba4fe163b138`.
+
+## Version 138
+
+Pre-edit restore point: `homepage_v138.html`; measurements: `homepage_v138-metrics.json`. Source: the currently served homepage reconstructed byte-for-byte using `scripts/import_homepage_owner.py` transformations from the SHA-256 verified pre-edit pin (owner `2a19351ab6d2d2f0d1245efab98edf5487bb56e3`) at main `82325823696d3c905a30a35bca5f392e4c907b87`. The committed root `index.html` is stale and replaced at build.
+
+Intention: Add section 10, **Cyber Resilience Log**, by promoting the tested owner bundle at globalgrid2050-homepage `9914285b691766c8f20b25fc83147f59c0389938` (PR #8). Preserve all nine original sections, 27 original entities, all their versions, the development ticker, archival catalogue and the privacy notice. The standalone page is published from `Ventusltd/cyber-resilience` when its GitHub Pages are enabled. The new section is the only homepage addition.
+
+Measurement: all seven SHA-256 values from the pre-edit publisher pin were independently verified against the owner repository. The manual restore-point workflow could not be dispatched through the available GitHub connector; this limitation is recorded rather than claiming a workflow run. 235 entries existed in `homepage_versions` before v138 and its metrics.
+
+Metrics: 68 lines, 3474 words, 52358 characters, 52362 bytes; SHA-256 `5ea40cc002a30fea21f8abca6804f239cebf4cb3b506254410cefbae36faee57`.

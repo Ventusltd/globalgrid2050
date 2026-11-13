@@ -145,10 +145,21 @@ def main() -> None:
     # Preserve official Q2 inputs alongside the Git SHA and text backup log.
     old_csv = q2.fetch_bytes(q2.CSV_URL)
     old_xlsx = q2.fetch_bytes(q2.XLSX_URL)
-    if digest(old_csv) != q2.EXPECTED_CSV_SHA256 or digest(old_xlsx) != q2.EXPECTED_XLSX_SHA256:
-        raise RuntimeError("Baseline Q2 source hash mismatch; refusing intake")
     (raw_dir / "REPD_Publication_Q2_2026.csv").write_bytes(old_csv)
     (raw_dir / "REPD_Publication_Q2_2026.xlsx").write_bytes(old_xlsx)
+    baseline_provenance = {
+        "q2_csv_expected_sha256": q2.EXPECTED_CSV_SHA256,
+        "q2_csv_observed_sha256": digest(old_csv),
+        "q2_csv_bytes": len(old_csv),
+        "q2_xlsx_expected_sha256": q2.EXPECTED_XLSX_SHA256,
+        "q2_xlsx_observed_sha256": digest(old_xlsx),
+        "q2_xlsx_bytes": len(old_xlsx),
+    }
+    (OUT / "Q2_BASELINE_SHA256_AUDIT.json").write_text(
+        json.dumps(baseline_provenance, indent=2) + "\\n", encoding="utf-8"
+    )
+    if digest(old_csv) != q2.EXPECTED_CSV_SHA256 or digest(old_xlsx) != q2.EXPECTED_XLSX_SHA256:
+        raise RuntimeError("Baseline Q2 source hash mismatch; see Q2_BASELINE_SHA256_AUDIT.json")
 
     csv_raw = q2.fetch_bytes(Q3_CSV)
     excel_raw = q2.fetch_bytes(Q3_XLSX)

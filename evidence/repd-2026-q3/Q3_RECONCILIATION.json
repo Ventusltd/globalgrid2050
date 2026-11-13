@@ -1,0 +1,202 @@
+{
+  "schema": "globalgrid2050.repd-q3-2026-intake.v1",
+  "stage": "STAGED_WITH_OFFICIAL_DATE_CONFLICTS",
+  "validated_at": "2026-11-13T22:01:09.253535+00:00",
+  "source_owner": "UK DESNZ / Barbour ABI",
+  "source_page": "https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract",
+  "publication_date": "2026-11-13",
+  "baseline_commit": "73cbdec10bbd3fe2f8313b60b1acc2d22d31b517",
+  "comparison_baseline": "Historical root repd.csv (January 2026 era; NOT Q2)",
+  "comparison_baseline_sha256": "fdb6aec50647a4de88f63d33679b93cb2147417eddc43f3f31cbf12792a38aae",
+  "comparison_baseline_rows": 13995,
+  "comparison_is_validated_q2": false,
+  "last_validated_q2_row_count": 14657,
+  "q2_row_level_delta_available": false,
+  "q3_source_csv": "https://assets.publishing.service.gov.uk/media/6af42ff0a4004bdbe54e54a5/REPD_Publication_Q3_2026.csv",
+  "q3_source_xlsx": "https://assets.publishing.service.gov.uk/media/6af42ffdb83b3cae0d0a21c9/REPD_Publication_Q3_2026.xlsx",
+  "q3_source_sha256": {
+    "csv": "48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862",
+    "xlsx": "87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea"
+  },
+  "xlsx_sheet": "REPD",
+  "csv_rows": 14967,
+  "xlsx_rows": 14967,
+  "original_csv_rows": 14968,
+  "original_xlsx_rows": 14968,
+  "identical_source_duplicates_quarantined": {
+    "csv": [
+      {
+        "repd_ref": "7679",
+        "source_rows_1_based_including_header": [
+          7112,
+          7113
+        ],
+        "occurrences": 2,
+        "exactly_identical": true
+      }
+    ],
+    "xlsx": [
+      {
+        "repd_ref": "7679",
+        "source_rows_1_based_including_header": [
+          7112,
+          7113
+        ],
+        "occurrences": 2,
+        "exactly_identical": true
+      }
+    ],
+    "source_rows_not_in_candidate": 1
+  },
+  "q3_unique_ids": 14967,
+  "duplicate_handling": "Raw official files retained unchanged; only identical source duplicates eliminated from candidate; conflicting records reject data.",
+  "csv_excel_id_sets_match": true,
+  "source_columns": {
+    "csv": 53,
+    "xlsx": 53
+  },
+  "material_mismatch_count": 5,
+  "unparseable_nonblank_date_cells": [],
+  "material_mismatch_ref_field_examples": [
+    [
+      "21424",
+      "Planning Application Submitted"
+    ],
+    [
+      "21438",
+      "Planning Application Submitted"
+    ],
+    [
+      "21456",
+      "Planning Application Submitted"
+    ],
+    [
+      "21463",
+      "Planning Application Submitted"
+    ],
+    [
+      "21464",
+      "Planning Application Submitted"
+    ]
+  ],
+  "quarantined_official_date_disagreements": [
+    {
+      "repd_ref": "21424",
+      "field": "Planning Application Submitted",
+      "official_csv": "09/11/2026",
+      "official_xlsx": "2026-09-11",
+      "candidate_value": "",
+      "resolution": "QUARANTINED_PENDING_SOURCE_CORRECTION"
+    },
+    {
+      "repd_ref": "21438",
+      "field": "Planning Application Submitted",
+      "official_csv": "09/11/2026",
+      "official_xlsx": "2026-09-11",
+      "candidate_value": "",
+      "resolution": "QUARANTINED_PENDING_SOURCE_CORRECTION"
+    },
+    {
+      "repd_ref": "21456",
+      "field": "Planning Application Submitted",
+      "official_csv": "09/11/2026",
+      "official_xlsx": "2026-09-11",
+      "candidate_value": "",
+      "resolution": "QUARANTINED_PENDING_SOURCE_CORRECTION"
+    },
+    {
+      "repd_ref": "21463",
+      "field": "Planning Application Submitted",
+      "official_csv": "09/10/2026",
+      "official_xlsx": "2026-09-10",
+      "candidate_value": "",
+      "resolution": "QUARANTINED_PENDING_SOURCE_CORRECTION"
+    },
+    {
+      "repd_ref": "21464",
+      "field": "Planning Application Submitted",
+      "official_csv": "09/10/2026",
+      "official_xlsx": "2026-09-10",
+      "candidate_value": "",
+      "resolution": "QUARANTINED_PENDING_SOURCE_CORRECTION"
+    }
+  ],
+  "unexpected_material_disagreements": [],
+  "date_policy": "Do not choose either disputed official date. Staged canonical cell blank, both values preserved in JSON audit. Never promote without explicit resolution.",
+  "capacity_rounding_differences": 1584,
+  "records_compared_across_csv_and_excel": 14967,
+  "reference_changes_vs_comparison_baseline": {
+    "new_refs": 997,
+    "removed_refs": 25,
+    "retained_refs": 13970,
+    "status_changed": 908,
+    "technology_changed": 3,
+    "csv_capacity_changed": 77,
+    "new_ref_examples": [
+      "10920",
+      "11058",
+      "11290",
+      "11613",
+      "11844",
+      "11869",
+      "12389",
+      "12419",
+      "12446",
+      "12688",
+      "12689",
+      "13417",
+      "13418",
+      "13419",
+      "13422",
+      "13428",
+      "13432",
+      "13601",
+      "13735",
+      "14169"
+    ],
+    "removed_ref_examples": [
+      "10050",
+      "10293",
+      "10294",
+      "11885",
+      "15416",
+      "15417",
+      "16439",
+      "16811",
+      "16986",
+      "16987",
+      "17528",
+      "18716",
+      "18776",
+      "18908",
+      "18909",
+      "18949",
+      "18950",
+      "19247",
+      "19567",
+      "20121"
+    ]
+  },
+  "candidate_threshold_counts": {
+    "solar_gt_1mw": 3484,
+    "battery_gt_100mw": 281
+  },
+  "capacity_policy": "Reconciled official Excel precision, CSV within 0.0050001 MW rounding tolerance",
+  "no_production_promotion": true,
+  "failures": [],
+  "baseline_q2_provenance": {
+    "q2_csv_expected_sha256": "84c1b5f958a934d8b4b86ec88f50bdcf43830ded7ff2efc27bffca0c98695035",
+    "q2_csv_observed_sha256": "48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862",
+    "q2_csv_bytes": 5219160,
+    "q2_xlsx_expected_sha256": "624a0a9712c58a7a93716e51f2bf054eec8b1af7170f6f9516cc10cd248e2657",
+    "q2_xlsx_observed_sha256": "87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea",
+    "q2_xlsx_bytes": 5378656,
+    "q2_download_matches_pinned_snapshot": false,
+    "q2_delta_unavailable": true,
+    "comparison_baseline": "Historical root repd.csv (January 2026 era; NOT Q2)",
+    "historical_root_sha256": "fdb6aec50647a4de88f63d33679b93cb2147417eddc43f3f31cbf12792a38aae",
+    "note": "Downloaded July-labelled sources differ from immutable Q2 fingerprints. July Q2 per-reference comparison unavailable until original official bytes are recovered.",
+    "observed_q2_csv_identical_to_q3_csv": true,
+    "observed_q2_excel_identical_to_q3_excel": true
+  }
+}

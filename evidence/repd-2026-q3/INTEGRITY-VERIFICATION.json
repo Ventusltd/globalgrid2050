@@ -1,0 +1,19 @@
+{
+  "source_csv_sha256": "48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862",
+  "source_xlsx_sha256": "87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea",
+  "source_csv_bytes": 5219160,
+  "source_xlsx_bytes": 5378656,
+  "source_rows": 14968,
+  "candidate_rows": 14967,
+  "final_ref_id": "21493",
+  "columns": 53,
+  "historical_blobs": {
+    "repd.csv": "01fe17ae9531d3504490a1418a68350262b06f86",
+    "repd-grid-batteries.csv": "2d4142c7bb97bbd4be1c67698731730d2e25c672",
+    "repd-solar-operational.csv": "5d8bab7f640eb943dcf66b2631ad6bcde1f52122",
+    "repd-solar-operational-over-4mw.csv": "31e840cfe206cfb53d9ed2c043e00bdd69080a82",
+    "dist/repd_master.json": "e221065a7b144a9e4b691cf282e23a68c5661e45",
+    "dist/manifest_v6.json": "dbaf471f262d3b6557e7f327269b663eeddc432c",
+    "dist/repd_source_reconciliation_v6.json": "35835b6b46aa1f996fedac8c7bf3044a3d423814"
+  }
+}

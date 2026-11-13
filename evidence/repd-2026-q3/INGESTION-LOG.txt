@@ -1,0 +1,12 @@
+REPD October 2026 intake: STAGED_WITH_OFFICIAL_DATE_CONFLICTS
+Published: 2026-11-13; baseline commit: 73cbdec10bbd3fe2f8313b60b1acc2d22d31b517
+CSV rows: 14967; Excel rows: 14967
+CSV SHA-256: 48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862
+Excel SHA-256: 87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea
+Comparison baseline: Historical root repd.csv (January 2026 era; NOT Q2)
+Original Q2 bytes at historical links: CHANGED; historical root used instead
+Changed records: {"csv_capacity_changed": 77, "new_ref_examples": ["10920", "11058", "11290", "11613", "11844", "11869", "12389", "12419", "12446", "12688", "12689", "13417", "13418", "13419", "13422", "13428", "13432", "13601", "13735", "14169"], "new_refs": 997, "removed_ref_examples": ["10050", "10293", "10294", "11885", "15416", "15417", "16439", "16811", "16986", "16987", "17528", "18716", "18776", "18908", "18909", "18949", "18950", "19247", "19567", "20121"], "removed_refs": 25, "retained_refs": 13970, "status_changed": 908, "technology_changed": 3}
+Quarantined official date differences: [{"candidate_value": "", "field": "Planning Application Submitted", "official_csv": "09/11/2026", "official_xlsx": "2026-09-11", "repd_ref": "21424", "resolution": "QUARANTINED_PENDING_SOURCE_CORRECTION"}, {"candidate_value": "", "field": "Planning Application Submitted", "official_csv": "09/11/2026", "official_xlsx": "2026-09-11", "repd_ref": "21438", "resolution": "QUARANTINED_PENDING_SOURCE_CORRECTION"}, {"candidate_value": "", "field": "Planning Application Submitted", "official_csv": "09/11/2026", "official_xlsx": "2026-09-11", "repd_ref": "21456", "resolution": "QUARANTINED_PENDING_SOURCE_CORRECTION"}, {"candidate_value": "", "field": "Planning Application Submitted", "official_csv": "09/10/2026", "official_xlsx": "2026-09-10", "repd_ref": "21463", "resolution": "QUARANTINED_PENDING_SOURCE_CORRECTION"}, {"candidate_value": "", "field": "Planning Application Submitted", "official_csv": "09/10/2026", "official_xlsx": "2026-09-10", "repd_ref": "21464", "resolution": "QUARANTINED_PENDING_SOURCE_CORRECTION"}]
+Duplicate source rows: {"csv": [{"exactly_identical": true, "occurrences": 2, "repd_ref": "7679", "source_rows_1_based_including_header": [7112, 7113]}], "source_rows_not_in_candidate": 1, "xlsx": [{"exactly_identical": true, "occurrences": 2, "repd_ref": "7679", "source_rows_1_based_including_header": [7112, 7113]}]}
+Failures: []
+Live published datasets: UNCHANGED

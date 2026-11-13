@@ -5,6 +5,7 @@ import hashlib
 import io
 import json
 import os
+import re
 import subprocess
 from collections import Counter
 from pathlib import Path
@@ -50,7 +51,9 @@ def main():
     assert raw.endswith(b"\n") and candidate.endswith(b"\n")
     input_columns, source_rows = csv_rows(raw)
     output_columns, output_rows = csv_rows(candidate)
-    assert input_columns == output_columns, "Column loss or reordering"
+    normalized_columns = [re.sub(r"\\s+", " ", name.strip()) for name in input_columns]
+    assert normalized_columns == output_columns, "Column loss, collision or reordering beyond whitespace canonicalisation"
+    assert len(set(normalized_columns)) == len(output_columns), "Input header normalisation collision"
     src = Counter(row["Ref ID"].strip() for row in source_rows)
     dst = Counter(row["Ref ID"].strip() for row in output_rows)
     assert len(source_rows) == r["original_csv_rows"] == 14968

@@ -7,6 +7,7 @@ import json
 import os
 import re
 import subprocess
+from datetime import datetime
 from collections import Counter
 from pathlib import Path
 
@@ -42,7 +43,7 @@ def csv_rows(data):
 def main():
     r = json.loads((OUT / "Q3_RECONCILIATION.json").read_text())
     assert r["no_production_promotion"] is True and not r["failures"]
-    assert r["stage"] == "STAGED_WITH_OFFICIAL_DATE_CONFLICTS"
+    assert r["stage"] == "STAGED_WITH_SOURCE_DATE_LOCALE_NORMALISATIONS"
     raw = (OUT / "official-sources/REPD_Publication_Q3_2026.csv").read_bytes()
     excel = (OUT / "official-sources/REPD_Publication_Q3_2026.xlsx").read_bytes()
     candidate = (OUT / "Q3_CANONICAL_STAGED.csv").read_bytes()
@@ -61,16 +62,44 @@ def main():
     assert set(src) == set(dst) and all(v == 1 for v in dst.values())
     assert {k:v for k,v in src.items() if v != 1} == {"7679": 2}
     assert source_rows[-1]["Ref ID"] == output_rows[-1]["Ref ID"] == "21493"
-    assert len(r["quarantined_official_date_disagreements"]) == 5
+    assert r["quarantined_official_date_disagreements"] == []
+    assert len(r["source_locale_date_normalisations"]) == r["source_locale_date_normalisation_count"] == 25
+    assert len(r["formerly_ambiguous_date_representations"]) == 5
     refs = {row["Ref ID"].strip(): row for row in output_rows}
-    for item in r["quarantined_official_date_disagreements"]:
-        assert refs[item["repd_ref"]][item["field"]] == "", "Conflicted date not quarantined"
+    for item in r["source_locale_date_normalisations"]:
+        assert refs[item["repd_ref"]][item["field"]] == item["candidate_value"], "Month-first date not corrected"
+        assert datetime.strptime(item["candidate_value"], "%d/%m/%Y").strftime("%Y-%m-%d") == item["official_xlsx"]
+        assert datetime.strptime(item["official_csv"], "%m/%d/%Y").strftime("%Y-%m-%d") == item["official_xlsx"]
+        assert item["official_xlsx"] <= item["record_last_updated"]
+    date_columns = [
+        "Planning Application Submitted", "Planning Application Withdrawn",
+        "Planning Permission Refused", "Planning Permission Granted",
+        "Planning Permission Expired", "Under Construction", "Operational",
+        "Record Last Updated (dd/mm/yyyy)",
+    ]
+    non_day_first_dates = []
+    for row in output_rows:
+        for field in date_columns:
+            if field not in row:
+                continue
+            value = row[field].strip()
+            if not value:
+                continue
+            if not re.fullmatch(r"\d{2}/\d{2}/\d{4}", value):
+                non_day_first_dates.append((row["Ref ID"], field, value))
+                continue
+            try:
+                datetime.strptime(value, "%d/%m/%Y")
+            except ValueError:
+                non_day_first_dates.append((row["Ref ID"], field, value))
+    assert non_day_first_dates == [], f"Candidate has invalid/non-dd/mm/yyyy dates: {non_day_first_dates[:10]}"
     results = {
         "source_csv_sha256": sha(raw), "source_xlsx_sha256": sha(excel),
         "source_csv_bytes": len(raw), "source_xlsx_bytes": len(excel),
         "source_rows": len(source_rows), "candidate_rows": len(output_rows),
         "final_ref_id": output_rows[-1]["Ref ID"],
-        "columns": len(output_columns), "historical_blobs": {},
+        "columns": len(output_columns), "date_locale_corrections": 25,
+        "non_day_first_candidate_date_cells": len(non_day_first_dates), "historical_blobs": {},
     }
     for path, expected_sha in PREVIOUS.items():
         original = ROOT / path

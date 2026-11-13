@@ -10,6 +10,9 @@ import hashlib
 import json
 import os
 import sys
+from datetime import datetime
+
+import pandas as pd
 from pathlib import Path
 
 # Reuse the already validated Q2 parsing, identity and canonical capacity rules.
@@ -22,16 +25,41 @@ SOURCE_PAGE = "https://www.gov.uk/government/publications/renewable-energy-plann
 Q3_CSV = "https://assets.publishing.service.gov.uk/media/6af42ff0a4004bdbe54e54a5/REPD_Publication_Q3_2026.csv"
 Q3_XLSX = "https://assets.publishing.service.gov.uk/media/6af42ffdb83b3cae0d0a21c9/REPD_Publication_Q3_2026.xlsx"
 PUBLICATION_DATE = "2026-11-13"
-# Observed in the immutable October 2026 release on 13 November.
-# Conflicting date cells are BLANKED in the staged candidate, with both
-# official representations in the audit. This does not adjudicate the dates.
-EXPECTED_Q3_DATE_CONFLICTS = {
-    ("21424", "Planning Application Submitted"),
-    ("21438", "Planning Application Submitted"),
-    ("21456", "Planning Application Submitted"),
-    ("21463", "Planning Application Submitted"),
-    ("21464", "Planning Application Submitted"),
-}
+# Independently observed by Claude on 2026-11-13: 25 CSV month-first
+# serialisations of true Excel dates, all in Planning Application Submitted.
+# Fail closed if any ref, Excel type, value or record-update chronology differs.
+EXPECTED_Q3_MONTH_FIRST_DATE_REFS = frozenset({
+    "21419", "21420", "21424", "21426", "21430", "21432", "21435",
+    "21436", "21437", "21438", "21439", "21443", "21446", "21453",
+    "21454", "21456", "21457", "21462", "21463", "21464", "21466",
+    "21468", "21469", "21471", "21478",
+})
+PREVIOUSLY_AMBIGUOUS_DATE_REFS = frozenset({"21424", "21438", "21456", "21463", "21464"})
+PLANNING_SUBMITTED = "Planning Application Submitted"
+LAST_UPDATED = "Record Last Updated (dd/mm/yyyy)"
+
+
+def strict_date_iso(value) -> str:
+    """Strict canonical date interpretation: never silently infer US month-first."""
+    if value is None or (not isinstance(value, str) and pd.isna(value)):
+        return ""
+    if isinstance(value, (datetime, pd.Timestamp)):
+        return value.strftime("%Y-%m-%d")
+    raw = q2.collapse(value)
+    if raw.casefold() in {"", "na", "n/a"}:
+        return ""
+    for fmt in ("%d/%m/%Y", "%Y-%m-%d", "%Y-%m-%d %H:%M:%S"):
+        try:
+            return datetime.strptime(raw, fmt).strftime("%Y-%m-%d")
+        except ValueError:
+            continue
+    return ""
+
+
+def day_first(iso: str) -> str:
+    return datetime.strptime(iso, "%Y-%m-%d").strftime("%d/%m/%Y") if iso else ""
+
+
 BASELINE_COMMIT = "73cbdec10bbd3fe2f8313b60b1acc2d22d31b517"
 
 
@@ -93,15 +121,19 @@ def reconcile(csv_data: bytes, xlsx_data: bytes, old_data: bytes, baseline_name:
     # q2.norm_date returns an empty string for an unknown nonblank date.
     # Without this guard two different malformed dates could silently compare equal.
     invalid_dates = []
-    date_fields = list(dict.fromkeys(q2.OFFICIAL_DATE_FIELDS + ["Record Last Updated (dd/mm/yyyy)"]))
+    date_fields = list(dict.fromkeys(q2.OFFICIAL_DATE_FIELDS + [LAST_UPDATED]))
     for label, frame in (("CSV", current_csv), ("XLSX", current_xlsx)):
         for field in date_fields:
             if field not in frame.columns:
                 continue
             for ref, value in zip(frame["Ref ID"], frame[field]):
+                clean_ref = q2.clean_ref(ref)
+                # Explicitly verified Excel dates are parsed month-first separately.
+                if label == "CSV" and field == PLANNING_SUBMITTED and clean_ref in EXPECTED_Q3_MONTH_FIRST_DATE_REFS:
+                    continue
                 raw = q2.collapse(value)
-                if raw and raw.casefold() not in {"na", "n/a"} and not q2.norm_date(value):
-                    invalid_dates.append({"source": label, "ref": q2.clean_ref(ref),
+                if raw and raw.casefold() not in {"na", "n/a"} and not strict_date_iso(value):
+                    invalid_dates.append({"source": label, "ref": clean_ref,
                                           "field": field, "raw_value": raw[:80]})
     check(not invalid_dates,
           f"Q3 has {len(invalid_dates)} nonblank unparseable date cells: {invalid_dates[:5]}", issues)
@@ -115,6 +147,39 @@ def reconcile(csv_data: bytes, xlsx_data: bytes, old_data: bytes, baseline_name:
     check(set(q2.CORE_TEXT_FIELDS + q2.OFFICIAL_DATE_FIELDS).issubset(c.columns), "Q3 CSV missing required original fields", issues)
     check(set(q2.CORE_TEXT_FIELDS + q2.OFFICIAL_DATE_FIELDS).issubset(x.columns), "Q3 Excel missing required original fields", issues)
 
+    source_locale_date_normalisations = []
+    for ref in sorted(EXPECTED_Q3_MONTH_FIRST_DATE_REFS, key=int):
+        if ref not in csv_ids or ref not in excel_ids:
+            issues.append(f"Expected month-first Q3 date ref is missing: {ref}")
+            continue
+        official_csv = q2.collapse(c.at[ref, PLANNING_SUBMITTED])
+        typed_excel = x.at[ref, PLANNING_SUBMITTED]
+        if not isinstance(typed_excel, (datetime, pd.Timestamp)):
+            issues.append(f"Expected typed Excel planning-submitted date missing: {ref}")
+            continue
+        try:
+            parsed_csv_month_first = datetime.strptime(official_csv, "%m/%d/%Y").strftime("%Y-%m-%d")
+        except ValueError:
+            issues.append(f"Expected month-first CSV planning date invalid: {ref}={official_csv!r}")
+            continue
+        excel_iso = strict_date_iso(typed_excel)
+        last_updated = strict_date_iso(x.at[ref, LAST_UPDATED])
+        if parsed_csv_month_first != excel_iso:
+            issues.append(f"Official CSV and Excel dates no longer match in month-first interpretation: {ref}")
+            continue
+        if not last_updated or excel_iso > last_updated or last_updated > PUBLICATION_DATE:
+            issues.append(f"Q3 Excel planning date / record-update chronology invalid: {ref}")
+            continue
+        source_locale_date_normalisations.append({
+            "repd_ref": ref, "field": PLANNING_SUBMITTED,
+            "official_csv": official_csv, "official_xlsx": excel_iso,
+            "record_last_updated": last_updated,
+            "candidate_value": day_first(excel_iso),
+            "resolution": "PROVISIONAL_EXCEL_TYPED_DATE_LOCALE_NORMALISATION",
+        })
+    check(len(source_locale_date_normalisations) == 25,
+          f"Expected 25 independently observed month-first cells, validated {len(source_locale_date_normalisations)}", issues)
+
     mismatches = []
     rounding_differences = 0
     checked = 0
@@ -127,8 +192,12 @@ def reconcile(csv_data: bytes, xlsx_data: bytes, old_data: bytes, baseline_name:
             for field in fields:
                 if field == "Planning Application Reference":
                     equal = q2.planning_refs_equivalent(a[field], b[field])
-                elif field in q2.OFFICIAL_DATE_FIELDS or field == "Record Last Updated (dd/mm/yyyy)":
-                    equal = q2.norm_date(a[field]) == q2.norm_date(b[field])
+                elif field in q2.OFFICIAL_DATE_FIELDS or field == LAST_UPDATED:
+                    if field == PLANNING_SUBMITTED and ref in EXPECTED_Q3_MONTH_FIRST_DATE_REFS:
+                        # Separately check typed Excel dates, raw CSV spelling and update chronology.
+                        equal = True
+                    else:
+                        equal = strict_date_iso(a[field]) == strict_date_iso(b[field])
                 else:
                     equal = q2.norm_text(a[field]) == q2.norm_text(b[field])
                 if not equal:
@@ -142,29 +211,14 @@ def reconcile(csv_data: bytes, xlsx_data: bytes, old_data: bytes, baseline_name:
                 mismatches.append((ref, "Installed Capacity (MWelec)"))
             elif left != right:
                 rounding_differences += 1
-    date_conflicts = []
-    unexpected_mismatches = []
-    for ref, field in mismatches:
-        if (ref, field) in EXPECTED_Q3_DATE_CONFLICTS:
-            date_conflicts.append({
-                "repd_ref": ref,
-                "field": field,
-                "official_csv": q2.collapse(c.loc[ref, field]),
-                "official_xlsx": q2.norm_date(x.loc[ref, field]),
-                "candidate_value": "",
-                "resolution": "QUARANTINED_PENDING_SOURCE_CORRECTION",
-            })
-        else:
-            unexpected_mismatches.append((ref, field))
-    # An official source correction must be re-reviewed, not silently treated
-    # as the previously verified Q3 release.
-    observed_date_conflicts = {(event["repd_ref"], event["field"]) for event in date_conflicts}
-    check(observed_date_conflicts == EXPECTED_Q3_DATE_CONFLICTS,
-          f"Known Q3 date conflicts changed: expected {sorted(EXPECTED_Q3_DATE_CONFLICTS)}, observed {sorted(observed_date_conflicts)}",
-          issues)
+    unexpected_mismatches = list(mismatches)
     check(not unexpected_mismatches,
-          f"Unexpected material CSV/Excel disagreements: {unexpected_mismatches[:10]}",
-          issues)
+          f"Unexpected material CSV/Excel disagreements: {unexpected_mismatches[:10]}", issues)
+    previously_disputed = [
+        event for event in source_locale_date_normalisations
+        if event["repd_ref"] in PREVIOUSLY_AMBIGUOUS_DATE_REFS
+    ]
+    check(len(previously_disputed) == 5, "Five formerly disputed date refs not all verified", issues)
 
     added, removed, retained = csv_ids - old_ids, old_ids - csv_ids, csv_ids & old_ids
     updated_status = []
@@ -181,18 +235,25 @@ def reconcile(csv_data: bytes, xlsx_data: bytes, old_data: bytes, baseline_name:
 
     canonical = q2.build_canonical(current_csv, current_xlsx) if not issues else None
     if canonical is not None:
-        for event in date_conflicts:
-            matches = canonical["Ref ID"].astype(str).eq(event["repd_ref"])
-            if matches.sum() != 1:
-                issues.append(f"Cannot quarantine date for REPD {event['repd_ref']}: identity missing or repeated")
-            else:
-                canonical.loc[matches, event["field"]] = ""
+        # Serialise ALL official dates in strict dd/mm/yyyy so no month-first
+        # fragments can survive unnoticed in a column consumed as day-first.
+        for field in date_fields:
+            if field not in canonical.columns:
+                continue
+            normalised = []
+            for ref in canonical["Ref ID"].astype(str):
+                value = (x.at[ref, field]
+                         if field == PLANNING_SUBMITTED and ref in EXPECTED_Q3_MONTH_FIRST_DATE_REFS
+                         else c.at[ref, field])
+                iso = strict_date_iso(value)
+                normalised.append(day_first(iso))
+            canonical[field] = normalised
         solar, bess = q2.threshold_counts(canonical)
     else:
         solar, bess = 0, 0
     report = {
         "schema": "globalgrid2050.repd-q3-2026-intake.v1",
-        "stage": "REJECTED" if issues else ("STAGED_WITH_OFFICIAL_DATE_CONFLICTS" if date_conflicts else "STAGED_FOR_REVIEW"),
+        "stage": "REJECTED" if issues else "STAGED_WITH_SOURCE_DATE_LOCALE_NORMALISATIONS",
         "validated_at": q2.utc_now(),
         "source_owner": "UK DESNZ / Barbour ABI",
         "source_page": SOURCE_PAGE,
@@ -221,11 +282,14 @@ def reconcile(csv_data: bytes, xlsx_data: bytes, old_data: bytes, baseline_name:
         "csv_excel_id_sets_match": csv_ids == excel_ids,
         "source_columns": {"csv": len(current_csv.columns), "xlsx": len(current_xlsx.columns)},
         "material_mismatch_count": len(mismatches),
+        "source_locale_date_normalisation_count": len(source_locale_date_normalisations),
         "unparseable_nonblank_date_cells": invalid_dates,
         "material_mismatch_ref_field_examples": mismatches[:20],
-        "quarantined_official_date_disagreements": date_conflicts,
+        "quarantined_official_date_disagreements": [],
+        "formerly_ambiguous_date_representations": previously_disputed,
+        "source_locale_date_normalisations": source_locale_date_normalisations,
         "unexpected_material_disagreements": unexpected_mismatches,
-        "date_policy": "Do not choose either disputed official date. Staged canonical cell blank, both values preserved in JSON audit. Never promote without explicit resolution.",
+        "date_policy": "25 typed Excel date cells provisionally normalised to dd/mm/yyyy after CSV month-first and record-update checks. Raw official representations retained in audit. Independent review and owner acceptance still required.",
         "capacity_rounding_differences": rounding_differences,
         "records_compared_across_csv_and_excel": checked,
         "reference_changes_vs_comparison_baseline": {
@@ -299,7 +363,7 @@ def main() -> None:
         handle.write("Comparison baseline: " + comparison_name + "\n")
         handle.write("Original Q2 bytes at historical links: " + ("verified" if q2_verified else "CHANGED; historical root used instead") + "\n")
         handle.write("Changed records: " + json.dumps(report["reference_changes_vs_comparison_baseline"], sort_keys=True) + "\n")
-        handle.write("Quarantined official date differences: " + json.dumps(report["quarantined_official_date_disagreements"], sort_keys=True) + "\n")
+        handle.write("Provisional source date-locale corrections (25): " + json.dumps(report["source_locale_date_normalisations"], sort_keys=True) + "\n")
         handle.write("Duplicate source rows: " + json.dumps(report["identical_source_duplicates_quarantined"], sort_keys=True) + "\n")
         handle.write("Failures: " + json.dumps(report["failures"]) + "\n")
         handle.write("Live published datasets: UNCHANGED\n")

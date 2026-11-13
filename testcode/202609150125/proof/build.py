@@ -27,7 +27,9 @@ SRC = Path(r"C:\Users\vikra\Desktop\CompaniesHouse")
 PARQUET = SRC / "out" / "202609141922" / "profit-over-1m.parquet"
 SUMMARY = SRC / "out" / "202609141922" / "SUMMARY.txt"
 PROVENANCE = SRC / "PROVENANCE.json"
-SUBSTATIONS = SRC / "out" / "202609142054-top1000-targets" / "Top-1000-within-100-miles-of-HA4-0LT-by-substation.xlsx"
+# the by-substation workbook is the single .xlsx in that private folder; it is named by glob so
+# that no private location appears in this public script
+SUBSTATIONS = next(iter(sorted((SRC / "out" / "202609142054-top1000-targets").glob("*by-substation.xlsx"))), None)
 CENTROIDS = SRC / "out" / "outcode-centroids.json"
 OUTCODE_META = Path(r"C:\Users\vikra\AppData\Local\Temp\ss-build\outcode_meta.json")
 
@@ -35,7 +37,11 @@ MIN_N = 5           # any cell with fewer than this many companies is withheld
 MIN_N_SUM = 10      # a sum is published only from this many companies upwards
 MAX_SHARE = 0.50    # ... and only when the largest single contributor is under this share
 
-HOME = "HA4"        # Vikram's own public outcode, HA4 0LT
+HOME = "WC2N"       # the origin of the distance bands: London Central, Charing Cross
+HOME_LABEL = "London Central (Charing Cross)"
+# districts withdrawn from publication at the author's request; the string is split so that the
+# outcode appears nowhere in this public script
+REMOVE_DISTRICTS = ["HA" + "4"]
 
 # ---------------------------------------------------------------- the one suppression function
 TALLY = {"cells_withheld_n_lt_5": 0, "sums_withheld_n_lt_10": 0,
@@ -510,10 +516,12 @@ for o, sub in df[df["outcode"] != ""].groupby("outcode"):
                       "lon": round(m["lon"], 4) if m.get("lon") is not None else None,
                       "region": (sub["region"].dropna().iloc[0] if sub["region"].notna().any() else None),
                       "county": (sub["county"].dropna().iloc[0] if sub["county"].notna().any() else None),
-                      "miles_from_ha4": dist_by_outcode.get(o),
+                      "miles_from_origin": dist_by_outcode.get(o),
                       "band": band(dist_by_outcode.get(o)),
                       **place(sub)})
 districts.sort(key=lambda x: -x["count"])
+removed_districts = [d for d in districts if d["outcode"] in REMOVE_DISTRICTS]
+districts = [d for d in districts if d["outcode"] not in REMOVE_DISTRICTS]
 
 bands = []
 for b in ["0-25 miles", "25-50 miles", "50-100 miles", "over 100 miles", "unplaced"]:
@@ -525,8 +533,9 @@ for b in ["0-25 miles", "25-50 miles", "50-100 miles", "over 100 miles", "unplac
 # grid regions / DNO groupings: counts only, from the by-substation workbook
 grid = {"note": "DNO / network region groupings and 132 kV+ regional substations as they appear in "
                 "the private by-substation workbook. Substation names are public infrastructure. "
-                "Counts only, and only for the routed subset within 100 miles of HA4 - not the "
-                "whole population.", "dno": [], "substations": [], "subset_rows": 0}
+                "Counts only, and only for a routed subset of the London area and its "
+                "surroundings out to about 100 miles - not the whole population.",
+        "dno": [], "substations": [], "subset_rows": 0}
 try:
     import openpyxl
     wb = openpyxl.load_workbook(SUBSTATIONS, read_only=True)
@@ -560,14 +569,17 @@ geography = {
     "built_utc": BUILT.isoformat(),
     "what": "Counts and allowed medians for the same population by England region and Wales, by "
             "county, by postcode area, by postcode district (outcode) with its public centroid, "
-            "by straight-line distance band from HA4, and by DNO / network region. No address, "
+            "by straight-line distance band from " + HOME_LABEL + ", and by DNO / network "
+            "region. No address, "
             "no full postcode, no company.",
     "population": TOTAL,
     "suppression": {"min_n_for_any_cell": MIN_N, "min_n_for_a_sum": MIN_N_SUM,
                     "max_single_contributor_share_for_a_sum": MAX_SHARE},
     "home_outcode": HOME,
+    "home_label": HOME_LABEL,
     "home_centroid": {"lat": HOME_LL[0], "lon": HOME_LL[1],
-                      "note": "HA4 outcode centroid from postcodes.io; Vikram's own public location"},
+                      "note": HOME + " outcode centroid from postcodes.io; Charing Cross, the "
+                              "conventional centre of London"},
     "distance_basis": "great-circle miles between outcode centroids, not a driving distance",
     "category_colours": {c["id"]: c["colour"] for c in CATEGORIES},
     "regions": regions, "regions_withheld_n_lt_5": int(region_other),
@@ -579,9 +591,18 @@ geography = {
                     "where no county is returned",
     "postcode_areas": areas, "postcode_areas_withheld_n_lt_5": int(area_other),
     "districts": districts, "districts_withheld_n_lt_5": int(district_other),
+    "districts_removed": {"districts": len(removed_districts),
+                          "companies": int(sum(d["count"] for d in removed_districts)),
+                          "why": "a district withdrawn from publication at the author's request; "
+                                 "its companies stay in the population and every other table, "
+                                 "and are counted here so the district counts still reconcile"},
     "districts_without_centroid_companies": int(no_centroid),
     "no_postcode": NO_PC,
     "distance_bands": bands,
+    "distance_bands_basis": "Built from the source, so every band covers the whole population: a "
+                            "company sits in the band of its own postcode district, including the "
+                            "districts withheld at n < 5, and medians are computed over the band "
+                            "itself rather than summed from the districts.",
     "grid_regions": grid,
 }
 (OUT / "geography.json").write_text(json.dumps(geography, indent=1) + "\n", encoding="utf-8", newline="\n")
@@ -688,7 +709,7 @@ prov = {
         "script": "proof/leak-check.py",
         "result_file": "proof/leak-check.json",
         "rules": ["no company-type suffix word", "no 8-digit number in any string",
-                  "no UK full postcode, except the published origin of the distance bands",
+                  "no UK full postcode",
                   "no http outside globalgrid2050.com, ventusltd.github.io, postcodes.io, gov.uk, "
                   "Companies House documentation and the local test server",
                   "no e-mail sign",

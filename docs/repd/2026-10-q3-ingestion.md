@@ -24,13 +24,13 @@ July-labelled and October-labelled government CSV/XLSX pairs, verifies identitie
 compares 53 columns, retains original precision from Excel, and archives the
 legacy root and derived REPD CSV/GeoJSON files in the run artifact.
 
-**Current evidence (13 November 2026, run 43511657630):**
+**Original source verification (13 November 2026, run 43511657630 and Claude's independent readback at 22:07 UTC):**
 
 - Q3 CSV: 5,219,160 bytes; SHA-256 `48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862`.
 - Q3 XLSX: 5,378,656 bytes; SHA-256 `87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea`.
 - Both original sources contain 14,968 rows, 14,967 unique Ref IDs and 53 columns. Ref ID 7679 occurs twice identically at source rows 7112 and 7113; only the staged candidate is deduplicated to 14,967 rows.
-- Five source planning-date disagreements are quarantined: refs 21424, 21438 and 21456 have CSV `09/11/2026` vs Excel `2026-09-11`; refs 21463 and 21464 have CSV `09/10/2026` vs Excel `2026-09-10`. All five Excel cells are typed dates formatted `m/d/yyyy`. Each record says it was last updated on 8 October 2026, before the CSV planning dates but after the Excel dates. This is evidence of a likely source day/month conversion error, **not** an authorised adjudication.
-- Candidate cells for those five dates remain blank, while both official values are retained in `Q3_RECONCILIATION.json`. The stage is `STAGED_WITH_OFFICIAL_DATE_CONFLICTS`. A successful staging workflow does **not** mean the candidate is accepted or ready to publish.
+- Claude's 22:07 UTC [independent QA finding](https://github.com/Ventusltd/neural-link-between-agents/issues/12#issuecomment-6866106908) revealed **25** month-first CSV planning-submission cells (not merely five ambiguous cells). Nineteen unambiguous cells had been retained in month-first text, five were blanked, and one (09/09/2026) happened to be identical in either interpretation. The earlier staging candidate therefore **FAILED date validation** even though source checks passed.
+- The candidate script now explicitly checks the 25 affected refs, month-first CSV interpretation, true typed Excel date, and the record-update chronology; it writes provisional `dd/mm/yyyy` values from the Excel dates and records both raw representations and the correction decision in `Q3_RECONCILIATION.json`. The verifier now requires **zero** non-`dd/mm/yyyy` date cells across all eight canonical date fields. The source CSV and XLSX are never edited. **New CI and independent Claude sign-off must pass before this is considered corrected.** The source publisher has not confirmed the locale error.
 - The July-labelled download URLs currently return bytes **identical** to the Q3 sources, not the pinned July/Q2 hashes. The original Q2 bytes are not available from those URLs; the 14,657-row July 2026 snapshot is evidenced by the validated V6 manifest and hashes, but a true Q2-to-Q3 record-level delta cannot yet be calculated. The reported additions/removals compare Q3 against the **historical root repd.csv**, not Q2.
 - Both source and candidate CSVs have complete 53-field final records, end with a newline and contain no detected formula-leading cells. These checks were independently performed on the retained staging artifact.
 
@@ -40,7 +40,7 @@ Git history at baseline commit `73cbdec1` is the durable restoration point for e
 
 1. Claude's independent review and reproducible regression tests must be addressed; its QA notes are in [NL-012](https://github.com/Ventusltd/neural-link-between-agents/issues/12).
 2. Recover the original July/Q2 official bytes from a verifiable archive matching both pinned SHA-256 hashes before claiming a Q2-to-Q3 per-record delta.
-3. Obtain source clarification or an explicit documented policy for the five disputed date cells and the duplicated government record.
+3. Obtain independent confirmation of the 25-cell provisional date normalisation (including five formerly disputed cells), and document treatment of the identical duplicate government record. Seek publisher clarification before production.
 4. Build and verify separate downstream PipelineNews and GridAtlas candidates, including MAP identity, browser checks and all-technology coverage.
 5. Obtain explicit owner acceptance before any merge or production promotion.
 

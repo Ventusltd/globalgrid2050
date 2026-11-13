@@ -1,0 +1,59 @@
+name: REPD October 2026 source intake (staging only)
+
+on:
+  push:
+    branches:
+      - 'repd/2026-10-ingestion-20261113'
+    paths:
+      - 'scripts/repd_q3_2026_ingest.py'
+      - '.github/workflows/repd-2026-q3-ingestion.yml'
+      - 'backups/repd/2026-11-13-pre-october-ingestion/**'
+  pull_request:
+    paths:
+      - 'scripts/repd_q3_2026_ingest.py'
+      - '.github/workflows/repd-2026-q3-ingestion.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repd-q3-staging-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate-and-stage:
+    name: Download, reconcile, compare, preserve source evidence
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      REPD_Q3_OUTPUT: ${{ github.workspace }}/.repd-staging/2026-10
+    steps:
+      - name: Checkout exact candidate commit
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source-only dependencies
+        run: python -m pip install 'pandas>=2,<3' 'openpyxl>=3.1,<4'
+      - name: Syntax check
+        run: python -m py_compile scripts/repd_sources_v6.py scripts/repd_q3_2026_ingest.py
+      - name: Stage Q2 archive and ingest Q3 official sources
+        run: python scripts/repd_q3_2026_ingest.py
+      - name: Archive original legacy dataset and baseline audit
+        if: always()
+        run: |
+          mkdir -p "$REPD_Q3_OUTPUT/pre-ingestion-backup"
+          cp repd.csv "$REPD_Q3_OUTPUT/pre-ingestion-backup/repd.csv"
+          cp dist/manifest_v6.json "$REPD_Q3_OUTPUT/pre-ingestion-backup/manifest_v6.json"
+          cp dist/repd_source_reconciliation_v6.json "$REPD_Q3_OUTPUT/pre-ingestion-backup/repd_source_reconciliation_v6.json"
+          cp backups/repd/2026-11-13-pre-october-ingestion/AUDIT-LOG.txt "$REPD_Q3_OUTPUT/pre-ingestion-backup/AUDIT-LOG.txt"
+      - name: Upload staging, original sources and comparison evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repd-october-2026-staging-${{ github.run_number }}
+          path: .repd-staging/2026-10/
+          retention-days: 90
+          if-no-files-found: error

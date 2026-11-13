@@ -34,10 +34,42 @@ def check(condition: bool, label: str, issues: list[str]) -> None:
         issues.append(label)
 
 
+def canonicalise_exact_duplicates(frame, label: str, issues: list[str]) -> tuple[pd.DataFrame, list[dict]]:
+    """Quarantine only exactly equivalent repeated identity rows; never merge contradictions."""
+    ref_col = "Ref ID"
+    if ref_col not in frame.columns:
+        raise RuntimeError(f"{label}: Ref ID column missing")
+    refs = [q2.clean_ref(value) for value in frame[ref_col]]
+    positions: dict[str, list[int]] = {}
+    for i, ref in enumerate(refs):
+        positions.setdefault(ref, []).append(i)
+    quarantined = []
+    for ref, indices in positions.items():
+        if len(indices) == 1:
+            continue
+        first = tuple(q2.collapse(v) for v in frame.iloc[indices[0]].tolist())
+        identical = all(tuple(q2.collapse(v) for v in frame.iloc[i].tolist()) == first for i in indices[1:])
+        quarantined.append({
+            "repd_ref": ref, "source_rows_1_based_including_header": [i + 2 for i in indices],
+            "occurrences": len(indices), "exactly_identical": identical,
+        })
+        if not identical:
+            issues.append(f"{label}: conflicting duplicate REPD reference {ref}; refusing canonical data")
+    seen = set()
+    retained = []
+    for i, ref in enumerate(refs):
+        if ref not in seen:
+            retained.append(i)
+            seen.add(ref)
+    return frame.iloc[retained].copy().reset_index(drop=True), quarantined
+
+
 def reconcile(csv_data: bytes, xlsx_data: bytes, old_data: bytes, baseline_name: str, baseline_is_q2: bool) -> tuple[pd.DataFrame | None, dict]:
     issues: list[str] = []
-    current_csv = q2.read_csv(csv_data)
-    current_xlsx, sheet = q2.read_xlsx(xlsx_data)
+    csv_original = q2.read_csv(csv_data)
+    xlsx_original, sheet = q2.read_xlsx(xlsx_data)
+    current_csv, csv_duplicate_evidence = canonicalise_exact_duplicates(csv_original, "Q3 CSV", issues)
+    current_xlsx, excel_duplicate_evidence = canonicalise_exact_duplicates(xlsx_original, "Q3 Excel", issues)
     previous = q2.read_csv(old_data)
     c = q2.indexed(current_csv, "Q3 CSV")
     x = q2.indexed(current_xlsx, "Q3 XLSX")
@@ -45,6 +77,7 @@ def reconcile(csv_data: bytes, xlsx_data: bytes, old_data: bytes, baseline_name:
     csv_ids, excel_ids, old_ids = set(c.index), set(x.index), set(old.index)
     check(len(c) >= 12000, "Q3 source unexpectedly small (<12,000 rows)", issues)
     check(csv_ids == excel_ids, "CSV and Excel REPD reference sets differ", issues)
+    check({x["repd_ref"] for x in csv_duplicate_evidence} == {x["repd_ref"] for x in excel_duplicate_evidence}, "CSV/Excel duplicate identity disagreement", issues)
     check(len(c) == len(csv_ids), "Duplicate Q3 CSV references", issues)
     check(len(x) == len(excel_ids), "Duplicate Q3 XLSX references", issues)
     # A historical root CSV is suitable for continuity comparisons but not a Q2 release.
@@ -120,7 +153,14 @@ def reconcile(csv_data: bytes, xlsx_data: bytes, old_data: bytes, baseline_name:
         "xlsx_sheet": sheet,
         "csv_rows": len(c),
         "xlsx_rows": len(x),
+        "original_csv_rows": len(csv_original),
+        "original_xlsx_rows": len(xlsx_original),
+        "identical_source_duplicates_quarantined": {
+            "csv": csv_duplicate_evidence, "xlsx": excel_duplicate_evidence,
+            "source_rows_not_in_candidate": len(csv_original) - len(c)
+        },
         "q3_unique_ids": len(csv_ids),
+        "duplicate_handling": "Raw official files retained unchanged; only identical source duplicates eliminated from candidate; conflicting records reject data.",
         "csv_excel_id_sets_match": csv_ids == excel_ids,
         "source_columns": {"csv": len(current_csv.columns), "xlsx": len(current_xlsx.columns)},
         "material_mismatch_count": len(mismatches),
@@ -185,6 +225,9 @@ def main() -> None:
     (raw_dir / "REPD_Publication_Q3_2026.csv").write_bytes(csv_raw)
     (raw_dir / "REPD_Publication_Q3_2026.xlsx").write_bytes(excel_raw)
     canonical, report = reconcile(csv_raw, excel_raw, comparison_data, comparison_name, q2_verified)
+    baseline_provenance["observed_q2_csv_identical_to_q3_csv"] = digest(old_csv) == digest(csv_raw)
+    baseline_provenance["observed_q2_excel_identical_to_q3_excel"] = digest(old_xlsx) == digest(excel_raw)
+    (OUT / "Q2_BASELINE_SHA256_AUDIT.json").write_text(json.dumps(baseline_provenance, indent=2) + "\n", encoding="utf-8")
     report["baseline_q2_provenance"] = baseline_provenance
     (OUT / "Q3_RECONCILIATION.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     with (OUT / "INGESTION-LOG.txt").open("w", encoding="utf-8") as handle:

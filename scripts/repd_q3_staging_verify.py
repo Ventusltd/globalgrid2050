@@ -47,7 +47,7 @@ def main():
     candidate = (OUT / "Q3_CANONICAL_STAGED.csv").read_bytes()
     assert sha(raw) == r["q3_source_sha256"]["csv"]
     assert sha(excel) == r["q3_source_sha256"]["xlsx"]
-    assert raw.endswith(b"\\n") and candidate.endswith(b"\\n")
+    assert raw.endswith(b"\n") and candidate.endswith(b"\n")
     input_columns, source_rows = csv_rows(raw)
     output_columns, output_rows = csv_rows(candidate)
     assert input_columns == output_columns, "Column loss or reordering"
@@ -80,7 +80,7 @@ def main():
         results["historical_blobs"][path] = blob
     master = json.loads((ROOT / "dist/repd_master.json").read_text())
     assert len(master["features"]) == 10784, "Historical REPD GeoJSON changed"
-    (OUT / "INTEGRITY-VERIFICATION.json").write_text(json.dumps(results, indent=2)+"\\n")
+    (OUT / "INTEGRITY-VERIFICATION.json").write_text(json.dumps(results, indent=2)+"\n")
     print(json.dumps({"result":"PASS", **results},indent=2))
 
 

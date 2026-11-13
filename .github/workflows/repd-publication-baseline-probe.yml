@@ -19,7 +19,7 @@ concurrency:
 jobs:
   official-publication-and-browser-observation:
     name: Read-only source HEAD, Q2 archive and current live-site observations
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 25
     env:
       REPD_PROBE_OUT: ${{ github.workspace }}/.repd-probe/2026-11-13

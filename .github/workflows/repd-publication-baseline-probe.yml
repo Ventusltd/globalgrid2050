@@ -33,7 +33,7 @@ jobs:
       - name: Install headless browser for diagnostic observations
         run: |
           python -m pip install 'playwright==1.56.0'
-          python -m playwright install --with-deps chromium
+          python -m playwright install chromium
       - name: Probe official publication, original Q2 URLs, archives and public live pages
         run: python scripts/repd_publication_baseline_probe.py
       - name: Archive raw HEAD responses, source hashes, browser text and screenshots

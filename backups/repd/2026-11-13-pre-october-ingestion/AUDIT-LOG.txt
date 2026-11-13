@@ -40,3 +40,13 @@ Controls:
 - Require separate owner review and acceptance before downstream production promotion.
 
 Note: data/latest_repd_v6_canonical.csv is not present at this GitHub commit; its reproducible official inputs, code and validated manifest are preserved above.
+
+Additional legacy outputs retained untouched in the source Git tree at baseline commit 73cbdec10bbd3fe2f8313b60b1acc2d22d31b517 and copied to the Actions pre-ingestion backup artifact:
+- repd-grid-batteries.csv; 738,190 bytes; 2,079 lines; blob 2d4142c7bb97bbd4be1c67698731730d2e25c672.
+- repd-solar-operational.csv; 395,768 bytes; 1,236 lines; blob 5d8bab7f640eb943dcf66b2631ad6bcde1f52122.
+- repd-solar-operational-over-4mw.csv; 311,748 bytes; 943 lines; blob 31e840cfe206cfb53d9ed2c043e00bdd69080a82.
+- dist/repd_master.json; 4,256,963 bytes; 10,784 features; blob e221065a7b144a9e4b691cf282e23a68c5661e45.
+- dist/manifest_v6.json; blob dbaf471f262d3b6557e7f327269b663eeddc432c.
+- dist/repd_source_reconciliation_v6.json; 5,751 bytes; blob 35835b6b46aa1f996fedac8c7bf3044a3d423814.
+
+These blob IDs refer to existing, immutable Git data; they are not hashes of the newly downloaded October dataset. No production or legacy file is overwritten. The Actions artifact copy is temporary (90-day retention); the Git commits and this text log are durable.

@@ -50,3 +50,24 @@ Additional legacy outputs retained untouched in the source Git tree at baseline 
 - dist/repd_source_reconciliation_v6.json; 5,751 bytes; blob 35835b6b46aa1f996fedac8c7bf3044a3d423814.
 
 These blob IDs refer to existing, immutable Git data; they are not hashes of the newly downloaded October dataset. No production or legacy file is overwritten. The Actions artifact copy is temporary (90-day retention); the Git commits and this text log are durable.
+
+Additional immutable baseline data inventory (all unchanged in PR #56 as of b5db0b35):
+  repd-grid-batteries.csv: 738,190 bytes, 2,079 text lines; Git blob 2d4142c7bb97bbd4be1c67698731730d2e25c672
+  repd-solar-operational.csv: 395,768 bytes, 1,236 text lines; Git blob 5d8bab7f640eb943dcf66b2631ad6bcde1f52122
+  repd-solar-operational-over-4mw.csv: 311,748 bytes, 943 text lines; Git blob 31e840cfe206cfb53d9ed2c043e00bdd69080a82
+  dist/repd_master.json: 4,256,963 bytes, 10,784 GeoJSON features; Git blob e221065a7b144a9e4b691cf282e23a68c5661e45
+  dist/repd_source_reconciliation_v6.json: 5,751 bytes, 232 text lines; Git blob 35835b6b46aa1f996fedac8c7bf3044a3d423814
+Restore any one file without changing production, after review:
+  git show 73cbdec10bbd3fe2f8313b60b1acc2d22d31b517:<path> > <path>
+The staging Actions workflow also archives these derived CSV/JSON files in its pre-ingestion-backup/ artifact folder (once the updated workflow has passed). The temporary Actions artifact is not a permanent backup; Git history at the pinned baseline remains the durable recovery point.
+
+Q3 staging evidence from successful Actions run 43511657630 (2026-11-13):
+  Original Q3 CSV: 5,219,160 bytes; SHA256 48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862
+  Original Q3 XLSX: 5,378,656 bytes; SHA256 87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea
+  Source records: 14,968 per format, 14,967 unique Ref IDs; 53 columns; candidate 14,967 rows.
+  Exact duplicate: Ref ID 7679, physical source rows 7112 and 7113; original source retained.
+  Five unresolved source date conflicts: Ref IDs 21424, 21438, 21456, 21463, 21464. Q3 candidate cells are blank; raw values preserved.
+  Excel cells for those five records have the date format m/d/yyyy, while the CSV reads 09/11/2026 or 09/10/2026. This is a material day/month ambiguity, not a reconciled date.
+  Current July-labelled download links return Q3-identical bytes, which differ from the pinned July/Q2 SHA256 values above. Original validated Q2 raw bytes have not been recovered; a genuine Q2-to-Q3 per-reference delta is UNAVAILABLE. Historical repd.csv comparison is NOT a Q2 comparison.
+  Both official CSV and staged candidate CSV end in a newline, contain complete 53-field final records, and have no formula-leading cells detected in a full CSV scan.
+  No live datasets changed. Staging success does not authorise release.

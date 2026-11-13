@@ -85,7 +85,26 @@ def reconcile(csv_data: bytes, xlsx_data: bytes, old_data: bytes, baseline_name:
     x = q2.indexed(current_xlsx, "Q3 XLSX")
     old = q2.indexed(previous, "Q2 CSV")
     csv_ids, excel_ids, old_ids = set(c.index), set(x.index), set(old.index)
-    check(len(c) >= 12000, "Q3 source unexpectedly small (<12,000 rows)", issues)
+    # Fail closed against the last independently validated July/Q2 release.
+    # The historical root file is not a Q2 source and must not lower this floor.
+    check(len(c) >= 14657 and len(x) >= 14657,
+          "Q3 unique reference count below the validated Q2 count (14,657)", issues)
+    check(csv_data.endswith(b"\\n"), "Q3 source CSV has no final newline", issues)
+    # q2.norm_date returns an empty string for an unknown nonblank date.
+    # Without this guard two different malformed dates could silently compare equal.
+    invalid_dates = []
+    date_fields = list(dict.fromkeys(q2.OFFICIAL_DATE_FIELDS + ["Record Last Updated (dd/mm/yyyy)"]))
+    for label, frame in (("CSV", current_csv), ("XLSX", current_xlsx)):
+        for field in date_fields:
+            if field not in frame.columns:
+                continue
+            for ref, value in zip(frame["Ref ID"], frame[field]):
+                raw = q2.collapse(value)
+                if raw and raw.casefold() not in {"na", "n/a"} and not q2.norm_date(value):
+                    invalid_dates.append({"source": label, "ref": q2.clean_ref(ref),
+                                          "field": field, "raw_value": raw[:80]})
+    check(not invalid_dates,
+          f"Q3 has {len(invalid_dates)} nonblank unparseable date cells: {invalid_dates[:5]}", issues)
     check(csv_ids == excel_ids, "CSV and Excel REPD reference sets differ", issues)
     check({x["repd_ref"] for x in csv_duplicate_evidence} == {x["repd_ref"] for x in excel_duplicate_evidence}, "CSV/Excel duplicate identity disagreement", issues)
     check(len(c) == len(csv_ids), "Duplicate Q3 CSV references", issues)
@@ -137,6 +156,12 @@ def reconcile(csv_data: bytes, xlsx_data: bytes, old_data: bytes, baseline_name:
             })
         else:
             unexpected_mismatches.append((ref, field))
+    # An official source correction must be re-reviewed, not silently treated
+    # as the previously verified Q3 release.
+    observed_date_conflicts = {(event["repd_ref"], event["field"]) for event in date_conflicts}
+    check(observed_date_conflicts == EXPECTED_Q3_DATE_CONFLICTS,
+          f"Known Q3 date conflicts changed: expected {sorted(EXPECTED_Q3_DATE_CONFLICTS)}, observed {sorted(observed_date_conflicts)}",
+          issues)
     check(not unexpected_mismatches,
           f"Unexpected material CSV/Excel disagreements: {unexpected_mismatches[:10]}",
           issues)
@@ -196,6 +221,7 @@ def reconcile(csv_data: bytes, xlsx_data: bytes, old_data: bytes, baseline_name:
         "csv_excel_id_sets_match": csv_ids == excel_ids,
         "source_columns": {"csv": len(current_csv.columns), "xlsx": len(current_xlsx.columns)},
         "material_mismatch_count": len(mismatches),
+        "unparseable_nonblank_date_cells": invalid_dates,
         "material_mismatch_ref_field_examples": mismatches[:20],
         "quarantined_official_date_disagreements": date_conflicts,
         "unexpected_material_disagreements": unexpected_mismatches,

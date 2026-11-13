@@ -1,0 +1,46 @@
+name: REPD official publication and baseline browser evidence (NO DEPLOY)
+
+on:
+  push:
+    branches:
+      - repd/2026-10-ingestion-20261113
+    paths:
+      - scripts/repd_publication_baseline_probe.py
+      - .github/workflows/repd-publication-baseline-probe.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repd-baseline-readonly-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  official-publication-and-browser-observation:
+    name: Read-only source HEAD, Q2 archive and current live-site observations
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      REPD_PROBE_OUT: ${{ github.workspace }}/.repd-probe/2026-11-13
+    steps:
+      - name: Checkout the candidate branch only (no deployment token)
+        uses: actions/checkout@v4
+      - name: Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install headless browser for diagnostic observations
+        run: |
+          python -m pip install 'playwright==1.56.0'
+          python -m playwright install --with-deps chromium
+      - name: Probe official publication, original Q2 URLs, archives and public live pages
+        run: python scripts/repd_publication_baseline_probe.py
+      - name: Archive raw HEAD responses, source hashes, browser text and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repd-q3-baseline-diagnostic-${{ github.run_number }}
+          path: .repd-probe/2026-11-13/
+          retention-days: 90
+          if-no-files-found: warn

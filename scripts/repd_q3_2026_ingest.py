@@ -12,20 +12,17 @@ import os
 import sys
 from pathlib import Path
 
-import pandas as pd
-
 # Reuse the already validated Q2 parsing, identity and canonical capacity rules.
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 import repd_sources_v6 as q2  # noqa: E402
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[1]
 OUT = Path(os.environ.get("REPD_Q3_OUTPUT", ROOT / ".repd-staging" / "2026-10"))
 SOURCE_PAGE = "https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract"
 Q3_CSV = "https://assets.publishing.service.gov.uk/media/6af42ff0a4004bdbe54e54a5/REPD_Publication_Q3_2026.csv"
 Q3_XLSX = "https://assets.publishing.service.gov.uk/media/6af42ffdb83b3cae0d0a21c9/REPD_Publication_Q3_2026.xlsx"
 PUBLICATION_DATE = "2026-11-13"
 BASELINE_COMMIT = "73cbdec10bbd3fe2f8313b60b1acc2d22d31b517"
-BASELINE_REPORT = ROOT / "dist" / "repd_source_reconciliation_v6.json"
 
 
 def digest(data: bytes) -> str:

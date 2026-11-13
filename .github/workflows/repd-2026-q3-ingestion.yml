@@ -118,6 +118,8 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git switch -c "$evidence_branch"
           git add -f "$dest"
-          git diff --cached --check
+          # Published CSV ends many rows with empty fields (trailing commas); preserve raw bytes verbatim.
+          # Whitespace validation applies only to our authored metadata, not official source files.
+          git diff --cached --check -- "$dest/SOURCES.txt" "$dest/.gitattributes"
           git commit -m 'evidence(repd): immutable Q3 official CSV/Excel and independent QA source receipt'
           git push origin "HEAD:refs/heads/$evidence_branch"

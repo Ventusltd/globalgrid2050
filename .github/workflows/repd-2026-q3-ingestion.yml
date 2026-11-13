@@ -46,6 +46,10 @@ jobs:
         run: |
           mkdir -p "$REPD_Q3_OUTPUT/pre-ingestion-backup"
           cp repd.csv "$REPD_Q3_OUTPUT/pre-ingestion-backup/repd.csv"
+          cp repd-grid-batteries.csv "$REPD_Q3_OUTPUT/pre-ingestion-backup/repd-grid-batteries.csv"
+          cp repd-solar-operational.csv "$REPD_Q3_OUTPUT/pre-ingestion-backup/repd-solar-operational.csv"
+          cp repd-solar-operational-over-4mw.csv "$REPD_Q3_OUTPUT/pre-ingestion-backup/repd-solar-operational-over-4mw.csv"
+          cp dist/repd_master.json "$REPD_Q3_OUTPUT/pre-ingestion-backup/repd_master.json"
           cp dist/manifest_v6.json "$REPD_Q3_OUTPUT/pre-ingestion-backup/manifest_v6.json"
           cp dist/repd_source_reconciliation_v6.json "$REPD_Q3_OUTPUT/pre-ingestion-backup/repd_source_reconciliation_v6.json"
           cp backups/repd/2026-11-13-pre-october-ingestion/AUDIT-LOG.txt "$REPD_Q3_OUTPUT/pre-ingestion-backup/AUDIT-LOG.txt"

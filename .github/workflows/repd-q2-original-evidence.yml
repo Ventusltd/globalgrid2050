@@ -1,0 +1,118 @@
+name: REPD July 2026 original archive recovery (evidence only)
+
+on:
+  push:
+    branches:
+      - repd/2026-10-ingestion-20261113
+    paths:
+      - scripts/repd_q2_q3_verified_delta.py
+      - .github/workflows/repd-q2-original-evidence.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: repd-original-q2-verified-evidence
+  cancel-in-progress: false
+
+jobs:
+  preserve-original-july-evidence:
+    name: Verify both July originals and publish non-production immutable Q2 evidence
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      EVIDENCE_BRANCH: repd/2026-07-verified-archive-20261113
+    steps:
+      - name: Checkout candidate source scripts (never live data)
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Retrieve verified archived originals from prior read-only probe
+        uses: actions/download-artifact@v4
+        with:
+          name: repd-q3-baseline-diagnostic-4
+          run-id: 43528242258
+          repository: Ventusltd/globalgrid2050
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: .repd-recovered-original
+      - name: Retrieve corrected Q3 source bytes from prior successful ingestion
+        uses: actions/download-artifact@v4
+        with:
+          name: repd-october-2026-staging-37
+          run-id: 43521949338
+          repository: Ventusltd/globalgrid2050
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: .repd-q3-verified
+      - name: Fail closed on all four exact source SHA256 values, row counts and identity delta
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/repd_q2_q3_verified_delta.py \
+            --q2-csv .repd-recovered-original/verified-archived-original-Q2.csv \
+            --q2-xlsx .repd-recovered-original/verified-archived-original-Q2.xlsx \
+            --q3-csv .repd-q3-verified/official-sources/REPD_Publication_Q3_2026.csv \
+            --q3-xlsx .repd-q3-verified/official-sources/REPD_Publication_Q3_2026.xlsx \
+            --out .repd-recovered-original/Q2_TO_Q3_VERIFIED_DELTA.json
+      - name: Publish original bytes on NEW evidence-only branch; refuse silent overwrite
+        shell: bash
+        run: |
+          set -euo pipefail
+          src='.repd-recovered-original'
+          dest='evidence/repd-2026-q2-original'
+          if git ls-remote --exit-code --heads origin "$EVIDENCE_BRANCH"; then
+            echo "Existing Q2 evidence branch found; verifying original hashes, never overwriting."
+            git fetch origin "$EVIDENCE_BRANCH"
+            for spec in \
+              'REPD_Publication_Q2_2026.csv 84c1b5f958a934d8b4b86ec88f50bdcf43830ded7ff2efc27bffca0c98695035' \
+              'REPD_Publication_Q2_2026.xlsx 624a0a9712c58a7a93716e51f2bf054eec8b1af7170f6f9516cc10cd248e2657'; do
+              read -r file expected <<< "$spec"
+              actual="$(git show "FETCH_HEAD:$dest/official-sources/$file" | sha256sum | cut -d' ' -f1)"
+              test "$actual" = "$expected"
+            done
+            git show "FETCH_HEAD:$dest/Q2_TO_Q3_VERIFIED_DELTA.json" >/dev/null
+            echo 'Verified existing original-Q2 evidence branch; no overwrite.'
+            exit 0
+          fi
+          mkdir -p "$dest/official-sources"
+          printf '* -text\n' > "$dest/.gitattributes"
+          cp "$src/verified-archived-original-Q2.csv" "$dest/official-sources/REPD_Publication_Q2_2026.csv"
+          cp "$src/verified-archived-original-Q2.xlsx" "$dest/official-sources/REPD_Publication_Q2_2026.xlsx"
+          cp "$src/Q2_TO_Q3_VERIFIED_DELTA.json" "$dest/"
+          cat > "$dest/SOURCES.txt" <<'EOF'
+          REPD July 2026 Q2 ORIGINALS recovered 13 November 2026 from UK Government Web Archive / MirrorWeb.
+          Publication page archived 2 November 2026: https://tnaqa.mirrorweb.com/ukgwa/20261102130314oe_/https%3A/www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract
+          Original CSV archive capture 3 November 2026: https://tnaqa.mirrorweb.com/ukgwa/20261103070426oe_/https://assets.publishing.service.gov.uk/media/6a6cbdc00c36759b5ccaa305/REPD_Publication_Q2_2026.csv
+          Original XLSX archive capture 3 November 2026: https://tnaqa.mirrorweb.com/ukgwa/20261103065723oe_/https://assets.publishing.service.gov.uk/media/6a6cbdd2862aaf18d9c62b02/REPD_Publication_Q2_2026.xlsx
+          Exact July CSV SHA256: 84c1b5f958a934d8b4b86ec88f50bdcf43830ded7ff2efc27bffca0c98695035 (5087389 bytes).
+          Exact July XLSX SHA256: 624a0a9712c58a7a93716e51f2bf054eec8b1af7170f6f9516cc10cd248e2657 (5185558 bytes).
+          14657 original July rows, 14657 unique refs, 53 columns.
+          October Q3 source independently verified on separate branch repd/2026-10-reviewed-evidence-e4dc349caf29.
+          Full raw Q2-to-Q3 comparison report Q2_TO_Q3_VERIFIED_DELTA.json.
+          Original government bytes copied without changes; not a website release or deployment.
+          EOF
+          (cd "$dest/official-sources" && sha256sum REPD_Publication_Q2_2026.csv REPD_Publication_Q2_2026.xlsx) > "$dest/SHA256SUMS"
+          grep -q '^84c1b5f958a934d8b4b86ec88f50bdcf43830ded7ff2efc27bffca0c98695035 ' "$dest/SHA256SUMS"
+          grep -q '^624a0a9712c58a7a93716e51f2bf054eec8b1af7170f6f9516cc10cd248e2657 ' "$dest/SHA256SUMS"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch -c "$EVIDENCE_BRANCH"
+          git add -f "$dest"
+          git diff --cached --check -- "$dest/SOURCES.txt" "$dest/Q2_TO_Q3_VERIFIED_DELTA.json" "$dest/SHA256SUMS"
+          git commit -m 'evidence(repd): recover exact July Q2 originals and verify Q2 to October Q3 delta'
+          git push origin "HEAD:refs/heads/$EVIDENCE_BRANCH"
+      - name: Archive recovery and comparison report as Actions evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repd-verified-original-q2-recovery-${{ github.run_number }}
+          path: |
+            .repd-recovered-original/Q2_TO_Q3_VERIFIED_DELTA.json
+            .repd-recovered-original/REPORT.json
+          retention-days: 90
+          if-no-files-found: warn

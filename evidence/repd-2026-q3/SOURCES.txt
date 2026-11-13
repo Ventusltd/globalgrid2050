@@ -1,0 +1,12 @@
+REPD Q3 October 2026 corrected staged evidence — NOT a release
+Official page: https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract
+Build SHA: 3e411414bda09a1414c667ccb062ff0303ae36f8
+Evidence generated UTC: 2026-11-13T23:35:20Z
+Source CSV SHA256: 48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862
+Source XLSX SHA256: 87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea
+Candidate SHA256: 9b1f87ebdfe12601ca55c3d6f7c621739e5077f64988d47471fb03a60f381343
+Source 14968 rows; candidate 14967 unique Ref IDs; 53 columns; identical source duplicate Ref 7679.
+25 Excel-typed date locale cells normalised; zero invalid canonical date cells.
+Original raw Q3 evidence branch retained without modification.
+Original July/Q2 source bytes unavailable; raw Q2-to-Q3 delta UNVERIFIED.
+Independent candidate review and CI do not approve production.

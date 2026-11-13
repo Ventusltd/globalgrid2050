@@ -53,6 +53,8 @@ jobs:
           cp dist/manifest_v6.json "$REPD_Q3_OUTPUT/pre-ingestion-backup/manifest_v6.json"
           cp dist/repd_source_reconciliation_v6.json "$REPD_Q3_OUTPUT/pre-ingestion-backup/repd_source_reconciliation_v6.json"
           cp backups/repd/2026-11-13-pre-october-ingestion/AUDIT-LOG.txt "$REPD_Q3_OUTPUT/pre-ingestion-backup/AUDIT-LOG.txt"
+      - name: Verify raw, canonical and historical backup integrity
+        run: python scripts/repd_q3_staging_verify.py
       - name: Upload staging, original sources and comparison evidence
         if: always()
         uses: actions/upload-artifact@v4

@@ -113,6 +113,19 @@ for name, url in {
                           "excerpt": raw[:1200].decode("utf-8", "replace")})
         except Exception as exc:
             entry["get_error"] = str(exc)[:350]
+    if name.startswith("ukgwa_asset_"):
+        kind = name.rsplit("_", 1)[-1]
+        try:
+            raw, final = fetch(url, 70)
+            entry.update({"get_final_url": final, "get_bytes": len(raw),
+                          "get_sha256": sha(raw),
+                          "expected_original_sha256": EXPECTED[kind],
+                          "original_q2_verified": sha(raw) == EXPECTED[kind]})
+            if entry["original_q2_verified"]:
+                (OUT / ("verified-archived-original-Q2." + kind)).write_bytes(raw)
+        except Exception as exc:
+            entry["get_error"] = str(exc)[:350]
+            entry["original_q2_verified"] = False
     REPORT["archives"][name] = entry
 
 

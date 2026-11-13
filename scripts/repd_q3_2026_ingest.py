@@ -89,7 +89,7 @@ def reconcile(csv_data: bytes, xlsx_data: bytes, old_data: bytes, baseline_name:
     # The historical root file is not a Q2 source and must not lower this floor.
     check(len(c) >= 14657 and len(x) >= 14657,
           "Q3 unique reference count below the validated Q2 count (14,657)", issues)
-    check(csv_data.endswith(b"\\n"), "Q3 source CSV has no final newline", issues)
+    check(csv_data.endswith(b"\n"), "Q3 source CSV has no final newline", issues)
     # q2.norm_date returns an empty string for an unknown nonblank date.
     # Without this guard two different malformed dates could silently compare equal.
     invalid_dates = []

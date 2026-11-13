@@ -19,16 +19,30 @@ No V1–V6 asset has been overwritten.
 ## GitHub intake
 
 The branch-only staging workflow `.github/workflows/repd-2026-q3-ingestion.yml`
-runs `scripts/repd_q3_2026_ingest.py`. The script:
-1. Downloads official July 2026 Q2 and October 2026 Q3 CSV/Excel source pairs.
-2. Verifies old Q2 CSV and Excel SHA-256 hashes and preserves both old raw files.
-3. Requires unique and identical Q3 REPD Ref IDs in both government publications.
-4. Reconciles authoritative planning fields, dates and Excel capacity precision with CSV rounding tolerance.
-5. Produces Q2→Q3 added/removed/retained reference totals, status changes, technology changes, capacity changes and new threshold counts.
-6. Saves the original four official source documents, canonical Q3 candidate, audit log, and validation report to an Actions artifact (90 days).
-7. Fails the job instead of promoting questionable data.
+runs `scripts/repd_q3_2026_ingest.py`. It downloads and preserves the original
+July-labelled and October-labelled government CSV/XLSX pairs, verifies identities,
+compares 53 columns, retains original precision from Excel, and archives the
+legacy root and derived REPD CSV/GeoJSON files in the run artifact.
 
-**No webpage, live GridAtlas state, homepage owner, older REPD output or PipelineNews release is written.** The ingestion does not automatically update `repd.csv`. Once checks succeed, the next separate reviewed change can pin the new source hashes and rebuild the two PipelineNews/Atlas consumers.
+**Current evidence (13 November 2026, run 43511657630):**
+
+- Q3 CSV: 5,219,160 bytes; SHA-256 `48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862`.
+- Q3 XLSX: 5,378,656 bytes; SHA-256 `87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea`.
+- Both original sources contain 14,968 rows, 14,967 unique Ref IDs and 53 columns. Ref ID 7679 occurs twice identically at source rows 7112 and 7113; only the staged candidate is deduplicated to 14,967 rows.
+- Five source planning-date disagreements are quarantined: refs 21424, 21438 and 21456 have CSV `09/11/2026` vs Excel `2026-09-11`; refs 21463 and 21464 have CSV `09/10/2026` vs Excel `2026-09-10`. All five Excel cells are typed dates formatted `m/d/yyyy`. Each record says it was last updated on 8 October 2026, before the CSV planning dates but after the Excel dates. This is evidence of a likely source day/month conversion error, **not** an authorised adjudication.
+- Candidate cells for those five dates remain blank, while both official values are retained in `Q3_RECONCILIATION.json`. The stage is `STAGED_WITH_OFFICIAL_DATE_CONFLICTS`. A successful staging workflow does **not** mean the candidate is accepted or ready to publish.
+- The July-labelled download URLs currently return bytes **identical** to the Q3 sources, not the pinned July/Q2 hashes. The original Q2 bytes are not available from those URLs; the 14,657-row July 2026 snapshot is evidenced by the validated V6 manifest and hashes, but a true Q2-to-Q3 record-level delta cannot yet be calculated. The reported additions/removals compare Q3 against the **historical root repd.csv**, not Q2.
+- Both source and candidate CSVs have complete 53-field final records, end with a newline and contain no detected formula-leading cells. These checks were independently performed on the retained staging artifact.
+
+Git history at baseline commit `73cbdec1` is the durable restoration point for existing live files. The 90-day Actions artifact provides convenient copies, **not** a permanent archive. Do not modify live `repd.csv`, V1–V6 assets, PipelineNews, GridAtlas, homepage or any release pointer as part of this intake.
+
+## Remaining release blockers
+
+1. Claude's independent review and reproducible regression tests must be addressed; its QA notes are in [NL-012](https://github.com/Ventusltd/neural-link-between-agents/issues/12).
+2. Recover the original July/Q2 official bytes from a verifiable archive matching both pinned SHA-256 hashes before claiming a Q2-to-Q3 per-record delta.
+3. Obtain source clarification or an explicit documented policy for the five disputed date cells and the duplicated government record.
+4. Build and verify separate downstream PipelineNews and GridAtlas candidates, including MAP identity, browser checks and all-technology coverage.
+5. Obtain explicit owner acceptance before any merge or production promotion.
 
 ## Reproduce locally
 

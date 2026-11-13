@@ -22,6 +22,16 @@ SOURCE_PAGE = "https://www.gov.uk/government/publications/renewable-energy-plann
 Q3_CSV = "https://assets.publishing.service.gov.uk/media/6af42ff0a4004bdbe54e54a5/REPD_Publication_Q3_2026.csv"
 Q3_XLSX = "https://assets.publishing.service.gov.uk/media/6af42ffdb83b3cae0d0a21c9/REPD_Publication_Q3_2026.xlsx"
 PUBLICATION_DATE = "2026-11-13"
+# Observed in the immutable October 2026 release on 13 November.
+# Conflicting date cells are BLANKED in the staged candidate, with both
+# official representations in the audit. This does not adjudicate the dates.
+EXPECTED_Q3_DATE_CONFLICTS = {
+    ("21424", "Planning Application Submitted"),
+    ("21438", "Planning Application Submitted"),
+    ("21456", "Planning Application Submitted"),
+    ("21463", "Planning Application Submitted"),
+    ("21464", "Planning Application Submitted"),
+}
 BASELINE_COMMIT = "73cbdec10bbd3fe2f8313b60b1acc2d22d31b517"
 
 
@@ -113,7 +123,23 @@ def reconcile(csv_data: bytes, xlsx_data: bytes, old_data: bytes, baseline_name:
                 mismatches.append((ref, "Installed Capacity (MWelec)"))
             elif left != right:
                 rounding_differences += 1
-    check(not mismatches, f"Q3 CSV/Excel material field differences: {len(mismatches)}", issues)
+    date_conflicts = []
+    unexpected_mismatches = []
+    for ref, field in mismatches:
+        if (ref, field) in EXPECTED_Q3_DATE_CONFLICTS:
+            date_conflicts.append({
+                "repd_ref": ref,
+                "field": field,
+                "official_csv": q2.collapse(c.loc[ref, field]),
+                "official_xlsx": q2.norm_date(x.loc[ref, field]),
+                "candidate_value": "",
+                "resolution": "QUARANTINED_PENDING_SOURCE_CORRECTION",
+            })
+        else:
+            unexpected_mismatches.append((ref, field))
+    check(not unexpected_mismatches,
+          f"Unexpected material CSV/Excel disagreements: {unexpected_mismatches[:10]}",
+          issues)
 
     added, removed, retained = csv_ids - old_ids, old_ids - csv_ids, csv_ids & old_ids
     updated_status = []
@@ -130,12 +156,18 @@ def reconcile(csv_data: bytes, xlsx_data: bytes, old_data: bytes, baseline_name:
 
     canonical = q2.build_canonical(current_csv, current_xlsx) if not issues else None
     if canonical is not None:
+        for event in date_conflicts:
+            matches = canonical["Ref ID"].astype(str).eq(event["repd_ref"])
+            if matches.sum() != 1:
+                issues.append(f"Cannot quarantine date for REPD {event['repd_ref']}: identity missing or repeated")
+            else:
+                canonical.loc[matches, event["field"]] = ""
         solar, bess = q2.threshold_counts(canonical)
     else:
         solar, bess = 0, 0
     report = {
         "schema": "globalgrid2050.repd-q3-2026-intake.v1",
-        "stage": "STAGED_FOR_REVIEW" if not issues else "REJECTED",
+        "stage": "REJECTED" if issues else ("STAGED_WITH_OFFICIAL_DATE_CONFLICTS" if date_conflicts else "STAGED_FOR_REVIEW"),
         "validated_at": q2.utc_now(),
         "source_owner": "UK DESNZ / Barbour ABI",
         "source_page": SOURCE_PAGE,
@@ -165,6 +197,9 @@ def reconcile(csv_data: bytes, xlsx_data: bytes, old_data: bytes, baseline_name:
         "source_columns": {"csv": len(current_csv.columns), "xlsx": len(current_xlsx.columns)},
         "material_mismatch_count": len(mismatches),
         "material_mismatch_ref_field_examples": mismatches[:20],
+        "quarantined_official_date_disagreements": date_conflicts,
+        "unexpected_material_disagreements": unexpected_mismatches,
+        "date_policy": "Do not choose either disputed official date. Staged canonical cell blank, both values preserved in JSON audit. Never promote without explicit resolution.",
         "capacity_rounding_differences": rounding_differences,
         "records_compared_across_csv_and_excel": checked,
         "reference_changes_vs_comparison_baseline": {
@@ -238,6 +273,8 @@ def main() -> None:
         handle.write("Comparison baseline: " + comparison_name + "\n")
         handle.write("Original Q2 bytes at historical links: " + ("verified" if q2_verified else "CHANGED; historical root used instead") + "\n")
         handle.write("Changed records: " + json.dumps(report["reference_changes_vs_comparison_baseline"], sort_keys=True) + "\n")
+        handle.write("Quarantined official date differences: " + json.dumps(report["quarantined_official_date_disagreements"], sort_keys=True) + "\n")
+        handle.write("Duplicate source rows: " + json.dumps(report["identical_source_duplicates_quarantined"], sort_keys=True) + "\n")
         handle.write("Failures: " + json.dumps(report["failures"]) + "\n")
         handle.write("Live published datasets: UNCHANGED\n")
     if report["failures"]:

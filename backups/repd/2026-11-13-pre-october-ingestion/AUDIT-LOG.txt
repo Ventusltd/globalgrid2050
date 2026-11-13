@@ -1,0 +1,42 @@
+# REPD snapshot backup and ingestion audit — 13 November 2026
+
+Status: PRE-INGESTION BACKUP. October 2026 Q3 has NOT replaced any live file.
+GitHub baseline commit: 73cbdec10bbd3fe2f8313b60b1acc2d22d31b517
+Repository: Ventusltd/globalgrid2050
+Backup branch: repd/2026-10-ingestion-20261113
+Snapshot strategy: preserved copies of the Q2 scripts and Q2 audit JSON; immutable Git parent for historical data files.
+
+Historical root dataset: repd.csv
+  Git blob SHA: 01fe17ae9531d3504490a1418a68350262b06f86
+  Previous source: older REPD snapshot; not necessarily equal to Q2 canonical.
+  Restore: git show 73cbdec10bbd3fe2f8313b60b1acc2d22d31b517:repd.csv > repd.csv
+Q2 source processing: scripts/repd_sources_v6.py
+  Git blob SHA: d6bd42f46a410e6bd2e8d208a2450f5ec1e4c6c3
+Q2 V6 compatibility entry: scripts/repd_updater_v6_hardened.py
+  Git blob SHA: e011e8dc96f8e573f2f52c59c0ba94f8f0172f12
+Q2 audit: dist/repd_source_reconciliation_v6.json
+  Git blob SHA: 35835b6b46aa1f996fedac8c7bf3044a3d423814
+Q2 manifest: dist/manifest_v6.json
+  Git blob SHA: dbaf471f262d3b6557e7f327269b663eeddc432c
+
+Last validated release: July 2026 (Q2), published 2026-08-03.
+Q2 source rows: 14,657; unique REPD Ref IDs: 14,657.
+Q2 threshold counts: solar >1 MW = 3,445; battery >100 MW = 269.
+Official Q2 CSV SHA-256: 84c1b5f958a934d8b4b86ec88f50bdcf43830ded7ff2efc27bffca0c98695035
+Official Q2 Excel SHA-256: 624a0a9712c58a7a93716e51f2bf054eec8b1af7170f6f9516cc10cd248e2657
+Official Q2 CSV: https://assets.publishing.service.gov.uk/media/6a6cbdc00c36759b5ccaa305/REPD_Publication_Q2_2026.csv
+Official Q2 Excel: https://assets.publishing.service.gov.uk/media/6a6cbdd2862aaf18d9c62b02/REPD_Publication_Q2_2026.xlsx
+
+October 2026 Q3 release: published 2026-11-13.
+Official publication: https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract
+Official Q3 CSV: https://assets.publishing.service.gov.uk/media/6af42ff0a4004bdbe54e54a5/REPD_Publication_Q3_2026.csv
+Official Q3 Excel: https://assets.publishing.service.gov.uk/media/6af42ffdb83b3cae0d0a21c9/REPD_Publication_Q3_2026.xlsx
+
+Controls:
+- Do not rewrite repd.csv, V1–V6 assets, dist/manifest_v6.json or the live site.
+- New Q3 files go to isolated ignored staging and short-lived Actions artifacts only.
+- Ingestion fails closed on mismatched CSV/Excel reference identities, duplicate IDs or material disagreements.
+- Preserve both official Q3 file hashes, counts, schema and Q2 comparison in the run report.
+- Require separate owner review and acceptance before downstream production promotion.
+
+Note: data/latest_repd_v6_canonical.csv is not present at this GitHub commit; its reproducible official inputs, code and validated manifest are preserved above.

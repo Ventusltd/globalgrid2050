@@ -280,6 +280,8 @@ def _match_item(project, title, summary="", county_feed=False):
     ref = project["planning_ref"]
     if ref and re.search(re.escape(ref), title, re.I):
         return "strong", "planning reference %s in title" % ref
+    if GATE.inverted_solar_place(title, project):
+        return "strong", "verified place alias in inverted solar-farm title"
     for alias, rx in zip(project["aliases"], project["_alias_rx"]):
         if rx and SOLAR.search(alias) and rx.search(title):
             return "strong", "alias '%s' in title" % alias

@@ -301,7 +301,7 @@ def judge(ref, title, project=None, official=False):
         # The inserted continuation must never be treated as exact project
         # identity merely because the headline also mentions a solar farm.
         if any(re.search(
-                r"(?<![a-z0-9])" + re.escape(_norm(core)) + r"\\s+of\\s+[a-z]+",
+                r"(?<![a-z0-9])" + re.escape(_norm(core)) + r"\s+of\s+[a-z]+",
                 text) for _alias, core, _whole in names):
             return "possible", "core begins a different, longer proper name"
         if DEVELOPMENT_ACTION_RE.search(title) and (not far or developer) and (fact or any(

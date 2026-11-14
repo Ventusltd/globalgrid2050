@@ -7,6 +7,12 @@ on:
     paths:
       - qa/repd-q3-browser-review.mjs
       - .github/workflows/repd-q3-browser-qa.yml
+  pull_request:
+    branches:
+      - claude/repd-q3-general-date-rule-20261113
+    paths:
+      - qa/repd-q3-browser-review.mjs
+      - .github/workflows/repd-q3-browser-qa.yml
   workflow_dispatch:
 
 permissions:

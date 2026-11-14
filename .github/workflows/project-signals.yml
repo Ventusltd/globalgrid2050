@@ -54,7 +54,10 @@ jobs:
       - name: Tests (offline)
         run: |
           python -m pip install --quiet pytest
-          python -m pytest -q -p no:cacheprovider "$SIG/tests/test_index.py" "$SIG/tests/test_combine.py" "$SIG/tests/test_phase2_freshness.py"
+          python -m pytest -q -p no:cacheprovider \
+            "$SIG/tests/test_index.py" "$SIG/tests/test_combine.py" "$SIG/tests/test_phase2_freshness.py" \
+            automation/news/tests/test_signals_official.py automation/news/tests/test_signals_planning_file.py \
+            automation/news/tests/test_signals_trade.py
       - name: Run index.py against the live sources (no branch written)
         run: |
           mkdir -p "$RUNNER_TEMP/parts"
@@ -118,7 +121,10 @@ jobs:
       - name: Tests (offline)
         run: |
           python -m pip install --quiet pytest
-          python -m pytest -q -p no:cacheprovider "$SIG/tests/test_index.py" "$SIG/tests/test_combine.py" "$SIG/tests/test_phase2_freshness.py"
+          python -m pytest -q -p no:cacheprovider \
+            "$SIG/tests/test_index.py" "$SIG/tests/test_combine.py" "$SIG/tests/test_phase2_freshness.py" \
+            automation/news/tests/test_signals_official.py automation/news/tests/test_signals_planning_file.py \
+            automation/news/tests/test_signals_trade.py
       - name: Bring in the previous file, parts and cache from the data branch
         run: |
           mkdir -p dist/signals_state

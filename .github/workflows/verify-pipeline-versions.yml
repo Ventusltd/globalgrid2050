@@ -31,6 +31,7 @@ jobs:
           fetch-depth: 1
           sparse-checkout: |
             /uk_renewables_pipeline/20261*
+            /uk_renewables_pipeline/202609082224/
             /uk_renewables_pipeline/versions.*
             /uk_renewables_pipeline/datacentres/
             /automation/pipeline_release/

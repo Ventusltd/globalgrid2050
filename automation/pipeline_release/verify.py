@@ -129,6 +129,9 @@ def main():
                                 "verdict": verdict, "browser_checked": BROWSER, "checks": checks, "ci": v.get("ci"),
                                 "merge_commit": v.get("merge_commit"), "known_faults": v.get("known_faults", [])})
         print(f"{v['id']} {v['version']}: {verdict} " + " ".join(f"{k}={'ok' if c.get('pass') else 'FAIL'}" for k, c in checks.items()))
+        for k, c in checks.items():
+            if not c.get("pass"):
+                print(f"  {k}: {json.dumps(c, ensure_ascii=False)[:1500]}")
     if WRITE:
         (PIPELINE / "versions.json").write_text(json.dumps(doc, indent=1, ensure_ascii=False) + "\n")
         (PIPELINE / "versions.html").write_text(render(doc))

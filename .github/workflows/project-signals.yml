@@ -90,11 +90,14 @@ jobs:
           # snapshot that would make recycled articles look newly discovered.
           if git ls-remote --exit-code --heads origin "$DATA_BRANCH" >/dev/null; then
             git fetch --depth=1 origin "$DATA_BRANCH"
-            git show FETCH_HEAD:dist/project_signals.json > "$RUNNER_TEMP/previous_project_signals.json" || true
+            touch "$RUNNER_TEMP/previous-branch-existed"
+            git show FETCH_HEAD:dist/project_signals.json > "$RUNNER_TEMP/previous_project_signals.json" || { echo "::error::existing data branch lacks prior snapshot"; exit 1; }
           fi
+          previous_flag=""
+          if [ -f "$RUNNER_TEMP/previous-branch-existed" ]; then previous_flag="--require-previous"; fi
           python "$SIG/publication_gate.py" --combined "$RUNNER_TEMP/parts/project_signals.json" \
             --previous "$RUNNER_TEMP/previous_project_signals.json" --parts "$RUNNER_TEMP/parts" \
-            --report "$RUNNER_TEMP/publication-gate-probe.json"
+            $previous_flag --report "$RUNNER_TEMP/publication-gate-probe.json"
           cat "$RUNNER_TEMP/publication-gate-probe.json" >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         if: always()
@@ -130,8 +133,9 @@ jobs:
           mkdir -p dist/signals_state
           if git ls-remote --exit-code --heads origin "$DATA_BRANCH" >/dev/null; then
             git fetch --depth=1 origin "$DATA_BRANCH"
-            git show FETCH_HEAD:dist/project_signals.json > dist/project_signals.json || rm -f dist/project_signals.json
-            if [ -f dist/project_signals.json ]; then cp dist/project_signals.json "$RUNNER_TEMP/previous_project_signals.json"; fi
+            touch "$RUNNER_TEMP/previous-branch-existed"
+            git show FETCH_HEAD:dist/project_signals.json > dist/project_signals.json || { echo "::error::published branch snapshot missing"; exit 1; }
+            cp dist/project_signals.json "$RUNNER_TEMP/previous_project_signals.json"
             for name in official.json trade.json index.json gdelt_cache.json trade_cache.json; do
               git show "FETCH_HEAD:dist/signals_state/$name" > "dist/signals_state/$name" 2>/dev/null || rm -f "dist/signals_state/$name"
             done
@@ -178,9 +182,11 @@ jobs:
       - name: Fail-closed current-source publication gate
         id: publication_gate
         run: |
+          previous_flag=""
+          if [ -f "$RUNNER_TEMP/previous-branch-existed" ]; then previous_flag="--require-previous"; fi
           python "$SIG/publication_gate.py" --combined dist/project_signals.json \
             --previous "$RUNNER_TEMP/previous_project_signals.json" --parts "$RUNNER_TEMP/parts" \
-            --report "$RUNNER_TEMP/publication-gate.json" --github-output "$GITHUB_OUTPUT"
+            $previous_flag --report "$RUNNER_TEMP/publication-gate.json" --github-output "$GITHUB_OUTPUT"
           cat "$RUNNER_TEMP/publication-gate.json" >> "$GITHUB_STEP_SUMMARY"
       - name: Summary
         if: always()

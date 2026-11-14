@@ -51,8 +51,6 @@ def served_bytes():
         source_sha = hashlib.sha256(source).hexdigest()
         served_sha = hashlib.sha256(served).hexdigest()
         result[path] = {"source_sha256": source_sha, "served_sha256": served_sha, "size": len(served), "pass": source_sha == served_sha}
-        if source_sha != served_sha:
-            raise AssertionError(f"Served-byte mismatch {path}: {source_sha} != {served_sha}")
     return result
 
 
@@ -95,7 +93,13 @@ def main():
     report = {"candidate": CANDIDATE, "q3_operative": Q3, "legacy": OLD, "scope": "read-only", "checks": {}}
     try:
         report["checks"]["served_bytes"] = served_bytes()
-        report["checks"]["browser"] = browser_checks()
+        try:
+            report["checks"]["browser"] = browser_checks()
+        except Exception as exc:
+            report["checks"]["browser_error"] = f"{type(exc).__name__}: {exc}"
+        mismatches = [p for p, item in report["checks"]["served_bytes"].items() if not item["pass"]]
+        if mismatches or "browser_error" in report["checks"]:
+            raise AssertionError(f"Live gate failed: byte mismatches={mismatches}; browser={report['checks'].get('browser_error', 'PASS')}")
         report["status"] = "PASS"
     except Exception as exc:
         report["status"] = "FAIL"

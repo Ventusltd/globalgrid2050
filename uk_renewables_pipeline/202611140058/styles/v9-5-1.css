@@ -1,0 +1,14 @@
+/* V9.5.1 exposes exact newspaper/relevance counts in the release status.
+   Stack the header through compact desktop widths so the longer release
+   identity cannot cross the viewport beside the frozen 250 px sidebar. */
+@media (min-width: 921px) and (max-width: 1100px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .status {
+    width: 100%;
+    white-space: normal;
+  }
+}

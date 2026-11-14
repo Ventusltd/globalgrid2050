@@ -1,0 +1,99 @@
+{
+  "schema": "agent4-editorial-acid.v1",
+  "snapshot": {
+    "repo": "Ventusltd/globalgrid2050",
+    "pr": 100,
+    "base_head": "20c9f21339e13ba48da3ac8810dd194b0545b8d1",
+    "top200_blob": "d32c17ea7cd65f413032b68af8ea8490b8fe878b",
+    "aliases_blob": "07b990d32187e31db151eb3bcae5457070333978",
+    "exclusions_blob": "62fe2275fd8c568baf29cbac681f265f9c3157f9",
+    "gate_blob": "15398c7fc3c302f088bb531d49d50efc8867f94d",
+    "combine_blob": "5cf5be04178df443df42269fa5e9a568426126b3"
+  },
+  "note": "Synthetic counterexamples are not claims of real-world article publication. `ok` is only a title-gate verdict, not independent proof of publisher rights or event veracity.",
+  "title_cases": [
+    {
+      "id": "A4-FP-01",
+      "ref": "9050",
+      "headline": "Foston Hall solar farm approved in Lincolnshire",
+      "allowed": [
+        "possible",
+        "drop"
+      ],
+      "category": "synthetic unrelated Foston site; same county insufficient"
+    },
+    {
+      "id": "A4-FN-01",
+      "ref": "9050",
+      "headline": "Solar farm at Foston wins approval",
+      "allowed": [
+        "possible",
+        "ok"
+      ],
+      "category": "genuine Foston-area site candidate; do not suppress the lead"
+    },
+    {
+      "id": "A4-FN-02",
+      "ref": "9050",
+      "headline": "Bypass Solar Farm approved near Grantham",
+      "allowed": [
+        "ok"
+      ],
+      "category": "full verified-project alias and Grantham; do not downgrade title matching"
+    },
+    {
+      "id": "A4-FP-02",
+      "ref": "19975",
+      "headline": "North Ray of Light solar farm approved in Lincolnshire",
+      "allowed": [
+        "drop",
+        "possible"
+      ],
+      "category": "name fragment is part of a different phrase, not independent North Ray identity"
+    },
+    {
+      "id": "A4-PASS-01",
+      "ref": "9050",
+      "headline": "Decision published for S20/1433",
+      "allowed": [
+        "ok"
+      ],
+      "category": "exact planning reference"
+    },
+    {
+      "id": "A4-PASS-02",
+      "ref": "9050",
+      "headline": "Bypass diodes protect PV modules",
+      "allowed": [
+        "drop"
+      ],
+      "category": "semiconductor phrase is not Bypass Solar Farm"
+    }
+  ],
+  "dates": [
+    {
+      "id": "A4-DATE-01",
+      "value": "2026-11-15T08:00:00Z",
+      "clock": "2026-11-14T12:00:00Z",
+      "allowed_date": null,
+      "reason": "future next day is not a fresh article"
+    },
+    {
+      "id": "A4-DATE-02",
+      "value": "2026-11-14T23:59:59Z",
+      "clock": "2026-11-14T12:00:00Z",
+      "allowed_date": null,
+      "reason": "future same-day time is invalid despite matching calendar date"
+    }
+  ],
+  "collisions": [
+    {
+      "id": "A4-XREF-01",
+      "article": "Bypass Solar Farm approved near Grantham",
+      "source_project": "9050",
+      "wrong_project": "14096",
+      "link": "https://example.org/agent4/synthetic-bypass-consent",
+      "reason": "reviewed evidence for Bypass must not propagate to Frodsham without second direct association"
+    }
+  ]
+}

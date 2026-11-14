@@ -22,6 +22,12 @@ class Energy24Tests(unittest.TestCase):
     def classify(self, headline, context="", publisher=DCD):
         return scan.classify(item(headline, context, publisher), self.repd, NOW)
 
+    def publication_gate(self, snapshot, audit, now=NOW):
+        # Independently pinned fixture records, not IDs asserted by articles.
+        return scan.publication_gate(snapshot, audit, now,
+                                     verified_repd=self.repd,
+                                     licensed_dc_site_ids={"dcuk-123"})
+
     def test_no_false_repd_name_binding(self):
         v, _ = self.classify("95MW solar scheme begins construction", "Name cannot establish identity")
         self.assertIsNotNone(v)
@@ -53,16 +59,61 @@ class Energy24Tests(unittest.TestCase):
 
     def test_usd_threshold_exact(self):
         self.assertEqual(scan.money_usd("US$25 million data centre"), 25_000_000)
-        v, why = self.classify("New data center receives US$25 million investment")
+        v, why = self.classify("New data center announces US$25 million construction budget")
         self.assertEqual(why,"accepted")
         self.assertEqual(v["category"],"data-centres")
-        self.assertEqual(self.classify("New data center receives US$24.9 million investment")[1],
+        self.assertEqual(self.classify("New data center announces US$24.9 million construction budget")[1],
                          "below_or_unverified_threshold")
 
     def test_foreign_currency_not_silently_converted(self):
         self.assertIsNone(scan.money_usd("€26 million solar scheme"))
         self.assertEqual(self.classify("£50 million offshore wind scheme")[1],
                          "below_or_unverified_threshold")
+
+    def test_funding_without_project_spend_is_not_capex(self):
+        for headline in (
+            "Calibrant Energy secures US$145 million for solar and BESS across US power markets",
+            "New data center receives US$25 million investment",
+            "AI infrastructure secures $190 billion of investment",
+        ):
+            with self.subTest(headline=headline):
+                record, reason = self.classify(headline)
+                self.assertIsNone(record)
+                self.assertEqual(reason, "below_or_unverified_threshold")
+
+    def test_company_annual_target_not_single_50mw_project(self):
+        record, reason = self.classify(
+            "BESS developer targets 1GW annually in European rollout")
+        self.assertIsNone(record)
+        self.assertEqual(reason, "below_or_unverified_threshold")
+
+    def test_portfolio_deal_capacity_not_labelled_single_project(self):
+        record, reason = self.classify(
+            "AirTrunk secures exclusivity on 800MWh+ battery storage as part of 1GW Hunter renewables deal in Australia")
+        self.assertIsNone(record)
+        self.assertEqual(reason, "portfolio_capacity_requires_review")
+
+    def test_project_capacity_still_qualifies_but_finance_not_capex(self):
+        record, reason = self.classify(
+            "Solar developer secures US$145 million financing for new 100MW project")
+        self.assertEqual(reason, "accepted")
+        self.assertEqual(record["capacity_mw"], 100)
+        self.assertIsNone(record["capex_usd"])
+        self.assertEqual(record["qualification"], "MW_CAPACITY")
+
+    def test_explicit_project_build_budget_is_capex(self):
+        record, reason = self.classify(
+            "New data center commits US$30 million to build a campus")
+        self.assertEqual(reason, "accepted")
+        self.assertEqual(record["capex_usd"], 30_000_000)
+        self.assertEqual(record["qualification"], "USD_CAPEX")
+
+    def test_summary_only_finance_cannot_supply_project_capex(self):
+        record, reason = self.classify(
+            "Data center company invests in new campus",
+            "The parent company secured a US$60 million revolving credit line")
+        self.assertIsNone(record)
+        self.assertEqual(reason, "below_or_unverified_threshold")
 
     def test_equity_transaction_not_misrepresented_as_project_capex(self):
         headline = "Investor buys US$300 million stake in BESS developer"
@@ -82,9 +133,9 @@ class Energy24Tests(unittest.TestCase):
         self.assertIsNone(v["repd_ref"])
 
     def test_ai_spending_included(self):
-        v, why = self.classify("AI infrastructure secures $190 billion of investment")
+        v, why = self.classify("AI data centre operator commits $190 billion to build new hyperscale campuses")
         self.assertEqual(why,"accepted")
-        self.assertEqual(v["category"],"ai-investment")
+        self.assertEqual(v["category"],"data-centres")
         self.assertGreater(v["capex_usd"],25_000_000)
 
     def test_cyber_issues_labelled_but_not_project_works(self):
@@ -104,6 +155,10 @@ class Energy24Tests(unittest.TestCase):
         self.assertIsNone(scan.safe_url("https://user:pass@www.gov.uk/data"))
         self.assertEqual(scan.safe_url("https://www.gov.uk/x?utm_source=a&x=2"),
                          "https://www.gov.uk/x?x=2")
+        self.assertIsNone(scan.safe_url("https://www.gov.uk:8443/redirect"))
+        with self.assertRaises(ValueError):
+            scan.TrustedPublisherRedirect().redirect_request(
+                None, None, 302, "Redirect", {}, "https://localhost/private")
 
     def test_atom_feed_links_only(self):
         atom = b'''<?xml version="1.0"?>
@@ -118,6 +173,97 @@ class Energy24Tests(unittest.TestCase):
         self.assertEqual(len(rows),1)
         self.assertEqual(rows[0]["headline"],"100MW UK wind energy project")
         self.assertNotIn("html",rows[0])
+
+    def test_publication_requires_independent_uk_and_licensed_dc_identity(self):
+        stamp = NOW.isoformat().replace("+00:00", "Z")
+        feeds = [{"id": "desnz", "status": "OK", "count": 1},
+                 {"id": "dcd", "status": "OK", "count": 1}]
+        base = {"release": "2026q3", "generated_utc": stamp,
+                "sources": feeds, "articles": []}
+        audit = {"release": "2026q3", "generated_utc": stamp,
+                 "markets": scan.local_market_times(NOW), "sources": feeds}
+        ready, reasons = self.publication_gate(base, audit, NOW)
+        self.assertFalse(ready)
+        self.assertIn("fewer_than_two_publishers", reasons)
+        self.assertIn("no_exact_uk_repd_news_identity", reasons)
+        self.assertIn("no_licensed_exact_dc_site_identity", reasons)
+        base["articles"] = [
+            {"source": "Official", "published_utc": stamp, "category": "uk-repd",
+             "repd_ref": "12345", "qualification": "repd_exact_ref"},
+            {"source": "Independent publisher", "published_utc": stamp,
+             "category": "data-centres", "dc_site_id": "dcuk-123",
+             "identity_evidence": "operator_only", "site_licence_verified": True},
+        ]
+        self.assertFalse(self.publication_gate(base, audit, NOW)[0])
+        base["articles"][1]["identity_evidence"] = "verified_exact_site"
+        base["articles"][1]["site_licence_verified"] = False
+        self.assertFalse(self.publication_gate(base, audit, NOW)[0])
+        base["articles"][1]["site_licence_verified"] = True
+        self.assertEqual(self.publication_gate(base, audit, NOW), (True, []))
+        base["articles"][1]["source"] = "Official"
+        self.assertFalse(self.publication_gate(base, audit, NOW)[0])
+        base["articles"][1]["source"] = "Independent publisher"
+        audit["release"] = "2026q4"
+        self.assertIn("release_mismatch", self.publication_gate(base, audit, NOW)[1])
+
+    def test_publication_rejects_formatted_but_unverified_identity(self):
+        stamp = NOW.isoformat().replace("+00:00", "Z")
+        sources = [{"id": "desnz", "status": "OK", "count": 1},
+                   {"id": "dcd", "status": "OK", "count": 1}]
+        news = {"release": "2026q3", "generated_utc": stamp, "articles": [
+            {"source": "Official", "published_utc": stamp, "category": "uk-repd",
+             "repd_ref": "12345", "qualification": "repd_exact_ref"},
+            {"source": "Independent", "published_utc": stamp, "category": "data-centres",
+             "dc_site_id": "dcuk-123", "identity_evidence": "verified_exact_site",
+             "site_licence_verified": True}]}
+        audit = {"release": "2026q3", "generated_utc": stamp,
+                 "markets": scan.local_market_times(NOW), "sources": sources}
+        # Without independent official membership and a licence-cleared DC
+        # register, the same self-attested JSON must never publish.
+        ready, reasons = scan.publication_gate(news, audit, NOW)
+        self.assertFalse(ready)
+        self.assertIn("no_exact_uk_repd_news_identity", reasons)
+        self.assertIn("no_licensed_exact_dc_site_identity", reasons)
+        self.assertEqual(self.publication_gate(news, audit), (True, []))
+        news["articles"][0]["repd_ref"] = "99999"  # formatted but not official
+        self.assertIn("no_exact_uk_repd_news_identity",
+                      self.publication_gate(news, audit)[1])
+        news["articles"][0]["repd_ref"] = "23456"  # official but below 50MW
+        self.assertIn("no_exact_uk_repd_news_identity",
+                      self.publication_gate(news, audit)[1])
+        news["articles"][0]["repd_ref"] = "12345"
+        news["articles"][1]["dc_site_id"] = "dcuk-fabricated"  # plausible format
+        self.assertIn("no_licensed_exact_dc_site_identity",
+                      self.publication_gate(news, audit)[1])
+
+    def test_publication_rejects_replayed_and_invalid_source_evidence(self):
+        stamp = NOW.isoformat().replace("+00:00", "Z")
+        sources = [{"id": "desnz", "status": "OK", "count": 1},
+                   {"id": "dcd", "status": "OK", "count": 1}]
+        snapshot = {"release": "2026q3", "generated_utc": stamp,
+                    "articles": [
+                        {"source": "Official", "published_utc": stamp, "category": "uk-repd",
+                         "repd_ref": "12345", "qualification": "repd_exact_ref"},
+                        {"source": "Publisher", "published_utc": stamp, "category": "data-centres",
+                         "dc_site_id": "dcuk-123", "identity_evidence": "verified_exact_site",
+                         "site_licence_verified": True}]}
+        audit = {"release": "2026q3", "generated_utc": stamp,
+                 "markets": scan.local_market_times(NOW), "sources": sources}
+        self.assertEqual(self.publication_gate(snapshot, audit, NOW), (True, []))
+        self.assertIn("stale_or_unpaired_scan",
+                      self.publication_gate(snapshot, audit, NOW.replace(day=16))[1])
+        snapshot["articles"][0]["published_utc"] = "2026-10-01T00:00:00Z"
+        self.assertIn("stale_or_invalid_article", self.publication_gate(snapshot, audit, NOW)[1])
+        snapshot["articles"][0]["published_utc"] = stamp
+        audit["markets"]["Sydney"] = "2026-11-14T10:00+00:00"
+        self.assertIn("six_clocks_invalid", self.publication_gate(snapshot, audit, NOW)[1])
+        audit["markets"] = scan.local_market_times(NOW)
+        audit["sources"] = [{"id": "desnz", "status": "FAILED", "count": 0}]
+        self.assertIn("no_healthy_source_feed", self.publication_gate(snapshot, audit, NOW)[1])
+        audit["sources"] = sources
+        snapshot["articles"][1]["dc_site_id"] = "invented-123"
+        self.assertIn("no_licensed_exact_dc_site_identity",
+                      self.publication_gate(snapshot, audit, NOW)[1])
 
     def test_dedupe_and_audit(self):
         p = item("UK data center will invest $50 million")

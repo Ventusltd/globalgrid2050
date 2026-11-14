@@ -86,6 +86,39 @@ jobs:
           assert all(x['headline'] and x['source'] and x['url'].startswith('https://') for x in p['articles'])
           print('Qualified articles:',len(p['articles']))
           PY
+      - name: Rehearse real-feed writer gate without publishing
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+          from automation.energy24.scan import publication_gate, official_repd_csv
+
+          release = json.loads(Path('uk_renewables_pipeline/energy24/data/release.json').read_text())
+          # release.json pins the original GOV.UK CSV SHA256; repd-2026q3.csv
+          # is the repository's deduplicated/normalised working copy, not those bytes.
+          descriptor = json.loads(Path('automation/repd/releases/2026q3.json').read_text())
+          assert release['official_csv_sha256'] == descriptor['expected']['csv_sha256'], 'Original GOV.UK source pin mismatch'
+          cleaned = Path('repd-2026q3.csv').read_bytes()
+          git_blob = hashlib.sha1(b'blob ' + str(len(cleaned)).encode() + bytes([0]) + cleaned).hexdigest()
+          assert git_blob == '7b083325f9ce3b917e2607b9ed8b85ea220a4eda', 'Normalised REPD Git blob mismatch'
+          digest = hashlib.sha256(cleaned).hexdigest()
+          assert digest == 'd937ae16ad07f43caaaa25b4cee56399e1e9b9bb2ae5ecb7bc88cf9bc092e4b9', 'Normalised REPD SHA256 mismatch'
+          news = json.loads(Path('/tmp/energy24/news.latest.json').read_text())
+          audit = json.loads(Path('/tmp/energy24/news.audit.json').read_text())
+          # Pinned normalised REPD membership; never trust IDs in news JSON.
+          # The licence-cleared DC register has not passed independent review.
+          # Empty trusted IDs keep the writer on HOLD until that source is pinned.
+          verified_repd = official_repd_csv(Path('repd-2026q3.csv'))
+          ready, reasons = publication_gate(news, audit,
+              verified_repd=verified_repd, licensed_dc_site_ids=set())
+          assert isinstance(ready, bool) and isinstance(reasons, list)
+          assert ready == (len(reasons) == 0), 'Publication gate inconsistent'
+          print('Original GOV.UK SHA256 pin:', release['official_csv_sha256'])
+          print('Normalised REPD SHA256 (independent working copy):', digest)
+          print('Real-feed publication rehearsal:', 'PASS (candidate only, no write)' if ready else 'HOLD: ' + ', '.join(reasons))
+          PY
       - name: Preserve all evidence, including failed scans
         if: always()
         uses: actions/upload-artifact@v4
@@ -115,7 +148,27 @@ jobs:
         with:
           name: energy24-six-market-scan-${{ github.run_number }}
           path: /tmp/energy24
+      - name: Hold unverified UK or data-centre identities outside production
+        id: coverage
+        run: |
+          python - <<'PY'
+          import json, os, pathlib
+          from pathlib import Path
+          from automation.energy24.scan import publication_gate, official_repd_csv
+          news=json.loads(pathlib.Path('/tmp/energy24/news.latest.json').read_text())
+          audit=json.loads(pathlib.Path('/tmp/energy24/news.audit.json').read_text())
+          # Pinned normalised REPD membership; never trust IDs in news JSON.
+          # The licence-cleared DC register has not passed independent review.
+          # Empty trusted IDs keep the writer on HOLD until that source is pinned.
+          verified_repd = official_repd_csv(Path('repd-2026q3.csv'))
+          ready, reasons = publication_gate(news, audit,
+              verified_repd=verified_repd, licensed_dc_site_ids=set())
+          with open(os.environ['GITHUB_OUTPUT'],'a',encoding='utf-8') as out:
+              out.write('ready='+str(ready).lower()+'\n')
+          print('Energy24 publication gate:', 'PASS' if ready else 'HOLD: '+', '.join(reasons))
+          PY
       - name: Verify release unchanged before writing designated paths
+        if: ${{ steps.coverage.outputs.ready == 'true' }}
         run: |
           set -euo pipefail
           python - <<'PY'
@@ -132,6 +185,7 @@ jobs:
               (dest/name).write_bytes((pathlib.Path('/tmp/energy24')/name).read_bytes())
           PY
       - name: Commit only allow-listed news files if main did not drift
+        if: ${{ steps.coverage.outputs.ready == 'true' }}
         run: |
           set -euo pipefail
           git config user.name "GlobalGrid2050 News Monitor"

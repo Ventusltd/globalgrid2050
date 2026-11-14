@@ -18,7 +18,7 @@ from pathlib import Path
 import re
 import sys
 from urllib.parse import urlparse, urlunparse, parse_qsl, urlencode
-from urllib.request import Request, urlopen
+from urllib.request import Request, build_opener, HTTPRedirectHandler
 from zoneinfo import ZoneInfo
 import xml.etree.ElementTree as ET
 
@@ -57,6 +57,28 @@ UNCERTAIN_RE = re.compile(r"\b(rumo[u]?r|unconfirmed|allegedly|sponsored|adverto
 BAD_WORDS = frozenset(("fuck","fucking","shit","cunt","motherfucker","bullshit"))
 ASSET_TECH_RE = re.compile(r"\b(bess|battery|solar|wind|energy storage|power plant|renewable)\b", re.I)
 CORPORATE_FINANCE_RE = re.compile(r"\b(?:(?:buys?|acquires?|purchases?)\b.{0,90}\b(?:stake|shares|equity)\b|holdco\b.{0,40}\b(?:facility|loan)\b|share purchase|buyout|takeover)\b", re.I)
+# A reported financing round, equity investment or corporate credit line is not
+# project CAPEX. Require explicit construction/project expenditure language in
+# the publisher headline before treating USD as a headline qualification.
+PROJECT_CAPEX_RE = re.compile(
+    r"\b(?:capex|capital expenditure|construction (?:budget|cost|spend)|"
+    r"project (?:budget|cost|capex)|development (?:budget|cost)|"
+    r"cost to build|invests?\b.{0,65}\b(?:to build|to construct|in (?:a |new )?(?:solar|battery|bess|data cent(?:er|re)|campus|power plant))|"
+    r"commits?\b.{0,65}\b(?:to build|to construct|for construction))\b",
+    re.I,
+)
+# A company-wide annual target is not the size of an identified project.
+ANNUAL_TARGET_RE = re.compile(
+    r"\b(?:target(?:s|ing)?|aims?|plans?)\b.{0,45}\b\d[\d,.]*\s*(?:GW|MW)\b.{0,25}\b(?:annually|per year|a year)\b",
+    re.I,
+)
+# Portfolio/deal MW is not automatically the MW of one identifiable project.
+# A multi-asset transaction needs a reviewed project breakdown before promotion.
+PORTFOLIO_DEAL_RE = re.compile(
+    r"\b(?:as part of|across|within)\b.{0,85}\b\d[\d,.]*\s*(?:GW|MW)\b.{0,75}\b(?:deal|portfolio|pipeline|programme|program)\b"
+    r"|\b\d[\d,.]*\s*(?:GW|MW)\b.{0,55}\b(?:renewables deal|project portfolio|project pipeline)\b",
+    re.I,
+)
 URL_ALLOWED = frozenset(("www.gov.uk","gov.uk","www.datacenterdynamics.com","datacenterdynamics.com",
                          "www.energy-storage.news","energy-storage.news","www.pv-magazine.com","pv-magazine.com"))
 MIN_CAPEX_USD = 25_000_000
@@ -85,7 +107,7 @@ def safe_url(raw: str) -> str | None:
         if url.scheme != "https" or url.username or url.password or not url.hostname:
             return None
         host = url.hostname.lower()
-        if host not in URL_ALLOWED:
+        if host not in URL_ALLOWED or url.port not in (None, 443):
             return None
         clean = url._replace(fragment="", query=urlencode(
             [(k, v) for k, v in parse_qsl(url.query) if not k.lower().startswith("utm_")]))
@@ -193,12 +215,21 @@ def parse_feed(xml_bytes: bytes, publisher: dict) -> list[dict]:
     return records
 
 
+class TrustedPublisherRedirect(HTTPRedirectHandler):
+    """Reject off-allowlist redirects before making any network request."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        if safe_url(newurl) is None:
+            raise ValueError("Publisher redirect outside HTTPS host allowlist")
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
 def fetch_feed(publisher: dict) -> bytes:
     request = Request(publisher["url"], headers={
         "User-Agent": "GlobalGrid2050-Energy24/1.0 (public source-URL screening; link-only)",
         "Accept": "application/atom+xml, application/rss+xml, application/xml, text/xml"
     })
-    with urlopen(request, timeout=18) as response:
+    with build_opener(TrustedPublisherRedirect()).open(request, timeout=18) as response:
         final_url = safe_url(response.geturl())
         if final_url is None:
             raise ValueError("Feed redirected outside a trusted HTTPS publisher")
@@ -242,8 +273,19 @@ def classify(item: dict, repd: dict, now: datetime) -> tuple[dict | None, str]:
     ref = next(iter(ids)) if len(ids) == 1 else None
     if len(ids) > 1:
         return None, "ambiguous_repd_refs"
-    capex = money_usd(title) or money_usd(item["context"])
+    if not ref and PORTFOLIO_DEAL_RE.search(title):
+        return None, "portfolio_capacity_requires_review"
+    reported_usd = money_usd(title) or money_usd(item["context"])
+    # Never publish a finance amount as project CAPEX without explicit
+    # construction/project spending evidence in the actual headline.
+    capex = money_usd(title) if PROJECT_CAPEX_RE.search(title) else None
     mw = capacity_mw(title) or capacity_mw(item["context"])
+    if ANNUAL_TARGET_RE.search(title):
+        mw = None
+    # Preserve a distinct, auditable rejection reason for finance-only
+    # equity and holding-company transactions, even when no CAPEX qualifies.
+    if not ref and reported_usd is not None and (mw is None or mw < MIN_PROJECT_MW) and CORPORATE_FINANCE_RE.search(title):
+        return None, "corporate_financing_not_project_capex"
     dc = bool(DC_RE.search(title))
     cyber = bool(CYBER_RE.search(title))
     ethics = bool(ETHICS_RE.search(title))
@@ -312,6 +354,90 @@ def classify(item: dict, repd: dict, now: datetime) -> tuple[dict | None, str]:
     record["priority"] = priority
     return record, "accepted"
 
+
+
+def publication_gate(snapshot: dict, audit: dict, now: datetime | None = None, *,
+                     verified_repd: dict | None = None,
+                     licensed_dc_site_ids: set[str] | None = None) -> tuple[bool, list[str]]:
+    """Fail closed on unverified identities, stale evidence, or incomplete six-market clocks.
+
+    The scanner filters old headlines, but the hourly writer must independently
+    validate the downloaded artifact against authoritative REPD records and a
+    separately verified, licence-cleared DC site register. This also prevents
+    replay of a previously valid snapshot after the feeds stop updating.
+    """
+    now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
+    reasons = []
+    articles = snapshot.get("articles") or []
+    publishers = {x.get("source") for x in articles if x.get("source")}
+    if len(publishers) < 2:
+        reasons.append("fewer_than_two_publishers")
+    # Never trust an article's own 'verified' flags or a correctly formatted ID.
+    # The writer must supply independently pinned official REPD membership and a
+    # separately licence-cleared DC ID set. Missing evidence means HOLD.
+    def official_uk_identity(x: dict) -> bool:
+        ref = str(x.get("repd_ref") or "")
+        if (x.get("category") != "uk-repd"
+                or x.get("qualification") != "repd_exact_ref"
+                or not re.fullmatch(r"\d{3,8}", ref)
+                or verified_repd is None or ref not in verified_repd):
+            return False
+        try:
+            return float(verified_repd[ref]["Installed Capacity (MWelec)"]) >= MIN_PROJECT_MW
+        except (KeyError, ValueError, TypeError):
+            return False
+
+    if not any(official_uk_identity(x) for x in articles):
+        reasons.append("no_exact_uk_repd_news_identity")
+    if not any(x.get("category") == "data-centres"
+               and re.fullmatch(r"dcuk-[A-Za-z0-9_-]+", str(x.get("dc_site_id") or ""))
+               and x.get("identity_evidence") == "verified_exact_site"
+               and x.get("site_licence_verified") is True
+               and licensed_dc_site_ids is not None
+               and x.get("dc_site_id") in licensed_dc_site_ids for x in articles):
+        reasons.append("no_licensed_exact_dc_site_identity")
+    if snapshot.get("release") != audit.get("release"):
+        reasons.append("release_mismatch")
+
+    # Independent freshness check, separate from the scanner's classification.
+    generated = parse_date(snapshot.get("generated_utc") or "")
+    audited = parse_date(audit.get("generated_utc") or "")
+    if (generated is None or audited is None or generated != audited
+            or not now - timedelta(minutes=90) <= generated <= now + timedelta(minutes=5)):
+        reasons.append("stale_or_unpaired_scan")
+    if not articles or any(
+        not isinstance(x.get("published_utc"), str)
+        or not x["published_utc"].endswith("Z")
+        or (date := parse_date(x["published_utc"])) is None
+        or date < now - timedelta(days=MAX_AGE_DAYS)
+        or date > now + timedelta(hours=1)
+        for x in articles
+    ):
+        reasons.append("stale_or_invalid_article")
+
+    health = audit.get("sources") or []
+    if not any(x.get("status") == "OK" and x.get("count", 0) > 0 for x in health):
+        reasons.append("no_healthy_source_feed")
+
+    # Verify the actual IANA clock offsets, not merely six arbitrary labels.
+    markets = audit.get("markets") or {}
+    clock_ok = generated is not None and set(markets) == set(MARKETS)
+    if clock_ok:
+        for city, zone in MARKETS.items():
+            try:
+                local = datetime.fromisoformat(markets[city])
+                if (local.tzinfo is None
+                        or local.astimezone(timezone.utc).replace(second=0, microsecond=0)
+                        != generated.replace(second=0, microsecond=0)
+                        or local.utcoffset() != generated.astimezone(ZoneInfo(zone)).utcoffset()):
+                    clock_ok = False
+                    break
+            except (ValueError, TypeError):
+                clock_ok = False
+                break
+    if not clock_ok:
+        reasons.append("six_clocks_invalid")
+    return not reasons, reasons
 
 def local_market_times(now: datetime) -> dict[str, str]:
     return {city: now.astimezone(ZoneInfo(tz)).isoformat(timespec="minutes")

@@ -306,7 +306,36 @@ def clean_item(raw, team, today=None, collected_at=None, as_of=None):
         return None, "no title or link"
     if _excluded(link):
         return None, "source not allowed"
-    date = parse_date(raw.get("date"), today) or DATES.url_day(link, today)   # a full date in the link is the article's own
+    when = raw.get("collected_at") if isinstance(raw.get("collected_at"), str) and raw.get("collected_at") else collected_at
+    collection_clock = None
+    if isinstance(when, str):
+        try:
+            collection_clock = dt.datetime.fromisoformat(when.replace("Z", "+00:00"))
+            if collection_clock.tzinfo is None:
+                collection_clock = None
+        except ValueError:
+            collection_clock = None
+    raw_date = raw.get("date")
+    future = False
+    # Keep the publisher's written calendar day, but never promote a story
+    # published AFTER the actual fetch/observation time into recent news.
+    # Timezone-free stamps may provide a calendar day, never a precise UTC
+    # instant; no offset is silently invented.
+    if collection_clock is not None and isinstance(raw_date, str) and raw_date.strip():
+        value = raw_date.strip()
+        try:
+            if re.match(r"^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:", value):
+                publication = dt.datetime.fromisoformat(value.replace("Z", "+00:00"))
+                if publication.tzinfo is not None:
+                    future = publication > collection_clock + dt.timedelta(minutes=5)
+                else:
+                    future = publication.date() > collection_clock.date()
+            else:
+                publisher_day = DATES.day(value)
+                future = bool(publisher_day and dt.date.fromisoformat(publisher_day) > collection_clock.date())
+        except ValueError:
+            pass
+    date = None if future else (parse_date(raw_date, today) or DATES.url_day(link, today))
     year = int(date[:4]) if date else None
     # The calendar year alone can be evidenced by a reviewed entry or a
     # source URL without knowing a day. This is year-only ARCHIVE metadata,
@@ -324,7 +353,6 @@ def clean_item(raw, team, today=None, collected_at=None, as_of=None):
     reviewed = team == REVIEWED or raw.get("obtained") == "reviewed" or basis.startswith(REVIEWED)
     if reviewed and not basis.startswith(REVIEWED):
         basis = REVIEWED
-    when = raw.get("collected_at") if isinstance(raw.get("collected_at"), str) and raw.get("collected_at") else collected_at
     return {"repd_ref": str(raw.get("repd_ref") or ""), "title": title, "link": link,
             "publisher": D.clean_text(str(raw.get("publisher") or ""), 80) or (urllib.parse.urlsplit(link).hostname or ""),
             "date": date, "year": year, "tier": tier_of(family, date, today),

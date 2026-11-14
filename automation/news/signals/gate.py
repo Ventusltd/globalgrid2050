@@ -197,7 +197,7 @@ def project_of(row, entry=None, rules=None):
         mw = 0.0
     return {"repd_ref": str(row.get("repd_ref")), "aliases": names, "planning_ref": field("planning_ref"), "mw": mw,
             "home": [h for h in home if h and len(h) >= 4], "developers": developers, "weak": rules.get("weak_alias"),
-            "county_also": list(rules.get("county_also") or []),
+            "county": county, "county_also": list(rules.get("county_also") or []),
             "exclude": [p for p in rules.get("exclude") or [] if isinstance(p, str) and p.strip()]}
 
 
@@ -237,6 +237,14 @@ def judge(ref, title, project=None, official=False):
                     if not any(_has(d, _norm(a)) or _has(core_of(a), _norm(d)) for a in project["aliases"]))
     if FOREIGN_RE.search(title) and not UK_RE.search(title) and not home and not developer:
         return "drop", "the headline is placed outside the UK"
+    # An explicit mismatched UK county is strong negative location evidence,
+    # even if a generic alias or town occurs elsewhere in the title.
+    named_counties = [c for c in COUNTIES if _has(c, text)]
+    county = project.get("county") or ""
+    allowed_counties = [county] + REGIONS.get(county.lower(), []) + [
+        x for x in project.get("county_also") or [] if x in COUNTIES]
+    if named_counties and not any(_has(c, text) for c in allowed_counties if c):
+        return "drop", "headline explicitly names a different UK county"
     if weak and not home:
         inside = " ".join(_norm(a) for a in project["aliases"])
         other = [c for c in COUNTIES if _has(c, text) and not _has(c, inside)]

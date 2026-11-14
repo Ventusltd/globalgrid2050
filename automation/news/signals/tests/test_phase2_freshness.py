@@ -36,11 +36,11 @@ def built(parts=None, previous=None):
     return C.combine(ROWS, parts=parts or {}, previous=previous, now_iso=NOW, use_module=False)
 
 
-def evaluate(combined, previous, parts, now=CLOCK):
+def evaluate(combined, previous, parts, now=CLOCK, **kwargs):
     # Synthetic IDs are explicitly allowed ONLY in offline fixture invocation;
     # publication_gate.py's CLI always loads the authoritative top200_solar.json.
     return G.evaluate(combined, previous, parts, now,
-                      authoritative_refs={r["repd_ref"] for r in ROWS})
+                      authoritative_refs={r["repd_ref"] for r in ROWS}, **kwargs)
 
 
 def test_future_and_impossible_calendar_dates_are_rejected_not_sorted_first():
@@ -152,3 +152,29 @@ def test_matching_article_and_source_domain_is_publish_eligible():
     combined = built({"trade": candidate})
     result = evaluate(combined, None, {"trade": candidate})
     assert result["publish"] and result["new_confirmed_recent_items"] == 1
+
+def test_future_same_day_utc_and_offset_timestamps_do_not_bypass_clock():
+    for future in ("2026-11-14T23:59:59Z", "2026-11-14T07:00:00-07:00",
+                   "2026-11-15T08:00:00+14:00"):
+        item, reason = C.clean_item(article(future), "trade", as_of=CLOCK)
+        assert item is None and reason == "invalid or future date", future
+    # This is already 11:00 UTC; source-local calendar says 15 November.
+    item, reason = C.clean_item(article("2026-11-15T01:00:00+14:00"), "trade", as_of=CLOCK)
+    assert reason == "" and item["date"] == "2026-11-14"
+
+
+def test_existing_branch_requires_valid_previous_snapshot():
+    candidate = part([article()])
+    combined = built({"trade": candidate})
+    try:
+        evaluate(combined, None, {"trade": candidate}, require_previous=True)
+    except ValueError as exc:
+        assert "previous snapshot" in str(exc)
+    else:
+        raise AssertionError("missing previous snapshot allowed for existing branch")
+    try:
+        evaluate(combined, {"schema": "corrupt"}, {"trade": candidate})
+    except ValueError as exc:
+        assert "previous" in str(exc)
+    else:
+        raise AssertionError("corrupt prior snapshot treated as empty history")

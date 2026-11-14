@@ -1,0 +1,45 @@
+name: Agent 1 producer strict acceptance (no xfail masking)
+# QA-only; never deploy or write data. Separate strict gate from legacy suite.
+on:
+  pull_request:
+    paths:
+      - 'automation/news/signals/**'
+      - 'automation/news/datacentre_feed.py'
+      - '.github/workflows/agent1-producer-strict.yml'
+permissions:
+  contents: read
+jobs:
+  strict-acid:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet pytest
+      - name: Strict existing acid with ALL known/open recommendations exposed
+        run: python -m pytest -q --runxfail -p no:cacheprovider automation/news/tests/test_signals_acid.py
+  agent4-editorial:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet pytest
+      - name: Fetch reviewer cases at immutable SHA without editing their branch
+        run: |
+          reviewer="e1a9f767c7a41a2a02c9745df273a373ff8ad1e8"
+          git fetch --no-tags --depth=1 origin "$reviewer"
+          test "$(git rev-parse FETCH_HEAD)" = "$reviewer"
+          mkdir -p automation/news/signals/agent4
+          git show "FETCH_HEAD:automation/news/signals/agent4/editorial_acid_cases.json" \
+            > automation/news/signals/agent4/editorial_acid_cases.json
+          git show "FETCH_HEAD:automation/news/signals/tests/test_agent4_editorial_regressions.py" \
+            > automation/news/signals/tests/test_agent4_editorial_regressions.py
+      - name: Agent 4 independent editorial positive and negative regression cases
+        run: python -m pytest -q --runxfail -p no:cacheprovider automation/news/signals/tests/test_agent4_editorial_regressions.py

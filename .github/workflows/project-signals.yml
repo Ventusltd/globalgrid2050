@@ -81,6 +81,18 @@ jobs:
             --index "$RUNNER_TEMP/parts/index.json" --out "$RUNNER_TEMP/parts/project_signals.json" \
             --summary "$RUNNER_TEMP/combine-probe.md"
           cat "$RUNNER_TEMP/combine-probe.md" | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Rehearse current-source publication gate (read-only, never write)
+        run: |
+          # Compare against the actually published data branch, not an empty
+          # snapshot that would make recycled articles look newly discovered.
+          if git ls-remote --exit-code --heads origin "$DATA_BRANCH" >/dev/null; then
+            git fetch --depth=1 origin "$DATA_BRANCH"
+            git show FETCH_HEAD:dist/project_signals.json > "$RUNNER_TEMP/previous_project_signals.json" || true
+          fi
+          python "$SIG/publication_gate.py" --combined "$RUNNER_TEMP/parts/project_signals.json" \
+            --previous "$RUNNER_TEMP/previous_project_signals.json" --parts "$RUNNER_TEMP/parts" \
+            --report "$RUNNER_TEMP/publication-gate-probe.json"
+          cat "$RUNNER_TEMP/publication-gate-probe.json" >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -88,6 +100,7 @@ jobs:
           path: |
             ${{ runner.temp }}/parts/*.json
             ${{ runner.temp }}/*-probe.md
+            ${{ runner.temp }}/publication-gate-probe.json
           retention-days: 14
   refresh:
     if: github.event_name != 'pull_request'

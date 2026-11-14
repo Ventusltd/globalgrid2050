@@ -21,6 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
       - name: Read-only script syntax and Python unit tests
         shell: bash
@@ -50,6 +51,7 @@ jobs:
       - name: Checkout exact candidate QA head and complete historical trees
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           path: globalgrid
           persist-credentials: false
           fetch-depth: 0
@@ -74,6 +76,17 @@ jobs:
           sparse-checkout-cone-mode: false
           sparse-checkout: |
             /automation/news/signals/top200_solar.json
+      - name: Checkout pinned real homepage-owner release logic for non-destructive rehearsal
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: Ventusltd/globalgrid2050-homepage
+          ref: c7c1ed735a52e9fdb9e74db6331c5ad0e188a001
+          path: homepage-owner
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /scripts/releases.py
+            /data/homepage.json
       - name: Fetch independently reviewed TestCode verifier at fixed Agent 3 commit
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
@@ -132,6 +145,17 @@ jobs:
           python3 globalgrid/automation/pipeline_release/agent3_readonly_gate.py \
             --repo globalgrid --out agent3-baseline.json
           jq -e '.offline_integrity_status == "PASS" and .acceptance_status == "UNVERIFIED" and .publication_status == "HOLD" and .release_authorised == false' agent3-baseline.json
+      - name: Rehearse true owner-homepage logic in memory only (synthetic non-release candidate)
+        shell: bash
+        run: |
+          set -euo pipefail
+          git -C homepage-owner rev-parse HEAD | tee owner-head.txt
+          python3 globalgrid/automation/pipeline_release/agent3_rollback_dryrun.py \
+            --homepage-repo homepage-owner \
+            --candidate-id 202611142359 \
+            --integration-sha "$(cat qa-head.txt)" \
+            --out agent3-synthetic-rollback.json
+          jq -e '.status == "PASS" and .published_or_promoted == false and .real_live_rollback == "UNVERIFIED" and .restored_operative == "202611140306"' agent3-synthetic-rollback.json
       - name: Archive exact source, SHA and history checks with no silent missing outputs
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -143,6 +167,8 @@ jobs:
             source-hashes.log
             top200-hash.log
             official-head.txt
+            owner-head.txt
             qa-head.txt
+            agent3-synthetic-rollback.json
           if-no-files-found: error
           retention-days: 90

@@ -136,8 +136,6 @@ def test_reviewed_part_fills_gaps_and_never_outranks_a_fetched_item():
          "notes": "private note", "evidence": "text"}], sources=[])
     result = C.combine(ROWS, ALIASES, {"index": index, "reviewed": rev}, now_iso=NOW, use_module=False)
     botley = result["projects"]["12588"]["signals"]
-    assert [s["title"] for s in botley] == ["Headline r-new", "Headline same", "Headline r-undated", "Headline old"] or \
-        [s["link"].rsplit("/", 1)[1] for s in botley] == ["r-new", "same", "r-undated", "old"][:0] or True
     assert [s["link"].rsplit("/", 1)[1] for s in botley] == ["r-new", "same", "old", "r-undated"]      # newest first, undated last
     same = next(s for s in botley if s["link"].endswith("/same"))
     assert same["family"] == "bbc" and same["basis"].startswith("BBC News RSS")                       # the fetched item won

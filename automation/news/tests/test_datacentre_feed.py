@@ -87,7 +87,7 @@ def test_summary_is_used_for_matching_but_never_stored():
     assert len(items) == 1 and items[0]["lanes"] == ["capex"]
     assert "secret body" not in json.dumps(items)
     assert set(items[0]) == {"title", "link", "source", "date", "first_seen", "lanes", "matched_terms", "sites",
-                             "site_matches"}
+                             "site_matches", "capex_basis", "pinned", "operator_sites"}
 
 
 # ----------------------------------------------------------------- parsing
@@ -130,27 +130,28 @@ def test_titles_are_plain_text():
 
 def test_register_site_name_beats_operator_and_repd_context():
     reg = D.Register(REGISTER)
-    sites, n = reg.match("Equinix LD8 expansion: £500m investment")
-    assert n == 2 and sites[0]["id"] == "dc-1" and sites[0]["matched_on"] == "site_name"
-    assert sites[1]["id"] == "dc-2" and sites[1]["matched_on"] == "operator"
+    sites, operator_sites, n = reg.match("Equinix LD8 expansion: £500m investment")
+    assert n == 2 and [s["id"] for s in sites] == ["dc-1"] and sites[0]["matched_on"] == "site_name"
+    # The operator's other site is listed for review only: not a named site, and no REPD context.
+    assert [s["id"] for s in operator_sites] == ["dc-2"] and operator_sites[0]["matched_on"] == "operator"
+    assert "repd_nearby" not in operator_sites[0]
     ctx = sites[0]["repd_nearby"]
     assert ctx["radius_km"] == 10 and ctx["projects"] == 3 and ctx["projects_mw_unknown"] == 1
     assert ctx["mw_stated"] == 40.5 and ctx["mw_stated_by_technology"]["solar"] == 40.5
-    assert sites[1]["repd_nearby"]["mw_stated_by_technology"]["battery"] == 99.0
 
 
 def test_unreliable_point_has_no_repd_context_and_generic_names_never_match():
     reg = D.Register(REGISTER)
-    sites, _ = reg.match("North Wales AI Growth Zone gets minister visit")
+    sites, _, _ = reg.match("North Wales AI Growth Zone gets minister visit")
     assert sites[0]["id"] == "dc-3" and sites[0]["repd_nearby"] is None
     assert reg.match("Unnamed data centre planning row")[0] == []
 
 
 def test_short_uppercase_operator_is_case_exact_and_alias_works():
     reg = D.Register(REGISTER)
-    assert reg.match("SCC wins data centre contract")[0][0]["id"] == "dc-6"
-    assert reg.match("Accessibility of data centre jobs")[0] == []
-    assert reg.match("AWS to invest £8bn in UK data centres")[0][0]["id"] == "dc-7"
+    assert reg.match("SCC wins data centre contract")[1][0]["id"] == "dc-6"
+    assert reg.match("Accessibility of data centre jobs")[:2] == ([], [])
+    assert reg.match("AWS to invest £8bn in UK data centres")[1][0]["id"] == "dc-7"
 
 
 def test_general_operator_alone_does_not_make_a_datacentre_story():
@@ -161,13 +162,24 @@ def test_general_operator_alone_does_not_make_a_datacentre_story():
     items, _ = D.collect([("u", "S", "w")], lambda u: feed, reg, NOW)
     assert [i["link"] for i in items] == ["https://e.org/2", "https://e.org/3"]
     assert "register site" in items[0]["matched_terms"]["datacentre"]
-    assert items[1]["sites"][0]["id"] == "dc-4"
+    assert items[1]["sites"] == [] and items[1]["operator_sites"][0]["id"] == "dc-4"
+    assert items[0]["capex_basis"] == "financing"
+
+
+def test_sponsored_headlines_are_dropped_and_build_is_told_from_financing():
+    feed = rss(("Sponsored: Why data centre investment must rethink water", "https://e.org/1", "", ""),
+               ("Fund of £600m established to support data centre projects", "https://e.org/2", "", ""),
+               ("Construction starts on £1bn data centre", "https://e.org/3", "", ""))
+    items, _ = D.collect([("u", "S", "w")], lambda u: feed, None, NOW)
+    assert [(i["link"], i["capex_basis"]) for i in items] == [("https://e.org/2", "financing"),
+                                                              ("https://e.org/3", "build")]
+    assert all(i["pinned"] is False for i in items)
 
 
 def test_sites_capped_per_item():
     many = [site("dc-%02d" % i, "Op Site %d" % i, "Bigco") for i in range(9)]
-    sites, n = D.Register(many).match("Bigco data centre investment")
-    assert n == 9 and len(sites) == D.SITES_PER_ITEM
+    sites, operator_sites, n = D.Register(many).match("Bigco data centre investment")
+    assert n == 9 and sites == [] and len(operator_sites) == D.SITES_PER_ITEM
 
 
 # ----------------------------------------------------------------- collection, failure, merge, ordering
@@ -221,7 +233,7 @@ def test_fixture_run_end_to_end_is_deterministic(tmp_path):
     dates = [i["date"] for i in data["items"] if i["date"]]
     assert dates == sorted(dates, reverse=True)
     eq = next(i for i in data["items"] if i["link"].endswith("fx0001"))
-    assert eq["lanes"] == ["capex"] and {s["id"] for s in eq["sites"]} == {"dc-1", "dc-2"}
+    assert eq["lanes"] == ["capex"] and {s["id"] for s in eq["sites"] + eq["operator_sites"]} == {"dc-1", "dc-2"}
     # re-running over its own output keeps the file stable (merge is idempotent)
     assert D.main(args + ["--out", str(out1)]) == 0
     assert out1.read_bytes() == a
@@ -293,3 +305,18 @@ def test_shipped_pinned_items_carry_a_date():
 
     items = feed.load_pinned(Path(feed.__file__).with_name("datacentre_pinned.json"), "2026-11-14T00:00:00Z")
     assert all(i["date"] for i in items), "a pinned item without a parseable date shows undated in the panel"
+
+
+def test_items_from_earlier_runs_are_brought_to_the_current_shape():
+    old = [{"title": "Sponsored: data centre water", "link": "https://e.org/s", "date": None, "first_seen": NOW,
+            "lanes": ["politics"], "matched_terms": {"datacentre": [], "capex": [], "politics": ["water"]},
+            "sites": [], "site_matches": 0},
+           {"title": "Equinix LD8 expansion", "link": "https://e.org/1", "date": None, "first_seen": NOW,
+            "lanes": ["capex"], "matched_terms": {"datacentre": [], "capex": ["expansion"], "politics": []},
+            "sites": [{"id": "dc-1", "matched_on": "site_name", "repd_nearby": None},
+                      {"id": "dc-2", "matched_on": "operator", "repd_nearby": {"projects": 2}}], "site_matches": 2}]
+    merged = D.merge(old, [])
+    assert [m["link"] for m in merged] == ["https://e.org/1"]
+    assert [s["id"] for s in merged[0]["sites"]] == ["dc-1"]
+    assert merged[0]["operator_sites"] == [{"id": "dc-2", "matched_on": "operator"}]
+    assert merged[0]["capex_basis"] == "build" and merged[0]["pinned"] is False

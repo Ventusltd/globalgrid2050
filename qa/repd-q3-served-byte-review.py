@@ -113,7 +113,7 @@ def expected_published_homepage() -> bytes:
     fallback = 'href="data/homepage.json"'
     assert index.count(fallback) == 1, "Unexpected homepage catalogue link"
     index = index.replace(fallback, 'href="./homepage-shell/data/homepage.json"')
-    return (index.rstrip() + "\\n").encode("utf-8")
+    return (index.rstrip() + "\n").encode("utf-8")
 
 for path in LEGACY:
     local = ROOT / path

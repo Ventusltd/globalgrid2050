@@ -1,0 +1,57 @@
+name: Project signals, trade press (probe)
+# Owner, 14 Nov 2026: "See if you can create fetch scripts that can find at least one news signal for the top 200
+# projects only in the REPD database specifically for solar only please."
+# Team "trade" of the project-signals contract: automation/news/signals/trade.py asks each trade site's own public
+# search for each project's alias and keeps headlines and links only. This workflow is the read-only probe: on a
+# pull request that touches the script it runs the offline tests, then the script against the live sites, and
+# prints in the job summary what each site offers, what is refused, how many of the 200 projects have a trade
+# signal, and the comparison with the hand-checked ground truth. It writes to no branch, opens no pull request and
+# deploys nothing. The scheduled run that publishes the combined file belongs to project-signals.yml.
+on:
+  pull_request:
+    paths:
+      - 'automation/news/signals/trade.py'
+      - 'automation/news/signals/aliases.json'
+      - 'automation/news/signals/top200_solar.json'
+      - 'automation/news/datacentre_feed.py'
+      - 'automation/news/tests/test_signals_trade.py'
+      - 'automation/news/tests/fixtures/signals/**'
+      - '.github/workflows/project-signals-trade.yml'
+permissions:
+  contents: read
+concurrency:
+  group: project-signals-trade-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Tests (offline fixtures)
+        run: |
+          python -m pip install --quiet pytest
+          python -m pytest -q -p no:cacheprovider automation/news/tests/test_signals_trade.py
+      - name: Search every site for all 200 projects and report (no branch written)
+        run: |
+          python automation/news/signals/trade.py \
+            --out "$RUNNER_TEMP/trade/project_signals_trade.json" \
+            --cache "$RUNNER_TEMP/trade/trade_cache.json" \
+            --probe "$RUNNER_TEMP/trade/probe.md" \
+            --truth automation/news/tests/fixtures/signals/truth_trade.json \
+            --discover --batch 200 --per-host-cap 450 --host-seconds 1500
+          cat "$RUNNER_TEMP/trade/probe.md" >> "$GITHUB_STEP_SUMMARY"
+          cat "$RUNNER_TEMP/trade/probe.md"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: project-signals-trade-probe
+          path: ${{ runner.temp }}/trade/
+          retention-days: 14

@@ -52,13 +52,15 @@ const send = (method, params = {}, sessionId) => new Promise((res, rej) => {
   const id = ++seq; waiting.set(id, { res, rej }); ws.send(JSON.stringify({ id, method, params, sessionId }));
 });
 
+// Probes that need the public internet (a CDN script, for example) run only where it is reachable.
+const EXTERNAL = !!process.env.GITHUB_ACTIONS || process.env.PROBE_EXTERNAL === '1';
 const PROBES = process.env.PROBES_FILE ? JSON.parse(readFileSync(process.env.PROBES_FILE, "utf8")) : {};
 
 /* A probe looks at one named thing on the page and says whether it is as expected.
  * With `search` it first types that text in the table search (a REPD Ref ID) and looks
  * inside the row `row`; without, it looks at the page. `contains`, `not_contains` and
  * `attrs` are checked on the element `selector`; `link_selector` + `link_regex` on a link
- * inside it. The row's MAP href is returned so the caller can compare it with the contract. */
+ * inside it; `js` is an expression that must be true in the page. The row's MAP href is returned so the caller can compare it with the contract. */
 async function runProbe(evaluate, probe) {
   if (probe.search != null) {
     await evaluate(`(() => { const i = document.querySelector('#search'); i.value = ${JSON.stringify(String(probe.search))}; i.dispatchEvent(new Event('input', { bubbles: true })); })()`);
@@ -67,6 +69,7 @@ async function runProbe(evaluate, probe) {
   const result = await evaluate(`((p) => {
     const scope = p.row ? document.getElementById(p.row) : document;
     if (!scope) return { pass: false, detail: 'row not drawn: ' + p.row };
+    if (p.js) { let ok = false; try { ok = !!(0, eval)(p.js); } catch (e) { ok = false; } return { pass: ok, detail: ok ? '' : 'expression is not true: ' + p.js }; }
     const node = scope.querySelector(p.selector);
     if (!node) return { pass: false, detail: 'element not found: ' + p.selector };
     const text = node.textContent, faults = [];
@@ -177,7 +180,7 @@ async function visit(id, vp) {
   {
     rec.probes = [];
     for (const probe of PROBES[id] || []) {
-      if (probe.block) continue;
+      if (probe.block || (probe.needs_external && !EXTERNAL)) continue;
       rec.probes.push(await runProbe(evaluate, probe));
     }
     await evaluate(`(() => { const i = document.querySelector('#search'); i.value = ''; i.dispatchEvent(new Event('input', { bubbles: true })); })()`);

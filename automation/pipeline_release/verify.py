@@ -131,8 +131,10 @@ def main():
                 for p in seen:
                     if p.get("ref") and p.get("map_href") is not None and p.get("pass") and hrefs[v["id"]].get(p["ref"]) != p["map_href"]:
                         p["pass"], p["detail"] = False, "the row's MAP link is not the contract href"
-                expected = sum(1 for p in probes[v["id"]] if not p.get("block")) * 2 + sum(1 for p in probes[v["id"]] if p.get("block"))
-                results[v["id"]]["feature_probes"] = {"pass": len(seen) == expected and all(p.get("pass") for p in seen), "probes": len(seen), "expected": expected,
+                external = bool(os.environ.get("GITHUB_ACTIONS")) or os.environ.get("PROBE_EXTERNAL") == "1"
+                active = [p for p in probes[v["id"]] if external or not p.get("needs_external")]
+                expected = sum(1 for p in active if not p.get("block")) * 2 + sum(1 for p in active if p.get("block"))
+                results[v["id"]]["feature_probes"] = {"pass": len(seen) == expected and all(p.get("pass") for p in seen), "probes": len(seen), "expected": expected, "skipped_need_internet": len(probes[v["id"]]) - len(active),
                                                       "results": [{k: p.get(k) for k in ("name", "viewport", "pass", "detail", "link")} for p in seen]}
             csv = next((r.get("csv") for r in views if r.get("csv")), None) or {"error": "not exported"}
             parent_csv = csv_seen.get(v["parent"])

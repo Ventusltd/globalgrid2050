@@ -1,6 +1,6 @@
 {
  "schema": "globalgrid2050.pipeline-news.versions.v1",
- "generated_at": "2026-11-14T02:30:28Z",
+ "generated_at": "2026-11-14T02:49:41Z",
  "generated_by": "automation/pipeline_release/verify.py --browser",
  "where_run": "release train workspace before publication",
  "note": "Every Pipeline News version from 202611132345 onward, newest first. Old versions stay published. 'verdict' is this tool's result when the file was written; 'ci' is the result of the Verify Pipeline News versions workflow on the pull request that published the version, recorded in the following version.",
@@ -77,6 +77,239 @@
   "not_active_but_still_held_refs": []
  },
  "versions": [
+  {
+   "id": "202611140247",
+   "version": "V9.19",
+   "parent": "202611140223",
+   "date": "2026-11-14T02:47:00Z",
+   "state": "published",
+   "added": "Chart.js pinned to version 4.5.1 with Subresource Integrity (the gauges' charting library was loaded unpinned from a CDN: an inherited fault). Nothing else changes.",
+   "data_changed": false,
+   "url": "202611140247/",
+   "tree": [
+    "894a17ed530219b45c1edbc526e545648add7eca"
+   ],
+   "verdict": "PASS",
+   "browser_checked": true,
+   "checks": {
+    "tree_unchanged": {
+     "pass": true,
+     "tree": "894a17ed530219b45c1edbc526e545648add7eca"
+    },
+    "runner": {
+     "pass": true,
+     "runner": "tests/run_v9_19.sh",
+     "last_line": "V9.19 (202611140247) validation suite: PASS (<repository>)"
+    },
+    "map_contract": {
+     "pass": true,
+     "rows": 7775,
+     "ok": 7775,
+     "with_point": 7749,
+     "without_point": 26
+    },
+    "grid_engine_contract": {
+     "pass": true,
+     "ok": 7775,
+     "examples": []
+    },
+    "map_links_identical_to_parent": {
+     "pass": true,
+     "identical": 7775,
+     "rows": 7775,
+     "parent": "202611140223"
+    },
+    "data_unchanged_from_parent": {
+     "pass": true,
+     "data_digest": "5bc68379308e88c9a7001fc2741eec0297cbc6059e29f4b503a826c4d10c1a18",
+     "declared_change": false
+    },
+    "features_kept": {
+     "pass": true,
+     "features": [
+      "map-deep-link",
+      "newspaper",
+      "csv-export",
+      "interconnectors-tab",
+      "datacentre-news-panel",
+      "versions-link",
+      "datacentres-page-link",
+      "gridatlas-state",
+      "gridatlas-state-list",
+      "nearest-datacentre",
+      "nearest-datacentre-data",
+      "register-changes",
+      "register-changes-data",
+      "data-sources-block",
+      "datacentre-sources",
+      "chartjs-pinned"
+     ],
+     "missing": []
+    },
+    "size_budget": {
+     "pass": true,
+     "bytes": 16779937,
+     "budget_mb": 18
+    },
+    "browser": {
+     "pass": true,
+     "views": [
+      {
+       "viewport": "desktop",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/ventus-grid-engine/deeplink/receivers.json",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/gridatlas/atlas/current.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?latitude=57.152569&longitude=-2.160149&zoom=13&project=Brightsolid",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": true,
+        "nearest_datacentres": 20,
+        "register_changes_in_rows": 2,
+        "gridatlas_state_file": true,
+        "gridatlas_state_notes": 0,
+        "register_changes_section": true
+       }
+      },
+      {
+       "viewport": "phone",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/ventus-grid-engine/deeplink/receivers.json",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/gridatlas/atlas/current.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?latitude=57.152569&longitude=-2.160149&zoom=13&project=Brightsolid",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": true,
+        "nearest_datacentres": 20,
+        "register_changes_in_rows": 2,
+        "gridatlas_state_file": true,
+        "gridatlas_state_notes": 0,
+        "register_changes_section": true
+       }
+      }
+     ]
+    },
+    "feature_probes": {
+     "pass": true,
+     "probes": 11,
+     "expected": 11,
+     "skipped_need_internet": 1,
+     "results": [
+      {
+       "name": "nearest data centre, exact-site register point (REPD 10772)",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": "https://ventusltd.github.io/gridatlas/atlas/?latitude=57.152569&longitude=-2.160149&zoom=13&project=Brightsolid"
+      },
+      {
+       "name": "nearest data centre, settlement-level register point (REPD 15347)",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": "https://ventusltd.github.io/gridatlas/atlas/?latitude=52.09&longitude=-0.49&zoom=11&project=Data%20Centre%20Campus%2C%20Ampthill%20Road%2C%20Bedford"
+      },
+      {
+       "name": "nearest data centre, row not measured by the convergence build (REPD 13429)",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": ""
+      },
+      {
+       "name": "data-centre attribution block",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "register change in the project record (REPD 15793)",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "context file refused: the entry says so",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": ""
+      },
+      {
+       "name": "nearest data centre, exact-site register point (REPD 10772)",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": "https://ventusltd.github.io/gridatlas/atlas/?latitude=57.152569&longitude=-2.160149&zoom=13&project=Brightsolid"
+      },
+      {
+       "name": "nearest data centre, settlement-level register point (REPD 15347)",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": "https://ventusltd.github.io/gridatlas/atlas/?latitude=52.09&longitude=-0.49&zoom=11&project=Data%20Centre%20Campus%2C%20Ampthill%20Road%2C%20Bedford"
+      },
+      {
+       "name": "nearest data centre, row not measured by the convergence build (REPD 13429)",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": ""
+      },
+      {
+       "name": "data-centre attribution block",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "register change in the project record (REPD 15793)",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      }
+     ]
+    },
+    "csv_export": {
+     "pass": true,
+     "rows": 7775,
+     "header_sha256": "7a469cf40609e9dde30f8481fe1e37e0300d9492a5f3e6af14016e3e1ef9759a",
+     "body_sha256": "cc027acdbb42adb452665e7adf812fdcb8534a611cb1b57ba4940dfef211f2b7",
+     "columns_same_as_parent": true,
+     "body_same_as_parent": true,
+     "error": null
+    }
+   },
+   "ci": null,
+   "merge_commit": null,
+   "known_faults": [],
+   "datacentre_features": "shown with attribution; licence status unverified at source"
+  },
   {
    "id": "202611140223",
    "version": "V9.18",
@@ -213,6 +446,7 @@
      "pass": true,
      "probes": 11,
      "expected": 11,
+     "skipped_need_internet": 0,
      "results": [
       {
        "name": "nearest data centre, exact-site register point (REPD 10772)",
@@ -303,8 +537,14 @@
      "error": null
     }
    },
-   "ci": null,
-   "merge_commit": null,
+   "ci": {
+    "workflow": "Verify Pipeline News versions",
+    "run_id": 43546692462,
+    "conclusion": "success",
+    "url": "https://github.com/Ventusltd/globalgrid2050/actions/runs/43546692462",
+    "pull_request": 79
+   },
+   "merge_commit": "244cb1f82ac3ce04988c57a59d21f6316a0e2d21",
    "known_faults": [
     "Data-centre licence status is unverified at source: shown with attribution, for screening only.",
     "Live GridAtlas behaviour on the MAP link and the location link is not checked from the build workspace.",

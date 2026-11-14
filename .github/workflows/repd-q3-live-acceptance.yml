@@ -39,6 +39,7 @@ jobs:
           filter: blob:none
           sparse-checkout: |
             qa
+            catalogue
             dist
             uk_renewables_pipeline/202611132345
             uk_renewables_pipeline/202609082224

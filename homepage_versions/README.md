@@ -1768,3 +1768,14 @@ Measurement: independent hosted public exact-byte acceptance [run 43567378340](h
 Metrics: 69 lines, 3525 words, 53094 characters, 53098 bytes; SHA-256 `0787bd5fe3e4e9a1cc27db48bb82f7d13942894c416be77a1b99bc02e695b03c`.
 
 Rollback: restore the prior `catalogue/homepage-owner.json` pin at `cdd5e1f295043ea6e69077854204d7e34071a64a`, deploy and verify all seven served owner assets; `homepage_v139.html` is the immutable pre-change root-byte reference. Q3 and September Pipeline News remain untouched.
+
+
+## Version 140
+
+Pre-edit restore point: `homepage_v140.html`; measurements: `homepage_v140-metrics.json`. Source: the homepage as assembled by `scripts/import_homepage_owner.py` from the seven SHA-256 verified files at homepage owner `92ba874c1668b39e225382b2ab9eb5900d3a3f46` (the domain pin before this change).
+
+Intention: pin homepage owner `c7c1ed735a52e9fdb9e74db6331c5ad0e188a001`, which makes Pipeline News V9.20 (`202611140306`) the operative release and retains `202611132345` and `202609082224` as earlier releases. GridAtlas stays at V9.189.
+
+Metrics: 69 lines, 3533 words, 53295 characters, 53299 bytes; SHA-256 `19a846bda779eca66c49c385530bd1669dc6f73b938f14627639263eba3de3c8`.
+
+Rollback: restore `catalogue/homepage-owner.json` to commit `92ba874c1668b39e225382b2ab9eb5900d3a3f46`, deploy, and compare the served root with `homepage_v140.html`.

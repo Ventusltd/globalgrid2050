@@ -57,6 +57,7 @@ AGGREGATOR_HOSTS = ("aol.com", "inkl.com")       # a copy of another publisher's
 NEWS_FAMILIES = ("bbc", "trade", "national", "regional")
 KINDS = ("pins_project", "ecu_case", "pedw_case", "application", "search_page")
 MAX_SIGNALS = 5
+MAX_CARRY_DAYS = 60  # Historical evidence is not an indefinitely renewable live feed.
 EXCLUDED_DOMAINS = ("google.com", "google.co.uk", "reuters.com", "ft.com", "thetimes.co.uk", "thetimes.com",
                     "telegraph.co.uk", "bloomberg.com", "wsj.com", "economist.com", "msn.com", "yahoo.com",
                     "facebook.com", "x.com", "twitter.com", "linkedin.com", "youtube.com")
@@ -93,7 +94,7 @@ def is_reviewed(item):
     return item["basis"].startswith(REVIEWED)
 
 
-def clean_item(raw, team):
+def clean_item(raw, team, as_of=None):
     """A part's item in the contract's shape, or (None, reason)."""
     if not isinstance(raw, dict):
         return None, "not an object"
@@ -104,7 +105,21 @@ def clean_item(raw, team):
     if _excluded(link):
         return None, "source not allowed"
     date = raw.get("date")
-    date = date[:10] if isinstance(date, str) and re.match(r"\d{4}-\d{2}-\d{2}", date) else None
+    if date not in (None, ""):
+        if not isinstance(date, str):
+            return None, "invalid or future date"
+        try:
+            parsed = dt.datetime.fromisoformat(date.replace("Z", "+00:00"))
+            if "T" in date and parsed.tzinfo is None:
+                return None, "invalid or future date"
+            date = parsed.date().isoformat()
+            reference = as_of or dt.datetime.now(dt.timezone.utc).date()
+            if parsed.date() > reference:
+                return None, "invalid or future date"
+        except (ValueError, OverflowError):
+            return None, "invalid or future date"
+    else:
+        date = None
     family = raw.get("family") if raw.get("family") in FAMILIES else ("official" if team == "official" else
                                                                         "trade" if team == "trade" else "regional")
     if _host_in(link, DEVELOPER_HOSTS):
@@ -240,11 +255,12 @@ def combine(rows, aliases=None, parts=None, planning=None, previous=None, now_is
     gathered = {ref: [] for ref in refs}
     dropped = {"outside the 200": 0, "no title or link": 0, "source not allowed": 0, "exclude phrase": 0, "not an object": 0}
     sources, part_state = [], {}
+    as_of = dt.date.fromisoformat((now_iso or now_utc())[:10])
 
     def take(raw, team):
-        item, reason = clean_item(raw, team)
+        item, reason = clean_item(raw, team, as_of=as_of)
         if item is None:
-            dropped[reason] += 1
+            dropped[reason] = dropped.get(reason, 0) + 1
         elif item["repd_ref"] not in ref_set:
             dropped["outside the 200"] += 1
         elif any(phrase in item["title"].lower() for phrase in excludes[item["repd_ref"]]):
@@ -276,6 +292,15 @@ def combine(rows, aliases=None, parts=None, planning=None, previous=None, now_is
         for ref, project in (previous.get("projects") or {}).items():
             for raw in (project or {}).get("signals") or []:
                 if isinstance(raw, dict):
+                    # Old feed items must not be resurrected by each new generated_at.
+                    # Undated carry-forward is not safe without an immutable first_seen.
+                    date_text = raw.get("date")
+                    try:
+                        age = (as_of - dt.date.fromisoformat(date_text)).days
+                    except (TypeError, ValueError):
+                        continue
+                    if age < 0 or age > MAX_CARRY_DAYS:
+                        continue
                     carried += bool(take(dict(raw, repd_ref=ref), "index"))
 
     projects, missing = {}, []

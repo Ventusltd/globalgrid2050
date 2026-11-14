@@ -1,0 +1,60 @@
+name: Verify Pipeline News versions
+
+# Checks every Pipeline News version folder from 202611132345 onward and compares each
+# with its parent: the folder's own runner, the MAP link and Grid Engine deep-link
+# contract for every row, every row's MAP link identical to the parent's, data hashes,
+# features kept, published folders unchanged, and a headless Chrome load at desktop and
+# phone widths. It reads only; it publishes, promotes and pushes nothing.
+on:
+  pull_request:
+    paths:
+      - 'uk_renewables_pipeline/**'
+      - 'automation/pipeline_release/**'
+      - '.github/workflows/verify-pipeline-versions.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-pipeline-versions-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+          sparse-checkout: |
+            /uk_renewables_pipeline/20261*
+            /uk_renewables_pipeline/versions.*
+            /uk_renewables_pipeline/datacentres/
+            /automation/pipeline_release/
+            /dist/major_project_news_v9_5_1.json
+            /dist/convergence/2026q3/pipelinenews/
+            /dist/news/
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify every version and compare each with its parent (offline checks and headless Chrome)
+        env:
+          VERIFY_OUT: ${{ runner.temp }}/versions.ci.json
+          SHOT_DIR: ${{ runner.temp }}/shots
+        run: |
+          mkdir -p "$SHOT_DIR"
+          python3 automation/pipeline_release/verify.py --browser --check
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pipeline-versions-verdicts
+          path: |
+            ${{ runner.temp }}/versions.ci.json
+            ${{ runner.temp }}/shots/*.png

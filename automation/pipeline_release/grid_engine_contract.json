@@ -1,0 +1,12 @@
+{
+ "note": "Copy of the Ventus Grid Engine deep-link contract used by the release checks. Source: Ventusltd/ventus-grid-engine, deeplink/contract.js and deeplink/receivers.json, at the commit named below. The Grid Engine has no project page of its own: its contract names the receiver that carries the engine, and a project is opened there by REPD reference.",
+ "source_repository": "https://github.com/Ventusltd/ventus-grid-engine",
+ "source_commit": "05635806af468260e132b112a5fe1b379a451706",
+ "identity_param": "repd_ref",
+ "params": ["repd_ref", "technology", "latitude", "longitude", "zoom"],
+ "required": ["repd_ref", "technology"],
+ "buckets": ["solar", "wind_onshore", "wind_offshore", "bess", "biomass", "hydro", "hydrogen", "tidal", "geothermal", "flywheel", "caes", "act", "other"],
+ "canonical_receiver": "https://ventusltd.github.io/gridatlas/atlas/",
+ "retired_receivers": ["https://globalgrid2050.com/repd_grid_atlasv8/"],
+ "engine_home": "https://ventusltd.github.io/ventus-grid-engine/"
+}

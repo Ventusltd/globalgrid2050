@@ -1,0 +1,97 @@
+{
+ "schema": "globalgrid2050.pipeline-news.version-registry.v1",
+ "note": "One entry per published Pipeline News version from 202611132345 onward, oldest first. A published folder is never edited: its git tree hash is pinned here and checked on every run.",
+ "expected_record_count": 7775,
+ "fixture_owner": "202611132345",
+ "versions": [
+  {
+   "id": "202611132345",
+   "version": "V9.12",
+   "parent": "202609082224",
+   "date": "2026-11-13T23:45:00Z",
+   "added": "REPD October 2026 (Q3 2026) register: 7,775 solar, battery and wind records at 1 MW and above.",
+   "data_changed": true,
+   "runner": "tests/run_v9_12.sh",
+   "trees": [
+    "a3f76f610dff9da15090df56181fdbccc2e210fa",
+    "0c7a4ed5ea369e4a4e71a45cfa6fe9c186fae773"
+   ],
+   "features": [
+    {
+     "id": "map-deep-link",
+     "file": "scripts/core/atlas-receiver-v9-7.js",
+     "contains": "export function buildAtlasDeepLinkV9_7"
+    },
+    {
+     "id": "newspaper",
+     "file": "index.html",
+     "contains": "<section class=\"newspaper\">"
+    },
+    {
+     "id": "csv-export",
+     "file": "index.html",
+     "contains": "id=\"exportInline\""
+    },
+    {
+     "id": "interconnectors-tab",
+     "file": "index.html",
+     "contains": "data-technology=\"interconnector\""
+    }
+   ],
+   "known_faults": [],
+   "ci": null,
+   "merge_commit": "07b6d51702a12aa3d69833d91e43f84d8901ba78",
+   "state": "published"
+  },
+  {
+   "id": "202611140058",
+   "version": "V9.13",
+   "parent": "202611132345",
+   "date": "2026-11-14T00:58:00Z",
+   "added": "Release labels in place of candidate labels; CSV export states the October source count.",
+   "data_changed": false,
+   "runner": "tests/run_v9_13.sh",
+   "trees": [
+    "18f870e1548d1c0f8d9a9c53078f97471e4e68bf"
+   ],
+   "features": [],
+   "known_faults": [],
+   "ci": null,
+   "merge_commit": null,
+   "state": "published"
+  },
+  {
+   "id": "202611140128",
+   "version": "V9.14",
+   "parent": "202611140058",
+   "date": "2026-11-14T01:28:00Z",
+   "added": "Data-centre capex and politics headline panel below the newspaper; navigation links to the list of all versions and to the data-centres page.",
+   "data_changed": false,
+   "runner": "tests/run_v9_14.sh",
+   "trees": [
+    "227f2c9edc9440489fc7122cbd222fe991071a65"
+   ],
+   "features": [
+    {
+     "id": "datacentre-news-panel",
+     "file": "index.html",
+     "contains": "scripts/plugins/datacentre-news.js"
+    },
+    {
+     "id": "versions-link",
+     "file": "index.html",
+     "contains": "href=\"../versions.html\""
+    },
+    {
+     "id": "datacentres-page-link",
+     "file": "index.html",
+     "contains": "href=\"../datacentres/\""
+    }
+   ],
+   "known_faults": [],
+   "ci": null,
+   "merge_commit": null,
+   "state": "published"
+  }
+ ]
+}

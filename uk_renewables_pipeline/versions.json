@@ -1,19 +1,23 @@
 {
  "schema": "globalgrid2050.pipeline-news.versions.v1",
- "generated_at": "2026-11-14T03:10:07Z",
+ "generated_at": "2026-11-14T10:27:19Z",
  "generated_by": "automation/pipeline_release/verify.py --browser",
  "where_run": "release train workspace before publication",
  "note": "Every Pipeline News version from 202611132345 onward, newest first. Old versions stay published. 'verdict' is this tool's result when the file was written; 'ci' is the result of the Verify Pipeline News versions workflow on the pull request that published the version, recorded in the following version.",
  "release_candidate": {
-  "id": "202611140306",
-  "version": "V9.20",
-  "state": "promotable candidate (no data-centre register content)",
+  "id": "202611141017",
+  "version": "V9.21",
+  "state": "candidate (news block)",
+  "operative": {
+   "id": "202611140306",
+   "version": "V9.20"
+  },
   "held_candidate": {
    "id": "202611140247",
    "version": "V9.19",
    "state": "held candidate (data-centre register context, awaiting licence verification)"
   },
-  "note": "Promotable candidate: 202611140306 (V9.20), without data-centre register content. Held candidate: 202611140247 (V9.19), the same page with the data-centre register context, awaiting verification of the register's source licences. Both pass every automated check and carry the unchanged MAP link for all 7,775 rows. Live browser checks, served-byte checks and the homepage pointer are with the homepage owner; the homepage is unchanged until then."
+  "note": "The homepage opens 202611140306 (V9.20). Candidate: 202611141017 (V9.21), the same page with a news block that reads live headlines; it awaits live checks before the homepage is moved. Held: 202611140247 (V9.19), with data-centre register context, awaiting verification of the register's source licences."
  },
  "map_link_state": {
   "schema": "globalgrid2050.pipeline-news.gridatlas-map-link-state.v1",
@@ -84,11 +88,341 @@
  },
  "versions": [
   {
+   "id": "202611141017",
+   "version": "V9.21",
+   "parent": "202611140306",
+   "date": "2026-11-14T10:17:00Z",
+   "state": "published",
+   "added": "News block only. Opens with a list of headlines read from a file a scheduled workflow refreshes, newest first, with a browser-computed 'Headlines updated' or 'Stale since' label, a saved-copy fallback and a 'possible match' chip where the file names a REPD project. The August headlines become a labelled archive without REPD projects printed under unmatched headlines. Bug fix: the MAP button is no longer cut off at 1440 px. Table columns, CSV and every MAP link unchanged.",
+   "data_changed": false,
+   "url": "202611141017/",
+   "tree": [
+    "0c56d3a81d7e3abaec164ab689b0f4c8a38e7129"
+   ],
+   "verdict": "PASS",
+   "browser_checked": true,
+   "checks": {
+    "tree_unchanged": {
+     "pass": true,
+     "tree": "0c56d3a81d7e3abaec164ab689b0f4c8a38e7129"
+    },
+    "runner": {
+     "pass": true,
+     "runner": "tests/run_v9_21.sh",
+     "last_line": "V9.21 (202611141017) validation suite: PASS (<repository>)"
+    },
+    "map_contract": {
+     "pass": true,
+     "rows": 7775,
+     "ok": 7775,
+     "with_point": 7749,
+     "without_point": 26
+    },
+    "grid_engine_contract": {
+     "pass": true,
+     "ok": 7775,
+     "examples": []
+    },
+    "map_links_identical_to_parent": {
+     "pass": true,
+     "identical": 7775,
+     "rows": 7775,
+     "parent": "202611140306"
+    },
+    "data_unchanged_from_parent": {
+     "pass": true,
+     "data_digest": "5bc68379308e88c9a7001fc2741eec0297cbc6059e29f4b503a826c4d10c1a18",
+     "declared_change": false
+    },
+    "features_kept": {
+     "pass": true,
+     "features": [
+      "map-deep-link",
+      "newspaper",
+      "csv-export",
+      "interconnectors-tab",
+      "datacentre-news-panel",
+      "versions-link",
+      "gridatlas-state",
+      "gridatlas-state-list",
+      "register-changes",
+      "register-changes-data",
+      "chartjs-pinned",
+      "repd-source-line",
+      "live-headlines",
+      "headlines-status-label",
+      "headlines-snapshot",
+      "news-archive"
+     ],
+     "missing": [],
+     "withdrawn_on_purpose": [
+      "data-sources-block",
+      "datacentre-sources",
+      "datacentres-page-link",
+      "nearest-datacentre",
+      "nearest-datacentre-data"
+     ]
+    },
+    "size_budget": {
+     "pass": true,
+     "bytes": 15790245,
+     "budget_mb": 18
+    },
+    "browser": {
+     "pass": true,
+     "views": [
+      {
+       "viewport": "desktop",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js",
+        "404 https://raw.githubusercontent.com/Ventusltd/globalgrid2050/pipeline-news-data/dist/pipeline_headlines.json",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/ventus-grid-engine/deeplink/receivers.json",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/gridatlas/atlas/current.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": true,
+        "nearest_datacentres": 0,
+        "register_changes_in_rows": 2,
+        "gridatlas_state_file": true,
+        "gridatlas_state_notes": 0,
+        "register_changes_section": true
+       }
+      },
+      {
+       "viewport": "phone",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js",
+        "404 https://raw.githubusercontent.com/Ventusltd/globalgrid2050/pipeline-news-data/dist/pipeline_headlines.json",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/ventus-grid-engine/deeplink/receivers.json",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/gridatlas/atlas/current.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": true,
+        "nearest_datacentres": 0,
+        "register_changes_in_rows": 2,
+        "gridatlas_state_file": true,
+        "gridatlas_state_notes": 0,
+        "register_changes_section": true
+       }
+      }
+     ]
+    },
+    "feature_probes": {
+     "pass": true,
+     "probes": 23,
+     "expected": 23,
+     "skipped_need_internet": 1,
+     "results": [
+      {
+       "name": "register change in the project record (REPD 15793)",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no register content on the page",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no register content in a project record (REPD 10772)",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "REPD source and licence line",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "headlines label present and computed",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no typed-in counts or audited-snapshot wording",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "table columns unchanged from the parent",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "MAP button inside the viewport",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "stale rule: 13 days old reads as stale, 2 hours old as updated, failed refresh as stale",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "headline list: newest first, text only, possible-match chip",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "archive: unmatched headlines carry no project line",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "live file refused: saved copy or a plain statement, table still complete",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "register change in the project record (REPD 15793)",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no register content on the page",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no register content in a project record (REPD 10772)",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "REPD source and licence line",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "headlines label present and computed",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no typed-in counts or audited-snapshot wording",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "table columns unchanged from the parent",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "MAP button inside the viewport",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "stale rule: 13 days old reads as stale, 2 hours old as updated, failed refresh as stale",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "headline list: newest first, text only, possible-match chip",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "archive: unmatched headlines carry no project line",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      }
+     ]
+    },
+    "csv_export": {
+     "pass": true,
+     "rows": 7775,
+     "header_sha256": "7a469cf40609e9dde30f8481fe1e37e0300d9492a5f3e6af14016e3e1ef9759a",
+     "body_sha256": "cc027acdbb42adb452665e7adf812fdcb8534a611cb1b57ba4940dfef211f2b7",
+     "columns_same_as_parent": true,
+     "body_same_as_parent": true,
+     "error": null
+    }
+   },
+   "ci": null,
+   "merge_commit": null,
+   "known_faults": [
+    "Until the headlines workflow has run for the first time the live file does not exist and the saved copy is empty: the block says live headlines are not available.",
+    "NEWS SIGNAL column unchanged: August file, 29 of 7,775 rows.",
+    "At 1440 px the pinned ACTIONS column covers the neighbouring columns until the table is scrolled sideways."
+   ],
+   "datacentre_features": "no data-centre register content; data-centre headlines (public feeds, links only) retained"
+  },
+  {
    "id": "202611140306",
    "version": "V9.20",
    "parent": "202611140247",
    "date": "2026-11-14T03:06:00Z",
-   "state": "promotable candidate (no data-centre register content)",
+   "state": "operative (homepage points here); no data-centre register content",
    "added": "Promotable candidate: identical to V9.19 except that content derived from the UK data-centre register is switched off (nearest data centre per project and its data files; register-site lines in the headlines panel), pending verification of the register's source licences. Headlines panel, register changes, GridAtlas state, pinned Chart.js and every MAP link kept.",
    "data_changed": false,
    "url": "202611140306/",
@@ -294,7 +628,7 @@
     }
    },
    "ci": null,
-   "merge_commit": null,
+   "merge_commit": "24a1c2ee2579f576edf4ff6f8f27a306e5e50ad0",
    "known_faults": [],
    "datacentre_features": "no data-centre register content; data-centre headlines (public feeds, links only) retained"
   },

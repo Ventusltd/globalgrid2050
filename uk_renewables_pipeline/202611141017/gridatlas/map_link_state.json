@@ -1,0 +1,67 @@
+{
+ "schema": "globalgrid2050.pipeline-news.gridatlas-map-link-state.v1",
+ "measured_at": "2026-11-14T01:59:21Z",
+ "pipeline_news_version": "202611140156",
+ "gridatlas_register": {
+  "generation": "202611132345",
+  "dataset": "REPD Q3 2026 (October 2026 extract, cleaned)",
+  "records": 11329,
+  "sha256": "fdda9b6e4fd14cb234cdc7baaac9a6c0f45c5594179c2eaa4b58e874ac6d8f58",
+  "file": "data/repd_browser_registry_202611132345.json"
+ },
+ "gridatlas_project_search": {
+  "cartridge": "uk-gazetteer-flyto",
+  "generation": "202611132345",
+  "composition_generation": "202611132345"
+ },
+ "method": "Exact REPD Ref ID match between every Pipeline News row and the GridAtlas browser registry. Offline, from the files; the live site was not opened.",
+ "rows": 7775,
+ "active_rows": 5334,
+ "active_resolved": 5331,
+ "active_not_resolved": 3,
+ "active_not_resolved_outside_gridatlas_area": 3,
+ "active_not_resolved_unexplained": 0,
+ "rows_resolved_total": 5331,
+ "rows_without_map_point": 26,
+ "not_active_not_expected": 2441,
+ "not_active_but_still_held": 0,
+ "meaning": {
+  "active_not_resolved": "REPD status is Operational, Under Construction, Awaiting Construction or Application Submitted, and GridAtlas holds no record with this REPD Ref ID. The MAP link still opens the map on the project's point and measures from it; the project's identity card does not open. Each row carries its reason.",
+  "not_active_not_expected": "REPD status is outside the four active statuses. GridAtlas keeps the active register only, so no identity card is expected; the map still opens on the link's point.",
+  "not_active_but_still_held": "GridAtlas still holds an earlier record for a project whose REPD status is no longer active; its card shows the earlier status."
+ },
+ "pass": true,
+ "active_not_resolved_refs": [
+  {
+   "repd_ref": "2484",
+   "name": "The East Anglia Array - Norfolk Vanguard East",
+   "technology": "wind_offshore",
+   "repd_status": "Awaiting Construction",
+   "capacity_mw": 1380.0,
+   "has_map_point": true,
+   "reason": "REPD point 52.6200 N, 2.5500 E lies outside the area GridAtlas compiles (longitude -9 to 2.5, latitude 49 to 61)",
+   "page_note": "GRIDATLAS: MAP OPENS ON THE PROJECT POINT · NO PROJECT CARD THERE: POINT IS EAST OF THE AREA GRIDATLAS COMPILES"
+  },
+  {
+   "repd_ref": "6483",
+   "name": "The East Anglia Array - Norfolk Boreas",
+   "technology": "wind_offshore",
+   "repd_status": "Under Construction",
+   "capacity_mw": 1400.0,
+   "has_map_point": true,
+   "reason": "REPD point 52.6200 N, 2.5500 E lies outside the area GridAtlas compiles (longitude -9 to 2.5, latitude 49 to 61)",
+   "page_note": "GRIDATLAS: MAP OPENS ON THE PROJECT POINT · NO PROJECT CARD THERE: POINT IS EAST OF THE AREA GRIDATLAS COMPILES"
+  },
+  {
+   "repd_ref": "20218",
+   "name": "The East Anglia Array - Norfolk Vanguard West",
+   "technology": "wind_offshore",
+   "repd_status": "Awaiting Construction",
+   "capacity_mw": 1380.0,
+   "has_map_point": true,
+   "reason": "REPD point 52.6200 N, 2.5500 E lies outside the area GridAtlas compiles (longitude -9 to 2.5, latitude 49 to 61)",
+   "page_note": "GRIDATLAS: MAP OPENS ON THE PROJECT POINT · NO PROJECT CARD THERE: POINT IS EAST OF THE AREA GRIDATLAS COMPILES"
+  }
+ ],
+ "not_active_but_still_held_refs": []
+}

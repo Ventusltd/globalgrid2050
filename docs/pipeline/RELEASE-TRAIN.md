@@ -110,3 +110,15 @@ A version that passes every check and carries the unchanged MAP link is named re
 `registry.json` (`release_candidate`) and on `versions.html`. Live browser checks, served-byte checks and
 the homepage pointer belong to the homepage owner repository; the train never moves the pointer. After
 promotion the train stops, or runs only when something changes.
+
+## Live headlines (from V9.21)
+
+The news block reads `dist/pipeline_headlines.json` on the data branch `pipeline-news-data` (schema
+`globalgrid2050.news.pipeline-headlines.v1`), written by a scheduled workflow. A version folder is
+immutable, so the headlines are never copied into it as the live source; the folder holds only a saved
+copy (`news/pipeline_headlines.snapshot.json`) used when the live file cannot be read. The page computes
+its own "Headlines updated" or "Stale since" label from the file's `generated_at` (stale after 36 hours or
+when the last refresh failed) and orders the list newest first itself. A "possible match" to a REPD
+project is shown only when the file gives one, always under those words, and never enters the project
+table. `window.pipelineHeadlines` exposes the label rule and the renderer so the release probes can test
+them with a document of the same schema.

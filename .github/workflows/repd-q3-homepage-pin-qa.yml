@@ -34,7 +34,7 @@ jobs:
           python-version: '3.11'
       - name: Fetch all seven pinned owner files and regenerate local homepage
         run: python3 scripts/import_homepage_owner.py
-      - name: Assert pinned owner integrity, Q3 operative and September rollback
+      - name: Assert pinned owner integrity and immutable September/Q3/V9.20 promotion chain
         run: |
           python3 - <<'PY'
           import hashlib,json
@@ -47,21 +47,28 @@ jobs:
           assert pin["repository"]=="Ventusltd/globalgrid2050-homepage"
           doc=json.loads(Path("homepage-shell/data/homepage.json").read_text())
           entity=next(x for x in doc["entities"] if x["id"]=="pipeline-news")
-          assert entity["operative_release_id"]=="202611132345"
-          assert {r["id"] for r in entity["releases"]} >= {"202611132345","202609082224"}
-          # The October promotion must be unique and remain the latest
-          # Pipeline News promotion, not necessarily the last *site* promotion.
+          assert pin["commit"]=="c7c1ed735a52e9fdb9e74db6331c5ad0e188a001", "unexpected owner cutover"
+          assert entity["operative_release_id"]=="202611140306", "unexpected operative release"
+          releases={r["id"]:r for r in entity["releases"]}
+          assert {"202609082224","202611132345","202611140306"} <= releases.keys(), "missing immutable archive"
+          for release_id in ("202609082224","202611132345","202611140306"):
+            release=releases[release_id]
+            assert release["url"]==f"https://globalgrid2050.com/uk_renewables_pipeline/{release_id}/", release_id
+            assert release["status"]=="available", release_id
+          assert releases["202611140306"]["source_ref"]=="https://github.com/Ventusltd/globalgrid2050/tree/a5988652003fb29e054ffa7860d8e53fe6458edc/uk_renewables_pipeline/202611140306"
           pipeline_promotions=[p for p in doc["promotions"] if p["entity_id"]=="pipeline-news"]
-          q3_promotions=[p for p in pipeline_promotions if p["to_release_id"]=="202611132345"]
-          assert len(q3_promotions)==1
-          assert q3_promotions[0]["from_release_id"]=="202609082224"
-          assert pipeline_promotions[-1] is q3_promotions[0]
+          q3=[p for p in pipeline_promotions if p["from_release_id"]=="202609082224" and p["to_release_id"]=="202611132345"]
+          successor=[p for p in pipeline_promotions if p["from_release_id"]=="202611132345" and p["to_release_id"]=="202611140306"]
+          assert len(q3)==1 and len(successor)==1, "duplicate or missing promotion"
+          assert pipeline_promotions.index(q3[0])==0 and pipeline_promotions.index(successor[0])==1
+          assert pipeline_promotions[-1] is successor[0], "unexpected final promotion"
           index=Path("index.html").read_text()
+          assert 'href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/"' in index
           assert 'href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/"' in index
           for name in pin["files"]:
             local=Path("index.html") if name=="index.html" else Path("homepage-shell")/name
             if name=="index.html":
               continue # transformed on import, original hash verified by importer
             assert hashlib.sha256(local.read_bytes()).hexdigest()==pin["files"][name],name
-          print("PASS: seven owner pins, Q3 homepage, September rollback, promotion audit")
+          print("PASS: seven owner SHA256 pins, V9.20 homepage, preserved Q3/September archives and full promotion chain")
           PY

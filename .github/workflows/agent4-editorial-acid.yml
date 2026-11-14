@@ -1,0 +1,37 @@
+name: Agent 4 editorial ACID evidence (draft branch only)
+# This is intentionally a red-contract research workflow. No publication permission or writer.
+on:
+  push:
+    branches:
+      - 'qa/agent4-editorial-regressions-*'
+    paths:
+      - 'automation/news/signals/agent4/**'
+      - 'automation/news/signals/tests/test_agent4_editorial_regressions.py'
+      - '.github/workflows/agent4-editorial-acid.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Source-byte audit (no network)
+        run: |
+          python automation/news/signals/agent4/audit_sources.py --out "$RUNNER_TEMP/agent4-source-audit.json"
+          cp "$RUNNER_TEMP/agent4-source-audit.json" agent4-source-audit.json
+      - name: Install offline test dependency
+        run: python -m pip install --quiet pytest
+      - name: Executable positive and negative counterexamples (red on PR100 baseline)
+        run: python -m pytest -q -p no:cacheprovider automation/news/signals/tests/test_agent4_editorial_regressions.py
+      - name: Preserve deterministic audit receipt even if red
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent4-editorial-source-audit
+          path: agent4-source-audit.json
+          if-no-files-found: warn

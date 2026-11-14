@@ -66,7 +66,7 @@ def test_successful_new_confirmed_article_allows_publication():
     combined = built({"trade": source})
     report = evaluate(combined, None, {"trade": source}, CLOCK)
     assert report["publish"] and report["new_confirmed_recent_items"] == 1
-    assert report["healthy_current_parts"] == ["index"]
+    assert report["healthy_current_parts"] == ["trade"]
 
 
 def test_failed_sources_replay_and_planning_searches_do_not_refresh_timestamp():

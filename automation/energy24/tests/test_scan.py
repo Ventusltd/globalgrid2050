@@ -102,6 +102,13 @@ class Energy24Tests(unittest.TestCase):
         self.assertEqual(record["capex_usd"], 30_000_000)
         self.assertEqual(record["qualification"], "USD_CAPEX")
 
+    def test_summary_only_finance_cannot_supply_project_capex(self):
+        record, reason = self.classify(
+            "Data center company invests in new campus",
+            "The parent company secured a US$60 million revolving credit line")
+        self.assertIsNone(record)
+        self.assertEqual(reason, "below_or_unverified_threshold")
+
     def test_equity_transaction_not_misrepresented_as_project_capex(self):
         headline = "Investor buys US$300 million stake in BESS developer"
         v, reason = self.classify(headline)

@@ -9,6 +9,14 @@ on:
       - qa/repd-q3-browser-review.mjs
       - qa/repd-q3-live-atlas.mjs
       - .github/workflows/repd-q3-live-acceptance.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - qa/repd-q3-served-byte-review.py
+      - qa/repd-q3-browser-review.mjs
+      - qa/repd-q3-live-atlas.mjs
+      - .github/workflows/repd-q3-live-acceptance.yml
   workflow_dispatch:
 
 permissions:

@@ -17,14 +17,15 @@
   "truth_14.json",
   "truth_15.json",
   "truth_16.json",
-  "truth_17.json"
+  "truth_17.json",
+  "truth_18.json"
  ],
  "counts": {
   "projects": 200,
-  "confirmed": 126,
-  "uncertain": 50,
-  "derived": 24,
-  "with_member_planning_file": 149
+  "confirmed": 143,
+  "uncertain": 47,
+  "derived": 10,
+  "with_member_planning_file": 160
  },
  "projects": {
   "12588": {
@@ -513,15 +514,22 @@
    "planning_authority": "The Planning Inspectorate - National Infrastructure",
    "planning_ref": "EN0110013",
    "aliases": [
-    "Droves Solar Farm"
+    "The Droves Solar Farm",
+    "The Droves"
    ],
-   "alias_status": "derived",
-   "alias_evidence": "",
-   "alias_evidence_url": "",
+   "alias_status": "confirmed",
+   "alias_evidence": "Island Green Power, 500MW, between Swaffham and Castle Acre, Norfolk; PINS ref EN0110013 on scheme website and PINS documents. https://islandgp.com/projects/the-droves ; https://drovessolarfarm.co.uk/",
+   "alias_evidence_url": "https://islandgp.com/projects/the-droves",
    "exclude": [],
-   "truth_status": "pending",
-   "notes": "",
-   "planning_file": null
+   "truth_status": "found",
+   "notes": "Reference has seven digits after EN0 (EN0110013), not a typo. Written representations show it is in examination; no dated 2025-26 news headline seen. CPRE Norfolk campaign page also covers it.",
+   "planning_file": {
+    "authority": "The Planning Inspectorate - National Infrastructure",
+    "reference": "EN0110013",
+    "url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN0110013",
+    "kind": "pins_project",
+    "verified": false
+   }
   },
   "17701": {
    "repd_ref": "17701",
@@ -1004,15 +1012,22 @@
    "planning_authority": "The Planning Inspectorate - National Infrastructure",
    "planning_ref": "EN010101",
    "aliases": [
-    "Little Crow Solar Park"
+    "Little Crow Solar Park",
+    "Little Crow Solar Farm"
    ],
-   "alias_status": "derived",
-   "alias_evidence": "",
-   "alias_evidence_url": "",
+   "alias_status": "confirmed",
+   "alias_evidence": "INRG Solar (Little Crow) Ltd, Scunthorpe, North Lincolnshire, EN010101; DCO granted 5 April 2022. https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN010101",
+   "alias_evidence_url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN010101",
    "exclude": [],
-   "truth_status": "pending",
-   "notes": "",
-   "planning_file": null
+   "truth_status": "found",
+   "notes": "Non-material change approved June 2023 (PINS page). Early trade items cite 120MW; REPD 150MW. Co-located battery storage element.",
+   "planning_file": {
+    "authority": "The Planning Inspectorate - National Infrastructure",
+    "reference": "EN010101",
+    "url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN010101",
+    "kind": "pins_project",
+    "verified": true
+   }
   },
   "14550": {
    "repd_ref": "14550",
@@ -1479,15 +1494,22 @@
    "planning_authority": "Welsh Government (NSIP)",
    "planning_ref": "DNS/3220457",
    "aliases": [
-    "Rush Wall Solar Park"
+    "Rush Wall Solar Park",
+    "Rush Wall Solar Farm"
    ],
-   "alias_status": "derived",
-   "alias_evidence": "",
-   "alias_evidence_url": "",
+   "alias_status": "confirmed",
+   "alias_evidence": "BSR Energy (British Solar Renewables), 75MW, near Redwick, Newport; DNS application to PEDW March 2022, refused by Welsh Minister June 2023. https://www.wales247.co.uk/bsr-energy-launches-challenge-against-rush-wall-solar-park-planning-decision",
+   "alias_evidence_url": "https://www.wales247.co.uk/bsr-energy-launches-challenge-against-rush-wall-solar-park-planning-decision",
    "exclude": [],
-   "truth_status": "pending",
-   "notes": "",
-   "planning_file": null
+   "truth_status": "found",
+   "notes": "Site on Gwent Levels SSSI. REPD operator field just repeats project name. A gov.wales FOI release dated 2026-04 also surfaced (atisn26696doc1_0.pdf) but its content was not checked. Older SPP item title is as shown in search results (slug form).",
+   "planning_file": {
+    "authority": "Planning and Environment Decisions Wales (DNS)",
+    "reference": "DNS/3220457",
+    "url": "https://planningcasework.service.gov.wales/",
+    "kind": "pedw_case",
+    "verified": false
+   }
   },
   "12117": {
    "repd_ref": "12117",
@@ -1946,15 +1968,21 @@
    "planning_authority": "Scottish Government (S36)",
    "planning_ref": "ECU00004623",
    "aliases": [
-    "Hagshaw Energy Cluster – Western Expansion"
+    "Hagshaw Energy Cluster Western Expansion"
    ],
-   "alias_status": "derived",
-   "alias_evidence": "",
+   "alias_status": "uncertain",
+   "alias_evidence": "Only a data-aggregator page (locara.co.uk, labelled battery asset) matched the name; no press item seen. 3R Energy, South Lanarkshire, ECU00004623.",
    "alias_evidence_url": "",
    "exclude": [],
-   "truth_status": "pending",
-   "notes": "",
-   "planning_file": null
+   "truth_status": "none",
+   "notes": "Hagshaw Hill is a long-standing wind cluster near Douglas, South Lanarkshire; wind-farm news under 'Hagshaw' is a trap for this solar row. A co-located battery row exists for the same scheme. Fallback to ECU case.",
+   "planning_file": {
+    "authority": "Scottish Government Energy Consents Unit",
+    "reference": "ECU00004623",
+    "url": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=ECU00004623",
+    "kind": "ecu_case",
+    "verified": false
+   }
   },
   "14994": {
    "repd_ref": "14994",
@@ -2432,15 +2460,21 @@
    "planning_authority": "County Durham",
    "planning_ref": "DM/19/03959/FPA",
    "aliases": [
-    "Hulam Farm Solar Farm"
+    "Hulam Solar Farm"
    ],
-   "alias_status": "derived",
-   "alias_evidence": "",
-   "alias_evidence_url": "",
+   "alias_status": "confirmed",
+   "alias_evidence": "Lightsource bp, 49.9-50MW, near Castle Eden, County Durham; approved by Durham County Council 2020, upheld by High Court 2023. https://lightsourcebp.com/news/plans-progress-for-50mw-solar-farm-in-durham-uk-by-lightsource-bp",
+   "alias_evidence_url": "https://lightsourcebp.com/news/plans-progress-for-50mw-solar-farm-in-durham-uk-by-lightsource-bp",
    "exclude": [],
-   "truth_status": "pending",
-   "notes": "",
-   "planning_file": null
+   "truth_status": "found",
+   "notes": "Paired with Sheraton Solar Farm (Hartlepool, 49.9MW) which connects via Hulam substation; do not attribute Sheraton items alone. Third signal is a developer press release.",
+   "planning_file": {
+    "authority": "Durham County Council",
+    "reference": "DM/19/03959/FPA",
+    "url": "https://publicaccess.durham.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+    "kind": "search_page",
+    "verified": false
+   }
   },
   "8350": {
    "repd_ref": "8350",
@@ -2819,14 +2853,14 @@
    "planning_authority": "Vale of White Horse",
    "planning_ref": "P23/V2624/FUL",
    "aliases": [
-    "Botley Solar Farm"
+    "Red House Solar Farm"
    ],
-   "alias_status": "uncertain",
-   "alias_evidence": "",
-   "alias_evidence_url": "",
+   "alias_status": "confirmed",
+   "alias_evidence": "evidence: Oxford Preservation Trust page 'Red House Solar Farm': proposal number P23/V2624/FUL, land west and south of Red House Farm, Eynsham Road, Farmoor - planning reference matches REPD; operator SPV is Red House Solar Limited; url: https://oxfordpreservation.org.uk/red-house-solar-farm",
+   "alias_evidence_url": "https://oxfordpreservation.org.uk/red-house-solar-farm",
    "exclude": [],
-   "truth_status": "not_searched",
-   "notes": "Shared web search allowance ran out before this project was searched. TRAP: not Botley West (REPD 12588, 840 MW NSIP). This is a 49.99 MW local application by Red House Solar Limited; any 'Botley' solar headline must be checked against P23/V2624/FUL or Red House Solar. Register URL is the council's own (non-Idox) system pattern, not opened.",
+   "truth_status": "found",
+   "notes": "Press/stakeholder name is 'Red House Solar Farm' (Farmoor), not 'Botley'. TRAP: not Botley West (REPD 12588); search results for 'Botley' are dominated by Botley West. Signal is an amenity-society consultation page (response July 2024; page reports the application as withdrawn, while REPD says 'Revised') - weak signal, date left null. Register URL pattern not opened.",
    "planning_file": {
     "authority": "Vale of White Horse District Council",
     "reference": "P23/V2624/FUL",
@@ -2846,14 +2880,14 @@
    "planning_authority": "Braintree",
    "planning_ref": "23/01413/FUL",
    "aliases": [
-    "Cutbush Farm Solar Farm"
+    "Cutbush Farm Solar Array"
    ],
-   "alias_status": "derived",
-   "alias_evidence": "",
-   "alias_evidence_url": "",
+   "alias_status": "confirmed",
+   "alias_evidence": "Only non-news pages seen: pre-construct archaeology page 'Cutbush Farm Solar Array' https://projects.pre-construct.com/places/cutbush-farm-solar-array/ and Belchamps parish council pages; no developer/capacity confirmation.",
+   "alias_evidence_url": "https://projects.pre-construct.com/places/cutbush-farm-solar-array/",
    "exclude": [],
-   "truth_status": "not_searched",
-   "notes": "Search budget exhausted. REPD county Suffolk but Belchamp St Paul is in Essex (Braintree district).",
+   "truth_status": "none",
+   "notes": "TRAP: Solar Power Portal 'British Solar Renewables gets green light for 50MW Essex solar farm' (2021-12-21) is Fambridge Solar Park, Rochford, not this project; Energy Global 2024-05-31 BSR item is Park Farm and Town Farm, East Suffolk. Belchamp St Paul is in Essex (Braintree district) though REPD county says Suffolk. Separate older appeal at Big Deere Lodge Field, Belchamp St Paul, is a different",
    "planning_file": null
   },
   "11691": {
@@ -2892,13 +2926,19 @@
    "aliases": [
     "Carlton Solar Farm"
    ],
-   "alias_status": "derived",
-   "alias_evidence": "",
-   "alias_evidence_url": "",
+   "alias_status": "confirmed",
+   "alias_evidence": "Island Green Power project page (50MW, North Yorkshire, approved 2024, sold 2025): https://islandgp.com/projects/carlton ; North Yorkshire committee report filename carries the same reference 2023/0128/EIA (Land South of A645 Wade House Lane, Drax).",
+   "alias_evidence_url": "https://islandgp.com/projects/carlton",
    "exclude": [],
-   "truth_status": "pending",
-   "notes": "",
-   "planning_file": null
+   "truth_status": "found",
+   "notes": "Committee report could not be opened (robots); date unknown. Parish PDF filename suggests 15 March 2023 but date not confirmed. Not to be confused with IGP's Light Valley Solar (EN0110012) near Selby, or other Carlton places. No press headline seen.",
+   "planning_file": {
+    "authority": "North Yorkshire Council (former Selby District)",
+    "reference": "2023/0128/EIA",
+    "url": "https://public.selby.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+    "kind": "search_page",
+    "verified": false
+   }
   },
   "12162": {
    "repd_ref": "12162",
@@ -3285,8 +3325,8 @@
    "alias_evidence": "",
    "alias_evidence_url": "",
    "exclude": [],
-   "truth_status": "not_searched",
-   "notes": "Shared web search allowance ran out before this project was searched. Idox search page; paste reference UTT/26/1302/FUL. Not opened.",
+   "truth_status": "none",
+   "notes": "No article found for this 2026 application (UTT/26/1302/FUL). TRAP: 'Thaxted solar farm' results (Saffron Walden Reporter refusal; appeal UTT/21/1833/FUL, Land West of Thaxted, Cutlers Green Lane) are an older, different scheme. SPP 'BSR's third UK go-ahead' is Dengie (Maldon) - not this. Use the planning file fallback; paste reference UTT/26/1302/FUL.",
    "planning_file": {
     "authority": "Uttlesford District Council",
     "reference": "UTT/26/1302/FUL",
@@ -3306,14 +3346,14 @@
    "planning_authority": "Rochford",
    "planning_ref": "23/00733/FUL",
    "aliases": [
-    "Solar Photovoltaic Farm."
+    "Lark Hill Solar Farm"
    ],
-   "alias_status": "derived",
-   "alias_evidence": "",
-   "alias_evidence_url": "",
+   "alias_status": "confirmed",
+   "alias_evidence": "Solar Power Portal: Green Switch Capital (now Qair), 49.95 MW, about 66 ha near Canewdon, approved by Rochford District Council; plota.co.uk lists 'Land North And West Of Bolt Hall Farm, Lark Hill Road, Canewdon'. Operator, capacity, authority and road name agree. https://www.solarpowerportal.co.uk/solar-planning/planning-approval-granted-for-49-95mw-lark-hill-solar-farm",
+   "alias_evidence_url": "https://www.solarpowerportal.co.uk/solar-planning/planning-approval-granted-for-49-95mw-lark-hill-solar-farm",
    "exclude": [],
-   "truth_status": "not_searched",
-   "notes": "Search budget exhausted.",
+   "truth_status": "found",
+   "notes": "REPD status 'Application Submitted' looks stale; consent reported September 2024. Qair title taken from URL slug (search result title was generic). Do not confuse with South Fambridge Hall / Fambridge solar schemes also in Rochford.",
    "planning_file": null
   },
   "17757": {
@@ -3357,13 +3397,19 @@
    "aliases": [
     "Defford Aerodrome Solar Farm"
    ],
-   "alias_status": "derived",
-   "alias_evidence": "",
-   "alias_evidence_url": "",
+   "alias_status": "confirmed",
+   "alias_evidence": "Evesham Observer: solar farm at Defford Aerodrome, Rebecca Road, Besford, approved by Wychavon committee 6 Nov 2014 (reference 14/01244 era); 60ha. https://eveshamobserver.co.uk/?p=35578",
+   "alias_evidence_url": "https://eveshamobserver.co.uk/?p=35578",
    "exclude": [],
-   "truth_status": "pending",
-   "notes": "",
-   "planning_file": null
+   "truth_status": "found",
+   "notes": "Old item only; REPD says permission expired (gem.wiki says under construction: conflicting). Article gives no MW or developer; match on site and year.",
+   "planning_file": {
+    "authority": "Wychavon District Council",
+    "reference": "14/01244",
+    "url": "https://plan.wychavon.gov.uk/",
+    "kind": "search_page",
+    "verified": false
+   }
   },
   "2088": {
    "repd_ref": "2088",
@@ -3745,14 +3791,15 @@
    "planning_authority": "Wiltshire",
    "planning_ref": "19/10890/FUL",
    "aliases": [
-    "Down Barn Solar Farm"
+    "Down Barn Farm Solar PV",
+    "Down Barn Farm Solar Farm"
    ],
-   "alias_status": "uncertain",
-   "alias_evidence": "",
-   "alias_evidence_url": "",
+   "alias_status": "confirmed",
+   "alias_evidence": "evidence: ScottishPower Renewables project page: Down Barn Farm Solar PV, up to 49.9 MW, near Cholderton/Amesbury, Wiltshire; consented April 2020; acquired from Lightsource BP January 2022 - operator, county and capacity match (19/10890/FUL is consistent with a 2020 consent); url: https://scottishpowerrenewables.com/pages/down_barn_farm_solar_pv_scheme.aspx",
+   "alias_evidence_url": "https://scottishpowerrenewables.com/pages/down_barn_farm_solar_pv_scheme.aspx",
    "exclude": [],
-   "truth_status": "not_searched",
-   "notes": "Shared web search allowance ran out before this project was searched. Wiltshire uses its own planning portal; paste reference 19/10890/FUL. Not opened. 'Down Barn' is a common farm name: check ScottishPower/Wiltshire.",
+   "truth_status": "found",
+   "notes": "Only the developer's project page was found (labelled family 'official' as a primary-source page; it is not a news article or a public authority notice). No press article seen. Lime Down / Red Barn results are different Wiltshire projects.",
    "planning_file": {
     "authority": "Wiltshire Council",
     "reference": "19/10890/FUL",
@@ -3774,12 +3821,12 @@
    "aliases": [
     "Burwell Solar Farm"
    ],
-   "alias_status": "uncertain",
-   "alias_evidence": "",
-   "alias_evidence_url": "",
+   "alias_status": "confirmed",
+   "alias_evidence": "Energy Global: EDF Renewables, Burwell, Cambridgeshire, 49.9 MW, consented and acquired March 2021; operator, county and capacity agree. https://www.energyglobal.com/solar/22062022/edf-renewables-progresses-with-two-uk-solar-projects/",
+   "alias_evidence_url": "https://www.energyglobal.com/solar/22062022/edf-renewables-progresses-with-two-uk-solar-projects/",
    "exclude": [],
-   "truth_status": "not_searched",
-   "notes": "Search budget exhausted. Alias is the REPD name, not confirmed.",
+   "truth_status": "found",
+   "notes": "Energy Global date from URL path. Item also covers Porth Wen (Anglesey). SPP acquisition item not opened; Burwell assumed from context (EDF 100 MW = Burwell + Porth Wen). EDF project page is on edf-re.ie domain.",
    "planning_file": null
   },
   "7767": {
@@ -3817,13 +3864,19 @@
    "aliases": [
     "Wood Lane Solar Farm"
    ],
-   "alias_status": "derived",
-   "alias_evidence": "",
-   "alias_evidence_url": "",
+   "alias_status": "confirmed",
+   "alias_evidence": "Wood Lane, Sturton-le-Steeple, Bassetlaw; 49.9MW; Elgin Energy applicant, ScottishPower Renewables owner (power-technology profile). https://www.power-technology.com/marketdata/power-plant-profile-wood-lane-solar-farm-uk",
+   "alias_evidence_url": "https://www.power-technology.com/marketdata/power-plant-profile-wood-lane-solar-farm-uk",
    "exclude": [],
-   "truth_status": "pending",
-   "notes": "",
-   "planning_file": null
+   "truth_status": "found",
+   "notes": "Worksop Guardian page title has an appended Freeview line; date not shown. Many 'Wood Lane' solar schemes exist elsewhere; nearby Cottam/Steeple/One Earth NSIPs are different projects.",
+   "planning_file": {
+    "authority": "Bassetlaw District Council",
+    "reference": "20/00117/FUL",
+    "url": "https://publicaccess.bassetlaw.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+    "kind": "search_page",
+    "verified": false
+   }
   },
   "7802": {
    "repd_ref": "7802",
@@ -4200,15 +4253,16 @@
    "planning_authority": "Wiltshire",
    "planning_ref": "20/06840/FUL",
    "aliases": [
+    "Wick Solar Farm",
     "Wick Farm Solar Farm",
-    "Wick Farm Solar"
+    "Beanacre solar farm"
    ],
-   "alias_status": "uncertain",
-   "alias_evidence": "",
-   "alias_evidence_url": "",
+   "alias_status": "confirmed",
+   "alias_evidence": "evidence: Melksham News: Wick Solar Farm, solar and battery storage at Wick Farm, Beanacre (near Melksham), applicant JBM via Pegasus - operator and place match; url: https://melkshamnews.com/beanacre-solar-farm-plan-gets-go-ahead/",
+   "alias_evidence_url": "https://melkshamnews.com/beanacre-solar-farm-plan-gets-go-ahead/",
    "exclude": [],
-   "truth_status": "not_searched",
-   "notes": "Shared web search allowance ran out before this project was searched. Paste reference 20/06840/FUL. Not opened. JBM Solar; near Melksham substation (other Melksham schemes exist, e.g. Lime Down/Melksham NSIPs - do not match on place alone).",
+   "truth_status": "found",
+   "notes": "Planning reference not stated in the article; match on JBM + Wick Farm, Beanacre. Do not match Whistle Mead, Lime Down (EN010168) or other Melksham schemes. Co-located battery row exists (locara 'wick-farm-melksham-substation' battery asset).",
    "planning_file": {
     "authority": "Wiltshire Council",
     "reference": "20/06840/FUL",
@@ -4231,11 +4285,11 @@
     "Hilfield Solar Farm"
    ],
    "alias_status": "uncertain",
-   "alias_evidence": "",
+   "alias_evidence": "Only council documents seen: Hertsmere 'Solar-Farm-Appeal-Documents' library (application and inquiry documents); Aldenham parish council presentation. No news item found.",
    "alias_evidence_url": "",
    "exclude": [],
-   "truth_status": "not_searched",
-   "notes": "Search budget exhausted. Alias derived, not confirmed. Co-located battery in name.",
+   "truth_status": "none",
+   "notes": "Project went to appeal/inquiry (Hertsmere document library under Planning-Enforcement/Solar-Farm-Appeal-Documents). Co-located battery in REPD name. Planning file candidate: Hertsmere appeal document library, not confirmed as this application.",
    "planning_file": null
   },
   "8068": {
@@ -4273,13 +4327,19 @@
    "aliases": [
     "Bramley Frith Solar Farm"
    ],
-   "alias_status": "derived",
-   "alias_evidence": "",
-   "alias_evidence_url": "",
+   "alias_status": "confirmed",
+   "alias_evidence": "Newbury Today names Bramley Frith, Enso Energy, near Bramley substation, reference 20/03403/FUL (exact match). https://www.newburytoday.co.uk/news/200-acre-north-hampshire-solar-farm-met-with-backlash-by-locals-9194399",
+   "alias_evidence_url": "https://www.newburytoday.co.uk/news/200-acre-north-hampshire-solar-farm-met-with-backlash-by-locals-9194399",
    "exclude": [],
-   "truth_status": "pending",
-   "notes": "",
-   "planning_file": null
+   "truth_status": "found",
+   "notes": "REPD county says Berkshire; site is in Hampshire (Basingstoke and Deane). Enso calls it Bramley Solar Farm on its project page. Publisher of first item is an aggregator; source attribution not confirmed.",
+   "planning_file": {
+    "authority": "Basingstoke and Deane Borough Council",
+    "reference": "20/03403/FUL",
+    "url": "https://planning.basingstoke.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+    "kind": "search_page",
+    "verified": false
+   }
   },
   "8091": {
    "repd_ref": "8091",
@@ -4293,8 +4353,7 @@
    "planning_ref": "DM/20/01991/FPA",
    "aliases": [
     "Cowley House Solar Farm",
-    "Thorpe Larches solar farm",
-    "Cowley Complex (Sonnedix) - uncertain"
+    "Thorpe Larches solar farm"
    ],
    "alias_status": "uncertain",
    "alias_evidence": "Muckle LLP: Cowley House Farm, Thorpe Larches near Sedgefield, County Durham, Lightsource BP, 49.9MW (https://muckle-llp.com/enews/big-plans-for-new-north-east-solar-farm); gem.wiki Cowley House 49.9MW Lightsource BP",
@@ -4659,12 +4718,12 @@
    "aliases": [
     "Rag Lane Solar Farm"
    ],
-   "alias_status": "uncertain",
-   "alias_evidence": "",
-   "alias_evidence_url": "",
+   "alias_status": "confirmed",
+   "alias_evidence": "evidence: Energy Global: Rag Lane Solar Farm, BayWa r.e. with Grune Energien Solar, 49.9 MW, South Gloucestershire - operator, county, capacity match; BayWa project page also exists; url: https://www.energyglobal.com/solar/03122021/rag-lane-solar-farm-granted-planning-permission/",
+   "alias_evidence_url": "https://www.energyglobal.com/solar/03122021/rag-lane-solar-farm-granted-planning-permission/",
    "exclude": [],
-   "truth_status": "not_searched",
-   "notes": "Shared web search allowance ran out before this project was searched. Idox search page; paste reference P20/24180/F. Not opened. REPD name has a double space.",
+   "truth_status": "found",
+   "notes": "Energy Global date taken from the URL path (03122021); page body shows no date. Bristol World item names applicant Rag Lane Solar, Newlands Farm, West End (Wickwar/Bagstone); committee on Thursday 25 November (2021), publication date not shown. Solar Power Portal old URL now redirects to the homepage - do not use.",
    "planning_file": {
     "authority": "South Gloucestershire Council",
     "reference": "P20/24180/F",
@@ -4684,14 +4743,14 @@
    "planning_authority": "Havering",
    "planning_ref": "P0059.21",
    "aliases": [
-    "Fen Lane, Bulphan Solar Farm"
+    "Fen Lane Solar Farm"
    ],
-   "alias_status": "derived",
-   "alias_evidence": "",
+   "alias_status": "uncertain",
+   "alias_evidence": "Weak: Thurrock committee report '2102159FUL Land off Fen Lane and Medebridge Road South Ockendon Essex' may be the Thurrock part of a cross-boundary scheme whose Havering part is P0059.21; operator not confirmed.",
    "alias_evidence_url": "",
    "exclude": [],
-   "truth_status": "not_searched",
-   "notes": "Search budget exhausted. Bulphan is in Thurrock but REPD authority is Havering (P0059.21 is a Havering-style reference).",
+   "truth_status": "uncertain",
+   "notes": "TRAP: Enso Energy's Bulphan Fen Solar Farm (Harrow Lane, Thurrock 21/00077/FUL) and Thurrock Nub News items about it are a different project. Link contains spaces; encode before use.",
    "planning_file": null
   },
   "8480": {
@@ -4726,15 +4785,22 @@
    "planning_authority": "Melton",
    "planning_ref": "22/00537/FUL",
    "aliases": [
-    "Belvoir Estate Solar Farm"
+    "Belvoir Solar Farm",
+    "Belvoir Castle solar farm"
    ],
-   "alias_status": "derived",
-   "alias_evidence": "",
-   "alias_evidence_url": "",
+   "alias_status": "confirmed",
+   "alias_evidence": "JBM Solar Projects, fields off Muston Lane near Easthorpe on Belvoir Castle estate, Melton Borough; Melton committee report for 22/00537/FUL (Easthorpe Lane, Muston) matches the reference. https://democracy.melton.gov.uk/documents/s21079/22.00537.FUL Easthorpe Lane Muston.pdf",
+   "alias_evidence_url": "https://democracy.melton.gov.uk/documents/s21079/22.00537.FUL",
    "exclude": [],
-   "truth_status": "pending",
-   "notes": "",
-   "planning_file": null
+   "truth_status": "found",
+   "notes": "Refused by Melton committee Sept 2023, appeal lodged; appeal outcome not confirmed (REPD 'Awaiting Construction' implies allowed; gem.wiki says cancelled). A Feb 2025 decision 'land south east of Bottesford' surfaced but was not checked. REPD county says Lincolnshire; site is in Leicestershire (Melton). SPP 'JBM Solar receives greenlight for 49.9MW' is Stoneshollow (Hinckley), not this.",
+   "planning_file": {
+    "authority": "Melton Borough Council",
+    "reference": "22/00537/FUL",
+    "url": "https://pa.melton.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+    "kind": "search_page",
+    "verified": false
+   }
   },
   "8494": {
    "repd_ref": "8494",
@@ -5115,11 +5181,11 @@
     "Hill Court Solar Farm"
    ],
    "alias_status": "uncertain",
-   "alias_evidence": "",
-   "alias_evidence_url": "",
+   "alias_evidence": "evidence: Low Carbon project page: Longlands Solar Farm, up to 49.9 MW, west of the hamlet of Hill, in development - matches operator SPV 'Longlands Solar Farm Limited', capacity and Hill (Tranton Lane, Hill) location; url: https://www.lowcarbon.com/portfolio/projects/solar/longlands-solar-farm",
+   "alias_evidence_url": "https://www.lowcarbon.com/portfolio/projects/solar/longlands-solar-farm",
    "exclude": [],
-   "truth_status": "not_searched",
-   "notes": "Shared web search allowance ran out before this project was searched. Operator SPV is 'Longlands Solar Farm Limited', so press may call it Longlands Solar Farm; unconfirmed. Paste reference P22/05462/F. Not opened.",
+   "truth_status": "uncertain",
+   "notes": "Alias is strong (SPV name, 49.9 MW, Hill) but the page does not name the county or the reference, and the only item is the developer's project page, not news. Bristol247 'Giant solar farm...' (2026-04-24) is RWE's Mousewell Solar Farm - different project. Planning file fallback recommended; paste P22/05462/F.",
    "planning_file": {
     "authority": "South Gloucestershire Council",
     "reference": "P22/05462/F",
@@ -5141,12 +5207,12 @@
    "aliases": [
     "Marley Lane Solar Farm"
    ],
-   "alias_status": "uncertain",
-   "alias_evidence": "",
-   "alias_evidence_url": "",
+   "alias_status": "confirmed",
+   "alias_evidence": "Hoath Parish Council notice: CA/25/00570, solar farm on Land South Of Marley Lane, Hoath, Canterbury CT3 4JY, refused; reference matches REPD. https://hoathparishcouncil.gov.uk/news/planning-application-ca-25-00570-installation-of-a-solar-farm-etc-refused-by-ccc",
+   "alias_evidence_url": "https://hoathparishcouncil.gov.uk/news/planning-application-ca-25-00570-installation-of-a-solar-farm-etc-refused-by-ccc",
    "exclude": [],
-   "truth_status": "not_searched",
-   "notes": "Search budget exhausted. Alias derived, not confirmed. Status Application Refused.",
+   "truth_status": "found",
+   "notes": "Decision notice uploaded December 2025 (upload folder), exact date not seen. Many 'Canterbury solar farm' results are Canterbury, New Zealand - exclude 'Selwyn', 'Mackenzie', 'Tekapo', 'NZ'.",
    "planning_file": null
   },
   "8904": {
@@ -5181,15 +5247,22 @@
    "planning_authority": "Wiltshire",
    "planning_ref": "20/08618/FUL",
    "aliases": [
-    "Crudwell Road Solar Farm"
+    "Crudwell Road Solar Farm",
+    "Five Lanes Solar Project"
    ],
-   "alias_status": "derived",
-   "alias_evidence": "",
-   "alias_evidence_url": "",
+   "alias_status": "uncertain",
+   "alias_evidence": "Wiltshire committee report for 20/08618/FUL (Land west of A429 north of Malmesbury) matches the reference; gem.wiki lists Five Lanes Solar Project with other name Crudwell Road Solar Farm, Wiltshire, 50MW. https://gem.wiki/Five_Lanes_Solar_Project",
+   "alias_evidence_url": "https://gem.wiki/Five_Lanes_Solar_Project",
    "exclude": [],
-   "truth_status": "pending",
-   "notes": "",
-   "planning_file": null
+   "truth_status": "uncertain",
+   "notes": "Only an official committee report (undated, session-id URL may expire; mgAi.aspx pages also exist). No press headline seen. Co-located battery row exists. Not to be confused with Kemble solar farm (Crudwell PC page), Flaxlands, Swallett or Lime Down in Wiltshire.",
+   "planning_file": {
+    "authority": "Wiltshire Council",
+    "reference": "20/08618/FUL",
+    "url": "https://development.wiltshire.gov.uk/pr/s/",
+    "kind": "search_page",
+    "verified": false
+   }
   },
   "9053": {
    "repd_ref": "9053",

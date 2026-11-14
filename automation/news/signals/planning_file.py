@@ -43,6 +43,7 @@ KINDS = ("pins_project", "ecu_case", "pedw_case", "application", "search_page")
 DIRECT = ("pins_project", "ecu_case", "pedw_case", "application")
 GENERIC_SEARCH = "https://www.gov.uk/search-register-planning-decisions"
 GONE = (404, 410)
+REGISTER_TIMEOUT_S = 10
 
 _registers = None
 
@@ -300,6 +301,7 @@ def main(argv=None):
     if args.limit:
         projects = projects[:args.limit]
     if args.verify:
+        O.TIMEOUT_S = REGISTER_TIMEOUT_S        # many council hosts do not answer a datacentre address: do not wait long
         files, records = verify(projects, O.Fetcher())
     else:
         files, records = {p["repd_ref"]: planning_file_for(p) for p in projects}, []

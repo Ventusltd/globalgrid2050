@@ -91,6 +91,7 @@ class Fetcher:
         self.min_interval, self.host_cap = min_interval, host_cap
         self.last = {}
         self.count = {}
+        self.down = {}          # host -> error, after a timeout or connection failure: not asked again this run
 
     def _wait(self, host):
         if self.count.get(host, 0) >= self.host_cap:
@@ -108,6 +109,8 @@ class Fetcher:
         host = urllib.parse.urlsplit(url).hostname or ""
         if not url.startswith("https://") or not host:
             raise FetchError("not an https URL")
+        if host in self.down:
+            raise FetchError(self.down[host])
         for attempt in (0, 1):
             self._wait(host)
             try:
@@ -123,7 +126,8 @@ class Fetcher:
             except FetchError:
                 raise
             except Exception as exc:  # noqa: BLE001  URLError, timeouts, TLS, reset: all one failed request
-                raise FetchError("%s: %s" % (type(exc).__name__, str(exc)[:120])) from None
+                self.down[host] = "%s: %s" % (type(exc).__name__, str(exc)[:120])
+                raise FetchError(self.down[host]) from None
         raise FetchError("HTTP 429", 429)
 
 

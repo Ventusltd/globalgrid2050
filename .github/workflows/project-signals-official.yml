@@ -42,13 +42,13 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/signals"
           python automation/news/signals/official.py --out "$RUNNER_TEMP/signals/part-official.json" --probe "$RUNNER_TEMP/signals/official.md"
+      - name: Source discovery (what each official source returns)
+        if: always()
+        run: python automation/news/signals/official.py --discover "$RUNNER_TEMP/signals/discover.md"
       - name: Planning files for the 200, verified by fetching registers and direct links
         if: always()
         run: |
           python automation/news/signals/planning_file.py --verify --official "$RUNNER_TEMP/signals/part-official.json" --out "$RUNNER_TEMP/signals/planning-files.json" --probe "$RUNNER_TEMP/signals/planning.md"
-      - name: Source discovery (what each official source returns)
-        if: always()
-        run: python automation/news/signals/official.py --discover "$RUNNER_TEMP/signals/discover.md"
       - name: Summary
         if: always()
         run: |

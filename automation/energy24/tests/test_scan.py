@@ -136,6 +136,10 @@ class Energy24Tests(unittest.TestCase):
         self.assertIsNone(scan.safe_url("https://user:pass@www.gov.uk/data"))
         self.assertEqual(scan.safe_url("https://www.gov.uk/x?utm_source=a&x=2"),
                          "https://www.gov.uk/x?x=2")
+        self.assertIsNone(scan.safe_url("https://www.gov.uk:8443/redirect"))
+        with self.assertRaises(ValueError):
+            scan.TrustedPublisherRedirect().redirect_request(
+                None, None, 302, "Redirect", {}, "https://localhost/private")
 
     def test_atom_feed_links_only(self):
         atom = b'''<?xml version="1.0"?>

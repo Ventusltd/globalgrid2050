@@ -110,12 +110,27 @@ def clean_item(raw, team, as_of=None):
             return None, "invalid or future date"
         try:
             parsed = dt.datetime.fromisoformat(date.replace("Z", "+00:00"))
-            if "T" in date and parsed.tzinfo is None:
+            date_only = re.fullmatch(r"\d{4}-\d{2}-\d{2}", date) is not None
+            if not date_only and parsed.tzinfo is None:
                 return None, "invalid or future date"
-            date = parsed.date().isoformat()
-            reference = as_of or dt.datetime.now(dt.timezone.utc).date()
-            if parsed.date() > reference:
-                return None, "invalid or future date"
+            reference = as_of or dt.datetime.now(dt.timezone.utc)
+            if isinstance(reference, dt.datetime):
+                if reference.tzinfo is None:
+                    return None, "invalid or future date"
+                reference = reference.astimezone(dt.timezone.utc)
+            else:
+                # Backward-compatible date-only test/reference: end-of-day.
+                reference = dt.datetime.combine(reference, dt.time.max, tzinfo=dt.timezone.utc)
+            if date_only:
+                if parsed.date() > reference.date():
+                    return None, "invalid or future date"
+                date = parsed.date().isoformat()
+            else:
+                instant = parsed.astimezone(dt.timezone.utc)
+                if instant > reference + dt.timedelta(minutes=5):
+                    return None, "invalid or future date"
+                # An offset date is recorded by its actual UTC calendar day.
+                date = instant.date().isoformat()
         except (ValueError, OverflowError):
             return None, "invalid or future date"
     else:
@@ -255,10 +270,14 @@ def combine(rows, aliases=None, parts=None, planning=None, previous=None, now_is
     gathered = {ref: [] for ref in refs}
     dropped = {"outside the 200": 0, "no title or link": 0, "source not allowed": 0, "exclude phrase": 0, "not an object": 0}
     sources, part_state = [], {}
-    as_of = dt.date.fromisoformat((now_iso or now_utc())[:10])
+    as_of_instant = dt.datetime.fromisoformat((now_iso or now_utc()).replace("Z", "+00:00"))
+    if as_of_instant.tzinfo is None:
+        raise ValueError("combiner clock must be timezone-aware")
+    as_of_instant = as_of_instant.astimezone(dt.timezone.utc)
+    as_of = as_of_instant.date()
 
     def take(raw, team):
-        item, reason = clean_item(raw, team, as_of=as_of)
+        item, reason = clean_item(raw, team, as_of=as_of_instant)
         if item is None:
             dropped[reason] = dropped.get(reason, 0) + 1
         elif item["repd_ref"] not in ref_set:

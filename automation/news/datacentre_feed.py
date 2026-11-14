@@ -373,6 +373,25 @@ def build(previous, items, health, now_iso, cap=MAX_ITEMS):
     }
 
 
+def load_pinned(path, now_iso):
+    """Items the owner asked to be in the feed whatever the feeds return. Same shape as fetched items."""
+    path = Path(path)
+    if not path.exists():
+        return []
+    out = []
+    for row in json.loads(path.read_text(encoding="utf-8")).get("items", []):
+        title, link = clean_text(row.get("title", ""), 300), canonical_link(row.get("link", ""))
+        lanes = [lane for lane in row.get("lanes", []) if lane in ("capex", "politics")]
+        if not title or not link or not lanes:
+            continue
+        out.append({"title": title, "link": link, "source": clean_text(row.get("source", ""), 120),
+                    "date": parse_date(row.get("date", "")), "first_seen": now_iso, "lanes": lanes,
+                    "matched_terms": {"datacentre": [], "capex": [], "politics": [],
+                                      "pinned": [clean_text(row.get("reason", "owner"), 120)]},
+                    "sites": [], "site_matches": 0})
+    return out
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--out", default="dist/datacentre_news.json")
@@ -382,6 +401,8 @@ def main(argv=None):
     ap.add_argument("--fixtures", default=None,
                     help="offline: directory of <sha256(url)[:16]>.xml files used instead of the network")
     ap.add_argument("--now", default=None, help="fixed UTC timestamp (tests)")
+    ap.add_argument("--pinned", default=str(Path(__file__).with_name("datacentre_pinned.json")),
+                    help="owner-selected items always included (headline and link only)")
     ap.add_argument("--max-items", type=int, default=MAX_ITEMS)
     args = ap.parse_args(argv)
 
@@ -409,6 +430,7 @@ def main(argv=None):
         fetch = fetch_url
 
     items, health = collect(FEEDS, fetch, register, now_iso)
+    items.extend(load_pinned(args.pinned, now_iso))
     result = build(previous, items, health, now_iso, args.max_items)
     out.parent.mkdir(parents=True, exist_ok=True)
     tmp = out.with_suffix(".tmp")

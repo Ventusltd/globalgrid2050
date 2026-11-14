@@ -205,7 +205,7 @@ def test_fixture_run_end_to_end_is_deterministic(tmp_path):
     reg = tmp_path / "prox.json"
     reg.write_text(json.dumps({"records": REGISTER}), encoding="utf-8")
     out1, out2 = tmp_path / "a.json", tmp_path / "b.json"
-    args = ["--fixtures", str(FIXTURES), "--proximity", str(reg), "--now", NOW]
+    args = ["--pinned", "none.json", "--fixtures", str(FIXTURES), "--proximity", str(reg), "--now", NOW]
     assert D.main(args + ["--out", str(out1)]) == 0
     assert D.main(args + ["--out", str(out2)]) == 0
     a, b = out1.read_bytes(), out2.read_bytes()
@@ -231,7 +231,7 @@ def test_all_feeds_failing_without_previous_output_exits_nonzero(tmp_path):
     empty = tmp_path / "none"
     empty.mkdir()
     out = tmp_path / "o.json"
-    assert D.main(["--fixtures", str(empty), "--proximity", str(tmp_path / "missing.json"), "--now", NOW,
+    assert D.main(["--pinned", "none.json", "--fixtures", str(empty), "--proximity", str(tmp_path / "missing.json"), "--now", NOW,
                    "--out", str(out)]) == 1
     data = json.loads(out.read_text(encoding="utf-8"))
     assert data["status"] == "failed" and data["items"] == []
@@ -239,7 +239,7 @@ def test_all_feeds_failing_without_previous_output_exits_nonzero(tmp_path):
     out.write_text(json.dumps({"schema": D.SCHEMA, "items": [
         {"link": "https://e.org/k", "date": None, "first_seen": NOW, "lanes": ["capex"], "sites": [],
          "title": "kept"}]}), encoding="utf-8")
-    assert D.main(["--fixtures", str(empty), "--now", NOW, "--out", str(out)]) == 0
+    assert D.main(["--pinned", "none.json", "--fixtures", str(empty), "--now", NOW, "--out", str(out)]) == 0
     assert json.loads(out.read_text(encoding="utf-8"))["items"][0]["title"] == "kept"
 
 
@@ -254,6 +254,34 @@ def test_output_matches_json_schema(tmp_path):
     reg = tmp_path / "prox.json"
     reg.write_text(json.dumps({"records": REGISTER}), encoding="utf-8")
     out = tmp_path / "o.json"
-    D.main(["--fixtures", str(FIXTURES), "--proximity", str(reg), "--now", NOW, "--out", str(out)])
+    D.main(["--pinned", "none.json", "--fixtures", str(FIXTURES), "--proximity", str(reg), "--now", NOW, "--out", str(out)])
     schema = json.loads((PKG / "schema" / "datacentre-news.v1.schema.json").read_text(encoding="utf-8"))
     jsonschema.validate(json.loads(out.read_text(encoding="utf-8")), schema)
+
+
+def test_pinned_items_are_always_in_the_feed(tmp_path):
+    """An owner-pinned headline is carried even when every feed is empty or failing."""
+    import json
+    from automation.news import datacentre_feed as feed
+
+    pinned = tmp_path / "pinned.json"
+    pinned.write_text(json.dumps({"items": [
+        {"title": "A pinned headline", "link": "https://example.org/a?utm_source=x", "source": "Example",
+         "date": "2026-11-08", "lanes": ["politics"], "reason": "owner"},
+        {"title": "No lane, dropped", "link": "https://example.org/b", "lanes": []},
+    ]}), encoding="utf-8")
+    items = feed.load_pinned(pinned, "2026-11-14T00:00:00Z")
+    assert [i["title"] for i in items] == ["A pinned headline"]
+    assert items[0]["lanes"] == ["politics"] and items[0]["sites"] == []
+    assert feed.load_pinned(tmp_path / "absent.json", "2026-11-14T00:00:00Z") == []
+
+
+def test_shipped_pinned_file_is_valid():
+    import json
+    from pathlib import Path
+    from automation.news import datacentre_feed as feed
+
+    path = Path(feed.__file__).with_name("datacentre_pinned.json")
+    items = feed.load_pinned(path, "2026-11-14T00:00:00Z")
+    assert len(items) == len(json.loads(path.read_text(encoding="utf-8"))["items"]) >= 1
+    assert all(i["link"].startswith("https://") for i in items)

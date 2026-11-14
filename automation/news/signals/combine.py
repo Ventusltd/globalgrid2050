@@ -308,13 +308,12 @@ def clean_item(raw, team, today=None, collected_at=None, as_of=None):
         return None, "source not allowed"
     date = parse_date(raw.get("date"), today) or DATES.url_day(link, today)   # a full date in the link is the article's own
     year = int(date[:4]) if date else None
-    # A publisher's calendar year may be known from a title/URL even if the
-    # publication *date* is unverified. Preserve that only as a separate
-    # archival hint; never assert that it is the year of a verified date.
-    year_hint = None
+    # The calendar year alone can be evidenced by a reviewed entry or a
+    # source URL without knowing a day. This is year-only ARCHIVE metadata,
+    # never a fresh news date or proof that an event happened on that day.
     if year is None:
         hint = raw.get("year")
-        year_hint = hint if isinstance(hint, int) and DATES.FIRST_YEAR <= hint <= today.year else DATES.url_year(link, today)
+        year = hint if isinstance(hint, int) and DATES.FIRST_YEAR <= hint <= today.year else DATES.url_year(link, today)
     family = raw.get("family") if raw.get("family") in FAMILIES else ("official" if team == "official" else
                                                                         "trade" if team == "trade" else "regional")
     if _host_in(link, DEVELOPER_HOSTS):
@@ -328,7 +327,7 @@ def clean_item(raw, team, today=None, collected_at=None, as_of=None):
     when = raw.get("collected_at") if isinstance(raw.get("collected_at"), str) and raw.get("collected_at") else collected_at
     return {"repd_ref": str(raw.get("repd_ref") or ""), "title": title, "link": link,
             "publisher": D.clean_text(str(raw.get("publisher") or ""), 80) or (urllib.parse.urlsplit(link).hostname or ""),
-            "date": date, "year": year, "year_hint": year_hint, "tier": tier_of(family, date, today),
+            "date": date, "year": year, "tier": tier_of(family, date, today),
             "event": event_of(title), "obtained": "reviewed" if reviewed else "fetched",
             "source": REVIEWED if reviewed else (raw.get("source") if raw.get("source") in LIVE_TEAMS else team),
             "family": family, "collected_at": when,

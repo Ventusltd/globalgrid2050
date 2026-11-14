@@ -133,11 +133,48 @@
    "known_faults": [
     "The 97 rows are measured from the GridAtlas files, not on the live map."
    ],
+   "ci": {
+    "workflow": "Verify Pipeline News versions",
+    "run_id": 43541887007,
+    "conclusion": "success",
+    "url": "https://github.com/Ventusltd/globalgrid2050/actions/runs/43541887007",
+    "pull_request": 75
+   },
+   "merge_commit": "9f2d94cfbc4a9c2e4806ac93dc973ce07e578a7d",
+   "state": "published"
+  },
+  {
+   "id": "202611140156",
+   "version": "V9.16",
+   "parent": "202611140136",
+   "date": "2026-11-14T01:56:00Z",
+   "added": "Each PROJECT RECORD names the nearest site in the UK data-centre register with its straight-line distance, the register's id and MW fields, counts within 10, 25 and 50 km, and a link that opens GridAtlas on that site; labelled as screening distance, not a grid connection. GridAtlas data state re-measured against the October register GridAtlas released on 14 November: 5,331 of 5,334 active rows resolve; the 3 that do not are marked with their reason.",
+   "data_changed": false,
+   "runner": "tests/run_v9_16.sh",
+   "trees": [
+    "b0d94bc0d814285b675467ed59b6c0804aaa2400"
+   ],
+   "features": [
+    {
+     "id": "nearest-datacentre",
+     "file": "index.html",
+     "contains": "scripts/plugins/nearest-datacentre.js"
+    },
+    {
+     "id": "nearest-datacentre-data",
+     "file": "convergence/manifest.json",
+     "contains": "nearest_datacentre.json"
+    }
+   ],
+   "known_faults": [
+    "Only the single nearest register site is named per project.",
+    "GridAtlas state is measured from GridAtlas's published files, not on the live map."
+   ],
    "ci": null,
    "merge_commit": null,
    "state": "published"
   }
  ],
- "size_budget_mb": 17,
+ "size_budget_mb": 18,
  "size_budget_from": "202611140136"
 }

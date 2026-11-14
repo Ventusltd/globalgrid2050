@@ -10,7 +10,8 @@
  * on the phone, and the MAP links of the first rows.
  */
 import { spawn } from "node:child_process";
-import { mkdtempSync, readFileSync, writeFileSync, existsSync, rmSync } from "node:fs";
+import { mkdtempSync, readFileSync, writeFileSync, existsSync, rmSync, readdirSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
@@ -23,14 +24,18 @@ const VIEWPORTS = [
 ];
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-const profile = mkdtempSync(join(tmpdir(), "pn-chrome-"));
-const chrome = spawn(CHROME, ["--headless=new", "--no-sandbox", "--disable-gpu", "--remote-debugging-port=0",
-  `--user-data-dir=${profile}`, "--no-first-run", "about:blank"], { stdio: "ignore" });
-let wsUrl = "";
-for (let i = 0; i < 100 && !wsUrl; i += 1) {
-  await sleep(100);
-  const f = join(profile, "DevToolsActivePort");
-  if (existsSync(f)) { const [port, path] = readFileSync(f, "utf8").trim().split("\n"); if (path) wsUrl = `ws://127.0.0.1:${port}${path}`; }
+// Start Chrome and wait for its DevTools port; a slow start gets a second attempt.
+let profile = "", chrome = null, wsUrl = "";
+for (let attempt = 1; attempt <= 3 && !wsUrl; attempt += 1) {
+  profile = mkdtempSync(join(tmpdir(), "pn-chrome-"));
+  chrome = spawn(CHROME, ["--headless=new", "--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage", "--remote-debugging-port=0",
+    `--user-data-dir=${profile}`, "--no-first-run", "about:blank"], { stdio: "ignore" });
+  for (let i = 0; i < 300 && !wsUrl; i += 1) {
+    await sleep(100);
+    const f = join(profile, "DevToolsActivePort");
+    if (existsSync(f)) { const [port, path] = readFileSync(f, "utf8").trim().split("\n"); if (path) wsUrl = `ws://127.0.0.1:${port}${path}`; }
+  }
+  if (!wsUrl) { console.error(`Chrome did not open its DevTools port in 30 s (attempt ${attempt})`); chrome.kill("SIGKILL"); }
 }
 if (!wsUrl) { console.error("Chrome did not start"); process.exit(2); }
 const ws = new WebSocket(wsUrl);
@@ -94,19 +99,35 @@ async function visit(id, vp) {
       features: {
         newspaper: !!q('section.newspaper'),
         datacentre_news_panel: !!q('#dcNews'),
-        nearest_datacentres: !!q('[data-feature="nearest-datacentres"]'),
+        nearest_datacentres: document.querySelectorAll('[data-feature="nearest-datacentres"]').length,
         project_events: !!q('[data-feature="project-events"]'),
         gridatlas_state_file: !!document.querySelector('script[src*="gridatlas-state.js"]'),
         gridatlas_state_notes: document.querySelectorAll('.ga-state').length,
+        register_changes_section: !!q('#regChanges'),
       },
     };
   })()`).catch((e) => ({ error: String(e) }));
   Object.assign(rec, { complete }, state);
+  if (!vp.mobile) {
+    // CSV export of the unfiltered table: row count, header and a hash of the body.
+    const dir = mkdtempSync(join(tmpdir(), "pn-csv-"));
+    try {
+      await send("Browser.setDownloadBehavior", { behavior: "allow", downloadPath: dir });
+      await evaluate("document.querySelector('#exportInline')?.click()");
+      let file = "";
+      for (let i = 0; i < 60 && !file; i += 1) { await sleep(250); file = readdirSync(dir).find((f) => f.endsWith(".csv")) || ""; }
+      if (file) {
+        const lines = readFileSync(join(dir, file), "utf8").replace(/^\uFEFF/, "").split("\r\n").filter((l) => l.length);
+        rec.csv = { rows: lines.length - 1, header: lines[0], header_sha256: createHash("sha256").update(lines[0]).digest("hex"), body_sha256: createHash("sha256").update(lines.slice(1).join("\n")).digest("hex") };
+      } else rec.csv = { error: "no CSV file was downloaded" };
+    } catch (e) { rec.csv = { error: String(e) }; }
+    rmSync(dir, { recursive: true, force: true });
+  }
   if (process.env.PROBE_SEARCH) {
     // Optional probe: type a search and report the first row, to look at one named project.
     await evaluate(`(() => { const i = document.querySelector('#search'); i.value = ${JSON.stringify(process.env.PROBE_SEARCH)}; i.dispatchEvent(new Event('input', { bubbles: true })); })()`);
     await sleep(1500);
-    rec.probe = await evaluate(`(() => { const tr = document.querySelector('#tbody tr'); return { rows: document.querySelectorAll('#tbody tr').length, notes: document.querySelectorAll('.ga-state').length, summary: document.querySelector('#gaStateSummary')?.textContent || '', actions: tr?.lastElementChild?.innerHTML || '', overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth }; })()`);
+    rec.probe = await evaluate(`(() => { const tr = document.querySelector('#tbody tr'); return { rows: document.querySelectorAll('#tbody tr').length, notes: document.querySelectorAll('.ga-state').length, nearest_datacentre: tr?.querySelector('[data-feature="nearest-datacentres"]')?.textContent || '', nearest_datacentre_link: tr?.querySelector('a.dc-site-link')?.href || '', register_change: tr?.querySelector('[data-feature="register-change"]')?.textContent || '', summary: document.querySelector('#gaStateSummary')?.textContent || '', actions: tr?.lastElementChild?.innerHTML || '', overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth }; })()`);
   }
   if (process.env.SHOT_DIR) {
     const shot = await send("Page.captureScreenshot", { format: "png" }, sessionId).catch(() => null);

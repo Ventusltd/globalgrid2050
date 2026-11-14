@@ -101,6 +101,7 @@ def main():
             pages = json.loads(out_file.read_text()) if out_file.exists() else {}
         finally:
             server.terminate()
+        csv_seen = {}
         for v in versions:
             views = pages.get(v["id"], [])
             summary, good = [], len(views) == 2
@@ -113,6 +114,13 @@ def main():
                                 "failed_same_origin": same_origin, "failed_external": r.get("failed_external", []), "overflow": r.get("overflow"),
                                 "map_links_drawn": r.get("map_links"), "first_map_link": r.get("first_map_link"), "features_seen": r.get("features")})
             results[v["id"]]["browser"] = {"pass": good, "views": summary}
+            csv = next((r.get("csv") for r in views if r.get("csv")), None) or {"error": "not exported"}
+            parent_csv = csv_seen.get(v["parent"])
+            csv_ok = csv.get("rows") == reg["expected_record_count"] and (parent_csv is None or parent_csv.get("header_sha256") == csv.get("header_sha256"))
+            results[v["id"]]["csv_export"] = {"pass": csv_ok, "rows": csv.get("rows"), "header_sha256": csv.get("header_sha256"), "body_sha256": csv.get("body_sha256"),
+                                              "columns_same_as_parent": None if parent_csv is None else parent_csv.get("header_sha256") == csv.get("header_sha256"),
+                                              "body_same_as_parent": None if parent_csv is None else parent_csv.get("body_sha256") == csv.get("body_sha256"), "error": csv.get("error")}
+            csv_seen[v["id"]] = csv
 
     state_file = HERE / "gridatlas_state.json"
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -153,10 +161,11 @@ def state_line(s):
     if not s:
         return ""
     return (f"MAP links and GridAtlas data: every row's MAP link opens GridAtlas on the project by REPD Ref ID. Measured {s['measured_at'][:10]} against GridAtlas register "
-            f"generation {s['gridatlas_register']['generation']} ({s['gridatlas_register']['dataset']}): of {s['active_rows']:,} rows with an active REPD status, "
-            f"{s['active_resolved']:,} are in that register and {s['active_not_resolved']} are not yet (listed in versions.json under map_link_state). "
-            f"The other {s['not_active_not_expected']:,} rows have a status GridAtlas does not keep. Measured from the files, not on the live map.")
-
+            f"generation {s['gridatlas_register']['generation']} ({s['gridatlas_register']['dataset']}): of {s['rows']:,} rows, {s['active_rows']:,} have an active REPD status; "
+            f"{s['active_resolved']:,} of those are in that register and {s['active_not_resolved']} are not "
+            f"({s.get('active_not_resolved_outside_gridatlas_area', 0)} outside the area GridAtlas compiles, {s.get('active_not_resolved_unexplained', s['active_not_resolved'])} unexplained; listed in versions.json under map_link_state). "
+            f"The other {s['not_active_not_expected']:,} rows have a status GridAtlas does not keep; {s.get('rows_without_map_point', 0)} rows have no map point and open by reference only. "
+            f"Measured from GridAtlas's published files, not on the live map.")
 
 def render(doc):
     e = html.escape

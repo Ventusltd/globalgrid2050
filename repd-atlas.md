@@ -84,7 +84,7 @@ permalink: /atlas/
     }).addTo(map);
 
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
-    const csvUrl = '{{ site.baseurl }}/repd.csv';
+    const csvUrl = '{{ site.baseurl }}/repd-2026q3.csv';
 
     let allData = [];
     let allMarkers = [];

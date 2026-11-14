@@ -84,7 +84,7 @@ permalink: /uk_operating_large_solar_farms/
     }).addTo(map);
 
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
-    const csvUrl = '{{ site.baseurl }}/repd-solar-operational-over-4mw.csv';
+    const csvUrl = '{{ site.baseurl }}/repd-solar-operational-over-4mw-2026q3.csv';
 
     let allData = [];
     let allMarkers = [];

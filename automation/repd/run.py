@@ -584,7 +584,11 @@ def adapt_diff(mod, ctx: RunContext, out: Path) -> dict[str, Any]:
         raise NotApplicable
     d = ctx.descriptor
     prev = d.get("diff_previous_path")
-    prev = ctx.repo_root / prev if prev else ctx.repo_root / "dist" / "project_identity_v6.json"
+    pid = d.get("previous_release_id")
+    by_id = ctx.repo_root / "dist" / f"project_identity_{pid}.json" if pid else None
+    # Previous release's identity registry when it is on main (2026q3 onward), else frozen V6.
+    prev = (ctx.repo_root / prev if prev else by_id if by_id and by_id.is_file()
+            else ctx.repo_root / "dist" / "project_identity_v6.json")
     if not prev.is_file():
         prev = _previous_csv(ctx)
     if not prev:

@@ -472,6 +472,22 @@ change (note 20 section 6).
   wait on it (note 04 section 7). Nothing is required by branch protection; `main` is unprotected (note 04 section 1).
 - The automation workflow `.github/workflows/repd-release-candidate.yml` is `workflow_dispatch` only and ends at this draft PR.
 
+### 6.1 The monthly job (owner's instruction, 14 November 2026: "I want REPD to be updated every month")
+
+- `.github/workflows/repd-monthly.yml` runs at 05:17 UTC on the 3rd of every month, and by hand from Actions > "REPD monthly update" >
+  Run workflow (inputs: `open_pr`, default true; `release_folder`, blank = now). It is the one scheduled exception to the manual-only
+  freeze; running `000_freeze_all_workflows_to_manual.yml` again strips its schedule, so put the `schedule:` block back afterwards.
+- It downloads the CSV and XLSX the publication links to and compares their sha256 with `automation/repd/releases/*.json`
+  (`python -m automation.repd.monthly`). Same bytes: a green run whose summary says "No new REPD release" (most months).
+  New bytes: it writes `releases/<id>.json` and `releases_v6/v6_<id>.json`, adds the three over-5-MB files to the allow-list, runs
+  `automation/repd/run.py --offline` on the downloaded bytes (steps 2 to 8) and opens a pull request (not draft) on `repd/<id>-monthly`
+  with the change report as its body. It never pushes to `main`; the owner reviews and merges, and then does steps 9 and 10 and any
+  repointing as before. New bytes for a quarter that already has a descriptor (a correction) stop the run red for a person.
+- Same commands by hand: `python -m automation.repd.monthly --out "$OUT/check"`, then, if `status` in `$OUT/check/result.json` is `new`,
+  `python -m automation.repd.run --descriptor automation/repd/releases/$REL.json --label $REL --release-folder <stamp> --out "$OUT/run"
+  --offline --csv "$OUT/check/raw/<csv name>" --xlsx "$OUT/check/raw/<xlsx name>"`. Offline: add `--api-file <saved content API JSON>
+  --files-dir <folder with the files>` to the first command.
+
 ## 7. Rollback
 
 Roll back in the reverse order of release: homepage pointer first, then Pipeline News and GridAtlas, then data. A release folder that the

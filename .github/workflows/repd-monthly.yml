@@ -1,0 +1,225 @@
+name: REPD monthly update
+# The owner's instruction of 14 Nov 2026: "I want REPD to be updated every month." This is the
+# one scheduled exception to 000_freeze_all_workflows_to_manual.yml (running that freeze again
+# strips the schedule below: put it back). It replaces repd-new-release-check.yml.disabled.
+#
+# On the 3rd of each month: download the CSV + XLSX the GOV.UK publication links to and compare
+# their sha256 with the descriptors in automation/repd/releases/ (hashes, not URLs: GOV.UK
+# redirects a replaced attachment's old URL to the new file). Same bytes = "no new release",
+# a green run (REPD is quarterly, so most months). New bytes = write the new descriptor, run
+# automation/repd/run.py (clean, validate, change report, new-named datasets, hash guard) and
+# open a pull request (not draft) on repd/<id>-monthly with the change report in the body.
+# Never pushes to main; only the open-pr job can write. Runbook: docs/repd/RUNBOOK.md.
+on:
+  schedule:
+    - cron: '17 5 3 * *'
+  workflow_dispatch:
+    inputs:
+      open_pr:
+        description: Open the pull request when a new release is found (false = build and upload only)
+        required: false
+        default: true
+        type: boolean
+      release_folder:
+        description: 12-digit UTC stamp for uk_renewables_pipeline/<stamp>/ (blank = now)
+        required: false
+        default: ''
+        type: string
+permissions:
+  contents: read
+
+concurrency:
+  group: repd-monthly
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: Check GOV.UK and build if new (read-only)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    outputs:
+      status: ${{ steps.check.outputs.status }}
+      release_id: ${{ steps.check.outputs.release_id }}
+      overall: ${{ steps.build.outputs.overall }}
+    env:
+      IN_FOLDER: ${{ inputs.release_folder }}
+      WORK: /tmp/repd-monthly
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - name: Validate inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ -z "$IN_FOLDER" || "$IN_FOLDER" =~ ^20[0-9]{10}$ ]] || { echo "::error::release_folder must be 12 digits"; exit 1; }
+
+      # Same sparse, blobless checkout as repd-release-candidate.yml: only what the pipeline reads.
+      - name: Checkout main (blobless, sparse)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          filter: blob:none
+          persist-credentials: false
+          sparse-checkout: |
+            automation
+            scripts
+            config
+            dist
+            docs
+            data/repd
+            .github
+            uk_renewables_pipeline/202609082224
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: python -m pip install --disable-pip-version-check 'pandas>=2,<3' 'openpyxl>=3.1,<4' 'pyproj>=3,<4' 'pyyaml>=6,<7'
+
+      - name: Compare published REPD files with the known releases (by sha256)
+        id: check
+        shell: bash
+        run: |
+          set -uo pipefail
+          args=(--out "$WORK/check" --repo-root .)
+          [[ -n "$IN_FOLDER" ]] && args+=(--release-folder "$IN_FOLDER")
+          python -m automation.repd.monthly "${args[@]}"
+          code=$?
+          cat "$WORK/check/summary.md" >> "$GITHUB_STEP_SUMMARY"
+          exit $code
+
+      - name: Build the new release (clean, validate, change report, datasets, hash guard)
+        id: build
+        if: steps.check.outputs.status == 'new'
+        shell: bash
+        env:
+          RID: ${{ steps.check.outputs.release_id }}
+          FOLDER: ${{ steps.check.outputs.release_folder }}
+          CSV: ${{ steps.check.outputs.csv }}
+          XLSX: ${{ steps.check.outputs.xlsx }}
+        run: |
+          set -uo pipefail
+          [[ "$RID" =~ ^20[0-9]{2}q[1-4]$ && "$FOLDER" =~ ^20[0-9]{10}$ ]] || { echo "::error::bad id/folder"; exit 1; }
+          python -m automation.repd.run --descriptor "automation/repd/releases/$RID.json" --label "$RID" \
+            --release-folder "$FOLDER" --out "$WORK/out" --repo-root . --offline --csv "$CSV" --xlsx "$XLSX"
+          code=$?
+          overall=$(python -c "import json,sys;print(json.load(open(sys.argv[1]))['overall'])" "$WORK/out/run_report.json" 2>/dev/null || echo failed)
+          echo "overall=$overall" >> "$GITHUB_OUTPUT"
+          [[ -f "$WORK/out/run_report.md" ]] && cat "$WORK/out/run_report.md" >> "$GITHUB_STEP_SUMMARY"
+          # The repository files the check step wrote (descriptors, waivers, allow-list lines) go in the PR too.
+          git status --porcelain --untracked-files=all | sed 's/^...//' > "$WORK/repo_changes.txt"
+          while IFS= read -r rel; do
+            case "$rel" in
+              automation/repd/releases/*.json|automation/repd/releases_v6/*.json|automation/repd/baselines/*_known_anomalies.json|.github/large-files-allowlist.txt) ;;
+              *) echo "::error::unexpected change in the checkout: $rel"; exit 1 ;;
+            esac
+            mkdir -p "$WORK/repo/$(dirname "$rel")"; cp "$rel" "$WORK/repo/$rel"
+          done < "$WORK/repo_changes.txt"
+          exit $code
+
+      - name: Upload the check, the build and the repository changes
+        if: always() && steps.check.outputs.status == 'new'
+        uses: actions/upload-artifact@v4
+        with:
+          name: repd-monthly-${{ github.run_number }}
+          path: |
+            /tmp/repd-monthly/check/result.json
+            /tmp/repd-monthly/check/summary.md
+            /tmp/repd-monthly/out/
+            /tmp/repd-monthly/repo/
+            /tmp/repd-monthly/repo_changes.txt
+          retention-days: 90
+          if-no-files-found: error
+
+  open-pr:
+    name: Push repd/<id>-monthly and open the pull request
+    needs: check
+    if: needs.check.outputs.status == 'new' && needs.check.outputs.overall == 'ok' && (github.event_name == 'schedule' || inputs.open_pr)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      RID: ${{ needs.check.outputs.release_id }}
+      BRANCH: repd/${{ needs.check.outputs.release_id }}-monthly
+      ART: /tmp/repd-monthly-artifact
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Validate branch name
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$BRANCH" =~ ^repd/20[0-9]{2}q[1-4]-monthly$ ]] || { echo "::error::bad branch $BRANCH"; exit 1; }
+
+      - name: Checkout main (blobless, only .github and automation materialised)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            .github
+            automation
+
+      - name: Download this run's build
+        uses: actions/download-artifact@v4
+        with:
+          name: repd-monthly-${{ github.run_number }}
+          path: ${{ env.ART }}
+
+      - name: Stop green if the branch already exists (pull request already open from an earlier month)
+        id: exists
+        shell: bash
+        run: |
+          if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "Branch $BRANCH already exists: the $RID pull request is waiting for review. Nothing pushed." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Commit the new files on repd/<id>-monthly and push that branch (never main)
+        if: steps.exists.outputs.exists != 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          main_sha="$(git rev-parse HEAD)"
+          git switch -c "$BRANCH"
+          for tree in "$ART/out/pr" "$ART/repo"; do
+            (cd "$tree" && find . -type f -print0) | while IFS= read -r -d '' f; do
+              rel="${f#./}"; mkdir -p "$(dirname "$rel")"; cp "$tree/$rel" "$rel"; git add --sparse -f -- "$rel"
+            done
+          done
+          # Additions only, except the size-guard allow-list, which gains lines for this release.
+          bad="$(git diff --cached --name-status --no-renames "$main_sha" | grep -v '^A' | grep -v $'^M\t.github/large-files-allowlist.txt$' || true)"
+          if [[ -n "$bad" ]]; then echo "::error::changes other than additions:"; echo "$bad"; exit 1; fi
+          git diff --cached --quiet && { echo "::error::nothing to commit"; exit 1; }
+          git commit -q -m "repd($RID): monthly update from run ${GITHUB_RUN_ID} (new files only)"
+          case "$(git rev-parse --abbrev-ref HEAD)" in main|master|gh-pages) exit 1;; esac
+          git push origin "HEAD:refs/heads/$BRANCH"
+
+      - name: Open the pull request with the change report
+        if: steps.exists.outputs.exists != 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          body="$RUNNER_TEMP/body.md"
+          {
+            cat "$ART/check/summary.md"
+            echo
+            echo "Opened by .github/workflows/repd-monthly.yml, run $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID." \
+              "New files only, plus allow-list lines for this release's files over 5 MB. The owner reviews and merges;" \
+              "merging the new uk_renewables_pipeline/<stamp>/ folder deploys it. A pull request opened by GITHUB_TOKEN" \
+              "does not trigger pull_request workflows: run.py applied the 5 MB rule before the push."
+            echo
+            head -c 45000 "$ART/out/pr/docs/repd/releases/$RID/changelog_$RID.md" 2>/dev/null || echo "(no change report)"
+            printf '\n\n---\n\n'
+            head -c 12000 "$ART/out/run_report.md"
+          } > "$body"
+          title="REPD $RID monthly update: $(python3 -c "import json,sys;print(json.load(open(sys.argv[1]))['published']['label'])" "$ART/check/result.json")"
+          gh pr create --base main --head "$BRANCH" --title "$title" --body-file "$body"

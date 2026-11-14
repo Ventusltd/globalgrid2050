@@ -170,6 +170,43 @@
     "Only the single nearest register site is named per project.",
     "GridAtlas state is measured from GridAtlas's published files, not on the live map."
    ],
+   "ci": {
+    "workflow": "Verify Pipeline News versions",
+    "run_id": 43544934300,
+    "conclusion": "success",
+    "url": "https://github.com/Ventusltd/globalgrid2050/actions/runs/43544934300",
+    "pull_request": 76,
+    "note": "First run 43543937369 failed for every version: Chrome did not start on the runner within 10 seconds. Start-up wait lengthened in the same pull request."
+   },
+   "merge_commit": "1dc14b6f6f1e73b53bd2df8fb06e39f0573f40b0",
+   "state": "published"
+  },
+  {
+   "id": "202611140216",
+   "version": "V9.17",
+   "parent": "202611140156",
+   "date": "2026-11-14T02:16:00Z",
+   "added": "Register changes between the July and October 2026 REPD releases: a labelled list of the twelve highest-scored changes below the data-centre panel, each searchable in the table, and the change shown in the PROJECT RECORD of each of the 274 projects that has one (308 events). Register events, not news stories.",
+   "data_changed": false,
+   "runner": "tests/run_v9_17.sh",
+   "trees": [
+    "2a6faf461c0771bb8cfe5c47a4e138af710b868f"
+   ],
+   "features": [
+    {
+     "id": "register-changes",
+     "file": "index.html",
+     "contains": "scripts/plugins/register-changes.js"
+    },
+    {
+     "id": "register-changes-data",
+     "file": "events/register_changes.json",
+     "contains": "globalgrid2050.pipeline-news.register-changes.v1"
+    }
+   ],
+   "known_faults": [
+    "The list shows twelve changes; the others are reached through the table."
+   ],
    "ci": null,
    "merge_commit": null,
    "state": "published"

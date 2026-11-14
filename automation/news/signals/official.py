@@ -39,6 +39,11 @@ HERE = Path(__file__).resolve().parent
 if str(HERE.parent) not in sys.path:
     sys.path.insert(0, str(HERE.parent))
 
+if str(HERE) not in sys.path:
+    sys.path.insert(0, str(HERE))
+
+import dates as DATES  # noqa: E402  one date rule shared by the collectors and the combiner
+import gate as GATE  # noqa: E402  the title gate shared with trade.py, index.py and combine.py
 import datacentre_feed as D  # noqa: E402  clean_text, canonical_link, parse_date
 
 SCHEMA_PART = "project-signals-part.v1"
@@ -74,10 +79,64 @@ class FetchError(Exception):
         self.status = status
 
 
+_CONTEXTS = {}      # host -> ssl context completed with the issuer certificate, or None when that failed
+
+
+def _completed_context(host, opener=urllib.request.urlopen):
+    """For a server that does not send its intermediate certificate (the Energy Consents Unit site): read the
+    issuer's address from the server certificate (Authority Information Access), fetch that one certificate and
+    add it to a normal verifying context. Verification is never switched off: the chain must still end at a
+    trusted root, so a wrong or forged issuer certificate simply fails as before."""
+    import os
+    import ssl
+    import tempfile
+    pem = ssl.get_server_certificate((host, 443), timeout=TIMEOUT_S)        # read only, nothing trusted yet
+    with tempfile.NamedTemporaryFile("w", suffix=".pem", delete=False) as handle:
+        handle.write(pem)
+    try:
+        info = ssl._ssl._test_decode_cert(handle.name)                      # noqa: SLF001  the only stdlib decoder
+    finally:
+        os.unlink(handle.name)
+    context = ssl.create_default_context()
+    added = 0
+    for issuer in info.get("caIssuers") or ():
+        if not issuer.lower().startswith(("http://", "https://")):
+            continue
+        req = urllib.request.Request(issuer, headers={"User-Agent": USER_AGENT})
+        with opener(req, timeout=TIMEOUT_S) as response:                    # noqa: S310
+            data = response.read(200_000)
+        context.load_verify_locations(cadata=data.decode("ascii") if data.lstrip().startswith(b"-----BEGIN")
+                                      else ssl.DER_cert_to_PEM_cert(data))
+        added += 1
+    if not added:
+        raise FetchError("server certificate names no issuer address")
+    return context
+
+
+def _incomplete_chain(exc):
+    return "CERTIFICATE_VERIFY_FAILED" in str(exc) and "local issuer" in str(exc)
+
+
 def _open(url, accept):
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": accept,
                                                "Accept-Language": "en-GB,en;q=0.8"})
-    with urllib.request.urlopen(req, timeout=TIMEOUT_S) as response:  # noqa: S310 (https URLs built here)
+    host = urllib.parse.urlsplit(url).hostname or ""
+    context = _CONTEXTS.get(host)
+    try:
+        response = urllib.request.urlopen(req, timeout=TIMEOUT_S, context=context)  # noqa: S310 (https URLs built here)
+    except urllib.error.HTTPError:
+        raise
+    except urllib.error.URLError as exc:
+        if not _incomplete_chain(exc) or host in _CONTEXTS:
+            raise
+        try:
+            _CONTEXTS[host] = _completed_context(host)
+        except Exception as inner:  # noqa: BLE001
+            _CONTEXTS[host] = None
+            raise FetchError("the server sends an incomplete certificate chain and its issuer certificate could not "
+                             "be fetched (%s); not fetched, verification stays on" % type(inner).__name__) from None
+        response = urllib.request.urlopen(req, timeout=TIMEOUT_S, context=_CONTEXTS[host])  # noqa: S310
+    with response:
         return response.status, response.geturl(), response.headers.get("Content-Type", ""), \
             response.read(MAX_BYTES + 1)[:MAX_BYTES]
 
@@ -222,6 +281,12 @@ def _facts(project):
 
 
 def match(project, title, summary=""):
+    """The module's own rule (_match), then the shared title gate (gate.py): a headline placed abroad or in another
+    county, or a bare name without a solar term, is not this project. The whole alias is enough in an official title."""
+    return GATE.gated(project, title, _match(project, title, summary), official=True)
+
+
+def _match(project, title, summary=""):
     """(basis, confidence) when the item is tied to the project by the shared rule, else None."""
     text = "%s %s" % (title, summary)
     for phrase in project.get("exclude", []):
@@ -265,6 +330,9 @@ def parse_day(value):
     value = (value or "").strip()
     if not value:
         return None
+    found = DATES.day(value)        # day first unless the value cannot be read that way; implausible years are None
+    if found or re.match(r"\d{1,2}[/.\-]\d{1,2}[/.\-]\d{2,4}", value):
+        return found
     iso = D.parse_date(value)
     if iso:
         return iso[:10]
@@ -407,7 +475,7 @@ def govuk_results(body):
             link = "https://www.gov.uk" + link
         orgs = [o.get("title") for o in (r.get("organisations") or []) if isinstance(o, dict) and o.get("title")]
         out.append({"title": r.get("title") or "", "link": link, "summary": r.get("description") or "",
-                    "date": (D.parse_date(r.get("public_timestamp") or "") or "")[:10] or None,
+                    "date": DATES.day(r.get("public_timestamp") or ""),
                     "publisher": orgs[0] if orgs else "GOV.UK", "format": r.get("format") or ""})
     return out
 

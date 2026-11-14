@@ -17,7 +17,7 @@ import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-ORDER = ("official", "trade", "index", "planning_file", "combiner", "acid")
+ORDER = ("official", "trade", "index", "planning_file", "combiner", "gate", "acid")
 
 
 def read_suite(path):

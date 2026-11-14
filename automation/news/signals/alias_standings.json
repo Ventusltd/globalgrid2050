@@ -1,0 +1,1666 @@
+{
+ "schema": "project-signal-alias-standings.v1",
+ "date": "2026-11-14",
+ "note": "Standing of each project's alias, earned from the evidence recorded in aliases.json and the reviewers' findings. Rule: confirmed needs recorded evidence naming at least two agreeing facts among developer, place, capacity (within 20 percent or explained) and planning reference, with no unexplained capacity conflict and no reviewer doubt; possible = one fact, an unexplained conflict, reviewer doubt, or facts only in signal titles; unknown = nothing recorded. combine.py reads this file: only 'confirmed' lets an item be shown as confirmed; 'possible' and 'unknown' make every item of the project a possible match.",
+ "projects": {
+  "12588": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, planning reference).",
+   "facts": [
+    "developer",
+    "capacity",
+    "planning reference"
+   ]
+  },
+  "12926": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, planning reference, place).",
+   "facts": [
+    "developer",
+    "planning reference",
+    "place"
+   ]
+  },
+  "13043": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (developer, planning reference, place, capacity).",
+   "facts": [
+    "developer",
+    "planning reference",
+    "place",
+    "capacity"
+   ]
+  },
+  "15149": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (developer, planning reference, capacity, place).",
+   "facts": [
+    "developer",
+    "planning reference",
+    "capacity",
+    "place"
+   ]
+  },
+  "15866": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (developer, place, capacity, planning reference).",
+   "facts": [
+    "developer",
+    "place",
+    "capacity",
+    "planning reference"
+   ]
+  },
+  "17699": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (planning reference, capacity, place). Developer name differs from REPD operator (Green Nation vs Net Zero One); reference, capacity and place agree.",
+   "facts": [
+    "planning reference",
+    "capacity",
+    "place"
+   ]
+  },
+  "14806": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (planning reference, capacity, place).",
+   "facts": [
+    "planning reference",
+    "capacity",
+    "place"
+   ]
+  },
+  "10914": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "9809": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (planning reference, developer, capacity). Press 500 MW vs REPD 531 MW, within 20 percent; owner now EDF (REPD operator stale).",
+   "facts": [
+    "planning reference",
+    "developer",
+    "capacity"
+   ]
+  },
+  "7188": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (planning reference, capacity, place).",
+   "facts": [
+    "planning reference",
+    "capacity",
+    "place"
+   ]
+  },
+  "8162": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (planning reference, developer, place, capacity).",
+   "facts": [
+    "planning reference",
+    "developer",
+    "place",
+    "capacity"
+   ]
+  },
+  "9806": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (planning reference, developer, capacity, place).",
+   "facts": [
+    "planning reference",
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "12281": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (planning reference, developer, place).",
+   "facts": [
+    "planning reference",
+    "developer",
+    "place"
+   ]
+  },
+  "14851": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (planning reference, developer, place).",
+   "facts": [
+    "planning reference",
+    "developer",
+    "place"
+   ]
+  },
+  "15793": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (planning reference, capacity, place, developer).",
+   "facts": [
+    "planning reference",
+    "capacity",
+    "place",
+    "developer"
+   ]
+  },
+  "16063": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (planning reference, place, developer).",
+   "facts": [
+    "planning reference",
+    "place",
+    "developer"
+   ]
+  },
+  "17494": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (developer, capacity, place, planning reference).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place",
+    "planning reference"
+   ]
+  },
+  "17560": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (developer, capacity, place, planning reference). Alias \"The Droves\" is close to everyday words (drove, Drove Lane); require a second term (solar, Norfolk, Island Green, EN0110013).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place",
+    "planning reference"
+   ]
+  },
+  "17701": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (planning reference, developer, place, capacity). Reviewer: REPD county West Yorkshire is wrong; site is near Selby, North Yorkshire.",
+   "facts": [
+    "planning reference",
+    "developer",
+    "place",
+    "capacity"
+   ]
+  },
+  "10916": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (developer, capacity, place, planning reference). Press also cites 605 MWp DC; 480 MW is the export figure.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place",
+    "planning reference"
+   ]
+  },
+  "15252": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (planning reference, place, capacity, developer). 600 MW headline counts solar plus BESS; explained.",
+   "facts": [
+    "planning reference",
+    "place",
+    "capacity",
+    "developer"
+   ]
+  },
+  "11678": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (planning reference, developer, capacity, place). Generic alias \"East Yorkshire Solar Farm\": require Boom Power, Howden or EN010143.",
+   "facts": [
+    "planning reference",
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "13599": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (developer, capacity, place, planning reference).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place",
+    "planning reference"
+   ]
+  },
+  "15347": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (planning reference, developer, capacity, place). Evidence text only, no evidence URL recorded.",
+   "facts": [
+    "planning reference",
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "6502": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "9904": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (developer, capacity, place, planning reference). No evidence URL recorded; PINS page seen only in search results.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place",
+    "planning reference"
+   ]
+  },
+  "14100": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (place, planning reference).",
+   "facts": [
+    "place",
+    "planning reference"
+   ]
+  },
+  "15000": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (planning reference, developer, place). No evidence URL recorded.",
+   "facts": [
+    "planning reference",
+    "developer",
+    "place"
+   ]
+  },
+  "14098": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (planning reference, developer, place, capacity).",
+   "facts": [
+    "planning reference",
+    "developer",
+    "place",
+    "capacity"
+   ]
+  },
+  "11476": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (developer, capacity, place, planning reference). No evidence URL recorded.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place",
+    "planning reference"
+   ]
+  },
+  "12409": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (capacity, developer, place, planning reference).",
+   "facts": [
+    "capacity",
+    "developer",
+    "place",
+    "planning reference"
+   ]
+  },
+  "17779": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (planning reference, developer, place). No evidence URL recorded.",
+   "facts": [
+    "planning reference",
+    "developer",
+    "place"
+   ]
+  },
+  "19016": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (developer, capacity, planning reference, place). Generic alias \"Springfield Solar Farm\": require Voltalia, Oldhamstocks or ECU00004815.",
+   "facts": [
+    "developer",
+    "capacity",
+    "planning reference",
+    "place"
+   ]
+  },
+  "9226": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place). Reviewer: REPD county Gwynedd is wrong; site is on Anglesey.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "9546": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (developer, place, capacity, planning reference). Press figures 140 to 163 MW vs REPD 152.4 MW, within 20 percent. Alias \"Oaklands Solar Farm\" overlaps REPD 7701 (Oaklands, Vale of Glamorgan).",
+   "facts": [
+    "developer",
+    "place",
+    "capacity",
+    "planning reference"
+   ]
+  },
+  "6557": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, place, planning reference). Early trade items cite 120 MW vs REPD 150 MW (earlier design figure, explained by reviewer).",
+   "facts": [
+    "developer",
+    "place",
+    "planning reference"
+   ]
+  },
+  "14550": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (planning reference, developer, capacity, place).",
+   "facts": [
+    "planning reference",
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "14096": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (planning reference, developer).",
+   "facts": [
+    "planning reference",
+    "developer"
+   ]
+  },
+  "11278": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (developer, capacity, place, planning reference). Reviewer: a Marshfield council post may be a later stage or resubmission; alias \"Wentlooge Solar Farm\" is shared with REPD 7191 (revised 62.5 MW scheme), so items need date or capacity to split.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place",
+    "planning reference"
+   ]
+  },
+  "16393": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (developer, capacity). REPD has no planning reference; authority Stockton-on-Tees vs press County Durham (multi-site complex). Possible overlap with REPD 8091 Cowley House.",
+   "facts": [
+    "developer",
+    "capacity"
+   ]
+  },
+  "14543": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place). Signal titles are URL slugs only.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "17948": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (planning reference, capacity, developer, place). No evidence URL recorded.",
+   "facts": [
+    "planning reference",
+    "capacity",
+    "developer",
+    "place"
+   ]
+  },
+  "10085": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, place, capacity). Older 2021 trade item cites an initial 165 MW site; current scheme 99.9 MW export (explained).",
+   "facts": [
+    "developer",
+    "place",
+    "capacity"
+   ]
+  },
+  "12997": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (planning reference, developer, place). No evidence URL recorded.",
+   "facts": [
+    "planning reference",
+    "developer",
+    "place"
+   ]
+  },
+  "21306": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (developer, place). Only two facts (developer, authority area). Alias \"Desborough Airfield solar farm\" is shared with REPD 4968 (expired 2015 scheme, same airfield).",
+   "facts": [
+    "developer",
+    "place"
+   ]
+  },
+  "14193": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place). No evidence URL recorded.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "18870": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (planning reference, developer, capacity, place). Reviewer: REPD county London and authority Planning Inspectorate are wrong; DCO withdrawn, resubmitted to Braintree and Uttlesford.",
+   "facts": [
+    "planning reference",
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "19975": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (developer, capacity, place, planning reference). Currently uncertain only for lack of news; developer page names developer, capacity, place and reference. NESO \"North Ray 2\" item may be a separate phase.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place",
+    "planning reference"
+   ]
+  },
+  "20768": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (developer, place). Currently uncertain. Developer BLC Energy and Perthshire place agree; capacity 75 MW export vs REPD 97.5 MW (23 percent, reviewer explains as export vs installed). Reference not in notice.",
+   "facts": [
+    "developer",
+    "place"
+   ]
+  },
+  "16026": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (planning reference, capacity, place, developer). No evidence URL recorded. Hybrid wind/solar scheme; solar element about 80 MW.",
+   "facts": [
+    "planning reference",
+    "capacity",
+    "place",
+    "developer"
+   ]
+  },
+  "15538": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (planning reference, place). Official committee paper only.",
+   "facts": [
+    "planning reference",
+    "place"
+   ]
+  },
+  "9815": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (planning reference, place, developer, capacity). 2022 report gives 49.9 MW; 78 MWp later (explained). Separate battery row exists.",
+   "facts": [
+    "planning reference",
+    "place",
+    "developer",
+    "capacity"
+   ]
+  },
+  "6411": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place). No evidence URL recorded. Reviewer: \"Future Energy Llanwern\" and Gwent Levels 2025 items are a different, newer scheme.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "7194": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place). REPD operator field repeats the project name.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "12117": {
+   "standing": "possible",
+   "reason": "Recorded facts: developer, place. Not enough for confirmed. Capacity conflict: press 49.995 MW export vs REPD 75 MW, not explained. Crowded area: a 2025 Boston application \"Land west of Cowbridge Road, Bicker\" (B/25/0356, found in check search) and \"Cowbridge Solar\" in Beacon Fen DCO papers make alias \"Cowbridge Road solar farm\" ambiguous.",
+   "facts": [
+    "developer",
+    "place"
+   ]
+  },
+  "14293": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (planning reference, capacity, place). Generic alias \"Houston solar farm\" matched Houston, Texas in the trade run: require Renfrewshire or ECU00004825.",
+   "facts": [
+    "planning reference",
+    "capacity",
+    "place"
+   ]
+  },
+  "14540": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (planning reference, developer, capacity).",
+   "facts": [
+    "planning reference",
+    "developer",
+    "capacity"
+   ]
+  },
+  "2347": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (capacity, developer, place). Reviewer: Deeside.com item headed \"Deeside Solar Park\" (45 MW, Compton) may be a neighbouring scheme.",
+   "facts": [
+    "capacity",
+    "developer",
+    "place"
+   ]
+  },
+  "14301": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (place, capacity). Developer named as Innova vs REPD operator Novus Renewables; place and capacity agree.",
+   "facts": [
+    "place",
+    "capacity"
+   ]
+  },
+  "8051": {
+   "standing": "possible",
+   "reason": "Recorded facts: developer, place. Not enough for confirmed. Capacity conflict: National Grid 49.9 MW vs REPD 70 MW, not explained by reviewer.",
+   "facts": [
+    "developer",
+    "place"
+   ]
+  },
+  "2203": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (capacity, developer, place).",
+   "facts": [
+    "capacity",
+    "developer",
+    "place"
+   ]
+  },
+  "10800": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place). No evidence URL recorded.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "8479": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "8459": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (developer, place). Only two facts; no evidence URL; DNS number not seen in items opened.",
+   "facts": [
+    "developer",
+    "place"
+   ]
+  },
+  "10541": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (developer, place). Only two facts (developer, place).",
+   "facts": [
+    "developer",
+    "place"
+   ]
+  },
+  "7191": {
+   "standing": "possible",
+   "reason": "Recorded facts: developer, place. Not enough for confirmed. Reviewer: REPD row is the revised 62.5 MW scheme; refusal articles concern the original 125 MW scheme; alias \"Wentlooge Solar Farm\" shared with REPD 11278; no evidence URL; developer and place do not distinguish the two rows.",
+   "facts": [
+    "developer",
+    "place"
+   ]
+  },
+  "7862": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (capacity, place, developer). Currently uncertain. Developer (Solarcentury, acquired by Statkraft), 62 MW and St Asaph place agree.",
+   "facts": [
+    "capacity",
+    "place",
+    "developer"
+   ]
+  },
+  "10477": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (planning reference, place, capacity). 49.9 MW vs REPD 61.9 MW, just within 20 percent.",
+   "facts": [
+    "planning reference",
+    "place",
+    "capacity"
+   ]
+  },
+  "10993": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, place, capacity).",
+   "facts": [
+    "developer",
+    "place",
+    "capacity"
+   ]
+  },
+  "9096": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place). Reviewer: Lincolnshire Online items cover a refused then resubmitted Gonerby Moor scheme (S23/1934) that may be a different or revised scheme; not attached.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "11864": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "12285": {
+   "standing": "unknown",
+   "reason": "No recorded evidence that the alias is this project. No source ties the name to this solar row; only an aggregator page.",
+   "facts": []
+  },
+  "14994": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, place, capacity).",
+   "facts": [
+    "developer",
+    "place",
+    "capacity"
+   ]
+  },
+  "18477": {
+   "standing": "possible",
+   "reason": "Recorded facts: developer, place. Not enough for confirmed. Capacity conflict: Courier 84 MW export vs REPD 60 MW, not explained. Check search found only the Courier and a petition; an aggregator lists the name as a wind asset.",
+   "facts": [
+    "developer",
+    "place"
+   ]
+  },
+  "7858": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place). No evidence URL recorded.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "11022": {
+   "standing": "possible",
+   "reason": "No agreeing fact recorded. Not enough for confirmed. Name only; the Yorkshire Post candidate item could not be opened.",
+   "facts": []
+  },
+  "20388": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (planning reference, place, capacity). Reviewer: REPD county Hertfordshire is wrong; Berden is in Uttlesford, Essex.",
+   "facts": [
+    "planning reference",
+    "place",
+    "capacity"
+   ]
+  },
+  "8131": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place). No evidence URL recorded.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "20021": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (developer, place). Only two facts (developer, authority area).",
+   "facts": [
+    "developer",
+    "place"
+   ]
+  },
+  "20991": {
+   "standing": "possible",
+   "reason": "Recorded facts: planning reference. Not enough for confirmed. Reviewer: the only article (data centre with adjacent solar) may be a new solar element, not the consented 54 MW scheme.",
+   "facts": [
+    "planning reference"
+   ]
+  },
+  "6012": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (planning reference, developer).",
+   "facts": [
+    "planning reference",
+    "developer"
+   ]
+  },
+  "6341": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place). No evidence URL recorded.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "6383": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "7701": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, place, capacity). No evidence URL recorded. Press does not use \"Pancross\".",
+   "facts": [
+    "developer",
+    "place",
+    "capacity"
+   ]
+  },
+  "8991": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (planning reference, capacity). Aggregator source only; no news.",
+   "facts": [
+    "planning reference",
+    "capacity"
+   ]
+  },
+  "12822": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, place, capacity). No evidence URL recorded.",
+   "facts": [
+    "developer",
+    "place",
+    "capacity"
+   ]
+  },
+  "15551": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (developer, place). Hybrid 93 MW wind plus solar vs REPD solar 50 MW (explained).",
+   "facts": [
+    "developer",
+    "place"
+   ]
+  },
+  "17470": {
+   "standing": "unknown",
+   "reason": "No recorded evidence that the alias is this project. Derived from REPD name only; Kintore battery projects dominate results.",
+   "facts": []
+  },
+  "19401": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (planning reference, developer). No evidence URL recorded. Reviewer: REPD county Kent is wrong; Lingfield is in Surrey (Tandridge).",
+   "facts": [
+    "planning reference",
+    "developer"
+   ]
+  },
+  "7823": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "8350": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, place, planning reference).",
+   "facts": [
+    "developer",
+    "place",
+    "planning reference"
+   ]
+  },
+  "9014": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place). Pages were not opened by the reviewer; check search found Solar Power Portal \"Statkraft pursues 49.99MW UK solar farm\" and an IPP Journal item placing it in East Riding of Yorkshire. REPD county North Yorkshire is inconsistent with the East Riding authority.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "9050": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (developer, place, capacity, planning reference). No evidence URL recorded. Needs the exclusion rule: no item whose title lacks \"solar farm\" or the place (Foston, Grantham); \"Bypass\" alone matched an unrelated pv magazine story.",
+   "facts": [
+    "developer",
+    "place",
+    "capacity",
+    "planning reference"
+   ]
+  },
+  "9240": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (developer, capacity, place, planning reference).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place",
+    "planning reference"
+   ]
+  },
+  "9273": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "9365": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (planning reference, developer). No evidence URL recorded.",
+   "facts": [
+    "planning reference",
+    "developer"
+   ]
+  },
+  "9394": {
+   "standing": "possible",
+   "reason": "Recorded facts: place. Not enough for confirmed. Name and district only; a contractor case study.",
+   "facts": [
+    "place"
+   ]
+  },
+  "9441": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place). No evidence URL recorded. Reviewer: REPD authority Stratford-on-Avon is wrong; decided by Warwick District (W/21/1801).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "9456": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (capacity, place). Developer BSR vs REPD SPV name; Torridge and capacity agree.",
+   "facts": [
+    "capacity",
+    "place"
+   ]
+  },
+  "9509": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (developer, place). No evidence URL recorded.",
+   "facts": [
+    "developer",
+    "place"
+   ]
+  },
+  "9586": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (developer, planning reference, place, capacity).",
+   "facts": [
+    "developer",
+    "planning reference",
+    "place",
+    "capacity"
+   ]
+  },
+  "9729": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place). No evidence URL recorded.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "9739": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "10523": {
+   "standing": "unknown",
+   "reason": "No recorded evidence that the alias is this project. Derived from REPD name only; alias identical to REPD 13969 (same name, different reference).",
+   "facts": []
+  },
+  "10529": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (planning reference, developer, place). Reviewer: page reports the application withdrawn while REPD says Revised; alias \"Red House Solar Farm\" shared with REPD 18174 (the revised application), so items need the reference or date to split.",
+   "facts": [
+    "planning reference",
+    "developer",
+    "place"
+   ]
+  },
+  "11329": {
+   "standing": "possible",
+   "reason": "Recorded facts: place. Not enough for confirmed. Evidence names only the site (archaeology and parish pages); reviewer states no developer or capacity confirmation. Check search found only aggregator, archaeology and parish pages. Reviewer: REPD county Suffolk is wrong (Belchamp St Paul is in Essex).",
+   "facts": [
+    "place"
+   ]
+  },
+  "11691": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (planning reference, capacity, place). No evidence URL recorded.",
+   "facts": [
+    "planning reference",
+    "capacity",
+    "place"
+   ]
+  },
+  "12017": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (developer, capacity, place, planning reference).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place",
+    "planning reference"
+   ]
+  },
+  "12162": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (planning reference, place). Mirror of register only; applicant not shown.",
+   "facts": [
+    "planning reference",
+    "place"
+   ]
+  },
+  "13339": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, place, capacity).",
+   "facts": [
+    "developer",
+    "place",
+    "capacity"
+   ]
+  },
+  "13969": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (planning reference, place). Alias shared with REPD 10523.",
+   "facts": [
+    "planning reference",
+    "place"
+   ]
+  },
+  "14269": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (planning reference, capacity, place).",
+   "facts": [
+    "planning reference",
+    "capacity",
+    "place"
+   ]
+  },
+  "15072": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (planning reference, developer, capacity, place).",
+   "facts": [
+    "planning reference",
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "15180": {
+   "standing": "possible",
+   "reason": "Recorded facts: capacity, place. Not enough for confirmed. Reviewer says \"treat as likely rather than certain\": developer link and reference not seen; no evidence URL. Check search found only the same undated article.",
+   "facts": [
+    "capacity",
+    "place"
+   ]
+  },
+  "15247": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "15452": {
+   "standing": "unknown",
+   "reason": "No recorded evidence that the alias is this project. Nothing found; one search only.",
+   "facts": []
+  },
+  "16541": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (developer, place). Currently uncertain only for lack of news; developer project page names RWE and Melton place.",
+   "facts": [
+    "developer",
+    "place"
+   ]
+  },
+  "17359": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (planning reference, place). Currently uncertain. Consultee response title carries the exact reference and Horningsea; no evidence URL recorded.",
+   "facts": [
+    "planning reference",
+    "place"
+   ]
+  },
+  "17429": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (planning reference, developer, place, capacity).",
+   "facts": [
+    "planning reference",
+    "developer",
+    "place",
+    "capacity"
+   ]
+  },
+  "18174": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (planning reference, capacity, place). Revised version of a withdrawn 2024 proposal; alias shared with REPD 10529.",
+   "facts": [
+    "planning reference",
+    "capacity",
+    "place"
+   ]
+  },
+  "19007": {
+   "standing": "possible",
+   "reason": "Recorded facts: place. Not enough for confirmed. Place only; reference and developer not shown.",
+   "facts": [
+    "place"
+   ]
+  },
+  "19452": {
+   "standing": "unknown",
+   "reason": "No recorded evidence that the alias is this project. Derived from REPD name only; very common name.",
+   "facts": []
+  },
+  "19635": {
+   "standing": "unknown",
+   "reason": "No recorded evidence that the alias is this project. No article; nearby Thaxted items are a different scheme.",
+   "facts": []
+  },
+  "11927": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "17757": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (planning reference, developer, capacity). No evidence URL recorded. Ely Standard item covers an earlier 30 MW screening stage.",
+   "facts": [
+    "planning reference",
+    "developer",
+    "capacity"
+   ]
+  },
+  "1980": {
+   "standing": "possible",
+   "reason": "Recorded facts: place. Not enough for confirmed. Reviewer: article gives no MW or developer; match on site and year only. Same site as REPD 7840 (alias \"Defford Aerodrome solar farm\" shared). Check search found only 2014 items.",
+   "facts": [
+    "place"
+   ]
+  },
+  "2088": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place). No evidence URL recorded.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "4968": {
+   "standing": "possible",
+   "reason": "Recorded facts: planning reference, place. Not enough for confirmed. Reference and place agree, but the alias \"Desborough Airfield solar farm\" is shared with the 2026 Innova scheme (REPD 21306); new items would be wrongly attached to this expired 2015 row.",
+   "facts": [
+    "planning reference",
+    "place"
+   ]
+  },
+  "5186": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (capacity, place, developer).",
+   "facts": [
+    "capacity",
+    "place",
+    "developer"
+   ]
+  },
+  "5521": {
+   "standing": "unknown",
+   "reason": "No recorded evidence that the alias is this project. Generic name; no source found.",
+   "facts": []
+  },
+  "6071": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "6561": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (developer, capacity, place, planning reference). No evidence URL recorded. Cayton near Ripon, not Scarborough.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place",
+    "planning reference"
+   ]
+  },
+  "7223": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (developer, place). Press 70 MW vs REPD 49.9 MW (reviewer: likely DC). Alias \"Inkersall Grange Solar\" overlaps REPD 7256.",
+   "facts": [
+    "developer",
+    "place"
+   ]
+  },
+  "7256": {
+   "standing": "possible",
+   "reason": "Recorded facts: developer, capacity. Not enough for confirmed. Reviewer: county conflict (Yorkshire vs Nottinghamshire) and Inkersall Grange may be a different site; alias overlaps REPD 7223.",
+   "facts": [
+    "developer",
+    "capacity"
+   ]
+  },
+  "7388": {
+   "standing": "possible",
+   "reason": "Recorded facts: developer, place. Not enough for confirmed. Capacity conflict: developer page 32 MW vs REPD 49.9 MW, not explained.",
+   "facts": [
+    "developer",
+    "place"
+   ]
+  },
+  "7425": {
+   "standing": "unknown",
+   "reason": "No recorded evidence that the alias is this project. Not searched; recorded signal does not name the project.",
+   "facts": []
+  },
+  "7486": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "7501": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (developer, capacity, place, planning reference). No evidence URL recorded.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place",
+    "planning reference"
+   ]
+  },
+  "7519": {
+   "standing": "possible",
+   "reason": "Recorded facts: developer, capacity. Not enough for confirmed. Not searched and no alias evidence; recorded signal titles name Corner Copse, 50 MW and BayWa r.e. Copy them into evidence to upgrade.",
+   "facts": [
+    "developer",
+    "capacity"
+   ]
+  },
+  "7561": {
+   "standing": "unknown",
+   "reason": "No recorded evidence that the alias is this project. Not searched; recorded signal does not name the project.",
+   "facts": []
+  },
+  "7616": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "7630": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "7767": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (planning reference, capacity, place, developer). Currently uncertain only for lack of news; developer page gives the reference and capacity. No evidence URL recorded.",
+   "facts": [
+    "planning reference",
+    "capacity",
+    "place",
+    "developer"
+   ]
+  },
+  "7786": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "7802": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (planning reference, place).",
+   "facts": [
+    "planning reference",
+    "place"
+   ]
+  },
+  "7840": {
+   "standing": "possible",
+   "reason": "No agreeing fact recorded. Not enough for confirmed. Only a wiki that cites REPD; reviewer notes the 2014 article may be an earlier scheme on the same site. Check search found nothing for 19/02632/FUL.",
+   "facts": []
+  },
+  "7887": {
+   "standing": "possible",
+   "reason": "Recorded facts: developer, capacity. Not enough for confirmed. Only source is a wiki page whose figures may derive from REPD itself; no news. Check search found only a plant profile, an aggregator and NE Derbyshire reports with other references.",
+   "facts": [
+    "developer",
+    "capacity"
+   ]
+  },
+  "7889": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "7936": {
+   "standing": "unknown",
+   "reason": "No recorded evidence that the alias is this project. Not searched.",
+   "facts": []
+  },
+  "7944": {
+   "standing": "possible",
+   "reason": "Recorded facts: developer, capacity, place. Not enough for confirmed. Not searched and no alias evidence; recorded signal titles name Perrinpit Road, Grune Energien, 49.9 MW and South Gloucestershire. Copy them into evidence to upgrade.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "7945": {
+   "standing": "possible",
+   "reason": "Recorded facts: place. Not enough for confirmed. Not searched; a planning consultant item names Cornwell Solar Farm, South Oxfordshire.",
+   "facts": [
+    "place"
+   ]
+  },
+  "7954": {
+   "standing": "unknown",
+   "reason": "No recorded evidence that the alias is this project. Not searched; recorded signals do not name the project.",
+   "facts": []
+  },
+  "7956": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (capacity, place).",
+   "facts": [
+    "capacity",
+    "place"
+   ]
+  },
+  "7960": {
+   "standing": "unknown",
+   "reason": "No recorded evidence that the alias is this project. Not searched.",
+   "facts": []
+  },
+  "8007": {
+   "standing": "possible",
+   "reason": "Recorded facts: place. Not enough for confirmed. Not searched; a URL-slug title names Bramford and Mid Suffolk.",
+   "facts": [
+    "place"
+   ]
+  },
+  "8026": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, place, planning reference). No evidence URL recorded.",
+   "facts": [
+    "developer",
+    "place",
+    "planning reference"
+   ]
+  },
+  "8038": {
+   "standing": "possible",
+   "reason": "Recorded facts: planning reference, place. Not enough for confirmed. Not searched and no alias evidence; council page title carries 21/00259/FUL and Claydon Farm. Copy into evidence to upgrade.",
+   "facts": [
+    "planning reference",
+    "place"
+   ]
+  },
+  "8053": {
+   "standing": "possible",
+   "reason": "Recorded facts: developer, capacity. Not enough for confirmed. Not searched and no alias evidence; Solar Power Portal title names Low Farm, 50 MW, Gresham House and Anesco. Common name.",
+   "facts": [
+    "developer",
+    "capacity"
+   ]
+  },
+  "8062": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (developer, place). Alias \"Wick Solar Farm\" is contained in REPD 8136 \"Kemble Wick Solar Farm\"; match whole phrase.",
+   "facts": [
+    "developer",
+    "place"
+   ]
+  },
+  "8065": {
+   "standing": "possible",
+   "reason": "No agreeing fact recorded. Not enough for confirmed. Council appeal documents only, not confirmed as this application.",
+   "facts": []
+  },
+  "8068": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (place, capacity). No evidence URL recorded. Reviewer: match rests on name, Hampshire and consent date; 65 MWp DC vs 49.9 MW AC explained. Check search found Alton Herald items (place only).",
+   "facts": [
+    "place",
+    "capacity"
+   ]
+  },
+  "8089": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (planning reference, place). Reviewer: REPD county Berkshire is wrong; site is in Hampshire.",
+   "facts": [
+    "planning reference",
+    "place"
+   ]
+  },
+  "8091": {
+   "standing": "possible",
+   "reason": "Recorded facts: place, capacity. Not enough for confirmed. Currently uncertain. Place and capacity agree, but reviewer thinks it is likely part of the Sonnedix Cowley Complex (REPD 16393); risk of double-counting. REPD operator Unknown.",
+   "facts": [
+    "place",
+    "capacity"
+   ]
+  },
+  "8097": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (planning reference, place). No evidence URL recorded.",
+   "facts": [
+    "planning reference",
+    "place"
+   ]
+  },
+  "8100": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (developer, place). 68.5 MWp DC vs 49.9 MW export (explained).",
+   "facts": [
+    "developer",
+    "place"
+   ]
+  },
+  "8101": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "8136": {
+   "standing": "possible",
+   "reason": "Recorded facts: developer, capacity. Not enough for confirmed. Not searched and no alias evidence; recorded titles name Aura Power, 50 MW Kemble Solar Farm and Kemble Wick (Cotswold).",
+   "facts": [
+    "developer",
+    "capacity"
+   ]
+  },
+  "8149": {
+   "standing": "possible",
+   "reason": "No agreeing fact recorded. Not enough for confirmed. Not searched; recorded titles mention Bunkers Hill and the developer acquisition.",
+   "facts": []
+  },
+  "8181": {
+   "standing": "unknown",
+   "reason": "No recorded evidence that the alias is this project. Not searched.",
+   "facts": []
+  },
+  "8185": {
+   "standing": "unknown",
+   "reason": "No recorded evidence that the alias is this project. Not searched; recorded titles do not name the project.",
+   "facts": []
+  },
+  "8225": {
+   "standing": "possible",
+   "reason": "Recorded facts: developer, capacity, place. Not enough for confirmed. Reviewer: article does not name Myttons or give the reference.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "8227": {
+   "standing": "unknown",
+   "reason": "No recorded evidence that the alias is this project. Not searched.",
+   "facts": []
+  },
+  "8254": {
+   "standing": "possible",
+   "reason": "Recorded facts: developer. Not enough for confirmed. Not searched; recorded item names Lightsource bp High Court case. REPD county Cleveland vs authority County Durham inconsistent (reviewer elsewhere places it in Hartlepool).",
+   "facts": [
+    "developer"
+   ]
+  },
+  "8308": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (developer, capacity, place, planning reference). No evidence URL recorded.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place",
+    "planning reference"
+   ]
+  },
+  "8323": {
+   "standing": "possible",
+   "reason": "Recorded facts: place. Not enough for confirmed. Not searched; recorded titles describe a 143-acre Chew Valley scheme without naming it.",
+   "facts": [
+    "place"
+   ]
+  },
+  "8357": {
+   "standing": "possible",
+   "reason": "Recorded facts: developer. Not enough for confirmed. Not searched; recorded title names developer only.",
+   "facts": [
+    "developer"
+   ]
+  },
+  "8393": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "8411": {
+   "standing": "possible",
+   "reason": "No agreeing fact recorded. Not enough for confirmed. Weak: a Thurrock report may be the other half of a cross-boundary scheme; operator not confirmed.",
+   "facts": []
+  },
+  "8480": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, place, capacity). No evidence URL recorded. Reviewer: REPD authority Dundee City may be wrong (press says Angus Council). 45 MW vs 49.9 MW within 20 percent.",
+   "facts": [
+    "developer",
+    "place",
+    "capacity"
+   ]
+  },
+  "8483": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (planning reference, developer, place). Reviewer: REPD county Lincolnshire is wrong; site is in Leicestershire (Melton).",
+   "facts": [
+    "planning reference",
+    "developer",
+    "place"
+   ]
+  },
+  "8494": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (developer, place). Developer page only; generic \"Warren\" name.",
+   "facts": [
+    "developer",
+    "place"
+   ]
+  },
+  "8501": {
+   "standing": "possible",
+   "reason": "Recorded facts: place. Not enough for confirmed. Place and authority only; no developer or reference.",
+   "facts": [
+    "place"
+   ]
+  },
+  "8503": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, place, capacity).",
+   "facts": [
+    "developer",
+    "place",
+    "capacity"
+   ]
+  },
+  "8505": {
+   "standing": "possible",
+   "reason": "Recorded facts: developer. Not enough for confirmed. Not searched; developer page \"Fern Brook Solar Farm\" recorded as signal.",
+   "facts": [
+    "developer"
+   ]
+  },
+  "8508": {
+   "standing": "unknown",
+   "reason": "No recorded evidence that the alias is this project. Not searched; recorded signal (Innova, 27.8 MWp Elms Farm) conflicts with REPD operator Low Carbon and 49.9 MW.",
+   "facts": []
+  },
+  "8517": {
+   "standing": "possible",
+   "reason": "Recorded facts: developer, capacity. Not enough for confirmed. Not searched; recorded title names Renewable Connections, 50 MW, Lincolnshire, but not the site.",
+   "facts": [
+    "developer",
+    "capacity"
+   ]
+  },
+  "8523": {
+   "standing": "unknown",
+   "reason": "No recorded evidence that the alias is this project. Not searched; application withdrawn.",
+   "facts": []
+  },
+  "8526": {
+   "standing": "unknown",
+   "reason": "No recorded evidence that the alias is this project. Not searched.",
+   "facts": []
+  },
+  "8528": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (developer, place). Only two facts (developer, county).",
+   "facts": [
+    "developer",
+    "place"
+   ]
+  },
+  "8529": {
+   "standing": "unknown",
+   "reason": "No recorded evidence that the alias is this project. Not searched; recorded titles do not name the project.",
+   "facts": []
+  },
+  "8539": {
+   "standing": "unknown",
+   "reason": "No recorded evidence that the alias is this project. Not searched; recorded title does not name the project.",
+   "facts": []
+  },
+  "8813": {
+   "standing": "possible",
+   "reason": "Recorded facts: developer, capacity, place. Not enough for confirmed. Only a wiki source that may derive from REPD; developer name differs slightly.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "8834": {
+   "standing": "unknown",
+   "reason": "No recorded evidence that the alias is this project. Not searched.",
+   "facts": []
+  },
+  "8843": {
+   "standing": "possible",
+   "reason": "Recorded facts: place. Not enough for confirmed. Not searched; recorded titles mention a Whitminster solar farm without naming it.",
+   "facts": [
+    "place"
+   ]
+  },
+  "8889": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, capacity, place). Currently uncertain only for lack of news; developer page matches SPV, capacity and place.",
+   "facts": [
+    "developer",
+    "capacity",
+    "place"
+   ]
+  },
+  "8892": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (planning reference, place).",
+   "facts": [
+    "planning reference",
+    "place"
+   ]
+  },
+  "8904": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (planning reference, developer). No evidence URL recorded. Reviewer: NottsTV Kingston-on-Soar item is a different project.",
+   "facts": [
+    "planning reference",
+    "developer"
+   ]
+  },
+  "8918": {
+   "standing": "confirmed",
+   "reason": "2 agreeing facts in recorded evidence (planning reference, place). Currently uncertain. Committee report matches the reference and place.",
+   "facts": [
+    "planning reference",
+    "place"
+   ]
+  },
+  "9053": {
+   "standing": "confirmed",
+   "reason": "4 agreeing facts in recorded evidence (developer, capacity, place, planning reference).",
+   "facts": [
+    "developer",
+    "capacity",
+    "place",
+    "planning reference"
+   ]
+  },
+  "9069": {
+   "standing": "confirmed",
+   "reason": "3 agreeing facts in recorded evidence (developer, planning reference, place). No evidence URL recorded.",
+   "facts": [
+    "developer",
+    "planning reference",
+    "place"
+   ]
+  }
+ }
+}

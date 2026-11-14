@@ -55,6 +55,8 @@ REPD = P.Repd([
     ("Blocked BESS in Britain: Clearstone's appeal fails for 150 MW site at Axminster [UPDATED]", "refusal", "battery"),
     ("UK's largest Solar farm approval deemed lawful by High Court", "planning_decision", "solar"),
     ("Decision due on huge solar farm on palace estate", "planning_decision", "solar"),
+    ("Challenge to UK's largest solar farm plan rejected", "planning_decision", "solar"),
+    ("Healey to veto new offshore wind projects if they will not lower bills", "policy", "offshore_wind"),
     ("RWE and KKR Reach Financial Close for 2.8 GW UK Offshore Wind Projects", "finance", "offshore_wind"),
     ("TotalEnergies acquires 450MW solar, 150MW BESS NSIP project", "finance", "solar"),
     ("Qair begins construction of 46 MW Brecks Solar Farm in Nottinghamshire", "construction", "solar"),
@@ -80,6 +82,8 @@ def test_real_headlines_are_kept_and_classified(title, category, technology):
     "World is now in 'age of electricity', energy agency chief says",
     "Independent investigation concludes allegations against NESO were unsubstantiated",
     "Total solar eclipse approved as school holiday",                         # not the energy sense of solar
+    "UK government approves new North Sea gas field, says tax revenue will fund clean energy",
+    "Foreign Secretary's speech at the Clean Energy Transition summit",
     "Sea Link development consent decision announced",                        # no topic word: a known miss
 ])
 def test_out_of_scope_headlines_are_dropped(title):
@@ -197,7 +201,11 @@ def test_fixture_run_matches_schema_and_contract(tmp_path):
     code, d = run(tmp_path)
     assert code == 0
     validate(d, SCHEMA)
-    assert d["status"] == "partial" and d["counts"]["feeds_failed"] == 1 and d["counts"]["feeds_ok"] == 5
+    assert d["status"] == "partial" and d["counts"]["feeds_failed"] == 1 and d["counts"]["feeds_ok"] == 6
+    assert d["feeds"][0]["source"] == "BBC News"                    # priority feeds are fetched first
+    bbc = {i["title"]: i for i in d["items"] if i["source"] == "BBC News"}
+    assert set(bbc) == {"Decision due on huge solar farm on palace estate",
+                        "Government decision on 2,400 acre solar farm delayed"}
     failed = [f for f in d["feeds"] if f["status"] == "failed"]
     assert len(failed) == 1 and "error" in failed[0]
     items = d["items"]
@@ -272,14 +280,87 @@ def test_one_bad_feed_does_not_stop_the_others():
 
 def test_global_feed_needs_a_uk_word_and_foreign_headlines_are_dropped():
     body = (b'<rss version="2.0"><channel>'
-            b'<item><title>Solar farm approved</title><link>https://example.org/1</link><description>In Kent, England</description></item>'
+            b'<item><title>Solar farm approved in Scotland</title><link>https://example.org/1</link></item>'
             b'<item><title>Solar farm approved in Greece</title><link>https://example.org/2</link></item>'
-            b'<item><title>Solar farm approved somewhere</title><link>https://example.org/3</link></item>'
+            b'<item><title>Solar farm approved somewhere</title><link>https://example.org/3</link><description>In Kent, England</description></item>'
+            b'<item><title>Wind and battery project approved in New South Wales</title><link>https://example.org/4</link></item>'
+            b'<item><title>Twin Oaks Solar Farm approved</title><link>https://example.org/5</link></item>'
             b'</channel></rss>')
-    world, _ = P.collect([{"url": "https://w.example/f", "source": "W", "uk_only": False}], lambda u: body, P.Repd(), NOW)
-    assert [i["link"] for i in world] == ["https://example.org/1"]
-    uk, _ = P.collect([{"url": "https://w.example/f", "source": "W", "uk_only": True}], lambda u: body, P.Repd(), NOW)
-    assert [i["link"] for i in uk] == ["https://example.org/1", "https://example.org/3"]
+    world, _ = P.collect([{"url": "https://w.example/f", "source": "W", "uk_only": False}], lambda u: body, REPD, NOW)
+    # a UK word or a REPD site name in the title; the feed summary ("In Kent, England") is never read
+    assert [i["link"] for i in world] == ["https://example.org/1", "https://example.org/5"]
+    uk, _ = P.collect([{"url": "https://w.example/f", "source": "W", "uk_only": True}], lambda u: body, REPD, NOW)
+    assert [i["link"] for i in uk] == ["https://example.org/1", "https://example.org/3", "https://example.org/5"]
+
+
+# ---------------------------------------------------------------- BBC priority lane
+
+BBC = [{"url": "https://feeds.bbci.co.uk/news/rss.xml", "source": "BBC News", "uk_only": True, "priority": True}]
+
+
+def rss(*entries):
+    return ("<rss version='2.0'><channel>" + "".join(
+        "<item><title>%s</title><link>https://www.bbc.co.uk/news/articles/%d</link><description>%s</description></item>"
+        % (title, n, summary) for n, (title, summary) in enumerate(entries)) + "</channel></rss>").encode()
+
+
+def test_bbc_keyword_only_headlines_are_kept_without_an_event_word():
+    body = rss(("Huge solar farm on palace estate divides village", ""),
+               ("The village that fears being surrounded", "Residents say three solar farms would encircle them."),
+               ("Tech giant picks town for new datacentre", ""),
+               ("What the new AI growth zone means for the valley", ""),
+               ("Why your street may get a new neighbour", "A hyperscale data center is planned nearby."),
+               ("Solar panels for every new home", ""))
+    items, _ = P.collect(BBC, lambda u: body, REPD, NOW)
+    assert [(i["category"], i["technology"]) for i in items] == [
+        ("other", "solar"), ("other", None), ("datacentre", None), ("datacentre", None), ("datacentre", None),
+        ("other", "solar")]
+    assert all(set(i) - {"_feed"} == set(P.ITEM_FIELDS) for i in items)
+    assert "encircle" not in json.dumps(items) and "hyperscale" not in json.dumps(items)   # summary never stored
+
+
+def test_bbc_headline_about_neither_topic_is_dropped_and_scope_rules_still_apply():
+    body = rss(("Mini-gardens for bees on bus stop roofs approved", "Council approves the plan."),
+               ("Chancellor to cut tariffs on marmalade", ""),
+               ("Sponsored: solar panels for your home", ""),
+               ("Texas solar farm destroyed by hail", ""),
+               ("Total solar eclipse: where to watch", ""),
+               ("US firm to build data centre in Wales", ""))
+    items, _ = P.collect(BBC, lambda u: body, REPD, NOW)
+    assert [i["title"] for i in items] == ["US firm to build data centre in Wales"]
+
+
+def test_bbc_lane_uses_the_event_category_and_keeps_the_botley_west_wording():
+    body = rss(("UK government refuses 840MW Botley West Solar Farm in first-ever solar NSIP no", ""),
+               ("Planned solar farm in Oxfordshire scrapped as government rejects application", ""),
+               ("Botley West Solar Farm: development consent order, Planning Act 2008", ""),
+               ("Decision due on huge farm on palace estate", "The Botley West solar farm would cover 2,400 acres."),
+               ("Challenge to UK's largest solar farm plan rejected", ""))
+    items, _ = P.collect(BBC, lambda u: body, REPD, NOW)
+    assert [i["category"] for i in items] == ["refusal", "refusal", "dco", "planning_decision", "planning_decision"]
+    assert [bool(i["possible_match"]) for i in items] == [True, False, True, False, False]   # match reads the title only
+
+
+def test_the_same_keyword_only_headline_on_a_secondary_feed_is_not_kept():
+    other = [{"url": "https://example.org/f", "source": "Other", "uk_only": True}]
+    items, _ = P.collect(other, lambda u: rss(("Huge solar farm on palace estate divides village", "")), REPD, NOW)
+    assert items == []
+
+
+def test_priority_items_kept_on_their_summary_survive_later_runs():
+    body = rss(("The village that fears being surrounded", "Residents say three solar farms would encircle them."))
+    items, health = P.collect(BBC, lambda u: body, REPD, NOW)
+    first = P.build({}, items, health, REPD, NOW, priority_sources={"BBC News"})
+    later = P.build(first, [], [], REPD, "2026-11-15T12:00:00Z", priority_sources={"BBC News"})
+    assert [i["title"] for i in later["items"]] == ["The village that fears being surrounded"]
+    assert later["items"][0]["first_seen"] == NOW
+
+
+def test_live_feed_list_puts_bbc_first():
+    feeds = json.loads((PKG / "pipeline_feeds.json").read_text(encoding="utf-8"))["feeds"]
+    flags = [bool(f.get("priority")) for f in feeds]
+    assert flags == sorted(flags, reverse=True) and flags[0]
+    assert all("feeds.bbci.co.uk" in f["url"] for f in feeds if f.get("priority"))
 
 
 def test_near_identical_titles_from_two_feeds_collapse_to_the_earliest():

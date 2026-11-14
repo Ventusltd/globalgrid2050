@@ -29,6 +29,12 @@
    "url": "https://example.invalid/missing.xml",
    "source": "Missing feed",
    "uk_only": true
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/england/oxford/rss.xml",
+   "source": "BBC News",
+   "uk_only": true,
+   "priority": true
   }
  ]
 }

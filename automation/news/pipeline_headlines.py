@@ -11,8 +11,15 @@ The rule, in one sentence: keep a headline when its TITLE names a topic (solar, 
 renewables) AND carries an event word (refused, approved, consent, DCO, financial close, construction, energised,
 appeal, ...), and the story is about the UK.
 
-- Headlines and links only. The feed summary is read in memory for one purpose (is this a UK story, on feeds
-  that are not UK-only) and is never written out. No article page is requested.
+- Priority lane (owner, 14 Nov 2026: "The main priority news feed is with key words solar and data centres and
+  from BBC news rss feed"). Feeds marked "priority" in the list (BBC News) are fetched first, and a BBC item
+  whose title or feed summary says solar or data centre is kept even with no event word, because BBC titles
+  rarely name the project ("huge solar farm on palace estate"). It gets the event category when the title has
+  an event word, otherwise "other" (solar) or "datacentre".
+- Headlines and links only. Only title, link, source and date are stored. The feed summary is read in memory
+  for the priority lane alone and is never written out; no article page is requested.
+- On a feed that is not UK-only the title must itself say it is UK news: a UK word, a REPD county, or a REPD
+  site name. A title that names another country and no UK word is dropped on every feed.
 - One category per headline from a fixed list; technology when the title says it.
 - possible_match: only when the title contains a whole name segment of a REPD Site Name (word-bounded, at
   least two words or a distinctive single word) AND a second thing in the title agrees with that REPD row:
@@ -76,10 +83,10 @@ ENERGY_TOPICS = ("solar", "wind", "storage", "grid", "renewables")
 
 # ---------------------------------------------------------------- event words (title only)
 
-LEGAL = _rx(r"judicial review|high court|court of (?:appeal|session)|supreme court|legal challenges?|lawful|"
+LEGAL = _rx(r"judicial review|high court|court of (?:appeal|session)|supreme court|challeng(?:e|es|ed)|lawful|"
             r"unlawful|court|judge|quash(?:ed|es)?")
 REFUSAL = _rx(r"refus(?:e|es|ed|al|als|ing)|reject(?:s|ed|ion|ing)?|turn(?:s|ed)? down|thrown out|throws? out|"
-              r"block(?:s|ed)|denied|dismiss(?:ed|es)|vetoe?[sd]?|says? no|appeal fail(?:s|ed)|"
+              r"block(?:s|ed)|denied|dismiss(?:ed|es)|says? no|appeal fail(?:s|ed)|"
               r"(?:loses?|lost) (?:\w+ )?appeal")
 CONSENT = _rx(r"approv(?:e|es|ed|al|als)|grant(?:s|ed)|consents|consented|go[\s-]ahead|green[\s-]?lit|"
               r"green[\s-]light(?:s|ed)?|given the nod|gets? the nod|allowed|"
@@ -126,13 +133,17 @@ TECH_RULES = (
     ("tidal", _rx(r"tidal")),
 )
 
-UK_WORDS = _rx(r"UK|U\.K\.|Britain|British|Great Britain|GB|England|English|Scotland|Scottish|Scots|Wales|Welsh|"
+UK_WORDS = _rx(r"UK|U\.K\.|Britain|British|Great Britain|GB|England|English|Scotland|Scottish|Scots|"
+               r"(?<!New South )Wales|Welsh|"
                r"Northern Ireland|Ofgem|NESO|National Grid|DESNZ|Miliband|Crown Estate|Planning Inspectorate|"
                r"Celtic Sea|Irish Sea|North Sea|Dogger Bank|Hornsea|East Anglia|Moray|Shetland|Orkney|Humber|London")
 # A headline that names another country and no UK word is not UK news, whatever feed carried it.
 FOREIGN = _rx(r"US|U\.S\.|USA|America|American|EU|Europe-wide|Ireland|Irish|Germany|German|France|French|Spain|"
               r"Spanish|Italy|Greece|Netherlands|Dutch|Poland|China|Chinese|India|Japan|Australia|Australian|"
-              r"Canada|Texas|California|Singapore|Brazil|Africa")
+              r"Canada|Texas|California|Singapore|Brazil|Africa|Taiwan|Korean?|Finland|Finnish|Norway|Norwegian|"
+              r"Denmark|Danish|Sweden|Swedish|Belgium|Belgian|Baltic|New South Wales|Queensland|Vietnam|Philippines")
+# Not this page's subject even when a topic word is present.
+EXCLUDE = _rx(r"gas fields?|oil ?fields?|speech|solar (?:eclipse|system|storm|flare)")
 
 # Opinion columns and letters are not project news (The Guardian marks them with " | Author").
 OPINION_HOSTS = ("www.theguardian.com",)
@@ -149,10 +160,11 @@ def technology_of(title):
     return None
 
 
-def category_of(title):
-    """One category from CATEGORIES for an in-scope title, or None when it carries no event word."""
-    topics = topics_of(title)
-    if not topics:
+def category_of(title, topics=None):
+    """One category from CATEGORIES for an in-scope title, or None when it carries no event word.
+    topics: given by the priority lane when the topic was found in the feed summary, not the title."""
+    topics = topics or topics_of(title)
+    if not topics or EXCLUDE.search(title):
         return None
     if topics == ["datacentre"]:
         if any(rx.search(title) for rx in (REFUSAL, CONSENT, FINANCE, CONSTRUCTION, DECISION, POLICY, DC_EXTRA, WEAK)):
@@ -205,7 +217,7 @@ class Repd:
             for field in ("County", "Planning Authority", "Region"):
                 place_tokens.update(N.norm(r.get(field)).split())
             county = N.norm(r.get("County"))
-            if len(county) >= 6:
+            if len(county) >= 4 and county != "offshore":
                 self.counties.add(county)
         for r in rows:
             ref, site = N.clean(r.get("Ref ID")), N.clean(r.get("Site Name"))
@@ -313,12 +325,16 @@ def newest_repd_csv(root):
 
 # ---------------------------------------------------------------- collect, dedupe, build
 
-def is_uk(title, summary, repd):
-    text = title + " " + summary
-    if UK_WORDS.search(text):
+def is_uk(title, repd):
+    """The title itself says this is UK news: a UK word, a REPD county, or a REPD site name of two words or more."""
+    if UK_WORDS.search(title):
         return True
-    padded = N.padded(text)
-    return any(N.contains_phrase(padded, county) for county in repd.counties)
+    padded = N.padded(title)
+    if any(N.contains_phrase(padded, county) for county in repd.counties):
+        return True
+    toks = padded.split()
+    return any(" ".join(toks[i:i + size]) in repd.by_phrase
+               for size in range(2, min(repd.max_words, len(toks)) + 1) for i in range(len(toks) - size + 1))
 
 
 def label(title, repd):
@@ -330,13 +346,25 @@ def label(title, repd):
     return category, technology_of(title), match
 
 
+def priority_label(title, summary, repd):
+    """Priority lane: (category, technology, possible_match) when the title or feed summary says solar or
+    data centre, with or without an event word; None otherwise."""
+    text = title + " " + summary
+    solar, datacentre = TOPICS["solar"].search(text), TOPICS["datacentre"].search(text)
+    if not (solar or datacentre) or EXCLUDE.search(title):
+        return None
+    if not solar:
+        return "datacentre", None, None
+    return category_of(title, ["solar"]) or "other", technology_of(title), repd.match(title)
+
+
 def load_feeds(path):
     feeds = json.loads(Path(path).read_text(encoding="utf-8"))["feeds"]
     return [f for f in feeds if f.get("url", "").startswith("https://") and f.get("source")]
 
 
 def collect(feeds, fetch, repd, now_iso):
-    """Returns (items, health, samples). A feed that fails is recorded and skipped; the run carries on."""
+    """Returns (items, health). A feed that fails is recorded and skipped; the run carries on."""
     items, health = [], []
     horizon = _shift(now_iso, days=2)
     for feed in feeds:
@@ -362,11 +390,13 @@ def collect(feeds, fetch, repd, now_iso):
             if FOREIGN.search(title) and not UK_WORDS.search(title):
                 continue
             verdict = label(title, repd)
+            if verdict is None and feed.get("priority"):
+                verdict = priority_label(title, D.clean_text(summary, 2000), repd)   # summary read, never stored
             if verdict is None:
                 continue
-            if not feed.get("uk_only") and not verdict[2] and not is_uk(title, D.clean_text(summary, 2000), repd):
+            if not feed.get("uk_only") and not is_uk(title, repd):
                 continue
-            items.append({"title": title, "link": link, "source": source, "date": date, "first_seen": now_iso,
+            items.append({"_feed": url, "title": title, "link": link, "source": source, "date": date, "first_seen": now_iso,
                           "category": verdict[0], "technology": verdict[1], "possible_match": verdict[2]})
             kept += 1
         health.append({"url": url, "source": source, "status": "ok", "entries": len(entries), "kept": kept,
@@ -419,14 +449,20 @@ def _days(a, b):
         return 0
 
 
-def merge(previous, incoming, repd, now_iso, cap=MAX_ITEMS, max_age_days=MAX_AGE_DAYS):
+def merge(previous, incoming, repd, now_iso, cap=MAX_ITEMS, max_age_days=MAX_AGE_DAYS, priority_sources=()):
     """Earlier items are kept (a rolling feed must not make a story vanish) and re-labelled with today's rules.
-    Link merge and first_seen are datacentre_feed.merge; then age limit, title dedupe, newest first, cap."""
+    Link merge and first_seen are datacentre_feed.merge; then age limit, title dedupe, newest first, cap.
+    An item from a priority source that was kept on its feed summary keeps the labels it was given then,
+    because the summary is not stored and cannot be read again."""
+    fresh = {i["link"]: i for i in incoming}
     by_link = D.merge(previous, incoming, cap=10 ** 6)
     cutoff = _shift(now_iso, days=-max_age_days)
     out = []
     for item in by_link:
         verdict = label(item.get("title", ""), repd)
+        if verdict is None and (item["link"] in fresh or item.get("source") in priority_sources) \
+                and item.get("category") in CATEGORIES:
+            verdict = (item["category"], item.get("technology"), item.get("possible_match"))
         if verdict is None or when(item) < cutoff:
             continue
         out.append({"title": item["title"], "link": item["link"], "source": item.get("source", ""),
@@ -437,8 +473,8 @@ def merge(previous, incoming, repd, now_iso, cap=MAX_ITEMS, max_age_days=MAX_AGE
     return out[:cap]
 
 
-def build(previous, items, health, repd, now_iso, cap=MAX_ITEMS):
-    merged = merge(previous.get("items", []), items, repd, now_iso, cap)
+def build(previous, items, health, repd, now_iso, cap=MAX_ITEMS, priority_sources=()):
+    merged = merge(previous.get("items", []), items, repd, now_iso, cap, priority_sources=priority_sources)
     ok = sum(h["status"] == "ok" for h in health)
     by_category = {c: n for c in CATEGORIES if (n := sum(i["category"] == c for i in merged))}
     return {
@@ -454,26 +490,27 @@ def build(previous, items, health, repd, now_iso, cap=MAX_ITEMS):
     }
 
 
-def probe_report(items, health, now_iso):
-    """Markdown feed-health report for the pull-request probe job: every feed, then every kept headline."""
-    by_source = {}
+def probe_report(items, merged, health, now_iso, priority_sources=()):
+    """Markdown feed-health report for the pull-request probe job: every feed, then the headlines that would
+    be published (after merge and dedupe)."""
+    by_feed = {}
     for i in items:
-        by_source.setdefault(i["source"], []).append(i)
+        by_feed.setdefault(i["_feed"], []).append(i)
     lines = ["# Pipeline headlines feed probe, %s" % now_iso, "",
-             "%d feeds: %d ok, %d failed. %d headlines kept before merge and dedupe." % (
+             "%d feeds: %d ok, %d failed. %d headlines kept; %d after merge and dedupe." % (
                  len(health), sum(h["status"] == "ok" for h in health),
-                 sum(h["status"] != "ok" for h in health), len(items)), "",
+                 sum(h["status"] != "ok" for h in health), len(items), len(merged)), "",
              "| feed | status | items | newest | kept | sample kept titles |", "|---|---|---|---|---|---|"]
-    seen = set()
     for h in health:
-        samples = [] if h["source"] in seen else [i["title"] for i in by_source.get(h["source"], [])][:3]
+        samples = [i["title"] for i in by_feed.get(h["url"], [])][:3]
         cell = " / ".join(s.replace("|", "/") for s in samples)
         lines.append("| %s (%s) | %s | %s | %s | %s | %s |" % (
             h["url"], h["source"], h["status"] if h["status"] == "ok" else "FAILED " + h.get("error", "").replace("|", "/"),
             h.get("entries", ""), (h.get("newest") or "")[:10], h.get("kept", ""), cell))
-    lines += ["", "## Kept headlines, newest first", "",
+    merged = sorted(merged, key=lambda i: i["source"] not in priority_sources)   # stable: newest first within each
+    lines += ["", "## Headlines that would be published: priority sources (BBC News) first, then newest first", "",
               "| date | category | technology | possible match | source | title |", "|---|---|---|---|---|---|"]
-    for i in sorted(items, key=lambda i: (when(i), i["link"]), reverse=True):
+    for i in merged:
         m = i["possible_match"]
         lines.append("| %s | %s | %s | %s | %s | %s |" % (
             (i["date"] or "undated")[:10], i["category"], i["technology"] or "",
@@ -509,9 +546,12 @@ def main(argv=None):
     else:
         fetch = D.fetch_url
 
+    feeds.sort(key=lambda f: not f.get("priority"))        # priority feeds are fetched first
+    priority_sources = {f["source"] for f in feeds if f.get("priority")}
     items, health = collect(feeds, fetch, repd, now_iso)
     if args.probe:
-        report = probe_report(items, health, now_iso)
+        report = probe_report(items, merge([], items, repd, now_iso, args.max_items), health, now_iso,
+                              priority_sources)
         Path(args.probe).write_text(report, encoding="utf-8")
         print(report)
         return 0
@@ -525,7 +565,7 @@ def main(argv=None):
                 previous = {}
         except ValueError:
             previous = {}
-    result = build(previous, items, health, repd, now_iso, args.max_items)
+    result = build(previous, items, health, repd, now_iso, args.max_items, priority_sources)
     out.parent.mkdir(parents=True, exist_ok=True)
     tmp = out.with_suffix(".tmp")
     tmp.write_text(json.dumps(result, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")

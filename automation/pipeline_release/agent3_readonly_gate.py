@@ -114,6 +114,21 @@ def read_projects(folder):
         errors.append(f"REPD rows not exactly {RECORDS}: manifest={manifest.get('project_count')} rows={total} unique={len(refs)}")
     return len(refs), errors
 
+def ensure_original_repd_partitions(repo, folder):
+    """The solar-news-only successor MUST retain Q3 project bytes, not just row count."""
+    original = repo / "uk_renewables_pipeline" / OPERATIVE / "data/v9.1/build_manifest.json"
+    candidate = folder / "data/v9.1/build_manifest.json"
+    try:
+        a = json.loads(original.read_text())
+        b = json.loads(candidate.read_text())
+        get = lambda m: sorted((x["path"], x["sha256"], x["record_count"])
+                               for x in m["project_partitions"])
+        if get(a) != get(b):
+            return ["candidate REPD partitions differ from protected V9.20 source"]
+    except (OSError, ValueError, KeyError, TypeError):
+        return ["cannot compare candidate with protected V9.20 source partitions"]
+    return []
+
 def prohibited_dc_payload(folder):
     """Reject obvious DC IDs and explicit dataset payload types, including in UI JS.
 
@@ -144,17 +159,21 @@ def verify(repo, candidate=None, tree_reader=object_tree):
     if candidate is not None:
         if not re.fullmatch(r"20\d{10}", str(candidate)) or candidate <= V921:
             errors.append("candidate ID must be a NEW dated version beyond V9.21")
-        folder = repo / "uk_renewables_pipeline" / str(candidate)
-        if not folder.is_dir():
-            errors.append("new immutable candidate folder absent")
         else:
-            try:
-                n, faults = read_projects(folder)
-                result["candidate_unique_repd_refs"] = n
-                errors.extend(faults)
-            except (OSError, ValueError, KeyError, TypeError) as exc:
-                errors.append("invalid candidate partition: " + str(exc))
-            errors.extend(prohibited_dc_payload(folder))
+            folder = repo / "uk_renewables_pipeline" / str(candidate)
+            if not folder.is_dir():
+                errors.append("new immutable candidate folder absent")
+            else:
+                if not (folder / "index.html").is_file():
+                    errors.append("candidate index.html absent")
+                try:
+                    n, faults = read_projects(folder)
+                    result["candidate_unique_repd_refs"] = n
+                    errors.extend(faults)
+                except (OSError, ValueError, KeyError, TypeError) as exc:
+                    errors.append("invalid candidate partition: " + str(exc))
+                errors.extend(ensure_original_repd_partitions(repo, folder))
+                errors.extend(prohibited_dc_payload(folder))
     result["errors"] = errors
     result["offline_integrity_status"] = "FAIL" if errors else "PASS"
     result["acceptance_status"] = "UNVERIFIED"

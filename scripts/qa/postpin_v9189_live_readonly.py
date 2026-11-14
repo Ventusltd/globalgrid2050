@@ -162,7 +162,7 @@ def browser_checks():
             }""", timeout=90000)
             site = dc.evaluate("""() => {
                 const s=window.__GRIDATLAS_MODULES__.ukOfftakers.state;
-                const r=s.data.pl.o.find(r=>/Slough|Digital Realty|Ampthill/i.test(r.n||'')) || s.data.pl.o[0];
+                const r=s.data.pl.o.find(r=>r.p.id==='dcuk-5432070cc61897c4');
                 if (!r || !Array.isArray(r.a) || r.a.length!==2) throw Error('No located data-centre site');
                 const m=window.__GRIDATLAS_V9_MAP__;
                 m.jumpTo({center:r.a,zoom:12});
@@ -198,6 +198,7 @@ def browser_checks():
                 dc.locator('[data-offtakers-card] [data-offtakers-csv]').click(timeout=30000)
             data = Path(download.value.path()).read_bytes().decode("utf-8-sig")
             assert "IT load" in data and "grid connection" in data, "Data-centre MW fields conflated in CSV"
+            assert "720" in data and "200" in data, "Ampthill source-stated IT 720 MW / grid 200 MW missing"
             assert len(data.splitlines()) >= 4, "Offtakers CSV empty"
             assert not dc_errors, f"GridAtlas JS errors at {width}: {dc_errors[:5]}"
             findings[f"offtakers_{width}"] = {

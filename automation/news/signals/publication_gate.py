@@ -13,12 +13,75 @@ import argparse
 import datetime as dt
 import json
 from pathlib import Path
+from urllib.parse import urlsplit
 
 import combine as C
 
 FRESH_DAYS = 14
 PART_MAX_HOURS = 24
 CLOCK_SKEW_MINUTES = 5
+
+# The index's GDELT URL is a search/index provider, not the publisher.
+# Without per-item publisher provenance an index hit cannot authorise a live
+# publication merely because an unrelated BBC feed answered successfully.
+SOURCE_HOSTS = {
+    "official": {
+        "pins-register": ("planninginspectorate.gov.uk",),
+        "govuk-search": ("gov.uk",),
+        "ecu-case": ("energyconsents.scot",),
+    },
+    "trade": {
+        "solar-power-portal": ("solarpowerportal.co.uk",),
+        "pv-tech": ("pv-tech.org",),
+        "pv-magazine": ("pv-magazine.com",),
+        "energy-storage-news": ("energy-storage.news",),
+        "current": ("current-news.co.uk",),
+        "renews": ("renews.biz",),
+        "planning-resource": ("planningresource.co.uk",),
+        "construction-enquirer": ("constructionenquirer.com",),
+        "solar-energy-uk": ("solarenergyuk.org",),
+    },
+    "index": {
+        "bbc-rss": ("bbc.co.uk", "bbc.com"),
+        "guardian-rss": ("theguardian.com",),
+        # GDELT deliberately not a publisher identity.
+    },
+}
+
+
+def canonical_refs():
+    """Independent pinned-corpus membership, not the writer's self-asserted 200 count."""
+    rows = json.loads((C.HERE / "top200_solar.json").read_text(encoding="utf-8"))
+    refs = [str(row["repd_ref"]) for row in rows]
+    if len(refs) != 200 or len(set(refs)) != 200:
+        raise ValueError("invalid authoritative top-200 REPD corpus")
+    return set(refs)
+
+
+def source_host_matches(item, team, source):
+    """Only the *same successfully queried publisher* can authorise an item.
+
+    This is a conservative source-domain check, not proof a specific article was
+    fetched. Exact URL receipts are a separate future provenance requirement.
+    """
+    if not isinstance(source, dict) or source.get("status") not in ("ok", "partial"):
+        return False
+    try:
+        requests = int(source.get("requests") or 0)
+        failures = int(source.get("failures") or 0)
+        emitted = int(source.get("items") or 0)
+    except (TypeError, ValueError):
+        return False
+    if requests <= failures or emitted <= 0:
+        return False
+    allowed = SOURCE_HOSTS.get(team, {}).get(source.get("id"))
+    if not allowed:
+        return False
+    link = urlsplit(item.get("link") or "")
+    if link.scheme != "https" or link.username or link.password:
+        return False
+    hostname = (link.hostname or "").lower()
+    return any(hostname == host or hostname.endswith("." + host) for host in allowed)
 
 
 def timestamp(value):
@@ -33,7 +96,7 @@ def timestamp(value):
         return None
 
 
-def evaluate(combined, previous, parts, now=None):
+def evaluate(combined, previous, parts, now=None, authoritative_refs=None):
     now = now or dt.datetime.now(dt.timezone.utc)
     if now.tzinfo is None:
         raise ValueError("now must have timezone")
@@ -42,6 +105,15 @@ def evaluate(combined, previous, parts, now=None):
         raise ValueError("invalid combined schema")
     if len(combined["projects"]) != 200 or combined.get("counts", {}).get("projects") != 200:
         raise ValueError("expected exactly 200 REPD projects")
+    expected = set(authoritative_refs) if authoritative_refs is not None else canonical_refs()
+    if len(expected) != 200 or set(combined["projects"]) != expected:
+        raise ValueError("combined REPD IDs differ from authoritative top-200 source")
+    for ref, project in combined["projects"].items():
+        if not isinstance(project, dict) or str(project.get("repd_ref")) != ref:
+            raise ValueError("project REPD identity mismatch")
+        for item in project.get("signals") or []:
+            if not isinstance(item, dict) or str(item.get("repd_ref")) != ref:
+                raise ValueError("signal REPD identity mismatch")
     if combined.get("counts", {}).get("nothing") != 0:
         raise ValueError("projects without evidence or labelled planning fallback")
     old_links = set()
@@ -66,19 +138,25 @@ def evaluate(combined, previous, parts, now=None):
             continue
         sources = part.get("sources")
         if not isinstance(sources, list) or not any(
-            isinstance(s, dict) and s.get("status") in ("ok", "partial")
-            and int(s.get("requests") or 0) > int(s.get("failures") or 0)
-            for s in sources
+            source_host_matches(item, team, source)
+            for source in sources
+            for item in (part.get("items") or []) if isinstance(item, dict)
         ):
-            state[team] = "no_successful_source"
+            state[team] = "no_eligible_publisher_source"
             continue
         healthy.append(team)
-        state[team] = "healthy"
+        state[team] = "publisher_source_present"
         for raw in part.get("items") or []:
             item, _ = C.clean_item(raw, team, as_of=now.date())
             if not item or item["confidence"] != "confirmed":
                 continue
+            if item["repd_ref"] not in expected:
+                continue
             if item["family"] not in C.NEWS_FAMILIES + ("official",) or not item["date"]:
+                continue
+            # A healthy BBC feed cannot launder an unrelated regional/GDELT
+            # article, nor may an available trade source mask a failed one.
+            if not any(source_host_matches(item, team, source) for source in sources):
                 continue
             age = (now.date() - dt.date.fromisoformat(item["date"])).days
             key = (item["repd_ref"], item["link"])
@@ -92,7 +170,7 @@ def evaluate(combined, previous, parts, now=None):
         "new_confirmed_recent_items": len(fresh),
         "reason": "new confirmed source-backed project signal" if healthy and fresh
                   else "no newly verified current source-backed project signal; preserve last published bytes",
-        "policy": "14-day article window, 24-hour part freshness, source success, no replay; planning fallback is not news",
+        "policy": "14-day article window, 24-hour part freshness, canonical REPD membership, eligible source-domain match, no replay; planning fallback is not news",
     }
 
 

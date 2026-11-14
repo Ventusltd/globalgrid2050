@@ -64,6 +64,23 @@ class Energy24Tests(unittest.TestCase):
         self.assertEqual(self.classify("£50 million offshore wind scheme")[1],
                          "below_or_unverified_threshold")
 
+    def test_equity_transaction_not_misrepresented_as_project_capex(self):
+        headline = "Investor buys US$300 million stake in BESS developer"
+        v, reason = self.classify(headline)
+        self.assertIsNone(v)
+        self.assertEqual(reason, "corporate_financing_not_project_capex")
+
+    def test_corporate_credit_line_not_misrepresented_as_new_project(self):
+        v, reason = self.classify("BESS operator expands holdco facility to US$300 million")
+        self.assertIsNone(v)
+        self.assertEqual(reason, "corporate_financing_not_project_capex")
+
+    def test_bess_supporting_datacentre_stays_energy_not_facility(self):
+        v, reason = self.classify("New 150MW BESS supporting data centre reaches operation")
+        self.assertEqual(reason, "accepted")
+        self.assertEqual(v["category"], "global-projects")
+        self.assertIsNone(v["repd_ref"])
+
     def test_ai_spending_included(self):
         v, why = self.classify("AI infrastructure secures $190 billion of investment")
         self.assertEqual(why,"accepted")

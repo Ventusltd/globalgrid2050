@@ -86,6 +86,27 @@ jobs:
           assert all(x['headline'] and x['source'] and x['url'].startswith('https://') for x in p['articles'])
           print('Qualified articles:',len(p['articles']))
           PY
+      - name: Rehearse real-feed writer gate without publishing
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+          from automation.energy24.scan import publication_gate
+
+          release = json.loads(Path('uk_renewables_pipeline/energy24/data/release.json').read_text())
+          official = Path('repd-2026q3.csv')
+          digest = hashlib.sha256(official.read_bytes()).hexdigest()
+          assert digest == release['official_csv_sha256'], 'Pinned official REPD source SHA256 mismatch'
+          news = json.loads(Path('/tmp/energy24/news.latest.json').read_text())
+          audit = json.loads(Path('/tmp/energy24/news.audit.json').read_text())
+          ready, reasons = publication_gate(news, audit)
+          assert isinstance(ready, bool) and isinstance(reasons, list)
+          assert ready == (len(reasons) == 0), 'Publication gate inconsistent'
+          print('Official REPD SHA256 verified:', digest)
+          print('Real-feed publication rehearsal:', 'PASS (candidate only, no write)' if ready else 'HOLD: ' + ', '.join(reasons))
+          PY
       - name: Preserve all evidence, including failed scans
         if: always()
         uses: actions/upload-artifact@v4

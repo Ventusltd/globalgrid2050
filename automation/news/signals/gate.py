@@ -231,8 +231,8 @@ def judge(ref, title, project=None, official=False):
         capacity = any(abs(f - project["mw"]) <= 0.2 * project["mw"] for f in figures)
         far = bool(figures) and not any(0.45 * project["mw"] <= f <= 2.2 * project["mw"] for f in figures)
     fact = home or developer or capacity
-    if official and any(w for _a, _c, w in names):
-        return "ok", "the whole alias in an official title"
+    if official and any(w for _a, _c, w in names) and (not weak or fact) and not far:
+        return "ok", "the whole alias in an official title with sufficient identity evidence"
     if not (solar or whole):
         if capacity:
             return ("possible" if weak_flag else "ok"), "the name with the project's capacity"
@@ -251,7 +251,7 @@ def judge(ref, title, project=None, official=False):
             return "ok", "the full project alias with its solar context"
         site_pattern = re.compile(
             r"(?<![a-z0-9])(?:%s)(?: solar| pv| photovoltaic) "
-            r"(?:farm|park|project|plant|scheme|development|array)\\b" %
+            r"(?:farm|park|project|plant|scheme|development|array)\b" %
             "|".join(re.escape(_norm(core)) for _alias, core, _w in names)
         )
         if site_pattern.search(text) and not far:

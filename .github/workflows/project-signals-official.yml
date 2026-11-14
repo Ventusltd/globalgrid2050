@@ -1,0 +1,63 @@
+name: Project signals, official sources and planning files (probe)
+# Owner, 14 Nov 2026: news signals for the 200 largest solar projects in the REPD, and "Default to its local
+# authority planning application file if nothing significant discovered."
+# This workflow is a read-only probe: on a pull request that touches the official-source fetcher, the planning-file
+# builder or their tables, it runs both for the 200 projects and prints coverage in the job summary. It writes to no
+# branch, opens no pull request and deploys nothing. The combined file dist/project_signals.json is built by a
+# separate workflow (project-signals.yml).
+on:
+  pull_request:
+    paths:
+      - 'automation/news/signals/official.py'
+      - 'automation/news/signals/planning_file.py'
+      - 'automation/news/signals/planning_registers.json'
+      - 'automation/news/signals/aliases.json'
+      - 'automation/news/signals/top200_solar.json'
+      - 'automation/news/tests/test_signals_official.py'
+      - 'automation/news/tests/test_signals_planning_file.py'
+      - '.github/workflows/project-signals-official.yml'
+permissions:
+  contents: read
+concurrency:
+  group: project-signals-official-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Tests (offline)
+        run: |
+          python -m pip install --quiet pytest
+          python -m pytest -q -p no:cacheprovider automation/news/tests/test_signals_official.py automation/news/tests/test_signals_planning_file.py
+      - name: Official sources for the 200 (no branch written)
+        run: |
+          mkdir -p "$RUNNER_TEMP/signals"
+          python automation/news/signals/official.py --out "$RUNNER_TEMP/signals/part-official.json" --probe "$RUNNER_TEMP/signals/official.md"
+      - name: Planning files for the 200, verified by fetching registers and direct links
+        if: always()
+        run: |
+          python automation/news/signals/planning_file.py --verify --official "$RUNNER_TEMP/signals/part-official.json" --out "$RUNNER_TEMP/signals/planning-files.json" --probe "$RUNNER_TEMP/signals/planning.md"
+      - name: Source discovery (what each official source returns)
+        if: always()
+        run: python automation/news/signals/official.py --discover "$RUNNER_TEMP/signals/discover.md"
+      - name: Summary
+        if: always()
+        run: |
+          for f in planning.md official.md; do
+            if [ -f "$RUNNER_TEMP/signals/$f" ]; then cat "$RUNNER_TEMP/signals/$f" >> "$GITHUB_STEP_SUMMARY"; echo >> "$GITHUB_STEP_SUMMARY"; fi
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: project-signals-official
+          path: ${{ runner.temp }}/signals/
+          retention-days: 14

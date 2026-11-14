@@ -1,0 +1,42 @@
+name: Post-pin V9.189 live read-only acceptance
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - .github/workflows/postpin-v9189-live-acceptance.yml
+      - scripts/qa/postpin_v9189_live_readonly.py
+
+permissions:
+  contents: read
+
+jobs:
+  live-acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 28
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            catalogue
+            uk_renewables_pipeline/202611140306
+            uk_renewables_pipeline/202611132345
+            uk_renewables_pipeline/202609082224
+            scripts/qa
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install browser
+        run: |
+          python -m pip install 'playwright==1.56.0'
+          command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser
+      - name: Verify pinned-owner exact public bytes, Q3/legacy, V9.20 CSV/MAP and live GridAtlas Offtakers
+        run: python3 scripts/qa/postpin_v9189_live_readonly.py
+      - name: Preserve report regardless of result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postpin-v9189-live-readonly-audit
+          path: postpin-v9189-live-readonly-report.json
+          if-no-files-found: warn

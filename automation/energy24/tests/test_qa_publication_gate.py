@@ -47,6 +47,23 @@ class PublicationHoldTests(unittest.TestCase):
         i.update(capex_usd=80_000_000, materiality_basis="project_capex_usd", financing_type="corporate_debt")
         self.assertIn("article_1:corporate_funding_not_project_capex", self.check(n,a,r,l))
 
+    def test_funding_without_explicit_project_capex_classification_is_held(self):
+        n,a,r,l = candidate()
+        i=n["articles"][1]
+        i.update(capex_usd=80_000_000, materiality_basis="project_capex_usd")
+        self.assertIn("article_1:corporate_funding_not_project_capex", self.check(n,a,r,l))
+        i["financing_type"] = "project_capex"
+        self.assertNotIn("article_1:corporate_funding_not_project_capex", self.check(n,a,r,l))
+
+    def test_verified_non_uk_dc_id_can_be_distinct_from_repd(self):
+        n,a,r,l = candidate()
+        n["articles"][1].update(dc_id="verified-international-site-1", region="India")
+        errors = audit_candidate(n,a,r,l,{"12345":80},{"verified-international-site-1"},NOW)
+        self.assertNotIn("article_1:data_centre_id_unverified", errors)
+        n["articles"][1]["region"]="UK"
+        errors = audit_candidate(n,a,r,l,{"12345":80},{"verified-international-site-1"},NOW)
+        self.assertIn("article_1:data_centre_id_unverified", errors)
+
     def test_forged_receipt_for_other_url_cannot_clear_article(self):
         n,a,r,l = candidate()
         r[1]["url"]="https://two.example/unrelated"

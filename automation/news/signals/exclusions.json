@@ -142,10 +142,11 @@
         "tours",
         "visitor"
       ],
-      "why": "Belvoir Castle is a visitor attraction.",
+      "why": "Belvoir Castle is a visitor attraction. Belvoir / Vale of Belvoir names apply to multiple schemes. Same county alone is not evidence that the named article belongs to the Belvoir Estate REPD project.",
       "county_also": [
         "Leicestershire"
-      ]
+      ],
+      "weak_alias": "shared"
     },
     "8494": {
       "weak_alias": "generic"
@@ -201,6 +202,10 @@
       "county_also": [
         "Warwick"
       ]
+    },
+    "9456": {
+      "weak_alias": "generic",
+      "why": "Coldharbour is a repeated place name. The recorded project is at Ashreigney, Devon; an unrelated Surrey proposal is not the same project."
     },
     "9509": {
       "weak_alias": "generic"
@@ -264,6 +269,10 @@
         "Cowbridge Road East"
       ],
       "why": "Cowbridge Road in Cardiff is a street, not the Lincolnshire scheme."
+    },
+    "12822": {
+      "weak_alias": "generic",
+      "why": "Kirkton is a non-unique place name. The identified utility-scale REPD project is at St Fergus/Fraserburgh Road, not automatically any Kirkton solar proposal near Inverurie."
     },
     "13969": {
       "weak_alias": "shared",

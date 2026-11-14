@@ -61,15 +61,15 @@ CORPORATE_FINANCE_RE = re.compile(r"\b(?:(?:buys?|acquires?|purchases?)\b.{0,90}
 # project CAPEX. Require explicit construction/project expenditure language in
 # the publisher headline before treating USD as a headline qualification.
 PROJECT_CAPEX_RE = re.compile(
-    r"\\b(?:capex|capital expenditure|construction (?:budget|cost|spend)|"
+    r"\b(?:capex|capital expenditure|construction (?:budget|cost|spend)|"
     r"project (?:budget|cost|capex)|development (?:budget|cost)|"
-    r"cost to build|invests?\\b.{0,65}\\b(?:to build|to construct|in (?:a |new )?(?:solar|battery|bess|data cent(?:er|re)|campus|power plant))|"
-    r"commits?\\b.{0,65}\\b(?:to build|to construct|for construction))\\b",
+    r"cost to build|invests?\b.{0,65}\b(?:to build|to construct|in (?:a |new )?(?:solar|battery|bess|data cent(?:er|re)|campus|power plant))|"
+    r"commits?\b.{0,65}\b(?:to build|to construct|for construction))\b",
     re.I,
 )
 # A company-wide annual target is not the size of an identified project.
 ANNUAL_TARGET_RE = re.compile(
-    r"\\b(?:target(?:s|ing)?|aims?|plans?)\\b.{0,45}\\b\\d[\\d,.]*\\s*(?:GW|MW)\\b.{0,25}\\b(?:annually|per year|a year)\\b",
+    r"\b(?:target(?:s|ing)?|aims?|plans?)\b.{0,45}\b\d[\d,.]*\s*(?:GW|MW)\b.{0,25}\b(?:annually|per year|a year)\b",
     re.I,
 )
 URL_ALLOWED = frozenset(("www.gov.uk","gov.uk","www.datacenterdynamics.com","datacenterdynamics.com",

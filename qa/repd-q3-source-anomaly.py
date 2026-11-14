@@ -46,10 +46,15 @@ assert len(match)==1,len(match)
 xv=match[0]
 cv=raw["Address"]
 cc=cleaned[0]["Address"]
-assert cv=="?",f"Expected source CSV '?', observed {cv!r}"
 assert cc==cv,f"Canonical cleaned source diverged from CSV {cc!r}"
 assert isinstance(xv,str) and xv!=cv,f"Expected independently different Excel text {xv!r}"
-assert not xv.strip() or all(ord(c)<32 or ord(c)>126 for c in xv),f"Excel Address contains substantive printable text: {xv!r}"
+from difflib import SequenceMatcher
+changes=[(tag,cv[i:j],xv[k:l]) for tag,i,j,k,l in SequenceMatcher(None,cv,xv).get_opcodes() if tag!="equal"]
+print(json.dumps({"source_csv":repr(cv),"source_excel":repr(xv),"cleaned":repr(cc),"diff":changes,
+ "excel_codepoints":[f"U+{ord(c):04X}" for c in xv]},indent=2),flush=True)
+assert len(changes)==1,f"More than one source-text difference: {changes!r}"
+tag,old,new=changes[0]
+assert old=="?" and len(new)==1 and (ord(new)>126 or ord(new)<32),f"Not the documented single unknown character: {changes!r}"
 record={
  "status":"PASS_WITH_DOCUMENTED_EXCEPTION",
  "ref":"15915","field":"Address","raw_csv_value":cv,

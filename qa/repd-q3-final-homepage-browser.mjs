@@ -21,7 +21,7 @@ try {
   await page.screenshot({path:join(OUT,`homepage-${width}.png`),fullPage:true});
   await page.addInitScript(()=>{window.Chart=class{constructor(_c,config){this.data=config?.data;}update(){}destroy(){}};});
   await page.route("https://cdn.jsdelivr.net/**",route=>route.fulfill({status:200,contentType:"application/javascript",body:""}));
-  await page.locator("#pipeline-news summary").click();
+  await page.locator("#pipeline-news > summary").click();
   await link.click();
   await page.waitForURL(href,{timeout:45000});
   await page.waitForFunction(()=>document.querySelector("#tbody")?.dataset.total==="7775",null,{timeout:45000});

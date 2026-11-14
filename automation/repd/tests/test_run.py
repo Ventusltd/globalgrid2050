@@ -18,7 +18,7 @@ sys.path.insert(0, str(REPO))
 from automation.repd import run  # noqa: E402
 
 WF = REPO / ".github" / "workflows" / "repd-release-candidate.yml"
-WF_CHECK = REPO / ".github" / "workflows" / "repd-new-release-check.yml.disabled"
+WF_MONTHLY = REPO / ".github" / "workflows" / "repd-monthly.yml"
 HEADER = ["Ref ID"] + [f"Col {i}" for i in range(2, 54)]
 
 
@@ -350,11 +350,26 @@ def test_release_candidate_workflow_is_manual_and_safe():
             assert "${{ inputs." not in step.get("run", ""), step.get("name")
 
 
-def test_disabled_check_is_report_only():
-    doc = yaml.safe_load(WF_CHECK.read_text(encoding="utf-8"))
-    assert set(_on(doc)) == {"workflow_dispatch", "schedule"}
+def test_monthly_workflow_schedule_permissions_and_branch():
+    """repd-monthly.yml (owner's monthly instruction) replaced repd-new-release-check.yml.disabled."""
+    assert not (REPO / ".github" / "workflows" / "repd-new-release-check.yml.disabled").exists()
+    text = WF_MONTHLY.read_text(encoding="utf-8")
+    doc = yaml.safe_load(text)
+    on = _on(doc)
+    assert set(on) == {"workflow_dispatch", "schedule"} and on["schedule"] == [{"cron": "17 5 3 * *"}]
     assert doc["permissions"] == {"contents": "read"}
-    assert "git push" not in WF_CHECK.read_text() and "gh pr" not in WF_CHECK.read_text()
+    jobs = doc["jobs"]
+    assert jobs["check"]["permissions"] == {"contents": "read"}
+    assert jobs["open-pr"]["permissions"] == {"contents": "write", "pull-requests": "write"}
+    assert set(jobs) == {"check", "open-pr"}
+    assert "git push" not in json.dumps(jobs["check"]) and "gh pr" not in json.dumps(jobs["check"])
+    pushes = [ln.strip() for ln in text.splitlines() if "git push" in ln]
+    assert pushes == ['git push origin "HEAD:refs/heads/$BRANCH"']
+    assert jobs["open-pr"]["env"]["BRANCH"] == "repd/${{ needs.check.outputs.release_id }}-monthly"
+    assert "--draft" not in text and "main|master|gh-pages) exit 1" in text
+    for job in jobs.values():
+        for step in job["steps"]:
+            assert "${{ inputs." not in step.get("run", ""), step.get("name")
 
 
 def _freeze_text_from(repo_root: Path):

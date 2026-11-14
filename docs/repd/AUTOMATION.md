@@ -69,6 +69,11 @@ gate (`.github/workflows/v9-5-1-validate.yml:7-16`).
   (`gridatlas:docs/RELEASE.md:49-55`). No automatic agent scheduling, push, merge or release is installed by the agent protocol
   (`neural-link-between-agents:PROTOCOL.md:47`).
 - `main` has no branch protection and no required checks (note 04 section 1). The draft PR is therefore the only review gate.
+- Exception, by the owner's direct instruction of 14 November 2026 ("I want REPD to be updated every month. Simple, don't
+  over-complicate"): `.github/workflows/repd-monthly.yml` runs on the 3rd of each month. It compares the published files' sha256 with the
+  descriptors and, only when the bytes are new, writes the descriptor (`automation/repd/monthly.py`), runs `run.py` and opens a normal
+  (not draft) pull request. It still never pushes to `main`, merges or deploys. It replaces `repd-new-release-check.yml.disabled`.
+  How to run it by hand: RUNBOOK section 6.1.
 
 ## 2. The release descriptor
 

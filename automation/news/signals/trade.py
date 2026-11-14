@@ -40,6 +40,11 @@ Rules
   one run a day the 200 projects are covered in five runs (five days) and every project is searched again
   every five days; a cold start with an empty cache takes the same five runs. The main feeds are read on
   every run for all 200.
+- Sitemap route (a site with no usable search, such as Solar Power Portal, whose robots.txt disallows /search):
+  the sitemap files named in robots.txt are read, --sitemap-files (default 90) a run, those never read first;
+  an article link whose path contains an alias phrase is kept and its headline and date are taken from the
+  article page's own metadata, --page-lookups (default 60) a run, the newest link of each project first. Only
+  the headline and the date are kept. The whole sitemap is covered in about five runs and re-read in rotation.
 - Fetch failure handling, feed parsing, dates, canonical links and text cleaning are imported from
   datacentre_feed.py; nothing is copied.
 """
@@ -74,22 +79,20 @@ MIN_INTERVAL_S = 1.0
 RETRY_429_S = 10.0
 CANARY = "solar farm"
 MAX_TERMS_PER_PROJECT = 2
+PER_PUBLISHER = 5
 BREAKER = 6  # consecutive failures after which a site is left alone for the rest of the run
 
 WP_POSTS = "/wp-json/wp/v2/posts?search={q}&per_page=20&orderby=relevance&_fields=title,link,date,excerpt"
 WP_SEARCH = "/wp-json/wp/v2/search?search={q}&per_page=20"
 WP_RSS = "/?s={q}&feed=rss2"
 WP_FEED = "/feed/?s={q}"
-SITEMAP_FILES = 80   # sitemap files read per run at most
-PAGE_LOOKUPS = 150   # article pages opened per run at most, for the headline and date only
 
 # id, publisher, base, main feeds, ordered search routes (kind, path template).
 SITES = [
     {"id": "solar-power-portal", "publisher": "Solar Power Portal", "base": "https://www.solarpowerportal.co.uk",
-     "feeds": ["https://www.solarpowerportal.co.uk/rss.xml?content_types=article"],
+     "feeds": ["https://www.solarpowerportal.co.uk/rss.xml?content_types=article&limit=100"],
      "routes": [("html", "/search?q={q}"), ("wp_posts", WP_POSTS), ("sitemap", "/sitemap.xml")],
-     "probe_urls": ["/rss.xml?content_types=article&page=2", "/rss.xml?content_types=article&limit=200",
-                    "/rss.xml?content_types=article&q=Sunnica", "/rss.xml", "/sitemap.xml"]},
+     "probe_urls": ["/rss.xml?content_types=article&limit=500&offset=100"]},
     {"id": "pv-tech", "publisher": "PV Tech", "base": "https://www.pv-tech.org",
      "feeds": ["https://www.pv-tech.org/feed/"],
      "routes": [("wp_posts", WP_POSTS), ("wp_rss", WP_RSS), ("wp_rss", WP_FEED), ("html", "/?s={q}"),
@@ -404,6 +407,7 @@ NEWS_DATE_RE = re.compile(r"<news:publication_date>\s*(\d{4}-\d{2}-\d{2})", re.I
 META_RE = re.compile(r"<meta\b[^>]*>", re.I)
 ATTR_RE = re.compile(r"""\b(property|name|content)\s*=\s*(?:"([^"]*)"|'([^']*)')""", re.I)
 PUBLISHED_RE = re.compile(r""""datePublished"\s*:\s*"(\d{4}-\d{2}-\d{2})""")
+H1_RE = re.compile(r"<h1\b[^>]*>(.*?)</h1>", re.I | re.S)
 TITLE_TAG_RE = re.compile(r"<title[^>]*>(.*?)</title>", re.I | re.S)
 
 
@@ -444,12 +448,14 @@ def parse_article_head(body):
         key = (attrs.get("property") or attrs.get("name") or "").lower()
         if key and "content" in attrs:
             meta.setdefault(key, attrs["content"])
-    title = meta.get("og:title") or meta.get("twitter:title") or ""
+    title = D.clean_text(meta.get("og:title") or meta.get("twitter:title") or "", 300)
     if not title:
         found = TITLE_TAG_RE.search(text)
-        title = found.group(1) if found else ""
-    title = re.sub(r"\s+[|\-\u2013]\s+[^|\-\u2013]{3,40}$", "", D.clean_text(title, 300)) if not meta.get("og:title") \
-        else D.clean_text(title, 300)
+        title = re.sub(r"\s+[|\-\u2013]\s+[^|\-\u2013]{3,40}$", "", D.clean_text(found.group(1) if found else "", 300))
+    h1 = H1_RE.search(text)
+    h1 = D.clean_text(h1.group(1), 300) if h1 else ""
+    if title and len(h1) > len(title) and h1.lower().startswith(title.lower().rstrip(". ")):
+        title = h1  # the page's own headline when the metadata carries a shortened one
     date = day_of(meta.get("article:published_time") or meta.get("og:article:published_time") or "")
     if not date:
         found = PUBLISHED_RE.search(text)
@@ -672,7 +678,7 @@ def choose(projects, cache, now, batch, stale_days):
 
 # ---------------------------------------------------------------- one site
 
-def pick_route(site, host, discover, report):
+def pick_route(site, host, discover, report, main_links=frozenset()):
     """The first route that answers the canary query with results about the canary (a title that says solar),
     so that a home page, a navigation menu or a challenge page is never taken for search results. With
     discover, every route is tried and described in `report`."""
@@ -693,7 +699,7 @@ def pick_route(site, host, discover, report):
                 rows = parse_results(kind, body, site["base"])
                 dated = sum(1 for r in rows if r[2])
                 relevant = sum(1 for r in rows if re.search(r"\bsolar\b", r[0], re.I))
-                entry.update(status="ok" if relevant else ("no relevant result" if rows else "empty"),
+                entry.update(status="ok" if relevant else ("no result about the query" if rows else "empty"),
                              content_type=ctype.split(";")[0], bytes=len(body), results=len(rows), dated=dated,
                              summaries=sum(1 for r in rows if r[3]), relevant=relevant,
                              sample=next((r[0] for r in rows if re.search(r"\bsolar\b", r[0], re.I)),
@@ -702,7 +708,14 @@ def pick_route(site, host, discover, report):
                     print("LINKS %s %s" % (site["id"], url), flush=True)
                     for row in rows[:25]:
                         print("  %s | %s | %s" % (row[2], row[0][:90], row[1][:110]), flush=True)
-                if relevant and chosen is None and (dated or kind != "wp_search"):
+                usable = relevant >= 1 and (dated or kind != "wp_search")
+                if kind == "html" and (relevant < 3 or relevant * 4 < len(rows)):
+                    usable = False
+                    entry["status"] = "not search results (%d of %d links say solar)" % (relevant, len(rows))
+                if kind == "wp_rss" and rows and main_links and {r[1] for r in rows[:10]} <= main_links:
+                    usable = False
+                    entry["status"] = "ignores the query (same items as the main feed)"
+                if usable and chosen is None:
                     chosen = (kind, template)
         except (HttpError, ValueError) as error:
             entry.update(status="refused" if "robots" in str(error) else "failed", error=str(error)[:160])
@@ -730,34 +743,40 @@ def pick_route(site, host, discover, report):
     return chosen
 
 
-def walk_sitemap(site, host, start, projects, cache, health):
+def walk_sitemap(site, host, start, projects, cache, health, now, args):
     """Read the site's sitemap files (robots.txt 'Sitemap:' lines, else `start`), keep the article links whose
     path contains a project's alias phrase, and get each kept link's headline and date: from the sitemap when it
     carries news:title, else from the article page's own metadata (one request per new link, remembered in the
-    cache). Returns feed-hit records; the alias rule is applied to the real headline afterwards."""
+    cache; the newest link of every project first). At most --sitemap-files files a run, those never read
+    first and then the ones read longest ago, so the whole sitemap is covered in a few runs and then re-read
+    in rotation. Returns feed-hit records; the alias rule is applied to the real headline afterwards."""
     robots = host._robots(site["base"] + "/")
-    queue = list(robots.sitemaps) or [site["base"] + start]
+    roots = [u for u in robots.sitemaps if re.search(r"sitemap|\.xml", u, re.I)] or [site["base"] + start]
     wanted = []
     for project in projects:
         for _alias, core, _rx, _weak in project.aliases:
             wanted.append((slug_words(core), project))
-    seen_files, files, urls, matched = set(), 0, 0, {}
-    while queue and files < SITEMAP_FILES and not host.spent():
-        url = queue.pop(0)
-        if url in seen_files:
-            continue
-        seen_files.add(url)
+    state = cache.setdefault("sitemaps", {}).setdefault(site["id"], {"files": {}, "links": {}})
+    files, links = state["files"], state["links"]
+    age = lambda u: files.get(u, "")  # noqa: E731  never read sorts first
+    work, seen, indexes, read, urls, position = sorted(dict.fromkeys(roots), key=age), set(roots), set(), 0, 0, 0
+    while position < len(work) and read < args.sitemap_files and not host.spent():
+        url = work[position]
+        position += 1
         try:
             _ctype, body = host.get(url)
         except HttpError as error:
             health["notes"].append("sitemap %s: %s" % (url, error))
+            files[url] = iso(now)
             continue
-        files += 1
         shape, rows = parse_sitemap(body)
         if shape == "index":
-            articles = [u for u in rows if not re.search(r"image|video|author|tag|categor|page|static", u, re.I)]
-            queue.extend(articles or rows)
+            indexes.add(url)
+            fresh = sorted((c for c in dict.fromkeys(rows) if c not in seen), key=age)
+            seen.update(fresh)
+            work[position:position] = fresh
             continue
+        read += 1
         for loc, lastmod, news_title, news_date in rows:
             urls += 1
             link = D.canonical_link(loc)
@@ -766,17 +785,32 @@ def walk_sitemap(site, host, start, projects, cache, health):
             words = slug_words(urllib.parse.urlsplit(link).path)
             for phrase, project in wanted:
                 if phrase in words:
-                    matched.setdefault(link, {"title": news_title, "date": news_date, "lastmod": lastmod,
-                                              "refs": {}})["refs"][project.ref] = ""
-    health["sitemap"] = {"files": files, "urls": urls, "links_matching_an_alias": len(matched),
-                         "files_left": len(queue)}
+                    found = links.setdefault(link, {"refs": []})
+                    found.update(lastmod=lastmod, title=news_title or found.get("title") or "",
+                                 date=news_date or found.get("date"))
+                    if project.ref not in found["refs"]:
+                        found["refs"].append(project.ref)
+        files[url] = iso(now)
+    known = [u for u in work if u not in indexes]
+    print("SITEMAPS %s roots=%d files=%d sample=%s" % (site["id"], len(roots), len(known),
+                                                      json.dumps(work[:6] + work[-6:])), flush=True)
     pages, hits, looked = cache.setdefault("pages", {}), {}, 0
-    for link in sorted(matched, key=lambda l: (matched[l]["lastmod"] or ""), reverse=True):
-        found = matched[link]
-        title, date = found["title"], found["date"]
+    per_project = {}
+    for link in sorted(links, key=lambda l: links[l].get("lastmod") or "", reverse=True):
+        for ref in links[link]["refs"]:
+            per_project.setdefault(ref, []).append(link)
+    order = sorted({(position, link) for chain in per_project.values() for position, link in enumerate(chain)},
+                   key=lambda x: (x[0], -int((links[x[1]].get("lastmod") or "0000-00-00").replace("-", ""))))
+    done = set()
+    for _position, link in order:
+        if link in done:
+            continue
+        done.add(link)
+        found = links[link]
+        title, date = found.get("title"), found.get("date")
         if not title and link in pages:
             title, date = pages[link]
-        elif not title and looked < PAGE_LOOKUPS and not host.spent():
+        elif not title and looked < args.page_lookups and not host.spent():
             looked += 1
             try:
                 _ctype, body = host.get(link)
@@ -786,9 +820,12 @@ def walk_sitemap(site, host, start, projects, cache, health):
             except HttpError:
                 continue
         if title:
-            hits[link] = {"title": title, "link": link, "date": date, "site": site["id"], "refs": found["refs"],
-                          "how": "sitemap"}
-    health["sitemap"]["pages_opened"] = looked
+            hits[link] = {"title": title, "link": link, "date": date, "site": site["id"],
+                          "refs": {ref: "" for ref in found["refs"]}, "how": "sitemap"}
+    health["sitemap"] = {"files_known": len(known), "files_read_this_run": read,
+                         "files_never_read": sum(1 for u in known if u not in files), "urls_read": urls,
+                         "links_matching_an_alias": len(links), "pages_opened": looked,
+                         "headlines_known": len(hits)}
     return hits
 
 
@@ -798,7 +835,7 @@ def run_site(site, projects, todo, cache, fetch, now, args, out):
     host = Host(site, fetch, args.per_host_cap, args.host_seconds)
     health = {"id": site["id"], "url": site["base"], "status": "ok", "requests": 0, "failures": 0, "items": 0,
               "error": "", "route": "", "routes": [], "feeds": [], "searched": 0, "cached": 0, "skipped": 0}
-    hits = []  # (ref, title, link, date, basis, confidence)
+    hits, main_links = [], set()
     new_queries, feed_hits = {}, {}
     try:
         for url in site["feeds"]:
@@ -806,6 +843,7 @@ def run_site(site, projects, todo, cache, fetch, now, args, out):
             try:
                 _ctype, body = host.get(url)
                 rows = parse_results("feed", body, site["base"])
+                main_links.update(r[1] for r in rows)
                 kept = 0
                 for title, link, date, summary in rows:
                     refs = {}
@@ -823,12 +861,13 @@ def run_site(site, projects, todo, cache, fetch, now, args, out):
                 entry.update(status="failed", error=str(error)[:160])
             health["feeds"].append(entry)
 
-        route = pick_route(site, host, args.discover, health["routes"])
+        route = pick_route(site, host, args.discover, health["routes"], frozenset(main_links))
         host.failures = host.streak = 0  # routes that do not exist are findings, not failures of the run
         health["notes"] = host.notes
         if route and route[0] == "sitemap":
             health["route"] = "sitemap (links by alias in the path, headline from the article's metadata)"
-            feed_hits.update(walk_sitemap(site, host, route[1], projects, cache, health))
+            for link, hit in walk_sitemap(site, host, route[1], projects, cache, health, now, args).items():
+                feed_hits.setdefault(link, hit)  # a headline from the feed is kept as the feed gave it
             health["searched"] = len(projects)
         elif route:
             kind, template = route
@@ -927,7 +966,13 @@ def build_items(projects, cache):
     rank = {p.ref: p.rank for p in projects}
     items.sort(key=lambda i: (rank[i["repd_ref"]], i["date"] is None, "" if i["date"] is None else
                               "%08d" % (99999999 - int(i["date"].replace("-", ""))), i["link"]))
-    return items
+    kept, count = [], {}
+    for item in items:  # newest first within a project: at most PER_PUBLISHER items per project and site
+        key = (item["repd_ref"], item["publisher"])
+        count[key] = count.get(key, 0) + 1
+        if count[key] <= PER_PUBLISHER:
+            kept.append(item)
+    return kept
 
 
 def run(projects, cache, fetch, now, args):
@@ -948,7 +993,13 @@ def run(projects, cache, fetch, now, args):
                             "failures": 0, "items": 0, "error": "no result"})
             continue
         cache["queries"].update(result["queries"])
-        cache.setdefault("feed_hits", {}).update(result["feed_hits"])
+        store = cache.setdefault("feed_hits", {})
+        for link, hit in result["feed_hits"].items():
+            if hit.get("how") == "sitemap" and link in store and store[link].get("how") != "sitemap":
+                store[link].setdefault("refs", {}).update({r: b for r, b in hit["refs"].items()
+                                                           if r not in store[link].get("refs", {})})
+            else:
+                store[link] = hit
         sources.append(result["health"])
     cache["updated_at"] = iso(now)
     items = build_items(projects, cache)
@@ -1082,6 +1133,9 @@ def parse_args(argv=None):
     parser.add_argument("--fresh-days", type=float, default=4.0)
     parser.add_argument("--per-host-cap", type=int, default=200, help="requests per site per run")
     parser.add_argument("--host-seconds", type=int, default=900, help="time budget per site per run")
+    parser.add_argument("--sitemap-files", type=int, default=90, help="sitemap files read per run (sitemap route)")
+    parser.add_argument("--page-lookups", type=int, default=60,
+                        help="article pages opened per run for their headline and date (sitemap route)")
     return parser.parse_args(argv)
 
 

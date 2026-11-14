@@ -390,7 +390,7 @@ def test_foreign_headline_is_dropped_and_company_name_is_not_a_project():
 
 SITEMAP_INDEX = b"""<?xml version="1.0"?><sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <sitemap><loc>https://sp.example/sitemap-articles-1.xml</loc></sitemap>
-<sitemap><loc>https://sp.example/sitemap-authors.xml</loc></sitemap></sitemapindex>"""
+</sitemapindex>"""
 SITEMAP_URLS = b"""<?xml version="1.0"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>https://sp.example/solar-projects/edf-renewables-50mw-bloy-s-grove-solar-farm-gets-green-light</loc><lastmod>2022-07-01T10:00:00Z</lastmod></url>
 <url><loc>https://sp.example/news/some_other_story_about_rooftop_solar</loc><lastmod>2022-07-02</lastmod></url>
@@ -403,13 +403,14 @@ ARTICLE = b"""<html><head><title>Wrong | Site</title>
 
 
 def test_parse_sitemap_and_article_head():
-    assert T.parse_sitemap(SITEMAP_INDEX) == ("index", ["https://sp.example/sitemap-articles-1.xml",
-                                                       "https://sp.example/sitemap-authors.xml"])
+    assert T.parse_sitemap(SITEMAP_INDEX) == ("index", ["https://sp.example/sitemap-articles-1.xml"])
     shape, rows = T.parse_sitemap(SITEMAP_URLS)
     assert shape == "urls" and len(rows) == 3 and rows[0][1] == "2022-07-01"
     assert T.parse_article_head(ARTICLE) == ("EDF Renewables' 50MW Bloy's Grove solar farm gets green light", "2022-07-01")
     assert T.parse_article_head(b'<title>Headline here - Site Name</title><script>{"datePublished":"2024-05-06T01:00"}</script>') == (
         "Headline here", "2024-05-06")
+    short = b'<meta property="og:title" content="Botley West refused"><h1 class="x">Botley West refused in first solar NSIP no</h1>'
+    assert T.parse_article_head(short)[0] == "Botley West refused in first solar NSIP no"
     assert " bloy s grove " in T.slug_words("Bloy's Grove") and " bloy s grove " in T.slug_words(rows[0][0])
 
 
@@ -442,7 +443,7 @@ def test_sitemap_route_finds_articles_by_alias_in_the_link(tmp_path, monkeypatch
         ("12588", None, "UK government refuses 840MW Botley West Solar Farm"),
         ("8308", "2022-07-01", "EDF Renewables' 50MW Bloy's Grove solar farm gets green light")]
     assert "sitemap" in part["items"][0]["basis"] and part["sources"][0]["status"] == "ok"
-    assert not any("/search" in c for c in calls) and not any("authors" in c for c in calls)
+    assert not any("/search" in c for c in calls)
     assert "never be stored" not in (tmp_path / "p.cache.json").read_text()
     opened = [c for c in calls if "bloy-s-grove" in c]
     assert T.main(argv, fetch=fetch) == 0  # second run: the headline comes from the cache, the page is not reopened

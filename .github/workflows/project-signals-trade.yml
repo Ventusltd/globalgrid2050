@@ -42,7 +42,7 @@ jobs:
             --out "$RUNNER_TEMP/routes/project_signals_trade.json" \
             --probe "$RUNNER_TEMP/routes/routes.md" \
             --truth automation/news/tests/fixtures/signals/truth_trade.json \
-            --discover --limit 10 --batch 10 --host-seconds 240
+            --discover --limit 10 --batch 10 --host-seconds 240 --sitemap-files 40 --page-lookups 20
           cat "$RUNNER_TEMP/routes/routes.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$RUNNER_TEMP/routes/routes.md"
       - uses: actions/upload-artifact@v4
@@ -74,7 +74,8 @@ jobs:
             --cache "$RUNNER_TEMP/trade/trade_cache.json" \
             --probe "$RUNNER_TEMP/trade/probe.md" \
             --truth automation/news/tests/fixtures/signals/truth_trade.json \
-            --batch 200 --per-host-cap 450 --host-seconds 840
+            --batch 200 --per-host-cap 1000 --host-seconds 1200 \
+            --sitemap-files 600 --page-lookups 400
           cat "$RUNNER_TEMP/trade/probe.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$RUNNER_TEMP/trade/probe.md"
       - uses: actions/upload-artifact@v4

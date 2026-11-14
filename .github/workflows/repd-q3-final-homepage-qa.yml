@@ -1,0 +1,57 @@
+name: Final REPD Q3 homepage production acceptance (read-only)
+
+on:
+  push:
+    branches:
+      - qa/repd-q3-final-homepage-20261114
+    paths:
+      - qa/repd-q3-final-homepage-acceptance.py
+      - qa/repd-q3-final-homepage-browser.mjs
+      - .github/workflows/repd-q3-final-homepage-qa.yml
+  pull_request:
+    branches: [main]
+    paths:
+      - qa/repd-q3-final-homepage-acceptance.py
+      - qa/repd-q3-final-homepage-browser.mjs
+      - .github/workflows/repd-q3-final-homepage-qa.yml
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            qa
+            catalogue
+            uk_renewables_pipeline/202611132345
+            uk_renewables_pipeline/202609082224
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Poll exact pinned public homepage bytes and both versions
+        run: python3 qa/repd-q3-final-homepage-acceptance.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned Playwright
+        working-directory: uk_renewables_pipeline/202611132345
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Click homepage Pipeline News launch on desktop and mobile
+        run: node qa/repd-q3-final-homepage-browser.mjs
+      - name: Preserve final homepage SHA ledger and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repd-q3-final-homepage-${{ github.run_number }}
+          path: /tmp/repd-q3-final-homepage/
+          retention-days: 90
+          if-no-files-found: warn

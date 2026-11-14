@@ -2,14 +2,21 @@
  "schema": "globalgrid2050.repd-validate-baseline.v1",
  "release_id": "2026q2",
  "source": {
-  "kind": "project_identity_v6",
-  "path": "/home/claude/globalgrid2050/dist/project_identity_v6.json",
-  "sha256": "d614084c05c0380862cf2d9da58309c43cdb128d6917458db4dc53717062ea95",
-  "declared_source_hashes": {
-   "csv_sha256": "84c1b5f958a934d8b4b86ec88f50bdcf43830ded7ff2efc27bffca0c98695035",
-   "xlsx_sha256": "624a0a9712c58a7a93716e51f2bf054eec8b1af7170f6f9516cc10cd248e2657"
-  },
-  "source_dataset_title": "Renewable Energy Planning Database (REPD): July 2026 (Q2 2026)"
+  "kind": "csv",
+  "path": "REPD_Publication_Q2_2026.csv",
+  "sha256": "84c1b5f958a934d8b4b86ec88f50bdcf43830ded7ff2efc27bffca0c98695035",
+  "bytes": 5087389,
+  "xlsx_sha256": "624a0a9712c58a7a93716e51f2bf054eec8b1af7170f6f9516cc10cd248e2657",
+  "xlsx_bytes": 5185558,
+  "source_dataset_title": "Renewable Energy Planning Database (REPD): July 2026 (Q2 2026)",
+  "archive": "globalgrid2050 branch repd/2026-07-verified-archive-20261113 @ d015479f718d697312738f127ba72cd63cf8042e, evidence/repd-2026-q2-original/official-sources/ (recovered from UK Government Web Archive captures of 3 Nov 2026)",
+  "built_with": "python -m automation.repd.validate make-baseline --from-csv REPD_Publication_Q2_2026.csv --release-id 2026q2",
+  "supersedes": {
+   "kind": "project_identity_v6",
+   "path": "dist/project_identity_v6.json",
+   "sha256": "d614084c05c0380862cf2d9da58309c43cdb128d6917458db4dc53717062ea95",
+   "note": "refs (14,657), rows and both vocabularies are identical to the raw-CSV build; the identity file is itself byte-reproducible from the raw July files (NL-014 piece 3)"
+  }
  },
  "rows": 14657,
  "unique_refs": 14657,

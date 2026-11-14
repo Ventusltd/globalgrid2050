@@ -71,7 +71,7 @@ class RightsGateTests(unittest.TestCase):
         root = pathlib.Path(__file__).resolve().parents[3]
         candidate = root / "uk_renewables_pipeline/202611140247/convergence/datacentres.json"
         doc = __import__("json").loads(candidate.read_text(encoding="utf-8"))
-        report = gate.audit(doc, {"sources": []}, register, sha, sha)
+        report = gate.audit(doc, {"sources": []})  # missing register also fails closed
         self.assertEqual(report["sites"], 226)
         self.assertEqual(report["source_entries"], 258)
         self.assertEqual(report["unverified_source_entries"], 258)

@@ -63,6 +63,7 @@ jobs:
           run_suite planning_file automation/news/tests/test_signals_planning_file.py
           run_suite combiner      automation/news/signals/tests/test_combine.py
           run_suite gate          automation/news/signals/tests/test_gate.py
+          run_suite agent4_editorial automation/news/signals/tests/test_agent4_editorial_regressions.py
           run_suite acid          automation/news/tests/test_signals_acid.py
       - name: One table (suite, tests, passed, failed); fails if any suite failed
         run: |

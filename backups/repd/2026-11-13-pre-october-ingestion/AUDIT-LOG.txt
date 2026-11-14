@@ -1,0 +1,73 @@
+# REPD snapshot backup and ingestion audit — 13 November 2026
+
+Status: PRE-INGESTION BACKUP. October 2026 Q3 has NOT replaced any live file.
+GitHub baseline commit: 73cbdec10bbd3fe2f8313b60b1acc2d22d31b517
+Repository: Ventusltd/globalgrid2050
+Backup branch: repd/2026-10-ingestion-20261113
+Snapshot strategy: preserved copies of the Q2 scripts and Q2 audit JSON; immutable Git parent for historical data files.
+
+Historical root dataset: repd.csv
+  Git blob SHA: 01fe17ae9531d3504490a1418a68350262b06f86
+  Previous source: older REPD snapshot; not necessarily equal to Q2 canonical.
+  Restore: git show 73cbdec10bbd3fe2f8313b60b1acc2d22d31b517:repd.csv > repd.csv
+Q2 source processing: scripts/repd_sources_v6.py
+  Git blob SHA: d6bd42f46a410e6bd2e8d208a2450f5ec1e4c6c3
+Q2 V6 compatibility entry: scripts/repd_updater_v6_hardened.py
+  Git blob SHA: e011e8dc96f8e573f2f52c59c0ba94f8f0172f12
+Q2 audit: dist/repd_source_reconciliation_v6.json
+  Git blob SHA: 35835b6b46aa1f996fedac8c7bf3044a3d423814
+Q2 manifest: dist/manifest_v6.json
+  Git blob SHA: dbaf471f262d3b6557e7f327269b663eeddc432c
+
+Last validated release: July 2026 (Q2), published 2026-08-03.
+Q2 source rows: 14,657; unique REPD Ref IDs: 14,657.
+Q2 threshold counts: solar >1 MW = 3,445; battery >100 MW = 269.
+Official Q2 CSV SHA-256: 84c1b5f958a934d8b4b86ec88f50bdcf43830ded7ff2efc27bffca0c98695035
+Official Q2 Excel SHA-256: 624a0a9712c58a7a93716e51f2bf054eec8b1af7170f6f9516cc10cd248e2657
+Official Q2 CSV: https://assets.publishing.service.gov.uk/media/6a6cbdc00c36759b5ccaa305/REPD_Publication_Q2_2026.csv
+Official Q2 Excel: https://assets.publishing.service.gov.uk/media/6a6cbdd2862aaf18d9c62b02/REPD_Publication_Q2_2026.xlsx
+
+October 2026 Q3 release: published 2026-11-13.
+Official publication: https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract
+Official Q3 CSV: https://assets.publishing.service.gov.uk/media/6af42ff0a4004bdbe54e54a5/REPD_Publication_Q3_2026.csv
+Official Q3 Excel: https://assets.publishing.service.gov.uk/media/6af42ffdb83b3cae0d0a21c9/REPD_Publication_Q3_2026.xlsx
+
+Controls:
+- Do not rewrite repd.csv, V1–V6 assets, dist/manifest_v6.json or the live site.
+- New Q3 files go to isolated ignored staging and short-lived Actions artifacts only.
+- Ingestion fails closed on mismatched CSV/Excel reference identities, duplicate IDs or material disagreements.
+- Preserve both official Q3 file hashes, counts, schema and Q2 comparison in the run report.
+- Require separate owner review and acceptance before downstream production promotion.
+
+Note: data/latest_repd_v6_canonical.csv is not present at this GitHub commit; its reproducible official inputs, code and validated manifest are preserved above.
+
+Additional legacy outputs retained untouched in the source Git tree at baseline commit 73cbdec10bbd3fe2f8313b60b1acc2d22d31b517 and copied to the Actions pre-ingestion backup artifact:
+- repd-grid-batteries.csv; 738,190 bytes; 2,079 lines; blob 2d4142c7bb97bbd4be1c67698731730d2e25c672.
+- repd-solar-operational.csv; 395,768 bytes; 1,236 lines; blob 5d8bab7f640eb943dcf66b2631ad6bcde1f52122.
+- repd-solar-operational-over-4mw.csv; 311,748 bytes; 943 lines; blob 31e840cfe206cfb53d9ed2c043e00bdd69080a82.
+- dist/repd_master.json; 4,256,963 bytes; 10,784 features; blob e221065a7b144a9e4b691cf282e23a68c5661e45.
+- dist/manifest_v6.json; blob dbaf471f262d3b6557e7f327269b663eeddc432c.
+- dist/repd_source_reconciliation_v6.json; 5,751 bytes; blob 35835b6b46aa1f996fedac8c7bf3044a3d423814.
+
+These blob IDs refer to existing, immutable Git data; they are not hashes of the newly downloaded October dataset. No production or legacy file is overwritten. The Actions artifact copy is temporary (90-day retention); the Git commits and this text log are durable.
+
+Additional immutable baseline data inventory (all unchanged in PR #56 as of b5db0b35):
+  repd-grid-batteries.csv: 738,190 bytes, 2,079 text lines; Git blob 2d4142c7bb97bbd4be1c67698731730d2e25c672
+  repd-solar-operational.csv: 395,768 bytes, 1,236 text lines; Git blob 5d8bab7f640eb943dcf66b2631ad6bcde1f52122
+  repd-solar-operational-over-4mw.csv: 311,748 bytes, 943 text lines; Git blob 31e840cfe206cfb53d9ed2c043e00bdd69080a82
+  dist/repd_master.json: 4,256,963 bytes, 10,784 GeoJSON features; Git blob e221065a7b144a9e4b691cf282e23a68c5661e45
+  dist/repd_source_reconciliation_v6.json: 5,751 bytes, 232 text lines; Git blob 35835b6b46aa1f996fedac8c7bf3044a3d423814
+Restore any one file without changing production, after review:
+  git show 73cbdec10bbd3fe2f8313b60b1acc2d22d31b517:<path> > <path>
+The staging Actions workflow also archives these derived CSV/JSON files in its pre-ingestion-backup/ artifact folder (once the updated workflow has passed). The temporary Actions artifact is not a permanent backup; Git history at the pinned baseline remains the durable recovery point.
+
+Q3 staging evidence from successful Actions run 43511657630 (2026-11-13):
+  Original Q3 CSV: 5,219,160 bytes; SHA256 48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862
+  Original Q3 XLSX: 5,378,656 bytes; SHA256 87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea
+  Source records: 14,968 per format, 14,967 unique Ref IDs; 53 columns; candidate 14,967 rows.
+  Exact duplicate: Ref ID 7679, physical source rows 7112 and 7113; original source retained.
+  Five unresolved source date conflicts: Ref IDs 21424, 21438, 21456, 21463, 21464. Q3 candidate cells are blank; raw values preserved.
+  Excel cells for those five records have the date format m/d/yyyy, while the CSV reads 09/11/2026 or 09/10/2026. This is a material day/month ambiguity, not a reconciled date.
+  Current July-labelled download links return Q3-identical bytes, which differ from the pinned July/Q2 SHA256 values above. Original validated Q2 raw bytes have not been recovered; a genuine Q2-to-Q3 per-reference delta is UNAVAILABLE. Historical repd.csv comparison is NOT a Q2 comparison.
+  Both official CSV and staged candidate CSV end in a newline, contain complete 53-field final records, and have no formula-leading cells detected in a full CSV scan.
+  No live datasets changed. Staging success does not authorise release.

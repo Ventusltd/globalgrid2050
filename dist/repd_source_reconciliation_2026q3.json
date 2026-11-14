@@ -1,0 +1,511 @@
+{
+  "schema": "globalgrid2050.repd-source-reconciliation.v6",
+  "pass": true,
+  "validated_at": "2026-11-13T23:45:00+00:00",
+  "csv_url": "https://assets.publishing.service.gov.uk/media/6af42ff0a4004bdbe54e54a5/REPD_Publication_Q3_2026.csv",
+  "xlsx_url": "https://assets.publishing.service.gov.uk/media/6af42ffdb83b3cae0d0a21c9/REPD_Publication_Q3_2026.xlsx",
+  "xlsx_sheet": "REPD",
+  "source_hashes": {
+    "csv_sha256": "48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862",
+    "xlsx_sha256": "87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea"
+  },
+  "capacity_policy": "XLSX precision is canonical; CSV must be within 0.005 MW display-rounding tolerance",
+  "text_policy": "trim/collapse whitespace; treat XLSX _x000D_ as whitespace; use the XLSX representation of integer-equivalent planning references and report leading-zero differences",
+  "metrics": {
+    "csv_rows": 14968,
+    "xlsx_rows": 14968,
+    "csv_unique_refs": 14967,
+    "xlsx_unique_refs": 14967,
+    "csv_native_solar_gt1_rounded": 3482,
+    "xlsx_canonical_solar_gt1": 3484,
+    "canonical_solar_gt1": 3484,
+    "csv_bess_gt100": 281,
+    "xlsx_bess_gt100": 281,
+    "canonical_bess_gt100": 281,
+    "canonical_combined_projects": 3765,
+    "material_mismatches": 0,
+    "representation_differences": {
+      "capacity_precision": 1584,
+      "control_code_whitespace": 70,
+      "planning_reference_leading_zero": 1,
+      "planning_reference_missing_marker": 2,
+      "csv_month_first_date": 24,
+      "na_date_text": 16
+    }
+  },
+  "checks": [
+    {
+      "gate": "CSV row count exact",
+      "pass": true,
+      "detail": "actual=14968 expected=14968"
+    },
+    {
+      "gate": "XLSX row count exact",
+      "pass": true,
+      "detail": "actual=14968 expected=14968"
+    },
+    {
+      "gate": "CSV unique Ref ID count exact",
+      "pass": true,
+      "detail": "actual=14967"
+    },
+    {
+      "gate": "XLSX unique Ref ID count exact",
+      "pass": true,
+      "detail": "actual=14967"
+    },
+    {
+      "gate": "CSV/XLSX Ref ID sets equal",
+      "pass": true,
+      "detail": "csv_only=0 xlsx_only=0"
+    },
+    {
+      "gate": "Q3 CSV immutable SHA-256",
+      "pass": true,
+      "detail": "48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862"
+    },
+    {
+      "gate": "Q3 XLSX immutable SHA-256",
+      "pass": true,
+      "detail": "87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea"
+    },
+    {
+      "gate": "CSV/XLSX identical duplicate rows agree",
+      "pass": true,
+      "detail": "csv=['7679'] xlsx=['7679']"
+    },
+    {
+      "gate": "CSV/XLSX material fields reconcile",
+      "pass": true,
+      "detail": "material_mismatches=0"
+    },
+    {
+      "gate": "XLSX/canonical solar >1MW exact",
+      "pass": true,
+      "detail": "actual=3484 expected=3484"
+    },
+    {
+      "gate": "XLSX/canonical BESS >100MW exact",
+      "pass": true,
+      "detail": "actual=281 expected=281"
+    },
+    {
+      "gate": "canonical solar >1MW exact",
+      "pass": true,
+      "detail": "actual=3484"
+    },
+    {
+      "gate": "canonical BESS >100MW exact",
+      "pass": true,
+      "detail": "actual=281"
+    }
+  ],
+  "representation_difference_examples": {
+    "capacity_precision": [
+      {
+        "repd_ref": "6816",
+        "csv": 0.38,
+        "xlsx": 0.384
+      },
+      {
+        "repd_ref": "7478",
+        "csv": 0.58,
+        "xlsx": 0.579
+      },
+      {
+        "repd_ref": "7557",
+        "csv": 25.0,
+        "xlsx": 24.995
+      },
+      {
+        "repd_ref": "7758",
+        "csv": 0.18,
+        "xlsx": 0.175
+      },
+      {
+        "repd_ref": "8184",
+        "csv": 0.26,
+        "xlsx": 0.259
+      },
+      {
+        "repd_ref": "8203",
+        "csv": 0.49,
+        "xlsx": 0.485
+      },
+      {
+        "repd_ref": "8204",
+        "csv": 0.18,
+        "xlsx": 0.175
+      },
+      {
+        "repd_ref": "8212",
+        "csv": 0.49,
+        "xlsx": 0.487
+      },
+      {
+        "repd_ref": "8222",
+        "csv": 0.62,
+        "xlsx": 0.623
+      },
+      {
+        "repd_ref": "8229",
+        "csv": 0.44,
+        "xlsx": 0.439
+      }
+    ],
+    "control_code_whitespace": [
+      {
+        "repd_ref": "8",
+        "field": "Site Name",
+        "csv": "",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "1613",
+        "field": "Planning Authority",
+        "csv": "",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "1616",
+        "field": "Planning Authority",
+        "csv": "",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "4920",
+        "field": "Site Name",
+        "csv": "",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "6907",
+        "field": "Site Name",
+        "csv": "",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "9947",
+        "field": "Planning Authority",
+        "csv": "",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "11948",
+        "field": "Operator (or Applicant)",
+        "csv": "Hamilton March",
+        "xlsx": "Hamilton March"
+      },
+      {
+        "repd_ref": "11973",
+        "field": "Operator (or Applicant)",
+        "csv": "F W Mansfield & Sons",
+        "xlsx": "F W Mansfield & Sons"
+      },
+      {
+        "repd_ref": "12175",
+        "field": "Operator (or Applicant)",
+        "csv": "Lightsource SPV 196",
+        "xlsx": "Lightsource SPV 196"
+      },
+      {
+        "repd_ref": "12210",
+        "field": "Operator (or Applicant)",
+        "csv": "Solent NHS Trust",
+        "xlsx": "Solent NHS Trust"
+      }
+    ],
+    "planning_reference_leading_zero": [
+      {
+        "repd_ref": "11250",
+        "csv": "58270",
+        "xlsx": "058270"
+      }
+    ],
+    "planning_reference_missing_marker": [
+      {
+        "repd_ref": "9873",
+        "csv": "NA",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "11989",
+        "csv": "NA",
+        "xlsx": ""
+      }
+    ],
+    "csv_month_first_date": [
+      {
+        "repd_ref": "21419",
+        "field": "Planning Application Submitted",
+        "csv": "9/14/2026",
+        "xlsx": "2026-09-14"
+      },
+      {
+        "repd_ref": "21420",
+        "field": "Planning Application Submitted",
+        "csv": "9/14/2026",
+        "xlsx": "2026-09-14"
+      },
+      {
+        "repd_ref": "21424",
+        "field": "Planning Application Submitted",
+        "csv": "09/11/2026",
+        "xlsx": "2026-09-11"
+      },
+      {
+        "repd_ref": "21426",
+        "field": "Planning Application Submitted",
+        "csv": "9/29/2026",
+        "xlsx": "2026-09-29"
+      },
+      {
+        "repd_ref": "21430",
+        "field": "Planning Application Submitted",
+        "csv": "9/14/2026",
+        "xlsx": "2026-09-14"
+      },
+      {
+        "repd_ref": "21432",
+        "field": "Planning Application Submitted",
+        "csv": "9/25/2026",
+        "xlsx": "2026-09-25"
+      },
+      {
+        "repd_ref": "21436",
+        "field": "Planning Application Submitted",
+        "csv": "9/14/2026",
+        "xlsx": "2026-09-14"
+      },
+      {
+        "repd_ref": "21437",
+        "field": "Planning Application Submitted",
+        "csv": "9/16/2026",
+        "xlsx": "2026-09-16"
+      },
+      {
+        "repd_ref": "21438",
+        "field": "Planning Application Submitted",
+        "csv": "09/11/2026",
+        "xlsx": "2026-09-11"
+      },
+      {
+        "repd_ref": "21439",
+        "field": "Planning Application Submitted",
+        "csv": "9/17/2026",
+        "xlsx": "2026-09-17"
+      },
+      {
+        "repd_ref": "21443",
+        "field": "Planning Application Submitted",
+        "csv": "9/21/2026",
+        "xlsx": "2026-09-21"
+      },
+      {
+        "repd_ref": "21446",
+        "field": "Planning Application Submitted",
+        "csv": "9/22/2026",
+        "xlsx": "2026-09-22"
+      },
+      {
+        "repd_ref": "21453",
+        "field": "Planning Application Submitted",
+        "csv": "9/18/2026",
+        "xlsx": "2026-09-18"
+      },
+      {
+        "repd_ref": "21454",
+        "field": "Planning Application Submitted",
+        "csv": "9/23/2026",
+        "xlsx": "2026-09-23"
+      },
+      {
+        "repd_ref": "21456",
+        "field": "Planning Application Submitted",
+        "csv": "09/11/2026",
+        "xlsx": "2026-09-11"
+      },
+      {
+        "repd_ref": "21457",
+        "field": "Planning Application Submitted",
+        "csv": "9/23/2026",
+        "xlsx": "2026-09-23"
+      },
+      {
+        "repd_ref": "21462",
+        "field": "Planning Application Submitted",
+        "csv": "9/23/2026",
+        "xlsx": "2026-09-23"
+      },
+      {
+        "repd_ref": "21463",
+        "field": "Planning Application Submitted",
+        "csv": "09/10/2026",
+        "xlsx": "2026-09-10"
+      },
+      {
+        "repd_ref": "21464",
+        "field": "Planning Application Submitted",
+        "csv": "09/10/2026",
+        "xlsx": "2026-09-10"
+      },
+      {
+        "repd_ref": "21466",
+        "field": "Planning Application Submitted",
+        "csv": "9/16/2026",
+        "xlsx": "2026-09-16"
+      },
+      {
+        "repd_ref": "21468",
+        "field": "Planning Application Submitted",
+        "csv": "9/25/2026",
+        "xlsx": "2026-09-25"
+      },
+      {
+        "repd_ref": "21469",
+        "field": "Planning Application Submitted",
+        "csv": "9/25/2026",
+        "xlsx": "2026-09-25"
+      },
+      {
+        "repd_ref": "21471",
+        "field": "Planning Application Submitted",
+        "csv": "9/27/2026",
+        "xlsx": "2026-09-27"
+      },
+      {
+        "repd_ref": "21478",
+        "field": "Planning Application Submitted",
+        "csv": "9/22/2026",
+        "xlsx": "2026-09-22"
+      }
+    ],
+    "na_date_text": [
+      {
+        "repd_ref": "4297",
+        "field": "Operational",
+        "csv": "NA",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "5347",
+        "field": "Operational",
+        "csv": "NA",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "7542",
+        "field": "Operational",
+        "csv": "NA",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "7544",
+        "field": "Operational",
+        "csv": "NA",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "7740",
+        "field": "Operational",
+        "csv": "NA",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "7741",
+        "field": "Operational",
+        "csv": "NA",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "8101",
+        "field": "Operational",
+        "csv": "NA",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "9272",
+        "field": "Operational",
+        "csv": "NA",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "10005",
+        "field": "Operational",
+        "csv": "NA",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "10088",
+        "field": "Operational",
+        "csv": "NA",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "10296",
+        "field": "Operational",
+        "csv": "NA",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "10422",
+        "field": "Operational",
+        "csv": "NA",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "10497",
+        "field": "Operational",
+        "csv": "NA",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "11234",
+        "field": "Operational",
+        "csv": "NA",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "11423",
+        "field": "Operational",
+        "csv": "NA",
+        "xlsx": ""
+      },
+      {
+        "repd_ref": "11509",
+        "field": "Operational",
+        "csv": "NA",
+        "xlsx": ""
+      }
+    ]
+  },
+  "material_mismatch_examples": [],
+  "errors": [],
+  "release_id": "2026q3",
+  "date_rule": "xlsx_typed_wins",
+  "duplicate_row_policy": "drop_identical",
+  "identical_duplicate_rows_dropped": {
+    "csv": [
+      {
+        "repd_ref": "7679",
+        "occurrences": 2,
+        "data_rows_1_based": [
+          7111,
+          7112
+        ],
+        "exactly_identical": true
+      }
+    ],
+    "xlsx": [
+      {
+        "repd_ref": "7679",
+        "occurrences": 2,
+        "data_rows_1_based": [
+          7111,
+          7112
+        ],
+        "exactly_identical": true
+      }
+    ]
+  }
+}

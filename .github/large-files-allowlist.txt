@@ -30,3 +30,10 @@ uk_mainline_railways.geojson
 uk_motorways.geojson
 uk_primary_roads.geojson
 uk_trunk_roads.geojson
+# REPD October 2026 (2026q3) release candidate (automation/repd/run.py): the 21 MB project
+# identity registry, under dist/ and as the fixture of the successor Pipeline News release folder
+# (same role as the allowlisted project_identity_v6.json), and the 7 MB master GeoJSON, which
+# carries the Ref ID and date properties that scripts/repd_updater.py has emitted since V6.
+dist/project_identity_2026q3.json
+uk_renewables_pipeline/202611132345/fixtures/2026q3/project_identity_2026q3.json
+dist/repd_master_2026q3.json

@@ -1,0 +1,75 @@
+name: REPD Q3 independent evidence transfer (non-production)
+
+on:
+  push:
+    branches: ['repd/2026-10-ingestion-20261113']
+    paths: ['.github/workflows/repd-q3-evidence-branch.yml']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repd-q3-evidence-transfer
+  cancel-in-progress: false
+
+jobs:
+  make-read-only-evidence-branch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      REPD_Q3_OUTPUT: ${{ github.workspace }}/.repd-staging/2026-10
+      EVIDENCE_BRANCH: repd/2026-10-raw-evidence-20261113
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install offline processing dependencies
+        run: python -m pip install 'pandas>=2,<3' 'openpyxl>=3.1,<4'
+      - name: Download source and build fail-closed October candidate
+        run: python scripts/repd_q3_2026_ingest.py
+      - name: Make independently verifiable evidence branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --heads origin "$EVIDENCE_BRANCH"; then
+            echo "::error::Evidence branch already exists. Refusing overwrite."
+            exit 1
+          fi
+          src="$REPD_Q3_OUTPUT"
+          target="evidence/repd-2026-q3"
+          mkdir -p "$target/official-sources"
+          printf '* -text\n' > "$target/.gitattributes"
+          cp "$src/official-sources/REPD_Publication_Q3_2026.csv" "$target/official-sources/"
+          cp "$src/official-sources/REPD_Publication_Q3_2026.xlsx" "$target/official-sources/"
+          cp "$src/Q3_CANONICAL_STAGED.csv" "$target/"
+          cp "$src/Q3_RECONCILIATION.json" "$target/"
+          cp "$src/INGESTION-LOG.txt" "$target/"
+          cp "$src/Q2_BASELINE_SHA256_AUDIT.json" "$target/"
+          echo '48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862  evidence/repd-2026-q3/official-sources/REPD_Publication_Q3_2026.csv' > "$target/SHA256SUMS"
+          echo '87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea  evidence/repd-2026-q3/official-sources/REPD_Publication_Q3_2026.xlsx' >> "$target/SHA256SUMS"
+          sha256sum --check "$target/SHA256SUMS"
+          cat > "$target/SOURCES.txt" <<EOF
+          DESNZ October 2026 REPD (Q3), publication updated 2026-11-13
+          Official page: https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract
+          Official Q3 CSV: https://assets.publishing.service.gov.uk/media/6af42ff0a4004bdbe54e54a5/REPD_Publication_Q3_2026.csv
+          Official Q3 Excel: https://assets.publishing.service.gov.uk/media/6af42ffdb83b3cae0d0a21c9/REPD_Publication_Q3_2026.xlsx
+          Retrieved: $(date -u +%FT%TZ)
+          Source candidate commit: ${{ github.sha }}
+          The two official raw files are unmodified. Q3 canonical candidate is derived:
+          14968 official rows, 14967 unique Ref IDs, one byte-equivalent duplicate Ref 7679,
+          five official date discrepancies quarantined. See JSON audit.
+          July 2026 Q2 official originals are NOT in this branch. Historic July-labelled
+          URLs currently return the same files as Q3. Do not claim a Q2->Q3 delta.
+          This evidence-only branch is NOT a public/live application release.
+          EOF
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$EVIDENCE_BRANCH"
+          git add "$target"
+          git diff --cached --check
+          git commit -m "evidence(repd): preserve exact Q3 CSV and Excel for independent Agent F source QA"
+          git push origin "HEAD:refs/heads/$EVIDENCE_BRANCH"

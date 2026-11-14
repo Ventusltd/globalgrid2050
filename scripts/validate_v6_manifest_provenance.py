@@ -12,9 +12,11 @@ from repd_sources_v6 import (
     EXPECTED_CSV_SHA256,
     EXPECTED_ROWS,
     EXPECTED_SOLAR_GT1,
+    EXPECTED_UNIQUE_REFS,
     EXPECTED_XLSX_SHA256,
     MANIFEST,
     PUBLICATION_DATE,
+    QUARTER_LABEL,
     REPORT,
     SOURCE_PAGE,
     XLSX_URL,
@@ -45,7 +47,7 @@ need(manifest.get("status") == "VALIDATED", "V6 manifest is not validated")
 need(source.get("pass") is True, "CSV/XLSX reconciliation did not pass")
 need(manifest.get("source_owner") == "Department for Energy Security and Net Zero (DESNZ)", "DESNZ owner missing")
 need(manifest.get("source_page") == SOURCE_PAGE, "official publication page mismatch")
-need(manifest.get("source_page_last_updated") == PUBLICATION_DATE, "Q2 publication date mismatch")
+need(manifest.get("source_page_last_updated") == PUBLICATION_DATE, f"{QUARTER_LABEL} publication date mismatch")
 need(manifest.get("source_url") == CSV_URL == source.get("csv_url"), "official CSV URL mismatch")
 need(manifest.get("source_excel_url") == XLSX_URL == source.get("xlsx_url"), "official XLSX URL mismatch")
 need(urlparse(CSV_URL).netloc == "assets.publishing.service.gov.uk", "official CSV host mismatch")
@@ -55,8 +57,8 @@ need(hashes.get("xlsx_sha256") == EXPECTED_XLSX_SHA256, "official XLSX hash mism
 need(manifest.get("source_hashes") == hashes, "manifest/source-report hashes differ")
 need(metrics.get("csv_rows") == EXPECTED_ROWS, "CSV row count mismatch")
 need(metrics.get("xlsx_rows") == EXPECTED_ROWS, "XLSX row count mismatch")
-need(metrics.get("csv_unique_refs") == EXPECTED_ROWS, "CSV unique Ref count mismatch")
-need(metrics.get("xlsx_unique_refs") == EXPECTED_ROWS, "XLSX unique Ref count mismatch")
+need(metrics.get("csv_unique_refs") == EXPECTED_UNIQUE_REFS, "CSV unique Ref count mismatch")
+need(metrics.get("xlsx_unique_refs") == EXPECTED_UNIQUE_REFS, "XLSX unique Ref count mismatch")
 need(metrics.get("material_mismatches") == 0, "material CSV/XLSX mismatch present")
 need(metrics.get("canonical_solar_gt1") == EXPECTED_SOLAR_GT1, "canonical solar count mismatch")
 need(metrics.get("canonical_bess_gt100") == EXPECTED_BESS_GT100, "canonical BESS count mismatch")

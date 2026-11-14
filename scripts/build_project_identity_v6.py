@@ -11,10 +11,13 @@ from pathlib import Path
 
 from repd_sources_v6 import (
     CANONICAL_CSV,
+    DIST,
     EXPECTED_BESS_GT100,
     EXPECTED_ROWS,
     EXPECTED_SOLAR_GT1,
+    EXPECTED_UNIQUE_REFS,
     MANIFEST,
+    OUTPUT_SUFFIX,
     REPORT as SOURCE_REPORT,
     clean_ref,
     norm_date,
@@ -22,9 +25,10 @@ from repd_sources_v6 import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
-DIST = ROOT / "dist"
-IDENTITY_OUT = DIST / "project_identity_v6.json"
-PROJECTS_OUT = DIST / "major_projects_v6.json"
+# July default: dist/project_identity_v6.json and dist/major_projects_v6.json.
+# A release descriptor redirects both to REPD_OUT_DIR/dist/*_<suffix>.json.
+IDENTITY_OUT = DIST / f"project_identity_{OUTPUT_SUFFIX}.json"
+PROJECTS_OUT = DIST / f"major_projects_{OUTPUT_SUFFIX}.json"
 
 SCHEMA = "globalgrid2050.project-identity.v6"
 MIN_REPD_ROWS = 1000
@@ -539,7 +543,7 @@ def build_public_snapshot(registry, manifest):
         "source_xlsx_url": manifest["source_excel_url"],
         "source_hashes": manifest["source_hashes"],
         "source_record_count": EXPECTED_ROWS,
-        "source_unique_ref_count": EXPECTED_ROWS,
+        "source_unique_ref_count": EXPECTED_UNIQUE_REFS,
         "csv_xlsx_reconciled": True,
         "repd_bound": True,
         "globalgrid_id_required": True,
@@ -564,11 +568,12 @@ def main():
     registry = build_registry(rows, manifest, source_url)
     registry["detected_header_count"] = len(headers)
     registry["detected_relationship_columns"] = relationship_columns
-    IDENTITY_OUT.write_text(json.dumps(registry, indent=2), encoding="utf-8")
+    # Gate the threshold universe BEFORE writing anything (no partial identity on failure).
     snapshot = build_public_snapshot(registry, manifest)
+    IDENTITY_OUT.write_text(json.dumps(registry, indent=2), encoding="utf-8")
     PROJECTS_OUT.write_text(json.dumps(snapshot, separators=(",", ":")), encoding="utf-8")
     manifest["public_snapshot"] = {
-        "path": "dist/major_projects_v6.json",
+        "path": f"dist/{PROJECTS_OUT.name}",
         "project_count": snapshot["project_count"],
         "projects_sha256": snapshot["projects_sha256"],
     }

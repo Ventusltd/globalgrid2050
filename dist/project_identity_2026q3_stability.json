@@ -1,0 +1,189 @@
+{
+  "schema": "globalgrid2050.identity-stability.v1",
+  "baseline": {
+    "source_dataset_title": "Renewable Energy Planning Database (REPD): July 2026 (Q2 2026)",
+    "source_hashes": {
+      "csv_sha256": "84c1b5f958a934d8b4b86ec88f50bdcf43830ded7ff2efc27bffca0c98695035",
+      "xlsx_sha256": "624a0a9712c58a7a93716e51f2bf054eec8b1af7170f6f9516cc10cd248e2657"
+    },
+    "records": 14657
+  },
+  "candidate": {
+    "source_dataset_title": "Renewable Energy Planning Database (REPD): October 2026 (Q3 2026)",
+    "source_hashes": {
+      "csv_sha256": "48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862",
+      "xlsx_sha256": "87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea"
+    },
+    "records": 14967
+  },
+  "gg_project_id": {
+    "preserved": 14648,
+    "changed": 0,
+    "new": 319,
+    "retired": 9,
+    "retired_refs": [
+      "9035",
+      "9681",
+      "11885",
+      "18008",
+      "18716",
+      "18949",
+      "18950",
+      "19567",
+      "21093"
+    ],
+    "rule": "GG2050-REPD-<Ref ID>: deterministic, so every retained Ref keeps its ID"
+  },
+  "gg_development_id": {
+    "retained_refs_preserved": 14643,
+    "retained_refs_changed": 5,
+    "changed": [
+      {
+        "repd_ref": "14193",
+        "site_name": "Rogerhill Solar and Battery Energy Storage System",
+        "old_gg_development_id": "GG2050-DEV-786EACD7818ED9",
+        "new_gg_development_id": "GG2050-DEV-FCE2A6C97F9C70",
+        "old_development_repd_refs": [
+          "14193",
+          "14194"
+        ],
+        "new_development_repd_refs": [
+          "14193",
+          "14194"
+        ]
+      },
+      {
+        "repd_ref": "14194",
+        "site_name": "Rogerhill Solar and Battery Energy Storage System",
+        "old_gg_development_id": "GG2050-DEV-786EACD7818ED9",
+        "new_gg_development_id": "GG2050-DEV-FCE2A6C97F9C70",
+        "old_development_repd_refs": [
+          "14194",
+          "14193"
+        ],
+        "new_development_repd_refs": [
+          "14194",
+          "14193"
+        ]
+      },
+      {
+        "repd_ref": "18480",
+        "site_name": "Shuttleworth House, Higher Shuttleworth - Battery Energy Storage System",
+        "old_gg_development_id": "GG2050-DEV-3A4273891AB891",
+        "new_gg_development_id": "GG2050-DEV-77DC7990E69198",
+        "old_development_repd_refs": [
+          "18480"
+        ],
+        "new_development_repd_refs": [
+          "18480"
+        ]
+      },
+      {
+        "repd_ref": "18736",
+        "site_name": "Malcolmwood Farm, Loanend Road - Battery Energy Storage System",
+        "old_gg_development_id": "GG2050-DEV-REPD-18736",
+        "new_gg_development_id": "GG2050-DEV-0075234000F747",
+        "old_development_repd_refs": [
+          "18736"
+        ],
+        "new_development_repd_refs": [
+          "18736"
+        ]
+      },
+      {
+        "repd_ref": "20983",
+        "site_name": "Cwm Clydach Lake, Ysgol Nantgwyn - Micro Hydro Power",
+        "old_gg_development_id": "GG2050-DEV-738F46DF5CAA69",
+        "new_gg_development_id": "GG2050-DEV-EEAE06C10775FA",
+        "old_development_repd_refs": [
+          "20983"
+        ],
+        "new_development_repd_refs": [
+          "20983"
+        ]
+      }
+    ],
+    "distinct_ids_baseline": 12874,
+    "distinct_ids_candidate": 13144,
+    "distinct_ids_kept": 12864,
+    "distinct_ids_new": 280,
+    "distinct_ids_retired": 10
+  },
+  "major_projects": {
+    "baseline_count": 3714,
+    "candidate_count": 3765,
+    "baseline_projects_sha256": "48281b1d14364b7c4fd74f1e8b8e6c8e0c1f9515b21fa57d5b37bd1af498b15d",
+    "candidate_projects_sha256": "38227600d6ef597b296a0dea61a6c19b31a4168e4955fa674c3813a55e32b215",
+    "retained": 3707,
+    "entered": 58,
+    "exited": 7,
+    "exited_refs": [
+      "9035",
+      "9681",
+      "11885",
+      "14471",
+      "18949",
+      "19476",
+      "19567"
+    ],
+    "entered_existing_refs": [
+      "10881",
+      "11403",
+      "12565",
+      "12884",
+      "13156",
+      "17439",
+      "18411",
+      "18561"
+    ]
+  },
+  "frozen_v6_news_bindings": {
+    "refs": [
+      "10087",
+      "1044",
+      "12206",
+      "2377",
+      "5452",
+      "5533"
+    ],
+    "still_in_identity": [
+      "10087",
+      "1044",
+      "12206",
+      "2377",
+      "5452",
+      "5533"
+    ],
+    "still_in_major_projects": [
+      "10087",
+      "1044",
+      "12206",
+      "2377",
+      "5452",
+      "5533"
+    ],
+    "development_id_changed": []
+  },
+  "spine_population_baseline": {
+    "count": 7680,
+    "by_technology": {
+      "Battery": 1609,
+      "Solar Photovoltaics": 3563,
+      "Wind Offshore": 109,
+      "Wind Onshore": 2399
+    },
+    "capacity_mw": 356474.09,
+    "rule": "technology in {Solar Photovoltaics, Battery, Wind Onshore, Wind Offshore} and capacity >= 1.0 MW (release.v9.1 spine rule; informational, spine not built here)"
+  },
+  "spine_population_candidate": {
+    "count": 7775,
+    "by_technology": {
+      "Battery": 1644,
+      "Solar Photovoltaics": 3604,
+      "Wind Offshore": 110,
+      "Wind Onshore": 2417
+    },
+    "capacity_mw": 365474.49,
+    "rule": "technology in {Solar Photovoltaics, Battery, Wind Onshore, Wind Offshore} and capacity >= 1.0 MW (release.v9.1 spine rule; informational, spine not built here)"
+  }
+}

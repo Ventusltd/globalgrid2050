@@ -1,0 +1,164 @@
+name: REPD October 2026 source intake (staging only)
+
+on:
+  push:
+    branches:
+      - 'repd/2026-10-ingestion-20261113'
+    paths:
+      - 'scripts/repd_q3_2026_ingest.py'
+      - '.github/workflows/repd-2026-q3-ingestion.yml'
+      - 'backups/repd/2026-11-13-pre-october-ingestion/**'
+  pull_request:
+    paths:
+      - 'scripts/repd_q3_2026_ingest.py'
+      - '.github/workflows/repd-2026-q3-ingestion.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repd-q3-staging-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate-and-stage:
+    name: Download, reconcile, compare, preserve source evidence
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      REPD_Q3_OUTPUT: ${{ github.workspace }}/.repd-staging/2026-10
+    steps:
+      - name: Checkout exact candidate commit
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source-only dependencies
+        run: python -m pip install 'pandas>=2,<3' 'openpyxl>=3.1,<4'
+      - name: Syntax check
+        run: python -m py_compile scripts/repd_sources_v6.py scripts/repd_q3_2026_ingest.py
+      - name: Stage Q2 archive and ingest Q3 official sources
+        run: python scripts/repd_q3_2026_ingest.py
+      - name: Archive original legacy dataset and baseline audit
+        if: always()
+        run: |
+          mkdir -p "$REPD_Q3_OUTPUT/pre-ingestion-backup"
+          cp repd.csv "$REPD_Q3_OUTPUT/pre-ingestion-backup/repd.csv"
+          cp repd-grid-batteries.csv "$REPD_Q3_OUTPUT/pre-ingestion-backup/repd-grid-batteries.csv"
+          cp repd-solar-operational.csv "$REPD_Q3_OUTPUT/pre-ingestion-backup/repd-solar-operational.csv"
+          cp repd-solar-operational-over-4mw.csv "$REPD_Q3_OUTPUT/pre-ingestion-backup/repd-solar-operational-over-4mw.csv"
+          cp dist/repd_master.json "$REPD_Q3_OUTPUT/pre-ingestion-backup/repd_master.json"
+          cp dist/manifest_v6.json "$REPD_Q3_OUTPUT/pre-ingestion-backup/manifest_v6.json"
+          cp dist/repd_source_reconciliation_v6.json "$REPD_Q3_OUTPUT/pre-ingestion-backup/repd_source_reconciliation_v6.json"
+          cp backups/repd/2026-11-13-pre-october-ingestion/AUDIT-LOG.txt "$REPD_Q3_OUTPUT/pre-ingestion-backup/AUDIT-LOG.txt"
+      - name: Verify raw, canonical and historical backup integrity
+        run: python scripts/repd_q3_staging_verify.py
+      - name: Upload staging, original sources and comparison evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repd-october-2026-staging-${{ github.run_number }}
+          path: .repd-staging/2026-10/
+          retention-days: 90
+          if-no-files-found: error
+
+  publish-reviewed-staging-evidence:
+    name: Publish exact candidate-staged Q3 evidence to versioned nonproduction branch
+    needs: validate-and-stage
+    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == 'Ventusltd/globalgrid2050' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    env:
+      CANDIDATE_HEAD: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - name: Checkout exact candidate HEAD
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: true
+      - name: Download validated artifacts from this exact run
+        uses: actions/download-artifact@v4
+        with:
+          name: repd-october-2026-staging-${{ github.run_number }}
+          path: .repd-staging/2026-10
+      - name: Publish immutable versioned evidence or verify exact existing bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          src='.repd-staging/2026-10'
+          dest='evidence/repd-2026-q3'
+          evidence_branch="repd/2026-10-reviewed-evidence-${CANDIDATE_HEAD:0:12}"
+          # The original raw-evidence branch remains immutable, even though its
+          # derived candidate predates the 25-cell date fix. Never overwrite it.
+          python - "$src" <<'PY'
+          import json
+          import pathlib
+          import sys
+          root = pathlib.Path(sys.argv[1])
+          report = json.loads((root / "Q3_RECONCILIATION.json").read_text())
+          integrity = json.loads((root / "INTEGRITY-VERIFICATION.json").read_text())
+          assert report["stage"] == "STAGED_WITH_SOURCE_DATE_LOCALE_NORMALISATIONS"
+          assert report["original_csv_rows"] == report["original_xlsx_rows"] == 14968
+          assert report["q3_unique_ids"] == 14967
+          assert report["source_columns"] == {"csv": 53, "xlsx": 53}
+          assert report["source_locale_date_normalisation_count"] == 25
+          assert integrity["non_day_first_candidate_date_cells"] == 0
+          assert integrity["candidate_rows"] == 14967
+          assert report["no_production_promotion"] is True
+          assert not report["failures"]
+          PY
+          files=(
+            official-sources/REPD_Publication_Q3_2026.csv
+            official-sources/REPD_Publication_Q3_2026.xlsx
+            Q3_CANONICAL_STAGED.csv
+            Q3_RECONCILIATION.json
+            INGESTION-LOG.txt
+            Q2_BASELINE_SHA256_AUDIT.json
+            INTEGRITY-VERIFICATION.json
+          )
+          # A retry must prove that the previously published candidate evidence
+          # is byte-for-byte identical; never claim success merely because a
+          # stale evidence branch happens to exist.
+          if git ls-remote --exit-code --heads origin "$evidence_branch" >/dev/null; then
+            git fetch --depth=1 origin "$evidence_branch"
+            git show "FETCH_HEAD:$dest/SOURCES.txt" | grep -Fx "Build SHA: $CANDIDATE_HEAD"
+            for file in "${files[@]}"; do
+              expected="$(sha256sum "$src/$file" | cut -d' ' -f1)"
+              observed="$(git show "FETCH_HEAD:$dest/$file" | sha256sum | cut -d' ' -f1)"
+              test "$expected" = "$observed" || { echo "::error::Existing evidence differs: $file"; exit 1; }
+            done
+            echo "Verified existing immutable evidence branch $evidence_branch"
+            exit 0
+          fi
+          mkdir -p "$dest/official-sources"
+          printf '* -text\n' > "$dest/.gitattributes"
+          for file in "${files[@]}"; do
+            cp "$src/$file" "$dest/$file"
+          done
+          sha256sum "$dest/official-sources/REPD_Publication_Q3_2026.csv" | grep '^48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862 '
+          sha256sum "$dest/official-sources/REPD_Publication_Q3_2026.xlsx" | grep '^87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea '
+          {
+            echo 'REPD Q3 October 2026 corrected staged evidence — NOT a release'
+            echo 'Official page: https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract'
+            echo "Build SHA: $CANDIDATE_HEAD"
+            echo "Evidence generated UTC: $(date -u +%FT%TZ)"
+            echo 'Source CSV SHA256: 48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862'
+            echo 'Source XLSX SHA256: 87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea'
+            echo "Candidate SHA256: $(sha256sum "$dest/Q3_CANONICAL_STAGED.csv" | cut -d' ' -f1)"
+            echo 'Source 14968 rows; candidate 14967 unique Ref IDs; 53 columns; identical source duplicate Ref 7679.'
+            echo '25 Excel-typed date locale cells normalised; zero invalid canonical date cells.'
+            echo 'Original raw Q3 evidence branch retained without modification.'
+            echo 'Original July/Q2 source bytes unavailable; raw Q2-to-Q3 delta UNVERIFIED.'
+            echo 'Independent candidate review and CI do not approve production.'
+          } > "$dest/SOURCES.txt"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch -c "$evidence_branch"
+          git add -f "$dest"
+          git diff --cached --check -- "$dest/SOURCES.txt" "$dest/.gitattributes"
+          git commit -m 'evidence(repd): pin corrected 25-date candidate and official source bytes'
+          git push origin "HEAD:refs/heads/$evidence_branch"

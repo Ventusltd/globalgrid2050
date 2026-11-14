@@ -1,0 +1,23 @@
+{
+  "schema": "globalgrid2050.repd-release-descriptor.v6",
+  "release_id": "2026q3",
+  "quarter_label": "Q3",
+  "output_suffix": "2026q3",
+  "csv_url": "https://assets.publishing.service.gov.uk/media/6af42ff0a4004bdbe54e54a5/REPD_Publication_Q3_2026.csv",
+  "xlsx_url": "https://assets.publishing.service.gov.uk/media/6af42ffdb83b3cae0d0a21c9/REPD_Publication_Q3_2026.xlsx",
+  "publication_date": "2026-11-13",
+  "dataset_title": "Renewable Energy Planning Database (REPD): October 2026 (Q3 2026)",
+  "expected_rows": 14968,
+  "expected_unique_refs": 14967,
+  "expected_solar_gt1": 3484,
+  "expected_bess_gt100": 281,
+  "expected_csv_sha256": "48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862",
+  "expected_xlsx_sha256": "87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea",
+  "duplicate_row_policy": "drop_identical",
+  "date_rule": "xlsx_typed_wins",
+  "news_input": "dist/major_project_news_v6.json",
+  "links_input": "dist/project_news_links_v6.json",
+  "baseline_identity": "dist/project_identity_v6.json",
+  "baseline_projects": "dist/major_projects_v6.json",
+  "notes": "URLs, title and publication date are as recorded by the Q3 intake (repd_q3_2026_ingest.py); not re-verified against gov.uk from this workspace. Hashes are of the local official files."
+}

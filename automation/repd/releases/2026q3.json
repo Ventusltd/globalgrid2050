@@ -1,0 +1,32 @@
+{
+  "schema": "globalgrid2050.repd-release-descriptor.v1",
+  "release_id": "2026q3",
+  "label": "October 2026",
+  "quarter": "Q3 2026",
+  "csv_url": "https://assets.publishing.service.gov.uk/media/6af42ff0a4004bdbe54e54a5/REPD_Publication_Q3_2026.csv",
+  "xlsx_url": "https://assets.publishing.service.gov.uk/media/6af42ffdb83b3cae0d0a21c9/REPD_Publication_Q3_2026.xlsx",
+  "page_last_updated": "2026-11-13",
+  "govuk_public_updated_at": null,
+  "dataset_title": null,
+  "source_page": "https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract",
+  "previous_release_id": "2026q2",
+  "baseline_path": null,
+  "expected": {
+    "csv_sha256": "48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862",
+    "xlsx_sha256": "87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea",
+    "csv_bytes": 5219160,
+    "xlsx_bytes": 5378656,
+    "csv_rows": 14968,
+    "unique_refs": 14967,
+    "duplicate_refs": ["7679"],
+    "solar_gt_1mw": null,
+    "bess_gt_100mw": null
+  },
+  "provenance": [
+    "URLs and sha256 given by the lead; re-hashed locally from /home/claude/repd-report/q3/REPD_Publication_Q3_2026.{csv,xlsx} on 2026-11-13 (match)",
+    "page_last_updated = PUBLICATION_DATE in scripts/repd_q3_2026_ingest.py and the q3 INGESTION-LOG; the page itself was not observed by this agent (a WebFetch copy on 13 Nov still showed 3 August 2026, possibly cached)",
+    "dataset_title and govuk_public_updated_at not observed; left null rather than invented",
+    "rows/refs/duplicate from repd-report/tools/verify_release.py OCTOBER_2026 and the BRIEF",
+    "baseline_path: July original bytes unavailable; lead to set the previous-release baseline (January root repd.csv or July dist/project_identity_v6.json)"
+  ]
+}

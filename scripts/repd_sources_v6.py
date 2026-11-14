@@ -12,6 +12,7 @@ import hashlib
 import io
 import json
 import math
+import os
 import re
 import time
 from datetime import datetime, timezone
@@ -40,6 +41,58 @@ EXPECTED_CSV_SHA256 = "84c1b5f958a934d8b4b86ec88f50bdcf43830ded7ff2efc27bffca0c9
 EXPECTED_XLSX_SHA256 = "624a0a9712c58a7a93716e51f2bf054eec8b1af7170f6f9516cc10cd248e2657"
 CAPACITY_ROUNDING_TOLERANCE_MW = 0.0050001
 
+# Release descriptor. The July 2026 (Q2) values above are the DEFAULT descriptor,
+# so a run without REPD_RELEASE_DESCRIPTOR behaves exactly as the historical V6
+# chain did (same names, same gates, same bytes). A descriptor JSON overrides the
+# pins for a later release and MUST redirect every output to REPD_OUT_DIR under
+# new release-suffixed names; the frozen *_v6 files are never written by it.
+RELEASE_ID = "2026q2"
+QUARTER_LABEL = "Q2"
+OUTPUT_SUFFIX = "v6"
+EXPECTED_UNIQUE_REFS = EXPECTED_ROWS
+DUPLICATE_ROW_POLICY = "reject"  # "reject" | "drop_identical"
+DATE_RULE = "csv"  # "csv" (historical) | "xlsx_typed_wins"
+NA_DATE_MARKERS = {"na", "n/a"}
+RELEASE_DESCRIPTOR_PATH = os.environ.get("REPD_RELEASE_DESCRIPTOR", "").strip()
+RELEASE_DESCRIPTOR: dict = {}
+if RELEASE_DESCRIPTOR_PATH:
+    RELEASE_DESCRIPTOR = json.loads(Path(RELEASE_DESCRIPTOR_PATH).read_text(encoding="utf-8"))
+    _required = [
+        "release_id", "quarter_label", "output_suffix", "csv_url", "xlsx_url", "publication_date",
+        "dataset_title", "expected_rows", "expected_unique_refs", "expected_solar_gt1",
+        "expected_bess_gt100", "expected_csv_sha256", "expected_xlsx_sha256",
+    ]
+    _missing = [key for key in _required if RELEASE_DESCRIPTOR.get(key) in (None, "")]
+    if _missing:
+        raise RuntimeError(f"Release descriptor {RELEASE_DESCRIPTOR_PATH} missing keys: {_missing}")
+    RELEASE_ID = str(RELEASE_DESCRIPTOR["release_id"])
+    QUARTER_LABEL = str(RELEASE_DESCRIPTOR["quarter_label"])
+    OUTPUT_SUFFIX = str(RELEASE_DESCRIPTOR["output_suffix"])
+    if not re.fullmatch(r"[0-9]{4}q[1-4]", OUTPUT_SUFFIX):
+        raise RuntimeError(f"Descriptor output_suffix must look like 2026q3 (never v6): {OUTPUT_SUFFIX!r}")
+    CSV_URL = RELEASE_DESCRIPTOR["csv_url"]
+    XLSX_URL = RELEASE_DESCRIPTOR["xlsx_url"]
+    PUBLICATION_DATE = RELEASE_DESCRIPTOR["publication_date"]
+    DATASET_TITLE = RELEASE_DESCRIPTOR["dataset_title"]
+    EXPECTED_ROWS = int(RELEASE_DESCRIPTOR["expected_rows"])
+    EXPECTED_UNIQUE_REFS = int(RELEASE_DESCRIPTOR["expected_unique_refs"])
+    EXPECTED_SOLAR_GT1 = int(RELEASE_DESCRIPTOR["expected_solar_gt1"])
+    EXPECTED_BESS_GT100 = int(RELEASE_DESCRIPTOR["expected_bess_gt100"])
+    EXPECTED_CSV_SHA256 = RELEASE_DESCRIPTOR["expected_csv_sha256"]
+    EXPECTED_XLSX_SHA256 = RELEASE_DESCRIPTOR["expected_xlsx_sha256"]
+    DUPLICATE_ROW_POLICY = RELEASE_DESCRIPTOR.get("duplicate_row_policy", DUPLICATE_ROW_POLICY)
+    DATE_RULE = RELEASE_DESCRIPTOR.get("date_rule", DATE_RULE)
+    if DUPLICATE_ROW_POLICY not in {"reject", "drop_identical"} or DATE_RULE not in {"csv", "xlsx_typed_wins"}:
+        raise RuntimeError(f"Unsupported descriptor policy: duplicates={DUPLICATE_ROW_POLICY!r} dates={DATE_RULE!r}")
+    _out = os.environ.get("REPD_OUT_DIR", "").strip()
+    if not _out:
+        raise RuntimeError("REPD_OUT_DIR is required with a release descriptor (outputs are never written in place)")
+    DATA = Path(_out) / "data"
+    DIST = Path(_out) / "dist"
+    CANONICAL_CSV = DATA / f"latest_repd_{OUTPUT_SUFFIX}_canonical.csv"
+    REPORT = DIST / f"repd_source_reconciliation_{OUTPUT_SUFFIX}.json"
+    MANIFEST = DIST / f"manifest_{OUTPUT_SUFFIX}.json"
+
 CORE_TEXT_FIELDS = [
     "Site Name",
     "Technology Type",
@@ -61,7 +114,8 @@ OFFICIAL_DATE_FIELDS = [
 
 
 def utc_now() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    # REPD_VALIDATED_AT pins the timestamp so a rerun on the same bytes is byte-identical.
+    return os.environ.get("REPD_VALIDATED_AT", "").strip() or datetime.now(timezone.utc).isoformat()
 
 
 def sha256(raw: bytes) -> str:
@@ -91,6 +145,54 @@ def norm_date(value) -> str:
         except ValueError:
             continue
     return ""
+
+
+def strict_date(value) -> str:
+    """Day-first or ISO only; never infers month-first (used by DATE_RULE xlsx_typed_wins)."""
+    if value is None or (not isinstance(value, str) and pd.isna(value)):
+        return ""
+    if isinstance(value, (datetime, pd.Timestamp)):
+        return value.strftime("%Y-%m-%d")
+    text = collapse(value)
+    for pattern in ("%d/%m/%Y", "%Y-%m-%d", "%Y-%m-%d %H:%M:%S"):
+        try:
+            return datetime.strptime(text, pattern).strftime("%Y-%m-%d")
+        except ValueError:
+            continue
+    return ""
+
+
+def month_first_date(value) -> str:
+    try:
+        return datetime.strptime(collapse(value), "%m/%d/%Y").strftime("%Y-%m-%d")
+    except ValueError:
+        return ""
+
+
+def is_typed_date(value) -> bool:
+    return isinstance(value, (datetime, pd.Timestamp)) and not pd.isna(value)
+
+
+def drop_identical_duplicates(frame: pd.DataFrame, label: str) -> tuple[pd.DataFrame, list[dict]]:
+    """Keep the first of exactly identical repeated rows; conflicting duplicates still fail closed."""
+    if "Ref ID" not in frame.columns:
+        raise RuntimeError(f"{label} missing Ref ID")
+    refs = [clean_ref(value) for value in frame["Ref ID"].tolist()]
+    positions: dict[str, list[int]] = {}
+    for index, ref in enumerate(refs):
+        positions.setdefault(ref, []).append(index)
+    evidence, drop = [], set()
+    for ref, indices in positions.items():
+        if len(indices) < 2 or not ref:
+            continue
+        first = [collapse(v) for v in frame.iloc[indices[0]].tolist()]
+        if any([collapse(v) for v in frame.iloc[i].tolist()] != first for i in indices[1:]):
+            raise RuntimeError(f"{label} conflicting duplicate Ref ID {ref}; refusing to choose a record")
+        drop.update(indices[1:])
+        evidence.append({"repd_ref": ref, "occurrences": len(indices),
+                         "data_rows_1_based": [i + 1 for i in indices], "exactly_identical": True})
+    kept = frame.iloc[[i for i in range(len(frame)) if i not in drop]].reset_index(drop=True)
+    return kept, evidence
 
 
 def norm_number(value):
@@ -248,6 +350,18 @@ def build_canonical(csv_frame: pd.DataFrame, xlsx_frame: pd.DataFrame) -> pd.Dat
         canonical["Planning Application Reference"] = [
             collapse(xlsx_ix.at[ref, "Planning Application Reference"]) for ref in canonical.index
         ]
+    if DATE_RULE == "xlsx_typed_wins":
+        # General date rule: a typed workbook date is the official value; every consumed
+        # date is serialised strictly dd/mm/yyyy; NA text is a blank (unknown), never a date.
+        for field in ["Record Last Updated (dd/mm/yyyy)"] + OFFICIAL_DATE_FIELDS:
+            if field not in canonical.columns or field not in xlsx_ix.columns:
+                continue
+            values = []
+            for ref in canonical.index:
+                typed = xlsx_ix.at[ref, field]
+                iso = strict_date(typed) if is_typed_date(typed) else strict_date(csv_ix.at[ref, field])
+                values.append(datetime.strptime(iso, "%Y-%m-%d").strftime("%d/%m/%Y") if iso else "")
+            canonical[field] = values
     canonical["Ref ID"] = [clean_ref(value) for value in canonical["Ref ID"]]
     return canonical.drop(columns=["__repd_ref"])
 
@@ -255,6 +369,11 @@ def build_canonical(csv_frame: pd.DataFrame, xlsx_frame: pd.DataFrame) -> pd.Dat
 def reconcile(csv_raw: bytes, xlsx_raw: bytes) -> tuple[pd.DataFrame, dict, dict]:
     csv_frame = read_csv(csv_raw)
     xlsx_frame, xlsx_sheet = read_xlsx(xlsx_raw)
+    csv_source_rows, xlsx_source_rows = len(csv_frame), len(xlsx_frame)
+    duplicate_evidence = {"csv": [], "xlsx": []}
+    if DUPLICATE_ROW_POLICY == "drop_identical":
+        csv_frame, duplicate_evidence["csv"] = drop_identical_duplicates(csv_frame, "CSV")
+        xlsx_frame, duplicate_evidence["xlsx"] = drop_identical_duplicates(xlsx_frame, "XLSX")
     csv_ix = indexed(csv_frame, "CSV")
     xlsx_ix = indexed(xlsx_frame, "XLSX")
 
@@ -267,13 +386,19 @@ def reconcile(csv_raw: bytes, xlsx_raw: bytes) -> tuple[pd.DataFrame, dict, dict
             errors.append(f"{gate}: {detail}" if detail else gate)
 
     csv_refs, xlsx_refs = set(csv_ix.index), set(xlsx_ix.index)
-    check(len(csv_ix) == EXPECTED_ROWS, "CSV row count exact", f"actual={len(csv_ix)} expected={EXPECTED_ROWS}")
-    check(len(xlsx_ix) == EXPECTED_ROWS, "XLSX row count exact", f"actual={len(xlsx_ix)} expected={EXPECTED_ROWS}")
-    check(len(csv_refs) == EXPECTED_ROWS, "CSV unique Ref ID count exact", f"actual={len(csv_refs)}")
-    check(len(xlsx_refs) == EXPECTED_ROWS, "XLSX unique Ref ID count exact", f"actual={len(xlsx_refs)}")
+    check(csv_source_rows == EXPECTED_ROWS, "CSV row count exact", f"actual={csv_source_rows} expected={EXPECTED_ROWS}")
+    check(xlsx_source_rows == EXPECTED_ROWS, "XLSX row count exact", f"actual={xlsx_source_rows} expected={EXPECTED_ROWS}")
+    check(len(csv_refs) == EXPECTED_UNIQUE_REFS, "CSV unique Ref ID count exact", f"actual={len(csv_refs)}")
+    check(len(xlsx_refs) == EXPECTED_UNIQUE_REFS, "XLSX unique Ref ID count exact", f"actual={len(xlsx_refs)}")
     check(csv_refs == xlsx_refs, "CSV/XLSX Ref ID sets equal", f"csv_only={len(csv_refs-xlsx_refs)} xlsx_only={len(xlsx_refs-csv_refs)}")
-    check(sha256(csv_raw) == EXPECTED_CSV_SHA256, "Q2 CSV immutable SHA-256", sha256(csv_raw))
-    check(sha256(xlsx_raw) == EXPECTED_XLSX_SHA256, "Q2 XLSX immutable SHA-256", sha256(xlsx_raw))
+    check(sha256(csv_raw) == EXPECTED_CSV_SHA256, f"{QUARTER_LABEL} CSV immutable SHA-256", sha256(csv_raw))
+    check(sha256(xlsx_raw) == EXPECTED_XLSX_SHA256, f"{QUARTER_LABEL} XLSX immutable SHA-256", sha256(xlsx_raw))
+    if DUPLICATE_ROW_POLICY != "reject":
+        check(
+            [d["repd_ref"] for d in duplicate_evidence["csv"]] == [d["repd_ref"] for d in duplicate_evidence["xlsx"]],
+            "CSV/XLSX identical duplicate rows agree",
+            f"csv={[d['repd_ref'] for d in duplicate_evidence['csv']]} xlsx={[d['repd_ref'] for d in duplicate_evidence['xlsx']]}",
+        )
 
     material = []
     representation = {
@@ -288,13 +413,36 @@ def reconcile(csv_raw: bytes, xlsx_raw: bytes) -> tuple[pd.DataFrame, dict, dict
         "planning_reference_leading_zero": [],
         "planning_reference_missing_marker": [],
     }
+    if DATE_RULE == "xlsx_typed_wins":
+        for key in ("csv_month_first_date", "na_date_text"):
+            representation[key] = 0
+            representation_examples[key] = []
     for ref in sorted(csv_refs & xlsx_refs, key=lambda value: (int(value) if value.isdigit() else 10**18, value)):
         left, right = csv_ix.loc[ref], xlsx_ix.loc[ref]
         for field in CORE_TEXT_FIELDS + OFFICIAL_DATE_FIELDS:
             if field not in csv_ix.columns or field not in xlsx_ix.columns:
                 material.append({"repd_ref": ref, "field": field, "reason": "missing field in one publication"})
                 continue
-            if field == "Record Last Updated (dd/mm/yyyy)" or field in OFFICIAL_DATE_FIELDS:
+            if (field == "Record Last Updated (dd/mm/yyyy)" or field in OFFICIAL_DATE_FIELDS) and DATE_RULE == "xlsx_typed_wins":
+                csv_value, xlsx_value = left.get(field), right.get(field)
+                key = ""
+                if is_typed_date(xlsx_value):
+                    equivalent = strict_date(csv_value) == strict_date(xlsx_value)
+                    if not equivalent and month_first_date(csv_value) == strict_date(xlsx_value):
+                        equivalent, key = True, "csv_month_first_date"
+                elif norm_text(csv_value) in NA_DATE_MARKERS | {""} and norm_text(xlsx_value) in NA_DATE_MARKERS | {""}:
+                    equivalent = True
+                    key = "na_date_text" if (norm_text(csv_value) or norm_text(xlsx_value)) else ""
+                else:
+                    # Unparseable non-blank text on either side is material: fail closed.
+                    equivalent = bool(strict_date(csv_value)) and strict_date(csv_value) == strict_date(xlsx_value)
+                if key:
+                    representation[key] += 1
+                    if len(representation_examples[key]) < 30:
+                        representation_examples[key].append(
+                            {"repd_ref": ref, "field": field, "csv": collapse(csv_value), "xlsx": strict_date(xlsx_value) or collapse(xlsx_value)}
+                        )
+            elif field == "Record Last Updated (dd/mm/yyyy)" or field in OFFICIAL_DATE_FIELDS:
                 equivalent = norm_date(left.get(field)) == norm_date(right.get(field))
             elif field == "Planning Application Reference":
                 equivalent = planning_refs_equivalent(left.get(field), right.get(field))
@@ -350,8 +498,8 @@ def reconcile(csv_raw: bytes, xlsx_raw: bytes) -> tuple[pd.DataFrame, dict, dict
 
     validated_at = utc_now()
     metrics = {
-        "csv_rows": len(csv_ix),
-        "xlsx_rows": len(xlsx_ix),
+        "csv_rows": csv_source_rows,
+        "xlsx_rows": xlsx_source_rows,
         "csv_unique_refs": len(csv_refs),
         "xlsx_unique_refs": len(xlsx_refs),
         "csv_native_solar_gt1_rounded": csv_solar,
@@ -380,6 +528,11 @@ def reconcile(csv_raw: bytes, xlsx_raw: bytes) -> tuple[pd.DataFrame, dict, dict
         "material_mismatch_examples": material[:25],
         "errors": errors,
     }
+    if RELEASE_DESCRIPTOR:
+        report["release_id"] = RELEASE_ID
+        report["date_rule"] = DATE_RULE
+        report["duplicate_row_policy"] = DUPLICATE_ROW_POLICY
+        report["identical_duplicate_rows_dropped"] = duplicate_evidence
     manifest = {
         "schema": "globalgrid2050.repd-manifest.v6",
         "schema_version": 6,
@@ -393,19 +546,28 @@ def reconcile(csv_raw: bytes, xlsx_raw: bytes) -> tuple[pd.DataFrame, dict, dict
         "source_excel_url": XLSX_URL,
         "source_hashes": report["source_hashes"],
         "source_record_count": EXPECTED_ROWS,
-        "source_unique_ref_count": EXPECTED_ROWS,
+        "source_unique_ref_count": EXPECTED_UNIQUE_REFS,
         "canonical_capacity_source": "official XLSX precision, reconciled to official CSV by Ref ID",
         "header_policy": "trim + collapse internal whitespace + case-insensitive aliases",
         "missing_value_policy": "official blanks remain null; no value or date is invented",
         "thresholds": {"solar_mw_exclusive": 1.0, "bess_mw_exclusive": 100.0},
         "canonical_counts": {"solar": EXPECTED_SOLAR_GT1, "bess": EXPECTED_BESS_GT100, "combined": EXPECTED_SOLAR_GT1 + EXPECTED_BESS_GT100},
     }
+    if RELEASE_DESCRIPTOR:
+        manifest["release_id"] = RELEASE_ID
+        manifest["date_rule"] = DATE_RULE
+        manifest["duplicate_row_policy"] = DUPLICATE_ROW_POLICY
     return canonical, report, manifest
 
 
-def run_reconciliation() -> tuple[pd.DataFrame, dict, dict]:
-    csv_raw = fetch_bytes(CSV_URL)
-    xlsx_raw = fetch_bytes(XLSX_URL)
+def run_reconciliation(csv_file: str = "", xlsx_file: str = "", fetch=fetch_bytes) -> tuple[pd.DataFrame, dict, dict]:
+    # Offline mode: local official bytes (same hash gates apply); otherwise the injectable fetcher.
+    csv_file = csv_file or os.environ.get("REPD_SOURCE_CSV_FILE", "").strip()
+    xlsx_file = xlsx_file or os.environ.get("REPD_SOURCE_XLSX_FILE", "").strip()
+    if bool(csv_file) != bool(xlsx_file):
+        raise RuntimeError("Offline mode needs both the CSV and the XLSX file")
+    csv_raw = Path(csv_file).read_bytes() if csv_file else fetch(CSV_URL)
+    xlsx_raw = Path(xlsx_file).read_bytes() if xlsx_file else fetch(XLSX_URL)
     return reconcile(csv_raw, xlsx_raw)
 
 
@@ -414,13 +576,19 @@ def write_outputs(canonical: pd.DataFrame, report: dict, manifest: dict) -> None
     DATA.mkdir(parents=True, exist_ok=True)
     REPORT.write_text(json.dumps(report, indent=2), encoding="utf-8")
     if not report.get("pass"):
-        raise RuntimeError("Official Q2 CSV/XLSX reconciliation failed; previous validated snapshot retained")
+        raise RuntimeError(f"Official {QUARTER_LABEL} CSV/XLSX reconciliation failed; previous validated snapshot retained")
     canonical.to_csv(CANONICAL_CSV, index=False, encoding="utf-8-sig")
     MANIFEST.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
 
-def main() -> None:
-    canonical, report, manifest = run_reconciliation()
+def main(argv=None) -> None:
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Reconcile the official REPD CSV/XLSX (descriptor via REPD_RELEASE_DESCRIPTOR)")
+    parser.add_argument("--csv-file", default="", help="offline mode: local official CSV bytes")
+    parser.add_argument("--xlsx-file", default="", help="offline mode: local official XLSX bytes")
+    args = parser.parse_args(argv)
+    canonical, report, manifest = run_reconciliation(args.csv_file, args.xlsx_file)
     write_outputs(canonical, report, manifest)
     print("REPD SOURCE RECONCILIATION PASS", json.dumps(report["metrics"], sort_keys=True))
 

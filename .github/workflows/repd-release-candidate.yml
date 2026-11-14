@@ -1,0 +1,285 @@
+name: REPD release candidate (manual, draft PR only)
+# Manual dispatch only (consistent with 000_freeze_all_workflows_to_manual.yml: this
+# file is already a fixed point of that rewrite). Runs automation/repd/run.py, uploads
+# every output as an artifact, and opens or updates a DRAFT pull request on
+# repd/<label>-candidate that ADDS allow-listed new paths only. It never pushes to
+# main, never edits an existing file, never deploys and never touches index.html.
+# The owner reviews and merges. Merging a new uk_renewables_pipeline/<stamp>/ folder
+# to main is what deploys it (deploy-pages.yml path allow-list).
+# A PR opened with GITHUB_TOKEN does not trigger pull_request workflows, so the
+# 5 MB size rule of pr-file-size-guard.yml is re-checked here before the push,
+# against the unchanged .github/large-files-allowlist.txt.
+on:
+  workflow_dispatch:
+    inputs:
+      label:
+        description: Release label, e.g. 2026q3
+        required: true
+        type: string
+      release_folder:
+        description: 12-digit UTC stamp for uk_renewables_pipeline/<stamp>/ (blank = descriptor or now)
+        required: false
+        default: ''
+        type: string
+      csv_url:
+        description: Official CSV URL (blank = descriptor or detect)
+        required: false
+        default: ''
+        type: string
+      xlsx_url:
+        description: Official XLSX URL (blank = descriptor or detect)
+        required: false
+        default: ''
+        type: string
+      expected_csv_sha256:
+        description: Optional pinned sha256 of the CSV (fail closed on mismatch)
+        required: false
+        default: ''
+        type: string
+      expected_xlsx_sha256:
+        description: Optional pinned sha256 of the XLSX (fail closed on mismatch)
+        required: false
+        default: ''
+        type: string
+      allow_partial:
+        description: Open the draft PR even if a build component is missing
+        required: false
+        default: false
+        type: boolean
+      open_pr:
+        description: Open or update the draft PR (false = artifact only)
+        required: false
+        default: true
+        type: boolean
+permissions:
+  contents: read
+
+concurrency:
+  group: repd-release-candidate-${{ inputs.label }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build candidate (read-only)
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    permissions:
+      contents: read
+    outputs:
+      overall: ${{ steps.run.outputs.overall }}
+    env:
+      IN_LABEL: ${{ inputs.label }}
+      IN_FOLDER: ${{ inputs.release_folder }}
+      IN_CSV_URL: ${{ inputs.csv_url }}
+      IN_XLSX_URL: ${{ inputs.xlsx_url }}
+      IN_CSV_SHA: ${{ inputs.expected_csv_sha256 }}
+      IN_XLSX_SHA: ${{ inputs.expected_xlsx_sha256 }}
+      IN_ALLOW_PARTIAL: ${{ inputs.allow_partial }}
+      OUT: /tmp/repd-out
+    steps:
+      - name: Validate inputs (no inputs reach the shell unquoted)
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$IN_LABEL" =~ ^20[0-9]{2}q[1-4]$ ]] || { echo "::error::label must look like 2026q3"; exit 1; }
+          [[ -z "$IN_FOLDER" || "$IN_FOLDER" =~ ^20[0-9]{10}$ ]] || { echo "::error::release_folder must be 12 digits"; exit 1; }
+          for u in "$IN_CSV_URL" "$IN_XLSX_URL"; do
+            [[ -z "$u" || "$u" =~ ^https://assets\.publishing\.service\.gov\.uk/[A-Za-z0-9/_.-]+$ ]] || { echo "::error::URLs must be assets.publishing.service.gov.uk"; exit 1; }
+          done
+          for h in "$IN_CSV_SHA" "$IN_XLSX_SHA"; do
+            [[ -z "$h" || "$h" =~ ^[0-9a-fA-F]{64}$ ]] || { echo "::error::sha256 must be 64 hex digits"; exit 1; }
+          done
+
+      # Only what the pipeline reads is materialised: automation/ and scripts/ (code),
+      # dist/ (frozen V6 baseline), root files (repd.csv etc., always present in cone mode)
+      # and the Pipeline News parent release that build_news copies. Existence checks for
+      # new paths use git trees, which a blobless clone has in full. Files that are not
+      # materialised cannot be changed by the run; the materialised ones are checked by
+      # run.py's sha256 guard and by git status below.
+      - name: Checkout main (blobless, sparse; read-only)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          filter: blob:none
+          persist-credentials: false
+          sparse-checkout: |
+            automation
+            scripts
+            dist
+            docs
+            data/repd
+            .github
+            uk_renewables_pipeline/202609082224
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install pipeline dependencies
+        run: python -m pip install --disable-pip-version-check 'pandas>=2,<3' 'openpyxl>=3.1,<4' 'pyproj>=3,<4'
+
+      - name: Run detect -> fetch -> clean -> validate -> diff -> build -> hash guard
+        id: run
+        shell: bash
+        run: |
+          set -uo pipefail
+          args=(--label "$IN_LABEL" --out "$OUT" --repo-root "$GITHUB_WORKSPACE")
+          [[ -n "$IN_FOLDER" ]] && args+=(--release-folder "$IN_FOLDER")
+          [[ -n "$IN_CSV_URL" ]] && args+=(--csv-url "$IN_CSV_URL")
+          [[ -n "$IN_XLSX_URL" ]] && args+=(--xlsx-url "$IN_XLSX_URL")
+          [[ -n "$IN_CSV_SHA" ]] && args+=(--expected-csv-sha256 "$IN_CSV_SHA")
+          [[ -n "$IN_XLSX_SHA" ]] && args+=(--expected-xlsx-sha256 "$IN_XLSX_SHA")
+          [[ "$IN_ALLOW_PARTIAL" == "true" ]] && args+=(--allow-partial)
+          python -m automation.repd.run "${args[@]}"
+          code=$?
+          overall=$(python -c "import json,sys;print(json.load(open(sys.argv[1]))['overall'])" "$OUT/run_report.json" 2>/dev/null || echo failed)
+          echo "overall=$overall" >> "$GITHUB_OUTPUT"
+          [[ -f "$OUT/run_report.md" ]] && cat "$OUT/run_report.md" >> "$GITHUB_STEP_SUMMARY"
+          exit $code
+
+      - name: Working tree must be untouched (every tracked file, by git's own hashes)
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          dirty="$(git status --porcelain --untracked-files=all)"
+          if [[ -n "$dirty" ]]; then
+            echo "::error::run.py changed the checkout:"; echo "$dirty"; exit 1
+          fi
+          echo "checkout clean"
+
+      - name: Upload candidate, staging, hash manifests and run report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repd-${{ inputs.label }}-candidate-${{ github.run_number }}
+          path: /tmp/repd-out/
+          retention-days: 90
+          if-no-files-found: error
+
+  draft-pr:
+    name: Open or update DRAFT PR (new paths only)
+    needs: build
+    if: ${{ inputs.open_pr && (needs.build.outputs.overall == 'ok' || needs.build.outputs.overall == 'partial') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      IN_LABEL: ${{ inputs.label }}
+      BRANCH: repd/${{ inputs.label }}-candidate
+      CAND: /tmp/repd-out
+      GH_TOKEN: ${{ github.token }}
+      BOT_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+    steps:
+      - name: Re-validate label and branch name
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$IN_LABEL" =~ ^20[0-9]{2}q[1-4]$ ]] || exit 1
+          [[ "$BRANCH" =~ ^repd/20[0-9]{2}q[1-4]-candidate$ ]] || exit 1
+
+      - name: Checkout main (blobless, only .github and automation materialised)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            .github
+            automation
+
+      - name: Download this run's candidate
+        uses: actions/download-artifact@v4
+        with:
+          name: repd-${{ inputs.label }}-candidate-${{ github.run_number }}
+          path: /tmp/repd-out
+
+      - name: Refuse anything that is not a new allow-listed path within the size budget
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - "$CAND/pr_manifest.json" "$CAND/pr" <<'PY'
+          import hashlib, json, pathlib, subprocess, sys
+          sys.path.insert(0, ".")
+          from automation.repd.run import (MAX_PR_FILE_BYTES, is_allowed_new_path,
+              large_file_allowed, load_large_file_allowlist)
+          manifest = json.loads(pathlib.Path(sys.argv[1]).read_text())
+          tree = pathlib.Path(sys.argv[2])
+          label, folder = manifest["label"], manifest["release_folder"]
+          assert label == __import__("os").environ["IN_LABEL"], "artifact label differs from input"
+          listed = {f["path"]: f for f in manifest["files"]}
+          on_disk = {p.relative_to(tree).as_posix() for p in tree.rglob("*") if p.is_file()}
+          assert listed and on_disk == set(listed), f"manifest/tree mismatch: {sorted(on_disk ^ set(listed))[:10]}"
+          allow = load_large_file_allowlist(pathlib.Path("."))
+          tracked = set(subprocess.run(["git", "ls-tree", "-r", "--name-only", "HEAD"], check=True,
+                                       capture_output=True, text=True).stdout.splitlines())
+          assert not any(t.startswith(f"uk_renewables_pipeline/{folder}/") for t in tracked), "release folder exists on main"
+          for rel, meta in listed.items():
+              data = (tree / rel).read_bytes()
+              assert hashlib.sha256(data).hexdigest() == meta["sha256"], f"hash differs: {rel}"
+              assert is_allowed_new_path(rel, label, folder), f"not allow-listed: {rel}"
+              assert rel not in tracked, f"already exists on main (additive only): {rel}"
+              assert len(data) <= MAX_PR_FILE_BYTES or large_file_allowed(rel, allow), f"over 5 MB, not allow-listed: {rel}"
+          print(f"{len(listed)} new files verified")
+          PY
+
+      - name: Build the candidate commit on top of main and push the candidate branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email "$BOT_EMAIL"
+          main_sha="$(git rev-parse HEAD)"
+          lease=()
+          if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null; then
+            git fetch --no-tags --depth=1 --filter=blob:none origin "refs/heads/$BRANCH"
+            remote_sha="$(git rev-parse FETCH_HEAD)"
+            author="$(git log -1 --format=%ae FETCH_HEAD)"
+            if [[ "$author" != "$BOT_EMAIL" ]]; then
+              echo "::error::$BRANCH tip was committed by $author, not this workflow. Refusing to replace it."
+              exit 1
+            fi
+            lease=("--force-with-lease=refs/heads/$BRANCH:$remote_sha")
+          else
+            lease=("--force-with-lease=refs/heads/$BRANCH:")
+          fi
+          git switch -c "$BRANCH"
+          (cd "$CAND/pr" && find . -type f -print0) | while IFS= read -r -d '' f; do
+            rel="${f#./}"
+            mkdir -p "$(dirname "$rel")"
+            cp "$CAND/pr/$rel" "$rel"
+            git add --sparse -f -- "$rel"
+          done
+          # The commit may contain ONLY additions relative to main.
+          bad="$(git diff --cached --name-status --no-renames "$main_sha" | grep -v '^A' || true)"
+          if [[ -n "$bad" ]]; then echo "::error::non-additive changes staged:"; echo "$bad"; exit 1; fi
+          if git diff --cached --quiet; then echo "::error::nothing to commit"; exit 1; fi
+          git commit -q -m "repd($IN_LABEL): release candidate from run ${GITHUB_RUN_ID} (new files only)"
+          test "$(git rev-parse --abbrev-ref HEAD)" = "$BRANCH"
+          case "$BRANCH" in main|master|gh-pages) exit 1;; esac
+          git push "${lease[@]}" origin "HEAD:refs/heads/$BRANCH"
+
+      - name: Open or update the DRAFT pull request
+        shell: bash
+        run: |
+          set -euo pipefail
+          body="$RUNNER_TEMP/pr_body.md"
+          head -c 60000 "$CAND/run_report.md" > "$body"
+          printf '\n\nWorkflow run: %s/%s/actions/runs/%s\n' "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" >> "$body"
+          if [[ -f "$CAND/proposed_large_files_allowlist_additions.txt" ]]; then
+            printf '\nFiles over 5 MB were left out of this PR. Proposed allow-list entries (separate owner PR):\n\n```\n' >> "$body"
+            cat "$CAND/proposed_large_files_allowlist_additions.txt" >> "$body"
+            printf '```\n' >> "$body"
+          fi
+          number="$(gh pr list --head "$BRANCH" --base main --state open --json number --jq '.[0].number // empty')"
+          if [[ -n "$number" ]]; then
+            gh pr edit "$number" --body-file "$body"
+            echo "Updated draft PR #$number"
+          else
+            gh pr create --draft --base main --head "$BRANCH" \
+              --title "REPD $IN_LABEL release candidate (draft, new files only)" --body-file "$body"
+          fi

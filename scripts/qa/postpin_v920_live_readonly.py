@@ -163,8 +163,13 @@ def browser_checks():
         for width in (1440, 390):
             home = browser.new_page(viewport={"width": width, "height": 844})
             home.goto(SITE + "/", wait_until="domcontentloaded", timeout=90000)
+            # The progressive homepage asynchronously replaces the fallback <details>
+            # after fetching its 3 JSON inputs. Clicking before that hydration races
+            # a DOM replacement and hides the newly rendered launch link.
+            home.wait_for_function("document.getElementById('searchControls')?.hidden === false", timeout=90000)
             assert home.locator(f'a[href="{SITE}/uk_renewables_pipeline/{CANDIDATE}/"]').count() > 0, "V9.20 homepage operative link missing"
             home.locator("#pipeline-news > summary").click(timeout=30000)
+            assert home.locator("#pipeline-news").evaluate("(e) => e.open"), "Pipeline News details did not open"
             home.locator("#pipeline-news a.launch").click(timeout=30000)
             home.wait_for_url(f"{SITE}/uk_renewables_pipeline/{CANDIDATE}/", timeout=90000)
             home.wait_for_function("document.querySelector('#tbody')?.dataset.total === '7775'", timeout=90000)

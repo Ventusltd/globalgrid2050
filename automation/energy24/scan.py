@@ -278,7 +278,7 @@ def classify(item: dict, repd: dict, now: datetime) -> tuple[dict | None, str]:
     reported_usd = money_usd(title) or money_usd(item["context"])
     # Never publish a finance amount as project CAPEX without explicit
     # construction/project spending evidence in the actual headline.
-    capex = reported_usd if PROJECT_CAPEX_RE.search(title) else None
+    capex = money_usd(title) if PROJECT_CAPEX_RE.search(title) else None
     mw = capacity_mw(title) or capacity_mw(item["context"])
     if ANNUAL_TARGET_RE.search(title):
         mw = None

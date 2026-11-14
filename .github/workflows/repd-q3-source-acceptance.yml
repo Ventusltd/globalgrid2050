@@ -1,0 +1,80 @@
+name: REPD Q3 independent 43-check acceptance with source-exception proof
+
+on:
+  push:
+    branches:
+      - qa/repd-q3-served-byte-20261114
+    paths:
+      - qa/repd-q3-source-anomaly.py
+      - .github/workflows/repd-q3-source-acceptance.yml
+  pull_request:
+    branches: [main]
+    paths:
+      - qa/repd-q3-source-anomaly.py
+      - .github/workflows/repd-q3-source-acceptance.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  acceptance:
+    name: Official source hash, Ref15915 evidence and all 43 acceptance checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            qa
+            automation
+            dist
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python3 -m pip install 'openpyxl>=3.1,<4' 'pyproj>=3,<4'
+      - name: Download exact official October source files
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/repd-q3-source
+          curl --fail --location --silent --show-error --retry 3 --max-time 180 \
+            'https://assets.publishing.service.gov.uk/media/6af42ff0a4004bdbe54e54a5/REPD_Publication_Q3_2026.csv' \
+            -o /tmp/repd-q3-source/official.csv
+          curl --fail --location --silent --show-error --retry 3 --max-time 180 \
+            'https://assets.publishing.service.gov.uk/media/6af42ffdb83b3cae0d0a21c9/REPD_Publication_Q3_2026.xlsx' \
+            -o /tmp/repd-q3-source/official.xlsx
+          echo '48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862  /tmp/repd-q3-source/official.csv' | sha256sum -c -
+          echo '87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea  /tmp/repd-q3-source/official.xlsx' | sha256sum -c -
+      - name: Prove Ref 15915 is the single reviewed official-source conflict
+        run: |
+          python3 qa/repd-q3-source-anomaly.py \
+            /tmp/repd-q3-source/official.csv /tmp/repd-q3-source/official.xlsx \
+            repd-2026q3.csv /tmp/repd-q3-source/ref15915.json
+      - name: Run all acceptance checks with exact cell-scoped reviewed waiver
+        run: |
+          python3 automation/repd/tests/acceptance.py \
+            --official-csv /tmp/repd-q3-source/official.csv \
+            --official-xlsx /tmp/repd-q3-source/official.xlsx \
+            --cleaned repd-2026q3.csv \
+            --root-dir . \
+            --full repd-2026q3.csv \
+            --batteries repd-grid-batteries-2026q3.csv \
+            --solar-op repd-solar-operational-2026q3.csv \
+            --over4 repd-solar-operational-over-4mw-2026q3.csv \
+            --master dist/repd_master_2026q3.json \
+            --baseline-master dist/repd_master.json \
+            --waive-cell '15915:Address' \
+            --json /tmp/repd-q3-source/acceptance-43.json \
+            --verbose
+      - name: Upload raw exception proof and acceptance ledger
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repd-q3-source-acceptance-${{ github.run_number }}
+          path: |
+            /tmp/repd-q3-source/ref15915.json
+            /tmp/repd-q3-source/acceptance-43.json
+          retention-days: 90
+          if-no-files-found: warn

@@ -264,6 +264,10 @@ def classify(item: dict, repd: dict, now: datetime) -> tuple[dict | None, str]:
     mw = capacity_mw(title) or capacity_mw(item["context"])
     if ANNUAL_TARGET_RE.search(title):
         mw = None
+    # Preserve a distinct, auditable rejection reason for finance-only
+    # equity and holding-company transactions, even when no CAPEX qualifies.
+    if not ref and reported_usd is not None and (mw is None or mw < MIN_PROJECT_MW) and CORPORATE_FINANCE_RE.search(title):
+        return None, "corporate_financing_not_project_capex"
     dc = bool(DC_RE.search(title))
     cyber = bool(CYBER_RE.search(title))
     ethics = bool(ETHICS_RE.search(title))

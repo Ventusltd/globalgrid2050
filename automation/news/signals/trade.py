@@ -132,6 +132,9 @@ SITES = [
 ]
 
 
+SITE_SUFFIX = re.compile(r"\s*[|\-\u2013\u2014]\s*(?:%s)\s*$" % "|".join(re.escape(x["publisher"]) for x in SITES), re.I)
+
+
 def now_utc():
     return dt.datetime.now(dt.timezone.utc).replace(microsecond=0)
 
@@ -457,6 +460,7 @@ def parse_article_head(body):
     if not title:
         found = TITLE_TAG_RE.search(text)
         title = re.sub(r"\s+[|\-\u2013]\s+[^|\-\u2013]{3,40}$", "", D.clean_text(found.group(1) if found else "", 300))
+    title = SITE_SUFFIX.sub("", title)
     h1 = H1_RE.search(text)
     h1 = D.clean_text(h1.group(1), 300) if h1 else ""
     if title and len(h1) > len(title) and h1.lower().startswith(title.lower().rstrip(". ")):
@@ -476,7 +480,7 @@ def route_url(site, template, term):
 
 KEYWORD = re.compile(r"\s+(?:solar|energy|energyfarm|renewables?|photovoltaics?|pv|battery|bess)(?!\w)", re.I)
 TAIL = re.compile(r"(?:\s+(?:farm|park|project|scheme|array|plant|development|ltd|limited|nsip|dco))+\s*$", re.I)
-ADJACENT = (r"[\s\-]+(?:solar|photovoltaics?|pv|energyfarm|(?:renewable\s+)?energy\s+(?:park|farm|project|centre|hub)"
+ADJACENT = (r"(?:[\s\-]+[\w&'.]+){0,2}?[\s\-]+(?:solar|photovoltaics?|pv|energyfarm|(?:renewable\s+)?energy\s+(?:park|farm|project|centre|hub)"
             r"|(?:green|clean)\s+energy)(?!\w)")
 COMMON = frozenset(
     "farm farms hill hills lane manor house park grange hall wood woods green north south east west great little "
@@ -495,10 +499,24 @@ OPERATOR_STOP = frozenset(
     "ltd limited plc llp uk gb group holdings energy energies renewable renewables solar power partners "
     "development developments company co and the of infrastructure capital investments generation green "
     "services management international europe farm park project".split())
+PLAIN_FIRST_WORDS = frozenset("british european low green island national scottish welsh big new good united "
+                              "clean one first north south east west renewable solar energy power".split())
+OTHER_TECH = re.compile(r"(?<!\w)(?:batter(?:y|ies)|BESS|gas|wind|hydrogen|nuclear|compressor|CCGT|EV|"
+                        r"data[\s-]?cent(?:re|er)s?|power station|offshore|onshore|turbines?)(?!\w)", re.I)
 AUTHORITY_STOP = frozenset(
-    "the planning inspectorate national infrastructure council district borough county city of and unitary "
+    "nsip pins dco the planning inspectorate national infrastructure council district borough county city of and unitary "
     "metropolitan authority government scottish welsh ministers energy consents unit north south east west "
     "mid central vale".split())
+
+
+def straight(text):
+    """Typographic apostrophes as plain ones, so that "Bloy\u2019s Grove" is "Bloy's Grove"."""
+    return (text or "").replace("\u2019", "'").replace("\u2018", "'")
+
+
+def fold(text):
+    """Letters the REPD writes plainly: 'Ørsted' is 'Orsted' there."""
+    return text.replace("\u00d8", "O").replace("\u00f8", "o")
 
 
 def bounded(phrase):
@@ -556,13 +574,25 @@ class Project:
         second = []
         for name in re.split(r"\s*(?:&|/|,|\band\b)\s*", record.get("operator") or ""):
             words = _tokens(name, OPERATOR_STOP)
-            if words:
+            if words and words[0].lower() in PLAIN_FIRST_WORDS:
+                found = re.search(re.escape(words[0]) + r"\s+[A-Za-z0-9]+", name)  # 'Low Carbon', 'British Solar'
+                if found:
+                    second.append(("developer", found.group(0)))
+            elif words:
                 second.append(("developer", words[0]))
         if record.get("county"):
             second.append(("county", record["county"]))
         for word in _tokens(record.get("planning_authority"), AUTHORITY_STOP):
             second.append(("planning authority", word))
         self.second = [(label, text, bounded(text)) for label, text in second]
+        try:
+            mw = float(record.get("mw") or 0)
+        except (TypeError, ValueError):
+            mw = 0.0
+        if mw >= 5:  # the stated capacity is an agreeing fact: '740MW One Earth'
+            number = ("%d" % mw) if mw == int(mw) else re.escape(("%.2f" % mw).rstrip("0"))
+            self.second.append(("capacity", "%gMW" % mw, re.compile(
+                r"(?<![\d.,])" + number + r"(?:\.0+)?\s?MW(?:p|ac|dc)?(?!\w)", re.I)))
         self.ref_rx = bounded(self.planning_ref) if re.match(r"^[A-Z]{2}\d{6}$", self.planning_ref) else None
 
     def terms(self):
@@ -577,6 +607,8 @@ class Project:
         is the fallback: the alias phrase in the feed or search summary together with the developer, county,
         planning authority or planning reference (in the title or the summary). Such an item is always
         'uncertain' and its basis says the headline does not name the project."""
+        title = straight(title)
+        summary = straight(summary)
         if any(rx.search(title) for rx in self.exclude):
             return None
         if (P.FOREIGN.search(title) or ELSEWHERE.search(title)) and not P.UK_WORDS.search(title):
@@ -588,16 +620,21 @@ class Project:
             if not rx.search(title):
                 continue
             agree = [(label, text) for label, text, srx in self.second
-                     if srx.search(title) and text.lower() not in core.lower()]
+                     if srx.search(fold(title)) and text.lower() not in core.lower()]
             rest = rx.sub(" ", title)
+            named = any(full.search(title) for full in self.full)
+            near = re.search(rx.pattern + ADJACENT, title, re.I) is not None
+            if not named and not near and OTHER_TECH.search(rest) and not SOLAR_WORD.search(rest) \
+                    and not any(label == "developer" for label, _text in agree):
+                continue  # 'West Burton C battery', 'St Fergus gas compressor': the same place, another scheme
+            if weak == 2:
+                agree = []  # everyday words or a county name: only the name followed by its solar word counts
             if agree:
                 extra = "%s '%s'" % agree[0]
-            elif any(full.search(title) for full in self.full):
+            elif named:
                 extra = "the full alias"
-            elif re.search(rx.pattern + ADJACENT, title, re.I):
+            elif near:
                 extra = "solar or energy word directly after it"
-            elif weak < 2 and SOLAR_WORD.search(rest):
-                extra = "solar word"
             else:
                 extra = None
             if weak and not extra:
@@ -611,6 +648,7 @@ class Project:
         return None
 
     def match_summary(self, title, summary):
+        title, summary = straight(title), straight(summary)
         if any(rx.search(summary) for rx in self.exclude):
             return None
         both = title + " . " + summary
@@ -623,7 +661,7 @@ class Project:
                                   or any(full.search(summary) for full in self.full)):
                 continue
             agree = [(label, text) for label, text, srx in self.second
-                     if srx.search(both) and text.lower() not in core.lower()]
+                     if srx.search(fold(both)) and text.lower() not in core.lower()]
             if self.ref_rx and self.ref_rx.search(both):
                 agree.insert(0, ("planning reference", self.planning_ref))
             if agree:
@@ -942,7 +980,7 @@ def run_site(site, projects, todo, cache, fetch, now, args, out):
                         core_rx = bounded(term[:-6] if term.endswith(" solar") else term)
                         keep = []
                         for title, link, date, summary in rows:
-                            if core_rx.search(title) or (project.ref_rx and project.ref_rx.search(title)):
+                            if core_rx.search(straight(title)) or (project.ref_rx and project.ref_rx.search(title)):
                                 keep.append([title, link, date])
                             else:
                                 verdict = project.match_summary(title, summary) if summary else None
@@ -955,6 +993,7 @@ def run_site(site, projects, todo, cache, fetch, now, args, out):
                         if isinstance(error, ValueError):
                             host.failures += 1
                             host.streak += 1
+                        print("FAILED %s %r: %s" % (site["id"], term, str(error)[:100]), flush=True)
                         new_queries.setdefault(key, {"at": iso(now), "status": "failed",
                                                      "error": str(error)[:120], "results": (old or {}).get("results", [])})
                         health["skipped"] += 1
@@ -969,7 +1008,7 @@ def run_site(site, projects, todo, cache, fetch, now, args, out):
     feeds_ok = any(f["status"] == "ok" for f in health["feeds"])
     if not health["route"] and not feeds_ok:
         health["status"] = "failed"
-    elif not health["route"] or health["error"] or host.failures or health["skipped"]:
+    elif not health["route"] or health["error"] or host.failures > 3 or health["skipped"] > 3:
         health["status"] = "partial"
     health["requests"], health["failures"] = host.requests, host.failures
     print("SITE " + json.dumps({k: v for k, v in health.items() if k not in ("routes", "feeds")}), flush=True)
@@ -1017,6 +1056,21 @@ def build_items(projects, cache):
             if ref in by_ref:
                 add(by_ref[ref], hit["title"], hit["link"], hit.get("date"), hit["site"], hit.get("how") or "feed",
                     summary_basis)
+    strong = re.compile(r" with (?:developer|county|capacity|planning authority) |planning reference ")
+    by_link = {}
+    for item in items:
+        by_link.setdefault(item["link"], []).append(item)
+    for group in by_link.values():  # one headline, several projects of the same name: the agreeing fact decides
+        if len(group) > 1 and any(strong.search(i["basis"]) for i in group):
+            cores = {}
+            for item in group:
+                found = re.search(r"alias phrase '([^']*)'", item["basis"])
+                cores.setdefault(found.group(1).lower() if found else item["repd_ref"], []).append(item)
+            for same in cores.values():
+                if len(same) > 1 and any(strong.search(i["basis"]) for i in same):
+                    for item in same:
+                        if not strong.search(item["basis"]):
+                            items.remove(item)
     rank = {p.ref: p.rank for p in projects}
     items.sort(key=lambda i: (rank[i["repd_ref"]], i["date"] is None, "" if i["date"] is None else
                               "%08d" % (99999999 - int(i["date"].replace("-", ""))), i["link"]))

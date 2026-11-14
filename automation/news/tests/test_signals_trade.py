@@ -69,10 +69,11 @@ def test_everyday_words_need_the_solar_word_directly_after_or_the_developer():
     p = project(15793, 15, ["Green Hill Solar Farm"], county="Northamptonshire")
     assert p.match("Solar panels approved for Green Hill school") is None
     assert p.match("Green Hill Solar Farm examination opens")
-    assert p.match("Example lodges Green Hill plans")
+    assert p.match("Example lodges Green Hill plans") is None
     county = project(1, 22, ["East Yorkshire Solar Farm"], county="East Yorkshire")
     assert county.match("Solar farm approved in East Yorkshire") is None
     assert county.match("East Yorkshire Solar Farm gets consent")
+    assert county.match("Example Power secures permission for Drove Lane solar PV plant in East Yorkshire") is None
 
 
 def test_planning_reference_matches_alone_and_exclude_drops():
@@ -100,6 +101,32 @@ def test_summary_rule_needs_alias_and_an_agreeing_fact_and_is_uncertain():
     everyday = project(15793, 15, ["Green Hill Solar Farm"], operator="Island Green Power")
     assert everyday.match(title, "Island Green Power plans a solar farm at a green hill site.") is None
     assert everyday.match(title, "Island Green Power's Green Hill Solar Farm moves on.")
+
+
+def test_capacity_and_folded_developer_are_agreeing_facts():
+    p = project(14806, 7, ["One Earth Solar Farm"], mw=740.0, operator="Orsted UK Limited & PS Renewables",
+                county="Nottinghamshire")
+    title = "DESNZ grants DCO to UK's second-largest solar PV project"
+    assert "capacity '740MW'" in p.match(title, "The 740MW One Earth Solar Farm has development consent.")[0]
+    assert p.match(title, "The 1,740MW One Earth scheme") is None and p.match(title, "A 74MW One Earth plan") is None
+    assert "developer 'Orsted'" in p.match(title, "\u00d8rsted's One Earth Solar Farm has development consent.")[0]
+    small = project(1, 150, ["Sunnica Energy Farm"], mw=49.9, county="Suffolk")
+    assert "capacity '49.9MW'" in small.match("Sunnica 49.9MW scheme approved")[0]
+    assert small.match("Sunnica 149.9MW scheme approved") is None
+
+
+def test_same_place_other_scheme_and_far_away_solar_word_are_dropped():
+    wb = project(10916, 20, ["West Burton Solar Project"], county="Lincolnshire", operator="Island Green Power")
+    assert wb.match("Financial close for Fidra Energy\u2019s 500MW West Burton C battery energy storage system") is None
+    assert wb.match("UK consents Heckington Fen, West Burton solar farms")
+    assert "developer 'Island Green'" in wb.match("Island Green Power wins West Burton consent")[0]
+    houston = project(14293, 56, ["Houston Solar Farm"], county="Renfrewshire")
+    assert houston.match("PVH expands Houston footprint to scale pre-assembled solar trackers") is None
+    assert houston.match("Houston 60MW solar farm approved in Renfrewshire")
+    grove = project(8308, 150, ["Bloy's Grove Solar Farm"])
+    assert grove.match("EDF Renewables\u2019 50MW Bloy\u2019s Grove solar farm gets green light")
+    assert T.parse_article_head(b'<meta property="og:title" content="Carlton Power gains consent for BESS - Solar Power Portal">')[0] \
+        == "Carlton Power gains consent for BESS"
 
 
 def test_search_terms():

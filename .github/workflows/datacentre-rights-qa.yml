@@ -1,0 +1,20 @@
+name: Data-centre rights gate (QA only)
+on:
+  pull_request:
+    paths:
+      - 'automation/pipeline_release/check_datacentre_rights.py'
+      - 'automation/pipeline_release/tests/test_datacentre_rights.py'
+      - '.github/workflows/datacentre-rights-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-negative-fixtures:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Assert rights gate fails closed on real frozen candidate and six synthetic cases
+        run: python -m unittest discover -s automation/pipeline_release/tests -p 'test_datacentre_rights.py' -v

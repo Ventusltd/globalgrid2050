@@ -133,6 +133,34 @@ class PublicationHoldTests(unittest.TestCase):
         self.assertIn("invalid_source_record", errors)
         self.assertIn("invalid_receipt_record", errors)
 
+    def test_tracking_query_and_fragment_cannot_multiply_a_single_story(self):
+        n,a,r,l = candidate()
+        copy = dict(n["articles"][0], headline="80MW solar scheme update",
+                    url="https://one.example/story?utm_source=hourly&gclid=123#section")
+        n["articles"].append(copy)
+        r.append(dict(r[0], url=copy["url"]))
+        errors = self.check(n,a,r,l)
+        self.assertIn("article_2:duplicate", errors)
+        # An exact receipt for the alias is still required; no receipt rewriting.
+        self.assertNotIn("article_2:no_independent_exact_url_receipt", errors)
+
+    def test_meaningful_query_is_not_discarded_by_dedup(self):
+        n,a,r,l = candidate()
+        copy = dict(n["articles"][0], headline="80MW solar project planning documents",
+                    url="https://one.example/story?document=2")
+        n["articles"].append(copy)
+        r.append(dict(r[0], url=copy["url"]))
+        self.assertNotIn("article_2:duplicate", self.check(n,a,r,l))
+
+    def test_tracking_alias_without_its_own_receipt_still_fails(self):
+        n,a,r,l = candidate()
+        copy = dict(n["articles"][0], headline="80MW solar update",
+                    url="https://one.example/story?utm_campaign=hourly")
+        n["articles"].append(copy)
+        errors = self.check(n,a,r,l)
+        self.assertIn("article_2:duplicate", errors)
+        self.assertIn("article_2:no_independent_exact_url_receipt", errors)
+
     def test_missing_publisher_owner_is_not_licence_or_independence_proof(self):
         n,a,r,l = candidate()
         l["two"].pop("publisher_owner_id")

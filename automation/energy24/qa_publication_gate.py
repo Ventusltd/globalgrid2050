@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urlsplit, urlunsplit, parse_qsl, urlencode
 import re
 
 MARKETS = {"London": "Europe/London", "New York": "America/New_York",
@@ -28,6 +28,27 @@ def instant(value):
     except ValueError:
         return None
     return dt.astimezone(timezone.utc) if dt.tzinfo else None
+
+
+def article_identity_url(url):
+    """Conservative dedup key only; do NOT alter exact-URL fetch receipts.
+
+    Ignore fragments and known marketing query parameters, while retaining
+    meaningful query keys and case-sensitive paths. This is not source proof.
+    """
+    if not isinstance(url, str):
+        return url
+    try:
+        parts = urlsplit(url)
+        if parts.scheme.lower() != "https" or not parts.hostname:
+            return url
+        query = [(key, value) for key, value in parse_qsl(parts.query, keep_blank_values=True)
+                 if not (key.lower().startswith("utm_") or key.lower() in
+                         {"fbclid", "gclid", "dclid", "msclkid", "mc_cid", "mc_eid"})]
+        return urlunsplit((parts.scheme.lower(), parts.netloc.lower(), parts.path,
+                           urlencode(query), ""))
+    except (TypeError, ValueError):
+        return url
 
 
 def audit_candidate(news, audit, receipts, rights, repd_mw, verified_dc_ids, now):
@@ -112,9 +133,12 @@ def audit_candidate(news, audit, receipts, rights, repd_mw, verified_dc_ids, now
             valid_url, parsed = False, None
         if not valid_url:
             errors.append(f"{tag}:unsafe_url")
-        if url in urls or (isinstance(title, str) and title.casefold() in titles):
+        # Marketing query aliases and fragments must not count as new stories.
+        # Receipts are still checked against each original, exact URL below.
+        url_key = article_identity_url(url) if isinstance(url, str) else f"invalid-url:{idx}"
+        if url_key in urls or (isinstance(title, str) and title.casefold() in titles):
             errors.append(f"{tag}:duplicate")
-        urls.add(url)
+        urls.add(url_key)
         titles.add(title.casefold() if isinstance(title, str) else "")
         if not sid or sid not in sources or sources[sid].get("status") != "OK":
             errors.append(f"{tag}:source_not_successful")

@@ -205,6 +205,8 @@ def judge(ref, title, project=None, official=False):
         return "ok", "planning reference in the title"
     if not names:
         return "none", ""
+    if inverted_solar_place(title, {"repd_ref": ref, "aliases": project["aliases"]}):
+        return "ok", "evidenced place-form solar-farm title"
     weak_flag = project.get("weak")
     weak = bool(weak_flag) or all(is_weak_core(core) for _alias, core, _whole in names)
     home = any(_has(h, text) for h in project["home"] if not any(_has(h, _norm(a)) for a in project["aliases"]))

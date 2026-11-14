@@ -1,0 +1,899 @@
+{
+ "schema": "planning-registers.v1",
+ "about": "Planning authority to online planning register, for every authority among the 200 largest REPD solar rows. 'application' is a direct link pattern used only when the reference fits 'ref_re'; 'search' or 'home' is a search page to paste the reference into; 'council' is the last resort. 'check' is the result of the last CI fetch.",
+ "authorities": {
+  "Amber Valley": {
+   "system": "own",
+   "home": "https://www.ambervalley.gov.uk/planning/development-management/view-a-planning-application/",
+   "council": "https://www.ambervalley.gov.uk/",
+   "label": "Amber Valley",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Antrim and Newtownabbey": {
+   "system": "ni",
+   "home": "https://planningregister.planningsystemni.gov.uk/simple-search",
+   "council": "https://antrimandnewtownabbey.gov.uk/",
+   "label": "Antrim and Newtownabbey (Northern Ireland planning register)",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Basingstoke and Deane": {
+   "system": "idox",
+   "home": "https://planning.basingstoke.gov.uk/online-applications/",
+   "council": "https://www.basingstoke.gov.uk/",
+   "search": "https://planning.basingstoke.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Basingstoke and Deane",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Bassetlaw": {
+   "system": "idox",
+   "home": "https://publicaccess.bassetlaw.gov.uk/online-applications/",
+   "council": "https://www.bassetlaw.gov.uk/",
+   "search": "https://publicaccess.bassetlaw.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Bassetlaw",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Bath and North East Somerset": {
+   "system": "own",
+   "home": "https://www.bathnes.gov.uk/webforms/planning/",
+   "council": "https://www.bathnes.gov.uk/",
+   "label": "Bath and North East Somerset",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Boston": {
+   "system": "idox",
+   "home": "https://planning.boston.gov.uk/online-applications/",
+   "council": "https://www.boston.gov.uk/",
+   "search": "https://planning.boston.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Boston",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Braintree": {
+   "system": "idox",
+   "home": "https://publicaccess.braintree.gov.uk/online-applications/",
+   "council": "https://www.braintree.gov.uk/",
+   "search": "https://publicaccess.braintree.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Braintree",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Brentwood": {
+   "system": "idox",
+   "home": "https://publicaccess.brentwood.gov.uk/online-applications/",
+   "council": "https://www.brentwood.gov.uk/",
+   "search": "https://publicaccess.brentwood.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Brentwood",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Buckinghamshire": {
+   "system": "idox",
+   "home": "https://publicaccess.buckinghamshire.gov.uk/online-applications/",
+   "council": "https://www.buckinghamshire.gov.uk/",
+   "search": "https://publicaccess.buckinghamshire.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Buckinghamshire",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Canterbury": {
+   "system": "idox",
+   "home": "https://pa.canterbury.gov.uk/online-applications/",
+   "council": "https://www.canterbury.gov.uk/",
+   "search": "https://pa.canterbury.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Canterbury",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Chelmsford": {
+   "system": "idox",
+   "home": "https://publicaccess.chelmsford.gov.uk/online-applications/",
+   "council": "https://www.chelmsford.gov.uk/",
+   "search": "https://publicaccess.chelmsford.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Chelmsford",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Cornwall": {
+   "system": "idox",
+   "home": "https://planning.cornwall.gov.uk/online-applications/",
+   "council": "https://www.cornwall.gov.uk/",
+   "search": "https://planning.cornwall.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Cornwall",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Cotswold": {
+   "system": "idox",
+   "home": "https://publicaccess.cotswold.gov.uk/online-applications/",
+   "council": "https://www.cotswold.gov.uk/",
+   "search": "https://publicaccess.cotswold.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Cotswold",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "County Durham": {
+   "system": "idox",
+   "home": "https://publicaccess.durham.gov.uk/online-applications/",
+   "council": "https://www.durham.gov.uk/",
+   "search": "https://publicaccess.durham.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "County Durham",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Cumberland": {
+   "system": "mixed",
+   "home": "https://www.cumberland.gov.uk/planning-and-building-control/search-view-and-comment-planning-applications",
+   "council": "https://www.cumberland.gov.uk/",
+   "notes": "Cumberland Council keeps the registers of its former districts (Allerdale, Carlisle, Copeland).",
+   "label": "Cumberland",
+   "kind": "search_page",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Darlington": {
+   "system": "idox",
+   "home": "https://publicaccess.darlington.gov.uk/online-applications/",
+   "council": "https://www.darlington.gov.uk/",
+   "search": "https://publicaccess.darlington.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Darlington",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Derbyshire Dales": {
+   "system": "idox",
+   "home": "https://planning.derbyshiredales.gov.uk/online-applications/",
+   "council": "https://www.derbyshiredales.gov.uk/",
+   "search": "https://planning.derbyshiredales.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Derbyshire Dales",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Doncaster": {
+   "system": "idox",
+   "home": "https://planning.doncaster.gov.uk/online-applications/",
+   "council": "https://www.doncaster.gov.uk/",
+   "search": "https://planning.doncaster.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Doncaster",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Dorset": {
+   "system": "own",
+   "home": "https://planning.dorsetcouncil.gov.uk/",
+   "council": "https://www.dorsetcouncil.gov.uk/",
+   "label": "Dorset",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Dundee City": {
+   "system": "idox",
+   "home": "https://idoxwam.dundeecity.gov.uk/idoxpa-web/",
+   "council": "https://www.dundeecity.gov.uk/",
+   "search": "https://idoxwam.dundeecity.gov.uk/idoxpa-web/search.do?action=simple&searchType=Application",
+   "label": "Dundee City",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "East Cambridgeshire": {
+   "system": "idox",
+   "home": "https://pa.eastcambs.gov.uk/online-applications/",
+   "council": "https://www.eastcambs.gov.uk/",
+   "search": "https://pa.eastcambs.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "East Cambridgeshire",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "East Hampshire": {
+   "system": "idox",
+   "home": "https://planningpublicaccess.easthants.gov.uk/online-applications/",
+   "council": "https://www.easthants.gov.uk/",
+   "search": "https://planningpublicaccess.easthants.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "East Hampshire",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "East Lindsey": {
+   "system": "idox",
+   "home": "https://publicaccess.e-lindsey.gov.uk/online-applications/",
+   "council": "https://www.e-lindsey.gov.uk/",
+   "search": "https://publicaccess.e-lindsey.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "East Lindsey",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "East Riding of Yorkshire": {
+   "system": "idox",
+   "home": "https://newplanningaccess.eastriding.gov.uk/newplanningaccess/",
+   "council": "https://www.eastriding.gov.uk/",
+   "search": "https://newplanningaccess.eastriding.gov.uk/newplanningaccess/search.do?action=simple&searchType=Application",
+   "label": "East Riding of Yorkshire",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Flintshire": {
+   "system": "own",
+   "home": "https://digital.flintshire.gov.uk/FCC_Planning/",
+   "council": "https://www.flintshire.gov.uk/",
+   "label": "Flintshire",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Forest of Dean": {
+   "system": "idox",
+   "home": "https://publicaccess.fdean.gov.uk/online-applications/",
+   "council": "https://www.fdean.gov.uk/",
+   "search": "https://publicaccess.fdean.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Forest of Dean",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Hart": {
+   "system": "idox",
+   "home": "https://publicaccess.hart.gov.uk/online-applications/",
+   "council": "https://www.hart.gov.uk/",
+   "search": "https://publicaccess.hart.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Hart",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Hartlepool": {
+   "system": "own",
+   "home": "https://www.hartlepool.gov.uk/planning",
+   "council": "https://www.hartlepool.gov.uk/",
+   "label": "Hartlepool",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Havering": {
+   "system": "ocella",
+   "home": "https://development.havering.gov.uk/OcellaWeb/planningSearch",
+   "council": "https://www.havering.gov.uk/",
+   "label": "Havering",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Hertsmere": {
+   "system": "idox",
+   "home": "https://www6.hertsmere.gov.uk/online-applications/",
+   "council": "https://www.hertsmere.gov.uk/",
+   "search": "https://www6.hertsmere.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Hertsmere",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Huntingdonshire": {
+   "system": "idox",
+   "home": "https://publicaccess.huntingdonshire.gov.uk/online-applications/",
+   "council": "https://www.huntingdonshire.gov.uk/",
+   "search": "https://publicaccess.huntingdonshire.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Huntingdonshire",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Isle of Anglesey": {
+   "system": "own",
+   "home": "https://www.anglesey.gov.wales/en/Residents/Planning-building-control-and-conservation/Planning/View-planning-applications.aspx",
+   "council": "https://www.anglesey.gov.wales/",
+   "label": "Isle of Anglesey",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Lichfield": {
+   "system": "idox",
+   "home": "https://planning.lichfielddc.gov.uk/online-applications/",
+   "council": "https://www.lichfielddc.gov.uk/",
+   "search": "https://planning.lichfielddc.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Lichfield",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Melton": {
+   "system": "idox",
+   "home": "https://pa.melton.gov.uk/online-applications/",
+   "council": "https://www.melton.gov.uk/",
+   "search": "https://pa.melton.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Melton",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Mid Suffolk": {
+   "system": "idox",
+   "home": "https://planning.baberghmidsuffolk.gov.uk/online-applications/",
+   "council": "https://www.midsuffolk.gov.uk/",
+   "search": "https://planning.baberghmidsuffolk.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Mid Suffolk",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Newark and Sherwood": {
+   "system": "idox",
+   "home": "https://publicaccess.newark-sherwooddc.gov.uk/online-applications/",
+   "council": "https://www.newark-sherwooddc.gov.uk/",
+   "search": "https://publicaccess.newark-sherwooddc.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Newark and Sherwood",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "North Devon": {
+   "system": "own",
+   "home": "https://planning.northdevon.gov.uk/Search/Planning/Advanced",
+   "council": "https://www.northdevon.gov.uk/",
+   "label": "North Devon",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "North East Derbyshire": {
+   "system": "idox",
+   "home": "https://planapps-online.ne-derbyshire.gov.uk/online-applications/",
+   "council": "https://www.ne-derbyshire.gov.uk/",
+   "search": "https://planapps-online.ne-derbyshire.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "North East Derbyshire",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "North East Lincolnshire": {
+   "system": "own",
+   "home": "https://www.nelincs.gov.uk/planning-and-building-control/planning-applications/",
+   "council": "https://www.nelincs.gov.uk/",
+   "label": "North East Lincolnshire",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "North Hertfordshire": {
+   "system": "idox",
+   "home": "https://pa2.north-herts.gov.uk/online-applications/",
+   "council": "https://www.north-herts.gov.uk/",
+   "search": "https://pa2.north-herts.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "North Hertfordshire",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "North Kesteven": {
+   "system": "idox",
+   "home": "https://planningonline.n-kesteven.gov.uk/online-applications/",
+   "council": "https://www.n-kesteven.gov.uk/",
+   "search": "https://planningonline.n-kesteven.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "North Kesteven",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "North Lincolnshire": {
+   "system": "own",
+   "home": "https://apps.northlincs.gov.uk/",
+   "application": "https://apps.northlincs.gov.uk/application/{ref_lower_dashed}",
+   "ref_re": "^PA/\\d{4}/\\d+$",
+   "council": "https://www.northlincs.gov.uk/",
+   "label": "North Lincolnshire",
+   "kind": "application",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "North Norfolk": {
+   "system": "idox",
+   "home": "https://idoxpa.north-norfolk.gov.uk/online-applications/",
+   "council": "https://www.north-norfolk.gov.uk/",
+   "search": "https://idoxpa.north-norfolk.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "North Norfolk",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "North Northamptonshire": {
+   "system": "mixed",
+   "home": "https://www.northnorthants.gov.uk/planning-applications",
+   "council": "https://www.northnorthants.gov.uk/",
+   "notes": "Former district registers (Kettering, East Northamptonshire, Corby, Wellingborough) are linked from this page.",
+   "label": "North Northamptonshire",
+   "kind": "search_page",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "North Somerset": {
+   "system": "idox",
+   "home": "https://planning.n-somerset.gov.uk/online-applications/",
+   "council": "https://www.n-somerset.gov.uk/",
+   "search": "https://planning.n-somerset.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "North Somerset",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "North Yorkshire": {
+   "system": "mixed",
+   "home": "https://www.northyorks.gov.uk/planning-and-conservation/planning-applications/view-and-comment-planning-applications",
+   "council": "https://www.northyorks.gov.uk/",
+   "notes": "North Yorkshire Council keeps the registers of its former districts; choose the area, then search for the reference.",
+   "label": "North Yorkshire",
+   "kind": "search_page",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Northumberland": {
+   "system": "idox",
+   "home": "https://publicaccess.northumberland.gov.uk/online-applications/",
+   "council": "https://www.northumberland.gov.uk/",
+   "search": "https://publicaccess.northumberland.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Northumberland",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Rochford": {
+   "system": "idox",
+   "home": "https://publicaccess.rochford.gov.uk/online-applications/",
+   "council": "https://www.rochford.gov.uk/",
+   "search": "https://publicaccess.rochford.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Rochford",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Rugby": {
+   "system": "agile",
+   "home": "https://planning.agileapplications.co.uk/rugby/search-applications/",
+   "council": "https://www.rugby.gov.uk/",
+   "label": "Rugby",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Rushcliffe": {
+   "system": "idox",
+   "home": "https://planningon-line.rushcliffe.gov.uk/online-applications/",
+   "council": "https://www.rushcliffe.gov.uk/",
+   "search": "https://planningon-line.rushcliffe.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Rushcliffe",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Scottish Government (S36)": {
+   "system": "ecu",
+   "kind": "ecu_case",
+   "home": "https://www.energyconsents.scot/ApplicationSearch.aspx",
+   "application": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr={ref}",
+   "council": "https://www.energyconsents.scot/",
+   "label": "Scottish Government Energy Consents Unit",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Sevenoaks": {
+   "system": "idox",
+   "home": "https://pa.sevenoaks.gov.uk/online-applications/",
+   "council": "https://www.sevenoaks.gov.uk/",
+   "search": "https://pa.sevenoaks.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Sevenoaks",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "South Cambridgeshire": {
+   "system": "idox",
+   "home": "https://applications.greatercambridgeplanning.org/online-applications/",
+   "council": "https://www.greatercambridgeplanning.org/",
+   "search": "https://applications.greatercambridgeplanning.org/online-applications/search.do?action=simple&searchType=Application",
+   "label": "South Cambridgeshire",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "South Gloucestershire": {
+   "system": "idox",
+   "home": "https://developments.southglos.gov.uk/online-applications/",
+   "council": "https://www.southglos.gov.uk/",
+   "search": "https://developments.southglos.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "South Gloucestershire",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "South Holland": {
+   "system": "idox",
+   "home": "https://planning.sholland.gov.uk/online-applications/",
+   "council": "https://www.sholland.gov.uk/",
+   "search": "https://planning.sholland.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "South Holland",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "South Kesteven": {
+   "system": "idox",
+   "home": "https://pa.southkesteven.gov.uk/online-applications/",
+   "council": "https://www.southkesteven.gov.uk/",
+   "search": "https://pa.southkesteven.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "South Kesteven",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "South Norfolk": {
+   "system": "idox",
+   "home": "https://info.southnorfolkandbroadland.gov.uk/online-applications/",
+   "council": "https://www.southnorfolkandbroadland.gov.uk/",
+   "search": "https://info.southnorfolkandbroadland.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "South Norfolk",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "South Oxfordshire": {
+   "system": "own",
+   "home": "https://data.southoxon.gov.uk/ccm/support/Main.jsp?MODULE=ApplicationCriteria",
+   "application": "https://data.southoxon.gov.uk/ccm/support/Main.jsp?MODULE=ApplicationDetails&REF={ref}",
+   "ref_re": "^P\\d\\d/S\\d{4}/[A-Z0-9]+$",
+   "council": "https://www.southoxon.gov.uk/",
+   "label": "South Oxfordshire",
+   "kind": "application",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Stockton-on-Tees": {
+   "system": "idox",
+   "home": "https://www.developmentmanagement.stockton.gov.uk/online-applications/",
+   "council": "https://www.stockton.gov.uk/",
+   "search": "https://www.developmentmanagement.stockton.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Stockton-on-Tees",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Stratford-on-Avon": {
+   "system": "own",
+   "home": "https://apps.stratford.gov.uk/eplanning/",
+   "council": "https://www.stratford.gov.uk/",
+   "label": "Stratford-on-Avon",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Stroud": {
+   "system": "own",
+   "home": "https://www.stroud.gov.uk/apps/planning",
+   "council": "https://www.stroud.gov.uk/",
+   "label": "Stroud",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Swindon": {
+   "system": "idox",
+   "home": "https://pa1.swindon.gov.uk/publicaccess/",
+   "council": "https://www.swindon.gov.uk/",
+   "search": "https://pa1.swindon.gov.uk/publicaccess/search.do?action=simple&searchType=Application",
+   "label": "Swindon",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Tandridge": {
+   "system": "own",
+   "home": "https://tdcplanningsearch.tandridge.gov.uk/",
+   "council": "https://www.tandridge.gov.uk/",
+   "label": "Tandridge",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Telford and Wrekin": {
+   "system": "own",
+   "home": "https://secure.telford.gov.uk/planningsearch/",
+   "council": "https://www.telford.gov.uk/",
+   "label": "Telford and Wrekin",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Test Valley": {
+   "system": "idox",
+   "home": "https://view-applications.testvalley.gov.uk/online-applications/",
+   "council": "https://www.testvalley.gov.uk/",
+   "search": "https://view-applications.testvalley.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Test Valley",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Tewkesbury": {
+   "system": "idox",
+   "home": "https://publicaccess.tewkesbury.gov.uk/online-applications/",
+   "council": "https://www.tewkesbury.gov.uk/",
+   "search": "https://publicaccess.tewkesbury.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Tewkesbury",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "The Planning Inspectorate - National Infrastructure": {
+   "system": "pins",
+   "kind": "pins_project",
+   "home": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/project-search",
+   "application": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/{ref}",
+   "council": "https://www.gov.uk/government/organisations/planning-inspectorate",
+   "label": "Planning Inspectorate (national infrastructure)",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Thurrock": {
+   "system": "idox",
+   "home": "https://regs.thurrock.gov.uk/online-applications/",
+   "council": "https://www.thurrock.gov.uk/",
+   "search": "https://regs.thurrock.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Thurrock",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Torridge": {
+   "system": "idox",
+   "home": "https://publicaccess.torridge.gov.uk/online-applications/",
+   "council": "https://www.torridge.gov.uk/",
+   "search": "https://publicaccess.torridge.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Torridge",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Uttlesford": {
+   "system": "idox",
+   "home": "https://publicaccess.uttlesford.gov.uk/online-applications/",
+   "council": "https://www.uttlesford.gov.uk/",
+   "search": "https://publicaccess.uttlesford.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Uttlesford",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Vale of White Horse": {
+   "system": "own",
+   "home": "https://data.whitehorsedc.gov.uk/java/support/Main.jsp?MODULE=ApplicationCriteria",
+   "application": "https://data.whitehorsedc.gov.uk/java/support/Main.jsp?MODULE=ApplicationDetails&REF={ref}",
+   "ref_re": "^P\\d\\d/V\\d{4}/[A-Z0-9]+$",
+   "council": "https://www.whitehorsedc.gov.uk/",
+   "label": "Vale of White Horse",
+   "kind": "application",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Warwick": {
+   "system": "idox",
+   "home": "https://planningdocuments.warwickdc.gov.uk/online-applications/",
+   "council": "https://www.warwickdc.gov.uk/",
+   "search": "https://planningdocuments.warwickdc.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+   "label": "Warwick",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Welsh Government (NSIP)": {
+   "system": "pedw",
+   "kind": "pedw_case",
+   "home": "https://planningcasework.service.gov.wales/",
+   "council": "https://www.gov.wales/planning-and-environment-decisions-wales",
+   "label": "Planning and Environment Decisions Wales",
+   "notes": "Developments of National Significance. Older DNS/ numbers predate the CAS- numbering; search by reference or site name.",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "West Northamptonshire": {
+   "system": "mixed",
+   "home": "https://www.westnorthants.gov.uk/planning-applications",
+   "council": "https://www.westnorthants.gov.uk/",
+   "notes": "Former district registers (Daventry, Northampton, South Northamptonshire) are linked from this page.",
+   "label": "West Northamptonshire",
+   "kind": "search_page",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Wiltshire": {
+   "system": "own",
+   "home": "https://development.wiltshire.gov.uk/pr/s/",
+   "council": "https://www.wiltshire.gov.uk/",
+   "label": "Wiltshire",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  },
+  "Wychavon": {
+   "system": "own",
+   "home": "https://plan.wychavon.gov.uk/",
+   "council": "https://www.wychavon.gov.uk/",
+   "label": "Wychavon",
+   "kind": "search_page",
+   "notes": "",
+   "check": {
+    "status": "unchecked"
+   }
+  }
+ }
+}

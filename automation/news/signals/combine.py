@@ -13,6 +13,9 @@ Rules
   and the run carries on with the rest; with no part at all every project still has its planning file.
 - Items for a reference outside the 200, without a usable https link, from a source that is not allowed, or whose
   title carries one of the project's "exclude" phrases are dropped and counted.
+- The "reviewed" part is a committed file, reviewed_signals.json: signals found by hand, each with basis
+  "reviewed <date>". A fetched item with the same link takes the reviewed one's place. A developer's or a
+  campaign's own page has family "developer" and is never counted as news.
 - Signals already published in the previous file are kept, so a story that has rolled off a feed does not vanish.
 - The planning file comes from, in order: a --planning file, the planning_file module when it can be imported
   (planning_file_for), aliases.json, and a last resort built here (counted separately, never marked verified).
@@ -40,12 +43,23 @@ SCHEMA = "project-signals.v1"
 PART_SCHEMA = "project-signals-part.v1"
 TRUTH_SCHEMA = "project-signals-ground-truth.v1"
 SCOPE = "200 largest Solar Photovoltaics rows, REPD October 2026"
-TEAMS = ("official", "trade", "index")
-FAMILIES = ("official", "bbc", "trade", "national", "regional")
+TEAMS = ("official", "trade", "index", "reviewed")
+FAMILIES = ("official", "bbc", "trade", "national", "regional", "developer")
+REVIEWED = "reviewed"            # basis of an item found by hand: "reviewed <date>"
+# A developer's or a campaign's own page is something to click, not news: family "developer", never counted as news.
+DEVELOPER_HOSTS = (
+    "baywa-re.co.uk", "ecotricity.co.uk", "infinis.com", "lightsourcebp.com", "lowcarbon.com", "ensoenergy.co.uk",
+    "sonnedix.com", "statkraft.co.uk", "scottishpowerrenewables.com", "rwe.com", "qair.energy", "uniper.energy",
+    "nationalgrid.com", "azurewebsites.net", "edf-re.uk", "edfenergy.com", "islandgp.com", "pvdp.co.uk",
+    "change.org", "scotlandagainstspin.org", "oxfordpreservation.org.uk", "gwentwildlife.org", "cambridgeppf.org",
+    "whitewatervalley.org.uk")
+AGGREGATOR_HOSTS = ("aol.com", "inkl.com")       # a copy of another publisher's story: never family "bbc"
 NEWS_FAMILIES = ("bbc", "trade", "national", "regional")
 KINDS = ("pins_project", "ecu_case", "pedw_case", "application", "search_page")
 MAX_SIGNALS = 5
-EXCLUDED_DOMAINS = ("google.com", "google.co.uk", "reuters.com")
+EXCLUDED_DOMAINS = ("google.com", "google.co.uk", "reuters.com", "ft.com", "thetimes.co.uk", "thetimes.com",
+                    "telegraph.co.uk", "bloomberg.com", "wsj.com", "economist.com", "msn.com", "yahoo.com",
+                    "facebook.com", "x.com", "twitter.com", "linkedin.com", "youtube.com")
 PINS_PROJECT = "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/%s"
 ECU_SEARCH = "https://www.energyconsents.scot/ApplicationSearch.aspx"
 PEDW_SEARCH = "https://planningcasework.service.gov.wales/"
@@ -70,6 +84,15 @@ def _excluded(link):
     return any(host == d or host.endswith("." + d) for d in EXCLUDED_DOMAINS) or ".google." in "." + host + "."
 
 
+def _host_in(link, hosts):
+    host = (urllib.parse.urlsplit(link).hostname or "").lower()
+    return any(host == d or host.endswith("." + d) for d in hosts)
+
+
+def is_reviewed(item):
+    return item["basis"].startswith(REVIEWED)
+
+
 def clean_item(raw, team):
     """A part's item in the contract's shape, or (None, reason)."""
     if not isinstance(raw, dict):
@@ -84,9 +107,16 @@ def clean_item(raw, team):
     date = date[:10] if isinstance(date, str) and re.match(r"\d{4}-\d{2}-\d{2}", date) else None
     family = raw.get("family") if raw.get("family") in FAMILIES else ("official" if team == "official" else
                                                                         "trade" if team == "trade" else "regional")
+    if _host_in(link, DEVELOPER_HOSTS):
+        family = "developer"
+    elif family == "bbc" and _host_in(link, AGGREGATOR_HOSTS):
+        family = "national"
+    basis = D.clean_text(str(raw.get("basis") or ""), 240)
+    if team == REVIEWED and not basis.startswith(REVIEWED):
+        basis = REVIEWED
     return {"repd_ref": str(raw.get("repd_ref") or ""), "title": title, "link": link,
             "publisher": D.clean_text(str(raw.get("publisher") or ""), 80) or (urllib.parse.urlsplit(link).hostname or ""),
-            "date": date, "family": family, "basis": D.clean_text(str(raw.get("basis") or ""), 240),
+            "date": date, "family": family, "basis": basis,
             "confidence": "confirmed" if raw.get("confidence") == "confirmed" else "uncertain"}, ""
 
 
@@ -100,16 +130,18 @@ def order_key(item):
 
 
 def select(items, cap=MAX_SIGNALS):
-    """No link twice, no headline twice; confirmed before uncertain, then newest first (undated last), then family
-    order; at most `cap`, keeping one item of each family present where that is possible."""
+    """No link twice, no headline twice (a fetched item always takes the place of a reviewed one); confirmed before
+    uncertain, then newest first (undated last), then family order; at most `cap`, keeping one item of each family
+    present where that is possible."""
     seen_links, seen_titles, unique = set(), set(), []
-    for item in sorted(items, key=order_key):
+    for item in sorted(items, key=lambda i: (is_reviewed(i), order_key(i))):
         key = title_key(item["title"])
         if item["link"] in seen_links or key in seen_titles:
             continue
         seen_links.add(item["link"])
         seen_titles.add(key)
         unique.append(item)
+    unique.sort(key=order_key)
     if len(unique) <= cap:
         return unique
     chosen = unique[:cap]
@@ -249,7 +281,8 @@ def combine(rows, aliases=None, parts=None, planning=None, previous=None, now_is
     projects, missing = {}, []
     counts = {"projects": len(refs), "with_signal": 0, "with_signal_by_family": {f: 0 for f in FAMILIES},
               "with_news_signal": 0, "official_signal_only": 0, "with_confirmed_signal": 0, "planning_file_only": 0,
-              "planning_file_verified": 0, "planning_file_search_page": 0, "planning_file_last_resort": 0, "nothing": 0}
+              "planning_file_verified": 0, "planning_file_search_page": 0, "planning_file_last_resort": 0, "nothing": 0,
+              "split": {"fetched_news": 0, "fetched_official": 0, "reviewed_only": 0, "planning_file_only": 0, "nothing": 0}}
     for row in rows:
         ref = str(row["repd_ref"])
         entry = aliases.get(ref) or {}
@@ -276,10 +309,19 @@ def combine(rows, aliases=None, parts=None, planning=None, previous=None, now_is
             else:
                 counts["official_signal_only"] += 1
             counts["with_confirmed_signal"] += any(s["confidence"] == "confirmed" for s in signals)
+            fetched = [s for s in gathered[ref] if not is_reviewed(s)]       # before the cap of five
+            if any(s["family"] in NEWS_FAMILIES for s in fetched):
+                counts["split"]["fetched_news"] += 1
+            elif fetched:
+                counts["split"]["fetched_official"] += 1
+            else:
+                counts["split"]["reviewed_only"] += 1
         elif file:
             counts["planning_file_only"] += 1
+            counts["split"]["planning_file_only"] += 1
         else:
             counts["nothing"] += 1
+            counts["split"]["nothing"] += 1
             missing.append(ref)
         if file:
             counts["planning_file_verified"] += file["verified"]
@@ -340,6 +382,9 @@ def summary(result, truth=None):
              "| with a confirmed signal | %d |" % c["with_confirmed_signal"],
              "| with a planning file only | %d |" % c["planning_file_only"],
              "| with nothing (must be 0) | %d |" % c["nothing"],
+             "\nSplit of the %d: fetched news %d, fetched official or developer page only %d, reviewed only %d, planning file "
+             "only %d, nothing %d." % (c["projects"], c["split"]["fetched_news"], c["split"]["fetched_official"],
+                                       c["split"]["reviewed_only"], c["split"]["planning_file_only"], c["split"]["nothing"]),
              "\nBy family: " + ", ".join("%s %d" % kv for kv in c["with_signal_by_family"].items()) + ".",
              "Planning files: %d verified, %d search pages, %d built as a last resort from the REPD row." % (
                  c["planning_file_verified"], c["planning_file_search_page"], c["planning_file_last_resort"]),
@@ -357,7 +402,7 @@ def summary(result, truth=None):
         if p["signals"]:
             s = p["signals"][0]
             lines.append("| %s | %s | %s | %s%s | %s | %s | [%s](%s) |" % (
-                p["rank"], p["repd_ref"], p["alias"].replace("|", "/"), s["family"],
+                p["rank"], p["repd_ref"], p["alias"].replace("|", "/"), s["family"] + (", reviewed" if is_reviewed(s) else ""),
                 "" if s["confidence"] == "confirmed" else " (uncertain)", s["date"] or "", s["publisher"].replace("|", "/"),
                 s["title"].replace("|", "/").replace("[", "(").replace("]", ")"), s["link"]))
         else:
@@ -372,6 +417,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     for team in TEAMS:
         ap.add_argument("--" + team, default=None, help="part file of team %s (optional)" % team)
+    ap.set_defaults(reviewed=str(HERE / "reviewed_signals.json"))
     ap.add_argument("--top200", default=str(HERE / "top200_solar.json"))
     ap.add_argument("--aliases", default=str(HERE / "aliases.json"))
     ap.add_argument("--planning", default=None, help="optional {repd_ref: planning_file} file")
@@ -400,7 +446,7 @@ def main(argv=None):
         truth = load_truth(args.truth) if args.truth and Path(args.truth).exists() else None
         Path(args.summary).write_text(summary(result, truth), encoding="utf-8")
     print(json.dumps({"out": str(out), **{k: v for k, v in result["counts"].items() if not isinstance(v, dict)},
-                      "parts": {t: s["status"] for t, s in result["parts"].items()}}))
+                      "split": result["counts"]["split"], "parts": {t: s["status"] for t, s in result["parts"].items()}}))
     if result["counts"]["nothing"]:
         print("FAIL: %d project(s) have neither a signal nor a planning file" % result["counts"]["nothing"], file=sys.stderr)
         return 2

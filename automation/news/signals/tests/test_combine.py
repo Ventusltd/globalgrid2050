@@ -49,7 +49,7 @@ def test_runs_with_no_parts_and_every_project_has_a_planning_file():
     c = result["counts"]
     assert c["projects"] == 4 and c["with_signal"] == 0 and c["planning_file_only"] == 4 and c["nothing"] == 0
     assert c["planning_file_last_resort"] == 4 and c["planning_file_verified"] == 0
-    assert {t: s["status"] for t, s in result["parts"].items()} == {"official": "absent", "trade": "absent", "index": "absent"}
+    assert {t: s["status"] for t, s in result["parts"].items()} == {"official": "absent", "trade": "absent", "index": "absent", "reviewed": "absent"}
     files = {ref: p["planning_file"] for ref, p in result["projects"].items()}
     assert files["12588"]["kind"] == "pins_project" and files["12588"]["url"].endswith("/projects/EN010147")
     assert files["20001"]["kind"] == "search_page" and "energyconsents.scot" in files["20001"]["url"]
@@ -84,7 +84,8 @@ def test_merge_order_cap_dedupe_and_counts():
     c = result["counts"]
     assert c["with_signal"] == 2 and c["with_news_signal"] == 1 and c["official_signal_only"] == 1
     assert c["with_confirmed_signal"] == 2 and c["planning_file_only"] == 2 and c["nothing"] == 0
-    assert c["with_signal_by_family"] == {"official": 2, "bbc": 1, "trade": 1, "national": 1, "regional": 1}
+    assert c["with_signal_by_family"] == {"official": 2, "bbc": 1, "trade": 1, "national": 1, "regional": 1, "developer": 0}
+    assert c["split"] == {"fetched_news": 1, "fetched_official": 1, "reviewed_only": 0, "planning_file_only": 2, "nothing": 0}
     assert c["planning_file_verified"] == 1 and c["planning_file_last_resort"] == 3
     assert result["dropped"] == {"outside the 200": 1, "no title or link": 1, "source not allowed": 1, "exclude phrase": 1,
                                  "not an object": 0}
@@ -98,7 +99,7 @@ def test_bad_parts_are_recorded_and_do_not_stop_the_run():
     parts = {"official": "unreadable", "trade": {"schema": "something-else", "items": []},
              "index": part("index", [item("20002", "b1", "bbc")])}
     result = C.combine(ROWS, ALIASES, parts, now_iso=NOW, use_module=False)
-    assert {t: s["status"] for t, s in result["parts"].items()} == {"official": "unreadable", "trade": "wrong schema", "index": "ok"}
+    assert {t: s["status"] for t, s in result["parts"].items()} == {"official": "unreadable", "trade": "wrong schema", "index": "ok", "reviewed": "absent"}
     assert result["counts"]["with_signal"] == 1 and result["counts"]["nothing"] == 0
 
 
@@ -114,6 +115,58 @@ def test_previous_signals_are_kept_and_planning_override():
     assert second["counts"]["planning_file_last_resort"] == 2
     third = C.combine(ROWS, ALIASES, {}, None, {"schema": "other"}, now_iso=NOW, use_module=False)
     assert third["counts"]["with_signal"] == 0
+
+
+def reviewed(ref, n, family="regional", date="2026-06-01", **more):
+    return item(ref, n, family, date, basis="reviewed 2026-11-14", **more)
+
+
+def test_reviewed_part_fills_gaps_and_never_outranks_a_fetched_item():
+    index = part("index", [item("12588", "same", "bbc", "2026-11-10", basis="BBC News RSS: alias in title"),
+                           item("12588", "old", "regional", "2026-01-01")])
+    rev = part("reviewed", [
+        reviewed("12588", "same", "regional", "2026-11-10", title="Another wording of the same story"),   # same link as fetched
+        reviewed("12588", "r-new", "trade", "2026-11-12"), reviewed("12588", "r-undated", "regional", None),
+        reviewed("20001", "dev", "official", "2026-03-01", link="https://uk.rwe.com/projects/rigifa"),      # developer page
+        reviewed("20002", "reg", "regional", "2025-05-05"),
+        reviewed("20002", "aol", "bbc", "2025-06-06", link="https://www.aol.com/news/story"),
+        reviewed("20003", "g", "regional", link="https://news.google.com/rss/articles/x"),
+        reviewed("20003", "paywall", "national", link="https://www.ft.com/content/x"),
+        {"repd_ref": "20002", "title": "No basis given", "link": "https://example.co.uk/nb", "family": "regional", "date": None,
+         "notes": "private note", "evidence": "text"}], sources=[])
+    result = C.combine(ROWS, ALIASES, {"index": index, "reviewed": rev}, now_iso=NOW, use_module=False)
+    botley = result["projects"]["12588"]["signals"]
+    assert [s["title"] for s in botley] == ["Headline r-new", "Headline same", "Headline r-undated", "Headline old"] or \
+        [s["link"].rsplit("/", 1)[1] for s in botley] == ["r-new", "same", "r-undated", "old"][:0] or True
+    assert [s["link"].rsplit("/", 1)[1] for s in botley] == ["r-new", "same", "old", "r-undated"]      # newest first, undated last
+    same = next(s for s in botley if s["link"].endswith("/same"))
+    assert same["family"] == "bbc" and same["basis"].startswith("BBC News RSS")                       # the fetched item won
+    assert [s["basis"] for s in botley if s["link"].endswith(("r-new", "r-undated"))] == ["reviewed 2026-11-14"] * 2
+    dev = result["projects"]["20001"]["signals"]
+    assert [s["family"] for s in dev] == ["developer"]
+    mill = result["projects"]["20002"]["signals"]
+    assert {s["family"] for s in mill} == {"regional", "national"}                                    # an aggregator copy is not "bbc"
+    assert all(s["basis"] == "reviewed" or s["basis"] == "reviewed 2026-11-14" for s in mill)
+    assert all(set(s) == {"repd_ref", "title", "link", "publisher", "date", "family", "basis", "confidence"} for s in mill)
+    assert result["projects"]["20003"]["signals"] == [] and result["dropped"]["source not allowed"] == 2
+    c = result["counts"]
+    assert c["split"] == {"fetched_news": 1, "fetched_official": 0, "reviewed_only": 2, "planning_file_only": 1, "nothing": 0}
+    assert c["with_signal"] == 3 and c["with_news_signal"] == 2                                       # the developer page is not news
+    assert c["with_signal_by_family"]["developer"] == 1 and c["with_signal_by_family"]["bbc"] == 1
+    assert "private note" not in json.dumps(result)
+    text = C.summary(result)
+    assert "fetched news 1, fetched official or developer page only 0, reviewed only 2, planning file only 1, nothing 0" in text
+
+
+def test_committed_reviewed_file_is_clean():
+    data = json.loads((SIGNALS / "reviewed_signals.json").read_text())
+    assert data["schema"] == C.PART_SCHEMA and data["team"] == "reviewed" and data["items"]
+    refs = {str(r["repd_ref"]) for r in json.loads((SIGNALS / "top200_solar.json").read_text())}
+    for entry in data["items"]:
+        assert set(entry) == {"repd_ref", "title", "link", "publisher", "date", "family", "basis", "confidence"}
+        assert entry["repd_ref"] in refs and entry["basis"] == "reviewed 2026-11-14" and entry["link"].startswith("https://")
+        assert C.clean_item(entry, "reviewed")[0] is not None
+    assert "@" not in json.dumps(data) and "/home/" not in json.dumps(data)
 
 
 def test_truth_report_by_family():

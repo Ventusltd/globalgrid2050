@@ -20,6 +20,7 @@ jobs:
           fetch-depth: 1
           sparse-checkout: |
             catalogue
+            homepage_versions/homepage_v139.html
             uk_renewables_pipeline/202611140306
             uk_renewables_pipeline/202611132345
             uk_renewables_pipeline/202609082224

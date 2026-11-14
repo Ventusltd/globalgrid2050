@@ -146,3 +146,51 @@ jobs:
           git diff --cached --check
           git commit -m "data(energy24): verified six-market hourly news"
           git push origin HEAD:main
+
+  browser:
+    name: Independent desktop / mobile Energy24 browser QA
+    if: ${{ github.event_name != 'schedule' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout only new dashboard and pinned October release
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            uk_renewables_pipeline/energy24
+            uk_renewables_pipeline/202611132345
+      - name: Use Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install existing Pipeline News Playwright toolchain
+        working-directory: uk_renewables_pipeline/202611132345
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Start local source-only HTTP server
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/energy24-server.log 2>&1 &
+          for i in $(seq 1 20); do
+            if curl -fsS -o /dev/null http://127.0.0.1:8765/uk_renewables_pipeline/energy24/index.html; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/energy24-server.log
+          exit 1
+      - name: Assert binding, filters, clocks and safe missing-news state on phones and desktop
+        env:
+          ENERGY24_BASE: http://127.0.0.1:8765/uk_renewables_pipeline/energy24/
+          ENERGY24_ARTIFACTS: /tmp/energy24-browser
+        run: node uk_renewables_pipeline/energy24/tests/browser.mjs
+      - name: Keep independent browser screenshots and logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: energy24-browser-qa-${{ github.run_number }}
+          path: |
+            /tmp/energy24-browser/
+            /tmp/energy24-server.log
+          retention-days: 30
+          if-no-files-found: warn

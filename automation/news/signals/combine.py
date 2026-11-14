@@ -105,7 +105,7 @@ EVENT_RULES = (
                         r"(?:launch\w*|lodg\w+|mounts?|brings?|files?) (?:a |legal )?challenge"),
     ("appeal", r"\bappeals?\b|\bappealed\b|planning inquiry|public inquiry"),
     ("refusal", r"\brefus\w+|\breject\w+|turned down|thrown out|\bblocked\b|\bdenied\b"),
-    ("consent", r"\bapproved\b|\bapproves\b(?! its\b)|green ?lights?|greenlights?|go[- ]ahead|\bconsent(?:ed|s)\b|\bgrant(?:s|ed)\b|"
+    ("consent", r"\bapproved\b|\bapproves\b(?! its\b)|\bapproval (?:of|for|granted|given)\b|green ?lights?|greenlights?|go[- ]ahead|\bconsent(?:ed|s)\b|\bgrant(?:s|ed)\b|"
                 r"(?:wins?|secures?|gains?|receives?|gets?|given|awarded) (?:planning |development |section 36 )?"
                 r"(?:consent|permission|approval|permit|DCO)\b"),
     ("financial_close", r"financial close|final investment decision|\bFID\b|financing (?:secured|closed|agreed)|"
@@ -300,12 +300,13 @@ def clean_item(raw, team, today=None, collected_at=None, as_of=None):
     if not isinstance(raw, dict):
         return None, "not an object"
     link = D.canonical_link(raw.get("link") if isinstance(raw.get("link"), str) else "")
+    link = re.sub(r"\s", "%20", link.strip()) if link else link     # a link with a raw space is never published
     title = D.clean_text(raw.get("title") if isinstance(raw.get("title"), str) else "", 300)
     if not link or not title:
         return None, "no title or link"
     if _excluded(link):
         return None, "source not allowed"
-    date = parse_date(raw.get("date"), today)
+    date = parse_date(raw.get("date"), today) or DATES.url_day(link, today)   # a full date in the link is the article's own
     year = int(date[:4]) if date else None
     if year is None:                                        # only the year is known: still an undated item, but labelled
         hint = raw.get("year")

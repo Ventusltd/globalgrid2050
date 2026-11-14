@@ -60,5 +60,40 @@
   "column:Offshore Wind Round": "55 numbers stored with a date number format in the XLSX",
   "kind:HIDDEN_CHARS": "tab/NBSP/CR padding in coordinate cells (cleaning strips; seen since January 2026)",
   "column:Judicial Review": "24 cells hold genuine typed dates that match the CSV dd/mm/yyyy text (checked 2026-11-13); not a format error"
+ },
+ "known_coordinates": {
+  "18561": "Salters Lane (Tyne and Wear, DH5): coordinates place it near High Wycombe; wrong in source",
+  "18562": "Salters Lane (Tyne and Wear, DH5): coordinates place it near High Wycombe; wrong in source",
+  "2484": "East Anglia offshore array: easting 708047 beyond the soft BNG envelope (legitimate offshore)",
+  "6483": "East Anglia offshore array: easting 708047 beyond the soft BNG envelope (legitimate offshore)",
+  "20218": "East Anglia offshore array: easting 708047 beyond the soft BNG envelope (legitimate offshore)",
+  "14491": "Culzean Floating Wind Pilot: offshore, outside Scotland box (legitimate)",
+  "1613": "Sainsbury's Stores (169 stores): country and region blank in source",
+  "9241": "Isle of Man site labelled England / North West",
+  "11059": "Isle of Man site labelled England / North West",
+  "13929": "Isle of Man site labelled England / North West",
+  "13930": "Isle of Man site labelled England / North West",
+  "16627": "Isle of Man site labelled England / North West",
+  "20722": "Isle of Man site labelled England / North West"
+ },
+ "acceptance_waive_cells": [
+  "15915:Address"
+ ],
+ "acceptance_waive_cells_note": "15915 Address: the workbook holds U+200D (zero-width joiner) before 'Lydney'; the cp1252 CSV cannot carry it and prints '?'. The cleaned file keeps the official CSV text. Waived in acceptance.py cleaned.text_matches_excel by run.py (reported as waived, never silent). Team 1 NL-013, 2026-11-14.",
+ "observations_not_gated": {
+  "note": "Source anomalies found by Team 1 (NL-013) on 2026-11-14 in the October 2026 files. Reported for review; validate.py does not detect them, so they are kept out of 'known' (which would otherwise be reported as 'no longer present'). Never used to change data.",
+  "15915": "Address '\"A48\" ?Lydney': CSV '?' where the XLSX has U+200D (cp1252 cannot encode it)",
+  "3052": "Site Name 'Gorsedd BrÃ¢n Wind Fram': UTF-8 mojibake in both official files (also in January); probably 'Brân'",
+  "4049": "Address 'SrÃ²n MÃ³r': UTF-8 mojibake in both official files (also in January); probably 'Sròn Mòr'",
+  "18480": "Planning Authority 'Burnely' (July: 'Burnley'): typo introduced in October; changes gg_development_id",
+  "20029": "Planning Permission Granted 15/12/2026, after the publication date (13/11/2026)",
+  "20820": "Planning Application Submitted 27/11/2026, after the publication date and after Planning Permission Granted 14/08/2026",
+  "13429": "Ossian: status Awaiting Construction (July) -> Application Submitted (October)",
+  "9388": "Dyce Energy Storage: status Operational (July) -> Awaiting Construction (October)",
+  "8100": "Camblesforth Solar Farm: Awaiting Construction with an Operational date 01/07/2026; same site as 21493",
+  "21493": "Camblesforth Solar Farm (final record of the file): Awaiting Construction with an Operational date 01/07/2026; same site as 8100",
+  "18037": "Solar Photovoltaics record with No. of Turbines = 13",
+  "19985": "Planning Permission Granted 15/12/2015 before Planning Application Submitted 31/10/2025",
+  "3532": "Planning Permission Granted 16/10/2003 before Planning Application Submitted 15/06/2011"
  }
 }

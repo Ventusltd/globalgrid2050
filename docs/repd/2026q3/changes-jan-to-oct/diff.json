@@ -17,9 +17,9 @@
   "label": "January 2026"
  },
  "new": {
-  "file": "Q3_CANONICAL_STAGED.csv",
-  "bytes": 5190808,
-  "sha256": "9b1f87ebdfe12601ca55c3d6f7c621739e5077f64988d47471fb03a60f381343",
+  "file": "repd-2026q3.csv",
+  "bytes": 5201029,
+  "sha256": "d937ae16ad07f43caaaa25b4cee56399e1e9b9bb2ae5ecb7bc88cf9bc092e4b9",
   "kind": "official-layout CSV",
   "encoding": "utf-8-sig",
   "n_columns": 53,
@@ -48,40 +48,40 @@
   "added": 997,
   "removed": 25,
   "retained": 13970,
-  "added_mw": 34869.958,
+  "added_mw": 34869.98,
   "removed_mw": 769.97,
   "previous_mw": 372389.32,
-  "new_mw": 407381.952,
-  "delta_mw": 34992.632,
+  "new_mw": 407383.14,
+  "delta_mw": 34993.82,
   "status_changes": 908,
-  "status_changes_new_mw": 56108.564,
+  "status_changes_new_mw": 56108.63,
   "capacity_edits": 56,
   "capacity_edits_net_mw": -427.53,
   "technology_changes": 3,
   "milestones": {
    "consented": {
     "n": 1075,
-    "mw": 35804.83,
+    "mw": 35804.92,
     "n_unknown_mw": 130
    },
    "under_construction": {
     "n": 90,
-    "mw": 11572.566,
+    "mw": 11572.57,
     "n_unknown_mw": 13
    },
    "operational": {
     "n": 105,
-    "mw": 4801.854,
+    "mw": 4801.86,
     "n_unknown_mw": 10
    },
    "refused": {
     "n": 124,
-    "mw": 4567.877,
+    "mw": 4567.87,
     "n_unknown_mw": 17
    },
    "withdrawn": {
     "n": 51,
-    "mw": 1287.624,
+    "mw": 1287.62,
     "n_unknown_mw": 13
    }
   }
@@ -93,8 +93,8 @@
    "new_n": 14967,
    "delta_n": 972,
    "old_mw": 372389.32,
-   "new_mw": 407381.952,
-   "delta_mw": 34992.632,
+   "new_mw": 407383.14,
+   "delta_mw": 34993.82,
    "old_n_unknown_mw": 1267,
    "new_n_unknown_mw": 1367
   },
@@ -127,8 +127,8 @@
     "new_n": 2765,
     "delta_n": 232,
     "old_mw": 143251.68,
-    "new_mw": 153889.076,
-    "delta_mw": 10637.396,
+    "new_mw": 153889.09,
+    "delta_mw": 10637.41,
     "old_n_unknown_mw": 573,
     "new_n_unknown_mw": 594
    },
@@ -149,8 +149,8 @@
     "new_n": 286,
     "delta_n": 1,
     "old_mw": 9706.33,
-    "new_mw": 9706.5,
-    "delta_mw": 0.17,
+    "new_mw": 9706.54,
+    "delta_mw": 0.21,
     "old_n_unknown_mw": 12,
     "new_n_unknown_mw": 12
    },
@@ -193,8 +193,8 @@
     "new_n": 3,
     "delta_n": 0,
     "old_mw": 2.11,
-    "new_mw": 2.105,
-    "delta_mw": -0.005,
+    "new_mw": 2.11,
+    "delta_mw": 0.0,
     "old_n_unknown_mw": 1,
     "new_n_unknown_mw": 1
    },
@@ -303,8 +303,8 @@
     "new_n": 157,
     "delta_n": 3,
     "old_mw": 239.34,
-    "new_mw": 240.495,
-    "delta_mw": 1.155,
+    "new_mw": 240.51,
+    "delta_mw": 1.17,
     "old_n_unknown_mw": 8,
     "new_n_unknown_mw": 8
    },
@@ -314,8 +314,8 @@
     "new_n": 7649,
     "delta_n": 626,
     "old_mw": 63727.38,
-    "new_mw": 70120.261,
-    "delta_mw": 6392.881,
+    "new_mw": 70121.28,
+    "delta_mw": 6393.9,
     "old_n_unknown_mw": 448,
     "new_n_unknown_mw": 504
    },
@@ -369,8 +369,8 @@
     "new_n": 2776,
     "delta_n": 77,
     "old_mw": 60919.88,
-    "new_mw": 62299.815,
-    "delta_mw": 1379.935,
+    "new_mw": 62299.91,
+    "delta_mw": 1380.03,
     "old_n_unknown_mw": 96,
     "new_n_unknown_mw": 108
    }
@@ -382,8 +382,8 @@
     "new_n": 390,
     "delta_n": 4,
     "old_mw": 7625.83,
-    "new_mw": 7764.928,
-    "delta_mw": 139.098,
+    "new_mw": 7764.93,
+    "delta_mw": 139.1,
     "old_n_unknown_mw": 15,
     "new_n_unknown_mw": 19
    },
@@ -426,8 +426,8 @@
     "new_n": 965,
     "delta_n": 76,
     "old_mw": 17696.8,
-    "new_mw": 20630.598,
-    "delta_mw": 2933.798,
+    "new_mw": 20630.6,
+    "delta_mw": 2933.8,
     "old_n_unknown_mw": 60,
     "new_n_unknown_mw": 69
    },
@@ -437,8 +437,8 @@
     "new_n": 1456,
     "delta_n": -288,
     "old_mw": 93932.77,
-    "new_mw": 91264.672,
-    "delta_mw": -2668.098,
+    "new_mw": 91264.76,
+    "delta_mw": -2668.01,
     "old_n_unknown_mw": 304,
     "new_n_unknown_mw": 250
    },
@@ -448,8 +448,8 @@
     "new_n": 687,
     "delta_n": 50,
     "old_mw": 12951.41,
-    "new_mw": 14238.705,
-    "delta_mw": 1287.295,
+    "new_mw": 14238.75,
+    "delta_mw": 1287.34,
     "old_n_unknown_mw": 37,
     "new_n_unknown_mw": 50
    },
@@ -459,8 +459,8 @@
     "new_n": 6243,
     "delta_n": 933,
     "old_mw": 135978.7,
-    "new_mw": 155491.746,
-    "delta_mw": 19513.046,
+    "new_mw": 155492.69,
+    "delta_mw": 19513.99,
     "old_n_unknown_mw": 664,
     "new_n_unknown_mw": 763
    },
@@ -503,8 +503,8 @@
     "new_n": 3162,
     "delta_n": 102,
     "old_mw": 54879.0,
-    "new_mw": 59203.039,
-    "delta_mw": 4324.039,
+    "new_mw": 59203.06,
+    "delta_mw": 4324.06,
     "old_n_unknown_mw": 45,
     "new_n_unknown_mw": 55
    },
@@ -525,8 +525,8 @@
     "new_n": 839,
     "delta_n": 36,
     "old_mw": 16567.25,
-    "new_mw": 16751.318,
-    "delta_mw": 184.068,
+    "new_mw": 16751.36,
+    "delta_mw": 184.11,
     "old_n_unknown_mw": 61,
     "new_n_unknown_mw": 71
    },
@@ -536,8 +536,8 @@
     "new_n": 471,
     "delta_n": 53,
     "old_mw": 20788.06,
-    "new_mw": 29321.547,
-    "delta_mw": 8533.487,
+    "new_mw": 29321.59,
+    "delta_mw": 8533.53,
     "old_n_unknown_mw": 49,
     "new_n_unknown_mw": 58
    }
@@ -560,8 +560,8 @@
     "new_n": 10771,
     "delta_n": 726,
     "old_mw": 224634.59,
-    "new_mw": 237055.896,
-    "delta_mw": 12421.306,
+    "new_mw": 237056.92,
+    "delta_mw": 12422.33,
     "old_n_unknown_mw": 974,
     "new_n_unknown_mw": 1043
    },
@@ -571,8 +571,8 @@
     "new_n": 542,
     "delta_n": 18,
     "old_mw": 5954.75,
-    "new_mw": 6490.985,
-    "delta_mw": 536.235,
+    "new_mw": 6491.0,
+    "delta_mw": 536.25,
     "old_n_unknown_mw": 73,
     "new_n_unknown_mw": 78
    },
@@ -582,8 +582,8 @@
     "new_n": 2763,
     "delta_n": 137,
     "old_mw": 121337.84,
-    "new_mw": 142254.066,
-    "delta_mw": 20916.226,
+    "new_mw": 142254.17,
+    "delta_mw": 20916.33,
     "old_n_unknown_mw": 159,
     "new_n_unknown_mw": 170
    },
@@ -593,8 +593,8 @@
     "new_n": 890,
     "delta_n": 91,
     "old_mw": 20446.14,
-    "new_mw": 21565.005,
-    "delta_mw": 1118.865,
+    "new_mw": 21565.05,
+    "delta_mw": 1118.91,
     "old_n_unknown_mw": 61,
     "new_n_unknown_mw": 76
    }
@@ -914,8 +914,8 @@
     "new_n": 1400,
     "delta_n": 210,
     "old_mw": 67646.6,
-    "new_mw": 79763.066,
-    "delta_mw": 12116.466,
+    "new_mw": 79763.08,
+    "delta_mw": 12116.48,
     "old_n_unknown_mw": 297,
     "new_n_unknown_mw": 324
    },
@@ -1035,8 +1035,8 @@
     "new_n": 63,
     "delta_n": 0,
     "old_mw": 2992.26,
-    "new_mw": 2992.256,
-    "delta_mw": -0.004,
+    "new_mw": 2992.26,
+    "delta_mw": 0.0,
     "old_n_unknown_mw": 0,
     "new_n_unknown_mw": 0
    },
@@ -1090,8 +1090,8 @@
     "new_n": 20,
     "delta_n": 0,
     "old_mw": 558.4,
-    "new_mw": 558.403,
-    "delta_mw": 0.003,
+    "new_mw": 558.4,
+    "delta_mw": 0.0,
     "old_n_unknown_mw": 0,
     "new_n_unknown_mw": 0
    },
@@ -1101,8 +1101,8 @@
     "new_n": 68,
     "delta_n": 1,
     "old_mw": 86.58,
-    "new_mw": 86.756,
-    "delta_mw": 0.176,
+    "new_mw": 86.79,
+    "delta_mw": 0.21,
     "old_n_unknown_mw": 8,
     "new_n_unknown_mw": 8
    },
@@ -1123,8 +1123,8 @@
     "new_n": 81,
     "delta_n": 0,
     "old_mw": 3466.19,
-    "new_mw": 3466.185,
-    "delta_mw": -0.005,
+    "new_mw": 3466.19,
+    "delta_mw": 0.0,
     "old_n_unknown_mw": 1,
     "new_n_unknown_mw": 1
    },
@@ -1376,8 +1376,8 @@
     "new_n": 1,
     "delta_n": 0,
     "old_mw": 0.11,
-    "new_mw": 0.105,
-    "delta_mw": -0.005,
+    "new_mw": 0.11,
+    "delta_mw": 0.0,
     "old_n_unknown_mw": 0,
     "new_n_unknown_mw": 0
    },
@@ -1970,8 +1970,8 @@
     "new_n": 22,
     "delta_n": 1,
     "old_mw": 13.31,
-    "new_mw": 13.725,
-    "delta_mw": 0.415,
+    "new_mw": 13.73,
+    "delta_mw": 0.42,
     "old_n_unknown_mw": 2,
     "new_n_unknown_mw": 2
    },
@@ -2003,8 +2003,8 @@
     "new_n": 10,
     "delta_n": 0,
     "old_mw": 10.38,
-    "new_mw": 10.37,
-    "delta_mw": -0.01,
+    "new_mw": 10.38,
+    "delta_mw": 0.0,
     "old_n_unknown_mw": 2,
     "new_n_unknown_mw": 2
    },
@@ -2025,8 +2025,8 @@
     "new_n": 131,
     "delta_n": 1,
     "old_mw": 785.28,
-    "new_mw": 793.282,
-    "delta_mw": 8.002,
+    "new_mw": 793.28,
+    "delta_mw": 8.0,
     "old_n_unknown_mw": 1,
     "new_n_unknown_mw": 1
    },
@@ -2069,8 +2069,8 @@
     "new_n": 312,
     "delta_n": 23,
     "old_mw": 3485.91,
-    "new_mw": 3454.278,
-    "delta_mw": -31.632,
+    "new_mw": 3454.28,
+    "delta_mw": -31.63,
     "old_n_unknown_mw": 16,
     "new_n_unknown_mw": 20
    },
@@ -2080,8 +2080,8 @@
     "new_n": 620,
     "delta_n": -148,
     "old_mw": 17407.73,
-    "new_mw": 15772.297,
-    "delta_mw": -1635.433,
+    "new_mw": 15772.37,
+    "delta_mw": -1635.36,
     "old_n_unknown_mw": 88,
     "new_n_unknown_mw": 69
    },
@@ -2091,8 +2091,8 @@
     "new_n": 189,
     "delta_n": 15,
     "old_mw": 1007.64,
-    "new_mw": 1110.742,
-    "delta_mw": 103.102,
+    "new_mw": 1110.78,
+    "delta_mw": 103.14,
     "old_n_unknown_mw": 11,
     "new_n_unknown_mw": 13
    },
@@ -2102,8 +2102,8 @@
     "new_n": 4154,
     "delta_n": 642,
     "old_mw": 22640.87,
-    "new_mw": 28820.889,
-    "delta_mw": 6180.019,
+    "new_mw": 28821.71,
+    "delta_mw": 6180.84,
     "old_n_unknown_mw": 274,
     "new_n_unknown_mw": 330
    },
@@ -2124,8 +2124,8 @@
     "new_n": 1424,
     "delta_n": 35,
     "old_mw": 10738.36,
-    "new_mw": 11297.764,
-    "delta_mw": 559.404,
+    "new_mw": 11297.78,
+    "delta_mw": 559.42,
     "old_n_unknown_mw": 16,
     "new_n_unknown_mw": 19
    },
@@ -2146,8 +2146,8 @@
     "new_n": 341,
     "delta_n": 22,
     "old_mw": 2928.96,
-    "new_mw": 2945.488,
-    "delta_mw": 16.528,
+    "new_mw": 2945.52,
+    "delta_mw": 16.56,
     "old_n_unknown_mw": 17,
     "new_n_unknown_mw": 22
    },
@@ -2157,8 +2157,8 @@
     "new_n": 231,
     "delta_n": 36,
     "old_mw": 2537.43,
-    "new_mw": 3655.522,
-    "delta_mw": 1118.092,
+    "new_mw": 3655.56,
+    "delta_mw": 1118.13,
     "old_n_unknown_mw": 16,
     "new_n_unknown_mw": 22
    },
@@ -2443,8 +2443,8 @@
     "new_n": 287,
     "delta_n": -18,
     "old_mw": 11318.0,
-    "new_mw": 11033.895,
-    "delta_mw": -284.105,
+    "new_mw": 11033.91,
+    "delta_mw": -284.09,
     "old_n_unknown_mw": 55,
     "new_n_unknown_mw": 54
    },
@@ -2454,8 +2454,8 @@
     "new_n": 285,
     "delta_n": 6,
     "old_mw": 5658.97,
-    "new_mw": 6091.36,
-    "delta_mw": 432.39,
+    "new_mw": 6091.37,
+    "delta_mw": 432.4,
     "old_n_unknown_mw": 5,
     "new_n_unknown_mw": 6
    },
@@ -2465,8 +2465,8 @@
     "new_n": 400,
     "delta_n": 65,
     "old_mw": 7650.54,
-    "new_mw": 7497.51,
-    "delta_mw": -153.03,
+    "new_mw": 7497.58,
+    "delta_mw": -152.96,
     "old_n_unknown_mw": 26,
     "new_n_unknown_mw": 36
    },
@@ -2542,7 +2542,7 @@
   "added": {
    "total": {
     "n": 997,
-    "mw": 34869.958,
+    "mw": 34869.98,
     "n_unknown_mw": 123
    },
    "by_technology": {
@@ -2588,7 +2588,7 @@
     },
     "Solar Photovoltaics": {
      "n": 642,
-     "mw": 6996.237,
+     "mw": 6996.26,
      "n_unknown_mw": 62
     },
     "Unknown": {
@@ -2625,17 +2625,17 @@
     },
     "Application Submitted": {
      "n": 404,
-     "mw": 28070.058,
+     "mw": 28070.06,
      "n_unknown_mw": 61
     },
     "Application Withdrawn": {
      "n": 18,
-     "mw": 272.432,
+     "mw": 272.43,
      "n_unknown_mw": 2
     },
     "Awaiting Construction": {
      "n": 495,
-     "mw": 5264.597,
+     "mw": 5264.62,
      "n_unknown_mw": 47
     },
     "No Application Made": {
@@ -5396,6 +5396,16 @@
      "region": "South East"
     },
     {
+     "ref": "15582",
+     "site": "Acomb Village, Acomb - Solar Panels",
+     "operator": "Acomb Community Solar Group",
+     "technology": "Solar Photovoltaics",
+     "status": "Awaiting Construction",
+     "mw": 0.99,
+     "country": "England",
+     "region": "North East"
+    },
+    {
      "ref": "21337",
      "site": "Denso Manufacturing UK, Queensway - Solar Array",
      "operator": "Denso Manufacturing UK Limited",
@@ -5414,16 +5424,6 @@
      "mw": 0.99,
      "country": "England",
      "region": "South East"
-    },
-    {
-     "ref": "15582",
-     "site": "Acomb Village, Acomb - Solar Panels",
-     "operator": "Acomb Community Solar Group",
-     "technology": "Solar Photovoltaics",
-     "status": "Awaiting Construction",
-     "mw": 0.985,
-     "country": "England",
-     "region": "North East"
     },
     {
      "ref": "20426",
@@ -5461,7 +5461,7 @@
      "operator": "Solarel UKRSF1 Projectco 1 Limited",
      "technology": "Solar Photovoltaics",
      "status": "Awaiting Construction",
-     "mw": 0.941,
+     "mw": 0.94,
      "country": "England",
      "region": "Yorkshire and Humber"
     },
@@ -5761,7 +5761,7 @@
      "operator": "Scottish Water (Dundee)",
      "technology": "Solar Photovoltaics",
      "status": "Awaiting Construction",
-     "mw": 0.715,
+     "mw": 0.72,
      "country": "Scotland",
      "region": "Scotland"
     },
@@ -6201,7 +6201,7 @@
      "operator": "GW Pharmaceuticals",
      "technology": "Solar Photovoltaics",
      "status": "Application Submitted",
-     "mw": 0.509,
+     "mw": 0.51,
      "country": "England",
      "region": "South East"
     },
@@ -6726,6 +6726,16 @@
      "region": "Yorkshire and Humber"
     },
     {
+     "ref": "20834",
+     "site": "Bestway Cash and Carry, Abbey Road - Solar Panels",
+     "operator": "GL Electrical (WM) Limited",
+     "technology": "Solar Photovoltaics",
+     "status": "Awaiting Construction",
+     "mw": 0.4,
+     "country": "England",
+     "region": "London"
+    },
+    {
      "ref": "20866",
      "site": "Hamstead Hall Community Learning Centre, Craythorne Avenue - Solar Panels",
      "operator": "Solar Options for Schools Limited",
@@ -6784,16 +6794,6 @@
      "mw": 0.4,
      "country": "England",
      "region": "North West"
-    },
-    {
-     "ref": "20834",
-     "site": "Bestway Cash and Carry, Abbey Road - Solar Panels",
-     "operator": "GL Electrical (WM) Limited",
-     "technology": "Solar Photovoltaics",
-     "status": "Awaiting Construction",
-     "mw": 0.396,
-     "country": "England",
-     "region": "London"
     },
     {
      "ref": "20760",
@@ -7906,6 +7906,16 @@
      "region": "Yorkshire and Humber"
     },
     {
+     "ref": "21248",
+     "site": "Balfour Beatty Rail Plant, Old Railway Works - Solar PV",
+     "operator": "Balfour Beatty Group Limited Head Office",
+     "technology": "Solar Photovoltaics",
+     "status": "Application Submitted",
+     "mw": 0.26,
+     "country": "England",
+     "region": "South East"
+    },
+    {
      "ref": "21282",
      "site": "Bridgewater High Lower School, Hall Drive - Solar Panels",
      "operator": "Solar Options for Schools",
@@ -7922,16 +7932,6 @@
      "technology": "Solar Photovoltaics",
      "status": "Application Submitted",
      "mw": 0.26,
-     "country": "England",
-     "region": "South East"
-    },
-    {
-     "ref": "21248",
-     "site": "Balfour Beatty Rail Plant, Old Railway Works - Solar PV",
-     "operator": "Balfour Beatty Group Limited Head Office",
-     "technology": "Solar Photovoltaics",
-     "status": "Application Submitted",
-     "mw": 0.259,
      "country": "England",
      "region": "South East"
     },
@@ -10266,6 +10266,16 @@
      "region": "Scotland"
     },
     {
+     "ref": "20729",
+     "site": "Chelsea And Westminster Hospital, Fulham Road - Photovoltaic Panels",
+     "operator": "Chelsea & Westminster NHS Trust",
+     "technology": "Solar Photovoltaics",
+     "status": "Awaiting Construction",
+     "mw": 0.19,
+     "country": "England",
+     "region": "London"
+    },
+    {
      "ref": "20906",
      "site": "Winchester Sport And Leisure Park, Bar End Road - Solar Panels",
      "operator": "LASER Energy",
@@ -10332,16 +10342,6 @@
      "technology": "Solar Photovoltaics",
      "status": "Application Submitted",
      "mw": 0.19,
-     "country": "England",
-     "region": "London"
-    },
-    {
-     "ref": "20729",
-     "site": "Chelsea And Westminster Hospital, Fulham Road - Photovoltaic Panels",
-     "operator": "Chelsea & Westminster NHS Trust",
-     "technology": "Solar Photovoltaics",
-     "status": "Awaiting Construction",
-     "mw": 0.185,
      "country": "England",
      "region": "London"
     },
@@ -10706,6 +10706,16 @@
      "region": "South East"
     },
     {
+     "ref": "20552",
+     "site": "Canons Way, City Centre - Solar Photovoltaics Equipment",
+     "operator": "Lloyds Banking Group",
+     "technology": "Solar Photovoltaics",
+     "status": "Awaiting Construction",
+     "mw": 0.17,
+     "country": "England",
+     "region": "South West"
+    },
+    {
      "ref": "20743",
      "site": "Royal Albert Edward Infirmary, Wigan Lane - Solar Panels",
      "operator": "Wrightington, Wigan & Leigh NHS Foundation Trust",
@@ -10794,26 +10804,6 @@
      "mw": 0.17,
      "country": "England",
      "region": "South East"
-    },
-    {
-     "ref": "20552",
-     "site": "Canons Way, City Centre - Solar Photovoltaics Equipment",
-     "operator": "Lloyds Banking Group",
-     "technology": "Solar Photovoltaics",
-     "status": "Awaiting Construction",
-     "mw": 0.165,
-     "country": "England",
-     "region": "South West"
-    },
-    {
-     "ref": "20843",
-     "site": "Styal Road - Solar Panels",
-     "operator": "RR UK (South) Limited",
-     "technology": "Solar Photovoltaics",
-     "status": "Application Withdrawn",
-     "mw": 0.162,
-     "country": "England",
-     "region": "North West"
     },
     {
      "ref": "20274",
@@ -10944,6 +10934,16 @@
      "mw": 0.16,
      "country": "England",
      "region": "London"
+    },
+    {
+     "ref": "20843",
+     "site": "Styal Road - Solar Panels",
+     "operator": "RR UK (South) Limited",
+     "technology": "Solar Photovoltaics",
+     "status": "Application Withdrawn",
+     "mw": 0.16,
+     "country": "England",
+     "region": "North West"
     },
     {
      "ref": "20896",
@@ -12929,7 +12929,7 @@
   "retained_with_status_change": 908,
   "status_changed_new_capacity": {
    "n": 908,
-   "mw": 56108.564,
+   "mw": 56108.63,
    "n_unknown_mw": 137
   },
   "distinct_transitions": 26,
@@ -12938,7 +12938,7 @@
     "from": "Application Submitted",
     "to": "Awaiting Construction",
     "n": 543,
-    "mw": 29379.509,
+    "mw": 29379.58,
     "n_unknown_mw": 78,
     "old_mw": 28974.28,
     "refs": [
@@ -13491,7 +13491,7 @@
     "from": "Application Submitted",
     "to": "Application Refused",
     "n": 84,
-    "mw": 3862.577,
+    "mw": 3862.57,
     "n_unknown_mw": 12,
     "old_mw": 3884.53,
     "refs": [
@@ -13585,7 +13585,7 @@
     "from": "Awaiting Construction",
     "to": "Under Construction",
     "n": 72,
-    "mw": 11347.104,
+    "mw": 11347.1,
     "n_unknown_mw": 6,
     "old_mw": 10918.3,
     "refs": [
@@ -13667,7 +13667,7 @@
     "from": "Awaiting Construction",
     "to": "Operational",
     "n": 40,
-    "mw": 1113.555,
+    "mw": 1113.56,
     "n_unknown_mw": 5,
     "old_mw": 1049.85,
     "refs": [
@@ -13717,7 +13717,7 @@
     "from": "Under Construction",
     "to": "Operational",
     "n": 36,
-    "mw": 3073.239,
+    "mw": 3073.24,
     "n_unknown_mw": 3,
     "old_mw": 3065.94,
     "refs": [
@@ -13763,7 +13763,7 @@
     "from": "Application Refused",
     "to": "Awaiting Construction",
     "n": 36,
-    "mw": 1110.824,
+    "mw": 1110.82,
     "n_unknown_mw": 5,
     "old_mw": 1110.32,
     "refs": [
@@ -13809,7 +13809,7 @@
     "from": "Application Submitted",
     "to": "Application Withdrawn",
     "n": 33,
-    "mw": 1015.192,
+    "mw": 1015.19,
     "n_unknown_mw": 11,
     "old_mw": 1015.19,
     "refs": [
@@ -13852,7 +13852,7 @@
     "from": "Application Submitted",
     "to": "Revised",
     "n": 10,
-    "mw": 106.518,
+    "mw": 106.52,
     "n_unknown_mw": 1,
     "old_mw": 106.52,
     "refs": [
@@ -13872,7 +13872,7 @@
     "from": "Awaiting Construction",
     "to": "Revised",
     "n": 9,
-    "mw": 40.674,
+    "mw": 40.67,
     "n_unknown_mw": 5,
     "old_mw": 40.67,
     "refs": [
@@ -13907,7 +13907,7 @@
     "from": "Application Submitted",
     "to": "Under Construction",
     "n": 6,
-    "mw": 75.922,
+    "mw": 75.93,
     "n_unknown_mw": 2,
     "old_mw": 75.93,
     "refs": [
@@ -13923,7 +13923,7 @@
     "from": "Application Refused",
     "to": "Revised",
     "n": 6,
-    "mw": 66.817,
+    "mw": 66.82,
     "n_unknown_mw": 2,
     "old_mw": 66.82,
     "refs": [
@@ -14073,7 +14073,7 @@
     "from": "Application Withdrawn",
     "to": "Revised",
     "n": 1,
-    "mw": 0.283,
+    "mw": 0.28,
     "n_unknown_mw": 0,
     "old_mw": 0.28,
     "refs": [
@@ -14117,17 +14117,17 @@
    "consented": {
     "all": {
      "n": 1075,
-     "mw": 35804.83,
+     "mw": 35804.92,
      "n_unknown_mw": 130
     },
     "transition": {
      "n": 580,
-     "mw": 30540.233,
+     "mw": 30540.3,
      "n_unknown_mw": 83
     },
     "new_record": {
      "n": 495,
-     "mw": 5264.597,
+     "mw": 5264.62,
      "n_unknown_mw": 47
     },
     "from_status": {
@@ -16078,17 +16078,17 @@
      "Solar Photovoltaics": {
       "all": {
        "n": 703,
-       "mw": 7827.265,
+       "mw": 7827.32,
        "n_unknown_mw": 62
       },
       "transition": {
        "n": 320,
-       "mw": 7143.338,
+       "mw": 7143.37,
        "n_unknown_mw": 32
       },
       "new_record": {
        "n": 383,
-       "mw": 683.927,
+       "mw": 683.95,
        "n_unknown_mw": 30
       },
       "from_status": {
@@ -16994,12 +16994,12 @@
      "Wind Onshore": {
       "all": {
        "n": 75,
-       "mw": 775.205,
+       "mw": 775.24,
        "n_unknown_mw": 10
       },
       "transition": {
        "n": 55,
-       "mw": 747.295,
+       "mw": 747.33,
        "n_unknown_mw": 5
       },
       "new_record": {
@@ -17157,12 +17157,12 @@
    "under_construction": {
     "all": {
      "n": 90,
-     "mw": 11572.566,
+     "mw": 11572.57,
      "n_unknown_mw": 13
     },
     "transition": {
      "n": 79,
-     "mw": 11423.026,
+     "mw": 11423.03,
      "n_unknown_mw": 9
     },
     "new_record": {
@@ -17681,12 +17681,12 @@
      "Solar Photovoltaics": {
       "all": {
        "n": 46,
-       "mw": 1376.966,
+       "mw": 1376.97,
        "n_unknown_mw": 6
       },
       "transition": {
        "n": 38,
-       "mw": 1306.926,
+       "mw": 1306.93,
        "n_unknown_mw": 3
       },
       "new_record": {
@@ -17954,12 +17954,12 @@
    "operational": {
     "all": {
      "n": 105,
-     "mw": 4801.854,
+     "mw": 4801.86,
      "n_unknown_mw": 10
     },
     "transition": {
      "n": 89,
-     "mw": 4536.814,
+     "mw": 4536.82,
      "n_unknown_mw": 9
     },
     "new_record": {
@@ -18478,12 +18478,12 @@
      "Solar Photovoltaics": {
       "all": {
        "n": 36,
-       "mw": 604.414,
+       "mw": 604.42,
        "n_unknown_mw": 3
       },
       "transition": {
        "n": 32,
-       "mw": 601.874,
+       "mw": 601.88,
        "n_unknown_mw": 3
       },
       "new_record": {
@@ -18746,12 +18746,12 @@
    "refused": {
     "all": {
      "n": 124,
-     "mw": 4567.877,
+     "mw": 4567.87,
      "n_unknown_mw": 17
     },
     "transition": {
      "n": 87,
-     "mw": 3864.007,
+     "mw": 3864.0,
      "n_unknown_mw": 13
     },
     "new_record": {
@@ -19223,12 +19223,12 @@
      "Solar Photovoltaics": {
       "all": {
        "n": 48,
-       "mw": 968.547,
+       "mw": 968.54,
        "n_unknown_mw": 5
       },
       "transition": {
        "n": 34,
-       "mw": 872.807,
+       "mw": 872.8,
        "n_unknown_mw": 2
       },
       "new_record": {
@@ -19457,17 +19457,17 @@
    "withdrawn": {
     "all": {
      "n": 51,
-     "mw": 1287.624,
+     "mw": 1287.62,
      "n_unknown_mw": 13
     },
     "transition": {
      "n": 33,
-     "mw": 1015.192,
+     "mw": 1015.19,
      "n_unknown_mw": 11
     },
     "new_record": {
      "n": 18,
-     "mw": 272.432,
+     "mw": 272.43,
      "n_unknown_mw": 2
     },
     "from_status": {
@@ -19826,17 +19826,17 @@
      "Solar Photovoltaics": {
       "all": {
        "n": 16,
-       "mw": 103.424,
+       "mw": 103.42,
        "n_unknown_mw": 2
       },
       "transition": {
        "n": 10,
-       "mw": 101.692,
+       "mw": 101.69,
        "n_unknown_mw": 2
       },
       "new_record": {
        "n": 6,
-       "mw": 1.732,
+       "mw": 1.73,
        "n_unknown_mw": 0
       },
       "from_status": {
@@ -21076,6 +21076,10 @@
    "retained_changed": 60
   },
   {
+   "column": "Offshore Wind Round",
+   "retained_changed": 55
+  },
+  {
    "column": "Site Name",
    "retained_changed": 45
   },
@@ -21117,7 +21121,7 @@
   },
   {
    "column": "Planning Application Reference",
-   "retained_changed": 11
+   "retained_changed": 10
   },
   {
    "column": "Storage Co-location REPD Ref ID",
@@ -21173,10 +21177,6 @@
   },
   {
    "column": "Judicial Review",
-   "retained_changed": 0
-  },
-  {
-   "column": "Offshore Wind Round",
    "retained_changed": 0
   },
   {
@@ -23595,7 +23595,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 25.0,
-    "new_mw": 24.995,
+    "new_mw": 25.0,
     "rank_mw": 25.0,
     "country": "England"
    },
@@ -24807,8 +24807,8 @@
     "previous_status": "Awaiting Construction",
     "new_status": "Under Construction",
     "previous_mw": 4.41,
-    "new_mw": 4.412,
-    "rank_mw": 4.412,
+    "new_mw": 4.41,
+    "rank_mw": 4.41,
     "country": "England"
    },
    {
@@ -24903,7 +24903,7 @@
     "previous_status": "Awaiting Construction",
     "new_status": "Under Construction",
     "previous_mw": 3.25,
-    "new_mw": 3.249,
+    "new_mw": 3.25,
     "rank_mw": 3.25,
     "country": "England"
    },
@@ -25287,7 +25287,7 @@
     "previous_status": "Awaiting Construction",
     "new_status": "Operational",
     "previous_mw": 1.64,
-    "new_mw": 1.638,
+    "new_mw": 1.64,
     "rank_mw": 1.64,
     "country": "Scotland"
    },
@@ -25335,7 +25335,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 1.59,
-    "new_mw": 1.588,
+    "new_mw": 1.59,
     "rank_mw": 1.59,
     "country": "England"
    },
@@ -25767,8 +25767,8 @@
     "previous_status": "Awaiting Construction",
     "new_status": "Under Construction",
     "previous_mw": 1.05,
-    "new_mw": 1.053,
-    "rank_mw": 1.053,
+    "new_mw": 1.05,
+    "rank_mw": 1.05,
     "country": "England"
    },
    {
@@ -25940,6 +25940,18 @@
     "country": "England"
    },
    {
+    "ref": "15582",
+    "movement": "added",
+    "site": "Acomb Village, Acomb - Solar Panels",
+    "operator": "Acomb Community Solar Group",
+    "previous_status": null,
+    "new_status": "Awaiting Construction",
+    "previous_mw": null,
+    "new_mw": 0.99,
+    "rank_mw": 0.99,
+    "country": "England"
+   },
+   {
     "ref": "16439",
     "movement": "removed",
     "site": "Acomb Village, Acomb - Solar Panels",
@@ -25976,18 +25988,6 @@
     "country": "England"
    },
    {
-    "ref": "15582",
-    "movement": "added",
-    "site": "Acomb Village, Acomb - Solar Panels",
-    "operator": "Acomb Community Solar Group",
-    "previous_status": null,
-    "new_status": "Awaiting Construction",
-    "previous_mw": null,
-    "new_mw": 0.985,
-    "rank_mw": 0.985,
-    "country": "England"
-   },
-   {
     "ref": "20109",
     "movement": "status",
     "site": "Knights Farm West - Waste Vehicle Depot & Solar Farm",
@@ -25995,7 +25995,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.97,
-    "new_mw": 0.967,
+    "new_mw": 0.97,
     "rank_mw": 0.97,
     "country": "England"
    },
@@ -26055,20 +26055,8 @@
     "previous_status": "Application Submitted",
     "new_status": "Revised",
     "previous_mw": 0.94,
-    "new_mw": 0.941,
-    "rank_mw": 0.941,
-    "country": "England"
-   },
-   {
-    "ref": "20378",
-    "movement": "added",
-    "site": "Jack Lane - Solar Panels",
-    "operator": "Solarel UKRSF1 Projectco 1 Limited",
-    "previous_status": null,
-    "new_status": "Awaiting Construction",
-    "previous_mw": null,
-    "new_mw": 0.941,
-    "rank_mw": 0.941,
+    "new_mw": 0.94,
+    "rank_mw": 0.94,
     "country": "England"
    },
    {
@@ -26079,6 +26067,18 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.94,
+    "new_mw": 0.94,
+    "rank_mw": 0.94,
+    "country": "England"
+   },
+   {
+    "ref": "20378",
+    "movement": "added",
+    "site": "Jack Lane - Solar Panels",
+    "operator": "Solarel UKRSF1 Projectco 1 Limited",
+    "previous_status": null,
+    "new_status": "Awaiting Construction",
+    "previous_mw": null,
     "new_mw": 0.94,
     "rank_mw": 0.94,
     "country": "England"
@@ -26127,7 +26127,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Revised",
     "previous_mw": 0.93,
-    "new_mw": 0.927,
+    "new_mw": 0.93,
     "rank_mw": 0.93,
     "country": "England"
    },
@@ -26199,8 +26199,8 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.87,
-    "new_mw": 0.875,
-    "rank_mw": 0.875,
+    "new_mw": 0.87,
+    "rank_mw": 0.87,
     "country": "England"
    },
    {
@@ -26223,7 +26223,7 @@
     "previous_status": "Under Construction",
     "new_status": "Operational",
     "previous_mw": 0.86,
-    "new_mw": 0.859,
+    "new_mw": 0.86,
     "rank_mw": 0.86,
     "country": "Scotland"
    },
@@ -26235,7 +26235,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.86,
-    "new_mw": 0.859,
+    "new_mw": 0.86,
     "rank_mw": 0.86,
     "country": "Wales"
    },
@@ -26283,7 +26283,7 @@
     "previous_status": "Awaiting Construction",
     "new_status": "Operational",
     "previous_mw": 0.82,
-    "new_mw": 0.818,
+    "new_mw": 0.82,
     "rank_mw": 0.82,
     "country": "Scotland"
    },
@@ -26511,8 +26511,8 @@
     "previous_status": null,
     "new_status": "Awaiting Construction",
     "previous_mw": null,
-    "new_mw": 0.715,
-    "rank_mw": 0.715,
+    "new_mw": 0.72,
+    "rank_mw": 0.72,
     "country": "Scotland"
    },
    {
@@ -26643,8 +26643,8 @@
     "previous_status": "Application Submitted",
     "new_status": "Application Refused",
     "previous_mw": 0.67,
-    "new_mw": 0.672,
-    "rank_mw": 0.672,
+    "new_mw": 0.67,
+    "rank_mw": 0.67,
     "country": "England"
    },
    {
@@ -26715,8 +26715,8 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.65,
-    "new_mw": 0.654,
-    "rank_mw": 0.654,
+    "new_mw": 0.65,
+    "rank_mw": 0.65,
     "country": "England"
    },
    {
@@ -26864,18 +26864,6 @@
     "country": "England"
    },
    {
-    "ref": "17684",
-    "movement": "status",
-    "site": "Wonderbank, Brymbo Road - Solar Panels",
-    "operator": "Brymbo Developments Limited",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.58,
-    "new_mw": 0.584,
-    "rank_mw": 0.584,
-    "country": "Wales"
-   },
-   {
     "ref": "17566",
     "movement": "status",
     "site": "Vandemoortele Worcester - Solar Farm",
@@ -26883,9 +26871,21 @@
     "previous_status": "Application Submitted",
     "new_status": "Application Withdrawn",
     "previous_mw": 0.58,
-    "new_mw": 0.582,
-    "rank_mw": 0.582,
+    "new_mw": 0.58,
+    "rank_mw": 0.58,
     "country": "England"
+   },
+   {
+    "ref": "17684",
+    "movement": "status",
+    "site": "Wonderbank, Brymbo Road - Solar Panels",
+    "operator": "Brymbo Developments Limited",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.58,
+    "new_mw": 0.58,
+    "rank_mw": 0.58,
+    "country": "Wales"
    },
    {
     "ref": "19986",
@@ -26895,7 +26895,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.58,
-    "new_mw": 0.575,
+    "new_mw": 0.58,
     "rank_mw": 0.58,
     "country": "England"
    },
@@ -26955,8 +26955,8 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.57,
-    "new_mw": 0.571,
-    "rank_mw": 0.571,
+    "new_mw": 0.57,
+    "rank_mw": 0.57,
     "country": "Scotland"
    },
    {
@@ -26972,18 +26972,6 @@
     "country": "England"
    },
    {
-    "ref": "19984",
-    "movement": "status",
-    "site": "Sainsburys Supermarket - Solar Panels",
-    "operator": "Sainsburys Supermarkets Limited",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.56,
-    "new_mw": 0.563,
-    "rank_mw": 0.563,
-    "country": "England"
-   },
-   {
     "ref": "19856",
     "movement": "status",
     "site": "St Hilds C Of E School, King Oswy Drive - Solar Panels",
@@ -26991,7 +26979,19 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.56,
-    "new_mw": 0.555,
+    "new_mw": 0.56,
+    "rank_mw": 0.56,
+    "country": "England"
+   },
+   {
+    "ref": "19984",
+    "movement": "status",
+    "site": "Sainsburys Supermarket - Solar Panels",
+    "operator": "Sainsburys Supermarkets Limited",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.56,
+    "new_mw": 0.56,
     "rank_mw": 0.56,
     "country": "England"
    },
@@ -27159,8 +27159,8 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.52,
-    "new_mw": 0.522,
-    "rank_mw": 0.522,
+    "new_mw": 0.52,
+    "rank_mw": 0.52,
     "country": "England"
    },
    {
@@ -27171,7 +27171,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.52,
-    "new_mw": 0.518,
+    "new_mw": 0.52,
     "rank_mw": 0.52,
     "country": "England"
    },
@@ -27207,7 +27207,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.51,
-    "new_mw": 0.508,
+    "new_mw": 0.51,
     "rank_mw": 0.51,
     "country": "England"
    },
@@ -27231,8 +27231,8 @@
     "previous_status": null,
     "new_status": "Application Submitted",
     "previous_mw": null,
-    "new_mw": 0.509,
-    "rank_mw": 0.509,
+    "new_mw": 0.51,
+    "rank_mw": 0.51,
     "country": "England"
    },
    {
@@ -27339,8 +27339,8 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.48,
-    "new_mw": 0.481,
-    "rank_mw": 0.481,
+    "new_mw": 0.48,
+    "rank_mw": 0.48,
     "country": "England"
    },
    {
@@ -27447,8 +27447,8 @@
     "previous_status": "Application Submitted",
     "new_status": "Application Refused",
     "previous_mw": 0.46,
-    "new_mw": 0.465,
-    "rank_mw": 0.465,
+    "new_mw": 0.46,
+    "rank_mw": 0.46,
     "country": "England"
    },
    {
@@ -27459,7 +27459,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.46,
-    "new_mw": 0.455,
+    "new_mw": 0.46,
     "rank_mw": 0.46,
     "country": "England"
    },
@@ -27471,7 +27471,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.46,
-    "new_mw": 0.455,
+    "new_mw": 0.46,
     "rank_mw": 0.46,
     "country": "England"
    },
@@ -27591,8 +27591,8 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.45,
-    "new_mw": 0.451,
-    "rank_mw": 0.451,
+    "new_mw": 0.45,
+    "rank_mw": 0.45,
     "country": "England"
    },
    {
@@ -27615,7 +27615,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.45,
-    "new_mw": 0.446,
+    "new_mw": 0.45,
     "rank_mw": 0.45,
     "country": "England"
    },
@@ -27663,7 +27663,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.44,
-    "new_mw": 0.439,
+    "new_mw": 0.44,
     "rank_mw": 0.44,
     "country": "England"
    },
@@ -27800,18 +27800,6 @@
     "country": "Wales"
    },
    {
-    "ref": "20070",
-    "movement": "status",
-    "site": "Malton Golf Club, Malton Road - Solar Panels",
-    "operator": "Rand Brothers",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.41,
-    "new_mw": 0.413,
-    "rank_mw": 0.413,
-    "country": "England"
-   },
-   {
     "ref": "19741",
     "movement": "status",
     "site": "Garthbwt, Clatter - Solar Arrays",
@@ -27843,9 +27831,21 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.41,
-    "new_mw": 0.407,
+    "new_mw": 0.41,
     "rank_mw": 0.41,
     "country": "Scotland"
+   },
+   {
+    "ref": "20070",
+    "movement": "status",
+    "site": "Malton Golf Club, Malton Road - Solar Panels",
+    "operator": "Rand Brothers",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.41,
+    "new_mw": 0.41,
+    "rank_mw": 0.41,
+    "country": "England"
    },
    {
     "ref": "20095",
@@ -27855,7 +27855,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.41,
-    "new_mw": 0.409,
+    "new_mw": 0.41,
     "rank_mw": 0.41,
     "country": "Wales"
    },
@@ -27927,7 +27927,7 @@
     "previous_status": "Application Refused",
     "new_status": "Revised",
     "previous_mw": 0.4,
-    "new_mw": 0.396,
+    "new_mw": 0.4,
     "rank_mw": 0.4,
     "country": "England"
    },
@@ -27951,7 +27951,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.4,
-    "new_mw": 0.398,
+    "new_mw": 0.4,
     "rank_mw": 0.4,
     "country": "England"
    },
@@ -28020,6 +28020,18 @@
     "movement": "added",
     "site": "Rasher House, Catfoss Lane - Solar Panels",
     "operator": "Newlay Asphalt Limited",
+    "previous_status": null,
+    "new_status": "Awaiting Construction",
+    "previous_mw": null,
+    "new_mw": 0.4,
+    "rank_mw": 0.4,
+    "country": "England"
+   },
+   {
+    "ref": "20834",
+    "movement": "added",
+    "site": "Bestway Cash and Carry, Abbey Road - Solar Panels",
+    "operator": "GL Electrical (WM) Limited",
     "previous_status": null,
     "new_status": "Awaiting Construction",
     "previous_mw": null,
@@ -28100,18 +28112,6 @@
     "country": "England"
    },
    {
-    "ref": "20834",
-    "movement": "added",
-    "site": "Bestway Cash and Carry, Abbey Road - Solar Panels",
-    "operator": "GL Electrical (WM) Limited",
-    "previous_status": null,
-    "new_status": "Awaiting Construction",
-    "previous_mw": null,
-    "new_mw": 0.396,
-    "rank_mw": 0.396,
-    "country": "England"
-   },
-   {
     "ref": "19823",
     "movement": "status",
     "site": "Unit A, Concorde Way - Solar Panels",
@@ -28119,8 +28119,8 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.39,
-    "new_mw": 0.391,
-    "rank_mw": 0.391,
+    "new_mw": 0.39,
+    "rank_mw": 0.39,
     "country": "England"
    },
    {
@@ -28143,7 +28143,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.38,
-    "new_mw": 0.379,
+    "new_mw": 0.38,
     "rank_mw": 0.38,
     "country": "England"
    },
@@ -28251,8 +28251,8 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.37,
-    "new_mw": 0.371,
-    "rank_mw": 0.371,
+    "new_mw": 0.37,
+    "rank_mw": 0.37,
     "country": "England"
    },
    {
@@ -28371,7 +28371,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.36,
-    "new_mw": 0.357,
+    "new_mw": 0.36,
     "rank_mw": 0.36,
     "country": "England"
    },
@@ -28443,8 +28443,8 @@
     "previous_status": "Application Refused",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.35,
-    "new_mw": 0.354,
-    "rank_mw": 0.354,
+    "new_mw": 0.35,
+    "rank_mw": 0.35,
     "country": "England"
    },
    {
@@ -28479,7 +28479,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.35,
-    "new_mw": 0.348,
+    "new_mw": 0.35,
     "rank_mw": 0.35,
     "country": "England"
    },
@@ -28652,18 +28652,6 @@
     "country": "England"
    },
    {
-    "ref": "20042",
-    "movement": "status",
-    "site": "Scottish Water Challenger Estate - Ground Monted Solar Panels",
-    "operator": "Scottish Water Head Office",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.33,
-    "new_mw": 0.332,
-    "rank_mw": 0.332,
-    "country": "Scotland"
-   },
-   {
     "ref": "19524",
     "movement": "status",
     "site": "Lossie Seafoods, Sir William Smith Road - Solar PV Panels",
@@ -28671,7 +28659,7 @@
     "previous_status": "Awaiting Construction",
     "new_status": "Operational",
     "previous_mw": 0.33,
-    "new_mw": 0.329,
+    "new_mw": 0.33,
     "rank_mw": 0.33,
     "country": "Scotland"
    },
@@ -28698,6 +28686,18 @@
     "new_mw": 0.33,
     "rank_mw": 0.33,
     "country": "England"
+   },
+   {
+    "ref": "20042",
+    "movement": "status",
+    "site": "Scottish Water Challenger Estate - Ground Monted Solar Panels",
+    "operator": "Scottish Water Head Office",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.33,
+    "new_mw": 0.33,
+    "rank_mw": 0.33,
+    "country": "Scotland"
    },
    {
     "ref": "20269",
@@ -28839,8 +28839,8 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.32,
-    "new_mw": 0.323,
-    "rank_mw": 0.323,
+    "new_mw": 0.32,
+    "rank_mw": 0.32,
     "country": "England"
    },
    {
@@ -28887,7 +28887,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.32,
-    "new_mw": 0.315,
+    "new_mw": 0.32,
     "rank_mw": 0.32,
     "country": "England"
    },
@@ -29204,30 +29204,6 @@
     "country": "England"
    },
    {
-    "ref": "20069",
-    "movement": "status",
-    "site": "Showroom Meridian East, Meridian Business Park - Solar Panels",
-    "operator": "Sytner Group Limited",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.3,
-    "new_mw": 0.304,
-    "rank_mw": 0.304,
-    "country": "England"
-   },
-   {
-    "ref": "20080",
-    "movement": "status",
-    "site": "Kennet Secondary School, Stoney Lane - Solar Panels",
-    "operator": "EEnergy Group plc",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.3,
-    "new_mw": 0.302,
-    "rank_mw": 0.302,
-    "country": "England"
-   },
-   {
     "ref": "19874",
     "movement": "status",
     "site": "Lutterworth Grammar School, Bitteswell Road - Solar PV System",
@@ -29256,6 +29232,30 @@
     "movement": "status",
     "site": "Withernsea High School, Hull Road - Solar Panels",
     "operator": "Withernsea High School",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.3,
+    "new_mw": 0.3,
+    "rank_mw": 0.3,
+    "country": "England"
+   },
+   {
+    "ref": "20069",
+    "movement": "status",
+    "site": "Showroom Meridian East, Meridian Business Park - Solar Panels",
+    "operator": "Sytner Group Limited",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.3,
+    "new_mw": 0.3,
+    "rank_mw": 0.3,
+    "country": "England"
+   },
+   {
+    "ref": "20080",
+    "movement": "status",
+    "site": "Kennet Secondary School, Stoney Lane - Solar Panels",
+    "operator": "EEnergy Group plc",
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.3,
@@ -29372,18 +29372,6 @@
     "country": "England"
    },
    {
-    "ref": "19981",
-    "movement": "status",
-    "site": "East Kent College, Ramsgate Road - Solar Panels",
-    "operator": "Kent Community Energy Limited",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.29,
-    "new_mw": 0.293,
-    "rank_mw": 0.293,
-    "country": "England"
-   },
-   {
     "ref": "19852",
     "movement": "status",
     "site": "George eliot high school, Raveloe Drive - Solar Panels",
@@ -29391,7 +29379,19 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.29,
-    "new_mw": 0.287,
+    "new_mw": 0.29,
+    "rank_mw": 0.29,
+    "country": "England"
+   },
+   {
+    "ref": "19981",
+    "movement": "status",
+    "site": "East Kent College, Ramsgate Road - Solar Panels",
+    "operator": "Kent Community Energy Limited",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.29,
+    "new_mw": 0.29,
     "rank_mw": 0.29,
     "country": "England"
    },
@@ -29504,6 +29504,18 @@
     "country": "England"
    },
    {
+    "ref": "19533",
+    "movement": "status",
+    "site": "Freshfield Lane Brickworks, Freshfield Lane - Solar Panels",
+    "operator": "Northern Storage & Interiors Limited t/a NSI Projects",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.28,
+    "new_mw": 0.28,
+    "rank_mw": 0.28,
+    "country": "England"
+   },
+   {
     "ref": "19670",
     "movement": "status",
     "site": "York House School, Sarratt Road - Solar Panels",
@@ -29511,8 +29523,8 @@
     "previous_status": "Application Withdrawn",
     "new_status": "Revised",
     "previous_mw": 0.28,
-    "new_mw": 0.283,
-    "rank_mw": 0.283,
+    "new_mw": 0.28,
+    "rank_mw": 0.28,
     "country": "England"
    },
    {
@@ -29520,18 +29532,6 @@
     "movement": "status",
     "site": "Heatherwood Hospital, Brook Avenue - Solar Panels",
     "operator": "Frimley Health NHS Foundation Trust",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.28,
-    "new_mw": 0.283,
-    "rank_mw": 0.283,
-    "country": "England"
-   },
-   {
-    "ref": "19533",
-    "movement": "status",
-    "site": "Freshfield Lane Brickworks, Freshfield Lane - Solar Panels",
-    "operator": "Northern Storage & Interiors Limited t/a NSI Projects",
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.28,
@@ -29547,7 +29547,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.28,
-    "new_mw": 0.276,
+    "new_mw": 0.28,
     "rank_mw": 0.28,
     "country": "England"
    },
@@ -29679,8 +29679,20 @@
     "previous_status": "Awaiting Construction",
     "new_status": "Revised",
     "previous_mw": 0.27,
-    "new_mw": 0.274,
-    "rank_mw": 0.274,
+    "new_mw": 0.27,
+    "rank_mw": 0.27,
+    "country": "England"
+   },
+   {
+    "ref": "19669",
+    "movement": "status",
+    "site": "Dale Hill Hotel & Golf Club, Dale Hill - Ground Mounted Solar Panels",
+    "operator": "Dale Hill Hotel & Golf Club",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.27,
+    "new_mw": 0.27,
+    "rank_mw": 0.27,
     "country": "England"
    },
    {
@@ -29691,8 +29703,8 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.27,
-    "new_mw": 0.272,
-    "rank_mw": 0.272,
+    "new_mw": 0.27,
+    "rank_mw": 0.27,
     "country": "England"
    },
    {
@@ -29700,18 +29712,6 @@
     "movement": "status",
     "site": "Sand Le Mere Holiday Village, Southfield Lane - Solar Panels",
     "operator": "Park Holidays UK Limited",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.27,
-    "new_mw": 0.271,
-    "rank_mw": 0.271,
-    "country": "England"
-   },
-   {
-    "ref": "19669",
-    "movement": "status",
-    "site": "Dale Hill Hotel & Golf Club, Dale Hill - Ground Mounted Solar Panels",
-    "operator": "Dale Hill Hotel & Golf Club",
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.27,
@@ -29792,18 +29792,6 @@
     "country": "England"
    },
    {
-    "ref": "20130",
-    "movement": "status",
-    "site": "Sainsburys Supermarkets - Solar Panels",
-    "operator": "Sainsburys Supermarkets Limited",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.26,
-    "new_mw": 0.262,
-    "rank_mw": 0.262,
-    "country": "England"
-   },
-   {
     "ref": "16330",
     "movement": "status",
     "site": "Robert Jones and Agnes Hunt Orthopaedic Hospital, Gobowen - Solar Panels",
@@ -29823,7 +29811,7 @@
     "previous_status": "Application Refused",
     "new_status": "Revised",
     "previous_mw": 0.26,
-    "new_mw": 0.259,
+    "new_mw": 0.26,
     "rank_mw": 0.26,
     "country": "England"
    },
@@ -29832,6 +29820,18 @@
     "movement": "status",
     "site": "Premier Paper, Midpoint Park - Solar Panels",
     "operator": "Premier Paper",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.26,
+    "new_mw": 0.26,
+    "rank_mw": 0.26,
+    "country": "England"
+   },
+   {
+    "ref": "20130",
+    "movement": "status",
+    "site": "Sainsburys Supermarkets - Solar Panels",
+    "operator": "Sainsburys Supermarkets Limited",
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.26,
@@ -29912,6 +29912,18 @@
     "country": "England"
    },
    {
+    "ref": "21248",
+    "movement": "added",
+    "site": "Balfour Beatty Rail Plant, Old Railway Works - Solar PV",
+    "operator": "Balfour Beatty Group Limited Head Office",
+    "previous_status": null,
+    "new_status": "Application Submitted",
+    "previous_mw": null,
+    "new_mw": 0.26,
+    "rank_mw": 0.26,
+    "country": "England"
+   },
+   {
     "ref": "21282",
     "movement": "added",
     "site": "Bridgewater High Lower School, Hall Drive - Solar Panels",
@@ -29936,54 +29948,6 @@
     "country": "England"
    },
    {
-    "ref": "21248",
-    "movement": "added",
-    "site": "Balfour Beatty Rail Plant, Old Railway Works - Solar PV",
-    "operator": "Balfour Beatty Group Limited Head Office",
-    "previous_status": null,
-    "new_status": "Application Submitted",
-    "previous_mw": null,
-    "new_mw": 0.259,
-    "rank_mw": 0.259,
-    "country": "England"
-   },
-   {
-    "ref": "19281",
-    "movement": "status",
-    "site": "Trans Continental Marketing Limited, Regs Way - Solar Panels",
-    "operator": "Trans Continental Marketing",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.25,
-    "new_mw": 0.252,
-    "rank_mw": 0.252,
-    "country": "England"
-   },
-   {
-    "ref": "20099",
-    "movement": "status",
-    "site": "Selby War Memorial Hospital, Doncaster Road - Solar Panels",
-    "operator": "Selby War Memorial Hospital",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.25,
-    "new_mw": 0.252,
-    "rank_mw": 0.252,
-    "country": "England"
-   },
-   {
-    "ref": "20097",
-    "movement": "status",
-    "site": "Tesco Superstore, Tidal Reach - Solar PV Array",
-    "operator": "Tesco Plc",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.25,
-    "new_mw": 0.251,
-    "rank_mw": 0.251,
-    "country": "Wales"
-   },
-   {
     "ref": "12764",
     "movement": "status",
     "site": "Kneller Hall School",
@@ -29991,7 +29955,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Under Construction",
     "previous_mw": 0.25,
-    "new_mw": 0.246,
+    "new_mw": 0.25,
     "rank_mw": 0.25,
     "country": "England"
    },
@@ -30000,6 +29964,18 @@
     "movement": "status",
     "site": "Cranhouse, Eriswell - Solar Panels",
     "operator": "Elveden Farms Limited",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.25,
+    "new_mw": 0.25,
+    "rank_mw": 0.25,
+    "country": "England"
+   },
+   {
+    "ref": "19281",
+    "movement": "status",
+    "site": "Trans Continental Marketing Limited, Regs Way - Solar Panels",
+    "operator": "Trans Continental Marketing",
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.25,
@@ -30024,6 +30000,30 @@
     "movement": "status",
     "site": "Spring Grove House, Milverton Road - Solar Panels",
     "operator": "Spring Grove House",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.25,
+    "new_mw": 0.25,
+    "rank_mw": 0.25,
+    "country": "England"
+   },
+   {
+    "ref": "20097",
+    "movement": "status",
+    "site": "Tesco Superstore, Tidal Reach - Solar PV Array",
+    "operator": "Tesco Plc",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.25,
+    "new_mw": 0.25,
+    "rank_mw": 0.25,
+    "country": "Wales"
+   },
+   {
+    "ref": "20099",
+    "movement": "status",
+    "site": "Selby War Memorial Hospital, Doncaster Road - Solar Panels",
+    "operator": "Selby War Memorial Hospital",
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.25,
@@ -30212,18 +30212,6 @@
     "country": "England"
    },
    {
-    "ref": "19846",
-    "movement": "status",
-    "site": "The Vale Academy, Atherton Way - Solar Panels",
-    "operator": "Delta Academies Trust",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.24,
-    "new_mw": 0.245,
-    "rank_mw": 0.245,
-    "country": "England"
-   },
-   {
     "ref": "18589",
     "movement": "status",
     "site": "Fircone Farm, Church Road - 249KW Solar Panels",
@@ -30240,6 +30228,18 @@
     "movement": "status",
     "site": "Aston End - Ground Mounted Solar Panels",
     "operator": "Myriad Heat & Power Products Limited",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.24,
+    "new_mw": 0.24,
+    "rank_mw": 0.24,
+    "country": "England"
+   },
+   {
+    "ref": "19846",
+    "movement": "status",
+    "site": "The Vale Academy, Atherton Way - Solar Panels",
+    "operator": "Delta Academies Trust",
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.24,
@@ -30452,18 +30452,6 @@
     "country": "England"
    },
    {
-    "ref": "20077",
-    "movement": "status",
-    "site": "Kingsbury High School, Tamworth Road -Solar Panels",
-    "operator": "EEnergy Group plc",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.23,
-    "new_mw": 0.233,
-    "rank_mw": 0.233,
-    "country": "England"
-   },
-   {
     "ref": "15489",
     "movement": "status",
     "site": "Brentford Works, Great West Road - Masterplan",
@@ -30471,8 +30459,8 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.23,
-    "new_mw": 0.232,
-    "rank_mw": 0.232,
+    "new_mw": 0.23,
+    "rank_mw": 0.23,
     "country": "England"
    },
    {
@@ -30483,7 +30471,19 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.23,
-    "new_mw": 0.229,
+    "new_mw": 0.23,
+    "rank_mw": 0.23,
+    "country": "England"
+   },
+   {
+    "ref": "20077",
+    "movement": "status",
+    "site": "Kingsbury High School, Tamworth Road -Solar Panels",
+    "operator": "EEnergy Group plc",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.23,
+    "new_mw": 0.23,
     "rank_mw": 0.23,
     "country": "England"
    },
@@ -30644,42 +30644,6 @@
     "country": "England"
    },
    {
-    "ref": "19865",
-    "movement": "status",
-    "site": "Whiston Hospital, Warrington Road - Solar Panels",
-    "operator": "ESOS ENERGY",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.22,
-    "new_mw": 0.224,
-    "rank_mw": 0.224,
-    "country": "England"
-   },
-   {
-    "ref": "19967",
-    "movement": "status",
-    "site": "Dudley College, The Broadway - Solar Panels",
-    "operator": "Energy Group plc",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.22,
-    "new_mw": 0.223,
-    "rank_mw": 0.223,
-    "country": "England"
-   },
-   {
-    "ref": "20113",
-    "movement": "status",
-    "site": "McLaren Leisure Centre - Solar Panels",
-    "operator": "McLaren Community Leisure Centre",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.22,
-    "new_mw": 0.222,
-    "rank_mw": 0.222,
-    "country": "Scotland"
-   },
-   {
     "ref": "18579",
     "movement": "status",
     "site": "International Trading Estate, Trident Way - Data Centre",
@@ -30687,7 +30651,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.22,
-    "new_mw": 0.216,
+    "new_mw": 0.22,
     "rank_mw": 0.22,
     "country": "England"
    },
@@ -30696,6 +30660,18 @@
     "movement": "status",
     "site": "Quotient Bioresearch Limited, Newmarket Road - Solar Panels",
     "operator": "East Cambridgeshire",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.22,
+    "new_mw": 0.22,
+    "rank_mw": 0.22,
+    "country": "England"
+   },
+   {
+    "ref": "19865",
+    "movement": "status",
+    "site": "Whiston Hospital, Warrington Road - Solar Panels",
+    "operator": "ESOS ENERGY",
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.22,
@@ -30716,6 +30692,18 @@
     "country": "England"
    },
    {
+    "ref": "19967",
+    "movement": "status",
+    "site": "Dudley College, The Broadway - Solar Panels",
+    "operator": "Energy Group plc",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.22,
+    "new_mw": 0.22,
+    "rank_mw": 0.22,
+    "country": "England"
+   },
+   {
     "ref": "19988",
     "movement": "status",
     "site": "Trinity Academy Leeds, Torre Road - Solar Panels",
@@ -30723,7 +30711,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.22,
-    "new_mw": 0.218,
+    "new_mw": 0.22,
     "rank_mw": 0.22,
     "country": "England"
    },
@@ -30738,6 +30726,18 @@
     "new_mw": 0.22,
     "rank_mw": 0.22,
     "country": "England"
+   },
+   {
+    "ref": "20113",
+    "movement": "status",
+    "site": "McLaren Leisure Centre - Solar Panels",
+    "operator": "McLaren Community Leisure Centre",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.22,
+    "new_mw": 0.22,
+    "rank_mw": 0.22,
+    "country": "Scotland"
    },
    {
     "ref": "20521",
@@ -30848,30 +30848,6 @@
     "country": "England"
    },
    {
-    "ref": "19870",
-    "movement": "status",
-    "site": "Tesco Stores, Marshall Road - Solar Panels",
-    "operator": "EDF Energy Renewables",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.21,
-    "new_mw": 0.212,
-    "rank_mw": 0.212,
-    "country": "England"
-   },
-   {
-    "ref": "20106",
-    "movement": "status",
-    "site": "Darlington Memorial Hospital, Hollyhurst Road - Solar Panels",
-    "operator": "County Durham & Darlington NHS Foundation Trust",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.21,
-    "new_mw": 0.211,
-    "rank_mw": 0.211,
-    "country": "England"
-   },
-   {
     "ref": "19180",
     "movement": "status",
     "site": "Robert Jones And Agnes Hunt Orthopaedic Hospital, Gobowen - Solar Panels",
@@ -30908,6 +30884,18 @@
     "country": "England"
    },
    {
+    "ref": "19870",
+    "movement": "status",
+    "site": "Tesco Stores, Marshall Road - Solar Panels",
+    "operator": "EDF Energy Renewables",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.21,
+    "new_mw": 0.21,
+    "rank_mw": 0.21,
+    "country": "England"
+   },
+   {
     "ref": "19933",
     "movement": "status",
     "site": "David Lloyd Leisure, Whittle Way - Solar Panels",
@@ -30927,7 +30915,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.21,
-    "new_mw": 0.207,
+    "new_mw": 0.21,
     "rank_mw": 0.21,
     "country": "England"
    },
@@ -30939,7 +30927,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.21,
-    "new_mw": 0.206,
+    "new_mw": 0.21,
     "rank_mw": 0.21,
     "country": "England"
    },
@@ -30951,7 +30939,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.21,
-    "new_mw": 0.205,
+    "new_mw": 0.21,
     "rank_mw": 0.21,
     "country": "England"
    },
@@ -30975,7 +30963,19 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.21,
-    "new_mw": 0.208,
+    "new_mw": 0.21,
+    "rank_mw": 0.21,
+    "country": "England"
+   },
+   {
+    "ref": "20106",
+    "movement": "status",
+    "site": "Darlington Memorial Hospital, Hollyhurst Road - Solar Panels",
+    "operator": "County Durham & Darlington NHS Foundation Trust",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.21,
+    "new_mw": 0.21,
     "rank_mw": 0.21,
     "country": "England"
    },
@@ -31184,6 +31184,18 @@
     "country": "England"
    },
    {
+    "ref": "19760",
+    "movement": "status",
+    "site": "Westoe Crown Primary School, Sea Winnings Way - Solar Panels",
+    "operator": "Westoe Crown Primary School",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.2,
+    "new_mw": 0.2,
+    "rank_mw": 0.2,
+    "country": "England"
+   },
+   {
     "ref": "20040",
     "movement": "status",
     "site": "Washington Primary Care Centre, Parkway - Solar Panels",
@@ -31191,8 +31203,8 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.2,
-    "new_mw": 0.204,
-    "rank_mw": 0.204,
+    "new_mw": 0.2,
+    "rank_mw": 0.2,
     "country": "England"
    },
    {
@@ -31200,18 +31212,6 @@
     "movement": "status",
     "site": "Lansing Linde Creighton Limited, Dartmouth Road - Solar Panels",
     "operator": "Lansing Linde Creighton Limited",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.2,
-    "new_mw": 0.201,
-    "rank_mw": 0.201,
-    "country": "England"
-   },
-   {
-    "ref": "19760",
-    "movement": "status",
-    "site": "Westoe Crown Primary School, Sea Winnings Way - Solar Panels",
-    "operator": "Westoe Crown Primary School",
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.2,
@@ -31227,7 +31227,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.2,
-    "new_mw": 0.198,
+    "new_mw": 0.2,
     "rank_mw": 0.2,
     "country": "England"
    },
@@ -31479,7 +31479,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.19,
-    "new_mw": 0.186,
+    "new_mw": 0.19,
     "rank_mw": 0.19,
     "country": "England"
    },
@@ -31491,7 +31491,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.19,
-    "new_mw": 0.189,
+    "new_mw": 0.19,
     "rank_mw": 0.19,
     "country": "England"
    },
@@ -31503,7 +31503,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.19,
-    "new_mw": 0.187,
+    "new_mw": 0.19,
     "rank_mw": 0.19,
     "country": "England"
    },
@@ -31592,6 +31592,18 @@
     "country": "Scotland"
    },
    {
+    "ref": "20729",
+    "movement": "added",
+    "site": "Chelsea And Westminster Hospital, Fulham Road - Photovoltaic Panels",
+    "operator": "Chelsea & Westminster NHS Trust",
+    "previous_status": null,
+    "new_status": "Awaiting Construction",
+    "previous_mw": null,
+    "new_mw": 0.19,
+    "rank_mw": 0.19,
+    "country": "England"
+   },
+   {
     "ref": "20906",
     "movement": "added",
     "site": "Winchester Sport And Leisure Park, Bar End Road - Solar Panels",
@@ -31676,18 +31688,6 @@
     "country": "England"
    },
    {
-    "ref": "20729",
-    "movement": "added",
-    "site": "Chelsea And Westminster Hospital, Fulham Road - Photovoltaic Panels",
-    "operator": "Chelsea & Westminster NHS Trust",
-    "previous_status": null,
-    "new_status": "Awaiting Construction",
-    "previous_mw": null,
-    "new_mw": 0.185,
-    "rank_mw": 0.185,
-    "country": "England"
-   },
-   {
     "ref": "13904",
     "movement": "status",
     "site": "University Of East London - 650 Student accommodation & Teaching and learning",
@@ -31695,7 +31695,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Under Construction",
     "previous_mw": 0.18,
-    "new_mw": 0.176,
+    "new_mw": 0.18,
     "rank_mw": 0.18,
     "country": "England"
    },
@@ -31707,7 +31707,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.18,
-    "new_mw": 0.178,
+    "new_mw": 0.18,
     "rank_mw": 0.18,
     "country": "England"
    },
@@ -31731,7 +31731,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.18,
-    "new_mw": 0.177,
+    "new_mw": 0.18,
     "rank_mw": 0.18,
     "country": "England"
    },
@@ -31743,7 +31743,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.18,
-    "new_mw": 0.177,
+    "new_mw": 0.18,
     "rank_mw": 0.18,
     "country": "England"
    },
@@ -31755,7 +31755,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.18,
-    "new_mw": 0.178,
+    "new_mw": 0.18,
     "rank_mw": 0.18,
     "country": "England"
    },
@@ -32180,18 +32180,6 @@
     "country": "England"
    },
    {
-    "ref": "20129",
-    "movement": "status",
-    "site": "Churchill Unit Oncology Royal Bolton Hospital - Solar Panels",
-    "operator": "Dalkia Energy Services Limited",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.17,
-    "new_mw": 0.173,
-    "rank_mw": 0.173,
-    "country": "England"
-   },
-   {
     "ref": "19845",
     "movement": "status",
     "site": "Coxheath County Primary School, Stockett Lane - Solar Panels",
@@ -32199,7 +32187,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.17,
-    "new_mw": 0.165,
+    "new_mw": 0.17,
     "rank_mw": 0.17,
     "country": "England"
    },
@@ -32211,7 +32199,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.17,
-    "new_mw": 0.168,
+    "new_mw": 0.17,
     "rank_mw": 0.17,
     "country": "Scotland"
    },
@@ -32235,7 +32223,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.17,
-    "new_mw": 0.167,
+    "new_mw": 0.17,
     "rank_mw": 0.17,
     "country": "England"
    },
@@ -32247,7 +32235,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.17,
-    "new_mw": 0.165,
+    "new_mw": 0.17,
     "rank_mw": 0.17,
     "country": "England"
    },
@@ -32283,7 +32271,19 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.17,
-    "new_mw": 0.166,
+    "new_mw": 0.17,
+    "rank_mw": 0.17,
+    "country": "England"
+   },
+   {
+    "ref": "20129",
+    "movement": "status",
+    "site": "Churchill Unit Oncology Royal Bolton Hospital - Solar Panels",
+    "operator": "Dalkia Energy Services Limited",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.17,
+    "new_mw": 0.17,
     "rank_mw": 0.17,
     "country": "England"
    },
@@ -32352,6 +32352,18 @@
     "movement": "added",
     "site": "Building One, Wyndyke Furlong - Solar Panels",
     "operator": "Gigaclear Plc",
+    "previous_status": null,
+    "new_status": "Awaiting Construction",
+    "previous_mw": null,
+    "new_mw": 0.17,
+    "rank_mw": 0.17,
+    "country": "England"
+   },
+   {
+    "ref": "20552",
+    "movement": "added",
+    "site": "Canons Way, City Centre - Solar Photovoltaics Equipment",
+    "operator": "Lloyds Banking Group",
     "previous_status": null,
     "new_status": "Awaiting Construction",
     "previous_mw": null,
@@ -32468,18 +32480,6 @@
     "country": "England"
    },
    {
-    "ref": "20552",
-    "movement": "added",
-    "site": "Canons Way, City Centre - Solar Photovoltaics Equipment",
-    "operator": "Lloyds Banking Group",
-    "previous_status": null,
-    "new_status": "Awaiting Construction",
-    "previous_mw": null,
-    "new_mw": 0.165,
-    "rank_mw": 0.165,
-    "country": "England"
-   },
-   {
     "ref": "18402",
     "movement": "status",
     "site": "Styal Road - Solar Panels",
@@ -32487,44 +32487,8 @@
     "previous_status": "Application Refused",
     "new_status": "Revised",
     "previous_mw": 0.16,
-    "new_mw": 0.162,
-    "rank_mw": 0.162,
-    "country": "England"
-   },
-   {
-    "ref": "19985",
-    "movement": "status",
-    "site": "Plot 3a, Emdc Arundel Avenue - Solar Panels",
-    "operator": "Ineco Energy Limited",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.16,
-    "new_mw": 0.162,
-    "rank_mw": 0.162,
-    "country": "England"
-   },
-   {
-    "ref": "20843",
-    "movement": "added",
-    "site": "Styal Road - Solar Panels",
-    "operator": "RR UK (South) Limited",
-    "previous_status": null,
-    "new_status": "Application Withdrawn",
-    "previous_mw": null,
-    "new_mw": 0.162,
-    "rank_mw": 0.162,
-    "country": "England"
-   },
-   {
-    "ref": "19853",
-    "movement": "status",
-    "site": "St Francis Of Assisi Catholic Primary School - Solar Panels",
-    "operator": "St Francis Of Assisi Catholic Primary School",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.16,
-    "new_mw": 0.161,
-    "rank_mw": 0.161,
+    "new_mw": 0.16,
+    "rank_mw": 0.16,
     "country": "England"
    },
    {
@@ -32534,6 +32498,18 @@
     "operator": "RAAFT",
     "previous_status": "Application Submitted",
     "new_status": "Application Refused",
+    "previous_mw": 0.16,
+    "new_mw": 0.16,
+    "rank_mw": 0.16,
+    "country": "England"
+   },
+   {
+    "ref": "19853",
+    "movement": "status",
+    "site": "St Francis Of Assisi Catholic Primary School - Solar Panels",
+    "operator": "St Francis Of Assisi Catholic Primary School",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
     "previous_mw": 0.16,
     "new_mw": 0.16,
     "rank_mw": 0.16,
@@ -32552,6 +32528,18 @@
     "country": "England"
    },
    {
+    "ref": "19985",
+    "movement": "status",
+    "site": "Plot 3a, Emdc Arundel Avenue - Solar Panels",
+    "operator": "Ineco Energy Limited",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.16,
+    "new_mw": 0.16,
+    "rank_mw": 0.16,
+    "country": "England"
+   },
+   {
     "ref": "20019",
     "movement": "status",
     "site": "High Point Academy, Friar Park Road - Solar Panels",
@@ -32559,7 +32547,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.16,
-    "new_mw": 0.157,
+    "new_mw": 0.16,
     "rank_mw": 0.16,
     "country": "England"
    },
@@ -32571,7 +32559,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.16,
-    "new_mw": 0.158,
+    "new_mw": 0.16,
     "rank_mw": 0.16,
     "country": "England"
    },
@@ -32583,7 +32571,7 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.16,
-    "new_mw": 0.158,
+    "new_mw": 0.16,
     "rank_mw": 0.16,
     "country": "England"
    },
@@ -32780,6 +32768,18 @@
     "country": "England"
    },
    {
+    "ref": "20843",
+    "movement": "added",
+    "site": "Styal Road - Solar Panels",
+    "operator": "RR UK (South) Limited",
+    "previous_status": null,
+    "new_status": "Application Withdrawn",
+    "previous_mw": null,
+    "new_mw": 0.16,
+    "rank_mw": 0.16,
+    "country": "England"
+   },
+   {
     "ref": "20896",
     "movement": "added",
     "site": "Bankhead Crossway South - Solar Panels",
@@ -32960,27 +32960,15 @@
     "country": "England"
    },
    {
-    "ref": "19993",
+    "ref": "19787",
     "movement": "status",
-    "site": "Prince Albert High School - Solar Panels",
-    "operator": "Energy Group plc",
+    "site": "The Scout Association, Gilwell Park - Solar Panels",
+    "operator": "The Scout Association Trust Corp",
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.15,
-    "new_mw": 0.154,
-    "rank_mw": 0.154,
-    "country": "England"
-   },
-   {
-    "ref": "19998",
-    "movement": "status",
-    "site": "Wrightington Hospital, Hall Lane - Solar Panels",
-    "operator": "Dalkia Facilities",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.15,
-    "new_mw": 0.152,
-    "rank_mw": 0.152,
+    "new_mw": 0.15,
+    "rank_mw": 0.15,
     "country": "England"
    },
    {
@@ -32991,8 +32979,8 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.15,
-    "new_mw": 0.151,
-    "rank_mw": 0.151,
+    "new_mw": 0.15,
+    "rank_mw": 0.15,
     "country": "England"
    },
    {
@@ -33000,18 +32988,6 @@
     "movement": "status",
     "site": "Carshop Wakefield, Calder Island Way - Solar Panels",
     "operator": "Sytner Group Limited",
-    "previous_status": "Application Submitted",
-    "new_status": "Awaiting Construction",
-    "previous_mw": 0.15,
-    "new_mw": 0.151,
-    "rank_mw": 0.151,
-    "country": "England"
-   },
-   {
-    "ref": "19787",
-    "movement": "status",
-    "site": "The Scout Association, Gilwell Park - Solar Panels",
-    "operator": "The Scout Association Trust Corp",
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.15,
@@ -33030,6 +33006,30 @@
     "new_mw": 0.15,
     "rank_mw": 0.15,
     "country": "Scotland"
+   },
+   {
+    "ref": "19993",
+    "movement": "status",
+    "site": "Prince Albert High School - Solar Panels",
+    "operator": "Energy Group plc",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.15,
+    "new_mw": 0.15,
+    "rank_mw": 0.15,
+    "country": "England"
+   },
+   {
+    "ref": "19998",
+    "movement": "status",
+    "site": "Wrightington Hospital, Hall Lane - Solar Panels",
+    "operator": "Dalkia Facilities",
+    "previous_status": "Application Submitted",
+    "new_status": "Awaiting Construction",
+    "previous_mw": 0.15,
+    "new_mw": 0.15,
+    "rank_mw": 0.15,
+    "country": "England"
    },
    {
     "ref": "20281",

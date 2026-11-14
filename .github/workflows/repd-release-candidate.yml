@@ -106,6 +106,7 @@ jobs:
           sparse-checkout: |
             automation
             scripts
+            config
             dist
             docs
             data/repd
@@ -147,6 +148,12 @@ jobs:
           dirty="$(git status --porcelain --untracked-files=all)"
           if [[ -n "$dirty" ]]; then
             echo "::error::run.py changed the checkout:"; echo "$dirty"; exit 1
+          fi
+          # git status is blind to skip-worktree paths (everything outside the sparse cone) and to
+          # assume-unchanged files: none of them may have appeared on disk during the run.
+          hidden="$(git ls-files -v | awk '$1 ~ /^(S|[a-z])$/ {sub(/^[^ ]+ /, ""); print}' | while IFS= read -r p; do [[ -e "$p" || -L "$p" ]] && printf '%s\n' "$p"; done || true)"
+          if [[ -n "$hidden" ]]; then
+            echo "::error::files outside the sparse checkout (or assume-unchanged) exist on disk after the run:"; echo "$hidden"; exit 1
           fi
           echo "checkout clean"
 

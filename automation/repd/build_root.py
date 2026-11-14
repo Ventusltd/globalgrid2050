@@ -86,6 +86,20 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def normalise_descriptor(descriptor: dict | None) -> dict:
+    """Accept both descriptor shapes: run.py's flat dict and the committed release descriptor
+    (schema globalgrid2050.repd-release-descriptor.v1, hashes nested under "expected", the publication
+    date as "page_last_updated", the release id as "release_id"). Flat keys win; nothing is invented."""
+    d = dict(descriptor or {})
+    expected = d.get("expected") if isinstance(d.get("expected"), dict) else {}
+    for flat, nested in (("expected_csv_sha256", "csv_sha256"), ("expected_xlsx_sha256", "xlsx_sha256")):
+        if not d.get(flat) and expected.get(nested):
+            d[flat] = expected[nested]
+    if not d.get("page_last_updated") and d.get("published"):
+        d["page_last_updated"] = d["published"]
+    return d
+
+
 def solar_operational_header(official_header: list[str], legacy_file: Path | None) -> list[str]:
     """43-column header: taken from the committed legacy file when present, else derived."""
     by_norm = {_norm(column): column for column in official_header}
@@ -101,23 +115,36 @@ def solar_operational_header(official_header: list[str], legacy_file: Path | Non
 
 def build_master(canonical_csv: Path, repo_root: Path) -> dict:
     """GeoJSON via the repository's own refiner (scripts/repd_updater.py), unchanged."""
+    import os
+    import tempfile
+
     scripts = str(Path(repo_root) / "scripts")
     if scripts not in sys.path:
         sys.path.insert(0, scripts)
-    import os
+    canonical_csv = Path(canonical_csv).resolve()
     previous = os.getcwd()
-    os.chdir(repo_root)  # REPDUpdater reads config/registry.yaml relative to the repo root
-    try:
-        from repd_updater import REPDUpdater
-        return REPDUpdater().refine_dataset(str(canonical_csv))
-    finally:
-        os.chdir(previous)
+    # REPDUpdater.__init__ creates ./dist and ./data and reads config/registry.yaml relative to the
+    # working directory; refine_dataset() itself reads neither. Run it in a scratch directory so the
+    # repository is never written (not even an empty data/ directory), and pass the registry by
+    # absolute path. A checkout without config/ (the release-candidate workflow's sparse checkout)
+    # gets a stub registry instead of a SystemExit.
+    with tempfile.TemporaryDirectory(prefix="repd-build-master-") as scratch:
+        registry = Path(repo_root).resolve() / "config" / "registry.yaml"
+        if not registry.is_file():
+            registry = Path(scratch) / "registry.yaml"
+            registry.write_text("# stub: refine_dataset() does not read the registry\nlayers: []\n", encoding="utf-8")
+        os.chdir(scratch)
+        try:
+            from repd_updater import REPDUpdater
+            return REPDUpdater(registry_path=str(registry)).refine_dataset(str(canonical_csv))
+        finally:
+            os.chdir(previous)
 
 
 def build_root(canonical_csv, out_dir, repo_root=None, descriptor=None, label=None) -> dict:
     canonical_csv, out_dir = Path(canonical_csv), Path(out_dir)
     repo_root = Path(repo_root) if repo_root else Path(__file__).resolve().parents[2]
-    descriptor = descriptor or {}
+    descriptor = normalise_descriptor(descriptor)
     out_dir.mkdir(parents=True, exist_ok=True)
 
     header, rows = read_canonical(canonical_csv)
@@ -186,7 +213,7 @@ def build_root(canonical_csv, out_dir, repo_root=None, descriptor=None, label=No
         "official_record_update_field": "Record Last Updated (dd/mm/yyyy)",
         "record_count": len(rows),
         "feature_count": len(geojson["features"]),
-        "release_label": label or descriptor.get("label"),
+        "release_label": label or descriptor.get("release_id") or descriptor.get("label"),
         "status": "CANDIDATE",
     }
     manifest_path = out_dir / "dist" / "manifest_v4.json"

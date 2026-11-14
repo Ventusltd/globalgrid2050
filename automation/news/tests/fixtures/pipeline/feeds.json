@@ -34,7 +34,8 @@
    "url": "https://feeds.bbci.co.uk/news/england/oxford/rss.xml",
    "source": "BBC News",
    "uk_only": true,
-   "priority": true
+   "lane": "keywords",
+   "primary": true
   }
  ]
 }

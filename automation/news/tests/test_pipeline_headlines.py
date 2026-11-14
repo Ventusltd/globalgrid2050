@@ -295,7 +295,7 @@ def test_global_feed_needs_a_uk_word_and_foreign_headlines_are_dropped():
 
 # ---------------------------------------------------------------- BBC priority lane
 
-BBC = [{"url": "https://feeds.bbci.co.uk/news/rss.xml", "source": "BBC News", "uk_only": True, "priority": True}]
+BBC = [{"url": "https://feeds.bbci.co.uk/news/rss.xml", "source": "BBC News", "uk_only": True, "lane": "keywords", "primary": True}]
 
 
 def rss(*entries):
@@ -350,17 +350,79 @@ def test_the_same_keyword_only_headline_on_a_secondary_feed_is_not_kept():
 def test_priority_items_kept_on_their_summary_survive_later_runs():
     body = rss(("The village that fears being surrounded", "Residents say three solar farms would encircle them."))
     items, health = P.collect(BBC, lambda u: body, REPD, NOW)
-    first = P.build({}, items, health, REPD, NOW, priority_sources={"BBC News"})
-    later = P.build(first, [], [], REPD, "2026-11-15T12:00:00Z", priority_sources={"BBC News"})
+    first = P.build({}, items, health, REPD, NOW, lanes={"BBC News": "keywords"})
+    later = P.build(first, [], [], REPD, "2026-11-15T12:00:00Z", lanes={"BBC News": "keywords"})
     assert [i["title"] for i in later["items"]] == ["The village that fears being surrounded"]
     assert later["items"][0]["first_seen"] == NOW
 
 
-def test_live_feed_list_puts_bbc_first():
+def test_live_feed_list_order_is_bbc_then_solar_power_portal_then_the_rest():
     feeds = json.loads((PKG / "pipeline_feeds.json").read_text(encoding="utf-8"))["feeds"]
-    flags = [bool(f.get("priority")) for f in feeds]
-    assert flags == sorted(flags, reverse=True) and flags[0]
-    assert all("feeds.bbci.co.uk" in f["url"] for f in feeds if f.get("priority"))
+    sources = list(dict.fromkeys(f["source"] for f in feeds))
+    assert sources[:2] == ["BBC News", "Solar Power Portal"]
+    assert [f["source"] for f in feeds if f.get("primary")] == [f["source"] for f in feeds][:sum(bool(f.get("primary")) for f in feeds)]
+    assert all(f.get("lane") == "keywords" for f in feeds if "feeds.bbci.co.uk" in f["url"])
+    by_source = {}
+    for f in feeds:
+        by_source.setdefault(f["source"], set()).add(f.get("lane"))
+    assert all(len(v) == 1 for v in by_source.values())             # one lane per source label
+    assert not any("reuters" in f["url"] or "news.google" in f["url"] for f in feeds)
+
+
+# ---------------------------------------------------------------- world lanes
+
+@pytest.mark.parametrize("title, kept", [
+    ("Meta Sells $25 Billion of Bonds to Fund AI Data Centers", True),
+    ("AI Bubble Fears Hit Chipmaker Shares as Hyperscaler Capex Soars", True),
+    ("UK Government offers £180m for AI data centre – but there’s a catch", True),
+    ("Drax partners with Brookfield on £20bn-plus AI data centre plans", True),
+    ("Microsoft Opens New Data Center in Wisconsin", False),          # data centre, no money
+    ("Oil Rises as Traders Weigh Supply Risks", False),               # money and markets, no data centre
+    ("Vertiv completes KES acquisition to expand EMEA services", False),
+])
+def test_datacentre_money_lane(title, kept):
+    assert (P.lane_label(title, "datacentre_money") == ("datacentre", None, None)) is kept
+
+
+@pytest.mark.parametrize("title, kept", [
+    ("Chinese PV Industry Brief: Polysilicon prices rise again", True),
+    ("China to end export tax rebates for solar modules", True),
+    ("JinkoSolar, LONGi cut module output as prices slide", True),
+    ("Germany awards 288 MW of solar in rooftop tender at average price of €0.0967/kWh", False),
+    ("Slovenia tenders solar-plus-storage project", False),
+    ("China approves new nuclear reactors", False),
+])
+def test_china_solar_lane(title, kept):
+    assert (P.lane_label(title, "china_solar") == ("other", "solar", None)) is kept
+
+
+def test_world_lanes_are_capped_never_matched_to_repd_and_do_not_crowd_out_uk_news():
+    def entries(prefix, n):
+        return "".join("<item><title>%s %d</title><link>https://example.org/%s/%d</link>"
+                       "<pubDate>Fri, %02d Nov 2026 09:00:00 GMT</pubDate></item>" % (prefix, k, abs(hash(prefix)), k, 1 + k % 13)
+                       for k in range(n))
+    bodies = {"b": "Botley West data centers draw $1 billion investment", "p": "China solar module prices fall, week"}
+    feeds = [{"url": "https://b.example/f", "source": "Bloomberg", "uk_only": False, "lane": "datacentre_money"},
+             {"url": "https://p.example/f", "source": "pv magazine", "uk_only": False, "lane": "china_solar"},
+             {"url": "https://u.example/f", "source": "UK", "uk_only": True}]
+
+    def fetch(url):
+        if "u.example" in url:
+            return b"<rss version='2.0'><channel><item><title>Solar farm refused in Kent</title><link>https://example.org/uk</link></item></channel></rss>"
+        return ("<rss version='2.0'><channel>" + entries(bodies[url[8]], 25) + "</channel></rss>").encode()
+    items, health = P.collect(feeds, fetch, REPD, NOW)
+    assert len(items) == 51
+    lanes = {f["source"]: f["lane"] for f in feeds if f.get("lane")}
+    d = P.build({}, items, health, REPD, NOW, lanes=lanes)
+    by_source = {}
+    for i in d["items"]:
+        by_source.setdefault(i["source"], []).append(i)
+    assert {k: len(v) for k, v in by_source.items()} == {"Bloomberg": 10, "pv magazine": 10, "UK": 1}
+    assert all(i["possible_match"] is None for i in by_source["Bloomberg"] + by_source["pv magazine"])
+    assert {i["category"] for i in by_source["Bloomberg"]} == {"datacentre"}
+    assert {(i["category"], i["technology"]) for i in by_source["pv magazine"]} == {("other", "solar")}
+    again = P.build(d, [], [], REPD, "2026-11-15T12:00:00Z", lanes=lanes)     # the cap holds on later runs
+    assert len(again["items"]) == 21
 
 
 def test_near_identical_titles_from_two_feeds_collapse_to_the_earliest():

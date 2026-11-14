@@ -11,13 +11,19 @@ The rule, in one sentence: keep a headline when its TITLE names a topic (solar, 
 renewables) AND carries an event word (refused, approved, consent, DCO, financial close, construction, energised,
 appeal, ...), and the story is about the UK.
 
-- Priority lane (owner, 14 Nov 2026: "The main priority news feed is with key words solar and data centres and
-  from BBC news rss feed"). Feeds marked "priority" in the list (BBC News) are fetched first, and a BBC item
-  whose title or feed summary says solar or data centre is kept even with no event word, because BBC titles
-  rarely name the project ("huge solar farm on palace estate"). It gets the event category when the title has
-  an event word, otherwise "other" (solar) or "datacentre".
+- Source order (owner, 14 Nov 2026): BBC News first, Solar Power Portal second, then the rest. Feeds are
+  fetched in the order of the list.
+- Lane "keywords" (BBC News; "The main priority news feed is with key words solar and data centres and from
+  BBC news rss feed"): a BBC item whose title or feed summary says solar or data centre is kept even with no
+  event word, because BBC titles rarely name the project ("huge solar farm on palace estate"). It gets the
+  event category when the title has an event word, otherwise "other" (solar) or "datacentre".
+- Two narrow world-news lanes, each capped at the newest 10 so UK planning news is never crowded out:
+  "datacentre_money" (Bloomberg and data-centre titles: data centres or AI infrastructure AND money or
+  markets; category datacentre) and "china_solar" (pv magazine: China or a Chinese manufacturer AND solar,
+  modules, polysilicon, prices, exports or tariffs; category other, technology solar). These are not UK news
+  and nothing marks them as UK; they never get a REPD match.
 - Headlines and links only. Only title, link, source and date are stored. The feed summary is read in memory
-  for the priority lane alone and is never written out; no article page is requested.
+  for the BBC keywords lane alone and is never written out; no article page is requested.
 - On a feed that is not UK-only the title must itself say it is UK news: a UK word, a REPD county, or a REPD
   site name. A title that names another country and no UK word is dropped on every feed.
 - One category per headline from a fixed list; technology when the title says it.
@@ -55,7 +61,10 @@ TECHNOLOGIES = ("solar", "wind", "offshore_wind", "battery", "hydro", "tidal")
 ITEM_FIELDS = ("title", "link", "source", "date", "first_seen", "category", "technology", "possible_match")
 SCOPE = ("Headlines and links from public RSS and Atom feeds; no article text is stored. Category and technology "
          "are labels read from the headline. A possible match is a name coincidence for review, not a confirmed "
-         "link to a REPD project.")
+         "link to a REPD project. Data-centre market headlines and China solar headlines are world news, not UK "
+         "project news.")
+WORLD_LANES = ("datacentre_money", "china_solar")
+LANE_CAP = 10
 
 
 def _rx(pattern):
@@ -143,7 +152,27 @@ FOREIGN = _rx(r"US|U\.S\.|USA|America|American|EU|Europe-wide|Ireland|Irish|Germ
               r"Canada|Texas|California|Singapore|Brazil|Africa|Taiwan|Korean?|Finland|Finnish|Norway|Norwegian|"
               r"Denmark|Danish|Sweden|Swedish|Belgium|Belgian|Baltic|New South Wales|Queensland|Vietnam|Philippines")
 # Not this page's subject even when a topic word is present.
-EXCLUDE = _rx(r"gas fields?|oil ?fields?|speech|solar (?:eclipse|system|storm|flare)")
+EXCLUDE = _rx(r"gas fields?|oil ?fields?|speech|solar (?:eclipse|system|storm|flare)|need to know")
+
+# World lanes (title only).
+AI_INFRA = _rx(r"data[\s-]?cent(?:re|er)s?|hyperscal(?:e|er|ers)|AI (?:infrastructure|capex|spending|boom|bubble|"
+               r"build[\s-]?out|investments?|chips?|compute|trade|stocks?|rally|debt|bonds?)|compute capacity")
+MONEY = _rx(r"capex|capital expenditure|spend(?:s|ing)?|invest(?:s|ed|ing|ment|ments|or|ors)?|bonds?|debt|loans?|"
+            r"valuations?|valued|bubble|shares?|stocks?|earnings|revenue|profits?|fund(?:s|ed|ing)?|financ(?:e|es|ed|ing)|"
+            r"raises?|raised|IPO|markets?|rally|sell[\s-]?off|euphoria|boom|billions?|millions?|trillions?|"
+            r"[$£€]\s?\d[\d.,]*\s?(?:bn|m|tn|billion|million|trillion)?(?:-plus)?")
+CHINA = _rx(r"China|Chinese|LONGi|Jinko(?:Solar)?|Trina(?: Solar)?|JA Solar|Tongwei|GCL(?: Tech)?|Daqo|Risen|"
+            r"Astronergy|DAS Solar|Aiko|Huasun|Sungrow|TCL Zhonghuan|Canadian Solar")
+SOLAR_TRADE = _rx(r"solar|PV|photovoltaics?|modules?|polysilicon|wafers?|cells?|prices?|exports?|tariffs?")
+
+
+def lane_label(title, lane):
+    """World lanes: (category, technology, None) or None. Never a REPD match, never a UK claim."""
+    if lane == "datacentre_money":
+        return ("datacentre", None, None) if AI_INFRA.search(title) and MONEY.search(title) else None
+    if lane == "china_solar":
+        return ("other", "solar", None) if CHINA.search(title) and SOLAR_TRADE.search(title) else None
+    return None
 
 # Opinion columns and letters are not project news (The Guardian marks them with " | Author").
 OPINION_HOSTS = ("www.theguardian.com",)
@@ -205,6 +234,11 @@ def category_of(title, topics=None):
 
 # ---------------------------------------------------------------- REPD possible match
 
+# Words that do not make a REPD name segment distinctive ("Data Centre", "Clean Energy").
+_GENERIC = frozenset({"data", "clean", "smart", "city", "town", "county", "national", "central",
+                      "community", "village", "garden", "retail", "science", "technology", "distribution"})
+
+
 class Repd:
     """Name segments of REPD Site Names, for the possible-match rule. Empty when no CSV is given."""
 
@@ -217,7 +251,7 @@ class Repd:
             for field in ("County", "Planning Authority", "Region"):
                 place_tokens.update(N.norm(r.get(field)).split())
             county = N.norm(r.get("County"))
-            if len(county) >= 4 and county != "offshore":
+            if len(county) >= 4 and county not in ("offshore", "central", "islands", "borders", "jersey", "tock"):
                 self.counties.add(county)
         for r in rows:
             ref, site = N.clean(r.get("Ref ID")), N.clean(r.get("Site Name"))
@@ -228,7 +262,7 @@ class Repd:
                 phrase = N.norm(seg)
                 toks = phrase.split()
                 distinct = [t for t in toks if len(t) >= 4 and not t.isdigit() and t not in N.NAME_BOILERPLATE
-                            and t not in N.GENERIC_SINGLE and t not in N.ADDRESS_ONLY]
+                            and t not in N.GENERIC_SINGLE and t not in N.ADDRESS_ONLY and t not in _GENERIC]
                 if not distinct:
                     continue
                 if len(toks) == 1 and (len(toks[0]) < 7 or toks[0] in place_tokens):
@@ -387,14 +421,18 @@ def collect(feeds, fetch, repd, now_iso):
                 continue
             if any(h in link for h in OPINION_HOSTS) and " | " in title:
                 continue
-            if FOREIGN.search(title) and not UK_WORDS.search(title):
-                continue
-            verdict = label(title, repd)
-            if verdict is None and feed.get("priority"):
-                verdict = priority_label(title, D.clean_text(summary, 2000), repd)   # summary read, never stored
+            lane = feed.get("lane")
+            if lane in WORLD_LANES:
+                verdict = lane_label(title, lane)
+            else:
+                if FOREIGN.search(title) and not UK_WORDS.search(title):
+                    continue
+                verdict = label(title, repd)
+                if verdict is None and lane == "keywords":
+                    verdict = priority_label(title, D.clean_text(summary, 2000), repd)   # summary read, never stored
+                if verdict is not None and not feed.get("uk_only") and not is_uk(title, repd):
+                    verdict = None
             if verdict is None:
-                continue
-            if not feed.get("uk_only") and not is_uk(title, repd):
                 continue
             items.append({"_feed": url, "title": title, "link": link, "source": source, "date": date, "first_seen": now_iso,
                           "category": verdict[0], "technology": verdict[1], "possible_match": verdict[2]})
@@ -449,18 +487,24 @@ def _days(a, b):
         return 0
 
 
-def merge(previous, incoming, repd, now_iso, cap=MAX_ITEMS, max_age_days=MAX_AGE_DAYS, priority_sources=()):
+def merge(previous, incoming, repd, now_iso, cap=MAX_ITEMS, max_age_days=MAX_AGE_DAYS, lanes=None):
     """Earlier items are kept (a rolling feed must not make a story vanish) and re-labelled with today's rules.
     Link merge and first_seen are datacentre_feed.merge; then age limit, title dedupe, newest first, cap.
-    An item from a priority source that was kept on its feed summary keeps the labels it was given then,
-    because the summary is not stored and cannot be read again."""
+    lanes: {source: lane} from the feed list. A keywords-lane item that was kept on its feed summary keeps the
+    labels it was given then, because the summary is not stored and cannot be read again. Each world lane is
+    cut to its newest LANE_CAP items."""
+    lanes = lanes or {}
     fresh = {i["link"]: i for i in incoming}
     by_link = D.merge(previous, incoming, cap=10 ** 6)
     cutoff = _shift(now_iso, days=-max_age_days)
     out = []
     for item in by_link:
-        verdict = label(item.get("title", ""), repd)
-        if verdict is None and (item["link"] in fresh or item.get("source") in priority_sources) \
+        lane = lanes.get(item.get("source"))
+        if lane in WORLD_LANES:
+            verdict = lane_label(item.get("title", ""), lane)
+        else:
+            verdict = label(item.get("title", ""), repd)
+        if verdict is None and lane not in WORLD_LANES and (item["link"] in fresh or lane == "keywords") \
                 and item.get("category") in CATEGORIES:
             verdict = (item["category"], item.get("technology"), item.get("possible_match"))
         if verdict is None or when(item) < cutoff:
@@ -470,11 +514,19 @@ def merge(previous, incoming, repd, now_iso, cap=MAX_ITEMS, max_age_days=MAX_AGE
                     "category": verdict[0], "technology": verdict[1], "possible_match": verdict[2]})
     out = dedupe_titles(out)
     out.sort(key=lambda i: (when(i), i["link"]), reverse=True)
-    return out[:cap]
+    seen, capped = {}, []
+    for item in out:
+        lane = lanes.get(item["source"])
+        if lane in WORLD_LANES:
+            seen[lane] = seen.get(lane, 0) + 1
+            if seen[lane] > LANE_CAP:
+                continue
+        capped.append(item)
+    return capped[:cap]
 
 
-def build(previous, items, health, repd, now_iso, cap=MAX_ITEMS, priority_sources=()):
-    merged = merge(previous.get("items", []), items, repd, now_iso, cap, priority_sources=priority_sources)
+def build(previous, items, health, repd, now_iso, cap=MAX_ITEMS, lanes=None):
+    merged = merge(previous.get("items", []), items, repd, now_iso, cap, lanes=lanes)
     ok = sum(h["status"] == "ok" for h in health)
     by_category = {c: n for c in CATEGORIES if (n := sum(i["category"] == c for i in merged))}
     return {
@@ -490,7 +542,7 @@ def build(previous, items, health, repd, now_iso, cap=MAX_ITEMS, priority_source
     }
 
 
-def probe_report(items, merged, health, now_iso, priority_sources=()):
+def probe_report(items, merged, health, now_iso, primary=(), lanes=None):
     """Markdown feed-health report for the pull-request probe job: every feed, then the headlines that would
     be published (after merge and dedupe)."""
     by_feed = {}
@@ -507,8 +559,13 @@ def probe_report(items, merged, health, now_iso, priority_sources=()):
         lines.append("| %s (%s) | %s | %s | %s | %s | %s |" % (
             h["url"], h["source"], h["status"] if h["status"] == "ok" else "FAILED " + h.get("error", "").replace("|", "/"),
             h.get("entries", ""), (h.get("newest") or "")[:10], h.get("kept", ""), cell))
-    merged = sorted(merged, key=lambda i: i["source"] not in priority_sources)   # stable: newest first within each
-    lines += ["", "## Headlines that would be published: priority sources (BBC News) first, then newest first", "",
+    primary, lanes = list(primary), lanes or {}
+    rank = lambda i: primary.index(i["source"]) if i["source"] in primary else len(primary)  # noqa: E731
+    merged = sorted(merged, key=rank)   # stable: newest first within each source group
+    lines += ["", "## Headlines that would be published: %s first, then the rest; newest first within each" % (
+                  ", then ".join(primary) or "no primary source"), "",
+              "The published file itself is ordered newest first. Lanes: " + (", ".join(
+                  "%s = %s" % (s, l) for s, l in lanes.items()) or "none") + ".", "",
               "| date | category | technology | possible match | source | title |", "|---|---|---|---|---|---|"]
     for i in merged:
         m = i["possible_match"]
@@ -546,12 +603,13 @@ def main(argv=None):
     else:
         fetch = D.fetch_url
 
-    feeds.sort(key=lambda f: not f.get("priority"))        # priority feeds are fetched first
-    priority_sources = {f["source"] for f in feeds if f.get("priority")}
+    feeds.sort(key=lambda f: not f.get("primary"))         # primary sources first; otherwise the order of the list
+    lanes = {f["source"]: f["lane"] for f in feeds if f.get("lane")}
+    primary = list(dict.fromkeys(f["source"] for f in feeds if f.get("primary")))
     items, health = collect(feeds, fetch, repd, now_iso)
     if args.probe:
-        report = probe_report(items, merge([], items, repd, now_iso, args.max_items), health, now_iso,
-                              priority_sources)
+        report = probe_report(items, merge([], items, repd, now_iso, args.max_items, lanes=lanes), health, now_iso,
+                              primary, lanes)
         Path(args.probe).write_text(report, encoding="utf-8")
         print(report)
         return 0
@@ -565,7 +623,7 @@ def main(argv=None):
                 previous = {}
         except ValueError:
             previous = {}
-    result = build(previous, items, health, repd, now_iso, args.max_items, priority_sources)
+    result = build(previous, items, health, repd, now_iso, args.max_items, lanes)
     out.parent.mkdir(parents=True, exist_ok=True)
     tmp = out.with_suffix(".tmp")
     tmp.write_text(json.dumps(result, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")

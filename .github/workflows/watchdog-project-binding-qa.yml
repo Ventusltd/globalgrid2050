@@ -1,0 +1,105 @@
+name: Watchdog Phase2 project binding contract (QA only; strict release red)
+on:
+  pull_request:
+    paths:
+      - 'automation/news/phase2_integration/project_binding_contract.py'
+      - 'automation/news/phase2_integration/test_project_binding_contract.py'
+      - '.github/workflows/watchdog-project-binding-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  synthetic-contract-and-pinned-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independent two-project positive and R07 adversarial contract tests
+        run: python -m unittest -v automation/news/phase2_integration/test_project_binding_contract.py
+      - name: Checkout exact immutable top200 SHA source
+        uses: actions/checkout@v4
+        with:
+          repository: Ventusltd/globalgrid2050
+          ref: 91727c22a9ee13f433d4e82d8949c9aeac5bd3be
+          path: pinned-source
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /automation/news/signals/top200_solar.json
+      - name: Checkout exact immutable project signals snapshot
+        uses: actions/checkout@v4
+        with:
+          repository: Ventusltd/globalgrid2050
+          ref: 598e787908d4a2ee3d84dc7a6a8d0213752ebf46
+          path: pinned-data
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /dist/project_signals.json
+      - name: Strict SHA and 200 identity audit must HOLD 416 unevidenced article edges
+        shell: bash
+        run: |
+          set -euo pipefail
+          set +e
+          python automation/news/phase2_integration/project_binding_contract.py \
+            --top200 pinned-source/automation/news/signals/top200_solar.json \
+            --snapshot pinned-data/dist/project_signals.json \
+            --report project-binding-pinned-audit.json
+          rc=$?
+          set -e
+          test "$rc" -eq 2 || { echo "::error::expected release HOLD exit 2, got $rc"; exit 1; }
+          python - <<'PY'
+          import json
+          a=json.load(open('project-binding-pinned-audit.json'))
+          assert a['status']=='QA_CONTRACT_INVALID_RELEASE_HOLD',a
+          assert a['release_authorised'] is False
+          assert a['facts']['project_url_edges']==416,a
+          assert a['facts']['missing_bindings']==416,a
+          assert 'MISSING_VALID_URL_RECEIPT' in a['errors'],a
+          assert 'MISSING_VALID_PROJECT_URL_BINDING' in a['errors'],a
+          print('Pinned actual top200 SHA and 200 Ref IDs PASS; 416/416 source bindings HOLD; no release')
+          PY
+      - name: Retain current Agent A independent rights and article veto
+        shell: bash
+        run: |
+          set -euo pipefail
+          set +e
+          python automation/news/phase2_integration/release_veto.py \
+            pinned-source/automation/news/signals/top200_solar.json \
+            pinned-data/dist/project_signals.json --report agent-a-existing-veto.json
+          rc=$?
+          set -e
+          test "$rc" -eq 2 || exit 1
+          python - <<'PY'
+          import json
+          a=json.load(open('agent-a-existing-veto.json'))
+          assert a['release_authorised'] is False
+          assert a['facts']['article_receipts_missing']==416
+          assert a['facts']['source_rights_missing']==15
+          print('Agent A existing veto preserved: 416 missing article receipts, 15 unverified rights')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: watchdog-project-binding-pinned-audit
+          path: |
+            project-binding-pinned-audit.json
+            agent-a-existing-veto.json
+          if-no-files-found: warn
+          retention-days: 30
+  strict-integrated-acid:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: No xfail or warning downgrade of inherited integrated acid failures
+        run: |
+          python -m pip install --quiet pytest
+          python -m pytest -q --runxfail \
+            automation/news/tests/test_signals_acid.py \
+            automation/news/signals/tests/test_gate.py \
+            automation/news/signals/tests/test_combine.py

@@ -67,7 +67,7 @@ def expected_homepage():
             source = 'href="data/homepage.json"'
             if index.count(source) != 1:
                 raise AssertionError("Unexpected homepage catalogue reference")
-            expected["index.html"] = (index.replace(source, 'href="./homepage-shell/data/homepage.json"').rstrip() + "\\n").encode("utf-8")
+            expected["index.html"] = (index.replace(source, 'href="./homepage-shell/data/homepage.json"').rstrip() + "\n").encode("utf-8")
         else:
             expected["homepage-shell/" + name] = data
     if sum(len(data) for data in expected.values()) >= 1000000:

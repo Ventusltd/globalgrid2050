@@ -184,7 +184,8 @@ def project_of(row, entry=None, rules=None):
         mw = 0.0
     return {"repd_ref": str(row.get("repd_ref")), "aliases": names, "planning_ref": field("planning_ref"), "mw": mw,
             "home": [h for h in home if h and len(h) >= 4], "developers": developers, "weak": rules.get("weak_alias"),
-            "county_also": list(rules.get("county_also") or [])}
+            "county_also": list(rules.get("county_also") or []),
+            "exclude": [p for p in rules.get("exclude") or [] if isinstance(p, str) and p.strip()]}
 
 
 def judge(ref, title, project=None, official=False):
@@ -194,6 +195,10 @@ def judge(ref, title, project=None, official=False):
     if not project or not isinstance(title, str):
         return "none", ""
     text = _norm(title)
+    # Apply the same project-specific false-match exclusions at the collector
+    # gate as the combiner (e.g. heat-network energy centres, Fosse Way roads).
+    if any(_has(phrase, text) for phrase in project.get("exclude") or []):
+        return "drop", "explicitly excluded non-project title"
     names = []                                              # (alias, core, whole alias in title)
     for alias in project["aliases"]:
         core = core_of(alias)
@@ -277,7 +282,9 @@ def for_record(record):
     with the committed exclusion rules of that reference."""
     ref = str(record.get("repd_ref"))
     committed = table().get(ref) or {}
-    made = project_of(record, record, {"weak_alias": committed.get("weak"), "county_also": committed.get("county_also")})
+    made = project_of(record, record, {"weak_alias": committed.get("weak"),
+                                       "county_also": committed.get("county_also"),
+                                       "exclude": committed.get("exclude")})
     return made
 
 

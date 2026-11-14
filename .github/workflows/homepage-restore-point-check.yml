@@ -79,7 +79,7 @@ jobs:
       - name: Install browser for read-only smoke checks
         run: |
           python -m pip install 'playwright==1.56.0'
-          python -m playwright install --with-deps chromium
+          command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser
       - name: Verify exact public bytes, desktop/mobile, CSV control and MAP receiver
         run: python3 scripts/qa/phase2_live_readonly.py
       - name: Preserve read-only audit regardless of outcome

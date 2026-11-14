@@ -73,7 +73,7 @@ class Energy24Tests(unittest.TestCase):
     def test_cyber_issues_labelled_but_not_project_works(self):
         v, why = self.classify("Cloud outage disrupts major data centre infrastructure")
         self.assertEqual(why,"accepted")
-        self.assertEqual(v["category"],"data-centres")
+        self.assertEqual(v["category"],"cybersecurity")
         self.assertIsNone(v["repd_ref"])
 
     def test_unrelated_or_sponsored_rejected(self):

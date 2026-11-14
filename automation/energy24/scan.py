@@ -75,8 +75,8 @@ ANNUAL_TARGET_RE = re.compile(
 # Portfolio/deal MW is not automatically the MW of one identifiable project.
 # A multi-asset transaction needs a reviewed project breakdown before promotion.
 PORTFOLIO_DEAL_RE = re.compile(
-    r"\\b(?:as part of|across|within)\\b.{0,85}\\b\\d[\\d,.]*\\s*(?:GW|MW)\\b.{0,75}\\b(?:deal|portfolio|pipeline|programme|program)\\b"
-    r"|\\b\\d[\\d,.]*\\s*(?:GW|MW)\\b.{0,55}\\b(?:renewables deal|project portfolio|project pipeline)\\b",
+    r"\b(?:as part of|across|within)\b.{0,85}\b\d[\d,.]*\s*(?:GW|MW)\b.{0,75}\b(?:deal|portfolio|pipeline|programme|program)\b"
+    r"|\b\d[\d,.]*\s*(?:GW|MW)\b.{0,55}\b(?:renewables deal|project portfolio|project pipeline)\b",
     re.I,
 )
 URL_ALLOWED = frozenset(("www.gov.uk","gov.uk","www.datacenterdynamics.com","datacenterdynamics.com",

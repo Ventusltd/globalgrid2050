@@ -78,10 +78,19 @@ def source_host_matches(item, team, source):
     if not allowed:
         return False
     link = urlsplit(item.get("link") or "")
-    if link.scheme != "https" or link.username or link.password:
+    source_url = urlsplit(source.get("url") or "")
+    if (link.scheme != "https" or source_url.scheme != "https"
+            or link.username or link.password or source_url.username or source_url.password):
         return False
     hostname = (link.hostname or "").lower()
-    return any(hostname == host or hostname.endswith("." + host) for host in allowed)
+    publisher = (source_url.hostname or "").lower()
+    # BBC feeds use bbci.co.uk while stories are on bbc.co.uk/bbc.com;
+    # all other sources should identify the publisher they claim to scan.
+    source_matches = (team == "index" and source.get("id") == "bbc-rss"
+                      and publisher == "feeds.bbci.co.uk") or any(
+        publisher == host or publisher.endswith("." + host) for host in allowed
+    )
+    return source_matches and any(hostname == host or hostname.endswith("." + host) for host in allowed)
 
 
 def timestamp(value):

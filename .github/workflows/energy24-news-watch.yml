@@ -115,17 +115,18 @@ jobs:
         with:
           name: energy24-six-market-scan-${{ github.run_number }}
           path: /tmp/energy24
-      - name: Hold single-publisher snapshots outside production
+      - name: Hold unverified UK or data-centre identities outside production
         id: coverage
         run: |
           python - <<'PY'
           import json, os, pathlib
+          from automation.energy24.scan import publication_gate
           news=json.loads(pathlib.Path('/tmp/energy24/news.latest.json').read_text())
-          publishers={a.get('source') for a in news.get('articles', []) if a.get('source')}
-          ready=len(publishers)>=2
+          audit=json.loads(pathlib.Path('/tmp/energy24/news.audit.json').read_text())
+          ready, reasons=publication_gate(news, audit)
           with open(os.environ['GITHUB_OUTPUT'],'a',encoding='utf-8') as out:
-              out.write('ready='+str(ready).lower()+'\n')
-          print('Energy24 editorial publication gate:', 'PASS' if ready else 'HOLD: fewer than two qualifying independent publishers')
+              out.write('ready='+str(ready).lower()+'\\n')
+          print('Energy24 publication gate:', 'PASS' if ready else 'HOLD: '+', '.join(reasons))
           PY
       - name: Verify release unchanged before writing designated paths
         if: ${{ steps.coverage.outputs.ready == 'true' }}

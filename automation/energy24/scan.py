@@ -361,7 +361,7 @@ def publication_gate(snapshot: dict, audit: dict, now: datetime | None = None) -
     if len(publishers) < 2:
         reasons.append("fewer_than_two_publishers")
     if not any(x.get("category") == "uk-repd"
-               and re.fullmatch(r"\\d{3,8}", str(x.get("repd_ref") or ""))
+               and re.fullmatch(r"\d{3,8}", str(x.get("repd_ref") or ""))
                and x.get("qualification") == "repd_exact_ref" for x in articles):
         reasons.append("no_exact_uk_repd_news_identity")
     if not any(x.get("category") == "data-centres"

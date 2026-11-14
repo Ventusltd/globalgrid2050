@@ -97,11 +97,29 @@ for attempt in range(1, 1 + max(1, TIMEOUT_S // SLEEP_S)):
     print(f"Waiting for Pages, attempt {attempt}: " + "; ".join(errors), flush=True)
     time.sleep(SLEEP_S)
 
+def expected_published_homepage() -> bytes:
+    """The deploy imports a pinned owner bundle before Jekyll; repo index is NOT deployed verbatim."""
+    pin = json.loads((ROOT / "catalogue/homepage-owner.json").read_text())
+    assert pin["repository"] == "Ventusltd/globalgrid2050-homepage"
+    url = f"https://raw.githubusercontent.com/{pin['repository']}/{pin['commit']}/index.html"
+    with urllib.request.urlopen(url, timeout=40) as r:
+        source = r.read()
+    assert sha(source) == pin["files"]["index.html"], "Owner homepage index hash differs from pin"
+    index = source.decode("utf-8-sig")
+    for name in ("versioned-homepage.css", "versioned-homepage.js"):
+        source_path = f"./assets/{name}"
+        assert index.count(source_path) == 1, f"Unexpected homepage source {name}"
+        index = index.replace(source_path, f"./homepage-shell/assets/{name}")
+    fallback = 'href="data/homepage.json"'
+    assert index.count(fallback) == 1, "Unexpected homepage catalogue link"
+    index = index.replace(fallback, 'href="./homepage-shell/data/homepage.json"')
+    return (index.rstrip() + "\\n").encode("utf-8")
+
 for path in LEGACY:
     local = ROOT / path
     if not local.is_file():
         raise SystemExit(f"FAIL: legacy source missing from checkout: {path}")
-    expected = sha(local.read_bytes())
+    expected = sha(expected_published_homepage()) if path == "index.html" else sha(local.read_bytes())
     try:
         status, remote, final, ctype = read_remote(path)
     except Exception as e:

@@ -633,6 +633,8 @@ class Project:
         confidence = "confirmed" if self.status == "confirmed" else "uncertain"
         if self.ref_rx and self.ref_rx.search(title):
             return "planning reference %s in title" % self.planning_ref, confidence
+        if GATE.inverted_solar_place(title, self.record):
+            return "verified place alias in inverted solar-farm title", confidence
         for _alias, core, rx, weak in self.aliases:
             if not rx.search(title):
                 continue

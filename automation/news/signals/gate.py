@@ -42,6 +42,19 @@ SMALL_RE = re.compile(r"\broof\w*\b|\bcar ?ports?\b|\bstreet ?lights?\b|\bsolar 
                       r"(?:for|on|at|fitted|installed on)\b|\benergy[- ]efficien\w+", re.I)
 CONTEXT_RE = re.compile(r"\d\s?(?:MW|GW)\b|\bconsent\b|\bpermit\b|\bBESS\b|\bO&M\b|\bexamination\b|\brefus\w+|\bapprov\w+|\breject\w+|"
                         r"\bdevelopment consent\b", re.I)
+# Actual project-development activity, not merely a generic mention of solar.
+# Site name and action are a *candidate match*: publisher and REPD evidence
+# are checked separately before public confirmation.
+DEVELOPMENT_ACTION_RE = re.compile(
+    r"\b(?:consents?|decision|approv\w*|refus\w*|rejection|reject\w*|"
+    r"consult\w*|planning|dco|nsip|paperwork|filed?|filing|submits?|"
+    r"pre-examination|permi\w*|financ\w*|invest\w*|epc|o&m|"
+    r"energis\w*|energiz\w*|construction|commission\w*|"
+    r"operational|acquir\w*|sale|sells?|buys?|delayed|milestones?|"
+    r"moves? forward|launch\w*|unveil\w*|tweak\w*|design|"
+    r"suppl(?:ies|ying)|go[- ]ahead|reaches?|secures?)\b", re.I
+)
+
 PLACE_TAIL = frozenset("farm lane road house hall way castle street bridge airfield aerodrome".split())
 FOREIGN_RE = re.compile(
     r"(?<!\w)(?:US|U\.S\.|USA|America|American|Ireland|Irish|County (?:Meath|Kildare|Cork|Wexford|Offaly)|Germany|German|"
@@ -108,6 +121,28 @@ def core_of(alias):
     return core if len(core) >= 3 else ""
 
 
+def inverted_solar_place(title, record):
+    """Match 'solar farm at Foston' against documented alias 'Foston solar farm'.
+
+    Only a place alias with a verified project location qualifies. The
+    collector still applies the common title gate and confidence/rights rules.
+    This is not a generic acceptance of a loose locality word.
+    """
+    if not isinstance(title, str):
+        return False
+    aliases = [a for a in record.get("aliases") or [] if isinstance(a, str)]
+    places = list((table().get(str(record.get("repd_ref"))) or {}).get("county_also") or [])
+    normalized = _norm(title)
+    for alias in aliases:
+        core = core_of(alias)
+        if (not core or len(_norm(core)) < 5 or _norm(core) not in [_norm(p) for p in places]
+                or not re.search(r"\bsolar\s+farm\b", alias, re.I)):
+            continue
+        if re.search(r"\bsolar farm (?:at|in|near|outside|by) " + re.escape(_norm(core)) + r"\b", normalized):
+            return True
+    return False
+
+
 def is_weak_core(core):
     words = _norm(core).split()
     return len(words) <= 1 or all(w in EVERYDAY for w in words) or words[-1] in PLACE_TAIL
@@ -162,7 +197,8 @@ def project_of(row, entry=None, rules=None):
         mw = 0.0
     return {"repd_ref": str(row.get("repd_ref")), "aliases": names, "planning_ref": field("planning_ref"), "mw": mw,
             "home": [h for h in home if h and len(h) >= 4], "developers": developers, "weak": rules.get("weak_alias"),
-            "county_also": list(rules.get("county_also") or [])}
+            "county": county, "county_also": list(rules.get("county_also") or []),
+            "exclude": [p for p in rules.get("exclude") or [] if isinstance(p, str) and p.strip()]}
 
 
 def judge(ref, title, project=None, official=False):
@@ -172,6 +208,10 @@ def judge(ref, title, project=None, official=False):
     if not project or not isinstance(title, str):
         return "none", ""
     text = _norm(title)
+    # Apply the same project-specific false-match exclusions at the collector
+    # gate as the combiner (e.g. heat-network energy centres, Fosse Way roads).
+    if any(_has(phrase, text) for phrase in project.get("exclude") or []):
+        return "drop", "explicitly excluded non-project title"
     names = []                                              # (alias, core, whole alias in title)
     for alias in project["aliases"]:
         core = core_of(alias)
@@ -181,8 +221,15 @@ def judge(ref, title, project=None, official=False):
     planning_ref = project["planning_ref"]
     if len(planning_ref) >= 6 and planning_ref.lower() in title.lower():
         return "ok", "planning reference in the title"
+    # A named town getting school rooftop panels, solar canopies or street
+    # lights is not evidence that its utility-scale REPD scheme progressed.
+    if SMALL_RE.search(title) and not re.search(
+            r"\b(?:solar (?:farm|park|plant|project)|NSIP|DCO)\b", title, re.I):
+        return "drop", "non-utility rooftop or lighting subject"
     if not names:
         return "none", ""
+    if inverted_solar_place(title, {"repd_ref": ref, "aliases": project["aliases"]}):
+        return "ok", "evidenced place-form solar-farm title"
     weak_flag = project.get("weak")
     weak = bool(weak_flag) or all(is_weak_core(core) for _alias, core, _whole in names)
     home = any(_has(h, text) for h in project["home"] if not any(_has(h, _norm(a)) for a in project["aliases"]))
@@ -190,6 +237,14 @@ def judge(ref, title, project=None, official=False):
                     if not any(_has(d, _norm(a)) or _has(core_of(a), _norm(d)) for a in project["aliases"]))
     if FOREIGN_RE.search(title) and not UK_RE.search(title) and not home and not developer:
         return "drop", "the headline is placed outside the UK"
+    # An explicit mismatched UK county is strong negative location evidence,
+    # even if a generic alias or town occurs elsewhere in the title.
+    named_counties = [c for c in COUNTIES if _has(c, text)]
+    county = project.get("county") or ""
+    allowed_counties = [county] + REGIONS.get(county.lower(), []) + [
+        x for x in project.get("county_also") or [] if x in COUNTIES]
+    if named_counties and not any(_has(c, text) for c in allowed_counties if c):
+        return "drop", "headline explicitly names a different UK county"
     if weak and not home:
         inside = " ".join(_norm(a) for a in project["aliases"])
         other = [c for c in COUNTIES if _has(c, text) and not _has(c, inside)]
@@ -197,8 +252,12 @@ def judge(ref, title, project=None, official=False):
             return "drop", "the headline is placed in %s, not the project's county" % other[0]
     solar = SOLAR_RE.search(title) is not None and not SMALL_RE.search(title)
     whole = any(w for _a, _c, w in names) and not SMALL_RE.search(title)
-    adjacent = solar and any(re.search(r"(?<![a-z0-9])%s(?: farm)? (?:\d+ ?mw )?%s(?![a-z0-9])" % (
-        re.escape(_norm(core)), SOLAR_TERM.replace("[- ]", " ")), text) for _a, core, _w in names)
+    # "solar" can mean a timetable, panels, battery hub or charity donation.
+    # A direct match needs a utility-scale scheme noun, not that token alone.
+    adjacent = solar and any(re.search(
+        r"(?<![a-z0-9])%s (?:\d+ ?mw )?(?:solar|pv|photovoltaic) "
+        r"(?:farm|park|project|plant|scheme|development|array)\b" %
+        re.escape(_norm(core)), text) for _a, core, _w in names)
     capacity = False
     far = False
     if project["mw"]:
@@ -207,8 +266,13 @@ def judge(ref, title, project=None, official=False):
         capacity = any(abs(f - project["mw"]) <= 0.2 * project["mw"] for f in figures)
         far = bool(figures) and not any(0.45 * project["mw"] <= f <= 2.2 * project["mw"] for f in figures)
     fact = home or developer or capacity
-    if official and any(w for _a, _c, w in names):
-        return "ok", "the whole alias in an official title"
+    official_specific = bool(re.search(
+        r"\b(?:development consent|consent order|planning act 2008|dco|nsip)\b", title, re.I))
+    if official and any(w for _a, _c, w in names) and not far and (
+            (not weak and (whole or fact)) or
+            (weak_flag != "shared" and whole and (fact or official_specific)) or
+            (weak_flag == "shared" and (developer or capacity))):
+        return "ok", "project identity supported by an official development notice"
     if not (solar or whole):
         if capacity:
             return ("possible" if weak_flag else "ok"), "the name with the project's capacity"
@@ -219,10 +283,39 @@ def judge(ref, title, project=None, official=False):
             return "possible", "a distinctive name in a planning or energy headline, but no solar term"
         return "drop", "the name without a solar term"
     if not weak:
-        return "ok", "the name with a solar term"
+        # "North Ray of Light charity solar donation" and "Tealing solar
+        # timetable" mention a name and solar but not this power station.
+        # Only the whole project alias or a direct solar-development phrase
+        # merits the stronger result. General energy news stays possible.
+        if whole:
+            return "ok", "the full project alias with its solar context"
+        site_pattern = re.compile(
+            r"(?<![a-z0-9])(?:%s)(?: solar| pv| photovoltaic) "
+            r"(?:farm|park|project|plant|scheme|development|array)\b" %
+            "|".join(re.escape(_norm(core)) for _alias, core, _w in names)
+        )
+        if site_pattern.search(text):
+            return "ok", "specific solar development name stated in headline"
+        # A longer proper name may start with the solar project's two-word
+        # core but identify a different organisation ("North Ray of Light").
+        # The inserted continuation must never be treated as exact project
+        # identity merely because the headline also mentions a solar farm.
+        if any(re.search(
+                r"(?<![a-z0-9])" + re.escape(_norm(core)) + r"\s+of\s+[a-z]+",
+                text) for _alias, core, _whole in names):
+            return "possible", "core begins a different, longer proper name"
+        if DEVELOPMENT_ACTION_RE.search(title) and (not far or developer) and (fact or any(
+                len(_norm(core).split()) >= 2 for _alias, core, _whole in names)):
+            return "ok", "distinctive project name plus actual development activity"
+        return "possible", "the name and a broad solar mention without project-specific identity"
     if weak_flag:                                           # generic or shared with another row: a fact is required
-        if fact and (whole or adjacent or solar) and not far:
-            return "ok", "a weak name with a solar term and an agreeing fact"
+        # A shared alias tied only to a broad county does not identify which
+        # scheme was involved. Require a distinct developer, capacity or exact
+        # planning reference before calling one of the two schemes confirmed.
+        if weak_flag == "shared" and not (developer or capacity):
+            return "possible", "shared name without a project-specific developer, capacity or reference"
+        if fact and (whole or adjacent) and not far:
+            return "ok", "a weak name with a direct solar project phrase and an agreeing fact"
         if whole or adjacent:
             return "possible", "a generic or shared name with no agreeing fact"
         return "drop", "a generic or shared name, not followed by its solar term, with no agreeing fact"
@@ -240,7 +333,9 @@ def for_record(record):
     with the committed exclusion rules of that reference."""
     ref = str(record.get("repd_ref"))
     committed = table().get(ref) or {}
-    made = project_of(record, record, {"weak_alias": committed.get("weak"), "county_also": committed.get("county_also")})
+    made = project_of(record, record, {"weak_alias": committed.get("weak"),
+                                       "county_also": committed.get("county_also"),
+                                       "exclude": committed.get("exclude")})
     return made
 
 
@@ -251,6 +346,10 @@ def gated(record, title, found, official=False):
     verdict, reason = judge(record.get("repd_ref"), title, project=for_record(record), official=official)
     if verdict == "drop":
         return None
-    if verdict == "possible" and found[1] == "confirmed":
-        return "%s; kept as uncertain: %s" % (found[0], reason), "uncertain"
+    # Summary-only matches and ambiguous names cannot inherit a collector's
+    # confirmed flag unless its evidence really identifies the planning case.
+    if verdict in ("possible", "none") and found[1] == "confirmed":
+        if verdict == "none" and "planning reference" in str(found[0]).lower():
+            return found
+        return "%s; kept as uncertain: %s" % (found[0], reason or "no project name in headline"), "uncertain"
     return found

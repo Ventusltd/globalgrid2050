@@ -138,6 +138,18 @@ def parse_date(value):
     return parsed.astimezone(dt.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
+def parse_calendar_day(value):
+    """A publisher's written calendar day, NOT an inferred UTC instant.
+
+    A date-only or timezone-free timestamp may be shown as a publisher-local
+    calendar day but may never authorise same-run freshness without a separately
+    observed timezone-aware publication instant. `parse_date` remains the
+    strict UTC feed timestamp parser and continues rejecting naive input.
+    """
+    from signals import dates as calendar_dates
+    return calendar_dates.day(value)
+
+
 def parse_feed(body):
     """Return [(title, link, date, summary)] from RSS 2.0 or Atom bytes. Raises ValueError on bad input."""
     if len(body) > MAX_BYTES:

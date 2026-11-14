@@ -267,8 +267,13 @@ def match_item(project, title, summary="", county_feed=False):
     verdict, reason = GATE.judge(project.get("repd_ref"), title, project=GATE.for_record(project))
     if verdict == "drop":
         return None
-    if found[0] == "strong" and verdict == "possible":
-        return "weak", "%s; kept as weak: %s" % (found[1], reason)
+    # An index title may match a loose synonym which the independent project
+    # gate does not recognise as the scheme's name. Absence of project naming
+    # cannot inherit an upstream "strong" declaration; the match stays a
+    # candidate until a planning reference or independent REPD receipt exists.
+    if found[0] == "strong" and verdict in ("possible", "none"):
+        return "weak", "%s; kept as weak: %s" % (
+            found[1], reason or "headline lacks a verified project name")
     return found
 
 
@@ -280,6 +285,8 @@ def _match_item(project, title, summary="", county_feed=False):
     ref = project["planning_ref"]
     if ref and re.search(re.escape(ref), title, re.I):
         return "strong", "planning reference %s in title" % ref
+    if GATE.inverted_solar_place(title, project):
+        return "strong", "verified place alias in inverted solar-farm title"
     for alias, rx in zip(project["aliases"], project["_alias_rx"]):
         if rx and SOLAR.search(alias) and rx.search(title):
             return "strong", "alias '%s' in title" % alias

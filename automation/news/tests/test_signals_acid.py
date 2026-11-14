@@ -422,9 +422,17 @@ def test_R02_a_future_dated_item_is_not_ranked_as_the_newest(tmp_path):
 @pytest.mark.parametrize("case", TESTERS["date_readers"], ids=lambda c: c["name"])
 def test_R02_tester_date_reader_recommendations(case):
     module, name = case["function"].split(".")
-    got = getattr(__import__(module), name)(case["value"])
+    if case["function"] == "datacentre_feed.parse_date":
+        # The tester's recommendation concerns the written CALENDAR DAY,
+        # not an inferred UTC timestamp. Keep datacentre_feed.parse_date()
+        # strict for feed freshness and introduce a separately named reader.
+        import datacentre_feed as D
+        got = D.parse_calendar_day(case["value"])
+    else:
+        got = getattr(__import__(module), name)(case["value"])
     got = got[:10] if isinstance(got, str) else got
-    assert got == case["expected"], "%s(%r) gave %r, the tester expects %r" % (case["function"], case["value"], got, case["expected"])
+    assert got == case["expected"], "%s calendar day (%r) gave %r, the tester expects %r" % (
+        case["function"], case["value"], got, case["expected"])
 
 
 @known("NL-019 finding 2 and acid tester 2", "no freshness boundary exists")

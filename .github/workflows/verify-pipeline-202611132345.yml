@@ -1,0 +1,88 @@
+name: Verify candidate Pipeline News 202611132345 (REPD Q3 2026)
+
+# Runs the candidate's own offline suite and a local headless-browser smoke over
+# the served folder. It reads only; it publishes, promotes and pushes nothing.
+on:
+  pull_request:
+    paths:
+      - 'uk_renewables_pipeline/202611132345/**'
+      - 'uk_renewables_pipeline/202609082224/**'
+      - 'dist/major_project_news_v9_5_1.json'
+      - '.github/workflows/verify-pipeline-202611132345.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-pipeline-202611132345-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  suite-and-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+          sparse-checkout: |
+            uk_renewables_pipeline/202611132345
+            uk_renewables_pipeline/202609082224
+            dist/major_project_news_v9_5_1.json
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Offline release suite (parent tree, byte parity, spine rebuild, loader, all MAP hrefs)
+        run: bash uk_renewables_pipeline/202611132345/tests/run_v9_12.sh
+      - name: Install the release's locked browser harness
+        working-directory: uk_renewables_pipeline/202611132345
+        run: |
+          npm ci --ignore-scripts
+          npx playwright install --with-deps chromium
+      - name: Headless smoke on the locally served folder (desktop + mobile, CSV export)
+        working-directory: uk_renewables_pipeline/202611132345
+        run: |
+          (cd "$GITHUB_WORKSPACE" && python3 -m http.server 8731 >/tmp/http.log 2>&1 &)
+          sleep 2
+          cat > /tmp/smoke.mjs <<'JS'
+          import assert from 'node:assert/strict';
+          import fs from 'node:fs';
+          import { chromium } from 'playwright';
+          const url = 'http://127.0.0.1:8731/uk_renewables_pipeline/202611132345/';
+          const browser = await chromium.launch();
+          for (const [name, viewport, isMobile] of [['desktop', { width: 1440, height: 900 }, false], ['mobile', { width: 390, height: 844 }, true]]) {
+            const ctx = await browser.newContext({ viewport, isMobile, acceptDownloads: true });
+            const page = await ctx.newPage();
+            const errors = [];
+            page.on('pageerror', (e) => errors.push(e.message));
+            await page.goto(url);
+            await page.waitForFunction(() => document.querySelector('#tbody')?.dataset.complete === 'true', null, { timeout: 60000 });
+            const meta = await page.$eval('#resultsMeta', (e) => e.textContent);
+            assert.match(meta, /^7,775 of 7,775 records · 365,474 MW · largest 4,100 MW$/, `${name}: ${meta}`);
+            assert.equal(await page.$$eval('#tbody tr', (r) => r.length), 20);
+            assert.deepEqual(errors, [], `${name} page errors`);
+            if (isMobile) assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth), 'mobile horizontal overflow');
+            if (!isMobile) {
+              const [download] = await Promise.all([page.waitForEvent('download'), page.click('#exportInline')]);
+              const csv = fs.readFileSync(await download.path(), 'utf8').replace(/^﻿/, '').split('\r\n');
+              assert.equal(csv.length - 1, 7775, 'CSV rows');
+              assert.ok(csv.slice(1).every((line) => line.includes('"14967/14967 canonical REPD Ref IDs"')), 'CSV reconciliation count');
+            }
+            await page.screenshot({ path: `${process.env.GITHUB_WORKSPACE}/smoke-${name}.png` });
+            await ctx.close();
+          }
+          await browser.close();
+          console.log('202611132345 headless smoke: PASS');
+          JS
+          cp /tmp/smoke.mjs ./smoke.tmp.mjs && node ./smoke.tmp.mjs && rm ./smoke.tmp.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pipeline-202611132345-smoke
+          path: smoke-*.png

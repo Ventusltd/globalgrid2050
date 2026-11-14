@@ -196,8 +196,9 @@ script" means a script on `repd/2026-10-ingestion-20261113` (draft PR #56), whic
 
 ### Step 1. Detect the new publication
 
-- **Command (automation):** `python -m automation.repd.detect --out "$OUT"`. It reads the GOV.UK publication page and content API
-  and writes a draft descriptor `automation/repd/releases/$REL.json`.
+- **Command (automation):** `python -m automation.repd.run --detect-only --out "$OUT"` (or `python -m automation.repd.detect --out "$OUT"`). It reads the GOV.UK
+  publication page and content API and writes `detect_report.json` and `detected_<id>.json` under `$OUT`; copy the reviewed file to
+  `automation/repd/releases/$REL.json` yourself.
 - **Command (by hand):** open https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract,
   note the "Last updated" date and the CSV and Excel attachment URLs. Or
   `curl -sS https://www.gov.uk/api/content/government/publications/renewable-energy-planning-database-quarterly-extract -o "$OUT/page.json"`
@@ -236,7 +237,7 @@ script" means a script on `repd/2026-10-ingestion-20261113` (draft PR #56), whic
 
 ### Step 3. Clean
 
-- **Command (automation):** `python -m automation.repd.clean --descriptor automation/repd/releases/$REL.json --out "$OUT"`.
+- **Command (automation):** `python -m automation.repd.run --label $REL --out "$OUT" --repo-root . --stop-after clean` (add `--offline --csv <csv> --xlsx <xlsx>` without network). The module alone takes files, not a descriptor: `python -m automation.repd.clean --csv <csv> --xlsx <xlsx> --out "$OUT/clean"`.
 - **Command (branch script, October only):** the same `scripts/repd_q3_2026_ingest.py` run as step 2. It writes `$OUT/Q3_CANONICAL_STAGED.csv` and
   `$OUT/Q3_RECONCILIATION.json` (`:357,:373`). It has a ref allow-list that rejects any other quarter (`REVIEW.md:35`, H2) and leaves 8 of
   16 date columns unchecked (`REVIEW.md:34`, H1).
@@ -261,7 +262,7 @@ script" means a script on `repd/2026-10-ingestion-20261113` (draft PR #56), whic
 
 ### Step 4. Validate
 
-- **Command (automation):** `python -m automation.repd.validate --descriptor automation/repd/releases/$REL.json --out "$OUT"`.
+- **Command (automation):** `python -m automation.repd.run --label $REL --out "$OUT" --repo-root . --stop-after validate`. The module alone: `python -m automation.repd.validate check --csv <csv> --xlsx <xlsx> --baseline <baseline json> --json "$OUT/validate.json"`.
 - **Command (branch script, October only):** `REPD_Q3_OUTPUT="$OUT" python scripts/repd_q3_staging_verify.py`. Its checks are pinned to the October
   file (53 columns, 14,968, 14,967, ref 7679, last ref 21493, seven blob ids) and are `assert` statements that `python -O` removes
   (`REVIEW.md:41,52`).
@@ -269,7 +270,7 @@ script" means a script on `repd/2026-10-ingestion-20261113` (draft PR #56), whic
 
 ### Step 5. Diff against the previous release
 
-- **Command (automation):** `python -m automation.repd.diff --descriptor automation/repd/releases/$REL.json --out "$OUT"`. Writes a markdown and a JSON change
+- **Command (automation):** `python -m automation.repd.run --label $REL --out "$OUT" --repo-root . --stop-after diff`. The module alone: `python -m automation.repd.diff --previous <previous csv or project_identity_v6.json> --new <cleaned csv> --out "$OUT/diff"`. Writes a markdown and a JSON change
   report: refs added, removed, retained; status, technology, capacity, coordinate and name changes; blank-rate changes per column.
 - **Baseline:** the previous release's original files, cleaned the same way, named in the descriptor (`baseline_path`). For October:
   the July originals on `repd/2026-07-verified-archive-20261113` (the table at the top). Extract and check them:
@@ -293,7 +294,7 @@ script" means a script on `repd/2026-10-ingestion-20261113` (draft PR #56), whic
 
 ### Step 6. Root-format datasets under new names
 
-- **Command (automation):** `python -m automation.repd.build_root --descriptor automation/repd/releases/$REL.json --out "$OUT"`, then copy the
+- **Command (automation):** `python -m automation.repd.run --label $REL --out "$OUT" --repo-root . --stop-after build_root` (the module alone: `python -m automation.repd.build_root <cleaned csv> --out "$OUT/root" --descriptor automation/repd/releases/$REL.json`), then copy the
   outputs into the worktree under their new names.
 - **No existing generator.** The four root CSVs were committed by hand (note 16 sections 1, 5).
 - **Adds (October names):** `repd-2026q3.csv`, `repd-grid-batteries-2026q3.csv`, `repd-solar-operational-2026q3.csv`,
@@ -317,7 +318,7 @@ script" means a script on `repd/2026-10-ingestion-20261113` (draft PR #56), whic
 
 ### Step 7. V6-format candidates under new names
 
-- **Command (automation):** `python -m automation.repd.build_v6 --descriptor automation/repd/releases/$REL.json --out "$OUT"`. It reuses
+- **Command (automation):** `python -m automation.repd.run --label $REL --out "$OUT" --repo-root . --stop-after build_v6` (the module alone also needs `--input-root <repository root>`). It reuses
   `build_registry()` and `build_public_snapshot()` from `scripts/build_project_identity_v6.py:268,453` with the release's counts from the descriptor.
 - **No unmodified existing command accepts October.** `scripts/repd_sources_v6.py:31-40` pins the July URLs, counts and hashes, `:193-196`
   raises on the duplicate ref, and `:406-409` fetches over the network only. Never run the V6 chain in the worktree you will commit from:
@@ -369,7 +370,7 @@ Every command runs in the new folder only. Steps 8.1-8.8 follow note 11 section 
 10. Validate: `bash uk_renewables_pipeline/$STAMP/tests/run_<version>.sh`; `node uk_renewables_pipeline/$STAMP/tests/check_map_contract_all_rows.mjs`;
     `V9_BROWSER_SMOKE=1 bash uk_renewables_pipeline/$STAMP/tests/run_<version>.sh` for the Playwright smoke test (note 07 section 5).
 
-- **Command (automation):** `python -m automation.repd.build_news --descriptor automation/repd/releases/$REL.json --out "$OUT"` performs 8.1-8.7
+- **Command (automation):** `python -m automation.repd.run --label $REL --out "$OUT" --repo-root . --stop-after build_news --news-review-expected` (the module alone needs nine more arguments; see `--help`. Without `--news-review-expected` run.py passes `--accept-expected` and new contract figures are accepted without the owner review section 1 requires) performs 8.1-8.7
   into `$OUT` with the output path redirected.
 - **News:** the new folder keeps reading `dist/major_project_news_v9_5_1.json`, unchanged. Its payload check needs Beacon Fen (ref 13599)
   at 400 MW (`scripts/plugins/newspaper-v9-5-1.js:101-110`). News items carry July statuses; the page does not cross-check them.

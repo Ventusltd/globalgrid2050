@@ -31,6 +31,7 @@ CHANGED_FROM_PARENT=(
   contracts/release.v9.1.json
   contracts/release.v9.5.1.json
   scripts/data/build_v9_1_spine.py
+  scripts/plugins/projects-v9-8.js
   tests/run_v9_12.sh
   tests/check_v9_12.mjs
   fixtures/2026q3/project_identity_2026q3.json
@@ -109,6 +110,13 @@ assert b.sha256(out) == c["source"]["coordinate_fixture_sha256"], "coordinate fi
 print("coordinate fixture rebuilt byte-for-byte from", xlsx.name)
 PY
 fi
+
+# The CSV export must not carry the Q2 reconciliation count (it is read from
+# the build manifest now), and nothing else in the served plugins may either.
+if grep -n '14657/14657' "$RELEASE/scripts/plugins/projects-v9-8.js"; then
+  echo "projects-v9-8.js still carries the Q2 reconciliation count" >&2; exit 1
+fi
+python3 -c 'import json,sys; m=json.load(open(sys.argv[1])); assert m["source_record_count"]==14967, m["source_record_count"]' "$RELEASE/data/v9.1/build_manifest.json"
 
 node "$HERE/check_v9_12.mjs"
 # Every REPD MAP button, not a sample: every href with the page's own function.

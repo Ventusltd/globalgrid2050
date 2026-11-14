@@ -1,0 +1,5968 @@
+{
+ "schema": "globalgrid2050.convergence.repd-datacentres.v1",
+ "caveats": [
+  "Straight-line distance between published points; proximity is not connection, capacity or feasibility.",
+  "The shared nearest transmission node is a screening grouping of points nearest the same NESO ETYS node; it says nothing about any feeder, connection offer or queue position.",
+  "Blank REPD capacity is unknown, never zero: MW sums are over stated values; unknown-capacity counts are given beside them.",
+  "Data-centre IT load MW and grid connection MW are separate source figures and never derived from each other; unclassified_mw is not summed as demand.",
+  "A data-centre pipeline entry is not a commitment; data-centre status is the baseline's own status field.",
+  "REPD status groups: operational = Operational; under_construction = Under Construction; consented = Awaiting Construction; in_planning = Application Submitted or Appeal Lodged.",
+  "REPD refs 18561 and 18562 carry known wrong coordinates and are excluded from all geography.",
+  "Live REPD records repeating one site (same technology, site name, stated capacity and point) are counted once: the most advanced status, then the highest Ref ID; the manifest lists every collapsed ref.",
+  "A data-centre point outside UK WGS84 bounds is treated as unplaced (never re-projected or guessed)."
+ ],
+ "records": [
+  {
+   "evidence_class": "A_same_site_and_operator",
+   "datacentre": {
+    "id": "dcuk-1f5343e9bfa4a385",
+    "name": "Redcentric Elland Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14553",
+    "gg_project_id": "GG2050-REPD-14553",
+    "site_name": "Lowfields Business Park, Lowfields Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.62
+   },
+   "distance_km": 0.001,
+   "evidence": {
+    "operator_key": "redcentric"
+   }
+  },
+  {
+   "evidence_class": "A_same_site_and_operator",
+   "datacentre": {
+    "id": "dcuk-3014993333eb3657",
+    "name": "Digital Realty LGW14",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15780",
+    "gg_project_id": "GG2050-REPD-15780",
+    "site_name": "Kestrel Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 1.47
+   },
+   "distance_km": 0.226,
+   "evidence": {
+    "operator_key": "digital realty"
+   }
+  },
+  {
+   "evidence_class": "A_same_site_and_operator",
+   "datacentre": {
+    "id": "dcuk-83c8f5fd0e51cfa3",
+    "name": "Redcentric London West",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14175",
+    "gg_project_id": "GG2050-REPD-14175",
+    "site_name": "Prologis Park, Unit B - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": null
+   },
+   "distance_km": 0.183,
+   "evidence": {
+    "operator_key": "redcentric"
+   }
+  },
+  {
+   "evidence_class": "A_same_site_and_operator",
+   "datacentre": {
+    "id": "dcuk-83c8f5fd0e51cfa3",
+    "name": "Redcentric London West",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "16497",
+    "gg_project_id": "GG2050-REPD-16497",
+    "site_name": "Prologis Park, Unit B - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 0.99
+   },
+   "distance_km": 0.183,
+   "evidence": {
+    "operator_key": "redcentric"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-095027cecd2521ae",
+    "name": "Isambard-AI supercomputer (AIRR)",
+    "status": "operational",
+    "precision": "settlement"
+   },
+   "repd": {
+    "ref": "13118",
+    "gg_project_id": "GG2050-REPD-13118",
+    "site_name": "Drive Vauxhall, Avon Street - Battery Energy Storage",
+    "technology": "Battery",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.6
+   },
+   "distance_km": 0.96,
+   "evidence": {
+    "operator_key": "university of bristol"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-1c20af1a0a7dbfde",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "9747",
+    "gg_project_id": "GG2050-REPD-9747",
+    "site_name": "Centurion Way, Braunstone Town - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.21
+   },
+   "distance_km": 303.93,
+   "evidence": {
+    "operator_key": "vodafone"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-1c20af1a0a7dbfde",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "9782",
+    "gg_project_id": "GG2050-REPD-9782",
+    "site_name": "Manor Royal, Rowfant - Solar PV Array",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Withdrawn",
+    "status_group": null,
+    "capacity_mw": 0.27
+   },
+   "distance_km": 307.03,
+   "evidence": {
+    "operator_key": "vodafone"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-1c20af1a0a7dbfde",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "9881",
+    "gg_project_id": "GG2050-REPD-9881",
+    "site_name": "Avro Way - Solar Array",
+    "technology": "Solar Photovoltaics",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": 0.2
+   },
+   "distance_km": 289.132,
+   "evidence": {
+    "operator_key": "vodafone"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-1c20af1a0a7dbfde",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "12991",
+    "gg_project_id": "GG2050-REPD-12991",
+    "site_name": "Avro Way, Brooklands Industrial Park -  Solar Panel",
+    "technology": "Solar Photovoltaics",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": 0.23
+   },
+   "distance_km": 289.14,
+   "evidence": {
+    "operator_key": "vodafone"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-1c20af1a0a7dbfde",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "13168",
+    "gg_project_id": "GG2050-REPD-13168",
+    "site_name": "Vodafone Telephone Exchange, Europa Drive - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.27
+   },
+   "distance_km": 357.587,
+   "evidence": {
+    "operator_key": "vodafone"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-1c20af1a0a7dbfde",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "13590",
+    "gg_project_id": "GG2050-REPD-13590",
+    "site_name": "Vodafone Building, Carr Lane - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.22
+   },
+   "distance_km": 344.189,
+   "evidence": {
+    "operator_key": "vodafone"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-1c20af1a0a7dbfde",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "13662",
+    "gg_project_id": "GG2050-REPD-13662",
+    "site_name": "Mobile Telephone Exchange (MTX) - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": null
+   },
+   "distance_km": 192.868,
+   "evidence": {
+    "operator_key": "vodafone"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-1c20af1a0a7dbfde",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15775",
+    "gg_project_id": "GG2050-REPD-15775",
+    "site_name": "Avro Way, Brooklands Industrial Park -  Solar Panel",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.18
+   },
+   "distance_km": 289.14,
+   "evidence": {
+    "operator_key": "vodafone"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-1f5343e9bfa4a385",
+    "name": "Redcentric Elland Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14175",
+    "gg_project_id": "GG2050-REPD-14175",
+    "site_name": "Prologis Park, Unit B - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": null
+   },
+   "distance_km": 265.63,
+   "evidence": {
+    "operator_key": "redcentric"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-1f5343e9bfa4a385",
+    "name": "Redcentric Elland Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14553",
+    "gg_project_id": "GG2050-REPD-14553",
+    "site_name": "Lowfields Business Park, Lowfields Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.62
+   },
+   "distance_km": 0.001,
+   "evidence": {
+    "operator_key": "redcentric"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-1f5343e9bfa4a385",
+    "name": "Redcentric Elland Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "16497",
+    "gg_project_id": "GG2050-REPD-16497",
+    "site_name": "Prologis Park, Unit B - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 0.99
+   },
+   "distance_km": 265.63,
+   "evidence": {
+    "operator_key": "redcentric"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-29e49f45914bc2c5",
+    "name": "Digital Realty London LON3",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15780",
+    "gg_project_id": "GG2050-REPD-15780",
+    "site_name": "Kestrel Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 1.47
+   },
+   "distance_km": 41.71,
+   "evidence": {
+    "operator_key": "digital realty"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-3014993333eb3657",
+    "name": "Digital Realty LGW14",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15780",
+    "gg_project_id": "GG2050-REPD-15780",
+    "site_name": "Kestrel Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 1.47
+   },
+   "distance_km": 0.226,
+   "evidence": {
+    "operator_key": "digital realty"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-30dde6ed3ce62989",
+    "name": "Digital Realty LGW16",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15780",
+    "gg_project_id": "GG2050-REPD-15780",
+    "site_name": "Kestrel Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 1.47
+   },
+   "distance_km": 35.854,
+   "evidence": {
+    "operator_key": "digital realty"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-41121aa0e1e6857a",
+    "name": "Redcentric Reading",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14175",
+    "gg_project_id": "GG2050-REPD-14175",
+    "site_name": "Prologis Park, Unit B - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": null
+   },
+   "distance_km": 40.554,
+   "evidence": {
+    "operator_key": "redcentric"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-41121aa0e1e6857a",
+    "name": "Redcentric Reading",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14553",
+    "gg_project_id": "GG2050-REPD-14553",
+    "site_name": "Lowfields Business Park, Lowfields Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.62
+   },
+   "distance_km": 259.157,
+   "evidence": {
+    "operator_key": "redcentric"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-41121aa0e1e6857a",
+    "name": "Redcentric Reading",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "16497",
+    "gg_project_id": "GG2050-REPD-16497",
+    "site_name": "Prologis Park, Unit B - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 0.99
+   },
+   "distance_km": 40.554,
+   "evidence": {
+    "operator_key": "redcentric"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-46551c50eb1d835a",
+    "name": "Digital Realty LHR20",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15780",
+    "gg_project_id": "GG2050-REPD-15780",
+    "site_name": "Kestrel Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 1.47
+   },
+   "distance_km": 44.321,
+   "evidence": {
+    "operator_key": "digital realty"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-54c71f2b15537563",
+    "name": "Digital Realty LHR13",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15780",
+    "gg_project_id": "GG2050-REPD-15780",
+    "site_name": "Kestrel Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 1.47
+   },
+   "distance_km": 20.983,
+   "evidence": {
+    "operator_key": "digital realty"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-586f77bd7035c558",
+    "name": "Digital Realty LHR17",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15780",
+    "gg_project_id": "GG2050-REPD-15780",
+    "site_name": "Kestrel Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 1.47
+   },
+   "distance_km": 19.496,
+   "evidence": {
+    "operator_key": "digital realty"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-7302b41cb53b8bc5",
+    "name": "Iron Mountain London LON-1",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "7249",
+    "gg_project_id": "GG2050-REPD-7249",
+    "site_name": "Iron Mountain Site",
+    "technology": "Solar Photovoltaics",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 0.3
+   },
+   "distance_km": 29.625,
+   "evidence": {
+    "operator_key": "iron mountain"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-7302b41cb53b8bc5",
+    "name": "Iron Mountain London LON-1",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "7259",
+    "gg_project_id": "GG2050-REPD-7259",
+    "site_name": "Iron Mountain Building",
+    "technology": "Solar Photovoltaics",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 0.3
+   },
+   "distance_km": 523.382,
+   "evidence": {
+    "operator_key": "iron mountain"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-7302b41cb53b8bc5",
+    "name": "Iron Mountain London LON-1",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "7526",
+    "gg_project_id": "GG2050-REPD-7526",
+    "site_name": "Iron Mountain Howe Moss Drive",
+    "technology": "Solar Photovoltaics",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 0.3
+   },
+   "distance_km": 639.267,
+   "evidence": {
+    "operator_key": "iron mountain"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-7bcd3657563f1904",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "20552",
+    "gg_project_id": "GG2050-REPD-20552",
+    "site_name": "Canons Way, City Centre - Solar Photovoltaics Equipment",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.17
+   },
+   "distance_km": 500.149,
+   "evidence": {
+    "operator_key": "lloyds banking"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-83c8f5fd0e51cfa3",
+    "name": "Redcentric London West",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14175",
+    "gg_project_id": "GG2050-REPD-14175",
+    "site_name": "Prologis Park, Unit B - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": null
+   },
+   "distance_km": 0.183,
+   "evidence": {
+    "operator_key": "redcentric"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-83c8f5fd0e51cfa3",
+    "name": "Redcentric London West",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14553",
+    "gg_project_id": "GG2050-REPD-14553",
+    "site_name": "Lowfields Business Park, Lowfields Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.62
+   },
+   "distance_km": 265.506,
+   "evidence": {
+    "operator_key": "redcentric"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-83c8f5fd0e51cfa3",
+    "name": "Redcentric London West",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "16497",
+    "gg_project_id": "GG2050-REPD-16497",
+    "site_name": "Prologis Park, Unit B - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 0.99
+   },
+   "distance_km": 0.183,
+   "evidence": {
+    "operator_key": "redcentric"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-8c4962d87d240b16",
+    "name": "Redcentric London City",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14175",
+    "gg_project_id": "GG2050-REPD-14175",
+    "site_name": "Prologis Park, Unit B - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": null
+   },
+   "distance_km": 22.461,
+   "evidence": {
+    "operator_key": "redcentric"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-8c4962d87d240b16",
+    "name": "Redcentric London City",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14553",
+    "gg_project_id": "GG2050-REPD-14553",
+    "site_name": "Lowfields Business Park, Lowfields Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.62
+   },
+   "distance_km": 268.411,
+   "evidence": {
+    "operator_key": "redcentric"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-8c4962d87d240b16",
+    "name": "Redcentric London City",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "16497",
+    "gg_project_id": "GG2050-REPD-16497",
+    "site_name": "Prologis Park, Unit B - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 0.99
+   },
+   "distance_km": 22.461,
+   "evidence": {
+    "operator_key": "redcentric"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-8db43a65419baa22",
+    "name": "Redcentric Cambridge",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14175",
+    "gg_project_id": "GG2050-REPD-14175",
+    "site_name": "Prologis Park, Unit B - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": null
+   },
+   "distance_km": 92.699,
+   "evidence": {
+    "operator_key": "redcentric"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-8db43a65419baa22",
+    "name": "Redcentric Cambridge",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14553",
+    "gg_project_id": "GG2050-REPD-14553",
+    "site_name": "Lowfields Business Park, Lowfields Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.62
+   },
+   "distance_km": 209.607,
+   "evidence": {
+    "operator_key": "redcentric"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-8db43a65419baa22",
+    "name": "Redcentric Cambridge",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "16497",
+    "gg_project_id": "GG2050-REPD-16497",
+    "site_name": "Prologis Park, Unit B - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 0.99
+   },
+   "distance_km": 92.699,
+   "evidence": {
+    "operator_key": "redcentric"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-9d512f2252e22296",
+    "name": "Redcentric Byfleet",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14175",
+    "gg_project_id": "GG2050-REPD-14175",
+    "site_name": "Prologis Park, Unit B - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": null
+   },
+   "distance_km": 14.6,
+   "evidence": {
+    "operator_key": "redcentric"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-9d512f2252e22296",
+    "name": "Redcentric Byfleet",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14553",
+    "gg_project_id": "GG2050-REPD-14553",
+    "site_name": "Lowfields Business Park, Lowfields Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.62
+   },
+   "distance_km": 276.224,
+   "evidence": {
+    "operator_key": "redcentric"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-9d512f2252e22296",
+    "name": "Redcentric Byfleet",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "16497",
+    "gg_project_id": "GG2050-REPD-16497",
+    "site_name": "Prologis Park, Unit B - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 0.99
+   },
+   "distance_km": 14.6,
+   "evidence": {
+    "operator_key": "redcentric"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-a0b1809510ba06a4",
+    "name": "Digital Realty LHR19",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15780",
+    "gg_project_id": "GG2050-REPD-15780",
+    "site_name": "Kestrel Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 1.47
+   },
+   "distance_km": 43.693,
+   "evidence": {
+    "operator_key": "digital realty"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-d2271d1a6768121c",
+    "name": "Starwood House",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "107",
+    "gg_project_id": "GG2050-REPD-107",
+    "site_name": "Tesco Distribution Centre (Livingston)",
+    "technology": "Biomass (dedicated)",
+    "status": "Abandoned",
+    "status_group": null,
+    "capacity_mw": 6.5
+   },
+   "distance_km": 488.866,
+   "evidence": {
+    "operator_key": "tesco"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-d2271d1a6768121c",
+    "name": "Starwood House",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "167",
+    "gg_project_id": "GG2050-REPD-167",
+    "site_name": "Tesco Distribution Centre, Goole",
+    "technology": "Biomass (dedicated)",
+    "status": "Abandoned",
+    "status_group": null,
+    "capacity_mw": 5.0
+   },
+   "distance_km": 197.22,
+   "evidence": {
+    "operator_key": "tesco"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-d2271d1a6768121c",
+    "name": "Starwood House",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "18345",
+    "gg_project_id": "GG2050-REPD-18345",
+    "site_name": "Tesco Extra, Hazelmere - Battery Energy Storage",
+    "technology": "Battery",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.25
+   },
+   "distance_km": 67.409,
+   "evidence": {
+    "operator_key": "tesco"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-d2271d1a6768121c",
+    "name": "Starwood House",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "19548",
+    "gg_project_id": "GG2050-REPD-19548",
+    "site_name": "Tesco Stores, South Street - Roof Mounted Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.33
+   },
+   "distance_km": 84.318,
+   "evidence": {
+    "operator_key": "tesco"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-d2271d1a6768121c",
+    "name": "Starwood House",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "20054",
+    "gg_project_id": "GG2050-REPD-20054",
+    "site_name": "Tesco Stores, Greenock Road -  Solar PV System",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.57
+   },
+   "distance_km": 528.449,
+   "evidence": {
+    "operator_key": "tesco"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-d2271d1a6768121c",
+    "name": "Starwood House",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "20097",
+    "gg_project_id": "GG2050-REPD-20097",
+    "site_name": "Tesco Superstore, Tidal Reach - Solar PV Array",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.25
+   },
+   "distance_km": 265.179,
+   "evidence": {
+    "operator_key": "tesco"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-d2271d1a6768121c",
+    "name": "Starwood House",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "20101",
+    "gg_project_id": "GG2050-REPD-20101",
+    "site_name": "Tesco Extra, Reigate Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.38
+   },
+   "distance_km": 90.396,
+   "evidence": {
+    "operator_key": "tesco"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-d2271d1a6768121c",
+    "name": "Starwood House",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "20184",
+    "gg_project_id": "GG2050-REPD-20184",
+    "site_name": "Tesco Stores, New Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Submitted",
+    "status_group": "in_planning",
+    "capacity_mw": 0.27
+   },
+   "distance_km": 16.249,
+   "evidence": {
+    "operator_key": "tesco"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-d2271d1a6768121c",
+    "name": "Starwood House",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "20282",
+    "gg_project_id": "GG2050-REPD-20282",
+    "site_name": "Tesco, Cygnet View - Solar PV Arrays",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 1.05
+   },
+   "distance_km": 64.028,
+   "evidence": {
+    "operator_key": "tesco"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-d2271d1a6768121c",
+    "name": "Starwood House",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "20877",
+    "gg_project_id": "GG2050-REPD-20877",
+    "site_name": "Tesco Superstore, Market Street - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.42
+   },
+   "distance_km": 197.111,
+   "evidence": {
+    "operator_key": "tesco"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-d2271d1a6768121c",
+    "name": "Starwood House",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "20913",
+    "gg_project_id": "GG2050-REPD-20913",
+    "site_name": "Tesco Extra, Nantyffin Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.67
+   },
+   "distance_km": 256.484,
+   "evidence": {
+    "operator_key": "tesco"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-d2271d1a6768121c",
+    "name": "Starwood House",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "21013",
+    "gg_project_id": "GG2050-REPD-21013",
+    "site_name": "Tesco Superstore, London Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.46
+   },
+   "distance_km": 326.532,
+   "evidence": {
+    "operator_key": "tesco"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-d2271d1a6768121c",
+    "name": "Starwood House",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "21239",
+    "gg_project_id": "GG2050-REPD-21239",
+    "site_name": "Tesco Store, Auld Brig Road -  Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.56
+   },
+   "distance_km": 515.354,
+   "evidence": {
+    "operator_key": "tesco"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-d2271d1a6768121c",
+    "name": "Starwood House",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "21395",
+    "gg_project_id": "GG2050-REPD-21395",
+    "site_name": "Tesco, Brocks Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Submitted",
+    "status_group": "in_planning",
+    "capacity_mw": 0.21
+   },
+   "distance_km": 96.297,
+   "evidence": {
+    "operator_key": "tesco"
+   }
+  },
+  {
+   "evidence_class": "B_operator_match",
+   "datacentre": {
+    "id": "dcuk-fde0cde03ff31e52",
+    "name": "Digital Realty LHR26",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15780",
+    "gg_project_id": "GG2050-REPD-15780",
+    "site_name": "Kestrel Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 1.47
+   },
+   "distance_km": 21.482,
+   "evidence": {
+    "operator_key": "digital realty"
+   }
+  },
+  {
+   "evidence_class": "C_same_site_name_and_proximity",
+   "datacentre": {
+    "id": "dcuk-4ad498e7880d6ba4",
+    "name": "SDC M40 Campus (Wapseys Wood)",
+    "status": "in_planning",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "6199",
+    "gg_project_id": "GG2050-REPD-6199",
+    "site_name": "Wapseys Wood",
+    "technology": "Anaerobic Digestion",
+    "status": "Appeal Refused",
+    "status_group": null,
+    "capacity_mw": 1.0
+   },
+   "distance_km": 0.178,
+   "evidence": {
+    "shared_site_tokens": [
+     "wapseys",
+     "wood"
+    ],
+    "distinctive_tokens": [
+     "wapseys"
+    ]
+   }
+  },
+  {
+   "evidence_class": "C_same_site_name_and_proximity",
+   "datacentre": {
+    "id": "dcuk-6f4bd17e9ae089cb",
+    "name": "Land at Manor Farm and north of Wraysbury Reservoir, Poyle Road, Slough",
+    "status": "consented",
+    "precision": "settlement"
+   },
+   "repd": {
+    "ref": "5519",
+    "gg_project_id": "GG2050-REPD-5519",
+    "site_name": "Poyle Park Solar Farm",
+    "technology": "Solar Photovoltaics",
+    "status": "Appeal Refused",
+    "status_group": null,
+    "capacity_mw": 4.5
+   },
+   "distance_km": 0.602,
+   "evidence": {
+    "shared_site_tokens": [
+     "manor",
+     "poyle",
+     "slough"
+    ],
+    "distinctive_tokens": [
+     "poyle"
+    ]
+   }
+  },
+  {
+   "evidence_class": "C_same_site_name_and_proximity",
+   "datacentre": {
+    "id": "dcuk-6f4bd17e9ae089cb",
+    "name": "Land at Manor Farm and north of Wraysbury Reservoir, Poyle Road, Slough",
+    "status": "consented",
+    "precision": "settlement"
+   },
+   "repd": {
+    "ref": "17383",
+    "gg_project_id": "GG2050-REPD-17383",
+    "site_name": "Manor Farm, Poyle Road - Battery Energy Storage",
+    "technology": "Battery",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": null
+   },
+   "distance_km": 0.222,
+   "evidence": {
+    "shared_site_tokens": [
+     "manor",
+     "poyle",
+     "slough"
+    ],
+    "distinctive_tokens": [
+     "poyle"
+    ]
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-04bb759f3d52d660",
+    "name": "VIRTUS LONDON2",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "6132",
+    "gg_project_id": "GG2050-REPD-6132",
+    "site_name": "Western International Market",
+    "technology": "Solar Photovoltaics",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 1.7
+   },
+   "distance_km": 0.251,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-04bb759f3d52d660",
+    "name": "VIRTUS LONDON2",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "6886",
+    "gg_project_id": "GG2050-REPD-6886",
+    "site_name": "Western International Market (WIM) Site",
+    "technology": "Battery",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 0.2
+   },
+   "distance_km": 0.256,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-04bb759f3d52d660",
+    "name": "VIRTUS LONDON2",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "7004",
+    "gg_project_id": "GG2050-REPD-7004",
+    "site_name": "Southall Lane Waste Depot",
+    "technology": "Battery",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": null
+   },
+   "distance_km": 0.126,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-04bb759f3d52d660",
+    "name": "VIRTUS LONDON2",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14575",
+    "gg_project_id": "GG2050-REPD-14575",
+    "site_name": "David Lloyd Racket Club, Southall Lane - Photovoltaic Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": 0.16
+   },
+   "distance_km": 0.43,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-04bb759f3d52d660",
+    "name": "VIRTUS LONDON2",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14964",
+    "gg_project_id": "GG2050-REPD-14964",
+    "site_name": "David Lloyd Racket Club, Southall Lane - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.16
+   },
+   "distance_km": 0.43,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-04bb759f3d52d660",
+    "name": "VIRTUS LONDON2",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "18579",
+    "gg_project_id": "GG2050-REPD-18579",
+    "site_name": "International Trading Estate, Trident Way - Data Centre",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.22
+   },
+   "distance_km": 0.443,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-05691e3e401dc669",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14920",
+    "gg_project_id": "GG2050-REPD-14920",
+    "site_name": "Hammerstone Road Depot - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": null
+   },
+   "distance_km": 0.146,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-05691e3e401dc669",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "17373",
+    "gg_project_id": "GG2050-REPD-17373",
+    "site_name": "New Smithfield Market, Whitworth Street East -Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.27
+   },
+   "distance_km": 0.348,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-05691e3e401dc669",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "17374",
+    "gg_project_id": "GG2050-REPD-17374",
+    "site_name": "New Smithfield Market - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.16
+   },
+   "distance_km": 0.348,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-1339a5c0b39f5d3c",
+    "name": "CyrusOne LON3",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "831",
+    "gg_project_id": "GG2050-REPD-831",
+    "site_name": "Fibrepower, Slough",
+    "technology": "EfW Incineration",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 50.0
+   },
+   "distance_km": 0.182,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-1339a5c0b39f5d3c",
+    "name": "CyrusOne LON3",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "4699",
+    "gg_project_id": "GG2050-REPD-4699",
+    "site_name": "Slough Heat & Power Station",
+    "technology": "EfW Incineration",
+    "status": "Under Construction",
+    "status_group": "under_construction",
+    "capacity_mw": 49.9
+   },
+   "distance_km": 0.233,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-1339a5c0b39f5d3c",
+    "name": "CyrusOne LON3",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "6850",
+    "gg_project_id": "GG2050-REPD-6850",
+    "site_name": "Highview Pilot Plant",
+    "technology": "Liquid Air Energy Storage",
+    "status": "Decommissioned",
+    "status_group": null,
+    "capacity_mw": 0.4
+   },
+   "distance_km": 0.208,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-13d8174ff378b8d9",
+    "name": "Pulsant Reading East",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "11074",
+    "gg_project_id": "GG2050-REPD-11074",
+    "site_name": "Thames Valley Park Drive, Earley -  Photovoltaic Solar panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.16
+   },
+   "distance_km": 0.349,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-13d8174ff378b8d9",
+    "name": "Pulsant Reading East",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14323",
+    "gg_project_id": "GG2050-REPD-14323",
+    "site_name": "Suttons Park Avenue, Suttons Business Park - Solar PV",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 1.3
+   },
+   "distance_km": 0.003,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-142d4e55df7c60a2",
+    "name": "Astrohouse",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "11755",
+    "gg_project_id": "GG2050-REPD-11755",
+    "site_name": "Concorde Way, Segensworth - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Under Construction",
+    "status_group": "under_construction",
+    "capacity_mw": 1.04
+   },
+   "distance_km": 0.395,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-142d4e55df7c60a2",
+    "name": "Astrohouse",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15241",
+    "gg_project_id": "GG2050-REPD-15241",
+    "site_name": "Octagon House, Concorde Way -  Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.41
+   },
+   "distance_km": 0.191,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-142d4e55df7c60a2",
+    "name": "Astrohouse",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "18646",
+    "gg_project_id": "GG2050-REPD-18646",
+    "site_name": "CooperVision, Concorde Way - Unit 8 - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.9
+   },
+   "distance_km": 0.285,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-158cfb9515c8d0c7",
+    "name": "Surrey Data Park",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "16907",
+    "gg_project_id": "GG2050-REPD-16907",
+    "site_name": "Sainsburys, Woolsack Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.63
+   },
+   "distance_km": 0.25,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-15c12bb154758d9e",
+    "name": "Pulsant",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "19108",
+    "gg_project_id": "GG2050-REPD-19108",
+    "site_name": "Big Yellow Self Storage Building, Rose Kiln Lane - Solar PV Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Submitted",
+    "status_group": "in_planning",
+    "capacity_mw": 0.17
+   },
+   "distance_km": 0.202,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-1738cf7b8da4bc2f",
+    "name": "Lunar 1&2",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14337",
+    "gg_project_id": "GG2050-REPD-14337",
+    "site_name": "Manchester Metropolitan University, Birley Fields - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.2
+   },
+   "distance_km": 0.22,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-1738cf7b8da4bc2f",
+    "name": "Lunar 1&2",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "19558",
+    "gg_project_id": "GG2050-REPD-19558",
+    "site_name": "Loreto College, Chichester Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.36
+   },
+   "distance_km": 0.466,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-189905c89717947b",
+    "name": "CDL Strata Campus Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "11291",
+    "gg_project_id": "GG2050-REPD-11291",
+    "site_name": "Audi Stockport, Brinksway, Edgeley - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 0.27
+   },
+   "distance_km": 0.401,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-189905c89717947b",
+    "name": "CDL Strata Campus Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "11337",
+    "gg_project_id": "GG2050-REPD-11337",
+    "site_name": "Heaton Norris - Solar PV Panel",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.2
+   },
+   "distance_km": 0.384,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-189905c89717947b",
+    "name": "CDL Strata Campus Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "11501",
+    "gg_project_id": "GG2050-REPD-11501",
+    "site_name": "Heaton Mersey - Solar panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": 0.42
+   },
+   "distance_km": 0.349,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-189905c89717947b",
+    "name": "CDL Strata Campus Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "12985",
+    "gg_project_id": "GG2050-REPD-12985",
+    "site_name": "A G Parfett And Son, Didsbury Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": 0.45
+   },
+   "distance_km": 0.349,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-189905c89717947b",
+    "name": "CDL Strata Campus Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "13445",
+    "gg_project_id": "GG2050-REPD-13445",
+    "site_name": "Mercedes-Benz, Brighton Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": 0.2
+   },
+   "distance_km": 0.197,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-189905c89717947b",
+    "name": "CDL Strata Campus Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "13652",
+    "gg_project_id": "GG2050-REPD-13652",
+    "site_name": "A G Parfett and Son, Didsbury Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.27
+   },
+   "distance_km": 0.339,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-189905c89717947b",
+    "name": "CDL Strata Campus Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14080",
+    "gg_project_id": "GG2050-REPD-14080",
+    "site_name": "Mercedes Benz, Heaton Mersey - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.2
+   },
+   "distance_km": 0.196,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-1eb7a9b456df7b23",
+    "name": "Equinix MA1",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "9570",
+    "gg_project_id": "GG2050-REPD-9570",
+    "site_name": "Royal Northern College Of Music, Oxford Road - Solar Photovoltaic panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Under Construction",
+    "status_group": "under_construction",
+    "capacity_mw": 0.17
+   },
+   "distance_km": 0.486,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-1f5343e9bfa4a385",
+    "name": "Redcentric Elland Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "7053",
+    "gg_project_id": "GG2050-REPD-7053",
+    "site_name": "Elland Storage Project",
+    "technology": "Battery",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": 49.9
+   },
+   "distance_km": 0.242,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-1f5343e9bfa4a385",
+    "name": "Redcentric Elland Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "10236",
+    "gg_project_id": "GG2050-REPD-10236",
+    "site_name": "Elland Storage Project",
+    "technology": "Battery",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": 49.9
+   },
+   "distance_km": 0.242,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-1f5343e9bfa4a385",
+    "name": "Redcentric Elland Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14553",
+    "gg_project_id": "GG2050-REPD-14553",
+    "site_name": "Lowfields Business Park, Lowfields Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.62
+   },
+   "distance_km": 0.001,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-1f5343e9bfa4a385",
+    "name": "Redcentric Elland Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15304",
+    "gg_project_id": "GG2050-REPD-15304",
+    "site_name": "Lowfields Energy Storage Project",
+    "technology": "Battery",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 49.9
+   },
+   "distance_km": 0.242,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-2289daa21f0b0cd3",
+    "name": "Experian",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "13914",
+    "gg_project_id": "GG2050-REPD-13914",
+    "site_name": "Ideagen, Mere Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.15
+   },
+   "distance_km": 0.341,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-22dc4cedbe950cfc",
+    "name": "VIRTUS Slough London 3 and 4",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "4699",
+    "gg_project_id": "GG2050-REPD-4699",
+    "site_name": "Slough Heat & Power Station",
+    "technology": "EfW Incineration",
+    "status": "Under Construction",
+    "status_group": "under_construction",
+    "capacity_mw": 49.9
+   },
+   "distance_km": 0.43,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-270feaffcf6823e9",
+    "name": "Imperium 315",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "18308",
+    "gg_project_id": "GG2050-REPD-18308",
+    "site_name": "Whitmore Way - Micro Energy Storage Project",
+    "technology": "Battery",
+    "status": "Application Withdrawn",
+    "status_group": null,
+    "capacity_mw": 0.2
+   },
+   "distance_km": 0.492,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-276f6c45a74e6976",
+    "name": "SCC",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "11755",
+    "gg_project_id": "GG2050-REPD-11755",
+    "site_name": "Concorde Way, Segensworth - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Under Construction",
+    "status_group": "under_construction",
+    "capacity_mw": 1.04
+   },
+   "distance_km": 0.319,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-276f6c45a74e6976",
+    "name": "SCC",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15241",
+    "gg_project_id": "GG2050-REPD-15241",
+    "site_name": "Octagon House, Concorde Way -  Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.41
+   },
+   "distance_km": 0.214,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-276f6c45a74e6976",
+    "name": "SCC",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "18646",
+    "gg_project_id": "GG2050-REPD-18646",
+    "site_name": "CooperVision, Concorde Way - Unit 8 - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.9
+   },
+   "distance_km": 0.308,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-3014993333eb3657",
+    "name": "Digital Realty LGW14",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15780",
+    "gg_project_id": "GG2050-REPD-15780",
+    "site_name": "Kestrel Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 1.47
+   },
+   "distance_km": 0.226,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-305e8e5d3f3ffe08",
+    "name": "4D Data Centers - Gatwick",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "9782",
+    "gg_project_id": "GG2050-REPD-9782",
+    "site_name": "Manor Royal, Rowfant - Solar PV Array",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Withdrawn",
+    "status_group": null,
+    "capacity_mw": 0.27
+   },
+   "distance_km": 0.188,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-305e8e5d3f3ffe08",
+    "name": "4D Data Centers - Gatwick",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "12851",
+    "gg_project_id": "GG2050-REPD-12851",
+    "site_name": "Vodafone UK, Newton Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.27
+   },
+   "distance_km": 0.188,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-305e8e5d3f3ffe08",
+    "name": "4D Data Centers - Gatwick",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "16539",
+    "gg_project_id": "GG2050-REPD-16539",
+    "site_name": "Boeing House, Crawley Business Quarter - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": null
+   },
+   "distance_km": 0.454,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-30c7d4dc84f84ee2",
+    "name": "Edinburgh SC-3",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "7763",
+    "gg_project_id": "GG2050-REPD-7763",
+    "site_name": "Claylands Road",
+    "technology": "Solar Photovoltaics",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 0.2
+   },
+   "distance_km": 0.154,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-30dde6ed3ce62989",
+    "name": "Digital Realty LGW16",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "9782",
+    "gg_project_id": "GG2050-REPD-9782",
+    "site_name": "Manor Royal, Rowfant - Solar PV Array",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Withdrawn",
+    "status_group": null,
+    "capacity_mw": 0.27
+   },
+   "distance_km": 0.346,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-30dde6ed3ce62989",
+    "name": "Digital Realty LGW16",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "12851",
+    "gg_project_id": "GG2050-REPD-12851",
+    "site_name": "Vodafone UK, Newton Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.27
+   },
+   "distance_km": 0.34,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-30dde6ed3ce62989",
+    "name": "Digital Realty LGW16",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "19046",
+    "gg_project_id": "GG2050-REPD-19046",
+    "site_name": "Diva Innovation Centre, Crompton Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": null
+   },
+   "distance_km": 0.385,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-30dde6ed3ce62989",
+    "name": "Digital Realty LGW16",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "19661",
+    "gg_project_id": "GG2050-REPD-19661",
+    "site_name": "Johnsons Hotel, Woolborough Lane -Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.44
+   },
+   "distance_km": 0.364,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-36ff3fc52203215f",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15890",
+    "gg_project_id": "GG2050-REPD-15890",
+    "site_name": "Linford Wood Business Park, Linford Wood - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.41
+   },
+   "distance_km": 0.332,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-37acc1d421ae933e",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "20894",
+    "gg_project_id": "GG2050-REPD-20894",
+    "site_name": "Ministry Of Defence, Westwells Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.17
+   },
+   "distance_km": 0.362,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-3a66addce0bc81c4",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "11899",
+    "gg_project_id": "GG2050-REPD-11899",
+    "site_name": "Zetland Multi Storey Car Park, Station Street - Solar Photovoltaic Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": null
+   },
+   "distance_km": 0.195,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-3a73799e3a9f2f10",
+    "name": "CryrusOne LON4",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "10413",
+    "gg_project_id": "GG2050-REPD-10413",
+    "site_name": "Unit 2a, Slough Retail Park - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.19
+   },
+   "distance_km": 0.474,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-3eac6a6123e54579",
+    "name": "Colt London North Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14751",
+    "gg_project_id": "GG2050-REPD-14751",
+    "site_name": "Ridgeway Academy, Herns Lane - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.19
+   },
+   "distance_km": 0.445,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-3eac6a6123e54579",
+    "name": "Colt London North Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "17205",
+    "gg_project_id": "GG2050-REPD-17205",
+    "site_name": "Morrisons Supermarket - Solar PV Array",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.27
+   },
+   "distance_km": 0.287,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-41121aa0e1e6857a",
+    "name": "Redcentric Reading",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "13518",
+    "gg_project_id": "GG2050-REPD-13518",
+    "site_name": "Arena Business Park, Acre Road- Photovoltaics Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.32
+   },
+   "distance_km": 0.474,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-429e9c0d06af3566",
+    "name": "Netwise",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "6320",
+    "gg_project_id": "GG2050-REPD-6320",
+    "site_name": "Bywaters’ Materials Recovery Facility Solar Array",
+    "technology": "Solar Photovoltaics",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 1.0
+   },
+   "distance_km": 0.444,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-429e9c0d06af3566",
+    "name": "Netwise",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "19154",
+    "gg_project_id": "GG2050-REPD-19154",
+    "site_name": "Segro Park Canning, Town Bidder Street, Unit 2 - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.24
+   },
+   "distance_km": 0.358,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-445a0adbda66f6ed",
+    "name": "Venture West",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "194",
+    "gg_project_id": "GG2050-REPD-194",
+    "site_name": "New Greenham Park (gasification)",
+    "technology": "Advanced Conversion Technologies",
+    "status": "Abandoned",
+    "status_group": null,
+    "capacity_mw": 6.3
+   },
+   "distance_km": 0.207,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-4a98d5acd4fb8052",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "16597",
+    "gg_project_id": "GG2050-REPD-16597",
+    "site_name": "Clayfield Road, Worcester Six Business Park - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.42
+   },
+   "distance_km": 0.384,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-4ad498e7880d6ba4",
+    "name": "SDC M40 Campus (Wapseys Wood)",
+    "status": "in_planning",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "600",
+    "gg_project_id": "GG2050-REPD-600",
+    "site_name": "Wapsey's Wood II Landfill Site",
+    "technology": "Landfill Gas",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 1.0
+   },
+   "distance_km": 0.413,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-4ad498e7880d6ba4",
+    "name": "SDC M40 Campus (Wapseys Wood)",
+    "status": "in_planning",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "759",
+    "gg_project_id": "GG2050-REPD-759",
+    "site_name": "Wapsey's Wood III",
+    "technology": "Landfill Gas",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 1.0
+   },
+   "distance_km": 0.317,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-4ad498e7880d6ba4",
+    "name": "SDC M40 Campus (Wapseys Wood)",
+    "status": "in_planning",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "775",
+    "gg_project_id": "GG2050-REPD-775",
+    "site_name": "Wapsey's Wood",
+    "technology": "Landfill Gas",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 7.5
+   },
+   "distance_km": 0.365,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-4ad498e7880d6ba4",
+    "name": "SDC M40 Campus (Wapseys Wood)",
+    "status": "in_planning",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "6199",
+    "gg_project_id": "GG2050-REPD-6199",
+    "site_name": "Wapseys Wood",
+    "technology": "Anaerobic Digestion",
+    "status": "Appeal Refused",
+    "status_group": null,
+    "capacity_mw": 1.0
+   },
+   "distance_km": 0.178,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-4bf2090c6c9d9e65",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "316",
+    "gg_project_id": "GG2050-REPD-316",
+    "site_name": "Willesden",
+    "technology": "Anaerobic Digestion",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 2.0
+   },
+   "distance_km": 0.245,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-4bf2090c6c9d9e65",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "951",
+    "gg_project_id": "GG2050-REPD-951",
+    "site_name": "Willesden",
+    "technology": "Advanced Conversion Technologies",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 8.0
+   },
+   "distance_km": 0.304,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-4c3f3830d3e65c6c",
+    "name": "Equinix LD10",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "831",
+    "gg_project_id": "GG2050-REPD-831",
+    "site_name": "Fibrepower, Slough",
+    "technology": "EfW Incineration",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 50.0
+   },
+   "distance_km": 0.314,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-4c3f3830d3e65c6c",
+    "name": "Equinix LD10",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "4699",
+    "gg_project_id": "GG2050-REPD-4699",
+    "site_name": "Slough Heat & Power Station",
+    "technology": "EfW Incineration",
+    "status": "Under Construction",
+    "status_group": "under_construction",
+    "capacity_mw": 49.9
+   },
+   "distance_km": 0.23,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-4c3f3830d3e65c6c",
+    "name": "Equinix LD10",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "6850",
+    "gg_project_id": "GG2050-REPD-6850",
+    "site_name": "Highview Pilot Plant",
+    "technology": "Liquid Air Energy Storage",
+    "status": "Decommissioned",
+    "status_group": null,
+    "capacity_mw": 0.4
+   },
+   "distance_km": 0.382,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-4d4c990cbf759894",
+    "name": "DXC Wynyard Data Center",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "11993",
+    "gg_project_id": "GG2050-REPD-11993",
+    "site_name": "Wynyard Business Park, North Chapell Lane - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 3.96
+   },
+   "distance_km": 0.478,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-4d4c990cbf759894",
+    "name": "DXC Wynyard Data Center",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "18745",
+    "gg_project_id": "GG2050-REPD-18745",
+    "site_name": "Sainsburys Supermarkets, Wynyard Retail Park - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": 0.31
+   },
+   "distance_km": 0.478,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-4d4c990cbf759894",
+    "name": "DXC Wynyard Data Center",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "19174",
+    "gg_project_id": "GG2050-REPD-19174",
+    "site_name": "Sainsburys Supermarkets, Wynyard Retail Park - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.31
+   },
+   "distance_km": 0.478,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-4e2dddd603e0b365",
+    "name": "CyrusOne London 1",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "831",
+    "gg_project_id": "GG2050-REPD-831",
+    "site_name": "Fibrepower, Slough",
+    "technology": "EfW Incineration",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 50.0
+   },
+   "distance_km": 0.301,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-4e2dddd603e0b365",
+    "name": "CyrusOne London 1",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "4699",
+    "gg_project_id": "GG2050-REPD-4699",
+    "site_name": "Slough Heat & Power Station",
+    "technology": "EfW Incineration",
+    "status": "Under Construction",
+    "status_group": "under_construction",
+    "capacity_mw": 49.9
+   },
+   "distance_km": 0.222,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-4e2dddd603e0b365",
+    "name": "CyrusOne London 1",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "6850",
+    "gg_project_id": "GG2050-REPD-6850",
+    "site_name": "Highview Pilot Plant",
+    "technology": "Liquid Air Energy Storage",
+    "status": "Decommissioned",
+    "status_group": null,
+    "capacity_mw": 0.4
+   },
+   "distance_km": 0.379,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-5404b2c80acc7ec5",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15660",
+    "gg_project_id": "GG2050-REPD-15660",
+    "site_name": "Stanhope Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 1.22
+   },
+   "distance_km": 0.032,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-5404b2c80acc7ec5",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "16368",
+    "gg_project_id": "GG2050-REPD-16368",
+    "site_name": "Stanhope Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 1.22
+   },
+   "distance_km": 0.032,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-5404b2c80acc7ec5",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "17227",
+    "gg_project_id": "GG2050-REPD-17227",
+    "site_name": "Data Centre, Dennison House, Stanhope Road -  Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": 1.22
+   },
+   "distance_km": 0.129,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-5404b2c80acc7ec5",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "17628",
+    "gg_project_id": "GG2050-REPD-17628",
+    "site_name": "Data Centre, Dennison House, Stanhope Road -  Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 1.15
+   },
+   "distance_km": 0.129,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-5404b2c80acc7ec5",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "20910",
+    "gg_project_id": "GG2050-REPD-20910",
+    "site_name": "Gbc Uk, Glebeland Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.24
+   },
+   "distance_km": 0.253,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-54c71f2b15537563",
+    "name": "Digital Realty LHR13",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14753",
+    "gg_project_id": "GG2050-REPD-14753",
+    "site_name": "Hook Rise Business Centre, Hook Rise South - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.18
+   },
+   "distance_km": 0.418,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-54c71f2b15537563",
+    "name": "Digital Realty LHR13",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "18622",
+    "gg_project_id": "GG2050-REPD-18622",
+    "site_name": "Oakpoint, Oakcroft Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.6
+   },
+   "distance_km": 0.371,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-54f4d97bd84dbaf8",
+    "name": "Ark Data Centres Meridian Park",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "893",
+    "gg_project_id": "GG2050-REPD-893",
+    "site_name": "Edmonton 'B' CHP Plant",
+    "technology": "EfW Incineration",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 18.0
+   },
+   "distance_km": 0.326,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-54f4d97bd84dbaf8",
+    "name": "Ark Data Centres Meridian Park",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "4924",
+    "gg_project_id": "GG2050-REPD-4924",
+    "site_name": "Edmonton EcoPark EfW",
+    "technology": "EfW Incineration",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 55.0
+   },
+   "distance_km": 0.365,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-56a45ac600499eb9",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "13581",
+    "gg_project_id": "GG2050-REPD-13581",
+    "site_name": "Unit 1, Origin Business Park, Rainsford Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.69
+   },
+   "distance_km": 0.476,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-56a45ac600499eb9",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14409",
+    "gg_project_id": "GG2050-REPD-14409",
+    "site_name": "Nucleus, Central Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.32
+   },
+   "distance_km": 0.391,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-56a45ac600499eb9",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14716",
+    "gg_project_id": "GG2050-REPD-14716",
+    "site_name": "Nucleus, Central Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.16
+   },
+   "distance_km": 0.403,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-56a45ac600499eb9",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "16755",
+    "gg_project_id": "GG2050-REPD-16755",
+    "site_name": "Light House, Western Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.43
+   },
+   "distance_km": 0.334,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-574a603e3dbca13b",
+    "name": "VIRTUS LONDON9",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "5969",
+    "gg_project_id": "GG2050-REPD-5969",
+    "site_name": "Galvin Road",
+    "technology": "Solar Photovoltaics",
+    "status": "Abandoned",
+    "status_group": null,
+    "capacity_mw": 1.6
+   },
+   "distance_km": 0.339,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-586f77bd7035c558",
+    "name": "Digital Realty LHR17",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "19356",
+    "gg_project_id": "GG2050-REPD-19356",
+    "site_name": "Airport Gate Business Centre, Harmondsworth - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.15
+   },
+   "distance_km": 0.083,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-594be381b7f6e80f",
+    "name": "China Mobile Slough",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "4699",
+    "gg_project_id": "GG2050-REPD-4699",
+    "site_name": "Slough Heat & Power Station",
+    "technology": "EfW Incineration",
+    "status": "Under Construction",
+    "status_group": "under_construction",
+    "capacity_mw": 49.9
+   },
+   "distance_km": 0.496,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-5c231057b817362c",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "316",
+    "gg_project_id": "GG2050-REPD-316",
+    "site_name": "Willesden",
+    "technology": "Anaerobic Digestion",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 2.0
+   },
+   "distance_km": 0.347,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-5c231057b817362c",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "951",
+    "gg_project_id": "GG2050-REPD-951",
+    "site_name": "Willesden",
+    "technology": "Advanced Conversion Technologies",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 8.0
+   },
+   "distance_km": 0.402,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-6bff198b86fef049",
+    "name": "DXC Technology",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "1311",
+    "gg_project_id": "GG2050-REPD-1311",
+    "site_name": "Vantage Point Solar Park",
+    "technology": "Solar Photovoltaics",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": 3.8
+   },
+   "distance_km": 0.293,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-6bff198b86fef049",
+    "name": "DXC Technology",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "1513",
+    "gg_project_id": "GG2050-REPD-1513",
+    "site_name": "Vantage Point",
+    "technology": "Solar Photovoltaics",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 1.4
+   },
+   "distance_km": 0.443,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-6bff198b86fef049",
+    "name": "DXC Technology",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "4960",
+    "gg_project_id": "GG2050-REPD-4960",
+    "site_name": "Vantage Point Business Park",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 3.6
+   },
+   "distance_km": 0.293,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-712bed069072d7fd",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "19930",
+    "gg_project_id": "GG2050-REPD-19930",
+    "site_name": "Brew Farm, St Levan - Wind Turbine",
+    "technology": "Wind Onshore",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.23
+   },
+   "distance_km": 0.057,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-72220dd067fc68df",
+    "name": "Kao Data KLON-05",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "16832",
+    "gg_project_id": "GG2050-REPD-16832",
+    "site_name": "Sergo Park Greenford Central, Phase 1A - Industrial, Warehouse & Offices",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.38
+   },
+   "distance_km": 0.394,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-7302b41cb53b8bc5",
+    "name": "Iron Mountain London LON-1",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "831",
+    "gg_project_id": "GG2050-REPD-831",
+    "site_name": "Fibrepower, Slough",
+    "technology": "EfW Incineration",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 50.0
+   },
+   "distance_km": 0.471,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-7302b41cb53b8bc5",
+    "name": "Iron Mountain London LON-1",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "6850",
+    "gg_project_id": "GG2050-REPD-6850",
+    "site_name": "Highview Pilot Plant",
+    "technology": "Liquid Air Energy Storage",
+    "status": "Decommissioned",
+    "status_group": null,
+    "capacity_mw": 0.4
+   },
+   "distance_km": 0.398,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-73b1348d7086a208",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "831",
+    "gg_project_id": "GG2050-REPD-831",
+    "site_name": "Fibrepower, Slough",
+    "technology": "EfW Incineration",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 50.0
+   },
+   "distance_km": 0.321,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-73b1348d7086a208",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "4699",
+    "gg_project_id": "GG2050-REPD-4699",
+    "site_name": "Slough Heat & Power Station",
+    "technology": "EfW Incineration",
+    "status": "Under Construction",
+    "status_group": "under_construction",
+    "capacity_mw": 49.9
+   },
+   "distance_km": 0.238,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-73b1348d7086a208",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "6850",
+    "gg_project_id": "GG2050-REPD-6850",
+    "site_name": "Highview Pilot Plant",
+    "technology": "Liquid Air Energy Storage",
+    "status": "Decommissioned",
+    "status_group": null,
+    "capacity_mw": 0.4
+   },
+   "distance_km": 0.39,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-745e9bee4b91222c",
+    "name": "Edinburgh SC-2",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "20896",
+    "gg_project_id": "GG2050-REPD-20896",
+    "site_name": "Bankhead Crossway South - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.16
+   },
+   "distance_km": 0.309,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-7577c5e939876360",
+    "name": "R89",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "8799",
+    "gg_project_id": "GG2050-REPD-8799",
+    "site_name": "Avon Road Car Park - Solar Photovoltaic Carport System",
+    "technology": "Solar Photovoltaics",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 1.62
+   },
+   "distance_km": 0.48,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-7577c5e939876360",
+    "name": "R89",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "8800",
+    "gg_project_id": "GG2050-REPD-8800",
+    "site_name": "South Car Park - Solar photovoltaic carport system",
+    "technology": "Solar Photovoltaics",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": null
+   },
+   "distance_km": 0.343,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-7577c5e939876360",
+    "name": "R89",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "9016",
+    "gg_project_id": "GG2050-REPD-9016",
+    "site_name": "Rutherford Appleton Laboratory",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 1.6
+   },
+   "distance_km": 0.168,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-7577c5e939876360",
+    "name": "R89",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "11011",
+    "gg_project_id": "GG2050-REPD-11011",
+    "site_name": "Rutherford Appleton Laboratory, Building R8 & R9, Harwell - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Withdrawn",
+    "status_group": null,
+    "capacity_mw": 0.26
+   },
+   "distance_km": 0.168,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-7577c5e939876360",
+    "name": "R89",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "11012",
+    "gg_project_id": "GG2050-REPD-11012",
+    "site_name": "Rutherford Appleton Laboratory, Building R40, Harwell - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Withdrawn",
+    "status_group": null,
+    "capacity_mw": 0.2
+   },
+   "distance_km": 0.168,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-7577c5e939876360",
+    "name": "R89",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "11013",
+    "gg_project_id": "GG2050-REPD-11013",
+    "site_name": "Rutherford Appleton Laboratory, Building R1, Harwell - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Withdrawn",
+    "status_group": null,
+    "capacity_mw": 0.42
+   },
+   "distance_km": 0.168,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-7577c5e939876360",
+    "name": "R89",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "11029",
+    "gg_project_id": "GG2050-REPD-11029",
+    "site_name": "Rutherford Appleton Laboratory, Building R105 & R106, Harwell - Solar Panel",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Withdrawn",
+    "status_group": null,
+    "capacity_mw": 0.58
+   },
+   "distance_km": 0.168,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-7577c5e939876360",
+    "name": "R89",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "11030",
+    "gg_project_id": "GG2050-REPD-11030",
+    "site_name": "Rutherford Appleton Laboratory, Buildings R25, R61 & R68, Harwell - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Withdrawn",
+    "status_group": null,
+    "capacity_mw": 0.19
+   },
+   "distance_km": 0.168,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-7577c5e939876360",
+    "name": "R89",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "17277",
+    "gg_project_id": "GG2050-REPD-17277",
+    "site_name": "Harwell Science And Innovation Campus -Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.59
+   },
+   "distance_km": 0.338,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-78670eecc7c48a61",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "7312",
+    "gg_project_id": "GG2050-REPD-7312",
+    "site_name": "The Low Carbon Energy Generation Project at Keele University",
+    "technology": "Wind Onshore",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 1.9
+   },
+   "distance_km": 0.232,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-7a81280f94cd3194",
+    "name": "Equinix LD3",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "13565",
+    "gg_project_id": "GG2050-REPD-13565",
+    "site_name": "Unit 2, Origin Business Park, Rainsford Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.29
+   },
+   "distance_km": 0.421,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-7a81280f94cd3194",
+    "name": "Equinix LD3",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "13580",
+    "gg_project_id": "GG2050-REPD-13580",
+    "site_name": "Unit 5, Origin Business Park, Rainsford Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.55
+   },
+   "distance_km": 0.414,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-7a81280f94cd3194",
+    "name": "Equinix LD3",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "13581",
+    "gg_project_id": "GG2050-REPD-13581",
+    "site_name": "Unit 1, Origin Business Park, Rainsford Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.69
+   },
+   "distance_km": 0.286,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-7a81280f94cd3194",
+    "name": "Equinix LD3",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "13582",
+    "gg_project_id": "GG2050-REPD-13582",
+    "site_name": "Unit 4, Origin Business Park, Rainsford Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.99
+   },
+   "distance_km": 0.361,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-7a81280f94cd3194",
+    "name": "Equinix LD3",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "13583",
+    "gg_project_id": "GG2050-REPD-13583",
+    "site_name": "Unit 3, Origin Business Park, Rainsford Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.51
+   },
+   "distance_km": 0.426,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-7dadeaf7a9a7d820",
+    "name": "Pulsant Milton Keynes SE-1",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15890",
+    "gg_project_id": "GG2050-REPD-15890",
+    "site_name": "Linford Wood Business Park, Linford Wood - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.41
+   },
+   "distance_km": 0.368,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-8184b9c63b0e9b70",
+    "name": "EE Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "12418",
+    "gg_project_id": "GG2050-REPD-12418",
+    "site_name": "Tansun Limited, Spectrum House - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.2
+   },
+   "distance_km": 0.324,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-8184b9c63b0e9b70",
+    "name": "EE Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "17984",
+    "gg_project_id": "GG2050-REPD-17984",
+    "site_name": "Spartan Industrial Centre, Brickhouse Lane - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.42
+   },
+   "distance_km": 0.426,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-820a451d153b1676",
+    "name": "CityFibre Cabinets",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "9840",
+    "gg_project_id": "GG2050-REPD-9840",
+    "site_name": "Progress Road, Eastwood - Urban Reserve Flexible Energy Facility",
+    "technology": "Landfill Gas",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 4.0
+   },
+   "distance_km": 0.162,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-821744ad39949df2",
+    "name": "nLighten Chester",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15454",
+    "gg_project_id": "GG2050-REPD-15454",
+    "site_name": "Chester Gates - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.27
+   },
+   "distance_km": 0.26,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-83c8f5fd0e51cfa3",
+    "name": "Redcentric London West",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14175",
+    "gg_project_id": "GG2050-REPD-14175",
+    "site_name": "Prologis Park, Unit B - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": null
+   },
+   "distance_km": 0.183,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-83c8f5fd0e51cfa3",
+    "name": "Redcentric London West",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "16497",
+    "gg_project_id": "GG2050-REPD-16497",
+    "site_name": "Prologis Park, Unit B - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 0.99
+   },
+   "distance_km": 0.183,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-90371b05b73710a6",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "19405",
+    "gg_project_id": "GG2050-REPD-19405",
+    "site_name": "Leisure Centre Carlton Park, King Edward Avenue - Solar PV panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": null
+   },
+   "distance_km": 0.166,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-9791c076f094e593",
+    "name": "Equinix LD7",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "831",
+    "gg_project_id": "GG2050-REPD-831",
+    "site_name": "Fibrepower, Slough",
+    "technology": "EfW Incineration",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 50.0
+   },
+   "distance_km": 0.488,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-9791c076f094e593",
+    "name": "Equinix LD7",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "6850",
+    "gg_project_id": "GG2050-REPD-6850",
+    "site_name": "Highview Pilot Plant",
+    "technology": "Liquid Air Energy Storage",
+    "status": "Decommissioned",
+    "status_group": null,
+    "capacity_mw": 0.4
+   },
+   "distance_km": 0.407,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-9793d833de5778d3",
+    "name": "Centerprise International Newport",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15203",
+    "gg_project_id": "GG2050-REPD-15203",
+    "site_name": "Imperial Park - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "No Application Required",
+    "status_group": null,
+    "capacity_mw": null
+   },
+   "distance_km": 0.279,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-9793d833de5778d3",
+    "name": "Centerprise International Newport",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15439",
+    "gg_project_id": "GG2050-REPD-15439",
+    "site_name": "Celtic Way, Celtic Lakes - Solar Array",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.29
+   },
+   "distance_km": 0.306,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-982df60b52e609c1",
+    "name": "IP House London Datacentre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "19154",
+    "gg_project_id": "GG2050-REPD-19154",
+    "site_name": "Segro Park Canning, Town Bidder Street, Unit 2 - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.24
+   },
+   "distance_km": 0.256,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-9c6c76a0ecec3baf",
+    "name": "Microsoft Newport data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15203",
+    "gg_project_id": "GG2050-REPD-15203",
+    "site_name": "Imperial Park - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "No Application Required",
+    "status_group": null,
+    "capacity_mw": null
+   },
+   "distance_km": 0.329,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-9c6c76a0ecec3baf",
+    "name": "Microsoft Newport data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15439",
+    "gg_project_id": "GG2050-REPD-15439",
+    "site_name": "Celtic Way, Celtic Lakes - Solar Array",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.29
+   },
+   "distance_km": 0.327,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-9d512f2252e22296",
+    "name": "Redcentric Byfleet",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "9881",
+    "gg_project_id": "GG2050-REPD-9881",
+    "site_name": "Avro Way - Solar Array",
+    "technology": "Solar Photovoltaics",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": 0.2
+   },
+   "distance_km": 0.126,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-9d512f2252e22296",
+    "name": "Redcentric Byfleet",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "12991",
+    "gg_project_id": "GG2050-REPD-12991",
+    "site_name": "Avro Way, Brooklands Industrial Park -  Solar Panel",
+    "technology": "Solar Photovoltaics",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": 0.23
+   },
+   "distance_km": 0.133,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-9d512f2252e22296",
+    "name": "Redcentric Byfleet",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "13415",
+    "gg_project_id": "GG2050-REPD-13415",
+    "site_name": "Vickers Drive North, Brooklands Industrial Park - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.23
+   },
+   "distance_km": 0.479,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-9d512f2252e22296",
+    "name": "Redcentric Byfleet",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15775",
+    "gg_project_id": "GG2050-REPD-15775",
+    "site_name": "Avro Way, Brooklands Industrial Park -  Solar Panel",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.18
+   },
+   "distance_km": 0.133,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-9d512f2252e22296",
+    "name": "Redcentric Byfleet",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "19450",
+    "gg_project_id": "GG2050-REPD-19450",
+    "site_name": "Big Yellow Byfleet, Oyster Lane - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.18
+   },
+   "distance_km": 0.114,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-9d81eb7ddd89f5c7",
+    "name": "The Horizon Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "19841",
+    "gg_project_id": "GG2050-REPD-19841",
+    "site_name": "Horizon Centre, Gretton Road - Solar Array",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Submitted",
+    "status_group": "in_planning",
+    "capacity_mw": 1.4
+   },
+   "distance_km": 0.388,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-9d81eb7ddd89f5c7",
+    "name": "The Horizon Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "21050",
+    "gg_project_id": "GG2050-REPD-21050",
+    "site_name": "Horizon Centre, Gretton Road - Solar Array",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Submitted",
+    "status_group": "in_planning",
+    "capacity_mw": 1.4
+   },
+   "distance_km": 0.388,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-9fb7792ce87e7878",
+    "name": "Verne Global London Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "19876",
+    "gg_project_id": "GG2050-REPD-19876",
+    "site_name": "Lindsey Street - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.18
+   },
+   "distance_km": 0.425,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-a623ca6134411556",
+    "name": "Morgan Stanley Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14175",
+    "gg_project_id": "GG2050-REPD-14175",
+    "site_name": "Prologis Park, Unit B - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": null
+   },
+   "distance_km": 0.154,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-a623ca6134411556",
+    "name": "Morgan Stanley Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "16497",
+    "gg_project_id": "GG2050-REPD-16497",
+    "site_name": "Prologis Park, Unit B - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 0.99
+   },
+   "distance_km": 0.154,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-aa0d7d945784afc1",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15261",
+    "gg_project_id": "GG2050-REPD-15261",
+    "site_name": "Rock Building, Waxlow Road - Solar panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.37
+   },
+   "distance_km": 0.15,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-aa0d7d945784afc1",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "18654",
+    "gg_project_id": "GG2050-REPD-18654",
+    "site_name": "Central Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": null
+   },
+   "distance_km": 0.417,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-ab0367f22a0acd7d",
+    "name": "Skyways",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14252",
+    "gg_project_id": "GG2050-REPD-14252",
+    "site_name": "Spur Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.27
+   },
+   "distance_km": 0.484,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-ab0367f22a0acd7d",
+    "name": "Skyways",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14521",
+    "gg_project_id": "GG2050-REPD-14521",
+    "site_name": "Falcon House, Central Way - Photovoltaic Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.25
+   },
+   "distance_km": 0.291,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-ab56b310f35e5498",
+    "name": "Evolution @ Agecroft Commerce Park",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15123",
+    "gg_project_id": "GG2050-REPD-15123",
+    "site_name": "Jj Food Service, 1A Lamplight Way - Solar panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.4
+   },
+   "distance_km": 0.427,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-abb01855cbc24440",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "316",
+    "gg_project_id": "GG2050-REPD-316",
+    "site_name": "Willesden",
+    "technology": "Anaerobic Digestion",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 2.0
+   },
+   "distance_km": 0.328,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-abb01855cbc24440",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "951",
+    "gg_project_id": "GG2050-REPD-951",
+    "site_name": "Willesden",
+    "technology": "Advanced Conversion Technologies",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 8.0
+   },
+   "distance_km": 0.324,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-adc7a5803a362ced",
+    "name": "VocaLink",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "16332",
+    "gg_project_id": "GG2050-REPD-16332",
+    "site_name": "Cardale Park - Ground Mounted Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.31
+   },
+   "distance_km": 0.003,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-b2395c5eca811b39",
+    "name": "Hertfordshire Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14679",
+    "gg_project_id": "GG2050-REPD-14679",
+    "site_name": "Brownfields - Battery Storage",
+    "technology": "Battery",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.2
+   },
+   "distance_km": 0.488,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-b3138b4825480353",
+    "name": "Ark Data Centres",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "20894",
+    "gg_project_id": "GG2050-REPD-20894",
+    "site_name": "Ministry Of Defence, Westwells Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.17
+   },
+   "distance_km": 0.333,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-b4860bec5692de28",
+    "name": "NTT",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "11472",
+    "gg_project_id": "GG2050-REPD-11472",
+    "site_name": "G Park Maxted Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 1.25
+   },
+   "distance_km": 0.206,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-b4860bec5692de28",
+    "name": "NTT",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "13107",
+    "gg_project_id": "GG2050-REPD-13107",
+    "site_name": "Century House, Maylands Avenue - Solar PV Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.72
+   },
+   "distance_km": 0.291,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-b4860bec5692de28",
+    "name": "NTT",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "19047",
+    "gg_project_id": "GG2050-REPD-19047",
+    "site_name": "G Park, Maxted Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.77
+   },
+   "distance_km": 0.295,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-b924c7291cac95aa",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "13581",
+    "gg_project_id": "GG2050-REPD-13581",
+    "site_name": "Unit 1, Origin Business Park, Rainsford Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.69
+   },
+   "distance_km": 0.415,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-b924c7291cac95aa",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "13582",
+    "gg_project_id": "GG2050-REPD-13582",
+    "site_name": "Unit 4, Origin Business Park, Rainsford Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.99
+   },
+   "distance_km": 0.475,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-b924c7291cac95aa",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14409",
+    "gg_project_id": "GG2050-REPD-14409",
+    "site_name": "Nucleus, Central Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.32
+   },
+   "distance_km": 0.448,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-b924c7291cac95aa",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14716",
+    "gg_project_id": "GG2050-REPD-14716",
+    "site_name": "Nucleus, Central Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.16
+   },
+   "distance_km": 0.469,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-b924c7291cac95aa",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "16755",
+    "gg_project_id": "GG2050-REPD-16755",
+    "site_name": "Light House, Western Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.43
+   },
+   "distance_km": 0.381,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-c3242a3771d5b5f5",
+    "name": "Rackspace London Slough (LON3)",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "5969",
+    "gg_project_id": "GG2050-REPD-5969",
+    "site_name": "Galvin Road",
+    "technology": "Solar Photovoltaics",
+    "status": "Abandoned",
+    "status_group": null,
+    "capacity_mw": 1.6
+   },
+   "distance_km": 0.462,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-c449e8a62b5e4be1",
+    "name": "NTT Slough",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "5969",
+    "gg_project_id": "GG2050-REPD-5969",
+    "site_name": "Galvin Road",
+    "technology": "Solar Photovoltaics",
+    "status": "Abandoned",
+    "status_group": null,
+    "capacity_mw": 1.6
+   },
+   "distance_km": 0.11,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-c6cd81e6358cef15",
+    "name": "Serverhouse",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "11755",
+    "gg_project_id": "GG2050-REPD-11755",
+    "site_name": "Concorde Way, Segensworth - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Under Construction",
+    "status_group": "under_construction",
+    "capacity_mw": 1.04
+   },
+   "distance_km": 0.426,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-c6cd81e6358cef15",
+    "name": "Serverhouse",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15241",
+    "gg_project_id": "GG2050-REPD-15241",
+    "site_name": "Octagon House, Concorde Way -  Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.41
+   },
+   "distance_km": 0.197,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-c6cd81e6358cef15",
+    "name": "Serverhouse",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "18646",
+    "gg_project_id": "GG2050-REPD-18646",
+    "site_name": "CooperVision, Concorde Way - Unit 8 - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.9
+   },
+   "distance_km": 0.288,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-c7d0479caa85e830",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "17986",
+    "gg_project_id": "GG2050-REPD-17986",
+    "site_name": "Enderby Leisure Centre, Mill Lane - Energy Storage System",
+    "technology": "Battery",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.2
+   },
+   "distance_km": 0.409,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-c7d0479caa85e830",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "19405",
+    "gg_project_id": "GG2050-REPD-19405",
+    "site_name": "Leisure Centre Carlton Park, King Edward Avenue - Solar PV panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": null
+   },
+   "distance_km": 0.461,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-c886bc3ee892173e",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "18214",
+    "gg_project_id": "GG2050-REPD-18214",
+    "site_name": "J PAO, Humphrys Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.36
+   },
+   "distance_km": 0.219,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-ca20866e219f01c0",
+    "name": "Google data centre, Waltham Cross",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "18739",
+    "gg_project_id": "GG2050-REPD-18739",
+    "site_name": "St Marys C Of E Va High School, Lieutenant Ellis Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 8.8
+   },
+   "distance_km": 0.413,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-ca20866e219f01c0",
+    "name": "Google data centre, Waltham Cross",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "21279",
+    "gg_project_id": "GG2050-REPD-21279",
+    "site_name": "Theobalds Business Park, Platinum Way - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Submitted",
+    "status_group": "in_planning",
+    "capacity_mw": 0.31
+   },
+   "distance_km": 0.196,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-cbf44b212b6da8cd",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "19405",
+    "gg_project_id": "GG2050-REPD-19405",
+    "site_name": "Leisure Centre Carlton Park, King Edward Avenue - Solar PV panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": null
+   },
+   "distance_km": 0.103,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-d10805987f07fc1c",
+    "name": "Next Generation Data",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15203",
+    "gg_project_id": "GG2050-REPD-15203",
+    "site_name": "Imperial Park - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "No Application Required",
+    "status_group": null,
+    "capacity_mw": null
+   },
+   "distance_km": 0.207,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-d10805987f07fc1c",
+    "name": "Next Generation Data",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15439",
+    "gg_project_id": "GG2050-REPD-15439",
+    "site_name": "Celtic Way, Celtic Lakes - Solar Array",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.29
+   },
+   "distance_km": 0.235,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-d1db7a1e44222e52",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "20894",
+    "gg_project_id": "GG2050-REPD-20894",
+    "site_name": "Ministry Of Defence, Westwells Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.17
+   },
+   "distance_km": 0.365,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-d2271d1a6768121c",
+    "name": "Starwood House",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "8190",
+    "gg_project_id": "GG2050-REPD-8190",
+    "site_name": "Letchworth Power Energy Storage Facility",
+    "technology": "Battery",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": 5.0
+   },
+   "distance_km": 0.416,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-d2271d1a6768121c",
+    "name": "Starwood House",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15927",
+    "gg_project_id": "GG2050-REPD-15927",
+    "site_name": "Letchworth Garden City - Urban Reserve Energy Storage Facility",
+    "technology": "Battery",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 5.0
+   },
+   "distance_km": 0.416,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-d28a69e3e0826c72",
+    "name": "Six Degrees Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "5985",
+    "gg_project_id": "GG2050-REPD-5985",
+    "site_name": "Thameside DC",
+    "technology": "Solar Photovoltaics",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 1.0
+   },
+   "distance_km": 0.277,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-d2a478fdc5260fcc",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "21404",
+    "gg_project_id": "GG2050-REPD-21404",
+    "site_name": "Beddington Farm Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Submitted",
+    "status_group": "in_planning",
+    "capacity_mw": 0.19
+   },
+   "distance_km": 0.426,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-d72adb6ba484b654",
+    "name": "Evoque Data Center Solutions",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "13451",
+    "gg_project_id": "GG2050-REPD-13451",
+    "site_name": "Hsh Coldstores Limited, Moons Moat Drive - Solar panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.39
+   },
+   "distance_km": 0.428,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-ddee14123065e1e0",
+    "name": "Fujitsu Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "12670",
+    "gg_project_id": "GG2050-REPD-12670",
+    "site_name": "Ford Retail, Triton Centre Weston Avenue - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.79
+   },
+   "distance_km": 0.17,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-e134fda4f65d85ae",
+    "name": "Equinix LD5",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "831",
+    "gg_project_id": "GG2050-REPD-831",
+    "site_name": "Fibrepower, Slough",
+    "technology": "EfW Incineration",
+    "status": "Operational",
+    "status_group": "operational",
+    "capacity_mw": 50.0
+   },
+   "distance_km": 0.285,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-e134fda4f65d85ae",
+    "name": "Equinix LD5",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "4699",
+    "gg_project_id": "GG2050-REPD-4699",
+    "site_name": "Slough Heat & Power Station",
+    "technology": "EfW Incineration",
+    "status": "Under Construction",
+    "status_group": "under_construction",
+    "capacity_mw": 49.9
+   },
+   "distance_km": 0.262,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-e134fda4f65d85ae",
+    "name": "Equinix LD5",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "6850",
+    "gg_project_id": "GG2050-REPD-6850",
+    "site_name": "Highview Pilot Plant",
+    "technology": "Liquid Air Energy Storage",
+    "status": "Decommissioned",
+    "status_group": null,
+    "capacity_mw": 0.4
+   },
+   "distance_km": 0.281,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-e2fb84108a156938",
+    "name": "Virtus LONDON1",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "17033",
+    "gg_project_id": "GG2050-REPD-17033",
+    "site_name": "Southbury Road - Solar Pv Array",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 0.3
+   },
+   "distance_km": 0.498,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-e2fb84108a156938",
+    "name": "Virtus LONDON1",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "17409",
+    "gg_project_id": "GG2050-REPD-17409",
+    "site_name": "Southbury Road - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.23
+   },
+   "distance_km": 0.498,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-e2fb84108a156938",
+    "name": "Virtus LONDON1",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "18134",
+    "gg_project_id": "GG2050-REPD-18134",
+    "site_name": "Sainsburys Supermarkets -  Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.67
+   },
+   "distance_km": 0.221,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-e2fb84108a156938",
+    "name": "Virtus LONDON1",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "20941",
+    "gg_project_id": "GG2050-REPD-20941",
+    "site_name": "Chalkmill Drive - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.48
+   },
+   "distance_km": 0.212,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-e47f7569c41dea75",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "6260",
+    "gg_project_id": "GG2050-REPD-6260",
+    "site_name": "Bowesfield Ind Est",
+    "technology": "EfW Incineration",
+    "status": "Planning Permission Expired",
+    "status_group": null,
+    "capacity_mw": 2.6
+   },
+   "distance_km": 0.369,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-e4ee6eb98bb654ff",
+    "name": "Vantage Data Centers - CWL1",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15203",
+    "gg_project_id": "GG2050-REPD-15203",
+    "site_name": "Imperial Park - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "No Application Required",
+    "status_group": null,
+    "capacity_mw": null
+   },
+   "distance_km": 0.283,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-e4ee6eb98bb654ff",
+    "name": "Vantage Data Centers - CWL1",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "15439",
+    "gg_project_id": "GG2050-REPD-15439",
+    "site_name": "Celtic Way, Celtic Lakes - Solar Array",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.29
+   },
+   "distance_km": 0.31,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-f547aa73b8187352",
+    "name": "Equinix MA4",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14580",
+    "gg_project_id": "GG2050-REPD-14580",
+    "site_name": "Manchester Academy, Moss Lane East - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": null
+   },
+   "distance_km": 0.455,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-f547aa73b8187352",
+    "name": "Equinix MA4",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "20051",
+    "gg_project_id": "GG2050-REPD-20051",
+    "site_name": "Manchester Academy, Moss Lane East - Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.17
+   },
+   "distance_km": 0.462,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-fa50d816ba19ce94",
+    "name": "Equinix LD9",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "316",
+    "gg_project_id": "GG2050-REPD-316",
+    "site_name": "Willesden",
+    "technology": "Anaerobic Digestion",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 2.0
+   },
+   "distance_km": 0.354,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-fa50d816ba19ce94",
+    "name": "Equinix LD9",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "951",
+    "gg_project_id": "GG2050-REPD-951",
+    "site_name": "Willesden",
+    "technology": "Advanced Conversion Technologies",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 8.0
+   },
+   "distance_km": 0.431,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-fb25475320ba96df",
+    "name": "Kao Data KLON-06",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "5969",
+    "gg_project_id": "GG2050-REPD-5969",
+    "site_name": "Galvin Road",
+    "technology": "Solar Photovoltaics",
+    "status": "Abandoned",
+    "status_group": null,
+    "capacity_mw": 1.6
+   },
+   "distance_km": 0.075,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-fb25475320ba96df",
+    "name": "Kao Data KLON-06",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "9217",
+    "gg_project_id": "GG2050-REPD-9217",
+    "site_name": "Twinches Lane - Solar photovoltaic",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.32
+   },
+   "distance_km": 0.431,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-fb31d020ea166dfa",
+    "name": "Hutchison 3G",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "14747",
+    "gg_project_id": "GG2050-REPD-14747",
+    "site_name": "Midland Quarry Products, Smith Road - Battery Storage",
+    "technology": "Battery",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 10.0
+   },
+   "distance_km": 0.435,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-fde0cde03ff31e52",
+    "name": "Digital Realty LHR26",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "5969",
+    "gg_project_id": "GG2050-REPD-5969",
+    "site_name": "Galvin Road",
+    "technology": "Solar Photovoltaics",
+    "status": "Abandoned",
+    "status_group": null,
+    "capacity_mw": 1.6
+   },
+   "distance_km": 0.119,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-fde0cde03ff31e52",
+    "name": "Digital Realty LHR26",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "9217",
+    "gg_project_id": "GG2050-REPD-9217",
+    "site_name": "Twinches Lane - Solar photovoltaic",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.32
+   },
+   "distance_km": 0.423,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-fe6d671e6db6a9b5",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "17652",
+    "gg_project_id": "GG2050-REPD-17652",
+    "site_name": "Hawes Recycling Centre, Coronation Road - Solar panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Application Refused",
+    "status_group": null,
+    "capacity_mw": 0.74
+   },
+   "distance_km": 0.281,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "D_same_site_proximity",
+   "datacentre": {
+    "id": "dcuk-fef513d474e76fa7",
+    "name": "Global Technical Realty London GB One",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "5969",
+    "gg_project_id": "GG2050-REPD-5969",
+    "site_name": "Galvin Road",
+    "technology": "Solar Photovoltaics",
+    "status": "Abandoned",
+    "status_group": null,
+    "capacity_mw": 1.6
+   },
+   "distance_km": 0.2,
+   "evidence": {
+    "radius_km": 0.5
+   }
+  },
+  {
+   "evidence_class": "E_repd_text_mentions_datacentre",
+   "datacentre": {
+    "id": "dcuk-04bb759f3d52d660",
+    "name": "VIRTUS LONDON2",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "18579",
+    "gg_project_id": "GG2050-REPD-18579",
+    "site_name": "International Trading Estate, Trident Way - Data Centre",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 0.22
+   },
+   "distance_km": 0.443,
+   "evidence": {
+    "matched_text": "Data Centre",
+    "datacentre_is_nearest_reliable_point": true,
+    "nearest_within_name_match_km": true
+   }
+  },
+  {
+   "evidence_class": "E_repd_text_mentions_datacentre",
+   "datacentre": {
+    "id": "dcuk-39a9ea9ebd63455e",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "20991",
+    "gg_project_id": "GG2050-REPD-20991",
+    "site_name": "Conesby Solar Farm",
+    "technology": "Solar Photovoltaics",
+    "status": "Under Construction",
+    "status_group": "under_construction",
+    "capacity_mw": 54.0
+   },
+   "distance_km": 47.916,
+   "evidence": {
+    "matched_text": "Data Centre",
+    "datacentre_is_nearest_reliable_point": true,
+    "nearest_within_name_match_km": false
+   }
+  },
+  {
+   "evidence_class": "E_repd_text_mentions_datacentre",
+   "datacentre": {
+    "id": "dcuk-39a9ea9ebd63455e",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "21246",
+    "gg_project_id": "GG2050-REPD-21246",
+    "site_name": "Conesby Solar Farm",
+    "technology": "Battery",
+    "status": "Under Construction",
+    "status_group": "under_construction",
+    "capacity_mw": 72.0
+   },
+   "distance_km": 47.916,
+   "evidence": {
+    "matched_text": "Data Centre",
+    "datacentre_is_nearest_reliable_point": true,
+    "nearest_within_name_match_km": false
+   }
+  },
+  {
+   "evidence_class": "E_repd_text_mentions_datacentre",
+   "datacentre": {
+    "id": "dcuk-5404b2c80acc7ec5",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "17227",
+    "gg_project_id": "GG2050-REPD-17227",
+    "site_name": "Data Centre, Dennison House, Stanhope Road -  Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Revised",
+    "status_group": null,
+    "capacity_mw": 1.22
+   },
+   "distance_km": 0.129,
+   "evidence": {
+    "matched_text": "Data Centre",
+    "datacentre_is_nearest_reliable_point": true,
+    "nearest_within_name_match_km": true
+   }
+  },
+  {
+   "evidence_class": "E_repd_text_mentions_datacentre",
+   "datacentre": {
+    "id": "dcuk-5404b2c80acc7ec5",
+    "name": "Unnamed data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "17628",
+    "gg_project_id": "GG2050-REPD-17628",
+    "site_name": "Data Centre, Dennison House, Stanhope Road -  Solar Panels",
+    "technology": "Solar Photovoltaics",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 1.15
+   },
+   "distance_km": 0.129,
+   "evidence": {
+    "matched_text": "Data Centre",
+    "datacentre_is_nearest_reliable_point": true,
+    "nearest_within_name_match_km": true
+   }
+  },
+  {
+   "evidence_class": "E_repd_text_mentions_datacentre",
+   "datacentre": {
+    "id": "dcuk-9c6c76a0ecec3baf",
+    "name": "Microsoft Newport data centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "16190",
+    "gg_project_id": "GG2050-REPD-16190",
+    "site_name": "Rover Way, Splott - Energy Park & Data Centre",
+    "technology": "Battery",
+    "status": "Awaiting Construction",
+    "status_group": "consented",
+    "capacity_mw": 1000.0
+   },
+   "distance_km": 9.502,
+   "evidence": {
+    "matched_text": "Data Centre",
+    "datacentre_is_nearest_reliable_point": true,
+    "nearest_within_name_match_km": false
+   }
+  },
+  {
+   "evidence_class": "E_repd_text_mentions_datacentre",
+   "datacentre": {
+    "id": "dcuk-fe0b888ff82208b9",
+    "name": "iomart Glasgow Data Centre",
+    "status": "operational",
+    "precision": "exact_site"
+   },
+   "repd": {
+    "ref": "3342",
+    "gg_project_id": "GG2050-REPD-3342",
+    "site_name": "Blair Data Centre",
+    "technology": "Wind Onshore",
+    "status": "Appeal Refused",
+    "status_group": null,
+    "capacity_mw": 13.8
+   },
+   "distance_km": 18.955,
+   "evidence": {
+    "matched_text": "Data Centre",
+    "datacentre_is_nearest_reliable_point": true,
+    "nearest_within_name_match_km": false
+   }
+  }
+ ]
+}

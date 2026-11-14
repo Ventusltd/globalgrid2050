@@ -1,0 +1,100 @@
+{
+ "schema": "globalgrid2050.convergence.repd-datacentres.v1",
+ "tool_version": "1.0.0",
+ "parameters": {
+  "radii_km": [
+   5,
+   10,
+   25,
+   50
+  ],
+  "technology_groups": {
+   "Solar Photovoltaics": "solar",
+   "Battery": "battery",
+   "Wind Onshore": "wind_onshore",
+   "Wind Offshore": "wind_offshore"
+  },
+  "status_groups": {
+   "Operational": "operational",
+   "Under Construction": "under_construction",
+   "Awaiting Construction": "consented",
+   "Application Submitted": "in_planning",
+   "Appeal Lodged": "in_planning"
+  },
+  "proximity_precisions": [
+   "exact_site",
+   "settlement"
+  ],
+  "cluster_link_km": 10.0,
+  "cluster_min_sites": 3,
+  "region_vote_k": 15,
+  "same_site_km": 0.5,
+  "same_site_operator_km": 1.0,
+  "name_match_km": 2.0,
+  "name_token_max_df": 10,
+  "earth_radius_km": 6371.0088
+ },
+ "caveats": [
+  "Straight-line distance between published points; proximity is not connection, capacity or feasibility.",
+  "The shared nearest transmission node is a screening grouping of points nearest the same NESO ETYS node; it says nothing about any feeder, connection offer or queue position.",
+  "Blank REPD capacity is unknown, never zero: MW sums are over stated values; unknown-capacity counts are given beside them.",
+  "Data-centre IT load MW and grid connection MW are separate source figures and never derived from each other; unclassified_mw is not summed as demand.",
+  "A data-centre pipeline entry is not a commitment; data-centre status is the baseline's own status field.",
+  "REPD status groups: operational = Operational; under_construction = Under Construction; consented = Awaiting Construction; in_planning = Application Submitted or Appeal Lodged.",
+  "REPD refs 18561 and 18562 carry known wrong coordinates and are excluded from all geography.",
+  "Live REPD records repeating one site (same technology, site name, stated capacity and point) are counted once: the most advanced status, then the highest Ref ID; the manifest lists every collapsed ref.",
+  "A data-centre point outside UK WGS84 bounds is treated as unplaced (never re-projected or guessed)."
+ ],
+ "cell": {
+  "count": "projects in the cell",
+  "mw_stated": "sum of stated Installed Capacity (MWelec); blanks excluded",
+  "count_mw_unknown": "projects in the cell whose capacity is blank (unknown, not zero)"
+ },
+ "files": {
+  "datacentre_proximity.json": {
+   "key": "id (data-centre id from the baseline)",
+   "fields": {
+    "precision": "baseline location.precision; proximity_reliable is true for exact_site and settlement",
+    "region_inferred": "majority REPD Region of the 15 nearest located onshore REPD records (any technology or status); an inference, not a source field",
+    "it_load_mw / grid_connection_mw": "baseline values as published; null is unknown",
+    "unclassified_mw (+label)": "passed through, never summed: the label says what the figure is",
+    "radii[<km>][<tech>][<status>]": "cell of REPD projects within <km> straight line",
+    "nearest_by_technology[<tech>]": "nearest REPD project of that technology in the four live status groups",
+    "nearest_transmission_node": "nearest located NESO ETYS node (connection-points.v3, >=132 kV)",
+    "shared_node": "live REPD projects (four technologies) whose own nearest ETYS node is the same node",
+    "nearest_osm_substation_132kv_plus": "nearest OpenStreetMap substation tagged >= 132 kV"
+   }
+  },
+  "repd_datacentre_proximity_{solar,battery,wind}.json": {
+   "key": "ref (REPD Ref ID); gg_project_id from the V6 identity",
+   "layout": "columnar (columns + rows) with the same columns as the CSV, for size; one file per technology part",
+   "scope": "solar, battery, onshore and offshore wind with usable coordinates, every status (status_group null outside the live pipeline); ordered solar, battery, wind onshore, wind offshore, then ref",
+   "fields": {
+    "duplicate_of": "set when this live record repeats a site (same technology group, normalised site name, stated capacity and point); the record named is counted instead and this one is in no radius or roll-up",
+    "nearest_datacentres": "up to 3 nearest proximity-reliable data centres",
+    "within[<km>]": "proximity-reliable data centres within <km>: count, operational, pipeline (every other status), stated IT load MW and grid connection MW with the number of sites stating each"
+   }
+  },
+  "colocation_candidates.json": {
+   "key": "(evidence_class, datacentre.id, repd.ref)",
+   "evidence_classes": {
+    "A_same_site_and_operator": "strict operator match and <= 1.0 km, data centre at exact_site precision",
+    "B_operator_match": "strict operator match at any distance (dcmerge norm_operator after dropping a parenthesised gloss; exact equality; ';' splits several operators)",
+    "C_same_site_name_and_proximity": ">= 2 shared site-name tokens, at least one distinctive (in <= 10 REPD name+address strings), and <= 2.0 km",
+    "D_same_site_proximity": "<= 0.5 km, data centre at exact_site precision; any REPD technology or status",
+    "E_repd_text_mentions_datacentre": "REPD Site Name or Address mentions a data centre; paired with the nearest proximity-reliable data centre, which may be far away (evidence.nearest_within_name_match_km says whether it is within 2.0 km): the REPD text is the evidence, the pairing is only a pointer"
+   },
+   "note": "a candidate is evidence to review, not a confirmed relationship"
+  },
+  "rollup_region.json": {
+   "levels": "region (REPD Region; data centres by region_inferred) and country",
+   "repd": "live-pipeline cells of the four technologies"
+  },
+  "rollup_cluster.json": {
+   "clusters": "single-linkage of proximity-reliable data centres at 10 km, at least 3 sites; ids by size then member id",
+   "repd_within_km_of_any_member": "live REPD projects within <km> of any member, each counted once",
+   "largest_consented_within_25km": "the 5 largest stated-capacity Awaiting Construction solar and battery projects within 25 km of any member (unknown capacity last)"
+  },
+  "CSV files": "flattened views of the JSON files: columns r<km>km_<tech>_<status>_{mw,count,mw_unknown}; blank cell = null"
+ }
+}

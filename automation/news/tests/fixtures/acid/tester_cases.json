@@ -1,0 +1,125 @@
+{
+ "note": "Cases reported by the acid testers of 14 Nov 2026 that the suite replays. 'downgrade': aliases marked confirmed that acid tester 3 recommends showing as possible (one agreeing fact, or an unexplained capacity conflict); this goes beyond contract version 2 and is tracked as an open recommendation. 'hidden_recent': recent publisher items acid tester 6 found hidden by the confirmed-first order and the cap of five (replayed with synthetic projects). 'date_readers': single-value cases from acid tester 2 (dates) where a collector's date reader loses or misreads a date; recommendations beyond contract version 2, tracked as open.",
+ "downgrade": [
+  {
+   "repd_ref": "12117",
+   "why": "capacity conflict, press 49.995 MW export against REPD 75 MW, not explained"
+  },
+  {
+   "repd_ref": "8051",
+   "why": "capacity conflict, 49.9 MW against REPD 70 MW, not explained"
+  },
+  {
+   "repd_ref": "7191",
+   "why": "the REPD row is the revised scheme; the articles concern the original"
+  },
+  {
+   "repd_ref": "18477",
+   "why": "capacity conflict, 84 MW export against REPD 60 MW, not explained"
+  },
+  {
+   "repd_ref": "11329",
+   "why": "evidence names only the site"
+  },
+  {
+   "repd_ref": "15180",
+   "why": "reviewer: likely rather than certain"
+  },
+  {
+   "repd_ref": "1980",
+   "why": "match on site and year only"
+  },
+  {
+   "repd_ref": "7887",
+   "why": "only source is a wiki page that may derive from the REPD"
+  }
+ ],
+ "hidden_recent": [
+  {
+   "repd_ref": "15252",
+   "date": "2026-11-13",
+   "event": "sale",
+   "why": "uncertain item ranked below confirmed ones and cut by the cap"
+  },
+  {
+   "repd_ref": "15149",
+   "date": "2026-10-28",
+   "event": "consent",
+   "why": "pushed out by confirmed 2025 items"
+  }
+ ],
+ "publishing": [
+  "all parts absent with a previous file: generated_at must stay and parts must say stale (acid tester 5)",
+  "an empty part whose sources all failed must not replace the last good part (acid tester 5)",
+  "a reviewed entry removed from reviewed_signals.json must not be carried forever from the previous file (acid tester 5)",
+  "a sharp fall in the counts must stop publication (acid tester 5)"
+ ],
+ "date_readers": [
+  {
+   "name": "rfc822_minus_zero_zone",
+   "function": "datacentre_feed.parse_date",
+   "value": "Sat, 14 Nov 2026 10:00:00 -0000",
+   "expected": "2026-11-14"
+  },
+  {
+   "name": "rfc822_bst_zone",
+   "function": "datacentre_feed.parse_date",
+   "value": "Sat, 14 Nov 2026 10:00:00 BST",
+   "expected": "2026-11-14"
+  },
+  {
+   "name": "iso_date_only",
+   "function": "datacentre_feed.parse_date",
+   "value": "2026-11-14",
+   "expected": "2026-11-14"
+  },
+  {
+   "name": "iso_naive_datetime",
+   "function": "datacentre_feed.parse_date",
+   "value": "2026-11-14T10:00:00",
+   "expected": "2026-11-14"
+  },
+  {
+   "name": "pins_two_digit_year",
+   "function": "official.parse_day",
+   "value": "3/4/26",
+   "expected": "2026-04-03"
+  },
+  {
+   "name": "pins_space_separated_time",
+   "function": "official.parse_day",
+   "value": "2026-11-14 10:00",
+   "expected": "2026-11-14"
+  },
+  {
+   "name": "pins_sept_abbreviation",
+   "function": "official.parse_day",
+   "value": "14 Sept 2026",
+   "expected": "2026-09-14"
+  },
+  {
+   "name": "pins_dotted_date",
+   "function": "official.parse_day",
+   "value": "14.11.2026",
+   "expected": "2026-11-14"
+  },
+  {
+   "name": "html_results_related_story_date",
+   "function": "trade.date_near",
+   "value": "Nov 10, 2026 | Related: Solar farm refused 3 December 2025",
+   "expected": "2026-11-10"
+  },
+  {
+   "name": "html_results_future_event_date",
+   "function": "trade.date_near",
+   "value": "Consultation closes 3 December 2026",
+   "expected": null
+  },
+  {
+   "name": "offset_late_evening_same_day_everywhere",
+   "function": "trade.day_of",
+   "value": "2026-11-14T23:30:00-05:00",
+   "expected": "2026-11-14"
+  }
+ ]
+}

@@ -1,0 +1,98 @@
+{
+ "note": "Headlines that must not be attached to a project (expect reject: shown nowhere; not_confirmed: absent or shown only as a possible match) and headlines that must stay (accept). 'source' says who reported the case. Titles are test wording, not quotations of published articles, unless 'link' is given.",
+ "cases": [
+  {
+   "repd_ref": "9050",
+   "title": "Hot spots: why bypass diodes fail in solar modules",
+   "expect": "reject",
+   "source": "NL-019 finding 5",
+   "why": "bypass diodes are a module component, not the Lincolnshire project"
+  },
+  {
+   "repd_ref": "9050",
+   "title": "New bypass diode design cuts shading losses in PV modules",
+   "expect": "reject",
+   "source": "NL-019 finding 5",
+   "why": "no 'solar farm', no place"
+  },
+  {
+   "repd_ref": "9050",
+   "title": "Solar panel bypass diodes explained",
+   "expect": "reject",
+   "source": "NL-019 finding 5",
+   "why": "has 'solar' but neither 'solar farm' nor the place"
+  },
+  {
+   "repd_ref": "9050",
+   "title": "Heart bypass patient backs hospital solar panels",
+   "expect": "reject",
+   "source": "test lead",
+   "why": "everyday use of the word"
+  },
+  {
+   "repd_ref": "9050",
+   "title": "Town bypass to get solar-powered road signs",
+   "expect": "reject",
+   "source": "test lead",
+   "why": "a road, with 'solar', not a solar farm"
+  },
+  {
+   "repd_ref": "11678",
+   "title": "Boom Power secures planning permission for 49.99MW Drove Lane solar PV plant in East Yorkshire",
+   "expect": "not_confirmed",
+   "source": "acid tester 6 (recent news), false positive published as confirmed",
+   "why": "a different Boom Power project (Drove Lane, Wawne, 49.99 MW); the 400 MW project needs Howden or EN010143",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/boom-power-secures-planning-permission-for-49-99mw-drove-lane-solar-pv-plant-in-east-yorkshire",
+   "summary": ""
+  },
+  {
+   "repd_ref": "9050",
+   "title": "Bypass Solar Farm approved near Grantham",
+   "expect": "accept",
+   "source": "test lead",
+   "why": "the full name and the place"
+  },
+  {
+   "repd_ref": "9050",
+   "title": "Solar farm at Foston wins approval",
+   "expect": "accept",
+   "source": "test lead",
+   "why": "'solar farm' and the place"
+  },
+  {
+   "repd_ref": "90003",
+   "title": "Paper mill closure costs 200 jobs",
+   "expect": "not_confirmed",
+   "source": "brief, definition 3",
+   "why": "one everyday word, no second agreeing term"
+  },
+  {
+   "repd_ref": "90004",
+   "title": "Corrow Solar Farm approved by ministers",
+   "expect": "not_confirmed",
+   "source": "NL-019 finding 5",
+   "why": "alias marked confirmed with no evidence recorded"
+  },
+  {
+   "repd_ref": "90005",
+   "title": "Quiet Lane Solar plan goes to committee",
+   "expect": "not_confirmed",
+   "source": "NL-019 finding 1",
+   "why": "alias marked uncertain; a part cannot promote it"
+  },
+  {
+   "repd_ref": "90001",
+   "title": "Alderwick Solar Farm granted development consent",
+   "expect": "accept",
+   "source": "test lead",
+   "why": "full name, evidenced alias"
+  },
+  {
+   "repd_ref": "90003",
+   "title": "Mill Solar Farm near Ashford approved",
+   "expect": "accept",
+   "source": "test lead",
+   "why": "one-word name with 'solar' and the place"
+  }
+ ]
+}

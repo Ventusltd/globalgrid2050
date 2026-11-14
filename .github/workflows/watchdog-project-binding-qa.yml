@@ -99,4 +99,7 @@ jobs:
       - name: No xfail or warning downgrade of inherited integrated acid failures
         run: |
           python -m pip install --quiet pytest
-          python -m pytest -q --runxfail automation/news/tests/test_signals_acid.py
+          python -m pytest -q --runxfail \
+            automation/news/tests/test_signals_acid.py \
+            automation/news/signals/tests/test_gate.py \
+            automation/news/signals/tests/test_combine.py

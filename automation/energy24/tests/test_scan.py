@@ -156,31 +156,65 @@ class Energy24Tests(unittest.TestCase):
         self.assertNotIn("html",rows[0])
 
     def test_publication_requires_independent_uk_and_licensed_dc_identity(self):
-        base = {"release": "2026q3", "articles": []}
-        audit = {"release": "2026q3", "markets": {k: "time" for k in scan.MARKETS}}
-        ready, reasons = scan.publication_gate(base, audit)
+        stamp = NOW.isoformat().replace("+00:00", "Z")
+        feeds = [{"id": "desnz", "status": "OK", "count": 1},
+                 {"id": "dcd", "status": "OK", "count": 1}]
+        base = {"release": "2026q3", "generated_utc": stamp,
+                "sources": feeds, "articles": []}
+        audit = {"release": "2026q3", "generated_utc": stamp,
+                 "markets": scan.local_market_times(NOW), "sources": feeds}
+        ready, reasons = scan.publication_gate(base, audit, NOW)
         self.assertFalse(ready)
         self.assertIn("fewer_than_two_publishers", reasons)
         self.assertIn("no_exact_uk_repd_news_identity", reasons)
         self.assertIn("no_licensed_exact_dc_site_identity", reasons)
         base["articles"] = [
-            {"source": "Official", "category": "uk-repd", "repd_ref": "12345",
-             "qualification": "repd_exact_ref"},
-            {"source": "Independent publisher", "category": "data-centres",
-             "dc_site_id": "dcuk-123", "identity_evidence": "operator_only",
-             "site_licence_verified": True},
+            {"source": "Official", "published_utc": stamp, "category": "uk-repd",
+             "repd_ref": "12345", "qualification": "repd_exact_ref"},
+            {"source": "Independent publisher", "published_utc": stamp,
+             "category": "data-centres", "dc_site_id": "dcuk-123",
+             "identity_evidence": "operator_only", "site_licence_verified": True},
         ]
-        self.assertFalse(scan.publication_gate(base, audit)[0])
+        self.assertFalse(scan.publication_gate(base, audit, NOW)[0])
         base["articles"][1]["identity_evidence"] = "verified_exact_site"
         base["articles"][1]["site_licence_verified"] = False
-        self.assertFalse(scan.publication_gate(base, audit)[0])
+        self.assertFalse(scan.publication_gate(base, audit, NOW)[0])
         base["articles"][1]["site_licence_verified"] = True
-        self.assertEqual(scan.publication_gate(base, audit), (True, []))
+        self.assertEqual(scan.publication_gate(base, audit, NOW), (True, []))
         base["articles"][1]["source"] = "Official"
-        self.assertFalse(scan.publication_gate(base, audit)[0])
+        self.assertFalse(scan.publication_gate(base, audit, NOW)[0])
         base["articles"][1]["source"] = "Independent publisher"
         audit["release"] = "2026q4"
-        self.assertIn("release_mismatch", scan.publication_gate(base, audit)[1])
+        self.assertIn("release_mismatch", scan.publication_gate(base, audit, NOW)[1])
+
+    def test_publication_rejects_replayed_and_invalid_source_evidence(self):
+        stamp = NOW.isoformat().replace("+00:00", "Z")
+        sources = [{"id": "desnz", "status": "OK", "count": 1},
+                   {"id": "dcd", "status": "OK", "count": 1}]
+        snapshot = {"release": "2026q3", "generated_utc": stamp,
+                    "articles": [
+                        {"source": "Official", "published_utc": stamp, "category": "uk-repd",
+                         "repd_ref": "12345", "qualification": "repd_exact_ref"},
+                        {"source": "Publisher", "published_utc": stamp, "category": "data-centres",
+                         "dc_site_id": "dcuk-123", "identity_evidence": "verified_exact_site",
+                         "site_licence_verified": True}]}
+        audit = {"release": "2026q3", "generated_utc": stamp,
+                 "markets": scan.local_market_times(NOW), "sources": sources}
+        self.assertEqual(scan.publication_gate(snapshot, audit, NOW), (True, []))
+        self.assertIn("stale_or_unpaired_scan",
+                      scan.publication_gate(snapshot, audit, NOW.replace(day=16))[1])
+        snapshot["articles"][0]["published_utc"] = "2026-10-01T00:00:00Z"
+        self.assertIn("stale_or_invalid_article", scan.publication_gate(snapshot, audit, NOW)[1])
+        snapshot["articles"][0]["published_utc"] = stamp
+        audit["markets"]["Sydney"] = "2026-11-14T10:00+00:00"
+        self.assertIn("six_clocks_invalid", scan.publication_gate(snapshot, audit, NOW)[1])
+        audit["markets"] = scan.local_market_times(NOW)
+        audit["sources"] = [{"id": "desnz", "status": "FAILED", "count": 0}]
+        self.assertIn("no_healthy_source_feed", scan.publication_gate(snapshot, audit, NOW)[1])
+        audit["sources"] = sources
+        snapshot["articles"][1]["dc_site_id"] = "invented-123"
+        self.assertIn("no_licensed_exact_dc_site_identity",
+                      scan.publication_gate(snapshot, audit, NOW)[1])
 
     def test_dedupe_and_audit(self):
         p = item("UK data center will invest $50 million")

@@ -67,8 +67,35 @@ def audit_candidate(news, audit, receipts, rights, repd_mw, verified_dc_ids, now
     articles = news.get("articles")
     if not isinstance(articles, list) or not articles:
         return errors + ["no_qualifying_articles"]
-    sources = {s.get("id"): s for s in audit.get("sources", []) if isinstance(s, dict) and s.get("id")}
-    receipt_index = {(r.get("source_id"), r.get("url")): r for r in receipts if isinstance(r, dict)}
+    # Duplicate evidence keys are ambiguous: dict comprehensions previously
+    # let the last record silently overwrite a failed or conflicting record.
+    sources, receipt_index = {}, {}
+    source_rows = audit.get("sources")
+    if not isinstance(source_rows, list):
+        errors.append("sources_not_list")
+        source_rows = []
+    for source in source_rows:
+        sid = source.get("id") if isinstance(source, dict) else None
+        if not isinstance(sid, str) or not sid:
+            errors.append("invalid_source_record")
+        elif sid in sources:
+            errors.append(f"duplicate_source_id:{sid}")
+        else:
+            sources[sid] = source
+    if not isinstance(receipts, list):
+        errors.append("receipts_not_list")
+        receipts = []
+    for receipt in receipts:
+        sid = receipt.get("source_id") if isinstance(receipt, dict) else None
+        url = receipt.get("url") if isinstance(receipt, dict) else None
+        if not isinstance(sid, str) or not sid or not isinstance(url, str) or not url:
+            errors.append("invalid_receipt_record")
+            continue
+        key = (sid, url)
+        if key in receipt_index:
+            errors.append(f"duplicate_receipt_key:{sid}:{url}")
+        else:
+            receipt_index[key] = receipt
     publisher_owners, urls, titles = set(), set(), set()
     for idx, item in enumerate(articles):
         tag = f"article_{idx}"

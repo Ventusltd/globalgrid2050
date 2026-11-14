@@ -81,6 +81,12 @@ class Energy24Tests(unittest.TestCase):
         self.assertIsNone(record)
         self.assertEqual(reason, "below_or_unverified_threshold")
 
+    def test_portfolio_deal_capacity_not_labelled_single_project(self):
+        record, reason = self.classify(
+            "AirTrunk secures exclusivity on 800MWh+ battery storage as part of 1GW Hunter renewables deal in Australia")
+        self.assertIsNone(record)
+        self.assertEqual(reason, "portfolio_capacity_requires_review")
+
     def test_project_capacity_still_qualifies_but_finance_not_capex(self):
         record, reason = self.classify(
             "Solar developer secures US$145 million financing for new 100MW project")

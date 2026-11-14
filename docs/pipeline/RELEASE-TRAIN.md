@@ -57,3 +57,30 @@ technology vocabulary and receivers at a named commit of that repository;
 
 Distances shown by the engine and by this page are straight-line screening figures. They do not say
 that a project can or cannot connect.
+
+## GridAtlas data state (rows new or changed in the October register)
+
+GridAtlas keeps the active register only (Operational, Under Construction, Awaiting Construction,
+Application Submitted) and, at the time of writing, holds the July 2026 register. A MAP link always opens
+the map on the point the link carries; the project's identity card opens only when GridAtlas holds a
+record with the same REPD Ref ID.
+
+`automation/pipeline_release/gridatlas_resolve.py` measures this for every row of a version against a
+GridAtlas browser registry file and lists the active rows that are not held. The current measurement is
+`automation/pipeline_release/gridatlas_state.json`; it is copied into `versions.json` (`map_link_state`)
+and into the version folder (`gridatlas/map_link_state.json`), where the page uses it to mark only those
+rows, below the row's actions, without touching the link.
+
+To confirm a new GridAtlas register closes the gap:
+
+    python3 automation/pipeline_release/gridatlas_resolve.py uk_renewables_pipeline/<newest id> \
+        <path or https URL of data/repd_browser_registry_<generation>.json> --require-active
+
+or run the workflow "Verify Pipeline News versions" by hand with `gridatlas_registry_url` set. Rows whose
+status is outside the four active ones are never expected to resolve, so "all active rows resolve" is the
+test, not "all 7,775".
+
+## Size
+
+From V9.15 a version does not copy the three fixture folders the page never reads, and CI holds each
+version folder to 17 MB. Earlier folders are unchanged.

@@ -79,6 +79,9 @@ def main():
             node = by_id.get(node["parent"])
         missing = [f["id"] for f in inherited if not (folder / f["file"]).exists() or f["contains"] not in (folder / f["file"]).read_text(errors="replace")]
         checks["features_kept"] = {"pass": not missing, "features": [f["id"] for f in inherited], "missing": missing}
+        if reg.get("size_budget_mb") and vid >= reg.get("size_budget_from", ""):
+            size = sum((folder / rel).stat().st_size for rel in __import__("common").walk(folder))
+            checks["size_budget"] = {"pass": size <= reg["size_budget_mb"] * 1024 * 1024, "bytes": size, "budget_mb": reg["size_budget_mb"]}
         results[vid] = checks
 
     if GRIDATLAS:
@@ -111,13 +114,15 @@ def main():
                                 "map_links_drawn": r.get("map_links"), "first_map_link": r.get("first_map_link"), "features_seen": r.get("features")})
             results[v["id"]]["browser"] = {"pass": good, "views": summary}
 
+    state_file = HERE / "gridatlas_state.json"
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     doc = {"schema": "globalgrid2050.pipeline-news.versions.v1", "generated_at": now,
            "generated_by": "automation/pipeline_release/verify.py" + (" --browser" if BROWSER else ""),
            "where_run": "GitHub Actions" if os.environ.get("GITHUB_ACTIONS") else "release train workspace before publication",
            "note": "Every Pipeline News version from 202611132345 onward, newest first. Old versions stay published. "
                    "'verdict' is this tool's result when the file was written; 'ci' is the result of the Verify Pipeline News versions workflow on the pull request that published the version, recorded in the following version.",
-           "release_candidate": reg.get("release_candidate"), "map_link_state": reg.get("map_link_state"), "versions": []}
+           "release_candidate": reg.get("release_candidate"),
+           "map_link_state": json.loads(state_file.read_text()) if state_file.exists() else None, "versions": []}
     failed = []
     for v in reversed(versions):
         checks = results[v["id"]]
@@ -142,6 +147,15 @@ def main():
         Path(os.environ["VERIFY_OUT"]).write_text(json.dumps(doc, indent=1, ensure_ascii=False) + "\n")
     if CHECK and failed:
         sys.exit(f"FAILED: {', '.join(failed)}")
+
+
+def state_line(s):
+    if not s:
+        return ""
+    return (f"MAP links and GridAtlas data: every row's MAP link opens GridAtlas on the project by REPD Ref ID. Measured {s['measured_at'][:10]} against GridAtlas register "
+            f"generation {s['gridatlas_register']['generation']} ({s['gridatlas_register']['dataset']}): of {s['active_rows']:,} rows with an active REPD status, "
+            f"{s['active_resolved']:,} are in that register and {s['active_not_resolved']} are not yet (listed in versions.json under map_link_state). "
+            f"The other {s['not_active_not_expected']:,} rows have a status GridAtlas does not keep. Measured from the files, not on the live map.")
 
 
 def render(doc):
@@ -175,6 +189,7 @@ checks (the version's own test suite, the MAP link of every one of {doc['version
 browser load at desktop and phone widths). A verdict is a test result, not an engineering acceptance. Machine-readable copy:
 <a href="versions.json">versions.json</a>. Generated {e(doc['generated_at'])}.</p>
 <p>{e((doc.get('release_candidate') or {}).get('note', 'No release candidate has been named yet.'))}</p>
+<p>{e(state_line(doc.get('map_link_state')))}</p>
 <table><thead><tr><th>VERSION</th><th>DATE</th><th>WHAT IT ADDED · KNOWN FAULTS</th><th>AUTOMATED VERDICT</th><th>CI ON PUBLICATION</th><th>LINKS</th></tr></thead>
 <tbody>
 {chr(10).join(rows)}

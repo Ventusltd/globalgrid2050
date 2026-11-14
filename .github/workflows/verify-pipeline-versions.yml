@@ -12,6 +12,11 @@ on:
       - 'automation/pipeline_release/**'
       - '.github/workflows/verify-pipeline-versions.yml'
   workflow_dispatch:
+    inputs:
+      gridatlas_registry_url:
+        description: 'Optional: https URL of a GridAtlas browser registry (data/repd_browser_registry_<generation>.json). When given, the run also requires every active row of the newest version to resolve in it by REPD Ref ID.'
+        required: false
+        default: ''
 
 permissions:
   contents: read
@@ -52,6 +57,13 @@ jobs:
         run: |
           mkdir -p "$SHOT_DIR"
           python3 automation/pipeline_release/verify.py --browser --check
+      - name: Optional - do all active rows of the newest version resolve in the named GridAtlas registry?
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.gridatlas_registry_url != '' }}
+        env:
+          REGISTRY_URL: ${{ inputs.gridatlas_registry_url }}
+        run: |
+          newest="$(python3 -c "import json; print(json.load(open('automation/pipeline_release/registry.json'))['versions'][-1]['id'])")"
+          python3 automation/pipeline_release/gridatlas_resolve.py "uk_renewables_pipeline/$newest" "$REGISTRY_URL" --require-active
       - uses: actions/upload-artifact@v4
         if: always()
         with:

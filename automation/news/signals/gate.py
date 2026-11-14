@@ -46,12 +46,13 @@ CONTEXT_RE = re.compile(r"\d\s?(?:MW|GW)\b|\bconsent\b|\bpermit\b|\bBESS\b|\bO&M
 # Site name and action are a *candidate match*: publisher and REPD evidence
 # are checked separately before public confirmation.
 DEVELOPMENT_ACTION_RE = re.compile(
-    r"\b(?:consent|decision|approv\w*|refus\w*|rejection|reject\w*|"
+    r"\b(?:consents?|decision|approv\w*|refus\w*|rejection|reject\w*|"
     r"consult\w*|planning|dco|nsip|paperwork|filed?|filing|submits?|"
     r"pre-examination|permi\w*|financ\w*|invest\w*|epc|o&m|"
     r"energis\w*|energiz\w*|construction|commission\w*|"
     r"operational|acquir\w*|sale|sells?|buys?|delayed|milestones?|"
-    r"moves? forward|launch\w*|unveil\w*|tweak\w*|design)\b", re.I
+    r"moves? forward|launch\w*|unveil\w*|tweak\w*|design|"
+    r"suppl(?:ies|ying)|go[- ]ahead|reaches?|secures?)\b", re.I
 )
 
 PLACE_TAIL = frozenset("farm lane road house hall way castle street bridge airfield aerodrome".split())
@@ -243,8 +244,12 @@ def judge(ref, title, project=None, official=False):
             return "drop", "the headline is placed in %s, not the project's county" % other[0]
     solar = SOLAR_RE.search(title) is not None and not SMALL_RE.search(title)
     whole = any(w for _a, _c, w in names) and not SMALL_RE.search(title)
-    adjacent = solar and any(re.search(r"(?<![a-z0-9])%s(?: farm)? (?:\d+ ?mw )?%s(?![a-z0-9])" % (
-        re.escape(_norm(core)), SOLAR_TERM.replace("[- ]", " ")), text) for _a, core, _w in names)
+    # "solar" can mean a timetable, panels, battery hub or charity donation.
+    # A direct match needs a utility-scale scheme noun, not that token alone.
+    adjacent = solar and any(re.search(
+        r"(?<![a-z0-9])%s (?:\d+ ?mw )?(?:solar|pv|photovoltaic) "
+        r"(?:farm|park|project|plant|scheme|development|array)\b" %
+        re.escape(_norm(core)), text) for _a, core, _w in names)
     capacity = False
     far = False
     if project["mw"]:
@@ -253,8 +258,13 @@ def judge(ref, title, project=None, official=False):
         capacity = any(abs(f - project["mw"]) <= 0.2 * project["mw"] for f in figures)
         far = bool(figures) and not any(0.45 * project["mw"] <= f <= 2.2 * project["mw"] for f in figures)
     fact = home or developer or capacity
-    if official and any(w for _a, _c, w in names) and (not weak or fact) and not far:
-        return "ok", "the whole alias in an official title with sufficient identity evidence"
+    official_specific = bool(re.search(
+        r"\b(?:development consent|consent order|planning act 2008|dco|nsip)\b", title, re.I))
+    if official and any(w for _a, _c, w in names) and not far and (
+            (not weak and (whole or fact)) or
+            (weak_flag != "shared" and whole and (fact or official_specific)) or
+            (weak_flag == "shared" and (developer or capacity))):
+        return "ok", "project identity supported by an official development notice"
     if not (solar or whole):
         if capacity:
             return ("possible" if weak_flag else "ok"), "the name with the project's capacity"
@@ -276,9 +286,9 @@ def judge(ref, title, project=None, official=False):
             r"(?:farm|park|project|plant|scheme|development|array)\b" %
             "|".join(re.escape(_norm(core)) for _alias, core, _w in names)
         )
-        if site_pattern.search(text) and not far:
-            return "ok", "project core followed by solar development type"
-        if DEVELOPMENT_ACTION_RE.search(title) and not far and (fact or any(
+        if site_pattern.search(text):
+            return "ok", "specific solar development name stated in headline"
+        if DEVELOPMENT_ACTION_RE.search(title) and (not far or developer) and (fact or any(
                 len(_norm(core).split()) >= 2 for _alias, core, _whole in names)):
             return "ok", "distinctive project name plus actual development activity"
         return "possible", "the name and a broad solar mention without project-specific identity"

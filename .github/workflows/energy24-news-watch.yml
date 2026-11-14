@@ -93,7 +93,7 @@ jobs:
           import hashlib
           import json
           from pathlib import Path
-          from automation.energy24.scan import publication_gate
+          from automation.energy24.scan import publication_gate, official_repd_csv
 
           release = json.loads(Path('uk_renewables_pipeline/energy24/data/release.json').read_text())
           # release.json pins the original GOV.UK CSV SHA256; repd-2026q3.csv
@@ -107,7 +107,12 @@ jobs:
           assert digest == 'd937ae16ad07f43caaaa25b4cee56399e1e9b9bb2ae5ecb7bc88cf9bc092e4b9', 'Normalised REPD SHA256 mismatch'
           news = json.loads(Path('/tmp/energy24/news.latest.json').read_text())
           audit = json.loads(Path('/tmp/energy24/news.audit.json').read_text())
-          ready, reasons = publication_gate(news, audit)
+          # Pinned normalised REPD membership; never trust IDs in news JSON.
+          # The licence-cleared DC register has not passed independent review.
+          # Empty trusted IDs keep the writer on HOLD until that source is pinned.
+          verified_repd = official_repd_csv(Path('repd-2026q3.csv'))
+          ready, reasons = publication_gate(news, audit,
+              verified_repd=verified_repd, licensed_dc_site_ids=set())
           assert isinstance(ready, bool) and isinstance(reasons, list)
           assert ready == (len(reasons) == 0), 'Publication gate inconsistent'
           print('Original GOV.UK SHA256 pin:', release['official_csv_sha256'])
@@ -148,10 +153,16 @@ jobs:
         run: |
           python - <<'PY'
           import json, os, pathlib
-          from automation.energy24.scan import publication_gate
+          from pathlib import Path
+          from automation.energy24.scan import publication_gate, official_repd_csv
           news=json.loads(pathlib.Path('/tmp/energy24/news.latest.json').read_text())
           audit=json.loads(pathlib.Path('/tmp/energy24/news.audit.json').read_text())
-          ready, reasons=publication_gate(news, audit)
+          # Pinned normalised REPD membership; never trust IDs in news JSON.
+          # The licence-cleared DC register has not passed independent review.
+          # Empty trusted IDs keep the writer on HOLD until that source is pinned.
+          verified_repd = official_repd_csv(Path('repd-2026q3.csv'))
+          ready, reasons = publication_gate(news, audit,
+              verified_repd=verified_repd, licensed_dc_site_ids=set())
           with open(os.environ['GITHUB_OUTPUT'],'a',encoding='utf-8') as out:
               out.write('ready='+str(ready).lower()+'\n')
           print('Energy24 publication gate:', 'PASS' if ready else 'HOLD: '+', '.join(reasons))

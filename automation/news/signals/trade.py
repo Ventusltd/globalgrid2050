@@ -40,6 +40,10 @@ Rules
   one run a day the 200 projects are covered in five runs (five days) and every project is searched again
   every five days; a cold start with an empty cache takes the same five runs. The main feeds are read on
   every run for all 200.
+- Feed archive (Solar Power Portal): its RSS feed takes limit and offset, so the script pages backwards
+  through the whole archive, --feed-pages (default 30) pages of 100 headlines a run, and applies the title rule
+  and the summary rule to every item for all 200 projects; when the end is reached it starts again after
+  --stale-days.
 - Sitemap route (a site with no usable search, such as Solar Power Portal, whose robots.txt disallows /search):
   the sitemap files named in robots.txt are read, --sitemap-files (default 90) a run, those never read first;
   an article link whose path contains an alias phrase is kept and its headline and date are taken from the
@@ -92,7 +96,8 @@ SITES = [
     {"id": "solar-power-portal", "publisher": "Solar Power Portal", "base": "https://www.solarpowerportal.co.uk",
      "feeds": ["https://www.solarpowerportal.co.uk/rss.xml?content_types=article&limit=100"],
      "routes": [("html", "/search?q={q}"), ("wp_posts", WP_POSTS), ("sitemap", "/sitemap.xml")],
-     "probe_urls": ["/rss.xml?content_types=article&limit=500&offset=100"]},
+     "feed_archive": "https://www.solarpowerportal.co.uk/rss.xml?content_types=article&limit=100&offset={offset}",
+     "feed_archive_step": 100},
     {"id": "pv-tech", "publisher": "PV Tech", "base": "https://www.pv-tech.org",
      "feeds": ["https://www.pv-tech.org/feed/"],
      "routes": [("wp_posts", WP_POSTS), ("wp_rss", WP_RSS), ("wp_rss", WP_FEED), ("html", "/?s={q}"),
@@ -743,7 +748,49 @@ def pick_route(site, host, discover, report, main_links=frozenset()):
     return chosen
 
 
-def walk_sitemap(site, host, start, projects, cache, health, now, args):
+def read_feed_archive(site, host, projects, cache, health, feed_hits, main_links, now, args):
+    """Page backwards through a feed that takes an offset (Solar Power Portal: 100 items a page, with
+    summaries), --feed-pages pages a run, continuing where the last run stopped. Every item is matched against
+    all projects with the title rule and the summary rule. When the end is reached the walk starts again
+    after --stale-days."""
+    state = cache.setdefault("feed_archive", {}).setdefault(site["id"], {"next": 1, "finished_at": ""})
+    if state.get("finished_at") and age_days(state["finished_at"], now) < args.stale_days:
+        health["feed_archive"] = {"pages_read": 0, "note": "complete; next pass after %d days" % args.stale_days}
+        return
+    if state.get("finished_at"):
+        state.update(next=1, finished_at="")
+    step, pages, entries, kept, oldest = site["feed_archive_step"], 0, 0, 0, ""
+    while pages < args.feed_pages and not host.spent():
+        try:
+            _ctype, body = host.get(site["feed_archive"].format(offset=state["next"] * step))
+            rows = parse_results("feed", body, site["base"])
+        except (HttpError, ValueError) as error:
+            health["notes"].append("feed archive page %d: %s" % (state["next"], str(error)[:80]))
+            break  # not the end of the archive: the next run tries this page again
+        pages += 1
+        fresh = [r for r in rows if r[1] not in main_links]
+        if not fresh:
+            state["finished_at"] = iso(now)
+            break
+        for title, link, date, summary in fresh:
+            main_links.add(link)
+            entries += 1
+            oldest = min(oldest or "9999", date or "9999")
+            refs = {}
+            for project in projects:
+                verdict = project.match(title, summary)
+                if verdict:
+                    refs[project.ref] = verdict[0] if "in the summary" in verdict[0] else ""
+            if refs:
+                feed_hits[link] = {"title": title, "link": link, "date": date, "site": site["id"], "refs": refs,
+                                   "how": "feed archive"}
+                kept += 1
+        state["next"] += 1
+    health["feed_archive"] = {"pages_read": pages, "entries": entries, "oldest": oldest, "matched": kept,
+                              "next_page": state["next"], "complete": bool(state.get("finished_at"))}
+
+
+def walk_sitemap(site, host, start, projects, cache, health, now, args, known):
     """Read the site's sitemap files (robots.txt 'Sitemap:' lines, else `start`), keep the article links whose
     path contains a project's alias phrase, and get each kept link's headline and date: from the sitemap when it
     carries news:title, else from the article page's own metadata (one request per new link, remembered in the
@@ -751,7 +798,9 @@ def walk_sitemap(site, host, start, projects, cache, health, now, args):
     first and then the ones read longest ago, so the whole sitemap is covered in a few runs and then re-read
     in rotation. Returns feed-hit records; the alias rule is applied to the real headline afterwards."""
     robots = host._robots(site["base"] + "/")
-    roots = [u for u in robots.sitemaps if re.search(r"sitemap|\.xml", u, re.I)] or [site["base"] + start]
+    skip = re.compile(r"image|video|event|webinar|contributor|author", re.I)
+    roots = [u for u in robots.sitemaps if re.search(r"sitemap|\.xml", u, re.I) and not skip.search(u)] \
+        or [site["base"] + start]
     wanted = []
     for project in projects:
         for _alias, core, _rx, _weak in project.aliases:
@@ -772,7 +821,7 @@ def walk_sitemap(site, host, start, projects, cache, health, now, args):
         shape, rows = parse_sitemap(body)
         if shape == "index":
             indexes.add(url)
-            fresh = sorted((c for c in dict.fromkeys(rows) if c not in seen), key=age)
+            fresh = sorted((c for c in dict.fromkeys(rows) if c not in seen and not skip.search(c)), key=age)
             seen.update(fresh)
             work[position:position] = fresh
             continue
@@ -808,6 +857,8 @@ def walk_sitemap(site, host, start, projects, cache, health, now, args):
         done.add(link)
         found = links[link]
         title, date = found.get("title"), found.get("date")
+        if not title and link in known:
+            continue  # the feed already gave this headline
         if not title and link in pages:
             title, date = pages[link]
         elif not title and looked < args.page_lookups and not host.spent():
@@ -861,12 +912,15 @@ def run_site(site, projects, todo, cache, fetch, now, args, out):
                 entry.update(status="failed", error=str(error)[:160])
             health["feeds"].append(entry)
 
+        if site.get("feed_archive"):
+            read_feed_archive(site, host, projects, cache, health, feed_hits, main_links, now, args)
         route = pick_route(site, host, args.discover, health["routes"], frozenset(main_links))
         host.failures = host.streak = 0  # routes that do not exist are findings, not failures of the run
         health["notes"] = host.notes
         if route and route[0] == "sitemap":
             health["route"] = "sitemap (links by alias in the path, headline from the article's metadata)"
-            for link, hit in walk_sitemap(site, host, route[1], projects, cache, health, now, args).items():
+            known = set(feed_hits) | set(cache.get("feed_hits") or {})
+            for link, hit in walk_sitemap(site, host, route[1], projects, cache, health, now, args, known).items():
                 feed_hits.setdefault(link, hit)  # a headline from the feed is kept as the feed gave it
             health["searched"] = len(projects)
         elif route:
@@ -1067,7 +1121,8 @@ def report(part, projects, truth, discover):
             source.get("cached", ""), source.get("skipped", ""), source["requests"], source["failures"],
             len(by_pub.get(site["publisher"], ())), source["items"],
             cell("; ".join([source.get("error") or ""] + (source.get("notes") or [])
-                           + ([json.dumps(source["sitemap"])] if source.get("sitemap") else [])).strip("; "))))
+                           + ["%s %s" % (k, json.dumps(source[k])) for k in ("feed_archive", "sitemap")
+                              if source.get(k)]).strip("; "))))
     lines.append("\n### Routes tried (canary query '%s')%s\n" % (CANARY, "" if discover else
                                                                    " - stops at the first that works"))
     lines.append("| site | route | result | type | results | about solar | dated | with summary | sample or error |\n"
@@ -1133,6 +1188,7 @@ def parse_args(argv=None):
     parser.add_argument("--fresh-days", type=float, default=4.0)
     parser.add_argument("--per-host-cap", type=int, default=200, help="requests per site per run")
     parser.add_argument("--host-seconds", type=int, default=900, help="time budget per site per run")
+    parser.add_argument("--feed-pages", type=int, default=30, help="pages of an offset feed read per run")
     parser.add_argument("--sitemap-files", type=int, default=90, help="sitemap files read per run (sitemap route)")
     parser.add_argument("--page-lookups", type=int, default=60,
                         help="article pages opened per run for their headline and date (sitemap route)")

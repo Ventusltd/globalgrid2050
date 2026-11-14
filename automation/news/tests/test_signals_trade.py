@@ -448,3 +448,47 @@ def test_sitemap_route_finds_articles_by_alias_in_the_link(tmp_path, monkeypatch
     opened = [c for c in calls if "bloy-s-grove" in c]
     assert T.main(argv, fetch=fetch) == 0  # second run: the headline comes from the cache, the page is not reopened
     assert [c for c in calls if "bloy-s-grove" in c] == opened
+
+
+def test_feed_archive_pages_back_until_nothing_new_and_resumes(tmp_path, monkeypatch):
+    monkeypatch.setattr(T, "MIN_INTERVAL_S", 0.0)
+    monkeypatch.setattr(T, "SITES", [{"id": "sp", "publisher": "Site SP", "base": "https://sp.example",
+                                      "feeds": ["https://sp.example/rss.xml?limit=100"], "routes": [],
+                                      "feed_archive": "https://sp.example/rss.xml?limit=100&offset={offset}",
+                                      "feed_archive_step": 100}])
+
+    def rss(*items):
+        return ("<rss version='2.0'><channel>" + "".join(
+            "<item><title>%s</title><link>https://sp.example/%s</link><pubDate>%s</pubDate>"
+            "<description>%s</description></item>" % i for i in items) + "</channel></rss>").encode()
+
+    pages = {
+        "limit=100": rss(("Daily solar news", "a", "Fri, 13 Nov 2026 09:00:00 +0000", "Nothing.")),
+        "offset=100": rss(("UK's biggest solar farm gets development consent order", "b",
+                           "Fri, 06 Sep 2024 09:00:00 +0000", "Example Power's Cottam Solar Project is approved.")),
+        "offset=200": rss(("Cottam Solar Project accepted for examination", "c", "Mon, 06 Feb 2023 09:00:00 +0000", "")),
+        "offset=300": rss(),
+    }
+    calls = []
+
+    def fetch(url):
+        calls.append(url)
+        if url.endswith("robots.txt"):
+            raise T.HttpError("HTTP 404")
+        return "text/xml", pages[url.rsplit("&", 1)[-1] if "offset" in url else "limit=100"]
+
+    aliases = write_aliases(tmp_path, [record(10914, 8, ["Cottam Solar Project"])])
+    argv = ["--out", str(tmp_path / "p.json"), "--aliases", str(aliases), "--feed-pages", "1"]
+    assert T.main(argv, fetch=fetch) == 0
+    part = json.loads((tmp_path / "p.json").read_text())
+    assert [(i["link"], i["confidence"]) for i in part["items"]] == [("https://sp.example/b", "uncertain")]
+    assert "feed archive" in part["items"][0]["basis"] and "summary" in part["items"][0]["basis"]
+    assert T.main(argv[:-1] + ["5"], fetch=fetch) == 0  # resumes at page 2 and stops at the empty page
+    part = json.loads((tmp_path / "p.json").read_text())
+    assert [i["link"] for i in part["items"]] == ["https://sp.example/b", "https://sp.example/c"]
+    assert sum("offset=100" in c for c in calls) == 1
+    cache = json.loads((tmp_path / "p.cache.json").read_text())
+    assert cache["feed_archive"]["sp"]["finished_at"] and "is approved" not in json.dumps(cache)
+    before = len(calls)
+    assert T.main(argv, fetch=fetch) == 0  # complete: no archive page is requested again until it is stale
+    assert not any("offset" in c for c in calls[before:])

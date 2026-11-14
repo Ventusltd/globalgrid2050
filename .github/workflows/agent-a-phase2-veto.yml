@@ -1,0 +1,83 @@
+name: Agent A Phase2 independent veto (QA ONLY; strict red is blocking)
+on:
+  pull_request:
+    paths:
+      - 'automation/news/phase2_integration/**'
+      - '.github/workflows/agent-a-phase2-veto.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  veto-fixtures-and-pinned-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Eleven fail-closed independent adversarial fixtures
+        run: python -m unittest -v automation/news/phase2_integration/test_release_veto.py
+      - name: Immutable real top200 (SHA checked in gate)
+        uses: actions/checkout@v4
+        with:
+          repository: Ventusltd/globalgrid2050
+          ref: 91727c22a9ee13f433d4e82d8949c9aeac5bd3be
+          path: pinned-source
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /automation/news/signals/top200_solar.json
+      - name: Immutable actual project-signals data branch snapshot
+        uses: actions/checkout@v4
+        with:
+          repository: Ventusltd/globalgrid2050
+          ref: 598e787908d4a2ee3d84dc7a6a8d0213752ebf46
+          path: pinned-data
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /dist/project_signals.json
+      - name: Assert pinned actual data is structurally intact but publication vetoes remain
+        shell: bash
+        run: |
+          set -euo pipefail
+          set +e
+          python automation/news/phase2_integration/release_veto.py \
+            pinned-source/automation/news/signals/top200_solar.json \
+            pinned-data/dist/project_signals.json --report agent-a-real-veto.json
+          code=$?
+          set -e
+          test "$code" -eq 2 || { echo "::error::expected strict release HOLD exit 2, got $code"; exit 1; }
+          python - <<'PY'
+          import json
+          x=json.load(open("agent-a-real-veto.json"))
+          assert x["status"]=="HOLD" and x["release_authorised"] is False
+          assert x["source_sha256"]["top200"]=="3a23c8495f00e613a8f0f81b2db5374a19ba89d832e913c6f821823def6b49a5"
+          assert x["source_sha256"]["snapshot"]=="15586a71613df59fc7bbdbdce852ebb71b19f663f0e269ca4d9fedb7225afe03"
+          assert x["facts"]["projects"]==200
+          assert x["facts"]["article_receipts_missing"]>=400
+          assert x["facts"]["source_rights_missing"]>=15
+          assert "QA_ONLY_NO_PUBLICATION_AUTHORITY" in x["vetoes"]
+          print("Verified pinned real 200 REPD identities, hashes, release HOLD; NOT a green publication gate")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: agent-a-phase2-pinned-veto-report
+          path: agent-a-real-veto.json
+          if-no-files-found: error
+          retention-days: 30
+  strict-integrated-acid:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 'Strict integrated v2 acid: no xfail masking, no warning downgrade'
+        run: |
+          python -m pip install --quiet pytest
+          python -m pytest -q --runxfail \
+            automation/news/tests/test_signals_acid.py \
+            automation/news/signals/tests/test_gate.py \
+            automation/news/signals/tests/test_combine.py

@@ -42,6 +42,18 @@ SMALL_RE = re.compile(r"\broof\w*\b|\bcar ?ports?\b|\bstreet ?lights?\b|\bsolar 
                       r"(?:for|on|at|fitted|installed on)\b|\benergy[- ]efficien\w+", re.I)
 CONTEXT_RE = re.compile(r"\d\s?(?:MW|GW)\b|\bconsent\b|\bpermit\b|\bBESS\b|\bO&M\b|\bexamination\b|\brefus\w+|\bapprov\w+|\breject\w+|"
                         r"\bdevelopment consent\b", re.I)
+# Actual project-development activity, not merely a generic mention of solar.
+# Site name and action are a *candidate match*: publisher and REPD evidence
+# are checked separately before public confirmation.
+DEVELOPMENT_ACTION_RE = re.compile(
+    r"\\b(?:consent|decision|approv\\w*|refus\\w*|rejection|reject\\w*|"
+    r"consult\\w*|planning|dco|nsip|paperwork|filed?|filing|submits?|"
+    r"pre-examination|permi\\w*|financ\\w*|invest\\w*|epc|o&m|"
+    r"energis\\w*|energiz\\w*|construction|commission\\w*|"
+    r"operational|acquir\\w*|sale|sells?|buys?|delayed|milestones?|"
+    r"moves? forward|launch\\w*|unveil\\w*|tweak\\w*|design)\\b", re.I
+)
+
 PLACE_TAIL = frozenset("farm lane road house hall way castle street bridge airfield aerodrome".split())
 FOREIGN_RE = re.compile(
     r"(?<!\w)(?:US|U\.S\.|USA|America|American|Ireland|Irish|County (?:Meath|Kildare|Cork|Wexford|Offaly)|Germany|German|"
@@ -261,6 +273,9 @@ def judge(ref, title, project=None, official=False):
         )
         if site_pattern.search(text) and not far:
             return "ok", "project core followed by solar development type"
+        if DEVELOPMENT_ACTION_RE.search(title) and not far and (fact or any(
+                len(_norm(core).split()) >= 2 for _alias, core, _whole in names)):
+            return "ok", "distinctive project name plus actual development activity"
         return "possible", "the name and a broad solar mention without project-specific identity"
     if weak_flag:                                           # generic or shared with another row: a fact is required
         if fact and (whole or adjacent) and not far:

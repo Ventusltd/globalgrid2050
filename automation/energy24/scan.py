@@ -356,11 +356,14 @@ def classify(item: dict, repd: dict, now: datetime) -> tuple[dict | None, str]:
 
 
 
-def publication_gate(snapshot: dict, audit: dict, now: datetime | None = None) -> tuple[bool, list[str]]:
+def publication_gate(snapshot: dict, audit: dict, now: datetime | None = None, *,
+                     verified_repd: dict | None = None,
+                     licensed_dc_site_ids: set[str] | None = None) -> tuple[bool, list[str]]:
     """Fail closed on unverified identities, stale evidence, or incomplete six-market clocks.
 
     The scanner filters old headlines, but the hourly writer must independently
-    validate the downloaded artifact before publishing it. This also prevents
+    validate the downloaded artifact against authoritative REPD records and a
+    separately verified, licence-cleared DC site register. This also prevents
     replay of a previously valid snapshot after the feeds stop updating.
     """
     now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
@@ -369,14 +372,29 @@ def publication_gate(snapshot: dict, audit: dict, now: datetime | None = None) -
     publishers = {x.get("source") for x in articles if x.get("source")}
     if len(publishers) < 2:
         reasons.append("fewer_than_two_publishers")
-    if not any(x.get("category") == "uk-repd"
-               and re.fullmatch(r"\d{3,8}", str(x.get("repd_ref") or ""))
-               and x.get("qualification") == "repd_exact_ref" for x in articles):
+    # Never trust an article's own 'verified' flags or a correctly formatted ID.
+    # The writer must supply independently pinned official REPD membership and a
+    # separately licence-cleared DC ID set. Missing evidence means HOLD.
+    def official_uk_identity(x: dict) -> bool:
+        ref = str(x.get("repd_ref") or "")
+        if (x.get("category") != "uk-repd"
+                or x.get("qualification") != "repd_exact_ref"
+                or not re.fullmatch(r"\d{3,8}", ref)
+                or verified_repd is None or ref not in verified_repd):
+            return False
+        try:
+            return float(verified_repd[ref]["Installed Capacity (MWelec)"]) >= MIN_PROJECT_MW
+        except (KeyError, ValueError, TypeError):
+            return False
+
+    if not any(official_uk_identity(x) for x in articles):
         reasons.append("no_exact_uk_repd_news_identity")
     if not any(x.get("category") == "data-centres"
                and re.fullmatch(r"dcuk-[A-Za-z0-9_-]+", str(x.get("dc_site_id") or ""))
                and x.get("identity_evidence") == "verified_exact_site"
-               and x.get("site_licence_verified") is True for x in articles):
+               and x.get("site_licence_verified") is True
+               and licensed_dc_site_ids is not None
+               and x.get("dc_site_id") in licensed_dc_site_ids for x in articles):
         reasons.append("no_licensed_exact_dc_site_identity")
     if snapshot.get("release") != audit.get("release"):
         reasons.append("release_mismatch")

@@ -76,7 +76,7 @@ def browser_checks():
             page.close()
         home = browser.new_page(viewport={"width": 390, "height": 844})
         home.goto(SITE + "/", wait_until="domcontentloaded", timeout=90000)
-        home.wait_for_selector(f'a[href="{SITE}/uk_renewables_pipeline/{Q3}/"]', timeout=45000)
+        assert home.locator(f'a[href="{SITE}/uk_renewables_pipeline/{Q3}/"]').count() > 0, "Q3 homepage link missing"
         findings["homepage_390"] = {"q3_link_present": True}
         home.close()
         atlas = browser.new_page(viewport={"width": 390, "height": 844})

@@ -29,7 +29,8 @@ appeal, ...), and the story is about the UK.
 - One category per headline from a fixed list; technology when the title says it.
 - possible_match: only when the title contains a whole name segment of a REPD Site Name (word-bounded, at
   least two words or a distinctive single word) AND a second thing in the title agrees with that REPD row:
-  the developer, the planning authority, the county or the technology. Exactly one REPD site must remain
+  the developer, the planning authority, the county or the technology (a single-word name needs one of the
+  first three; technology alone is not enough for it). Exactly one REPD site must remain
   (co-located rows sharing one Site Name and county count as one site; the lowest Ref ID is given); otherwise null. It is a labelled possible match for review, never a confirmed link.
 - Fetching, feed parsing, dates, canonical links, the sponsored filter and the link merge are imported from
   datacentre_feed.py; nothing is copied. One feed failing is recorded in "feeds" and never stops the run.
@@ -174,6 +175,8 @@ def lane_label(title, lane):
         return ("other", "solar", None) if CHINA.search(title) and SOLAR_TRADE.search(title) else None
     return None
 
+# Paid-for items the shared sponsored filter does not name.
+BRANDED = _rx(r"branded content|sponsored feature|promotional feature")
 # Opinion columns and letters are not project news (The Guardian marks them with " | Author").
 OPINION_HOSTS = ("www.theguardian.com",)
 
@@ -300,7 +303,9 @@ class Repd:
                 rest = N.padded(" ".join(toks[:i] + toks[i + size:]))
                 agreed = {}
                 for ref, row in rows.items():
-                    basis = _agreement(row, rest, N.tech_context(text))
+                    # one word plus a technology word is too weak ("Hunterston battery" fits more than one
+                    # project): a single-word name needs the developer, the planning authority or the county
+                    basis = _agreement(row, rest, N.tech_context(text) if size > 1 else ())
                     if basis:
                         agreed[ref] = (row, basis)
                 named = {ref: v for ref, v in agreed.items() if v[1] != "technology"}
@@ -415,7 +420,7 @@ def collect(feeds, fetch, repd, now_iso):
             title, link, date = D.clean_text(title, 300), D.canonical_link(link), D.parse_date(date)
             if date and (newest is None or date > newest):
                 newest = date
-            if not title or not link or D.SPONSORED_RE.search(title):
+            if not title or not link or D.SPONSORED_RE.search(title) or BRANDED.search(title):
                 continue
             if date and date > horizon:
                 continue

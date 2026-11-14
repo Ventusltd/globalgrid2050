@@ -40,6 +40,10 @@ REPD = P.Repd([
     repd_row("70002", "Twin Oaks Solar Farm", county="Kent"),
     repd_row("70003", "Twin Oaks Solar Farm", county="Devon"),
     repd_row("70004", "Zennorwick - Battery Storage", tech="Battery", county="Cornwall"),
+    repd_row("412", "Hunterston", tech="Battery", operator="Scottish Enterprise & SSE", county="Ayrshire",
+             authority="North Ayrshire"),
+    repd_row("10535", "Hunterston Grid Services Complex - Energy Storage Facility", tech="Battery",
+             operator="Revera Energy", county="Ayrshire", authority="Scottish Government (S36)"),
 ])
 
 
@@ -134,8 +138,21 @@ def test_colocated_rows_of_one_site_give_the_lowest_ref_and_two_sites_give_nothi
 
 def test_name_without_colocated_tail_and_single_distinctive_word():
     assert REPD.match("Green Hill Solar Farm development consent decision announced")["repd_ref"] == "15793"
-    assert REPD.match("Zennorwick battery scheme approved")["repd_ref"] == "70004"
-    assert REPD.match("Battery scheme approved in Zennorwick") is None  # single word must sit before the technology
+    assert REPD.match("Zennorwick battery scheme approved in Cornwall")["repd_ref"] == "70004"
+    assert REPD.match("Zennorwick battery scheme approved") is None     # one word plus technology is not enough
+    assert REPD.match("Cornwall battery scheme approved in Zennorwick") is None  # the word must sit before the technology
+
+
+def test_single_word_plus_technology_does_not_pick_the_wrong_hunterston():
+    assert REPD.match("Revera's Hunterston battery storage project starts construction") is None
+    assert REPD.match("Hunterston BESS reaches financial close") is None
+
+
+def test_branded_content_is_dropped():
+    body = (b"<rss version='2.0'><channel><item><title>BRANDED CONTENT: Solar farm construction made easy</title>"
+            b"<link>https://example.org/b</link></item></channel></rss>")
+    items, _ = P.collect([{"url": "https://x.example/f", "source": "X", "uk_only": True}], lambda u: body, REPD, NOW)
+    assert items == []
 
 
 def test_data_centre_headlines_never_get_a_repd_match():
@@ -228,7 +245,7 @@ def test_previous_items_are_kept_first_seen_is_stable_and_rerun_is_identical(tmp
     out = tmp_path / "pipeline_headlines.json"
     old = {"schema": P.SCHEMA, "items": [
         {"title": "Example Wind Farm refused by council", "link": "https://example.org/old-story", "source": "Old",
-         "date": "2026-10-01T08:00:00Z", "first_seen": "2026-10-01T13:00:00Z", "category": "consent",
+         "date": "2026-08-10T08:00:00Z", "first_seen": "2026-08-10T13:00:00Z", "category": "consent",
          "technology": None, "possible_match": None},
         {"title": "Solar farm approved long ago", "link": "https://example.org/ancient", "source": "Old",
          "date": "2026-01-01T08:00:00Z", "first_seen": "2026-01-01T13:00:00Z", "category": "consent",
@@ -239,7 +256,8 @@ def test_previous_items_are_kept_first_seen_is_stable_and_rerun_is_identical(tmp
     out.write_text(json.dumps(old), encoding="utf-8")
     _, first = run(tmp_path)
     kept = {i["link"]: i for i in first["items"]}
-    assert kept["https://example.org/old-story"]["first_seen"] == "2026-10-01T13:00:00Z"
+    # 96 days old: kept until max_age_days (120), whatever the shared link merge does with age
+    assert kept["https://example.org/old-story"]["first_seen"] == "2026-08-10T13:00:00Z"
     assert kept["https://example.org/old-story"]["category"] == "refusal"     # re-labelled with today's rules
     assert "https://example.org/ancient" not in kept                          # older than max_age_days
     assert "https://example.org/off-topic" not in kept

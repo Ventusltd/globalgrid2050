@@ -46,12 +46,12 @@ CONTEXT_RE = re.compile(r"\d\s?(?:MW|GW)\b|\bconsent\b|\bpermit\b|\bBESS\b|\bO&M
 # Site name and action are a *candidate match*: publisher and REPD evidence
 # are checked separately before public confirmation.
 DEVELOPMENT_ACTION_RE = re.compile(
-    r"\\b(?:consent|decision|approv\\w*|refus\\w*|rejection|reject\\w*|"
-    r"consult\\w*|planning|dco|nsip|paperwork|filed?|filing|submits?|"
-    r"pre-examination|permi\\w*|financ\\w*|invest\\w*|epc|o&m|"
-    r"energis\\w*|energiz\\w*|construction|commission\\w*|"
-    r"operational|acquir\\w*|sale|sells?|buys?|delayed|milestones?|"
-    r"moves? forward|launch\\w*|unveil\\w*|tweak\\w*|design)\\b", re.I
+    r"\b(?:consent|decision|approv\w*|refus\w*|rejection|reject\w*|"
+    r"consult\w*|planning|dco|nsip|paperwork|filed?|filing|submits?|"
+    r"pre-examination|permi\w*|financ\w*|invest\w*|epc|o&m|"
+    r"energis\w*|energiz\w*|construction|commission\w*|"
+    r"operational|acquir\w*|sale|sells?|buys?|delayed|milestones?|"
+    r"moves? forward|launch\w*|unveil\w*|tweak\w*|design)\b", re.I
 )
 
 PLACE_TAIL = frozenset("farm lane road house hall way castle street bridge airfield aerodrome".split())

@@ -1,4 +1,4 @@
-name: Data-centre capex and politics news (daily, data branch)
+name: Data-centre and pipeline headlines (scheduled, data branch)
 # Owner, 14 Nov 2026 00:56 UTC: "I want data centre CAPEX news and politics in the REPD pipeline. Simple."
 # This is an owner-requested scheduled workflow (an exception to the 000_freeze manual-only rule, like the monthly
 # REPD check). It reads a fixed list of public RSS/Atom feeds (automation/news/datacentre_feed.py, FEEDS), keeps
@@ -7,10 +7,23 @@ name: Data-centre capex and politics news (daily, data branch)
 # raw.githubusercontent.com on that branch, so a daily refresh needs no Pages rebuild. A push made with
 # GITHUB_TOKEN starts no other workflow. One feed failing is recorded in the file's "feeds" list and does not
 # fail the job; the job fails only when every feed failed and there is no earlier file.
+#
+# 14 Nov 2026 (owner: the news "doesn't update"): the same run also writes pipeline_news.json (renewables,
+# storage and grid headlines; automation/news/pipeline_feed.py, a subset of the same feeds) to the same branch,
+# for the Pipeline News headlines block. The schedule is three slots a day instead of one: the first daily
+# slot (05:23 UTC on 14 Nov) produced no run although the workflow was active on the default branch with a
+# valid cron, and GitHub does not guarantee a scheduled slot. With three slots one dropped slot costs six hours,
+# and the page states the file's age itself. A manual run with publish=false builds both files from the
+# selected branch and uploads them as an artifact without touching the data branch (used to test a change).
 on:
   schedule:
-    - cron: '23 5 * * *'
+    - cron: '23 5,11,17 * * *'
   workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Publish to the data branch. Untick to build from the selected branch and upload an artifact only.'
+        type: boolean
+        default: true
 permissions:
   contents: write
 concurrency:
@@ -25,7 +38,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ (github.event_name == 'workflow_dispatch' && !inputs.publish) && github.ref || 'main' }}
           fetch-depth: 1
       - uses: actions/setup-python@v5
         with:
@@ -33,16 +46,19 @@ jobs:
       - name: Tests (offline fixtures)
         run: |
           python -m pip install --quiet pytest
-          python -m pytest -q -p no:cacheprovider automation/news/tests/test_datacentre_feed.py
-      - name: Bring in the previous file from the data branch (keeps older items)
+          python -m pytest -q -p no:cacheprovider automation/news/tests/test_datacentre_feed.py automation/news/tests/test_pipeline_feed.py
+      - name: Bring in the previous files from the data branch (keeps older items)
         run: |
           mkdir -p dist
           if git ls-remote --exit-code --heads origin "$DATA_BRANCH" >/dev/null; then
             git fetch --depth=1 origin "$DATA_BRANCH"
             git show FETCH_HEAD:dist/datacentre_news.json > dist/datacentre_news.json || rm -f dist/datacentre_news.json
+            git show FETCH_HEAD:dist/pipeline_news.json > dist/pipeline_news.json 2>/dev/null || rm -f dist/pipeline_news.json
           fi
       - name: Fetch feeds and build dist/datacentre_news.json
         run: python automation/news/datacentre_feed.py --out dist/datacentre_news.json
+      - name: Fetch feeds and build dist/pipeline_news.json
+        run: python automation/news/pipeline_feed.py --out dist/pipeline_news.json
       - name: Summary
         if: always()
         run: |
@@ -59,8 +75,19 @@ jobs:
           print("\n| date | lanes | source | title |\n|---|---|---|---|")
           for i in d["items"][:15]:
               print(f"| {i['date']} | {'+'.join(i['lanes'])} | {i['source']} | {i['title']} |")
+          p = pathlib.Path("dist/pipeline_news.json")
+          if p.exists():
+              d = json.loads(p.read_text())
+              print(f"\n**pipeline headlines: {d['status']}**  {json.dumps(d['counts'])}\n")
+              print("| feed | status | entries | kept | error |\n|---|---|---|---|---|")
+              for f in d["feeds"]:
+                  print(f"| {f['url']} | {f['status']} | {f.get('entries','')} | {f.get('kept','')} | {f.get('error','')} |")
+              print("\n| date | topics | source | title |\n|---|---|---|---|")
+              for i in d["items"][:20]:
+                  print(f"| {i['date']} | {'+'.join(i['topics'])} | {i['source']} | {i['title']} |")
           EOF
       - name: Publish to the data branch
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.publish }}
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -75,17 +102,20 @@ jobs:
           fi
           mkdir -p "$pub/dist"
           cp dist/datacentre_news.json "$pub/dist/datacentre_news.json"
-          printf '%s\n' "Published daily by .github/workflows/datacentre-news.yml on main. Headlines and links only." \
-            "Read by the Pipeline News panel scripts/plugins/datacentre-news.js. Do not edit by hand." > "$pub/README.txt"
-          git -C "$pub" add dist/datacentre_news.json README.txt
+          cp dist/pipeline_news.json "$pub/dist/pipeline_news.json"
+          printf '%s\n' "Published three times a day by .github/workflows/datacentre-news.yml on main. Headlines and links only." \
+            "Read by the Pipeline News page (scripts/plugins/datacentre-news.js and live-news.js). Do not edit by hand." > "$pub/README.txt"
+          git -C "$pub" add dist/datacentre_news.json dist/pipeline_news.json README.txt
           if git -C "$pub" diff --cached --quiet; then
             echo "no change"; exit 0
           fi
-          git -C "$pub" commit -q -m "data-centre news $(date -u +%Y-%m-%dT%H:%MZ)"
+          git -C "$pub" commit -q -m "headlines $(date -u +%Y-%m-%dT%H:%MZ)"
           git -C "$pub" push origin "HEAD:refs/heads/$DATA_BRANCH"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: datacentre-news
-          path: dist/datacentre_news.json
+          path: |
+            dist/datacentre_news.json
+            dist/pipeline_news.json
           retention-days: 14

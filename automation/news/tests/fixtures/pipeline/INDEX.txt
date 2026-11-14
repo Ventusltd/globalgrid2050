@@ -1,0 +1,4 @@
+Synthetic feeds for test_pipeline_feed.py. Every headline starts with FIXTURE (one starts with Sponsored, to be dropped).
+94537534d0ee5d24.xml  https://feeds.bbci.co.uk/news/business/rss.xml
+01293ed63ef4defc.xml  https://www.gov.uk/government/organisations/department-for-energy-security-and-net-zero.atom
+The other two feeds have no fixture on purpose: they are recorded as failed and the run continues.

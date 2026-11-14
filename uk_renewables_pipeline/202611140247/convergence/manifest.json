@@ -1,0 +1,31 @@
+{
+ "schema": "globalgrid2050.pipeline-news.datacentre-context-manifest.v1",
+ "caveat": "Straight-line distance between published points. Proximity is screening context only: it is not a grid connection, a capacity statement or a relationship between a project and a data centre.",
+ "attribution": "Data-centre sites: \u00a9 OpenStreetMap contributors, ODbL 1.0; contains public sector information licensed under the Open Government Licence v3.0. Source licence status recorded as unverified in the register; shown for screening only.",
+ "licence_state": "shown with attribution; licence status unverified at source",
+ "register": {
+  "file": "data/uk_datacentre_pipeline_202610312133.geojson",
+  "repository": "https://github.com/Ventusltd/gridatlas",
+  "sha256": "87337db5d3bf7959f7f605d3abd029dd4196ab24a79107ceb95210c5b7751654",
+  "source_entries": 258,
+  "source_entries_by_licence_and_status": {
+   "OGL-UK-3.0 (unverified)": 30,
+   "ODbL-1.0 (unverified)": 228
+  }
+ },
+ "files": [
+  {
+   "file": "nearest_datacentre.json",
+   "source": "dist/convergence/2026q3/pipelinenews/pipelinenews_datacentre_context.json",
+   "sha256": "e3686cd61d6b627ff4f8afa8de5ff8612570680420fb491a11c553e1305f64d7",
+   "rows": 7744
+  },
+  {
+   "file": "datacentres.json",
+   "source": "dist/convergence/2026q3/datacentre_proximity.json",
+   "source_sha256": "b7001987c6e1b4b397a1598e435a3ad50b5fb75063f1503bc14255616b32a15e",
+   "sha256": "a0dbb76f2683bdeb394921d7cd35c5e77281bc12fb6c86291991c43a51f86bc2",
+   "sites": 226
+  }
+ ]
+}

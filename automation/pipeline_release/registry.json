@@ -248,8 +248,14 @@
     "Live GridAtlas behaviour on the MAP link and the location link is not checked from the build workspace.",
     "One nearest register site per project."
    ],
-   "ci": null,
-   "merge_commit": null,
+   "ci": {
+    "workflow": "Verify Pipeline News versions",
+    "run_id": 43546692462,
+    "conclusion": "success",
+    "url": "https://github.com/Ventusltd/globalgrid2050/actions/runs/43546692462",
+    "pull_request": 79
+   },
+   "merge_commit": "244cb1f82ac3ce04988c57a59d21f6316a0e2d21",
    "state": "release candidate",
    "datacentre_features": "shown with attribution; licence status unverified at source",
    "browser_probes": [
@@ -366,6 +372,38 @@
      ],
      "link_selector": "a.dc-site-link",
      "link_regex": null
+    }
+   ]
+  },
+  {
+   "id": "202611140247",
+   "version": "V9.19",
+   "parent": "202611140223",
+   "date": "2026-11-14T02:47:00Z",
+   "added": "Chart.js pinned to version 4.5.1 with Subresource Integrity (the gauges' charting library was loaded unpinned from a CDN: an inherited fault). Nothing else changes.",
+   "data_changed": false,
+   "runner": "tests/run_v9_19.sh",
+   "trees": [
+    "894a17ed530219b45c1edbc526e545648add7eca"
+   ],
+   "features": [
+    {
+     "id": "chartjs-pinned",
+     "file": "index.html",
+     "contains": "chart.js@4.5.1/dist/chart.umd.min.js\" integrity=\"sha384-"
+    }
+   ],
+   "known_faults": [],
+   "ci": null,
+   "merge_commit": null,
+   "state": "published",
+   "datacentre_features": "shown with attribution; licence status unverified at source",
+   "browser_probes": [
+    {
+     "name": "charting library loaded from the pinned file",
+     "selector": "body",
+     "js": "typeof Chart === 'function' && Chart.version === '4.5.1'",
+     "needs_external": true
     }
    ]
   }

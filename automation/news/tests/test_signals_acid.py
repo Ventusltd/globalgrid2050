@@ -158,6 +158,11 @@ def shown(project):
     return L.shown(project)
 
 
+def reports(project, title):
+    """The items that carry this headline: shown under it, or folded into another item's cluster as a source."""
+    return [i for i in shown(project) if i["title"] == title or any(s.get("title") == title for s in i.get("sources") or [])]
+
+
 def find(project, slug):
     return [i for i in shown(project) if i["link"].endswith("/" + slug)]
 
@@ -214,11 +219,12 @@ def test_R01_repd_9050_takes_no_headline_without_solar_farm_or_the_place(tmp_pat
     if team == "reviewed":
         parts = {"reviewed": reviewed(parts["reviewed"]["items"])}
     run = combine(tmp_path, parts)
-    titles = [i["title"] for i in shown(run.project("9050"))]
+    project = run.project("9050")
+    titles = [i["title"] for i in shown(project)] + [s["title"] for i in shown(project) for s in i.get("sources") or []]
     wrong = [t for t in titles if not re.search(r"solar farm|foston|grantham", t, re.I)]
     assert not wrong, "REPD 9050 shows %r although the %s part only said so" % (wrong, team)
     for case in (c for c in cases if c["expect"] == "accept"):
-        assert case["title"] in titles, "the true headline %r was lost" % case["title"]
+        assert reports(project, case["title"]), "the true headline %r was lost" % case["title"]
 
 
 @known("NL-019 finding 5", "a headline carried over from the previous file is not checked against the exclusion rule again")
@@ -283,7 +289,7 @@ def test_R01_confidence_is_earned_not_inherited_from_the_part(tmp_path, case):
 def test_R01_true_headlines_are_kept_as_confirmed(tmp_path):
     run = combine(tmp_path, case_parts(ACCEPT))
     for case in ACCEPT:
-        kept = [i for i in shown(run.project(case["repd_ref"])) if i["title"] == case["title"]]
+        kept = reports(run.project(case["repd_ref"]), case["title"])
         assert kept and confirmed(kept[0]), "lost or downgraded: %r (%s)" % (case["title"], case["why"])
 
 
@@ -622,8 +628,13 @@ def test_R07_an_article_naming_two_projects_is_listed_on_both_and_says_so(tmp_pa
 
 
 @known("NL-019 finding 6", "five links sit on more than one project whatever their titles say")
-def test_R07_an_article_naming_one_project_is_not_listed_on_another(tmp_path):
-    run = combine(tmp_path, {"reviewed": reviewed([item("90001", "one", ONE, "2026-11-11"), item("90002", "one", ONE, "2026-11-11")])})
+@pytest.mark.parametrize("obtained", ["fetched", "reviewed"])
+def test_R07_an_article_naming_one_project_is_not_listed_on_another(tmp_path, obtained):
+    """Definition 4: on several projects only when the title or the reviewer's evidence names each. Being in the
+    reviewed file is not by itself evidence that the article names the second project (acid tester 4: one link
+    is on REPD 6071 and 7630 although the reviewer's note says the article was not opened)."""
+    both = [item("90001", "one", ONE, "2026-11-11"), item("90002", "one", ONE, "2026-11-11")]
+    run = combine(tmp_path, {"reviewed": reviewed(both)} if obtained == "reviewed" else {"trade": part("trade", both)})
     assert find(run.project("90001"), "one"), "the article was lost from the project it names"
     assert not find(run.project("90002"), "one"), "the article is also listed on a project its title does not name"
 

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "globalgrid2050.news.datacentre-capex-politics.v1",
+  "title": "Data-centre capex and politics headlines (dist/datacentre_news.json)",
+  "description": "Headlines and links only, from automation/news/datacentre_feed.py. Items newest first (dated before undated), then by link; at most limits.max_items.",
+  "type": "object",
+  "required": ["schema", "generated_at", "status", "counts", "limits", "scope", "caveats", "feeds", "items"],
+  "properties": {
+    "schema": {"const": "globalgrid2050.news.datacentre-capex-politics.v1"},
+    "generated_at": {"type": "string", "description": "UTC, ISO 8601 with Z"},
+    "status": {"enum": ["ok", "partial", "failed"], "description": "ok = every feed read; partial = some failed; failed = none read (earlier items kept)"},
+    "counts": {"type": "object", "required": ["items", "capex", "politics", "with_register_site", "feeds_ok", "feeds_failed"],
+               "additionalProperties": {"type": "integer", "minimum": 0}},
+    "limits": {"type": "object"},
+    "scope": {"type": "string"},
+    "caveats": {"type": "array", "items": {"type": "string"}},
+    "feeds": {"type": "array", "items": {"type": "object", "required": ["url", "source", "status"],
+      "properties": {"url": {"type": "string"}, "source": {"type": "string"}, "status": {"enum": ["ok", "failed"]},
+                     "entries": {"type": "integer"}, "kept": {"type": "integer"}, "sha256": {"type": "string"},
+                     "error": {"type": "string"}}}},
+    "items": {"type": "array", "items": {"type": "object",
+      "required": ["title", "link", "source", "date", "first_seen", "lanes", "matched_terms", "sites", "site_matches"],
+      "additionalProperties": false,
+      "properties": {
+        "title": {"type": "string", "maxLength": 300},
+        "link": {"type": "string", "pattern": "^https://"},
+        "source": {"type": "string"},
+        "date": {"type": ["string", "null"], "description": "feed date in UTC; null when the feed gives none (never guessed)"},
+        "first_seen": {"type": "string"},
+        "lanes": {"type": "array", "minItems": 1, "items": {"enum": ["capex", "politics"]}},
+        "matched_terms": {"type": "object", "required": ["datacentre", "capex", "politics"],
+                          "additionalProperties": {"type": "array", "items": {"type": "string"}}},
+        "site_matches": {"type": "integer", "minimum": 0, "description": "register records named; sites lists at most limits.sites_per_item"},
+        "sites": {"type": "array", "items": {"type": "object", "required": ["id", "name", "matched_on", "matched_text", "repd_nearby"],
+          "properties": {
+            "id": {"type": "string", "description": "data-centre register id (dcuk-...), never a REPD ref"},
+            "name": {"type": ["string", "null"]}, "status": {"type": ["string", "null"]},
+            "matched_on": {"enum": ["site_name", "operator"]}, "matched_text": {"type": "string"},
+            "repd_nearby": {"type": ["object", "null"], "description": "live REPD solar/battery/wind within radius_km straight line; null when the register point is not proximity-reliable",
+              "properties": {"radius_km": {"type": "integer"}, "projects": {"type": "integer"}, "mw_stated": {"type": "number"},
+                             "projects_mw_unknown": {"type": "integer"}, "mw_stated_by_technology": {"type": "object"}}}}}}}}}
+  }
+}

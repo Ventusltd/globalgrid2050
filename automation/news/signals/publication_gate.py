@@ -105,7 +105,7 @@ def timestamp(value):
         return None
 
 
-def evaluate(combined, previous, parts, now=None, authoritative_refs=None):
+def evaluate(combined, previous, parts, now=None, authoritative_refs=None, require_previous=False):
     now = now or dt.datetime.now(dt.timezone.utc)
     if now.tzinfo is None:
         raise ValueError("now must have timezone")
@@ -125,8 +125,15 @@ def evaluate(combined, previous, parts, now=None, authoritative_refs=None):
                 raise ValueError("signal REPD identity mismatch")
     if combined.get("counts", {}).get("nothing") != 0:
         raise ValueError("projects without evidence or labelled planning fallback")
+    if require_previous and not isinstance(previous, dict):
+        raise ValueError("existing published data branch requires previous snapshot")
+    if previous is not None and (
+        not isinstance(previous, dict) or previous.get("schema") != C.SCHEMA
+        or not isinstance(previous.get("projects"), dict)
+    ):
+        raise ValueError("previous published snapshot invalid; refuse replay")
     old_links = set()
-    if isinstance(previous, dict) and previous.get("schema") == C.SCHEMA:
+    if isinstance(previous, dict):
         for ref, project in (previous.get("projects") or {}).items():
             for signal in project.get("signals") or []:
                 if isinstance(signal, dict):
@@ -156,7 +163,7 @@ def evaluate(combined, previous, parts, now=None, authoritative_refs=None):
         healthy.append(team)
         state[team] = "publisher_source_present"
         for raw in part.get("items") or []:
-            item, _ = C.clean_item(raw, team, as_of=now.date())
+            item, _ = C.clean_item(raw, team, as_of=now)
             if not item or item["confidence"] != "confirmed":
                 continue
             if item["repd_ref"] not in expected:
@@ -187,6 +194,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--combined", required=True)
     parser.add_argument("--previous")
+    parser.add_argument("--require-previous", action="store_true", help="fail closed if a pre-existing data branch snapshot is missing")
     parser.add_argument("--parts", required=True)
     parser.add_argument("--report", required=True)
     parser.add_argument("--github-output")
@@ -205,7 +213,7 @@ def main():
     now = timestamp(args.now) if args.now else None
     if args.now and now is None:
         parser.error("--now requires timezone-aware ISO8601")
-    report = evaluate(combined, previous, parts, now)
+    report = evaluate(combined, previous, parts, now, require_previous=args.require_previous)
     Path(args.report).write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
     print(json.dumps(report, sort_keys=True))
     if args.github_output:

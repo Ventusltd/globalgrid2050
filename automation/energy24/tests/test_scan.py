@@ -22,6 +22,12 @@ class Energy24Tests(unittest.TestCase):
     def classify(self, headline, context="", publisher=DCD):
         return scan.classify(item(headline, context, publisher), self.repd, NOW)
 
+    def publication_gate(self, snapshot, audit, now=NOW):
+        # Independently pinned fixture records, not IDs asserted by articles.
+        return scan.publication_gate(snapshot, audit, now,
+                                     verified_repd=self.repd,
+                                     licensed_dc_site_ids={"dcuk-123"})
+
     def test_no_false_repd_name_binding(self):
         v, _ = self.classify("95MW solar scheme begins construction", "Name cannot establish identity")
         self.assertIsNotNone(v)
@@ -176,7 +182,7 @@ class Energy24Tests(unittest.TestCase):
                 "sources": feeds, "articles": []}
         audit = {"release": "2026q3", "generated_utc": stamp,
                  "markets": scan.local_market_times(NOW), "sources": feeds}
-        ready, reasons = scan.publication_gate(base, audit, NOW)
+        ready, reasons = self.publication_gate(base, audit, NOW)
         self.assertFalse(ready)
         self.assertIn("fewer_than_two_publishers", reasons)
         self.assertIn("no_exact_uk_repd_news_identity", reasons)
@@ -188,17 +194,47 @@ class Energy24Tests(unittest.TestCase):
              "category": "data-centres", "dc_site_id": "dcuk-123",
              "identity_evidence": "operator_only", "site_licence_verified": True},
         ]
-        self.assertFalse(scan.publication_gate(base, audit, NOW)[0])
+        self.assertFalse(self.publication_gate(base, audit, NOW)[0])
         base["articles"][1]["identity_evidence"] = "verified_exact_site"
         base["articles"][1]["site_licence_verified"] = False
-        self.assertFalse(scan.publication_gate(base, audit, NOW)[0])
+        self.assertFalse(self.publication_gate(base, audit, NOW)[0])
         base["articles"][1]["site_licence_verified"] = True
-        self.assertEqual(scan.publication_gate(base, audit, NOW), (True, []))
+        self.assertEqual(self.publication_gate(base, audit, NOW), (True, []))
         base["articles"][1]["source"] = "Official"
-        self.assertFalse(scan.publication_gate(base, audit, NOW)[0])
+        self.assertFalse(self.publication_gate(base, audit, NOW)[0])
         base["articles"][1]["source"] = "Independent publisher"
         audit["release"] = "2026q4"
-        self.assertIn("release_mismatch", scan.publication_gate(base, audit, NOW)[1])
+        self.assertIn("release_mismatch", self.publication_gate(base, audit, NOW)[1])
+
+    def test_publication_rejects_formatted_but_unverified_identity(self):
+        stamp = NOW.isoformat().replace("+00:00", "Z")
+        sources = [{"id": "desnz", "status": "OK", "count": 1},
+                   {"id": "dcd", "status": "OK", "count": 1}]
+        news = {"release": "2026q3", "generated_utc": stamp, "articles": [
+            {"source": "Official", "published_utc": stamp, "category": "uk-repd",
+             "repd_ref": "12345", "qualification": "repd_exact_ref"},
+            {"source": "Independent", "published_utc": stamp, "category": "data-centres",
+             "dc_site_id": "dcuk-123", "identity_evidence": "verified_exact_site",
+             "site_licence_verified": True}]}
+        audit = {"release": "2026q3", "generated_utc": stamp,
+                 "markets": scan.local_market_times(NOW), "sources": sources}
+        # Without independent official membership and a licence-cleared DC
+        # register, the same self-attested JSON must never publish.
+        ready, reasons = scan.publication_gate(news, audit, NOW)
+        self.assertFalse(ready)
+        self.assertIn("no_exact_uk_repd_news_identity", reasons)
+        self.assertIn("no_licensed_exact_dc_site_identity", reasons)
+        self.assertEqual(self.publication_gate(news, audit), (True, []))
+        news["articles"][0]["repd_ref"] = "99999"  # formatted but not official
+        self.assertIn("no_exact_uk_repd_news_identity",
+                      self.publication_gate(news, audit)[1])
+        news["articles"][0]["repd_ref"] = "23456"  # official but below 50MW
+        self.assertIn("no_exact_uk_repd_news_identity",
+                      self.publication_gate(news, audit)[1])
+        news["articles"][0]["repd_ref"] = "12345"
+        news["articles"][1]["dc_site_id"] = "dcuk-fabricated"  # plausible format
+        self.assertIn("no_licensed_exact_dc_site_identity",
+                      self.publication_gate(news, audit)[1])
 
     def test_publication_rejects_replayed_and_invalid_source_evidence(self):
         stamp = NOW.isoformat().replace("+00:00", "Z")
@@ -213,21 +249,21 @@ class Energy24Tests(unittest.TestCase):
                          "site_licence_verified": True}]}
         audit = {"release": "2026q3", "generated_utc": stamp,
                  "markets": scan.local_market_times(NOW), "sources": sources}
-        self.assertEqual(scan.publication_gate(snapshot, audit, NOW), (True, []))
+        self.assertEqual(self.publication_gate(snapshot, audit, NOW), (True, []))
         self.assertIn("stale_or_unpaired_scan",
-                      scan.publication_gate(snapshot, audit, NOW.replace(day=16))[1])
+                      self.publication_gate(snapshot, audit, NOW.replace(day=16))[1])
         snapshot["articles"][0]["published_utc"] = "2026-10-01T00:00:00Z"
-        self.assertIn("stale_or_invalid_article", scan.publication_gate(snapshot, audit, NOW)[1])
+        self.assertIn("stale_or_invalid_article", self.publication_gate(snapshot, audit, NOW)[1])
         snapshot["articles"][0]["published_utc"] = stamp
         audit["markets"]["Sydney"] = "2026-11-14T10:00+00:00"
-        self.assertIn("six_clocks_invalid", scan.publication_gate(snapshot, audit, NOW)[1])
+        self.assertIn("six_clocks_invalid", self.publication_gate(snapshot, audit, NOW)[1])
         audit["markets"] = scan.local_market_times(NOW)
         audit["sources"] = [{"id": "desnz", "status": "FAILED", "count": 0}]
-        self.assertIn("no_healthy_source_feed", scan.publication_gate(snapshot, audit, NOW)[1])
+        self.assertIn("no_healthy_source_feed", self.publication_gate(snapshot, audit, NOW)[1])
         audit["sources"] = sources
         snapshot["articles"][1]["dc_site_id"] = "invented-123"
         self.assertIn("no_licensed_exact_dc_site_identity",
-                      scan.publication_gate(snapshot, audit, NOW)[1])
+                      self.publication_gate(snapshot, audit, NOW)[1])
 
     def test_dedupe_and_audit(self):
         p = item("UK data center will invest $50 million")

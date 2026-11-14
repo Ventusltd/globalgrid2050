@@ -63,6 +63,7 @@ if str(NEWS) not in sys.path:
     sys.path.insert(0, str(NEWS))
 
 import datacentre_feed as D  # noqa: E402  parse_feed, parse_date, canonical_link, clean_text, limits
+import pipeline_headlines as P  # noqa: E402  FOREIGN and UK_WORDS: a headline naming another country is not UK news
 
 SCHEMA = "project-signals-part.v1"
 CACHE_SCHEMA = "project-signals-trade-cache.v1"
@@ -78,37 +79,48 @@ BREAKER = 6  # consecutive failures after which a site is left alone for the res
 WP_POSTS = "/wp-json/wp/v2/posts?search={q}&per_page=20&orderby=relevance&_fields=title,link,date,excerpt"
 WP_SEARCH = "/wp-json/wp/v2/search?search={q}&per_page=20"
 WP_RSS = "/?s={q}&feed=rss2"
+WP_FEED = "/feed/?s={q}"
+SITEMAP_FILES = 80   # sitemap files read per run at most
+PAGE_LOOKUPS = 150   # article pages opened per run at most, for the headline and date only
 
 # id, publisher, base, main feeds, ordered search routes (kind, path template).
 SITES = [
     {"id": "solar-power-portal", "publisher": "Solar Power Portal", "base": "https://www.solarpowerportal.co.uk",
      "feeds": ["https://www.solarpowerportal.co.uk/rss.xml?content_types=article"],
-     "routes": [("html", "/search?q={q}"), ("wp_posts", WP_POSTS), ("wp_rss", WP_RSS)]},
+     "routes": [("html", "/search?q={q}"), ("wp_posts", WP_POSTS), ("sitemap", "/sitemap.xml")],
+     "probe_urls": ["/rss.xml?content_types=article&page=2", "/rss.xml?content_types=article&limit=200",
+                    "/rss.xml?content_types=article&q=Sunnica", "/rss.xml", "/sitemap.xml"]},
     {"id": "pv-tech", "publisher": "PV Tech", "base": "https://www.pv-tech.org",
      "feeds": ["https://www.pv-tech.org/feed/"],
-     "routes": [("wp_posts", WP_POSTS), ("wp_rss", WP_RSS), ("html", "/?s={q}"), ("wp_search", WP_SEARCH)]},
+     "routes": [("wp_posts", WP_POSTS), ("wp_rss", WP_RSS), ("wp_rss", WP_FEED), ("html", "/?s={q}"),
+                ("wp_search", WP_SEARCH)]},
     {"id": "pv-magazine", "publisher": "pv magazine", "base": "https://www.pv-magazine.com",
      "feeds": ["https://www.pv-magazine.com/feed/"],
-     "routes": [("wp_posts", WP_POSTS), ("wp_rss", WP_RSS), ("html", "/?s={q}"), ("wp_search", WP_SEARCH)]},
+     "routes": [("wp_posts", WP_POSTS), ("wp_rss", WP_RSS), ("wp_rss", WP_FEED), ("html", "/?s={q}"),
+                ("wp_search", WP_SEARCH)]},
     {"id": "energy-storage-news", "publisher": "Energy-Storage.news", "base": "https://www.energy-storage.news",
      "feeds": ["https://www.energy-storage.news/feed/"],
-     "routes": [("wp_posts", WP_POSTS), ("wp_rss", WP_RSS), ("html", "/?s={q}"), ("wp_search", WP_SEARCH)]},
+     "routes": [("wp_posts", WP_POSTS), ("wp_rss", WP_RSS), ("wp_rss", WP_FEED), ("html", "/?s={q}"),
+                ("wp_search", WP_SEARCH)]},
     {"id": "current", "publisher": "Current", "base": "https://www.current-news.co.uk",
      "feeds": ["https://www.current-news.co.uk/feed/"],
-     "routes": [("wp_posts", WP_POSTS), ("wp_rss", WP_RSS), ("html", "/?s={q}"), ("wp_search", WP_SEARCH)]},
+     "routes": [("wp_posts", WP_POSTS), ("wp_rss", WP_RSS), ("wp_rss", WP_FEED), ("html", "/?s={q}"),
+                ("wp_search", WP_SEARCH)]},
     {"id": "renews", "publisher": "reNEWS", "base": "https://renews.biz",
      "feeds": ["https://feeds.feedburner.com/Renews-RenewableEnergyNews"],
-     "routes": [("html", "/search/?q={q}"), ("html", "/search/?keywords={q}"), ("wp_posts", WP_POSTS)]},
+     "routes": [("wp_posts", WP_POSTS)]},
     {"id": "planning-resource", "publisher": "Planning Resource", "base": "https://www.planningresource.co.uk",
      "feeds": ["https://www.planningresource.co.uk/rss/news"],
      "routes": [("html", "/search/articles?KeyWords={q}"), ("html", "/search?q={q}")]},
     {"id": "construction-enquirer", "publisher": "Construction Enquirer",
      "base": "https://www.constructionenquirer.com",
      "feeds": ["https://www.constructionenquirer.com/feed/"],
-     "routes": [("wp_posts", WP_POSTS), ("wp_rss", WP_RSS), ("html", "/?s={q}"), ("wp_search", WP_SEARCH)]},
+     "routes": [("wp_posts", WP_POSTS), ("wp_rss", WP_RSS), ("wp_rss", WP_FEED), ("html", "/?s={q}"),
+                ("wp_search", WP_SEARCH)]},
     {"id": "solar-energy-uk", "publisher": "Solar Energy UK", "base": "https://solarenergyuk.org",
      "feeds": ["https://solarenergyuk.org/feed/"],
-     "routes": [("wp_posts", WP_POSTS), ("wp_rss", WP_RSS), ("html", "/?s={q}"), ("wp_search", WP_SEARCH)]},
+     "routes": [("wp_posts", WP_POSTS), ("wp_rss", WP_RSS), ("wp_rss", WP_FEED), ("html", "/?s={q}"),
+                ("wp_search", WP_SEARCH)]},
 ]
 
 
@@ -384,6 +396,67 @@ def parse_results(kind, body, base):
     raise ValueError("unknown route kind %s" % kind)
 
 
+LOC_RE = re.compile(r"<loc>\s*(?:<!\[CDATA\[)?\s*([^<\]\s]+)", re.I)
+URL_RE = re.compile(r"<url>(.*?)</url>", re.I | re.S)
+LASTMOD_RE = re.compile(r"<lastmod>\s*(\d{4}-\d{2}-\d{2})", re.I)
+NEWS_TITLE_RE = re.compile(r"<news:title>\s*(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?\s*</news:title>", re.I | re.S)
+NEWS_DATE_RE = re.compile(r"<news:publication_date>\s*(\d{4}-\d{2}-\d{2})", re.I)
+META_RE = re.compile(r"<meta\b[^>]*>", re.I)
+ATTR_RE = re.compile(r"""\b(property|name|content)\s*=\s*(?:"([^"]*)"|'([^']*)')""", re.I)
+PUBLISHED_RE = re.compile(r""""datePublished"\s*:\s*"(\d{4}-\d{2}-\d{2})""")
+TITLE_TAG_RE = re.compile(r"<title[^>]*>(.*?)</title>", re.I | re.S)
+
+
+def parse_sitemap(body):
+    """('index', [sitemap urls]) or ('urls', [(loc, lastmod, news title, news date)]). Read with regular
+    expressions so that a file cut off at the size limit still gives its complete entries."""
+    text = body.decode("utf-8", "replace")
+    if "<sitemapindex" in text[:3000].lower():
+        return "index", [html_unescape(u) for u in LOC_RE.findall(text)]
+    out = []
+    for block in URL_RE.findall(text):
+        loc = LOC_RE.search(block)
+        if not loc:
+            continue
+        lastmod, title, date = LASTMOD_RE.search(block), NEWS_TITLE_RE.search(block), NEWS_DATE_RE.search(block)
+        out.append((html_unescape(loc.group(1)), lastmod.group(1) if lastmod else None,
+                    D.clean_text(title.group(1), 300) if title else "", date.group(1) if date else None))
+    return "urls", out
+
+
+def html_unescape(value):
+    return D.clean_text(value, 2000)
+
+
+def slug_words(text):
+    """Lower-case words of a URL path or a phrase, for matching an alias against a link: 'Bloy's Grove' and
+    '/solar-projects/edf-renewables-50mw-bloy-s-grove-solar-farm' both give '... bloy s grove ...'."""
+    return " " + " ".join(re.findall(r"[a-z0-9]+", urllib.parse.unquote(text).lower().replace("\u2019", "'"))) + " "
+
+
+def parse_article_head(body):
+    """(headline, YYYY-MM-DD or None) from an article page's own metadata (og:title, article:published_time,
+    datePublished). Nothing else of the page is read or kept."""
+    text = body.decode("utf-8", "replace")
+    meta = {}
+    for tag in META_RE.findall(text):
+        attrs = {k.lower(): (a or b) for k, a, b in ATTR_RE.findall(tag)}
+        key = (attrs.get("property") or attrs.get("name") or "").lower()
+        if key and "content" in attrs:
+            meta.setdefault(key, attrs["content"])
+    title = meta.get("og:title") or meta.get("twitter:title") or ""
+    if not title:
+        found = TITLE_TAG_RE.search(text)
+        title = found.group(1) if found else ""
+    title = re.sub(r"\s+[|\-\u2013]\s+[^|\-\u2013]{3,40}$", "", D.clean_text(title, 300)) if not meta.get("og:title") \
+        else D.clean_text(title, 300)
+    date = day_of(meta.get("article:published_time") or meta.get("og:article:published_time") or "")
+    if not date:
+        found = PUBLISHED_RE.search(text)
+        date = found.group(1) if found else None
+    return title, date
+
+
 def route_url(site, template, term):
     return site["base"] + template.format(q=urllib.parse.quote_plus(term))
 
@@ -392,12 +465,19 @@ def route_url(site, template, term):
 
 KEYWORD = re.compile(r"\s+(?:solar|energy|energyfarm|renewables?|photovoltaics?|pv|battery|bess)(?!\w)", re.I)
 TAIL = re.compile(r"(?:\s+(?:farm|park|project|scheme|array|plant|development|ltd|limited|nsip|dco))+\s*$", re.I)
-ADJACENT = r"[\s\-]+(?:solar|energy|energyfarm|renewables?|photovoltaics?|pv)(?!\w)"
+ADJACENT = (r"[\s\-]+(?:solar|photovoltaics?|pv|energyfarm|(?:renewable\s+)?energy\s+(?:park|farm|project|centre|hub)"
+            r"|(?:green|clean)\s+energy)(?!\w)")
 COMMON = frozenset(
     "farm farms hill hills lane manor house park grange hall wood woods green north south east west great little "
     "new old high low lower upper moor field fields bridge road drove mill church land lands meadow meadows "
     "marsh fen common court lodge cottage barn home top end side long big cross way gate lakes lake valley "
     "airfield quarry airport the of and at on".split())
+ELSEWHERE = re.compile(
+    r"(?<!\w)(?:New Zealand|Kenya|Chile|Mexico|Portugal|Romania|Bulgaria|Hungary|Turkey|Türkiye|Saudi|UAE|Egypt|"
+    r"South Africa|Indonesia|Malaysia|Thailand|Pakistan|Bangladesh|Colombia|Argentina|Peru|Ontario|Alberta|"
+    r"Arizona|Nevada|Florida|Ohio|Indiana|Virginia|Illinois|Tasmania|Western Australia|Austria|Switzerland|"
+    r"Croatia|Serbia|Ukraine|Lithuania|Latvia|Estonia|Czech|Slovakia|Israel|Oman|Qatar|Nigeria|Ghana|Zambia|"
+    r"Uzbekistan|Kazakhstan|Louisiana|Colorado|Utah|Oregon|Michigan|Wisconsin|Kentucky|Tennessee|Oklahoma)(?!\w)")
 GENERIC_CORES = frozenset(("solar", "solar farm", "solar park", "land", "farm", "energy", "pv"))
 SOLAR_WORD = re.compile(r"(?<!\w)(?:solar|PV|photovoltaics?|energy (?:park|farm)|DCO|NSIP)(?!\w)", re.I)
 OPERATOR_STOP = frozenset(
@@ -451,13 +531,16 @@ class Project:
         self.site_name = record.get("site_name") or ""
         self.status = record.get("alias_status") or "derived"
         self.planning_ref = (record.get("planning_ref") or "").strip()
-        self.aliases = []
+        self.aliases, self.full = [], []
         seen = set()
         for alias in record.get("aliases") or []:
             core = core_of(alias)
             if core and core.lower() not in seen and core.lower() not in GENERIC_CORES:
                 seen.add(core.lower())
                 self.aliases.append((alias, core, bounded(core), weakness(core, counties)))
+            full = " ".join(re.sub(r"\([^)]*\)", " ", alias).split())
+            if core and len(full) > len(core) + 3 and core.lower() not in GENERIC_CORES:
+                self.full.append(bounded(full))
         self.exclude = [bounded(p) for p in record.get("exclude") or [] if p and p.strip()]
         second = []
         for name in re.split(r"\s*(?:&|/|,|\band\b)\s*", record.get("operator") or ""):
@@ -485,6 +568,8 @@ class Project:
         'uncertain' and its basis says the headline does not name the project."""
         if any(rx.search(title) for rx in self.exclude):
             return None
+        if (P.FOREIGN.search(title) or ELSEWHERE.search(title)) and not P.UK_WORDS.search(title):
+            return None  # 'Meridian Energy ... in New Zealand' is not the Lincolnshire project
         confidence = "confirmed" if self.status == "confirmed" else "uncertain"
         if self.ref_rx and self.ref_rx.search(title):
             return "planning reference %s in title" % self.planning_ref, confidence
@@ -496,6 +581,8 @@ class Project:
             rest = rx.sub(" ", title)
             if agree:
                 extra = "%s '%s'" % agree[0]
+            elif any(full.search(title) for full in self.full):
+                extra = "the full alias"
             elif re.search(rx.pattern + ADJACENT, title, re.I):
                 extra = "solar or energy word directly after it"
             elif weak < 2 and SOLAR_WORD.search(rest):
@@ -516,10 +603,13 @@ class Project:
         if any(rx.search(summary) for rx in self.exclude):
             return None
         both = title + " . " + summary
+        if (P.FOREIGN.search(both) or ELSEWHERE.search(both)) and not P.UK_WORDS.search(both):
+            return None
         for _alias, core, rx, weak in self.aliases:
             if not rx.search(summary):
                 continue
-            if weak == 2 and not re.search(rx.pattern + ADJACENT, summary, re.I):
+            if weak == 2 and not (re.search(rx.pattern + ADJACENT, summary, re.I)
+                                  or any(full.search(summary) for full in self.full)):
                 continue
             agree = [(label, text) for label, text, srx in self.second
                      if srx.search(both) and text.lower() not in core.lower()]
@@ -583,27 +673,123 @@ def choose(projects, cache, now, batch, stale_days):
 # ---------------------------------------------------------------- one site
 
 def pick_route(site, host, discover, report):
-    """The first route that answers the canary query with parsable results. With discover, every route is tried
-    and described in `report`."""
+    """The first route that answers the canary query with results about the canary (a title that says solar),
+    so that a home page, a navigation menu or a challenge page is never taken for search results. With
+    discover, every route is tried and described in `report`."""
     chosen = None
     for kind, template in site["routes"]:
         url = route_url(site, template, CANARY)
         entry = {"route": kind, "url": url}
         try:
             ctype, body = host.get(url)
-            rows = parse_results(kind, body, site["base"])
-            dated = sum(1 for r in rows if r[2])
-            summaries = sum(1 for r in rows if r[3])
-            entry.update(status="ok" if rows else "empty", content_type=ctype.split(";")[0], bytes=len(body),
-                         results=len(rows), dated=dated, summaries=summaries, sample=rows[0][0] if rows else "")
-            if rows and chosen is None and (dated or kind != "wp_search"):
-                chosen = (kind, template)
+            if kind == "sitemap":
+                shape, rows = parse_sitemap(body)
+                entry.update(status="ok" if rows else "empty", content_type=ctype.split(";")[0], bytes=len(body),
+                             results=len(rows), dated="", summaries="", relevant="",
+                             sample="%s: %s" % (shape, rows[0] if shape == "index" else rows[0][0]) if rows else "")
+                if rows and chosen is None:
+                    chosen = (kind, template)
+            else:
+                rows = parse_results(kind, body, site["base"])
+                dated = sum(1 for r in rows if r[2])
+                relevant = sum(1 for r in rows if re.search(r"\bsolar\b", r[0], re.I))
+                entry.update(status="ok" if relevant else ("no relevant result" if rows else "empty"),
+                             content_type=ctype.split(";")[0], bytes=len(body), results=len(rows), dated=dated,
+                             summaries=sum(1 for r in rows if r[3]), relevant=relevant,
+                             sample=next((r[0] for r in rows if re.search(r"\bsolar\b", r[0], re.I)),
+                                         rows[0][0] if rows else ""))
+                if discover and kind == "html":
+                    print("LINKS %s %s" % (site["id"], url), flush=True)
+                    for row in rows[:25]:
+                        print("  %s | %s | %s" % (row[2], row[0][:90], row[1][:110]), flush=True)
+                if relevant and chosen is None and (dated or kind != "wp_search"):
+                    chosen = (kind, template)
         except (HttpError, ValueError) as error:
             entry.update(status="refused" if "robots" in str(error) else "failed", error=str(error)[:160])
         report.append(entry)
         if chosen and not discover:
             break
+    if discover:
+        for path in site.get("probe_urls") or []:
+            entry = {"route": "extra", "url": site["base"] + path}
+            try:
+                ctype, body = host.get(site["base"] + path)
+                entry.update(status="ok", content_type=ctype.split(";")[0], bytes=len(body))
+                try:
+                    rows = parse_results("feed", body, site["base"])
+                    dates = sorted(r[2] for r in rows if r[2])
+                    entry.update(results=len(rows), dated=len(dates), sample="feed %s to %s; %s" % (
+                        dates[0] if dates else "", dates[-1] if dates else "", rows[0][0] if rows else ""))
+                except ValueError:
+                    shape, rows = parse_sitemap(body)
+                    entry.update(results=len(rows), sample="%s: %s" % (shape, " ; ".join(
+                        str(r if shape == "index" else r[0]) for r in rows[:3])))
+            except HttpError as error:
+                entry.update(status="refused" if "robots" in str(error) else "failed", error=str(error)[:160])
+            report.append(entry)
     return chosen
+
+
+def walk_sitemap(site, host, start, projects, cache, health):
+    """Read the site's sitemap files (robots.txt 'Sitemap:' lines, else `start`), keep the article links whose
+    path contains a project's alias phrase, and get each kept link's headline and date: from the sitemap when it
+    carries news:title, else from the article page's own metadata (one request per new link, remembered in the
+    cache). Returns feed-hit records; the alias rule is applied to the real headline afterwards."""
+    robots = host._robots(site["base"] + "/")
+    queue = list(robots.sitemaps) or [site["base"] + start]
+    wanted = []
+    for project in projects:
+        for _alias, core, _rx, _weak in project.aliases:
+            wanted.append((slug_words(core), project))
+    seen_files, files, urls, matched = set(), 0, 0, {}
+    while queue and files < SITEMAP_FILES and not host.spent():
+        url = queue.pop(0)
+        if url in seen_files:
+            continue
+        seen_files.add(url)
+        try:
+            _ctype, body = host.get(url)
+        except HttpError as error:
+            health["notes"].append("sitemap %s: %s" % (url, error))
+            continue
+        files += 1
+        shape, rows = parse_sitemap(body)
+        if shape == "index":
+            articles = [u for u in rows if not re.search(r"image|video|author|tag|categor|page|static", u, re.I)]
+            queue.extend(articles or rows)
+            continue
+        for loc, lastmod, news_title, news_date in rows:
+            urls += 1
+            link = D.canonical_link(loc)
+            if not link:
+                continue
+            words = slug_words(urllib.parse.urlsplit(link).path)
+            for phrase, project in wanted:
+                if phrase in words:
+                    matched.setdefault(link, {"title": news_title, "date": news_date, "lastmod": lastmod,
+                                              "refs": {}})["refs"][project.ref] = ""
+    health["sitemap"] = {"files": files, "urls": urls, "links_matching_an_alias": len(matched),
+                         "files_left": len(queue)}
+    pages, hits, looked = cache.setdefault("pages", {}), {}, 0
+    for link in sorted(matched, key=lambda l: (matched[l]["lastmod"] or ""), reverse=True):
+        found = matched[link]
+        title, date = found["title"], found["date"]
+        if not title and link in pages:
+            title, date = pages[link]
+        elif not title and looked < PAGE_LOOKUPS and not host.spent():
+            looked += 1
+            try:
+                _ctype, body = host.get(link)
+                title, date = parse_article_head(body)
+                if title:
+                    pages[link] = [title, date]
+            except HttpError:
+                continue
+        if title:
+            hits[link] = {"title": title, "link": link, "date": date, "site": site["id"], "refs": found["refs"],
+                          "how": "sitemap"}
+    health["sitemap"]["pages_opened"] = looked
+    return hits
 
 
 def run_site(site, projects, todo, cache, fetch, now, args, out):
@@ -638,7 +824,13 @@ def run_site(site, projects, todo, cache, fetch, now, args, out):
             health["feeds"].append(entry)
 
         route = pick_route(site, host, args.discover, health["routes"])
-        if route:
+        host.failures = host.streak = 0  # routes that do not exist are findings, not failures of the run
+        health["notes"] = host.notes
+        if route and route[0] == "sitemap":
+            health["route"] = "sitemap (links by alias in the path, headline from the article's metadata)"
+            feed_hits.update(walk_sitemap(site, host, route[1], projects, cache, health))
+            health["searched"] = len(projects)
+        elif route:
             kind, template = route
             health["route"] = kind + " " + template
             for project in todo:
@@ -687,7 +879,7 @@ def run_site(site, projects, todo, cache, fetch, now, args, out):
     elif not health["route"] or health["error"] or host.failures or health["skipped"]:
         health["status"] = "partial"
     health["requests"], health["failures"] = host.requests, host.failures
-    health["notes"] = host.notes
+    print("SITE " + json.dumps({k: v for k, v in health.items() if k not in ("routes", "feeds")}), flush=True)
     out[site["id"]] = {"health": health, "queries": new_queries, "feed_hits": feed_hits, "hits": hits}
 
 
@@ -730,7 +922,8 @@ def build_items(projects, cache):
             continue
         for ref, summary_basis in sorted((hit.get("refs") or {}).items()):
             if ref in by_ref:
-                add(by_ref[ref], hit["title"], hit["link"], hit.get("date"), hit["site"], "feed", summary_basis)
+                add(by_ref[ref], hit["title"], hit["link"], hit.get("date"), hit["site"], hit.get("how") or "feed",
+                    summary_basis)
     rank = {p.ref: p.rank for p in projects}
     items.sort(key=lambda i: (rank[i["repd_ref"]], i["date"] is None, "" if i["date"] is None else
                               "%08d" % (99999999 - int(i["date"].replace("-", ""))), i["link"]))
@@ -822,18 +1015,20 @@ def report(part, projects, truth, discover):
             site["publisher"], source["status"], cell(source.get("route") or "none"), source.get("searched", ""),
             source.get("cached", ""), source.get("skipped", ""), source["requests"], source["failures"],
             len(by_pub.get(site["publisher"], ())), source["items"],
-            cell("; ".join([source.get("error") or ""] + (source.get("notes") or [])).strip("; "))))
+            cell("; ".join([source.get("error") or ""] + (source.get("notes") or [])
+                           + ([json.dumps(source["sitemap"])] if source.get("sitemap") else [])).strip("; "))))
     lines.append("\n### Routes tried (canary query '%s')%s\n" % (CANARY, "" if discover else
                                                                    " - stops at the first that works"))
-    lines.append("| site | route | result | type | results | dated | with summary | first title or error |\n"
-                 "|---|---|---|---|---|---|---|---|")
+    lines.append("| site | route | result | type | results | about solar | dated | with summary | sample or error |\n"
+                 "|---|---|---|---|---|---|---|---|---|")
     for site, source in zip(SITES, part["sources"]):
         for route in source.get("routes") or []:
-            lines.append("| %s | %s | %s | %s | %s | %s | %s | %s |" % (
+            lines.append("| %s | %s | %s | %s | %s | %s | %s | %s | %s |" % (
                 site["publisher"], cell(route["url"].replace(site["base"], "")), route["status"],
-                route.get("content_type", ""), route.get("results", ""), route.get("dated", ""),
+                route.get("content_type", ""), route.get("results", ""), route.get("relevant", ""),
+                route.get("dated", ""),
                 route.get("summaries", ""),
-                cell((route.get("sample") or route.get("error") or "")[:90])))
+                cell((route.get("sample") or route.get("error") or "")[:160])))
     lines.append("\n### Main feeds\n")
     lines.append("| site | feed | result | entries | newest | matched a project |\n|---|---|---|---|---|---|")
     for site, source in zip(SITES, part["sources"]):

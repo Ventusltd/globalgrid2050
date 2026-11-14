@@ -374,3 +374,76 @@ def test_shared_alias_table_loads_and_gives_terms_for_all_200():
     assert sum(1 for p in projects if p.terms()) >= 195  # a project whose only alias is generic is not searched
     top = json.loads((SIGNALS / "top200_solar.json").read_text())
     assert {p.ref for p in projects} == {str(r["repd_ref"]) for r in top}
+
+
+# ---------------------------------------------------------------- foreign headlines, sitemap route
+
+def test_foreign_headline_is_dropped_and_company_name_is_not_a_project():
+    p = project(15866, 5, ["Meridian Solar"], county="Lincolnshire")
+    assert p.match("Meridian Energy bags consent for 110MW solar PV plant in New Zealand") is None
+    assert p.match("Meridian Energy reports record profit") is None
+    assert p.match("Meridian Solar consultation opens")
+    east = project(15347, 24, ["East Park Energy"], county="Bedfordshire")
+    assert "full alias" in east.match("East Park Energy submits DCO application")[0]
+    assert east.match("New energy centre for East Park estate") is None
+
+
+SITEMAP_INDEX = b"""<?xml version="1.0"?><sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<sitemap><loc>https://sp.example/sitemap-articles-1.xml</loc></sitemap>
+<sitemap><loc>https://sp.example/sitemap-authors.xml</loc></sitemap></sitemapindex>"""
+SITEMAP_URLS = b"""<?xml version="1.0"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url><loc>https://sp.example/solar-projects/edf-renewables-50mw-bloy-s-grove-solar-farm-gets-green-light</loc><lastmod>2022-07-01T10:00:00Z</lastmod></url>
+<url><loc>https://sp.example/news/some_other_story_about_rooftop_solar</loc><lastmod>2022-07-02</lastmod></url>
+<url><loc>https://sp.example/solar-planning/uk-government-refuses-840mw-botley-west-solar-farm</loc><lastmod>2026-11-11</lastmod></url>
+<url><loc>https://sp.example/cut-off"""
+ARTICLE = b"""<html><head><title>Wrong | Site</title>
+<meta property="og:title" content="EDF Renewables&#x27; 50MW Bloy&#x27;s Grove solar farm gets green light" />
+<meta content="2022-07-01T09:12:00.000Z" property="article:published_time">
+</head><body><p>Body text that must never be stored.</p></body></html>"""
+
+
+def test_parse_sitemap_and_article_head():
+    assert T.parse_sitemap(SITEMAP_INDEX) == ("index", ["https://sp.example/sitemap-articles-1.xml",
+                                                       "https://sp.example/sitemap-authors.xml"])
+    shape, rows = T.parse_sitemap(SITEMAP_URLS)
+    assert shape == "urls" and len(rows) == 3 and rows[0][1] == "2022-07-01"
+    assert T.parse_article_head(ARTICLE) == ("EDF Renewables' 50MW Bloy's Grove solar farm gets green light", "2022-07-01")
+    assert T.parse_article_head(b'<title>Headline here - Site Name</title><script>{"datePublished":"2024-05-06T01:00"}</script>') == (
+        "Headline here", "2024-05-06")
+    assert " bloy s grove " in T.slug_words("Bloy's Grove") and " bloy s grove " in T.slug_words(rows[0][0])
+
+
+def test_sitemap_route_finds_articles_by_alias_in_the_link(tmp_path, monkeypatch):
+    monkeypatch.setattr(T, "MIN_INTERVAL_S", 0.0)
+    monkeypatch.setattr(T, "SITES", [{"id": "sp", "publisher": "Site SP", "base": "https://sp.example", "feeds": [],
+                                      "routes": [("html", "/search?q={q}"), ("sitemap", "/sitemap.xml")]}])
+    calls = []
+
+    def fetch(url):
+        calls.append(url)
+        if url.endswith("/robots.txt"):
+            return "text/plain", b"User-agent: *\nDisallow: /search\nSitemap: https://sp.example/sitemap.xml\n"
+        if url == "https://sp.example/sitemap.xml":
+            return "application/xml", SITEMAP_INDEX
+        if url == "https://sp.example/sitemap-articles-1.xml":
+            return "application/xml", SITEMAP_URLS
+        if "bloy-s-grove" in url:
+            return "text/html", ARTICLE
+        if "botley-west" in url:
+            return "text/html", b'<meta property="og:title" content="UK government refuses 840MW Botley West Solar Farm">'
+        raise T.HttpError("HTTP 404")
+
+    aliases = write_aliases(tmp_path, [record(12588, 1, ["Botley West Solar Farm"]),
+                                       record(8308, 2, ["Bloy's Grove Solar Farm"])])
+    argv = ["--out", str(tmp_path / "p.json"), "--aliases", str(aliases), "--probe", str(tmp_path / "p.md")]
+    assert T.main(argv, fetch=fetch) == 0
+    part = json.loads((tmp_path / "p.json").read_text())
+    assert [(i["repd_ref"], i["date"], i["title"]) for i in part["items"]] == [
+        ("12588", None, "UK government refuses 840MW Botley West Solar Farm"),
+        ("8308", "2022-07-01", "EDF Renewables' 50MW Bloy's Grove solar farm gets green light")]
+    assert "sitemap" in part["items"][0]["basis"] and part["sources"][0]["status"] == "ok"
+    assert not any("/search" in c for c in calls) and not any("authors" in c for c in calls)
+    assert "never be stored" not in (tmp_path / "p.cache.json").read_text()
+    opened = [c for c in calls if "bloy-s-grove" in c]
+    assert T.main(argv, fetch=fetch) == 0  # second run: the headline comes from the cache, the page is not reopened
+    assert [c for c in calls if "bloy-s-grove" in c] == opened

@@ -299,6 +299,23 @@ def _xlsx_date_index(x):
     return out
 
 
+_MDY_ANY = re.compile(r'^(\d{1,2})/(\d{1,2})/(\d{4})$')
+
+
+def _csv_text_is_date(raw, dt, xd):
+    """True when CSV text ``raw`` (parsed day-first as ``dt``, or None) denotes the typed XLSX date ``xd``
+    as written day-first, ISO, or month-first."""
+    if dt is not None and (dt == xd or vr.swap_dm(dt) == xd):
+        return True
+    m = _MDY_ANY.match(raw.strip())
+    if m:
+        try:
+            return datetime.date(int(m.group(3)), int(m.group(1)), int(m.group(2))) == xd
+        except ValueError:
+            return False
+    return False
+
+
 def date_gates(G, c, x, asof):
     xi = _xlsx_date_index(x)
     invalid, resolved, na_cells, future, future_allowed = [], [], [], [], collections.Counter()
@@ -318,16 +335,32 @@ def date_gates(G, c, x, asof):
             forms[col][form] += 1
             xk, xd = xi.get(ref, {}).get(col, (None, None))
             if dt is not None and form == 'dd/mm/yyyy' and xk == 'true date' and xd is not None and xd != dt:
-                # valid dd/mm/yyyy text that disagrees with the typed Excel cell (e.g. month-first 09/11/2026)
-                resolved.append({'ref': ref, 'record_no': rn, 'field': col, 'csv_value': raw,
-                                 'csv_form': 'disagrees with typed XLSX date' + (' (day/month swap)' if vr.swap_dm(dt) == xd else ''),
-                                 'xlsx_kind': xk, 'xlsx_date': str(xd)})
-                dt = xd
+                # valid dd/mm/yyyy text that disagrees with the typed Excel cell. Resolvable only when the
+                # CSV is the same date written month-first (e.g. 09/11/2026 for 11 Sep); any other
+                # disagreement is two different dates in the two official files and fails.
+                item = {'ref': ref, 'record_no': rn, 'field': col, 'csv_value': raw,
+                        'csv_form': 'disagrees with typed XLSX date' + (' (day/month swap)' if vr.swap_dm(dt) == xd else ''),
+                        'xlsx_kind': xk, 'xlsx_date': str(xd)}
+                if vr.swap_dm(dt) == xd:
+                    resolved.append(item)
+                    dt = xd
+                else:
+                    item['csv_form'] = 'different date from typed XLSX date (not a day/month swap)'
+                    invalid.append(item)
+                    continue
             elif dt is None or form != 'dd/mm/yyyy':
                 item = {'ref': ref, 'record_no': rn, 'field': col, 'csv_value': raw, 'csv_form': form,
                         'xlsx_kind': xk, 'xlsx_date': str(xd) if xd else None}
                 if xk == 'true date' and xd is not None:
-                    resolved.append(item)          # typed Excel date wins (general date rule)
+                    # typed Excel date wins (general date rule) only where the CSV text is that same date in
+                    # some reading (non-padded, ISO, month-first); unparseable text or another date fails
+                    if _csv_text_is_date(raw, dt, xd):
+                        resolved.append(item)
+                        dt = xd
+                    else:
+                        item['csv_form'] = f'{form}; not the typed XLSX date in any reading'
+                        invalid.append(item)
+                        continue
                 elif dt is not None and form in ('d/m/yyyy (not zero-padded)', 'iso'):
                     resolved.append(item)          # unambiguous, just not in canonical layout
                 else:
@@ -378,7 +411,7 @@ def vocab_gates(G, c, base, strict):
           summ, baseline_release=base.get('release_id'), **det)
 
 
-def coordinate_gates(G, c, known_refs):
+def coordinate_gates(G, c, known_refs, known_scope='all known refs (legacy file without known_coordinates)'):
     try:
         from pyproj import Transformer
         t_bng = Transformer.from_crs('EPSG:27700', 'EPSG:4326', always_xy=True)
@@ -480,7 +513,7 @@ def coordinate_gates(G, c, known_refs):
           f'({len(unknown_hard)} not on known list); blank both {len(blank_both)}; one blank {len(blank_one)}',
           hard_bounds={'E': HARD_E, 'N': HARD_N}, non_numeric=nonnum, outside_hard_bounds=hard_out,
           blank_both=sorted(blank_both, key=_refkey), blank_one=sorted(blank_one, key=_refkey),
-          pyproj_box_tests=t_bng is not None)
+          pyproj_box_tests=t_bng is not None, known_scope=known_scope)
     return anomalies
 
 
@@ -536,6 +569,19 @@ def anomaly_gate(G, c, x, rep, coord_anoms, known):
           known_list=known, anomalies=found)
 
 
+def load_known_coordinates(path):
+    """Refs whose coordinates are known to be wrong or legitimately outside the boxes ("known_coordinates"
+    in the known-anomalies file). None when the file has no such key: C4 then falls back to the whole
+    known list (legacy behaviour, reported as such in the gate detail)."""
+    if not path:
+        return None
+    k = json.load(open(path, encoding='utf-8'))
+    if not isinstance(k, dict) or 'known_coordinates' not in k:
+        return None
+    items = k['known_coordinates']
+    return {str(a): b for a, b in items.items()} if isinstance(items, dict) else {str(i): '' for i in items}
+
+
 def load_known(path):
     if not path:
         return {}
@@ -548,7 +594,7 @@ def load_known(path):
 
 # =================================================================== driver
 def run_check(csv_path, xlsx_path=None, baseline=None, known=None, asof=None, csv_only=False, strict_vocab=False,
-              expectations=None, sheet=None, max_examples=10):
+              expectations=None, sheet=None, max_examples=10, known_coordinates=None):
     """Run every gate; returns (report_dict, verify_release_data). Raises OSError/ValueError on unusable input."""
     asof = asof or datetime.date.today()
     known = known or {}
@@ -567,7 +613,13 @@ def run_check(csv_path, xlsx_path=None, baseline=None, known=None, asof=None, cs
     source_gates(G, rep, c, x, baseline, csv_only)
     date_gates(G, c, x, asof)
     vocab_gates(G, c, baseline, strict_vocab)
-    coord_anoms = coordinate_gates(G, c, known)
+    if known_coordinates is None:
+        coord_anoms = coordinate_gates(G, c, known)
+    else:
+        # a ref on the known list for another reason (a date, a duplicate) must not waive a coordinate failure
+        coord_anoms = coordinate_gates(G, c, known_coordinates, 'known_coordinates only')
+        for a in coord_anoms:
+            a['known'] = a['known'] or (a['anomaly'] not in ('OUTSIDE_HARD_BOUNDS',) and a['ref'] in known)
     anomaly_gate(G, c, x, rep, coord_anoms, known)
     failed = G.failed()
     report = {
@@ -634,10 +686,12 @@ def main(argv=None):
             return 2
         baseline = load_baseline(a.baseline)
         known = load_known(a.known_anomalies)
+        known_coordinates = load_known_coordinates(a.known_anomalies)
         asof = datetime.date.fromisoformat(a.asof) if a.asof else datetime.datetime.now(datetime.timezone.utc).date()
         exp = {k: v for k, v in (('rows', a.expect_rows), ('unique_refs', a.expect_unique_refs),
                                  ('csv_sha256', a.expect_csv_sha256), ('xlsx_sha256', a.expect_xlsx_sha256)) if v is not None}
-        report, vdata = run_check(a.csv, a.xlsx, baseline, known, asof, a.csv_only, a.strict_vocab, exp or None, a.sheet)
+        report, vdata = run_check(a.csv, a.xlsx, baseline, known, asof, a.csv_only, a.strict_vocab, exp or None, a.sheet,
+                                  known_coordinates=known_coordinates)
     except (OSError, ValueError, KeyError, json.JSONDecodeError) as e:
         print(f'ERROR: cannot run validation: {e}', file=sys.stderr)
         return 2

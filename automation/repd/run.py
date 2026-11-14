@@ -558,16 +558,18 @@ def adapt_validate(mod, ctx: RunContext, out: Path) -> dict[str, Any]:
         raise StageError("validate: no baseline (automation/repd/baselines/<previous_release_id>.json or a previous CSV)")
     kfile = bdir / f"{ctx.label}_known_anomalies.json"
     known = mod.load_known(str(kfile)) if kfile.is_file() else {}
+    kcoord = mod.load_known_coordinates(str(kfile)) if kfile.is_file() and hasattr(mod, "load_known_coordinates") else None
+    kw = {"known_coordinates": kcoord} if kcoord is not None else {}
     exp_raw = {k: v for k, v in {
         "rows": d.get("expected_rows"), "unique_refs": d.get("expected_unique_refs"),
         "csv_sha256": d.get("expected_csv_sha256"), "xlsx_sha256": d.get("expected_xlsx_sha256"),
         "csv_bytes": d.get("expected_csv_bytes"), "xlsx_bytes": d.get("expected_xlsx_bytes"),
         "duplicate_refs": d.get("duplicate_refs")}.items() if v is not None}
     raw_rep, _ = mod.run_check(str(ctx.artifacts["raw_csv"]), str(ctx.artifacts["raw_xlsx"]), baseline, known,
-                               None, False, False, exp_raw or None)
+                               None, False, False, exp_raw or None, **kw)
     n = d.get("expected_unique_refs")
     cand_rep, _ = mod.run_check(str(ctx.artifacts["canonical_csv"]), None, baseline, known, None, True, False,
-                                {"rows": n, "unique_refs": n} if n else None)
+                                {"rows": n, "unique_refs": n} if n else None, **kw)
     raw_path = write_json(out / f"validation_raw_{ctx.label}.json", raw_rep)
     cand_path = write_json(out / f"validation_{ctx.label}.json", cand_rep)
     failures = [f"raw:{g}" for g in raw_rep["failed_gates"]] + [f"candidate:{g}" for g in cand_rep["failed_gates"]]
@@ -1018,6 +1020,18 @@ def stage_build_news(ctx: RunContext) -> dict[str, Any]:
     return _build_stage(ctx, "build_news", mapper)
 
 
+def acceptance_waivers(label: str, base: Path | None = None) -> list[str]:
+    """REF:COLUMN cells listed under "acceptance_waive_cells" in baselines/<label>_known_anomalies.json."""
+    path = (base or Path(__file__).resolve().parent / "baselines") / f"{label}_known_anomalies.json"
+    if not path.is_file():
+        return []
+    cells = json.loads(path.read_text(encoding="utf-8")).get("acceptance_waive_cells") or []
+    bad = [c for c in cells if not isinstance(c, str) or ":" not in c or not c.split(":", 1)[0].strip()]
+    if bad:
+        raise StageError(f"acceptance_waive_cells in {path.name} must be 'REF:COLUMN' strings: {bad}")
+    return list(cells)
+
+
 def stage_acceptance(ctx: RunContext) -> dict[str, Any]:
     """Optional end-to-end gate (automation/repd/tests/acceptance.py) on the root-format datasets."""
     out = ctx.stage_dir("acceptance")
@@ -1043,11 +1057,19 @@ def stage_acceptance(ctx: RunContext) -> dict[str, Any]:
         argv += [flag, rel]
     if (ctx.repo_root / "dist" / "repd_master.json").is_file():
         argv += ["--baseline-master", str(ctx.repo_root / "dist" / "repd_master.json")]
+    # Source cells the official CSV cannot carry exactly (e.g. a character outside cp1252 that the
+    # CSV shows as '?') differ from the workbook by construction. They are listed, reviewed, under
+    # "acceptance_waive_cells" in baselines/<label>_known_anomalies.json and passed as --waive-cell,
+    # which acceptance.py reports as waived (never silently). Nothing else is waived.
+    waivers = acceptance_waivers(ctx.label)
+    for cell in waivers:
+        argv += ["--waive-cell", cell]
     code = mod.main(argv)
     if code != 0:
         raise StageError(f"acceptance.py exit {code}; see {out / f'acceptance_{ctx.label}.json'}")
     ctx.artifacts.setdefault("validation_reports", []).append(str(out / f"acceptance_{ctx.label}.json"))
-    return {"impl": f"{mod.__name__}.main", "report": str(out / f"acceptance_{ctx.label}.json")}
+    return {"impl": f"{mod.__name__}.main", "report": str(out / f"acceptance_{ctx.label}.json"),
+            "waived_cells": waivers}
 
 
 def stage_assemble(ctx: RunContext) -> dict[str, Any]:
@@ -1186,9 +1208,12 @@ def run_pipeline(ctx: RunContext, stop_after: str | None = None) -> dict[str, An
             rec["status"] = res.pop("status_override", None) or ("fallback" if str(res.get("impl", "")).startswith(("run.py", "fallback", "offline")) else "ran")
             rec["impl"] = res.get("impl")
             rec["result"] = res
-        except Exception as exc:  # noqa: BLE001 - every failure is reported and fails closed
+        except (Exception, SystemExit) as exc:  # noqa: BLE001 - every failure is reported and fails closed
+            # SystemExit too: reused repository scripts (e.g. scripts/repd_updater.py) call sys.exit /
+            # raise SystemExit on a missing input. Without this the run aborted with no run report and
+            # without the post-run hash guard.
             rec["status"] = "failed"
-            rec["error"] = str(exc)
+            rec["error"] = str(exc) if not isinstance(exc, SystemExit) else f"SystemExit({exc.code!r})"
             if not isinstance(exc, StageError):
                 rec["traceback"] = traceback.format_exc(limit=8)
         rec["seconds"] = round(time.monotonic() - t0, 2)

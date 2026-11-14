@@ -245,6 +245,15 @@ def snapshot_worktree(root, kind='git', paths=None, full_hash=False):
             continue
         xy, p = rec[:2].decode(), rec[3:].decode('utf-8')
         (untracked if xy == '??' else dirty).add(p)
+    # `git status` never reports files flagged assume-unchanged (ls-files -v: lower-case tag) or
+    # skip-worktree (tag S/s; every path outside a sparse checkout's cone carries it). A file with
+    # either flag that is present on disk is therefore re-hashed, as if git status had called it dirty.
+    for rec in _git(root, 'ls-files', '-v', '-z').split(b'\0'):
+        if len(rec) < 3:
+            continue
+        tag, p = rec[:1].decode(), rec[2:].decode('utf-8')
+        if (tag.islower() or tag == 'S') and _exists(root, p):
+            dirty.add(p)
     rehash = sorted(p for p in (dirty | untracked) if _exists(root, p) and not os.path.islink(os.path.join(root, p)))
     ids = git_hash_paths(root, rehash, filters=False)
     for p, fid in git_hash_paths(root, rehash, filters=True).items():

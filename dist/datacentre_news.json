@@ -1,0 +1,185 @@
+{
+ "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
+ "generated_at": "2026-11-14T01:16:22Z",
+ "status": "ok",
+ "counts": {
+  "items": 4,
+  "capex": 3,
+  "politics": 1,
+  "with_register_site": 0,
+  "feeds_ok": 9,
+  "feeds_failed": 0
+ },
+ "limits": {
+  "max_items": 200,
+  "sites_per_item": 5,
+  "repd_radius_km": 10
+ },
+ "scope": "Headlines and links from public RSS/Atom feeds only; no article text is stored or republished. Kept when the headline or feed summary names data centres and either money (capex) or policy (politics).",
+ "caveats": [
+  "A site is attached only when the headline names a site or operator in the UK data-centre register; an operator match lists that operator's register sites, not necessarily the site in the story.",
+  "repd_nearby is the straight-line count and stated MW of live REPD solar, battery and wind projects within 10 km of the register point; it is not a connection, offtake or capacity claim.",
+  "Blank REPD capacity is unknown, never zero: projects_mw_unknown counts them."
+ ],
+ "feeds": [
+  {
+   "url": "https://feeds.bbci.co.uk/news/technology/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 21,
+   "kept": 0,
+   "sha256": "a408a342b8b2f642abe7ba34fd435faf47088eaf8b415308e25a2ce9b0864e73"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 56,
+   "kept": 0,
+   "sha256": "78be465132b6822c48931c444fb4604e1978c5d542c79d0248484d42382edbac"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 60,
+   "kept": 0,
+   "sha256": "5a28065a21d2eb82cd28878e1fcec07ff4344a30137d3610b1f4a555aeeedde8"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 41,
+   "kept": 0,
+   "sha256": "cea70e20e289d4766380210ca8e3e07cb61a0486329a01a0978ab862d769fc2d"
+  },
+  {
+   "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
+   "source": "GOV.UK DSIT",
+   "status": "ok",
+   "entries": 20,
+   "kept": 0,
+   "sha256": "2288052a00dade0e830186747c5151f2d8ed841ee5296325b7db4302dc70d45d"
+  },
+  {
+   "url": "https://www.gov.uk/government/organisations/department-for-energy-security-and-net-zero.atom",
+   "source": "GOV.UK DESNZ",
+   "status": "ok",
+   "entries": 20,
+   "kept": 0,
+   "sha256": "12f60510276696eb749d3d1ab7ee382b0f51760596c616d8707c0a4cbdceddc0"
+  },
+  {
+   "url": "https://www.gov.uk/search/news-and-communications.atom?keywords=data+centre",
+   "source": "GOV.UK search",
+   "status": "ok",
+   "entries": 20,
+   "kept": 0,
+   "sha256": "46472bf6030d3d103f66588f0450d5c70b2ab0fee5f2bc530d563bea8175448a"
+  },
+  {
+   "url": "https://bills.parliament.uk/rss/allbills.rss",
+   "source": "UK Parliament Bills",
+   "status": "ok",
+   "entries": 50,
+   "kept": 0,
+   "sha256": "f6a7df4d7c936d425490f9b0f0f6cafb691abfebf933a2346503f331b80ec60a"
+  },
+  {
+   "url": "https://www.datacenterdynamics.com/rss/",
+   "source": "DatacenterDynamics",
+   "status": "ok",
+   "entries": 20,
+   "kept": 4,
+   "sha256": "2813af75a4843add02334f5d5f514b3290635504421d339a3871a98315e941db"
+  }
+ ],
+ "items": [
+  {
+   "title": "Integrated data center infrastructure",
+   "link": "https://www.datacenterdynamics.com/en/whitepapers/integrated-data-center-infrastructure/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-13T17:23:09Z",
+   "first_seen": "2026-11-14T01:16:22Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": []
+   },
+   "sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Sponsored: Why AI infrastructure must rethink facility water loop management",
+   "link": "https://www.datacenterdynamics.com/en/opinions/why-ai-infrastructure-must-rethink-facility-water-loop-management/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-13T16:00:00Z",
+   "first_seen": "2026-11-14T01:16:22Z",
+   "lanes": [
+    "politics"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "AI infrastructure"
+    ],
+    "capex": [],
+    "politics": [
+     "water"
+    ]
+   },
+   "sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Poste Italiane establishes €600m co-investment fund to support data center projects",
+   "link": "https://www.datacenterdynamics.com/en/news/poste-italiane-establishes-600m-co-investment-fund-to-support-data-center-projects/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-13T12:26:27Z",
+   "first_seen": "2026-11-14T01:16:22Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "funding",
+     "investment"
+    ],
+    "politics": []
+   },
+   "sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Insite DC files for four-building data center campus outside Melbourne, Australia",
+   "link": "https://www.datacenterdynamics.com/en/news/insite-dc-files-for-four-building-data-center-campus-outside-melbourne-australia/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-13T10:05:00Z",
+   "first_seen": "2026-11-14T01:16:22Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": []
+   },
+   "sites": [],
+   "site_matches": 0
+  }
+ ]
+}

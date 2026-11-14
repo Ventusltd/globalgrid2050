@@ -75,7 +75,7 @@ jobs:
       IN_CSV_SHA: ${{ inputs.expected_csv_sha256 }}
       IN_XLSX_SHA: ${{ inputs.expected_xlsx_sha256 }}
       IN_ALLOW_PARTIAL: ${{ inputs.allow_partial }}
-      OUT: ${{ runner.temp }}/repd-out
+      OUT: /tmp/repd-out
     steps:
       - name: Validate inputs (no inputs reach the shell unquoted)
         shell: bash
@@ -155,7 +155,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: repd-${{ inputs.label }}-candidate-${{ github.run_number }}
-          path: ${{ runner.temp }}/repd-out/
+          path: /tmp/repd-out/
           retention-days: 90
           if-no-files-found: error
 
@@ -171,7 +171,7 @@ jobs:
     env:
       IN_LABEL: ${{ inputs.label }}
       BRANCH: repd/${{ inputs.label }}-candidate
-      CAND: ${{ runner.temp }}/repd-out
+      CAND: /tmp/repd-out
       GH_TOKEN: ${{ github.token }}
       BOT_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
     steps:
@@ -196,7 +196,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: repd-${{ inputs.label }}-candidate-${{ github.run_number }}
-          path: ${{ runner.temp }}/repd-out
+          path: /tmp/repd-out
 
       - name: Refuse anything that is not a new allow-listed path within the size budget
         shell: bash

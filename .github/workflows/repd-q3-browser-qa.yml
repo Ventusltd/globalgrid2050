@@ -1,0 +1,71 @@
+name: REPD Q3 V9.12 browser QA — independent candidate only
+
+on:
+  push:
+    branches:
+      - qa/repd-q3-browser-20261114
+    paths:
+      - qa/repd-q3-browser-review.mjs
+      - .github/workflows/repd-q3-browser-qa.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repd-q3-browser-qa-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  playwright-qa:
+    name: Q3 candidate desktop, mobile, CSV and MAP integrity
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout exact QA candidate (without all historical assets)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            qa
+            uk_renewables_pipeline/202611132345
+            uk_renewables_pipeline/202609082224
+      - name: Install Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install candidate browser dependency
+        working-directory: uk_renewables_pipeline/202611132345
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Validate MAP identities for all 7,775 Q3 records
+        run: node uk_renewables_pipeline/202611132345/tests/check_map_contract_all_rows.mjs
+      - name: Start read-only local HTTP server
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/repd-local-server.log 2>&1 &
+          echo $! >/tmp/repd-local-server.pid
+          for i in $(seq 1 20); do
+            if curl --fail --silent --output /dev/null http://127.0.0.1:8765/uk_renewables_pipeline/202611132345/index.html; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/repd-local-server.log
+          exit 1
+      - name: Browser proof (1440px, 430px and 390px)
+        env:
+          REPD_BASE_URL: http://127.0.0.1:8765/uk_renewables_pipeline/202611132345/
+          REPD_QA_ARTIFACTS: /tmp/repd-browser-qa
+        run: node qa/repd-q3-browser-review.mjs
+      - name: Upload exact QA report and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repd-q3-browser-qa-${{ github.run_number }}
+          path: |
+            /tmp/repd-browser-qa/
+            /tmp/repd-local-server.log
+          retention-days: 30
+          if-no-files-found: warn

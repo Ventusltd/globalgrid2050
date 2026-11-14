@@ -1,0 +1,45 @@
+{
+  "schema": "globalgrid2050.uk-renewables.release.v9.1",
+  "release": "9.1",
+  "feature": "restore-v1-v5-repd-analytics-contract-on-latest-canonical-source",
+  "frozen_parent": {
+    "release": "9.0",
+    "commit": "50a6df6c4bd54ff4c113aaf0df4f230b7c9544d2",
+    "tree": "60b72b3665e6b65a397541b221c4bca75aa402c9"
+  },
+  "source": {
+    "dataset": "DESNZ Renewable Energy Planning Database Q3 2026",
+    "identity_fixture": "uk_renewables_pipeline/202611132345/fixtures/2026q3/project_identity_2026q3.json",
+    "identity_fixture_sha256": "d0840c20bbf5a7b9b268c2631a844ec972ddae3040be353f1fac7e75d3dab5ad",
+    "coordinate_fixture": "uk_renewables_pipeline/202611132345/fixtures/2026q3/repd_2026q3_coordinates.json",
+    "coordinate_fixture_sha256": "82a0676ed3c4f76db4dd308971e788253bd18b5a880ada1e889560d4e9e3215e",
+    "workbook_sha256": "87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea"
+  },
+  "scope": {
+    "capacity_mw_inclusive_minimum": 1.0,
+    "technologies": ["solar", "bess", "wind_onshore", "wind_offshore"],
+    "all_official_statuses": true,
+    "record_identity_preserved": true,
+    "development_deduplication_forbidden": true
+  },
+  "expected": {
+    "project_count": 7775,
+    "capacity_mw": 365474.49,
+    "largest_mw": 4100.0,
+    "solar_count": 3604,
+    "bess_count": 1644,
+    "wind_onshore_count": 2417,
+    "wind_offshore_count": 110
+  },
+  "legacy_comparison": {
+    "v1_v5_project_count": 5210,
+    "v1_v5_capacity_mw": 262396.8,
+    "v1_v5_largest_mw": 4100.0,
+    "explanation": "V1-V5 used the older 10,784-feature legacy GeoJSON. V9.1 applies the same technology and >=1 MW method to the full reconciled 14,657-record Q2 source."
+  },
+  "ui_contract": {
+    "gauges": ["filtered_capacity_mw", "filtered_projects", "largest_single_site_mw"],
+    "technology_filters": ["all", "solar", "bess", "wind_onshore", "wind_offshore"],
+    "retain": ["canonical_ids", "official_update_date", "filtered_csv", "legacy_news", "exact_atlas_link"]
+  }
+}

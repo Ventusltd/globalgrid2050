@@ -73,12 +73,15 @@ def main():
                                                     "data_digest": digests[vid], "declared_change": bool(v.get("data_changed"))}
         else:
             checks["data_unchanged_from_parent"] = {"pass": True, "data_digest": digests[vid], "declared_change": True, "note": "parent is outside the checked range"}
-        inherited, node = [], v
+        inherited, node, dropped = [], v, set()
         while node:
-            inherited = node["features"] + inherited
+            # A version may withdraw a feature on purpose; it must say so (removed_features), and
+            # the withdrawal holds for its descendants.
+            dropped |= set(node.get("removed_features", []))
+            inherited = [f for f in node["features"] if f["id"] not in dropped] + inherited
             node = by_id.get(node["parent"])
         missing = [f["id"] for f in inherited if not (folder / f["file"]).exists() or f["contains"] not in (folder / f["file"]).read_text(errors="replace")]
-        checks["features_kept"] = {"pass": not missing, "features": [f["id"] for f in inherited], "missing": missing}
+        checks["features_kept"] = {"pass": not missing, "features": [f["id"] for f in inherited], "missing": missing, "withdrawn_on_purpose": sorted(dropped)}
         if reg.get("size_budget_mb") and vid >= reg.get("size_budget_from", ""):
             size = sum((folder / rel).stat().st_size for rel in __import__("common").walk(folder))
             checks["size_budget"] = {"pass": size <= reg["size_budget_mb"] * 1024 * 1024, "bytes": size, "budget_mb": reg["size_budget_mb"]}
@@ -99,9 +102,10 @@ def main():
             out_file = scratch / "browser.json"
             probes = {}
             for v in versions:
-                chain, node = [], v
+                chain, node, gone = [], v, set()
                 while node:
-                    chain = node.get("browser_probes", []) + chain
+                    gone |= set(node.get("removed_probes", []))
+                    chain = [p for p in node.get("browser_probes", []) if p["name"] not in gone] + chain
                     node = by_id.get(node["parent"])
                 probes[v["id"]] = chain
             (scratch / "probes.json").write_text(json.dumps(probes))

@@ -1,13 +1,19 @@
 {
  "schema": "globalgrid2050.pipeline-news.versions.v1",
- "generated_at": "2026-11-14T02:49:41Z",
+ "generated_at": "2026-11-14T03:10:07Z",
  "generated_by": "automation/pipeline_release/verify.py --browser",
  "where_run": "release train workspace before publication",
  "note": "Every Pipeline News version from 202611132345 onward, newest first. Old versions stay published. 'verdict' is this tool's result when the file was written; 'ci' is the result of the Verify Pipeline News versions workflow on the pull request that published the version, recorded in the following version.",
  "release_candidate": {
-  "id": "202611140223",
-  "version": "V9.18",
-  "note": "Release candidate: 202611140223 (V9.18). It passes every automated check and carries the unchanged MAP link into GridAtlas for all 7,775 rows. Live browser and served-byte checks and the homepage pointer are with the homepage owner; until then the homepage is unchanged. Data-centre features are shown with attribution; licence status unverified at source."
+  "id": "202611140306",
+  "version": "V9.20",
+  "state": "promotable candidate (no data-centre register content)",
+  "held_candidate": {
+   "id": "202611140247",
+   "version": "V9.19",
+   "state": "held candidate (data-centre register context, awaiting licence verification)"
+  },
+  "note": "Promotable candidate: 202611140306 (V9.20), without data-centre register content. Held candidate: 202611140247 (V9.19), the same page with the data-centre register context, awaiting verification of the register's source licences. Both pass every automated check and carry the unchanged MAP link for all 7,775 rows. Live browser checks, served-byte checks and the homepage pointer are with the homepage owner; the homepage is unchanged until then."
  },
  "map_link_state": {
   "schema": "globalgrid2050.pipeline-news.gridatlas-map-link-state.v1",
@@ -78,11 +84,226 @@
  },
  "versions": [
   {
+   "id": "202611140306",
+   "version": "V9.20",
+   "parent": "202611140247",
+   "date": "2026-11-14T03:06:00Z",
+   "state": "promotable candidate (no data-centre register content)",
+   "added": "Promotable candidate: identical to V9.19 except that content derived from the UK data-centre register is switched off (nearest data centre per project and its data files; register-site lines in the headlines panel), pending verification of the register's source licences. Headlines panel, register changes, GridAtlas state, pinned Chart.js and every MAP link kept.",
+   "data_changed": false,
+   "url": "202611140306/",
+   "tree": [
+    "365d7df093368c39c3878daacf65449ba32e7267"
+   ],
+   "verdict": "PASS",
+   "browser_checked": true,
+   "checks": {
+    "tree_unchanged": {
+     "pass": true,
+     "tree": "365d7df093368c39c3878daacf65449ba32e7267"
+    },
+    "runner": {
+     "pass": true,
+     "runner": "tests/run_v9_20.sh",
+     "last_line": "V9.20 (202611140306) validation suite: PASS (<repository>)"
+    },
+    "map_contract": {
+     "pass": true,
+     "rows": 7775,
+     "ok": 7775,
+     "with_point": 7749,
+     "without_point": 26
+    },
+    "grid_engine_contract": {
+     "pass": true,
+     "ok": 7775,
+     "examples": []
+    },
+    "map_links_identical_to_parent": {
+     "pass": true,
+     "identical": 7775,
+     "rows": 7775,
+     "parent": "202611140247"
+    },
+    "data_unchanged_from_parent": {
+     "pass": true,
+     "data_digest": "5bc68379308e88c9a7001fc2741eec0297cbc6059e29f4b503a826c4d10c1a18",
+     "declared_change": false
+    },
+    "features_kept": {
+     "pass": true,
+     "features": [
+      "map-deep-link",
+      "newspaper",
+      "csv-export",
+      "interconnectors-tab",
+      "datacentre-news-panel",
+      "versions-link",
+      "gridatlas-state",
+      "gridatlas-state-list",
+      "register-changes",
+      "register-changes-data",
+      "chartjs-pinned",
+      "repd-source-line"
+     ],
+     "missing": [],
+     "withdrawn_on_purpose": [
+      "data-sources-block",
+      "datacentre-sources",
+      "datacentres-page-link",
+      "nearest-datacentre",
+      "nearest-datacentre-data"
+     ]
+    },
+    "size_budget": {
+     "pass": true,
+     "bytes": 15776618,
+     "budget_mb": 18
+    },
+    "browser": {
+     "pass": true,
+     "views": [
+      {
+       "viewport": "desktop",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/ventus-grid-engine/deeplink/receivers.json",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/gridatlas/atlas/current.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": true,
+        "nearest_datacentres": 0,
+        "register_changes_in_rows": 2,
+        "gridatlas_state_file": true,
+        "gridatlas_state_notes": 0,
+        "register_changes_section": true
+       }
+      },
+      {
+       "viewport": "phone",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/ventus-grid-engine/deeplink/receivers.json",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/gridatlas/atlas/current.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": true,
+        "nearest_datacentres": 0,
+        "register_changes_in_rows": 2,
+        "gridatlas_state_file": true,
+        "gridatlas_state_notes": 0,
+        "register_changes_section": true
+       }
+      }
+     ]
+    },
+    "feature_probes": {
+     "pass": true,
+     "probes": 8,
+     "expected": 8,
+     "skipped_need_internet": 1,
+     "results": [
+      {
+       "name": "register change in the project record (REPD 15793)",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no register content on the page",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no register content in a project record (REPD 10772)",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "REPD source and licence line",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "register change in the project record (REPD 15793)",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no register content on the page",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no register content in a project record (REPD 10772)",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "REPD source and licence line",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      }
+     ]
+    },
+    "csv_export": {
+     "pass": true,
+     "rows": 7775,
+     "header_sha256": "7a469cf40609e9dde30f8481fe1e37e0300d9492a5f3e6af14016e3e1ef9759a",
+     "body_sha256": "cc027acdbb42adb452665e7adf812fdcb8534a611cb1b57ba4940dfef211f2b7",
+     "columns_same_as_parent": true,
+     "body_same_as_parent": true,
+     "error": null
+    }
+   },
+   "ci": null,
+   "merge_commit": null,
+   "known_faults": [],
+   "datacentre_features": "no data-centre register content; data-centre headlines (public feeds, links only) retained"
+  },
+  {
    "id": "202611140247",
    "version": "V9.19",
    "parent": "202611140223",
    "date": "2026-11-14T02:47:00Z",
-   "state": "published",
+   "state": "held candidate (data-centre register context, awaiting licence verification)",
    "added": "Chart.js pinned to version 4.5.1 with Subresource Integrity (the gauges' charting library was loaded unpinned from a CDN: an inherited fault). Nothing else changes.",
    "data_changed": false,
    "url": "202611140247/",
@@ -144,7 +365,8 @@
       "datacentre-sources",
       "chartjs-pinned"
      ],
-     "missing": []
+     "missing": [],
+     "withdrawn_on_purpose": []
     },
     "size_budget": {
      "pass": true,
@@ -305,8 +527,14 @@
      "error": null
     }
    },
-   "ci": null,
-   "merge_commit": null,
+   "ci": {
+    "workflow": "Verify Pipeline News versions",
+    "run_id": 43548572903,
+    "conclusion": "success",
+    "url": "https://github.com/Ventusltd/globalgrid2050/actions/runs/43548572903",
+    "pull_request": 80
+   },
+   "merge_commit": "6aa7a6d10316189e1c3984a60a147de72b699b04",
    "known_faults": [],
    "datacentre_features": "shown with attribution; licence status unverified at source"
   },
@@ -315,7 +543,7 @@
    "version": "V9.18",
    "parent": "202611140216",
    "date": "2026-11-14T02:23:00Z",
-   "state": "release candidate",
+   "state": "held candidate, superseded by 202611140247 (data-centre register context, awaiting licence verification)",
    "added": "Release candidate. Data-centre content unchanged in scope but corrected in presentation: visible attribution and licence state (OpenStreetMap ODbL 1.0, OGL v3.0, licence status unverified at source, screening only), the register's source carried for every site, settlement-level points labelled and rounded, the GridAtlas location link labelled as a map position only, a stated message when the context cannot be loaded, and browser probes for each case.",
    "data_changed": false,
    "url": "202611140223/",
@@ -376,7 +604,8 @@
       "data-sources-block",
       "datacentre-sources"
      ],
-     "missing": []
+     "missing": [],
+     "withdrawn_on_purpose": []
     },
     "size_budget": {
      "pass": true,
@@ -616,7 +845,8 @@
       "register-changes",
       "register-changes-data"
      ],
-     "missing": []
+     "missing": [],
+     "withdrawn_on_purpose": []
     },
     "size_budget": {
      "pass": true,
@@ -768,7 +998,8 @@
       "nearest-datacentre",
       "nearest-datacentre-data"
      ],
-     "missing": []
+     "missing": [],
+     "withdrawn_on_purpose": []
     },
     "size_budget": {
      "pass": true,
@@ -919,7 +1150,8 @@
       "gridatlas-state",
       "gridatlas-state-list"
      ],
-     "missing": []
+     "missing": [],
+     "withdrawn_on_purpose": []
     },
     "size_budget": {
      "pass": true,
@@ -1066,7 +1298,8 @@
       "versions-link",
       "datacentres-page-link"
      ],
-     "missing": []
+     "missing": [],
+     "withdrawn_on_purpose": []
     },
     "browser": {
      "pass": true,
@@ -1204,7 +1437,8 @@
       "csv-export",
       "interconnectors-tab"
      ],
-     "missing": []
+     "missing": [],
+     "withdrawn_on_purpose": []
     },
     "browser": {
      "pass": true,
@@ -1334,7 +1568,8 @@
       "csv-export",
       "interconnectors-tab"
      ],
-     "missing": []
+     "missing": [],
+     "withdrawn_on_purpose": []
     },
     "browser": {
      "pass": true,

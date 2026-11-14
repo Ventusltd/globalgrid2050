@@ -43,6 +43,8 @@ for _path in (str(NEWS), str(HERE)):
     if _path not in sys.path:
         sys.path.insert(0, _path)
 
+import dates as DATES  # noqa: E402  one date rule shared by the collectors and the combiner
+import gate as GATE  # noqa: E402  the title gate shared with trade.py, official.py and combine.py
 import datacentre_feed as D  # noqa: E402  fetch, parse, dates, canonical links (reused, not copied)
 
 SCHEMA = "project-signals-part.v1"
@@ -257,6 +259,20 @@ def load_projects(top200_path, aliases_path):
 
 
 def match_item(project, title, summary="", county_feed=False):
+    """The module's own rule (_match_item), then the shared title gate (gate.py). A match made in the title that
+    the gate drops is no match; thin support is weak."""
+    found = _match_item(project, title, summary, county_feed)
+    if not found:
+        return found
+    verdict, reason = GATE.judge(project.get("repd_ref"), title, project=GATE.for_record(project))
+    if verdict == "drop":
+        return None
+    if found[0] == "strong" and verdict == "possible":
+        return "weak", "%s; kept as weak: %s" % (found[1], reason)
+    return found
+
+
+def _match_item(project, title, summary="", county_feed=False):
     """(strength, basis) or None. strength: "strong" | "weak". The summary is read here and never stored."""
     low_title = title.lower()
     if any(phrase in low_title for phrase in project["exclude"]):
@@ -393,7 +409,7 @@ def collect_rss(feeds, projects, fetch, publisher, family, where, throttle=None)
             continue
         kept, solar, newest = 0, 0, None
         for title, link, date, summary in entries:
-            title, link, date = D.clean_text(title, 300), D.canonical_link(link), D.parse_date(date)
+            title, link, date = D.clean_text(title, 300), D.canonical_link(link), DATES.day(date)
             summary = D.clean_text(summary, 2000)                     # read for the match, never stored
             if date and (newest is None or date > newest):
                 newest = date
@@ -480,8 +496,9 @@ def parse_gdelt(text):
         raise ValueError("bad JSON: %s" % str(error)[:120]) from None
     out = []
     for art in data.get("articles") or []:
-        seen = art.get("seendate") or ""
-        date = "%s-%s-%s" % (seen[:4], seen[4:6], seen[6:8]) if re.match(r"\d{8}", seen) else None
+        # "seendate" is when GDELT crawled the page, not when it was published: a 2019 article crawled today must
+        # not look recent. The date is the one written in the article's own link, when there is one; otherwise none.
+        date = DATES.url_day(art.get("url") or "")
         out.append((art.get("title") or "", art.get("url") or "", art.get("domain") or "", date,
                     art.get("language") or ""))
     return out

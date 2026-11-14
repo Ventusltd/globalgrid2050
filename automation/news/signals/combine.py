@@ -44,6 +44,8 @@ for _path in (str(NEWS), str(HERE)):
     if _path not in sys.path:
         sys.path.insert(0, _path)
 
+import dates as DATES  # noqa: E402  one date rule shared with the collectors
+import gate as GATE  # noqa: E402  the title gate shared with the collectors
 import datacentre_feed as D  # noqa: E402  canonical links and text cleaning (reused, not copied)
 
 SCHEMA = "project-signals.v2"
@@ -63,6 +65,7 @@ EVENTS = ("consent", "refusal", "appeal", "legal_challenge", "financial_close", 
 RECENT_DAYS = 90
 CLUSTER_DAYS = 14
 MAX_PER_TIER = 5
+PART_MAX_HOURS = 48           # a part file older than this was not collected by this run
 DROP_LIMIT = 1 / 3            # the writer refuses a file whose counts fall by more than this
 HEADLINE = "projects with recent verified news"
 REVIEWED = "reviewed"         # basis of an item found by hand: "reviewed <date>"
@@ -96,11 +99,13 @@ EVERYDAY_WORDS = frozenset(
     "warren breach wick spring springs meadow meadows common heath moor marsh valley view land lands oak oaks "
     "white black red blue stone water lake river brook ford gate way cross corner end side hills".split())
 SOLAR_NOUN_RE = re.compile(r"\bsolar (?:farm|park|project|scheme|plant|array|development)s?\b|\benergy (?:park|farm)\b", re.I)
+PLURAL_RE = re.compile(r"\b(?:two|three|four|both|several) |\bsolar (?:farms|parks|projects|schemes)\b", re.I)
 EVENT_RULES = (
-    ("legal_challenge", r"judicial review|legal challenge|high court|court of appeal|court challenge|court battle"),
+    ("legal_challenge", r"judicial review|legal challenge|high court|court of appeal|court challenge|court battle|"
+                        r"(?:launch\w*|lodg\w+|mounts?|brings?|files?) (?:a |legal )?challenge"),
     ("appeal", r"\bappeals?\b|\bappealed\b|planning inquiry|public inquiry"),
     ("refusal", r"\brefus\w+|\breject\w+|turned down|thrown out|\bblocked\b|\bdenied\b"),
-    ("consent", r"\bapprove[ds]\b|green ?lights?|greenlights?|go[- ]ahead|\bconsent(?:ed|s)\b|\bgrant(?:s|ed)\b|"
+    ("consent", r"\bapproved\b|\bapproves\b(?! its\b)|green ?lights?|greenlights?|go[- ]ahead|\bconsent(?:ed|s)\b|\bgrant(?:s|ed)\b|"
                 r"(?:wins?|secures?|gains?|receives?|gets?|given|awarded) (?:planning |development |section 36 )?"
                 r"(?:consent|permission|approval|permit|DCO)\b"),
     ("financial_close", r"financial close|final investment decision|\bFID\b|financing (?:secured|closed|agreed)|"
@@ -163,16 +168,8 @@ def is_reviewed(item):
 # ---------------------------------------------------------------- dates, freshness, tier, event
 
 def parse_date(value, today):
-    """A real calendar date, not later than the day after `today`, as YYYY-MM-DD; otherwise None."""
-    if not isinstance(value, str) or not re.match(r"\d{4}-\d{2}-\d{2}(?:$|[T ])", value):
-        return None
-    try:
-        day = dt.date.fromisoformat(value[:10])
-    except ValueError:
-        return None
-    if day > today + dt.timedelta(days=1) or day.year < 1990:
-        return None
-    return day.isoformat()
+    """A real calendar date, not later than the day after `today`, as YYYY-MM-DD; otherwise None (dates.day)."""
+    return DATES.day(value, today)
 
 
 def freshness(date, today):
@@ -309,6 +306,10 @@ def clean_item(raw, team, today=None, collected_at=None, as_of=None):
     if _excluded(link):
         return None, "source not allowed"
     date = parse_date(raw.get("date"), today)
+    year = int(date[:4]) if date else None
+    if year is None:                                        # only the year is known: still an undated item, but labelled
+        hint = raw.get("year")
+        year = hint if isinstance(hint, int) and DATES.FIRST_YEAR <= hint <= today.year else DATES.url_year(link, today)
     family = raw.get("family") if raw.get("family") in FAMILIES else ("official" if team == "official" else
                                                                         "trade" if team == "trade" else "regional")
     if _host_in(link, DEVELOPER_HOSTS):
@@ -322,7 +323,7 @@ def clean_item(raw, team, today=None, collected_at=None, as_of=None):
     when = raw.get("collected_at") if isinstance(raw.get("collected_at"), str) and raw.get("collected_at") else collected_at
     return {"repd_ref": str(raw.get("repd_ref") or ""), "title": title, "link": link,
             "publisher": D.clean_text(str(raw.get("publisher") or ""), 80) or (urllib.parse.urlsplit(link).hostname or ""),
-            "date": date, "year": int(date[:4]) if date else None, "tier": tier_of(family, date, today),
+            "date": date, "year": year, "tier": tier_of(family, date, today),
             "event": event_of(title), "obtained": "reviewed" if reviewed else "fetched",
             "source": REVIEWED if reviewed else (raw.get("source") if raw.get("source") in LIVE_TEAMS else team),
             "family": family, "collected_at": when,
@@ -330,13 +331,24 @@ def clean_item(raw, team, today=None, collected_at=None, as_of=None):
             "freshness": freshness(date, today), "basis": basis}, ""
 
 
+def link_key(link):
+    """One key for the copies of one page: no www., m. or amp. host prefix, no trailing slash or /amp suffix, the
+    path's spaces and %20 alike, http and https alike. Used to recognise duplicates; the link shown is unchanged."""
+    parts = urllib.parse.urlsplit(link.strip())
+    host = re.sub(r"^(?:www|m|amp|mobile)\.", "", (parts.hostname or "").lower())
+    path = urllib.parse.quote(urllib.parse.unquote(parts.path), safe="/:@!$&'()*+,;=-._~")
+    path = re.sub(r"/amp/?$", "", path).rstrip("/")
+    query = sorted(p for p in parts.query.split("&") if p and not re.match(r"(?:lang|language|hl)=", p))
+    return host + path + ("?" + "&".join(query) if query else "")
+
+
 def dedupe(items):
-    """No link twice. A fetched item takes the place of a reviewed one; the earliest collected_at is kept."""
+    """No page twice (link_key). A fetched item takes the place of a reviewed one; the earliest collected_at is kept."""
     best = {}
     for item in sorted(items, key=lambda i: (is_reviewed(i), i["date"] is None, i["confidence"] != "confirmed")):
-        kept = best.get(item["link"])
+        kept = best.get(link_key(item["link"]))
         if kept is None:
-            best[item["link"]] = item
+            best[link_key(item["link"])] = item
         elif item["collected_at"] and (not kept["collected_at"] or item["collected_at"] < kept["collected_at"]) \
                 and not is_reviewed(item):
             kept["collected_at"] = item["collected_at"]
@@ -476,6 +488,14 @@ def _part_good(part):
         return False, "no part file from this run" if part in ("missing", "absent", None) else "part file %s" % part
     if part.get("schema") != PART_SCHEMA or not isinstance(part.get("items"), list):
         return False, "part file has the wrong schema"
+    stamp, now = part.get("generated_at"), part.get("_run_at")
+    if isinstance(stamp, str) and isinstance(now, str) and part.get("team") != REVIEWED:
+        try:
+            age = dt.datetime.fromisoformat(now.replace("Z", "+00:00")) - dt.datetime.fromisoformat(stamp.replace("Z", "+00:00"))
+            if age > dt.timedelta(hours=PART_MAX_HOURS):
+                return False, "part file is older than %d hours" % PART_MAX_HOURS
+        except ValueError:
+            return False, "part file has no readable collection time"
     sources = [s for s in part.get("sources") or [] if isinstance(s, dict)]
     if sources and all(s.get("status") == "failed" for s in sources):
         return False, "every source failed"
@@ -534,8 +554,15 @@ def combine(rows, aliases=None, parts=None, planning=None, previous=None, now_is
     refs = list(rows_by_ref)
     gathered = {ref: [] for ref in refs}
     dropped = {"outside the 200": 0, "no title or link": 0, "source not allowed": 0, "exclusion rule": 0,
-               "not an object": 0, "link on several projects": 0}
-    downgraded = {"alias without recorded evidence": 0, "weak alias without a second term": 0}
+               "not an object": 0, "link on several projects": 0, "title gate": 0}
+    downgraded = {"alias without recorded evidence": 0, "weak alias without a second term": 0, "title gate": 0,
+                  "shared link that names no project": 0}
+    gate_cache = {}
+
+    def gate_project(ref):
+        if ref not in gate_cache:
+            gate_cache[ref] = GATE.project_of(rows_by_ref[ref], aliases.get(ref), exclusions.get(ref))
+        return gate_cache[ref]
     sources, part_state = [], {}
     old_items, old_when, old_generated = previous_items(previous, today)
 
@@ -560,6 +587,15 @@ def combine(rows, aliases=None, parts=None, planning=None, previous=None, now_is
             dropped["exclusion rule"] += 1
             return False
         entry = aliases.get(ref) or {}
+        if not is_reviewed(item) and "reference" not in item["basis"]:
+            verdict, why = GATE.judge(ref, item["title"], project=gate_project(ref), official=item["family"] == "official")
+            if verdict == "drop":                          # also purges a carried-forward copy of a match now rejected
+                dropped["title gate"] += 1
+                return False
+            if verdict == "possible" and item["confidence"] == "confirmed":
+                item["confidence"] = "possible"
+                item["basis"] = D.clean_text("%s; possible only: %s" % (item["basis"], why), 240)
+                downgraded["title gate"] += 1
         if item["confidence"] == "confirmed" and aliases:
             if standing(ref) != "confirmed":
                 item["confidence"] = "possible"
@@ -576,7 +612,7 @@ def combine(rows, aliases=None, parts=None, planning=None, previous=None, now_is
         if part == "absent" and not (team in LIVE_TEAMS and old_items[team]):
             part_state[team] = {"status": "absent", "collected_at": None, "items": 0, "note": "not part of this run"}
             continue
-        good, why = _part_good(part)
+        good, why = _part_good(dict(part, _run_at=run_at) if isinstance(part, dict) and team != REVIEWED else part)
         if isinstance(part, dict):
             for source in part.get("sources") or []:
                 if isinstance(source, dict):
@@ -613,11 +649,11 @@ def combine(rows, aliases=None, parts=None, planning=None, previous=None, now_is
     for ref in refs:
         gathered[ref] = dedupe(gathered[ref])
         for item in gathered[ref]:
-            homes.setdefault(item["link"], []).append(ref)
+            homes.setdefault(link_key(item["link"]), []).append(ref)
     for link, on in homes.items():
         if len(on) < 2:
             continue
-        found = {ref: next(i for i in gathered[ref] if i["link"] == link) for ref in on}
+        found = {ref: next(i for i in gathered[ref] if link_key(i["link"]) == link) for ref in on}
         named = {ref: names_project(found[ref]["title"], aliases.get(ref) or {}, rows_by_ref[ref]) for ref in on}
         keep = [ref for ref in on if named[ref] or is_reviewed(found[ref])]
         if not keep:
@@ -626,10 +662,13 @@ def combine(rows, aliases=None, parts=None, planning=None, previous=None, now_is
                                               rows_by_ref[ref].get("rank") or 10 ** 6))]
         for ref in on:
             if ref not in keep:
-                gathered[ref] = [i for i in gathered[ref] if i["link"] != link]
+                gathered[ref] = [i for i in gathered[ref] if link_key(i["link"]) != link]
                 dropped["link on several projects"] += 1
             elif len(keep) > 1:
                 found[ref]["also_projects"] = sorted((r for r in keep if r != ref), key=lambda r: (len(r), r))
+                if not named[ref] and not PLURAL_RE.search(found[ref]["title"]) and found[ref]["confidence"] == "confirmed":
+                    found[ref]["confidence"] = "possible"   # tied by hand to several projects, the title names none
+                    downgraded["shared link that names no project"] += 1
 
     # planning files
     plan_origin = {}
@@ -773,7 +812,8 @@ def schema_errors(result, expected_refs=None):
                 need(isinstance(item.get("collected_at"), str) and item["collected_at"], where + ": collected_at")
                 date = item.get("date")
                 if date is None:
-                    need(item.get("freshness") == "undated" and item.get("year") is None and tier == "archive",
+                    need(item.get("freshness") == "undated" and tier == "archive"
+                         and (item.get("year") is None or isinstance(item.get("year"), int)),
                          where + ": undated item outside the archive or mislabelled")
                 elif today is not None:
                     need(parse_date(date, today) == date, where + ": date %r is not a past calendar date" % (date,))

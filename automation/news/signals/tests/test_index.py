@@ -151,7 +151,11 @@ def test_parse_gdelt():
     body = json.dumps({"articles": [{"url": "https://www.bbc.co.uk/news/a", "title": "Botley West solar farm refused",
                                      "seendate": "20261110T121500Z", "domain": "bbc.co.uk", "language": "English"}]})
     assert I.parse_gdelt(body) == [("Botley West solar farm refused", "https://www.bbc.co.uk/news/a", "bbc.co.uk",
-                                    "2026-11-10", "English")]
+                                    None, "English")]                      # the crawl date is not a publication date
+    dated = json.dumps({"articles": [{"url": "https://www.example-paper.co.uk/news/2019/05/07/solar-farm-approved",
+                                      "title": "Solar farm approved", "seendate": "20261110T121500Z"},
+                                     {"url": "https://a.co.uk/x", "title": "t", "seendate": "20261345T000000Z"}]})
+    assert [a[3] for a in I.parse_gdelt(dated)] == ["2019-05-07", None]   # the article's own date, from its link
     with pytest.raises(ValueError, match="too short"):
         I.parse_gdelt("The specified phrase is too short.")
 
@@ -169,7 +173,7 @@ def test_gdelt_cache_rate_limit_and_rotation(projects):
             ("Oxfordshire solar farm row deepens | Oxford Mail", "https://www.oxfordmail.co.uk/news/b", "20261001T120000Z"),
             ("Oxfordshire solar farm row deepens", "https://www.heraldseries.co.uk/news/b", "20261001T120000Z"),
             ("Solar tiles , roofs and prices", "https://www.oxfordmail.co.uk/news/d", "20261001T120000Z"),
-            ("Oxfordshire reacts as Rigifa solar farm approved", "https://www.oxfordmail.co.uk/news/e", "20261001T120000Z"),
+            ("Oxfordshire and Aberdeenshire react as Rigifa solar farm approved", "https://www.oxfordmail.co.uk/news/e", "20261001T120000Z"),
             ("Council budget agreed", "https://www.oxfordmail.co.uk/news/c", "20261002T120000Z"),
             ("Botley West solar farm refused", "https://news.google.com/x", "20261110T120000Z"),
             ("Botley West solar farm refused - Reuters", "https://www.reuters.com/x", "20261110T120000Z")))],

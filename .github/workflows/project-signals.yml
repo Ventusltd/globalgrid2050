@@ -94,7 +94,7 @@ jobs:
       - name: Combine
         run: |
           if [ -f "$SIG/planning_file.py" ]; then
-            python "$SIG/planning_file.py" --out "$RUNNER_TEMP/parts/planning.json" || echo "::warning::planning_file.py failed; the combiner uses the alias table and its own last resort"
+            timeout 20m python "$SIG/planning_file.py" --verify --out "$RUNNER_TEMP/parts/planning.json" || echo "::warning::planning_file.py failed; the combiner uses the alias table and its own last resort"
           fi
           python "$SIG/combine.py" --planning "$RUNNER_TEMP/parts/planning.json" \
             --official "$RUNNER_TEMP/parts/official.json" --trade "$RUNNER_TEMP/parts/trade.json" \
@@ -181,7 +181,7 @@ jobs:
       - name: Combine into dist/project_signals.json
         run: |
           if [ -f "$SIG/planning_file.py" ]; then
-            python "$SIG/planning_file.py" --out "$RUNNER_TEMP/parts/planning.json" || echo "::warning::planning_file.py failed; the combiner uses the alias table and its own last resort"
+            timeout 20m python "$SIG/planning_file.py" --verify --out "$RUNNER_TEMP/parts/planning.json" || echo "::warning::planning_file.py failed; the combiner uses the alias table and its own last resort"
           fi
           # The parts of THIS run only: a part that is missing, empty or failed is marked stale by the combiner and
           # its items come from the published file with their own collected_at. Exit 3: not written, nothing pushed.

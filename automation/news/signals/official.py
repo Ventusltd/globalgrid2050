@@ -39,6 +39,11 @@ HERE = Path(__file__).resolve().parent
 if str(HERE.parent) not in sys.path:
     sys.path.insert(0, str(HERE.parent))
 
+if str(HERE) not in sys.path:
+    sys.path.insert(0, str(HERE))
+
+import dates as DATES  # noqa: E402  one date rule shared by the collectors and the combiner
+import gate as GATE  # noqa: E402  the title gate shared with trade.py, index.py and combine.py
 import datacentre_feed as D  # noqa: E402  clean_text, canonical_link, parse_date
 
 SCHEMA_PART = "project-signals-part.v1"
@@ -276,6 +281,12 @@ def _facts(project):
 
 
 def match(project, title, summary=""):
+    """The module's own rule (_match), then the shared title gate (gate.py): a headline placed abroad or in another
+    county, or a bare name without a solar term, is not this project. The whole alias is enough in an official title."""
+    return GATE.gated(project, title, _match(project, title, summary), official=True)
+
+
+def _match(project, title, summary=""):
     """(basis, confidence) when the item is tied to the project by the shared rule, else None."""
     text = "%s %s" % (title, summary)
     for phrase in project.get("exclude", []):
@@ -319,6 +330,9 @@ def parse_day(value):
     value = (value or "").strip()
     if not value:
         return None
+    found = DATES.day(value)        # day first unless the value cannot be read that way; implausible years are None
+    if found or re.match(r"\d{1,2}[/.\-]\d{1,2}[/.\-]\d{2,4}", value):
+        return found
     iso = D.parse_date(value)
     if iso:
         return iso[:10]
@@ -461,7 +475,7 @@ def govuk_results(body):
             link = "https://www.gov.uk" + link
         orgs = [o.get("title") for o in (r.get("organisations") or []) if isinstance(o, dict) and o.get("title")]
         out.append({"title": r.get("title") or "", "link": link, "summary": r.get("description") or "",
-                    "date": (D.parse_date(r.get("public_timestamp") or "") or "")[:10] or None,
+                    "date": DATES.day(r.get("public_timestamp") or ""),
                     "publisher": orgs[0] if orgs else "GOV.UK", "format": r.get("format") or ""})
     return out
 

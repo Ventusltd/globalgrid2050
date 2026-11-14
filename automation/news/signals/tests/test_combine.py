@@ -169,24 +169,31 @@ def test_one_word_alias_needs_a_second_agreeing_term():
     index = part("index", [item("20004", "bare", title="Hulam plan moves on"),
                            item("20004", "noun", title="Hulam solar farm plan moves on"),
                            item("20004", "place", title="Hulam scheme backed by Durham councillors"),
+                           item("20004", "apart", title="Durham solar scheme at Hulam approved"),
+                           item("20004", "panels", title="Hulam solar panels for village hall"),
+                           item("20004", "kent", title="Hulam solar farm plan in Kent approved"),
                            item("20004", "ref", title="Hulam update", basis="planning reference DM/20/1 in the title")])
-    p = run({"index": index})["projects"]["20004"]
-    got = {i["title"]: i["confidence"] for i in p["recent_news"]}
-    assert got == {"Hulam plan moves on": "possible", "Hulam solar farm plan moves on": "confirmed",
-                   "Hulam scheme backed by Durham councillors": "confirmed", "Hulam update": "confirmed"}
+    result = run({"index": index})
+    got = {i["title"]: i["confidence"] for i in result["projects"]["20004"]["recent_news"]}
+    assert got == {"Hulam solar farm plan moves on": "confirmed", "Durham solar scheme at Hulam approved": "possible",
+                   "Hulam update": "confirmed"}                             # a bare name, a name with a county, panels, Kent: gone
+    assert result["dropped"]["title gate"] == 4 and result["downgraded"]["title gate"] == 1
     assert C.needs_second_term("Bypass Solar Farm") and C.needs_second_term("Green Hill Solar Farm")
     assert not C.needs_second_term("Botley West Solar Farm")
 
 
 def test_bypass_9050_false_match_is_excluded_and_purged_from_carried_items():
-    false_match = item("9050", "diodes", "trade", "2026-11-02", title="Bypass diodes: why modules fail in the field")
-    road = item("9050", "road", "regional", "2026-11-03", title="Bypass upgrade opens to traffic")
+    false_match = item("9050", "lights", "trade", "2026-11-02", title="Bypass solar scheme will light the new road")
+    road = item("9050", "road", "regional", "2026-11-03", title="Bypass solar project for road signs")
     real = item("9050", "real", "regional", "2026-11-04", title="Solar farm north of Grantham wins approval")
     first = run({"trade": part("trade", [false_match, road, real])}, exclusions=None)
     assert len(first["projects"]["9050"]["recent_news"]) == 3              # without the rule the false matches are in
     result = run({"trade": part("trade", [false_match, road, real])}, previous=first)
     assert [i["title"] for i in everything(result["projects"]["9050"])] == ["Solar farm north of Grantham wins approval"]
     assert result["dropped"]["exclusion rule"] == 4                        # two from this run, two carried copies
+    diodes = item("9050", "diodes", "trade", "2026-11-02", title="Bypass diodes: why modules fail in the field")
+    gated = run({"trade": part("trade", [diodes])}, exclusions=None)       # the title gate alone already stops this one
+    assert everything(gated["projects"]["9050"]) == [] and gated["dropped"]["title gate"] == 1
     stale = run({}, previous=first)                                        # a failed run does not bring them back either
     assert [i["title"] for i in everything(stale["projects"]["9050"])] == ["Solar farm north of Grantham wins approval"]
 
@@ -229,14 +236,14 @@ def test_event_from_the_title_and_one_story_shown_once_with_its_sources():
     trade = part("trade", [item("12588", "a", "trade", "2026-11-11", title="UK government refuses 840MW Botley West Solar Farm"),
                            item("12588", "b", "trade", "2026-11-10", title="UK rejects 840MW Botley West solar farm", publisher="reNEWS"),
                            item("12588", "c", "regional", "2026-11-12", "uncertain", title="Solar farm plan turned down by minister"),
-                           item("12588", "d", "trade", "2026-09-03", title="Botley West decision deadline extended"),
+                           item("12588", "d", "trade", "2026-09-03", title="Botley West Solar Farm decision deadline extended"),
                            item("12588", "e", "trade", "2026-08-20", title="Botley West Solar Farm refused by council committee")])
     p = run({"trade": part("trade", trade["items"])})["projects"]["12588"]
     lead = p["recent_news"][0]
     assert lead["title"].startswith("UK government refuses") and lead["confidence"] == "confirmed" and lead["event"] == "refusal"
     assert lead["cluster"] == "12588:refusal:2026-11-10" and [s["link"] for s in lead["sources"]] == [
         "https://example.co.uk/c", "https://example.co.uk/b"]
-    assert [i["title"] for i in p["recent_news"][1:]] == ["Botley West decision deadline extended",
+    assert [i["title"] for i in p["recent_news"][1:]] == ["Botley West Solar Farm decision deadline extended",
                                                           "Botley West Solar Farm refused by council committee"]
     assert "cluster" not in p["recent_news"][2]                             # same event type, but months apart
     for title, event in (("Council approves solar farm", "consent"), ("Appeal lodged over solar farm", "appeal"),

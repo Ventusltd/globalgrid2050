@@ -1,6 +1,6 @@
 {
  "schema": "globalgrid2050.pipeline-news.versions.v1",
- "generated_at": "2026-11-14T02:00:54Z",
+ "generated_at": "2026-11-14T02:19:35Z",
  "generated_by": "automation/pipeline_release/verify.py --browser",
  "where_run": "release train workspace before publication",
  "note": "Every Pipeline News version from 202611132345 onward, newest first. Old versions stay published. 'verdict' is this tool's result when the file was written; 'ci' is the result of the Verify Pipeline News versions workflow on the pull request that published the version, recorded in the following version.",
@@ -73,6 +73,150 @@
   "not_active_but_still_held_refs": []
  },
  "versions": [
+  {
+   "id": "202611140216",
+   "version": "V9.17",
+   "parent": "202611140156",
+   "date": "2026-11-14T02:16:00Z",
+   "state": "published",
+   "added": "Register changes between the July and October 2026 REPD releases: a labelled list of the twelve highest-scored changes below the data-centre panel, each searchable in the table, and the change shown in the PROJECT RECORD of each of the 274 projects that has one (308 events). Register events, not news stories.",
+   "data_changed": false,
+   "url": "202611140216/",
+   "tree": [
+    "2a6faf461c0771bb8cfe5c47a4e138af710b868f"
+   ],
+   "verdict": "PASS",
+   "browser_checked": true,
+   "checks": {
+    "tree_unchanged": {
+     "pass": true,
+     "tree": "2a6faf461c0771bb8cfe5c47a4e138af710b868f"
+    },
+    "runner": {
+     "pass": true,
+     "runner": "tests/run_v9_17.sh",
+     "last_line": "V9.17 (202611140216) validation suite: PASS (<repository>)"
+    },
+    "map_contract": {
+     "pass": true,
+     "rows": 7775,
+     "ok": 7775,
+     "with_point": 7749,
+     "without_point": 26
+    },
+    "grid_engine_contract": {
+     "pass": true,
+     "ok": 7775,
+     "examples": []
+    },
+    "map_links_identical_to_parent": {
+     "pass": true,
+     "identical": 7775,
+     "rows": 7775,
+     "parent": "202611140156"
+    },
+    "data_unchanged_from_parent": {
+     "pass": true,
+     "data_digest": "5bc68379308e88c9a7001fc2741eec0297cbc6059e29f4b503a826c4d10c1a18",
+     "declared_change": false
+    },
+    "features_kept": {
+     "pass": true,
+     "features": [
+      "map-deep-link",
+      "newspaper",
+      "csv-export",
+      "interconnectors-tab",
+      "datacentre-news-panel",
+      "versions-link",
+      "datacentres-page-link",
+      "gridatlas-state",
+      "gridatlas-state-list",
+      "nearest-datacentre",
+      "nearest-datacentre-data",
+      "register-changes",
+      "register-changes-data"
+     ],
+     "missing": []
+    },
+    "size_budget": {
+     "pass": true,
+     "bytes": 16668054,
+     "budget_mb": 18
+    },
+    "browser": {
+     "pass": true,
+     "views": [
+      {
+       "viewport": "desktop",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://cdn.jsdelivr.net/npm/chart.js",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/ventus-grid-engine/deeplink/receivers.json",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/gridatlas/atlas/current.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?latitude=57.152569&longitude=-2.160149&zoom=13&project=Brightsolid",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": true,
+        "nearest_datacentres": 20,
+        "register_changes_in_rows": 2,
+        "gridatlas_state_file": true,
+        "gridatlas_state_notes": 0,
+        "register_changes_section": true
+       }
+      },
+      {
+       "viewport": "phone",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://cdn.jsdelivr.net/npm/chart.js",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/ventus-grid-engine/deeplink/receivers.json",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/gridatlas/atlas/current.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?latitude=57.152569&longitude=-2.160149&zoom=13&project=Brightsolid",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": true,
+        "nearest_datacentres": 20,
+        "register_changes_in_rows": 2,
+        "gridatlas_state_file": true,
+        "gridatlas_state_notes": 0,
+        "register_changes_section": true
+       }
+      }
+     ]
+    },
+    "csv_export": {
+     "pass": true,
+     "rows": 7775,
+     "header_sha256": "7a469cf40609e9dde30f8481fe1e37e0300d9492a5f3e6af14016e3e1ef9759a",
+     "body_sha256": "cc027acdbb42adb452665e7adf812fdcb8534a611cb1b57ba4940dfef211f2b7",
+     "columns_same_as_parent": true,
+     "body_same_as_parent": true,
+     "error": null
+    }
+   },
+   "ci": null,
+   "merge_commit": null,
+   "known_faults": [
+    "The list shows twelve changes; the others are reached through the table."
+   ]
+  },
   {
    "id": "202611140156",
    "version": "V9.16",
@@ -165,7 +309,7 @@
         "newspaper": true,
         "datacentre_news_panel": true,
         "nearest_datacentres": 20,
-        "project_events": false,
+        "register_changes_in_rows": 0,
         "gridatlas_state_file": true,
         "gridatlas_state_notes": 0,
         "register_changes_section": false
@@ -191,7 +335,7 @@
         "newspaper": true,
         "datacentre_news_panel": true,
         "nearest_datacentres": 20,
-        "project_events": false,
+        "register_changes_in_rows": 0,
         "gridatlas_state_file": true,
         "gridatlas_state_notes": 0,
         "register_changes_section": false
@@ -209,8 +353,15 @@
      "error": null
     }
    },
-   "ci": null,
-   "merge_commit": null,
+   "ci": {
+    "workflow": "Verify Pipeline News versions",
+    "run_id": 43544934300,
+    "conclusion": "success",
+    "url": "https://github.com/Ventusltd/globalgrid2050/actions/runs/43544934300",
+    "pull_request": 76,
+    "note": "First run 43543937369 failed for every version: Chrome did not start on the runner within 10 seconds. Start-up wait lengthened in the same pull request."
+   },
+   "merge_commit": "1dc14b6f6f1e73b53bd2df8fb06e39f0573f40b0",
    "known_faults": [
     "Only the single nearest register site is named per project.",
     "GridAtlas state is measured from GridAtlas's published files, not on the live map."
@@ -306,7 +457,7 @@
         "newspaper": true,
         "datacentre_news_panel": true,
         "nearest_datacentres": 0,
-        "project_events": false,
+        "register_changes_in_rows": 0,
         "gridatlas_state_file": true,
         "gridatlas_state_notes": 0,
         "register_changes_section": false
@@ -332,7 +483,7 @@
         "newspaper": true,
         "datacentre_news_panel": true,
         "nearest_datacentres": 0,
-        "project_events": false,
+        "register_changes_in_rows": 0,
         "gridatlas_state_file": true,
         "gridatlas_state_notes": 0,
         "register_changes_section": false
@@ -444,7 +595,7 @@
         "newspaper": true,
         "datacentre_news_panel": true,
         "nearest_datacentres": 0,
-        "project_events": false,
+        "register_changes_in_rows": 0,
         "gridatlas_state_file": false,
         "gridatlas_state_notes": 0,
         "register_changes_section": false
@@ -469,7 +620,7 @@
         "newspaper": true,
         "datacentre_news_panel": true,
         "nearest_datacentres": 0,
-        "project_events": false,
+        "register_changes_in_rows": 0,
         "gridatlas_state_file": false,
         "gridatlas_state_notes": 0,
         "register_changes_section": false
@@ -579,7 +730,7 @@
         "newspaper": true,
         "datacentre_news_panel": false,
         "nearest_datacentres": 0,
-        "project_events": false,
+        "register_changes_in_rows": 0,
         "gridatlas_state_file": false,
         "gridatlas_state_notes": 0,
         "register_changes_section": false
@@ -604,7 +755,7 @@
         "newspaper": true,
         "datacentre_news_panel": false,
         "nearest_datacentres": 0,
-        "project_events": false,
+        "register_changes_in_rows": 0,
         "gridatlas_state_file": false,
         "gridatlas_state_notes": 0,
         "register_changes_section": false
@@ -706,7 +857,7 @@
         "newspaper": true,
         "datacentre_news_panel": false,
         "nearest_datacentres": 0,
-        "project_events": false,
+        "register_changes_in_rows": 0,
         "gridatlas_state_file": false,
         "gridatlas_state_notes": 0,
         "register_changes_section": false
@@ -731,7 +882,7 @@
         "newspaper": true,
         "datacentre_news_panel": false,
         "nearest_datacentres": 0,
-        "project_events": false,
+        "register_changes_in_rows": 0,
         "gridatlas_state_file": false,
         "gridatlas_state_notes": 0,
         "register_changes_section": false

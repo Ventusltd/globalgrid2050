@@ -100,7 +100,7 @@ async function visit(id, vp) {
         newspaper: !!q('section.newspaper'),
         datacentre_news_panel: !!q('#dcNews'),
         nearest_datacentres: document.querySelectorAll('[data-feature="nearest-datacentres"]').length,
-        project_events: !!q('[data-feature="project-events"]'),
+        register_changes_in_rows: document.querySelectorAll('[data-feature="register-change"]').length,
         gridatlas_state_file: !!document.querySelector('script[src*="gridatlas-state.js"]'),
         gridatlas_state_notes: document.querySelectorAll('.ga-state').length,
         register_changes_section: !!q('#regChanges'),
@@ -127,7 +127,7 @@ async function visit(id, vp) {
     // Optional probe: type a search and report the first row, to look at one named project.
     await evaluate(`(() => { const i = document.querySelector('#search'); i.value = ${JSON.stringify(process.env.PROBE_SEARCH)}; i.dispatchEvent(new Event('input', { bubbles: true })); })()`);
     await sleep(1500);
-    rec.probe = await evaluate(`(() => { const tr = document.querySelector('#tbody tr'); return { rows: document.querySelectorAll('#tbody tr').length, notes: document.querySelectorAll('.ga-state').length, nearest_datacentre: tr?.querySelector('[data-feature="nearest-datacentres"]')?.textContent || '', nearest_datacentre_link: tr?.querySelector('a.dc-site-link')?.href || '', register_change: tr?.querySelector('[data-feature="register-change"]')?.textContent || '', summary: document.querySelector('#gaStateSummary')?.textContent || '', actions: tr?.lastElementChild?.innerHTML || '', overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth }; })()`);
+    rec.probe = await evaluate(`(() => { const tr = document.querySelector('#tbody tr'); return { rows: document.querySelectorAll('#tbody tr').length, register_change: tr?.querySelector('[data-feature="register-change"]')?.textContent || '', changes_listed: document.querySelectorAll('#regChanges .rc-item').length, notes: document.querySelectorAll('.ga-state').length, nearest_datacentre: tr?.querySelector('[data-feature="nearest-datacentres"]')?.textContent || '', nearest_datacentre_link: tr?.querySelector('a.dc-site-link')?.href || '', register_change: tr?.querySelector('[data-feature="register-change"]')?.textContent || '', summary: document.querySelector('#gaStateSummary')?.textContent || '', actions: tr?.lastElementChild?.innerHTML || '', overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth }; })()`);
   }
   if (process.env.SHOT_DIR) {
     const shot = await send("Page.captureScreenshot", { format: "png" }, sessionId).catch(() => null);

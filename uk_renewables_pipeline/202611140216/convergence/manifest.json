@@ -1,0 +1,19 @@
+{
+ "schema": "globalgrid2050.pipeline-news.datacentre-context-manifest.v1",
+ "caveat": "Straight-line distance between published points. Proximity is screening context only: it is not a grid connection, a capacity statement or a relationship between a project and a data centre.",
+ "files": [
+  {
+   "file": "nearest_datacentre.json",
+   "source": "dist/convergence/2026q3/pipelinenews/pipelinenews_datacentre_context.json",
+   "sha256": "e3686cd61d6b627ff4f8afa8de5ff8612570680420fb491a11c553e1305f64d7",
+   "rows": 7744
+  },
+  {
+   "file": "datacentres.json",
+   "source": "dist/convergence/2026q3/datacentre_proximity.json",
+   "source_sha256": "b7001987c6e1b4b397a1598e435a3ad50b5fb75063f1503bc14255616b32a15e",
+   "sha256": "e7d7e2c8133991bffc3cfd983250e2824faf5d8aa95a0d08611dd13fd1c079ee",
+   "sites": 226
+  }
+ ]
+}

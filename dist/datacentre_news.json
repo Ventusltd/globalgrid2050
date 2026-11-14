@@ -1,6 +1,6 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-14T17:14:04Z",
+ "generated_at": "2026-11-14T21:35:13Z",
  "status": "ok",
  "counts": {
   "items": 5,
@@ -28,7 +28,7 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "sha256": "f7769796158938ca6f2db188d1a9163462b5f93eb7defe975d180ae8386df6cd"
+   "sha256": "e6c86d024c8651920e56a70e66efb4c9b1b66327d632f6ae7f64f724d087ec59"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
@@ -36,7 +36,7 @@
    "status": "ok",
    "entries": 56,
    "kept": 0,
-   "sha256": "df4e541529dab4b765d42ad2a34b12b51861630adcafa215b086da24905345bf"
+   "sha256": "fdcea09db7629161e69201bcaf7dd9a434edf27772e7a9fa5b83c70252621534"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
@@ -44,7 +44,7 @@
    "status": "ok",
    "entries": 61,
    "kept": 0,
-   "sha256": "7d0fb200ab44209a655d487b5f07ba5d8f963ae86bc6b9cbbcb6f44773120262"
+   "sha256": "6ff66f513a4079a38371c37d8759e69797608f4e1d5da09e3ab8960e432bfdcb"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 41,
    "kept": 0,
-   "sha256": "7bffde022544bdef93cb1c4df7088315fcf21e6d2a53cd9f8c0a77f5debb45f5"
+   "sha256": "721b8b53b410e12e750ab19ebe2eaefaaf18ae35fdafce0265d2bec998acbca1"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -84,7 +84,7 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "36e744f479160c13ccc1988386e833777b95ee1f60a79e2cdd2a816de40616ca"
+   "sha256": "03375e134f1bc24bbaf6bd25f2043058675a3c47ea4b603e29ec1f44579f9ada"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",

@@ -1,0 +1,76 @@
+name: REPD Q3 live served-byte and GridAtlas receiver acceptance (read-only)
+
+on:
+  push:
+    branches:
+      - qa/repd-q3-served-byte-20261114
+    paths:
+      - qa/repd-q3-served-byte-review.py
+      - qa/repd-q3-browser-review.mjs
+      - qa/repd-q3-live-atlas.mjs
+      - .github/workflows/repd-q3-live-acceptance.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repd-q3-live-acceptance-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Published Q3 bytes, old pages, browser and Atlas MAP
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout exact approved release and QA scripts
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            qa
+            dist
+            uk_renewables_pipeline/202611132345
+            uk_renewables_pipeline/202609082224
+      - name: Confirm pinned merged main is ancestor of QA branch
+        run: |
+          git show --no-patch --format='%H %s' HEAD
+          test -f repd-2026q3.csv
+          test -f dist/repd_master_2026q3.json
+          test -f uk_renewables_pipeline/202611132345/index.html
+      - name: Wait for exact public Pages bytes and unchanged legacy
+        env:
+          REPD_LIVE_ORIGIN: https://globalgrid2050.com
+          REPD_LIVE_QA_OUT: /tmp/repd-served-byte-qa
+          REPD_WAIT_SECONDS: '600'
+        run: python3 qa/repd-q3-served-byte-review.py
+      - name: Install Node and browser
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright
+        working-directory: uk_renewables_pipeline/202611132345
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Live Q3 page at desktop/mobile with CSV export
+        env:
+          REPD_BASE_URL: https://globalgrid2050.com/uk_renewables_pipeline/202611132345/
+          REPD_QA_ARTIFACTS: /tmp/repd-served-byte-qa
+        run: node qa/repd-q3-browser-review.mjs
+      - name: Live GridAtlas nearest-substation MAP receiver (2 projects)
+        env:
+          REPD_BASE_URL: https://globalgrid2050.com/uk_renewables_pipeline/202611132345/
+          REPD_QA_ARTIFACTS: /tmp/repd-served-byte-qa
+        run: node qa/repd-q3-live-atlas.mjs
+      - name: Preserve report, SHA checks and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repd-q3-live-acceptance-${{ github.run_number }}
+          path: |
+            /tmp/repd-served-byte-qa/
+          retention-days: 90
+          if-no-files-found: warn

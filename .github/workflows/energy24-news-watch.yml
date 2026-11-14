@@ -48,7 +48,7 @@ jobs:
       - name: Run editorial, identity and date gate tests
         run: |
           set -euo pipefail
-          python -m unittest -v automation.energy24.tests.test_scan
+          python -m unittest discover -v -s automation/energy24/tests -p 'test_*.py'
           python -m py_compile automation/energy24/scan.py
           node --check uk_renewables_pipeline/energy24/app.mjs
       - name: Verify exact release pointer and canonical identity count

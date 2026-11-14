@@ -1,10 +1,10 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-14T03:02:27Z",
+ "generated_at": "2026-11-14T17:14:04Z",
  "status": "ok",
  "counts": {
-  "items": 4,
-  "capex": 3,
+  "items": 5,
+  "capex": 4,
   "politics": 1,
   "with_register_site": 0,
   "feeds_ok": 9,
@@ -28,7 +28,7 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "sha256": "fd2090ced3ff98f0225999d1e78803bda6df4102331c770e106482a735faa1a7"
+   "sha256": "f7769796158938ca6f2db188d1a9163462b5f93eb7defe975d180ae8386df6cd"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
@@ -36,15 +36,15 @@
    "status": "ok",
    "entries": 56,
    "kept": 0,
-   "sha256": "9327516726d8d1f1cc82c7dc0d25276a29b38e6e268961601b510bb8eab4b3b6"
+   "sha256": "df4e541529dab4b765d42ad2a34b12b51861630adcafa215b086da24905345bf"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 60,
+   "entries": 61,
    "kept": 0,
-   "sha256": "59738a64c3d8a704a3e287e27156fa3306b7bb25cd6cc56e6f5dddaaa676b354"
+   "sha256": "7d0fb200ab44209a655d487b5f07ba5d8f963ae86bc6b9cbbcb6f44773120262"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 41,
    "kept": 0,
-   "sha256": "55d5b7ccae52073fdc55344fbad8a78b63bb74ee6eb34c3bf818febed0b4bd20"
+   "sha256": "7bffde022544bdef93cb1c4df7088315fcf21e6d2a53cd9f8c0a77f5debb45f5"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -84,7 +84,7 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "fa5ff8ff3a9450be31c6bcec34085521fe092b7740103de7ba0f29ba14df7b07"
+   "sha256": "36e744f479160c13ccc1988386e833777b95ee1f60a79e2cdd2a816de40616ca"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
@@ -92,10 +92,34 @@
    "status": "ok",
    "entries": 20,
    "kept": 3,
-   "sha256": "2813af75a4843add02334f5d5f514b3290635504421d339a3871a98315e941db"
+   "sha256": "05bae8a5163909b1de3914055d168bb7b07a05ba0ad7071f77e59abd76b6d496"
   }
  ],
  "items": [
+  {
+   "title": "European Union offers to build data center for Moldova",
+   "link": "https://www.datacenterdynamics.com/en/news/european-union-offers-to-build-data-center-for-moldova/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-14T10:00:44Z",
+   "first_seen": "2026-11-14T17:14:04Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
   {
    "title": "Integrated data center infrastructure",
    "link": "https://www.datacenterdynamics.com/en/whitepapers/integrated-data-center-infrastructure/",

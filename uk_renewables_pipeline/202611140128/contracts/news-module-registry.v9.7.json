@@ -1,0 +1,48 @@
+{
+  "schema": "globalgrid2050.news-module-registry.v9.7",
+  "release": "9.7",
+  "policy": {
+    "one_responsibility_per_module": true,
+    "frontend_is_presentation_only": true,
+    "default_classification": "ABSTAIN",
+    "new_modules_must_publish_evidence": true,
+    "new_modules_must_not_create_repd_identity": true
+  },
+  "modules": [
+    {
+      "id": "source.committed-json.v9.7",
+      "role": "source-adapter",
+      "path": "scripts/news/adapters/committed-json-v9-7.mjs"
+    },
+    {
+      "id": "rule.technology.v9.7",
+      "role": "technology-evidence",
+      "path": "scripts/news/rules/technology-v9-7.mjs"
+    },
+    {
+      "id": "rule.geography.v9.7",
+      "role": "geography-evidence",
+      "path": "scripts/news/rules/geography-v9-7.mjs"
+    },
+    {
+      "id": "rule.uk-veto.v9.7",
+      "role": "uk-and-project-veto",
+      "path": "scripts/news/rules/uk-veto-v9-7.mjs"
+    },
+    {
+      "id": "classifier.regional.v9.7",
+      "role": "decision-orchestrator",
+      "path": "scripts/news/classifier-v9-7.mjs"
+    },
+    {
+      "id": "ledger.regional.v9.7",
+      "role": "normalise-ledger-telemetry",
+      "path": "scripts/news/ledger-v9-7.mjs"
+    },
+    {
+      "id": "writer.regional.v9.7",
+      "role": "deterministic-static-artifact-writer",
+      "path": "scripts/build/regional-news-v9-7.mjs"
+    }
+  ]
+}

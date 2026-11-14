@@ -1,0 +1,349 @@
+{
+ "schema": "globalgrid2050.pipeline-news.versions.v1",
+ "generated_at": "2026-11-14T01:32:00Z",
+ "generated_by": "automation/pipeline_release/verify.py --browser",
+ "where_run": "release train workspace before publication",
+ "note": "Every Pipeline News version from 202611132345 onward, newest first. Old versions stay published. 'verdict' is this tool's result when the file was written; 'ci' is the result of the Verify Pipeline News versions workflow on the pull request that published the version, recorded in the following version.",
+ "release_candidate": null,
+ "map_link_state": null,
+ "versions": [
+  {
+   "id": "202611140128",
+   "version": "V9.14",
+   "parent": "202611140058",
+   "date": "2026-11-14T01:28:00Z",
+   "state": "published",
+   "added": "Data-centre capex and politics headline panel below the newspaper; navigation links to the list of all versions and to the data-centres page.",
+   "data_changed": false,
+   "url": "202611140128/",
+   "tree": [
+    "227f2c9edc9440489fc7122cbd222fe991071a65"
+   ],
+   "verdict": "PASS",
+   "browser_checked": true,
+   "checks": {
+    "tree_unchanged": {
+     "pass": true,
+     "tree": "227f2c9edc9440489fc7122cbd222fe991071a65"
+    },
+    "runner": {
+     "pass": true,
+     "runner": "tests/run_v9_14.sh",
+     "last_line": "V9.14 (202611140128) validation suite: PASS (<repository>)"
+    },
+    "map_contract": {
+     "pass": true,
+     "rows": 7775,
+     "ok": 7775,
+     "with_point": 7749,
+     "without_point": 26
+    },
+    "grid_engine_contract": {
+     "pass": true,
+     "ok": 7775,
+     "examples": []
+    },
+    "map_links_identical_to_parent": {
+     "pass": true,
+     "identical": 7775,
+     "rows": 7775,
+     "parent": "202611140058"
+    },
+    "data_unchanged_from_parent": {
+     "pass": true,
+     "data_digest": "5bc68379308e88c9a7001fc2741eec0297cbc6059e29f4b503a826c4d10c1a18",
+     "declared_change": false
+    },
+    "features_kept": {
+     "pass": true,
+     "features": [
+      "map-deep-link",
+      "newspaper",
+      "csv-export",
+      "interconnectors-tab",
+      "datacentre-news-panel",
+      "versions-link",
+      "datacentres-page-link"
+     ],
+     "missing": []
+    },
+    "browser": {
+     "pass": true,
+     "views": [
+      {
+       "viewport": "desktop",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://cdn.jsdelivr.net/npm/chart.js",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/ventus-grid-engine/deeplink/receivers.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": true,
+        "nearest_datacentres": false,
+        "project_events": false,
+        "grid_engine_link": false
+       }
+      },
+      {
+       "viewport": "phone",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://cdn.jsdelivr.net/npm/chart.js",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/ventus-grid-engine/deeplink/receivers.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": true,
+        "nearest_datacentres": false,
+        "project_events": false,
+        "grid_engine_link": false
+       }
+      }
+     ]
+    }
+   },
+   "ci": null,
+   "merge_commit": null,
+   "known_faults": []
+  },
+  {
+   "id": "202611140058",
+   "version": "V9.13",
+   "parent": "202611132345",
+   "date": "2026-11-14T00:58:00Z",
+   "state": "published",
+   "added": "Release labels in place of candidate labels; CSV export states the October source count.",
+   "data_changed": false,
+   "url": "202611140058/",
+   "tree": [
+    "18f870e1548d1c0f8d9a9c53078f97471e4e68bf"
+   ],
+   "verdict": "PASS",
+   "browser_checked": true,
+   "checks": {
+    "tree_unchanged": {
+     "pass": true,
+     "tree": "18f870e1548d1c0f8d9a9c53078f97471e4e68bf"
+    },
+    "runner": {
+     "pass": true,
+     "runner": "tests/run_v9_13.sh",
+     "last_line": "V9.13 (202611140058) validation suite: PASS (<repository>)"
+    },
+    "map_contract": {
+     "pass": true,
+     "rows": 7775,
+     "ok": 7775,
+     "with_point": 7749,
+     "without_point": 26
+    },
+    "grid_engine_contract": {
+     "pass": true,
+     "ok": 7775,
+     "examples": []
+    },
+    "map_links_identical_to_parent": {
+     "pass": true,
+     "identical": 7775,
+     "rows": 7775,
+     "parent": "202611132345"
+    },
+    "data_unchanged_from_parent": {
+     "pass": true,
+     "data_digest": "5bc68379308e88c9a7001fc2741eec0297cbc6059e29f4b503a826c4d10c1a18",
+     "declared_change": false
+    },
+    "features_kept": {
+     "pass": true,
+     "features": [
+      "map-deep-link",
+      "newspaper",
+      "csv-export",
+      "interconnectors-tab"
+     ],
+     "missing": []
+    },
+    "browser": {
+     "pass": true,
+     "views": [
+      {
+       "viewport": "desktop",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://cdn.jsdelivr.net/npm/chart.js",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/ventus-grid-engine/deeplink/receivers.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": false,
+        "nearest_datacentres": false,
+        "project_events": false,
+        "grid_engine_link": false
+       }
+      },
+      {
+       "viewport": "phone",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://cdn.jsdelivr.net/npm/chart.js",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/ventus-grid-engine/deeplink/receivers.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": false,
+        "nearest_datacentres": false,
+        "project_events": false,
+        "grid_engine_link": false
+       }
+      }
+     ]
+    }
+   },
+   "ci": null,
+   "merge_commit": null,
+   "known_faults": []
+  },
+  {
+   "id": "202611132345",
+   "version": "V9.12",
+   "parent": "202609082224",
+   "date": "2026-11-13T23:45:00Z",
+   "state": "published",
+   "added": "REPD October 2026 (Q3 2026) register: 7,775 solar, battery and wind records at 1 MW and above.",
+   "data_changed": true,
+   "url": "202611132345/",
+   "tree": [
+    "a3f76f610dff9da15090df56181fdbccc2e210fa",
+    "0c7a4ed5ea369e4a4e71a45cfa6fe9c186fae773"
+   ],
+   "verdict": "PASS",
+   "browser_checked": true,
+   "checks": {
+    "tree_unchanged": {
+     "pass": true,
+     "tree": "0c7a4ed5ea369e4a4e71a45cfa6fe9c186fae773"
+    },
+    "runner": {
+     "pass": true,
+     "runner": "tests/run_v9_12.sh",
+     "last_line": "V9.12 (202611132345) validation suite: PASS (<repository>)"
+    },
+    "map_contract": {
+     "pass": true,
+     "rows": 7775,
+     "ok": 7775,
+     "with_point": 7749,
+     "without_point": 26
+    },
+    "grid_engine_contract": {
+     "pass": true,
+     "ok": 7775,
+     "examples": []
+    },
+    "data_unchanged_from_parent": {
+     "pass": true,
+     "data_digest": "5bc68379308e88c9a7001fc2741eec0297cbc6059e29f4b503a826c4d10c1a18",
+     "declared_change": true,
+     "note": "parent is outside the checked range"
+    },
+    "features_kept": {
+     "pass": true,
+     "features": [
+      "map-deep-link",
+      "newspaper",
+      "csv-export",
+      "interconnectors-tab"
+     ],
+     "missing": []
+    },
+    "browser": {
+     "pass": true,
+     "views": [
+      {
+       "viewport": "desktop",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://cdn.jsdelivr.net/npm/chart.js",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/ventus-grid-engine/deeplink/receivers.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": false,
+        "nearest_datacentres": false,
+        "project_events": false,
+        "grid_engine_link": false
+       }
+      },
+      {
+       "viewport": "phone",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://cdn.jsdelivr.net/npm/chart.js",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/ventus-grid-engine/deeplink/receivers.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": false,
+        "nearest_datacentres": false,
+        "project_events": false,
+        "grid_engine_link": false
+       }
+      }
+     ]
+    }
+   },
+   "ci": null,
+   "merge_commit": "07b6d51702a12aa3d69833d91e43f84d8901ba78",
+   "known_faults": []
+  }
+ ]
+}

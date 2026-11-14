@@ -1,0 +1,51 @@
+{
+  "schema": "globalgrid2050.v9.legacy-integrity.v1",
+  "recorded_at_utc": "2026-08-23",
+  "baseline_commit": "0750c9854f233787fa74fc4e535cfd2b585c9d52",
+  "meaning": "These Git objects are immutable engineering evidence. They preserve prior behaviour independently of any AI conversation or model memory.",
+  "versions": {
+    "V1": {
+      "path": "uk_renewables_pipeline/dashboard.html",
+      "git_blob": "e2d99e37d6388d3f498a79696773238ad689574b",
+      "sha256": "341da90d9c4de1ad2535ad82622bea14cdaaea7524e57f2cf69714f9b2ec879a"
+    },
+    "V2": {
+      "path": "uk_renewables_pipeline/dashboard_v2_2026-08-22.html",
+      "git_blob": "cb953a67332d3d29355945fb58a513e30c681013",
+      "sha256": "4b43797175c02680f23d459ccc8971f6356af5864696915f5a6aab923d8ba738"
+    },
+    "V3": {
+      "path": "uk_renewables_pipeline/dashboard_v3_live_2026-08-22.html",
+      "git_blob": "911921e7aa254f0bfdecc122d975cc0e3af130c7",
+      "sha256": "23a6e4d23927538c1f2d98bec097aee2b5ff5940ae6bffa60cdd9e7e695c8f13"
+    },
+    "V4": {
+      "path": "uk_renewables_pipeline/dashboard_v4_live.html",
+      "git_blob": "f356b37b1c6202150f3a5bb404a57ee329212f70",
+      "sha256": "94b126a89ca5bf125b785900fc57a713adfd0fe9074510a76b34c05c1af00c51"
+    },
+    "V5": {
+      "path": "uk_renewables_pipeline/dashboard_v5_live.html",
+      "git_blob": "ac33daf67dba8951527b06761ab587003a19f60e",
+      "sha256": "af7045b3fd09435bcbc2dc5e6f63654c34ec1ee202c908eb156a93c1ae9f5bfc"
+    },
+    "V6": {
+      "path": "uk_renewables_pipeline/dashboard_v6_live.html",
+      "git_blob": "c2ada7161cc412f8aca7adff538994d2e0bcda21",
+      "sha256": "2cdb541622a8c0a587af30c1ef600b1c77dc8e151a3c412bc444ec9ba1cc636d"
+    },
+    "V7": {
+      "path": "uk_renewables_pipeline/v7",
+      "git_tree": "9ad8cfe9cdf26948ed3ad3898822977f9198006a"
+    },
+    "V8": {
+      "path": "uk_renewables_pipeline/v8",
+      "git_tree": "b319b66d78bee2f5c4a6171fd4df3768a2fb94f6"
+    }
+  },
+  "policy": {
+    "prior_versions_are_read_only": true,
+    "v9_build_must_fail_if_any_marker_changes": true,
+    "history_is_evidence_not_ai_memory": true
+  }
+}

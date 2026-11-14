@@ -1,0 +1,174 @@
+name: Agent 3 Pipeline News P2 independent acceptance (HOLD-only)
+
+# Independent, read-only acceptance engineering. This is a candidate preflight,
+# NOT an auto-promoter. No secrets, write token, data push, merge or deployment.
+on:
+  pull_request:
+    paths:
+      - 'automation/pipeline_release/agent3_readonly_gate.py'
+      - 'automation/pipeline_release/test_agent3_readonly_gate.py'
+      - 'docs/news/AGENT3-P2-RELEASE-ACCEPTANCE.md'
+      - '.github/workflows/agent3-p2-release-acceptance.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  negative-fixtures:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Read-only script syntax and Python unit tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile             automation/pipeline_release/agent3_readonly_gate.py             automation/pipeline_release/agent3_served_sha.py             automation/pipeline_release/agent3_rollback_dryrun.py             automation/pipeline_release/test_agent3_readonly_gate.py
+          node --check automation/pipeline_release/agent3_browser_csv_map.mjs
+      - name: Run independently owned synthetic good and adversarial bad fixtures
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 automation/pipeline_release/test_agent3_readonly_gate.py -v 2>&1 | tee agent3-p2-negative.log
+      - name: Upload actual negative test logs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: agent3-p2-adversarial-fixtures
+          path: agent3-p2-negative.log
+          if-no-files-found: error
+          retention-days: 90
+
+  pinned-original-and-history:
+    needs: negative-fixtures
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact candidate QA head and complete historical trees
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          path: globalgrid
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Independently fetch original DESNZ Q3 CSV/XLSX from fixed historic Git SHA
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: Ventusltd/globalgrid2050
+          ref: 213d1a79e876d80775f1be50caec94a8c449e09b
+          path: official
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /evidence/repd-2026-q3/official-sources/REPD_Publication_Q3_2026.csv
+            /evidence/repd-2026-q3/official-sources/REPD_Publication_Q3_2026.xlsx
+      - name: Independently pin the real top-200 REPD solar identity roster
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: Ventusltd/globalgrid2050
+          ref: 91727c22a9ee13f433d4e82d8949c9aeac5bd3be
+          path: top200
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /automation/news/signals/top200_solar.json
+      - name: Checkout pinned real homepage-owner release logic for non-destructive rehearsal
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: Ventusltd/globalgrid2050-homepage
+          ref: c7c1ed735a52e9fdb9e74db6331c5ad0e188a001
+          path: homepage-owner
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /scripts/releases.py
+            /data/homepage.json
+      - name: Fetch independently reviewed TestCode verifier at fixed Agent 3 commit
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: Ventusltd/testcode
+          ref: dffac137cef300b734e9830e44e3cf11b9acb728
+          path: independent-testcode
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /drivers/agent3-release-integrity-v1.mjs
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '20'
+      - name: Check immutable original October 2026 bytes against hard-coded independent SHA256
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf '%s  %s\n' \
+            '48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862' \
+            'official/evidence/repd-2026-q3/official-sources/REPD_Publication_Q3_2026.csv' \
+            '87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea' \
+            'official/evidence/repd-2026-q3/official-sources/REPD_Publication_Q3_2026.xlsx' \
+            | sha256sum --strict --check | tee source-hashes.log
+      - name: Check pinned top200 bytes and exact identity uniqueness
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf '%s  %s\n'             '3a23c8495f00e613a8f0f81b2db5374a19ba89d832e913c6f821823def6b49a5'             'top200/automation/news/signals/top200_solar.json'             | sha256sum --strict --check | tee top200-hash.log
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          rows=json.loads(Path("top200/automation/news/signals/top200_solar.json").read_text())
+          refs=[str(x["repd_ref"]) for x in rows]
+          assert len(rows)==200 and len(set(refs))==200
+          assert all(r.isdecimal() for r in refs)
+          assert sorted(x["rank"] for x in rows)==list(range(1,201))
+          print("200 unique exact ranked REPD refs; actual original bytes pinned")
+          PY
+      - name: Verify original official Ref IDs and published tree hashes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git -C globalgrid rev-parse HEAD | tee qa-head.txt
+          git -C official rev-parse HEAD | tee official-head.txt
+          node independent-testcode/drivers/agent3-release-integrity-v1.mjs \
+            --source-csv official/evidence/repd-2026-q3/official-sources/REPD_Publication_Q3_2026.csv \
+            --source-xlsx official/evidence/repd-2026-q3/official-sources/REPD_Publication_Q3_2026.xlsx \
+            --release-repo globalgrid \
+            --versions globalgrid/uk_renewables_pipeline/versions.json \
+            --out independent-source-history.json
+          jq -e '.offline_status == "PASS" and .publication_status == "HOLD" and .acceptance.release_authorised == false' independent-source-history.json
+      - name: Read-only baseline release acceptance checklist (never authorises deployment)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 globalgrid/automation/pipeline_release/agent3_readonly_gate.py \
+            --repo globalgrid --out agent3-baseline.json
+          jq -e '.offline_integrity_status == "PASS" and .acceptance_status == "UNVERIFIED" and .publication_status == "HOLD" and .release_authorised == false' agent3-baseline.json
+      - name: Rehearse true owner-homepage logic in memory only (synthetic non-release candidate)
+        shell: bash
+        run: |
+          set -euo pipefail
+          git -C homepage-owner rev-parse HEAD | tee owner-head.txt
+          python3 globalgrid/automation/pipeline_release/agent3_rollback_dryrun.py \
+            --homepage-repo homepage-owner \
+            --candidate-id 202611142359 \
+            --integration-sha "$(cat qa-head.txt)" \
+            --out agent3-synthetic-rollback.json
+          jq -e '.status == "PASS" and .published_or_promoted == false and .real_live_rollback == "UNVERIFIED" and .restored_operative == "202611140306"' agent3-synthetic-rollback.json
+      - name: Archive exact source, SHA and history checks with no silent missing outputs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: agent3-p2-pinned-source-history-HOLD
+          path: |
+            agent3-baseline.json
+            independent-source-history.json
+            source-hashes.log
+            top200-hash.log
+            official-head.txt
+            owner-head.txt
+            qa-head.txt
+            agent3-synthetic-rollback.json
+          if-no-files-found: error
+          retention-days: 90

@@ -7,6 +7,7 @@ closed if the public site is inaccessible or if bytes differ from checkout.
 import hashlib
 import json
 import os
+import shutil
 from pathlib import Path
 import time
 from urllib.error import HTTPError, URLError
@@ -59,7 +60,10 @@ def browser_checks():
     from playwright.sync_api import sync_playwright
     findings = {}
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True, args=["--no-sandbox"])
+        chrome = next((shutil.which(name) for name in ("google-chrome", "google-chrome-stable", "chromium", "chromium-browser") if shutil.which(name)), None)
+        if not chrome:
+            raise RuntimeError("Hosted runner has no installed Chrome/Chromium binary")
+        browser = p.chromium.launch(headless=True, executable_path=chrome, args=["--no-sandbox"])
         for width in (1440, 390):
             page = browser.new_page(viewport={"width": width, "height": 900}, accept_downloads=True)
             errors = []

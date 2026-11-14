@@ -137,8 +137,12 @@ function findFirstProjects(parts){
     u.searchParams.set("technology",p.technology||"");
     if(p.geometry_status==="valid"&&Number.isFinite(p.latitude)&&Number.isFinite(p.longitude)){
       u.searchParams.set("latitude",p.latitude);u.searchParams.set("longitude",p.longitude);u.searchParams.set("zoom","12");
+      map.append(link("MAP",u.href));
+    }else{
+      const noMap=el("span","small-note","NO MAP · REPD location unavailable");
+      map.append(noMap);
     }
-    map.append(link("MAP",u.href));tr.append(map);table.append(tr);
+    tr.append(map);table.append(tr);
   }
   return all.length;
 }
@@ -170,6 +174,8 @@ async function loadProjects(){
 }
 function validArticle(a,asOf){
   if(!qualify(a))return false;
+  // Independently enforce public-language requirements on any externally supplied JSON.
+  if(/\b(?:fuck(?:ing)?|shit|cunt|motherfucker|bullshit)\b/i.test(a.headline)) return false;
   const d=absoluteDate(a.published_utc);
   if(!d || d.getTime()>asOf+3_600_000 || (asOf-d.getTime())>14*86400000)return false;
   if(!a.source || !a.id || !/^[a-f0-9]{16,64}$/.test(a.id))return false;

@@ -1,0 +1,13 @@
+{
+  "file": "homepage_v139.html",
+  "source": "Reconstructed from SHA256-verified globalgrid2050-homepage commit cdd5e1f295043ea6e69077854204d7e34071a64a via the production import_homepage_owner.py substitutions. Matches the independently measured public root homepage SHA256 in hosted run 43567378340; checkout root index.html is not authoritative.",
+  "homepage_versions_entries_before": 237,
+  "lines": 69,
+  "words": 3525,
+  "characters": 53094,
+  "bytes": 53098,
+  "sha256": "0787bd5fe3e4e9a1cc27db48bb82f7d13942894c416be77a1b99bc02e695b03c",
+  "intention": "Before pinning globalgrid2050-homepage 92ba874c1668b39e225382b2ab9eb5900d3a3f46 (GridAtlas V9.189 202611132345), retain the previously served homepage exactly. Preserve Q3 Pipeline News and all earlier release links. This is a restore point only; not a production pointer change.",
+  "measurement_workflow": "Existing manual homepage-restore-point-check.yml could not be dispatched with available connector; independently hosted public served-byte run 43567378340 PASS, artifact 14102852682.",
+  "numbering": "v138 is the highest existing restore-point file; v139 is additive, no legacy overwrite."
+}

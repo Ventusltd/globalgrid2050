@@ -56,7 +56,7 @@ ETHICS_RE = re.compile(r"\b(ethics|accountability|data privacy|human rights|gove
 UNCERTAIN_RE = re.compile(r"\b(rumo[u]?r|unconfirmed|allegedly|sponsored|advertorial|paid partnership)\b", re.I)
 BAD_WORDS = frozenset(("fuck","fucking","shit","cunt","motherfucker","bullshit"))
 ASSET_TECH_RE = re.compile(r"\b(bess|battery|solar|wind|energy storage|power plant|renewable)\b", re.I)
-CORPORATE_FINANCE_RE = re.compile(r"\b(?:buys? (?:an? )?(?:equity )?stake|acquires? (?:an? )?(?:equity )?stake|holdco (?:facility|loan)|share purchase|buyout|takeover)\b", re.I)
+CORPORATE_FINANCE_RE = re.compile(r"\b(?:(?:buys?|acquires?|purchases?)\b.{0,90}\b(?:stake|shares|equity)\b|holdco\b.{0,40}\b(?:facility|loan)\b|share purchase|buyout|takeover)\b", re.I)
 URL_ALLOWED = frozenset(("www.gov.uk","gov.uk","www.datacenterdynamics.com","datacenterdynamics.com",
                          "www.energy-storage.news","energy-storage.news","www.pv-magazine.com","pv-magazine.com"))
 MIN_CAPEX_USD = 25_000_000

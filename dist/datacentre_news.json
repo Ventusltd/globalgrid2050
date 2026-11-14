@@ -1,11 +1,11 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-14T02:22:39Z",
+ "generated_at": "2026-11-14T03:02:27Z",
  "status": "ok",
  "counts": {
-  "items": 5,
+  "items": 4,
   "capex": 3,
-  "politics": 2,
+  "politics": 1,
   "with_register_site": 0,
   "feeds_ok": 9,
   "feeds_failed": 0
@@ -17,7 +17,7 @@
  },
  "scope": "Headlines and links from public RSS/Atom feeds only; no article text is stored or republished. Kept when the headline or feed summary names data centres and either money (capex) or policy (politics).",
  "caveats": [
-  "A site is attached only when the headline names a site or operator in the UK data-centre register; an operator match lists that operator's register sites, not necessarily the site in the story.",
+  "sites: only register sites the headline names. operator_sites: register sites of an operator the headline names, listed for review only and not evidence that the story concerns them. capex_basis 'financing' means funds, rounds or amounts, not verified project spend. pinned items were placed by the owner and are not ranked as recent news. Sponsored entries are dropped.",
   "repd_nearby is the straight-line count and stated MW of live REPD solar, battery and wind projects within 10 km of the register point; it is not a connection, offtake or capacity claim.",
   "Blank REPD capacity is unknown, never zero: projects_mw_unknown counts them."
  ],
@@ -28,7 +28,7 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "sha256": "b77896450f64000c41e5396e57027631dc34a03158bc88ad38ff2b58091beed6"
+   "sha256": "fd2090ced3ff98f0225999d1e78803bda6df4102331c770e106482a735faa1a7"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
@@ -36,7 +36,7 @@
    "status": "ok",
    "entries": 56,
    "kept": 0,
-   "sha256": "dcf7ee5b78a6d9d87287a4c6ee3e2bf3f2d7e4f0cdc0778adff029de83ff3db7"
+   "sha256": "9327516726d8d1f1cc82c7dc0d25276a29b38e6e268961601b510bb8eab4b3b6"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
@@ -44,7 +44,7 @@
    "status": "ok",
    "entries": 60,
    "kept": 0,
-   "sha256": "52c5b90551b45b52fd11ffe95efc9eaa8d19369affef0af5f2f38d81206cf157"
+   "sha256": "59738a64c3d8a704a3e287e27156fa3306b7bb25cd6cc56e6f5dddaaa676b354"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 41,
    "kept": 0,
-   "sha256": "f123deda064d7c225a160c30f80d3451004d17f94fdfd6f419048d7497f51a31"
+   "sha256": "55d5b7ccae52073fdc55344fbad8a78b63bb74ee6eb34c3bf818febed0b4bd20"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -84,14 +84,14 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "888cb3c7ff5b1f4d90ffdb7aa27450d2882305f85219f32da9a0bfadf2af50c5"
+   "sha256": "fa5ff8ff3a9450be31c6bcec34085521fe092b7740103de7ba0f29ba14df7b07"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
    "source": "DatacenterDynamics",
    "status": "ok",
    "entries": 20,
-   "kept": 4,
+   "kept": 3,
    "sha256": "2813af75a4843add02334f5d5f514b3290635504421d339a3871a98315e941db"
   }
  ],
@@ -114,28 +114,10 @@
     ],
     "politics": []
    },
+   "capex_basis": "build",
+   "pinned": false,
    "sites": [],
-   "site_matches": 0
-  },
-  {
-   "title": "Sponsored: Why AI infrastructure must rethink facility water loop management",
-   "link": "https://www.datacenterdynamics.com/en/opinions/why-ai-infrastructure-must-rethink-facility-water-loop-management/",
-   "source": "DatacenterDynamics",
-   "date": "2026-11-13T16:00:00Z",
-   "first_seen": "2026-11-14T01:16:22Z",
-   "lanes": [
-    "politics"
-   ],
-   "matched_terms": {
-    "datacentre": [
-     "AI infrastructure"
-    ],
-    "capex": [],
-    "politics": [
-     "water"
-    ]
-   },
-   "sites": [],
+   "operator_sites": [],
    "site_matches": 0
   },
   {
@@ -157,7 +139,10 @@
     ],
     "politics": []
    },
+   "capex_basis": "financing",
+   "pinned": false,
    "sites": [],
+   "operator_sites": [],
    "site_matches": 0
   },
   {
@@ -178,7 +163,10 @@
     ],
     "politics": []
    },
+   "capex_basis": "build",
+   "pinned": false,
    "sites": [],
+   "operator_sites": [],
    "site_matches": 0
   },
   {
@@ -198,7 +186,10 @@
      "owner request 2026-11-14"
     ]
    },
+   "capex_basis": null,
+   "pinned": true,
    "sites": [],
+   "operator_sites": [],
    "site_matches": 0
   }
  ]

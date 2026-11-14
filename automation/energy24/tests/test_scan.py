@@ -155,6 +155,33 @@ class Energy24Tests(unittest.TestCase):
         self.assertEqual(rows[0]["headline"],"100MW UK wind energy project")
         self.assertNotIn("html",rows[0])
 
+    def test_publication_requires_independent_uk_and_licensed_dc_identity(self):
+        base = {"release": "2026q3", "articles": []}
+        audit = {"release": "2026q3", "markets": {k: "time" for k in scan.MARKETS}}
+        ready, reasons = scan.publication_gate(base, audit)
+        self.assertFalse(ready)
+        self.assertIn("fewer_than_two_publishers", reasons)
+        self.assertIn("no_exact_uk_repd_news_identity", reasons)
+        self.assertIn("no_licensed_exact_dc_site_identity", reasons)
+        base["articles"] = [
+            {"source": "Official", "category": "uk-repd", "repd_ref": "12345",
+             "qualification": "repd_exact_ref"},
+            {"source": "Independent publisher", "category": "data-centres",
+             "dc_site_id": "dcuk-123", "identity_evidence": "operator_only",
+             "site_licence_verified": True},
+        ]
+        self.assertFalse(scan.publication_gate(base, audit)[0])
+        base["articles"][1]["identity_evidence"] = "verified_exact_site"
+        base["articles"][1]["site_licence_verified"] = False
+        self.assertFalse(scan.publication_gate(base, audit)[0])
+        base["articles"][1]["site_licence_verified"] = True
+        self.assertEqual(scan.publication_gate(base, audit), (True, []))
+        base["articles"][1]["source"] = "Official"
+        self.assertFalse(scan.publication_gate(base, audit)[0])
+        base["articles"][1]["source"] = "Independent publisher"
+        audit["release"] = "2026q4"
+        self.assertIn("release_mismatch", scan.publication_gate(base, audit)[1])
+
     def test_dedupe_and_audit(self):
         p = item("UK data center will invest $50 million")
         xml = b'<rss><channel><item><title>New 100MW solar plant</title><link>https://www.datacenterdynamics.com/en/news/example/</link><pubDate>Sat, 14 Nov 2026 09:00:00 GMT</pubDate></item><item><title>New 100MW solar plant</title><link>https://www.datacenterdynamics.com/en/news/example/</link><pubDate>Sat, 14 Nov 2026 09:00:00 GMT</pubDate></item></channel></rss>'

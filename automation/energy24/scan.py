@@ -346,6 +346,32 @@ def classify(item: dict, repd: dict, now: datetime) -> tuple[dict | None, str]:
     return record, "accepted"
 
 
+
+def publication_gate(snapshot: dict, audit: dict) -> tuple[bool, list[str]]:
+    """Fail closed until UK official identity and DC site provenance are independently verified.
+
+    Publisher diversity is necessary but not sufficient. A named operator,
+    nearby REPD asset or generic data-centre story is not a verified site.
+    """
+    reasons = []
+    articles = snapshot.get("articles") or []
+    publishers = {x.get("source") for x in articles if x.get("source")}
+    if len(publishers) < 2:
+        reasons.append("fewer_than_two_publishers")
+    if not any(x.get("category") == "uk-repd" and x.get("repd_ref")
+               and x.get("qualification") == "repd_exact_ref" for x in articles):
+        reasons.append("no_exact_uk_repd_news_identity")
+    if not any(x.get("category") == "data-centres" and x.get("dc_site_id")
+               and x.get("identity_evidence") == "verified_exact_site"
+               and x.get("site_licence_verified") is True for x in articles):
+        reasons.append("no_licensed_exact_dc_site_identity")
+    if snapshot.get("release") != audit.get("release"):
+        reasons.append("release_mismatch")
+    if len(audit.get("markets") or {}) != 6:
+        reasons.append("six_clocks_missing")
+    return not reasons, reasons
+
+
 def local_market_times(now: datetime) -> dict[str, str]:
     return {city: now.astimezone(ZoneInfo(tz)).isoformat(timespec="minutes")
             for city, tz in MARKETS.items()}

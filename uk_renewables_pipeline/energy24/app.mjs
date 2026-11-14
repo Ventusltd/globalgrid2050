@@ -1,4 +1,5 @@
-const BASE = "../202611132345/";
+let BASE = "../202611132345/";
+let RELEASE = null;
 const REF_KEY = /^([1-9]\d{0,7})$/;
 const QUALIFIED = new Set(["uk-repd","data-centres","global-projects","ai-investment","cybersecurity","ethics"]);
 const STRATEGIC = new Set(["cybersecurity","ethics"]);
@@ -28,6 +29,7 @@ function verifiedUrl(s) {
   catch {return null;}
 }
 function absoluteDate(s) {
+  if(typeof s!=="string" || !s.trim()) return null;
   const d=new Date(s);
   return Number.isFinite(d.getTime()) ? d : null;
 }
@@ -145,7 +147,7 @@ async function loadProjects(){
     const r=await fetch(BASE+"data/v9.1/build_manifest.json",{cache:"no-store"});
     if(!r.ok)throw Error("REPD manifest HTTP "+r.status);
     const manifest=await r.json();
-    if(manifest.project_count!==7775||!Array.isArray(manifest.project_partitions)||manifest.project_partitions.length<15)throw Error("REPD release count/partition contract differs from verified Q3.");
+    if(!RELEASE || manifest.project_count!==RELEASE.registry_count||!Array.isArray(manifest.project_partitions)||!manifest.project_partitions.length)throw Error("REPD release count/partition contract differs from explicit versioned source pointer.");
     const parts=await Promise.all(manifest.project_partitions.map(async part=>{
       const rr=await fetch(BASE+part.path);
       if(!rr.ok)throw Error("REPD partition "+part.path+" HTTP "+rr.status);
@@ -154,9 +156,9 @@ async function loadProjects(){
       return data;
     }));
     const n=findFirstProjects(parts);
-    if(n!==manifest.project_count||state.projects.size!==7775)throw Error("REPD full register identity is incomplete or duplicated");
+    if(n!==manifest.project_count||state.projects.size!==RELEASE.registry_count)throw Error("REPD full register identity is incomplete or duplicated");
     state.manifest=manifest;
-    $("#repd-rows").textContent="14,967";
+    $("#repd-rows").textContent=RELEASE.unique_repd_refs.toLocaleString("en-GB");
     return true;
   }catch(error){
     $("#projects-table").replaceChildren(el("tr",null));
@@ -179,7 +181,7 @@ async function loadNews(){
     const response=await fetch("./data/news.latest.json",{cache:"no-store"});
     if(!response.ok)throw Error("Feed HTTP "+response.status);
     const payload=await response.json();
-    if(payload.schema!==NEWS_SCHEMA || !Array.isArray(payload.articles))throw Error("Invalid news contract");
+    if(payload.schema!==NEWS_SCHEMA || !Array.isArray(payload.articles) || payload.release!==RELEASE?.release_id)throw Error("Invalid or mismatched news release contract");
     const issued=absoluteDate(payload.generated_utc);
     if(!issued)throw Error("No verified scan timestamp");
     const age=Date.now()-issued.getTime();
@@ -199,5 +201,28 @@ async function loadNews(){
   }
   renderNews();
 }
-await loadProjects();
+async function loadReleasePointer(){
+  const r=await fetch("./data/release.json",{cache:"no-store"});
+  if(!r.ok)throw Error("REPD version pointer unavailable ("+r.status+")");
+  const p=await r.json();
+  if(p.schema!=="globalgrid2050.energy24.release-pointer.v1" ||
+    !/^20\d{2}q[1-4]$/.test(p.release_id) || !/^20\d{10}$/.test(p.release_directory) ||
+    !Number.isInteger(p.registry_count) || p.registry_count<1 ||
+    !Number.isInteger(p.unique_repd_refs) || p.unique_repd_refs<p.registry_count ||
+    !/^[a-f0-9]{64}$/.test(p.official_csv_sha256))
+      throw Error("REPD version pointer invalid; refusing implicit fallback");
+  BASE="../"+p.release_directory+"/";
+  RELEASE=p;
+  $("#repd-rows").title=p.source_label+" · exact official source SHA256 "+p.official_csv_sha256;
+}
+try{
+  await loadReleasePointer();
+  await loadProjects();
+}catch(error){
+  state.errors.push("Version: "+String(error));
+  $("#repd-rows").textContent="UNAVAILABLE";
+  $("#projects-table").replaceChildren();
+  const tr=el("tr"),td=el("td",null,"Verified REPD version unavailable: "+String(error));
+  td.colSpan=6;tr.append(td);$("#projects-table").append(tr);
+}
 await loadNews();

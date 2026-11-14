@@ -1,0 +1,189 @@
+name: Project signals (top 200 solar, twice a day, data branch)
+# Owner, 14 Nov 2026: "See if you can create fetch scripts that can find at least one news signal for the top 200
+# projects only in the REPD database specifically for solar only please." and "Default to its local authority
+# planning application file if nothing significant discovered."
+# An owner-requested scheduled workflow (an exception to the 000_freeze manual-only rule, like pipeline-headlines.yml).
+# It runs the fetch scripts under automation/news/signals/ (official.py and trade.py only if they are present;
+# index.py: BBC News RSS, Guardian RSS, GDELT), then combine.py, and publishes ONE file the page reads,
+# dist/project_signals.json, to the branch project-signals-data (with the part files and the GDELT answer cache
+# beside it under dist/signals_state/, so the next run keeps earlier signals and asks GDELT only for what is stale).
+# It never pushes to main, never opens a PR, never deploys. A push made with GITHUB_TOKEN starts no other workflow.
+# One script or one source failing is recorded in the file and does not fail the job: the combiner runs with whatever
+# parts exist, and every one of the 200 projects always has its planning file. The job fails only when the combiner
+# itself fails (a project with neither a signal nor a planning file) and there is no earlier file to keep.
+# Two slots a day at off-peak minutes; scheduled runs in this repository can arrive late or be dropped.
+# On a pull request that touches the scripts, the "probe" job (read-only, writes to no branch) runs index.py and the
+# combiner against the live sources and prints coverage, source health and the comparison with the reviewers'
+# ground truth in the job summary.
+on:
+  schedule:
+    - cron: '23 5,17 * * *'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'automation/news/signals/**'
+      - 'automation/news/datacentre_feed.py'
+      - '.github/workflows/project-signals.yml'
+permissions:
+  contents: read
+concurrency:
+  group: project-signals-${{ github.event_name == 'pull_request' && github.ref || 'data' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+env:
+  DATA_BRANCH: project-signals-data
+  SIG: automation/news/signals
+jobs:
+  probe:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    permissions:
+      contents: read
+    env:
+      GDELT_MAX: '45'
+      GDELT_EXPERIMENT: '2'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Tests (offline)
+        run: |
+          python -m pip install --quiet pytest
+          python -m pytest -q -p no:cacheprovider "$SIG/tests/test_index.py" "$SIG/tests/test_combine.py"
+      - name: Run index.py against the live sources (no branch written)
+        run: |
+          mkdir -p "$RUNNER_TEMP/parts"
+          python "$SIG/index.py" --out "$RUNNER_TEMP/parts/index.json" --probe "$RUNNER_TEMP/index-probe.md" \
+            --cache "$RUNNER_TEMP/parts/gdelt_cache.json" --gdelt-max "$GDELT_MAX" --gdelt-experiment "$GDELT_EXPERIMENT"
+          cat "$RUNNER_TEMP/index-probe.md" | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Other teams' scripts, only if present on this ref
+        run: |
+          for team in official trade; do
+            script="$SIG/$team.py"
+            if [ -f "$script" ]; then
+              timeout 20m python "$script" --out "$RUNNER_TEMP/parts/$team.json" || echo "::warning::$team.py did not finish; the combiner runs without it"
+            else
+              echo "$team.py is not on this ref; the combiner runs without it"
+            fi
+          done
+      - name: Combine
+        run: |
+          python "$SIG/combine.py" --official "$RUNNER_TEMP/parts/official.json" --trade "$RUNNER_TEMP/parts/trade.json" \
+            --index "$RUNNER_TEMP/parts/index.json" --out "$RUNNER_TEMP/parts/project_signals.json" \
+            --summary "$RUNNER_TEMP/combine-probe.md"
+          cat "$RUNNER_TEMP/combine-probe.md" | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: project-signals-probe
+          path: |
+            ${{ runner.temp }}/parts/*.json
+            ${{ runner.temp }}/*-probe.md
+          retention-days: 14
+  refresh:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Tests (offline)
+        run: |
+          python -m pip install --quiet pytest
+          python -m pytest -q -p no:cacheprovider "$SIG/tests/test_index.py" "$SIG/tests/test_combine.py"
+      - name: Bring in the previous file, parts and cache from the data branch
+        run: |
+          mkdir -p dist/signals_state
+          if git ls-remote --exit-code --heads origin "$DATA_BRANCH" >/dev/null; then
+            git fetch --depth=1 origin "$DATA_BRANCH"
+            git show FETCH_HEAD:dist/project_signals.json > dist/project_signals.json || rm -f dist/project_signals.json
+            for name in official.json trade.json index.json gdelt_cache.json; do
+              git show "FETCH_HEAD:dist/signals_state/$name" > "dist/signals_state/$name" 2>/dev/null || rm -f "dist/signals_state/$name"
+            done
+          fi
+          mkdir -p "$RUNNER_TEMP/parts"
+      - name: Official sources (only if the script is present)
+        continue-on-error: true
+        run: |
+          if [ -f "$SIG/official.py" ]; then
+            timeout 25m python "$SIG/official.py" --out "$RUNNER_TEMP/parts/official.json"
+          else
+            echo "official.py is not on this ref"
+          fi
+      - name: Trade press (only if the script is present)
+        continue-on-error: true
+        run: |
+          if [ -f "$SIG/trade.py" ]; then
+            timeout 25m python "$SIG/trade.py" --out "$RUNNER_TEMP/parts/trade.json"
+          else
+            echo "trade.py is not on this ref"
+          fi
+      - name: BBC, Guardian and GDELT
+        continue-on-error: true
+        run: |
+          timeout 35m python "$SIG/index.py" --out "$RUNNER_TEMP/parts/index.json" --previous dist/signals_state/index.json \
+            --cache dist/signals_state/gdelt_cache.json --gdelt-max 150 --probe "$RUNNER_TEMP/index-report.md"
+      - name: Keep the last good part where a script gave none this run
+        run: |
+          for team in official trade index; do
+            if python -c "import json,sys; d=json.load(open(sys.argv[1])); assert d['schema']=='project-signals-part.v1'" "$RUNNER_TEMP/parts/$team.json" 2>/dev/null; then
+              cp "$RUNNER_TEMP/parts/$team.json" "dist/signals_state/$team.json"
+            elif [ -f "dist/signals_state/$team.json" ]; then
+              echo "::warning::$team: no part from this run; the part of the previous run is used"
+            fi
+          done
+      - name: Combine into dist/project_signals.json
+        run: |
+          python "$SIG/combine.py" --official dist/signals_state/official.json --trade dist/signals_state/trade.json \
+            --index dist/signals_state/index.json --previous dist/project_signals.json --out dist/project_signals.json \
+            --summary "$RUNNER_TEMP/combine-report.md"
+      - name: Summary
+        if: always()
+        run: |
+          for f in "$RUNNER_TEMP/combine-report.md" "$RUNNER_TEMP/index-report.md"; do
+            if [ -f "$f" ]; then cat "$f" >> "$GITHUB_STEP_SUMMARY"; fi
+          done
+      - name: Publish to the data branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          pub="$RUNNER_TEMP/pub"
+          if git ls-remote --exit-code --heads origin "$DATA_BRANCH" >/dev/null; then
+            git worktree add --detach "$pub" FETCH_HEAD
+          else
+            git worktree add --detach "$pub" HEAD
+            git -C "$pub" checkout --orphan project-signals-tmp
+            git -C "$pub" rm -rq --cached .
+            find "$pub" -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          fi
+          mkdir -p "$pub/dist/signals_state"
+          cp dist/project_signals.json "$pub/dist/project_signals.json"
+          for name in official.json trade.json index.json gdelt_cache.json; do
+            if [ -f "dist/signals_state/$name" ]; then cp "dist/signals_state/$name" "$pub/dist/signals_state/$name"; fi
+          done
+          printf '%s\n' "Published by .github/workflows/project-signals.yml. Headlines and links only." \
+            "dist/project_signals.json is read by the Pipeline News page; dist/signals_state/ is the run's own state." \
+            "Do not edit by hand." > "$pub/README.txt"
+          git -C "$pub" add dist README.txt
+          if git -C "$pub" diff --cached --quiet; then
+            echo "no change"; exit 0
+          fi
+          git -C "$pub" commit -q -m "project signals $(date -u +%Y-%m-%dT%H:%MZ)"
+          git -C "$pub" push origin "HEAD:refs/heads/$DATA_BRANCH"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: project-signals
+          path: |
+            dist/project_signals.json
+            dist/signals_state/*.json
+          retention-days: 14

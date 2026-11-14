@@ -9,6 +9,11 @@ on:
       - 'automation/energy24/**'
       - 'uk_renewables_pipeline/energy24/**'
       - '.github/workflows/energy24-news-watch.yml'
+  pull_request:
+    paths:
+      - 'automation/energy24/**'
+      - 'uk_renewables_pipeline/energy24/**'
+      - '.github/workflows/energy24-news-watch.yml'
   workflow_dispatch:
   schedule:
     - cron: '17 * * * *'

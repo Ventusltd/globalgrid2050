@@ -68,7 +68,7 @@ def audit(doc, rights):
             if proof is None:
                 errors.append(site_id + "/" + sid + ": no independent rights-ledger entry")
                 continue
-            for key in ("publisher", "terms_url", "checked_at", "reviewer"):
+            # A valid-looking receipt for a different publisher/dataset must not clear this source.\n            for field, proof_field in (("url", "source_url"), ("licence", "licence"), ("attribution", "attribution")):\n                if source.get(field) != proof.get(proof_field):\n                    errors.append(sid + ": rights ledger source identity mismatch: " + field)\n            for key in ("publisher", "terms_url", "checked_at", "reviewer"):
                 if not isinstance(proof.get(key), str) or not proof[key].strip():
                     errors.append(sid + ": missing rights evidence " + key)
             if not HEX64.fullmatch(str(proof.get("terms_sha256") or "")):

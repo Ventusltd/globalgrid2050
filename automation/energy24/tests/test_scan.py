@@ -53,16 +53,48 @@ class Energy24Tests(unittest.TestCase):
 
     def test_usd_threshold_exact(self):
         self.assertEqual(scan.money_usd("US$25 million data centre"), 25_000_000)
-        v, why = self.classify("New data center receives US$25 million investment")
+        v, why = self.classify("New data center announces US$25 million construction budget")
         self.assertEqual(why,"accepted")
         self.assertEqual(v["category"],"data-centres")
-        self.assertEqual(self.classify("New data center receives US$24.9 million investment")[1],
+        self.assertEqual(self.classify("New data center announces US$24.9 million construction budget")[1],
                          "below_or_unverified_threshold")
 
     def test_foreign_currency_not_silently_converted(self):
         self.assertIsNone(scan.money_usd("€26 million solar scheme"))
         self.assertEqual(self.classify("£50 million offshore wind scheme")[1],
                          "below_or_unverified_threshold")
+
+    def test_funding_without_project_spend_is_not_capex(self):
+        for headline in (
+            "Calibrant Energy secures US$145 million for solar and BESS across US power markets",
+            "New data center receives US$25 million investment",
+            "AI infrastructure secures $190 billion of investment",
+        ):
+            with self.subTest(headline=headline):
+                record, reason = self.classify(headline)
+                self.assertIsNone(record)
+                self.assertEqual(reason, "below_or_unverified_threshold")
+
+    def test_company_annual_target_not_single_50mw_project(self):
+        record, reason = self.classify(
+            "BESS developer targets 1GW annually in European rollout")
+        self.assertIsNone(record)
+        self.assertEqual(reason, "below_or_unverified_threshold")
+
+    def test_project_capacity_still_qualifies_but_finance_not_capex(self):
+        record, reason = self.classify(
+            "Solar developer secures US$145 million financing for new 100MW project")
+        self.assertEqual(reason, "accepted")
+        self.assertEqual(record["capacity_mw"], 100)
+        self.assertIsNone(record["capex_usd"])
+        self.assertEqual(record["qualification"], "MW_CAPACITY")
+
+    def test_explicit_project_build_budget_is_capex(self):
+        record, reason = self.classify(
+            "New data center commits US$30 million to build a campus")
+        self.assertEqual(reason, "accepted")
+        self.assertEqual(record["capex_usd"], 30_000_000)
+        self.assertEqual(record["qualification"], "USD_CAPEX")
 
     def test_equity_transaction_not_misrepresented_as_project_capex(self):
         headline = "Investor buys US$300 million stake in BESS developer"
@@ -82,7 +114,7 @@ class Energy24Tests(unittest.TestCase):
         self.assertIsNone(v["repd_ref"])
 
     def test_ai_spending_included(self):
-        v, why = self.classify("AI infrastructure secures $190 billion of investment")
+        v, why = self.classify("AI data centre operator commits $190 billion to build new hyperscale campuses")
         self.assertEqual(why,"accepted")
         self.assertEqual(v["category"],"ai-investment")
         self.assertGreater(v["capex_usd"],25_000_000)

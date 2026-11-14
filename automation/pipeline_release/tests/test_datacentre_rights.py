@@ -16,7 +16,9 @@ def fixture():
               "attribution": "© OpenStreetMap contributors", "licence_status": "verified"}
     doc = {"schema": "globalgrid2050.pipeline-news.datacentre-sites.v1",
            "sites": [{"id": "dcuk-test-1", "sources": [source]}]}
-    rights = {"sources": [{"source_id": "osm-1", "publisher": "OpenStreetMap Foundation",\n                           "source_url": "https://www.openstreetmap.org", "licence": "ODbL-1.0",\n                           "attribution": "© OpenStreetMap contributors",
+    rights = {"sources": [{"source_id": "osm-1", "publisher": "OpenStreetMap Foundation",
+                           "source_url": "https://www.openstreetmap.org", "licence": "ODbL-1.0",
+                           "attribution": "© OpenStreetMap contributors",
                            "terms_url": "https://opendatacommons.org/licenses/odbl/1-0/",
                            "terms_sha256": "a" * 64, "checked_at": "2026-11-14",
                            "reviewer": "independent-reviewer", "redistribution": "verified",

@@ -58,13 +58,23 @@ def canonical_refs():
     return set(refs)
 
 
-def source_host_matches(item, team, source):
-    """Only the *same successfully queried publisher* can authorise an item.
+def source_host_matches(item, team, source, part_time):
+    """Require *this run's exact URL* in the same publisher's observation ledger.
 
-    This is a conservative source-domain check, not proof a specific article was
-    fetched. Exact URL receipts are a separate future provenance requirement.
+    A team success alone may not launder another failed/cached publisher's item.
+    The producer's URL ledger is testable provenance, not independent legal or
+    cryptographic verification of the remote article.
     """
     if not isinstance(source, dict) or source.get("status") not in ("ok", "partial"):
+        return False
+    if item.get("fetched_this_run") is not True or item.get("source_id") != source.get("id"):
+        return False
+    observed = timestamp(item.get("observed_at"))
+    if (observed is None or observed > part_time + dt.timedelta(minutes=5)
+            or part_time - observed > dt.timedelta(hours=PART_MAX_HOURS)):
+        return False
+    observed_urls = source.get("observed_urls")
+    if not isinstance(observed_urls, list) or item.get("link") not in observed_urls:
         return False
     try:
         requests = int(source.get("requests") or 0)
@@ -154,7 +164,7 @@ def evaluate(combined, previous, parts, now=None, authoritative_refs=None, requi
             continue
         sources = part.get("sources")
         if not isinstance(sources, list) or not any(
-            source_host_matches(item, team, source)
+            source_host_matches(item, team, source, at)
             for source in sources
             for item in (part.get("items") or []) if isinstance(item, dict)
         ):
@@ -172,7 +182,7 @@ def evaluate(combined, previous, parts, now=None, authoritative_refs=None, requi
                 continue
             # A healthy BBC feed cannot launder an unrelated regional/GDELT
             # article, nor may an available trade source mask a failed one.
-            if not any(source_host_matches(item, team, source) for source in sources):
+            if not any(source_host_matches(raw, team, source, at) for source in sources):
                 continue
             age = (now.date() - dt.date.fromisoformat(item["date"])).days
             key = (item["repd_ref"], item["link"])
@@ -186,7 +196,7 @@ def evaluate(combined, previous, parts, now=None, authoritative_refs=None, requi
         "new_confirmed_recent_items": len(fresh),
         "reason": "new confirmed source-backed project signal" if healthy and fresh
                   else "no newly verified current source-backed project signal; preserve last published bytes",
-        "policy": "14-day article window, 24-hour part freshness, canonical REPD membership, eligible source-domain match, no replay; planning fallback is not news",
+        "policy": "14-day article window, 24-hour part freshness, canonical REPD membership, per-run item/source URL receipts, no replay; planning fallback is not news",
     }
 
 

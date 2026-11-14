@@ -259,12 +259,12 @@ def classify(item: dict, repd: dict, now: datetime) -> tuple[dict | None, str]:
         cat = "uk-repd"
         mw = official_mw
     else:
-        if dc:
-            cat = "data-centres"
-        elif cyber:
+        if cyber:
             cat = "cybersecurity"
         elif ethics and (SECTOR_RE.search(context) or ai):
             cat = "ethics"
+        elif dc:
+            cat = "data-centres"
         elif ai and capex is not None:
             cat = "ai-investment"
         else:

@@ -243,10 +243,23 @@ def judge(ref, title, project=None, official=False):
             return "possible", "a distinctive name in a planning or energy headline, but no solar term"
         return "drop", "the name without a solar term"
     if not weak:
-        return "ok", "the name with a solar term"
+        # "North Ray of Light charity solar donation" and "Tealing solar
+        # timetable" mention a name and solar but not this power station.
+        # Only the whole project alias or a direct solar-development phrase
+        # merits the stronger result. General energy news stays possible.
+        if whole:
+            return "ok", "the full project alias with its solar context"
+        site_pattern = re.compile(
+            r"(?<![a-z0-9])(?:%s)(?: solar| pv| photovoltaic) "
+            r"(?:farm|park|project|plant|scheme|development|array)\\b" %
+            "|".join(re.escape(_norm(core)) for _alias, core, _w in names)
+        )
+        if site_pattern.search(text) and not far:
+            return "ok", "project core followed by solar development type"
+        return "possible", "the name and a broad solar mention without project-specific identity"
     if weak_flag:                                           # generic or shared with another row: a fact is required
-        if fact and (whole or adjacent or solar) and not far:
-            return "ok", "a weak name with a solar term and an agreeing fact"
+        if fact and (whole or adjacent) and not far:
+            return "ok", "a weak name with a direct solar project phrase and an agreeing fact"
         if whole or adjacent:
             return "possible", "a generic or shared name with no agreeing fact"
         return "drop", "a generic or shared name, not followed by its solar term, with no agreeing fact"
@@ -275,6 +288,10 @@ def gated(record, title, found, official=False):
     verdict, reason = judge(record.get("repd_ref"), title, project=for_record(record), official=official)
     if verdict == "drop":
         return None
-    if verdict == "possible" and found[1] == "confirmed":
-        return "%s; kept as uncertain: %s" % (found[0], reason), "uncertain"
+    # Summary-only matches and ambiguous names cannot inherit a collector's
+    # confirmed flag unless its evidence really identifies the planning case.
+    if verdict in ("possible", "none") and found[1] == "confirmed":
+        if verdict == "none" and "planning reference" in str(found[0]).lower():
+            return found
+        return "%s; kept as uncertain: %s" % (found[0], reason or "no project name in headline"), "uncertain"
     return found

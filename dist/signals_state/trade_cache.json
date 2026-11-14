@@ -1,0 +1,3275 @@
+{
+ "schema": "project-signals-trade-cache.v1",
+ "queries": {
+  "pv-tech|botley west": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 3,
+   "results": []
+  },
+  "pv-tech|tween bridge": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-tech|springwell solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 1,
+   "results": []
+  },
+  "pv-tech|great north road solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-tech|gnr solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-tech|meridian solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": [
+    [
+     "Meridian Energy bags consent for 110MW solar PV plant in New Zealand",
+     "https://www.pv-tech.org/meridian-energy-bags-consent-for-110mw-solar-pv-plant-in-new-zealand/",
+     "2026-07-27"
+    ],
+    [
+     "Meridian Energy bags consent for 120MW New Zealand solar plant",
+     "https://www.pv-tech.org/meridian-energy-bags-consent-for-120mw-new-zealand-solar-plant/",
+     "2026-05-15"
+    ],
+    [
+     "Meridian Energy begins construction on 120MW solar plant in New Zealand",
+     "https://www.pv-tech.org/meridian-energy-begins-construction-on-120mw-solar-plant-in-new-zealand/",
+     "2025-10-30"
+    ],
+    [
+     "Meridian, Nova finalise JV and financing for 400MW solar PV plant in New Zealand",
+     "https://www.pv-tech.org/meridian-nova-finalise-jv-and-financing-for-400mw-solar-pv-plant-in-new-zealand/",
+     "2025-09-01"
+    ],
+    [
+     "Meridian, Nova break ground on 400MW New Zealand solar plant",
+     "https://www.pv-tech.org/meridian-nova-break-ground-on-400mw-new-zealand-solar-plant/",
+     "2025-08-29"
+    ],
+    [
+     "Meridian sets construction date for 120MW solar PV plant in New Zealand",
+     "https://www.pv-tech.org/meridian-sets-construction-date-for-120mw-solar-pv-plant-in-new-zealand/",
+     "2025-03-26"
+    ],
+    [
+     "Meridian Energy lands consent for 120MW solar PV plant in New Zealand",
+     "https://www.pv-tech.org/meridian-energy-lands-consent-for-120mw-solar-pv-plant-in-new-zealand/",
+     "2025-02-17"
+    ],
+    [
+     "Meridian Energy, Nova to form joint venture for 400MW New Zealand solar PV plant",
+     "https://www.pv-tech.org/meridian-energy-nova-to-form-joint-venture-for-400mw-new-zealand-solar-pv-plant/",
+     "2025-01-06"
+    ],
+    [
+     "Meridian Energy lands consent for 120MW solar PV project in New Zealand",
+     "https://www.pv-tech.org/meridian-energy-lands-consent-for-120mw-solar-pv-project-in-new-zealand/",
+     "2024-09-27"
+    ]
+   ]
+  },
+  "pv-tech|whitestone solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "pv-tech|one earth": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-tech|cottam solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 4,
+   "results": []
+  },
+  "pv-tech|gate burton": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 4,
+   "results": []
+  },
+  "pv-tech|sunnica solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 2,
+   "results": []
+  },
+  "pv-tech|longfield solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 4,
+   "results": []
+  },
+  "pv-tech|heckington fen": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "pv-tech|tillbridge solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 1,
+   "results": []
+  },
+  "pv-tech|rosefield solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "pv-tech|green hill solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-tech|lime down": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-tech|east pye": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 1,
+   "results": []
+  },
+  "pv-tech|droves solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 7,
+   "results": []
+  },
+  "pv-tech|light valley": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-tech|west burton": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 6,
+   "results": []
+  },
+  "pv-tech|steeple solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "pv-tech|east yorkshire": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 3,
+   "results": []
+  },
+  "pv-tech|beacon fen": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 4,
+   "results": []
+  },
+  "pv-tech|east park solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-tech|cleve hill": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-tech|mallard pass": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 1,
+   "results": []
+  },
+  "pv-tech|fosse green": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "pv-tech|peartree hill": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "pv-tech|fenwick solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "pv-tech|helios solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": [
+    [
+     "Anza Power acquires 205MWac construction-ready solar plants from Helios Energy in New Zealand",
+     "https://www.pv-tech.org/anza-power-acquires-205mwac-construction-ready-solar-plants-from-helios-energy-in-new-zealand/",
+     "2026-09-18"
+    ],
+    [
+     "VINCI subsidiary buys solar and storage developer Helios Nordic Energy for US$73 million",
+     "https://www.pv-tech.org/vinci-subsidiary-buys-solar-and-storage-developer-helios-nordic-energy-us73-million/",
+     "2024-05-31"
+    ],
+    [
+     "US ROUND-UP: Helios acquires 50MW facility, Duke plans floating solar park at military base",
+     "https://www.pv-tech.org/us-round-up-helios-acquires-50mw-facility-duke-plans-floating-solar-park-at-military-base/",
+     "2020-09-30"
+    ],
+    [
+     "Uzbekistan picks Thailand’s Helios to deploy 110MW solar project",
+     "https://www.pv-tech.org/uzbekistan-picks-thailands-helios-to-deploy-110mw-solar-project/",
+     "2019-11-06"
+    ],
+    [
+     "AIIM and Helios invest in Nigerian solar-diesel-battery provider",
+     "https://www.pv-tech.org/aiim-helios-partner-to-invest-in-nigerian-energy-services-company/",
+     "2018-02-06"
+    ],
+    [
+     "Jürgen Becker discusses the future of Greek solar energy at Helios conference",
+     "https://www.pv-tech.org/juergen_becker_discusses_the_future_of_greek_solar_energy_at_helios_confere/",
+     "2012-04-04"
+    ],
+    [
+     "LDK Solar enters seven-year wafer contract with Helios Technology",
+     "https://www.pv-tech.org/ldk_solar_enters_seven-year_wafer_contract_with_helios_technology/",
+     "2008-10-20"
+    ]
+   ]
+  },
+  "pv-tech|byers gill": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "pv-tech|bowshiel solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "pv-tech|springfield solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 8,
+   "results": []
+  },
+  "pv-tech|oldhamstocks solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "pv-tech|alaw môn": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-tech|alaw mon": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-tech|oaklands farm": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 2,
+   "results": []
+  },
+  "pv-tech|oaklands solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 2,
+   "results": []
+  },
+  "pv-tech|little crow": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": [
+    [
+     "Major proposed UK solar-plus-storage project revises scale upwards",
+     "https://www.pv-tech.org/major-proposed-uk-solar-plus-storage-project-revises-scale-upwards/",
+     "2018-12-11",
+     "alias phrase 'Little Crow' in the summary with developer 'INRG'; the headline does not name the project"
+    ]
+   ]
+  },
+  "pv-tech|dean moor": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "pv-tech|frodsham solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "pv-tech|wentlooge farmers'": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "pv-tech|wentlooge solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "pv-tech|cowley complex": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "pv-magazine|botley west": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 5,
+   "results": []
+  },
+  "pv-magazine|tween bridge": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-magazine|springwell solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 3,
+   "results": [
+    [
+     "UK government approves record 800 MW solar plant over local opposition",
+     "https://www.pv-magazine.com/2026/04/09/uk-government-approves-record-800-mw-solar-plant-over-local-opposition/",
+     "2026-04-09",
+     "alias phrase 'Springwell' in the summary with capacity '800MW'; the headline does not name the project"
+    ]
+   ]
+  },
+  "pv-magazine|great north road solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-magazine|gnr solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-magazine|meridian solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 13,
+   "results": []
+  },
+  "pv-magazine|whitestone solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "pv-magazine|one earth": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-magazine|cottam solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 7,
+   "results": [
+    [
+     "Planning consent granted for 600 MW solar project, largest to date in the UK",
+     "https://www.pv-magazine.com/2024/09/06/planning-consent-granted-for-600-mw-solar-project-largest-to-date-in-the-uk/",
+     "2024-09-06",
+     "alias phrase 'Cottam' in the summary with capacity '600MW'; the headline does not name the project"
+    ]
+   ]
+  },
+  "pv-magazine|gate burton": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 11,
+   "results": []
+  },
+  "pv-magazine|sunnica solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 5,
+   "results": [
+    [
+     "500 MW solar-plus-storage project faces legal threat in UK",
+     "https://www.pv-magazine.com/2024/08/09/500-mw-solar-plus-storage-project-faces-legal-threat-in-the-uk/",
+     "2024-08-09",
+     "alias phrase 'Sunnica' in the summary with capacity '500MW'; the headline does not name the project"
+    ],
+    [
+     "500 MW solar-plus-storage project under development in the UK",
+     "https://www.pv-magazine.com/2019/03/25/500-mw-solar-plus-storage-project-under-development-in-the-uk/",
+     "2019-03-25",
+     "alias phrase 'Sunnica' in the summary with county 'Cambridgeshire'; the headline does not name the project"
+    ]
+   ]
+  },
+  "pv-magazine|longfield solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 3,
+   "results": []
+  },
+  "pv-magazine|heckington fen": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 4,
+   "results": []
+  },
+  "pv-magazine|tillbridge solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 2,
+   "results": [
+    [
+     "UK’s largest solar project approved, joins 2.1 GW cluster",
+     "https://www.pv-magazine.com/2025/10/16/uks-largest-solar-project-approved-joins-2-1-gw-cluster/",
+     "2025-10-16",
+     "alias phrase 'Tillbridge' in the summary with capacity '500MW'; the headline does not name the project"
+    ]
+   ]
+  },
+  "pv-magazine|rosefield solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 1,
+   "results": []
+  },
+  "pv-magazine|green hill solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-magazine|lime down": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-magazine|east pye": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 9,
+   "results": []
+  },
+  "pv-magazine|droves solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 17,
+   "results": []
+  },
+  "pv-magazine|light valley": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-magazine|west burton": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-magazine|steeple solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-magazine|east yorkshire": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-magazine|beacon fen": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 5,
+   "results": [
+    [
+     "UK approves 400 MW solar project with 600 MW co-located battery",
+     "https://www.pv-magazine.com/2026/08/25/uk-approves-400-mw-solar-project-with-600-mw-co-located-battery/",
+     "2026-08-25",
+     "alias phrase 'Beacon Fen' in the summary with capacity '400MW'; the headline does not name the project"
+    ]
+   ]
+  },
+  "pv-magazine|east park solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-magazine|cleve hill": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": [
+    [
+     "Largest UK solar plant goes online",
+     "https://www.pv-magazine.com/2025/07/02/largest-uk-solar-plant-goes-online/",
+     "2025-07-02",
+     "alias phrase 'Cleve Hill' in the summary with developer 'Quinbrook'; the headline does not name the project"
+    ],
+    [
+     "UK’s largest solar and storage project secures financial close",
+     "https://www.pv-magazine.com/2025/03/17/uks-largest-solar-and-storage-project-secures-financial-close/",
+     "2025-03-17",
+     "alias phrase 'Cleve Hill' in the summary with developer 'Quinbrook'; the headline does not name the project"
+    ],
+    [
+     "UK’s largest PPA to date signed for 373 MW solar park",
+     "https://www.pv-magazine.com/2024/10/16/uks-largest-ppa-to-date-signed-for-373-mw-solar-park/",
+     "2024-10-16",
+     "alias phrase 'Cleve Hill' in the summary with developer 'Quinbrook'; the headline does not name the project"
+    ]
+   ]
+  },
+  "pv-magazine|mallard pass": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 2,
+   "results": []
+  },
+  "pv-magazine|fosse green": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 2,
+   "results": []
+  },
+  "pv-magazine|peartree hill": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 2,
+   "results": []
+  },
+  "pv-magazine|fenwick solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 1,
+   "results": []
+  },
+  "pv-magazine|helios solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": [
+    [
+     "Italian solar fund Tages Helios raises another €43 million",
+     "https://www.pv-magazine.com/2017/06/20/italian-solar-fund-tages-helios-raises-another-e43-million/",
+     "2017-06-20"
+    ],
+    [
+     "Italian solar fund Tages Helios raises another €55 million",
+     "https://www.pv-magazine.com/2017/05/10/italian-solar-fund-tages-helios-raises-another-e55-million/",
+     "2017-05-10"
+    ],
+    [
+     "Helios Resource to launch new solar panel fab in Russia",
+     "https://www.pv-magazine.com/2014/02/18/helios-resource-to-launch-new-solar-panel-fab-in-russia_100014272/",
+     "2014-02-18"
+    ],
+    [
+     "Arista widens solar focus with new Helios partnership",
+     "https://www.pv-magazine.com/2011/07/08/arista-widens-solar-focus-with-new-helios-partnership_10003603/",
+     "2011-07-08"
+    ],
+    [
+     "Wisconsin: Helios USA opens 40 MW solar panel factory",
+     "https://www.pv-magazine.com/2011/02/28/wisconsin-helios-usa-opens-40-mw-solar-panel-factory_10002361/",
+     "2011-02-28"
+    ]
+   ]
+  },
+  "pv-magazine|byers gill": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 1,
+   "results": []
+  },
+  "pv-magazine|bowshiel solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "pv-magazine|springfield solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 8,
+   "results": [
+    [
+     "US: WMECo to install 4.2 MWs in Springfield",
+     "https://www.pv-magazine.com/2011/01/18/us-wmeco-to-install-4-2-mws-in-springfield_10002023/",
+     "2011-01-18"
+    ]
+   ]
+  },
+  "pv-magazine|oldhamstocks solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "pv-magazine|alaw môn": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-magazine|alaw mon": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-magazine|oaklands farm": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 1,
+   "results": []
+  },
+  "pv-magazine|oaklands solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 1,
+   "results": []
+  },
+  "pv-magazine|little crow": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "pv-magazine|dean moor": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 2,
+   "results": []
+  },
+  "pv-magazine|frodsham solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 1,
+   "results": []
+  },
+  "pv-magazine|wentlooge farmers'": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "pv-magazine|wentlooge solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "pv-magazine|cowley complex": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 1,
+   "results": []
+  },
+  "renews|botley west": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 7,
+   "results": [
+    [
+     "UK rejects 840MW Botley West solar farm",
+     "https://www.renews.biz/solar/uk-rejects-840mw-botley-west-solar-farm/",
+     "2026-11-10"
+    ],
+    [
+     "Exam phase nears end for 840MW UK solar park",
+     "https://www.renews.biz/solar/exam-phase-nears-end-for-840mw-uk-solar-park/",
+     "2025-10-06",
+     "alias phrase 'Botley West' in the summary with developer 'Photovolt'; the headline does not name the project"
+    ],
+    [
+     "UK planners begin exam of 840MW PV giant",
+     "https://www.renews.biz/solar/uk-planners-begin-exam-of-840mw-pv-giant/",
+     "2025-05-13",
+     "alias phrase 'Botley West' in the summary with county 'Oxfordshire'; the headline does not name the project"
+    ],
+    [
+     "Plans in for 840MW UK solar site",
+     "https://www.renews.biz/solar/plans-in-for-840mw-uk-solar-site/",
+     "2024-11-15",
+     "alias phrase 'Botley West' in the summary with county 'Oxfordshire'; the headline does not name the project"
+    ],
+    [
+     "UK solar farm to supply discounted power",
+     "https://www.renews.biz/solar/uk-solar-farm-to-supply-discounted-power/",
+     "2023-12-18",
+     "alias phrase 'Botley West' in the summary with capacity '840MW'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|tween bridge": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": [
+    [
+     "RWE unveils plans for 600MW UK solar",
+     "https://www.renews.biz/solar/rwe-unveils-plans-for-600mw-uk-solar/",
+     "2022-12-13",
+     "alias phrase 'Tween Bridge' in the summary with developer 'RWE'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|springwell solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 5,
+   "results": [
+    [
+     "EDF Renewables consults Springwell solar farm",
+     "https://www.renews.biz/solar/edf-renewables-consults-springwell-solar-farm/",
+     "2025-01-16"
+    ],
+    [
+     "EDF and Luminous tweak Springwell solar design",
+     "https://www.renews.biz/solar/edf-and-luminous-tweak-springwell-solar-design/",
+     "2023-12-11"
+    ],
+    [
+     "DESNZ approves 800MW solar giant",
+     "https://www.renews.biz/solar/desnz-approves-800mw-solar-giant/",
+     "2026-04-08",
+     "alias phrase 'Springwell' in the summary with capacity '800MW'; the headline does not name the project"
+    ],
+    [
+     "EDF Renewables seeks feedback on 800MW UK solar site",
+     "https://www.renews.biz/solar/edf-renewables-seeks-feedback-on-800mw-uk-solar-site/",
+     "2023-01-24",
+     "alias phrase 'Springwell' in the summary with developer 'EDF'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|great north road solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": [
+    [
+     "Great North Road solar nears decision",
+     "https://www.renews.biz/solar/great-north-road-solar-nears-decision/",
+     "2026-05-11"
+    ],
+    [
+     "Elements Green unveils UK’s first 1GW solar site",
+     "https://www.renews.biz/solar/elements-green-unveils-uks-first-1gw-solar-site/",
+     "2023-10-31",
+     "alias phrase 'Great North Road' in the summary with developer 'Elements'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|gnr solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 4,
+   "results": [
+    [
+     "Elements Green unveils UK’s first 1GW solar site",
+     "https://www.renews.biz/solar/elements-green-unveils-uks-first-1gw-solar-site/",
+     "2023-10-31",
+     "alias phrase 'Great North Road' in the summary with developer 'Elements'; the headline does not name the project"
+    ],
+    [
+     "Talks open on 800MW UK PV site",
+     "https://www.renews.biz/solar/talks-open-on-800mw-uk-pv-site/",
+     "2024-01-17",
+     "alias phrase 'Great North Road' in the summary with developer 'Elements'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|meridian solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 2,
+   "results": []
+  },
+  "renews|whitestone solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 1,
+   "results": [
+    [
+     "Green Nation unveils 750MW Whitestone solar",
+     "https://www.renews.biz/solar/green-nation-unveils-750mw-whitestone-solar/",
+     "2024-11-14"
+    ]
+   ]
+  },
+  "renews|one earth": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": [
+    [
+     "UK approves 740MW One Earth solar farm",
+     "https://www.renews.biz/solar/uk-approves-740mw-one-earth-solar-farm/",
+     "2026-07-08"
+    ],
+    [
+     "Orsted JV extends 740MW UK PV consultation",
+     "https://www.renews.biz/solar/orsted-jv-extends-740mw-uk-pv-consultation/",
+     "2024-06-19",
+     "alias phrase 'One Earth' in the summary with developer 'Orsted'; the headline does not name the project"
+    ],
+    [
+     "Views sought on 740MW UK PV giant",
+     "https://www.renews.biz/solar/views-sought-on-740mw-uk-pv-giant/",
+     "2024-05-16",
+     "alias phrase 'One Earth' in the summary with developer 'Orsted'; the headline does not name the project"
+    ],
+    [
+     "Orsted unveils plans for first UK solar farm",
+     "https://www.renews.biz/solar/orsted-unveils-plans-for-first-uk-solar-farm/",
+     "2023-09-13",
+     "alias phrase 'One Earth' in the summary with developer 'Orsted'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|cottam solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 8,
+   "results": [
+    [
+     "Cottam solar farm wins UK planning approval",
+     "https://www.renews.biz/solar/cottam-solar-farm-wins-uk-planning-approval/",
+     "2024-09-05"
+    ]
+   ]
+  },
+  "renews|gate burton": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 12,
+   "results": [
+    [
+     "EDF buys 500MW Gate Burton solar project",
+     "https://www.renews.biz/solar/edf-buys-500mw-gate-burton-solar-project/",
+     "2025-07-03"
+    ],
+    [
+     "UK developer all ears on 500MW PV-plus-storage",
+     "https://www.renews.biz/solar/uk-developer-all-ears-on-500mw-pv-plus-storage/",
+     "2022-01-11",
+     "alias phrase 'Gate Burton' in the summary with developer 'Low Carbon'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|sunnica solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 9,
+   "results": [
+    [
+     "Sunnica permit decision pushed back to April",
+     "https://www.renews.biz/solar/sunnica-permit-decision-pushed-back-to-april/",
+     "2024-03-07"
+    ],
+    [
+     "500MW Sunnica permit call hit by fresh delay",
+     "https://www.renews.biz/solar/500mw-sunnica-permit-call-hit-by-fresh-delay/",
+     "2023-12-08"
+    ],
+    [
+     "Sunnica submits plans for 500MW PV-plus-storage in UK",
+     "https://www.renews.biz/solar/sunnica-submits-plans-for-500mw-pv-plus-storage-in-uk/",
+     "2021-11-19"
+    ],
+    [
+     "Smith Bros to link 500MW UK solar-plus-storage",
+     "https://www.renews.biz/solar/smith-bros-to-link-500mw-uk-solar-plus-storage/",
+     "2019-10-21",
+     "alias phrase 'Sunnica' in the summary with capacity '500MW'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|longfield solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 5,
+   "results": [
+    [
+     "UK government approves 500MW Longfield solar farm",
+     "https://www.renews.biz/solar/uk-government-approves-500mw-longfield-solar-farm/",
+     "2023-06-26"
+    ],
+    [
+     "EDF solar farm subject of biodiversity study",
+     "https://www.renews.biz/solar/edf-solar-farm-subject-of-biodiversity-study/",
+     "2024-07-11",
+     "alias phrase 'Longfield' in the summary with county 'Essex'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|heckington fen": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 4,
+   "results": [
+    [
+     "UK consents Heckington Fen, West Burton solar farms",
+     "https://www.renews.biz/solar/uk-consents-heckington-fen-west-burton-solar-farms/",
+     "2025-01-24"
+    ]
+   ]
+  },
+  "renews|tillbridge solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 1,
+   "results": [
+    [
+     "UK approves 500MW Tillbridge solar farm",
+     "https://www.renews.biz/solar/uk-approves-500mw-tillbridge-solar-farm/",
+     "2025-10-14"
+    ]
+   ]
+  },
+  "renews|rosefield solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 3,
+   "results": [
+    [
+     "EDF, PS Renewables seek input on 500MW Rosefield",
+     "https://www.renews.biz/solar/edf-ps-renewables-seek-input-on-500mw-rosefield/",
+     "2025-11-05"
+    ],
+    [
+     "EDF Renewables seeks UK solar feedback",
+     "https://www.renews.biz/solar/edf-renewables-seeks-uk-solar-feedback/",
+     "2023-09-28",
+     "alias phrase 'Rosefield' in the summary with developer 'EDF'; the headline does not name the project"
+    ],
+    [
+     "EDF Renewables unveils UK solar-storage scheme",
+     "https://www.renews.biz/solar/edf-renewables-unveils-uk-solar-storage-scheme/",
+     "2023-09-14",
+     "alias phrase 'Rosefield' in the summary with developer 'EDF'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|green hill solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "renews|lime down": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 7,
+   "results": []
+  },
+  "renews|east pye": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 6,
+   "results": [
+    [
+     "Second consultation closes for East Pye solar farm",
+     "https://www.renews.biz/solar/second-consultation-closes-for-east-pye-solar-farm/",
+     "2025-08-08"
+    ],
+    [
+     "Island Green Power opens East Pye Solar consultation",
+     "https://www.renews.biz/solar/island-green-power-opens-east-pye-solar-consultation/",
+     "2025-06-18"
+    ],
+    [
+     "Island Green Power consults on 500MW solar site",
+     "https://www.renews.biz/solar/island-green-power-consults-on-500mw-solar-site/",
+     "2024-10-23",
+     "alias phrase 'East Pye' in the summary with developer 'Island Green'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|droves solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "renews|light valley": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "renews|west burton": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": [
+    [
+     "UK consents Heckington Fen, West Burton solar farms",
+     "https://www.renews.biz/solar/uk-consents-heckington-fen-west-burton-solar-farms/",
+     "2025-01-24"
+    ],
+    [
+     "Solar in 4.9GW AR7a sweet spot",
+     "https://www.renews.biz/solar/solar-in-4-9gw-ar7a-sweet-spot/",
+     "2026-02-10",
+     "alias phrase 'West Burton' in the summary with developer 'Island Green'; the headline does not name the project"
+    ],
+    [
+     "UK planners wrap up exam on 480MW PV giant",
+     "https://www.renews.biz/solar/uk-planners-wrap-up-exam-on-480mw-pv-giant/",
+     "2024-05-13",
+     "alias phrase 'West Burton' in the summary with capacity '480MW'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|steeple solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 4,
+   "results": [
+    [
+     "RES wins permit for 450MW Steeple solar farm",
+     "https://www.renews.biz/solar/res-wins-permit-for-450mw-steeple-solar-farm/",
+     "2026-10-09"
+    ],
+    [
+     "RES submits 600MW Steeple solar for DCO",
+     "https://www.renews.biz/solar/res-submits-600mw-steeple-solar-for-dco/",
+     "2025-06-12"
+    ]
+   ]
+  },
+  "renews|east yorkshire": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": [
+    [
+     "Ampyr acquires 530MW East Yorkshire Solar Farm",
+     "https://www.renews.biz/solar/ampyr-acquires-530mw-east-yorkshire-solar-farm/",
+     "2026-02-20"
+    ],
+    [
+     "Boom Power wins permit for 400MW UK solar project",
+     "https://www.renews.biz/solar/boom-power-wins-permit-for-400mw-uk-solar-project/",
+     "2025-05-09",
+     "alias phrase 'East Yorkshire' in the summary with developer 'Boom'; the headline does not name the project"
+    ],
+    [
+     "Boom Power secures planning for 50MW solar",
+     "https://www.renews.biz/solar/boom-power-secures-planning-for-50mw-solar/",
+     "2022-11-29",
+     "alias phrase 'East Yorkshire' in the summary with developer 'Boom'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|beacon fen": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 6,
+   "results": [
+    [
+     "Low Carbon wins permit for 400MW UK solar farm",
+     "https://www.renews.biz/solar/low-carbon-wins-permit-for-400mw-uk-solar-farm/",
+     "2026-08-21",
+     "alias phrase 'Beacon Fen' in the summary with developer 'Low Carbon'; the headline does not name the project"
+    ],
+    [
+     "Low Carbon tweaks UK solar site plans",
+     "https://www.renews.biz/solar/low-carbon-tweaks-uk-solar-site-plans/",
+     "2023-07-14",
+     "alias phrase 'Beacon Fen' in the summary with developer 'Low Carbon'; the headline does not name the project"
+    ],
+    [
+     "Low Carbon consults on 600MW English solar site",
+     "https://www.renews.biz/solar/low-carbon-consults-on-600mw-english-solar-site/",
+     "2023-05-03",
+     "alias phrase 'Beacon Fen' in the summary with developer 'Low Carbon'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|east park solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "renews|cleve hill": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 14,
+   "results": [
+    [
+     "RES wins O&M deal for 373MW Cleve Hill",
+     "https://www.renews.biz/solar/res-wins-om-deal-for-373mw-cleve-hill/",
+     "2025-09-25"
+    ],
+    [
+     "Cleve Hill solar park begins commercial operations",
+     "https://www.renews.biz/solar/cleve-hill-solar-park-begins-commercial-operations/",
+     "2025-07-01"
+    ],
+    [
+     "Quinbrook closes record debt financing for Cleve Hill",
+     "https://www.renews.biz/solar/quinbrook-closes-record-debt-financing-for-cleve-hill/",
+     "2025-03-17"
+    ],
+    [
+     "Tesco signs 373MW UK PV PPA",
+     "https://www.renews.biz/solar/tesco-signs-373mw-uk-pv-ppa/",
+     "2024-10-16",
+     "alias phrase 'Cleve Hill' in the summary with capacity '373MW'; the headline does not name the project"
+    ],
+    [
+     "UK gives go-ahead for 350MW mega-solar",
+     "https://www.renews.biz/solar/uk-gives-go-ahead-for-350mw-mega-solar/",
+     "2020-05-28",
+     "alias phrase 'Cleve Hill' in the summary with county 'Kent'; the headline does not name the project"
+    ],
+    [
+     "Hive, Wirsol map UK mega-solar",
+     "https://www.renews.biz/solar/hive-wirsol-map-uk-mega-solar/",
+     "2017-11-09",
+     "alias phrase 'Cleve Hill' in the summary with county 'Kent'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|mallard pass": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 10,
+   "results": [
+    [
+     "Mallard Pass permit decision pushed back",
+     "https://www.renews.biz/solar/mallard-pass-permit-decision-pushed-back/",
+     "2024-05-16"
+    ],
+    [
+     "Windel, Canadian Solar file Mallard Pass paperwork",
+     "https://www.renews.biz/solar/windel-canadian-solar-file-mallard-pass-paperwork/",
+     "2022-02-16"
+    ],
+    [
+     "Quinbrook swoops on 350MW UK solar",
+     "https://www.renews.biz/solar/quinbrook-swoops-on-350mw-uk-solar/",
+     "2025-02-03",
+     "alias phrase 'Mallard Pass' in the summary with capacity '350MW'; the headline does not name the project"
+    ],
+    [
+     "350MW UK solar giant opens second consultation",
+     "https://www.renews.biz/solar/350mw-uk-solar-giant-opens-second-consultation/",
+     "2022-05-25",
+     "alias phrase 'Mallard Pass' in the summary with developer 'Canadian'; the headline does not name the project"
+    ],
+    [
+     "Developer seeks feedback on 350MW UK solar giant",
+     "https://www.renews.biz/solar/developer-seeks-feedback-on-350mw-uk-solar-giant/",
+     "2021-11-04",
+     "alias phrase 'Mallard Pass' in the summary with capacity '350MW'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|fosse green": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 9,
+   "results": [
+    [
+     "First consultations to close on Fosse Green Energy Park",
+     "https://www.renews.biz/remix/first-consultations-to-close-on-fosse-green-energy-park/",
+     "2023-10-13"
+    ],
+    [
+     "Windel, Recurrent seek views on UK PV project",
+     "https://www.renews.biz/solar/windel-recurrent-seek-views-on-uk-pv-project/",
+     "2024-10-21",
+     "alias phrase 'Fosse Green' in the summary with developer 'Windel'; the headline does not name the project"
+    ],
+    [
+     "Windel seeks views on 350MWdc UK solar, storage project",
+     "https://www.renews.biz/solar/windel-seeks-views-on-350mwdc-uk-solar-storage-project/",
+     "2023-09-11",
+     "alias phrase 'Fosse Green' in the summary with developer 'Windel'; the headline does not name the project"
+    ],
+    [
+     "Windel unveils plans for Lincolnshire solar-storage project",
+     "https://www.renews.biz/other-news/energy-storage/windel-unveils-plans-for-lincolnshire-solar-storage-project/",
+     "2023-05-11",
+     "alias phrase 'Fosse Green' in the summary with developer 'Windel'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|peartree hill": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 3,
+   "results": [
+    [
+     "UK gives go-ahead for 470MW solar double",
+     "https://www.renews.biz/solar/rwe-wins-permit-for-320mw-peartree-hill/",
+     "2026-07-02",
+     "alias phrase 'Peartree Hill' in the summary with developer 'RWE'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|fenwick solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 6,
+   "results": [
+    [
+     "Boom Power wins Fenwick solar approval",
+     "https://www.renews.biz/solar/boom-power-wins-fenwick-solar-approval/",
+     "2026-02-18"
+    ],
+    [
+     "Boom Power seeks feedback on UK PV project",
+     "https://www.renews.biz/solar/boom-power-seeks-feedback-on-uk-pv-project/",
+     "2024-04-17",
+     "alias phrase 'Fenwick' in the summary with developer 'Boom'; the headline does not name the project"
+    ],
+    [
+     "UK player outlines plans for 237.5MW PV project",
+     "https://www.renews.biz/solar/uk-player-outlines-plans-for-237-5mw-pv-project/",
+     "2023-06-21",
+     "alias phrase 'Fenwick' in the summary with developer 'Boom'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|helios solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": [
+    [
+     "UK approves 190MW Helios solar project",
+     "https://www.renews.biz/solar/uk-approves-190mw-helios-solar-project/",
+     "2025-12-03"
+    ],
+    [
+     "Helios ready to build 113MW Swedish solar double",
+     "https://www.renews.biz/solar/helios-ready-to-build-113mw-swedish-solar-double/",
+     "2023-03-30"
+    ],
+    [
+     "Helios divests 70MW Swedish solar",
+     "https://www.renews.biz/solar/helios-divests-70mw-swedish-solar/",
+     "2022-05-03"
+    ],
+    [
+     "Helios grows PV projects portfolio to 500MW",
+     "https://www.renews.biz/solar/helios-grows-pv-projects-portfolio-to-500mw/",
+     "2021-05-11"
+    ]
+   ]
+  },
+  "renews|byers gill": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 2,
+   "results": [
+    [
+     "RWE bags permit for 180MW Byers Gill solar farm",
+     "https://www.renews.biz/solar/rwe-bags-permit-for-180mw-byers-gill-solar-farm/",
+     "2025-07-23"
+    ],
+    [
+     "JBM seeks public input on UK solar-storage project",
+     "https://www.renews.biz/solar/jbm-seeks-public-input-on-uk-solar-storage-project/",
+     "2022-10-13",
+     "alias phrase 'Byers Gill' in the summary with developer 'JBM'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|bowshiel solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "renews|springfield solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 2,
+   "results": []
+  },
+  "renews|oldhamstocks solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "renews|alaw môn": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 3,
+   "results": []
+  },
+  "renews|alaw mon": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 3,
+   "results": []
+  },
+  "renews|oaklands farm": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 5,
+   "results": [
+    [
+     "UK approves 138MW Oaklands Farm solar project",
+     "https://www.renews.biz/solar/uk-approves-138mw-oaklands-farm-solar-project/",
+     "2025-06-19"
+    ],
+    [
+     "BayWa r.e. launches 163MW solar consultation",
+     "https://www.renews.biz/solar/baywa-r-e-launches-163mw-solar-consultation/",
+     "2022-04-22",
+     "alias phrase 'Oaklands Farm' in the summary with developer 'BayWa'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|oaklands solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 5,
+   "results": [
+    [
+     "UK approves 138MW Oaklands Farm solar project",
+     "https://www.renews.biz/solar/uk-approves-138mw-oaklands-farm-solar-project/",
+     "2025-06-19"
+    ],
+    [
+     "BayWa r.e. launches 163MW solar consultation",
+     "https://www.renews.biz/solar/baywa-r-e-launches-163mw-solar-consultation/",
+     "2022-04-22",
+     "alias phrase 'Oaklands Farm' in the summary with developer 'BayWa'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|little crow": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 10,
+   "results": [
+    [
+     "UK gives go-ahead for 50MW Little Crow solar",
+     "https://www.renews.biz/solar/uk-gives-go-ahead-for-50mw-little-crow-solar/",
+     "2022-04-06"
+    ],
+    [
+     "INRG offloads 150MW UK solar project",
+     "https://www.renews.biz/solar/inrg-offloads-150mw-uk-solar-project/",
+     "2025-03-20",
+     "alias phrase 'Little Crow' in the summary with developer 'INRG'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|dean moor": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 4,
+   "results": [
+    [
+     "UK gives go-ahead for 470MW solar double",
+     "https://www.renews.biz/solar/rwe-wins-permit-for-320mw-peartree-hill/",
+     "2026-07-02",
+     "alias phrase 'Dean Moor' in the summary with developer 'Firma'; the headline does not name the project"
+    ],
+    [
+     "Firma, ib vogt line up 150MW UK solar scheme",
+     "https://www.renews.biz/solar/firma-ib-vogt-line-up-150mw-uk-solar-scheme/",
+     "2023-08-09",
+     "alias phrase 'Dean Moor' in the summary with developer 'Firma'; the headline does not name the project"
+    ]
+   ]
+  },
+  "renews|frodsham solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 6,
+   "results": [
+    [
+     "Cubico wins consent for Frodsham solar project",
+     "https://www.renews.biz/solar/cubico-wins-consent-for-frodsham-solar-farm/",
+     "2026-10-27"
+    ],
+    [
+     "UK planners to begin Frodsham Solar exam",
+     "https://www.renews.biz/solar/uk-planners-to-begin-frodsham-solar-exam/",
+     "2025-07-18"
+    ],
+    [
+     "Cubico opens Frodsham consultation",
+     "https://www.renews.biz/solar/cubico-opens-frodsham-consultation/",
+     "2024-11-08"
+    ]
+   ]
+  },
+  "renews|wentlooge farmers'": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "renews|wentlooge solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "renews|cowley complex": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 4,
+   "results": [
+    [
+     "Sonnedix turns sod on 120MW UK solar",
+     "https://www.renews.biz/solar/sonnedix-turns-sod-on-120mw-uk-solar/",
+     "2024-04-25",
+     "alias phrase 'Cowley Complex' in the summary with developer 'Sonnedix'; the headline does not name the project"
+    ]
+   ]
+  },
+  "construction-enquirer|botley west": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 12,
+   "results": []
+  },
+  "construction-enquirer|tween bridge": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "construction-enquirer|springwell solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|great north road solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 6,
+   "results": []
+  },
+  "construction-enquirer|gnr solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|meridian solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|whitestone solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|one earth": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "construction-enquirer|cottam solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|gate burton": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 16,
+   "results": []
+  },
+  "construction-enquirer|sunnica solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|longfield solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 1,
+   "results": []
+  },
+  "construction-enquirer|heckington fen": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 1,
+   "results": []
+  },
+  "construction-enquirer|tillbridge solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|rosefield solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|green hill solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "construction-enquirer|lime down": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "construction-enquirer|east pye": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 3,
+   "results": []
+  },
+  "construction-enquirer|droves solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|light valley": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "construction-enquirer|west burton": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "construction-enquirer|steeple solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|east yorkshire": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": [
+    [
+     "Modular specialist to shut East Yorkshire factory",
+     "https://www.constructionenquirer.com/2015/09/15/modular-specialist-to-shut-east-yorkshire-factory/",
+     "2015-09-15"
+    ],
+    [
+     "Falling masonry kills man in East Yorkshire",
+     "https://www.constructionenquirer.com/2014/10/07/falling-masonry-kills-man-in-east-yorkshire/",
+     "2014-10-07"
+    ],
+    [
+     "Jackson to start £10m East Yorkshire road scheme",
+     "https://www.constructionenquirer.com/2012/05/08/jackson-to-start-10m-east-yorkshire-road-scheme/",
+     "2012-05-08"
+    ]
+   ]
+  },
+  "construction-enquirer|beacon fen": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "construction-enquirer|east park solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "construction-enquirer|cleve hill": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 18,
+   "results": []
+  },
+  "construction-enquirer|mallard pass": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|fosse green": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 2,
+   "results": []
+  },
+  "construction-enquirer|peartree hill": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 1,
+   "results": []
+  },
+  "construction-enquirer|fenwick solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|helios solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|byers gill": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|bowshiel solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|springfield solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|oldhamstocks solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|alaw môn": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|alaw mon": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|oaklands farm": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|oaklands solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|little crow": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "construction-enquirer|dean moor": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 20,
+   "results": []
+  },
+  "construction-enquirer|frodsham solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|wentlooge farmers'": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|wentlooge solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "construction-enquirer|cowley complex": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 3,
+   "results": []
+  },
+  "solar-energy-uk|botley west": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 1,
+   "results": []
+  },
+  "solar-energy-uk|tween bridge": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 5,
+   "results": []
+  },
+  "solar-energy-uk|springwell solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|great north road solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 4,
+   "results": []
+  },
+  "solar-energy-uk|gnr solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 3,
+   "results": []
+  },
+  "solar-energy-uk|meridian solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|whitestone solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|one earth": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 3,
+   "results": []
+  },
+  "solar-energy-uk|cottam solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|gate burton": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|sunnica solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|longfield solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|heckington fen": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|tillbridge solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|rosefield solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|green hill solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 2,
+   "results": []
+  },
+  "solar-energy-uk|lime down": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 1,
+   "results": []
+  },
+  "solar-energy-uk|east pye": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|droves solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|light valley": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|west burton": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|steeple solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|east yorkshire": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|beacon fen": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|east park solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 6,
+   "results": []
+  },
+  "solar-energy-uk|cleve hill": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 1,
+   "results": []
+  },
+  "solar-energy-uk|mallard pass": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|fosse green": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|peartree hill": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|fenwick solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|helios solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|byers gill": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|bowshiel solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|springfield solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|oldhamstocks solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|alaw môn": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|alaw mon": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|oaklands farm": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|oaklands solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|little crow": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 1,
+   "results": []
+  },
+  "solar-energy-uk|dean moor": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|frodsham solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|wentlooge farmers'": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  },
+  "solar-energy-uk|wentlooge solar": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 1,
+   "results": []
+  },
+  "solar-energy-uk|cowley complex": {
+   "at": "2026-11-14T12:34:49Z",
+   "status": "ok",
+   "route": "wp_posts",
+   "returned": 0,
+   "results": []
+  }
+ },
+ "feed_hits": {
+  "https://www.solarpowerportal.co.uk/solar-finance/totalenergies-acquires-450mw-solar-plus-150mw-bess-nsip-project": {
+   "title": "TotalEnergies acquires 450MW solar, 150MW BESS NSIP project",
+   "link": "https://www.solarpowerportal.co.uk/solar-finance/totalenergies-acquires-450mw-solar-plus-150mw-bess-nsip-project",
+   "date": "2026-11-13",
+   "site": "solar-power-portal",
+   "refs": {
+    "15252": "alias phrase 'Steeple' in the summary with capacity '450MW'; the headline does not name the project"
+   }
+  },
+  "https://www.solarpowerportal.co.uk/solar-planning/uk-government-refuses-840mw-botley-west-solar-farm-in-first-ever-solar-nsip-no": {
+   "title": "UK government refuses 840MW Botley West Solar Farm in first-ever solar NSIP no",
+   "link": "https://www.solarpowerportal.co.uk/solar-planning/uk-government-refuses-840mw-botley-west-solar-farm-in-first-ever-solar-nsip-no",
+   "date": "2026-11-11",
+   "site": "solar-power-portal",
+   "refs": {
+    "12588": ""
+   }
+  },
+  "https://www.solarpowerportal.co.uk/utility-scale-solar/major-solar-projects-by-elements-green-cubico-granted-dcos": {
+   "title": "Major solar projects by Elements Green, Cubico granted DCOs",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/major-solar-projects-by-elements-green-cubico-granted-dcos",
+   "date": "2026-10-28",
+   "site": "solar-power-portal",
+   "refs": {
+    "15149": "alias phrase 'GNR' in the summary with developer 'Elements'; the headline does not name the project",
+    "14096": "alias phrase 'Frodsham' in the summary with developer 'Cubico'; the headline does not name the project"
+   }
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/boom-power-secures-planning-permission-for-49-99mw-drove-lane-solar-pv-plant-in-east-yorkshire": {
+   "title": "Boom Power secures planning permission for 49.99MW Drove Lane solar PV plant in East Yorkshire",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/boom-power-secures-planning-permission-for-49-99mw-drove-lane-solar-pv-plant-in-east-yorkshire",
+   "date": "2026-10-23",
+   "site": "solar-power-portal",
+   "refs": {
+    "11678": ""
+   }
+  },
+  "https://www.solarpowerportal.co.uk/solar-planning/large-scale-solar-plant-in-nottinghamshire-approved-by-government-second-one-this-week": {
+   "title": "Large-scale solar plant in Nottinghamshire approved by government, second one this week",
+   "link": "https://www.solarpowerportal.co.uk/solar-planning/large-scale-solar-plant-in-nottinghamshire-approved-by-government-second-one-this-week",
+   "date": "2026-10-09",
+   "site": "solar-power-portal",
+   "refs": {
+    "15252": "alias phrase 'Steeple' in the summary with county 'Nottinghamshire'; the headline does not name the project"
+   }
+  },
+  "https://www.solarpowerportal.co.uk/utility-scale-solar/baywa-r-e-breaks-ground-on-150mw-oaklands-solar-nsip": {
+   "title": "Baywa r.e. breaks ground on 150MW Oaklands solar NSIP",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/baywa-r-e-breaks-ground-on-150mw-oaklands-solar-nsip",
+   "date": "2026-09-14",
+   "site": "solar-power-portal",
+   "refs": {
+    "9546": "",
+    "7701": ""
+   }
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/botley-west-s-planning-consent-deadline-extended": {
+   "title": "Botley West’s planning consent deadline extended",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/botley-west-s-planning-consent-deadline-extended",
+   "date": "2026-09-03",
+   "site": "solar-power-portal",
+   "refs": {
+    "12588": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/utility-scale-solar/government-greenlights-low-carbons-400mw-beacon-fen-solar-plus-storage-first-dco-under-new-energy-minister": {
+   "title": "Government greenlights Low Carbon’s 400MW Beacon Fen solar-plus-storage, first DCO under new energy minister",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/government-greenlights-low-carbons-400mw-beacon-fen-solar-plus-storage-first-dco-under-new-energy-minister",
+   "date": "2026-08-24",
+   "site": "solar-power-portal",
+   "refs": {
+    "13599": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/european-energy-secures-58-1-million-to-finance-uk-solar-plus-storage-project": {
+   "title": "European Energy secures £58.1 million to finance UK solar-plus-storage project",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/european-energy-secures-58-1-million-to-finance-uk-solar-plus-storage-project",
+   "date": "2026-08-11",
+   "site": "solar-power-portal",
+   "refs": {
+    "10800": "alias phrase 'Indian Queens' in the summary with developer 'European Energy'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/desnz-grants-dco-for-150mw-dean-moor-solar-project-in-cumbria": {
+   "title": "DESNZ grants DCO for 150MW Dean Moor solar project in Cumbria",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/desnz-grants-dco-for-150mw-dean-moor-solar-project-in-cumbria",
+   "date": "2026-07-03",
+   "site": "solar-power-portal",
+   "refs": {
+    "14550": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-planning/westminster-approves-800mw-solar-farm-in-lincolnshire": {
+   "title": "Westminster approves 800MW solar farm in Lincolnshire",
+   "link": "https://www.solarpowerportal.co.uk/solar-planning/westminster-approves-800mw-solar-farm-in-lincolnshire",
+   "date": "2026-04-08",
+   "site": "solar-power-portal",
+   "refs": {
+    "13043": "alias phrase 'Springwell' in the summary with developer 'EDF'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-planning/ampyr-solar-europe-takes-on-east-yorkshire-solar-nsip": {
+   "title": "Ampyr Solar Europe takes on East Yorkshire solar NSIP",
+   "link": "https://www.solarpowerportal.co.uk/solar-planning/ampyr-solar-europe-takes-on-east-yorkshire-solar-nsip",
+   "date": "2026-02-20",
+   "site": "solar-power-portal",
+   "refs": {
+    "11678": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-planning/boom-power-secures-second-nsip-consent-for-fenwick-solar-plant": {
+   "title": "BOOM Power secures second NSIP consent for Fenwick solar plant",
+   "link": "https://www.solarpowerportal.co.uk/solar-planning/boom-power-secures-second-nsip-consent-for-fenwick-solar-plant",
+   "date": "2026-02-19",
+   "site": "solar-power-portal",
+   "refs": {
+    "14098": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-finance/sse-energy-markets-secures-52mw-solar-capacity-through-low-carbon-ppas": {
+   "title": "SSE Energy Markets secures 52MW solar capacity through Low Carbon PPAs",
+   "link": "https://www.solarpowerportal.co.uk/solar-finance/sse-energy-markets-secures-52mw-solar-capacity-through-low-carbon-ppas",
+   "date": "2026-01-14",
+   "site": "solar-power-portal",
+   "refs": {
+    "8185": "alias phrase 'Feldon Vale' in the summary with developer 'Low Carbon'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-finance/tokyo-century-scores-stakes-in-octopus-energy-generation-solar-onshore-wind-plants": {
+   "title": "Tokyo Century scores stakes in Octopus Energy Generation solar, onshore wind plants",
+   "link": "https://www.solarpowerportal.co.uk/solar-finance/tokyo-century-scores-stakes-in-octopus-energy-generation-solar-onshore-wind-plants",
+   "date": "2025-12-23",
+   "site": "solar-power-portal",
+   "refs": {
+    "8479": "alias phrase 'Breach' in the summary with developer 'Octopus'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/metlen-to-deliver-epc-work-at-edf-400mw-longfield-solar-pv-farm": {
+   "title": "METLEN to deliver EPC work at EDF’s 400MW Longfield solar PV farm",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/metlen-to-deliver-epc-work-at-edf-400mw-longfield-solar-pv-farm",
+   "date": "2025-12-19",
+   "site": "solar-power-portal",
+   "refs": {
+    "8162": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/uniper-to-build-68-8mw-solar-project-in-scotland-its-first-in-the-country": {
+   "title": "Uniper to build 68.8MW solar project in Scotland, its first in the country",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/uniper-to-build-68-8mw-solar-project-in-scotland-its-first-in-the-country",
+   "date": "2025-12-12",
+   "site": "solar-power-portal",
+   "refs": {
+    "8480": "alias phrase 'Berryhill' in the summary with developer 'Uniper'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/utility-scale-solar/government-approves-190mw-solar-plant-in-north-yorkshire": {
+   "title": "Government approves 190MW solar plant in North Yorkshire",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/government-approves-190mw-solar-plant-in-north-yorkshire",
+   "date": "2025-12-04",
+   "site": "solar-power-portal",
+   "refs": {
+    "11476": "alias phrase 'Helios' in the summary with developer 'Enso'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/miliband-grants-dco-for-stonestreet-green-solar-plus-storage-nsip": {
+   "title": "Miliband grants DCO for Stonestreet Green solar-plus-storage NSIP",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/miliband-grants-dco-for-stonestreet-green-solar-plus-storage-nsip",
+   "date": "2025-10-24",
+   "site": "solar-power-portal",
+   "refs": {
+    "10085": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-planning/lime-down-solar-500mw-1gwh-solar-plus-storage-dco-accepted-by-pins": {
+   "title": "Lime Down Solar’s 500MW/1GWh solar-plus-storage DCO accepted by PINS",
+   "link": "https://www.solarpowerportal.co.uk/solar-planning/lime-down-solar-500mw-1gwh-solar-plus-storage-dco-accepted-by-pins",
+   "date": "2025-10-21",
+   "site": "solar-power-portal",
+   "refs": {
+    "16063": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/utility-scale-solar/approval-for-tillbridge-solar-uk-s-largest-solar-nsip": {
+   "title": "Labour approves Tillbridge Solar, UK’s largest solar NSIP",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/approval-for-tillbridge-solar-uk-s-largest-solar-nsip",
+   "date": "2025-10-15",
+   "site": "solar-power-portal",
+   "refs": {
+    "12281": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-planning/gigawatt-of-large-scale-solar-farms-submitted-for-planning-in-september": {
+   "title": "Gigawatt of large scale solar farms submitted for planning in September",
+   "link": "https://www.solarpowerportal.co.uk/solar-planning/gigawatt-of-large-scale-solar-farms-submitted-for-planning-in-september",
+   "date": "2025-09-29",
+   "site": "solar-power-portal",
+   "refs": {
+    "14851": "alias phrase 'Rosefield' in the summary with developer 'EDF'; the headline does not name the project",
+    "16063": "alias phrase 'Lime Down' in the summary with developer 'Island Green'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/res-secures-contract-cleve-hill-solar-project": {
+   "title": "RES secures three-year O&M contract for Cleve Hill solar project",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/res-secures-contract-cleve-hill-solar-project",
+   "date": "2025-09-26",
+   "site": "solar-power-portal",
+   "refs": {
+    "6502": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-planning/boom-power-s-fenwick-solar-nsip-closes-examination-phase-early": {
+   "title": "BOOM Power’s Fenwick solar NSIP closes examination phase early",
+   "link": "https://www.solarpowerportal.co.uk/solar-planning/boom-power-s-fenwick-solar-nsip-closes-examination-phase-early",
+   "date": "2025-09-05",
+   "site": "solar-power-portal",
+   "refs": {
+    "14098": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-planning/consultation-closes-for-light-valley-solar-nsip": {
+   "title": "Consultation closes for Light Valley solar NSIP",
+   "link": "https://www.solarpowerportal.co.uk/solar-planning/consultation-closes-for-light-valley-solar-nsip",
+   "date": "2025-08-13",
+   "site": "solar-power-portal",
+   "refs": {
+    "17701": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/utility-scale-solar/rwe-lands-consent-180mw-solar-nsip": {
+   "title": "RWE lands consent for 180MW solar NSIP",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/rwe-lands-consent-180mw-solar-nsip",
+   "date": "2025-07-25",
+   "site": "solar-power-portal",
+   "refs": {
+    "12409": "alias phrase 'Byers Gill' in the summary with capacity '180MW'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/edf-acquires-gate-burton-solar-nsip-low-carbon": {
+   "title": "EDF acquires Gate Burton solar NSIP from Low Carbon",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/edf-acquires-gate-burton-solar-nsip-low-carbon",
+   "date": "2025-07-03",
+   "site": "solar-power-portal",
+   "refs": {
+    "9809": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/uk-s-largest-solar-plant-cleve-hill-supplying-full-power-to-the-grid": {
+   "title": "UK’s largest solar plant Cleve Hill supplying full power to the grid",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/uk-s-largest-solar-plant-cleve-hill-supplying-full-power-to-the-grid",
+   "date": "2025-07-01",
+   "site": "solar-power-portal",
+   "refs": {
+    "6502": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-planning/island-green-power-launches-second-consultation-for-500mw-solar-nsip": {
+   "title": "Island Green Power launches second consultation for 500MW solar NSIP",
+   "link": "https://www.solarpowerportal.co.uk/solar-planning/island-green-power-launches-second-consultation-for-500mw-solar-nsip",
+   "date": "2025-06-19",
+   "site": "solar-power-portal",
+   "refs": {
+    "17494": "alias phrase 'East Pye' in the summary with developer 'Island Green'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-planning/res-solar-and-storage-steeple-renewables-project-enters-pre-examination-phase": {
+   "title": "RES solar and storage Steeple Renewables Project enters pre-examination phase",
+   "link": "https://www.solarpowerportal.co.uk/solar-planning/res-solar-and-storage-steeple-renewables-project-enters-pre-examination-phase",
+   "date": "2025-06-13",
+   "site": "solar-power-portal",
+   "refs": {
+    "15252": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-investment/aura-power-lands-finance-for-grimsby-solar-project": {
+   "title": "Aura Power lands finance for Grimsby solar project",
+   "link": "https://www.solarpowerportal.co.uk/solar-investment/aura-power-lands-finance-for-grimsby-solar-project",
+   "date": "2025-06-10",
+   "site": "solar-power-portal",
+   "refs": {
+    "7889": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/government-grants-consent-for-boom-power-s-400mw-east-yorkshire-solar-nsip": {
+   "title": "Government grants consent for Boom Power's 400MW East Yorkshire solar NSIP",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/government-grants-consent-for-boom-power-s-400mw-east-yorkshire-solar-nsip",
+   "date": "2025-05-12",
+   "site": "solar-power-portal",
+   "refs": {
+    "11678": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/low-carbon-submits-nsip-application-for-beacon-fen-energy-park": {
+   "title": "Low Carbon submits NSIP application for Beacon Fen Energy Park",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/low-carbon-submits-nsip-application-for-beacon-fen-energy-park",
+   "date": "2025-04-23",
+   "site": "solar-power-portal",
+   "refs": {
+    "13599": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-pv/planning-inspectorate-accepts-over-1gw-of-solar-pv-for-examination": {
+   "title": "Planning Inspectorate accepts over 1GW of solar PV for examination",
+   "link": "https://www.solarpowerportal.co.uk/solar-pv/planning-inspectorate-accepts-over-1gw-of-solar-pv-for-examination",
+   "date": "2025-03-28",
+   "site": "solar-power-portal",
+   "refs": {
+    "14806": "alias phrase 'One Earth' in the summary with developer 'Orsted'; the headline does not name the project",
+    "15000": "alias phrase 'Peartree Hill' in the summary with developer 'RWE'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-investment/british-solar-renewables-acquires-little-crow-solar-plus-storage-nsip": {
+   "title": "British Solar Renewables acquires Little Crow solar-plus-storage NSIP",
+   "link": "https://www.solarpowerportal.co.uk/solar-investment/british-solar-renewables-acquires-little-crow-solar-plus-storage-nsip",
+   "date": "2025-03-21",
+   "site": "solar-power-portal",
+   "refs": {
+    "6557": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-investment/quinbrook-closes-uk-s-largest-project-financing-for-cleve-hill-nsip": {
+   "title": "Quinbrook closes ‘UK’s largest’ project financing for Cleve Hill NSIP",
+   "link": "https://www.solarpowerportal.co.uk/solar-investment/quinbrook-closes-uk-s-largest-project-financing-for-cleve-hill-nsip",
+   "date": "2025-03-17",
+   "site": "solar-power-portal",
+   "refs": {
+    "6502": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-finance/aura-power-lands-33-1-million-finance-for-40mw-solar-project": {
+   "title": "Aura Power lands £33.1 million finance for 40MW solar project",
+   "link": "https://www.solarpowerportal.co.uk/solar-finance/aura-power-lands-33-1-million-finance-for-40mw-solar-project",
+   "date": "2025-02-14",
+   "site": "solar-power-portal",
+   "refs": {
+    "8529": "alias phrase 'Burtree Lane' in the summary with developer 'Aura'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/quinbrook-to-take-on-350mw-mallard-pass-solar-nsip": {
+   "title": "Quinbrook to take on 350MW Mallard Pass solar NSIP",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/quinbrook-to-take-on-350mw-mallard-pass-solar-nsip",
+   "date": "2025-02-03",
+   "site": "solar-power-portal",
+   "refs": {
+    "9904": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-pv/res-progresses-solar-pv-and-storage-steeple-project": {
+   "title": "RES progresses solar PV and storage Steeple project",
+   "link": "https://www.solarpowerportal.co.uk/solar-pv/res-progresses-solar-pv-and-storage-steeple-project",
+   "date": "2025-01-20",
+   "site": "solar-power-portal",
+   "refs": {
+    "15252": "alias phrase 'Steeple' in the summary with county 'Nottinghamshire'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/second-round-of-consultation-opens-as-800mw-great-north-road-solar-plant-moves-forward": {
+   "title": "Second round of consultation opens as 800MW Great North Road solar plant moves forward",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/second-round-of-consultation-opens-as-800mw-great-north-road-solar-plant-moves-forward",
+   "date": "2025-01-10",
+   "site": "solar-power-portal",
+   "refs": {
+    "15149": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/agrivoltaics-deal-to-bring-9-000-sheep-to-1gw-solar-park": {
+   "title": "Agrivoltaics deal to bring 9,000 sheep to 1GW solar park",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/agrivoltaics-deal-to-bring-9-000-sheep-to-1gw-solar-park",
+   "date": "2024-12-23",
+   "site": "solar-power-portal",
+   "refs": {
+    "15149": "alias phrase 'Great North Road' in the summary with developer 'Elements'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-pv/-uk-s-largest-solar-pv-power-plant-enters-pre-examination-phase": {
+   "title": "‘UK’s largest’ solar PV power plant enters pre-examination phase",
+   "link": "https://www.solarpowerportal.co.uk/solar-pv/-uk-s-largest-solar-pv-power-plant-enters-pre-examination-phase",
+   "date": "2024-12-17",
+   "site": "solar-power-portal",
+   "refs": {
+    "12588": "alias phrase 'Botley West' in the summary with developer 'Photovolt'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/dco-decision-for-boom-power-s-400mw-solar-nsip-expected-in-may-2025": {
+   "title": "DCO decision for Boom Power’s 400MW solar NSIP expected in May 2025",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/dco-decision-for-boom-power-s-400mw-solar-nsip-expected-in-may-2025",
+   "date": "2024-11-26",
+   "site": "solar-power-portal",
+   "refs": {
+    "11678": "alias phrase 'East Yorkshire' in the summary with developer 'Boom'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/development-consent-order-submitted-for-840mw-botley-west-solar-nsip": {
+   "title": "Development consent order submitted for 840MW Botley West solar NSIP",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/development-consent-order-submitted-for-840mw-botley-west-solar-nsip",
+   "date": "2024-11-18",
+   "site": "solar-power-portal",
+   "refs": {
+    "12588": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/energy-policy/dco-decision-on-480mw-west-burton-solar-nsip-delayed-until-2025": {
+   "title": "DCO decision on 480MW West Burton solar NSIP delayed until 2025",
+   "link": "https://www.solarpowerportal.co.uk/energy-policy/dco-decision-on-480mw-west-burton-solar-nsip-delayed-until-2025",
+   "date": "2024-11-07",
+   "site": "solar-power-portal",
+   "refs": {
+    "10916": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/recurrent-and-windel-partnership-launches-second-public-consultation-for-solar-nsip": {
+   "title": "Recurrent and Windel partnership launches second public consultation for solar NSIP",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/recurrent-and-windel-partnership-launches-second-public-consultation-for-solar-nsip",
+   "date": "2024-10-22",
+   "site": "solar-power-portal",
+   "refs": {
+    "14100": "alias phrase 'Fosse Green' in the summary with developer 'Windel'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/quinbrook-secures-offtake-agreements-with-tesco-and-shell-for-363mw-cleve-hill-solar-park": {
+   "title": "Quinbrook secures offtake agreements with Tesco and Shell for 363MW Cleve Hill Solar Park",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/quinbrook-secures-offtake-agreements-with-tesco-and-shell-for-363mw-cleve-hill-solar-park",
+   "date": "2024-10-16",
+   "site": "solar-power-portal",
+   "refs": {
+    "6502": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/nextpower-uk-esg-inks-one-of-the-largest-solar-sleeved-power-purchase-agreements-in-the-uk": {
+   "title": "NextPower UK ESG inks one of the largest solar sleeved power purchase agreements in the UK",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/nextpower-uk-esg-inks-one-of-the-largest-solar-sleeved-power-purchase-agreements-in-the-uk",
+   "date": "2024-10-07",
+   "site": "solar-power-portal",
+   "refs": {
+    "6411": "alias phrase 'Llanwern' in the summary with capacity '75MW'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/utility-scale-solar/balance-power-to-expedite-2036-grid-connection-for-99mw-bess": {
+   "title": "Balance Power to expedite 2036 grid connection for 99MW BESS",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/balance-power-to-expedite-2036-grid-connection-for-99mw-bess",
+   "date": "2024-09-24",
+   "site": "solar-power-portal",
+   "refs": {
+    "8051": "alias phrase 'Iron Acton' in the summary with county 'Gloucestershire'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-planning/planning-approval-granted-for-49-95mw-lark-hill-solar-farm": {
+   "title": "Planning approval granted for 49.95MW Lark Hill Solar Farm",
+   "link": "https://www.solarpowerportal.co.uk/solar-planning/planning-approval-granted-for-49-95mw-lark-hill-solar-farm",
+   "date": "2024-09-20",
+   "site": "solar-power-portal",
+   "refs": {
+    "11927": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/utility-scale-solar/uk-s-biggest-solar-farm-gets-development-consent-order": {
+   "title": "UK’s biggest solar farm gets development consent order",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/uk-s-biggest-solar-farm-gets-development-consent-order",
+   "date": "2024-09-06",
+   "site": "solar-power-portal",
+   "refs": {
+    "10914": "alias phrase 'Cottam' in the summary with developer 'Island Green'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/utility-scale-solar/second-consultation-opens-for-edf-s-buckinghamshire-utility-scale-pv-project": {
+   "title": "Second consultation opens for EDF’s Buckinghamshire utility-scale PV project",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/second-consultation-opens-for-edf-s-buckinghamshire-utility-scale-pv-project",
+   "date": "2024-09-05",
+   "site": "solar-power-portal",
+   "refs": {
+    "14851": "alias phrase 'Rosefield' in the summary with developer 'EDF'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/utility-scale-solar/schroders-greencoat-acquires-49-9mw-tiln-farm-solar-project": {
+   "title": "Schroders Greencoat acquires 49.9MW Tiln Farm solar project",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/schroders-greencoat-acquires-49-9mw-tiln-farm-solar-project",
+   "date": "2024-08-28",
+   "site": "solar-power-portal",
+   "refs": {
+    "7561": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/legal-challenge-against-500mw-solar-nsip-abandoned": {
+   "title": "Legal challenge against 500MW solar NSIP abandoned",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/legal-challenge-against-500mw-solar-nsip-abandoned",
+   "date": "2024-08-23",
+   "site": "solar-power-portal",
+   "refs": {
+    "7188": "alias phrase 'Sunnica' in the summary with capacity '500MW'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/utility-scale-solar/suffolk-county-council-launches-legal-challenge-against-sunnica-solar-farm": {
+   "title": "Suffolk County Council launches legal challenge against Sunnica solar farm",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/suffolk-county-council-launches-legal-challenge-against-sunnica-solar-farm",
+   "date": "2024-08-08",
+   "site": "solar-power-portal",
+   "refs": {
+    "7188": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/colocation/cleve-hill-successful-in-appealing-bess-refusal-by-swale-council": {
+   "title": "Cleve Hill successful in appealing BESS refusal by Swale Council",
+   "link": "https://www.solarpowerportal.co.uk/colocation/cleve-hill-successful-in-appealing-bess-refusal-by-swale-council",
+   "date": "2024-07-10",
+   "site": "solar-power-portal",
+   "refs": {
+    "6502": "alias phrase 'Cleve Hill' in the summary with capacity '373MW'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-pv/740mw-solar-pv-nsip-consultation-extended": {
+   "title": "740MW solar PV NSIP consultation extended",
+   "link": "https://www.solarpowerportal.co.uk/solar-pv/740mw-solar-pv-nsip-consultation-extended",
+   "date": "2024-06-20",
+   "site": "solar-power-portal",
+   "refs": {
+    "14806": "alias phrase 'One Earth' in the summary with developer 'Orsted'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/480mw-west-burton-solar-project-moves-to-next-stage-of-development": {
+   "title": "480MW West Burton Solar Project moves to next stage of development",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/480mw-west-burton-solar-project-moves-to-next-stage-of-development",
+   "date": "2024-06-07",
+   "site": "solar-power-portal",
+   "refs": {
+    "10916": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/utility-scale-solar/fenwick-solar-farm-consultation-nears-close": {
+   "title": "Fenwick Solar Farm consultation nears close",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/fenwick-solar-farm-consultation-nears-close",
+   "date": "2024-05-24",
+   "site": "solar-power-portal",
+   "refs": {
+    "14098": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/utility-scale-solar/secretary-of-state-delays-mallard-pass-solar-farm-decision": {
+   "title": "Secretary of State delays Mallard Pass Solar Farm decision",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/secretary-of-state-delays-mallard-pass-solar-farm-decision",
+   "date": "2024-05-20",
+   "site": "solar-power-portal",
+   "refs": {
+    "9904": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/utility-scale-solar/ps-renewables-rsted-to-launch-second-consultation-for-one-earth-solar-farm": {
+   "title": "PS Renewables, Ørsted to launch second consultation for One Earth Solar Farm",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/ps-renewables-rsted-to-launch-second-consultation-for-one-earth-solar-farm",
+   "date": "2024-05-17",
+   "site": "solar-power-portal",
+   "refs": {
+    "14806": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/800mw-nsip-finishes-second-consultation-as-82-of-locals-support-solar": {
+   "title": "800MW NSIP finishes second consultation as 82% of locals support solar",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/800mw-nsip-finishes-second-consultation-as-82-of-locals-support-solar",
+   "date": "2024-04-11",
+   "site": "solar-power-portal",
+   "refs": {
+    "13043": "alias phrase 'Springwell' in the summary with developer 'EDF'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/utility-scale-solar/sunnica-500mw-solar-farm-decision-deadline-further-delayed": {
+   "title": "Sunnica 500MW solar farm decision deadline further delayed",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/sunnica-500mw-solar-farm-decision-deadline-further-delayed",
+   "date": "2024-04-10",
+   "site": "solar-power-portal",
+   "refs": {
+    "7188": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/isg-renewables-energises-22mwp-bicker-fen-solar-park": {
+   "title": "ISG Renewables energises 22MWp Bicker Fen Solar Park",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/isg-renewables-energises-22mwp-bicker-fen-solar-park",
+   "date": "2024-03-13",
+   "site": "solar-power-portal",
+   "refs": {
+    "12117": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/energy-policy/sunnica-energy-farm-solar-nsip-decision-delayed-until-april": {
+   "title": "Sunnica Energy Farm solar NSIP decision delayed until April",
+   "link": "https://www.solarpowerportal.co.uk/energy-policy/sunnica-energy-farm-solar-nsip-decision-delayed-until-april",
+   "date": "2024-03-08",
+   "site": "solar-power-portal",
+   "refs": {
+    "7188": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/solar-pv-nsip-projects-great-north-road-botley-west-reach-development-milestones": {
+   "title": "Solar PV NSIP projects Great North Road, Botley West reach development milestones",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/solar-pv-nsip-projects-great-north-road-botley-west-reach-development-milestones",
+   "date": "2024-03-04",
+   "site": "solar-power-portal",
+   "refs": {
+    "12588": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/battery-storage/cleve-hill-s-battery-storage-application-refused-by-swale-council": {
+   "title": "Cleve Hill’s battery storage application refused by Swale Council",
+   "link": "https://www.solarpowerportal.co.uk/battery-storage/cleve-hill-s-battery-storage-application-refused-by-swale-council",
+   "date": "2024-03-01",
+   "site": "solar-power-portal",
+   "refs": {
+    "6502": "alias phrase 'Cleve Hill' in the summary with capacity '373MW'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/utility-scale-solar/840mw-botley-west-solar-farm-concludes-second-consultation": {
+   "title": "840MW Botley West Solar Farm concludes second consultation",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/840mw-botley-west-solar-farm-concludes-second-consultation",
+   "date": "2024-02-09",
+   "site": "solar-power-portal",
+   "refs": {
+    "12588": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-investment/1gw-solar-park-to-generate-1-million-of-community-funding": {
+   "title": "1GW solar park to generate £1 million of community funding",
+   "link": "https://www.solarpowerportal.co.uk/solar-investment/1gw-solar-park-to-generate-1-million-of-community-funding",
+   "date": "2024-01-23",
+   "site": "solar-power-portal",
+   "refs": {
+    "15149": "alias phrase 'Great North Road' in the summary with developer 'Elements'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/1gw-solar-nsip-launches-first-consultation-phase": {
+   "title": "1GW solar NSIP launches first consultation phase",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/1gw-solar-nsip-launches-first-consultation-phase",
+   "date": "2024-01-17",
+   "site": "solar-power-portal",
+   "refs": {
+    "15149": "alias phrase 'Great North Road' in the summary with developer 'Elements'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/solar-planning/400mw-beacon-fen-solar-farm-and-bess-open-plans-to-local-communities": {
+   "title": "400MW Beacon Fen solar farm and BESS open plans to local communities",
+   "link": "https://www.solarpowerportal.co.uk/solar-planning/400mw-beacon-fen-solar-farm-and-bess-open-plans-to-local-communities",
+   "date": "2024-01-11",
+   "site": "solar-power-portal",
+   "refs": {
+    "13599": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/energy-policy/elements-green-an-inside-perspective-on-its-1gw-solar-nsip": {
+   "title": "Elements Green: an inside perspective on its 1GW solar NSIP",
+   "link": "https://www.solarpowerportal.co.uk/energy-policy/elements-green-an-inside-perspective-on-its-1gw-solar-nsip",
+   "date": "2023-12-06",
+   "site": "solar-power-portal",
+   "refs": {
+    "15149": "alias phrase 'Great North Road' in the summary with developer 'Elements'; the headline does not name the project"
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/utility-scale-solar/second-consultation-to-commence-for-840mw-botley-west-solar-farm": {
+   "title": "Second consultation to commence for 840MW Botley West solar farm",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/second-consultation-to-commence-for-840mw-botley-west-solar-farm",
+   "date": "2023-11-24",
+   "site": "solar-power-portal",
+   "refs": {
+    "12588": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/utility-scale-solar/mytilineos-secures-epc-contract-for-cleve-hill-solar-park": {
+   "title": "Mytilineos secures EPC contract for Cleve Hill Solar Park",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/mytilineos-secures-epc-contract-for-cleve-hill-solar-park",
+   "date": "2023-10-09",
+   "site": "solar-power-portal",
+   "refs": {
+    "6502": ""
+   },
+   "how": "feed archive"
+  },
+  "https://www.solarpowerportal.co.uk/keyword/botley-west-solar-farm": {
+   "title": "Botley West Solar Farm",
+   "link": "https://www.solarpowerportal.co.uk/keyword/botley-west-solar-farm",
+   "date": null,
+   "site": "solar-power-portal",
+   "refs": {
+    "12588": ""
+   },
+   "how": "sitemap"
+  },
+  "https://www.solarpowerportal.co.uk/keyword/fvs-dean-moor-ltd": {
+   "title": "FVS Dean Moor Ltd",
+   "link": "https://www.solarpowerportal.co.uk/keyword/fvs-dean-moor-ltd",
+   "date": null,
+   "site": "solar-power-portal",
+   "refs": {
+    "14550": ""
+   },
+   "how": "sitemap"
+  },
+  "https://www.solarpowerportal.co.uk/keyword/west-burton-c": {
+   "title": "West Burton C",
+   "link": "https://www.solarpowerportal.co.uk/keyword/west-burton-c",
+   "date": null,
+   "site": "solar-power-portal",
+   "refs": {
+    "10916": ""
+   },
+   "how": "sitemap"
+  },
+  "https://www.solarpowerportal.co.uk/keyword/cleve-hill": {
+   "title": "Cleve Hill",
+   "link": "https://www.solarpowerportal.co.uk/keyword/cleve-hill",
+   "date": null,
+   "site": "solar-power-portal",
+   "refs": {
+    "6502": ""
+   },
+   "how": "sitemap"
+  },
+  "https://www.solarpowerportal.co.uk/keyword/cambridge-power": {
+   "title": "Cambridge Power",
+   "link": "https://www.solarpowerportal.co.uk/keyword/cambridge-power",
+   "date": null,
+   "site": "solar-power-portal",
+   "refs": {
+    "5521": ""
+   },
+   "how": "sitemap"
+  },
+  "https://www.solarpowerportal.co.uk/solar-projects/50mw-awre-peninsula-solar-farm-application-rejected-by-council": {
+   "title": "50MW Awre Peninsula solar farm application rejected by council",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/50mw-awre-peninsula-solar-farm-application-rejected-by-council",
+   "date": "2016-01-21",
+   "site": "solar-power-portal",
+   "refs": {
+    "5186": ""
+   },
+   "how": "sitemap"
+  },
+  "https://www.solarpowerportal.co.uk/solar-investment/spi-sells-grange-farm-solar-project-to-blackrock-investment-fund": {
+   "title": "SPI sells Grange Farm solar project to Blackrock investment fund",
+   "link": "https://www.solarpowerportal.co.uk/solar-investment/spi-sells-grange-farm-solar-project-to-blackrock-investment-fund",
+   "date": "2015-06-09",
+   "site": "solar-power-portal",
+   "refs": {
+    "7256": ""
+   },
+   "how": "sitemap"
+  }
+ },
+ "feed_archive": {
+  "solar-power-portal": {
+   "next": 31,
+   "finished_at": ""
+  }
+ },
+ "sitemaps": {
+  "solar-power-portal": {
+   "files": {
+    "https://www.solarpowerportal.co.uk/sitemap.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/googlenews.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/generic-content.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2010/april.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2010/may.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2010/july.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2010/august.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2010/september.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2010/october.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2010/november.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2011/january.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2011/february.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2011/march.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2011/june.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2011/july.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2011/august.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2011/september.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2011/november.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2012/january.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2012/february.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2012/march.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2012/april.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2012/may.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2012/june.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2012/july.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2012/august.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2012/september.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2012/october.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2012/november.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2012/december.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2013/january.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2013/april.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2013/may.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2013/june.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2013/july.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2013/august.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2013/september.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2013/october.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2013/november.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2013/december.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2014/january.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2014/february.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2014/march.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2014/april.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2014/may.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2014/june.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2014/july.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2014/august.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2014/september.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2014/october.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2014/november.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2014/december.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2015/january.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2015/february.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2015/march.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2015/april.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2015/may.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2015/june.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2015/august.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2015/september.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2015/october.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2015/november.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2015/december.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2016/january.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2016/february.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2016/march.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2016/april.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2016/may.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2016/june.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2016/july.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2016/august.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2016/september.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2016/october.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2016/november.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2016/december.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2017/january.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2017/february.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2017/march.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2017/april.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2017/may.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2017/june.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2017/july.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2017/august.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2017/september.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2017/october.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2017/november.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2018/january.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2018/february.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2018/march.xml": "2026-11-14T12:34:49Z",
+    "https://www.solarpowerportal.co.uk/news/archive/2018/april.xml": "2026-11-14T12:34:49Z"
+   },
+   "links": {
+    "https://www.solarpowerportal.co.uk/keyword/cambridge-power": {
+     "refs": [
+      "5521"
+     ],
+     "lastmod": "2025-07-29",
+     "title": "",
+     "date": null
+    },
+    "https://www.solarpowerportal.co.uk/keyword/cleve-hill": {
+     "refs": [
+      "6502"
+     ],
+     "lastmod": "2025-09-26",
+     "title": "",
+     "date": null
+    },
+    "https://www.solarpowerportal.co.uk/keyword/west-burton-c": {
+     "refs": [
+      "10916"
+     ],
+     "lastmod": "2026-02-02",
+     "title": "",
+     "date": null
+    },
+    "https://www.solarpowerportal.co.uk/keyword/fvs-dean-moor-ltd": {
+     "refs": [
+      "14550"
+     ],
+     "lastmod": "2026-07-07",
+     "title": "",
+     "date": null
+    },
+    "https://www.solarpowerportal.co.uk/keyword/botley-west-solar-farm": {
+     "refs": [
+      "12588"
+     ],
+     "lastmod": "2026-09-04",
+     "title": "",
+     "date": null
+    },
+    "https://www.solarpowerportal.co.uk/solar-investment/spi-sells-grange-farm-solar-project-to-blackrock-investment-fund": {
+     "refs": [
+      "7256"
+     ],
+     "lastmod": "2015-06-09",
+     "title": "",
+     "date": null
+    },
+    "https://www.solarpowerportal.co.uk/solar-projects/50mw-awre-peninsula-solar-farm-application-rejected-by-council": {
+     "refs": [
+      "5186"
+     ],
+     "lastmod": "2016-01-21",
+     "title": "",
+     "date": null
+    }
+   }
+  }
+ },
+ "pages": {
+  "https://www.solarpowerportal.co.uk/keyword/botley-west-solar-farm": [
+   "Botley West Solar Farm",
+   null
+  ],
+  "https://www.solarpowerportal.co.uk/keyword/fvs-dean-moor-ltd": [
+   "FVS Dean Moor Ltd",
+   null
+  ],
+  "https://www.solarpowerportal.co.uk/keyword/west-burton-c": [
+   "West Burton C",
+   null
+  ],
+  "https://www.solarpowerportal.co.uk/keyword/cleve-hill": [
+   "Cleve Hill",
+   null
+  ],
+  "https://www.solarpowerportal.co.uk/keyword/cambridge-power": [
+   "Cambridge Power",
+   null
+  ],
+  "https://www.solarpowerportal.co.uk/solar-projects/50mw-awre-peninsula-solar-farm-application-rejected-by-council": [
+   "50MW Awre Peninsula solar farm application rejected by council",
+   "2016-01-21"
+  ],
+  "https://www.solarpowerportal.co.uk/solar-investment/spi-sells-grange-farm-solar-project-to-blackrock-investment-fund": [
+   "SPI sells Grange Farm solar project to Blackrock investment fund",
+   "2015-06-09"
+  ]
+ },
+ "updated_at": "2026-11-14T12:34:49Z"
+}

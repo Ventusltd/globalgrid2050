@@ -220,6 +220,11 @@ def judge(ref, title, project=None, official=False):
     planning_ref = project["planning_ref"]
     if len(planning_ref) >= 6 and planning_ref.lower() in title.lower():
         return "ok", "planning reference in the title"
+    # A named town getting school rooftop panels, solar canopies or street
+    # lights is not evidence that its utility-scale REPD scheme progressed.
+    if SMALL_RE.search(title) and not re.search(
+            r"\b(?:solar (?:farm|park|plant|project)|NSIP|DCO)\b", title, re.I):
+        return "drop", "non-utility rooftop or lighting subject"
     if not names:
         return "none", ""
     if inverted_solar_place(title, {"repd_ref": ref, "aliases": project["aliases"]}):

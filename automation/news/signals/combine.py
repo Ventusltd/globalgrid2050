@@ -324,7 +324,7 @@ def clean_item(raw, team, today=None, collected_at=None, as_of=None):
     if collection_clock is not None and isinstance(raw_date, str) and raw_date.strip():
         value = raw_date.strip()
         try:
-            if re.match(r"^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:", value):
+            if re.match(r"^\d{4}-\d\d-\d\d[T ]\d\d:", value):
                 publication = dt.datetime.fromisoformat(value.replace("Z", "+00:00"))
                 if publication.tzinfo is not None:
                     future = publication > collection_clock + dt.timedelta(minutes=5)

@@ -656,7 +656,13 @@ def combine(rows, aliases=None, parts=None, planning=None, previous=None, now_is
             continue
         found = {ref: next(i for i in gathered[ref] if link_key(i["link"]) == link) for ref in on}
         named = {ref: names_project(found[ref]["title"], aliases.get(ref) or {}, rows_by_ref[ref]) for ref in on}
-        keep = [ref for ref in on if named[ref] or is_reviewed(found[ref])]
+        # A reviewed record is a source discovery method, not itself evidence
+        # that one URL concerns every REPD row to which it was pasted. The
+        # specific identity of *each* project must be supported independently.
+        # This also permits a genuinely two-project headline when both names
+        # occur; a future reviewed binding may qualify only with a separately
+        # audited project-specific receipt.
+        keep = [ref for ref in on if named[ref]]
         if not keep:
             keep = [min(on, key=lambda ref: (found[ref]["confidence"] != "confirmed",
                                               standing(ref) != "confirmed",

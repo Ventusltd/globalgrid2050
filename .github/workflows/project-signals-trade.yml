@@ -23,9 +23,37 @@ concurrency:
   group: project-signals-trade-${{ github.ref }}
   cancel-in-progress: true
 jobs:
+  routes:
+    # Quick look at what each site offers: every search route of every site, first ten projects only.
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Try every search route of every site (first ten projects)
+        run: |
+          python automation/news/signals/trade.py \
+            --out "$RUNNER_TEMP/routes/project_signals_trade.json" \
+            --probe "$RUNNER_TEMP/routes/routes.md" \
+            --truth automation/news/tests/fixtures/signals/truth_trade.json \
+            --discover --limit 10 --batch 10 --host-seconds 240
+          cat "$RUNNER_TEMP/routes/routes.md" >> "$GITHUB_STEP_SUMMARY"
+          cat "$RUNNER_TEMP/routes/routes.md"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: project-signals-trade-routes
+          path: ${{ runner.temp }}/routes/
+          retention-days: 14
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 30
     permissions:
       contents: read
     steps:
@@ -46,7 +74,7 @@ jobs:
             --cache "$RUNNER_TEMP/trade/trade_cache.json" \
             --probe "$RUNNER_TEMP/trade/probe.md" \
             --truth automation/news/tests/fixtures/signals/truth_trade.json \
-            --discover --batch 200 --per-host-cap 450 --host-seconds 1500
+            --batch 200 --per-host-cap 450 --host-seconds 840
           cat "$RUNNER_TEMP/trade/probe.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$RUNNER_TEMP/trade/probe.md"
       - uses: actions/upload-artifact@v4

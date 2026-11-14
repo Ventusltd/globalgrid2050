@@ -28,6 +28,10 @@ Rules
   (one word, or only everyday words such as "Low Farm") also needs a second agreeing term in the title: the
   developer, the county, the planning authority, or a solar word. A planning reference (EN010147) in the title
   matches on its own. The basis line of every item says which of these applied.
+- Summary rule of the contract, as a fallback: when the headline does not name the project but the search or
+  feed summary contains the alias phrase AND the developer, county, planning authority or planning reference
+  agrees, the item is kept with confidence "uncertain" and a basis that says so. The summary itself is read in
+  memory and never stored.
 - A title containing one of the project's "exclude" phrases is dropped. Aliases with alias_status "derived" or
   "uncertain" give items with confidence "uncertain".
 - Cache and rotation: the cache file is keyed by site and query and stores only matching headlines. A run
@@ -71,7 +75,7 @@ CANARY = "solar farm"
 MAX_TERMS_PER_PROJECT = 2
 BREAKER = 6  # consecutive failures after which a site is left alone for the rest of the run
 
-WP_POSTS = "/wp-json/wp/v2/posts?search={q}&per_page=20&orderby=relevance&_fields=title,link,date"
+WP_POSTS = "/wp-json/wp/v2/posts?search={q}&per_page=20&orderby=relevance&_fields=title,link,date,excerpt"
 WP_SEARCH = "/wp-json/wp/v2/search?search={q}&per_page=20"
 WP_RSS = "/?s={q}&feed=rss2"
 
@@ -314,7 +318,7 @@ def date_near(text):
 
 
 def parse_html_results(body, base):
-    """[(title, link, date)] from a results page: every same-site link whose text reads like a headline. The
+    """[(title, link, date, "")] from a results page: every same-site link whose text reads like a headline. The
     date is the first one in the markup that follows the link (before the next headline link), else the date in
     the link itself. The alias rule decides afterwards which of these count."""
     text = body.decode("utf-8", "replace")
@@ -337,12 +341,13 @@ def parse_html_results(body, base):
         stop = found[index + 1][2] if index + 1 < len(found) else len(text)
         url_date = URL_DATE_RE.search(link)
         date = date_near(text[end:min(stop, end + 1500)]) or (url_date and _valid_date(*url_date.groups()))
-        out.append((title, link, date or None))
+        out.append((title, link, date or None, ""))
     return out
 
 
 def parse_results(kind, body, base):
-    """[(title, link, date)] for one search route. Raises ValueError when the answer is not what the route
+    """[(title, link, date, summary)] for one search route; the summary is read in memory for the summary rule
+    and is never written anywhere. Raises ValueError when the answer is not what the route
     promises (an HTML challenge page where JSON was expected, for example)."""
     if kind in ("wp_posts", "wp_search"):
         try:
@@ -360,15 +365,19 @@ def parse_results(kind, body, base):
                 title = title.get("rendered")
             link = D.canonical_link(row.get("link") or row.get("url") or "")
             title = D.clean_text(title if isinstance(title, str) else "", 300)
+            excerpt = row.get("excerpt")
+            if isinstance(excerpt, dict):
+                excerpt = excerpt.get("rendered")
             if title and link:
-                out.append((title, link, day_of(row.get("date_gmt") or row.get("date") or "")))
+                out.append((title, link, day_of(row.get("date_gmt") or row.get("date") or ""),
+                            D.clean_text(excerpt if isinstance(excerpt, str) else "", 1500)))
         return out
     if kind in ("wp_rss", "feed"):
         out = []
-        for title, link, date, _summary in D.parse_feed(body):
+        for title, link, date, summary in D.parse_feed(body):
             title, link = D.clean_text(title, 300), D.canonical_link(link)
             if title and link:
-                out.append((title, link, day_of(date)))
+                out.append((title, link, day_of(date), D.clean_text(summary, 1500)))
         return out
     if kind == "html":
         return parse_html_results(body, base)
@@ -469,8 +478,11 @@ class Project:
             out.append(core + " solar" if weak else core)
         return out
 
-    def match(self, title):
-        """(basis, confidence) when the title names this project, else None."""
+    def match(self, title, summary=""):
+        """(basis, confidence) when the title names this project, else None. The summary rule of the contract
+        is the fallback: the alias phrase in the feed or search summary together with the developer, county,
+        planning authority or planning reference (in the title or the summary). Such an item is always
+        'uncertain' and its basis says the headline does not name the project."""
         if any(rx.search(title) for rx in self.exclude):
             return None
         confidence = "confirmed" if self.status == "confirmed" else "uncertain"
@@ -496,6 +508,26 @@ class Project:
             if extra:
                 basis += " with %s" % extra
             return basis, confidence
+        if summary:
+            return self.match_summary(title, summary)
+        return None
+
+    def match_summary(self, title, summary):
+        if any(rx.search(summary) for rx in self.exclude):
+            return None
+        both = title + " . " + summary
+        for _alias, core, rx, weak in self.aliases:
+            if not rx.search(summary):
+                continue
+            if weak == 2 and not re.search(rx.pattern + ADJACENT, summary, re.I):
+                continue
+            agree = [(label, text) for label, text, srx in self.second
+                     if srx.search(both) and text.lower() not in core.lower()]
+            if self.ref_rx and self.ref_rx.search(both):
+                agree.insert(0, ("planning reference", self.planning_ref))
+            if agree:
+                return ("alias phrase '%s' in the summary with %s '%s'; the headline does not name the project"
+                        % (core, agree[0][0], agree[0][1])), "uncertain"
         return None
 
 
@@ -561,8 +593,9 @@ def pick_route(site, host, discover, report):
             ctype, body = host.get(url)
             rows = parse_results(kind, body, site["base"])
             dated = sum(1 for r in rows if r[2])
+            summaries = sum(1 for r in rows if r[3])
             entry.update(status="ok" if rows else "empty", content_type=ctype.split(";")[0], bytes=len(body),
-                         results=len(rows), dated=dated, sample=rows[0][0] if rows else "")
+                         results=len(rows), dated=dated, summaries=summaries, sample=rows[0][0] if rows else "")
             if rows and chosen is None and (dated or kind != "wp_search"):
                 chosen = (kind, template)
         except (HttpError, ValueError) as error:
@@ -588,12 +621,16 @@ def run_site(site, projects, todo, cache, fetch, now, args, out):
                 _ctype, body = host.get(url)
                 rows = parse_results("feed", body, site["base"])
                 kept = 0
-                for title, link, date in rows:
+                for title, link, date, summary in rows:
+                    refs = {}
                     for project in projects:
-                        if project.match(title):
-                            feed_hits[link] = {"title": title, "link": link, "date": date, "site": site["id"]}
-                            kept += 1
-                            break
+                        verdict = project.match(title, summary)
+                        if verdict:
+                            refs[project.ref] = verdict[0] if "in the summary" in verdict[0] else ""
+                    if refs:
+                        feed_hits[link] = {"title": title, "link": link, "date": date, "site": site["id"],
+                                           "refs": refs}
+                        kept += 1
                 entry.update(status="ok", entries=len(rows), matched=kept,
                              newest=max((r[2] for r in rows if r[2]), default=""))
             except (HttpError, ValueError) as error:
@@ -618,10 +655,16 @@ def run_site(site, projects, todo, cache, fetch, now, args, out):
                         _ctype, body = host.get(route_url(site, template, term))
                         rows = parse_results(kind, body, site["base"])
                         core_rx = bounded(term[:-6] if term.endswith(" solar") else term)
-                        keep = [[t, l, d] for t, l, d in rows if core_rx.search(t)
-                                or (project.ref_rx and project.ref_rx.search(t))]
+                        keep = []
+                        for title, link, date, summary in rows:
+                            if core_rx.search(title) or (project.ref_rx and project.ref_rx.search(title)):
+                                keep.append([title, link, date])
+                            else:
+                                verdict = project.match_summary(title, summary) if summary else None
+                                if verdict:
+                                    keep.append([title, link, date, verdict[0]])
                         new_queries[key] = {"at": iso(now), "status": "ok", "route": kind, "returned": len(rows),
-                                            "results": keep[:10]}
+                                            "results": keep[:12]}
                         health["searched"] += 1
                     except (HttpError, ValueError) as error:
                         if isinstance(error, ValueError):
@@ -659,8 +702,13 @@ def build_items(projects, cache):
             by_term.setdefault(" ".join(term.lower().split()), []).append(project)
     items, seen = [], set()
 
-    def add(project, title, link, date, site_id, how):
-        verdict = project.match(title)
+    def add(project, title, link, date, site_id, how, summary_basis=""):
+        if summary_basis:
+            if any(rx.search(title) for rx in project.exclude):
+                return
+            verdict = (summary_basis, "uncertain")
+        else:
+            verdict = project.match(title)
         if not verdict or (project.ref, link) in seen:
             return
         seen.add((project.ref, link))
@@ -668,19 +716,21 @@ def build_items(projects, cache):
                       "date": date, "family": "trade", "basis": "%s %s: %s" % (publisher[site_id], how, verdict[0]),
                       "confidence": verdict[1]})
 
+    by_ref = {p.ref: p for p in projects}
     for key in sorted(cache["queries"]):
         site_id, _, term = key.partition("|")
         if site_id not in publisher:
             continue
-        for title, link, date in cache["queries"][key].get("results") or []:
+        for row in cache["queries"][key].get("results") or []:
             for project in by_term.get(term, []):
-                add(project, title, link, date, site_id, "search")
+                add(project, row[0], row[1], row[2], site_id, "search", row[3] if len(row) > 3 else "")
     for link in sorted(cache.get("feed_hits") or {}):
         hit = cache["feed_hits"][link]
         if hit.get("site") not in publisher:
             continue
-        for project in projects:
-            add(project, hit["title"], hit["link"], hit.get("date"), hit["site"], "feed")
+        for ref, summary_basis in sorted((hit.get("refs") or {}).items()):
+            if ref in by_ref:
+                add(by_ref[ref], hit["title"], hit["link"], hit.get("date"), hit["site"], "feed", summary_basis)
     rank = {p.ref: p.rank for p in projects}
     items.sort(key=lambda i: (rank[i["repd_ref"]], i["date"] is None, "" if i["date"] is None else
                               "%08d" % (99999999 - int(i["date"].replace("-", ""))), i["link"]))
@@ -752,11 +802,14 @@ def report(part, projects, truth, discover):
     items, lines = part["items"], []
     with_signal = {i["repd_ref"] for i in items}
     confirmed = {i["repd_ref"] for i in items if i["confidence"] == "confirmed"}
+    by_title = {i["repd_ref"] for i in items if "in the summary" not in i["basis"]}
     rot = part["rotation"]
     lines.append("## Trade-press signals for the top 200 solar projects\n")
-    lines.append("**Projects with at least one trade signal: %d of %d** (%d with a confirmed alias; %d items)."
-                 "  Searched this run: %d projects; a full cycle is %d runs of %d.\n"
-                 % (len(with_signal), len(projects), len(confirmed), len(items), rot["searched_this_run"],
+    lines.append("**Projects with at least one trade signal: %d of %d** (%d by the title rule, %d more by the "
+                 "summary rule only; %d with a confirmed item; %d items).  Searched this run: %d projects; a full "
+                 "cycle is %d runs of %d.\n"
+                 % (len(with_signal), len(projects), len(by_title), len(with_signal - by_title), len(confirmed),
+                    len(items), rot["searched_this_run"],
                     rot["full_cycle_runs"], rot["batch"]))
     lines.append("### Per site\n")
     lines.append("| site | status | search route used | searched | cached | skipped | requests | failures | "
@@ -772,12 +825,14 @@ def report(part, projects, truth, discover):
             cell("; ".join([source.get("error") or ""] + (source.get("notes") or [])).strip("; "))))
     lines.append("\n### Routes tried (canary query '%s')%s\n" % (CANARY, "" if discover else
                                                                    " - stops at the first that works"))
-    lines.append("| site | route | result | type | results | dated | first title or error |\n|---|---|---|---|---|---|---|")
+    lines.append("| site | route | result | type | results | dated | with summary | first title or error |\n"
+                 "|---|---|---|---|---|---|---|---|")
     for site, source in zip(SITES, part["sources"]):
         for route in source.get("routes") or []:
-            lines.append("| %s | %s | %s | %s | %s | %s | %s |" % (
+            lines.append("| %s | %s | %s | %s | %s | %s | %s | %s |" % (
                 site["publisher"], cell(route["url"].replace(site["base"], "")), route["status"],
                 route.get("content_type", ""), route.get("results", ""), route.get("dated", ""),
+                route.get("summaries", ""),
                 cell((route.get("sample") or route.get("error") or "")[:90])))
     lines.append("\n### Main feeds\n")
     lines.append("| site | feed | result | entries | newest | matched a project |\n|---|---|---|---|---|---|")

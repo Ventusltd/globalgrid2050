@@ -89,6 +89,19 @@ def test_unconfirmed_alias_gives_uncertain_items_and_generic_alias_is_ignored():
     assert project(4, 4, ["Solar Farm"]).aliases == []
 
 
+def test_summary_rule_needs_alias_and_an_agreeing_fact_and_is_uncertain():
+    p = project(10914, 8, ["Cottam Solar Project"], county="Lincolnshire", operator="Island Green Power")
+    title = "UK's biggest solar farm gets development consent order"
+    assert p.match(title) is None
+    assert p.match(title, "The 600MW Cottam Solar Project has been approved.") is None  # alias alone
+    basis, confidence = p.match(title, "Island Green Power's 600MW Cottam Solar Project has been approved.")
+    assert confidence == "uncertain" and "summary" in basis and "Island" in basis and "headline" in basis
+    assert p.match(title, "Island Green Power wins consent in Lincolnshire.") is None  # no alias
+    everyday = project(15793, 15, ["Green Hill Solar Farm"], operator="Island Green Power")
+    assert everyday.match(title, "Island Green Power plans a solar farm at a green hill site.") is None
+    assert everyday.match(title, "Island Green Power's Green Hill Solar Farm moves on.")
+
+
 def test_search_terms():
     assert project(1, 1, ["Botley West Solar Farm", "Botley West"]).terms() == ["Botley West"]
     assert project(1, 1, ["Sunnica Energy Farm"]).terms() == ["Sunnica solar"]
@@ -137,10 +150,10 @@ def test_parse_wp_posts_and_search_json():
                         "link": "https://www.example.org/botley/?utm_source=x", "date": "2026-11-10T09:30:00"},
                        {"title": {"rendered": ""}, "link": "https://www.example.org/x/"}]).encode()
     rows = T.parse_results("wp_posts", body, "https://www.example.org")
-    assert rows == [("Botley West ‘refused’ by Miliband", "https://www.example.org/botley/", "2026-11-10")]
+    assert rows == [("Botley West ‘refused’ by Miliband", "https://www.example.org/botley/", "2026-11-10", "")]
     body = json.dumps([{"title": "Cleve Hill goes live", "url": "https://www.example.org/cleve/"}]).encode()
     assert T.parse_results("wp_search", body, "https://www.example.org") == [
-        ("Cleve Hill goes live", "https://www.example.org/cleve/", None)]
+        ("Cleve Hill goes live", "https://www.example.org/cleve/", None, "")]
     with pytest.raises(ValueError):
         T.parse_results("wp_posts", b"<html>Just a moment...</html>", "https://www.example.org")
     with pytest.raises(ValueError):
@@ -152,7 +165,7 @@ def test_parse_rss_search():
             b'<link>https://www.example.org/cleve-hill/</link><pubDate>Tue, 10 Nov 2026 09:00:00 +0000</pubDate>'
             b'<description>never stored</description></item></channel></rss>')
     assert T.parse_results("wp_rss", body, "https://www.example.org") == [
-        ("Cleve Hill Solar Park energised", "https://www.example.org/cleve-hill/", "2026-11-10")]
+        ("Cleve Hill Solar Park energised", "https://www.example.org/cleve-hill/", "2026-11-10", "never stored")]
 
 
 HTML = b"""<html><body><nav><a href="/news">News</a><a href="/about-us/our-team-and-contacts">About</a></nav>
@@ -167,9 +180,9 @@ HTML = b"""<html><body><nav><a href="/news">News</a><a href="/about-us/our-team-
 def test_parse_html_results_page():
     rows = T.parse_results("html", HTML, "https://www.example.org")
     assert rows == [
-        ("Botley West solar farm refused consent", "https://www.example.org/planning/botley-west-refused", "2026-11-10"),
-        ("Cleve Hill Solar Park goes live in Kent", "https://www.example.org/2025/03/07/cleve-hill-live/", "2025-03-07"),
-        ("Mallard Pass contractor named by developer", "https://www.example.org/x/y", "2026-01-05"),
+        ("Botley West solar farm refused consent", "https://www.example.org/planning/botley-west-refused", "2026-11-10", ""),
+        ("Cleve Hill Solar Park goes live in Kent", "https://www.example.org/2025/03/07/cleve-hill-live/", "2025-03-07", ""),
+        ("Mallard Pass contractor named by developer", "https://www.example.org/x/y", "2026-01-05", ""),
     ]
 
 
@@ -276,6 +289,9 @@ def fake_site(monkeypatch):
             return "application/json", json.dumps([
                 {"title": {"rendered": "Botley West refused"}, "link": "https://one.example/bw/", "date": "2026-11-10T10:00:00"},
                 {"title": {"rendered": "Unrelated solar story"}, "link": "https://one.example/u/", "date": "2026-11-09T10:00:00"},
+                {"title": {"rendered": "Largest UK solar farm refused"}, "link": "https://one.example/big/",
+                 "date": "2026-11-11T10:00:00",
+                 "excerpt": {"rendered": "<p>Example Power's Botley West Solar Farm was refused.</p>"}},
             ]).encode()
         return "application/json", b"[]"
 
@@ -297,13 +313,15 @@ def test_run_writes_contract_part_uses_cache_and_survives_a_failing_site(tmp_pat
     part = json.loads(out.read_text())
     assert part["schema"] == "project-signals-part.v1" and part["team"] == "trade"
     assert [(i["repd_ref"], i["link"], i["date"], i["confidence"], i["family"]) for i in part["items"]] == [
+        ("12588", "https://one.example/big/", "2026-11-11", "uncertain", "trade"),
         ("12588", "https://one.example/bw/", "2026-11-10", "confirmed", "trade"),
         ("12926", "https://one.example/tween/", "2026-11-09", "uncertain", "trade")]
     assert all(set(i) == {"repd_ref", "title", "link", "publisher", "date", "family", "basis", "confidence"}
                for i in part["items"])
-    assert "search" in part["items"][0]["basis"] and "feed" in part["items"][1]["basis"]
+    assert "summary" in part["items"][0]["basis"] and "Example Power" not in json.dumps(part)
+    assert "search" in part["items"][1]["basis"] and "feed" in part["items"][2]["basis"]
     one, two = part["sources"]
-    assert one["status"] == "ok" and one["items"] == 2 and one["route"].startswith("wp_posts")
+    assert one["status"] == "ok" and one["items"] == 3 and one["route"].startswith("wp_posts")
     assert two["status"] == "failed" and "robots" in two["error"]
     assert not any("two.example/?s=" in c for c in calls)  # the disallowed route was never requested
     text = probe.read_text()
@@ -314,7 +332,8 @@ def test_run_writes_contract_part_uses_cache_and_survives_a_failing_site(tmp_pat
     assert not any("search=Botley" in c for c in calls[before:])
     assert json.loads(out.read_text())["items"] == part["items"]
     cache = json.loads((tmp_path / "part.cache.json").read_text())
-    assert cache["queries"]["one|botley west"]["results"] == [["Botley West refused", "https://one.example/bw/", "2026-11-10"]]
+    assert cache["queries"]["one|botley west"]["results"][0] == ["Botley West refused", "https://one.example/bw/", "2026-11-10"]
+    assert "was refused" not in json.dumps(cache)  # the summary text is never stored
 
 
 def test_rotation_takes_least_recently_searched_then_stale(monkeypatch):

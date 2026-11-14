@@ -14,8 +14,8 @@ Rules
 - Items for a reference outside the 200, without a usable https link, from a source that is not allowed, or whose
   title carries one of the project's "exclude" phrases are dropped and counted.
 - Signals already published in the previous file are kept, so a story that has rolled off a feed does not vanish.
-- The planning file comes from, in order: a --planning file, aliases.json, lead 1's planning_file module when it
-  can be imported, and a last resort built here (counted separately, never marked verified).
+- The planning file comes from, in order: a --planning file, the planning_file module when it can be imported
+  (planning_file_for), aliases.json, and a last resort built here (counted separately, never marked verified).
 - counts.nothing must be 0: the exit code is 2 if any project has neither a signal nor a planning file.
 """
 from __future__ import annotations
@@ -254,12 +254,11 @@ def combine(rows, aliases=None, parts=None, planning=None, previous=None, now_is
         entry = aliases.get(ref) or {}
         signals = select(gathered[ref])
         file, origin = None, ""
-        for origin, candidate in (("planning", planning.get(ref)), ("aliases", entry.get("planning_file"))):
-            file = clean_planning_file(candidate)
-            if file:
-                break
+        file, origin = clean_planning_file(planning.get(ref)), "planning"
         if not file and use_module:
-            file, origin = module_planning_file(row), "module"
+            file, origin = module_planning_file(dict(row, planning_file=entry.get("planning_file"))), "module"
+        if not file:
+            file, origin = clean_planning_file(entry.get("planning_file")), "aliases"
         if not file:
             file, origin = clean_planning_file(last_resort(row)), "last_resort"
         names = entry.get("aliases") or []

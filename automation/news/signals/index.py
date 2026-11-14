@@ -55,6 +55,7 @@ GDELT_INTERVAL_S = 6.0
 GDELT_MAXRECORDS = 75
 GDELT_CACHE_DAYS = 3
 GDELT_DEFAULT_CAP = 120
+GDELT_MAX_REFUSALS = 4          # a query refused twice (HTTP 429) this many times running: stop for this run
 # Widest first. GDELT answers a window it does not allow with a plain-text message; the script then steps down.
 GDELT_WINDOWS = (("since 2017", {"startdatetime": "20170101000000"}),
                  ("last 12 months", {"timespan": "12m"}),
@@ -372,6 +373,7 @@ def fetch_feed(url):
 def collect_rss(feeds, projects, fetch, publisher, family, where, throttle=None):
     """feeds: [(url, counties)]. Returns (items, per-feed health)."""
     items, health = [], []
+    unmatched = collect_rss.unmatched
     for url, counties in feeds:
         if throttle:
             throttle.wait(urllib.parse.urlsplit(url).hostname)
@@ -392,14 +394,21 @@ def collect_rss(feeds, projects, fetch, publisher, family, where, throttle=None)
             if not SOLAR.search(title + " " + summary):
                 continue
             solar += 1
+            matched = False
             for project in projects:
                 verdict = match_item(project, title, summary, project["county"].lower() in counties)
                 if verdict:
                     items.append(make_item(project, title, link, date, publisher, family, verdict[0], verdict[1], where))
                     kept += 1
+                    matched = True
+            if not matched and link not in unmatched:
+                unmatched[link] = (publisher, (date or "")[:10], title)
         health.append({"url": url, "status": "ok", "entries": len(entries), "solar": solar, "kept": kept,
                        "newest": newest, "error": ""})
     return items, health
+
+
+collect_rss.unmatched = {}     # link -> (publisher, date, headline) of items that say solar and matched no project
 
 
 def source_record(source_id, url, health):
@@ -479,7 +488,9 @@ class Gdelt:
         self.scope, self.interval, self.cache_days = scope, interval, cache_days
         self.window = 0
         self.stats = {"requests": 0, "answered": 0, "cache_hits": 0, "http_429": 0, "errors": 0, "empty": 0,
-                      "articles": 0, "stopped": "", "window": "", "error_samples": [], "not_asked": 0}
+                      "articles": 0, "stopped": "", "window": "", "error_samples": [], "not_asked": 0,
+                      "refused_queries": 0}
+        self.refusals = 0
         self.throttle = Throttle(interval, sleep)
 
     def _fresh(self, key):
@@ -517,8 +528,18 @@ class Gdelt:
                 status, text = self._get(url)
                 if status == 429:
                     self.stats["http_429"] += 1
-                    self.stats["stopped"] = "HTTP 429 twice in a row; GDELT left alone for the rest of this run"
+                    self.stats["refused_queries"] += 1
+                    self.refusals += 1
+                    note = "HTTP 429: " + " ".join(text.split())[:120]
+                    if note not in self.stats["error_samples"] and len(self.stats["error_samples"]) < 5:
+                        self.stats["error_samples"].append(note)
+                    if self.refusals >= GDELT_MAX_REFUSALS:
+                        self.stats["stopped"] = ("HTTP 429 on %d queries running, each retried once; GDELT left alone "
+                                                 "for the rest of this run" % self.refusals)
+                    else:
+                        self.sleep(30 * self.refusals)                 # slow down further before the next query
                     return None
+            self.refusals = 0
             if status != 200:
                 self._error("HTTP %s" % status)
                 self.cache[query] = {"fetched_at": self.now, "articles": [], "error": "HTTP %s" % status}
@@ -697,7 +718,7 @@ def probe_report(part, projects, extra):
     if g:
         lines.append("\n### GDELT DOC 2.0: what it returned\n")
         lines.append("- requests %(requests)s, answered %(answered)s, cache hits %(cache_hits)s, HTTP 429 %(http_429)s, "
-                     "errors %(errors)s, queries with no article %(empty)s, articles returned %(articles)s, "
+                     "queries refused twice %(refused_queries)s, errors %(errors)s, queries with no article %(empty)s, articles returned %(articles)s, "
                      "projects not asked this run %(not_asked)s" % g)
         lines.append("- window in use: %s%s" % (g.get("window") or "none answered", ("; stopped: " + g["stopped"]) if g.get("stopped") else ""))
         if g.get("error_samples"):
@@ -715,8 +736,8 @@ def probe_report(part, projects, extra):
         for row in extra["experiment"]:
             lines.append("| %s | %s | %s |" % (row["repd_ref"], row["phrase"], " | ".join(str(row.get(k, "")) for k in keys)))
     lines.append("\n### Feeds\n")
-    if extra.get("unmapped"):
-        lines.append("Counties with no BBC regional feed in the table: %s\n" % ", ".join(extra["unmapped"]))
+    if extra.get("unmapped_counties"):
+        lines.append("Counties with no BBC regional feed in the table: %s\n" % ", ".join(extra["unmapped_counties"]))
     lines.append("| feed | status | entries | mention solar | kept | newest | error |\n|---|---|---|---|---|---|---|")
     for h in part.get("feeds", []):
         lines.append("| %s | %s | %s | %s | %s | %s | %s |" % (h["url"].replace("https://", ""), h["status"], h["entries"],
@@ -727,6 +748,10 @@ def probe_report(part, projects, extra):
         lines.append("| %s | %s | %s | %s | %s | [%s](%s) | %s |" % (
             i["repd_ref"], i["date"] or "", i["family"], i["publisher"], i["confidence"],
             i["title"].replace("|", "/").replace("[", "(").replace("]", ")"), i["link"], i["basis"].replace("|", "/")))
+    if extra.get("unmatched"):
+        lines.append("\n### Feed items that say solar and matched none of the 200 (headlines only)\n")
+        for link, (publisher, date, title) in list(extra["unmatched"].items())[:50]:
+            lines.append("- %s %s: [%s](%s)" % (date, publisher, title.replace("[", "(").replace("]", ")"), link))
     if extra.get("truth"):
         lines.append("\n" + extra["truth"])
     return "\n".join(lines) + "\n"
@@ -757,7 +782,9 @@ def main(argv=None):
     throttle = Throttle(1.0)
 
     if not args.skip_rss:
-        bbc, extra["unmapped"] = bbc_feeds(projects)
+        collect_rss.unmatched.clear()
+        extra["unmatched"] = collect_rss.unmatched
+        bbc, extra["unmapped_counties"] = bbc_feeds(projects)
         found, health = collect_rss(bbc, projects, fetch_feed, "BBC News", "bbc", "BBC News RSS", throttle)
         items += found
         feeds += health

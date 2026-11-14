@@ -15,6 +15,8 @@ for path in (str(SIGNALS.parent), str(SIGNALS)):
 import index as I  # noqa: E402
 
 NOW = "2026-11-14T12:00:00Z"
+FOUR = {"rank": 4, "repd_ref": "20003", "site_name": "Cottam Solar Project", "operator": "Island Green Power", "mw": 600.0,
+        "county": "Lincolnshire", "country": "England", "planning_authority": "PINS", "planning_ref": "EN010133"}
 TOP = [
     {"rank": 1, "repd_ref": "12588", "site_name": "Botley West, Botley - Botley West Solar Project",
      "operator": "Photovolt Development Partners & SolarFive ", "mw": 840.0, "county": "Oxfordshire",
@@ -109,6 +111,7 @@ def test_collect_rss_reads_summary_but_never_stores_it(projects):
     feeds = [(oxford, {"oxfordshire"}), ("https://feeds.bbci.co.uk/news/england/nowhere/rss.xml", set())]
     items, health = I.collect_rss(feeds, projects, fetch, "BBC News", "bbc", "BBC News RSS")
     assert [h["status"] for h in health] == ["ok", "failed"]            # one bad feed never stops the run
+    assert [v[2] for v in I.collect_rss.unmatched.values()] == []       # the eclipse item is a Google link: dropped
     assert len(items) == 1
     item = items[0]
     assert item == {"repd_ref": "12588", "title": "Minister refuses giant solar farm",
@@ -197,13 +200,31 @@ def test_gdelt_cache_rate_limit_and_rotation(projects):
     assert [p["repd_ref"] for p in I.rotation(projects, cache)] == ["20001", "12588", "20002"]   # never asked first
 
 
-def test_gdelt_stops_politely_and_respects_the_cap(projects):
+def test_gdelt_stops_politely_and_respects_the_cap(projects, monkeypatch):
+    monkeypatch.setattr(I, "GDELT_MAX_REFUSALS", 2)
     stopped = I.Gdelt(lambda url: (429, ""), {}, NOW, cap=10, sleep=lambda s: None, interval=0)
     items, per_project, _ = I.collect_gdelt(projects, stopped)
-    assert items == [] and per_project == {} and stopped.stats["requests"] == 2 and "429" in stopped.stats["stopped"]
+    assert items == [] and per_project == {} and "429" in stopped.stats["stopped"]
+    assert stopped.stats["requests"] == 2 * I.GDELT_MAX_REFUSALS and stopped.stats["refused_queries"] == I.GDELT_MAX_REFUSALS
     capped = I.Gdelt(lambda url: (200, "{}"), {}, NOW, cap=1, sleep=lambda s: None, interval=0)
     I.collect_gdelt(projects, capped)
     assert capped.stats["requests"] == 1 and capped.stats["not_asked"] >= 2
+
+
+def test_gdelt_carries_on_after_one_refused_query(tmp_path):
+    top = tmp_path / "top.json"
+    top.write_text(json.dumps(TOP + [FOUR]))
+    projects = I.load_projects(top, None)
+    seen = []
+
+    def fetch(url):
+        seen.append(url)
+        return (429, "Please limit requests to one every 5 seconds.") if "Botley" in url else (200, "{}")
+
+    client = I.Gdelt(fetch, {}, NOW, cap=20, sleep=lambda s: None, interval=0)
+    _, per_project, _ = I.collect_gdelt(projects, client)
+    assert "12588" not in per_project and len(per_project) == 3 and not client.stats["stopped"]
+    assert client.stats["refused_queries"] == 1 and "limit requests" in client.stats["error_samples"][0]
 
 
 def test_gdelt_steps_down_when_a_window_is_not_allowed(projects):

@@ -108,6 +108,28 @@ def core_of(alias):
     return core if len(core) >= 3 else ""
 
 
+def inverted_solar_place(title, record):
+    """Match 'solar farm at Foston' against documented alias 'Foston solar farm'.
+
+    Only a place alias with a verified project location qualifies. The
+    collector still applies the common title gate and confidence/rights rules.
+    This is not a generic acceptance of a loose locality word.
+    """
+    if not isinstance(title, str):
+        return False
+    aliases = [a for a in record.get("aliases") or [] if isinstance(a, str)]
+    places = list((table().get(str(record.get("repd_ref"))) or {}).get("county_also") or [])
+    normalized = _norm(title)
+    for alias in aliases:
+        core = core_of(alias)
+        if (not core or len(_norm(core)) < 5 or _norm(core) not in [_norm(p) for p in places]
+                or not re.search(r"\bsolar\s+farm\b", alias, re.I)):
+            continue
+        if re.search(r"\bsolar farm (?:at|in|near|outside|by) " + re.escape(_norm(core)) + r"\b", normalized):
+            return True
+    return False
+
+
 def is_weak_core(core):
     words = _norm(core).split()
     return len(words) <= 1 or all(w in EVERYDAY for w in words) or words[-1] in PLACE_TAIL

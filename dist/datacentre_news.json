@@ -1,6 +1,6 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-14T01:19:27Z",
+ "generated_at": "2026-11-14T02:22:39Z",
  "status": "ok",
  "counts": {
   "items": 5,
@@ -28,7 +28,7 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "sha256": "265115d578efab0df256e920d8d6fe3be4e1d9c9005288304d58331fb6c03677"
+   "sha256": "b77896450f64000c41e5396e57027631dc34a03158bc88ad38ff2b58091beed6"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
@@ -36,7 +36,7 @@
    "status": "ok",
    "entries": 56,
    "kept": 0,
-   "sha256": "13501207aecbcd1822c61203435076e45b8a32589a8bcf08483f5f93b8cfa923"
+   "sha256": "dcf7ee5b78a6d9d87287a4c6ee3e2bf3f2d7e4f0cdc0778adff029de83ff3db7"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
@@ -44,7 +44,7 @@
    "status": "ok",
    "entries": 60,
    "kept": 0,
-   "sha256": "5a67a8526c20cf6016474c9f24f48da2fd6da2b9fde4f73af9dd52b4ba3fe9ba"
+   "sha256": "52c5b90551b45b52fd11ffe95efc9eaa8d19369affef0af5f2f38d81206cf157"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 41,
    "kept": 0,
-   "sha256": "92f0653b96430f75a92f7a269cc1c4d0bf7dafbf4abe551b66613329bbf20502"
+   "sha256": "f123deda064d7c225a160c30f80d3451004d17f94fdfd6f419048d7497f51a31"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -84,7 +84,7 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "f6a7df4d7c936d425490f9b0f0f6cafb691abfebf933a2346503f331b80ec60a"
+   "sha256": "888cb3c7ff5b1f4d90ffdb7aa27450d2882305f85219f32da9a0bfadf2af50c5"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
@@ -185,7 +185,7 @@
    "title": "Britain should seek recognition under Europe's cloud sovereignty levels before the rules settle",
    "link": "https://www.comparethecloud.net/futurism/britain-should-seek-recognition-under-europes-cloud-sovereignty-levels-before-the-rules-settle",
    "source": "Compare the Cloud (opinion, Kate Bennett)",
-   "date": null,
+   "date": "2026-11-08T00:00:00Z",
    "first_seen": "2026-11-14T01:19:27Z",
    "lanes": [
     "politics"

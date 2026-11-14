@@ -115,7 +115,20 @@ jobs:
         with:
           name: energy24-six-market-scan-${{ github.run_number }}
           path: /tmp/energy24
+      - name: Hold single-publisher snapshots outside production
+        id: coverage
+        run: |
+          python - <<'PY'
+          import json, os, pathlib
+          news=json.loads(pathlib.Path('/tmp/energy24/news.latest.json').read_text())
+          publishers={a.get('source') for a in news.get('articles', []) if a.get('source')}
+          ready=len(publishers)>=2
+          with open(os.environ['GITHUB_OUTPUT'],'a',encoding='utf-8') as out:
+              out.write('ready='+str(ready).lower()+'\n')
+          print('Energy24 editorial publication gate:', 'PASS' if ready else 'HOLD: fewer than two qualifying independent publishers')
+          PY
       - name: Verify release unchanged before writing designated paths
+        if: ${{ steps.coverage.outputs.ready == 'true' }}
         run: |
           set -euo pipefail
           python - <<'PY'
@@ -132,6 +145,7 @@ jobs:
               (dest/name).write_bytes((pathlib.Path('/tmp/energy24')/name).read_bytes())
           PY
       - name: Commit only allow-listed news files if main did not drift
+        if: ${{ steps.coverage.outputs.ready == 'true' }}
         run: |
           set -euo pipefail
           git config user.name "GlobalGrid2050 News Monitor"

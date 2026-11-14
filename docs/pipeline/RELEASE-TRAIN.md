@@ -61,7 +61,9 @@ that a project can or cannot connect.
 ## GridAtlas data state (rows new or changed in the October register)
 
 GridAtlas keeps the active register only (Operational, Under Construction, Awaiting Construction,
-Application Submitted) and, at the time of writing, holds the July 2026 register. A MAP link always opens
+Application Submitted). It held the July 2026 register until 14 November 2026, when its October 2026
+generation (202611132345) was released; against that register 5,331 of the 5,334 active rows resolve and
+the remaining 3 lie outside the area GridAtlas compiles. A MAP link always opens
 the map on the point the link carries; the project's identity card opens only when GridAtlas holds a
 record with the same REPD Ref ID.
 

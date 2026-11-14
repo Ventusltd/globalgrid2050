@@ -97,6 +97,15 @@ def main():
         server = subprocess.Popen([sys.executable, "-m", "http.server", port, "--bind", "127.0.0.1"], cwd=ROOT, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         try:
             out_file = scratch / "browser.json"
+            probes = {}
+            for v in versions:
+                chain, node = [], v
+                while node:
+                    chain = node.get("browser_probes", []) + chain
+                    node = by_id.get(node["parent"])
+                probes[v["id"]] = chain
+            (scratch / "probes.json").write_text(json.dumps(probes))
+            os.environ["PROBES_FILE"] = str(scratch / "probes.json")
             p = subprocess.run(["node", str(HERE / "browser_check.mjs"), f"http://127.0.0.1:{port}/uk_renewables_pipeline/", str(out_file)] + [v["id"] for v in versions], text=True)
             pages = json.loads(out_file.read_text()) if out_file.exists() else {}
         finally:
@@ -108,12 +117,23 @@ def main():
             for r in views:
                 same_origin = [f for f in r.get("failed_same_origin", []) if not f.endswith("/favicon.ico")]
                 okv = bool(r.get("complete")) and r.get("record_count") == reg["expected_record_count"] and not r.get("page_errors") and not same_origin and not (r.get("viewport") == "phone" and r.get("overflow"))
+                drawn = r.get("drawn_map_links") or []
+                drawn_ok = bool(drawn) and all(hrefs[v["id"]].get(ref) == href for ref, href in drawn)
+                okv = okv and drawn_ok
                 good = good and okv
                 summary.append({"viewport": r.get("viewport"), "pass": okv, "record_count": r.get("record_count"), "rows_drawn": r.get("rows_drawn"),
                                 "page_errors": r.get("page_errors", [r.get("error")]), "console_errors": r.get("console_errors", []),
                                 "failed_same_origin": same_origin, "failed_external": r.get("failed_external", []), "overflow": r.get("overflow"),
-                                "map_links_drawn": r.get("map_links"), "first_map_link": r.get("first_map_link"), "features_seen": r.get("features")})
+                                "map_links_drawn": len(drawn), "map_links_drawn_equal_contract_href": drawn_ok, "first_map_link": r.get("first_map_link"), "features_seen": r.get("features")})
             results[v["id"]]["browser"] = {"pass": good, "views": summary}
+            if probes.get(v["id"]):
+                seen = [dict(p, viewport=r.get("viewport")) for r in views for p in (r.get("probes") or [])]
+                for p in seen:
+                    if p.get("ref") and p.get("map_href") is not None and p.get("pass") and hrefs[v["id"]].get(p["ref"]) != p["map_href"]:
+                        p["pass"], p["detail"] = False, "the row's MAP link is not the contract href"
+                expected = sum(1 for p in probes[v["id"]] if not p.get("block")) * 2 + sum(1 for p in probes[v["id"]] if p.get("block"))
+                results[v["id"]]["feature_probes"] = {"pass": len(seen) == expected and all(p.get("pass") for p in seen), "probes": len(seen), "expected": expected,
+                                                      "results": [{k: p.get(k) for k in ("name", "viewport", "pass", "detail", "link")} for p in seen]}
             csv = next((r.get("csv") for r in views if r.get("csv")), None) or {"error": "not exported"}
             parent_csv = csv_seen.get(v["parent"])
             csv_ok = csv.get("rows") == reg["expected_record_count"] and (parent_csv is None or parent_csv.get("header_sha256") == csv.get("header_sha256"))
@@ -140,7 +160,8 @@ def main():
         doc["versions"].append({"id": v["id"], "version": v["version"], "parent": v["parent"], "date": v["date"], "state": v.get("state", "published"),
                                 "added": v["added"], "data_changed": v["data_changed"], "url": f"{v['id']}/", "tree": v["trees"],
                                 "verdict": verdict, "browser_checked": BROWSER, "checks": checks, "ci": v.get("ci"),
-                                "merge_commit": v.get("merge_commit"), "known_faults": v.get("known_faults", [])})
+                                "merge_commit": v.get("merge_commit"), "known_faults": v.get("known_faults", []),
+                                "datacentre_features": v.get("datacentre_features")})
         print(f"{v['id']} {v['version']}: {verdict} " + " ".join(f"{k}={'ok' if c.get('pass') else 'FAIL'}" for k, c in checks.items()))
         for k, c in checks.items():
             if not c.get("pass"):
@@ -177,7 +198,7 @@ def render(doc):
         faults = "".join(f"<li>{e(f)}</li>" for f in v["known_faults"]) or "<li>None recorded.</li>"
         state = v["state"].upper()
         rows.append(f'<tr class="{e(v["verdict"].lower())}"><td><a href="{e(v["url"])}"><b>{e(v["id"])}</b></a><br>{e(v["version"])}<br><span class="state">{e(state)}</span></td>'
-                    f'<td>{e(v["date"].replace("T", " ").replace("Z", " UTC"))}</td><td>{e(v["added"])}<ul>{faults}</ul></td>'
+                    f'<td>{e(v["date"].replace("T", " ").replace("Z", " UTC"))}</td><td>{e(v["added"])}{"<br><i>Data-centre features: " + e(v["datacentre_features"]) + ".</i>" if v.get("datacentre_features") else ""}<ul>{faults}</ul></td>'
                     f'<td><b class="verdict">{e(v["verdict"])}</b>{"" if v["browser_checked"] else " (offline checks only)"}<br><small>{checks}</small></td>'
                     f'<td>{ci_cell}</td><td>parent {e(v["parent"])}<br><a href="{e(v["url"])}CHANGES.md">changes</a></td></tr>')
     return f"""<!DOCTYPE html>

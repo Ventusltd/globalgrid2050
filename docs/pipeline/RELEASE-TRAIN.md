@@ -86,3 +86,27 @@ test, not "all 7,775".
 
 From V9.15 a version does not copy the three fixture folders the page never reads, and CI holds each
 version folder to 17 MB. Earlier folders are unchanged.
+
+## Feature probes
+
+A version can name, in `registry.json` (`browser_probes`), rows and page elements that must read as
+expected in headless Chrome at both widths: text that must and must not appear, attributes, the form of
+a link, and what the page says when a data file is refused. Later versions inherit the probes of earlier
+ones, so a feature cannot quietly stop working. In each probed row the MAP link must still be the
+contract href.
+
+## Data-centre content
+
+Data-centre sites come from the UK data-centre register carried by GridAtlas (226 sites, ids `dcuk-...`).
+The register records the licence status of every source entry as unverified, so the page shows this
+content with attribution (OpenStreetMap contributors, ODbL 1.0; Open Government Licence v3.0), names the
+register source of each site shown, and labels it for screening only. `versions.json` records this per
+version (`datacentre_features`). Distances are straight lines between published points at 5, 10, 25 and
+50 km bands; they are never a connection, headroom or offer. A data centre never carries a REPD Ref ID.
+
+## Release candidate and end of the train
+
+A version that passes every check and carries the unchanged MAP link is named release candidate in
+`registry.json` (`release_candidate`) and on `versions.html`. Live browser checks, served-byte checks and
+the homepage pointer belong to the homepage owner repository; the train never moves the pointer. After
+promotion the train stops, or runs only when something changes.

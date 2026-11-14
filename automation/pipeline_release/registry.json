@@ -179,7 +179,8 @@
     "note": "First run 43543937369 failed for every version: Chrome did not start on the runner within 10 seconds. Start-up wait lengthened in the same pull request."
    },
    "merge_commit": "1dc14b6f6f1e73b53bd2df8fb06e39f0573f40b0",
-   "state": "published"
+   "state": "published",
+   "datacentre_features": "shown without attribution in this version; corrected in 202611140223"
   },
   {
    "id": "202611140216",
@@ -205,13 +206,175 @@
     }
    ],
    "known_faults": [
-    "The list shows twelve changes; the others are reached through the table."
+    "The list shows twelve changes; the others are reached through the table.",
+    "Published 10 minutes after V9.16, inside the 20-minute minimum spacing of the release train (operator error; nothing reverted)."
+   ],
+   "ci": {
+    "workflow": "Verify Pipeline News versions",
+    "run_id": 43545673886,
+    "conclusion": "success",
+    "url": "https://github.com/Ventusltd/globalgrid2050/actions/runs/43545673886",
+    "pull_request": 77
+   },
+   "merge_commit": "896e7f4b778e25bfc9db2fd54e58598a23237bc1",
+   "state": "published",
+   "datacentre_features": "shown without attribution in this version; corrected in 202611140223"
+  },
+  {
+   "id": "202611140223",
+   "version": "V9.18",
+   "parent": "202611140216",
+   "date": "2026-11-14T02:23:00Z",
+   "added": "Release candidate. Data-centre content unchanged in scope but corrected in presentation: visible attribution and licence state (OpenStreetMap ODbL 1.0, OGL v3.0, licence status unverified at source, screening only), the register's source carried for every site, settlement-level points labelled and rounded, the GridAtlas location link labelled as a map position only, a stated message when the context cannot be loaded, and browser probes for each case.",
+   "data_changed": false,
+   "runner": "tests/run_v9_18.sh",
+   "trees": [
+    "0edd36f51365f9f5b7cdca2927c7e78c4615e41d"
+   ],
+   "features": [
+    {
+     "id": "data-sources-block",
+     "file": "index.html",
+     "contains": "id=\"dcAttribution\""
+    },
+    {
+     "id": "datacentre-sources",
+     "file": "convergence/datacentres.json",
+     "contains": "licence_status"
+    }
+   ],
+   "known_faults": [
+    "Data-centre licence status is unverified at source: shown with attribution, for screening only.",
+    "Live GridAtlas behaviour on the MAP link and the location link is not checked from the build workspace.",
+    "One nearest register site per project."
    ],
    "ci": null,
    "merge_commit": null,
-   "state": "published"
+   "state": "release candidate",
+   "datacentre_features": "shown with attribution; licence status unverified at source",
+   "browser_probes": [
+    {
+     "name": "nearest data centre, exact-site register point (REPD 10772)",
+     "search": "10772",
+     "row": "repd-10772",
+     "selector": "[data-feature=\"nearest-datacentres\"]",
+     "attrs": {
+      "data-state": "exact-site",
+      "data-dc-id": "dcuk-35f760e64a85c8e7"
+     },
+     "contains": [
+      "Brightsolid",
+      "216.4 km",
+      "register id dcuk-35f760e64a85c8e7",
+      "MW not stated in the register",
+      "OpenStreetMap",
+      "ODbL-1.0 (licence status unverified)",
+      "map position only",
+      "not a grid connection",
+      "licence status unverified at source"
+     ],
+     "not_contains": [
+      "approximation",
+      "REPD dcuk",
+      "GG2050-REPD-dcuk"
+     ],
+     "link_selector": "a.dc-site-link",
+     "link_regex": "^https://ventusltd\\.github\\.io/gridatlas/atlas/\\?latitude=57\\.152569&longitude=-2\\.160149&zoom=13&project=Brightsolid$"
+    },
+    {
+     "name": "nearest data centre, settlement-level register point (REPD 15347)",
+     "search": "15347",
+     "row": "repd-15347",
+     "selector": "[data-feature=\"nearest-datacentres\"]",
+     "attrs": {
+      "data-state": "approximate",
+      "data-dc-id": "dcuk-5432070cc61897c4"
+     },
+     "contains": [
+      "about 22 km",
+      "settlement-level approximation",
+      "IT load 720 MW (demand)",
+      "grid connection 200 MW",
+      "register id dcuk-5432070cc61897c4",
+      "OGL-UK-3.0 (licence status unverified)",
+      "OPEN THE APPROXIMATE LOCATION",
+      "map position only"
+     ],
+     "not_contains": [
+      "21.7 km",
+      "21.739"
+     ],
+     "link_selector": "a.dc-site-link",
+     "link_regex": "^https://ventusltd\\.github\\.io/gridatlas/atlas/\\?latitude=52\\.09&longitude=-0\\.49&zoom=11&project="
+    },
+    {
+     "name": "nearest data centre, row not measured by the convergence build (REPD 13429)",
+     "search": "13429",
+     "row": "repd-13429",
+     "selector": "[data-feature=\"nearest-datacentres\"]",
+     "attrs": {
+      "data-state": "not-measured"
+     },
+     "contains": [
+      "Not measured"
+     ],
+     "not_contains": [
+      "dcuk-",
+      " km"
+     ],
+     "link_selector": "a.dc-site-link",
+     "link_regex": null
+    },
+    {
+     "name": "data-centre attribution block",
+     "selector": "#dcAttribution",
+     "contains": [
+      "© OpenStreetMap contributors",
+      "ODbL 1.0",
+      "Open Government Licence v3.0",
+      "unverified",
+      "screening only",
+      "226 sites"
+     ]
+    },
+    {
+     "name": "register change in the project record (REPD 15793)",
+     "search": "15793",
+     "row": "repd-15793",
+     "selector": "[data-feature=\"register-change\"]",
+     "contains": [
+      "CONSENTED",
+      "REPD 15793"
+     ]
+    },
+    {
+     "name": "context file refused: the entry says so",
+     "block": [
+      "*convergence/nearest_datacentre.json*"
+     ],
+     "search": "10772",
+     "row": "repd-10772",
+     "selector": "[data-feature=\"nearest-datacentres\"]",
+     "attrs": {
+      "data-state": "unavailable"
+     },
+     "contains": [
+      "could not be loaded"
+     ],
+     "not_contains": [
+      "dcuk-"
+     ],
+     "link_selector": "a.dc-site-link",
+     "link_regex": null
+    }
+   ]
   }
  ],
  "size_budget_mb": 18,
- "size_budget_from": "202611140136"
+ "size_budget_from": "202611140136",
+ "release_candidate": {
+  "id": "202611140223",
+  "version": "V9.18",
+  "note": "Release candidate: 202611140223 (V9.18). It passes every automated check and carries the unchanged MAP link into GridAtlas for all 7,775 rows. Live browser and served-byte checks and the homepage pointer are with the homepage owner; until then the homepage is unchanged. Data-centre features are shown with attribution; licence status unverified at source."
+ }
 }

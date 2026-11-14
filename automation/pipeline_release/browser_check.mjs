@@ -52,6 +52,56 @@ const send = (method, params = {}, sessionId) => new Promise((res, rej) => {
   const id = ++seq; waiting.set(id, { res, rej }); ws.send(JSON.stringify({ id, method, params, sessionId }));
 });
 
+const PROBES = process.env.PROBES_FILE ? JSON.parse(readFileSync(process.env.PROBES_FILE, "utf8")) : {};
+
+/* A probe looks at one named thing on the page and says whether it is as expected.
+ * With `search` it first types that text in the table search (a REPD Ref ID) and looks
+ * inside the row `row`; without, it looks at the page. `contains`, `not_contains` and
+ * `attrs` are checked on the element `selector`; `link_selector` + `link_regex` on a link
+ * inside it. The row's MAP href is returned so the caller can compare it with the contract. */
+async function runProbe(evaluate, probe) {
+  if (probe.search != null) {
+    await evaluate(`(() => { const i = document.querySelector('#search'); i.value = ${JSON.stringify(String(probe.search))}; i.dispatchEvent(new Event('input', { bubbles: true })); })()`);
+    await sleep(1500);
+  }
+  const result = await evaluate(`((p) => {
+    const scope = p.row ? document.getElementById(p.row) : document;
+    if (!scope) return { pass: false, detail: 'row not drawn: ' + p.row };
+    const node = scope.querySelector(p.selector);
+    if (!node) return { pass: false, detail: 'element not found: ' + p.selector };
+    const text = node.textContent, faults = [];
+    for (const s of p.contains || []) if (!text.includes(s)) faults.push('missing text: ' + s);
+    for (const s of p.not_contains || []) if (text.includes(s)) faults.push('unexpected text: ' + s);
+    for (const [k, v] of Object.entries(p.attrs || {})) if (node.getAttribute(k) !== v) faults.push('attribute ' + k + ' is ' + node.getAttribute(k) + ', expected ' + v);
+    let link = null;
+    if (p.link_selector) {
+      link = node.querySelector(p.link_selector)?.href || '';
+      if (p.link_regex === null ? link !== '' : !(new RegExp(p.link_regex).test(link))) faults.push('link is ' + (link || 'absent'));
+    }
+    return { pass: faults.length === 0, detail: faults.join('; '), text: text.slice(0, 600), link, map_href: p.row ? (scope.querySelector('a.atlaslink')?.href || '') : null, ref: p.row ? p.row.replace(/^repd-/, '') : null };
+  })(${JSON.stringify(probe)})`).catch((e) => ({ pass: false, detail: String(e) }));
+  return { name: probe.name, ...result };
+}
+
+/* A probe with `block` loads the page afresh with those URL patterns refused, to see what the
+ * page says when a file it needs cannot be read. */
+async function visitBlocked(id, probe) {
+  const { targetId } = await send("Target.createTarget", { url: "about:blank" });
+  const { sessionId } = await send("Target.attachToTarget", { targetId, flatten: true });
+  const evaluate = async (expression) => (await send("Runtime.evaluate", { expression, returnByValue: true, awaitPromise: true }, sessionId)).result?.value;
+  await send("Network.enable", {}, sessionId);
+  await send("Network.setBlockedURLs", { urls: probe.block }, sessionId);
+  await send("Page.navigate", { url: `${base}${id}/` }, sessionId);
+  let complete = false;
+  for (let i = 0; i < 240 && !complete; i += 1) { await sleep(250); complete = await evaluate("document.querySelector('#tbody')?.dataset.complete === 'true'").catch(() => false); }
+  await sleep(1500);
+  const meta = await evaluate("document.querySelector('#resultsMeta')?.textContent || ''");
+  const result = await runProbe(evaluate, probe);
+  if (!/of 7,775 records/.test(meta)) { result.pass = false; result.detail = `${result.detail}; table did not complete with the file blocked: ${meta}`; }
+  await send("Target.closeTarget", { targetId });
+  return result;
+}
+
 async function visit(id, vp) {
   const url = `${base}${id}/`;
   const origin = new URL(url).origin;
@@ -93,6 +143,7 @@ async function visit(id, vp) {
       rows_drawn: rows.length,
       map_links: links('a.map-link, a[href*="gridatlas/atlas/"]').length,
       first_map_link: links('a.map-link, a[href*="gridatlas/atlas/"]')[0] || '',
+      drawn_map_links: rows.map((r) => [r.id.replace(/^repd-/, ''), r.querySelector('a.atlaslink')?.href || '']).filter((x) => x[1]),
       title: document.title,
       h1: q('h1')?.textContent || '',
       overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
@@ -123,6 +174,14 @@ async function visit(id, vp) {
     } catch (e) { rec.csv = { error: String(e) }; }
     rmSync(dir, { recursive: true, force: true });
   }
+  {
+    rec.probes = [];
+    for (const probe of PROBES[id] || []) {
+      if (probe.block) continue;
+      rec.probes.push(await runProbe(evaluate, probe));
+    }
+    await evaluate(`(() => { const i = document.querySelector('#search'); i.value = ''; i.dispatchEvent(new Event('input', { bubbles: true })); })()`);
+  }
   if (process.env.PROBE_SEARCH) {
     // Optional probe: type a search and report the first row, to look at one named project.
     await evaluate(`(() => { const i = document.querySelector('#search'); i.value = ${JSON.stringify(process.env.PROBE_SEARCH)}; i.dispatchEvent(new Event('input', { bubbles: true })); })()`);
@@ -143,6 +202,7 @@ for (const id of ids) {
   out[id] = [];
   for (const vp of VIEWPORTS) {
     const rec = await visit(id, vp).catch((e) => ({ viewport: vp.name, error: String(e) }));
+    if (!vp.mobile && rec.probes) for (const probe of PROBES[id] || []) if (probe.block) rec.probes.push(await visitBlocked(id, probe).catch((e) => ({ name: probe.name, pass: false, detail: String(e) })));
     out[id].push(rec);
     console.log(`${id} ${vp.name}: complete=${rec.complete} records=${rec.record_count} rows=${rec.rows_drawn} page_errors=${rec.page_errors?.length} same_origin_failed=${rec.failed_same_origin?.length} external_failed=${rec.failed_external?.length}`);
   }

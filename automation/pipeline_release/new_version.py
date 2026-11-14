@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Start and finish a Pipeline News version by the existing pattern.
 
-  new_version.py create <new id> <V9.NN> "<short title>"
+  new_version.py create <new id> <V9.NN> "<short title>" ["RELEASE CANDIDATE"]
       copies the newest registered version to uk_renewables_pipeline/<new id>/, relabels
       index.html, README.md and the check script, and writes tests/run_v9_NN.sh pinned
       to the parent's tree hash. Then edit the new folder.
@@ -25,7 +25,7 @@ def num(version):  # "V9.14" -> "9_14"
     return version.lstrip("V").replace(".", "_")
 
 
-def create(new_id, version, title):
+def create(new_id, version, title, state="BUILD"):
     reg = load_registry()
     parent = reg["versions"][-1]
     src, dst = PIPELINE / parent["id"], PIPELINE / new_id
@@ -36,7 +36,7 @@ def create(new_id, version, title):
     old_check = dst / f"tests/check_v{num(pv)}.mjs"
     check_template = HERE / "check_template.mjs"
     old_check.unlink()
-    check = check_template.read_text().replace("@VERSION@", nv.lstrip("V")).replace("@PARENT_ID@", parent["id"]).replace("@FIXTURE_OWNER@", reg["fixture_owner"]).replace("@NUM@", num(nv))
+    check = check_template.read_text().replace("@VERSION@", nv.lstrip("V")).replace("@PARENT_ID@", parent["id"]).replace("@FIXTURE_OWNER@", reg["fixture_owner"]).replace("@NUM@", num(nv)).replace("@STATE@", state)
     (dst / f"tests/check_v{num(nv)}.mjs").write_text(check)
     runner = (RUNNER_TEMPLATE.replace("@NUM@", num(nv)).replace("@VERSION@", nv).replace("@PARENT_ID@", parent["id"])
               .replace("@PARENT_TREE@", tree_hash(parent["id"])).replace("@FIXTURE_OWNER@", reg["fixture_owner"]))
@@ -49,15 +49,15 @@ def create(new_id, version, title):
     html = html.replace(f"UK Renewables Pipeline {parent['id']}</title>", f"UK Renewables Pipeline {new_id}</title>")
     html = html.replace(f"<small>UK RENEWABLES PIPELINE · {pv}</small>", f"<small>UK RENEWABLES PIPELINE · {nv}</small>")
     html, n = re.subn(r'<a class="active" href="#">[^<]*</a>\n(\s*)(<a href="\.\./versions\.html">[^<]*</a>\n\s*)?',
-                      lambda m: f'<a class="active" href="#">{nv} BUILD · REPD Q3 2026</a>\n{m.group(1)}<a href="../versions.html">ALL VERSIONS · CI VERDICTS</a>\n{m.group(1)}<a href="../{parent["id"]}/">{pv} {parent["id"]} · REPD Q3 2026</a>\n{m.group(1)}', html, count=1)
+                      lambda m: f'<a class="active" href="#">{nv} {state} · REPD Q3 2026</a>\n{m.group(1)}<a href="../versions.html">ALL VERSIONS · CI VERDICTS</a>\n{m.group(1)}<a href="../{parent["id"]}/">{pv} {parent["id"]} · REPD Q3 2026</a>\n{m.group(1)}', html, count=1)
     assert n == 1, "nav active link not found"
     html = html.replace(f"<h1>UK RENEWABLES PIPELINE {parent['id']}</h1>", f"<h1>UK RENEWABLES PIPELINE {new_id}</h1>")
-    html, n = re.subn(r"<strong>V9\.\d+ · [^<]*</strong>", f"<strong>{nv} · REPD OCTOBER 2026 (Q3) · {title.upper()} · BUILD · {day}</strong>", html, count=1)
+    html, n = re.subn(r"<strong>V9\.\d+ · [^<]*</strong>", f"<strong>{nv} · REPD OCTOBER 2026 (Q3) · {title.upper()} · {state} · {day}</strong>", html, count=1)
     assert n == 1, "meta line not found"
     (dst / "index.html").write_text(html)
     (dst / "README.md").write_text(
         f"# GlobalGrid2050 UK Renewables Pipeline {new_id} ({nv})\n\n"
-        f"Build dated {day}. Parent: `{parent['id']}` ({pv}). The register is the REPD October 2026 (Q3 2026) release, unchanged: "
+        f"{state.capitalize()} dated {day}. Parent: `{parent['id']}` ({pv}). The register is the REPD October 2026 (Q3 2026) release, unchanged: "
         f"7,775 solar, battery and wind records at 1 MW and above, keyed by REPD Ref ID.\n\n"
         f"This build: {title}. See `CHANGES.md` for what changed and any known fault.\n\n"
         f"Validate offline from a checkout of the repository:\n\n    bash tests/run_v{num(nv)}.sh\n\n"
@@ -94,7 +94,7 @@ def finalize(new_id, added, faults, features):
 
 if __name__ == "__main__":
     args = sys.argv[1:]
-    if args[:1] == ["create"] and len(args) == 4:
+    if args[:1] == ["create"] and len(args) in (4, 5):
         create(*args[1:])
     elif args[:1] == ["finalize"] and len(args) >= 3:
         rest, faults, features = args[3:], [], []

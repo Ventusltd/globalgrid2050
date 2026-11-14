@@ -10,7 +10,8 @@ Rules (each is reported by name; the exit code is 1 when any fails):
   undated-order     in every list an undated item is never above a dated one, and dates run newest first
   tier-counts       the counts by tier are what the items give when counted again, and sum to the 200
   tier-purity       recent_news holds only publisher items dated within the recent window; no list mixes tiers
-  dates             every date is a real calendar date, not after the day following the run
+  dates             every date is a real calendar date, not after the day following the run; a year agrees with
+                    its date (an undated item may carry a plausible year alone, when only the year is known)
   generated-at      generated_at is not older than two days, unless the file and its parts say stale;
                     and it is never later than the newest successful collection it reports
 
@@ -204,8 +205,11 @@ def check(doc, now=None):
                     found["dates"].append("project %s %s: %r is not a calendar date" % (ref, name, raw))
                 elif day and day > last_day:
                     found["dates"].append("project %s %s: %s is in the future" % (ref, name, raw))
-                if v2 and "year" in item and item.get("year") != (day.year if day else None):
-                    found["dates"].append("project %s %s: year %r does not belong to date %r" % (ref, name, item.get("year"), raw))
+                year = item.get("year")
+                if v2 and "year" in item and day and year != day.year:
+                    found["dates"].append("project %s %s: year %r does not belong to date %r" % (ref, name, year, raw))
+                elif v2 and day is None and year is not None and not (isinstance(year, int) and 2000 <= year <= last_day.year):
+                    found["dates"].append("project %s %s: undated item with the implausible year %r" % (ref, name, year))
                 if day is None:
                     seen_undated = seen_undated if seen_undated is not None else position
                     continue

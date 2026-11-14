@@ -1,5 +1,5 @@
 {
- "note": "Headlines that must not be attached to a project (expect reject: shown nowhere; not_confirmed: absent or shown only as a possible match) and headlines that must stay (accept). 'source' says who reported the case. Titles are test wording, not quotations of published articles, unless 'link' is given.",
+ "note": "Headlines that must not be attached to a project (expect reject: shown nowhere; not_confirmed: absent or shown only as a possible match) and headlines that must stay: accept (listed and confirmed) or keep (listed, confirmed or as a possible match). 'source' says who reported the case. Titles are test wording, not quotations of published articles, unless 'link' is given.",
  "cases": [
   {
    "repd_ref": "9050",
@@ -48,16 +48,16 @@
   {
    "repd_ref": "9050",
    "title": "Bypass Solar Farm approved near Grantham",
-   "expect": "accept",
+   "expect": "keep",
    "source": "test lead",
-   "why": "the full name and the place"
+   "why": "the full name and the place: must stay listed (confirmed or as a possible match)"
   },
   {
    "repd_ref": "9050",
-   "title": "Solar farm at Foston wins approval",
-   "expect": "accept",
+   "title": "Foston solar farm wins approval",
+   "expect": "keep",
    "source": "test lead",
-   "why": "'solar farm' and the place"
+   "why": "the project's recorded name 'Foston solar farm': must stay listed (confirmed or as a possible match)"
   },
   {
    "repd_ref": "90003",

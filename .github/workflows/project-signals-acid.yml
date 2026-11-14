@@ -4,7 +4,8 @@ name: Project signals, acid test (all suites together, and the published file)
 # and deploys nothing.
 #
 # Job "suites": at the tested commit, every project-signals test suite in one job (official, trade, index,
-# planning file, combiner and the acid suite), then ONE table in the job summary: suite, tests, passed, failed.
+# planning file, combiner and the acid suite; the suites are discovered, so one added later is run too), then
+# ONE table in the job summary: suite, tests, passed, failed.
 # A test marked "known failing until the fixer's PR" (a strict xfail naming the review finding it covers) is
 # counted in its own column and listed under the table; if such a test passes while the code still declares
 # schema version 1 it is reported as failed, and on code that declares version 2 the marker is not applied.
@@ -47,25 +48,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Every signals suite, each with its own report
+      - name: Every signals suite, then one table (suite, tests, passed, failed); fails if any suite failed
         run: |
           python -m pip install --quiet pytest
-          mkdir -p "$RUNNER_TEMP/acid"
-          run_suite() {
-            name="$1"; shift
-            echo "::group::$name"
-            python -m pytest -q -p no:cacheprovider -rfEX -o junit_family=xunit1 --junitxml "$RUNNER_TEMP/acid/$name.xml" "$@" || true
-            echo "::endgroup::"
-          }
-          run_suite official      automation/news/tests/test_signals_official.py
-          run_suite trade         automation/news/tests/test_signals_trade.py
-          run_suite index         automation/news/signals/tests/test_index.py
-          run_suite planning_file automation/news/tests/test_signals_planning_file.py
-          run_suite combiner      automation/news/signals/tests/test_combine.py
-          run_suite acid          automation/news/tests/test_signals_acid.py
-      - name: One table (suite, tests, passed, failed); fails if any suite failed
-        run: |
-          python automation/news/tests/acid_report.py "$RUNNER_TEMP/acid" --commit "$(git rev-parse HEAD)" \
+          python automation/news/tests/acid_report.py --run "$RUNNER_TEMP/acid" --commit "$(git rev-parse HEAD)" \
             --summary "$GITHUB_STEP_SUMMARY" --json "$RUNNER_TEMP/acid/suites.json"
       - uses: actions/upload-artifact@v4
         if: always()

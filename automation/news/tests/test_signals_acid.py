@@ -194,7 +194,7 @@ def base_parts(stamp=COLLECTED):
             item("90008", "t-oxley-old", "Oxley Green Solar Farm proposed for Essex", "2021-05-04")], stamp),
         "index": part("index", [
             item("90008", "i-oxley-undated", "Oxley Green Solar Farm: what we know", None, "regional"),
-            item("9050", "i-foston", "Solar farm at Foston wins approval", "2021-02-17", "regional")], stamp),
+            item("9050", "i-foston", "Foston solar farm wins approval", "2021-02-17", "regional")], stamp),
     }
 
 
@@ -203,6 +203,7 @@ def base_parts(stamp=COLLECTED):
 REJECT = [c for c in FALSE_MATCHES if c["expect"] == "reject"]
 NOT_CONFIRMED = [c for c in FALSE_MATCHES if c["expect"] == "not_confirmed"]
 ACCEPT = [c for c in FALSE_MATCHES if c["expect"] == "accept"]
+KEEP = [c for c in FALSE_MATCHES if c["expect"] == "keep"]
 REAL_REFS = {str(r["repd_ref"]) for r in REAL_TOP200}
 
 
@@ -214,7 +215,7 @@ def case_parts(cases, family="trade", team="trade"):
 @known("NL-019 finding 5", "REPD 9050 'Bypass Solar Farm' takes headlines about bypass diodes; no exclusion rule")
 @pytest.mark.parametrize("team, family", [("trade", "trade"), ("index", "regional"), ("official", "official"), ("reviewed", "trade")])
 def test_R01_repd_9050_takes_no_headline_without_solar_farm_or_the_place(tmp_path, team, family):
-    cases = [c for c in REJECT + ACCEPT if c["repd_ref"] == "9050"]
+    cases = [c for c in REJECT + ACCEPT + KEEP if c["repd_ref"] == "9050"]
     parts = case_parts(cases, family, team)
     if team == "reviewed":
         parts = {"reviewed": reviewed(parts["reviewed"]["items"])}
@@ -223,7 +224,7 @@ def test_R01_repd_9050_takes_no_headline_without_solar_farm_or_the_place(tmp_pat
     titles = [i["title"] for i in shown(project)] + [s["title"] for i in shown(project) for s in i.get("sources") or []]
     wrong = [t for t in titles if not re.search(r"solar farm|foston|grantham", t, re.I)]
     assert not wrong, "REPD 9050 shows %r although the %s part only said so" % (wrong, team)
-    for case in (c for c in cases if c["expect"] == "accept"):
+    for case in (c for c in cases if c["expect"] in ("accept", "keep")):
         assert reports(project, case["title"]), "the true headline %r was lost" % case["title"]
 
 
@@ -286,11 +287,15 @@ def test_R01_confidence_is_earned_not_inherited_from_the_part(tmp_path, case):
         assert all(i["confidence"] == "possible" for i in kept)
 
 
-def test_R01_true_headlines_are_kept_as_confirmed(tmp_path):
-    run = combine(tmp_path, case_parts(ACCEPT))
-    for case in ACCEPT:
+def test_R01_true_headlines_are_kept(tmp_path):
+    """The rules must not be met by deleting everything: a headline that names the project stays, confirmed where
+    the name is distinctive and evidenced ("accept"), at least listed where the name is an everyday word ("keep")."""
+    run = combine(tmp_path, case_parts(ACCEPT + KEEP))
+    for case in ACCEPT + KEEP:
         kept = reports(run.project(case["repd_ref"]), case["title"])
-        assert kept and confirmed(kept[0]), "lost or downgraded: %r (%s)" % (case["title"], case["why"])
+        assert kept, "lost: %r (%s)" % (case["title"], case["why"])
+        if case["expect"] == "accept":
+            assert confirmed(kept[0]), "downgraded: %r (%s)" % (case["title"], case["why"])
 
 
 @known("NL-019 finding 5", "143 confirmed, 47 uncertain and 10 derived aliases; items of an unconfirmed alias are still shown as confirmed")
@@ -632,11 +637,17 @@ def test_R07_an_article_naming_two_projects_is_listed_on_both_and_says_so(tmp_pa
 def test_R07_an_article_naming_one_project_is_not_listed_on_another(tmp_path, obtained):
     """Definition 4: on several projects only when the title or the reviewer's evidence names each. Being in the
     reviewed file is not by itself evidence that the article names the second project (acid tester 4: one link
-    is on REPD 6071 and 7630 although the reviewer's note says the article was not opened)."""
+    is on REPD 6071 and 7630 although the reviewer's note says the article was not opened): there it may stay only
+    as a possible match, never as fact, and it does not count towards the headline."""
     both = [item("90001", "one", ONE, "2026-11-11"), item("90002", "one", ONE, "2026-11-11")]
     run = combine(tmp_path, {"reviewed": reviewed(both)} if obtained == "reviewed" else {"trade": part("trade", both)})
-    assert find(run.project("90001"), "one"), "the article was lost from the project it names"
-    assert not find(run.project("90002"), "one"), "the article is also listed on a project its title does not name"
+    named, other = find(run.project("90001"), "one"), find(run.project("90002"), "one")
+    assert named and confirmed(named[0]), "the article was lost from the project it names, or downgraded there"
+    assert not any(confirmed(i) for i in other), "the article is shown as fact on a project its title does not name"
+    if obtained == "fetched":
+        assert not other, "a fetched article is listed on a project its title does not name"
+    assert not named[0].get("also_projects"), "also_projects is only for an article that names each project"
+    assert run.doc["counts"]["headline"]["value"] == 1 if not VERSION_1 else True
 
 
 @known("NL-019 finding 6", "the reviewed corpus has links on two projects each; the published file does not say so")
@@ -794,14 +805,16 @@ WORKFLOW = REPO / ".github" / "workflows" / "project-signals-acid.yml"
 
 
 def test_R14_the_integrated_workflow_runs_every_signals_suite():
+    """Finding 4 must not come back: a suite added later (as test_gate.py was during this cycle) is run without
+    anyone remembering to list it, because the workflow asks acid_report.py to discover the suites."""
     text = WORKFLOW.read_text(encoding="utf-8")
-    suites = sorted(str(p.relative_to(REPO)).replace("\\", "/") for p in
-                    list(TESTS.glob("test_signals_*.py")) + list((SIGNALS / "tests").glob("test_*.py")))
-    assert len(suites) >= 6
-    missing = [s for s in suites if s not in text]
-    assert not missing, "not run by the integrated workflow: %s" % missing
+    suites = dict(acid_report.discover(REPO))
+    on_disk = sorted(list(TESTS.glob("test_signals_*.py")) + list((SIGNALS / "tests").glob("test_*.py")))
+    assert sorted(suites.values()) == on_disk, "a signals test file is not discovered"
+    assert set(acid_report.ORDER) <= set(suites), "one of the six suites is missing: %s" % sorted(set(acid_report.ORDER) - set(suites))
+    assert list(suites)[:6] == list(acid_report.ORDER)
+    assert "acid_report.py --run" in text and "acid_live.py" in text and "GITHUB_STEP_SUMMARY" in text
     assert "schedule:" in text and "pull_request:" in text and "automation/news/signals/**" in text
-    assert "acid_report.py" in text and "acid_live.py" in text and "GITHUB_STEP_SUMMARY" in text
     assert "contents: read" in text and "contents: write" not in text, "the acid workflow must not be able to write"
 
 
@@ -842,7 +855,7 @@ def good_file():
         "1": project("1", "recent_news", [good_item("a", "2026-11-10", "recent_news")], [], [good_item("b", "2021-01-05", "archive"),
                                                                                              good_item("c", None, "archive")]),
         "2": project("2", "official", [], [good_item("d", "2025-02-01", "official", "official")], label="planning file (verified link)"),
-        "9050": project("9050", "archive_only", [], [], [good_item("e", "2021-02-17", "archive", "regional", title="Solar farm at Foston wins approval")]),
+        "9050": project("9050", "archive_only", [], [], [good_item("e", "2021-02-17", "archive", "regional", title="Foston solar farm wins approval")]),
         "4": project("4", "planning_file_only")}
     ok = {"status": "ok", "collected_at": COLLECTED, "items": 1, "note": ""}
     return {"schema": "project-signals.v2", "generated_at": COLLECTED, "run_at": NOW, "stale": False, "scope": "test", "recent_days": 90,

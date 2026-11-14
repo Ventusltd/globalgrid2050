@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 """One table for all project-signals test suites, from the JUnit files pytest wrote.
 
-  python automation/news/tests/acid_report.py <dir of *.xml> [--summary FILE] [--json FILE]
+  python automation/news/tests/acid_report.py --run <dir> [--summary FILE] [--json FILE]   run every suite, then report
+  python automation/news/tests/acid_report.py <dir of *.xml> [--summary FILE] [--json FILE]    report only
+
+With --run the suites are discovered, not listed: every automation/news/tests/test_signals_*.py and every
+automation/news/signals/tests/test_*.py is one suite (test_combine.py is "combiner"), each run by pytest with
+its own JUnit file. A suite added later is therefore run and counted without a change to the workflow.
 
 Columns: suite, tests, passed, failed, then "known failing until the fixer's PR" (a test marked xfail with the
 review finding it covers; strict, so one that passes unexpectedly is counted as failed), "open recommendation"
@@ -13,11 +18,39 @@ from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ORDER = ("official", "trade", "index", "planning_file", "combiner", "acid")
+
+
+def discover(repo):
+    """[(suite name, test file)]: the six known suites in ORDER, then any other signals suite by name."""
+    news = Path(repo) / "automation" / "news"
+    found = {}
+    for path in sorted((news / "tests").glob("test_signals_*.py")):
+        found[path.stem[len("test_signals_"):]] = path
+    for path in sorted((news / "signals" / "tests").glob("test_*.py")):
+        name = path.stem[len("test_"):]
+        name = "combiner" if name == "combine" else name
+        found[name if name not in found else "signals_" + name] = path
+    return [(name, found[name]) for name in ORDER if name in found] + sorted((n, p) for n, p in found.items() if n not in ORDER)
+
+
+def run_suites(repo, directory):
+    """Run each discovered suite with its own JUnit report. Returns the names, the six of ORDER always included."""
+    Path(directory).mkdir(parents=True, exist_ok=True)
+    names = list(ORDER)
+    for name, path in discover(repo):
+        print("::group::%s (%s)" % (name, path.relative_to(repo)), flush=True)
+        subprocess.run([sys.executable, "-m", "pytest", "-q", "-p", "no:cacheprovider", "-rfEX", "-o", "junit_family=xunit1",
+                        "--junitxml", str(Path(directory) / (name + ".xml")), str(path)], cwd=str(repo))
+        print("::endgroup::", flush=True)
+        if name not in names:
+            names.append(name)
+    return names
 
 
 def read_suite(path):
@@ -94,11 +127,14 @@ def table(suites, commit=""):
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("directory")
+    ap.add_argument("--run", action="store_true", help="run every discovered suite into the directory first")
     ap.add_argument("--summary", default=None)
     ap.add_argument("--json", default=None)
     ap.add_argument("--commit", default="")
     ap.add_argument("--expect", default=",".join(ORDER), help="suites that must have a report")
     args = ap.parse_args(argv)
+    if args.run:
+        args.expect = ",".join(run_suites(Path(__file__).resolve().parents[3], args.directory))
     found = {p.stem: p for p in Path(args.directory).glob("*.xml")}
     names = [n for n in args.expect.split(",") if n] + sorted(n for n in found if n not in args.expect.split(","))
     suites = [(name, read_suite(found[name]) if name in found else

@@ -1,6 +1,7 @@
 """Independent negative acceptance fixtures: a green collector is not approval."""
 import unittest
 from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 from automation.energy24.qa_publication_gate import audit_candidate
 
 NOW = datetime(2026, 11, 14, 16, 0, tzinfo=timezone.utc)
@@ -13,9 +14,12 @@ def candidate():
         dict(headline="New 60MW data centre", url="https://two.example/story", source_id="two", category="data-centres", dc_id="dcuk-1", capacity_mw=60, capacity_basis="it_load_mw", materiality_basis="installed_or_it_load_mw", event_utc=STAMP, published_utc=STAMP),
     ]
     news = dict(schema="globalgrid2050.energy24.news.v1", release="2026q3", generated_utc=STAMP, articles=articles)
-    audit = dict(schema="globalgrid2050.energy24.news-audit.v1", release="2026q3", markets={k:"" for k in ("London", "New York", "San Francisco", "Hong Kong", "Tokyo", "Sydney")}, sources=[{"id":k,"status":"OK"} for k in ("one","two")])
+    audit = dict(schema="globalgrid2050.energy24.news-audit.v1", release="2026q3", markets={k:datetime.fromisoformat(STAMP.replace("Z", "+00:00")).astimezone(ZoneInfo(tz)).isoformat(timespec="minutes") for k,tz in {
+        "London":"Europe/London", "New York":"America/New_York",
+        "San Francisco":"America/Los_Angeles", "Hong Kong":"Asia/Hong_Kong",
+        "Tokyo":"Asia/Tokyo", "Sydney":"Australia/Sydney"}.items()}, sources=[{"id":k,"status":"OK"} for k in ("one","two")])
     receipts = [dict(source_id=k, url=f"https://{k}.example/story", status="fetched", fetched_at=STAMP, content_sha256="b"*64) for k in ("one", "two")]
-    rights = {k:dict(status="verified", terms_sha256="a"*64, terms_url=f"https://{k}.example/terms", reviewer="independent reviewer", attribution=k, publisher_host=f"{k}.example") for k in ("one", "two")}
+    rights = {k:dict(status="verified", terms_sha256="a"*64, terms_url=f"https://{k}.example/terms", reviewer="independent reviewer", attribution=k, publisher_host=f"{k}.example", publisher_owner_id=f"owner-{k}") for k in ("one", "two")}
     return news, audit, receipts, rights
 
 
@@ -88,6 +92,30 @@ class PublicationHoldTests(unittest.TestCase):
         n,a,r,l = candidate()
         n["articles"][1]["grid_connection_mw"]=60
         self.assertIn("article_1:inferred_grid_connection", self.check(n,a,r,l))
+
+    def test_two_mastheads_with_same_owner_are_not_independent(self):
+        n,a,r,l = candidate()
+        l["two"]["publisher_owner_id"] = l["one"]["publisher_owner_id"]
+        self.assertIn("insufficient_independent_publishers", self.check(n,a,r,l))
+
+    def test_clock_names_alone_cannot_fake_six_iana_offsets(self):
+        n,a,r,l = candidate()
+        a["markets"]["New York"] = a["markets"]["London"]
+        self.assertIn("market_clock_invalid:New York", self.check(n,a,r,l))
+        a["markets"]["New York"] = "2026-11-14T10:50:00-05:00"
+        self.assertNotIn("market_clock_invalid:New York", self.check(n,a,r,l))
+
+    def test_future_receipt_cannot_prove_current_scan(self):
+        n,a,r,l = candidate()
+        r[0]["fetched_at"] = "2026-11-14T17:00:00Z"
+        self.assertIn("article_0:no_independent_exact_url_receipt", self.check(n,a,r,l))
+
+    def test_missing_publisher_owner_is_not_licence_or_independence_proof(self):
+        n,a,r,l = candidate()
+        l["two"].pop("publisher_owner_id")
+        errors = self.check(n,a,r,l)
+        self.assertIn("article_1:publisher_rights_unverified", errors)
+        self.assertIn("insufficient_independent_publishers", errors)
 
 
 if __name__ == "__main__":

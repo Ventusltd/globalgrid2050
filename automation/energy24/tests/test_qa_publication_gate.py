@@ -110,6 +110,29 @@ class PublicationHoldTests(unittest.TestCase):
         r[0]["fetched_at"] = "2026-11-14T17:00:00Z"
         self.assertIn("article_0:no_independent_exact_url_receipt", self.check(n,a,r,l))
 
+    def test_conflicting_duplicate_receipt_cannot_overwrite_failed_fetch(self):
+        n,a,r,l = candidate()
+        bad = dict(r[0], status="failed", content_sha256="")
+        r.insert(0, bad)
+        errors = self.check(n,a,r,l)
+        self.assertIn("duplicate_receipt_key:one:https://one.example/story", errors)
+        self.assertIn("article_0:no_independent_exact_url_receipt", errors)
+
+    def test_duplicate_source_id_cannot_overwrite_failed_crawl(self):
+        n,a,r,l = candidate()
+        a["sources"].insert(0, {"id":"one", "status":"FAILED"})
+        errors = self.check(n,a,r,l)
+        self.assertIn("duplicate_source_id:one", errors)
+        self.assertIn("article_0:source_not_successful", errors)
+
+    def test_malformed_evidence_rows_fail_closed_not_crash(self):
+        n,a,r,l = candidate()
+        a["sources"].append({"id": ["not", "hashable"]})
+        r.append({"source_id": ["not", "hashable"], "url": "https://one.example/story"})
+        errors = self.check(n,a,r,l)
+        self.assertIn("invalid_source_record", errors)
+        self.assertIn("invalid_receipt_record", errors)
+
     def test_missing_publisher_owner_is_not_licence_or_independence_proof(self):
         n,a,r,l = candidate()
         l["two"].pop("publisher_owner_id")

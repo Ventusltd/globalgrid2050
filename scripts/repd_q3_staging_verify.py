@@ -77,6 +77,9 @@ def main():
         "Planning Permission Expired", "Under Construction", "Operational",
         "Record Last Updated (dd/mm/yyyy)",
     ]
+    # Also hold every date column the general rule discovered to strict dd/mm/yyyy.
+    date_columns = list(dict.fromkeys(date_columns + r["date_rule"]["date_columns"]))
+    assert r["date_rule"]["ok"] and r["date_rule"]["failures"] == 0
     non_day_first_dates = []
     for row in output_rows:
         for field in date_columns:

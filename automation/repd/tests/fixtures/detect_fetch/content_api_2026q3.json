@@ -1,0 +1,33 @@
+{
+  "base_path": "/government/publications/renewable-energy-planning-database-quarterly-extract",
+  "content_id": "00000000-0000-0000-0000-000000000000",
+  "document_type": "official_statistics",
+  "title": "Renewable Energy Planning Database: quarterly extract",
+  "public_updated_at": "2026-11-13T09:30:00+00:00",
+  "first_published_at": "2014-07-01T00:00:00+01:00",
+  "details": {
+    "attachments": [
+      {
+        "attachment_type": "file",
+        "content_type": "text/csv",
+        "filename": "REPD_Publication_Q3_2026.csv",
+        "id": "fixture-csv",
+        "title": "Renewable Energy Planning Database (REPD): October 2026 (CSV)",
+        "url": "https://assets.publishing.service.gov.uk/media/6af42ff0a4004bdbe54e54a5/REPD_Publication_Q3_2026.csv",
+        "preview_url": "https://www.gov.uk/csv-preview/6af42ff0a4004bdbe54e54a5/REPD_Publication_Q3_2026.csv"
+      },
+      {
+        "attachment_type": "file",
+        "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "filename": "REPD_Publication_Q3_2026.xlsx",
+        "id": "fixture-xlsx",
+        "title": "Renewable Energy Planning Database (REPD): October 2026 (Excel)",
+        "url": "https://assets.publishing.service.gov.uk/media/6af42ffdb83b3cae0d0a21c9/REPD_Publication_Q3_2026.xlsx"
+      }
+    ],
+    "change_history": [
+      {"note": "October 2026 REPD (fixture, constructed for tests)", "public_timestamp": "2026-11-13T09:30:00+00:00"},
+      {"note": "July 2026 REPD", "public_timestamp": "2026-08-03T10:00:03+01:00"}
+    ]
+  }
+}

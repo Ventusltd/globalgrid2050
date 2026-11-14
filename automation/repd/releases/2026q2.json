@@ -1,0 +1,32 @@
+{
+  "schema": "globalgrid2050.repd-release-descriptor.v1",
+  "release_id": "2026q2",
+  "label": "July 2026",
+  "quarter": "Q2 2026",
+  "csv_url": "https://assets.publishing.service.gov.uk/media/6a6cbdc00c36759b5ccaa305/REPD_Publication_Q2_2026.csv",
+  "xlsx_url": "https://assets.publishing.service.gov.uk/media/6a6cbdd2862aaf18d9c62b02/REPD_Publication_Q2_2026.xlsx",
+  "page_last_updated": "2026-08-03",
+  "govuk_public_updated_at": "2026-08-03T10:00:03+01:00",
+  "dataset_title": "Renewable Energy Planning Database (REPD): July 2026 (Q2 2026)",
+  "source_page": "https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract",
+  "previous_release_id": null,
+  "baseline_path": null,
+  "expected": {
+    "csv_sha256": "84c1b5f958a934d8b4b86ec88f50bdcf43830ded7ff2efc27bffca0c98695035",
+    "xlsx_sha256": "624a0a9712c58a7a93716e51f2bf054eec8b1af7170f6f9516cc10cd248e2657",
+    "csv_bytes": 5087389,
+    "xlsx_bytes": null,
+    "csv_rows": 14657,
+    "unique_refs": 14657,
+    "duplicate_refs": [],
+    "solar_gt_1mw": 3445,
+    "bess_gt_100mw": 269
+  },
+  "provenance": [
+    "URLs, PUBLICATION_DATE, DATASET_TITLE, EXPECTED_ROWS/SOLAR_GT1/BESS_GT100 and both sha256 from scripts/repd_sources_v6.py:30-40 (gg-wt)",
+    "csv_bytes and govuk_public_updated_at from pipelinenews archive 202608261547 data/repd-source/candidate.json (checked 2026-08-25)",
+    "unique_refs = csv_rows because repd_sources_v6 gates rows == unique Ref IDs and passed in August",
+    "xlsx_bytes not recorded anywhere found",
+    "TRAP: by 2026-11-13 both URLs served the October (Q3) bytes (repd-report/q3/Q2_BASELINE_SHA256_AUDIT.json); the original July bytes are not retrievable from GOV.UK and fetch.py refuses the substitute"
+  ]
+}

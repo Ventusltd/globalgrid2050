@@ -72,6 +72,13 @@ ANNUAL_TARGET_RE = re.compile(
     r"\b(?:target(?:s|ing)?|aims?|plans?)\b.{0,45}\b\d[\d,.]*\s*(?:GW|MW)\b.{0,25}\b(?:annually|per year|a year)\b",
     re.I,
 )
+# Portfolio/deal MW is not automatically the MW of one identifiable project.
+# A multi-asset transaction needs a reviewed project breakdown before promotion.
+PORTFOLIO_DEAL_RE = re.compile(
+    r"\\b(?:as part of|across|within)\\b.{0,85}\\b\\d[\\d,.]*\\s*(?:GW|MW)\\b.{0,75}\\b(?:deal|portfolio|pipeline|programme|program)\\b"
+    r"|\\b\\d[\\d,.]*\\s*(?:GW|MW)\\b.{0,55}\\b(?:renewables deal|project portfolio|project pipeline)\\b",
+    re.I,
+)
 URL_ALLOWED = frozenset(("www.gov.uk","gov.uk","www.datacenterdynamics.com","datacenterdynamics.com",
                          "www.energy-storage.news","energy-storage.news","www.pv-magazine.com","pv-magazine.com"))
 MIN_CAPEX_USD = 25_000_000
@@ -266,6 +273,8 @@ def classify(item: dict, repd: dict, now: datetime) -> tuple[dict | None, str]:
     ref = next(iter(ids)) if len(ids) == 1 else None
     if len(ids) > 1:
         return None, "ambiguous_repd_refs"
+    if not ref and PORTFOLIO_DEAL_RE.search(title):
+        return None, "portfolio_capacity_requires_review"
     reported_usd = money_usd(title) or money_usd(item["context"])
     # Never publish a finance amount as project CAPEX without explicit
     # construction/project spending evidence in the actual headline.

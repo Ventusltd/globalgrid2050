@@ -56,8 +56,13 @@
    ],
    "features": [],
    "known_faults": [],
-   "ci": null,
-   "merge_commit": null,
+   "ci": {
+    "workflow": "Verify Pipeline News 202611132345 and its release successor 202611140058",
+    "conclusion": "success",
+    "pull_request": 68,
+    "note": "As reported on the coordination issue; run before this train existed."
+   },
+   "merge_commit": "c41b8dd6",
    "state": "published"
   },
   {
@@ -88,10 +93,51 @@
      "contains": "href=\"../datacentres/\""
     }
    ],
-   "known_faults": [],
+   "known_faults": [
+    "Full 46 MB copy of its parent; later versions are smaller."
+   ],
+   "ci": {
+    "workflow": "Verify Pipeline News versions",
+    "run_id": 43541314987,
+    "conclusion": "success",
+    "url": "https://github.com/Ventusltd/globalgrid2050/actions/runs/43541314987",
+    "pull_request": 74,
+    "note": "First run 43541196726 failed: the workflow checkout lacked 202609082224, which the V9.12 runner needs. Fixed in the same pull request."
+   },
+   "merge_commit": "3d679cdb6e755bdbd2a5dede37188d5a2ff8c06a",
+   "state": "published"
+  },
+  {
+   "id": "202611140136",
+   "version": "V9.15",
+   "parent": "202611140128",
+   "date": "2026-11-14T01:36:00Z",
+   "added": "Marks, below the row's actions and without touching the MAP link, the 97 active October rows that the current GridAtlas register (July data) does not hold yet, with the list in gridatlas/map_link_state.json; folder reduced from 46 MB to 16 MB by not copying three fixture folders the page never reads.",
+   "data_changed": false,
+   "runner": "tests/run_v9_15.sh",
+   "trees": [
+    "9eae71204ef1e70057cc81ec49d1e765137f36d2"
+   ],
+   "features": [
+    {
+     "id": "gridatlas-state",
+     "file": "index.html",
+     "contains": "scripts/plugins/gridatlas-state.js"
+    },
+    {
+     "id": "gridatlas-state-list",
+     "file": "gridatlas/map_link_state.json",
+     "contains": "active_not_resolved_refs"
+    }
+   ],
+   "known_faults": [
+    "The 97 rows are measured from the GridAtlas files, not on the live map."
+   ],
    "ci": null,
    "merge_commit": null,
    "state": "published"
   }
- ]
+ ],
+ "size_budget_mb": 17,
+ "size_budget_from": "202611140136"
 }

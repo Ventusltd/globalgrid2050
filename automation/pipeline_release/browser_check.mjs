@@ -7,7 +7,7 @@
  * For each version and each viewport (desktop 1440x900, phone 390x844) it records:
  * the results line and record count, rows drawn, uncaught page errors, console
  * errors, failed requests (same-origin and external apart), horizontal overflow
- * on the phone, and the MAP / GRID ENGINE links of the first rows.
+ * on the phone, and the MAP links of the first rows.
  */
 import { spawn } from "node:child_process";
 import { mkdtempSync, readFileSync, writeFileSync, existsSync, rmSync } from "node:fs";
@@ -87,9 +87,7 @@ async function visit(id, vp) {
       record_count: Number((meta.match(/of ([\\d,]+) records/) || [])[1]?.replace(/,/g, '') || NaN),
       rows_drawn: rows.length,
       map_links: links('a.map-link, a[href*="gridatlas/atlas/"]').length,
-      grid_engine_links: links('a.grid-engine-link').length,
       first_map_link: links('a.map-link, a[href*="gridatlas/atlas/"]')[0] || '',
-      first_grid_engine_link: links('a.grid-engine-link')[0] || '',
       title: document.title,
       h1: q('h1')?.textContent || '',
       overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
@@ -98,11 +96,18 @@ async function visit(id, vp) {
         datacentre_news_panel: !!q('#dcNews'),
         nearest_datacentres: !!q('[data-feature="nearest-datacentres"]'),
         project_events: !!q('[data-feature="project-events"]'),
-        grid_engine_link: !!q('a.grid-engine-link'),
+        gridatlas_state_file: !!document.querySelector('script[src*="gridatlas-state.js"]'),
+        gridatlas_state_notes: document.querySelectorAll('.ga-state').length,
       },
     };
   })()`).catch((e) => ({ error: String(e) }));
   Object.assign(rec, { complete }, state);
+  if (process.env.PROBE_SEARCH) {
+    // Optional probe: type a search and report the first row, to look at one named project.
+    await evaluate(`(() => { const i = document.querySelector('#search'); i.value = ${JSON.stringify(process.env.PROBE_SEARCH)}; i.dispatchEvent(new Event('input', { bubbles: true })); })()`);
+    await sleep(1500);
+    rec.probe = await evaluate(`(() => { const tr = document.querySelector('#tbody tr'); return { rows: document.querySelectorAll('#tbody tr').length, notes: document.querySelectorAll('.ga-state').length, summary: document.querySelector('#gaStateSummary')?.textContent || '', actions: tr?.lastElementChild?.innerHTML || '', overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth }; })()`);
+  }
   if (process.env.SHOT_DIR) {
     const shot = await send("Page.captureScreenshot", { format: "png" }, sessionId).catch(() => null);
     if (shot) writeFileSync(join(process.env.SHOT_DIR, `${id}-${vp.name}.png`), Buffer.from(shot.data, "base64"));

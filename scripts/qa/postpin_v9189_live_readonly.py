@@ -155,7 +155,9 @@ def browser_checks():
             dc.goto(GRID, wait_until="domcontentloaded", timeout=90000)
             dc.wait_for_selector("canvas.maplibregl-canvas", timeout=90000)
             dc.wait_for_function("window.__GRIDATLAS_MODULES__?.ukOfftakers?.state?.installed === true", timeout=90000)
-            dc.locator('[data-offtakers-control="toggle"]').first.check(force=True, timeout=30000)
+            # The map control is inside a closed drawer on first load; use the public module toggle.
+            # The same setOn() is called by the actual checkbox change handler.
+            dc.evaluate("window.__GRIDATLAS_MODULES__.ukOfftakers.setOn(true)")
             dc.wait_for_function("""() => {
                 const s=window.__GRIDATLAS_MODULES__?.ukOfftakers?.state;
                 return s?.on && !s.busy && s.data?.pl?.o?.length > 0 && !s.err;

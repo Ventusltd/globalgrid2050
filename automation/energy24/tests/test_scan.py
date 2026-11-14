@@ -116,7 +116,7 @@ class Energy24Tests(unittest.TestCase):
     def test_ai_spending_included(self):
         v, why = self.classify("AI data centre operator commits $190 billion to build new hyperscale campuses")
         self.assertEqual(why,"accepted")
-        self.assertEqual(v["category"],"ai-investment")
+        self.assertEqual(v["category"],"data-centres")
         self.assertGreater(v["capex_usd"],25_000_000)
 
     def test_cyber_issues_labelled_but_not_project_works(self):

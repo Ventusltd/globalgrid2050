@@ -1,11 +1,11 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-14T01:16:22Z",
+ "generated_at": "2026-11-14T01:19:27Z",
  "status": "ok",
  "counts": {
-  "items": 4,
+  "items": 5,
   "capex": 3,
-  "politics": 1,
+  "politics": 2,
   "with_register_site": 0,
   "feeds_ok": 9,
   "feeds_failed": 0
@@ -28,7 +28,7 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "sha256": "a408a342b8b2f642abe7ba34fd435faf47088eaf8b415308e25a2ce9b0864e73"
+   "sha256": "265115d578efab0df256e920d8d6fe3be4e1d9c9005288304d58331fb6c03677"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
@@ -36,7 +36,7 @@
    "status": "ok",
    "entries": 56,
    "kept": 0,
-   "sha256": "78be465132b6822c48931c444fb4604e1978c5d542c79d0248484d42382edbac"
+   "sha256": "13501207aecbcd1822c61203435076e45b8a32589a8bcf08483f5f93b8cfa923"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
@@ -44,7 +44,7 @@
    "status": "ok",
    "entries": 60,
    "kept": 0,
-   "sha256": "5a28065a21d2eb82cd28878e1fcec07ff4344a30137d3610b1f4a555aeeedde8"
+   "sha256": "5a67a8526c20cf6016474c9f24f48da2fd6da2b9fde4f73af9dd52b4ba3fe9ba"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 41,
    "kept": 0,
-   "sha256": "cea70e20e289d4766380210ca8e3e07cb61a0486329a01a0978ab862d769fc2d"
+   "sha256": "92f0653b96430f75a92f7a269cc1c4d0bf7dafbf4abe551b66613329bbf20502"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -177,6 +177,26 @@
      "build"
     ],
     "politics": []
+   },
+   "sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Britain should seek recognition under Europe's cloud sovereignty levels before the rules settle",
+   "link": "https://www.comparethecloud.net/futurism/britain-should-seek-recognition-under-europes-cloud-sovereignty-levels-before-the-rules-settle",
+   "source": "Compare the Cloud (opinion, Kate Bennett)",
+   "date": null,
+   "first_seen": "2026-11-14T01:19:27Z",
+   "lanes": [
+    "politics"
+   ],
+   "matched_terms": {
+    "datacentre": [],
+    "capex": [],
+    "politics": [],
+    "pinned": [
+     "owner request 2026-11-14"
+    ]
    },
    "sites": [],
    "site_matches": 0

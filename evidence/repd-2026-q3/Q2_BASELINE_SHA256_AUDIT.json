@@ -1,0 +1,15 @@
+{
+  "q2_csv_expected_sha256": "84c1b5f958a934d8b4b86ec88f50bdcf43830ded7ff2efc27bffca0c98695035",
+  "q2_csv_observed_sha256": "48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862",
+  "q2_csv_bytes": 5219160,
+  "q2_xlsx_expected_sha256": "624a0a9712c58a7a93716e51f2bf054eec8b1af7170f6f9516cc10cd248e2657",
+  "q2_xlsx_observed_sha256": "87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea",
+  "q2_xlsx_bytes": 5378656,
+  "q2_download_matches_pinned_snapshot": false,
+  "q2_delta_unavailable": true,
+  "comparison_baseline": "Historical root repd.csv (January 2026 era; NOT Q2)",
+  "historical_root_sha256": "fdb6aec50647a4de88f63d33679b93cb2147417eddc43f3f31cbf12792a38aae",
+  "note": "Downloaded July-labelled sources differ from immutable Q2 fingerprints. July Q2 per-reference comparison unavailable until original official bytes are recovered.",
+  "observed_q2_csv_identical_to_q3_csv": true,
+  "observed_q2_excel_identical_to_q3_excel": true
+}

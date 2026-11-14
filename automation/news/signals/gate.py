@@ -283,6 +283,11 @@ def judge(ref, title, project=None, official=False):
             return "ok", "distinctive project name plus actual development activity"
         return "possible", "the name and a broad solar mention without project-specific identity"
     if weak_flag:                                           # generic or shared with another row: a fact is required
+        # A shared alias tied only to a broad county does not identify which
+        # scheme was involved. Require a distinct developer, capacity or exact
+        # planning reference before calling one of the two schemes confirmed.
+        if weak_flag == "shared" and not (developer or capacity):
+            return "possible", "shared name without a project-specific developer, capacity or reference"
         if fact and (whole or adjacent) and not far:
             return "ok", "a weak name with a direct solar project phrase and an agreeing fact"
         if whole or adjacent:

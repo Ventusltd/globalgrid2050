@@ -296,6 +296,14 @@ def judge(ref, title, project=None, official=False):
         )
         if site_pattern.search(text):
             return "ok", "specific solar development name stated in headline"
+        # A longer proper name may start with the solar project's two-word
+        # core but identify a different organisation ("North Ray of Light").
+        # The inserted continuation must never be treated as exact project
+        # identity merely because the headline also mentions a solar farm.
+        if any(re.search(
+                r"(?<![a-z0-9])" + re.escape(_norm(core)) + r"\\s+of\\s+[a-z]+",
+                text) for _alias, core, _whole in names):
+            return "possible", "core begins a different, longer proper name"
         if DEVELOPMENT_ACTION_RE.search(title) and (not far or developer) and (fact or any(
                 len(_norm(core).split()) >= 2 for _alias, core, _whole in names)):
             return "ok", "distinctive project name plus actual development activity"

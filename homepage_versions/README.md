@@ -1755,3 +1755,16 @@ Intention: Add section 10, **Cyber Resilience Log**, by promoting the tested own
 Measurement: all seven SHA-256 values from the pre-edit publisher pin were independently verified against the owner repository. The manual restore-point workflow could not be dispatched through the available GitHub connector; this limitation is recorded rather than claiming a workflow run. 235 entries existed in `homepage_versions` before v138 and its metrics.
 
 Metrics: 68 lines, 3474 words, 52358 characters, 52362 bytes; SHA-256 `5ea40cc002a30fea21f8abca6804f239cebf4cb3b506254410cefbae36faee57`.
+
+
+## Version 139
+
+Pre-edit restore point: `homepage_v139.html`; measurements: `homepage_v139-metrics.json`. Source: the **actually served homepage**, reconstructed byte-for-byte using the production `scripts/import_homepage_owner.py` substitutions from the seven SHA-256 verified files at homepage owner `cdd5e1f295043ea6e69077854204d7e34071a64a` (the current domain pin). The checked-in root `index.html` is stale and not the public source of truth.
+
+Intention: prepare the separate GridAtlas V9.189 homepage-owner pin at `92ba874c1668b39e225382b2ab9eb5900d3a3f46` (generation `202611132345`), retaining the previous V9.188 entry and all earlier releases. **No homepage pointer is changed by this restore-point branch.**
+
+Measurement: independent hosted public exact-byte acceptance [run 43567378340](https://github.com/Ventusltd/globalgrid2050/actions/runs/43567378340) PASS, artifact `14102852682`, confirms root SHA-256 `0787bd5fe3e4e9a1cc27db48bb82f7d13942894c416be77a1b99bc02e695b03c`. The manual restore-point workflow could not be dispatched through the available connector; do not claim it ran. 237 entries existed in `homepage_versions` before v139 and its metrics.
+
+Metrics: 69 lines, 3525 words, 53094 characters, 53098 bytes; SHA-256 `0787bd5fe3e4e9a1cc27db48bb82f7d13942894c416be77a1b99bc02e695b03c`.
+
+Rollback: restore the prior `catalogue/homepage-owner.json` pin at `cdd5e1f295043ea6e69077854204d7e34071a64a`, deploy and verify all seven served owner assets; `homepage_v139.html` is the immutable pre-change root-byte reference. Q3 and September Pipeline News remain untouched.

@@ -36,6 +36,10 @@ class Agent3GateTests(unittest.TestCase):
         gate.RECORDS = 3
         self.addCleanup(lambda: setattr(gate, "RECORDS", self.original_records))
         self.refresh()
+        self.original_manifest = self.repo / "uk_renewables_pipeline" / gate.OPERATIVE / "data/v9.1/build_manifest.json"
+        self.original_manifest.parent.mkdir(parents=True, exist_ok=True)
+        self.original_manifest.write_text(self.manifest.read_text())
+        (self.folder / "index.html").write_text("<!doctype html><title>Test</title>")
 
     def refresh(self):
         data = json.dumps({"projects": self.rows}, separators=(",", ":")).encode()
@@ -106,6 +110,15 @@ class Agent3GateTests(unittest.TestCase):
         m["project_count"] = 7
         self.manifest.write_text(json.dumps(m))
         self.assert_blocked(self.check(), "REPD rows not exactly")
+
+    def test_self_consistent_repd_source_substitution_rejected(self):
+        self.rows[2]["repd_ref"] = "4"
+        self.refresh()
+        self.assert_blocked(self.check(), "differ from protected V9.20")
+
+    def test_missing_html_rejected(self):
+        (self.folder / "index.html").unlink()
+        self.assert_blocked(self.check(), "candidate index.html absent")
 
     def test_missing_partition_rejected(self):
         self.part.unlink()

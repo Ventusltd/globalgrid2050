@@ -9,9 +9,9 @@ name: Project signals (top 200 solar, twice a day, data branch)
 # beside it under dist/signals_state/, so the next run keeps earlier signals and asks each source only for what is
 # stale; trade.py and index.py each search a rotating share of the 200 per run).
 # It never pushes to main, never opens a PR, never deploys. A push made with GITHUB_TOKEN starts no other workflow.
-# One script or one source failing is recorded in the file and does not fail the job: the combiner runs with whatever
-# parts exist, and every one of the 200 projects always has its planning file. The job fails only when the combiner
-# itself fails (a project with neither a signal nor a planning file) and there is no earlier file to keep.
+# Fetch failures may be recorded and combined for diagnostics, but the data-branch publication gate now
+# requires a current successful source and a genuinely new, confirmed, dated project signal. Replays,
+# planning-search fallbacks and stale part files cannot refresh the public timestamp. Otherwise no push.
 # Two slots a day at off-peak minutes; scheduled runs in this repository can arrive late or be dropped.
 # On a pull request that touches the scripts, the "probe" job (read-only, writes to no branch) runs index.py and the
 # combiner against the live sources and prints coverage, source health and the comparison with the reviewers'
@@ -54,7 +54,10 @@ jobs:
       - name: Tests (offline)
         run: |
           python -m pip install --quiet pytest
-          python -m pytest -q -p no:cacheprovider "$SIG/tests/test_index.py" "$SIG/tests/test_combine.py"
+          python -m pytest -q -p no:cacheprovider \
+            "$SIG/tests/test_index.py" "$SIG/tests/test_combine.py" "$SIG/tests/test_phase2_freshness.py" \
+            automation/news/tests/test_signals_official.py automation/news/tests/test_signals_planning_file.py \
+            automation/news/tests/test_signals_trade.py
       - name: Run index.py against the live sources (no branch written)
         run: |
           mkdir -p "$RUNNER_TEMP/parts"
@@ -81,6 +84,21 @@ jobs:
             --index "$RUNNER_TEMP/parts/index.json" --out "$RUNNER_TEMP/parts/project_signals.json" \
             --summary "$RUNNER_TEMP/combine-probe.md"
           cat "$RUNNER_TEMP/combine-probe.md" | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Rehearse current-source publication gate (read-only, never write)
+        run: |
+          # Compare against the actually published data branch, not an empty
+          # snapshot that would make recycled articles look newly discovered.
+          if git ls-remote --exit-code --heads origin "$DATA_BRANCH" >/dev/null; then
+            git fetch --depth=1 origin "$DATA_BRANCH"
+            touch "$RUNNER_TEMP/previous-branch-existed"
+            git show FETCH_HEAD:dist/project_signals.json > "$RUNNER_TEMP/previous_project_signals.json" || { echo "::error::existing data branch lacks prior snapshot"; exit 1; }
+          fi
+          previous_flag=""
+          if [ -f "$RUNNER_TEMP/previous-branch-existed" ]; then previous_flag="--require-previous"; fi
+          python "$SIG/publication_gate.py" --combined "$RUNNER_TEMP/parts/project_signals.json" \
+            --previous "$RUNNER_TEMP/previous_project_signals.json" --parts "$RUNNER_TEMP/parts" \
+            $previous_flag --report "$RUNNER_TEMP/publication-gate-probe.json"
+          cat "$RUNNER_TEMP/publication-gate-probe.json" >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -88,6 +106,7 @@ jobs:
           path: |
             ${{ runner.temp }}/parts/*.json
             ${{ runner.temp }}/*-probe.md
+            ${{ runner.temp }}/publication-gate-probe.json
           retention-days: 14
   refresh:
     if: github.event_name != 'pull_request'
@@ -105,13 +124,18 @@ jobs:
       - name: Tests (offline)
         run: |
           python -m pip install --quiet pytest
-          python -m pytest -q -p no:cacheprovider "$SIG/tests/test_index.py" "$SIG/tests/test_combine.py"
+          python -m pytest -q -p no:cacheprovider \
+            "$SIG/tests/test_index.py" "$SIG/tests/test_combine.py" "$SIG/tests/test_phase2_freshness.py" \
+            automation/news/tests/test_signals_official.py automation/news/tests/test_signals_planning_file.py \
+            automation/news/tests/test_signals_trade.py
       - name: Bring in the previous file, parts and cache from the data branch
         run: |
           mkdir -p dist/signals_state
           if git ls-remote --exit-code --heads origin "$DATA_BRANCH" >/dev/null; then
             git fetch --depth=1 origin "$DATA_BRANCH"
-            git show FETCH_HEAD:dist/project_signals.json > dist/project_signals.json || rm -f dist/project_signals.json
+            touch "$RUNNER_TEMP/previous-branch-existed"
+            git show FETCH_HEAD:dist/project_signals.json > dist/project_signals.json || { echo "::error::published branch snapshot missing"; exit 1; }
+            cp dist/project_signals.json "$RUNNER_TEMP/previous_project_signals.json"
             for name in official.json trade.json index.json gdelt_cache.json trade_cache.json; do
               git show "FETCH_HEAD:dist/signals_state/$name" > "dist/signals_state/$name" 2>/dev/null || rm -f "dist/signals_state/$name"
             done
@@ -155,6 +179,15 @@ jobs:
           python "$SIG/combine.py" --planning "$RUNNER_TEMP/parts/planning.json" --official dist/signals_state/official.json --trade dist/signals_state/trade.json \
             --index dist/signals_state/index.json --previous dist/project_signals.json --out dist/project_signals.json \
             --summary "$RUNNER_TEMP/combine-report.md"
+      - name: Fail-closed current-source publication gate
+        id: publication_gate
+        run: |
+          previous_flag=""
+          if [ -f "$RUNNER_TEMP/previous-branch-existed" ]; then previous_flag="--require-previous"; fi
+          python "$SIG/publication_gate.py" --combined dist/project_signals.json \
+            --previous "$RUNNER_TEMP/previous_project_signals.json" --parts "$RUNNER_TEMP/parts" \
+            $previous_flag --report "$RUNNER_TEMP/publication-gate.json" --github-output "$GITHUB_OUTPUT"
+          cat "$RUNNER_TEMP/publication-gate.json" >> "$GITHUB_STEP_SUMMARY"
       - name: Summary
         if: always()
         run: |
@@ -162,6 +195,7 @@ jobs:
             if [ -f "$f" ]; then cat "$f" >> "$GITHUB_STEP_SUMMARY"; fi
           done
       - name: Publish to the data branch
+        if: steps.publication_gate.outputs.publish == 'true'
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -195,4 +229,5 @@ jobs:
           path: |
             dist/project_signals.json
             dist/signals_state/*.json
+            ${{ runner.temp }}/publication-gate.json
           retention-days: 14

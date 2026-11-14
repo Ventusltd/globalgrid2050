@@ -7,10 +7,13 @@ This QA-only contract holds the v1 feed pending separate reviewed receipts.
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 from urllib.parse import urlparse
 import re
 
-MARKETS = {"London", "New York", "San Francisco", "Hong Kong", "Tokyo", "Sydney"}
+MARKETS = {"London": "Europe/London", "New York": "America/New_York",
+           "San Francisco": "America/Los_Angeles", "Hong Kong": "Asia/Hong_Kong",
+           "Tokyo": "Asia/Tokyo", "Sydney": "Australia/Sydney"}
 CATEGORIES = {"uk-repd", "data-centres", "global-projects", "ai-investment", "cybersecurity", "ethics"}
 STRATEGIC = {"cybersecurity", "ethics"}
 PROFANITY = re.compile(r"\b(fuck(?:ing)?|shit|cunt|motherfucker|bullshit)\b", re.I)
@@ -44,14 +47,29 @@ def audit_candidate(news, audit, receipts, rights, repd_mw, verified_dc_ids, now
     scan_at = instant(news.get("generated_utc"))
     if not scan_at or scan_at > now + timedelta(minutes=5) or now - scan_at > timedelta(hours=3):
         errors.append("scan_stale_or_future")
-    if set(audit.get("markets", {})) != MARKETS:
+    clock_values = audit.get("markets")
+    if not isinstance(clock_values, dict) or set(clock_values) != set(MARKETS):
         errors.append("market_clocks_incomplete")
+    elif scan_at:
+        for city, iana_zone in MARKETS.items():
+            raw = clock_values[city]
+            try:
+                local = datetime.fromisoformat(raw) if isinstance(raw, str) else None
+                expected = scan_at.astimezone(ZoneInfo(iana_zone))
+                # The scanner emits minute-precision offsets. UTC-only clocks
+                # and plausible-looking values in the wrong IANA zone fail.
+                if (local is None or local.tzinfo is None or
+                        local.utcoffset() != expected.utcoffset() or
+                        abs((local.astimezone(timezone.utc) - scan_at).total_seconds()) >= 60):
+                    errors.append(f"market_clock_invalid:{city}")
+            except (ValueError, TypeError, OverflowError):
+                errors.append(f"market_clock_invalid:{city}")
     articles = news.get("articles")
     if not isinstance(articles, list) or not articles:
         return errors + ["no_qualifying_articles"]
     sources = {s.get("id"): s for s in audit.get("sources", []) if isinstance(s, dict) and s.get("id")}
     receipt_index = {(r.get("source_id"), r.get("url")): r for r in receipts if isinstance(r, dict)}
-    publisher_ids, urls, titles = set(), set(), set()
+    publisher_owners, urls, titles = set(), set(), set()
     for idx, item in enumerate(articles):
         tag = f"article_{idx}"
         if not isinstance(item, dict):
@@ -73,20 +91,25 @@ def audit_candidate(news, audit, receipts, rights, repd_mw, verified_dc_ids, now
         titles.add(title.casefold() if isinstance(title, str) else "")
         if not sid or sid not in sources or sources[sid].get("status") != "OK":
             errors.append(f"{tag}:source_not_successful")
-        else:
-            publisher_ids.add(sid)
         receipt = receipt_index.get((sid, url))
         fetched_at = instant(receipt.get("fetched_at")) if receipt else None
         if (not receipt or receipt.get("status") != "fetched" or
                 not SHA256.fullmatch(str(receipt.get("content_sha256", ""))) or
-                not fetched_at or not scan_at or abs((scan_at - fetched_at).total_seconds()) > 3600):
+                not fetched_at or not scan_at or
+                fetched_at > now + timedelta(minutes=5) or
+                fetched_at > scan_at + timedelta(minutes=5) or
+                scan_at - fetched_at > timedelta(hours=1)):
             errors.append(f"{tag}:no_independent_exact_url_receipt")
         right = rights.get(sid, {})
         if (right.get("status") != "verified" or not SHA256.fullmatch(str(right.get("terms_sha256", "")))
                 or not right.get("terms_url") or not right.get("reviewer") or not right.get("attribution")
-                or not right.get("publisher_host") or not valid_url
-                or parsed.hostname != right.get("publisher_host")):
+                or not right.get("publisher_host") or not right.get("publisher_owner_id")
+                or not valid_url or parsed.hostname != right.get("publisher_host")):
             errors.append(f"{tag}:publisher_rights_unverified")
+        else:
+            # Distinct source IDs/mastheads are not independent when they
+            # resolve to the same reviewed publisher owner.
+            publisher_owners.add(str(right["publisher_owner_id"]).strip().casefold())
         event, published = instant(item.get("event_utc")), instant(item.get("published_utc"))
         if (not event or not published or event > now + timedelta(minutes=5) or
                 published > now + timedelta(minutes=5) or
@@ -125,6 +148,6 @@ def audit_candidate(news, audit, receipts, rights, repd_mw, verified_dc_ids, now
                     errors.append(f"{tag}:materiality_basis_missing")
         if item.get("grid_connection_mw") is not None and not item.get("verified_grid_connection_source_url"):
             errors.append(f"{tag}:inferred_grid_connection")
-    if len(publisher_ids) < 2:
+    if len(publisher_owners - {""}) < 2:
         errors.append("insufficient_independent_publishers")
     return errors

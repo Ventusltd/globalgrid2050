@@ -347,30 +347,70 @@ def classify(item: dict, repd: dict, now: datetime) -> tuple[dict | None, str]:
 
 
 
-def publication_gate(snapshot: dict, audit: dict) -> tuple[bool, list[str]]:
-    """Fail closed until UK official identity and DC site provenance are independently verified.
+def publication_gate(snapshot: dict, audit: dict, now: datetime | None = None) -> tuple[bool, list[str]]:
+    """Fail closed on unverified identities, stale evidence, or incomplete six-market clocks.
 
-    Publisher diversity is necessary but not sufficient. A named operator,
-    nearby REPD asset or generic data-centre story is not a verified site.
+    The scanner filters old headlines, but the hourly writer must independently
+    validate the downloaded artifact before publishing it. This also prevents
+    replay of a previously valid snapshot after the feeds stop updating.
     """
+    now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
     reasons = []
     articles = snapshot.get("articles") or []
     publishers = {x.get("source") for x in articles if x.get("source")}
     if len(publishers) < 2:
         reasons.append("fewer_than_two_publishers")
-    if not any(x.get("category") == "uk-repd" and x.get("repd_ref")
+    if not any(x.get("category") == "uk-repd"
+               and re.fullmatch(r"\\d{3,8}", str(x.get("repd_ref") or ""))
                and x.get("qualification") == "repd_exact_ref" for x in articles):
         reasons.append("no_exact_uk_repd_news_identity")
-    if not any(x.get("category") == "data-centres" and x.get("dc_site_id")
+    if not any(x.get("category") == "data-centres"
+               and re.fullmatch(r"dcuk-[A-Za-z0-9_-]+", str(x.get("dc_site_id") or ""))
                and x.get("identity_evidence") == "verified_exact_site"
                and x.get("site_licence_verified") is True for x in articles):
         reasons.append("no_licensed_exact_dc_site_identity")
     if snapshot.get("release") != audit.get("release"):
         reasons.append("release_mismatch")
-    if len(audit.get("markets") or {}) != 6:
-        reasons.append("six_clocks_missing")
-    return not reasons, reasons
 
+    # Independent freshness check, separate from the scanner's classification.
+    generated = parse_date(snapshot.get("generated_utc") or "")
+    audited = parse_date(audit.get("generated_utc") or "")
+    if (generated is None or audited is None or generated != audited
+            or not now - timedelta(minutes=90) <= generated <= now + timedelta(minutes=5)):
+        reasons.append("stale_or_unpaired_scan")
+    if not articles or any(
+        not isinstance(x.get("published_utc"), str)
+        or not x["published_utc"].endswith("Z")
+        or (date := parse_date(x["published_utc"])) is None
+        or date < now - timedelta(days=MAX_AGE_DAYS)
+        or date > now + timedelta(hours=1)
+        for x in articles
+    ):
+        reasons.append("stale_or_invalid_article")
+
+    health = audit.get("sources") or []
+    if not any(x.get("status") == "OK" and x.get("count", 0) > 0 for x in health):
+        reasons.append("no_healthy_source_feed")
+
+    # Verify the actual IANA clock offsets, not merely six arbitrary labels.
+    markets = audit.get("markets") or {}
+    clock_ok = generated is not None and set(markets) == set(MARKETS)
+    if clock_ok:
+        for city, zone in MARKETS.items():
+            try:
+                local = datetime.fromisoformat(markets[city])
+                if (local.tzinfo is None
+                        or local.astimezone(timezone.utc).replace(second=0, microsecond=0)
+                        != generated.replace(second=0, microsecond=0)
+                        or local.utcoffset() != generated.astimezone(ZoneInfo(zone)).utcoffset()):
+                    clock_ok = False
+                    break
+            except (ValueError, TypeError):
+                clock_ok = False
+                break
+    if not clock_ok:
+        reasons.append("six_clocks_invalid")
+    return not reasons, reasons
 
 def local_market_times(now: datetime) -> dict[str, str]:
     return {city: now.astimezone(ZoneInfo(tz)).isoformat(timespec="minutes")

@@ -2,13 +2,17 @@
 """Read-only public Pages smoke/served-byte gate for a dated Pipeline News candidate.
 
 This tool NEVER writes to a repository, Pages, or an external service. It fails
-closed if the public site is inaccessible or if bytes differ from checkout.
+closed if the public site is inaccessible or if public bytes differ from the pinned homepage owner or immutable releases.
 """
+import csv
 import hashlib
+import io
 import json
 import os
+import re
 import shutil
 from pathlib import Path
+from urllib.parse import parse_qs, urlparse
 import time
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
@@ -19,13 +23,9 @@ GRID = "https://ventusltd.github.io/gridatlas/atlas/"
 CANDIDATE = "202611140306"
 Q3 = "202611132345"
 OLD = "202609082224"
-PATHS = (
-    "index.html",
-    "homepage-shell/data/homepage.json",
-    f"uk_renewables_pipeline/{CANDIDATE}/index.html",
-    f"uk_renewables_pipeline/{Q3}/index.html",
-    f"uk_renewables_pipeline/{OLD}/index.html",
-)
+RELEASE_PATHS = tuple(f"uk_renewables_pipeline/{r}/index.html" for r in (CANDIDATE, Q3, OLD))
+OWNER_FILES = {"index.html", "assets/versioned-homepage.css", "assets/versioned-homepage.js",
+               "data/homepage.json", "data/active-pages.json", "data/presentation.json", "data/entity-types.json"}
 
 
 def fetch(url):
@@ -43,16 +43,53 @@ def fetch(url):
     raise RuntimeError(f"Cannot fetch {url}: {errors}")
 
 
+def expected_homepage():
+    """Pages imports hash-pinned owner bytes at BUILD time; checkout root is not authoritative."""
+    pin = json.loads((ROOT / "catalogue/homepage-owner.json").read_text(encoding="utf-8"))
+    if pin.get("repository") != "Ventusltd/globalgrid2050-homepage" or not re.fullmatch(r"[0-9a-f]{40}", pin.get("commit", "")):
+        raise AssertionError("Invalid homepage owner pin")
+    if set(pin.get("files", {})) != OWNER_FILES:
+        raise AssertionError("Incomplete homepage owner pin")
+    expected = {}
+    for name, digest in pin["files"].items():
+        if not re.fullmatch(r"[0-9a-f]{64}", digest):
+            raise AssertionError("Invalid owner SHA256: " + name)
+        data = fetch(f'https://raw.githubusercontent.com/{pin["repository"]}/{pin["commit"]}/{name}')
+        if len(data) > 1000000 or hashlib.sha256(data).hexdigest() != digest:
+            raise AssertionError("Owner source SHA256 mismatch: " + name)
+        if name == "index.html":
+            index = data.decode("utf-8-sig")
+            for asset in ("versioned-homepage.css", "versioned-homepage.js"):
+                source = "./assets/" + asset
+                if index.count(source) != 1:
+                    raise AssertionError("Unexpected homepage asset reference")
+                index = index.replace(source, "./homepage-shell/assets/" + asset)
+            source = 'href="data/homepage.json"'
+            if index.count(source) != 1:
+                raise AssertionError("Unexpected homepage catalogue reference")
+            expected["index.html"] = (index.replace(source, 'href="./homepage-shell/data/homepage.json"').rstrip() + "\\n").encode("utf-8")
+        else:
+            expected["homepage-shell/" + name] = data
+    if sum(len(data) for data in expected.values()) >= 1000000:
+        raise AssertionError("Homepage bundle over 1 MB")
+    return pin["commit"], expected
+
+
 def served_bytes():
+    owner_commit, expected = expected_homepage()
+    for path in RELEASE_PATHS:
+        expected[path] = (ROOT / path).read_bytes()
     result = {}
-    for path in PATHS:
-        source = (ROOT / path).read_bytes()
+    for path, source in expected.items():
         served = fetch(f"{SITE}/{path}")
         source_sha = hashlib.sha256(source).hexdigest()
         served_sha = hashlib.sha256(served).hexdigest()
-        result[path] = {"source_sha256": source_sha, "served_sha256": served_sha, "size": len(served), "pass": source_sha == served_sha}
+        result[path] = {
+            "expected_sha256": source_sha, "served_sha256": served_sha,
+            "basis": "pinned-homepage-owner:" + owner_commit if path not in RELEASE_PATHS else "immutable-release-checkout",
+            "size": len(served), "pass": source_sha == served_sha,
+        }
     return result
-
 
 def browser_checks():
     from playwright.sync_api import sync_playwright
@@ -70,9 +107,33 @@ def browser_checks():
             page.wait_for_function("document.body && document.body.innerText.includes('7,775')", timeout=90000)
             assert page.locator("#exportInline").count() == 1, "CSV export control missing"
             assert page.locator("#mapAtlasNav").get_attribute("href") == GRID, "MAP receiver changed"
+            page.wait_for_function("document.querySelector('#tbody')?.dataset.total === '7775'", timeout=90000)
+            # Verify the actual generated CSV, not just the existence of a control.
+            with page.expect_download(timeout=60000) as pending:
+                page.locator("#exportInline").click(timeout=30000)
+            csv_bytes = Path(pending.value.path()).read_bytes()
+            csv_rows = list(csv.reader(io.StringIO(csv_bytes.decode("utf-8-sig"), newline="")))
+            assert len(csv_rows) == 7776, f"CSV expected 7,775 data rows, got {len(csv_rows) - 1}"
+            assert "REPD Ref" in csv_rows[0], "CSV identity header absent"
+            ref_col = csv_rows[0].index("REPD Ref")
+            refs = [r[ref_col] for r in csv_rows[1:]]
+            assert len(set(refs)) == 7775 and all(refs), "CSV contains duplicate or blank REPD IDs"
+            # Follow a real table MAP link and require the receiver to name the same Ref.
+            first = page.locator("#tbody a.atlaslink").first
+            href = first.get_attribute("href")
+            assert href and href.startswith(GRID + "?"), "MAP link receiver changed"
+            ref = parse_qs(urlparse(href).query).get("repd_ref", [None])[0]
+            assert ref and page.locator(f"#repd-{ref}").count() == 1, "MAP/row identity mismatch"
+            with page.expect_popup(timeout=60000) as opening:
+                first.click(timeout=30000)
+            arrival = opening.value
+            arrival.wait_for_load_state("domcontentloaded", timeout=90000)
+            arrival.wait_for_function("(r) => document.body && document.body.innerText.includes('REPD ' + r)", arg=ref, timeout=90000)
+            assert urlparse(arrival.url).netloc == "ventusltd.github.io", "MAP opened unexpected origin"
+            arrival.close()
             assert page.locator("a[href*='202609082224']").count() > 0, "Legacy release navigation missing"
             assert not errors, f"JavaScript errors at {width}: {errors[:5]}"
-            findings[f"pipeline_{width}"] = {"url": page.url, "csv_control": True, "map_nav": GRID, "js_errors": 0}
+            findings[f"pipeline_{width}"] = {"url": page.url, "csv_download_rows": len(csv_rows) - 1, "unique_repd_refs": len(set(refs)), "live_map_ref": ref, "map_nav": GRID, "js_errors": 0}
             page.close()
         home = browser.new_page(viewport={"width": 390, "height": 844})
         home.goto(SITE + "/", wait_until="domcontentloaded", timeout=90000)

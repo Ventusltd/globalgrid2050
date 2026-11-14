@@ -85,7 +85,7 @@ permalink: /uk_offshore_wind_atlas/
     }).addTo(map);
 
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 10 });
-    const csvUrl = '{{ site.baseurl }}/repd.csv'; // Scanning the core REPD dataset
+    const csvUrl = '{{ site.baseurl }}/repd-2026q3.csv'; // Scanning the core REPD dataset
 
     let allData = [];
     let allMarkers = [];

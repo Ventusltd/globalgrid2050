@@ -84,7 +84,7 @@ permalink: /repd-uk-operational-solar/
     }).addTo(map);
 
     const markers = L.markerClusterGroup({ disableClusteringAtZoom: 12 });
-    const csvUrl = '{{ site.baseurl }}/repd-solar-operational.csv';
+    const csvUrl = '{{ site.baseurl }}/repd-solar-operational-2026q3.csv';
 
     let allData = [];
     let allMarkers = [];

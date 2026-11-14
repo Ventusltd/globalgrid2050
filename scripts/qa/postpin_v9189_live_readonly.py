@@ -43,9 +43,10 @@ def fetch(url):
     raise RuntimeError(f"Cannot fetch {url}: {errors}")
 
 
-def expected_homepage():
+def expected_homepage(pin=None):
     """Pages imports hash-pinned owner bytes at BUILD time; checkout root is not authoritative."""
-    pin = json.loads((ROOT / "catalogue/homepage-owner.json").read_text(encoding="utf-8"))
+    if pin is None:
+        pin = json.loads((ROOT / "catalogue/homepage-owner.json").read_text(encoding="utf-8"))
     if pin.get("repository") != "Ventusltd/globalgrid2050-homepage" or not re.fullmatch(r"[0-9a-f]{40}", pin.get("commit", "")):
         raise AssertionError("Invalid homepage owner pin")
     if set(pin.get("files", {})) != OWNER_FILES:
@@ -91,6 +92,28 @@ def served_bytes():
             "size": len(served), "pass": source_sha == served_sha,
         }
     return result
+
+def rollback_readiness():
+    """Dry-run previous owner importer reconstruction against preserved v139 bytes; no pointer write."""
+    previous = "d1827b531c84125d09d61255b2a2eb47a2197056"
+    old_pin = json.loads(fetch(
+        "https://raw.githubusercontent.com/Ventusltd/globalgrid2050/"
+        + previous + "/catalogue/homepage-owner.json"
+    ))
+    assert old_pin["commit"] == "cdd5e1f295043ea6e69077854204d7e34071a64a", "Wrong rollback owner"
+    _, outputs = expected_homepage(old_pin)
+    old_root = outputs["index.html"]
+    snapshot = (ROOT / "homepage_versions/homepage_v139.html").read_bytes()
+    assert snapshot == old_root, "Restore point v139 not byte-identical to previous owner importer output"
+    old_sha = hashlib.sha256(old_root).hexdigest()
+    assert old_sha == "0787bd5fe3e4e9a1cc27db48bb82f7d13942894c416be77a1b99bc02e695b03c"
+    return {"status": "PASS", "type": "non-destructive importer rollback dry-run",
+            "previous_main": previous, "previous_owner": old_pin["commit"],
+            "snapshot": "homepage_versions/homepage_v139.html",
+            "previous_root_sha256": old_sha,
+            "procedure": "revert merge a5988652 then deploy and recheck live served bytes",
+            "actual_live_revert_performed": False}
+
 
 def browser_checks():
     from playwright.sync_api import sync_playwright
@@ -220,6 +243,7 @@ def main():
     report = {"candidate": CANDIDATE, "q3_operative": Q3, "legacy": OLD, "scope": "read-only", "expected_owner": "92ba874c1668b39e225382b2ab9eb5900d3a3f46", "checks": {}}
     try:
         report["checks"]["served_bytes"] = served_bytes()
+        report["checks"]["rollback"] = rollback_readiness()
         try:
             report["checks"]["browser"] = browser_checks()
         except Exception as exc:

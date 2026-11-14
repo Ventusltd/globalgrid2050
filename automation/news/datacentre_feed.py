@@ -35,6 +35,9 @@ from pathlib import Path
 
 SCHEMA = "globalgrid2050.news.datacentre-capex-politics.v1"
 MAX_ITEMS = 200
+NEWS_MAX_AGE_DAYS = 14
+UNDATED_MAX_AGE_DAYS = 3
+MAX_FUTURE_HOURS = 24
 MAX_BYTES = 2_000_000
 TIMEOUT_S = 20
 USER_AGENT = "GlobalGrid2050-DatacentreNews/1.0 (+https://globalgrid2050.com)"
@@ -383,8 +386,41 @@ def merge(previous, incoming, cap=MAX_ITEMS):
     return sorted(by_link.values(), key=sort_key, reverse=True)[:cap]
 
 
+def freshness_filter(items, now_iso):
+    """Exclude stale, malformed or future-dated non-pinned stories, without changing historical pinned items.
+
+    Published dates are authoritative for dated stories; undated stories get only a short
+    first-seen window. A feed outage must not turn old stories into fresh headlines.
+    """
+    now = dt.datetime.fromisoformat(now_iso.replace("Z", "+00:00"))
+    if now.tzinfo is None:
+        raise ValueError("now_iso must contain UTC offset")
+    kept = []
+    for item in items:
+        if item.get("pinned"):
+            kept.append(item)
+            continue
+        stamp = item.get("date") or item.get("first_seen")
+        if not stamp:
+            continue
+        try:
+            when = dt.datetime.fromisoformat(stamp.replace("Z", "+00:00"))
+        except (ValueError, TypeError, AttributeError):
+            continue
+        if when.tzinfo is None:
+            continue
+        age = now.astimezone(dt.timezone.utc) - when.astimezone(dt.timezone.utc)
+        max_age = NEWS_MAX_AGE_DAYS if item.get("date") else UNDATED_MAX_AGE_DAYS
+        if -dt.timedelta(hours=MAX_FUTURE_HOURS) <= age <= dt.timedelta(days=max_age):
+            kept.append(item)
+    return kept
+
+
 def build(previous, items, health, now_iso, cap=MAX_ITEMS):
-    merged = merge(previous.get("items", []), items, cap)
+    # Apply expiry BEFORE capping, so stale stories cannot crowd out fresh ones.
+    all_items = merge(previous.get("items", []), items,
+                      cap=max(cap, len(previous.get("items", [])) + len(items)))
+    merged = freshness_filter(all_items, now_iso)[:cap]
     ok = sum(h["status"] == "ok" for h in health)
     return {
         "schema": SCHEMA,
@@ -395,7 +431,8 @@ def build(previous, items, health, now_iso, cap=MAX_ITEMS):
                    "politics": sum("politics" in i["lanes"] for i in merged),
                    "with_register_site": sum(bool(i["sites"]) for i in merged),
                    "feeds_ok": ok, "feeds_failed": len(health) - ok},
-        "limits": {"max_items": cap, "sites_per_item": SITES_PER_ITEM, "repd_radius_km": int(REPD_RADIUS_KM)},
+        "limits": {"max_items": cap, "sites_per_item": SITES_PER_ITEM, "repd_radius_km": int(REPD_RADIUS_KM),
+                   "news_max_age_days": NEWS_MAX_AGE_DAYS, "undated_max_age_days": UNDATED_MAX_AGE_DAYS},
         "scope": ("Headlines and links from public RSS/Atom feeds only; no article text is stored or republished. "
                   "Kept when the headline or feed summary names data centres and either money (capex) or policy "
                   "(politics)."),
@@ -404,6 +441,7 @@ def build(previous, items, health, now_iso, cap=MAX_ITEMS):
             "headline names, listed for review only and not evidence that the story concerns them. "
             "capex_basis 'financing' means funds, rounds or amounts, not verified project spend. "
             "pinned items were placed by the owner and are not ranked as recent news. Sponsored entries are dropped.",
+            "Non-pinned dated stories expire after 14 days; undated stories after 3 days from first_seen. Future-dated or invalid dates are held.",
             "repd_nearby is the straight-line count and stated MW of live REPD solar, battery and wind projects "
             "within 10 km of the register point; it is not a connection, offtake or capacity claim.",
             "Blank REPD capacity is unknown, never zero: projects_mw_unknown counts them.",

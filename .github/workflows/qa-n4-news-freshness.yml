@@ -1,0 +1,30 @@
+name: QA N4 news freshness (no production writes)
+on:
+  pull_request:
+    paths:
+      - 'automation/news/datacentre_feed.py'
+      - 'automation/news/tests/test_datacentre_feed.py'
+      - 'automation/news/tests/test_datacentre_freshness_qa.py'
+      - '.github/workflows/qa-n4-news-freshness.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  n4-freshness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            automation/news
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install test dependencies
+        run: python -m pip install pytest jsonschema
+      - name: Run original N4 tests and independent freshness negatives
+        run: python -m pytest -q automation/news/tests/test_datacentre_feed.py automation/news/tests/test_datacentre_freshness_qa.py

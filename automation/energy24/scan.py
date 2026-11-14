@@ -57,6 +57,21 @@ UNCERTAIN_RE = re.compile(r"\b(rumo[u]?r|unconfirmed|allegedly|sponsored|adverto
 BAD_WORDS = frozenset(("fuck","fucking","shit","cunt","motherfucker","bullshit"))
 ASSET_TECH_RE = re.compile(r"\b(bess|battery|solar|wind|energy storage|power plant|renewable)\b", re.I)
 CORPORATE_FINANCE_RE = re.compile(r"\b(?:(?:buys?|acquires?|purchases?)\b.{0,90}\b(?:stake|shares|equity)\b|holdco\b.{0,40}\b(?:facility|loan)\b|share purchase|buyout|takeover)\b", re.I)
+# A reported financing round, equity investment or corporate credit line is not
+# project CAPEX. Require explicit construction/project expenditure language in
+# the publisher headline before treating USD as a headline qualification.
+PROJECT_CAPEX_RE = re.compile(
+    r"\\b(?:capex|capital expenditure|construction (?:budget|cost|spend)|"
+    r"project (?:budget|cost|capex)|development (?:budget|cost)|"
+    r"cost to build|invests?\\b.{0,65}\\b(?:to build|to construct|in (?:a |new )?(?:solar|battery|bess|data cent(?:er|re)|campus|power plant))|"
+    r"commits?\\b.{0,65}\\b(?:to build|to construct|for construction))\\b",
+    re.I,
+)
+# A company-wide annual target is not the size of an identified project.
+ANNUAL_TARGET_RE = re.compile(
+    r"\\b(?:target(?:s|ing)?|aims?|plans?)\\b.{0,45}\\b\\d[\\d,.]*\\s*(?:GW|MW)\\b.{0,25}\\b(?:annually|per year|a year)\\b",
+    re.I,
+)
 URL_ALLOWED = frozenset(("www.gov.uk","gov.uk","www.datacenterdynamics.com","datacenterdynamics.com",
                          "www.energy-storage.news","energy-storage.news","www.pv-magazine.com","pv-magazine.com"))
 MIN_CAPEX_USD = 25_000_000
@@ -242,8 +257,13 @@ def classify(item: dict, repd: dict, now: datetime) -> tuple[dict | None, str]:
     ref = next(iter(ids)) if len(ids) == 1 else None
     if len(ids) > 1:
         return None, "ambiguous_repd_refs"
-    capex = money_usd(title) or money_usd(item["context"])
+    reported_usd = money_usd(title) or money_usd(item["context"])
+    # Never publish a finance amount as project CAPEX without explicit
+    # construction/project spending evidence in the actual headline.
+    capex = reported_usd if PROJECT_CAPEX_RE.search(title) else None
     mw = capacity_mw(title) or capacity_mw(item["context"])
+    if ANNUAL_TARGET_RE.search(title):
+        mw = None
     dc = bool(DC_RE.search(title))
     cyber = bool(CYBER_RE.search(title))
     ethics = bool(ETHICS_RE.search(title))

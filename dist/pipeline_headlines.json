@@ -1,0 +1,1074 @@
+{
+ "schema": "globalgrid2050.news.pipeline-headlines.v1",
+ "generated_at": "2026-11-14T10:47:43Z",
+ "status": "ok",
+ "counts": {
+  "items": 63,
+  "with_possible_match": 3,
+  "feeds_ok": 50,
+  "feeds_failed": 0,
+  "by_category": {
+   "planning_decision": 4,
+   "consent": 8,
+   "refusal": 3,
+   "dco": 6,
+   "finance": 16,
+   "construction": 8,
+   "energisation": 4,
+   "policy": 4,
+   "datacentre": 7,
+   "other": 3
+  }
+ },
+ "limits": {
+  "max_items": 200,
+  "max_age_days": 120
+ },
+ "scope": "Headlines and links from public RSS and Atom feeds; no article text is stored. Category and technology are labels read from the headline. A possible match is a name coincidence for review, not a confirmed link to a REPD project. Data-centre market headlines and China solar headlines are world news, not UK project news.",
+ "feeds": [
+  {
+   "url": "https://feeds.bbci.co.uk/news/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 32,
+   "kept": 0,
+   "newest": "2026-11-14T10:30:38Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/uk/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 30,
+   "kept": 0,
+   "newest": "2026-11-14T09:05:48Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 56,
+   "kept": 1,
+   "newest": "2026-11-14T08:13:40Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/technology/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 21,
+   "kept": 0,
+   "newest": "2026-11-14T06:42:27Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 41,
+   "kept": 0,
+   "newest": "2026-11-14T07:12:14Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 61,
+   "kept": 0,
+   "newest": "2026-11-14T09:05:48Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/england/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 24,
+   "kept": 0,
+   "newest": "2026-11-14T09:55:33Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/scotland/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 33,
+   "kept": 0,
+   "newest": "2026-11-14T10:28:13Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/wales/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 31,
+   "kept": 0,
+   "newest": "2026-11-14T10:43:42Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/northern_ireland/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 30,
+   "kept": 0,
+   "newest": "2026-11-14T10:37:58Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/england/oxford/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 27,
+   "kept": 0,
+   "newest": "2026-11-14T07:21:29Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/england/lincolnshire/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 21,
+   "kept": 2,
+   "newest": "2026-11-14T08:15:55Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/england/norfolk/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 20,
+   "kept": 0,
+   "newest": "2026-11-14T06:35:47Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/england/suffolk/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 24,
+   "kept": 0,
+   "newest": "2026-11-14T06:52:28Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/scotland/highlands_and_islands/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 20,
+   "kept": 0,
+   "newest": "2026-11-13T11:43:18Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/england/cambridgeshire/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 36,
+   "kept": 0,
+   "newest": "2026-11-14T06:38:48Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/england/nottingham/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 28,
+   "kept": 0,
+   "newest": "2026-11-14T10:19:48Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/england/essex/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 41,
+   "kept": 0,
+   "newest": "2026-11-14T07:43:44Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/england/kent/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 21,
+   "kept": 0,
+   "newest": "2026-11-14T10:35:17Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/england/devon/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 25,
+   "kept": 0,
+   "newest": "2026-11-14T07:09:56Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/england/cornwall/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 17,
+   "kept": 0,
+   "newest": "2026-11-14T07:07:20Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/england/somerset/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 39,
+   "kept": 0,
+   "newest": "2026-11-14T07:36:54Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/england/gloucestershire/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 45,
+   "kept": 0,
+   "newest": "2026-11-14T07:34:37Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/england/wiltshire/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 32,
+   "kept": 0,
+   "newest": "2026-11-14T07:34:37Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/england/york_and_north_yorkshire/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 22,
+   "kept": 0,
+   "newest": "2026-11-14T08:09:59Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/england/humberside/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 21,
+   "kept": 0,
+   "newest": "2026-11-14T08:17:09Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/england/northamptonshire/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 23,
+   "kept": 0,
+   "newest": "2026-11-14T09:06:27Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/england/leicester/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 22,
+   "kept": 0,
+   "newest": "2026-11-14T07:08:43Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/england/hereford_and_worcester/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 30,
+   "kept": 0,
+   "newest": "2026-11-14T07:14:07Z"
+  },
+  {
+   "url": "https://feeds.bbci.co.uk/news/england/shropshire/rss.xml",
+   "source": "BBC News",
+   "status": "ok",
+   "entries": 31,
+   "kept": 0,
+   "newest": "2026-11-14T07:09:46Z"
+  },
+  {
+   "url": "https://www.solarpowerportal.co.uk/rss.xml?content_types=article",
+   "source": "Solar Power Portal",
+   "status": "ok",
+   "entries": 50,
+   "kept": 28,
+   "newest": "2026-11-13T11:25:08Z"
+  },
+  {
+   "url": "https://www.gov.uk/search/news-and-communications.atom?organisations%5B%5D=planning-inspectorate",
+   "source": "GOV.UK Planning Inspectorate",
+   "status": "ok",
+   "entries": 20,
+   "kept": 9,
+   "newest": "2026-11-13T17:12:38Z"
+  },
+  {
+   "url": "https://www.gov.uk/search/news-and-communications.atom?organisations%5B%5D=department-for-energy-security-and-net-zero",
+   "source": "GOV.UK DESNZ",
+   "status": "ok",
+   "entries": 20,
+   "kept": 2,
+   "newest": "2026-11-12T17:06:00Z"
+  },
+  {
+   "url": "https://www.gov.uk/search/news-and-communications.atom?keywords=solar+farm&order=updated-newest",
+   "source": "GOV.UK",
+   "status": "ok",
+   "entries": 20,
+   "kept": 1,
+   "newest": "2026-11-12T17:06:00Z"
+  },
+  {
+   "url": "https://www.gov.uk/search/news-and-communications.atom?keywords=data+centre",
+   "source": "GOV.UK",
+   "status": "ok",
+   "entries": 20,
+   "kept": 0,
+   "newest": "2026-11-14T00:01:07Z"
+  },
+  {
+   "url": "https://www.energy-storage.news/feed/",
+   "source": "Energy-Storage.news",
+   "status": "ok",
+   "entries": 300,
+   "kept": 3,
+   "newest": "2026-11-13T14:14:09Z"
+  },
+  {
+   "url": "https://www.pv-tech.org/feed/",
+   "source": "PV Tech",
+   "status": "ok",
+   "entries": 300,
+   "kept": 1,
+   "newest": "2026-11-13T15:44:18Z"
+  },
+  {
+   "url": "https://feeds.feedburner.com/Renews-RenewableEnergyNews",
+   "source": "reNEWS",
+   "status": "ok",
+   "entries": 30,
+   "kept": 2,
+   "newest": "2026-11-13T16:19:33Z"
+  },
+  {
+   "url": "https://www.offshorewind.biz/feed/",
+   "source": "offshoreWIND.biz",
+   "status": "ok",
+   "entries": 50,
+   "kept": 6,
+   "newest": "2026-11-13T13:16:33Z"
+  },
+  {
+   "url": "https://www.theguardian.com/environment/energy/rss",
+   "source": "The Guardian",
+   "status": "ok",
+   "entries": 20,
+   "kept": 0,
+   "newest": "2026-11-13T17:10:23Z"
+  },
+  {
+   "url": "https://www.theguardian.com/environment/windpower/rss",
+   "source": "The Guardian",
+   "status": "ok",
+   "entries": 20,
+   "kept": 1,
+   "newest": "2026-11-11T18:15:26Z"
+  },
+  {
+   "url": "https://www.lincolnshire.gov.uk/rss/news",
+   "source": "Lincolnshire County Council",
+   "status": "ok",
+   "entries": 20,
+   "kept": 1,
+   "newest": "2026-11-13T15:01:00Z"
+  },
+  {
+   "url": "https://www.constructionenquirer.com/feed/",
+   "source": "Construction Enquirer",
+   "status": "ok",
+   "entries": 10,
+   "kept": 1,
+   "newest": "2026-11-13T13:12:21Z"
+  },
+  {
+   "url": "https://www.planningresource.co.uk/rss/news",
+   "source": "Planning Resource",
+   "status": "ok",
+   "entries": 20,
+   "kept": 2,
+   "newest": "2026-11-13T13:08:15Z"
+  },
+  {
+   "url": "https://www.datacenterdynamics.com/rss/",
+   "source": "DatacenterDynamics",
+   "status": "ok",
+   "entries": 20,
+   "kept": 2,
+   "newest": "2026-11-14T10:00:44Z"
+  },
+  {
+   "url": "https://datacentrereview.com/feed/",
+   "source": "Data Centre Review",
+   "status": "ok",
+   "entries": 10,
+   "kept": 3,
+   "newest": "2026-11-13T08:00:00Z"
+  },
+  {
+   "url": "https://www.bloomberg.com/feeds/technology/news.rss",
+   "source": "Bloomberg",
+   "status": "ok",
+   "entries": 20,
+   "kept": 2,
+   "newest": "2026-11-14T00:34:34Z"
+  },
+  {
+   "url": "https://www.bloomberg.com/feeds/markets/news.rss",
+   "source": "Bloomberg",
+   "status": "ok",
+   "entries": 20,
+   "kept": 0,
+   "newest": "2026-11-14T09:00:19Z"
+  },
+  {
+   "url": "https://www.bloomberg.com/feeds/industries/news.rss",
+   "source": "Bloomberg",
+   "status": "ok",
+   "entries": 20,
+   "kept": 0,
+   "newest": "2026-11-14T02:53:04Z"
+  },
+  {
+   "url": "https://www.pv-magazine.com/feed/",
+   "source": "pv magazine",
+   "status": "ok",
+   "entries": 10,
+   "kept": 0,
+   "newest": "2026-11-14T10:47:00Z"
+  }
+ ],
+ "items": [
+  {
+   "title": "Humain raises $667m for AI buildout in Saudi Arabia",
+   "link": "https://www.datacenterdynamics.com/en/news/humain-raises-667m-for-ai-buildout-in-saudi-arabia/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-14T07:00:48Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Blackstone’s QTS Is Cutting AI Debt Sale by More Than Half",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-13/blackstone-s-qts-is-cutting-ai-debt-sale-by-more-than-half",
+   "source": "Bloomberg",
+   "date": "2026-11-13T21:35:24Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Huang’s Exit Leaves Silicon Valley Unsure About AI Boom’s Future",
+   "link": "https://www.bloomberg.com/news/newsletters/2026-11-13/huang-s-exit-leaves-silicon-valley-unsure-about-ai-boom-s-future",
+   "source": "Bloomberg",
+   "date": "2026-11-13T20:18:02Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "UK’s largest Solar farm approval deemed lawful by High Court",
+   "link": "https://www.lincolnshire.gov.uk/news/article/3031/uk-s-largest-solar-farm-approval-deemed-lawful-by-high-court",
+   "source": "Lincolnshire County Council",
+   "date": "2026-11-13T15:01:00Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "planning_decision",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "New large solar project announced for county",
+   "link": "https://www.bbc.co.uk/news/articles/cx5y13104z4vo",
+   "source": "BBC News",
+   "date": "2026-11-13T12:40:03Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "other",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Poste Italiane establishes €600m co-investment fund to support data center projects",
+   "link": "https://www.datacenterdynamics.com/en/news/poste-italiane-establishes-600m-co-investment-fund-to-support-data-center-projects/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-13T12:26:27Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Toll makes way for floor, offtake contracting beginning to standardise in UK BESS market",
+   "link": "https://www.energy-storage.news/toll-makes-way-for-floor-offtake-contracting-beginning-to-standardise-in-uk-bess-market/",
+   "source": "Energy-Storage.news",
+   "date": "2026-11-13T12:24:56Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "finance",
+   "technology": "battery",
+   "possible_match": null
+  },
+  {
+   "title": "£550m Humber to Midlands pylon project clears first hurdle",
+   "link": "https://www.constructionenquirer.com/2026/11/13/550m-humber-to-midlands-pylon-project-clears-first-hurdle/",
+   "source": "Construction Enquirer",
+   "date": "2026-11-13T12:06:39Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "planning_decision",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Statkraft starts commercial operations at first phase of 750MW Neilston BESS project",
+   "link": "https://www.solarpowerportal.co.uk/energy-storage/statkraft-starts-commercial-operations-at-first-phase-of-750mw-neilston-bess-project",
+   "source": "Solar Power Portal",
+   "date": "2026-11-13T11:25:08Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "energisation",
+   "technology": "battery",
+   "possible_match": null
+  },
+  {
+   "title": "TotalEnergies acquires 450MW solar, 150MW BESS NSIP project",
+   "link": "https://www.solarpowerportal.co.uk/solar-finance/totalenergies-acquires-450mw-solar-plus-150mw-bess-nsip-project",
+   "source": "Solar Power Portal",
+   "date": "2026-11-13T09:28:52Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "finance",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Ørsted Gearing Up for Turbine Installation at 2.9 GW UK Offshore Wind Farm",
+   "link": "https://www.offshorewind.biz/2026/11/13/orsted-gearing-up-for-turbine-installation-at-29-gw-uk-offshore-wind-farm",
+   "source": "offshoreWIND.biz",
+   "date": "2026-11-13T08:49:55Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "construction",
+   "technology": "offshore_wind",
+   "possible_match": null
+  },
+  {
+   "title": "Challenge to UK's largest solar farm plan rejected",
+   "link": "https://www.bbc.co.uk/news/articles/c893rpz742z4o",
+   "source": "BBC News",
+   "date": "2026-11-12T14:04:38Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "planning_decision",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "‘Judge dismisses councils’ High Court solar farm challenge, plus developer revives plans for 4,000 green belt homes’",
+   "link": "https://www.planningresource.co.uk/article/1975088/judge-dismisses-councils-high-court-solar-farm-challenge-plus-developer-revives-plans-4000-green-belt-homes",
+   "source": "Planning Resource",
+   "date": "2026-11-12T13:09:01Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "planning_decision",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "UK Government offers £180m for AI data centre – but there’s a catch",
+   "link": "https://datacentrereview.com/2026/11/uk-government-offers-180m-for-ai-data-centre-but-theres-a-catch/",
+   "source": "Data Centre Review",
+   "date": "2026-11-12T13:02:37Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Miliband champions renewables at COP31",
+   "link": "https://www.renews.biz/other-news/miliband-champions-renewables-at-cop31/",
+   "source": "reNEWS",
+   "date": "2026-11-12T09:37:15Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "policy",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Cadeler Secures Turbine and Foundation Installation Work on Large UK Offshore Wind Farm",
+   "link": "https://www.offshorewind.biz/2026/11/12/cadeler-secures-turbine-and-foundation-installation-work-on-large-uk-offshore-wind-farm",
+   "source": "offshoreWIND.biz",
+   "date": "2026-11-12T08:46:20Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "construction",
+   "technology": "offshore_wind",
+   "possible_match": null
+  },
+  {
+   "title": "Plans for UK’s largest PV project rejected",
+   "link": "https://www.pv-tech.org/plans-for-uks-largest-pv-project-rejected/",
+   "source": "PV Tech",
+   "date": "2026-11-11T15:24:18Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "refusal",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Energy minister refuses huge green belt solar farm plan citing harm to green belt and heritage assets",
+   "link": "https://www.planningresource.co.uk/article/1974979/energy-minister-refuses-huge-green-belt-solar-farm-plan-citing-harm-green-belt-heritage-assets",
+   "source": "Planning Resource",
+   "date": "2026-11-11T13:32:41Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "refusal",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "UK government refuses 840MW Botley West Solar Farm in first-ever solar NSIP no",
+   "link": "https://www.solarpowerportal.co.uk/solar-planning/uk-government-refuses-840mw-botley-west-solar-farm-in-first-ever-solar-nsip-no",
+   "source": "Solar Power Portal",
+   "date": "2026-11-11T12:29:34Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "refusal",
+   "technology": "solar",
+   "possible_match": {
+    "repd_ref": "12588",
+    "site_name": "Botley West, Botley - Botley West Solar Project",
+    "basis": "technology"
+   }
+  },
+  {
+   "title": "Cadeler secures UK offshore wind installation deal",
+   "link": "https://www.renews.biz/offshore-wind/cadeler-secures-uk-offshore-wind-installation-deal/",
+   "source": "reNEWS",
+   "date": "2026-11-11T11:00:00Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "construction",
+   "technology": "offshore_wind",
+   "possible_match": null
+  },
+  {
+   "title": "RWE and KKR Reach Financial Close for 2.8 GW UK Offshore Wind Projects",
+   "link": "https://www.offshorewind.biz/2026/11/11/rwe-and-kkr-reach-financial-close-for-28-gw-uk-offshore-wind-projects",
+   "source": "offshoreWIND.biz",
+   "date": "2026-11-11T08:05:50Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "finance",
+   "technology": "offshore_wind",
+   "possible_match": null
+  },
+  {
+   "title": "Prime Minister hails major investment in UK renewables",
+   "link": "https://www.gov.uk/government/news/prime-minister-hails-major-investment-in-uk-renewables",
+   "source": "GOV.UK",
+   "date": "2026-11-11T06:10:18Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "finance",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Karpowership acquires UK 100MWh BESS site for development",
+   "link": "https://www.solarpowerportal.co.uk/solar-finance/karpowership-acquires-inland-uk-100mwh-bess-site-for-development",
+   "source": "Solar Power Portal",
+   "date": "2026-11-10T11:53:19Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "finance",
+   "technology": "battery",
+   "possible_match": null
+  },
+  {
+   "title": "Metlen sells 119MW UK solar portfolio to Nala Renewables",
+   "link": "https://www.solarpowerportal.co.uk/solar-finance/metlen-sells-119mw-uk-solar-portfolio-to-nala-renewables",
+   "source": "Solar Power Portal",
+   "date": "2026-11-10T11:42:38Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "finance",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Recurrent Energy starts commercial operations at 20MWp South Devon solar project",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/recurrent-energy-starts-commercial-operations-at-20mwp-south-devon-solar-project",
+   "source": "Solar Power Portal",
+   "date": "2026-11-06T10:47:15Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "energisation",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "First community-funded solar-plus-storage plant opens for investment",
+   "link": "https://www.solarpowerportal.co.uk/solar-investment/first-community-funded-solar-plus-storage-plant-opens-for-investment",
+   "source": "Solar Power Portal",
+   "date": "2026-11-06T10:28:33Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "finance",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "How delay to next CfD auction affects UK solar",
+   "link": "https://www.solarpowerportal.co.uk/energy-policy/how-delay-to-next-cfd-auction-affects-uk-solar",
+   "source": "Solar Power Portal",
+   "date": "2026-11-05T14:20:04Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "finance",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Pure DC secures $780m to fund data centre expansion across Europe, Middle East",
+   "link": "https://datacentrereview.com/2026/11/pure-dc-secures-780m-to-fund-data-centre-expansion-across-europe-middle-east/",
+   "source": "Data Centre Review",
+   "date": "2026-11-05T10:50:00Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Energy Independence Bill to mandate community benefit funds for UK solar",
+   "link": "https://www.solarpowerportal.co.uk/energy-policy/energy-independence-bill-to-mandate-community-benefit-funds-for-uk-solar",
+   "source": "Solar Power Portal",
+   "date": "2026-11-05T10:09:40Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "policy",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Drax partners with Brookfield on £20bn-plus AI data centre plans",
+   "link": "https://datacentrereview.com/2026/11/drax-partners-with-brookfield-on-20bn-plus-ai-data-centre-plans/",
+   "source": "Data Centre Review",
+   "date": "2026-11-04T10:55:27Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "MTC and Naked Energy installing UK's largest solar thermal project at Coventry site",
+   "link": "https://www.solarpowerportal.co.uk/solar-thermal/mtc-invests-1-3-million-in-naked-energy-solar-thermal-installation-at-coventry-site",
+   "source": "Solar Power Portal",
+   "date": "2026-11-04T10:13:21Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "construction",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Cadeler Adds Wind Apex to Dogger Bank C Turbine Installation Campaign",
+   "link": "https://www.offshorewind.biz/2026/11/04/cadeler-adds-wind-apex-to-dogger-bank-c-turbine-installation-campaign",
+   "source": "offshoreWIND.biz",
+   "date": "2026-11-04T07:58:18Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "construction",
+   "technology": "wind",
+   "possible_match": null
+  },
+  {
+   "title": "BW ESS puts Europe’s largest BESS into commercial operation in the UK",
+   "link": "https://www.energy-storage.news/bw-ess-puts-europes-largest-bess-commercial-operation-uk-gb/",
+   "source": "Energy-Storage.news",
+   "date": "2026-11-03T10:35:40Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "energisation",
+   "technology": "battery",
+   "possible_match": null
+  },
+  {
+   "title": "Wave of BESS augmentation financing expected in a few years",
+   "link": "https://www.solarpowerportal.co.uk/energy-storage/wave-of-bess-augmentation-financing-expected-in-a-few-years",
+   "source": "Solar Power Portal",
+   "date": "2026-11-02T15:01:50Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "finance",
+   "technology": "battery",
+   "possible_match": null
+  },
+  {
+   "title": "Wind Turbine Installation Starts at Inch Cape Site Offshore Scotland",
+   "link": "https://www.offshorewind.biz/2026/11/02/wind-turbine-installation-starts-at-inch-cape-site-offshore-scotland",
+   "source": "offshoreWIND.biz",
+   "date": "2026-11-02T11:57:50Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "construction",
+   "technology": "wind",
+   "possible_match": {
+    "repd_ref": "2527",
+    "site_name": "Inch Cape",
+    "basis": "technology"
+   }
+  },
+  {
+   "title": "Brookfield-owned OnPath Energy reaches financial close on first solar-plus-storage project",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/brookfield-owned-onpath-energy-reaches-financial-close-on-first-solar-plus-storage-project",
+   "source": "Solar Power Portal",
+   "date": "2026-11-02T10:47:00Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "finance",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "BW ESS puts 1.24GWh BESS, Europe’s largest, into commercial operation",
+   "link": "https://www.solarpowerportal.co.uk/battery-storage/bw-ess-puts-1-24gwh-bess-europe-s-largest-into-commercial-operation",
+   "source": "Solar Power Portal",
+   "date": "2026-11-02T10:07:02Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "energisation",
+   "technology": "battery",
+   "possible_match": null
+  },
+  {
+   "title": "Major undersea power cable given green light",
+   "link": "https://www.gov.uk/government/news/major-undersea-power-cable-given-green-light",
+   "source": "GOV.UK DESNZ",
+   "date": "2026-10-30T16:32:23Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "consent",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Major solar projects by Elements Green, Cubico granted DCOs",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/major-solar-projects-by-elements-green-cubico-granted-dcos",
+   "source": "Solar Power Portal",
+   "date": "2026-10-28T09:27:32Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "consent",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Great North Road Solar and Biodiversity Park development consent decision announced",
+   "link": "https://www.gov.uk/government/news/great-north-road-solar-and-biodiversity-park-development-consent-decision-announced",
+   "source": "GOV.UK Planning Inspectorate",
+   "date": "2026-10-27T16:43:00Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "dco",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Frodsham Solar development consent decision announced",
+   "link": "https://www.gov.uk/government/news/frodsham-solar-development-consent-decision-announced",
+   "source": "GOV.UK Planning Inspectorate",
+   "date": "2026-10-27T15:23:08Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "dco",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Elgin to invest £400 million in 230MW solar-plus-storage projects in the UK",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/elgin-to-invest-400-million-in-230mw-solar-plus-storage-projects-in-the-uk",
+   "source": "Solar Power Portal",
+   "date": "2026-10-27T11:42:22Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "finance",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Enviromena acquires 18.1MWp Cheshire solar project from Anglo Renewables",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/enviromena-acquires-18-1mwp-cheshire-solar-project-from-anglo-renewables",
+   "source": "Solar Power Portal",
+   "date": "2026-10-27T10:49:02Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "finance",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "RES secures planning consents for NI BESS, Scottish solar",
+   "link": "https://www.solarpowerportal.co.uk/solar-planning/res-secures-planning-consents-for-ni-bess-scottish-solar",
+   "source": "Solar Power Portal",
+   "date": "2026-10-27T09:22:38Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "consent",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Seaway7 Completes Inter-Array Cable Installation at East Anglia Three Offshore Wind Farm",
+   "link": "https://www.offshorewind.biz/2026/10/27/seaway7-completes-inter-array-cable-installation-at-east-anglia-three-offshore-wind-farm",
+   "source": "offshoreWIND.biz",
+   "date": "2026-10-27T09:22:07Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "construction",
+   "technology": "offshore_wind",
+   "possible_match": null
+  },
+  {
+   "title": "UK solar approvals, progress and purchases",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/uk-solar-approvals-progress-purchases",
+   "source": "Solar Power Portal",
+   "date": "2026-10-23T09:25:29Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "consent",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Boom Power secures planning permission for 49.99MW Drove Lane solar PV plant in East Yorkshire",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/boom-power-secures-planning-permission-for-49-99mw-drove-lane-solar-pv-plant-in-east-yorkshire",
+   "source": "Solar Power Portal",
+   "date": "2026-10-23T00:41:16Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "consent",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "BW ESS secures financing for 3.5-hour 350MW Hams Hall BESS",
+   "link": "https://www.solarpowerportal.co.uk/battery-storage/bw-ess-secures-financing-for-3-5-hour-350mw-hams-hall-bess",
+   "source": "Solar Power Portal",
+   "date": "2026-10-22T09:51:47Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "finance",
+   "technology": "battery",
+   "possible_match": null
+  },
+  {
+   "title": "Ares invests in 1.9GW of Statera’s UK battery and gas portfolio, but not its LDES projects",
+   "link": "https://www.solarpowerportal.co.uk/battery-storage/ares-invests-in-1-9gw-of-statera-s-uk-battery-and-gas-portfolio-but-not-its-ldes-projects",
+   "source": "Solar Power Portal",
+   "date": "2026-10-19T10:30:47Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "finance",
+   "technology": "battery",
+   "possible_match": null
+  },
+  {
+   "title": "Foresight invests in 40GWh LDES cap-and-floor winning pumped hydro project in Scotland",
+   "link": "https://www.solarpowerportal.co.uk/energy-storage/foresight-invests-in-40gwh-ldes-cap-and-floor-winning-pumped-hydro-project-in-scotland",
+   "source": "Solar Power Portal",
+   "date": "2026-10-19T09:34:30Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "finance",
+   "technology": "hydro",
+   "possible_match": null
+  },
+  {
+   "title": "UK energy policy decoupled from Clean Power 2030 as affordability and politics take precedence",
+   "link": "https://www.solarpowerportal.co.uk/energy-policy/uk-energy-policy-clean-power-2030-affordability-politics",
+   "source": "Solar Power Portal",
+   "date": "2026-10-16T09:10:35Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "policy",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Octopus investment company ORIT takes on OnPath-developed West Yorkshire solar farm",
+   "link": "https://www.solarpowerportal.co.uk/solar-investment/octopus-investment-company-orit-takes-on-onpath-developed-west-yorkshire-solar-farm",
+   "source": "Solar Power Portal",
+   "date": "2026-10-15T08:21:46Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "finance",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "‘You need to get comfortable with regulatory reform as a known risk’: Battery Asset Management Summit UK & Ireland kicks off",
+   "link": "https://www.energy-storage.news/you-need-to-get-comfortable-with-regulatory-reform-as-a-known-risk-battery-asset-management-summit-uk-ireland-kicks-off/",
+   "source": "Energy-Storage.news",
+   "date": "2026-10-13T10:43:38Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "policy",
+   "technology": "battery",
+   "possible_match": null
+  },
+  {
+   "title": "European Energy secures £28.8 million for Bedfordshire solar farm construction",
+   "link": "https://www.solarpowerportal.co.uk/solar-finance/european-energy-28-million-bedfordshire-solar-farm-construction",
+   "source": "Solar Power Portal",
+   "date": "2026-10-12T09:46:44Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "construction",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Large-scale solar plant in Nottinghamshire approved by government, second one this week",
+   "link": "https://www.solarpowerportal.co.uk/solar-planning/large-scale-solar-plant-in-nottinghamshire-approved-by-government-second-one-this-week",
+   "source": "Solar Power Portal",
+   "date": "2026-10-09T15:03:46Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "consent",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Steeple Renewables Project development consent decision announced",
+   "link": "https://www.gov.uk/government/news/steeple-renewables-project-development-consent-decision-announced",
+   "source": "GOV.UK Planning Inspectorate",
+   "date": "2026-10-09T14:31:06Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "dco",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Scottish council approves 40MW Kirknewton solar-plus-storage project",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/scottish-council-approves-40mw-kirknewton-solar-plus-storage-project",
+   "source": "Solar Power Portal",
+   "date": "2026-10-09T11:54:22Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "consent",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Why are more roofs not made of solar tiles?",
+   "link": "https://www.bbc.co.uk/news/articles/cdr7n610rmzo",
+   "source": "BBC News",
+   "date": "2026-10-08T23:09:56Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "other",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Green Hill Solar Farm development consent decision announced",
+   "link": "https://www.gov.uk/government/news/green-hill-solar-farm-development-consent-decision-announced",
+   "source": "GOV.UK Planning Inspectorate",
+   "date": "2026-10-08T14:23:49Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "dco",
+   "technology": "solar",
+   "possible_match": {
+    "repd_ref": "15793",
+    "site_name": "Green Hill Solar Farm & Battery Storage",
+    "basis": "technology"
+   }
+  },
+  {
+   "title": "Fahnbulleh consents major 500MW solar plant plans for Northamptonshire",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/fahnbulleh-consents-major-500mw-solar-plant-plans-for-northamptonshire",
+   "source": "Solar Power Portal",
+   "date": "2026-10-08T12:46:30Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "consent",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Morgan and Morecambe Offshore Wind Farms Transmission Assets development consent decision announced",
+   "link": "https://www.gov.uk/government/news/morgan-and-morecambe-offshore-wind-farms-transmission-assets-development-consent-decision-announced",
+   "source": "GOV.UK Planning Inspectorate",
+   "date": "2026-09-14T14:28:53Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "dco",
+   "technology": "offshore_wind",
+   "possible_match": null
+  },
+  {
+   "title": "Onshore windfarm applications hit 10-year high in England",
+   "link": "https://www.theguardian.com/environment/2026/aug/23/onshore-windfarm-applications-10-year-high-england",
+   "source": "The Guardian",
+   "date": "2026-08-23T06:00:24Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "other",
+   "technology": "wind",
+   "possible_match": null
+  },
+  {
+   "title": "Beacon Fen Energy Park development consent decision announced",
+   "link": "https://www.gov.uk/government/news/beacon-fen-energy-park-development-consent-decision-announced",
+   "source": "GOV.UK Planning Inspectorate",
+   "date": "2026-08-21T13:34:45Z",
+   "first_seen": "2026-11-14T10:47:43Z",
+   "category": "dco",
+   "technology": null,
+   "possible_match": null
+  }
+ ]
+}

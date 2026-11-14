@@ -596,7 +596,9 @@ def combine(rows, aliases=None, parts=None, planning=None, previous=None, now_is
             if verdict == "drop":                          # also purges a carried-forward copy of a match now rejected
                 dropped["title gate"] += 1
                 return False
-            if verdict == "possible" and item["confidence"] == "confirmed":
+            if verdict in ("possible", "none") and item["confidence"] == "confirmed":
+                # No name in the title is not a confirmed identity match merely
+                # because one collector accepted the phrase or summary.
                 item["confidence"] = "possible"
                 item["basis"] = D.clean_text("%s; possible only: %s" % (item["basis"], why), 240)
                 downgraded["title gate"] += 1

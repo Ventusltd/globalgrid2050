@@ -47,21 +47,32 @@ jobs:
           assert pin["repository"]=="Ventusltd/globalgrid2050-homepage"
           doc=json.loads(Path("homepage-shell/data/homepage.json").read_text())
           entity=next(x for x in doc["entities"] if x["id"]=="pipeline-news")
-          assert entity["operative_release_id"]=="202611132345"
-          assert {r["id"] for r in entity["releases"]} >= {"202611132345","202609082224"}
+          # The operative release may move on from the first October edition
+          # (202611132345); that edition and September must stay retained.
+          operative=entity["operative_release_id"]
+          release_ids={r["id"] for r in entity["releases"]}
+          assert re.fullmatch(r"[0-9]{12}",operative) and operative in release_ids
+          assert operative>="202611132345"
+          assert release_ids >= {"202611132345","202609082224"}
           # The October promotion must be unique and remain the latest
           # Pipeline News promotion, not necessarily the last *site* promotion.
           pipeline_promotions=[p for p in doc["promotions"] if p["entity_id"]=="pipeline-news"]
           q3_promotions=[p for p in pipeline_promotions if p["to_release_id"]=="202611132345"]
           assert len(q3_promotions)==1
           assert q3_promotions[0]["from_release_id"]=="202609082224"
-          assert pipeline_promotions[-1] is q3_promotions[0]
+          # Later Pipeline News promotions must form an unbroken chain from the
+          # October promotion to the operative release, each step recorded.
+          start=pipeline_promotions.index(q3_promotions[0])
+          chain=pipeline_promotions[start:]
+          for prev,nxt in zip(chain,chain[1:]):
+            assert nxt["from_release_id"]==prev["to_release_id"]
+          assert chain[-1]["to_release_id"]==operative
           index=Path("index.html").read_text()
-          assert 'href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/"' in index
+          assert f'href="https://globalgrid2050.com/uk_renewables_pipeline/{operative}/"' in index
           for name in pin["files"]:
             local=Path("index.html") if name=="index.html" else Path("homepage-shell")/name
             if name=="index.html":
               continue # transformed on import, original hash verified by importer
             assert hashlib.sha256(local.read_bytes()).hexdigest()==pin["files"][name],name
-          print("PASS: seven owner pins, Q3 homepage, September rollback, promotion audit")
+          print(f"PASS: seven owner pins, operative {operative}, October and September retained, promotion chain")
           PY

@@ -96,15 +96,21 @@ jobs:
           from automation.energy24.scan import publication_gate
 
           release = json.loads(Path('uk_renewables_pipeline/energy24/data/release.json').read_text())
-          official = Path('repd-2026q3.csv')
-          digest = hashlib.sha256(official.read_bytes()).hexdigest()
-          assert digest == release['official_csv_sha256'], 'Pinned official REPD source SHA256 mismatch'
+          # release.json pins the original GOV.UK CSV SHA256; repd-2026q3.csv
+          # is the repository's deduplicated/normalised working copy, not those bytes.
+          descriptor = json.loads(Path('automation/repd/releases/2026q3.json').read_text())
+          assert release['official_csv_sha256'] == descriptor['expected']['csv_sha256'], 'Original GOV.UK source pin mismatch'
+          cleaned = Path('repd-2026q3.csv').read_bytes()
+          git_blob = hashlib.sha1(b'blob ' + str(len(cleaned)).encode() + b'\\0' + cleaned).hexdigest()
+          assert git_blob == '7b083325f9ce3b917e2607b9ed8b85ea220a4eda', 'Normalised REPD Git blob mismatch'
+          digest = hashlib.sha256(cleaned).hexdigest()
           news = json.loads(Path('/tmp/energy24/news.latest.json').read_text())
           audit = json.loads(Path('/tmp/energy24/news.audit.json').read_text())
           ready, reasons = publication_gate(news, audit)
           assert isinstance(ready, bool) and isinstance(reasons, list)
           assert ready == (len(reasons) == 0), 'Publication gate inconsistent'
-          print('Official REPD SHA256 verified:', digest)
+          print('Original GOV.UK SHA256 pin:', release['official_csv_sha256'])
+          print('Normalised REPD SHA256 (independent working copy):', digest)
           print('Real-feed publication rehearsal:', 'PASS (candidate only, no write)' if ready else 'HOLD: ' + ', '.join(reasons))
           PY
       - name: Preserve all evidence, including failed scans

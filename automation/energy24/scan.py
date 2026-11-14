@@ -18,7 +18,7 @@ from pathlib import Path
 import re
 import sys
 from urllib.parse import urlparse, urlunparse, parse_qsl, urlencode
-from urllib.request import Request, urlopen
+from urllib.request import Request, build_opener, HTTPRedirectHandler
 from zoneinfo import ZoneInfo
 import xml.etree.ElementTree as ET
 
@@ -100,7 +100,7 @@ def safe_url(raw: str) -> str | None:
         if url.scheme != "https" or url.username or url.password or not url.hostname:
             return None
         host = url.hostname.lower()
-        if host not in URL_ALLOWED:
+        if host not in URL_ALLOWED or url.port not in (None, 443):
             return None
         clean = url._replace(fragment="", query=urlencode(
             [(k, v) for k, v in parse_qsl(url.query) if not k.lower().startswith("utm_")]))
@@ -208,12 +208,21 @@ def parse_feed(xml_bytes: bytes, publisher: dict) -> list[dict]:
     return records
 
 
+class TrustedPublisherRedirect(HTTPRedirectHandler):
+    """Reject off-allowlist redirects before making any network request."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        if safe_url(newurl) is None:
+            raise ValueError("Publisher redirect outside HTTPS host allowlist")
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
 def fetch_feed(publisher: dict) -> bytes:
     request = Request(publisher["url"], headers={
         "User-Agent": "GlobalGrid2050-Energy24/1.0 (public source-URL screening; link-only)",
         "Accept": "application/atom+xml, application/rss+xml, application/xml, text/xml"
     })
-    with urlopen(request, timeout=18) as response:
+    with build_opener(TrustedPublisherRedirect()).open(request, timeout=18) as response:
         final_url = safe_url(response.geturl())
         if final_url is None:
             raise ValueError("Feed redirected outside a trusted HTTPS publisher")

@@ -109,14 +109,14 @@ def audit_candidate(news, audit, receipts, rights, repd_mw, verified_dc_ids, now
         else:
             if ref:
                 errors.append(f"{tag}:foreign_or_dc_article_has_repd_ref")
-            if cat == "data-centres" and (not isinstance(dc_id, str) or dc_id not in verified_dc_ids or not dc_id.startswith("dcuk-")):
+            if cat == "data-centres" and (not isinstance(dc_id, str) or dc_id not in verified_dc_ids or (item.get("region") == "UK" and not dc_id.startswith("dcuk-"))):
                 errors.append(f"{tag}:data_centre_id_unverified")
             if cat != "data-centres" and dc_id:
                 errors.append(f"{tag}:data_centre_id_wrong_category")
             if cat not in STRATEGIC:
                 basis, capex, mw = item.get("materiality_basis"), item.get("capex_usd"), item.get("capacity_mw")
                 if basis == "project_capex_usd":
-                    if type(capex) not in (int, float) or capex < 25_000_000 or item.get("financing_type") not in (None, "project_capex"):
+                    if type(capex) not in (int, float) or capex < 25_000_000 or item.get("financing_type") != "project_capex":
                         errors.append(f"{tag}:corporate_funding_not_project_capex")
                 elif basis == "installed_or_it_load_mw":
                     if type(mw) not in (int, float) or mw < 50 or (cat == "data-centres" and item.get("capacity_basis") != "it_load_mw"):

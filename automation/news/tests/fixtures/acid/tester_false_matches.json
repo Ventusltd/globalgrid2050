@@ -1,0 +1,3870 @@
+{
+"note": "The 239 wrong headlines reported by acid tester 1 (false matches), 14 Nov 2026: each was run through the collectors' own matchers on main and was attached to the project named. 'real' marks the seven headlines found published (with their link); the others are test wording. 'matched_by' and 'confidence_given' are what main did; 'rule_classes' names the matching rule at fault.",
+"rule_classes": {
+"W0": "core scored weakness 0 by trade.weakness() (two or more words, not all in COMMON), so the bare phrase in any feed headline matches with no solar word; every Planning Resource and Construction Enquirer feed headline is tested against all 200 projects",
+"ADJ": "trade ADJACENT allows up to two arbitrary words between the core and 'solar'/'energy', so another site or another subject followed by 'solar' passes as 'solar or energy word directly after it'",
+"CTY": "one-word core (weakness 1) accepted with the county or planning-authority word anywhere in the title; no solar word needed",
+"GEN": "the alias is a generic farm/lane/place name followed by 'Solar Farm'; the full alias in the title is accepted by all three matchers with no second agreeing fact",
+"IDXW": "index weak rule: core and 'solar' anywhere in the title, kept as weak (uncertain) but still published",
+"IDXADJ": "index adjacency rule: core directly followed by 'solar' counts as strong even when the next words are 'panels', 'cell' or 'canopy'",
+"DEV": "the agreeing 'developer' term is the first operator token outside OPERATOR_STOP, here an everyday word matched case-insensitively anywhere in the title",
+"DUP": "two of the 200 projects share this core, so one headline attaches to both",
+"FOREIGN": "the full alias contains 'solar', so official.match and index.match_item accept it anywhere in the title; neither applies a foreign-place filter and none needs a second term"
+},
+"cases": [
+{
+"repd_ref": "9050",
+"title": "Contractor named for £60m Lincolnshire bypass",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "9050",
+"title": "Bypass plan would cut through proposed solar farm site near Grantham",
+"real": false,
+"link": null,
+"matched_by": [
+"index"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"IDXW"
+]
+},
+{
+"repd_ref": "9050",
+"title": "By-pass farm shop plan refused in Lincolnshire",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "9050",
+"title": "HMP Foston Hall in Derbyshire gets rooftop solar panels",
+"real": false,
+"link": null,
+"matched_by": [
+"index"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"IDXW"
+]
+},
+{
+"repd_ref": "15149",
+"title": "Great North Road solar canopy planned for motorway services",
+"real": false,
+"link": null,
+"matched_by": [
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"ADJ",
+"GEN"
+]
+},
+{
+"repd_ref": "15149",
+"title": "GNR solar timetable chaos hits Great Northern commuters",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"ADJ"
+]
+},
+{
+"repd_ref": "13043",
+"title": "Springwell solar panels fitted at Gateshead school",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"ADJ",
+"IDXADJ"
+]
+},
+{
+"repd_ref": "13043",
+"title": "Springwell village primary school gets solar panels",
+"real": false,
+"link": null,
+"matched_by": [
+"index"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"IDXW"
+]
+},
+{
+"repd_ref": "15866",
+"title": "Meridian Solar wins contract for school rooftop arrays",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"GEN"
+]
+},
+{
+"repd_ref": "17699",
+"title": "Whitestone solar farm plan for Herefordshire village",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"GEN"
+]
+},
+{
+"repd_ref": "17699",
+"title": "Whitestone homes development hits net zero target",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"DEV"
+]
+},
+{
+"repd_ref": "14806",
+"title": "One Earth climate fund backs community energy projects",
+"real": false,
+"link": null,
+"matched_by": [
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0",
+"GEN"
+]
+},
+{
+"repd_ref": "10914",
+"title": "Cottam residents fear solar panels on Preston new homes",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"IDXW"
+]
+},
+{
+"repd_ref": "10914",
+"title": "Island Green Power appoints new site manager at Cottam data hub",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"DEV"
+]
+},
+{
+"repd_ref": "8162",
+"title": "Longfield Academy in Kent installs solar panels",
+"real": false,
+"link": null,
+"matched_by": [
+"index"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"IDXW"
+]
+},
+{
+"repd_ref": "12281",
+"title": "Tillbridge Lane closure for cable works in Lincolnshire",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "14851",
+"title": "Rosefield care home solar panels approved",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"IDXW"
+]
+},
+{
+"repd_ref": "15793",
+"title": "Green Hill Farm solar plan in Devon approved",
+"real": false,
+"link": null,
+"matched_by": [
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"ADJ",
+"GEN"
+]
+},
+{
+"repd_ref": "16063",
+"title": "Lime Down quarry restoration plan in Wiltshire",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "17560",
+"title": "The Droves nature reserve in Norfolk wins lottery cash",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "17560",
+"title": "Island Green Power: what the droves of solar applications mean for Norfolk",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"DEV",
+"GEN"
+]
+},
+{
+"repd_ref": "17701",
+"title": "Light Valley festival lights up Calderdale",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "10916",
+"title": "West Burton village in Wensleydale gets community energy grant",
+"real": false,
+"link": null,
+"matched_by": [
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0",
+"GEN"
+]
+},
+{
+"repd_ref": "15252",
+"title": "Church steeple repairs in Nottinghamshire village",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "15252",
+"title": "Steeple Morden solar farm plan in Cambridgeshire",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"IDXW"
+]
+},
+{
+"repd_ref": "15252",
+"title": "Energy systems firm restores church steeple",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"DEV"
+]
+},
+{
+"repd_ref": "11678",
+"title": "East Yorkshire bus drivers vote to strike",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "11678",
+"title": "East Yorkshire solar canopy opens at Hull business park",
+"real": false,
+"link": null,
+"matched_by": [
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"ADJ",
+"GEN"
+]
+},
+{
+"repd_ref": "15347",
+"title": "East Park energy centre for Hull heat network",
+"real": false,
+"link": null,
+"matched_by": [
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"GEN"
+]
+},
+{
+"repd_ref": "15347",
+"title": "East Park solar panels for Wolverhampton school",
+"real": false,
+"link": null,
+"matched_by": [
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"ADJ",
+"GEN"
+]
+},
+{
+"repd_ref": "6502",
+"title": "Cleve Hill race course parking plan near Cheltenham",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "9809",
+"title": "Gate Burton Hall wedding venue plan approved",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "9806",
+"title": "Heckington Fen drainage board raises rates",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "13599",
+"title": "Beacon Fen road closed for resurfacing",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "9904",
+"title": "Mallard Pass Action Group welcomes new chair",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "14100",
+"title": "Fosse Green energy-efficient homes approved in Lincoln",
+"real": false,
+"link": null,
+"matched_by": [
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"GEN"
+]
+},
+{
+"repd_ref": "14100",
+"title": "Fosse Way solar farm plan refused in Somerset",
+"real": false,
+"link": null,
+"matched_by": [
+"index"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"IDXW",
+"DUP"
+]
+},
+{
+"repd_ref": "15000",
+"title": "Peartree Hill housing scheme approved",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "14098",
+"title": "Fenwick solar panels on department store roof in Newcastle",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"ADJ",
+"IDXADJ"
+]
+},
+{
+"repd_ref": "14098",
+"title": "Fenwick Moor wind and solar park in East Ayrshire",
+"real": false,
+"link": null,
+"matched_by": [
+"index"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"IDXW"
+]
+},
+{
+"repd_ref": "11476",
+"title": "Helios Solar Farm reaches financial close in Spain",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"GEN",
+"FOREIGN"
+]
+},
+{
+"repd_ref": "11476",
+"title": "Helios solar-plus-storage project wins state contract",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"ADJ",
+"FOREIGN"
+]
+},
+{
+"repd_ref": "11476",
+"title": "Helios Towers plans renewable energy park for masts",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"ADJ"
+]
+},
+{
+"repd_ref": "12409",
+"title": "Byers Gill Lane reopens after crash",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "19016",
+"title": "Springfield Solar Farm in Missouri switches on",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"GEN",
+"FOREIGN"
+]
+},
+{
+"repd_ref": "19016",
+"title": "City of Springfield solar farm approved by council",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"GEN"
+]
+},
+{
+"repd_ref": "19016",
+"title": "Springfield solar plans for Chelmsford housing estate",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"ADJ"
+]
+},
+{
+"repd_ref": "9546",
+"title": "Pancross & Oaklands Solar Farm approved in Vale of Glamorgan",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"GEN",
+"DUP"
+]
+},
+{
+"repd_ref": "9546",
+"title": "Oaklands Farm park and ride expansion approved",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "7701",
+"title": "Oaklands solar farm plan in Derbyshire approved",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"ADJ",
+"DUP"
+]
+},
+{
+"repd_ref": "6557",
+"title": "Little Crow pub reopens in village",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "14550",
+"title": "Dean Moor hospital campus plans",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "14096",
+"title": "Frodsham solar panels on Cheshire school roof",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"CTY",
+"GEN"
+]
+},
+{
+"repd_ref": "11278",
+"title": "Wentlooge Levels flood defence scheme in Gwent",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY",
+"DUP"
+]
+},
+{
+"repd_ref": "7191",
+"title": "Wentlooge solar farm second phase approved",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"GEN",
+"DUP"
+]
+},
+{
+"repd_ref": "16393",
+"title": "Cowley Complex homes plan in Oxford",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8091",
+"title": "Cowley House care home sold in Oxford",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "14543",
+"title": "Tealing solar and battery hub plan near Dundee substation",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"ADJ",
+"IDXADJ"
+]
+},
+{
+"repd_ref": "17948",
+"title": "Ysbyty Glan Clwyd in Bodelwyddan faces special measures",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "17948",
+"title": "Bodelwyddan Castle hotel solar panels installed",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"IDXW"
+]
+},
+{
+"repd_ref": "10085",
+"title": "Stonestreet Green bus route axed",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "21306",
+"title": "Desborough solar panels fitted to Northamptonshire school",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"CTY",
+"IDXADJ"
+]
+},
+{
+"repd_ref": "4968",
+"title": "RAF Desborough memorial service draws veterans",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "14193",
+"title": "Rogerhill Farm switch to organic milk",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"DEV"
+]
+},
+{
+"repd_ref": "18870",
+"title": "Hedgehog Grove nature reserve opens in London",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "19975",
+"title": "North Ray of Light charity solar donation",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0",
+"GEN",
+"IDXW"
+]
+},
+{
+"repd_ref": "20768",
+"title": "Dupplin Estate solar farm plans for Perthshire",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"CTY",
+"IDXW"
+]
+},
+{
+"repd_ref": "16026",
+"title": "Lorry fire on M74 west of Abington causes delays",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "15538",
+"title": "Nettly Burn path flooding in Fife",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "9815",
+"title": "Bumblebee solar meadows boost pollinators",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"ADJ",
+"IDXADJ"
+]
+},
+{
+"repd_ref": "6411",
+"title": "Llanwern steelworks solar panels planned by Tata",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"IDXW"
+]
+},
+{
+"repd_ref": "7194",
+"title": "Fans rush wall as stadium gates fail",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "12117",
+"title": "Flats on Cowbridge Road East and more HMOs: the latest planning applications in Cardiff",
+"real": true,
+"link": "https://www.inkl.com/news/flats-on-cowbridge-road-east-and-more-hmos-the-latest-planning-applications-in-cardiff",
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "12117",
+"title": "The new pavements installed on Cardiff's Cowbridge Road and how they work",
+"real": true,
+"link": "https://www.inkl.com/news/the-new-pavements-installed-on-cardiff-s-cowbridge-road-and-how-they-work",
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "14293",
+"title": "Houston solar farm on old landfill switches on",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"DEV",
+"GEN"
+]
+},
+{
+"repd_ref": "14293",
+"title": "Houston-based solar developer raises $200m",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"ADJ",
+"FOREIGN"
+]
+},
+{
+"repd_ref": "14540",
+"title": "Fernieshaw ice rink closure in Lanarkshire",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "2347",
+"title": "Shotwick Park business units in Flintshire let",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "14301",
+"title": "Lower Bodachra farm sale in Aberdeenshire",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "8051",
+"title": "Iron Acton bypass plan back on table",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8051",
+"title": "Larks Green solar panels for Gloucestershire school",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"uncertain"
+],
+"rule_classes": [
+"CTY",
+"GEN",
+"IDXW"
+]
+},
+{
+"repd_ref": "2203",
+"title": "MOD Lyneham to host new defence college",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"DEV"
+]
+},
+{
+"repd_ref": "10800",
+"title": "Indian Queens bypass works in Cornwall",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "10800",
+"title": "Tregonning Hill walk in west Cornwall",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "8479",
+"title": "Octopus Energy fined for breach of supply rules",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"DEV"
+]
+},
+{
+"repd_ref": "8479",
+"title": "Council probes breach of solar farm planning conditions",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"IDXW"
+]
+},
+{
+"repd_ref": "8459",
+"title": "Parc Dyffryn gardens reopen",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "10541",
+"title": "Benthead farm plan for Ayrshire",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "7862",
+"title": "River Elwy flood warning in Denbighshire",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "10477",
+"title": "Highfields solar farm plan for Lincolnshire village",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"GEN"
+]
+},
+{
+"repd_ref": "10477",
+"title": "Highfields Farm housing scheme approved",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "10993",
+"title": "Frodo statue unveiled in Aberdeenshire village",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "9096",
+"title": "Crash at Gonerby Moor roundabout on A1",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "11864",
+"title": "Lees Hill homes plan",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "12285",
+"title": "Hagshaw community solutions fund opens",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"DEV"
+]
+},
+{
+"repd_ref": "14994",
+"title": "Stirling Council approves solar farm at landfill",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"IDXW"
+]
+},
+{
+"repd_ref": "14994",
+"title": "Stirling University solar research breakthrough",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"IDXW"
+]
+},
+{
+"repd_ref": "18477",
+"title": "Glenskinno estate solar farm plan in Angus",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"uncertain"
+],
+"rule_classes": [
+"CTY",
+"IDXW"
+]
+},
+{
+"repd_ref": "7858",
+"title": "Plas Power woods footpath reopens in Wrexham",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "11022",
+"title": "Mere Flats car park plans",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "20388",
+"title": "Berden Hall wedding venue plan",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8131",
+"title": "Skeeby village hall solar panels",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"IDXW"
+]
+},
+{
+"repd_ref": "20021",
+"title": "Brailsford solar marginal gains: what cycling teaches energy",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"ADJ",
+"IDXADJ"
+]
+},
+{
+"repd_ref": "6012",
+"title": "Kells solar farm plan in County Meath",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"GEN",
+"FOREIGN"
+]
+},
+{
+"repd_ref": "6012",
+"title": "Kells and Connor solar panels for church hall in Antrim",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"uncertain"
+],
+"rule_classes": [
+"CTY",
+"IDXW"
+]
+},
+{
+"repd_ref": "6341",
+"title": "Milltown solar farm plan in Ireland refused",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"GEN",
+"FOREIGN"
+]
+},
+{
+"repd_ref": "6341",
+"title": "Milltown Airfield sale near Elgin",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"DEV"
+]
+},
+{
+"repd_ref": "6383",
+"title": "Randolph Hotel Oxford fits solar panels",
+"real": false,
+"link": null,
+"matched_by": [
+"index"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"IDXW"
+]
+},
+{
+"repd_ref": "8991",
+"title": "Little Staughton airfield housing plan",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "12822",
+"title": "Kirkton solar farm plan near Inverurie",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"GEN"
+]
+},
+{
+"repd_ref": "12822",
+"title": "St Fergus beach clean-up",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "17470",
+"title": "Kintore substation expansion in Aberdeenshire",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "17470",
+"title": "Kintore solar farm plan for 100MW site",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"strong",
+"uncertain"
+],
+"rule_classes": [
+"GEN"
+]
+},
+{
+"repd_ref": "19401",
+"title": "Haxted Mead flood plan",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "7823",
+"title": "Hulam Farm sale in County Durham",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "8350",
+"title": "Broadway House Farm cafe opens",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "9014",
+"title": "Soay sheep study shows North Yorkshire flock thriving",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "9240",
+"title": "Stargoose pub in Cambridgeshire reopens",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "9273",
+"title": "North Fambridge marina solar panels in Essex",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"uncertain"
+],
+"rule_classes": [
+"CTY",
+"IDXW"
+]
+},
+{
+"repd_ref": "9365",
+"title": "Priory Farm housing scheme approved",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "9365",
+"title": "Priory Farm solar farm in Kent approved",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"GEN"
+]
+},
+{
+"repd_ref": "9394",
+"title": "Crimscote Downs walk near Stratford",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "9441",
+"title": "Ashorne Hill conference centre sold",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "9456",
+"title": "Coldharbour Farm homes plan in Aylesbury",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "9456",
+"title": "Coldharbour solar farm in Surrey approved",
+"real": false,
+"link": null,
+"matched_by": [
+"index"
+],
+"confidence_given": [
+"strong"
+],
+"rule_classes": [
+"IDXADJ"
+]
+},
+{
+"repd_ref": "9509",
+"title": "Alfreton solar panels for leisure centre",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"ADJ",
+"IDXADJ"
+]
+},
+{
+"repd_ref": "9586",
+"title": "Little Hale Fen drainage works",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "9729",
+"title": "Low Horton farm sale",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "9739",
+"title": "Burnt House Farm fire",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "10523",
+"title": "Middle Road Farm housing appeal",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0",
+"DUP"
+]
+},
+{
+"repd_ref": "10529",
+"title": "New life for Red House",
+"real": true,
+"link": "https://www.antiquestradegazette.com/news/2003/new-life-for-red-house/",
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0",
+"DUP"
+]
+},
+{
+"repd_ref": "18174",
+"title": "Red House Farm solar farm in Suffolk approved",
+"real": false,
+"link": null,
+"matched_by": [
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"ADJ",
+"GEN",
+"DUP"
+]
+},
+{
+"repd_ref": "11329",
+"title": "Cutbush Farm shop opens",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "11691",
+"title": "Gately Moor Reservoir walk",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "12017",
+"title": "Carlton solar farm plan near Barnsley in South Yorkshire",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"CTY",
+"GEN"
+]
+},
+{
+"repd_ref": "12017",
+"title": "Carlton Television archive goes online with Island Green",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"DEV"
+]
+},
+{
+"repd_ref": "12162",
+"title": "Winterton Road crash in Scunthorpe",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "13339",
+"title": "Bluestone solar panels for Pembrokeshire holiday park",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"ADJ",
+"IDXADJ"
+]
+},
+{
+"repd_ref": "14269",
+"title": "Wood Lodge solar farm in Essex approved",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"GEN"
+]
+},
+{
+"repd_ref": "14269",
+"title": "Thrapston solar panels for school",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"ADJ",
+"IDXADJ"
+]
+},
+{
+"repd_ref": "15072",
+"title": "Rookery Farm housing scheme approved",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "15072",
+"title": "Rookery Farm solar farm plans in Norfolk",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"GEN",
+"IDXW"
+]
+},
+{
+"repd_ref": "15180",
+"title": "Mareham Lane closure in Sleaford",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "15247",
+"title": "Worset Lane housing in Hartlepool",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "15452",
+"title": "Pilmoor rail crossing closure in North Yorkshire",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "16541",
+"title": "Lumiere festival solar-powered lights in Durham",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"IDXW"
+]
+},
+{
+"repd_ref": "17359",
+"title": "Horningsea solar panels for church",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"strong",
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"IDXADJ"
+]
+},
+{
+"repd_ref": "17429",
+"title": "Fosse Way near Leamington now clear after earlier accident",
+"real": true,
+"link": "https://www.leamingtoncourier.co.uk/news/fosse-way-near-leamington-now-clear-after-earlier-accident-1-9068133",
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "17429",
+"title": "A45 eastbound Fosse Way roundabout to Thurlaston roundabout carriageway closure",
+"real": true,
+"link": "https://crashview.co.uk/live-incidents/a45-eastbound-fosse-way-roundabout-to-thurlaston-roundabout-carriageway-closure-2026-06-04",
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "17429",
+"title": "Fosse Way solar farm in Somerset approved",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"GEN",
+"DUP"
+]
+},
+{
+"repd_ref": "19007",
+"title": "Thornton solar farm plan in Lancashire",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"strong",
+"uncertain"
+],
+"rule_classes": [
+"GEN"
+]
+},
+{
+"repd_ref": "19007",
+"title": "Thornton Estate homes plan",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "19452",
+"title": "Yew Tree Farm housing appeal allowed",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "19452",
+"title": "Yew Tree Farm solar farm in Cheshire approved",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"strong",
+"uncertain"
+],
+"rule_classes": [
+"GEN"
+]
+},
+{
+"repd_ref": "19635",
+"title": "Tewes Farm wedding barn plan approved",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "11927",
+"title": "Lark Hill housing plan in Rochford",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "17757",
+"title": "Anchor Lane Farm shop opens",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "1980",
+"title": "Solar Planning firm wins Defford Aerodrome bid",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"uncertain"
+],
+"rule_classes": [
+"DEV",
+"GEN",
+"IDXW",
+"DUP"
+]
+},
+{
+"repd_ref": "7840",
+"title": "Croome Airfield memorial unveiled",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "2088",
+"title": "West Raynham airfield homes plan",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "5186",
+"title": "Awre Peninsula flood defences",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "5521",
+"title": "Cambridge scientists develop solar cell breakthrough",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"IDXW"
+]
+},
+{
+"repd_ref": "5521",
+"title": "Cambridge solar panels for city council homes",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"strong",
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"IDXADJ"
+]
+},
+{
+"repd_ref": "5521",
+"title": "Cambridge solar farm in Ontario approved",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official"
+],
+"confidence_given": [
+"strong",
+"uncertain"
+],
+"rule_classes": [
+"GEN",
+"FOREIGN"
+]
+},
+{
+"repd_ref": "6071",
+"title": "Porth Wen brickworks ruins sale",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "6561",
+"title": "Cayton Bay solar panels for holiday park in Yorkshire",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"uncertain"
+],
+"rule_classes": [
+"CTY",
+"IDXW"
+]
+},
+{
+"repd_ref": "7223",
+"title": "Inkersall solar panels for Chesterfield homes",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"ADJ",
+"IDXADJ"
+]
+},
+{
+"repd_ref": "7256",
+"title": "Grange Farm solar farm plan in Essex approved",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"ADJ"
+]
+},
+{
+"repd_ref": "7256",
+"title": "The Grange solar canopy for school car park",
+"real": false,
+"link": null,
+"matched_by": [
+"official",
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"GEN"
+]
+},
+{
+"repd_ref": "7425",
+"title": "Hatherden Farm homes plan",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "7486",
+"title": "Kirkby Fleetham village hall reopens",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "7501",
+"title": "Halloughton wood felling near Newark",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "7519",
+"title": "Corner Copse woodland walk opens",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "7561",
+"title": "Tiln solar panels for village hall",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"ADJ"
+]
+},
+{
+"repd_ref": "7616",
+"title": "Down Barn Farm open day",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "7630",
+"title": "Burwell solar panels on village college",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"ADJ",
+"IDXADJ"
+]
+},
+{
+"repd_ref": "7767",
+"title": "Brigstock solar panels for church",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"strong",
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"IDXADJ"
+]
+},
+{
+"repd_ref": "7786",
+"title": "Wood Lane solar farm plan in Shropshire approved",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"GEN"
+]
+},
+{
+"repd_ref": "7802",
+"title": "Chosley Farm shop opens",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "7887",
+"title": "Hasland solar panels on homes",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"ADJ",
+"IDXADJ"
+]
+},
+{
+"repd_ref": "7889",
+"title": "Grimsby solar canopy at port",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"ADJ",
+"IDXADJ"
+]
+},
+{
+"repd_ref": "7936",
+"title": "Nuneham Courtenay arboretum reopens",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "7945",
+"title": "Cornwell solar panels on village hall",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"strong",
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"IDXADJ"
+]
+},
+{
+"repd_ref": "7945",
+"title": "Bernard Cornwell novel set in a low carbon future",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"DEV"
+]
+},
+{
+"repd_ref": "7954",
+"title": "Crick Road roundabout works in Rugby",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "7956",
+"title": "Harlesford farm shop in Oxfordshire",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "7960",
+"title": "Barnstaples Farm barn conversion approved",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8007",
+"title": "Bramford substation pylons approved in Suffolk",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "8026",
+"title": "Bulphan Fen flood alert",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8038",
+"title": "Claydon solar farm in Suffolk approved",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"strong",
+"uncertain"
+],
+"rule_classes": [
+"GEN"
+]
+},
+{
+"repd_ref": "8053",
+"title": "Low Farm solar farm in Norfolk approved",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"strong",
+"uncertain"
+],
+"rule_classes": [
+"GEN"
+]
+},
+{
+"repd_ref": "8062",
+"title": "Wick solar farm plan in Caithness",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"GEN"
+]
+},
+{
+"repd_ref": "8062",
+"title": "Wick Farm housing plan",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8065",
+"title": "Hilfield Park reservoir near Elstree",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"DEV"
+]
+},
+{
+"repd_ref": "8068",
+"title": "Copse Close homes plan",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8089",
+"title": "Bramley Frith wood path closed",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8097",
+"title": "Fobbing marshes Essex flood",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "8100",
+"title": "Camblesforth Hall sale in North Yorkshire",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "8101",
+"title": "Litchardon Cross road closure",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8136",
+"title": "Kemble Wick footpath reopened",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8149",
+"title": "Bunkers Hill homes plan approved",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8181",
+"title": "Haunton village near Lichfield gets new playground",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "8185",
+"title": "Feldon Vale housing plan",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8225",
+"title": "Roden solar panels for Shropshire village",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"strong",
+"uncertain"
+],
+"rule_classes": [
+"CTY",
+"IDXADJ"
+]
+},
+{
+"repd_ref": "8227",
+"title": "Jericho Covert pheasant shoot plan opposed",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8254",
+"title": "Sheraton Hall hotel conference centre reopens",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8308",
+"title": "Bloy's Grove woodland sold at auction",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8323",
+"title": "Nether Stowey solar panels in Somerset",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"strong",
+"uncertain"
+],
+"rule_classes": [
+"CTY",
+"IDXADJ"
+]
+},
+{
+"repd_ref": "8357",
+"title": "River Crouch oyster beds in Essex",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "8357",
+"title": "Crouch End solar street lights",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"IDXW"
+]
+},
+{
+"repd_ref": "8393",
+"title": "Rag Lane resurfacing starts",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8411",
+"title": "Fen Lane solar farm plan in Lincolnshire",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"strong",
+"uncertain"
+],
+"rule_classes": [
+"GEN"
+]
+},
+{
+"repd_ref": "8480",
+"title": "Berryhill solar panels for school",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"ADJ",
+"IDXADJ"
+]
+},
+{
+"repd_ref": "8483",
+"title": "Belvoir Castle sees visitor numbers rise as it opens for the new season",
+"real": true,
+"link": "https://granthammatters.co.uk/belvoir-castle-sees-visitor-numbers-rise-as-it-opens-for-the-new-season/",
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8483",
+"title": "Belvoir Castle near Grantham has a range of new tours kicking off this May",
+"real": true,
+"link": "https://www.lincsonline.co.uk/grantham/news/visitors-to-uncover-insider-knowledge-of-castle-s-new-tours-9416193",
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8483",
+"title": "Vale of Belvoir solar farm plan in Leicestershire",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"GEN"
+]
+},
+{
+"repd_ref": "8494",
+"title": "Warren Farm solar farm in Hampshire approved",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"GEN"
+]
+},
+{
+"repd_ref": "8494",
+"title": "Warren solar panels in Doncaster",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"strong"
+],
+"rule_classes": [
+"CTY",
+"IDXADJ"
+]
+},
+{
+"repd_ref": "8501",
+"title": "Horton Wood industrial estate Telford",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8503",
+"title": "Tuxford Road resurfacing starts",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8505",
+"title": "Fernbrook low carbon homes",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"DEV"
+]
+},
+{
+"repd_ref": "8508",
+"title": "Hinckley and Bosworth solar farm plan approved",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"IDXW"
+]
+},
+{
+"repd_ref": "8508",
+"title": "Hinckley Point C to deliver low-carbon power for 60 years",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"DEV"
+]
+},
+{
+"repd_ref": "8517",
+"title": "Vicarage Drove closure for drainage works",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8523",
+"title": "Arlingham ferry crossing near Stroud",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "8526",
+"title": "Leaps Rigg footpath closed after landslip",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8528",
+"title": "Doverdale lane closure in Wychavon",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"CTY"
+]
+},
+{
+"repd_ref": "8529",
+"title": "Burtree Lane Darlington homes",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"DEV"
+]
+},
+{
+"repd_ref": "8539",
+"title": "Dodwells Road solar carport in Hinckley",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"IDXW",
+"DUP"
+]
+},
+{
+"repd_ref": "8813",
+"title": "Colton Mill flats plan approved",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8834",
+"title": "Canon Barns Road homes plan approved",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8843",
+"title": "Moreton Lane closure for water main works",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "8889",
+"title": "Longlands solar farm plan in Cumbria",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"strong",
+"uncertain"
+],
+"rule_classes": [
+"GEN"
+]
+},
+{
+"repd_ref": "8889",
+"title": "Hill Court solar farm Herefordshire",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"official",
+"trade"
+],
+"confidence_given": [
+"strong",
+"uncertain"
+],
+"rule_classes": [
+"GEN"
+]
+},
+{
+"repd_ref": "8904",
+"title": "Kingston Council solar panels for libraries",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"IDXW"
+]
+},
+{
+"repd_ref": "8904",
+"title": "Kingston upon Hull heat network system goes live",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"DEV"
+]
+},
+{
+"repd_ref": "8918",
+"title": "Five Lanes junction roadworks start",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"uncertain"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "9053",
+"title": "World's End pub sold",
+"real": false,
+"link": null,
+"matched_by": [
+"trade"
+],
+"confidence_given": [
+"confirmed"
+],
+"rule_classes": [
+"W0"
+]
+},
+{
+"repd_ref": "9069",
+"title": "Felsted School solar panels",
+"real": false,
+"link": null,
+"matched_by": [
+"index",
+"trade"
+],
+"confidence_given": [
+"confirmed",
+"uncertain"
+],
+"rule_classes": [
+"ADJ",
+"IDXW"
+]
+}
+]
+}

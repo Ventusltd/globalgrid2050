@@ -1,0 +1,200 @@
+{
+ "note": "Raw date values a part may carry, with the only values the combined file may show for each (null = undated). The run is at 2026-11-14T12:00:00Z. 'collectors': false means the rule belongs to the combiner alone.",
+ "run_at": "2026-11-14T12:00:00Z",
+ "cases": [
+  {
+   "id": "impossible-day",
+   "raw": "2026-02-30",
+   "allowed": [
+    null
+   ],
+   "why": "30 February does not exist",
+   "finding": 3
+  },
+  {
+   "id": "impossible-month",
+   "raw": "2026-99-99",
+   "allowed": [
+    null
+   ],
+   "why": "month 99",
+   "finding": 3
+  },
+  {
+   "id": "31-november",
+   "raw": "2026-11-31",
+   "allowed": [
+    null
+   ],
+   "why": "November has 30 days",
+   "finding": 3
+  },
+  {
+   "id": "zero-date",
+   "raw": "0000-00-00",
+   "allowed": [
+    null
+   ],
+   "why": "placeholder",
+   "finding": 3
+  },
+  {
+   "id": "future-months",
+   "raw": "2027-03-01",
+   "allowed": [
+    null
+   ],
+   "why": "after the run",
+   "finding": 3,
+   "collectors": false
+  },
+  {
+   "id": "future-two-days",
+   "raw": "2026-11-16",
+   "allowed": [
+    null
+   ],
+   "why": "two days after the run",
+   "finding": 3,
+   "collectors": false
+  },
+  {
+   "id": "tomorrow-zone-slack",
+   "raw": "2026-11-15",
+   "allowed": [
+    "2026-11-15",
+    null
+   ],
+   "why": "one day of time-zone slack is allowed",
+   "finding": 3,
+   "collectors": false
+  },
+  {
+   "id": "day-month-swap",
+   "raw": "03/04/2026",
+   "allowed": [
+    "2026-04-03",
+    null
+   ],
+   "why": "UK order is day first: never 4 March",
+   "finding": 3
+  },
+  {
+   "id": "day-month-swap-dashes",
+   "raw": "03-04-2026",
+   "allowed": [
+    "2026-04-03",
+    null
+   ],
+   "why": "UK order is day first",
+   "finding": 3
+  },
+  {
+   "id": "two-digit-year",
+   "raw": "3/4/26",
+   "allowed": [
+    "2026-04-03",
+    null
+   ],
+   "why": "never year 26 or 1926, never 4 March",
+   "finding": 3
+  },
+  {
+   "id": "two-digit-year-iso-like",
+   "raw": "26-11-01",
+   "allowed": [
+    "2026-11-01",
+    null
+   ],
+   "why": "never year 0026",
+   "finding": 3
+  },
+  {
+   "id": "timezone-less",
+   "raw": "2026-11-13T23:30:00",
+   "allowed": [
+    "2026-11-13",
+    null
+   ],
+   "why": "no zone: the stated day or nothing, never another day",
+   "finding": 3
+  },
+  {
+   "id": "timezone-late-evening-west",
+   "raw": "2026-11-13T23:30:00-05:00",
+   "allowed": [
+    "2026-11-13",
+    "2026-11-14",
+    null
+   ],
+   "why": "either the stated or the UTC day",
+   "finding": 3
+  },
+  {
+   "id": "rfc822",
+   "raw": "Tue, 10 Nov 2026 09:00:00 +0000",
+   "allowed": [
+    "2026-11-10",
+    null
+   ],
+   "why": "a feed date",
+   "finding": 3
+  },
+  {
+   "id": "words",
+   "raw": "yesterday",
+   "allowed": [
+    null
+   ],
+   "why": "not a date",
+   "finding": 3
+  },
+  {
+   "id": "empty",
+   "raw": "",
+   "allowed": [
+    null
+   ],
+   "why": "empty",
+   "finding": 3
+  },
+  {
+   "id": "plain-good",
+   "raw": "2026-11-10",
+   "allowed": [
+    "2026-11-10"
+   ],
+   "why": "a good date stays",
+   "finding": 3
+  },
+  {
+   "id": "impossible-gdelt-slice",
+   "raw": "2026-13-45",
+   "allowed": [
+    null
+   ],
+   "why": "acid tester 2: an unvalidated slice of a crawl stamp",
+   "finding": 3,
+   "collectors": false
+  },
+  {
+   "id": "year-0026",
+   "raw": "1/2/0026",
+   "allowed": [
+    null
+   ],
+   "why": "acid tester 2: an implausible year must not become a date",
+   "finding": 3
+  },
+  {
+   "id": "two-digit-year-future",
+   "raw": "Sun, 14 Nov 49 10:00:00 GMT",
+   "allowed": [
+    null
+   ],
+   "why": "acid tester 2: a two-digit year read as 2049 is after the run",
+   "finding": 3,
+   "collectors": false
+  }
+ ]
+}

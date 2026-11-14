@@ -1,0 +1,309 @@
+{
+ "note": "Synthetic projects for the acid suite (REPD references 90001 to 90008 do not exist) and the real row and alias entry of REPD 9050, Bypass Solar Farm. 90004 is marked confirmed with no evidence recorded; 90005 is marked uncertain; 90003 has a one-word everyday name.",
+ "top200": [
+  {
+   "rank": 1,
+   "repd_ref": "90001",
+   "site_name": "Alderwick Solar Farm",
+   "operator": "Alderwick Solar Limited",
+   "mw": 500.0,
+   "status": "Application Submitted",
+   "county": "Norfolk",
+   "planning_authority": "The Planning Inspectorate - National Infrastructure",
+   "country": "England",
+   "planning_ref": "EN010901"
+  },
+  {
+   "rank": 2,
+   "repd_ref": "90002",
+   "site_name": "Brantley Moor Solar Farm",
+   "operator": "Brantley Moor Energy Limited",
+   "mw": 350.0,
+   "status": "Application Submitted",
+   "county": "Norfolk",
+   "planning_authority": "The Planning Inspectorate - National Infrastructure",
+   "country": "England",
+   "planning_ref": "EN010902"
+  },
+  {
+   "rank": 3,
+   "repd_ref": "90003",
+   "site_name": "Mill Solar Farm",
+   "operator": "Stour Renewables Limited",
+   "mw": 49.9,
+   "status": "Application Submitted",
+   "county": "Kent",
+   "planning_authority": "Ashford",
+   "country": "England",
+   "planning_ref": "24/00001/AS"
+  },
+  {
+   "rank": 4,
+   "repd_ref": "90004",
+   "site_name": "Corrow Solar Farm",
+   "operator": "Corrow Power Limited",
+   "mw": 120.0,
+   "status": "Application Submitted",
+   "county": "Highland",
+   "planning_authority": "Scottish Government (S36)",
+   "country": "Scotland",
+   "planning_ref": "ECU00009004"
+  },
+  {
+   "rank": 5,
+   "repd_ref": "90005",
+   "site_name": "Quiet Lane Solar",
+   "operator": "Lane End Energy Limited",
+   "mw": 80.0,
+   "status": "Application Submitted",
+   "county": "Powys",
+   "planning_authority": "Welsh Government (PEDW)",
+   "country": "Wales",
+   "planning_ref": "DNS/3290005"
+  },
+  {
+   "rank": 6,
+   "repd_ref": "90006",
+   "site_name": "Henwick Solar Park",
+   "operator": "Henwick Estates Limited",
+   "mw": 60.0,
+   "status": "Application Submitted",
+   "county": "Worcestershire",
+   "planning_authority": "Wychavon",
+   "country": "England",
+   "planning_ref": "W/25/00006/FUL"
+  },
+  {
+   "rank": 7,
+   "repd_ref": "90007",
+   "site_name": "Tarnside Solar Farm",
+   "operator": "Tarnside Energy Limited",
+   "mw": 75.0,
+   "status": "Application Submitted",
+   "county": "Cumbria",
+   "planning_authority": "Westmorland and Furness",
+   "country": "England",
+   "planning_ref": "2025/0007/FPA"
+  },
+  {
+   "rank": 8,
+   "repd_ref": "90008",
+   "site_name": "Oxley Green Solar Farm",
+   "operator": "Oxley Green Power Limited",
+   "mw": 99.9,
+   "status": "Application Submitted",
+   "county": "Essex",
+   "planning_authority": "Braintree",
+   "country": "England",
+   "planning_ref": "25/00008/FUL"
+  },
+  {
+   "rank": 9,
+   "repd_ref": "9050",
+   "site_name": "Bypass Solar Farm",
+   "operator": "By-Pass Farm Solar Limited",
+   "mw": 49.99,
+   "status": "Awaiting Construction",
+   "county": "Lincolnshire",
+   "planning_authority": "South Kesteven",
+   "country": "England",
+   "planning_ref": "S20/1433"
+  }
+ ],
+ "aliases": {
+  "schema": "project-signal-aliases.v1",
+  "projects": {
+   "90001": {
+    "repd_ref": "90001",
+    "rank": 1,
+    "site_name": "Alderwick Solar Farm",
+    "operator": "Alderwick Solar Limited",
+    "mw": 500.0,
+    "county": "Norfolk",
+    "country": "England",
+    "planning_authority": "The Planning Inspectorate - National Infrastructure",
+    "planning_ref": "EN010901",
+    "aliases": [
+     "Alderwick Solar Farm",
+     "Alderwick Solar"
+    ],
+    "alias_status": "confirmed",
+    "alias_evidence": "Planning Inspectorate project page EN010901 names the scheme Alderwick Solar Farm, 500 MW, Norfolk.",
+    "alias_evidence_url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN010901",
+    "exclude": [],
+    "truth_status": "found",
+    "notes": ""
+   },
+   "90002": {
+    "repd_ref": "90002",
+    "rank": 2,
+    "site_name": "Brantley Moor Solar Farm",
+    "operator": "Brantley Moor Energy Limited",
+    "mw": 350.0,
+    "county": "Norfolk",
+    "country": "England",
+    "planning_authority": "The Planning Inspectorate - National Infrastructure",
+    "planning_ref": "EN010902",
+    "aliases": [
+     "Brantley Moor Solar Farm",
+     "Brantley Moor Solar"
+    ],
+    "alias_status": "confirmed",
+    "alias_evidence": "",
+    "alias_evidence_url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN010902",
+    "exclude": [],
+    "truth_status": "found",
+    "notes": ""
+   },
+   "90003": {
+    "repd_ref": "90003",
+    "rank": 3,
+    "site_name": "Mill Solar Farm",
+    "operator": "Stour Renewables Limited",
+    "mw": 49.9,
+    "county": "Kent",
+    "country": "England",
+    "planning_authority": "Ashford",
+    "planning_ref": "24/00001/AS",
+    "aliases": [
+     "Mill Solar Farm"
+    ],
+    "alias_status": "confirmed",
+    "alias_evidence": "Ashford Borough Council register 24/00001/AS: Mill Solar Farm, applicant Stour Renewables.",
+    "alias_evidence_url": "",
+    "exclude": [],
+    "truth_status": "found",
+    "notes": ""
+   },
+   "90004": {
+    "repd_ref": "90004",
+    "rank": 4,
+    "site_name": "Corrow Solar Farm",
+    "operator": "Corrow Power Limited",
+    "mw": 120.0,
+    "county": "Highland",
+    "country": "Scotland",
+    "planning_authority": "Scottish Government (S36)",
+    "planning_ref": "ECU00009004",
+    "aliases": [
+     "Corrow Solar Farm"
+    ],
+    "alias_status": "confirmed",
+    "alias_evidence": "",
+    "alias_evidence_url": "",
+    "exclude": [],
+    "truth_status": "found",
+    "notes": ""
+   },
+   "90005": {
+    "repd_ref": "90005",
+    "rank": 5,
+    "site_name": "Quiet Lane Solar",
+    "operator": "Lane End Energy Limited",
+    "mw": 80.0,
+    "county": "Powys",
+    "country": "Wales",
+    "planning_authority": "Welsh Government (PEDW)",
+    "planning_ref": "DNS/3290005",
+    "aliases": [
+     "Quiet Lane Solar"
+    ],
+    "alias_status": "uncertain",
+    "alias_evidence": "Name taken from the REPD row; not seen in a publication.",
+    "alias_evidence_url": "",
+    "exclude": [],
+    "truth_status": "found",
+    "notes": ""
+   },
+   "90006": {
+    "repd_ref": "90006",
+    "rank": 6,
+    "site_name": "Henwick Solar Park",
+    "operator": "Henwick Estates Limited",
+    "mw": 60.0,
+    "county": "Worcestershire",
+    "country": "England",
+    "planning_authority": "Wychavon",
+    "planning_ref": "W/25/00006/FUL",
+    "aliases": [
+     "Henwick Solar Park"
+    ],
+    "alias_status": "confirmed",
+    "alias_evidence": "Wychavon register W/25/00006/FUL names Henwick Solar Park.",
+    "alias_evidence_url": "",
+    "exclude": [],
+    "truth_status": "found",
+    "notes": ""
+   },
+   "90007": {
+    "repd_ref": "90007",
+    "rank": 7,
+    "site_name": "Tarnside Solar Farm",
+    "operator": "Tarnside Energy Limited",
+    "mw": 75.0,
+    "county": "Cumbria",
+    "country": "England",
+    "planning_authority": "Westmorland and Furness",
+    "planning_ref": "2025/0007/FPA",
+    "aliases": [
+     "Tarnside Solar Farm"
+    ],
+    "alias_status": "confirmed",
+    "alias_evidence": "Council committee report 2025/0007/FPA: Tarnside Solar Farm, 75 MW.",
+    "alias_evidence_url": "",
+    "exclude": [],
+    "truth_status": "found",
+    "notes": ""
+   },
+   "90008": {
+    "repd_ref": "90008",
+    "rank": 8,
+    "site_name": "Oxley Green Solar Farm",
+    "operator": "Oxley Green Power Limited",
+    "mw": 99.9,
+    "county": "Essex",
+    "country": "England",
+    "planning_authority": "Braintree",
+    "planning_ref": "25/00008/FUL",
+    "aliases": [
+     "Oxley Green Solar Farm"
+    ],
+    "alias_status": "confirmed",
+    "alias_evidence": "Braintree register 25/00008/FUL: Oxley Green Solar Farm, 99.9 MW.",
+    "alias_evidence_url": "",
+    "exclude": [],
+    "truth_status": "found",
+    "notes": ""
+   },
+   "9050": {
+    "repd_ref": "9050",
+    "rank": 9,
+    "site_name": "Bypass Solar Farm",
+    "operator": "By-Pass Farm Solar Limited",
+    "mw": 49.99,
+    "county": "Lincolnshire",
+    "country": "England",
+    "planning_authority": "South Kesteven",
+    "planning_ref": "S20/1433",
+    "aliases": [
+     "Bypass Solar Farm",
+     "By-Pass Farm Solar",
+     "Foston solar farm"
+    ],
+    "alias_status": "confirmed",
+    "alias_evidence": "Grantham Nub News: applicant By-Pass Farm Solar Ltd, scheme at Foston north of Grantham, 49 MW, approved by South Kesteven planning committee (REPD operator By-Pass Farm Solar Limited, 49.99 MW, South Kesteven, S20/1433). SSE Renewables has a 'Bypass Solar' project page (sserenewables.com/solar-and-battery/solar/bypass-solar).",
+    "alias_evidence_url": "",
+    "exclude": [],
+    "truth_status": "found",
+    "notes": "Now listed by SSE Renewables. Mallard Pass (EN010127) results are a different NSIP in the same district (trap). Other Nub News items on community benefits not opened.",
+    "planning_file": {
+     "authority": "South Kesteven",
+     "reference": "S20/1433",
+     "url": "https://pa.southkesteven.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+     "kind": "search_page",
+     "verified": false
+    }
+   }
+  }
+ }
+}

@@ -297,6 +297,8 @@ def _match(project, title, summary=""):
         return "planning reference %s in the %s" % (ref, "title" if ref.lower() in title.lower() else "summary"), \
             "confirmed"
     confidence = "confirmed" if project.get("alias_status") == "confirmed" else "uncertain"
+    if GATE.inverted_solar_place(title, project):
+        return "verified place alias in inverted solar-farm title", confidence
     for alias in project["aliases"]:
         distinctive = DISTINCTIVE_RE.search(alias) is not None
         if phrase_in(alias, title) and (distinctive or TOPIC_RE.search(text)):

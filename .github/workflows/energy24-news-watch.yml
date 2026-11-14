@@ -104,6 +104,7 @@ jobs:
           git_blob = hashlib.sha1(b'blob ' + str(len(cleaned)).encode() + bytes([0]) + cleaned).hexdigest()
           assert git_blob == '7b083325f9ce3b917e2607b9ed8b85ea220a4eda', 'Normalised REPD Git blob mismatch'
           digest = hashlib.sha256(cleaned).hexdigest()
+          assert digest == 'd937ae16ad07f43caaaa25b4cee56399e1e9b9bb2ae5ecb7bc88cf9bc092e4b9', 'Normalised REPD SHA256 mismatch'
           news = json.loads(Path('/tmp/energy24/news.latest.json').read_text())
           audit = json.loads(Path('/tmp/energy24/news.audit.json').read_text())
           ready, reasons = publication_gate(news, audit)

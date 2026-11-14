@@ -170,6 +170,20 @@ def parse_feed(body):
     return out
 
 
+# Paid-for or advertorial entries are not news; a headline that says so is dropped.
+SPONSORED_RE = re.compile(r"^\s*(?:sponsored|advertorial|partner content|promoted|paid post)\b|\bsponsored (?:content|post|by)\b", re.I)
+# Capex terms that describe committed build spend, as opposed to funds, rounds and financing.
+BUILD_TERMS = {"build", "expansion", "capex"}
+
+
+def capex_basis(terms):
+    """"build" when the headline speaks of building, expanding or capex; otherwise "financing" (funds,
+    investment rounds, amounts), which is money raised or pledged and not verified project spend."""
+    if not terms:
+        return None
+    return "build" if BUILD_TERMS & set(terms) else "financing"
+
+
 def matches(regexes, text):
     return sorted(k for k, rx in regexes.items() if rx.search(text))
 
@@ -279,12 +293,19 @@ class Register:
                 if prev is None or (kind == "site_name" and prev[1] == "operator"):
                     hits[rid] = (phrase, kind)
         ordered = sorted(hits.items(), key=lambda kv: (kv[1][1] != "site_name", kv[0]))
-        sites = []
-        for rid, (phrase, kind) in ordered[:SITES_PER_ITEM]:
+        sites, operator_sites = [], []
+        for rid, (phrase, kind) in ordered:
             r = self.records[rid]
-            sites.append({"id": rid, "name": r.get("name"), "status": r.get("status"), "matched_on": kind,
-                          "matched_text": phrase, "repd_nearby": repd_context(r)})
-        return sites, len(ordered)
+            if kind == "site_name" and len(sites) < SITES_PER_ITEM:
+                # The headline names this site: the only association that carries REPD context.
+                sites.append({"id": rid, "name": r.get("name"), "status": r.get("status"), "matched_on": kind,
+                              "matched_text": phrase, "repd_nearby": repd_context(r)})
+            elif kind != "site_name" and len(operator_sites) < SITES_PER_ITEM:
+                # The headline names an operator only: its register sites are listed for review, with no
+                # REPD context, because the story need not concern any one of them.
+                operator_sites.append({"id": rid, "name": r.get("name"), "status": r.get("status"),
+                                       "matched_on": kind, "matched_text": phrase})
+        return sites, operator_sites, len(ordered)
 
 
 # ---------------------------------------------------------------- collection
@@ -312,9 +333,10 @@ def collect(feeds, fetch, register, now_iso):
             link = canonical_link(link)
             if not title or not link:
                 continue
-            sites, site_matches = register.match(title) if register else ([], 0)
-            named = any(s["matched_on"] == "site_name" or s["matched_text"].lower() not in GENERAL_OPERATORS
-                        for s in sites)
+            if SPONSORED_RE.search(title):
+                continue
+            sites, operator_sites, site_matches = register.match(title) if register else ([], [], 0)
+            named = bool(sites) or any(s["matched_text"].lower() not in GENERAL_OPERATORS for s in operator_sites)
             verdict = classify(title, clean_text(summary, 2000), named)
             if verdict is None:
                 continue
@@ -322,7 +344,8 @@ def collect(feeds, fetch, register, now_iso):
             items.append({"title": title, "link": link, "source": source, "date": parse_date(date),
                           "first_seen": now_iso, "lanes": lanes,
                           "matched_terms": {"datacentre": dc_terms, **lane_terms},
-                          "sites": sites, "site_matches": site_matches})
+                          "capex_basis": capex_basis(lane_terms["capex"]), "pinned": False,
+                          "sites": sites, "operator_sites": operator_sites, "site_matches": site_matches})
             kept += 1
         health.append({"url": url, "source": source, "status": "ok", "entries": len(entries), "kept": kept,
                        "sha256": hashlib.sha256(body).hexdigest()})
@@ -334,10 +357,25 @@ def sort_key(item):
     return (item.get("date") is not None, item.get("date") or item.get("first_seen") or "", item["link"])
 
 
+def normalise(item):
+    """Bring an item written by an earlier run to the current shape, or None when it is no longer kept."""
+    if SPONSORED_RE.search(item.get("title", "")):
+        return None
+    item = dict(item)
+    sites = item.get("sites") or []
+    moved = [{k: v for k, v in s.items() if k != "repd_nearby"} for s in sites if s.get("matched_on") != "site_name"]
+    item["sites"] = [s for s in sites if s.get("matched_on") == "site_name"]
+    item["operator_sites"] = (item.get("operator_sites") or []) + moved
+    pinned = bool((item.get("matched_terms") or {}).get("pinned"))
+    item.setdefault("pinned", pinned)
+    item.setdefault("capex_basis", None if pinned else capex_basis((item.get("matched_terms") or {}).get("capex")))
+    return item
+
+
 def merge(previous, incoming, cap=MAX_ITEMS):
     """Deduplicate by link. A fresh copy replaces an old one but keeps the earliest first_seen."""
     by_link = {}
-    for item in list(previous) + list(incoming):
+    for item in [n for n in map(normalise, list(previous) + list(incoming)) if n is not None]:
         old = by_link.get(item["link"])
         if old is not None:
             item = dict(item, first_seen=min(old.get("first_seen") or item["first_seen"], item["first_seen"]))
@@ -362,8 +400,10 @@ def build(previous, items, health, now_iso, cap=MAX_ITEMS):
                   "Kept when the headline or feed summary names data centres and either money (capex) or policy "
                   "(politics)."),
         "caveats": [
-            "A site is attached only when the headline names a site or operator in the UK data-centre register; "
-            "an operator match lists that operator's register sites, not necessarily the site in the story.",
+            "sites: only register sites the headline names. operator_sites: register sites of an operator the "
+            "headline names, listed for review only and not evidence that the story concerns them. "
+            "capex_basis 'financing' means funds, rounds or amounts, not verified project spend. "
+            "pinned items were placed by the owner and are not ranked as recent news. Sponsored entries are dropped.",
             "repd_nearby is the straight-line count and stated MW of live REPD solar, battery and wind projects "
             "within 10 km of the register point; it is not a connection, offtake or capacity claim.",
             "Blank REPD capacity is unknown, never zero: projects_mw_unknown counts them.",
@@ -388,7 +428,8 @@ def load_pinned(path, now_iso):
                     "date": parse_date(row.get("date", "")), "first_seen": now_iso, "lanes": lanes,
                     "matched_terms": {"datacentre": [], "capex": [], "politics": [],
                                       "pinned": [clean_text(row.get("reason", "owner"), 120)]},
-                    "sites": [], "site_matches": 0})
+                    "capex_basis": None, "pinned": True,
+                    "sites": [], "operator_sites": [], "site_matches": 0})
     return out
 
 

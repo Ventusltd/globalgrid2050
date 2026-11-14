@@ -285,3 +285,11 @@ def test_shipped_pinned_file_is_valid():
     items = feed.load_pinned(path, "2026-11-14T00:00:00Z")
     assert len(items) == len(json.loads(path.read_text(encoding="utf-8"))["items"]) >= 1
     assert all(i["link"].startswith("https://") for i in items)
+
+
+def test_shipped_pinned_items_carry_a_date():
+    from pathlib import Path
+    from automation.news import datacentre_feed as feed
+
+    items = feed.load_pinned(Path(feed.__file__).with_name("datacentre_pinned.json"), "2026-11-14T00:00:00Z")
+    assert all(i["date"] for i in items), "a pinned item without a parseable date shows undated in the panel"

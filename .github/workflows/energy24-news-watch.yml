@@ -125,7 +125,7 @@ jobs:
           audit=json.loads(pathlib.Path('/tmp/energy24/news.audit.json').read_text())
           ready, reasons=publication_gate(news, audit)
           with open(os.environ['GITHUB_OUTPUT'],'a',encoding='utf-8') as out:
-              out.write('ready='+str(ready).lower()+'\\n')
+              out.write('ready='+str(ready).lower()+'\n')
           print('Energy24 publication gate:', 'PASS' if ready else 'HOLD: '+', '.join(reasons))
           PY
       - name: Verify release unchanged before writing designated paths

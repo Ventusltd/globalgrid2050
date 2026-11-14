@@ -1,0 +1,1812 @@
+{
+ "schema": "globalgrid2050.news-binder-evaluation.v1",
+ "n_labels": 133,
+ "n_scored": 121,
+ "n_unsure": 7,
+ "n_implicit": 5,
+ "n_positive": 47,
+ "n_negative": 74,
+ "signal_classes": [
+  "EXACT",
+  "STRONG"
+ ],
+ "signal_metrics": {
+  "tp": 46,
+  "fp": 0,
+  "fn": 1,
+  "tn": 74,
+  "precision": 1.0,
+  "recall": 0.9787
+ },
+ "any_class_metrics": {
+  "tp": 46,
+  "fp": 4,
+  "fn": 1,
+  "tn": 70,
+  "precision": 0.92,
+  "recall": 0.9787
+ },
+ "baseline_v9_5_1_primary_match_metrics": {
+  "tp": 38,
+  "fp": 4,
+  "fn": 9,
+  "tn": 71,
+  "precision": 0.9048,
+  "recall": 0.8085
+ },
+ "per_class": {
+  "EXACT": {
+   "n": 5,
+   "correct": 5,
+   "wrong_ref": 0,
+   "false_positive": 0
+  },
+  "STRONG": {
+   "n": 41,
+   "correct": 41,
+   "wrong_ref": 0,
+   "false_positive": 0
+  },
+  "PROBABLE": {
+   "n": 0,
+   "correct": 0,
+   "wrong_ref": 0,
+   "false_positive": 0
+  },
+  "CANDIDATE": {
+   "n": 6,
+   "correct": 0,
+   "wrong_ref": 0,
+   "false_positive": 4
+  },
+  "UNBOUND": {
+   "n": 69,
+   "correct": 0,
+   "wrong_ref": 0,
+   "false_positive": 0
+  }
+ },
+ "errors": [
+  {
+   "id": "v951-073",
+   "headline": "Greencells signs 71 MW Carlton solar farm EPC deal",
+   "gold_ref": "12017",
+   "label": "bind",
+   "class": "CANDIDATE",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "name hits: [('carlton', 'place'), ('carlton', 'primary')] -> 6 records",
+    "name_kind: 6 -> 3 records",
+    "technology: 3 -> 2 records",
+    "ambiguous: 2 developments remain"
+   ]
+  }
+ ],
+ "rows": [
+  {
+   "id": "v951-000",
+   "headline": "Solar farm plan for North Tawton field",
+   "gold_ref": "1044",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "1044",
+   "baseline_ref": "1044",
+   "trace": [
+    "name hits: [('north tawton', 'primary')] -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-001",
+   "headline": "New Jersey Board of Public Utilities releases 150MW BTM energy storage proposal - Energy-Storage.News",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-002",
+   "headline": "Low Carbon wins permit for 400MW UK solar farm",
+   "gold_ref": null,
+   "label": "implicit",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-003",
+   "headline": "Beacon Fen Energy Park development consent decision announced",
+   "gold_ref": "13599",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "13599",
+   "baseline_ref": "13599",
+   "trace": [
+    "name hits: [('beacon fen', 'primary')] -> 2 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-004",
+   "headline": "‘One market into many’: AER says battery storage systems are reshaping Australia’s NEM - Energy-Storage.News",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-005",
+   "headline": "US ROUNDUP: BESS projects and deals for EDP Renewables, Tucson Electric Power, and EDF - Energy-Storage.News",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-006",
+   "headline": "The Grange celebrates Forest Healthcare’s National Care Award",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-007",
+   "headline": "Harmony Energy energises new 35MW/70MWh BESS in North Yorkshire",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-008",
+   "headline": "Capital Dynamics acquires 170MW/680MWh BESS in County Kerry, Ireland",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-009",
+   "headline": "Blocked BESS in Britain: Clearstone’s appeal fails for 150 MW site at Axminster",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-010",
+   "headline": "APA to build 104MWh battery storage system for Evolution Mining's Ernest Henry operations in Australia - Energy-Storage.News",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-011",
+   "headline": "US utilities Appalachian Power and 3CE launch RFPS seeking BESS capacity in Virginia, California - Energy-Storage.News",
+   "gold_ref": null,
+   "label": "none",
+   "class": "CANDIDATE",
+   "ref": "9117",
+   "baseline_ref": null,
+   "trace": [
+    "name hits: [('california', 'primary')] -> 3 records",
+    "technology: 3 -> 1 records",
+    "foreign place named without UK context: ['california', 'virginia']",
+    "class CANDIDATE"
+   ]
+  },
+  {
+   "id": "v951-012",
+   "headline": "Copenhagen Infrastructure Partners closes US$3 billion energy fund targeting 'high-growth, middle-income markets' - Energy-Storage.News",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-013",
+   "headline": "Triple Point acquires 49.2MW Hessay Solar project from Recurrent Energy",
+   "gold_ref": "11974",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "11974",
+   "baseline_ref": "11974",
+   "trace": [
+    "name hits: [('hessay', 'primary')] -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-014",
+   "headline": "Statkraft’s Cornish solar farm secures planning permission after appeal",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-015",
+   "headline": "NextEnergy UK I Acquires 107 MW Battery Storage Portfolio in the UK",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-016",
+   "headline": "Canadian Solar says patent dispute with Maxeon is formally terminated",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-017",
+   "headline": "California advances two bills to expand virtual power plants, reduce energy rates - Energy-Storage.News",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-018",
+   "headline": "NextEnergy Capital acquires 107 MW UK operational BESS portfolio",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-019",
+   "headline": "Fluence and German utility LEAG begin construction of second large-scale BESS project under partnership - Energy-Storage.News",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-020",
+   "headline": "Econergy signs financing agreements for 150MW solar-plus-storage project in Romania - Energy-Storage.News",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-021",
+   "headline": "British households earn £100 million from solar in past year, Octopus says",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-022",
+   "headline": "Pathfinder Clean Energy reaches investment decision on Hertfordshire solar and BESS",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-023",
+   "headline": "1GWh Coalburn 1 battery energy storage enters operations in Scotland",
+   "gold_ref": "11034",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "11034",
+   "baseline_ref": "11034",
+   "trace": [
+    "name hits: [('coalburn', 'primary')] -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-024",
+   "headline": "More data centres approved for west London",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-025",
+   "headline": "Push Power solar-plus-storage project bags approval in Essex",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-026",
+   "headline": "KKR’s ContourGlobal begins construction of ‘Sun at Night’ solar-plus-storage project in Chile - Energy-Storage.News",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-027",
+   "headline": "Analysis: Recent AI data centre BESS technology and deployment partnerships - Energy-Storage.News",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-028",
+   "headline": "WFW advises lenders on £231m financing for Fidra Energy’s West Burton C BESS project",
+   "gold_ref": "11928",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "11928",
+   "baseline_ref": null,
+   "trace": [
+    "name hits: [('west burton', 'primary')] -> 4 records",
+    "technology: 4 -> 3 records",
+    "operator: 3 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-029",
+   "headline": "Sol Systems reaches financial close on 123MW Illinois solar portfolio",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-030",
+   "headline": "Fidra Energy reaches financial close on 500 MW West Burton C BESS project",
+   "gold_ref": "11928",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "11928",
+   "baseline_ref": null,
+   "trace": [
+    "name hits: [('west burton', 'primary')] -> 4 records",
+    "technology: 4 -> 3 records",
+    "capacity: 3 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-031",
+   "headline": "Enviromena solar plant on South Yorkshire green belt recommended for planning approval",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-032",
+   "headline": "Dean Moor Solar farm will be Cumbria's largest",
+   "gold_ref": "14550",
+   "label": "bind",
+   "class": "EXACT",
+   "ref": "14550",
+   "baseline_ref": "14550",
+   "trace": [
+    "name hits: [('dean moor', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class EXACT"
+   ]
+  },
+  {
+   "id": "v951-033",
+   "headline": "Construction and delivery risk in BESS projects: why risk allocation matters for financing",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-034",
+   "headline": "Why are thousands of people opposing a new data centre?",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-035",
+   "headline": "UK ROUNDUP: Field closes financing on 1GWh portfolio; Pulse Clean Energy selects Envision for 310MWh project - Energy-Storage.News",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-036",
+   "headline": "Swiss firm Alpiq acquires 90% stake in BESS developer-operator Harmony Energy - Energy-Storage.News",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-037",
+   "headline": "UK approves 740MW One Earth solar farm",
+   "gold_ref": "14806",
+   "label": "bind",
+   "class": "EXACT",
+   "ref": "14806",
+   "baseline_ref": "14806",
+   "trace": [
+    "name hits: [('one earth', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class EXACT"
+   ]
+  },
+  {
+   "id": "v951-038",
+   "headline": "British govt says yes to 740-MW One Earth solar project",
+   "gold_ref": "14806",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "14806",
+   "baseline_ref": null,
+   "trace": [
+    "name hits: [('one earth', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-039",
+   "headline": "Akaysha Energy begins construction of 82MWh BESS in southern Japan with Itochu-Tokyo Century JV - Energy-Storage.News",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-040",
+   "headline": "Fvs Dean Moor Ltd Receives Development Consent For Dean Moor Solar Farm",
+   "gold_ref": "14550",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "14550",
+   "baseline_ref": "14550",
+   "trace": [
+    "name hits: [('dean moor', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-041",
+   "headline": "Field reaches financial close on 1GWh UK BESS portfolio",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-042",
+   "headline": "Dean Moor Solar Farm Secures Development Consent for 150 MW Solar Project in Cumbria",
+   "gold_ref": "14550",
+   "label": "bind",
+   "class": "EXACT",
+   "ref": "14550",
+   "baseline_ref": "14550",
+   "trace": [
+    "name hits: [('dean moor', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class EXACT"
+   ]
+  },
+  {
+   "id": "v951-043",
+   "headline": "Peartree Hill solar farm near Beverley approved",
+   "gold_ref": "15000",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "15000",
+   "baseline_ref": "15000",
+   "trace": [
+    "name hits: [('peartree hill', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-044",
+   "headline": "DESNZ grants DCO for 150MW Dean Moor solar project in Cumbria",
+   "gold_ref": "14550",
+   "label": "bind",
+   "class": "EXACT",
+   "ref": "14550",
+   "baseline_ref": "14550",
+   "trace": [
+    "name hits: [('dean moor', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class EXACT"
+   ]
+  },
+  {
+   "id": "v951-045",
+   "headline": "RWE scores DCO for 320MW East Riding solar power plant",
+   "gold_ref": null,
+   "label": "implicit",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-046",
+   "headline": "Peartree Hill Solar Farm development consent decision announced",
+   "gold_ref": "15000",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "15000",
+   "baseline_ref": "15000",
+   "trace": [
+    "name hits: [('peartree hill', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-047",
+   "headline": "Dean Moor Solar Farm development consent decision announced",
+   "gold_ref": "14550",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "14550",
+   "baseline_ref": "14550",
+   "trace": [
+    "name hits: [('dean moor', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-048",
+   "headline": "Data centre planned for Microsoft UK HQ at Thames Valley Park",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-049",
+   "headline": "RWE, PPC complete 930 MW solar cluster in Greece",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-050",
+   "headline": "Neoen Australia begins construction on 963MWh battery storage system at 440MWp solar PV plant - Energy-Storage.News",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-051",
+   "headline": "ees Europe 2026: Grid-forming PCS, DC-coupling, C&I and data centre solutions among product launches and market debuts - Energy-Storage.News",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-052",
+   "headline": "Will our peaceful rural life be destroyed by a huge AI data centre?",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-053",
+   "headline": "ContourGlobal enters UK market with 500MW/2,000MWh Scottish BESS acquisition",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-054",
+   "headline": "Innagreen acquires Longhedge solar farm from RES",
+   "gold_ref": "11063",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "11063",
+   "baseline_ref": "11063",
+   "trace": [
+    "name hits: [('longhedge', 'primary')] -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-055",
+   "headline": "Innagreen acquires 50MW UK PV site from RES | Solar",
+   "gold_ref": null,
+   "label": "implicit",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-056",
+   "headline": "Meadow Partners Acquires Ground Lease for Coalburn II Battery Storage Project in Scotland",
+   "gold_ref": "12206",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "12206",
+   "baseline_ref": "12206",
+   "trace": [
+    "name hits: [('coalburn ii', 'primary')] -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-057",
+   "headline": "Meadow Partners Acquires 113-Acre Ground Lease for 1,000 MWh Coalburn II Battery Energy Storage System",
+   "gold_ref": "12206",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "12206",
+   "baseline_ref": "11034",
+   "trace": [
+    "name hits: [('coalburn ii', 'primary')] -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-058",
+   "headline": "Zenobē reaches financial close for four-hour Scottish BESS",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-059",
+   "headline": "Zenobe closes financing for 200-MW Coalburn BESS project in Scotland",
+   "gold_ref": null,
+   "label": "unsure",
+   "class": "STRONG",
+   "ref": "11034",
+   "baseline_ref": "11034",
+   "trace": [
+    "name hits: [('coalburn', 'primary')] -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-060",
+   "headline": "Approval for East Yorkshire offshore wind farm substation",
+   "gold_ref": null,
+   "label": "none",
+   "class": "CANDIDATE",
+   "ref": "11678",
+   "baseline_ref": null,
+   "trace": [
+    "name hits: [('east yorkshire', 'primary')] -> 2 records",
+    "technology words ['wind'] contradict project family solar",
+    "class CANDIDATE"
+   ]
+  },
+  {
+   "id": "v951-061",
+   "headline": "Frontier Power acquires zinc LDES projects in Scotland from Apatura Energy",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-062",
+   "headline": "IPP Elgin launches construction on 112MW of solar PV across England and Wales",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-063",
+   "headline": "UK High Court dismisses legal challenge against BOOM Power’s 29.7MW Yorkshire solar PV project",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-064",
+   "headline": "Enray Power Secures GBP 43 Million Financing for 71-MW Carlton Solar Farm in North Yorkshire",
+   "gold_ref": "12017",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "12017",
+   "baseline_ref": "12017",
+   "trace": [
+    "name hits: [('carlton', 'place'), ('carlton', 'primary')] -> 6 records",
+    "name_kind: 6 -> 3 records",
+    "technology: 3 -> 2 records",
+    "location: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-065",
+   "headline": "Exagen Secures Planning Approval for 50 MW Solar and Battery Storage Project in England",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-066",
+   "headline": "Enviromena secures £175 million financing for UK solar portfolio",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-067",
+   "headline": "Qair reaches financial close on 46 MWp Brecks Solar Farm, its first UK project to secure financing",
+   "gold_ref": "10087",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "10087",
+   "baseline_ref": "10087",
+   "trace": [
+    "name hits: [('brecks', 'primary')] -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-068",
+   "headline": "Qair reaches financial close on first UK solar PV project",
+   "gold_ref": null,
+   "label": "implicit",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-069",
+   "headline": "Qair secures its first UK financial close for 46 MWp Brecks solar farm",
+   "gold_ref": "10087",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "10087",
+   "baseline_ref": "10087",
+   "trace": [
+    "name hits: [('brecks', 'primary')] -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-070",
+   "headline": "Drax signs 10-year PPA with Global Switch, attempts $755m Bluefield Solar purchase",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-071",
+   "headline": "Sonnedix closes financing on 102MW PV portfolio in Spain and Italy",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-072",
+   "headline": "Aura Power secures financing for 49.9MWp Staffordshire solar project",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-073",
+   "headline": "Greencells signs 71 MW Carlton solar farm EPC deal",
+   "gold_ref": "12017",
+   "label": "bind",
+   "class": "CANDIDATE",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "name hits: [('carlton', 'place'), ('carlton', 'primary')] -> 6 records",
+    "name_kind: 6 -> 3 records",
+    "technology: 3 -> 2 records",
+    "ambiguous: 2 developments remain"
+   ]
+  },
+  {
+   "id": "v951-074",
+   "headline": "Lightsource bp secures planning approval at 57MW solar-plus-storage project in Wales",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-075",
+   "headline": "Drax buys Bluefield Solar Income Fund in £548 million deal",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-076",
+   "headline": "Eelpower Energy acquires 50MW/100MWh BESS project in Devon",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-077",
+   "headline": "EU Roundup: TagEnergy, Iberdrola commission France and Spain's largest batteries, construction launched elsewhere - Energy-Storage.News",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-078",
+   "headline": "Chelmsford: Longfield Solar Farm Limited to close Wheelers Hill and Cranham Road",
+   "gold_ref": "8162",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "8162",
+   "baseline_ref": "8162",
+   "trace": [
+    "name hits: [('longfield', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-079",
+   "headline": "AGR Renewables closes financing on 310MW/250MWh solar, storage assets",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-080",
+   "headline": "Gresham House to acquire 480MW BESS, completes financing on 397MW portfolio",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-081",
+   "headline": "More reaction after plans revealed for major new solar farm near Burton Joyce bypass",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": "2377",
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-082",
+   "headline": "British Solar Renewables buys 56MW Essex PV plant",
+   "gold_ref": null,
+   "label": "none",
+   "class": "CANDIDATE",
+   "ref": "6924",
+   "baseline_ref": null,
+   "trace": [
+    "name hits: [('essex', 'trailing')] -> 1 records",
+    "technology words ['solar'] contradict project family battery",
+    "class CANDIDATE"
+   ]
+  },
+  {
+   "id": "v951-083",
+   "headline": "Work on solar farm at former Williamthorpe Colliery site starts",
+   "gold_ref": "5533",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "5533",
+   "baseline_ref": "5533",
+   "trace": [
+    "name hits: [('williamthorpe colliery', 'primary'), ('work', 'primary')] -> 3 records",
+    "technology: 3 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-084",
+   "headline": "Qair contracts INTEC to provide EPC and O&M services at 46.5MW Brecks solar farm",
+   "gold_ref": "10087",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "10087",
+   "baseline_ref": "10087",
+   "trace": [
+    "name hits: [('brecks', 'primary')] -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-085",
+   "headline": "Elements Green acquires 300 MW Newarthill BESS project",
+   "gold_ref": "14763",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "14763",
+   "baseline_ref": "14763",
+   "trace": [
+    "name hits: [('newarthill', 'primary')] -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-086",
+   "headline": "Eccles battery storage system plan secures £245m finance deal",
+   "gold_ref": null,
+   "label": "unsure",
+   "class": "CANDIDATE",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "name hits: [('eccles', 'primary')] -> 2 records",
+    "ambiguous: 2 developments remain"
+   ]
+  },
+  {
+   "id": "v951-087",
+   "headline": "EDF to optimise BW ESS’s 350MW/1,243MWh Hams Hall BESS project",
+   "gold_ref": "9427",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "9427",
+   "baseline_ref": "9427",
+   "trace": [
+    "name hits: [('hams hall', 'primary')] -> 2 records",
+    "capacity: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-088",
+   "headline": "EDF and BW ESS partner on 350MW Hams Hall battery storage project",
+   "gold_ref": "9427",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "9427",
+   "baseline_ref": "9427",
+   "trace": [
+    "name hits: [('hams hall', 'primary')] -> 2 records",
+    "capacity: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-089",
+   "headline": "New ring road surrounding 'gigafactory' approved",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-090",
+   "headline": "Monk Fryston BESS Set to Become One of the UK’s Largest Battery Storage Assets",
+   "gold_ref": null,
+   "label": "unsure",
+   "class": "STRONG",
+   "ref": "15164",
+   "baseline_ref": null,
+   "trace": [
+    "name hits: [('monk fryston', 'primary')] -> 2 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-091",
+   "headline": "British Gas owner Centrica activates 40MW BESS projects in Sweden, subsidiary to optimise - Energy-Storage.News",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-092",
+   "headline": "Country lane solar farm could power 13,000 homes",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-093",
+   "headline": "EDF receives development consent order for 800MW PV project in England",
+   "gold_ref": null,
+   "label": "implicit",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-094",
+   "headline": "Rag Lane Solar Farm",
+   "gold_ref": "8393",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "8393",
+   "baseline_ref": "8393",
+   "trace": [
+    "name hits: [('rag lane', 'primary')] -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-095",
+   "headline": "Kells solar farm refusal of planning appealed",
+   "gold_ref": null,
+   "label": "none",
+   "class": "CANDIDATE",
+   "ref": null,
+   "baseline_ref": "5967",
+   "trace": [
+    "name hits: [('kells', 'primary')] -> 3 records",
+    "technology: 3 -> 2 records",
+    "ambiguous: 2 developments remain"
+   ]
+  },
+  {
+   "id": "v951-096",
+   "headline": "Drax acquires UK-based AI-enabled asset optimisation platform Flexitricity",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-097",
+   "headline": "New solar farm heading for Gloucestershire Highnam - Punchline-Gloucester.com",
+   "gold_ref": null,
+   "label": "unsure",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": "5452",
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-098",
+   "headline": "The Grange Care Centre Faringdon recognised as Top 20 Care Home",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-099",
+   "headline": "Campaigners speak of 'shock' at sale of massive East Yorkshire solar power scheme",
+   "gold_ref": "11678",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "11678",
+   "baseline_ref": "11678",
+   "trace": [
+    "name hits: [('east yorkshire', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-100",
+   "headline": "UK: Ampyr Solar Europe announces acquisition of East Yorkshire Solar Farm Project in the UK - energy-pedia.com",
+   "gold_ref": "11678",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "11678",
+   "baseline_ref": "11678",
+   "trace": [
+    "name hits: [('east yorkshire', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-101",
+   "headline": "New owners for East Yorkshire solar farm 'as big as the city of Durham'",
+   "gold_ref": "11678",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "11678",
+   "baseline_ref": "11678",
+   "trace": [
+    "name hits: [('east yorkshire', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-102",
+   "headline": "Ampyr acquires 530MW East Yorkshire Solar Farm",
+   "gold_ref": "11678",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "11678",
+   "baseline_ref": "11678",
+   "trace": [
+    "name hits: [('east yorkshire', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-103",
+   "headline": "Fenwick Solar Farm development consent decision announced",
+   "gold_ref": "14098",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "14098",
+   "baseline_ref": "14098",
+   "trace": [
+    "name hits: [('fenwick', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-104",
+   "headline": "EDF inks Tye Lane solar CPPAs UK",
+   "gold_ref": "9610",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "9610",
+   "baseline_ref": "9610",
+   "trace": [
+    "name hits: [('tye lane', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-105",
+   "headline": "Drax signs tolling agreement with West Burton C for 250MW/500MWh UK BESS",
+   "gold_ref": "11928",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "11928",
+   "baseline_ref": null,
+   "trace": [
+    "name hits: [('west burton', 'primary')] -> 4 records",
+    "technology: 4 -> 3 records",
+    "operator: 3 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-106",
+   "headline": "RWE starting construction on 400MW/800MWh Germany BESS - Energy-Storage.News",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-107",
+   "headline": "Masdar reaches financial close on 300 MW Uzbek solar project",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-108",
+   "headline": "Statera secures planning consent for 8-hour energy storage site in Bedfordshire",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-109",
+   "headline": "UK secures record supply of offshore wind but price rises",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-110",
+   "headline": "Neoen and French TSO to trial grid-forming services with retrofitted BESS - Energy-Storage.News",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-111",
+   "headline": "Project acquisition: Elements Green’s 149MW BESS, Downing’s 72.1MW solar PV portfolio",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-112",
+   "headline": "Elements Green completes acquisition of 149MW Bolney Green Energy Hub",
+   "gold_ref": null,
+   "label": "unsure",
+   "class": "CANDIDATE",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "name hits: [('green', 'place'), ('green', 'primary'), ('green', 'trailing')] -> 11 records",
+    "name_kind: 11 -> 9 records",
+    "status_preference: 9 -> 8 records",
+    "ambiguous: 7 developments remain"
+   ]
+  },
+  {
+   "id": "v951-113",
+   "headline": "METLEN to deliver EPC work at EDF’s 400MW Longfield solar farm",
+   "gold_ref": "8162",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "8162",
+   "baseline_ref": "8162",
+   "trace": [
+    "name hits: [('longfield', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-114",
+   "headline": "Hatton solar farm approved on appeal after 378 objections",
+   "gold_ref": "11460",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "11460",
+   "baseline_ref": "11460",
+   "trace": [
+    "name hits: [('hatton', 'place'), ('hatton', 'primary')] -> 2 records",
+    "name_kind: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-115",
+   "headline": "Green light for offshore wind farm to power 1m homes",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-116",
+   "headline": "Enviromena wins approval for 40MW solar plant at appeal",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-117",
+   "headline": "Consent awarded for Clifton Marsh Solar Farm",
+   "gold_ref": "13763",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "13763",
+   "baseline_ref": "13763",
+   "trace": [
+    "name hits: [('clifton marsh', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-118",
+   "headline": "Government approves new 1,900MW Camblesforth solar farm",
+   "gold_ref": null,
+   "label": "unsure",
+   "class": "STRONG",
+   "ref": "8100",
+   "baseline_ref": "8100",
+   "trace": [
+    "name hits: [('camblesforth', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-119",
+   "headline": "Helios Renewable Energy Project development consent decision announced",
+   "gold_ref": "11476",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "11476",
+   "baseline_ref": "11476",
+   "trace": [
+    "name hits: [('helios', 'primary')] -> 2 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-120",
+   "headline": "EDF to optimise Chinese lithium giant Ganfeng’s 160MWh Kintore battery storage system",
+   "gold_ref": null,
+   "label": "unsure",
+   "class": "CANDIDATE",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "name hits: [('kintore', 'place'), ('kintore', 'primary')] -> 9 records",
+    "name_kind: 9 -> 5 records",
+    "technology: 5 -> 4 records",
+    "status_preference: 4 -> 3 records",
+    "ambiguous: 3 developments remain"
+   ]
+  },
+  {
+   "id": "v951-121",
+   "headline": "Kells solar farm plan setback after archaeological find",
+   "gold_ref": null,
+   "label": "none",
+   "class": "CANDIDATE",
+   "ref": "6012",
+   "baseline_ref": "5967",
+   "trace": [
+    "name hits: [('kells', 'primary')] -> 3 records",
+    "technology: 3 -> 2 records",
+    "status_preference: 2 -> 1 records",
+    "foreign place named without UK context: ['meath']",
+    "class CANDIDATE"
+   ]
+  },
+  {
+   "id": "v951-122",
+   "headline": "Miliband grants DCO for Stonestreet Green solar-plus-storage NSIP",
+   "gold_ref": "10085",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "10085",
+   "baseline_ref": "10085",
+   "trace": [
+    "name hits: [('stonestreet green', 'primary')] -> 2 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-123",
+   "headline": "Stonestreet Green Solar development consent decision announced",
+   "gold_ref": "10085",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "10085",
+   "baseline_ref": "10085",
+   "trace": [
+    "name hits: [('stonestreet green', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-124",
+   "headline": "Downing Renewable Developments Cornwall solar approved",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-125",
+   "headline": "RWE submits planning application for £125m Tween Bridge Solar development project",
+   "gold_ref": "12926",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "12926",
+   "baseline_ref": "12926",
+   "trace": [
+    "name hits: [('tween bridge', 'primary')] -> 3 records",
+    "technology: 3 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-126",
+   "headline": "UK’s Cleve Hill Solar Park begins operations with 373 MW capacity and battery storage",
+   "gold_ref": "6502",
+   "label": "bind",
+   "class": "EXACT",
+   "ref": "6502",
+   "baseline_ref": null,
+   "trace": [
+    "name hits: [('cleve hill', 'primary')] -> 2 records",
+    "capacity: 2 -> 1 records",
+    "class EXACT"
+   ]
+  },
+  {
+   "id": "v951-127",
+   "headline": "Epic Energy brings 200MWh Mannum battery storage system online in South Australia - Energy-Storage.News",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-128",
+   "headline": "More than 1,000 people have say on Green Hill Solar Farm",
+   "gold_ref": "15793",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "15793",
+   "baseline_ref": null,
+   "trace": [
+    "name hits: [('green hill', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-129",
+   "headline": "RES secures three-year O&M contract for Cleve Hill solar project",
+   "gold_ref": "6502",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "6502",
+   "baseline_ref": "6502",
+   "trace": [
+    "name hits: [('cleve hill', 'primary')] -> 2 records",
+    "technology: 2 -> 1 records",
+    "class STRONG"
+   ]
+  },
+  {
+   "id": "v951-130",
+   "headline": "Adaptogen Capital closes battery storage fund with 100MW BESS acquisition",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-131",
+   "headline": "Plans to build Solent Gateway 2 on Dibden Bay near Southampton",
+   "gold_ref": null,
+   "label": "none",
+   "class": "UNBOUND",
+   "ref": null,
+   "baseline_ref": null,
+   "trace": [
+    "no REPD distinctive name in text"
+   ]
+  },
+  {
+   "id": "v951-132",
+   "headline": "Proposed Sutton-on-the-Forest solar farm attracts local criticism",
+   "gold_ref": "19658",
+   "label": "bind",
+   "class": "STRONG",
+   "ref": "19658",
+   "baseline_ref": null,
+   "trace": [
+    "name hits: [('sutton on the forest', 'place'), ('sutton on the forest', 'primary')] -> 3 records",
+    "name_kind: 3 -> 2 records",
+    "technology: 2 -> 1 records",
+    "class STRONG"
+   ]
+  }
+ ],
+ "inputs": [
+  {
+   "role": "repd_new",
+   "file": "repd-2026q3.csv",
+   "bytes": 5201029,
+   "sha256": "d937ae16ad07f43caaaa25b4cee56399e1e9b9bb2ae5ecb7bc88cf9bc092e4b9",
+   "unique_refs": 14967
+  },
+  {
+   "role": "labels",
+   "file": "automation/news/labels/binding_labels_v9_5_1.json",
+   "bytes": 71421,
+   "sha256": "a2a0059eaeba37c433bc6b77147381d341d897309066cbf34c9f154a36adcecd"
+  }
+ ],
+ "labels_method": "Every all_items entry of the v9.5.1 feed. Default gold: PRIMARY_MATCH -> its repd_ref, DISCOVERY_ONLY -> none. Overrides (label_source 'override') are N3's reading of the headline against the October 2026 REPD register; 'unsure' rows (ambiguous referent) and 'implicit' rows (referent known from context but the headline names no project) are excluded from metrics. Labels are silver: one reader, headline text only, no article bodies. Gold refs are October 2026 REPD Ref IDs."
+}

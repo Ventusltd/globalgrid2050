@@ -18,16 +18,16 @@ try {
   await link.waitFor({state:"attached",timeout:30000});
   const href=await link.getAttribute("href");
   assert.equal(href,"https://globalgrid2050.com/uk_renewables_pipeline/202611132345/");
-  const dest=await ctx.newPage();
-  await dest.addInitScript(()=>{window.Chart=class{constructor(_c,config){this.data=config?.data;}update(){}destroy(){}};});
-  await dest.route("https://cdn.jsdelivr.net/**",route=>route.fulfill({status:200,contentType:"application/javascript",body:""}));
-  const rr=await dest.goto(href,{waitUntil:"domcontentloaded",timeout:45000});
-  assert.equal(rr?.status(),200);
-  await dest.waitForFunction(()=>document.querySelector("#tbody")?.dataset.total==="7775",null,{timeout:45000});
-  assert.equal(await dest.locator("#tbody tr").count(),20);
-  assert.deepEqual(errors,[],"homepage has uncaught JS errors");
   await page.screenshot({path:join(OUT,`homepage-${width}.png`),fullPage:true});
-  await dest.screenshot({path:join(OUT,`pipeline-${width}.png`),fullPage:true});
+  await page.addInitScript(()=>{window.Chart=class{constructor(_c,config){this.data=config?.data;}update(){}destroy(){}};});
+  await page.route("https://cdn.jsdelivr.net/**",route=>route.fulfill({status:200,contentType:"application/javascript",body:""}));
+  await page.locator("#pipeline-news summary").click();
+  await link.click();
+  await page.waitForURL(href,{timeout:45000});
+  await page.waitForFunction(()=>document.querySelector("#tbody")?.dataset.total==="7775",null,{timeout:45000});
+  assert.equal(await page.locator("#tbody tr").count(),20);
+  assert.deepEqual(errors,[],"homepage has uncaught JS errors");
+  await page.screenshot({path:join(OUT,`pipeline-${width}.png`),fullPage:true});
   console.log(JSON.stringify({status:"PASS",width,operative:href,records:7775}));
   await ctx.close();
  }

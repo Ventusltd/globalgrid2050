@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GlobalGrid2050 | UK data centres beside the REPD pipeline</title>
+<!-- One static page, no build step. It reads one file that is already on main:
+     dist/convergence/2026q3/datacentre_proximity.csv (226 sites, REPD October 2026 x GridAtlas
+     data-centre pipeline 202610312133). Every map link uses a URL GridAtlas already understands:
+       data centre: /gridatlas/atlas/?latitude=..&longitude=..&zoom=13&project=<name>
+       REPD:        /gridatlas/atlas/?repd_ref=..&technology=..&latitude=..&longitude=..&zoom=12
+     (the second is the Pipeline News MAP contract, atlas-receiver-v9-7.js CONTRACT_PARAMS). -->
+<style>
+:root{--bg:#05080c;--fg:#d8e6f0;--mut:#8aa0b2;--line:#1d2a36;--dc:#b07cff;--ok:#39d98a;--pipe:#ffc400;--link:#4fd1ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.45 "Courier New",monospace}
+header{padding:16px;border-bottom:1px solid var(--line)}h1{margin:0 0 6px;font-size:18px;color:#fff}
+.note{color:var(--mut);font-size:12px;max-width:980px}.bar{display:flex;flex-wrap:wrap;gap:8px;padding:10px 16px;border-bottom:1px solid var(--line)}
+.bar input,.bar select{background:#0b1218;color:var(--fg);border:1px solid var(--line);padding:8px;min-height:44px;font:inherit}
+.bar input{flex:1 1 220px}.bar select{flex:1 1 180px;max-width:100%;min-width:0}.news{padding:10px 16px;border-bottom:1px solid var(--line);font-size:13px}
+.news a{display:inline-block;margin:4px 10px 4px 0}a{color:var(--link)}
+table{width:100%;border-collapse:collapse}th,td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+th{color:var(--mut);font-weight:normal;font-size:12px;position:sticky;top:0;background:var(--bg)}
+.name{color:#fff;font-weight:bold}.op{color:var(--mut);font-size:12px}.st{font-size:12px;padding:1px 6px;border:1px solid;border-radius:3px;white-space:nowrap}
+.mw{max-width:260px}td{overflow-wrap:anywhere}.acts a{display:inline-block;margin:2px 8px 2px 0;min-height:24px}.warn{color:#ff8a3d;font-size:12px}
+.near{font-size:12px}.near div{margin-bottom:3px}
+@media (max-width:760px){thead{display:none}tr{display:block;border-bottom:1px solid var(--line);padding:8px 0}td{display:block;border:0;padding:3px 12px}td[data-h]:before{content:attr(data-h) ": ";color:var(--mut);font-size:12px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>UK data centres beside the REPD pipeline</h1>
+  <div class="note" id="meta">Loading…</div>
+</header>
+<div class="news" id="news"></div>
+<div class="bar">
+  <input id="q" type="search" placeholder="Search name, operator, region" aria-label="Search">
+  <select id="st" aria-label="Status"><option value="">All statuses</option><option value="pipeline">Pipeline (announced, planning, consented)</option><option>operational</option><option>announced</option><option>in_planning</option><option>consented</option><option>unknown</option></select>
+  <select id="sort" aria-label="Sort"><option value="pipe">Pipeline first, largest stated MW</option><option value="repd">Most REPD MW within 10 km</option><option value="mw">Largest stated data-centre MW</option><option value="name">Name</option></select>
+</div>
+<table>
+  <thead><tr><th>Data centre</th><th>Status</th><th>Data-centre MW (as published)</th><th>REPD within 10 km (solar, battery, wind)</th><th>Nearest REPD</th><th>Open</th></tr></thead>
+  <tbody id="rows"></tbody>
+</table>
+<script>
+const SRC = "../../dist/convergence/2026q3/datacentre_proximity.csv";
+const ATLAS = "https://ventusltd.github.io/gridatlas/atlas/";
+const STC = {operational:"var(--ok)",announced:"#e6e6e6",in_planning:"#ff8a3d",consented:"#40c4ff",unknown:"#6b7a8f"};
+const TECH = {solar:"solar",battery:"bess",wind_onshore:"wind_onshore",wind_offshore:"wind_offshore"};
+const GROUPS = ["operational","under_construction","consented","in_planning"];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const num = v => v === "" || v == null ? null : Number(v);
+const fmt = v => v.toLocaleString("en-GB", {maximumFractionDigits: 1});
+function parseCsv(text) {
+  const rows = []; let row = [], cell = "", q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) { if (c === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; } else cell += c; }
+    else if (c === '"') q = true;
+    else if (c === ",") { row.push(cell); cell = ""; }
+    else if (c === "\n") { row.push(cell); rows.push(row); row = []; cell = ""; }
+    else if (c !== "\r") cell += c;
+  }
+  if (cell || row.length) { row.push(cell); rows.push(row); }
+  const head = rows.shift();
+  return rows.filter(r => r.length === head.length).map(r => Object.fromEntries(head.map((h, i) => [h, r[i]])));
+}
+function dcLink(d) {
+  if (!d.lat || !d.lon) return "";
+  const u = new URL(ATLAS);
+  u.searchParams.set("latitude", d.lat); u.searchParams.set("longitude", d.lon);
+  u.searchParams.set("zoom", "13"); u.searchParams.set("project", d.name);
+  return u.href;
+}
+function repdLink(ref, tech) {
+  const u = new URL(ATLAS);
+  u.searchParams.set("repd_ref", ref); u.searchParams.set("technology", tech);
+  return u.href;
+}
+function newsLink(q) { const u = new URL("https://www.google.com/search"); u.searchParams.set("q", q); u.searchParams.set("tbm", "nws"); return u.href; }
+function repd10(d) {
+  const by = {}; let unknown = 0;
+  for (const g of GROUPS) { by[g] = 0; for (const t of Object.keys(TECH)) { by[g] += num(d[`r10km_${t}_${g}_mw`]) || 0; unknown += num(d[`r10km_${t}_${g}_mw_unknown`]) || 0; } }
+  return {by, total: GROUPS.reduce((s, g) => s + by[g], 0), unknown};
+}
+function dcMw(d) {
+  const parts = [];
+  if (d.it_load_mw) parts.push(`IT load ${fmt(+d.it_load_mw)} MW`);
+  if (d.grid_connection_mw) parts.push(`grid connection ${fmt(+d.grid_connection_mw)} MW`);
+  if (d.unclassified_mw) parts.push(`${fmt(+d.unclassified_mw)} MW${d.unclassified_mw_label ? " (" + esc(d.unclassified_mw_label.split(" | ").slice(0, 2).join("; ")) + ")" : " (basis not stated)"}`);
+  return parts.length ? parts.join("<br>") : `<span class="op">not stated</span>`;
+}
+function nearest(d) {
+  const out = [];
+  for (const [t, tech] of Object.entries(TECH)) {
+    const ref = d[`nearest_${t}_ref`]; if (!ref) continue;
+    const km = num(d[`nearest_${t}_km`]); if (km == null || km > 25) continue;
+    const mw = d[`nearest_${t}_mw`] ? `${fmt(+d[`nearest_${t}_mw`])} MW` : "MW not stated";
+    out.push(`<div>${t.replace("_", " ")} · REPD <a href="${esc(repdLink(ref, tech))}" target="_blank" rel="noopener">${esc(ref)}</a> · ${fmt(km)} km · ${mw} · ${esc(d[`nearest_${t}_status`])}</div>`);
+  }
+  return out.join("") || `<span class="op">none within 25 km</span>`;
+}
+let all = [];
+function render() {
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  const st = document.getElementById("st").value, sort = document.getElementById("sort").value;
+  let list = all.filter(d => (!q || `${d.name} ${d.operator} ${d.region_inferred}`.toLowerCase().includes(q))
+    && (!st || (st === "pipeline" ? ["announced", "in_planning", "consented"].includes(d.status) : d.status === st)));
+  const mwOf = d => Math.max(num(d.it_load_mw) || 0, num(d.grid_connection_mw) || 0, num(d.unclassified_mw) || 0);
+  const PIPE = d => ["announced", "in_planning", "consented"].includes(d.status) ? 1 : 0;
+  list.sort(sort === "pipe" ? (a, b) => PIPE(b) - PIPE(a) || mwOf(b) - mwOf(a) || b._r.total - a._r.total : sort === "name" ? (a, b) => a.name.localeCompare(b.name) : sort === "mw" ? (a, b) => mwOf(b) - mwOf(a) : (a, b) => b._r.total - a._r.total);
+  document.getElementById("rows").innerHTML = list.map(d => {
+    const r = d._r, reliable = d.proximity_reliable === "True";
+    const repd = !reliable ? `<span class="warn">location is ${esc(d.precision)} precision: distances withheld</span>`
+      : `${fmt(r.total)} MW stated<div class="op">operational ${fmt(r.by.operational)} · building ${fmt(r.by.under_construction)} · consented ${fmt(r.by.consented)} · planning ${fmt(r.by.in_planning)}${r.unknown ? ` · ${r.unknown} with MW not stated` : ""}</div>`;
+    const map = dcLink(d);
+    return `<tr><td><div class="name">${esc(d.name)}</div><div class="op">${esc(d.operator || "operator not stated")} · ${esc(d.region_inferred || "")}</div></td>`
+      + `<td data-h="Status"><span class="st" style="color:${STC[d.status] || "#ccc"}">${esc(d.status)}</span></td>`
+      + `<td data-h="MW" class="mw">${dcMw(d)}</td>`
+      + `<td data-h="REPD ≤10 km">${repd}${reliable && d.nearest_node_name ? `<div class="op">nearest transmission node ${esc(d.nearest_node_name)} · ${fmt(+d.nearest_node_km)} km</div>` : ""}</td>`
+      + `<td data-h="Nearest" class="near">${reliable ? nearest(d) : "–"}</td>`
+      + `<td class="acts">${map ? `<a href="${esc(map)}" target="_blank" rel="noopener">MAP ↗</a>` : `<span class="op">no point</span>`}<a href="${esc(newsLink(`"${d.name}" data centre`))}" target="_blank" rel="noopener">NEWS ↗</a></td></tr>`;
+  }).join("");
+}
+fetch(SRC).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.text(); }).then(t => {
+  all = parseCsv(t).map(d => (d._r = repd10(d), d));
+  const pipe = all.filter(d => ["announced", "in_planning", "consented"].includes(d.status)).length;
+  document.getElementById("meta").innerHTML = `${all.length} data-centre sites (${pipe} in the pipeline) from the GridAtlas open data-centre layer, `
+    + `each with the October 2026 REPD solar, battery and wind projects around it. Straight-line distance between published points: `
+    + `proximity is not a connection, a contract or capacity. Blank MW is unknown, not zero. Data-centre MW is demand as the source states it and is never added to REPD MW. `
+    + `MAP opens GridAtlas, where the Offtakers layer shows the 30 nearest substations, REPD sites and conventional plants for any data centre. `
+    + `Source: <a href="${SRC}">datacentre_proximity.csv</a>.`;
+  render();
+}).catch(e => { document.getElementById("meta").textContent = `Data could not be loaded: ${e.message}`; });
+const NEWS = [["UK data centre investment", "UK data centre investment"], ["AI Growth Zones", "\"AI Growth Zone\" UK"], ["Data centre grid connection", "data centre grid connection UK"], ["Data centre planning", "data centre planning appeal UK"], ["Data centres and energy policy", "data centres energy policy UK"]];
+document.getElementById("news").innerHTML = "<b>Data-centre news:</b> " + NEWS.map(([l, q]) => `<a href="${esc(newsLink(q))}" target="_blank" rel="noopener">${esc(l)} ↗</a>`).join("");
+for (const id of ["q", "st", "sort"]) document.getElementById(id).addEventListener(id === "q" ? "input" : "change", render);
+</script>
+</body>
+</html>

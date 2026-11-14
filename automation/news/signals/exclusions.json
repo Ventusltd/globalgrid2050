@@ -1,357 +1,361 @@
 {
- "schema": "project-signal-exclusions.v1",
- "note": "Per-project rules applied by combine.py to every item, fetched or reviewed. require_any: the title must contain at least one of these phrases (whole words, case-insensitive). exclude: the title must contain none of these. links: exact links never attached to the project. Add a rule with the case that caused it. weak_alias: 'generic' (an everyday or place-only name: a fetched item needs a second agreeing term in its title) or 'shared' (the alias is also another row's: a fetched item needs the planning reference, the operator or the place in its title). county_also: other counties or districts a headline may rightly place the project in (REPD's county is doubtful or the site crosses a boundary).",
- "projects": {
-  "1980": {
-   "weak_alias": "shared",
-   "shares_alias_with": [
-    "7840"
-   ],
-   "shared_alias": "Defford Aerodrome solar farm"
-  },
-  "4968": {
-   "weak_alias": "shared",
-   "shares_alias_with": [
-    "21306"
-   ],
-   "shared_alias": "Desborough Airfield solar farm"
-  },
-  "5521": {
-   "weak_alias": "generic"
-  },
-  "6561": {
-   "exclude": [
-    "Cayton Bay"
-   ],
-   "why": "A beach and holiday park."
-  },
-  "7188": {
-   "county_also": [
-    "Suffolk"
-   ]
-  },
-  "7191": {
-   "weak_alias": "shared",
-   "shares_alias_with": [
-    "11278"
-   ],
-   "shared_alias": "Wentlooge Solar Farm",
-   "links": [
-    "https://www.inkl.com/news/welsh-government-refuse-plans-for-huge-solar-farm-at-the-gwent-levels"
-   ],
-   "why": "One refusal story: it is recorded as evidence for REPD 11278 (the re-application), not for this earlier scheme."
-  },
-  "7223": {
-   "weak_alias": "shared",
-   "shares_alias_with": [
-    "7256"
-   ],
-   "shared_alias": "Inkersall Grange"
-  },
-  "7256": {
-   "weak_alias": "shared",
-   "shares_alias_with": [
-    "7223"
-   ],
-   "shared_alias": "Inkersall Grange"
-  },
-  "7630": {
-   "weak_alias": "generic"
-  },
-  "7701": {
-   "weak_alias": "shared",
-   "shares_alias_with": [
-    "9546"
-   ],
-   "shared_alias": "Oaklands Solar Farm (substring)",
-   "exclude": [
-    "Derbyshire"
-   ],
-   "why": "The Derbyshire Oaklands Farm scheme is REPD 9546, a different project."
-  },
-  "7786": {
-   "weak_alias": "generic"
-  },
-  "7840": {
-   "weak_alias": "shared",
-   "shares_alias_with": [
-    "1980"
-   ],
-   "shared_alias": "Defford Aerodrome solar farm",
-   "links": [
-    "https://eveshamobserver.co.uk/?p=35578"
-   ],
-   "exclude": [
-    "£80m solar farm gets green light"
-   ],
-   "why": "The 2014 Defford Aerodrome approval is REPD 1980; this row is the 2019 Croome Airfield application on the same site."
-  },
-  "7889": {
-   "weak_alias": "generic"
-  },
-  "8007": {
-   "exclude": [
-    "substation"
-   ],
-   "why": "Bramford substation is National Grid's, not the solar farm."
-  },
-  "8053": {
-   "weak_alias": "generic"
-  },
-  "8062": {
-   "weak_alias": "shared",
-   "shares_alias_with": [
-    "8136"
-   ],
-   "shared_alias": "Wick Solar Farm (substring)"
-  },
-  "8089": {
-   "county_also": [
-    "Hampshire"
-   ]
-  },
-  "8136": {
-   "weak_alias": "shared",
-   "shares_alias_with": [
-    "8062"
-   ],
-   "shared_alias": "Wick Solar Farm (substring)"
-  },
-  "8254": {
-   "county_also": [
-    "County Durham",
-    "Hartlepool"
-   ]
-  },
-  "8357": {
-   "exclude": [
-    "Crouch End",
-    "River Crouch"
-   ],
-   "why": "Other places of the same name."
-  },
-  "8480": {
-   "county_also": [
-    "Angus"
-   ]
-  },
-  "8483": {
-   "exclude": [
-    "Castle near Grantham has",
-    "Castle sees",
-    "tours",
-    "visitor"
-   ],
-   "why": "Belvoir Castle is a visitor attraction.",
-   "county_also": [
-    "Leicestershire"
-   ]
-  },
-  "8494": {
-   "weak_alias": "generic"
-  },
-  "8508": {
-   "weak_alias": "generic"
-  },
-  "8904": {
-   "weak_alias": "generic"
-  },
-  "9014": {
-   "county_also": [
-    "East Riding of Yorkshire"
-   ]
-  },
-  "9050": {
-   "name": "Bypass Solar Farm",
-   "require_any": [
-    "Bypass Solar Farm",
-    "By-Pass Farm Solar",
-    "By-Pass Solar Farm",
-    "Foston",
-    "solar farm north of Grantham"
-   ],
-   "exclude": [
-    "bypass diode",
-    "bypass diodes",
-    "bypass road",
-    "bypass scheme"
-   ],
-   "why": "One everyday word. A trade-press headline about bypass diodes matched the alias; only titles that say solar farm or name the place are this project.",
-   "weak_alias": "generic"
-  },
-  "9069": {
-   "weak_alias": "generic"
-  },
-  "9226": {
-   "county_also": [
-    "Isle of Anglesey"
-   ]
-  },
-  "9273": {
-   "exclude": [
-    "North Fambridge"
-   ],
-   "why": "Another place."
-  },
-  "9441": {
-   "county_also": [
-    "Warwick"
-   ]
-  },
-  "9509": {
-   "weak_alias": "generic"
-  },
-  "9546": {
-   "weak_alias": "shared",
-   "shares_alias_with": [
-    "7701"
-   ],
-   "shared_alias": "Oaklands Solar Farm (substring)",
-   "exclude": [
-    "Pancross"
-   ],
-   "why": "Another Oaklands scheme."
-  },
-  "10523": {
-   "weak_alias": "shared",
-   "shares_alias_with": [
-    "13969"
-   ],
-   "shared_alias": "Middle Road Farm Solar Farm"
-  },
-  "10529": {
-   "weak_alias": "shared",
-   "shares_alias_with": [
-    "18174"
-   ],
-   "shared_alias": "Red House Solar Farm",
-   "exclude": [
-    "New life for Red House",
-    "William Morris"
-   ],
-   "why": "The Red House in Bexleyheath is a historic house."
-  },
-  "11278": {
-   "weak_alias": "shared",
-   "shares_alias_with": [
-    "7191"
-   ],
-   "shared_alias": "Wentlooge Solar Farm"
-  },
-  "11329": {
-   "county_also": [
-    "Essex"
-   ]
-  },
-  "11678": {
-   "name": "East Yorkshire Solar Farm",
-   "exclude": [
-    "Drove Lane",
-    "Wawne",
-    "49.99MW",
-    "49.99 MW"
-   ],
-   "why": "A county name. A headline on Boom Power's 49.99 MW Drove Lane scheme at Wawne matched 'East Yorkshire' plus the developer and was published as confirmed. Titles naming that scheme are never this project (400 MW, Howden, EN010143).",
-   "weak_alias": "generic"
-  },
-  "12117": {
-   "exclude": [
-    "Cardiff",
-    "Cowbridge Road East"
-   ],
-   "why": "Cowbridge Road in Cardiff is a street, not the Lincolnshire scheme."
-  },
-  "13969": {
-   "weak_alias": "shared",
-   "shares_alias_with": [
-    "10523"
-   ],
-   "shared_alias": "Middle Road Farm Solar Farm"
-  },
-  "14100": {
-   "exclude": [
-    "Fosse Way",
-    "energy-efficient"
-   ],
-   "why": "Fosse Way is a road and another project's name."
-  },
-  "14293": {
-   "weak_alias": "generic"
-  },
-  "15347": {
-   "exclude": [
-    "energy centre",
-    "heat network"
-   ],
-   "why": "East Park in Hull is a park with a heat-network energy centre."
-  },
-  "15793": {
-   "weak_alias": "generic"
-  },
-  "16393": {
-   "county_also": [
-    "County Durham"
-   ]
-  },
-  "17429": {
-   "exclude": [
-    "Somerset",
-    "accident",
-    "closure",
-    "crash",
-    "roundabout",
-    "traffic"
-   ],
-   "why": "Fosse Way is a Roman road through several counties; road incidents are not the project."
-  },
-  "17560": {
-   "weak_alias": "generic"
-  },
-  "17701": {
-   "county_also": [
-    "North Yorkshire"
-   ]
-  },
-  "17948": {
-   "exclude": [
-    "Bodelwyddan Castle",
-    "Glan Clwyd"
-   ],
-   "why": "A hospital and a castle in the same village."
-  },
-  "18174": {
-   "weak_alias": "shared",
-   "shares_alias_with": [
-    "10529"
-   ],
-   "shared_alias": "Red House Solar Farm"
-  },
-  "18870": {
-   "county_also": [
-    "Braintree",
-    "Essex",
-    "Uttlesford"
-   ]
-  },
-  "19016": {
-   "weak_alias": "generic"
-  },
-  "19401": {
-   "county_also": [
-    "Surrey"
-   ]
-  },
-  "20388": {
-   "county_also": [
-    "Essex"
-   ]
-  },
-  "21306": {
-   "weak_alias": "shared",
-   "shares_alias_with": [
-    "4968"
-   ],
-   "shared_alias": "Desborough Airfield solar farm"
+  "schema": "project-signal-exclusions.v1",
+  "note": "Per-project rules applied by combine.py to every item, fetched or reviewed. require_any: the title must contain at least one of these phrases (whole words, case-insensitive). exclude: the title must contain none of these. links: exact links never attached to the project. Add a rule with the case that caused it. weak_alias: 'generic' (an everyday or place-only name: a fetched item needs a second agreeing term in its title) or 'shared' (the alias is also another row's: a fetched item needs the planning reference, the operator or the place in its title). county_also: other counties or districts a headline may rightly place the project in (REPD's county is doubtful or the site crosses a boundary).",
+  "projects": {
+    "1980": {
+      "weak_alias": "shared",
+      "shares_alias_with": [
+        "7840"
+      ],
+      "shared_alias": "Defford Aerodrome solar farm"
+    },
+    "4968": {
+      "weak_alias": "shared",
+      "shares_alias_with": [
+        "21306"
+      ],
+      "shared_alias": "Desborough Airfield solar farm"
+    },
+    "5521": {
+      "weak_alias": "generic"
+    },
+    "6561": {
+      "exclude": [
+        "Cayton Bay"
+      ],
+      "why": "A beach and holiday park."
+    },
+    "7188": {
+      "county_also": [
+        "Suffolk"
+      ]
+    },
+    "7191": {
+      "weak_alias": "shared",
+      "shares_alias_with": [
+        "11278"
+      ],
+      "shared_alias": "Wentlooge Solar Farm",
+      "links": [
+        "https://www.inkl.com/news/welsh-government-refuse-plans-for-huge-solar-farm-at-the-gwent-levels"
+      ],
+      "why": "One refusal story: it is recorded as evidence for REPD 11278 (the re-application), not for this earlier scheme."
+    },
+    "7223": {
+      "weak_alias": "shared",
+      "shares_alias_with": [
+        "7256"
+      ],
+      "shared_alias": "Inkersall Grange"
+    },
+    "7256": {
+      "weak_alias": "shared",
+      "shares_alias_with": [
+        "7223"
+      ],
+      "shared_alias": "Inkersall Grange"
+    },
+    "7630": {
+      "weak_alias": "generic"
+    },
+    "7701": {
+      "weak_alias": "shared",
+      "shares_alias_with": [
+        "9546"
+      ],
+      "shared_alias": "Oaklands Solar Farm (substring)",
+      "exclude": [
+        "Derbyshire"
+      ],
+      "why": "The Derbyshire Oaklands Farm scheme is REPD 9546, a different project."
+    },
+    "7786": {
+      "weak_alias": "generic"
+    },
+    "7840": {
+      "weak_alias": "shared",
+      "shares_alias_with": [
+        "1980"
+      ],
+      "shared_alias": "Defford Aerodrome solar farm",
+      "links": [
+        "https://eveshamobserver.co.uk/?p=35578"
+      ],
+      "exclude": [
+        "£80m solar farm gets green light"
+      ],
+      "why": "The 2014 Defford Aerodrome approval is REPD 1980; this row is the 2019 Croome Airfield application on the same site."
+    },
+    "7889": {
+      "weak_alias": "generic"
+    },
+    "8007": {
+      "exclude": [
+        "substation"
+      ],
+      "why": "Bramford substation is National Grid's, not the solar farm."
+    },
+    "8053": {
+      "weak_alias": "generic"
+    },
+    "8062": {
+      "weak_alias": "shared",
+      "shares_alias_with": [
+        "8136"
+      ],
+      "shared_alias": "Wick Solar Farm (substring)"
+    },
+    "8089": {
+      "county_also": [
+        "Hampshire"
+      ]
+    },
+    "8136": {
+      "weak_alias": "shared",
+      "shares_alias_with": [
+        "8062"
+      ],
+      "shared_alias": "Wick Solar Farm (substring)"
+    },
+    "8254": {
+      "county_also": [
+        "County Durham",
+        "Hartlepool"
+      ]
+    },
+    "8357": {
+      "exclude": [
+        "Crouch End",
+        "River Crouch"
+      ],
+      "why": "Other places of the same name."
+    },
+    "8480": {
+      "county_also": [
+        "Angus"
+      ]
+    },
+    "8483": {
+      "exclude": [
+        "Castle near Grantham has",
+        "Castle sees",
+        "tours",
+        "visitor"
+      ],
+      "why": "Belvoir Castle is a visitor attraction.",
+      "county_also": [
+        "Leicestershire"
+      ]
+    },
+    "8494": {
+      "weak_alias": "generic"
+    },
+    "8508": {
+      "weak_alias": "generic"
+    },
+    "8904": {
+      "weak_alias": "generic"
+    },
+    "9014": {
+      "county_also": [
+        "East Riding of Yorkshire"
+      ]
+    },
+    "9050": {
+      "name": "Bypass Solar Farm",
+      "require_any": [
+        "Bypass Solar Farm",
+        "By-Pass Farm Solar",
+        "By-Pass Solar Farm",
+        "Foston",
+        "solar farm north of Grantham"
+      ],
+      "exclude": [
+        "bypass diode",
+        "bypass diodes",
+        "bypass road",
+        "bypass scheme"
+      ],
+      "why": "Verified Bypass Solar Farm aliases include scheme at Foston, near Grantham; original dated planning evidence is required for a public headline. Reject unrelated bypass diodes/road stories.",
+      "weak_alias": "generic",
+      "county_also": [
+        "Foston",
+        "Grantham"
+      ]
+    },
+    "9069": {
+      "weak_alias": "generic"
+    },
+    "9226": {
+      "county_also": [
+        "Isle of Anglesey"
+      ]
+    },
+    "9273": {
+      "exclude": [
+        "North Fambridge"
+      ],
+      "why": "Another place."
+    },
+    "9441": {
+      "county_also": [
+        "Warwick"
+      ]
+    },
+    "9509": {
+      "weak_alias": "generic"
+    },
+    "9546": {
+      "weak_alias": "shared",
+      "shares_alias_with": [
+        "7701"
+      ],
+      "shared_alias": "Oaklands Solar Farm (substring)",
+      "exclude": [
+        "Pancross"
+      ],
+      "why": "Another Oaklands scheme."
+    },
+    "10523": {
+      "weak_alias": "shared",
+      "shares_alias_with": [
+        "13969"
+      ],
+      "shared_alias": "Middle Road Farm Solar Farm"
+    },
+    "10529": {
+      "weak_alias": "shared",
+      "shares_alias_with": [
+        "18174"
+      ],
+      "shared_alias": "Red House Solar Farm",
+      "exclude": [
+        "New life for Red House",
+        "William Morris"
+      ],
+      "why": "The Red House in Bexleyheath is a historic house."
+    },
+    "11278": {
+      "weak_alias": "shared",
+      "shares_alias_with": [
+        "7191"
+      ],
+      "shared_alias": "Wentlooge Solar Farm"
+    },
+    "11329": {
+      "county_also": [
+        "Essex"
+      ]
+    },
+    "11678": {
+      "name": "East Yorkshire Solar Farm",
+      "exclude": [
+        "Drove Lane",
+        "Wawne",
+        "49.99MW",
+        "49.99 MW"
+      ],
+      "why": "A county name. A headline on Boom Power's 49.99 MW Drove Lane scheme at Wawne matched 'East Yorkshire' plus the developer and was published as confirmed. Titles naming that scheme are never this project (400 MW, Howden, EN010143).",
+      "weak_alias": "generic"
+    },
+    "12117": {
+      "exclude": [
+        "Cardiff",
+        "Cowbridge Road East"
+      ],
+      "why": "Cowbridge Road in Cardiff is a street, not the Lincolnshire scheme."
+    },
+    "13969": {
+      "weak_alias": "shared",
+      "shares_alias_with": [
+        "10523"
+      ],
+      "shared_alias": "Middle Road Farm Solar Farm"
+    },
+    "14100": {
+      "exclude": [
+        "Fosse Way",
+        "energy-efficient"
+      ],
+      "why": "Fosse Way is a road and another project's name."
+    },
+    "14293": {
+      "weak_alias": "generic"
+    },
+    "15347": {
+      "exclude": [
+        "energy centre",
+        "heat network"
+      ],
+      "why": "East Park in Hull is a park with a heat-network energy centre."
+    },
+    "15793": {
+      "weak_alias": "generic"
+    },
+    "16393": {
+      "county_also": [
+        "County Durham"
+      ]
+    },
+    "17429": {
+      "exclude": [
+        "Somerset",
+        "accident",
+        "closure",
+        "crash",
+        "roundabout",
+        "traffic"
+      ],
+      "why": "Fosse Way is a Roman road through several counties; road incidents are not the project."
+    },
+    "17560": {
+      "weak_alias": "generic"
+    },
+    "17701": {
+      "county_also": [
+        "North Yorkshire"
+      ]
+    },
+    "17948": {
+      "exclude": [
+        "Bodelwyddan Castle",
+        "Glan Clwyd"
+      ],
+      "why": "A hospital and a castle in the same village."
+    },
+    "18174": {
+      "weak_alias": "shared",
+      "shares_alias_with": [
+        "10529"
+      ],
+      "shared_alias": "Red House Solar Farm"
+    },
+    "18870": {
+      "county_also": [
+        "Braintree",
+        "Essex",
+        "Uttlesford"
+      ]
+    },
+    "19016": {
+      "weak_alias": "generic"
+    },
+    "19401": {
+      "county_also": [
+        "Surrey"
+      ]
+    },
+    "20388": {
+      "county_also": [
+        "Essex"
+      ]
+    },
+    "21306": {
+      "weak_alias": "shared",
+      "shares_alias_with": [
+        "4968"
+      ],
+      "shared_alias": "Desborough Airfield solar farm"
+    }
   }
- }
 }

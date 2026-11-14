@@ -26,10 +26,13 @@ def article(date="2026-11-13", link="https://www.solarpowerportal.co.uk/solar-pr
 
 
 def part(items=None, status="ok", generated=NOW):
-    return {"schema": C.PART_SCHEMA, "generated_at": generated, "items": items or [],
+    raw = [dict(item, source_id="solar-power-portal", fetched_this_run=True,
+                observed_at=generated) for item in (items or [])]
+    return {"schema": C.PART_SCHEMA, "generated_at": generated, "items": raw,
             "sources": [{"id": "solar-power-portal", "url": "https://www.solarpowerportal.co.uk",
                          "status": status, "requests": 1,
-                         "failures": 0 if status == "ok" else 1, "items": len(items or [])}]}
+                         "failures": 0 if status == "ok" else 1,
+                         "items": len(raw), "observed_urls": [item["link"] for item in raw]}]}
 
 
 def built(parts=None, previous=None):
@@ -116,9 +119,11 @@ def test_failed_publisher_cannot_borrow_success_of_another_publisher():
     fake_source = part([malicious])
     # SPP succeeded; reNEWS failed. A generic team-level health check
     # incorrectly marks all of this part's items as source-backed.
+    fake_source["items"][0]["source_id"] = "renews"
     fake_source["sources"].append({
         "id": "renews", "url": "https://renews.biz", "status": "failed",
-        "requests": 1, "failures": 1, "items": 1
+        "requests": 1, "failures": 1, "items": 1,
+        "observed_urls": [malicious["link"]]
     })
     combined = built({"trade": fake_source})
     result = evaluate(combined, None, {"trade": fake_source})
@@ -178,3 +183,25 @@ def test_existing_branch_requires_valid_previous_snapshot():
         assert "previous" in str(exc)
     else:
         raise AssertionError("corrupt prior snapshot treated as empty history")
+
+def test_cached_recent_article_with_healthy_other_feed_cannot_publish():
+    source = part([article()])
+    # The URL remains in cache, but was not returned in the current run.
+    source["items"][0]["fetched_this_run"] = False
+    source["sources"][0]["observed_urls"] = []
+    combined = built({"trade": source})
+    assert not evaluate(combined, None, {"trade": source})["publish"]
+
+
+def test_claimed_observation_after_run_cannot_trigger_publication():
+    source = part([article()])
+    source["items"][0]["observed_at"] = "2026-11-14T16:00:00Z"
+    combined = built({"trade": source})
+    assert not evaluate(combined, None, {"trade": source})["publish"]
+
+
+def test_item_cannot_borrow_other_publisher_url_ledger():
+    source = part([article()])
+    source["items"][0]["source_id"] = "renews"
+    combined = built({"trade": source})
+    assert not evaluate(combined, None, {"trade": source})["publish"]

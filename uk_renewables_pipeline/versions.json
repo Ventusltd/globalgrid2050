@@ -1,10 +1,14 @@
 {
  "schema": "globalgrid2050.pipeline-news.versions.v1",
- "generated_at": "2026-11-14T02:19:35Z",
+ "generated_at": "2026-11-14T02:30:28Z",
  "generated_by": "automation/pipeline_release/verify.py --browser",
  "where_run": "release train workspace before publication",
  "note": "Every Pipeline News version from 202611132345 onward, newest first. Old versions stay published. 'verdict' is this tool's result when the file was written; 'ci' is the result of the Verify Pipeline News versions workflow on the pull request that published the version, recorded in the following version.",
- "release_candidate": null,
+ "release_candidate": {
+  "id": "202611140223",
+  "version": "V9.18",
+  "note": "Release candidate: 202611140223 (V9.18). It passes every automated check and carries the unchanged MAP link into GridAtlas for all 7,775 rows. Live browser and served-byte checks and the homepage pointer are with the homepage owner; until then the homepage is unchanged. Data-centre features are shown with attribution; licence status unverified at source."
+ },
  "map_link_state": {
   "schema": "globalgrid2050.pipeline-news.gridatlas-map-link-state.v1",
   "measured_at": "2026-11-14T01:59:21Z",
@@ -73,6 +77,241 @@
   "not_active_but_still_held_refs": []
  },
  "versions": [
+  {
+   "id": "202611140223",
+   "version": "V9.18",
+   "parent": "202611140216",
+   "date": "2026-11-14T02:23:00Z",
+   "state": "release candidate",
+   "added": "Release candidate. Data-centre content unchanged in scope but corrected in presentation: visible attribution and licence state (OpenStreetMap ODbL 1.0, OGL v3.0, licence status unverified at source, screening only), the register's source carried for every site, settlement-level points labelled and rounded, the GridAtlas location link labelled as a map position only, a stated message when the context cannot be loaded, and browser probes for each case.",
+   "data_changed": false,
+   "url": "202611140223/",
+   "tree": [
+    "0edd36f51365f9f5b7cdca2927c7e78c4615e41d"
+   ],
+   "verdict": "PASS",
+   "browser_checked": true,
+   "checks": {
+    "tree_unchanged": {
+     "pass": true,
+     "tree": "0edd36f51365f9f5b7cdca2927c7e78c4615e41d"
+    },
+    "runner": {
+     "pass": true,
+     "runner": "tests/run_v9_18.sh",
+     "last_line": "V9.18 (202611140223) validation suite: PASS (<repository>)"
+    },
+    "map_contract": {
+     "pass": true,
+     "rows": 7775,
+     "ok": 7775,
+     "with_point": 7749,
+     "without_point": 26
+    },
+    "grid_engine_contract": {
+     "pass": true,
+     "ok": 7775,
+     "examples": []
+    },
+    "map_links_identical_to_parent": {
+     "pass": true,
+     "identical": 7775,
+     "rows": 7775,
+     "parent": "202611140216"
+    },
+    "data_unchanged_from_parent": {
+     "pass": true,
+     "data_digest": "5bc68379308e88c9a7001fc2741eec0297cbc6059e29f4b503a826c4d10c1a18",
+     "declared_change": false
+    },
+    "features_kept": {
+     "pass": true,
+     "features": [
+      "map-deep-link",
+      "newspaper",
+      "csv-export",
+      "interconnectors-tab",
+      "datacentre-news-panel",
+      "versions-link",
+      "datacentres-page-link",
+      "gridatlas-state",
+      "gridatlas-state-list",
+      "nearest-datacentre",
+      "nearest-datacentre-data",
+      "register-changes",
+      "register-changes-data",
+      "data-sources-block",
+      "datacentre-sources"
+     ],
+     "missing": []
+    },
+    "size_budget": {
+     "pass": true,
+     "bytes": 16781465,
+     "budget_mb": 18
+    },
+    "browser": {
+     "pass": true,
+     "views": [
+      {
+       "viewport": "desktop",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://cdn.jsdelivr.net/npm/chart.js",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/ventus-grid-engine/deeplink/receivers.json",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/gridatlas/atlas/current.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?latitude=57.152569&longitude=-2.160149&zoom=13&project=Brightsolid",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": true,
+        "nearest_datacentres": 20,
+        "register_changes_in_rows": 2,
+        "gridatlas_state_file": true,
+        "gridatlas_state_notes": 0,
+        "register_changes_section": true
+       }
+      },
+      {
+       "viewport": "phone",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://cdn.jsdelivr.net/npm/chart.js",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/ventus-grid-engine/deeplink/receivers.json",
+        "net::ERR_TUNNEL_CONNECTION_FAILED https://ventusltd.github.io/gridatlas/atlas/current.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?latitude=57.152569&longitude=-2.160149&zoom=13&project=Brightsolid",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": true,
+        "nearest_datacentres": 20,
+        "register_changes_in_rows": 2,
+        "gridatlas_state_file": true,
+        "gridatlas_state_notes": 0,
+        "register_changes_section": true
+       }
+      }
+     ]
+    },
+    "feature_probes": {
+     "pass": true,
+     "probes": 11,
+     "expected": 11,
+     "results": [
+      {
+       "name": "nearest data centre, exact-site register point (REPD 10772)",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": "https://ventusltd.github.io/gridatlas/atlas/?latitude=57.152569&longitude=-2.160149&zoom=13&project=Brightsolid"
+      },
+      {
+       "name": "nearest data centre, settlement-level register point (REPD 15347)",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": "https://ventusltd.github.io/gridatlas/atlas/?latitude=52.09&longitude=-0.49&zoom=11&project=Data%20Centre%20Campus%2C%20Ampthill%20Road%2C%20Bedford"
+      },
+      {
+       "name": "nearest data centre, row not measured by the convergence build (REPD 13429)",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": ""
+      },
+      {
+       "name": "data-centre attribution block",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "register change in the project record (REPD 15793)",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "context file refused: the entry says so",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": ""
+      },
+      {
+       "name": "nearest data centre, exact-site register point (REPD 10772)",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": "https://ventusltd.github.io/gridatlas/atlas/?latitude=57.152569&longitude=-2.160149&zoom=13&project=Brightsolid"
+      },
+      {
+       "name": "nearest data centre, settlement-level register point (REPD 15347)",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": "https://ventusltd.github.io/gridatlas/atlas/?latitude=52.09&longitude=-0.49&zoom=11&project=Data%20Centre%20Campus%2C%20Ampthill%20Road%2C%20Bedford"
+      },
+      {
+       "name": "nearest data centre, row not measured by the convergence build (REPD 13429)",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": ""
+      },
+      {
+       "name": "data-centre attribution block",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "register change in the project record (REPD 15793)",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      }
+     ]
+    },
+    "csv_export": {
+     "pass": true,
+     "rows": 7775,
+     "header_sha256": "7a469cf40609e9dde30f8481fe1e37e0300d9492a5f3e6af14016e3e1ef9759a",
+     "body_sha256": "cc027acdbb42adb452665e7adf812fdcb8534a611cb1b57ba4940dfef211f2b7",
+     "columns_same_as_parent": true,
+     "body_same_as_parent": true,
+     "error": null
+    }
+   },
+   "ci": null,
+   "merge_commit": null,
+   "known_faults": [
+    "Data-centre licence status is unverified at source: shown with attribution, for screening only.",
+    "Live GridAtlas behaviour on the MAP link and the location link is not checked from the build workspace.",
+    "One nearest register site per project."
+   ],
+   "datacentre_features": "shown with attribution; licence status unverified at source"
+  },
   {
    "id": "202611140216",
    "version": "V9.17",
@@ -162,6 +401,7 @@
        ],
        "overflow": false,
        "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
        "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?latitude=57.152569&longitude=-2.160149&zoom=13&project=Brightsolid",
        "features_seen": {
         "newspaper": true,
@@ -188,6 +428,7 @@
        ],
        "overflow": false,
        "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
        "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?latitude=57.152569&longitude=-2.160149&zoom=13&project=Brightsolid",
        "features_seen": {
         "newspaper": true,
@@ -211,11 +452,19 @@
      "error": null
     }
    },
-   "ci": null,
-   "merge_commit": null,
+   "ci": {
+    "workflow": "Verify Pipeline News versions",
+    "run_id": 43545673886,
+    "conclusion": "success",
+    "url": "https://github.com/Ventusltd/globalgrid2050/actions/runs/43545673886",
+    "pull_request": 77
+   },
+   "merge_commit": "896e7f4b778e25bfc9db2fd54e58598a23237bc1",
    "known_faults": [
-    "The list shows twelve changes; the others are reached through the table."
-   ]
+    "The list shows twelve changes; the others are reached through the table.",
+    "Published 10 minutes after V9.16, inside the 20-minute minimum spacing of the release train (operator error; nothing reverted)."
+   ],
+   "datacentre_features": "shown without attribution in this version; corrected in 202611140223"
   },
   {
    "id": "202611140156",
@@ -304,6 +553,7 @@
        ],
        "overflow": false,
        "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
        "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?latitude=57.152569&longitude=-2.160149&zoom=13&project=Brightsolid",
        "features_seen": {
         "newspaper": true,
@@ -330,6 +580,7 @@
        ],
        "overflow": false,
        "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
        "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?latitude=57.152569&longitude=-2.160149&zoom=13&project=Brightsolid",
        "features_seen": {
         "newspaper": true,
@@ -365,7 +616,8 @@
    "known_faults": [
     "Only the single nearest register site is named per project.",
     "GridAtlas state is measured from GridAtlas's published files, not on the live map."
-   ]
+   ],
+   "datacentre_features": "shown without attribution in this version; corrected in 202611140223"
   },
   {
    "id": "202611140136",
@@ -452,6 +704,7 @@
        ],
        "overflow": false,
        "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
        "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
        "features_seen": {
         "newspaper": true,
@@ -478,6 +731,7 @@
        ],
        "overflow": false,
        "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
        "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
        "features_seen": {
         "newspaper": true,
@@ -511,7 +765,8 @@
    "merge_commit": "9f2d94cfbc4a9c2e4806ac93dc973ce07e578a7d",
    "known_faults": [
     "The 97 rows are measured from the GridAtlas files, not on the live map."
-   ]
+   ],
+   "datacentre_features": null
   },
   {
    "id": "202611140128",
@@ -590,6 +845,7 @@
        ],
        "overflow": false,
        "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
        "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
        "features_seen": {
         "newspaper": true,
@@ -615,6 +871,7 @@
        ],
        "overflow": false,
        "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
        "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
        "features_seen": {
         "newspaper": true,
@@ -649,7 +906,8 @@
    "merge_commit": "3d679cdb6e755bdbd2a5dede37188d5a2ff8c06a",
    "known_faults": [
     "Full 46 MB copy of its parent; later versions are smaller."
-   ]
+   ],
+   "datacentre_features": null
   },
   {
    "id": "202611140058",
@@ -725,6 +983,7 @@
        ],
        "overflow": false,
        "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
        "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
        "features_seen": {
         "newspaper": true,
@@ -750,6 +1009,7 @@
        ],
        "overflow": false,
        "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
        "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
        "features_seen": {
         "newspaper": true,
@@ -780,7 +1040,8 @@
     "note": "As reported on the coordination issue; run before this train existed."
    },
    "merge_commit": "c41b8dd6",
-   "known_faults": []
+   "known_faults": [],
+   "datacentre_features": null
   },
   {
    "id": "202611132345",
@@ -852,6 +1113,7 @@
        ],
        "overflow": false,
        "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
        "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
        "features_seen": {
         "newspaper": true,
@@ -877,6 +1139,7 @@
        ],
        "overflow": false,
        "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
        "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
        "features_seen": {
         "newspaper": true,
@@ -902,7 +1165,8 @@
    },
    "ci": null,
    "merge_commit": "07b6d51702a12aa3d69833d91e43f84d8901ba78",
-   "known_faults": []
+   "known_faults": [],
+   "datacentre_features": null
   }
  ]
 }

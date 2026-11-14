@@ -22,6 +22,7 @@ const RELEASE = join(HERE, "..");
 const ID = basename(RELEASE);
 const ROOT = join(RELEASE, "..", "..");
 const VERSION = "@VERSION@";
+const STATE = "@STATE@";
 const PARENT_ID = "@PARENT_ID@";
 const FIXTURE_OWNER = "@FIXTURE_OWNER@";
 const PARENT = join(RELEASE, "..", PARENT_ID);
@@ -98,12 +99,12 @@ assert.ok(new RegExp(`Canonical DESNZ REPD Q3 2026[^<]*${fmt(manifest.project_co
 assert.ok(!html.includes("REPD Q2 2026: 7,680"), "index.html must not claim the Q2 register");
 assert.ok(html.includes("scripts/app-v9-8.js"), "index.html loads the v9.8 app");
 const label = html.slice(html.indexOf("<body>"), html.indexOf('<section class="newspaper">'));
-assert.ok(!/CANDIDATE/.test(label), "brand, nav, h1 and meta carry no candidate label");
+assert.ok(!/CANDIDATE/.test(label.replaceAll("RELEASE CANDIDATE", "")), "brand, nav, h1 and meta carry no candidate label other than this version's own state");
 assert.ok(label.includes(`<small>UK RENEWABLES PIPELINE · V${VERSION}</small>`), "brand names the version");
-assert.ok(label.includes(`<a class="active" href="#">V${VERSION} BUILD · REPD Q3 2026</a>`), "nav names the version");
+assert.ok(label.includes(`<a class="active" href="#">V${VERSION} ${STATE} · REPD Q3 2026</a>`), "nav names the version");
 assert.ok(label.includes(`<a href="../${PARENT_ID}/">`), "nav links back to the parent");
 assert.ok(label.includes('<a href="../versions.html">'), "nav links to the list of all versions");
-assert.ok(new RegExp(`<strong>V${VERSION.replace(".", "\\.")} · REPD OCTOBER 2026 \\(Q3\\) · [^<]+ · BUILD · \\d+ November 2026</strong>`).test(label), "meta line names the version and its date");
+assert.ok(new RegExp(`<strong>V${VERSION.replace(".", "\\.")} · REPD OCTOBER 2026 \\(Q3\\) · [^<]+ · ${STATE} · \\d+ November 2026</strong>`).test(label), "meta line names the version and its date");
 assert.ok(html.includes(`<title>GlobalGrid2050 | UK Renewables Pipeline ${ID}</title>`), "title names this release");
 
 console.log(`check_v@NUM@: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `

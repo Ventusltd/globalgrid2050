@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "trade",
- "generated_at": "2026-11-14T12:34:49Z",
+ "generated_at": "2026-11-14T21:39:31Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -374,6 +374,16 @@
    "confidence": "confirmed"
   },
   {
+   "repd_ref": "10914",
+   "title": "Island Green Power to develop 1GW+ of solar on ex-coal sites",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/island-green-power-to-develop-1gw-of-solar-on-ex-coal-sites",
+   "publisher": "Solar Power Portal",
+   "date": "2021-09-29",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Cottam' in the summary with developer 'Island Green'; the headline does not name the project",
+   "confidence": "uncertain"
+  },
+  {
    "repd_ref": "9809",
    "title": "EDF buys 500MW Gate Burton solar project",
    "link": "https://www.renews.biz/solar/edf-buys-500mw-gate-burton-solar-project/",
@@ -389,6 +399,16 @@
    "link": "https://www.solarpowerportal.co.uk/solar-projects/edf-acquires-gate-burton-solar-nsip-low-carbon",
    "publisher": "Solar Power Portal",
    "date": "2025-07-03",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Gate Burton' in title with developer 'Low Carbon'",
+   "confidence": "confirmed"
+  },
+  {
+   "repd_ref": "9809",
+   "title": "Low Carbon launches consultation into 500MW Gate Burton solar and energy storage park",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/low-carbon-launches-consultation-into-500mw-gate-burton-solar-and-energy-storage-park",
+   "publisher": "Solar Power Portal",
+   "date": "2022-01-12",
    "family": "trade",
    "basis": "Solar Power Portal feed archive: alias phrase 'Gate Burton' in title with developer 'Low Carbon'",
    "confidence": "confirmed"
@@ -471,6 +491,16 @@
    "date": "2021-11-19",
    "family": "trade",
    "basis": "reNEWS search: alias phrase 'Sunnica' in title with capacity '500MW'",
+   "confidence": "confirmed"
+  },
+  {
+   "repd_ref": "7188",
+   "title": "Smith Brothers revealed as ICP for 500MW Sunnica Energy Farm",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/smith-brothers-revealed-as-icp-for-500mw-sunnica-energy-farm",
+   "publisher": "Solar Power Portal",
+   "date": "2019-10-23",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Sunnica' in title with capacity '500MW'",
    "confidence": "confirmed"
   },
   {
@@ -735,12 +765,32 @@
   },
   {
    "repd_ref": "10916",
-   "title": "West Burton C",
-   "link": "https://www.solarpowerportal.co.uk/keyword/west-burton-c",
+   "title": "EDF’s West Burton A coal-fired plant officially closes",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/edf-s-west-burton-a-coal-fired-plant-officially-closes",
    "publisher": "Solar Power Portal",
-   "date": null,
+   "date": "2023-04-04",
    "family": "trade",
-   "basis": "Solar Power Portal sitemap: alias phrase 'West Burton' in title",
+   "basis": "Solar Power Portal feed archive: alias phrase 'West Burton' in title",
+   "confidence": "confirmed"
+  },
+  {
+   "repd_ref": "10916",
+   "title": "Island Green Power to develop 1GW+ of solar on ex-coal sites",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/island-green-power-to-develop-1gw-of-solar-on-ex-coal-sites",
+   "publisher": "Solar Power Portal",
+   "date": "2021-09-29",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'West Burton' in the summary with developer 'Island Green'; the headline does not name the project",
+   "confidence": "uncertain"
+  },
+  {
+   "repd_ref": "10916",
+   "title": "EIG complete acquisition of 1400MW of EDF assets creating West Burton Energy",
+   "link": "https://www.solarpowerportal.co.uk/energy-storage/eig-complete-acquisition-of-1400mw-of-edf-assets-creating-west-burton-energy",
+   "publisher": "Solar Power Portal",
+   "date": "2021-09-01",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'West Burton' in title",
    "confidence": "confirmed"
   },
   {
@@ -875,6 +925,16 @@
   },
   {
    "repd_ref": "11678",
+   "title": "Boom Power secures planning permission for 50MW solar farm in Yorkshire",
+   "link": "https://www.solarpowerportal.co.uk/solar-planning/boom-power-secures-planning-permission-for-50mw-solar-farm-in-yorkshire",
+   "publisher": "Solar Power Portal",
+   "date": "2022-11-29",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'East Yorkshire' in the summary with developer 'Boom'; the headline does not name the project",
+   "confidence": "uncertain"
+  },
+  {
+   "repd_ref": "11678",
    "title": "Modular specialist to shut East Yorkshire factory",
    "link": "https://www.constructionenquirer.com/2015/09/15/modular-specialist-to-shut-east-yorkshire-factory/",
    "publisher": "Construction Enquirer",
@@ -962,6 +1022,16 @@
    "family": "trade",
    "basis": "reNEWS search: alias phrase 'Beacon Fen' in the summary with developer 'Low Carbon'; the headline does not name the project",
    "confidence": "uncertain"
+  },
+  {
+   "repd_ref": "13599",
+   "title": "Proposed Beacon Fen Energy Park project revised following consultation",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/proposed-beacon-fen-energy-park-project-revised-following-consultation",
+   "publisher": "Solar Power Portal",
+   "date": "2023-07-14",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Beacon Fen' in title with the full alias",
+   "confidence": "confirmed"
   },
   {
    "repd_ref": "13599",
@@ -1145,6 +1215,26 @@
   },
   {
    "repd_ref": "9904",
+   "title": "350MW Mallard Pass Solar Farm enters examination phase",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/350mw-mallard-pass-solar-farm-enters-examination-phase",
+   "publisher": "Solar Power Portal",
+   "date": "2023-05-17",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Mallard Pass' in title with capacity '350MW'",
+   "confidence": "confirmed"
+  },
+  {
+   "repd_ref": "9904",
+   "title": "350MW Mallard Pass solar farm moves to public consultation stage",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/350mw-mallard-pass-solar-farm-moves-to-public-consultation-stage",
+   "publisher": "Solar Power Portal",
+   "date": "2023-01-05",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Mallard Pass' in title with capacity '350MW'",
+   "confidence": "confirmed"
+  },
+  {
+   "repd_ref": "9904",
    "title": "350MW UK solar giant opens second consultation",
    "link": "https://www.renews.biz/solar/350mw-uk-solar-giant-opens-second-consultation/",
    "publisher": "reNEWS",
@@ -1295,6 +1385,16 @@
   },
   {
    "repd_ref": "14098",
+   "title": "Boom Power set to develop 237.5MW solar NSIP near Doncaster",
+   "link": "https://www.solarpowerportal.co.uk/energy-policy/boom-power-set-to-develop-237-5mw-solar-nsip-near-doncaster",
+   "publisher": "Solar Power Portal",
+   "date": "2023-06-22",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Fenwick' in the summary with developer 'Boom'; the headline does not name the project",
+   "confidence": "uncertain"
+  },
+  {
+   "repd_ref": "14098",
    "title": "UK player outlines plans for 237.5MW PV project",
    "link": "https://www.renews.biz/solar/uk-player-outlines-plans-for-237-5mw-pv-project/",
    "publisher": "reNEWS",
@@ -1425,6 +1525,16 @@
   },
   {
    "repd_ref": "6557",
+   "title": "INRG Solar’s 150MWp NSIP Little Crow Solar Farm gets green light",
+   "link": "https://www.solarpowerportal.co.uk/energy-policy/inrg-solar-s-150mwp-nsip-little-crow-solar-farm-gets-green-light",
+   "publisher": "Solar Power Portal",
+   "date": "2022-04-06",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Little Crow' in title with developer 'INRG'",
+   "confidence": "confirmed"
+  },
+  {
+   "repd_ref": "6557",
    "title": "Major proposed UK solar-plus-storage project revises scale upwards",
    "link": "https://www.pv-tech.org/major-proposed-uk-solar-plus-storage-project-revises-scale-upwards/",
    "publisher": "PV Tech",
@@ -1514,6 +1624,16 @@
    "confidence": "confirmed"
   },
   {
+   "repd_ref": "14096",
+   "title": "National Grid ESO and PeakGen voltage management project goes live in Merseyside",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/national-grid-eso-and-peakgen-voltage-management-project-goes-live-in-merseyside",
+   "publisher": "Solar Power Portal",
+   "date": "2022-06-01",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Frodsham' in the summary with county 'Cheshire'; the headline does not name the project",
+   "confidence": "uncertain"
+  },
+  {
    "repd_ref": "16393",
    "title": "Sonnedix turns sod on 120MW UK solar",
    "link": "https://www.renews.biz/solar/sonnedix-turns-sod-on-120mw-uk-solar/",
@@ -1544,6 +1664,16 @@
    "confidence": "uncertain"
   },
   {
+   "repd_ref": "6411",
+   "title": "Welsh government approves near 50MW solar and storage park",
+   "link": "https://www.solarpowerportal.co.uk/energy-policy/welsh-government-approves-near-50mw-solar-and-storage-park",
+   "publisher": "Solar Power Portal",
+   "date": "2018-11-15",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Llanwern' in the summary with county 'Gwent'; the headline does not name the project",
+   "confidence": "uncertain"
+  },
+  {
    "repd_ref": "12117",
    "title": "ISG Renewables energises 22MWp Bicker Fen Solar Park",
    "link": "https://www.solarpowerportal.co.uk/solar-projects/isg-renewables-energises-22mwp-bicker-fen-solar-park",
@@ -1552,6 +1682,16 @@
    "family": "trade",
    "basis": "Solar Power Portal feed archive: alias phrase 'Bicker Fen' in title with solar or energy word directly after it",
    "confidence": "confirmed"
+  },
+  {
+   "repd_ref": "2347",
+   "title": "Foresight splashes the cash on UK’s largest solar park",
+   "link": "https://www.solarpowerportal.co.uk/solar-investment/foresight-splashes-the-cash-on-uk-s-largest-solar-park",
+   "publisher": "Solar Power Portal",
+   "date": "2017-02-03",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Shotwick' in the summary with developer 'Foresight'; the headline does not name the project",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "8051",
@@ -1584,6 +1724,16 @@
    "confidence": "uncertain"
   },
   {
+   "repd_ref": "8479",
+   "title": "Octopus acquires 68MW Breach Solar Farm along with stake in storage site",
+   "link": "https://www.solarpowerportal.co.uk/battery-storage/octopus-acquires-68mw-breach-solar-farm-along-with-stake-in-storage-site",
+   "publisher": "Solar Power Portal",
+   "date": "2022-06-17",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Breach' in title with developer 'Octopus'",
+   "confidence": "confirmed"
+  },
+  {
    "repd_ref": "7701",
    "title": "UK approves 138MW Oaklands Farm solar project",
    "link": "https://www.renews.biz/solar/uk-approves-138mw-oaklands-farm-solar-project/",
@@ -1604,6 +1754,46 @@
    "confidence": "uncertain"
   },
   {
+   "repd_ref": "9014",
+   "title": "Statkraft pursues 49.99MW UK solar farm",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/statkraft-pursues-49-99mw-uk-solar-farm",
+   "publisher": "Solar Power Portal",
+   "date": "2022-02-03",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Soay' in the summary with developer 'Statkraft'; the headline does not name the project",
+   "confidence": "uncertain"
+  },
+  {
+   "repd_ref": "9240",
+   "title": "Statkraft gains planning permission for 50MW Stargoose solar farm",
+   "link": "https://www.solarpowerportal.co.uk/solar-planning/statkraft-gains-planning-permission-for-50mw-stargoose-solar-farm",
+   "publisher": "Solar Power Portal",
+   "date": "2022-04-14",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Stargoose' in title with developer 'Statkraft'",
+   "confidence": "confirmed"
+  },
+  {
+   "repd_ref": "9273",
+   "title": "British Solar Renewables gets green light for 50MW Essex solar farm",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/british-solar-renewables-gets-green-light-for-50mw-essex-solar-farm",
+   "publisher": "Solar Power Portal",
+   "date": "2021-12-21",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Fambridge' in the summary with developer 'British Solar'; the headline does not name the project",
+   "confidence": "uncertain"
+  },
+  {
+   "repd_ref": "9441",
+   "title": "JBM Solar receives planning permission for 49.9MW project in Ashorne",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/jbm-solar-receives-planning-permission-for-49-9mw-project-in-ashorne",
+   "publisher": "Solar Power Portal",
+   "date": "2022-10-28",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Ashorne' in title with developer 'JBM'",
+   "confidence": "confirmed"
+  },
+  {
    "repd_ref": "11927",
    "title": "Planning approval granted for 49.95MW Lark Hill Solar Farm",
    "link": "https://www.solarpowerportal.co.uk/solar-planning/planning-approval-granted-for-49-95mw-lark-hill-solar-farm",
@@ -1614,13 +1804,23 @@
    "confidence": "confirmed"
   },
   {
+   "repd_ref": "2088",
+   "title": "Bluefield Solar seals £56.5 million Norfolk solar farm purchase",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/bluefield-solar-seals-56-5-million-norfolk-solar-farm-purchase",
+   "publisher": "Solar Power Portal",
+   "date": "2015-03-30",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'West Raynham' in the summary with developer 'Bluefield'; the headline does not name the project",
+   "confidence": "uncertain"
+  },
+  {
    "repd_ref": "5186",
    "title": "50MW Awre Peninsula solar farm application rejected by council",
    "link": "https://www.solarpowerportal.co.uk/solar-projects/50mw-awre-peninsula-solar-farm-application-rejected-by-council",
    "publisher": "Solar Power Portal",
    "date": "2016-01-21",
    "family": "trade",
-   "basis": "Solar Power Portal sitemap: alias phrase 'Awre Peninsula' in title with the full alias",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Awre Peninsula' in title with the full alias",
    "confidence": "confirmed"
   },
   {
@@ -1630,7 +1830,7 @@
    "publisher": "Solar Power Portal",
    "date": "2015-06-09",
    "family": "trade",
-   "basis": "Solar Power Portal sitemap: alias phrase 'Grange' in title with solar or energy word directly after it",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Grange' in title with solar or energy word directly after it",
    "confidence": "uncertain"
   },
   {
@@ -1644,6 +1844,16 @@
    "confidence": "uncertain"
   },
   {
+   "repd_ref": "7630",
+   "title": "SMS energises its first 50MW battery energy storage site in 620MW pipeline",
+   "link": "https://www.solarpowerportal.co.uk/battery-storage/sms-energises-its-first-50mw-battery-energy-storage-site-in-620mw-pipeline",
+   "publisher": "Solar Power Portal",
+   "date": "2022-01-31",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Burwell' in the summary with county 'Cambridgeshire'; the headline does not name the project",
+   "confidence": "uncertain"
+  },
+  {
    "repd_ref": "7889",
    "title": "Aura Power lands finance for Grimsby solar project",
    "link": "https://www.solarpowerportal.co.uk/solar-investment/aura-power-lands-finance-for-grimsby-solar-project",
@@ -1652,6 +1862,26 @@
    "family": "trade",
    "basis": "Solar Power Portal feed archive: alias phrase 'Grimsby' in title with developer 'Aura'",
    "confidence": "confirmed"
+  },
+  {
+   "repd_ref": "7889",
+   "title": "Aura Power receives second 50MW solar site approval this month",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/aura-power-receives-second-50mw-solar-site-approval-this-month",
+   "publisher": "Solar Power Portal",
+   "date": "2022-11-29",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Grimsby' in the summary with developer 'Aura'; the headline does not name the project",
+   "confidence": "uncertain"
+  },
+  {
+   "repd_ref": "8053",
+   "title": "Gresham House acquires 50MW Low Farm solar site from Anesco",
+   "link": "https://www.solarpowerportal.co.uk/residential-solar/gresham-house-acquires-50mw-low-farm-solar-site-from-anesco",
+   "publisher": "Solar Power Portal",
+   "date": "2021-08-03",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Low Farm' in title with solar or energy word directly after it",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "8185",
@@ -1664,6 +1894,26 @@
    "confidence": "uncertain"
   },
   {
+   "repd_ref": "8308",
+   "title": "Network Rail signs new agreement with EDF Renewables for Bloy’s Grove solar power",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/network-rail-signs-new-agreement-with-edf-renewables-for-bloy-s-grove-solar-power",
+   "publisher": "Solar Power Portal",
+   "date": "2022-08-10",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Bloy's Grove' in title with developer 'EDF'",
+   "confidence": "confirmed"
+  },
+  {
+   "repd_ref": "8308",
+   "title": "EDF Renewables’ 50MW Bloy’s Grove solar farm gets green light",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/edf-renewables-50mw-bloy-s-grove-solar-farm-gets-green-light",
+   "publisher": "Solar Power Portal",
+   "date": "2022-07-01",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Bloy's Grove' in title with developer 'EDF'",
+   "confidence": "confirmed"
+  },
+  {
    "repd_ref": "8480",
    "title": "Uniper to build 68.8MW solar project in Scotland, its first in the country",
    "link": "https://www.solarpowerportal.co.uk/solar-projects/uniper-to-build-68-8mw-solar-project-in-scotland-its-first-in-the-country",
@@ -1671,6 +1921,26 @@
    "date": "2025-12-12",
    "family": "trade",
    "basis": "Solar Power Portal feed archive: alias phrase 'Berryhill' in the summary with developer 'Uniper'; the headline does not name the project",
+   "confidence": "uncertain"
+  },
+  {
+   "repd_ref": "8508",
+   "title": "JBM Solar receives greenlight for 49.9MW solar farm",
+   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/jbm-solar-receives-greenlight-for-49-9mw-solar-farm",
+   "publisher": "Solar Power Portal",
+   "date": "2022-09-20",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Hinckley' in the summary with capacity '49.9MW'; the headline does not name the project",
+   "confidence": "uncertain"
+  },
+  {
+   "repd_ref": "8517",
+   "title": "Renewable Connections’ 50MW Lincolnshire solar farm gains planning permission",
+   "link": "https://www.solarpowerportal.co.uk/solar-planning/renewable-connections-50mw-lincolnshire-solar-farm-gains-planning-permission",
+   "publisher": "Solar Power Portal",
+   "date": "2022-03-16",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Vicarage Drove' in the summary with developer 'Connections'; the headline does not name the project",
    "confidence": "uncertain"
   },
   {
@@ -1682,6 +1952,26 @@
    "family": "trade",
    "basis": "Solar Power Portal feed archive: alias phrase 'Burtree Lane' in the summary with developer 'Aura'; the headline does not name the project",
    "confidence": "uncertain"
+  },
+  {
+   "repd_ref": "8904",
+   "title": "Renewable Connections gets green light for 49.9MW solar farm in the East Midlands",
+   "link": "https://www.solarpowerportal.co.uk/solar-projects/renewable-connections-gets-green-light-for-49-9mw-solar-farm-in-the-east-midlands",
+   "publisher": "Solar Power Portal",
+   "date": "2023-01-03",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Kingston' in the summary with planning authority 'Rushcliffe'; the headline does not name the project",
+   "confidence": "uncertain"
+  },
+  {
+   "repd_ref": "8904",
+   "title": "RES submitting planning application for 50MW Kingston Solar Farm",
+   "link": "https://www.solarpowerportal.co.uk/solar-planning/res-submitting-planning-application-for-50mw-kingston-solar-farm",
+   "publisher": "Solar Power Portal",
+   "date": "2022-02-25",
+   "family": "trade",
+   "basis": "Solar Power Portal feed archive: alias phrase 'Kingston' in title with the full alias",
+   "confidence": "confirmed"
   }
  ],
  "sources": [
@@ -1689,9 +1979,9 @@
    "id": "solar-power-portal",
    "url": "https://www.solarpowerportal.co.uk",
    "status": "ok",
-   "requests": 132,
+   "requests": 176,
    "failures": 0,
-   "items": 76,
+   "items": 105,
    "error": "",
    "route": "sitemap (links by alias in the path, headline from the article's metadata)",
    "routes": [
@@ -1733,45 +2023,63 @@
    "cached": 0,
    "skipped": 0,
    "feed_archive": {
-    "pages_read": 30,
-    "entries": 3000,
-    "oldest": "2023-09-20",
-    "matched": 68,
-    "next_page": 31,
-    "complete": false
+    "pages_read": 21,
+    "entries": 1909,
+    "oldest": "2010-04-16",
+    "matched": 37,
+    "next_page": 51,
+    "complete": true
    },
    "notes": [],
    "sitemap": {
     "files_known": 195,
     "files_read_this_run": 90,
-    "files_never_read": 105,
-    "urls_read": 807,
-    "links_matching_an_alias": 7,
-    "pages_opened": 7,
-    "headlines_known": 7
+    "files_never_read": 15,
+    "urls_read": 3915,
+    "links_matching_an_alias": 91,
+    "pages_opened": 60,
+    "headlines_known": 67
    }
   },
   {
    "id": "pv-tech",
    "url": "https://www.pv-tech.org",
-   "status": "ok",
-   "requests": 48,
+   "status": "partial",
+   "requests": 7,
    "failures": 0,
    "items": 1,
-   "error": "",
-   "route": "wp_posts /wp-json/wp/v2/posts?search={q}&per_page=20&orderby=relevance&_fields=title,link,date,excerpt",
+   "error": "no search route usable: wp_posts HTTP 403; wp_rss HTTP 403; wp_rss HTTP 403; html HTTP 403; wp_search HTTP 403",
+   "route": "",
    "routes": [
     {
      "route": "wp_posts",
      "url": "https://www.pv-tech.org/wp-json/wp/v2/posts?search=solar+farm&per_page=20&orderby=relevance&_fields=title,link,date,excerpt",
-     "status": "ok",
-     "content_type": "application/json",
-     "bytes": 8664,
-     "results": 20,
-     "dated": 20,
-     "summaries": 20,
-     "relevant": 20,
-     "sample": "Southern Power starts commercial operations at second phase of Millers Branch solar farm, signs seven-party VPPA"
+     "status": "failed",
+     "error": "HTTP 403"
+    },
+    {
+     "route": "wp_rss",
+     "url": "https://www.pv-tech.org/?s=solar+farm&feed=rss2",
+     "status": "failed",
+     "error": "HTTP 403"
+    },
+    {
+     "route": "wp_rss",
+     "url": "https://www.pv-tech.org/feed/?s=solar+farm",
+     "status": "failed",
+     "error": "HTTP 403"
+    },
+    {
+     "route": "html",
+     "url": "https://www.pv-tech.org/?s=solar+farm",
+     "status": "failed",
+     "error": "HTTP 403"
+    },
+    {
+     "route": "wp_search",
+     "url": "https://www.pv-tech.org/wp-json/wp/v2/search?search=solar+farm&per_page=20",
+     "status": "failed",
+     "error": "HTTP 403"
     }
    ],
    "feeds": [
@@ -1783,7 +2091,7 @@
      "newest": "2026-11-13"
     }
    ],
-   "searched": 45,
+   "searched": 0,
    "cached": 0,
    "skipped": 0,
    "notes": []
@@ -1792,7 +2100,7 @@
    "id": "pv-magazine",
    "url": "https://www.pv-magazine.com",
    "status": "ok",
-   "requests": 48,
+   "requests": 3,
    "failures": 0,
    "items": 9,
    "error": "",
@@ -1820,8 +2128,8 @@
      "newest": "2026-11-14"
     }
    ],
-   "searched": 45,
-   "cached": 0,
+   "searched": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": []
   },
@@ -1921,7 +2229,7 @@
      "url": "https://www.current-news.co.uk/?s=solar+farm",
      "status": "not search results (1 of 19 links say solar)",
      "content_type": "text/html",
-     "bytes": 476963,
+     "bytes": 474756,
      "results": 19,
      "dated": 0,
      "summaries": 0,
@@ -1953,7 +2261,7 @@
    "id": "renews",
    "url": "https://renews.biz",
    "status": "ok",
-   "requests": 49,
+   "requests": 4,
    "failures": 0,
    "items": 79,
    "error": "",
@@ -1981,8 +2289,8 @@
      "newest": "2026-11-13"
     }
    ],
-   "searched": 45,
-   "cached": 0,
+   "searched": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": []
   },
@@ -2001,7 +2309,7 @@
      "url": "https://www.planningresource.co.uk/search/articles?KeyWords=solar+farm",
      "status": "not search results (0 of 8 links say solar)",
      "content_type": "text/html",
-     "bytes": 42422,
+     "bytes": 41713,
      "results": 8,
      "dated": 0,
      "summaries": 0,
@@ -2039,7 +2347,7 @@
    "id": "construction-enquirer",
    "url": "https://www.constructionenquirer.com",
    "status": "ok",
-   "requests": 48,
+   "requests": 3,
    "failures": 0,
    "items": 3,
    "error": "",
@@ -2067,8 +2375,8 @@
      "newest": "2026-11-13"
     }
    ],
-   "searched": 45,
-   "cached": 0,
+   "searched": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": []
   },
@@ -2076,7 +2384,7 @@
    "id": "solar-energy-uk",
    "url": "https://solarenergyuk.org",
    "status": "ok",
-   "requests": 47,
+   "requests": 2,
    "failures": 0,
    "items": 0,
    "error": "",
@@ -2102,8 +2410,8 @@
      "error": "refused by robots.txt"
     }
    ],
-   "searched": 45,
-   "cached": 0,
+   "searched": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": []
   }

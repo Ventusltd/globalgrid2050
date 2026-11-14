@@ -1,0 +1,34 @@
+{
+ "feeds": [
+  {
+   "url": "https://www.solarpowerportal.co.uk/rss.xml?content_types=article",
+   "source": "Solar Power Portal",
+   "uk_only": true
+  },
+  {
+   "url": "https://www.gov.uk/search/news-and-communications.atom?organisations%5B%5D=department-for-energy-security-and-net-zero",
+   "source": "GOV.UK DESNZ",
+   "uk_only": true
+  },
+  {
+   "url": "https://www.offshorewind.biz/feed/",
+   "source": "offshoreWIND.biz",
+   "uk_only": false
+  },
+  {
+   "url": "https://www.ess-news.com/feed/",
+   "source": "ESS News",
+   "uk_only": false
+  },
+  {
+   "url": "https://www.lincolnshire.gov.uk/rss/news",
+   "source": "General news sample",
+   "uk_only": true
+  },
+  {
+   "url": "https://example.invalid/missing.xml",
+   "source": "Missing feed",
+   "uk_only": true
+  }
+ ]
+}

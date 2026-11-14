@@ -1,4 +1,4 @@
-name: Data-centre capex and politics news (daily, data branch)
+name: Data-centre capex and politics news (three times a day, data branch)
 # Owner, 14 Nov 2026 00:56 UTC: "I want data centre CAPEX news and politics in the REPD pipeline. Simple."
 # This is an owner-requested scheduled workflow (an exception to the 000_freeze manual-only rule, like the monthly
 # REPD check). It reads a fixed list of public RSS/Atom feeds (automation/news/datacentre_feed.py, FEEDS), keeps
@@ -9,7 +9,11 @@ name: Data-centre capex and politics news (daily, data branch)
 # fail the job; the job fails only when every feed failed and there is no earlier file.
 on:
   schedule:
-    - cron: '23 5 * * *'
+    # Three slots, not one. The first single daily slot (05:23 UTC, 14 Nov 2026) had produced no run five hours later.
+    # The cron line and the default branch were correct; scheduled runs in this repository arrive hours late and are
+    # thinned (workflows set to run every hour or two start about once every six to nine hours; the daily 04:00
+    # line count starts near 12:00). With one slot a late or dropped run costs a day; with three it costs hours.
+    - cron: '23 5,11,17 * * *'
   workflow_dispatch:
 permissions:
   contents: write

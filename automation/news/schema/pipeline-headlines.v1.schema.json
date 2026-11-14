@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "globalgrid2050.news.pipeline-headlines.v1",
+  "title": "Pipeline headlines (dist/pipeline_headlines.json on the branch pipeline-news-data)",
+  "description": "Headlines and links only, from automation/news/pipeline_headlines.py. Items newest first by date (first_seen when date is null), then by link; at most limits.max_items.",
+  "type": "object",
+  "required": ["schema", "generated_at", "status", "counts", "limits", "scope", "feeds", "items"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {"const": "globalgrid2050.news.pipeline-headlines.v1"},
+    "generated_at": {"$ref": "#/$defs/utc"},
+    "status": {
+      "enum": ["ok", "partial", "failed"],
+      "description": "ok = every feed read; partial = some failed; failed = none read (earlier items kept)"
+    },
+    "counts": {
+      "type": "object",
+      "required": ["items", "with_possible_match", "feeds_ok", "feeds_failed", "by_category"],
+      "additionalProperties": false,
+      "properties": {
+        "items": {"type": "integer", "minimum": 0},
+        "with_possible_match": {"type": "integer", "minimum": 0},
+        "feeds_ok": {"type": "integer", "minimum": 0},
+        "feeds_failed": {"type": "integer", "minimum": 0},
+        "by_category": {
+          "type": "object",
+          "propertyNames": {"$ref": "#/$defs/category"},
+          "additionalProperties": {"type": "integer", "minimum": 1}
+        }
+      }
+    },
+    "limits": {
+      "type": "object",
+      "required": ["max_items", "max_age_days"],
+      "additionalProperties": {"type": "integer", "minimum": 1}
+    },
+    "scope": {"type": "string"},
+    "feeds": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["url", "source", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "url": {"type": "string", "pattern": "^https://"},
+          "source": {"type": "string"},
+          "status": {"enum": ["ok", "failed"]},
+          "entries": {"type": "integer", "minimum": 0},
+          "kept": {"type": "integer", "minimum": 0},
+          "newest": {"anyOf": [{"$ref": "#/$defs/utc"}, {"type": "null"}], "description": "newest entry date in the feed"},
+          "error": {"type": "string", "maxLength": 200}
+        }
+      }
+    },
+    "items": {
+      "type": "array",
+      "maxItems": 200,
+      "items": {
+        "type": "object",
+        "required": ["title", "link", "source", "date", "first_seen", "category", "technology", "possible_match"],
+        "additionalProperties": false,
+        "properties": {
+          "title": {"type": "string", "minLength": 1, "maxLength": 300},
+          "link": {"type": "string", "pattern": "^https://"},
+          "source": {"type": "string"},
+          "date": {"anyOf": [{"$ref": "#/$defs/utc"}, {"type": "null"}]},
+          "first_seen": {"$ref": "#/$defs/utc"},
+          "category": {"$ref": "#/$defs/category"},
+          "technology": {"enum": ["solar", "wind", "offshore_wind", "battery", "hydro", "tidal", null]},
+          "possible_match": {
+            "anyOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "required": ["repd_ref", "site_name", "basis"],
+                "additionalProperties": false,
+                "properties": {
+                  "repd_ref": {"type": "string", "pattern": "^[0-9]+$"},
+                  "site_name": {"type": "string", "minLength": 1},
+                  "basis": {"enum": ["developer", "planning_authority", "county", "technology"]}
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "category": {"enum": ["planning_decision", "consent", "refusal", "dco", "finance", "construction", "energisation", "grid", "policy", "datacentre", "other"]}
+  }
+}

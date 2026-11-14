@@ -24,14 +24,18 @@ const VIEWPORTS = [
 ];
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-const profile = mkdtempSync(join(tmpdir(), "pn-chrome-"));
-const chrome = spawn(CHROME, ["--headless=new", "--no-sandbox", "--disable-gpu", "--remote-debugging-port=0",
-  `--user-data-dir=${profile}`, "--no-first-run", "about:blank"], { stdio: "ignore" });
-let wsUrl = "";
-for (let i = 0; i < 100 && !wsUrl; i += 1) {
-  await sleep(100);
-  const f = join(profile, "DevToolsActivePort");
-  if (existsSync(f)) { const [port, path] = readFileSync(f, "utf8").trim().split("\n"); if (path) wsUrl = `ws://127.0.0.1:${port}${path}`; }
+// Start Chrome and wait for its DevTools port; a slow start gets a second attempt.
+let profile = "", chrome = null, wsUrl = "";
+for (let attempt = 1; attempt <= 3 && !wsUrl; attempt += 1) {
+  profile = mkdtempSync(join(tmpdir(), "pn-chrome-"));
+  chrome = spawn(CHROME, ["--headless=new", "--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage", "--remote-debugging-port=0",
+    `--user-data-dir=${profile}`, "--no-first-run", "about:blank"], { stdio: "ignore" });
+  for (let i = 0; i < 300 && !wsUrl; i += 1) {
+    await sleep(100);
+    const f = join(profile, "DevToolsActivePort");
+    if (existsSync(f)) { const [port, path] = readFileSync(f, "utf8").trim().split("\n"); if (path) wsUrl = `ws://127.0.0.1:${port}${path}`; }
+  }
+  if (!wsUrl) { console.error(`Chrome did not open its DevTools port in 30 s (attempt ${attempt})`); chrome.kill("SIGKILL"); }
 }
 if (!wsUrl) { console.error("Chrome did not start"); process.exit(2); }
 const ws = new WebSocket(wsUrl);

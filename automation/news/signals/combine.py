@@ -237,7 +237,8 @@ def combine(rows, aliases=None, parts=None, planning=None, previous=None, now_is
                 sources.append({"team": team, "id": str(source.get("id") or ""), "url": str(source.get("url") or ""),
                                 "status": source.get("status") if source.get("status") in ("ok", "partial", "failed") else "failed",
                                 "requests": source.get("requests") or 0, "failures": source.get("failures") or 0,
-                                "items": source.get("items") or 0, "error": D.clean_text(str(source.get("error") or ""), 300)})
+                                "items": source.get("items") or 0,
+                                "error": re.sub(r"\S+@\S+", "(address removed)", D.clean_text(str(source.get("error") or ""), 300))})
     carried = 0
     if isinstance(previous, dict) and previous.get("schema") == SCHEMA:
         for ref, project in (previous.get("projects") or {}).items():

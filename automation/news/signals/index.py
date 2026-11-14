@@ -53,9 +53,9 @@ MAX_PER_PROJECT = 8
 GDELT_URL = "https://api.gdeltproject.org/api/v2/doc/doc"
 GDELT_INTERVAL_S = 6.0
 GDELT_MAXRECORDS = 75
-GDELT_CACHE_DAYS = 3
+GDELT_CACHE_DAYS = 7
 GDELT_DEFAULT_CAP = 120
-GDELT_MAX_REFUSALS = 4          # a query refused twice (HTTP 429) this many times running: stop for this run
+GDELT_MAX_REFUSALS = 6          # a query refused twice (HTTP 429) this many times running: stop for this run
 # Widest first. GDELT answers a window it does not allow with a plain-text message; the script then steps down.
 GDELT_WINDOWS = (("since 2017", {"startdatetime": "20170101000000"}),
                  ("last 12 months", {"timespan": "12m"}),
@@ -134,7 +134,7 @@ EXCLUDED_DOMAINS = ("google.com", "google.co.uk", "news.google.com", "reuters.co
 PUBLISHERS = {
     "bbc.co.uk": ("BBC News", "bbc"), "bbc.com": ("BBC News", "bbc"),
     "theguardian.com": ("The Guardian", "national"), "independent.co.uk": ("The Independent", "national"),
-    "sky.com": ("Sky News", "national"), "itv.com": ("ITV News", "national"),
+    "sky.com": ("Sky News", "national"), "lbc.co.uk": ("LBC", "national"), "itv.com": ("ITV News", "national"),
     "dailymail.co.uk": ("Daily Mail", "national"), "mirror.co.uk": ("Daily Mirror", "national"),
     "express.co.uk": ("Daily Express", "national"), "standard.co.uk": ("The Standard", "national"),
     "inews.co.uk": ("The i Paper", "national"), "thesun.co.uk": ("The Sun", "national"),
@@ -172,6 +172,14 @@ WEAK_CORES = frozenset((
     "yorkshire", "anglia", "midlands", "road", "middle", "lane", "street",
     # names shared with places or companies abroad: only the full alias is matched
     "houston", "springfield", "oaklands", "meridian", "helios"))
+EMAIL = re.compile(r"\S+@\S+")
+
+
+def scrub(text):
+    """A source's own message, without any email address it carries."""
+    return " ".join(EMAIL.sub("(address removed)", text or "").split())
+
+
 SOLAR = re.compile(r"(?<!\w)(?:solar|photovoltaics?|pv)(?!\w)", re.I)
 REF = re.compile(r"\b(?:EN0\d{5}|ECU\d{6,8}|DNS/\d{7}|DNS\s?CAS-\d+[-\w]*)\b", re.I)
 
@@ -381,7 +389,7 @@ def collect_rss(feeds, projects, fetch, publisher, family, where, throttle=None)
             entries = D.parse_feed(fetch(url))
         except Exception as error:  # one feed failing never stops the run
             health.append({"url": url, "status": "failed", "entries": 0, "solar": 0, "kept": 0, "newest": None,
-                           "error": (type(error).__name__ + ": " + str(error))[:200]})
+                           "error": scrub(type(error).__name__ + ": " + str(error))[:200]})
             continue
         kept, solar, newest = 0, 0, None
         for title, link, date, summary in entries:
@@ -465,7 +473,7 @@ def parse_gdelt(text):
     if not body or body == "{}":
         return []
     if not body.startswith("{"):
-        raise ValueError(" ".join(body.split())[:160])
+        raise ValueError(scrub(body)[:160])
     try:
         data = json.loads(body, strict=False)
     except ValueError as error:
@@ -483,8 +491,9 @@ class Gdelt:
     """One query per project, cached by query, polite, rotating. `fetch(url) -> (status, text)`."""
 
     def __init__(self, fetch, cache, now_iso, cap=GDELT_DEFAULT_CAP, sleep=time.sleep, scope="uk",
-                 interval=GDELT_INTERVAL_S, cache_days=GDELT_CACHE_DAYS):
+                 interval=GDELT_INTERVAL_S, cache_days=GDELT_CACHE_DAYS, seconds=None, clock=time.monotonic):
         self.fetch, self.cache, self.now, self.cap, self.sleep = fetch, cache, now_iso, cap, sleep
+        self.clock, self.deadline = clock, (clock() + seconds) if seconds else None
         self.scope, self.interval, self.cache_days = scope, interval, cache_days
         self.window = 0
         self.stats = {"requests": 0, "answered": 0, "cache_hits": 0, "http_429": 0, "errors": 0, "empty": 0,
@@ -515,6 +524,8 @@ class Gdelt:
         if fresh is not None:
             self.stats["cache_hits"] += 1
             return fresh["articles"]
+        if not self.stats["stopped"] and self.deadline is not None and self.clock() > self.deadline:
+            self.stats["stopped"] = "time budget for GDELT reached; the rest are asked on later runs"
         if self.stats["stopped"] or self.stats["requests"] >= self.cap:
             self.stats["not_asked"] += 1
             return None
@@ -530,14 +541,14 @@ class Gdelt:
                     self.stats["http_429"] += 1
                     self.stats["refused_queries"] += 1
                     self.refusals += 1
-                    note = "HTTP 429: " + " ".join(text.split())[:120]
+                    note = "HTTP 429: " + scrub(text)[:120]
                     if note not in self.stats["error_samples"] and len(self.stats["error_samples"]) < 5:
                         self.stats["error_samples"].append(note)
                     if self.refusals >= GDELT_MAX_REFUSALS:
                         self.stats["stopped"] = ("HTTP 429 on %d queries running, each retried once; GDELT left alone "
                                                  "for the rest of this run" % self.refusals)
                     else:
-                        self.sleep(30 * self.refusals)                 # slow down further before the next query
+                        self.sleep(20)                                 # slow down further before the next query
                     return None
             self.refusals = 0
             if status != 200:
@@ -570,10 +581,13 @@ class Gdelt:
             return 0, ""
         self.throttle.wait("gdelt")
         self.stats["requests"] += 1
+        if self.stats["requests"] % 20 == 0:
+            print("gdelt: %(requests)d requests, %(answered)d answered, %(http_429)d HTTP 429, %(articles)d articles"
+                  % self.stats, file=sys.stderr, flush=True)
         try:
             return self.fetch(url)
         except Exception as error:  # network failure: recorded, the run carries on
-            return 0, type(error).__name__ + ": " + str(error)[:100]
+            return 0, type(error).__name__ + ": " + scrub(str(error))[:100]
 
 
 def rotation(projects, cache, scope="uk"):
@@ -585,10 +599,16 @@ def rotation(projects, cache, scope="uk"):
     return sorted((p for p in projects if gdelt_phrase(p)), key=key)
 
 
-def gdelt_items(project, articles, phrase, dropped):
+def gdelt_title(title):
+    """GDELT stores a tokenised headline ("solar , storage"; "Headline | Paper"): close the gaps, drop the paper."""
+    title = re.sub(r"\s+([,.;:!?])", r"\1", title or "")
+    return re.sub(r"\s+\|\s+[^|]{2,60}$", "", title).strip()
+
+
+def gdelt_items(project, articles, phrase, dropped, others=()):
     out = []
     for art in articles:
-        title, link = art.get("title") or "", D.canonical_link(art.get("url"))
+        title, link = gdelt_title(art.get("title")), D.canonical_link(art.get("url"))
         if not title or not link:
             dropped["no title or link"] += 1
             continue
@@ -603,8 +623,15 @@ def gdelt_items(project, articles, phrase, dropped):
             if not SOLAR.search(title):
                 dropped["headline has neither the name nor solar"] += 1
                 continue
-            verdict = ("weak", "phrase '%s' and 'solar' in the article text per GDELT; headline says solar "
-                               "but not the name" % phrase)
+            county = project["county"]
+            if not county or not re.search(r"(?<!\w)" + re.escape(county) + r"(?!\w)", title, re.I):
+                dropped["headline says solar but neither the name nor the county"] += 1
+                continue
+            if any((match_item(other, title) or ("", ""))[0] == "strong" for other in others if other is not project):
+                dropped["headline names another of the 200"] += 1
+                continue
+            verdict = ("weak", "phrase '%s' and 'solar' in the article text per GDELT; headline says solar and %s "
+                               "but not the name" % (phrase, county))
         publisher, family = publisher_of(link)
         out.append(make_item(project, title, link, art.get("date"), publisher, family, verdict[0], verdict[1],
                              "GDELT index, UK sources"))
@@ -614,7 +641,8 @@ def gdelt_items(project, articles, phrase, dropped):
 def collect_gdelt(projects, client, limit=None):
     items, per_project = [], {}
     dropped = {"no title or link": 0, "excluded source": 0, "exclude phrase": 0,
-               "headline has neither the name nor solar": 0}
+               "headline has neither the name nor solar": 0,
+               "headline says solar but neither the name nor the county": 0, "headline names another of the 200": 0}
     order = rotation(projects, client.cache, client.scope)
     if limit:
         order = order[:limit]
@@ -623,13 +651,13 @@ def collect_gdelt(projects, client, limit=None):
         articles = client.ask(gdelt_query(phrase, client.scope))
         if articles is None:
             continue
-        found = gdelt_items(project, articles, phrase, dropped)
+        found = gdelt_items(project, articles, phrase, dropped, projects)
         second = gdelt_phrase(project, 1)
         if not found and second:                       # a second press name, only when the first gave nothing
             more = client.ask(gdelt_query(second, client.scope))
             if more:
                 articles = articles + more
-                found = gdelt_items(project, more, second, dropped)
+                found = gdelt_items(project, more, second, dropped, projects)
         per_project[project["repd_ref"]] = {"phrase": phrase, "returned": len(articles), "kept": len(found),
                                             "strong": sum(1 for i in found if " per GDELT" not in i["basis"])}
         items.extend(found)
@@ -688,7 +716,13 @@ def tidy(items, previous_items=(), valid_refs=None, cap=MAX_PER_PROJECT):
     for ref in sorted(by_project, key=lambda r: (len(r), r)):
         rows = sorted(by_project[ref], key=lambda i: (i["confidence"] != "confirmed", -int((i["date"] or "0000-00-00").replace("-", "")),
                                                       FAMILY_ORDER.get(i["family"], 9), i["link"]))
-        out.extend(rows[:cap])
+        seen, unique = set(), []
+        for row in rows:                                   # one syndicated story, many local titles: keep one
+            key = re.sub(r"[^a-z0-9]+", " ", row["title"].lower()).strip()
+            if key not in seen:
+                seen.add(key)
+                unique.append(row)
+        out.extend(unique[:cap])
     return out
 
 
@@ -727,6 +761,9 @@ def probe_report(part, projects, extra):
                      "the project %s" % (g.get("projects_asked"), g.get("projects_with_articles"),
                                          g.get("projects_with_kept"), g.get("projects_with_strong")))
         lines.append("- dropped: " + ", ".join("%s %d" % kv for kv in (g.get("dropped") or {}).items()))
+        dates = sorted(i["date"] for i in part["items"] if i["basis"].startswith("GDELT") and i["date"])
+        if dates:
+            lines.append("- dates of kept GDELT items: %s to %s" % (dates[0], dates[-1]))
         if g.get("domains"):
             lines.append("- domains of kept items: " + ", ".join("%s %d" % kv for kv in g["domains"]))
     if extra.get("experiment"):
@@ -768,6 +805,7 @@ def main(argv=None):
     ap.add_argument("--truth", default=str(HERE / "index_ground_truth.json"), help="ground truth for the probe report")
     ap.add_argument("--limit", type=int, default=None, help="only the first N projects by rank")
     ap.add_argument("--gdelt-max", type=int, default=GDELT_DEFAULT_CAP, help="GDELT requests this run (0 = skip)")
+    ap.add_argument("--gdelt-seconds", type=int, default=1200, help="time budget for GDELT this run")
     ap.add_argument("--gdelt-scope", choices=("uk", "domains"), default="uk")
     ap.add_argument("--gdelt-experiment", type=int, default=0, help="compare windows and scopes for the first N")
     ap.add_argument("--skip-rss", action="store_true")
@@ -803,7 +841,12 @@ def main(argv=None):
                 cache = json.loads(Path(args.cache).read_text(encoding="utf-8")).get("queries", {})
             except (ValueError, AttributeError):
                 cache = {}
-        client = Gdelt(fetch_gdelt, cache, now_iso, cap=args.gdelt_max, scope=args.gdelt_scope)
+        client = Gdelt(fetch_gdelt, cache, now_iso, cap=args.gdelt_max, scope=args.gdelt_scope, seconds=args.gdelt_seconds)
+        if args.gdelt_experiment:
+            try:
+                extra["experiment"] = gdelt_experiment(projects, client, args.gdelt_experiment)
+            except Exception:  # an experiment only
+                pass
         try:
             found, per_project, dropped = collect_gdelt(projects, client)
         except Exception as error:  # GDELT failing as a whole never stops the run
@@ -818,11 +861,6 @@ def main(argv=None):
                      projects_with_kept=sum(1 for v in per_project.values() if v["kept"]),
                      projects_with_strong=sum(1 for v in per_project.values() if v["strong"]),
                      domains=sorted(domains.items(), key=lambda kv: (-kv[1], kv[0]))[:25], per_project=per_project)
-        if args.gdelt_experiment and not client.stats["stopped"]:
-            try:
-                extra["experiment"] = gdelt_experiment(projects, client, args.gdelt_experiment)
-            except Exception:  # an experiment only
-                pass
         if args.cache:
             keep = {q: e for q, e in cache.items() if not e.get("error")}
             Path(args.cache).parent.mkdir(parents=True, exist_ok=True)
@@ -833,7 +871,7 @@ def main(argv=None):
         status = "ok" if s["answered"] and not s["stopped"] and not s["errors"] else ("partial" if s["answered"] or s["cache_hits"] else "failed")
         sources.append({"id": "gdelt-doc", "url": GDELT_URL, "status": status, "requests": asked,
                         "failures": s["errors"] + s["http_429"], "items": len(found),
-                        "error": "; ".join(filter(None, [s["stopped"]] + s["error_samples"]))[:300]})
+                        "error": scrub("; ".join(filter(None, [s["stopped"]] + s["error_samples"])))[:300]})
 
     previous_items = []
     if args.previous and Path(args.previous).exists():

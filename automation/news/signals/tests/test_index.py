@@ -166,7 +166,10 @@ def test_gdelt_cache_rate_limit_and_rotation(projects):
     answers = {
         "Botley West": [(429, "rate limit"), (200, gdelt_body(
             ("Botley West solar farm refused", "https://www.bbc.co.uk/news/a", "20261110T120000Z"),
-            ("Solar farm row deepens", "https://www.oxfordmail.co.uk/news/b", "20261001T120000Z"),
+            ("Oxfordshire solar farm row deepens | Oxford Mail", "https://www.oxfordmail.co.uk/news/b", "20261001T120000Z"),
+            ("Oxfordshire solar farm row deepens", "https://www.heraldseries.co.uk/news/b", "20261001T120000Z"),
+            ("Solar tiles , roofs and prices", "https://www.oxfordmail.co.uk/news/d", "20261001T120000Z"),
+            ("Oxfordshire reacts as Rigifa solar farm approved", "https://www.oxfordmail.co.uk/news/e", "20261001T120000Z"),
             ("Council budget agreed", "https://www.oxfordmail.co.uk/news/c", "20261002T120000Z"),
             ("Botley West solar farm refused", "https://news.google.com/x", "20261110T120000Z"),
             ("Botley West solar farm refused - Reuters", "https://www.reuters.com/x", "20261110T120000Z")))],
@@ -185,16 +188,20 @@ def test_gdelt_cache_rate_limit_and_rotation(projects):
     client = I.Gdelt(fetch, cache, NOW, cap=10, sleep=sleeps.append, interval=0)
     items, per_project, dropped = I.collect_gdelt(projects, client)
     assert client.stats["http_429"] == 1 and 10 in sleeps                 # waited ten seconds, retried once
-    assert [(i["repd_ref"], i["family"], i["confidence"]) for i in items] == [
-        ("12588", "bbc", "confirmed"), ("12588", "regional", "uncertain")]
-    assert "headline says solar but not the name" in items[1]["basis"]
+    items = I.tidy(items)
+    assert [(i["repd_ref"], i["family"], i["confidence"], i["title"]) for i in items] == [
+        ("12588", "bbc", "confirmed", "Botley West solar farm refused"),
+        ("12588", "regional", "uncertain", "Oxfordshire solar farm row deepens")]      # syndicated copy kept once
+    assert "headline says solar and Oxfordshire but not the name" in items[1]["basis"]
+    assert dropped["headline says solar but neither the name nor the county"] == 1
+    assert dropped["headline names another of the 200"] == 1
     assert dropped["excluded source"] == 2 and dropped["headline has neither the name nor solar"] == 1
     assert dropped["exclude phrase"] == 1 and per_project["20001"]["kept"] == 0
     assert len(cache) == 3 and client.stats["empty"] == 1
     before = len(calls)
     again = I.Gdelt(fetch, cache, NOW, cap=10, sleep=sleeps.append, interval=0)
     items2, _, _ = I.collect_gdelt(projects, again)
-    assert len(calls) == before and again.stats["cache_hits"] == 3 and len(items2) == 2   # cached by query
+    assert len(calls) == before and again.stats["cache_hits"] == 3 and len(I.tidy(items2)) == 2   # cached by query
     cache[I.gdelt_query("Botley West")]["fetched_at"] = "2026-11-01T00:00:00Z"
     del cache[I.gdelt_query("Rigifa")]
     assert [p["repd_ref"] for p in I.rotation(projects, cache)] == ["20001", "12588", "20002"]   # never asked first
@@ -219,12 +226,22 @@ def test_gdelt_carries_on_after_one_refused_query(tmp_path):
 
     def fetch(url):
         seen.append(url)
-        return (429, "Please limit requests to one every 5 seconds.") if "Botley" in url else (200, "{}")
+        return (429, "Please limit requests to one every 5 seconds or contact someone@example.org.") if "Botley" in url else (200, "{}")
 
     client = I.Gdelt(fetch, {}, NOW, cap=20, sleep=lambda s: None, interval=0)
     _, per_project, _ = I.collect_gdelt(projects, client)
     assert "12588" not in per_project and len(per_project) == 3 and not client.stats["stopped"]
     assert client.stats["refused_queries"] == 1 and "limit requests" in client.stats["error_samples"][0]
+    assert "@" not in client.stats["error_samples"][0] and "(address removed)" in client.stats["error_samples"][0]
+    assert I.gdelt_title("Government greenlights 400MW Beacon Fen solar , storage | Paper") == "Government greenlights 400MW Beacon Fen solar, storage"
+
+
+def test_gdelt_time_budget(projects):
+    ticks = iter(range(0, 10000, 50))
+    client = I.Gdelt(lambda url: (200, "{}"), {}, NOW, cap=50, sleep=lambda s: None, interval=0, seconds=120,
+                     clock=lambda: next(ticks))
+    I.collect_gdelt(projects, client)
+    assert "time budget" in client.stats["stopped"] and client.stats["not_asked"] >= 1 and client.stats["answered"] >= 1
 
 
 def test_gdelt_steps_down_when_a_window_is_not_allowed(projects):

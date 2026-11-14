@@ -6,7 +6,8 @@ name: Project signals (top 200 solar, twice a day, data branch)
 # It runs the fetch scripts under automation/news/signals/ (official.py and trade.py only if they are present;
 # index.py: BBC News RSS, Guardian RSS, GDELT), then combine.py, and publishes ONE file the page reads,
 # dist/project_signals.json, to the branch project-signals-data (with the part files and the GDELT answer cache
-# beside it under dist/signals_state/, so the next run keeps earlier signals and asks GDELT only for what is stale).
+# beside it under dist/signals_state/, so the next run keeps earlier signals and asks each source only for what is
+# stale; trade.py and index.py each search a rotating share of the 200 per run).
 # It never pushes to main, never opens a PR, never deploys. A push made with GITHUB_TOKEN starts no other workflow.
 # One script or one source failing is recorded in the file and does not fail the job: the combiner runs with whatever
 # parts exist, and every one of the 200 projects always has its planning file. The job fails only when the combiner
@@ -36,12 +37,13 @@ jobs:
   probe:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 30
     permissions:
       contents: read
     env:
-      GDELT_MAX: '200'
-      GDELT_EXPERIMENT: '3'
+      GDELT_MAX: '60'
+      GDELT_EXPERIMENT: '1'
+      GDELT_SECONDS: '420'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -57,7 +59,7 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/parts"
           python "$SIG/index.py" --out "$RUNNER_TEMP/parts/index.json" --probe "$RUNNER_TEMP/index-probe.md" \
-            --cache "$RUNNER_TEMP/parts/gdelt_cache.json" --gdelt-max "$GDELT_MAX" --gdelt-experiment "$GDELT_EXPERIMENT"
+            --cache "$RUNNER_TEMP/parts/gdelt_cache.json" --gdelt-max "$GDELT_MAX" --gdelt-experiment "$GDELT_EXPERIMENT" --gdelt-seconds "$GDELT_SECONDS"
           cat "$RUNNER_TEMP/index-probe.md" | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Other teams' scripts, only if present on this ref
         run: |
@@ -110,7 +112,7 @@ jobs:
           if git ls-remote --exit-code --heads origin "$DATA_BRANCH" >/dev/null; then
             git fetch --depth=1 origin "$DATA_BRANCH"
             git show FETCH_HEAD:dist/project_signals.json > dist/project_signals.json || rm -f dist/project_signals.json
-            for name in official.json trade.json index.json gdelt_cache.json; do
+            for name in official.json trade.json index.json gdelt_cache.json trade_cache.json; do
               git show "FETCH_HEAD:dist/signals_state/$name" > "dist/signals_state/$name" 2>/dev/null || rm -f "dist/signals_state/$name"
             done
           fi
@@ -127,7 +129,7 @@ jobs:
         continue-on-error: true
         run: |
           if [ -f "$SIG/trade.py" ]; then
-            timeout 25m python "$SIG/trade.py" --out "$RUNNER_TEMP/parts/trade.json"
+            timeout 40m python "$SIG/trade.py" --out "$RUNNER_TEMP/parts/trade.json" --cache dist/signals_state/trade_cache.json
           else
             echo "trade.py is not on this ref"
           fi
@@ -135,7 +137,7 @@ jobs:
         continue-on-error: true
         run: |
           timeout 35m python "$SIG/index.py" --out "$RUNNER_TEMP/parts/index.json" --previous dist/signals_state/index.json \
-            --cache dist/signals_state/gdelt_cache.json --gdelt-max 150 --probe "$RUNNER_TEMP/index-report.md"
+            --cache dist/signals_state/gdelt_cache.json --gdelt-max 80 --gdelt-seconds 1200 --probe "$RUNNER_TEMP/index-report.md"
       - name: Keep the last good part where a script gave none this run
         run: |
           for team in official trade index; do
@@ -174,7 +176,7 @@ jobs:
           fi
           mkdir -p "$pub/dist/signals_state"
           cp dist/project_signals.json "$pub/dist/project_signals.json"
-          for name in official.json trade.json index.json gdelt_cache.json; do
+          for name in official.json trade.json index.json gdelt_cache.json trade_cache.json; do
             if [ -f "dist/signals_state/$name" ]; then cp "dist/signals_state/$name" "$pub/dist/signals_state/$name"; fi
           done
           printf '%s\n' "Published by .github/workflows/project-signals.yml. Headlines and links only." \

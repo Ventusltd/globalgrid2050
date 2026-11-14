@@ -27,6 +27,7 @@
     "page_last_updated = PUBLICATION_DATE in scripts/repd_q3_2026_ingest.py and the q3 INGESTION-LOG; the page itself was not observed by this agent (a WebFetch copy on 13 Nov still showed 3 August 2026, possibly cached)",
     "dataset_title and govuk_public_updated_at not observed; left null rather than invented",
     "rows/refs/duplicate from repd-report/tools/verify_release.py OCTOBER_2026 and the BRIEF",
-    "baseline_path: July original bytes unavailable; lead to set the previous-release baseline (January root repd.csv or July dist/project_identity_v6.json)"
+    "baseline_path: July original bytes unavailable; lead to set the previous-release baseline (January root repd.csv or July dist/project_identity_v6.json)",
+    "UPDATE (NL-014): July originals recovered (branch repd/2026-07-verified-archive-20261113 @ d015479f); baselines/2026q2.json is now built from the raw July CSV (refs and vocabularies unchanged)"
   ]
 }

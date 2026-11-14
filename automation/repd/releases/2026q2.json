@@ -15,7 +15,7 @@
     "csv_sha256": "84c1b5f958a934d8b4b86ec88f50bdcf43830ded7ff2efc27bffca0c98695035",
     "xlsx_sha256": "624a0a9712c58a7a93716e51f2bf054eec8b1af7170f6f9516cc10cd248e2657",
     "csv_bytes": 5087389,
-    "xlsx_bytes": null,
+    "xlsx_bytes": 5185558,
     "csv_rows": 14657,
     "unique_refs": 14657,
     "duplicate_refs": [],
@@ -26,7 +26,8 @@
     "URLs, PUBLICATION_DATE, DATASET_TITLE, EXPECTED_ROWS/SOLAR_GT1/BESS_GT100 and both sha256 from scripts/repd_sources_v6.py:30-40 (gg-wt)",
     "csv_bytes and govuk_public_updated_at from pipelinenews archive 202608261547 data/repd-source/candidate.json (checked 2026-08-25)",
     "unique_refs = csv_rows because repd_sources_v6 gates rows == unique Ref IDs and passed in August",
-    "xlsx_bytes not recorded anywhere found",
-    "TRAP: by 2026-11-13 both URLs served the October (Q3) bytes (repd-report/q3/Q2_BASELINE_SHA256_AUDIT.json); the original July bytes are not retrievable from GOV.UK and fetch.py refuses the substitute"
+    "xlsx_bytes 5185558 from the recovered original XLSX (sha256 matches expected.xlsx_sha256)",
+    "TRAP: by 2026-11-13 both URLs served the October (Q3) bytes (repd-report/q3/Q2_BASELINE_SHA256_AUDIT.json); the original July bytes are not retrievable from GOV.UK and fetch.py refuses the substitute",
+    "RECOVERED 2026-11-13: both original July files, byte-identical to the expected sha256, from UK Government Web Archive captures of 3 Nov 2026; preserved on globalgrid2050 branch repd/2026-07-verified-archive-20261113 @ d015479f, evidence/repd-2026-q2-original/official-sources/; re-hashed and structure-verified by NL-014 (verify_release.py exit 0, 14,657 rows, 53 columns, 0 duplicates)"
   ]
 }

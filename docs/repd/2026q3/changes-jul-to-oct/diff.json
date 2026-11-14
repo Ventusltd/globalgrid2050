@@ -2,16 +2,13 @@
  "schema": "globalgrid2050.repd-release-diff.v1",
  "tool": "automation/repd/diff.py",
  "previous": {
-  "file": "project_identity_v6.json",
-  "bytes": 20701945,
-  "sha256": "d614084c05c0380862cf2d9da58309c43cdb128d6917458db4dc53717062ea95",
-  "kind": "derived JSON (globalgrid2050.project-identity.v6)",
-  "encoding": "utf-8",
-  "n_columns": 20,
-  "fidelity": "derived: 20 of 53 official columns; other columns not compared; raw previous CSV not used",
-  "declared_source_title": "Renewable Energy Planning Database (REPD): July 2026 (Q2 2026)",
-  "declared_source_csv_sha256": "84c1b5f958a934d8b4b86ec88f50bdcf43830ded7ff2efc27bffca0c98695035",
-  "declared_raw_record_count": 14657,
+  "file": "REPD_Q2_2026_cleaned.csv",
+  "bytes": 5068286,
+  "sha256": "52e2c81ceb7f62bb6175e26bf8a1e081f14dc94a83fcfb5fa925160a5369601b",
+  "kind": "official-layout CSV",
+  "encoding": "utf-8-sig",
+  "n_columns": 53,
+  "fidelity": "full official layout",
   "source_rows": 14657,
   "unique_refs": 14657,
   "blank_ref_rows": 0,
@@ -20,9 +17,9 @@
   "label": "July 2026 (Q2)"
  },
  "new": {
-  "file": "Q3_CANONICAL_STAGED.csv",
-  "bytes": 5190808,
-  "sha256": "9b1f87ebdfe12601ca55c3d6f7c621739e5077f64988d47471fb03a60f381343",
+  "file": "repd-2026q3.csv",
+  "bytes": 5201029,
+  "sha256": "d937ae16ad07f43caaaa25b4cee56399e1e9b9bb2ae5ecb7bc88cf9bc092e4b9",
   "kind": "official-layout CSV",
   "encoding": "utf-8-sig",
   "n_columns": 53,
@@ -39,43 +36,9 @@
   "capacity_column": "Installed Capacity (MWelec)",
   "capacity_rule": "blank or non-numeric capacity is UNKNOWN and excluded from MW sums (never zero)",
   "capacity_tolerance_mw": 0.0051,
-  "compared_columns": 19,
+  "compared_columns": 52,
   "columns_only_in_previous": [],
-  "columns_only_in_new": [
-   "Storage Type",
-   "Storage Co-location REPD Ref ID",
-   "Share Community Scheme",
-   "CHP Enabled",
-   "CfD Allocation Round",
-   "RO Banding (ROC/MWh)",
-   "FiT Tariff (p/kWh)",
-   "CfD Capacity (MW)",
-   "Turbine Capacity (MW)",
-   "No. of Turbines",
-   "Height of Turbines (m)",
-   "Mounting Type for Solar",
-   "Development Status",
-   "Are they re-applying (New REPD Ref)",
-   "Are they re-applying (Old REPD Ref)",
-   "Address",
-   "Post Code",
-   "X-coordinate",
-   "Y-coordinate",
-   "Appeal Reference",
-   "Secretary of State Reference",
-   "Type of Secretary of State Intervention",
-   "Judicial Review",
-   "Offshore Wind Round",
-   "Appeal Lodged",
-   "Appeal Withdrawn",
-   "Appeal Refused",
-   "Appeal Granted",
-   "Secretary of State - Intervened",
-   "Secretary of State - Refusal",
-   "Secretary of State - Granted",
-   "Heat Network Ref",
-   "Solar Site Area (sqm)"
-  ],
+  "columns_only_in_new": [],
   "value_normalisation": "whitespace collapsed, dates to ISO (day-first only), numeric columns as numbers equal within the capacity tolerance"
  },
  "summary": {
@@ -85,11 +48,11 @@
   "added": 319,
   "removed": 9,
   "retained": 14648,
-  "added_mw": 8816.063,
+  "added_mw": 8816.07,
   "removed_mw": 169.8,
-  "previous_mw": 398239.749,
-  "new_mw": 407381.952,
-  "delta_mw": 9142.203,
+  "previous_mw": 398240.93,
+  "new_mw": 407383.14,
+  "delta_mw": 9142.21,
   "status_changes": 373,
   "status_changes_new_mw": 20097.08,
   "capacity_edits": 17,
@@ -98,17 +61,17 @@
   "milestones": {
    "consented": {
     "n": 338,
-    "mw": 13789.589,
+    "mw": 13789.6,
     "n_unknown_mw": 38
    },
    "under_construction": {
     "n": 26,
-    "mw": 1943.862,
+    "mw": 1943.86,
     "n_unknown_mw": 5
    },
    "operational": {
     "n": 32,
-    "mw": 1049.714,
+    "mw": 1049.72,
     "n_unknown_mw": 5
    },
    "refused": {
@@ -118,7 +81,7 @@
    },
    "withdrawn": {
     "n": 17,
-    "mw": 830.224,
+    "mw": 830.22,
     "n_unknown_mw": 4
    }
   }
@@ -129,9 +92,9 @@
    "old_n": 14657,
    "new_n": 14967,
    "delta_n": 310,
-   "old_mw": 398239.749,
-   "new_mw": 407381.952,
-   "delta_mw": 9142.203,
+   "old_mw": 398240.93,
+   "new_mw": 407383.14,
+   "delta_mw": 9142.21,
    "old_n_unknown_mw": 1345,
    "new_n_unknown_mw": 1367
   },
@@ -174,8 +137,8 @@
     "old_n": 2678,
     "new_n": 2765,
     "delta_n": 87,
-    "old_mw": 147783.206,
-    "new_mw": 153889.076,
+    "old_mw": 147783.22,
+    "new_mw": 153889.09,
     "delta_mw": 6105.87,
     "old_n_unknown_mw": 592,
     "new_n_unknown_mw": 594
@@ -196,8 +159,8 @@
     "old_n": 286,
     "new_n": 286,
     "delta_n": 0,
-    "old_mw": 9706.5,
-    "new_mw": 9706.5,
+    "old_mw": 9706.54,
+    "new_mw": 9706.54,
     "delta_mw": 0.0,
     "old_n_unknown_mw": 12,
     "new_n_unknown_mw": 12
@@ -240,8 +203,8 @@
     "old_n": 3,
     "new_n": 3,
     "delta_n": 0,
-    "old_mw": 2.105,
-    "new_mw": 2.105,
+    "old_mw": 2.11,
+    "new_mw": 2.11,
     "delta_mw": 0.0,
     "old_n_unknown_mw": 1,
     "new_n_unknown_mw": 1
@@ -350,8 +313,8 @@
     "old_n": 157,
     "new_n": 157,
     "delta_n": 0,
-    "old_mw": 240.495,
-    "new_mw": 240.495,
+    "old_mw": 240.51,
+    "new_mw": 240.51,
     "delta_mw": 0.0,
     "old_n_unknown_mw": 8,
     "new_n_unknown_mw": 8
@@ -361,9 +324,9 @@
     "old_n": 7460,
     "new_n": 7649,
     "delta_n": 189,
-    "old_mw": 68234.648,
-    "new_mw": 70120.261,
-    "delta_mw": 1885.613,
+    "old_mw": 68235.66,
+    "new_mw": 70121.28,
+    "delta_mw": 1885.62,
     "old_n_unknown_mw": 488,
     "new_n_unknown_mw": 504
    },
@@ -416,8 +379,8 @@
     "old_n": 2748,
     "new_n": 2776,
     "delta_n": 28,
-    "old_mw": 61333.095,
-    "new_mw": 62299.815,
+    "old_mw": 61333.19,
+    "new_mw": 62299.91,
     "delta_mw": 966.72,
     "old_n_unknown_mw": 106,
     "new_n_unknown_mw": 108
@@ -429,8 +392,8 @@
     "old_n": 391,
     "new_n": 390,
     "delta_n": -1,
-    "old_mw": 7833.828,
-    "new_mw": 7764.928,
+    "old_mw": 7833.83,
+    "new_mw": 7764.93,
     "delta_mw": -68.9,
     "old_n_unknown_mw": 18,
     "new_n_unknown_mw": 19
@@ -473,9 +436,9 @@
     "old_n": 941,
     "new_n": 965,
     "delta_n": 24,
-    "old_mw": 19293.751,
-    "new_mw": 20630.598,
-    "delta_mw": 1336.847,
+    "old_mw": 19293.75,
+    "new_mw": 20630.6,
+    "delta_mw": 1336.85,
     "old_n_unknown_mw": 70,
     "new_n_unknown_mw": 69
    },
@@ -484,9 +447,9 @@
     "old_n": 1539,
     "new_n": 1456,
     "delta_n": -83,
-    "old_mw": 95143.588,
-    "new_mw": 91264.672,
-    "delta_mw": -3878.916,
+    "old_mw": 95143.68,
+    "new_mw": 91264.76,
+    "delta_mw": -3878.92,
     "old_n_unknown_mw": 271,
     "new_n_unknown_mw": 250
    },
@@ -495,9 +458,9 @@
     "old_n": 671,
     "new_n": 687,
     "delta_n": 16,
-    "old_mw": 13408.764,
-    "new_mw": 14238.705,
-    "delta_mw": 829.941,
+    "old_mw": 13408.81,
+    "new_mw": 14238.75,
+    "delta_mw": 829.94,
     "old_n_unknown_mw": 46,
     "new_n_unknown_mw": 50
    },
@@ -506,9 +469,9 @@
     "old_n": 5948,
     "new_n": 6243,
     "delta_n": 295,
-    "old_mw": 146995.737,
-    "new_mw": 155491.746,
-    "delta_mw": 8496.009,
+    "old_mw": 146996.67,
+    "new_mw": 155492.69,
+    "delta_mw": 8496.02,
     "old_n_unknown_mw": 737,
     "new_n_unknown_mw": 763
    },
@@ -550,9 +513,9 @@
     "old_n": 3132,
     "new_n": 3162,
     "delta_n": 30,
-    "old_mw": 58603.625,
-    "new_mw": 59203.039,
-    "delta_mw": 599.414,
+    "old_mw": 58603.64,
+    "new_mw": 59203.06,
+    "delta_mw": 599.42,
     "old_n_unknown_mw": 50,
     "new_n_unknown_mw": 55
    },
@@ -572,9 +535,9 @@
     "old_n": 826,
     "new_n": 839,
     "delta_n": 13,
-    "old_mw": 16639.412,
-    "new_mw": 16751.318,
-    "delta_mw": 111.906,
+    "old_mw": 16639.46,
+    "new_mw": 16751.36,
+    "delta_mw": 111.9,
     "old_n_unknown_mw": 68,
     "new_n_unknown_mw": 71
    },
@@ -583,9 +546,9 @@
     "old_n": 457,
     "new_n": 471,
     "delta_n": 14,
-    "old_mw": 28143.044,
-    "new_mw": 29321.547,
-    "delta_mw": 1178.503,
+    "old_mw": 28143.09,
+    "new_mw": 29321.59,
+    "delta_mw": 1178.5,
     "old_n_unknown_mw": 54,
     "new_n_unknown_mw": 58
    }
@@ -607,9 +570,9 @@
     "old_n": 10564,
     "new_n": 10771,
     "delta_n": 207,
-    "old_mw": 232054.353,
-    "new_mw": 237055.896,
-    "delta_mw": 5001.543,
+    "old_mw": 232055.38,
+    "new_mw": 237056.92,
+    "delta_mw": 5001.54,
     "old_n_unknown_mw": 1031,
     "new_n_unknown_mw": 1043
    },
@@ -618,8 +581,8 @@
     "old_n": 533,
     "new_n": 542,
     "delta_n": 9,
-    "old_mw": 6199.835,
-    "new_mw": 6490.985,
+    "old_mw": 6199.85,
+    "new_mw": 6491.0,
     "delta_mw": 291.15,
     "old_n_unknown_mw": 78,
     "new_n_unknown_mw": 78
@@ -629,9 +592,9 @@
     "old_n": 2715,
     "new_n": 2763,
     "delta_n": 48,
-    "old_mw": 138926.531,
-    "new_mw": 142254.066,
-    "delta_mw": 3327.535,
+    "old_mw": 138926.63,
+    "new_mw": 142254.17,
+    "delta_mw": 3327.54,
     "old_n_unknown_mw": 169,
     "new_n_unknown_mw": 170
    },
@@ -640,9 +603,9 @@
     "old_n": 844,
     "new_n": 890,
     "delta_n": 46,
-    "old_mw": 21043.03,
-    "new_mw": 21565.005,
-    "delta_mw": 521.975,
+    "old_mw": 21043.07,
+    "new_mw": 21565.05,
+    "delta_mw": 521.98,
     "old_n_unknown_mw": 67,
     "new_n_unknown_mw": 76
    }
@@ -972,8 +935,8 @@
     "old_n": 1328,
     "new_n": 1400,
     "delta_n": 72,
-    "old_mw": 72098.136,
-    "new_mw": 79763.066,
+    "old_mw": 72098.15,
+    "new_mw": 79763.08,
     "delta_mw": 7664.93,
     "old_n_unknown_mw": 318,
     "new_n_unknown_mw": 324
@@ -1093,8 +1056,8 @@
     "old_n": 63,
     "new_n": 63,
     "delta_n": 0,
-    "old_mw": 2992.256,
-    "new_mw": 2992.256,
+    "old_mw": 2992.26,
+    "new_mw": 2992.26,
     "delta_mw": 0.0,
     "old_n_unknown_mw": 0,
     "new_n_unknown_mw": 0
@@ -1148,8 +1111,8 @@
     "old_n": 20,
     "new_n": 20,
     "delta_n": 0,
-    "old_mw": 558.403,
-    "new_mw": 558.403,
+    "old_mw": 558.4,
+    "new_mw": 558.4,
     "delta_mw": 0.0,
     "old_n_unknown_mw": 0,
     "new_n_unknown_mw": 0
@@ -1159,8 +1122,8 @@
     "old_n": 68,
     "new_n": 68,
     "delta_n": 0,
-    "old_mw": 86.756,
-    "new_mw": 86.756,
+    "old_mw": 86.79,
+    "new_mw": 86.79,
     "delta_mw": 0.0,
     "old_n_unknown_mw": 8,
     "new_n_unknown_mw": 8
@@ -1181,8 +1144,8 @@
     "old_n": 81,
     "new_n": 81,
     "delta_n": 0,
-    "old_mw": 3466.185,
-    "new_mw": 3466.185,
+    "old_mw": 3466.19,
+    "new_mw": 3466.19,
     "delta_mw": 0.0,
     "old_n_unknown_mw": 1,
     "new_n_unknown_mw": 1
@@ -1434,8 +1397,8 @@
     "old_n": 1,
     "new_n": 1,
     "delta_n": 0,
-    "old_mw": 0.105,
-    "new_mw": 0.105,
+    "old_mw": 0.11,
+    "new_mw": 0.11,
     "delta_mw": 0.0,
     "old_n_unknown_mw": 0,
     "new_n_unknown_mw": 0
@@ -2006,8 +1969,8 @@
     "old_n": 22,
     "new_n": 22,
     "delta_n": 0,
-    "old_mw": 13.725,
-    "new_mw": 13.725,
+    "old_mw": 13.73,
+    "new_mw": 13.73,
     "delta_mw": 0.0,
     "old_n_unknown_mw": 2,
     "new_n_unknown_mw": 2
@@ -2039,8 +2002,8 @@
     "old_n": 10,
     "new_n": 10,
     "delta_n": 0,
-    "old_mw": 10.37,
-    "new_mw": 10.37,
+    "old_mw": 10.38,
+    "new_mw": 10.38,
     "delta_mw": 0.0,
     "old_n_unknown_mw": 2,
     "new_n_unknown_mw": 2
@@ -2061,8 +2024,8 @@
     "old_n": 131,
     "new_n": 131,
     "delta_n": 0,
-    "old_mw": 793.282,
-    "new_mw": 793.282,
+    "old_mw": 793.28,
+    "new_mw": 793.28,
     "delta_mw": 0.0,
     "old_n_unknown_mw": 1,
     "new_n_unknown_mw": 1
@@ -2105,9 +2068,9 @@
     "old_n": 304,
     "new_n": 312,
     "delta_n": 8,
-    "old_mw": 3232.831,
-    "new_mw": 3454.278,
-    "delta_mw": 221.447,
+    "old_mw": 3232.83,
+    "new_mw": 3454.28,
+    "delta_mw": 221.45,
     "old_n_unknown_mw": 19,
     "new_n_unknown_mw": 20
    },
@@ -2116,9 +2079,9 @@
     "old_n": 669,
     "new_n": 620,
     "delta_n": -49,
-    "old_mw": 16764.408,
-    "new_mw": 15772.297,
-    "delta_mw": -992.111,
+    "old_mw": 16764.48,
+    "new_mw": 15772.37,
+    "delta_mw": -992.11,
     "old_n_unknown_mw": 73,
     "new_n_unknown_mw": 69
    },
@@ -2127,9 +2090,9 @@
     "old_n": 184,
     "new_n": 189,
     "delta_n": 5,
-    "old_mw": 1075.901,
-    "new_mw": 1110.742,
-    "delta_mw": 34.841,
+    "old_mw": 1075.94,
+    "new_mw": 1110.78,
+    "delta_mw": 34.84,
     "old_n_unknown_mw": 11,
     "new_n_unknown_mw": 13
    },
@@ -2138,9 +2101,9 @@
     "old_n": 3962,
     "new_n": 4154,
     "delta_n": 192,
-    "old_mw": 26783.385,
-    "new_mw": 28820.889,
-    "delta_mw": 2037.504,
+    "old_mw": 26784.2,
+    "new_mw": 28821.71,
+    "delta_mw": 2037.51,
     "old_n_unknown_mw": 319,
     "new_n_unknown_mw": 330
    },
@@ -2160,9 +2123,9 @@
     "old_n": 1407,
     "new_n": 1424,
     "delta_n": 17,
-    "old_mw": 11149.14,
-    "new_mw": 11297.764,
-    "delta_mw": 148.624,
+    "old_mw": 11149.15,
+    "new_mw": 11297.78,
+    "delta_mw": 148.63,
     "old_n_unknown_mw": 16,
     "new_n_unknown_mw": 19
    },
@@ -2182,9 +2145,9 @@
     "old_n": 332,
     "new_n": 341,
     "delta_n": 9,
-    "old_mw": 2934.582,
-    "new_mw": 2945.488,
-    "delta_mw": 10.906,
+    "old_mw": 2934.62,
+    "new_mw": 2945.52,
+    "delta_mw": 10.9,
     "old_n_unknown_mw": 20,
     "new_n_unknown_mw": 22
    },
@@ -2193,9 +2156,9 @@
     "old_n": 223,
     "new_n": 231,
     "delta_n": 8,
-    "old_mw": 3213.119,
-    "new_mw": 3655.522,
-    "delta_mw": 442.403,
+    "old_mw": 3213.16,
+    "new_mw": 3655.56,
+    "delta_mw": 442.4,
     "old_n_unknown_mw": 21,
     "new_n_unknown_mw": 22
    },
@@ -2479,9 +2442,9 @@
     "old_n": 294,
     "new_n": 287,
     "delta_n": -7,
-    "old_mw": 10866.35,
-    "new_mw": 11033.895,
-    "delta_mw": 167.545,
+    "old_mw": 10866.37,
+    "new_mw": 11033.91,
+    "delta_mw": 167.54,
     "old_n_unknown_mw": 60,
     "new_n_unknown_mw": 54
    },
@@ -2490,8 +2453,8 @@
     "old_n": 282,
     "new_n": 285,
     "delta_n": 3,
-    "old_mw": 5740.86,
-    "new_mw": 6091.36,
+    "old_mw": 5740.87,
+    "new_mw": 6091.37,
     "delta_mw": 350.5,
     "old_n_unknown_mw": 5,
     "new_n_unknown_mw": 6
@@ -2501,9 +2464,9 @@
     "old_n": 372,
     "new_n": 400,
     "delta_n": 28,
-    "old_mw": 7237.435,
-    "new_mw": 7497.51,
-    "delta_mw": 260.075,
+    "old_mw": 7237.5,
+    "new_mw": 7497.58,
+    "delta_mw": 260.08,
     "old_n_unknown_mw": 29,
     "new_n_unknown_mw": 36
    },
@@ -2579,7 +2542,7 @@
   "added": {
    "total": {
     "n": 319,
-    "mw": 8816.063,
+    "mw": 8816.07,
     "n_unknown_mw": 38
    },
    "by_technology": {
@@ -2610,7 +2573,7 @@
     },
     "Solar Photovoltaics": {
      "n": 195,
-     "mw": 1979.473,
+     "mw": 1979.48,
      "n_unknown_mw": 21
     },
     "Wind Offshore": {
@@ -2637,7 +2600,7 @@
     },
     "Application Submitted": {
      "n": 216,
-     "mw": 5355.898,
+     "mw": 5355.9,
      "n_unknown_mw": 26
     },
     "Application Withdrawn": {
@@ -2647,7 +2610,7 @@
     },
     "Awaiting Construction": {
      "n": 88,
-     "mw": 3112.825,
+     "mw": 3112.83,
      "n_unknown_mw": 10
     },
     "No Application Made": {
@@ -3663,7 +3626,7 @@
      "operator": "Scottish Water (Dundee)",
      "technology": "Solar Photovoltaics",
      "status": "Awaiting Construction",
-     "mw": 0.715,
+     "mw": 0.72,
      "country": "Scotland",
      "region": "Scotland"
     },
@@ -3783,7 +3746,7 @@
      "operator": "GW Pharmaceuticals",
      "technology": "Solar Photovoltaics",
      "status": "Application Submitted",
-     "mw": 0.509,
+     "mw": 0.51,
      "country": "England",
      "region": "South East"
     },
@@ -4308,6 +4271,16 @@
      "region": "South West"
     },
     {
+     "ref": "21248",
+     "site": "Balfour Beatty Rail Plant, Old Railway Works - Solar PV",
+     "operator": "Balfour Beatty Group Limited Head Office",
+     "technology": "Solar Photovoltaics",
+     "status": "Application Submitted",
+     "mw": 0.26,
+     "country": "England",
+     "region": "South East"
+    },
+    {
      "ref": "21282",
      "site": "Bridgewater High Lower School, Hall Drive - Solar Panels",
      "operator": "Solar Options for Schools",
@@ -4324,16 +4297,6 @@
      "technology": "Solar Photovoltaics",
      "status": "Application Submitted",
      "mw": 0.26,
-     "country": "England",
-     "region": "South East"
-    },
-    {
-     "ref": "21248",
-     "site": "Balfour Beatty Rail Plant, Old Railway Works - Solar PV",
-     "operator": "Balfour Beatty Group Limited Head Office",
-     "technology": "Solar Photovoltaics",
-     "status": "Application Submitted",
-     "mw": 0.259,
      "country": "England",
      "region": "South East"
     },
@@ -5995,9 +5958,9 @@
     "from": "Application Submitted",
     "to": "Awaiting Construction",
     "n": 237,
-    "mw": 10462.54,
+    "mw": 10462.55,
     "n_unknown_mw": 25,
-    "old_mw": 10665.84,
+    "old_mw": 10665.85,
     "refs": [
      "7858",
      "10038",
@@ -6291,9 +6254,9 @@
     "from": "Awaiting Construction",
     "to": "Under Construction",
     "n": 23,
-    "mw": 1808.912,
+    "mw": 1808.91,
     "n_unknown_mw": 5,
-    "old_mw": 1794.512,
+    "old_mw": 1794.51,
     "refs": [
      "9546",
      "9547",
@@ -6324,9 +6287,9 @@
     "from": "Awaiting Construction",
     "to": "Operational",
     "n": 16,
-    "mw": 182.525,
+    "mw": 182.53,
     "n_unknown_mw": 3,
-    "old_mw": 180.525,
+    "old_mw": 180.53,
     "refs": [
      "8842",
      "8920",
@@ -6350,9 +6313,9 @@
     "from": "Application Submitted",
     "to": "Application Withdrawn",
     "n": 14,
-    "mw": 829.444,
+    "mw": 829.44,
     "n_unknown_mw": 4,
-    "old_mw": 829.444,
+    "old_mw": 829.44,
     "refs": [
      "8921",
      "11441",
@@ -6374,9 +6337,9 @@
     "from": "Application Refused",
     "to": "Awaiting Construction",
     "n": 13,
-    "mw": 214.224,
+    "mw": 214.22,
     "n_unknown_mw": 3,
-    "old_mw": 214.224,
+    "old_mw": 214.22,
     "refs": [
      "10633",
      "12037",
@@ -6397,9 +6360,9 @@
     "from": "Under Construction",
     "to": "Operational",
     "n": 10,
-    "mw": 707.359,
+    "mw": 707.36,
     "n_unknown_mw": 1,
-    "old_mw": 712.359,
+    "old_mw": 712.36,
     "refs": [
      "7889",
      "9013",
@@ -6417,9 +6380,9 @@
     "from": "Application Refused",
     "to": "Revised",
     "n": 5,
-    "mw": 101.379,
+    "mw": 101.38,
     "n_unknown_mw": 1,
-    "old_mw": 101.379,
+    "old_mw": 101.38,
     "refs": [
      "16685",
      "18368",
@@ -6432,9 +6395,9 @@
     "from": "Awaiting Construction",
     "to": "Revised",
     "n": 4,
-    "mw": 1.244,
+    "mw": 1.24,
     "n_unknown_mw": 1,
-    "old_mw": 1.244,
+    "old_mw": 1.24,
     "refs": [
      "9837",
      "14612",
@@ -6526,9 +6489,9 @@
     "from": "Application Withdrawn",
     "to": "Revised",
     "n": 1,
-    "mw": 0.283,
+    "mw": 0.28,
     "n_unknown_mw": 0,
-    "old_mw": 0.283,
+    "old_mw": 0.28,
     "refs": [
      "19670"
     ]
@@ -6559,17 +6522,17 @@
    "consented": {
     "all": {
      "n": 338,
-     "mw": 13789.589,
+     "mw": 13789.6,
      "n_unknown_mw": 38
     },
     "transition": {
      "n": 250,
-     "mw": 10676.764,
+     "mw": 10676.77,
      "n_unknown_mw": 28
     },
     "new_record": {
      "n": 88,
-     "mw": 3112.825,
+     "mw": 3112.83,
      "n_unknown_mw": 10
     },
     "from_status": {
@@ -7398,17 +7361,17 @@
      "Solar Photovoltaics": {
       "all": {
        "n": 216,
-       "mw": 2552.594,
+       "mw": 2552.6,
        "n_unknown_mw": 15
       },
       "transition": {
        "n": 151,
-       "mw": 2480.689,
+       "mw": 2480.69,
        "n_unknown_mw": 8
       },
       "new_record": {
        "n": 65,
-       "mw": 71.905,
+       "mw": 71.91,
        "n_unknown_mw": 7
       },
       "from_status": {
@@ -7762,12 +7725,12 @@
      "Wind Onshore": {
       "all": {
        "n": 28,
-       "mw": 260.075,
+       "mw": 260.08,
        "n_unknown_mw": 7
       },
       "transition": {
        "n": 27,
-       "mw": 260.075,
+       "mw": 260.08,
        "n_unknown_mw": 6
       },
       "new_record": {
@@ -7877,12 +7840,12 @@
    "under_construction": {
     "all": {
      "n": 26,
-     "mw": 1943.862,
+     "mw": 1943.86,
      "n_unknown_mw": 5
     },
     "transition": {
      "n": 23,
-     "mw": 1808.912,
+     "mw": 1808.91,
      "n_unknown_mw": 5
     },
     "new_record": {
@@ -8228,12 +8191,12 @@
      "Solar Photovoltaics": {
       "all": {
        "n": 14,
-       "mw": 580.362,
+       "mw": 580.36,
        "n_unknown_mw": 1
       },
       "transition": {
        "n": 12,
-       "mw": 517.412,
+       "mw": 517.41,
        "n_unknown_mw": 1
       },
       "new_record": {
@@ -8328,12 +8291,12 @@
    "operational": {
     "all": {
      "n": 32,
-     "mw": 1049.714,
+     "mw": 1049.72,
      "n_unknown_mw": 5
     },
     "transition": {
      "n": 32,
-     "mw": 1049.714,
+     "mw": 1049.72,
      "n_unknown_mw": 5
     },
     "new_record": {
@@ -8672,12 +8635,12 @@
      "Solar Photovoltaics": {
       "all": {
        "n": 17,
-       "mw": 148.624,
+       "mw": 148.63,
        "n_unknown_mw": 3
       },
       "transition": {
        "n": 17,
-       "mw": 148.624,
+       "mw": 148.63,
        "n_unknown_mw": 3
       },
       "new_record": {
@@ -9265,12 +9228,12 @@
    "withdrawn": {
     "all": {
      "n": 17,
-     "mw": 830.224,
+     "mw": 830.22,
      "n_unknown_mw": 4
     },
     "transition": {
      "n": 14,
-     "mw": 829.444,
+     "mw": 829.44,
      "n_unknown_mw": 4
     },
     "new_record": {
@@ -9360,7 +9323,7 @@
       "operator": "Vandemoortele Worcester",
       "technology": "Solar Photovoltaics",
       "status": "Application Withdrawn",
-      "mw": 0.582,
+      "mw": 0.58,
       "country": "England",
       "region": "West Midlands",
       "basis": "transition",
@@ -9519,12 +9482,12 @@
      "Solar Photovoltaics": {
       "all": {
        "n": 6,
-       "mw": 35.124,
+       "mw": 35.12,
        "n_unknown_mw": 2
       },
       "transition": {
        "n": 5,
-       "mw": 34.744,
+       "mw": 34.74,
        "n_unknown_mw": 2
       },
       "new_record": {
@@ -9554,7 +9517,7 @@
         "operator": "Vandemoortele Worcester",
         "technology": "Solar Photovoltaics",
         "status": "Application Withdrawn",
-        "mw": 0.582,
+        "mw": 0.58,
         "country": "England",
         "region": "West Midlands",
         "basis": "transition",
@@ -9578,7 +9541,7 @@
         "operator": "RR UK (South) Limited",
         "technology": "Solar Photovoltaics",
         "status": "Application Withdrawn",
-        "mw": 0.162,
+        "mw": 0.16,
         "country": "England",
         "region": "North West",
         "basis": "transition",
@@ -10108,8 +10071,16 @@
    "retained_changed": 530
   },
   {
+   "column": "Address",
+   "retained_changed": 521
+  },
+  {
    "column": "Record Last Updated (dd/mm/yyyy)",
    "retained_changed": 473
+  },
+  {
+   "column": "Development Status",
+   "retained_changed": 373
   },
   {
    "column": "Development Status (short)",
@@ -10144,20 +10115,68 @@
    "retained_changed": 32
   },
   {
+   "column": "Y-coordinate",
+   "retained_changed": 28
+  },
+  {
+   "column": "X-coordinate",
+   "retained_changed": 27
+  },
+  {
+   "column": "Mounting Type for Solar",
+   "retained_changed": 19
+  },
+  {
+   "column": "Solar Site Area (sqm)",
+   "retained_changed": 19
+  },
+  {
    "column": "Planning Application Withdrawn",
    "retained_changed": 14
+  },
+  {
+   "column": "Appeal Granted",
+   "retained_changed": 13
   },
   {
    "column": "Country",
    "retained_changed": 13
   },
   {
+   "column": "Are they re-applying (New REPD Ref)",
+   "retained_changed": 10
+  },
+  {
+   "column": "Turbine Capacity (MW)",
+   "retained_changed": 7
+  },
+  {
+   "column": "Height of Turbines (m)",
+   "retained_changed": 6
+  },
+  {
    "column": "Planning Application Reference",
    "retained_changed": 6
   },
   {
+   "column": "Storage Co-location REPD Ref ID",
+   "retained_changed": 6
+  },
+  {
+   "column": "Appeal Lodged",
+   "retained_changed": 5
+  },
+  {
+   "column": "Appeal Reference",
+   "retained_changed": 5
+  },
+  {
    "column": "Site Name",
    "retained_changed": 5
+  },
+  {
+   "column": "No. of Turbines",
+   "retained_changed": 4
   },
   {
    "column": "Planning Application Submitted",
@@ -10168,6 +10187,14 @@
    "retained_changed": 4
   },
   {
+   "column": "Post Code",
+   "retained_changed": 3
+  },
+  {
+   "column": "Storage Type",
+   "retained_changed": 2
+  },
+  {
    "column": "Planning Authority",
    "retained_changed": 1
   },
@@ -10176,7 +10203,75 @@
    "retained_changed": 1
   },
   {
+   "column": "Appeal Refused",
+   "retained_changed": 0
+  },
+  {
+   "column": "Appeal Withdrawn",
+   "retained_changed": 0
+  },
+  {
+   "column": "Are they re-applying (Old REPD Ref)",
+   "retained_changed": 0
+  },
+  {
+   "column": "CHP Enabled",
+   "retained_changed": 0
+  },
+  {
+   "column": "CfD Allocation Round",
+   "retained_changed": 0
+  },
+  {
+   "column": "CfD Capacity (MW)",
+   "retained_changed": 0
+  },
+  {
+   "column": "FiT Tariff (p/kWh)",
+   "retained_changed": 0
+  },
+  {
+   "column": "Heat Network Ref",
+   "retained_changed": 0
+  },
+  {
+   "column": "Judicial Review",
+   "retained_changed": 0
+  },
+  {
+   "column": "Offshore Wind Round",
+   "retained_changed": 0
+  },
+  {
    "column": "Old Ref ID",
+   "retained_changed": 0
+  },
+  {
+   "column": "RO Banding (ROC/MWh)",
+   "retained_changed": 0
+  },
+  {
+   "column": "Secretary of State - Granted",
+   "retained_changed": 0
+  },
+  {
+   "column": "Secretary of State - Intervened",
+   "retained_changed": 0
+  },
+  {
+   "column": "Secretary of State - Refusal",
+   "retained_changed": 0
+  },
+  {
+   "column": "Secretary of State Reference",
+   "retained_changed": 0
+  },
+  {
+   "column": "Share Community Scheme",
+   "retained_changed": 0
+  },
+  {
+   "column": "Type of Secretary of State Intervention",
    "retained_changed": 0
   }
  ],
@@ -11362,9 +11457,9 @@
     "operator": "Derbyshire County Council Property Services Department",
     "previous_status": "Awaiting Construction",
     "new_status": "Under Construction",
-    "previous_mw": 4.412,
-    "new_mw": 4.412,
-    "rank_mw": 4.412,
+    "previous_mw": 4.41,
+    "new_mw": 4.41,
+    "rank_mw": 4.41,
     "country": "England"
    },
    {
@@ -11530,9 +11625,9 @@
     "operator": "Scottish Water Horizons",
     "previous_status": "Awaiting Construction",
     "new_status": "Operational",
-    "previous_mw": 1.638,
-    "new_mw": 1.638,
-    "rank_mw": 1.638,
+    "previous_mw": 1.64,
+    "new_mw": 1.64,
+    "rank_mw": 1.64,
     "country": "Scotland"
    },
    {
@@ -11554,9 +11649,9 @@
     "operator": "Wienerberger Limited Head Office",
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
-    "previous_mw": 1.588,
-    "new_mw": 1.588,
-    "rank_mw": 1.588,
+    "previous_mw": 1.59,
+    "new_mw": 1.59,
+    "rank_mw": 1.59,
     "country": "England"
    },
    {
@@ -11818,9 +11913,9 @@
     "operator": "Wealden District Council",
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
-    "previous_mw": 0.967,
-    "new_mw": 0.967,
-    "rank_mw": 0.967,
+    "previous_mw": 0.97,
+    "new_mw": 0.97,
+    "rank_mw": 0.97,
     "country": "England"
    },
    {
@@ -11866,9 +11961,9 @@
     "operator": "Scottish Water",
     "previous_status": "Under Construction",
     "new_status": "Operational",
-    "previous_mw": 0.859,
-    "new_mw": 0.859,
-    "rank_mw": 0.859,
+    "previous_mw": 0.86,
+    "new_mw": 0.86,
+    "rank_mw": 0.86,
     "country": "Scotland"
    },
    {
@@ -11896,6 +11991,18 @@
     "country": "Wales"
    },
    {
+    "ref": "19110",
+    "movement": "status",
+    "site": "Peasiehill Road, Elliot Industrial Estate - Solar Panels",
+    "operator": "Ennovi Advanced Mobility Solutions UK Limited",
+    "previous_status": "Awaiting Construction",
+    "new_status": "Operational",
+    "previous_mw": 0.82,
+    "new_mw": 0.82,
+    "rank_mw": 0.82,
+    "country": "Scotland"
+   },
+   {
     "ref": "21378",
     "movement": "added",
     "site": "Greencore, Red House Road - Solar Panels",
@@ -11906,18 +12013,6 @@
     "new_mw": 0.82,
     "rank_mw": 0.82,
     "country": "England"
-   },
-   {
-    "ref": "19110",
-    "movement": "status",
-    "site": "Peasiehill Road, Elliot Industrial Estate - Solar Panels",
-    "operator": "Ennovi Advanced Mobility Solutions UK Limited",
-    "previous_status": "Awaiting Construction",
-    "new_status": "Operational",
-    "previous_mw": 0.818,
-    "new_mw": 0.818,
-    "rank_mw": 0.818,
-    "country": "Scotland"
    },
    {
     "ref": "20359",
@@ -11975,8 +12070,8 @@
     "previous_status": null,
     "new_status": "Awaiting Construction",
     "previous_mw": null,
-    "new_mw": 0.715,
-    "rank_mw": 0.715,
+    "new_mw": 0.72,
+    "rank_mw": 0.72,
     "country": "Scotland"
    },
    {
@@ -12094,9 +12189,9 @@
     "operator": "Vandemoortele Worcester",
     "previous_status": "Application Submitted",
     "new_status": "Application Withdrawn",
-    "previous_mw": 0.582,
-    "new_mw": 0.582,
-    "rank_mw": 0.582,
+    "previous_mw": 0.58,
+    "new_mw": 0.58,
+    "rank_mw": 0.58,
     "country": "England"
    },
    {
@@ -12215,8 +12310,8 @@
     "previous_status": null,
     "new_status": "Application Submitted",
     "previous_mw": null,
-    "new_mw": 0.509,
-    "rank_mw": 0.509,
+    "new_mw": 0.51,
+    "rank_mw": 0.51,
     "country": "England"
    },
    {
@@ -12682,9 +12777,9 @@
     "operator": "Downing Energy Development Company Limited",
     "previous_status": "Application Refused",
     "new_status": "Awaiting Construction",
-    "previous_mw": 0.354,
-    "new_mw": 0.354,
-    "rank_mw": 0.354,
+    "previous_mw": 0.35,
+    "new_mw": 0.35,
+    "rank_mw": 0.35,
     "country": "England"
    },
    {
@@ -12784,6 +12879,18 @@
     "country": "England"
    },
    {
+    "ref": "19524",
+    "movement": "status",
+    "site": "Lossie Seafoods, Sir William Smith Road - Solar PV Panels",
+    "operator": "RR Spink & Sons",
+    "previous_status": "Awaiting Construction",
+    "new_status": "Operational",
+    "previous_mw": 0.33,
+    "new_mw": 0.33,
+    "rank_mw": 0.33,
+    "country": "Scotland"
+   },
+   {
     "ref": "20771",
     "movement": "status",
     "site": "Savalbeg WTW - Solar Array",
@@ -12842,18 +12949,6 @@
     "new_mw": 0.33,
     "rank_mw": 0.33,
     "country": "England"
-   },
-   {
-    "ref": "19524",
-    "movement": "status",
-    "site": "Lossie Seafoods, Sir William Smith Road - Solar PV Panels",
-    "operator": "RR Spink & Sons",
-    "previous_status": "Awaiting Construction",
-    "new_status": "Operational",
-    "previous_mw": 0.329,
-    "new_mw": 0.329,
-    "rank_mw": 0.329,
-    "country": "Scotland"
    },
    {
     "ref": "19711",
@@ -13138,9 +13233,9 @@
     "operator": "Solar Options for Schools Limited",
     "previous_status": "Application Withdrawn",
     "new_status": "Revised",
-    "previous_mw": 0.283,
-    "new_mw": 0.283,
-    "rank_mw": 0.283,
+    "previous_mw": 0.28,
+    "new_mw": 0.28,
+    "rank_mw": 0.28,
     "country": "England"
    },
    {
@@ -13174,9 +13269,9 @@
     "operator": "David Lloyd Leisure Limited",
     "previous_status": "Awaiting Construction",
     "new_status": "Revised",
-    "previous_mw": 0.274,
-    "new_mw": 0.274,
-    "rank_mw": 0.274,
+    "previous_mw": 0.27,
+    "new_mw": 0.27,
+    "rank_mw": 0.27,
     "country": "England"
    },
    {
@@ -13240,6 +13335,18 @@
     "country": "England"
    },
    {
+    "ref": "19673",
+    "movement": "status",
+    "site": "Balfour Beatty Rail Plant, Old Railway Works - Solar PV",
+    "operator": "Balfour Beatty Group Limited Head Office",
+    "previous_status": "Application Refused",
+    "new_status": "Revised",
+    "previous_mw": 0.26,
+    "new_mw": 0.26,
+    "rank_mw": 0.26,
+    "country": "England"
+   },
+   {
     "ref": "20934",
     "movement": "status",
     "site": "Hunmanby Grange, Cans Dale To The Grange - Solar Panels & BESS",
@@ -13247,6 +13354,18 @@
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
     "previous_mw": 0.26,
+    "new_mw": 0.26,
+    "rank_mw": 0.26,
+    "country": "England"
+   },
+   {
+    "ref": "21248",
+    "movement": "added",
+    "site": "Balfour Beatty Rail Plant, Old Railway Works - Solar PV",
+    "operator": "Balfour Beatty Group Limited Head Office",
+    "previous_status": null,
+    "new_status": "Application Submitted",
+    "previous_mw": null,
     "new_mw": 0.26,
     "rank_mw": 0.26,
     "country": "England"
@@ -13273,30 +13392,6 @@
     "previous_mw": null,
     "new_mw": 0.26,
     "rank_mw": 0.26,
-    "country": "England"
-   },
-   {
-    "ref": "19673",
-    "movement": "status",
-    "site": "Balfour Beatty Rail Plant, Old Railway Works - Solar PV",
-    "operator": "Balfour Beatty Group Limited Head Office",
-    "previous_status": "Application Refused",
-    "new_status": "Revised",
-    "previous_mw": 0.259,
-    "new_mw": 0.259,
-    "rank_mw": 0.259,
-    "country": "England"
-   },
-   {
-    "ref": "21248",
-    "movement": "added",
-    "site": "Balfour Beatty Rail Plant, Old Railway Works - Solar PV",
-    "operator": "Balfour Beatty Group Limited Head Office",
-    "previous_status": null,
-    "new_status": "Application Submitted",
-    "previous_mw": null,
-    "new_mw": 0.259,
-    "rank_mw": 0.259,
     "country": "England"
    },
    {
@@ -14344,18 +14439,6 @@
     "country": "England"
    },
    {
-    "ref": "20843",
-    "movement": "status",
-    "site": "Styal Road - Solar Panels",
-    "operator": "RR UK (South) Limited",
-    "previous_status": "Application Submitted",
-    "new_status": "Application Withdrawn",
-    "previous_mw": 0.162,
-    "new_mw": 0.162,
-    "rank_mw": 0.162,
-    "country": "England"
-   },
-   {
     "ref": "20294",
     "movement": "status",
     "site": "Avisford Park Hotel, Yapton Lane - Solar Panels",
@@ -14374,6 +14457,18 @@
     "operator": "Private Developer",
     "previous_status": "Application Submitted",
     "new_status": "Awaiting Construction",
+    "previous_mw": 0.16,
+    "new_mw": 0.16,
+    "rank_mw": 0.16,
+    "country": "England"
+   },
+   {
+    "ref": "20843",
+    "movement": "status",
+    "site": "Styal Road - Solar Panels",
+    "operator": "RR UK (South) Limited",
+    "previous_status": "Application Submitted",
+    "new_status": "Application Withdrawn",
     "previous_mw": 0.16,
     "new_mw": 0.16,
     "rank_mw": 0.16,

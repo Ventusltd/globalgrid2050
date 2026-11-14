@@ -50,7 +50,7 @@ MW_RE = re.compile(r"(?<![\w.])([\d,]+(?:\.\d+)?)\s*(GW(?:p|ac|dc)?|MW(?:p|ac|dc
 USD_RE = re.compile(r"(?<!\w)(?:US\s*)?\$\s*([\d,.]+)\s*(trillion|billion|million|tn|bn|m)\b", re.I)
 SECTOR_RE = re.compile(r"\b(solar|photovoltaic|battery|bess|energy storage|wind farm|wind power|grid|electricity|substation|transmission|renewable|power plant|data cent(?:er|re)|hyperscale|cloud infrastructure|nuclear)\b", re.I)
 DC_RE = re.compile(r"\b(data cent(?:er|re)s?|hyperscal(?:e|er)|colocation|colo campus|server farm)\b", re.I)
-AI_RE = re.compile(r"\b(artificial intelligence|ai infrastructure|ai computing|hyperscal(?:e|er)|cloud computing|gpu cluster|data cent(?:er|re)|compute infrastructure)\b", re.I)
+AI_RE = re.compile(r"\b(artificial intelligence|AI|ai infrastructure|ai computing|hyperscal(?:e|er)|cloud computing|gpu cluster|data cent(?:er|re)|compute infrastructure)\b", re.I)
 CYBER_RE = re.compile(r"\b(cyber(?:security|attack|incident)|ransomware|malware|data breach|critical infrastructure outage|cloud outage|resilience incident)\b", re.I)
 ETHICS_RE = re.compile(r"\b(ethics|accountability|data privacy|human rights|governance|safety investigation|regulator|enforcement)\b", re.I)
 UNCERTAIN_RE = re.compile(r"\b(rumo[u]?r|unconfirmed|allegedly|sponsored|advertorial|paid partnership)\b", re.I)
@@ -107,7 +107,7 @@ def parse_date(raw: str) -> datetime | None:
     return dt.astimezone(timezone.utc)
 
 
-def official_repd_csv(path: Path) -> dict[str, dict[str, str]]:
+def official_repd_csv(path: Path, expected_count: int = 14967) -> dict[str, dict[str, str]]:
     raw = path.read_bytes()
     for enc in ("utf-8-sig", "cp1252"):
         try:
@@ -127,8 +127,8 @@ def official_repd_csv(path: Path) -> dict[str, dict[str, str]]:
         if not re.fullmatch(r"\d+", ref) or ref in out:
             raise ValueError("Candidate Ref ID missing or duplicated: " + ref)
         out[ref] = row
-    if len(out) != 14967:
-        raise ValueError("Wrong Q3 REPD unique identity count")
+    if len(out) != expected_count:
+        raise ValueError(f"REPD exact identity count mismatch: found {len(out)}, expected {expected_count}")
     return out
 
 
@@ -362,15 +362,55 @@ def build_snapshot(repd: dict, feeds: list[tuple[dict, bytes | Exception]], now:
     return snapshot, audit
 
 
+def select_validated_release(repo_root: Path, release_id: str = "auto") -> tuple[str, Path, int]:
+    """Choose newest descriptor with a locally committed cleaned REPD dataset.
+
+    This does not follow the latest gov.uk URL or silently advance a production
+    pointer. A future REPD quarter must first have a pinned descriptor, validated
+    candidate file and owner release process.
+    """
+    release_dir = repo_root / "automation/repd/releases"
+    descriptors = []
+    for file in sorted(release_dir.glob("20??q[1-4].json")):
+        info = json.loads(file.read_text(encoding="utf-8"))
+        key = info.get("release_id", "")
+        if info.get("schema") != "globalgrid2050.repd-release-descriptor.v1":
+            continue
+        if not re.fullmatch(r"20\d{2}q[1-4]", key):
+            continue
+        if release_id != "auto" and release_id != key:
+            continue
+        candidate = repo_root / ("repd-" + key + ".csv")
+        if not candidate.is_file():
+            continue
+        count = info.get("expected", {}).get("unique_refs")
+        if type(count) is not int or count <= 0:
+            continue
+        descriptors.append((key, candidate, count))
+    if not descriptors:
+        raise ValueError("No approved local REPD version has a matching descriptor and candidate")
+    # Quarter ids are chronologically sortable; never select a January root CSV.
+    return max(descriptors, key=lambda x: x[0])
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--repd", default="repd-2026q3.csv")
+    parser.add_argument("--repd", default="", help="Explicit validated full REPD CSV (optional)")
+    parser.add_argument("--release-id", default="auto", help="Committed quarter id or auto")
+    parser.add_argument("--repo-root", default=".")
+
     parser.add_argument("--out", required=True)
     parser.add_argument("--audit", required=True)
     parser.add_argument("--offline-fixtures", default="")
     args = parser.parse_args()
     now = datetime.now(timezone.utc)
-    repd = official_repd_csv(Path(args.repd))
+    if args.repd:
+        selected_id = args.release_id if args.release_id != "auto" else "2026q3"
+        expected = select_validated_release(Path(args.repo_root), selected_id)[2]
+        path = Path(args.repd)
+    else:
+        selected_id, path, expected = select_validated_release(Path(args.repo_root), args.release_id)
+    repd = official_repd_csv(path, expected)
     feeds = []
     for publisher in PUBLISHERS:
         try:
@@ -379,6 +419,9 @@ def main() -> int:
             data = exc
         feeds.append((publisher, data))
     snapshot, audit = build_snapshot(repd, feeds, now)
+    snapshot["release"] = selected_id
+    audit["release"] = selected_id
+    audit["validated_repd_file"] = str(path)
     failed = sum(s["status"] == "FAILED" for s in audit["sources"])
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     Path(args.audit).parent.mkdir(parents=True, exist_ok=True)

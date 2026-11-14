@@ -433,8 +433,8 @@
    ],
    "known_faults": [],
    "ci": null,
-   "merge_commit": null,
-   "state": "promotable candidate (no data-centre register content)",
+   "merge_commit": "24a1c2ee2579f576edf4ff6f8f27a306e5e50ad0",
+   "state": "operative (homepage points here); no data-centre register content",
    "datacentre_features": "no data-centre register content; data-centre headlines (public feeds, links only) retained",
    "removed_features": [
     "nearest-datacentre",
@@ -479,19 +479,116 @@
      ]
     }
    ]
+  },
+  {
+   "id": "202611141017",
+   "version": "V9.21",
+   "parent": "202611140306",
+   "date": "2026-11-14T10:17:00Z",
+   "added": "News block only. Opens with a list of headlines read from a file a scheduled workflow refreshes, newest first, with a browser-computed 'Headlines updated' or 'Stale since' label, a saved-copy fallback and a 'possible match' chip where the file names a REPD project. The August headlines become a labelled archive without REPD projects printed under unmatched headlines. Bug fix: the MAP button is no longer cut off at 1440 px. Table columns, CSV and every MAP link unchanged.",
+   "data_changed": false,
+   "runner": "tests/run_v9_21.sh",
+   "trees": [
+    "0c56d3a81d7e3abaec164ab689b0f4c8a38e7129"
+   ],
+   "features": [
+    {
+     "id": "live-headlines",
+     "file": "index.html",
+     "contains": "scripts/plugins/live-news.js"
+    },
+    {
+     "id": "headlines-status-label",
+     "file": "index.html",
+     "contains": "id=\"newsStatus\""
+    },
+    {
+     "id": "headlines-snapshot",
+     "file": "news/pipeline_headlines.snapshot.json",
+     "contains": "globalgrid2050.news.pipeline-headlines.v1"
+    },
+    {
+     "id": "news-archive",
+     "file": "index.html",
+     "contains": "id=\"newsArchive\""
+    }
+   ],
+   "known_faults": [
+    "Until the headlines workflow has run for the first time the live file does not exist and the saved copy is empty: the block says live headlines are not available.",
+    "NEWS SIGNAL column unchanged: August file, 29 of 7,775 rows.",
+    "At 1440 px the pinned ACTIONS column covers the neighbouring columns until the table is scrolled sideways."
+   ],
+   "ci": null,
+   "merge_commit": null,
+   "state": "published",
+   "datacentre_features": "no data-centre register content; data-centre headlines (public feeds, links only) retained",
+   "browser_probes": [
+    {
+     "name": "headlines label present and computed",
+     "selector": "body",
+     "js": "(function(){var s=document.querySelector('#newsStatus');return !!s&&['live','overdue','snapshot','unavailable'].includes(s.dataset.state)&&s.textContent.trim().length>20&&!/Loading/.test(s.textContent);})()"
+    },
+    {
+     "name": "no typed-in counts or audited-snapshot wording",
+     "selector": "body",
+     "js": "!/133 HEADLINES · 45 UK|AUDITED SNAPSHOT|ENERGY DAILY/i.test(document.body.textContent)"
+    },
+    {
+     "name": "table columns unchanged from the parent",
+     "selector": "body",
+     "js": "[...document.querySelectorAll('.tablewrap thead th')].map(function(th){return th.textContent.replace(/[^A-Z ]/g,'').trim().replace(/ +/g,' ');}).join('|')==='SITE NAME|COUNTY|OPERATOR|TECHNOLOGY|OFFICIAL REPD STATUS|OFFICIAL CAPACITY|REPD REF|GLOBALGRID REF|REPD UPDATED|NEWS SIGNAL|ACTIONS' && document.querySelector('#tbody tr').children.length===11"
+    },
+    {
+     "name": "MAP button inside the viewport",
+     "selector": "body",
+     "js": "(function(){var a=document.querySelector('#tbody tr a.atlaslink');a.scrollIntoView({block:'center'});var r=a.getBoundingClientRect();return r.width>0&&r.left>=0&&r.right<=window.innerWidth;})()"
+    },
+    {
+     "name": "stale rule: 13 days old reads as stale, 2 hours old as updated, failed refresh as stale",
+     "selector": "body",
+     "js": "(function(){var L=window.pipelineHeadlines.label,n=Date.parse('2026-11-14T12:00:00Z');return L('2026-11-01T12:00:00Z','ok',n,'live').state==='overdue'&&/^Stale since 1 Nov 2026 12:00 UTC/.test(L('2026-11-01T12:00:00Z','ok',n,'live').text)&&L('2026-11-14T10:00:00Z','ok',n,'live').text==='Headlines updated 14 Nov 2026 10:00 UTC'&&L('2026-11-14T10:00:00Z','failed',n,'live').state==='overdue'&&L('2026-11-14T10:00:00Z','ok',n,'snapshot').state==='snapshot'&&L('','',n,'none').state==='unavailable';})()"
+    },
+    {
+     "name": "headline list: newest first, text only, possible-match chip",
+     "selector": "body",
+     "js": "(function(){window.pipelineHeadlines.render({\"schema\": \"globalgrid2050.news.pipeline-headlines.v1\", \"generated_at\": \"2026-11-14T09:00:00Z\", \"status\": \"ok\", \"items\": [{\"title\": \"PROBE older headline\", \"link\": \"https://example.org/a\", \"source\": \"Probe Source\", \"date\": \"2026-11-10T08:00:00Z\", \"first_seen\": \"2026-11-10T09:00:00Z\", \"category\": \"grid\", \"technology\": null, \"possible_match\": null}, {\"title\": \"PROBE newest <b>headline</b>\", \"link\": \"https://example.org/b\", \"source\": \"Probe Source\", \"date\": \"2026-11-13T08:00:00Z\", \"first_seen\": \"2026-11-13T09:00:00Z\", \"category\": \"refusal\", \"technology\": \"solar\", \"possible_match\": {\"repd_ref\": \"13599\", \"site_name\": \"Beacon Fen Energy Park\", \"basis\": \"technology\"}}, {\"title\": \"PROBE undated middle headline\", \"link\": \"https://example.org/c\", \"source\": \"Probe Source\", \"date\": null, \"first_seen\": \"2026-11-12T09:00:00Z\", \"category\": \"other\", \"technology\": null, \"possible_match\": null}]},'live',Date.parse('2026-11-14T10:00:00Z'));var t=[...document.querySelectorAll('#liveNews .ln-title')].map(function(a){return a.textContent;});var chip=document.querySelector('#liveNews .ln-match');var first=document.querySelector('#liveNews .ln-item');return t.join('|')==='PROBE newest <b>headline</b>|PROBE undated middle headline|PROBE older headline'&&!document.querySelector('#liveNews .ln-title b')&&chip.textContent==='Possible match: Beacon Fen Energy Park (REPD 13599)'&&first.contains(chip)&&/13 NOV 2026 · REFUSED · SOLAR · Probe Source/.test(first.textContent)&&document.querySelector('#liveNews .ln-title').rel==='noopener noreferrer'&&document.querySelector('#newsStatus').textContent==='Headlines updated 14 Nov 2026 09:00 UTC';})()"
+    },
+    {
+     "name": "archive: unmatched headlines carry no project line",
+     "selector": "body",
+     "js": "(function(){var s=[...document.querySelectorAll('#stories .story')];var un=s.filter(function(x){return /NO PROJECT MATCH/.test(x.textContent);});return s.length>100&&un.length>50&&un.every(function(x){return !x.querySelector('.project');})&&!/PRIMARY_MATCH|DISCOVERY ONLY|algorithmic and unverified/.test(document.querySelector('#stories').textContent);})()"
+    },
+    {
+     "name": "live file refused: saved copy or a plain statement, table still complete",
+     "block": [
+      "*pipeline-news-data*"
+     ],
+     "selector": "#newsStatus",
+     "contains": [
+      "Live headlines are not available at the moment."
+     ],
+     "not_contains": [
+      "Headlines updated"
+     ]
+    }
+   ]
   }
  ],
  "size_budget_mb": 18,
  "size_budget_from": "202611140136",
  "release_candidate": {
-  "id": "202611140306",
-  "version": "V9.20",
-  "state": "promotable candidate (no data-centre register content)",
+  "id": "202611141017",
+  "version": "V9.21",
+  "state": "candidate (news block)",
+  "operative": {
+   "id": "202611140306",
+   "version": "V9.20"
+  },
   "held_candidate": {
    "id": "202611140247",
    "version": "V9.19",
    "state": "held candidate (data-centre register context, awaiting licence verification)"
   },
-  "note": "Promotable candidate: 202611140306 (V9.20), without data-centre register content. Held candidate: 202611140247 (V9.19), the same page with the data-centre register context, awaiting verification of the register's source licences. Both pass every automated check and carry the unchanged MAP link for all 7,775 rows. Live browser checks, served-byte checks and the homepage pointer are with the homepage owner; the homepage is unchanged until then."
+  "note": "The homepage opens 202611140306 (V9.20). Candidate: 202611141017 (V9.21), the same page with a news block that reads live headlines; it awaits live checks before the homepage is moved. Held: 202611140247 (V9.19), with data-centre register context, awaiting verification of the register's source licences."
  }
 }

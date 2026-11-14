@@ -1,0 +1,27 @@
+/* V9.21: the news block, and one table fix. Nothing here changes a table column. */
+
+/* Live headlines: one plain list. */
+.live-news { border-top: 1px solid #252a31; }
+.ln-item { padding: 10px 14px; border-bottom: 1px solid #1b1f25; background: #07090c; }
+.ln-meta { display: block; color: #7f8996; font-size: 10px; font-weight: bold; letter-spacing: .5px; }
+.ln-title { display: block; color: #fff; font-size: 15px; line-height: 1.3; margin-top: 4px; text-decoration: none; overflow-wrap: anywhere; }
+.ln-title:hover { text-decoration: underline; }
+.ln-match { margin-top: 6px; font: inherit; font-size: 10px; font-weight: bold; text-align: left; background: none; border: 1px dashed #4a5563; color: var(--muted, #a6adbb); padding: 4px 8px; cursor: pointer; }
+.ln-match:disabled { cursor: default; }
+.ln-more { display: block; width: 100%; font: inherit; font-size: 11px; font-weight: bold; background: #0b0f14; border: 0; border-bottom: 1px solid #1b1f25; color: var(--accent, #0ff); padding: 12px; cursor: pointer; }
+.ln-scope { margin: 0; padding: 10px 14px; color: #7f8996; font-size: 10px; }
+#newsStatus { color: var(--ok, #0f8); }
+#newsStatus[data-state="overdue"], #newsStatus[data-state="snapshot"] { color: var(--bess, #ffae00); }
+#newsStatus[data-state="unavailable"] { color: var(--muted, #a6adbb); }
+
+/* The dated archive of project headlines sits behind one line. */
+.news-archive > summary { cursor: pointer; padding: 12px 14px; color: var(--muted, #a6adbb); font-size: 11px; font-weight: bold; letter-spacing: .5px; border-top: 1px solid #252a31; }
+.news-archive > .strap { padding: 0 14px 10px; color: #7f8996; font-size: 10px; }
+
+/* MAP was cut off on a desktop: the table is wider than its box at 1440 px, so the ACTIONS
+   column sat past the right edge. The phone layout already pins that column to the right edge
+   of the scrolling box (v9-6-1.css); this applies the same rule at every width. The columns,
+   their order and their content are unchanged. */
+.tablewrap th:last-child,
+.tablewrap td:last-child { position: sticky; right: 0; background: var(--panel); border-left: 1px solid var(--soft); }
+.tablewrap th:last-child { background: #050505; z-index: 6; }

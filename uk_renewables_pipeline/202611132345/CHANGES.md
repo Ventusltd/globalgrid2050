@@ -59,3 +59,11 @@ map there. Correcting them would be inventing data; it is left to DESNZ or an ow
 - `data/v9.1/*` - rebuilt (16 project parts, 18 atlas parts, manifest).
 - `tests/run_v9_12.sh`, `tests/check_v9_12.mjs` - new runner and check; `tests/run_v9_10.sh` and
   `tests/check_v9_10.mjs` are removed (they assert the Q2 spine and the parent's identity).
+
+## Review fix (Team 3, NL-015, 14 Nov 2026)
+
+- `scripts/plugins/projects-v9-8.js`: the filtered CSV's "Source Reconciliation" column was a literal
+  `14657/14657 canonical REPD Ref IDs` (the Q2 2026 count) and so was wrong on every exported row of this
+  release. It is now read from `data/v9.1/build_manifest.json` `source_record_count` (14,967 here). No other
+  column, row or count changes. The file is added to `CHANGED_FROM_PARENT` in `tests/run_v9_12.sh`, which
+  also now fails if the literal comes back.

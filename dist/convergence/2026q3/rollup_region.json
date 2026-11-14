@@ -1,0 +1,1986 @@
+{
+ "schema": "globalgrid2050.convergence.repd-datacentres.v1",
+ "caveats": [
+  "Straight-line distance between published points; proximity is not connection, capacity or feasibility.",
+  "The shared nearest transmission node is a screening grouping of points nearest the same NESO ETYS node; it says nothing about any feeder, connection offer or queue position.",
+  "Blank REPD capacity is unknown, never zero: MW sums are over stated values; unknown-capacity counts are given beside them.",
+  "Data-centre IT load MW and grid connection MW are separate source figures and never derived from each other; unclassified_mw is not summed as demand.",
+  "A data-centre pipeline entry is not a commitment; data-centre status is the baseline's own status field.",
+  "REPD status groups: operational = Operational; under_construction = Under Construction; consented = Awaiting Construction; in_planning = Application Submitted or Appeal Lodged.",
+  "REPD refs 18561 and 18562 carry known wrong coordinates and are excluded from all geography.",
+  "Live REPD records repeating one site (same technology, site name, stated capacity and point) are counted once: the most advanced status, then the highest Ref ID; the manifest lists every collapsed ref.",
+  "A data-centre point outside UK WGS84 bounds is treated as unplaced (never re-projected or guessed)."
+ ],
+ "records": [
+  {
+   "level": "region",
+   "name": "(blank)",
+   "country": null,
+   "repd": {
+    "solar": {
+     "operational": {
+      "count": 1,
+      "mw_stated": 16.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    },
+    "battery": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    },
+    "wind_onshore": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    },
+    "wind_offshore": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    }
+   },
+   "datacentres": 0,
+   "datacentres_by_status": {},
+   "it_load_mw_stated": 0.0,
+   "it_load_mw_known_sites": 0,
+   "grid_connection_mw_stated": 0.0,
+   "grid_connection_mw_known_sites": 0
+  },
+  {
+   "level": "region",
+   "name": "East Midlands",
+   "country": "England",
+   "repd": {
+    "solar": {
+     "operational": {
+      "count": 161,
+      "mw_stated": 1333.66,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 31,
+      "mw_stated": 756.07,
+      "count_mw_unknown": 1
+     },
+     "consented": {
+      "count": 419,
+      "mw_stated": 8493.97,
+      "count_mw_unknown": 23
+     },
+     "in_planning": {
+      "count": 77,
+      "mw_stated": 3495.75,
+      "count_mw_unknown": 2
+     }
+    },
+    "battery": {
+     "operational": {
+      "count": 14,
+      "mw_stated": 287.89,
+      "count_mw_unknown": 1
+     },
+     "under_construction": {
+      "count": 6,
+      "mw_stated": 592.5,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 133,
+      "mw_stated": 9964.44,
+      "count_mw_unknown": 41
+     },
+     "in_planning": {
+      "count": 47,
+      "mw_stated": 6955.5,
+      "count_mw_unknown": 13
+     }
+    },
+    "wind_onshore": {
+     "operational": {
+      "count": 42,
+      "mw_stated": 398.5,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 4,
+      "mw_stated": 3.57,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 5,
+      "mw_stated": 4.14,
+      "count_mw_unknown": 0
+     }
+    },
+    "wind_offshore": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    }
+   },
+   "datacentres": 7,
+   "datacentres_by_status": {
+    "operational": 7
+   },
+   "it_load_mw_stated": 0.0,
+   "it_load_mw_known_sites": 0,
+   "grid_connection_mw_stated": 0.0,
+   "grid_connection_mw_known_sites": 0
+  },
+  {
+   "level": "region",
+   "name": "Eastern",
+   "country": "England",
+   "repd": {
+    "solar": {
+     "operational": {
+      "count": 188,
+      "mw_stated": 2065.26,
+      "count_mw_unknown": 1
+     },
+     "under_construction": {
+      "count": 28,
+      "mw_stated": 614.08,
+      "count_mw_unknown": 4
+     },
+     "consented": {
+      "count": 469,
+      "mw_stated": 4052.09,
+      "count_mw_unknown": 24
+     },
+     "in_planning": {
+      "count": 67,
+      "mw_stated": 2553.75,
+      "count_mw_unknown": 5
+     }
+    },
+    "battery": {
+     "operational": {
+      "count": 24,
+      "mw_stated": 673.34,
+      "count_mw_unknown": 4
+     },
+     "under_construction": {
+      "count": 14,
+      "mw_stated": 866.5,
+      "count_mw_unknown": 5
+     },
+     "consented": {
+      "count": 173,
+      "mw_stated": 6752.52,
+      "count_mw_unknown": 33
+     },
+     "in_planning": {
+      "count": 41,
+      "mw_stated": 4188.44,
+      "count_mw_unknown": 8
+     }
+    },
+    "wind_onshore": {
+     "operational": {
+      "count": 50,
+      "mw_stated": 451.7,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 8,
+      "mw_stated": 4.72,
+      "count_mw_unknown": 1
+     },
+     "in_planning": {
+      "count": 4,
+      "mw_stated": 10.7,
+      "count_mw_unknown": 2
+     }
+    },
+    "wind_offshore": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    }
+   },
+   "datacentres": 24,
+   "datacentres_by_status": {
+    "announced": 1,
+    "consented": 1,
+    "in_planning": 2,
+    "operational": 20
+   },
+   "it_load_mw_stated": 720.0,
+   "it_load_mw_known_sites": 1,
+   "grid_connection_mw_stated": 200.0,
+   "grid_connection_mw_known_sites": 1
+  },
+  {
+   "level": "region",
+   "name": "London",
+   "country": "England",
+   "repd": {
+    "solar": {
+     "operational": {
+      "count": 10,
+      "mw_stated": 9.02,
+      "count_mw_unknown": 1
+     },
+     "under_construction": {
+      "count": 9,
+      "mw_stated": 63.42,
+      "count_mw_unknown": 1
+     },
+     "consented": {
+      "count": 213,
+      "mw_stated": 74.5,
+      "count_mw_unknown": 21
+     },
+     "in_planning": {
+      "count": 25,
+      "mw_stated": 106.37,
+      "count_mw_unknown": 2
+     }
+    },
+    "battery": {
+     "operational": {
+      "count": 4,
+      "mw_stated": 99.2,
+      "count_mw_unknown": 1
+     },
+     "under_construction": {
+      "count": 1,
+      "mw_stated": 2.5,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 6,
+      "mw_stated": 320.3,
+      "count_mw_unknown": 1
+     },
+     "in_planning": {
+      "count": 3,
+      "mw_stated": 512.0,
+      "count_mw_unknown": 0
+     }
+    },
+    "wind_onshore": {
+     "operational": {
+      "count": 4,
+      "mw_stated": 12.6,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 2,
+      "mw_stated": 3.2,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    },
+    "wind_offshore": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    }
+   },
+   "datacentres": 52,
+   "datacentres_by_status": {
+    "announced": 1,
+    "operational": 51
+   },
+   "it_load_mw_stated": 0.0,
+   "it_load_mw_known_sites": 0,
+   "grid_connection_mw_stated": 0.0,
+   "grid_connection_mw_known_sites": 0
+  },
+  {
+   "level": "region",
+   "name": "North East",
+   "country": "England",
+   "repd": {
+    "solar": {
+     "operational": {
+      "count": 18,
+      "mw_stated": 60.36,
+      "count_mw_unknown": 1
+     },
+     "under_construction": {
+      "count": 10,
+      "mw_stated": 185.5,
+      "count_mw_unknown": 2
+     },
+     "consented": {
+      "count": 230,
+      "mw_stated": 1199.36,
+      "count_mw_unknown": 19
+     },
+     "in_planning": {
+      "count": 23,
+      "mw_stated": 515.88,
+      "count_mw_unknown": 1
+     }
+    },
+    "battery": {
+     "operational": {
+      "count": 7,
+      "mw_stated": 137.9,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 1,
+      "mw_stated": 20.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 49,
+      "mw_stated": 2641.4,
+      "count_mw_unknown": 19
+     },
+     "in_planning": {
+      "count": 21,
+      "mw_stated": 2274.7,
+      "count_mw_unknown": 4
+     }
+    },
+    "wind_onshore": {
+     "operational": {
+      "count": 44,
+      "mw_stated": 473.75,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 2,
+      "mw_stated": 0.23,
+      "count_mw_unknown": 1
+     },
+     "in_planning": {
+      "count": 3,
+      "mw_stated": 36.56,
+      "count_mw_unknown": 0
+     }
+    },
+    "wind_offshore": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    }
+   },
+   "datacentres": 8,
+   "datacentres_by_status": {
+    "announced": 2,
+    "operational": 6
+   },
+   "it_load_mw_stated": 0.0,
+   "it_load_mw_known_sites": 0,
+   "grid_connection_mw_stated": 0.0,
+   "grid_connection_mw_known_sites": 0
+  },
+  {
+   "level": "region",
+   "name": "North West",
+   "country": "England",
+   "repd": {
+    "solar": {
+     "operational": {
+      "count": 69,
+      "mw_stated": 228.65,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 17,
+      "mw_stated": 41.37,
+      "count_mw_unknown": 1
+     },
+     "consented": {
+      "count": 418,
+      "mw_stated": 741.58,
+      "count_mw_unknown": 44
+     },
+     "in_planning": {
+      "count": 54,
+      "mw_stated": 462.19,
+      "count_mw_unknown": 9
+     }
+    },
+    "battery": {
+     "operational": {
+      "count": 17,
+      "mw_stated": 526.79,
+      "count_mw_unknown": 1
+     },
+     "under_construction": {
+      "count": 17,
+      "mw_stated": 1383.6,
+      "count_mw_unknown": 2
+     },
+     "consented": {
+      "count": 105,
+      "mw_stated": 6587.5,
+      "count_mw_unknown": 17
+     },
+     "in_planning": {
+      "count": 25,
+      "mw_stated": 1208.5,
+      "count_mw_unknown": 4
+     }
+    },
+    "wind_onshore": {
+     "operational": {
+      "count": 48,
+      "mw_stated": 467.3,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 8,
+      "mw_stated": 13.36,
+      "count_mw_unknown": 1
+     },
+     "in_planning": {
+      "count": 7,
+      "mw_stated": 121.35,
+      "count_mw_unknown": 2
+     }
+    },
+    "wind_offshore": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    }
+   },
+   "datacentres": 13,
+   "datacentres_by_status": {
+    "operational": 13
+   },
+   "it_load_mw_stated": 0.0,
+   "it_load_mw_known_sites": 0,
+   "grid_connection_mw_stated": 0.0,
+   "grid_connection_mw_known_sites": 0
+  },
+  {
+   "level": "region",
+   "name": "Northern Ireland",
+   "country": "Northern Ireland",
+   "repd": {
+    "solar": {
+     "operational": {
+      "count": 21,
+      "mw_stated": 209.3,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 16,
+      "mw_stated": 105.8,
+      "count_mw_unknown": 5
+     },
+     "in_planning": {
+      "count": 13,
+      "mw_stated": 103.14,
+      "count_mw_unknown": 3
+     }
+    },
+    "battery": {
+     "operational": {
+      "count": 1,
+      "mw_stated": 10.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 3,
+      "mw_stated": 200.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 28,
+      "mw_stated": 1087.0,
+      "count_mw_unknown": 7
+     },
+     "in_planning": {
+      "count": 16,
+      "mw_stated": 1069.7,
+      "count_mw_unknown": 5
+     }
+    },
+    "wind_onshore": {
+     "operational": {
+      "count": 83,
+      "mw_stated": 1215.7,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 1,
+      "mw_stated": 27.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 124,
+      "mw_stated": 457.75,
+      "count_mw_unknown": 16
+     },
+     "in_planning": {
+      "count": 75,
+      "mw_stated": 309.13,
+      "count_mw_unknown": 31
+     }
+    },
+    "wind_offshore": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    }
+   },
+   "datacentres": 2,
+   "datacentres_by_status": {
+    "operational": 2
+   },
+   "it_load_mw_stated": 0.0,
+   "it_load_mw_known_sites": 0,
+   "grid_connection_mw_stated": 0.0,
+   "grid_connection_mw_known_sites": 0
+  },
+  {
+   "level": "region",
+   "name": "Offshore",
+   "country": "Offshore",
+   "repd": {
+    "solar": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    },
+    "battery": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    },
+    "wind_onshore": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    },
+    "wind_offshore": {
+     "operational": {
+      "count": 49,
+      "mw_stated": 16011.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 8,
+      "mw_stated": 11845.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 30,
+      "mw_stated": 29227.4,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 6,
+      "mw_stated": 6250.0,
+      "count_mw_unknown": 0
+     }
+    }
+   },
+   "datacentres": 0,
+   "datacentres_by_status": {},
+   "it_load_mw_stated": 0.0,
+   "it_load_mw_known_sites": 0,
+   "grid_connection_mw_stated": 0.0,
+   "grid_connection_mw_known_sites": 0
+  },
+  {
+   "level": "region",
+   "name": "Scotland",
+   "country": "Scotland",
+   "repd": {
+    "solar": {
+     "operational": {
+      "count": 48,
+      "mw_stated": 123.3,
+      "count_mw_unknown": 4
+     },
+     "under_construction": {
+      "count": 22,
+      "mw_stated": 199.61,
+      "count_mw_unknown": 1
+     },
+     "consented": {
+      "count": 303,
+      "mw_stated": 2271.1,
+      "count_mw_unknown": 19
+     },
+     "in_planning": {
+      "count": 50,
+      "mw_stated": 1089.46,
+      "count_mw_unknown": 7
+     }
+    },
+    "battery": {
+     "operational": {
+      "count": 31,
+      "mw_stated": 1562.28,
+      "count_mw_unknown": 8
+     },
+     "under_construction": {
+      "count": 34,
+      "mw_stated": 4514.5,
+      "count_mw_unknown": 4
+     },
+     "consented": {
+      "count": 261,
+      "mw_stated": 20538.41,
+      "count_mw_unknown": 35
+     },
+     "in_planning": {
+      "count": 129,
+      "mw_stated": 9667.0,
+      "count_mw_unknown": 10
+     }
+    },
+    "wind_onshore": {
+     "operational": {
+      "count": 348,
+      "mw_stated": 10201.5,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 31,
+      "mw_stated": 1976.8,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 170,
+      "mw_stated": 6312.52,
+      "count_mw_unknown": 10
+     },
+     "in_planning": {
+      "count": 150,
+      "mw_stated": 9616.31,
+      "count_mw_unknown": 10
+     }
+    },
+    "wind_offshore": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 7,
+      "mw_stated": 13408.0,
+      "count_mw_unknown": 0
+     }
+    }
+   },
+   "datacentres": 16,
+   "datacentres_by_status": {
+    "announced": 2,
+    "in_planning": 3,
+    "operational": 11
+   },
+   "it_load_mw_stated": 0.0,
+   "it_load_mw_known_sites": 0,
+   "grid_connection_mw_stated": 0.0,
+   "grid_connection_mw_known_sites": 0
+  },
+  {
+   "level": "region",
+   "name": "South East",
+   "country": "England",
+   "repd": {
+    "solar": {
+     "operational": {
+      "count": 219,
+      "mw_stated": 2023.3,
+      "count_mw_unknown": 2
+     },
+     "under_construction": {
+      "count": 25,
+      "mw_stated": 383.6,
+      "count_mw_unknown": 4
+     },
+     "consented": {
+      "count": 614,
+      "mw_stated": 2793.71,
+      "count_mw_unknown": 56
+     },
+     "in_planning": {
+      "count": 101,
+      "mw_stated": 2363.26,
+      "count_mw_unknown": 15
+     }
+    },
+    "battery": {
+     "operational": {
+      "count": 22,
+      "mw_stated": 748.1,
+      "count_mw_unknown": 1
+     },
+     "under_construction": {
+      "count": 16,
+      "mw_stated": 557.39,
+      "count_mw_unknown": 5
+     },
+     "consented": {
+      "count": 165,
+      "mw_stated": 7036.46,
+      "count_mw_unknown": 45
+     },
+     "in_planning": {
+      "count": 47,
+      "mw_stated": 3782.24,
+      "count_mw_unknown": 13
+     }
+    },
+    "wind_onshore": {
+     "operational": {
+      "count": 9,
+      "mw_stated": 112.9,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 1,
+      "mw_stated": 0.5,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 2,
+      "mw_stated": 21.2,
+      "count_mw_unknown": 0
+     }
+    },
+    "wind_offshore": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    }
+   },
+   "datacentres": 63,
+   "datacentres_by_status": {
+    "announced": 1,
+    "consented": 3,
+    "in_planning": 1,
+    "operational": 57,
+    "unknown": 1
+   },
+   "it_load_mw_stated": 372.0,
+   "it_load_mw_known_sites": 2,
+   "grid_connection_mw_stated": 140.0,
+   "grid_connection_mw_known_sites": 1
+  },
+  {
+   "level": "region",
+   "name": "South West",
+   "country": "England",
+   "repd": {
+    "solar": {
+     "operational": {
+      "count": 418,
+      "mw_stated": 3042.16,
+      "count_mw_unknown": 4
+     },
+     "under_construction": {
+      "count": 41,
+      "mw_stated": 506.26,
+      "count_mw_unknown": 6
+     },
+     "consented": {
+      "count": 479,
+      "mw_stated": 2745.64,
+      "count_mw_unknown": 42
+     },
+     "in_planning": {
+      "count": 58,
+      "mw_stated": 1244.61,
+      "count_mw_unknown": 7
+     }
+    },
+    "battery": {
+     "operational": {
+      "count": 30,
+      "mw_stated": 673.98,
+      "count_mw_unknown": 5
+     },
+     "under_construction": {
+      "count": 9,
+      "mw_stated": 150.4,
+      "count_mw_unknown": 3
+     },
+     "consented": {
+      "count": 148,
+      "mw_stated": 4439.41,
+      "count_mw_unknown": 37
+     },
+     "in_planning": {
+      "count": 33,
+      "mw_stated": 1398.79,
+      "count_mw_unknown": 12
+     }
+    },
+    "wind_onshore": {
+     "operational": {
+      "count": 35,
+      "mw_stated": 294.1,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 2,
+      "mw_stated": 5.2,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 14,
+      "mw_stated": 19.03,
+      "count_mw_unknown": 2
+     },
+     "in_planning": {
+      "count": 7,
+      "mw_stated": 48.4,
+      "count_mw_unknown": 2
+     }
+    },
+    "wind_offshore": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    }
+   },
+   "datacentres": 15,
+   "datacentres_by_status": {
+    "operational": 15
+   },
+   "it_load_mw_stated": 0.0,
+   "it_load_mw_known_sites": 0,
+   "grid_connection_mw_stated": 0.0,
+   "grid_connection_mw_known_sites": 0
+  },
+  {
+   "level": "region",
+   "name": "Wales",
+   "country": "Wales",
+   "repd": {
+    "solar": {
+     "operational": {
+      "count": 128,
+      "mw_stated": 908.04,
+      "count_mw_unknown": 2
+     },
+     "under_construction": {
+      "count": 12,
+      "mw_stated": 244.83,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 123,
+      "mw_stated": 936.07,
+      "count_mw_unknown": 11
+     },
+     "in_planning": {
+      "count": 34,
+      "mw_stated": 639.24,
+      "count_mw_unknown": 4
+     }
+    },
+    "battery": {
+     "operational": {
+      "count": 6,
+      "mw_stated": 83.76,
+      "count_mw_unknown": 2
+     },
+     "under_construction": {
+      "count": 7,
+      "mw_stated": 453.08,
+      "count_mw_unknown": 1
+     },
+     "consented": {
+      "count": 91,
+      "mw_stated": 4284.55,
+      "count_mw_unknown": 21
+     },
+     "in_planning": {
+      "count": 32,
+      "mw_stated": 1773.6,
+      "count_mw_unknown": 7
+     }
+    },
+    "wind_onshore": {
+     "operational": {
+      "count": 72,
+      "mw_stated": 1219.7,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 3,
+      "mw_stated": 30.3,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 27,
+      "mw_stated": 643.9,
+      "count_mw_unknown": 3
+     },
+     "in_planning": {
+      "count": 25,
+      "mw_stated": 827.25,
+      "count_mw_unknown": 3
+     }
+    },
+    "wind_offshore": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 1,
+      "mw_stated": 100.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    }
+   },
+   "datacentres": 12,
+   "datacentres_by_status": {
+    "announced": 5,
+    "operational": 7
+   },
+   "it_load_mw_stated": 0.0,
+   "it_load_mw_known_sites": 0,
+   "grid_connection_mw_stated": 0.0,
+   "grid_connection_mw_known_sites": 0
+  },
+  {
+   "level": "region",
+   "name": "West Midlands",
+   "country": "England",
+   "repd": {
+    "solar": {
+     "operational": {
+      "count": 92,
+      "mw_stated": 875.21,
+      "count_mw_unknown": 3
+     },
+     "under_construction": {
+      "count": 17,
+      "mw_stated": 388.03,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 414,
+      "mw_stated": 1846.97,
+      "count_mw_unknown": 29
+     },
+     "in_planning": {
+      "count": 51,
+      "mw_stated": 465.56,
+      "count_mw_unknown": 8
+     }
+    },
+    "battery": {
+     "operational": {
+      "count": 15,
+      "mw_stated": 293.7,
+      "count_mw_unknown": 6
+     },
+     "under_construction": {
+      "count": 9,
+      "mw_stated": 1012.0,
+      "count_mw_unknown": 5
+     },
+     "consented": {
+      "count": 121,
+      "mw_stated": 3396.87,
+      "count_mw_unknown": 33
+     },
+     "in_planning": {
+      "count": 30,
+      "mw_stated": 1990.5,
+      "count_mw_unknown": 10
+     }
+    },
+    "wind_onshore": {
+     "operational": {
+      "count": 4,
+      "mw_stated": 8.4,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 1,
+      "mw_stated": 1.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    },
+    "wind_offshore": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    }
+   },
+   "datacentres": 5,
+   "datacentres_by_status": {
+    "operational": 5
+   },
+   "it_load_mw_stated": 0.0,
+   "it_load_mw_known_sites": 0,
+   "grid_connection_mw_stated": 0.0,
+   "grid_connection_mw_known_sites": 0
+  },
+  {
+   "level": "region",
+   "name": "Yorkshire and Humber",
+   "country": "England",
+   "repd": {
+    "solar": {
+     "operational": {
+      "count": 51,
+      "mw_stated": 403.52,
+      "count_mw_unknown": 1
+     },
+     "under_construction": {
+      "count": 19,
+      "mw_stated": 272.79,
+      "count_mw_unknown": 2
+     },
+     "consented": {
+      "count": 449,
+      "mw_stated": 3509.64,
+      "count_mw_unknown": 34
+     },
+     "in_planning": {
+      "count": 64,
+      "mw_stated": 2959.21,
+      "count_mw_unknown": 5
+     }
+    },
+    "battery": {
+     "operational": {
+      "count": 16,
+      "mw_stated": 629.0,
+      "count_mw_unknown": 1
+     },
+     "under_construction": {
+      "count": 9,
+      "mw_stated": 838.15,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 117,
+      "mw_stated": 12664.12,
+      "count_mw_unknown": 34
+     },
+     "in_planning": {
+      "count": 35,
+      "mw_stated": 2589.51,
+      "count_mw_unknown": 9
+     }
+    },
+    "wind_onshore": {
+     "operational": {
+      "count": 46,
+      "mw_stated": 651.9,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 37,
+      "mw_stated": 33.35,
+      "count_mw_unknown": 2
+     },
+     "in_planning": {
+      "count": 8,
+      "mw_stated": 38.87,
+      "count_mw_unknown": 3
+     }
+    },
+    "wind_offshore": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    }
+   },
+   "datacentres": 8,
+   "datacentres_by_status": {
+    "operational": 8
+   },
+   "it_load_mw_stated": 0.0,
+   "it_load_mw_known_sites": 0,
+   "grid_connection_mw_stated": 0.0,
+   "grid_connection_mw_known_sites": 0
+  },
+  {
+   "level": "country",
+   "name": "England",
+   "country": "England",
+   "repd": {
+    "solar": {
+     "operational": {
+      "count": 1226,
+      "mw_stated": 10041.14,
+      "count_mw_unknown": 13
+     },
+     "under_construction": {
+      "count": 197,
+      "mw_stated": 3211.12,
+      "count_mw_unknown": 21
+     },
+     "consented": {
+      "count": 3705,
+      "mw_stated": 25457.46,
+      "count_mw_unknown": 292
+     },
+     "in_planning": {
+      "count": 520,
+      "mw_stated": 14166.58,
+      "count_mw_unknown": 54
+     }
+    },
+    "battery": {
+     "operational": {
+      "count": 149,
+      "mw_stated": 4069.9,
+      "count_mw_unknown": 20
+     },
+     "under_construction": {
+      "count": 82,
+      "mw_stated": 5423.04,
+      "count_mw_unknown": 20
+     },
+     "consented": {
+      "count": 1017,
+      "mw_stated": 53803.02,
+      "count_mw_unknown": 260
+     },
+     "in_planning": {
+      "count": 282,
+      "mw_stated": 24900.18,
+      "count_mw_unknown": 73
+     }
+    },
+    "wind_onshore": {
+     "operational": {
+      "count": 282,
+      "mw_stated": 2871.15,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 2,
+      "mw_stated": 5.2,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 77,
+      "mw_stated": 78.96,
+      "count_mw_unknown": 7
+     },
+     "in_planning": {
+      "count": 36,
+      "mw_stated": 281.22,
+      "count_mw_unknown": 9
+     }
+    },
+    "wind_offshore": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    }
+   },
+   "datacentres": 195,
+   "datacentres_by_status": {
+    "announced": 5,
+    "consented": 4,
+    "in_planning": 3,
+    "operational": 182,
+    "unknown": 1
+   },
+   "it_load_mw_stated": 1092.0,
+   "it_load_mw_known_sites": 3,
+   "grid_connection_mw_stated": 340.0,
+   "grid_connection_mw_known_sites": 2
+  },
+  {
+   "level": "country",
+   "name": "Northern Ireland",
+   "country": "Northern Ireland",
+   "repd": {
+    "solar": {
+     "operational": {
+      "count": 21,
+      "mw_stated": 209.3,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 16,
+      "mw_stated": 105.8,
+      "count_mw_unknown": 5
+     },
+     "in_planning": {
+      "count": 13,
+      "mw_stated": 103.14,
+      "count_mw_unknown": 3
+     }
+    },
+    "battery": {
+     "operational": {
+      "count": 1,
+      "mw_stated": 10.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 3,
+      "mw_stated": 200.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 28,
+      "mw_stated": 1087.0,
+      "count_mw_unknown": 7
+     },
+     "in_planning": {
+      "count": 16,
+      "mw_stated": 1069.7,
+      "count_mw_unknown": 5
+     }
+    },
+    "wind_onshore": {
+     "operational": {
+      "count": 83,
+      "mw_stated": 1215.7,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 1,
+      "mw_stated": 27.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 124,
+      "mw_stated": 457.75,
+      "count_mw_unknown": 16
+     },
+     "in_planning": {
+      "count": 75,
+      "mw_stated": 309.13,
+      "count_mw_unknown": 31
+     }
+    },
+    "wind_offshore": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    }
+   },
+   "datacentres": 2,
+   "datacentres_by_status": {
+    "operational": 2
+   },
+   "it_load_mw_stated": 0.0,
+   "it_load_mw_known_sites": 0,
+   "grid_connection_mw_stated": 0.0,
+   "grid_connection_mw_known_sites": 0
+  },
+  {
+   "level": "country",
+   "name": "Offshore",
+   "country": "Offshore",
+   "repd": {
+    "solar": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    },
+    "battery": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    },
+    "wind_onshore": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    },
+    "wind_offshore": {
+     "operational": {
+      "count": 49,
+      "mw_stated": 16011.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 8,
+      "mw_stated": 11845.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 30,
+      "mw_stated": 29227.4,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 6,
+      "mw_stated": 6250.0,
+      "count_mw_unknown": 0
+     }
+    }
+   },
+   "datacentres": 0,
+   "datacentres_by_status": {},
+   "it_load_mw_stated": 0.0,
+   "it_load_mw_known_sites": 0,
+   "grid_connection_mw_stated": 0.0,
+   "grid_connection_mw_known_sites": 0
+  },
+  {
+   "level": "country",
+   "name": "Scotland",
+   "country": "Scotland",
+   "repd": {
+    "solar": {
+     "operational": {
+      "count": 48,
+      "mw_stated": 123.3,
+      "count_mw_unknown": 4
+     },
+     "under_construction": {
+      "count": 22,
+      "mw_stated": 199.61,
+      "count_mw_unknown": 1
+     },
+     "consented": {
+      "count": 303,
+      "mw_stated": 2271.1,
+      "count_mw_unknown": 19
+     },
+     "in_planning": {
+      "count": 50,
+      "mw_stated": 1089.46,
+      "count_mw_unknown": 7
+     }
+    },
+    "battery": {
+     "operational": {
+      "count": 31,
+      "mw_stated": 1562.28,
+      "count_mw_unknown": 8
+     },
+     "under_construction": {
+      "count": 34,
+      "mw_stated": 4514.5,
+      "count_mw_unknown": 4
+     },
+     "consented": {
+      "count": 261,
+      "mw_stated": 20538.41,
+      "count_mw_unknown": 35
+     },
+     "in_planning": {
+      "count": 129,
+      "mw_stated": 9667.0,
+      "count_mw_unknown": 10
+     }
+    },
+    "wind_onshore": {
+     "operational": {
+      "count": 348,
+      "mw_stated": 10201.5,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 31,
+      "mw_stated": 1976.8,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 170,
+      "mw_stated": 6312.52,
+      "count_mw_unknown": 10
+     },
+     "in_planning": {
+      "count": 150,
+      "mw_stated": 9616.31,
+      "count_mw_unknown": 10
+     }
+    },
+    "wind_offshore": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 7,
+      "mw_stated": 13408.0,
+      "count_mw_unknown": 0
+     }
+    }
+   },
+   "datacentres": 16,
+   "datacentres_by_status": {
+    "announced": 2,
+    "in_planning": 3,
+    "operational": 11
+   },
+   "it_load_mw_stated": 0.0,
+   "it_load_mw_known_sites": 0,
+   "grid_connection_mw_stated": 0.0,
+   "grid_connection_mw_known_sites": 0
+  },
+  {
+   "level": "country",
+   "name": "Wales",
+   "country": "Wales",
+   "repd": {
+    "solar": {
+     "operational": {
+      "count": 128,
+      "mw_stated": 908.04,
+      "count_mw_unknown": 2
+     },
+     "under_construction": {
+      "count": 12,
+      "mw_stated": 244.83,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 123,
+      "mw_stated": 936.07,
+      "count_mw_unknown": 11
+     },
+     "in_planning": {
+      "count": 34,
+      "mw_stated": 639.24,
+      "count_mw_unknown": 4
+     }
+    },
+    "battery": {
+     "operational": {
+      "count": 6,
+      "mw_stated": 83.76,
+      "count_mw_unknown": 2
+     },
+     "under_construction": {
+      "count": 7,
+      "mw_stated": 453.08,
+      "count_mw_unknown": 1
+     },
+     "consented": {
+      "count": 91,
+      "mw_stated": 4284.55,
+      "count_mw_unknown": 21
+     },
+     "in_planning": {
+      "count": 32,
+      "mw_stated": 1773.6,
+      "count_mw_unknown": 7
+     }
+    },
+    "wind_onshore": {
+     "operational": {
+      "count": 72,
+      "mw_stated": 1219.7,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 3,
+      "mw_stated": 30.3,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 27,
+      "mw_stated": 643.9,
+      "count_mw_unknown": 3
+     },
+     "in_planning": {
+      "count": 25,
+      "mw_stated": 827.25,
+      "count_mw_unknown": 3
+     }
+    },
+    "wind_offshore": {
+     "operational": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "under_construction": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     },
+     "consented": {
+      "count": 1,
+      "mw_stated": 100.0,
+      "count_mw_unknown": 0
+     },
+     "in_planning": {
+      "count": 0,
+      "mw_stated": 0.0,
+      "count_mw_unknown": 0
+     }
+    }
+   },
+   "datacentres": 12,
+   "datacentres_by_status": {
+    "announced": 5,
+    "operational": 7
+   },
+   "it_load_mw_stated": 0.0,
+   "it_load_mw_known_sites": 0,
+   "grid_connection_mw_stated": 0.0,
+   "grid_connection_mw_known_sites": 0
+  }
+ ]
+}

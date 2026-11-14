@@ -1,0 +1,482 @@
+{
+ "schema": "globalgrid2050.convergence.repd-datacentres.v1.manifest",
+ "tool": {
+  "file": "automation/convergence/build_repd_datacentres.py",
+  "version": "1.0.0",
+  "sha256": "f889dbcdb1af654b95e66667bcf1578a760263be3fb32b981477ebd195a00403"
+ },
+ "release": "2026q3",
+ "inputs": [
+  {
+   "role": "repd_register",
+   "file": "repd-2026q3.csv",
+   "sha256": "d937ae16ad07f43caaaa25b4cee56399e1e9b9bb2ae5ecb7bc88cf9bc092e4b9",
+   "bytes": 5201029,
+   "records": 14967
+  },
+  {
+   "role": "repd_identity",
+   "file": "project_identity_2026q3.json",
+   "sha256": "b4fcf35c80eb0f87487bc8c4ed0d276afea66948e6b0708f80e5cf993a5973a4",
+   "bytes": 21140897
+  },
+  {
+   "role": "datacentre_baseline",
+   "file": "uk_datacentre_pipeline_202610312133.geojson",
+   "sha256": "87337db5d3bf7959f7f605d3abd029dd4196ab24a79107ceb95210c5b7751654",
+   "bytes": 446550,
+   "features": 226,
+   "title": "UK data-centre pipeline (merged, GridAtlas #73 steps 3-4)"
+  },
+  {
+   "role": "transmission_nodes",
+   "file": "connection-points.v3.json",
+   "sha256": "8db7171d94763399d85c819e522dcb83ef1ecedc93fbeff032fb45ca02f81f35",
+   "bytes": 2934509,
+   "schema": "data-grid-gb.connection-points.v3",
+   "connection_points": 886,
+   "located": 489
+  },
+  {
+   "role": "osm_substations",
+   "file": "grid_substations.geojson",
+   "sha256": "ec5450aa10b1592e53e73813fe169194de3fd923f7bffba1bbabd057c8c45b8f",
+   "bytes": 1822645,
+   "features": 5800,
+   "used_min_kv": 132,
+   "used": 1668
+  }
+ ],
+ "excluded_repd_geography": [
+  {
+   "ref": "1613",
+   "technology": "Solar Photovoltaics",
+   "status": "Operational",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "1616",
+   "technology": "Solar Photovoltaics",
+   "status": "Operational",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "2484",
+   "technology": "Wind Offshore",
+   "status": "Awaiting Construction",
+   "reason": "coordinates_outside_bng_range"
+  },
+  {
+   "ref": "6483",
+   "technology": "Wind Offshore",
+   "status": "Under Construction",
+   "reason": "coordinates_outside_bng_range"
+  },
+  {
+   "ref": "9947",
+   "technology": "Solar Photovoltaics",
+   "status": "Under Construction",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "10913",
+   "technology": "Wind Offshore",
+   "status": "Awaiting Construction",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "10919",
+   "technology": "Wind Offshore",
+   "status": "Awaiting Construction",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "10920",
+   "technology": "Wind Offshore",
+   "status": "Application Submitted",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "10922",
+   "technology": "Wind Offshore",
+   "status": "Awaiting Construction",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "11109",
+   "technology": "Wind Offshore",
+   "status": "Awaiting Construction",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "11613",
+   "technology": "Wind Offshore",
+   "status": "Application Submitted",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "13417",
+   "technology": "Wind Offshore",
+   "status": "Application Submitted",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "13428",
+   "technology": "Wind Offshore",
+   "status": "Application Submitted",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "13429",
+   "technology": "Wind Offshore",
+   "status": "Application Submitted",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "13431",
+   "technology": "Wind Offshore",
+   "status": "Application Submitted",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "13432",
+   "technology": "Wind Offshore",
+   "status": "Application Submitted",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "13528",
+   "technology": "Wind Offshore",
+   "status": "Application Submitted",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "13735",
+   "technology": "Wind Offshore",
+   "status": "Application Submitted",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "14546",
+   "technology": "Wind Onshore",
+   "status": "Application Submitted",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "14547",
+   "technology": "Battery",
+   "status": "Application Submitted",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "14773",
+   "technology": "Solar Photovoltaics",
+   "status": "Awaiting Construction",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "14796",
+   "technology": "Wind Onshore",
+   "status": "Awaiting Construction",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "15385",
+   "technology": "Wind Onshore",
+   "status": "Application Submitted",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "15386",
+   "technology": "Battery",
+   "status": "Application Submitted",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "17044",
+   "technology": "Solar Photovoltaics",
+   "status": "Application Submitted",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "17120",
+   "technology": "Solar Photovoltaics",
+   "status": "Application Submitted",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "17260",
+   "technology": "Solar Photovoltaics",
+   "status": "Application Submitted",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "17318",
+   "technology": "Wind Onshore",
+   "status": "Application Submitted",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "17672",
+   "technology": "Wind Onshore",
+   "status": "Application Submitted",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "17724",
+   "technology": "Battery",
+   "status": "Awaiting Construction",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "18489",
+   "technology": "Battery",
+   "status": "Awaiting Construction",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "18561",
+   "technology": "Solar Photovoltaics",
+   "status": "Application Submitted",
+   "reason": "known_wrong_coordinates"
+  },
+  {
+   "ref": "18562",
+   "technology": "Battery",
+   "status": "Application Submitted",
+   "reason": "known_wrong_coordinates"
+  },
+  {
+   "ref": "20217",
+   "technology": "Wind Offshore",
+   "status": "Awaiting Construction",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "20218",
+   "technology": "Wind Offshore",
+   "status": "Awaiting Construction",
+   "reason": "coordinates_outside_bng_range"
+  },
+  {
+   "ref": "20447",
+   "technology": "Solar Photovoltaics",
+   "status": "Under Construction",
+   "reason": "no_coordinates"
+  },
+  {
+   "ref": "21087",
+   "technology": "Wind Offshore",
+   "status": "Application Submitted",
+   "reason": "no_coordinates"
+  }
+ ],
+ "repd_duplicates_collapsed": [
+  {
+   "ref": "7460",
+   "kept_ref": "9957"
+  },
+  {
+   "ref": "8185",
+   "kept_ref": "12137"
+  },
+  {
+   "ref": "9595",
+   "kept_ref": "9713"
+  },
+  {
+   "ref": "10716",
+   "kept_ref": "20381"
+  },
+  {
+   "ref": "11519",
+   "kept_ref": "19469"
+  },
+  {
+   "ref": "11692",
+   "kept_ref": "11747"
+  },
+  {
+   "ref": "12501",
+   "kept_ref": "17973"
+  },
+  {
+   "ref": "13637",
+   "kept_ref": "16391"
+  },
+  {
+   "ref": "13846",
+   "kept_ref": "16895"
+  },
+  {
+   "ref": "14128",
+   "kept_ref": "14129"
+  },
+  {
+   "ref": "14253",
+   "kept_ref": "14254"
+  },
+  {
+   "ref": "14338",
+   "kept_ref": "13332"
+  },
+  {
+   "ref": "15511",
+   "kept_ref": "15590"
+  },
+  {
+   "ref": "16274",
+   "kept_ref": "18871"
+  },
+  {
+   "ref": "16606",
+   "kept_ref": "16616"
+  },
+  {
+   "ref": "16715",
+   "kept_ref": "16716"
+  },
+  {
+   "ref": "16855",
+   "kept_ref": "13297"
+  },
+  {
+   "ref": "16974",
+   "kept_ref": "15230"
+  },
+  {
+   "ref": "17286",
+   "kept_ref": "17309"
+  },
+  {
+   "ref": "17766",
+   "kept_ref": "17816"
+  },
+  {
+   "ref": "17807",
+   "kept_ref": "17530"
+  },
+  {
+   "ref": "19295",
+   "kept_ref": "20272"
+  },
+  {
+   "ref": "19296",
+   "kept_ref": "20273"
+  },
+  {
+   "ref": "19841",
+   "kept_ref": "21050"
+  },
+  {
+   "ref": "20161",
+   "kept_ref": "20417"
+  },
+  {
+   "ref": "20399",
+   "kept_ref": "20400"
+  },
+  {
+   "ref": "20709",
+   "kept_ref": "20728"
+  }
+ ],
+ "datacentres_geometry_rejected": [],
+ "stats": {
+  "repd_records": 14967,
+  "repd_live_target_projects_located": 10158,
+  "repd_target_projects_located_all_statuses": 13264,
+  "datacentres": 226,
+  "datacentres_placed": 225,
+  "datacentres_proximity_reliable": 220,
+  "transmission_nodes_located": 489,
+  "osm_substations_132kv_plus": 1668,
+  "clusters": 20,
+  "repd_duplicates_collapsed": 27,
+  "datacentres_geometry_rejected": 0,
+  "colocation_candidates_by_class": {
+   "A_same_site_and_operator": 4,
+   "B_operator_match": 53,
+   "C_same_site_name_and_proximity": 3,
+   "D_same_site_proximity": 202,
+   "E_repd_text_mentions_datacentre": 7
+  }
+ },
+ "outputs": [
+  {
+   "file": "colocation_candidates.csv",
+   "sha256": "47da58085a93a77ac27e6f19dbfa2d3ce6a95d5cc832f640bb8cf898967a6665",
+   "bytes": 58767
+  },
+  {
+   "file": "colocation_candidates.json",
+   "sha256": "da9784cdd66f63e50deb9d0b9bacce10702979676db951e811f44652243061c2",
+   "bytes": 150518
+  },
+  {
+   "file": "datacentre_proximity.csv",
+   "sha256": "99314957b62f30fa19b94c2975012c7193613c5cb4328d34fcde0065eff1f4ed",
+   "bytes": 238269
+  },
+  {
+   "file": "datacentre_proximity.json",
+   "sha256": "b7001987c6e1b4b397a1598e435a3ad50b5fb75063f1503bc14255616b32a15e",
+   "bytes": 2686011
+  },
+  {
+   "file": "repd_datacentre_proximity_battery.csv",
+   "sha256": "5adb7def8247a49c22ee272f8e8a03af156f4047a5e477707801e5a23c22c969",
+   "bytes": 1191675
+  },
+  {
+   "file": "repd_datacentre_proximity_battery.json",
+   "sha256": "0b1773012dcaf4bc68b6dcd9e09b8b01267f9543b490be8a7c2c9129ded912fd",
+   "bytes": 1314837
+  },
+  {
+   "file": "repd_datacentre_proximity_solar.csv",
+   "sha256": "26261a6568dfaef575e25f7d7411b09eacab2eeb7a03967111c3ba1b71add044",
+   "bytes": 3324019
+  },
+  {
+   "file": "repd_datacentre_proximity_solar.json",
+   "sha256": "faf7c5f18196cbd27682487ec77becbbe8662529caa0ef06d9aa5251613a2690",
+   "bytes": 3656881
+  },
+  {
+   "file": "repd_datacentre_proximity_wind.csv",
+   "sha256": "ea7622707f10c1594927b0dcd6498ca4d8ae2516b2b8466866799842c741f527",
+   "bytes": 1203497
+  },
+  {
+   "file": "repd_datacentre_proximity_wind.json",
+   "sha256": "dfc9b844ec79434f7290053adb5f7f44b85bf969b6269d7f3f78366b2cb9984a",
+   "bytes": 1331813
+  },
+  {
+   "file": "rollup_cluster.csv",
+   "sha256": "90a726ac12ed3cbf2a4d77d15c545c9c6e1001bf10a1442fc516141e8690e960",
+   "bytes": 24261
+  },
+  {
+   "file": "rollup_cluster.json",
+   "sha256": "3020ca6a227d31590ca52115fdf8164ebe49bd6ce53da64361d711d5f7d481e8",
+   "bytes": 230272
+  },
+  {
+   "file": "rollup_region.csv",
+   "sha256": "6356d07d8a9dcfb72b376d788cf1a73e72807c80452693b49a885528924dc58c",
+   "bytes": 6587
+  },
+  {
+   "file": "rollup_region.json",
+   "sha256": "fe2d19afa2b0ebcae91b257f832e5f0810e1a6daf840ac4cdda5deca0256f567",
+   "bytes": 41179
+  },
+  {
+   "file": "schema.json",
+   "sha256": "66a74cc2353d707adb0349eeb5262e55f0adb52c9d55f8946bb21f0c28dcfae6",
+   "bytes": 6122
+  }
+ ]
+}

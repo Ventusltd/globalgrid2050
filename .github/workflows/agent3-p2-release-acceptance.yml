@@ -22,6 +22,12 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           persist-credentials: false
+      - name: Read-only script syntax and Python unit tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile             automation/pipeline_release/agent3_readonly_gate.py             automation/pipeline_release/agent3_served_sha.py             automation/pipeline_release/agent3_rollback_dryrun.py             automation/pipeline_release/test_agent3_readonly_gate.py
+          node --check automation/pipeline_release/agent3_browser_csv_map.mjs
       - name: Run independently owned synthetic good and adversarial bad fixtures
         shell: bash
         run: |
@@ -58,6 +64,16 @@ jobs:
           sparse-checkout: |
             /evidence/repd-2026-q3/official-sources/REPD_Publication_Q3_2026.csv
             /evidence/repd-2026-q3/official-sources/REPD_Publication_Q3_2026.xlsx
+      - name: Independently pin the real top-200 REPD solar identity roster
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: Ventusltd/globalgrid2050
+          ref: 91727c22a9ee13f433d4e82d8949c9aeac5bd3be
+          path: top200
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /automation/news/signals/top200_solar.json
       - name: Fetch independently reviewed TestCode verifier at fixed Agent 3 commit
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
@@ -81,6 +97,21 @@ jobs:
             '87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea' \
             'official/evidence/repd-2026-q3/official-sources/REPD_Publication_Q3_2026.xlsx' \
             | sha256sum --strict --check | tee source-hashes.log
+      - name: Check pinned top200 bytes and exact identity uniqueness
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf '%s  %s\n'             '3a23c8495f00e613a8f0f81b2db5374a19ba89d832e913c6f821823def6b49a5'             'top200/automation/news/signals/top200_solar.json'             | sha256sum --strict --check | tee top200-hash.log
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          rows=json.loads(Path("top200/automation/news/signals/top200_solar.json").read_text())
+          refs=[str(x["repd_ref"]) for x in rows]
+          assert len(rows)==200 and len(set(refs))==200
+          assert all(r.isdecimal() for r in refs)
+          assert sorted(x["rank"] for x in rows)==list(range(1,201))
+          print("200 unique exact ranked REPD refs; actual original bytes pinned")
+          PY
       - name: Verify original official Ref IDs and published tree hashes
         shell: bash
         run: |
@@ -110,6 +141,7 @@ jobs:
             agent3-baseline.json
             independent-source-history.json
             source-hashes.log
+            top200-hash.log
             official-head.txt
             qa-head.txt
           if-no-files-found: error

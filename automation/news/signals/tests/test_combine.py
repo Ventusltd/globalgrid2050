@@ -285,9 +285,9 @@ def test_same_headline_on_distinct_historic_dates_is_not_one_event():
     result = run({"trade": part("trade", [old, new, near])})
     archive = result["projects"]["12588"]["archive"]
     assert len(archive) == 2
-    assert {entry["date"] for entry in archive} == {"2018-02-01", "2020-06-01"}
-    modern = next(entry for entry in archive if entry["date"] == "2020-06-01")
-    assert {source["date"] for source in modern.get("sources", [])} == {"2020-06-02"}
+    assert {entry["date"] for entry in archive} == {"2018-02-01", "2020-06-02"}
+    modern = next(entry for entry in archive if entry["date"] == "2020-06-02")
+    assert {source["date"] for source in modern.get("sources", [])} == {"2020-06-01"}
     assert "sources" not in next(entry for entry in archive if entry["date"] == "2018-02-01")
 
 

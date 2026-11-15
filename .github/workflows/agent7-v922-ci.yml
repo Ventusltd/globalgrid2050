@@ -116,3 +116,40 @@ jobs:
           name: agent7-v921-v920-served-byte-readback
           path: /tmp/agent7-public-readback/source-vs-served-sha256.txt
           if-no-files-found: warn
+
+  real-grid-engine-diagnostic:
+    name: Real Pipeline MAP click to public GridAtlas engine (partial sample)
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned candidate Chromium
+        working-directory: uk_renewables_pipeline/202611151300
+        run: |
+          npm ci --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Click real MAP anchors and demand composer plus actual nearest result
+        env:
+          AGENT7_ENGINE_REPORT_DIR: /tmp/agent7-real-engine
+          AGENT7_ENGINE_MODE: local
+          AGENT7_ENGINE_WIDTH: '1440'
+          AGENT7_ENGINE_SAMPLE_LIMIT: '2'
+          AGENT7_ENGINE_WAIT_MS: '85000'
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/agent7-grid-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          node uk_renewables_pipeline/202611151300/tests/browser_real_map_to_engine_agent7.mjs
+      - name: Always retain real per-REPD engine receipts and screenshots, including failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent7-real-grid-engine-click-partial-1440
+          path: /tmp/agent7-real-engine/
+          if-no-files-found: warn

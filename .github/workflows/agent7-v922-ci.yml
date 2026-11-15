@@ -42,3 +42,36 @@ jobs:
           echo "Offline staging checks are NOT per-article rights clearance, independent review,"
           echo "public served-byte validation, browser 390/1440, CSV click or MAP-to-engine execution."
           echo "No automatic merge, deployment or homepage pointer update is authorised."
+
+  chromium-staging-preflight:
+    name: Chromium 390/1440 staging UI + CSV (engine not certified)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned candidate Playwright
+        working-directory: uk_renewables_pipeline/202611151300
+        run: |
+          npm ci --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Real 390px and 1440px Chromium, CSV and MAP hit-target preflight
+        env:
+          AGENT7_SCREENSHOT_DIR: /tmp/agent7-v922-browser
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/agent7-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          node uk_renewables_pipeline/202611151300/tests/browser_stage_agent7.mjs
+      - name: Retain independent review screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent7-v922-chromium-390-1440
+          path: /tmp/agent7-v922-browser/
+          if-no-files-found: warn

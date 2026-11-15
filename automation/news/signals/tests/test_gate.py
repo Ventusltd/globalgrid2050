@@ -138,8 +138,13 @@ def test_shared_links_follow_the_reviewers_findings():
 
     assert on("1980", "eveshamobserver") and not on("7840", "eveshamobserver")          # the 2014 approval is 1980's
     assert on("11278", "inkl.com") and not on("7191", "inkl.com")                         # one refusal, one project
-    for ref, other in (("9729", "9739"), ("9739", "9729"), ("7823", "8254"), ("8254", "7823")):
-        assert on(ref, "morpethherald" if ref.startswith("97") else "high-court")[0]["also_projects"] == [other]
+    # Historic reviewer discovery does not independently prove both REPD identities.
+    # One copy of a generic "two projects" headline must not assert also_projects.
+    for first, second, needle in (("9729", "9739", "morpethherald"),
+                                  ("7823", "8254", "high-court")):
+        matches = [(ref, item) for ref in (first, second) for item in on(ref, needle)]
+        assert len(matches) == 1
+        assert "also_projects" not in matches[0][1]
     for ref in ("6071", "7630"):                                                         # names neither: never as fact
         assert on(ref, "edf-acquires-100mw")[0]["confidence"] == "possible"
     assert "Defford Aerodrome solar farm" not in aliases["projects"]["7840"]["aliases"]

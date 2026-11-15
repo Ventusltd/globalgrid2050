@@ -67,6 +67,14 @@ try {
       isMobile: width === 390, hasTouch: width === 390,
     });
     const page = await context.newPage();
+    // Chart.js is an optional CDN dependency; substitute a stub while verifying
+    // the independent table, news, CSV and MAP interactions offline.
+    await page.addInitScript(() => {
+      window.Chart = class ChartStub {
+        constructor(_canvas, config) { this.data = config.data; }
+        update() {}
+      };
+    });
     const errors = [];
     page.on('pageerror', e => errors.push(e.message));
     await page.route('https://cdn.jsdelivr.net/**', route =>

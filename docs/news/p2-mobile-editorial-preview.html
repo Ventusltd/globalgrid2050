@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Agent 4 P2 editorial iteration 04 — single-stream preview, not published</title>
+  <title>Agent 4 P2 editorial iteration 06 — single-stream preview, not published</title>
   <style>
     :root{color-scheme:light;--bg:#f5f6f8;--ink:#132539;--muted:#50647a;--border:#d8e0e7;--accent:#16466d;--white:#fff;--light:#ebf1f5}
     *{box-sizing:border-box}
@@ -66,7 +66,7 @@
     footer{border-top:1px solid var(--border);padding:22px 0 35px;font-size:.8rem;color:var(--muted)}
     @media(max-width:720px){.status-key{grid-template-columns:1fr}.columns{grid-template-columns:1fr}.limit{padding:0 15px}main{padding-top:22px}.panel{padding:18px}nav{gap:12px}nav a{font-size:.78rem}}
     @media(max-width:390px){.fields,.evidence-time{grid-template-columns:1fr}.brand{font-size:.87rem}nav{gap:9px}.meta{gap:5px}}
-    /* Iteration 04: one editorial stream; archival/discovery material is disclosure-only. */
+    /* Iteration 06: one editorial stream; archival/discovery material is disclosure-only. */
     .stream-key{display:flex;gap:8px 12px;flex-wrap:wrap;margin:0 0 18px;color:var(--muted);font-size:.83rem}
     .stream-key span{border-left:2px solid var(--border);padding-left:10px}
     .stream{max-width:900px;margin:0 auto 18px}
@@ -88,7 +88,7 @@
   <a class="skip-link" href="#main-content">Skip to news evidence</a>
   <header>
     <div class="limit">
-      <div><div class="brand">GLOBALGRID2050 · PIPELINE NEWS</div><div class="sub">Agent 4 iteration 04 · one chronological headline stream</div></div>
+      <div><div class="brand">GLOBALGRID2050 · PIPELINE NEWS</div><div class="sub">Agent 4 iteration 06 · one chronological headline stream</div></div>
       <nav aria-label="Page navigation"><a href="#headlines">Headlines</a><a href="#evidence">Evidence policy</a></nav>
     </div>
   </header>
@@ -103,11 +103,11 @@
       <span>Data centres: excluded from this candidate</span>
     </div>
 
-    <p class="stream-key" aria-label="Evidence categories"><strong>Evidence:</strong> <span>Official decision</span> <span>Attributed report</span> <span>Historical archive</span> <span>Unverified — not a headline</span></p>
+    <p class="stream-key" aria-label="Evidence categories"><strong>Evidence:</strong> <span>Official decision</span> <span>Attributed report</span> <span>Historical archive</span> <span>Planning search</span> <span>Unverified queue — not a headline</span></p>
     <section id="headlines" class="panel stream" aria-labelledby="headlines-heading">
       <div class="stream-heading">
         <div><div class="eyebrow">One chronological feed · solar-only · source-verified</div><h2 id="headlines-heading">Pipeline News headlines</h2></div>
-        <p class="quiet">Latest eligible event first. Official and attributed reporting remain distinctly labelled on each card.</p>
+        <p class="quiet">Latest eligible event first by evidenced event date; when unknown, label unknown rather than invent chronology. Official decisions and attributed reports retain distinct labels.</p>
       </div>
       <div class="empty" role="status">
         <strong>No verified solar project headlines are loaded</strong>
@@ -125,10 +125,13 @@
       </details>
     </section>
     <details id="history" class="disclosure"><summary>Historical archive</summary>
-      <p class="quiet">Older original reporting is available for context but never promoted as newly occurring because of a fresh crawl. No archived articles are loaded in this preview.</p>
+      <p class="quiet">Older original reporting is available for context but never promoted as newly occurring because of a fresh crawl or changed article headline. No archived articles are loaded in this preview.</p>
     </details>
-    <details id="planning" class="disclosure"><summary>Planning register search and review queue</summary>
-      <p class="quiet">A register search is not a planning decision. Ambiguous project matches, missing dates and unlicensed sources are withheld from the verified headline stream, with no unsupported source/project claims published.</p>
+    <details id="planning" class="disclosure"><summary>Planning register search — not a decision</summary>
+      <p class="quiet">A planning register search or application listing does not establish that permission was granted, refused or varied. Only an independently checked, dated official decision may appear in the verified decision tier. No search results are loaded in this preview.</p>
+    </details>
+    <details id="review" class="disclosure"><summary>Unverified project and article review queue — not headlines</summary>
+      <p class="quiet">Potential matches, future-dated items, summary-only claims, unsupported second-project associations, unknown event dates and unlicensed articles remain withheld. This preview shows no queue records and makes no claim that a reviewed URL establishes a project event.</p>
     </details>
     <details id="map-journey" class="disclosure"><summary>MAP and Grid Engine — proposed visible status</summary>
       <div class="map-state" role="note"><strong>Map opened — calculation not yet confirmed</strong><p>Opening a destination is not evidence that the correct REPD identity loaded or that a nearest-grid calculation completed. The live candidate must distinguish destination opened, identity unavailable, engine result visible, and distant offshore constrained. Any nearby infrastructure is geographic context only, never a grid connection offer.</p></div>
@@ -139,6 +142,6 @@
       <p class="small">Unknown event dates are displayed as unknown; a year-only document does not supply a specific day. Two projects named in one article require two separately evidenced identity bindings. An article's URL alone does not prove an electrical grid connection.</p>
     </details>
   </main>
-  <footer><div class="limit">Agent 4 iteration 04 (15 Nov 2026) · static HTML · no live requests, third-party assets, attached source records, or publication authority. See P2-AGENT4-SOLAR-EDITORIAL-ACCEPTANCE.md.</div></footer>
+  <footer><div class="limit">Agent 4 iteration 06 (15 Nov 2026) · static HTML · no live requests, third-party assets, attached source records, or publication authority. See P2-AGENT4-SOLAR-EDITORIAL-ACCEPTANCE.md.</div></footer>
 </body>
 </html>

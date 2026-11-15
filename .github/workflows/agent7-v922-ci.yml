@@ -44,7 +44,7 @@ jobs:
           echo "No automatic merge, deployment or homepage pointer update is authorised."
 
   chromium-staging-preflight:
-    name: Chromium 390/1440 staging UI + CSV (engine not certified)
+    name: Chromium 390/1440 and WebKit 393 staging UI + CSV (engine not certified)
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -59,8 +59,8 @@ jobs:
         working-directory: uk_renewables_pipeline/202611151300
         run: |
           npm ci --no-audit --no-fund
-          npx playwright install --with-deps chromium
-      - name: Real 390px and 1440px Chromium, CSV and MAP hit-target preflight
+          npx playwright install --with-deps chromium webkit
+      - name: Real Chromium 390/1440 and WebKit 393, CSV and MAP hit-target preflight
         env:
           AGENT7_SCREENSHOT_DIR: /tmp/agent7-v922-browser
         run: |

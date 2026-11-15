@@ -148,6 +148,29 @@ def is_weak_core(core):
     return len(words) <= 1 or all(w in EVERYDAY for w in words) or words[-1] in PLACE_TAIL
 
 
+def named_development_candidate(title, project):
+    """A project core directly followed by 'solar' plus a genuine planning /
+    development action. This is candidate discovery only, never confirmation.
+
+    Exclusions, foreign places, county conflicts, weak names and publisher
+    evidence remain separate mandatory gates. Do not use a developer or
+    county alone as a project identity.
+    """
+    if not isinstance(title, str) or not isinstance(project, dict):
+        return False
+    if not SOLAR_RE.search(title) or SMALL_RE.search(title):
+        return False
+    if not (DEVELOPMENT_ACTION_RE.search(title) or CONTEXT_RE.search(title)):
+        return False
+    text = _norm(title)
+    for alias in project.get("aliases") or []:
+        core = _norm(core_of(alias))
+        if core and re.search(r"(?<![a-z0-9])" + re.escape(core) +
+                              r"(?: \\d+(?:\\.\\d+)? ?mw)? solar\\b", text):
+            return True
+    return False
+
+
 def table():
     """{repd_ref: project} from the committed top-200 list, alias table and exclusions (loaded once)."""
     global _TABLE
@@ -318,6 +341,8 @@ def judge(ref, title, project=None, official=False):
             return "ok", "a weak name with a direct solar project phrase and an agreeing fact"
         if whole or adjacent:
             return "possible", "a generic or shared name with no agreeing fact"
+        if named_development_candidate(title, project):
+            return "possible", "project core followed by solar in a development headline; independent case identity absent"
         return "drop", "a generic or shared name, not followed by its solar term, with no agreeing fact"
     if whole or adjacent:
         if far and not fact:
@@ -325,6 +350,8 @@ def judge(ref, title, project=None, official=False):
         return "ok", "the name followed directly by its solar term"
     if fact:
         return "possible", "a weak name and a solar term apart, with an agreeing fact"
+    if named_development_candidate(title, project):
+        return "possible", "weak project core followed by solar in a development headline; independent identity absent"
     return "drop", "a weak name and a solar term apart, with nothing else agreeing"
 
 

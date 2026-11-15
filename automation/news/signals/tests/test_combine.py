@@ -246,6 +246,30 @@ def test_link_on_several_projects_only_when_title_or_reviewer_names_each():
     assert result["dropped"]["link on several projects"] == 1
 
 
+
+def test_single_reviewed_wrong_project_is_not_confirmed_without_duplicate_link():
+    # Regression: no second copy of this URL exists under the real project.
+    # Merely marking the wrong project as "reviewed" cannot bypass title identity.
+    wrong = item("20004", "misbound", title="Botley West Solar Farm wins consent",
+                 basis="reviewed 2026-11-14")
+    result = run({"reviewed": part("reviewed", [wrong])})
+    assert everything(result["projects"]["20004"]) == []
+    assert result["counts"]["headline"]["value"] == 0
+
+    generic = item("12588", "unsupported", title="A huge solar farm wins approval",
+                   basis="reviewed 2026-11-14")
+    result = run({"reviewed": part("reviewed", [generic])})
+    hits = everything(result["projects"]["12588"])
+    assert len(hits) == 1 and hits[0]["confidence"] == "possible"
+    assert result["counts"]["headline"]["value"] == 0
+
+    named = item("12588", "site-named", title="Botley West Solar Farm wins consent",
+                 basis="reviewed 2026-11-14")
+    result = run({"reviewed": part("reviewed", [named])})
+    assert everything(result["projects"]["12588"])[0]["confidence"] == "confirmed"
+
+
+
 # ---------------------------------------------------------------- events and clusters
 
 def test_event_from_the_title_and_one_story_shown_once_with_its_sources():

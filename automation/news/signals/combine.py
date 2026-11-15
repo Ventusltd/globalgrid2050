@@ -392,17 +392,31 @@ def _citation(item):
 
 
 def cluster(ref, items):
-    """One story once. Items of one tier with the same headline, or the same event within 14 days, become the
-    first of them in display order with the others as its "sources"."""
+    """One story once only within an evidenced event-time window.
+
+    Same headline text can be reused for distinct decisions years apart. Never
+    infer that an undated article covers the same event as a dated one merely
+    because its words are identical; URL deduplication happens upstream.
+    """
     items = sorted(items, key=order_key)
     groups, by_title = [], {}
-    for item in items:                                      # same headline from another publisher: one story
+    for item in items:
         key = title_key(item["title"])
-        if key in by_title:
-            by_title[key].append(item)
+        home = None
+        if item["date"]:
+            day = dt.date.fromisoformat(item["date"])
+            for candidate in by_title.get(key, []):
+                lead = candidate[0]
+                if lead["date"] and lead["event"] == item["event"] and \
+                        abs((dt.date.fromisoformat(lead["date"]) - day).days) <= CLUSTER_DAYS:
+                    home = candidate
+                    break
+        if home is not None:
+            home.append(item)
         else:
-            by_title[key] = [item]
-            groups.append(by_title[key])
+            group = [item]
+            groups.append(group)
+            by_title.setdefault(key, []).append(group)
     merged = []
     for group in groups:                                    # same event within 14 days of the cluster's first date
         lead = group[0]

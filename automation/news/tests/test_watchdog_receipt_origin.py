@@ -38,6 +38,11 @@ def receipt_eligible(item, body, now):
         content_type = item.get("content_type")
         if not isinstance(content_type, str) or content_type.split(";", 1)[0].strip().lower() not in {"text/html", "application/xhtml+xml"}:
             return False
+        # Content-Type is a server claim, not proof that bytes contain HTML.
+        # Avoid treating an error string or binary payload as an article receipt.
+        prefix = body[:4096].lstrip().lower()
+        if not (prefix.startswith(b"<!doctype html") or prefix.startswith(b"<html") or prefix.startswith(b"<?xml")):
+            return False
         if item.get("publisher_rights") not in _ALLOWED_RIGHTS:
             return False
         digest = item["response_sha256"]
@@ -57,7 +62,7 @@ def receipt_eligible(item, body, now):
 class ReceiptOriginContract(unittest.TestCase):
     def setUp(self):
         self.now = datetime(2026, 11, 15, 1, 0, tzinfo=timezone.utc)
-        self.body = b"Independent publisher response bytes"
+        self.body = b"<!doctype html><html><body>Independent publisher response bytes</body></html>"
         self.item = {
             "publisher_url": "https://publisher.example/article?id=7",
             "fetched_url": "https://publisher.example/article?id=7",
@@ -110,6 +115,19 @@ class ReceiptOriginContract(unittest.TestCase):
 
     def test_xhtml_article_receipt_accepted(self):
         self.item["content_type"] = "application/xhtml+xml"
+        self.assertTrue(receipt_eligible(self.item, self.body, self.now))
+
+    def test_text_error_mislabeled_as_html_rejected(self):
+        self.body = b"503 Service Unavailable"
+        self.item["response_sha256"] = hashlib.sha256(self.body).hexdigest()
+        self.assertFalse(receipt_eligible(self.item, self.body, self.now))
+
+    def test_binary_mislabeled_as_html_rejected(self):
+        self.body = b"%PDF-1.7\\n"
+        self.item["response_sha256"] = hashlib.sha256(self.body).hexdigest()
+        self.assertFalse(receipt_eligible(self.item, self.body, self.now))
+
+    def test_html_document_receipt_positive(self):
         self.assertTrue(receipt_eligible(self.item, self.body, self.now))
 
     def test_http_downgrade_rejected(self):

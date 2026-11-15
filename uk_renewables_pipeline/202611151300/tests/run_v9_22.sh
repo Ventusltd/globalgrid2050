@@ -29,6 +29,8 @@ CHANGED_FROM_PARENT=(
   README.md
   index.html
   scripts/plugins/live-news.js
+  styles/v9-22.css
+  tests/browser_stage_agent7.mjs
   tests/check_v9_22.mjs
   tests/live_news_regression_v9_22.mjs
   tests/run_v9_22.sh

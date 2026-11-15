@@ -1,6 +1,6 @@
 {
  "schema": "project-signals.v1",
- "generated_at": "2026-11-15T13:18:04Z",
+ "generated_at": "2026-11-15T22:07:19Z",
  "scope": "200 largest Solar Photovoltaics rows, REPD October 2026",
  "counts": {
   "projects": 200,
@@ -33,17 +33,17 @@
   "official": {
    "status": "ok",
    "items": 89,
-   "generated_at": "2026-11-15T12:50:41Z"
+   "generated_at": "2026-11-15T21:53:55Z"
   },
   "trade": {
    "status": "ok",
    "items": 197,
-   "generated_at": "2026-11-15T12:54:37Z"
+   "generated_at": "2026-11-15T21:57:52Z"
   },
   "index": {
    "status": "ok",
    "items": 9,
-   "generated_at": "2026-11-15T12:56:56Z"
+   "generated_at": "2026-11-15T21:59:31Z"
   },
   "reviewed": {
    "status": "ok",
@@ -95,7 +95,7 @@
    "id": "solar-power-portal",
    "url": "https://www.solarpowerportal.co.uk",
    "status": "ok",
-   "requests": 132,
+   "requests": 95,
    "failures": 0,
    "items": 105,
    "error": ""
@@ -104,11 +104,11 @@
    "team": "trade",
    "id": "pv-tech",
    "url": "https://www.pv-tech.org",
-   "status": "ok",
-   "requests": 3,
+   "status": "partial",
+   "requests": 7,
    "failures": 0,
    "items": 1,
-   "error": ""
+   "error": "no search route usable: wp_posts HTTP 403; wp_rss HTTP 403; wp_rss HTTP 403; html HTTP 403; wp_search HTTP 403"
   },
   {
    "team": "trade",
@@ -205,10 +205,10 @@
    "id": "gdelt-doc",
    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
    "status": "partial",
-   "requests": 51,
-   "failures": 39,
+   "requests": 16,
+   "failures": 15,
    "items": 12,
-   "error": "time budget for GDELT reached; the rest are asked on later runs; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
+   "error": "HTTP 429 on 6 queries running, each retried once; GDELT left alone for the rest of this run; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   }
  ],
  "projects": {

@@ -67,7 +67,7 @@ CLUSTER_DAYS = 14
 MAX_PER_TIER = 5
 PART_MAX_HOURS = 48           # a part file older than this was not collected by this run
 DROP_LIMIT = 1 / 3            # the writer refuses a file whose counts fall by more than this
-HEADLINE = "projects with recent verified news"
+HEADLINE = "projects with recent candidate news (independent evidence pending)"
 REVIEWED = "reviewed"         # basis of an item found by hand: "reviewed <date>"
 # A developer's or a campaign's own page is something to click, not news: family "developer", always archive.
 DEVELOPER_HOSTS = (
@@ -853,7 +853,7 @@ def schema_errors(result, expected_refs=None):
     need(sum(v for v in by_tier.values() if isinstance(v, int)) == len(projects) == counts.get("projects"),
          "counts.by_tier does not sum to the number of projects")
     need(isinstance(counts.get("headline"), dict) and counts["headline"].get("value") == by_tier.get("recent_news"),
-         "headline is not the count of projects with recent verified news")
+         "headline does not equal the candidate recent-news count")
     if expected_refs is not None:
         need(set(projects) == {str(r) for r in expected_refs}, "the projects are not the expected set")
     need(by_tier.get("nothing") == 0, "%s project(s) have neither an item nor a planning file" % by_tier.get("nothing"))

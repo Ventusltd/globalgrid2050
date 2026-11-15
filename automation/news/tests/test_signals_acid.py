@@ -422,9 +422,17 @@ def test_R02_a_future_dated_item_is_not_ranked_as_the_newest(tmp_path):
 @pytest.mark.parametrize("case", TESTERS["date_readers"], ids=lambda c: c["name"])
 def test_R02_tester_date_reader_recommendations(case):
     module, name = case["function"].split(".")
-    got = getattr(__import__(module), name)(case["value"])
+    if case["function"] == "datacentre_feed.parse_date":
+        # The tester's recommendation concerns the written CALENDAR DAY,
+        # not an inferred UTC timestamp. Keep datacentre_feed.parse_date()
+        # strict for feed freshness and introduce a separately named reader.
+        import datacentre_feed as D
+        got = D.parse_calendar_day(case["value"])
+    else:
+        got = getattr(__import__(module), name)(case["value"])
     got = got[:10] if isinstance(got, str) else got
-    assert got == case["expected"], "%s(%r) gave %r, the tester expects %r" % (case["function"], case["value"], got, case["expected"])
+    assert got == case["expected"], "%s calendar day (%r) gave %r, the tester expects %r" % (
+        case["function"], case["value"], got, case["expected"])
 
 
 @known("NL-019 finding 2 and acid tester 2", "no freshness boundary exists")
@@ -690,7 +698,7 @@ def test_R10_counts_are_by_tier_and_equal_what_the_items_give(tmp_path):
         "90005": "planning_file_only", "90006": "planning_file_only", "90007": "recent_news", "90008": "archive_only",
         "9050": "archive_only"}
     assert counts["by_tier"] == {"recent_news": 3, "official": 1, "archive_only": 2, "planning_file_only": 3, "nothing": 0}
-    assert counts["headline"] == {"label": "projects with recent verified news", "value": 3}
+    assert counts["headline"] == {"label": "projects with recent candidate news (independent evidence pending)", "value": 3}
     assert not {"with_signal", "with_confirmed_signal", "split"} & set(counts)
 
 
@@ -847,7 +855,7 @@ def good_file():
     ok = {"status": "ok", "collected_at": COLLECTED, "items": 1, "note": ""}
     return {"schema": "project-signals.v2", "generated_at": COLLECTED, "run_at": NOW, "stale": False, "scope": "test", "recent_days": 90,
             "parts": {"official": dict(ok), "trade": dict(ok), "index": dict(ok), "reviewed": dict(ok), "planning": dict(ok)},
-            "counts": {"projects": 4, "headline": {"label": "projects with recent verified news", "value": 1},
+            "counts": {"projects": 4, "headline": {"label": "projects with recent candidate news (independent evidence pending)", "value": 1},
                        "by_tier": {"recent_news": 1, "official": 1, "archive_only": 1, "planning_file_only": 1, "nothing": 0},
                        "possible_only": 0, "with_recent_news": 1, "with_official": 1, "with_archive": 2, "with_possible_recent_news": 0,
                        "items": {"recent_news": 1, "official": 1, "archive": 3},
@@ -857,6 +865,18 @@ def good_file():
 
 def test_R15_live_checker_passes_a_file_that_meets_the_contract():
     assert L.failures(good_file(), NOW) == {}
+
+
+def test_R15_new_v2_must_not_call_uncleared_project_news_verified():
+    doc = good_file()
+    # Changing only the wording to the historical label must be rejected even
+    # if all other dates, tiers and synthetic fixture values are consistent.
+    doc["counts"]["headline"]["label"] = "projects with recent verified news"
+    failures = L.failures(doc, NOW)
+    assert "schema" in failures
+    assert any("candidate news" in message for message in failures["schema"])
+    # Source-history readback belongs to its own pinned old revision; it is
+    # never used as an exception in the current producer's publication gate.
 
 
 def _diode(doc):

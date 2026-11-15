@@ -66,8 +66,12 @@ def test_match_rule(projects):
     assert I.match_item(botley, "Botley West solar farm refused by minister")[0] == "strong"
     assert I.match_item(botley, "Botley West solar project decision due")[0] == "strong"
     assert I.match_item(botley, "Decision on EN010147 published")[0] == "strong"
-    assert I.match_item(botley, "Huge solar farm refused", "The Botley West Solar Farm would have covered farmland.", True)[0] == "strong"
-    assert I.match_item(botley, "Huge solar farm refused", "The Botley West Solar Farm in Oxfordshire is refused.")[0] == "strong"
+    # County RSS summaries may discover a candidate, but they do not prove the identity of a generic headline.
+    assert I.match_item(botley, "Huge solar farm refused", "The Botley West Solar Farm would have covered farmland.", True)[0] == "weak"
+    assert I.match_item(botley, "Huge solar farm refused", "The Botley West Solar Farm in Oxfordshire is refused.")[0] == "weak"
+    unrelated = I.match_item(botley, "Longfield Solar Farm receives consent",
+                             "Botley West Solar Farm was discussed in a separate item.", True)
+    assert unrelated is None or unrelated[0] != "strong"  # wrong scheme in title never gains confirmed identity
     assert I.match_item(botley, "Huge solar farm refused", "The Botley West Solar Farm would have covered farmland.")[0] == "weak"
     assert I.match_item(botley, "Solar plan near Botley West divides villagers")[0] == "weak"
     assert I.match_item(botley, "Botley West residents meet over road closure") is None      # a bare name is not enough
@@ -116,8 +120,8 @@ def test_collect_rss_reads_summary_but_never_stores_it(projects):
     item = items[0]
     assert item == {"repd_ref": "12588", "title": "Minister refuses giant solar farm",
                     "link": "https://www.bbc.co.uk/news/articles/abc", "publisher": "BBC News", "date": "2026-11-10",
-                    "family": "bbc", "confidence": "confirmed",
-                    "basis": "BBC News RSS: alias 'Botley West Solar Farm' in feed summary; the feed is the project's county feed"}
+                    "family": "bbc", "confidence": "uncertain",
+                    "basis": "BBC News RSS: alias 'Botley West Solar Farm' in feed summary; the feed is the project's county feed; kept as weak: headline lacks a verified project name"}
     assert "refused development consent" not in json.dumps(items)
     record = I.source_record("bbc-rss", I.BBC_BASE, health)
     assert record["status"] == "partial" and record["failures"] == 1 and record["items"] == 1
@@ -151,7 +155,11 @@ def test_parse_gdelt():
     body = json.dumps({"articles": [{"url": "https://www.bbc.co.uk/news/a", "title": "Botley West solar farm refused",
                                      "seendate": "20261110T121500Z", "domain": "bbc.co.uk", "language": "English"}]})
     assert I.parse_gdelt(body) == [("Botley West solar farm refused", "https://www.bbc.co.uk/news/a", "bbc.co.uk",
-                                    "2026-11-10", "English")]
+                                    None, "English")]                      # the crawl date is not a publication date
+    dated = json.dumps({"articles": [{"url": "https://www.example-paper.co.uk/news/2019/05/07/solar-farm-approved",
+                                      "title": "Solar farm approved", "seendate": "20261110T121500Z"},
+                                     {"url": "https://a.co.uk/x", "title": "t", "seendate": "20261345T000000Z"}]})
+    assert [a[3] for a in I.parse_gdelt(dated)] == ["2019-05-07", None]   # the article's own date, from its link
     with pytest.raises(ValueError, match="too short"):
         I.parse_gdelt("The specified phrase is too short.")
 
@@ -169,7 +177,7 @@ def test_gdelt_cache_rate_limit_and_rotation(projects):
             ("Oxfordshire solar farm row deepens | Oxford Mail", "https://www.oxfordmail.co.uk/news/b", "20261001T120000Z"),
             ("Oxfordshire solar farm row deepens", "https://www.heraldseries.co.uk/news/b", "20261001T120000Z"),
             ("Solar tiles , roofs and prices", "https://www.oxfordmail.co.uk/news/d", "20261001T120000Z"),
-            ("Oxfordshire reacts as Rigifa solar farm approved", "https://www.oxfordmail.co.uk/news/e", "20261001T120000Z"),
+            ("Oxfordshire and Aberdeenshire react as Rigifa solar farm approved", "https://www.oxfordmail.co.uk/news/e", "20261001T120000Z"),
             ("Council budget agreed", "https://www.oxfordmail.co.uk/news/c", "20261002T120000Z"),
             ("Botley West solar farm refused", "https://news.google.com/x", "20261110T120000Z"),
             ("Botley West solar farm refused - Reuters", "https://www.reuters.com/x", "20261110T120000Z")))],

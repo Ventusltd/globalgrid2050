@@ -1,0 +1,1657 @@
+{
+"note": "Regression fixtures for gate.py. false: headlines that are not about the project (acid test of 14 November 2026; the third value says whether the headline is a real published one, the others were written for the test). true: headlines the collectors matched on 14 November 2026 that are about the project.",
+"false": [
+[
+"9050",
+"Contractor named for £60m Lincolnshire bypass",
+false
+],
+[
+"9050",
+"Bypass plan would cut through proposed solar farm site near Grantham",
+false
+],
+[
+"9050",
+"By-pass farm shop plan refused in Lincolnshire",
+false
+],
+[
+"9050",
+"HMP Foston Hall in Derbyshire gets rooftop solar panels",
+false
+],
+[
+"15149",
+"Great North Road solar canopy planned for motorway services",
+false
+],
+[
+"15149",
+"GNR solar timetable chaos hits Great Northern commuters",
+false
+],
+[
+"13043",
+"Springwell solar panels fitted at Gateshead school",
+false
+],
+[
+"13043",
+"Springwell village primary school gets solar panels",
+false
+],
+[
+"15866",
+"Meridian Solar wins contract for school rooftop arrays",
+false
+],
+[
+"17699",
+"Whitestone solar farm plan for Herefordshire village",
+false
+],
+[
+"17699",
+"Whitestone homes development hits net zero target",
+false
+],
+[
+"14806",
+"One Earth climate fund backs community energy projects",
+false
+],
+[
+"10914",
+"Cottam residents fear solar panels on Preston new homes",
+false
+],
+[
+"10914",
+"Island Green Power appoints new site manager at Cottam data hub",
+false
+],
+[
+"8162",
+"Longfield Academy in Kent installs solar panels",
+false
+],
+[
+"12281",
+"Tillbridge Lane closure for cable works in Lincolnshire",
+false
+],
+[
+"14851",
+"Rosefield care home solar panels approved",
+false
+],
+[
+"15793",
+"Green Hill Farm solar plan in Devon approved",
+false
+],
+[
+"16063",
+"Lime Down quarry restoration plan in Wiltshire",
+false
+],
+[
+"17560",
+"The Droves nature reserve in Norfolk wins lottery cash",
+false
+],
+[
+"17560",
+"Island Green Power: what the droves of solar applications mean for Norfolk",
+false
+],
+[
+"17701",
+"Light Valley festival lights up Calderdale",
+false
+],
+[
+"10916",
+"West Burton village in Wensleydale gets community energy grant",
+false
+],
+[
+"15252",
+"Church steeple repairs in Nottinghamshire village",
+false
+],
+[
+"15252",
+"Steeple Morden solar farm plan in Cambridgeshire",
+false
+],
+[
+"15252",
+"Energy systems firm restores church steeple",
+false
+],
+[
+"11678",
+"East Yorkshire bus drivers vote to strike",
+false
+],
+[
+"11678",
+"East Yorkshire solar canopy opens at Hull business park",
+false
+],
+[
+"15347",
+"East Park energy centre for Hull heat network",
+false
+],
+[
+"15347",
+"East Park solar panels for Wolverhampton school",
+false
+],
+[
+"6502",
+"Cleve Hill race course parking plan near Cheltenham",
+false
+],
+[
+"9809",
+"Gate Burton Hall wedding venue plan approved",
+false
+],
+[
+"9806",
+"Heckington Fen drainage board raises rates",
+false
+],
+[
+"13599",
+"Beacon Fen road closed for resurfacing",
+false
+],
+[
+"9904",
+"Mallard Pass Action Group welcomes new chair",
+false
+],
+[
+"14100",
+"Fosse Green energy-efficient homes approved in Lincoln",
+false
+],
+[
+"14100",
+"Fosse Way solar farm plan refused in Somerset",
+false
+],
+[
+"15000",
+"Peartree Hill housing scheme approved",
+false
+],
+[
+"14098",
+"Fenwick solar panels on department store roof in Newcastle",
+false
+],
+[
+"14098",
+"Fenwick Moor wind and solar park in East Ayrshire",
+false
+],
+[
+"11476",
+"Helios Solar Farm reaches financial close in Spain",
+false
+],
+[
+"11476",
+"Helios solar-plus-storage project wins state contract",
+false
+],
+[
+"11476",
+"Helios Towers plans renewable energy park for masts",
+false
+],
+[
+"12409",
+"Byers Gill Lane reopens after crash",
+false
+],
+[
+"19016",
+"Springfield Solar Farm in Missouri switches on",
+false
+],
+[
+"19016",
+"City of Springfield solar farm approved by council",
+false
+],
+[
+"19016",
+"Springfield solar plans for Chelmsford housing estate",
+false
+],
+[
+"9546",
+"Pancross & Oaklands Solar Farm approved in Vale of Glamorgan",
+false
+],
+[
+"9546",
+"Oaklands Farm park and ride expansion approved",
+false
+],
+[
+"7701",
+"Oaklands solar farm plan in Derbyshire approved",
+false
+],
+[
+"6557",
+"Little Crow pub reopens in village",
+false
+],
+[
+"14550",
+"Dean Moor hospital campus plans",
+false
+],
+[
+"14096",
+"Frodsham solar panels on Cheshire school roof",
+false
+],
+[
+"11278",
+"Wentlooge Levels flood defence scheme in Gwent",
+false
+],
+[
+"7191",
+"Wentlooge solar farm second phase approved",
+false
+],
+[
+"16393",
+"Cowley Complex homes plan in Oxford",
+false
+],
+[
+"8091",
+"Cowley House care home sold in Oxford",
+false
+],
+[
+"14543",
+"Tealing solar and battery hub plan near Dundee substation",
+false
+],
+[
+"17948",
+"Ysbyty Glan Clwyd in Bodelwyddan faces special measures",
+false
+],
+[
+"17948",
+"Bodelwyddan Castle hotel solar panels installed",
+false
+],
+[
+"10085",
+"Stonestreet Green bus route axed",
+false
+],
+[
+"21306",
+"Desborough solar panels fitted to Northamptonshire school",
+false
+],
+[
+"4968",
+"RAF Desborough memorial service draws veterans",
+false
+],
+[
+"14193",
+"Rogerhill Farm switch to organic milk",
+false
+],
+[
+"18870",
+"Hedgehog Grove nature reserve opens in London",
+false
+],
+[
+"19975",
+"North Ray of Light charity solar donation",
+false
+],
+[
+"20768",
+"Dupplin Estate solar farm plans for Perthshire",
+false
+],
+[
+"16026",
+"Lorry fire on M74 west of Abington causes delays",
+false
+],
+[
+"15538",
+"Nettly Burn path flooding in Fife",
+false
+],
+[
+"9815",
+"Bumblebee solar meadows boost pollinators",
+false
+],
+[
+"6411",
+"Llanwern steelworks solar panels planned by Tata",
+false
+],
+[
+"7194",
+"Fans rush wall as stadium gates fail",
+false
+],
+[
+"12117",
+"Flats on Cowbridge Road East and more HMOs: the latest planning applications in Cardiff",
+true
+],
+[
+"12117",
+"The new pavements installed on Cardiff's Cowbridge Road and how they work",
+true
+],
+[
+"14293",
+"Houston solar farm on old landfill switches on",
+false
+],
+[
+"14293",
+"Houston-based solar developer raises $200m",
+false
+],
+[
+"14540",
+"Fernieshaw ice rink closure in Lanarkshire",
+false
+],
+[
+"2347",
+"Shotwick Park business units in Flintshire let",
+false
+],
+[
+"14301",
+"Lower Bodachra farm sale in Aberdeenshire",
+false
+],
+[
+"8051",
+"Iron Acton bypass plan back on table",
+false
+],
+[
+"8051",
+"Larks Green solar panels for Gloucestershire school",
+false
+],
+[
+"2203",
+"MOD Lyneham to host new defence college",
+false
+],
+[
+"10800",
+"Indian Queens bypass works in Cornwall",
+false
+],
+[
+"10800",
+"Tregonning Hill walk in west Cornwall",
+false
+],
+[
+"8479",
+"Octopus Energy fined for breach of supply rules",
+false
+],
+[
+"8479",
+"Council probes breach of solar farm planning conditions",
+false
+],
+[
+"8459",
+"Parc Dyffryn gardens reopen",
+false
+],
+[
+"10541",
+"Benthead farm plan for Ayrshire",
+false
+],
+[
+"7862",
+"River Elwy flood warning in Denbighshire",
+false
+],
+[
+"10477",
+"Highfields solar farm plan for Lincolnshire village",
+false
+],
+[
+"10477",
+"Highfields Farm housing scheme approved",
+false
+],
+[
+"10993",
+"Frodo statue unveiled in Aberdeenshire village",
+false
+],
+[
+"9096",
+"Crash at Gonerby Moor roundabout on A1",
+false
+],
+[
+"11864",
+"Lees Hill homes plan",
+false
+],
+[
+"12285",
+"Hagshaw community solutions fund opens",
+false
+],
+[
+"14994",
+"Stirling Council approves solar farm at landfill",
+false
+],
+[
+"14994",
+"Stirling University solar research breakthrough",
+false
+],
+[
+"18477",
+"Glenskinno estate solar farm plan in Angus",
+false
+],
+[
+"7858",
+"Plas Power woods footpath reopens in Wrexham",
+false
+],
+[
+"11022",
+"Mere Flats car park plans",
+false
+],
+[
+"20388",
+"Berden Hall wedding venue plan",
+false
+],
+[
+"8131",
+"Skeeby village hall solar panels",
+false
+],
+[
+"20021",
+"Brailsford solar marginal gains: what cycling teaches energy",
+false
+],
+[
+"6012",
+"Kells solar farm plan in County Meath",
+false
+],
+[
+"6012",
+"Kells and Connor solar panels for church hall in Antrim",
+false
+],
+[
+"6341",
+"Milltown solar farm plan in Ireland refused",
+false
+],
+[
+"6341",
+"Milltown Airfield sale near Elgin",
+false
+],
+[
+"6383",
+"Randolph Hotel Oxford fits solar panels",
+false
+],
+[
+"8991",
+"Little Staughton airfield housing plan",
+false
+],
+[
+"12822",
+"Kirkton solar farm plan near Inverurie",
+false
+],
+[
+"12822",
+"St Fergus beach clean-up",
+false
+],
+[
+"17470",
+"Kintore substation expansion in Aberdeenshire",
+false
+],
+[
+"17470",
+"Kintore solar farm plan for 100MW site",
+false
+],
+[
+"19401",
+"Haxted Mead flood plan",
+false
+],
+[
+"7823",
+"Hulam Farm sale in County Durham",
+false
+],
+[
+"8350",
+"Broadway House Farm cafe opens",
+false
+],
+[
+"9014",
+"Soay sheep study shows North Yorkshire flock thriving",
+false
+],
+[
+"9240",
+"Stargoose pub in Cambridgeshire reopens",
+false
+],
+[
+"9273",
+"North Fambridge marina solar panels in Essex",
+false
+],
+[
+"9365",
+"Priory Farm housing scheme approved",
+false
+],
+[
+"9365",
+"Priory Farm solar farm in Kent approved",
+false
+],
+[
+"9394",
+"Crimscote Downs walk near Stratford",
+false
+],
+[
+"9441",
+"Ashorne Hill conference centre sold",
+false
+],
+[
+"9456",
+"Coldharbour Farm homes plan in Aylesbury",
+false
+],
+[
+"9456",
+"Coldharbour solar farm in Surrey approved",
+false
+],
+[
+"9509",
+"Alfreton solar panels for leisure centre",
+false
+],
+[
+"9586",
+"Little Hale Fen drainage works",
+false
+],
+[
+"9729",
+"Low Horton farm sale",
+false
+],
+[
+"9739",
+"Burnt House Farm fire",
+false
+],
+[
+"10523",
+"Middle Road Farm housing appeal",
+false
+],
+[
+"10529",
+"New life for Red House",
+true
+],
+[
+"18174",
+"Red House Farm solar farm in Suffolk approved",
+false
+],
+[
+"11329",
+"Cutbush Farm shop opens",
+false
+],
+[
+"11691",
+"Gately Moor Reservoir walk",
+false
+],
+[
+"12017",
+"Carlton solar farm plan near Barnsley in South Yorkshire",
+false
+],
+[
+"12017",
+"Carlton Television archive goes online with Island Green",
+false
+],
+[
+"12162",
+"Winterton Road crash in Scunthorpe",
+false
+],
+[
+"13339",
+"Bluestone solar panels for Pembrokeshire holiday park",
+false
+],
+[
+"14269",
+"Wood Lodge solar farm in Essex approved",
+false
+],
+[
+"14269",
+"Thrapston solar panels for school",
+false
+],
+[
+"15072",
+"Rookery Farm housing scheme approved",
+false
+],
+[
+"15072",
+"Rookery Farm solar farm plans in Norfolk",
+false
+],
+[
+"15180",
+"Mareham Lane closure in Sleaford",
+false
+],
+[
+"15247",
+"Worset Lane housing in Hartlepool",
+false
+],
+[
+"15452",
+"Pilmoor rail crossing closure in North Yorkshire",
+false
+],
+[
+"16541",
+"Lumiere festival solar-powered lights in Durham",
+false
+],
+[
+"17359",
+"Horningsea solar panels for church",
+false
+],
+[
+"17429",
+"Fosse Way near Leamington now clear after earlier accident",
+true
+],
+[
+"17429",
+"A45 eastbound Fosse Way roundabout to Thurlaston roundabout carriageway closure",
+true
+],
+[
+"17429",
+"Fosse Way solar farm in Somerset approved",
+false
+],
+[
+"19007",
+"Thornton solar farm plan in Lancashire",
+false
+],
+[
+"19007",
+"Thornton Estate homes plan",
+false
+],
+[
+"19452",
+"Yew Tree Farm housing appeal allowed",
+false
+],
+[
+"19452",
+"Yew Tree Farm solar farm in Cheshire approved",
+false
+],
+[
+"19635",
+"Tewes Farm wedding barn plan approved",
+false
+],
+[
+"11927",
+"Lark Hill housing plan in Rochford",
+false
+],
+[
+"17757",
+"Anchor Lane Farm shop opens",
+false
+],
+[
+"1980",
+"Solar Planning firm wins Defford Aerodrome bid",
+false
+],
+[
+"7840",
+"Croome Airfield memorial unveiled",
+false
+],
+[
+"2088",
+"West Raynham airfield homes plan",
+false
+],
+[
+"5186",
+"Awre Peninsula flood defences",
+false
+],
+[
+"5521",
+"Cambridge scientists develop solar cell breakthrough",
+false
+],
+[
+"5521",
+"Cambridge solar panels for city council homes",
+false
+],
+[
+"5521",
+"Cambridge solar farm in Ontario approved",
+false
+],
+[
+"6071",
+"Porth Wen brickworks ruins sale",
+false
+],
+[
+"6561",
+"Cayton Bay solar panels for holiday park in Yorkshire",
+false
+],
+[
+"7223",
+"Inkersall solar panels for Chesterfield homes",
+false
+],
+[
+"7256",
+"Grange Farm solar farm plan in Essex approved",
+false
+],
+[
+"7256",
+"The Grange solar canopy for school car park",
+false
+],
+[
+"7425",
+"Hatherden Farm homes plan",
+false
+],
+[
+"7486",
+"Kirkby Fleetham village hall reopens",
+false
+],
+[
+"7501",
+"Halloughton wood felling near Newark",
+false
+],
+[
+"7519",
+"Corner Copse woodland walk opens",
+false
+],
+[
+"7561",
+"Tiln solar panels for village hall",
+false
+],
+[
+"7616",
+"Down Barn Farm open day",
+false
+],
+[
+"7630",
+"Burwell solar panels on village college",
+false
+],
+[
+"7767",
+"Brigstock solar panels for church",
+false
+],
+[
+"7786",
+"Wood Lane solar farm plan in Shropshire approved",
+false
+],
+[
+"7802",
+"Chosley Farm shop opens",
+false
+],
+[
+"7887",
+"Hasland solar panels on homes",
+false
+],
+[
+"7889",
+"Grimsby solar canopy at port",
+false
+],
+[
+"7936",
+"Nuneham Courtenay arboretum reopens",
+false
+],
+[
+"7945",
+"Cornwell solar panels on village hall",
+false
+],
+[
+"7945",
+"Bernard Cornwell novel set in a low carbon future",
+false
+],
+[
+"7954",
+"Crick Road roundabout works in Rugby",
+false
+],
+[
+"7956",
+"Harlesford farm shop in Oxfordshire",
+false
+],
+[
+"7960",
+"Barnstaples Farm barn conversion approved",
+false
+],
+[
+"8007",
+"Bramford substation pylons approved in Suffolk",
+false
+],
+[
+"8026",
+"Bulphan Fen flood alert",
+false
+],
+[
+"8038",
+"Claydon solar farm in Suffolk approved",
+false
+],
+[
+"8053",
+"Low Farm solar farm in Norfolk approved",
+false
+],
+[
+"8062",
+"Wick solar farm plan in Caithness",
+false
+],
+[
+"8062",
+"Wick Farm housing plan",
+false
+],
+[
+"8065",
+"Hilfield Park reservoir near Elstree",
+false
+],
+[
+"8068",
+"Copse Close homes plan",
+false
+],
+[
+"8089",
+"Bramley Frith wood path closed",
+false
+],
+[
+"8097",
+"Fobbing marshes Essex flood",
+false
+],
+[
+"8100",
+"Camblesforth Hall sale in North Yorkshire",
+false
+],
+[
+"8101",
+"Litchardon Cross road closure",
+false
+],
+[
+"8136",
+"Kemble Wick footpath reopened",
+false
+],
+[
+"8149",
+"Bunkers Hill homes plan approved",
+false
+],
+[
+"8181",
+"Haunton village near Lichfield gets new playground",
+false
+],
+[
+"8185",
+"Feldon Vale housing plan",
+false
+],
+[
+"8225",
+"Roden solar panels for Shropshire village",
+false
+],
+[
+"8227",
+"Jericho Covert pheasant shoot plan opposed",
+false
+],
+[
+"8254",
+"Sheraton Hall hotel conference centre reopens",
+false
+],
+[
+"8308",
+"Bloy's Grove woodland sold at auction",
+false
+],
+[
+"8323",
+"Nether Stowey solar panels in Somerset",
+false
+],
+[
+"8357",
+"River Crouch oyster beds in Essex",
+false
+],
+[
+"8357",
+"Crouch End solar street lights",
+false
+],
+[
+"8393",
+"Rag Lane resurfacing starts",
+false
+],
+[
+"8411",
+"Fen Lane solar farm plan in Lincolnshire",
+false
+],
+[
+"8480",
+"Berryhill solar panels for school",
+false
+],
+[
+"8483",
+"Belvoir Castle sees visitor numbers rise as it opens for the new season",
+true
+],
+[
+"8483",
+"Belvoir Castle near Grantham has a range of new tours kicking off this May",
+true
+],
+[
+"8483",
+"Vale of Belvoir solar farm plan in Leicestershire",
+false
+],
+[
+"8494",
+"Warren Farm solar farm in Hampshire approved",
+false
+],
+[
+"8494",
+"Warren solar panels in Doncaster",
+false
+],
+[
+"8501",
+"Horton Wood industrial estate Telford",
+false
+],
+[
+"8503",
+"Tuxford Road resurfacing starts",
+false
+],
+[
+"8505",
+"Fernbrook low carbon homes",
+false
+],
+[
+"8508",
+"Hinckley and Bosworth solar farm plan approved",
+false
+],
+[
+"8508",
+"Hinckley Point C to deliver low-carbon power for 60 years",
+false
+],
+[
+"8517",
+"Vicarage Drove closure for drainage works",
+false
+],
+[
+"8523",
+"Arlingham ferry crossing near Stroud",
+false
+],
+[
+"8526",
+"Leaps Rigg footpath closed after landslip",
+false
+],
+[
+"8528",
+"Doverdale lane closure in Wychavon",
+false
+],
+[
+"8529",
+"Burtree Lane Darlington homes",
+false
+],
+[
+"8539",
+"Dodwells Road solar carport in Hinckley",
+false
+],
+[
+"8813",
+"Colton Mill flats plan approved",
+false
+],
+[
+"8834",
+"Canon Barns Road homes plan approved",
+false
+],
+[
+"8843",
+"Moreton Lane closure for water main works",
+false
+],
+[
+"8889",
+"Longlands solar farm plan in Cumbria",
+false
+],
+[
+"8889",
+"Hill Court solar farm Herefordshire",
+false
+],
+[
+"8892",
+"Marley Lane closure for resurfacing",
+false
+],
+[
+"8904",
+"Kingston Council solar panels for libraries",
+false
+],
+[
+"8904",
+"Kingston upon Hull heat network system goes live",
+false
+],
+[
+"8918",
+"Five Lanes junction roadworks start",
+false
+],
+[
+"9053",
+"World's End pub sold",
+false
+],
+[
+"9069",
+"Felsted School solar panels",
+false
+]
+],
+"true": [
+[
+"12588",
+"UK government refuses 840MW Botley West Solar Farm in first-ever solar NSIP no",
+"trade"
+],
+[
+"12588",
+"UK rejects 840MW Botley West solar farm",
+"trade"
+],
+[
+"12588",
+"Development consent order submitted for 840MW Botley West solar NSIP",
+"trade"
+],
+[
+"12588",
+"Solar PV NSIP projects Great North Road, Botley West reach development milestones",
+"trade"
+],
+[
+"13043",
+"EDF Renewables consults Springwell solar farm",
+"trade"
+],
+[
+"13043",
+"EDF and Luminous tweak Springwell solar design",
+"trade"
+],
+[
+"15149",
+"Great North Road solar nears decision",
+"trade"
+],
+[
+"15149",
+"Second round of consultation opens as 800MW Great North Road solar plant moves forward",
+"trade"
+],
+[
+"17699",
+"Green Nation unveils 750MW Whitestone solar",
+"trade"
+],
+[
+"14806",
+"UK approves 740MW One Earth solar farm",
+"trade"
+],
+[
+"14806",
+"PS Renewables, Ørsted to launch second consultation for One Earth Solar Farm",
+"trade"
+],
+[
+"10914",
+"Cottam solar farm wins UK planning approval",
+"trade"
+],
+[
+"9809",
+"EDF buys 500MW Gate Burton solar project",
+"trade"
+],
+[
+"9809",
+"EDF acquires Gate Burton solar NSIP from Low Carbon",
+"trade"
+],
+[
+"7188",
+"Suffolk County Council launches legal challenge against Sunnica solar farm",
+"trade"
+],
+[
+"7188",
+"Sunnica 500MW solar farm decision deadline further delayed",
+"trade"
+],
+[
+"7188",
+"Sunnica Energy Farm solar NSIP decision delayed until April",
+"trade"
+],
+[
+"7188",
+"500MW Sunnica permit call hit by fresh delay",
+"trade"
+],
+[
+"8162",
+"METLEN to deliver EPC work at EDF’s 400MW Longfield solar PV farm",
+"trade"
+],
+[
+"8162",
+"UK government approves 500MW Longfield solar farm",
+"trade"
+],
+[
+"9806",
+"UK consents Heckington Fen, West Burton solar farms",
+"trade"
+],
+[
+"12281",
+"Labour approves Tillbridge Solar, UK’s largest solar NSIP",
+"trade"
+],
+[
+"12281",
+"UK approves 500MW Tillbridge solar farm",
+"trade"
+],
+[
+"14851",
+"EDF, PS Renewables seek input on 500MW Rosefield",
+"trade"
+],
+[
+"16063",
+"Lime Down Solar’s 500MW/1GWh solar-plus-storage DCO accepted by PINS",
+"trade"
+],
+[
+"17494",
+"Second consultation closes for East Pye solar farm",
+"trade"
+],
+[
+"17494",
+"Island Green Power opens East Pye Solar consultation",
+"trade"
+],
+[
+"17701",
+"Consultation closes for Light Valley solar NSIP",
+"trade"
+],
+[
+"10916",
+"DCO decision on 480MW West Burton solar NSIP delayed until 2025",
+"trade"
+],
+[
+"10916",
+"480MW West Burton Solar Project moves to next stage of development",
+"trade"
+],
+[
+"15252",
+"RES wins permit for 450MW Steeple solar farm",
+"trade"
+],
+[
+"15252",
+"RES solar and storage Steeple Renewables Project enters pre-examination phase",
+"trade"
+],
+[
+"15252",
+"RES submits 600MW Steeple solar for DCO",
+"trade"
+],
+[
+"11678",
+"Government grants consent for Boom Power's 400MW East Yorkshire solar NSIP",
+"trade"
+],
+[
+"13599",
+"Government greenlights Low Carbon’s 400MW Beacon Fen solar-plus-storage, first DCO under new energy minister",
+"trade"
+],
+[
+"13599",
+"Low Carbon submits NSIP application for Beacon Fen Energy Park",
+"trade"
+],
+[
+"13599",
+"400MW Beacon Fen solar farm and BESS open plans to local communities",
+"trade"
+],
+[
+"6502",
+"RES secures three-year O&M contract for Cleve Hill solar project",
+"trade"
+],
+[
+"6502",
+"RES wins O&M deal for 373MW Cleve Hill",
+"trade"
+],
+[
+"6502",
+"Cleve Hill solar park begins commercial operations",
+"trade"
+],
+[
+"6502",
+"UK’s largest solar plant Cleve Hill supplying full power to the grid",
+"trade"
+],
+[
+"6502",
+"Quinbrook closes ‘UK’s largest’ project financing for Cleve Hill NSIP",
+"trade"
+],
+[
+"6502",
+"Quinbrook secures offtake agreements with Tesco and Shell for 363MW Cleve Hill Solar Park",
+"trade"
+],
+[
+"9904",
+"Quinbrook to take on 350MW Mallard Pass solar NSIP",
+"trade"
+],
+[
+"9904",
+"Secretary of State delays Mallard Pass Solar Farm decision",
+"trade"
+],
+[
+"9904",
+"Windel, Canadian Solar file Mallard Pass paperwork",
+"trade"
+],
+[
+"14100",
+"First consultations to close on Fosse Green Energy Park",
+"trade"
+],
+[
+"14098",
+"BOOM Power secures second NSIP consent for Fenwick solar plant",
+"trade"
+],
+[
+"14098",
+"Boom Power wins Fenwick solar approval",
+"trade"
+],
+[
+"14098",
+"BOOM Power’s Fenwick solar NSIP closes examination phase early",
+"trade"
+],
+[
+"14098",
+"Fenwick Solar Farm consultation nears close",
+"trade"
+],
+[
+"11476",
+"UK approves 190MW Helios solar project",
+"trade"
+],
+[
+"12409",
+"RWE bags permit for 180MW Byers Gill solar farm",
+"trade"
+],
+[
+"9546",
+"Baywa r.e. breaks ground on 150MW Oaklands solar NSIP",
+"trade"
+],
+[
+"9546",
+"UK approves 138MW Oaklands Farm solar project",
+"trade"
+],
+[
+"6557",
+"British Solar Renewables acquires Little Crow solar-plus-storage NSIP",
+"trade"
+],
+[
+"6557",
+"UK gives go-ahead for 50MW Little Crow solar",
+"trade"
+],
+[
+"14550",
+"DESNZ grants DCO for 150MW Dean Moor solar project in Cumbria",
+"trade"
+],
+[
+"14096",
+"Cubico wins consent for Frodsham solar project",
+"trade"
+],
+[
+"14096",
+"UK planners to begin Frodsham Solar exam",
+"trade"
+],
+[
+"10085",
+"Miliband grants DCO for Stonestreet Green solar-plus-storage NSIP",
+"trade"
+],
+[
+"12117",
+"ISG Renewables energises 22MWp Bicker Fen Solar Park",
+"trade"
+],
+[
+"11927",
+"Planning approval granted for 49.95MW Lark Hill Solar Farm",
+"trade"
+],
+[
+"5186",
+"50MW Awre Peninsula solar farm application rejected by council",
+"trade"
+],
+[
+"7889",
+"Aura Power lands finance for Grimsby solar project",
+"trade"
+],
+[
+"12588",
+"Botley West Solar Farm: development consent order, Planning Act 2008",
+"official"
+],
+[
+"13043",
+"Springwell Solar Farm: Correction of errors, Planning Act 2008",
+"official"
+],
+[
+"13043",
+"Springwell Solar Farm Project: development consent order, Planning Act 2008",
+"official"
+],
+[
+"13043",
+"Springwell Solar Farm development consent decision announced",
+"official"
+],
+[
+"15149",
+"Great North Road Solar and Biodiversity Park development consent decision announced",
+"official"
+],
+[
+"15149",
+"Great North Road Solar and Biodiversity Park: decision on application for development consent under the Planning Act 2008",
+"official"
+],
+[
+"14806",
+"One Earth Solar Farm: development consent order, Planning Act 2008",
+"official"
+],
+[
+"14806",
+"One Earth Solar Farm development consent decision announced",
+"official"
+],
+[
+"10914",
+"Cottam Solar Project development consent decision announced",
+"official"
+],
+[
+"10914",
+"Cottam Solar Project: development consent order, Planning Act 2008",
+"official"
+],
+[
+"9809",
+"Gate Burton Energy Park development consent decision announced",
+"official"
+],
+[
+"9809",
+"Gate Burton Energy Park: development consent order, Planning Act 2008",
+"official"
+],
+[
+"7188",
+"Sunnica Energy Farm: non-material change, Planning Act 2008",
+"official"
+],
+[
+"7188",
+"Sunnica Energy Farm development consent decision announced",
+"official"
+],
+[
+"7188",
+"Sunnica Energy Farm: development consent order, Planning Act 2008",
+"official"
+],
+[
+"8162",
+"Longfield Solar Farm: non-material change, Planning Act 2008",
+"official"
+],
+[
+"8162",
+"Longfield Solar Farm: post-consent agreement amendment, Town and Country Planning Act 1990",
+"official"
+],
+[
+"8162",
+"Longfield Solar Farm: post-consent condition compliance, Planning Act 2008",
+"official"
+],
+[
+"9806",
+"Heckington Fen Solar Park: correction of errors, Planning Act 2008",
+"official"
+],
+[
+"9806",
+"Heckington Fen Solar Park: development consent order Planning Act 2008",
+"official"
+],
+[
+"9806",
+"Heckington Fen Solar Park development consent decision announced",
+"official"
+],
+[
+"12281",
+"Tillbridge Solar Project: Correction of errors, Planning Act 2008",
+"official"
+],
+[
+"12281",
+"Tillbridge Solar Project: decision on application for development consent under the Planning Act 2008",
+"official"
+],
+[
+"12281",
+"Tillbridge Solar Project development consent decision announced",
+"official"
+],
+[
+"15793",
+"Green Hill Solar Farm: development consent order, Planning Act 2008",
+"official"
+]
+]
+}

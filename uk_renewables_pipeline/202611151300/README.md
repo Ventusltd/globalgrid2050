@@ -12,4 +12,4 @@ Verify candidate offline from a full repository checkout:
 
     bash tests/run_v9_22.sh
 
-This branch does **not** incorporate producer PR #112 automatically: it is stacked on `acid/team1` and must be separately integrated and independently accepted.
+Agent7 staged an exact Git-blob transplant of the 22 paths diverging from main at Agent1b producer PR #112 head `f9f98bb66e30fe58f6a9e463f0222866459b5c8e`, preserving Claude Project Signals v2 stack dependencies without changing Agent1b's branch. This is staging integration, **not an independently accepted producer publication**. The Agent2/3/4 source-rights, editorial and real-browser/engine gates remain open.

@@ -40,7 +40,7 @@ function located(row) {
     && Number(row.latitude) >= 50 && Number(row.latitude) <= 59
     && Number(row.longitude) >= -6 && Number(row.longitude) <= 1;
 }
-const classes = ['solar', 'battery', 'wind_onshore'];
+const classes = ['solar', 'bess', 'wind_onshore'];
 const chosen = classes.map(tech => rows.find(row => row.technology === tech && located(row)
   && String(row.repd_ref).match(/^\d+$/))).filter(Boolean).slice(0, SAMPLE_LIMIT);
 assert.equal(chosen.length, SAMPLE_LIMIT,

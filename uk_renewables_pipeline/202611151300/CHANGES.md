@@ -18,3 +18,8 @@ Parent V9.21 `202611141017`, exact parent Git tree `0c56d3a81d7e3abaec164ab689b0
 **No new verified project-news claims** are approved or created by this edition. A possible REPD match is not a verified project binding; general data-centre RSS headlines are not UK DC-register records.
 
 **Public release: HOLD** until required independent acceptance. No homepage or production pointer modified.
+
+
+## GridAtlas mobile engine acceptance — separately evidenced, not claimed globally
+
+Independent actual-click Chromium staging checks show the current live GridAtlas composition and nearest-substation calculation work for three 1440px sample REPD records (solar 12588, BESS 12453, wind_onshore 14535). At 390px GridAtlas intentionally minimises the arrival popup; real restore-click checks pass for BESS and onshore wind, but the solar popup can become minimised again after user restoration, leaving the valid calculation hidden. The cause remains under investigation in GridAtlas issue #87. **The V9.22 Pipeline News candidate does not modify GridAtlas**, and these checks do not certify Grid Engine reliability for the whole onshore fleet or iOS Safari. Do not count syntactically valid MAP URLs as completed engine calculations.

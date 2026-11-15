@@ -41,7 +41,7 @@ def receipt_eligible(item, body, now):
         # Content-Type is a server claim, not proof that bytes contain HTML.
         # Avoid treating an error string or binary payload as an article receipt.
         prefix = body[:4096].lstrip().lower()
-        if not ((re.match(rb"^<!doctype html(?:\s[^>]*)?>\s*<html(?:\s|>)", prefix) is not None) or prefix.startswith(b"<html") or (re.match(rb"^<\?xml\b[^>]*\?>\s*<html(?:\s|>)", prefix) is not None)):
+        if not ((re.match(rb"^<!doctype html(?:\s[^>]*)?>\s*<html(?:\s|>)", prefix) is not None) or (re.match(rb"^<html(?:\s|>)", prefix) is not None) or (re.match(rb"^<\?xml\b[^>]*\?>\s*<html(?:\s|>)", prefix) is not None)):
             return False
         if item.get("publisher_rights") not in _ALLOWED_RIGHTS:
             return False
@@ -151,6 +151,11 @@ class ReceiptOriginContract(unittest.TestCase):
         self.item["content_type"] = "application/xhtml+xml"
         self.item["response_sha256"] = hashlib.sha256(self.body).hexdigest()
         self.assertTrue(receipt_eligible(self.item, self.body, self.now))
+
+    def test_html_prefix_impostor_rejected(self):
+        self.body = b"<htmlish><body>not a valid HTML root</body></htmlish>"
+        self.item["response_sha256"] = hashlib.sha256(self.body).hexdigest()
+        self.assertFalse(receipt_eligible(self.item, self.body, self.now))
 
     def test_http_downgrade_rejected(self):
         self.item["fetched_url"] = "http://publisher.example/article?id=7"

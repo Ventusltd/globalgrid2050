@@ -1,51 +1,18 @@
-# 202611141017 (V9.21)
+# V9.22 — 202611151300 — STAGING ONLY
 
-Parent: `202611140306` (V9.20), tree `365d7df093368c39c3878daacf65449ba32e7267`.
+Parent V9.21 `202611141017`, exact parent Git tree `0c56d3a81d7e3abaec164ab689b0f4c8a38e7129`.
 
-This version changes the news block only. The project table, its eleven columns (NEWS SIGNAL included),
-the CSV export, the register, every data byte under `data/` and the MAP link of every row are the
-parent's (all 7,775 hrefs identical, character for character).
+**Changed:** `index.html`, `scripts/plugins/live-news.js`, `README.md`, `CHANGES.md`, and new V9.22 regression/runner files.
 
-1. **Headlines that update.** The news block now opens with one list of headlines read from a file that a
-   scheduled workflow refreshes several times a day
-   (`pipeline-news-data` branch, `dist/pipeline_headlines.json`, schema
-   `globalgrid2050.news.pipeline-headlines.v1`). Each line is the date, a category (refused, consented,
-   DCO, finance, construction, grid, policy and so on), the source and the headline as a link. Newest
-   first: the page orders the list by date itself, so one article cannot stay on top.
-   `scripts/plugins/live-news.js`, `styles/v9-21.css`.
-2. **An honest age label, computed in the browser.** "Headlines updated <date and time>" when the file is
-   fresh; "Stale since <date and time> ... refresh is overdue" when it is more than 36 hours old or its
-   last refresh failed. The typed-in "133 HEADLINES · 45 UK · 19 INTERNATIONAL" and the words "audited
-   snapshot" are gone.
-3. **Fallback.** If the live file cannot be read, the copy saved in this folder
-   (`news/pipeline_headlines.snapshot.json`) is shown and labelled as a saved copy. If that holds no
-   headlines, the block says "Live headlines are not available at the moment." and opens the archive.
-4. **Possible match.** Where the headlines file names a REPD project for a headline, the line carries a chip
-   "Possible match: <site name> (REPD <ref>)". It is a name coincidence offered for review, never a
-   confirmed link, and is not written into the table. Clicking it searches the table for that REPD Ref ID.
-5. **The August headlines are an archive.** The 133 project headlines collected up to 21 August 2026 are
-   behind one line, "ARCHIVE · ... NOT UPDATED", with their filters. In it, a headline that is not
-   matched to a project no longer prints a REPD project, MW and county beneath it (88 cards did); matched
-   cards say "POSSIBLE MATCH · REPD <ref> · matched by project name" instead of "RELEVANT nn% ·
-   PRIMARY_MATCH"; the per-card "algorithmic and unverified" line is removed.
-6. **Bug fix: MAP was cut off at 1440 px.** The table is wider than its box on a desktop, so the ACTIONS
-   column sat past the right edge. It is now pinned to the right edge of the table's box at every width,
-   as it already was on a phone. No column is added, removed, hidden or reordered.
-7. **Tests.** Browser probes at 1440 and 390 px: label present; headline list drawn newest first from an
-   out-of-order document, with the possible-match chip and with a title containing markup drawn as text;
-   the stale rule; the page with the live file refused; table headers identical to the parent's; MAP
-   button inside the viewport; no typed-in counts.
-8. **Labels and runner.** V9.21 labels; `tests/run_v9_21.sh` + `tests/check_v9_21.mjs`.
+**Unchanged by inheritance:** 7,775 Q3 2026 REPD rows, source fixtures, canonical REPD IDs, spine partitions, CSS, all MAP deep links, CSV export, existing news archive and GridAtlas integration. Inherited files must remain byte-identical to V9.21.
 
-Known limits, stated plainly:
-- The headlines workflow and its fetcher arrive in a separate change. Until its first run the live file
-  does not exist, the saved copy in this folder is empty, and the block says live headlines are not
-  available. Nothing in this folder needs to change when the file appears.
-- The NEWS SIGNAL column is unchanged: it still reads the August file and marks 29 of 7,775 rows.
-- The data-centre headlines panel and the register-changes list are unchanged.
-- At 1440 px the table is still wider than its box (unchanged). With ACTIONS pinned, the columns beside it
-  (REPD UPDATED, NEWS SIGNAL) pass under it and are reached by scrolling the table sideways, as on a phone.
+1. Accept a schema-valid empty `items: []` collection, displaying **“No headlines currently meet the feed criteria.”** Never display unavailable solely because zero items passed filters.
+2. Distinguish `status: partial` and feed success/failure counts. Retain usable articles; do not pretend all feeds succeeded.
+3. Present the last feed **collection time**, not a claim the articles or planning events are new. Publisher article dates remain separate from first-collected fallback dates.
+4. Identify a failed collection separately and label fallback as a saved snapshot. Invalid source schema remains unavailable, not healthy-empty.
+5. Add focused synthetic regression checks; source receipts, independent rights review, real click-to-engine, actual public served hashes and rollback are **not certified** by these checks.
+6. Correct RSS title-only deduplication in `automation/news/pipeline_headlines.py` (branch code, not a rewrite of the immutable old edition), keeping different-year events, distinct REPD projects and distinct decisions separate.
 
-Open question for the owner (nothing was changed): on a phone the table shows County, Operator, REPD Ref,
-GlobalGrid Ref and REPD Updated as sideways-scrolling columns, as asked for in September, although the
-same values are printed under each site name. Whether to keep those five columns on a phone is his decision.
+**No new verified project-news claims** are approved or created by this edition. A possible REPD match is not a verified project binding; general data-centre RSS headlines are not UK DC-register records.
+
+**Public release: HOLD** until required independent acceptance. No homepage or production pointer modified.

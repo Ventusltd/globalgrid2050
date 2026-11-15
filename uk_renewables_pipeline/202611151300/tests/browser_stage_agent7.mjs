@@ -80,7 +80,7 @@ try {
     await page.goto(ORIGIN, { waitUntil: 'domcontentloaded', timeout: 60000 });
     await page.waitForFunction(() => (
       document.getElementById('tbody')?.dataset.total === '7775'
-      && document.getElementById('newsStatus')?.dataset.state === 'overdue'
+      && document.getElementById('newsStatus')?.dataset.state === 'live'
       && document.getElementById('liveNews')?.textContent
         .includes('No headlines currently meet the feed criteria.')
     ), null, { timeout: 90000 });

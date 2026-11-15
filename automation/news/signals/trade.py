@@ -617,7 +617,21 @@ class Project:
     def match(self, title, summary=""):
         """The module's own rule (_match), then the shared title gate (gate.py): a name in the title without a
         solar term, abroad or in another county is not this project; thin support is kept as uncertain."""
-        return GATE.gated(self.record, straight(title), self._match(title, summary))
+        found = self._match(title, summary)
+        if found is None and not any(rx.search(title) for rx in self.exclude):
+            # The old weak-name extractor misses headlines such as "Fenwick
+            # solar approval" and "Great North Road solar nears decision".
+            # Recover only project-core + solar + a real development action.
+            # This is NEVER a confirmed identity or publisher-rights claim.
+            foreign_only = (P.FOREIGN.search(title) or ELSEWHERE.search(title)) and not P.UK_WORDS.search(title)
+            if not foreign_only:
+                project = GATE.for_record(self.record)
+                if GATE.named_development_candidate(title, project):
+                    verdict, reason = GATE.judge(self.ref, title, project=project)
+                    if verdict in ("possible", "ok"):
+                        found = ("project-core solar development candidate; independent REPD identity pending",
+                                 "uncertain")
+        return GATE.gated(self.record, straight(title), found)
 
     def _match(self, title, summary=""):
         """(basis, confidence) when the title names this project, else None. The summary rule of the contract

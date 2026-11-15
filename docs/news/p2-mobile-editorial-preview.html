@@ -38,6 +38,13 @@
     .empty strong{display:block;font-size:1.1rem;margin-bottom:8px}
     .pill{font-size:.73rem;padding:4px 9px;display:inline-block;border-radius:12px;background:var(--light);color:var(--accent);font-weight:650}
     .divider{height:1px;background:var(--border);margin:17px 0}
+    .tier{border-left:4px solid var(--accent);padding-left:14px}
+    .tier--reports{border-left-color:#56748d}
+    .tier--archive{border-left-color:#8999a5}
+    .evidence-time{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
+    .evidence-time div{border-top:1px solid var(--border);padding-top:8px;overflow-wrap:anywhere}
+    .evidence-time dt{font-size:.75rem;font-weight:700;color:var(--muted)}
+    .evidence-time dd{margin:0;font-size:.88rem}
     ul{margin:7px 0 0;padding-left:20px}
     li{margin:7px 0}
     .fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
@@ -51,17 +58,19 @@
     .small{font-size:.78rem;color:var(--muted)}
     footer{border-top:1px solid var(--border);padding:22px 0 35px;font-size:.8rem;color:var(--muted)}
     @media(max-width:720px){.columns{grid-template-columns:1fr}.limit{padding:0 15px}main{padding-top:22px}.panel{padding:18px}nav{gap:12px}nav a{font-size:.78rem}}
-    @media(max-width:390px){.fields{grid-template-columns:1fr}.brand{font-size:.87rem}nav{gap:9px}.meta{gap:5px}}
+    @media(max-width:390px){.fields,.evidence-time{grid-template-columns:1fr}.brand{font-size:.87rem}nav{gap:9px}.meta{gap:5px}}
   </style>
 </head>
 <body>
   <header>
     <div class="limit">
-      <div><div class="brand">GLOBALGRID2050 · PIPELINE NEWS</div><div class="sub">Proposed evidence-first editorial layout</div></div>
+      <div><div class="brand">GLOBALGRID2050 · PIPELINE NEWS</div><div class="sub">Agent 4 iteration 01 · separate official decisions and reporting</div></div>
       <nav aria-label="Prototype section navigation">
         <a href="#verified">Verified</a>
+        <a href="#reports">Reports</a>
         <a href="#archive">Historical</a>
         <a href="#review">Review queue</a>
+        <a href="#planning">Planning search</a>
         <a href="#contract">Release contract</a>
       </nav>
     </div>
@@ -87,7 +96,21 @@
             <span class="pill">Verified feed: awaiting source evidence</span>
           </div>
           <div class="divider"></div>
-          <p class="small">Any future headline here must have a genuine, attributed official decision or a confirmed dated publisher event, with a canonical REPD reference and per-project evidence binding.</p>
+          <p class="small">Official decisions require a dated original authority decision document and exact REPD identity. A planning search result is not a decision.</p>
+        </section>
+        <section id="reports" class="panel" aria-labelledby="reports-heading">
+          <div class="eyebrow">Second priority · independently attributed</div>
+          <h2 id="reports-heading">Fresh project reporting</h2>
+          <div class="tier tier--reports">
+            <p class="quiet">No independently attributed recent publisher events have been cleared for this design preview. Reporting is distinct from an official decision; neither a crawler timestamp nor a headline keyword is proof of an event.</p>
+            <dl class="evidence-time" aria-label="Time provenance required on every published event card">
+              <div><dt>Event date</dt><dd>Unknown — no event loaded</dd></div>
+              <div><dt>Publisher date</dt><dd>Unknown — no article loaded</dd></div>
+              <div><dt>Last fetched</dt><dd>Unknown — source health only</dd></div>
+              <div><dt>Verified at</dt><dd>Unknown — no reviewer receipt</dd></div>
+            </dl>
+            <p class="small">Each eligible card must link to its original publisher, cite a source-byte receipt, record rights clearance and a separate independently supported binding for each REPD project.</p>
+          </div>
         </section>
         <section id="archive" class="panel" aria-labelledby="archive-heading">
           <div class="eyebrow">Retained context · not breaking</div>
@@ -121,6 +144,12 @@
             <div class="field"><b>Rights and SHA</b><span>Mandatory receipt</span></div>
           </div>
         </section>
+        <section id="planning" class="panel" aria-labelledby="planning-heading">
+          <div class="eyebrow">Discovery tool · not an approval</div>
+          <h2 id="planning-heading">Planning register search</h2>
+          <p class="quiet">No planning decision is inferred from a search-result page. Open an authority's original dated decision document and confirm the application reference before promoting an official milestone.</p>
+          <span class="pill">Search only · no decision loaded</span>
+        </section>
         <section id="contract" class="panel" aria-labelledby="contract-heading">
           <div class="eyebrow">Publication control</div>
           <h2 id="contract-heading">Release requirements</h2>
@@ -138,6 +167,6 @@
       </div>
     </div>
   </main>
-  <footer><div class="limit">Agent 4 editorial design research · static HTML · no live requests, third-party assets, attached source records, or publication authority. See P2-AGENT4-SOLAR-EDITORIAL-ACCEPTANCE.md.</div></footer>
+  <footer><div class="limit">Agent 4 iteration 01 (15 Nov 2026) · static HTML · no live requests, third-party assets, attached source records, or publication authority. See P2-AGENT4-SOLAR-EDITORIAL-ACCEPTANCE.md.</div></footer>
 </body>
 </html>

@@ -49,12 +49,140 @@
       ]
     },
     {
+      "id": "learn-the-kuiper",
+      "parent_id": "kuiper",
+      "title": "Learn the Kuiper",
+      "subtitle": "One circle, one dot, two numbers",
+      "description": "Move one dot by changing two numbers: one sets the distance through a square root, the other sets the angle through MOD. Slide or type the numbers to steer the dot onto targets, then link them into one key. Six circle sizes, ending with the Kuiper's own constants. The main screen runs offline.",
+      "launch_label": "Open Learn the Kuiper",
+      "operative_release_id": "20261005-0609",
+      "releases": [
+        {
+          "id": "20261005-0609",
+          "label": "5 October 2026 (one dot, two numbers)",
+          "url": "https://ventusltd.github.io/kuiper-belt/learn-the-kuiper/202610050609/",
+          "published_at": "2026-10-05T05:10:00Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/kuiper-belt/commit/613b10f4746ae2603fd0268ef0a890fbfa85281a"
+        },
+        {
+          "id": "20261005-v3",
+          "label": "5 October 2026 (version 3)",
+          "url": "https://ventusltd.github.io/kuiper-belt/learn-the-kuiper/202610050010/",
+          "published_at": "2026-10-04T23:10:00Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/kuiper-belt/commit/1b54cdc"
+        },
+        {
+          "id": "20261004-initial",
+          "label": "4 October 2026 (initial)",
+          "url": "https://ventusltd.github.io/kuiper-belt/learn-the-kuiper/202610042225/",
+          "published_at": "2026-10-04T21:25:00Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/kuiper-belt/commit/bb55165e384e46414e5ed12ed9b9aa52bcb3e102"
+        }
+      ]
+    },
+    {
+      "id": "kuiper-editions",
+      "parent_id": "kuiper",
+      "title": "Kuiper editions",
+      "subtitle": "The estate's verified lines of code, lit on the Kuiper wafer",
+      "description": "Every line of every commit of the estate on one wafer, with the verified lines lit as green sparks at their own keys. Tap a spark or pick a row in LINES to read the line and open it on GitHub at its commit, file and line. Each change is a new dated edition; earlier editions stay as they were. See Through, from the same family, has its own entry just below.",
+      "launch_label": "Open the Kuiper editions",
+      "operative_release_id": "202611012027",
+      "releases": [
+        {
+          "id": "202610311905",
+          "label": "Edition 1 - 31 October 2026",
+          "url": "https://ventusltd.github.io/kuiper-belt/editions/202610311905/belt/",
+          "published_at": "2026-10-31T19:46:58Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/kuiper-belt/commit/5bf5202ff51a37e2f243eebcd0b9734c1d6fdbb1"
+        },
+        {
+          "id": "202611010114",
+          "label": "Edition 2 - 1 November 2026",
+          "url": "https://ventusltd.github.io/kuiper-belt/editions/202611010114/",
+          "published_at": "2026-11-01T01:16:34Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/kuiper-belt/commit/638cc3ffe737575c69b59f00a15e9993a286e25c"
+        },
+        {
+          "id": "202611012022",
+          "label": "Edition 3 - 1 November 2026",
+          "url": "https://ventusltd.github.io/kuiper-belt/editions/202611012022/",
+          "published_at": "2026-11-01T20:25:49Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/kuiper-belt/commit/a168c66e53754f3d72f8e1d3555b2f31dd572abe"
+        },
+        {
+          "id": "202611012027",
+          "label": "Edition 4 - 1 November 2026",
+          "url": "https://globalgrid2050.com/kuiper-editions/",
+          "published_at": "2026-11-01T20:32:13Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/kuiper-belt/commit/689d8100bf3891f423b2d5e9597669d4b8ee8bb4",
+          "archive_url": "https://ventusltd.github.io/kuiper-belt/editions/202611012027/",
+          "archive_kind": "app"
+        }
+      ]
+    },
+    {
+      "id": "see-through",
+      "parent_id": "kuiper",
+      "title": "See to grid connection probabilities iteratively",
+      "subtitle": "See Through: from the stars to one substation in 3D",
+      "description": "Type the name of a UK substation and press GO. The stars gather into the grid, the real map and satellite view appear inside the circle, and an illustrative 3D model of the substation rises on the real ground, combining mapped features with estimates. About 5,800 mapped substations. An early step toward comparing connection options site by site; no connection probability is calculated today. It now also opens from a Kuiper card's link, straight to the right star. Needs the internet.",
+      "launch_label": "Open See Through",
+      "operative_release_id": "202611020012",
+      "releases": [
+        {
+          "id": "20261005-0609",
+          "label": "5 October 2026",
+          "url": "https://ventusltd.github.io/kuiper-belt/see-through/202610050609/",
+          "published_at": "2026-10-05T05:10:00Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/kuiper-belt/commit/613b10f4746ae2603fd0268ef0a890fbfa85281a"
+        },
+        {
+          "id": "202611020012",
+          "label": "2 November 2026",
+          "url": "https://ventusltd.github.io/kuiper-belt/see-through/",
+          "published_at": "2026-11-02T02:14:48Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/kuiper-belt/commit/7110022668eb4f8bd8d4dcfce87fd3c2fb315bfd",
+          "archive_url": "https://ventusltd.github.io/kuiper-belt/see-through/202611020012/",
+          "archive_kind": "app"
+        }
+      ]
+    },
+    {
+      "id": "kuiper-diary",
+      "parent_id": "kuiper",
+      "title": "Kuiper diary",
+      "subtitle": "What it is, what it could become, and why it matters now",
+      "description": "A short note for anyone meeting the Kuiper for the first time: the two rules behind it, the two things you can open today, where it could go, and how it may help with grid connection in the UK.",
+      "launch_label": "Read the diary",
+      "operative_release_id": "20261005-diary",
+      "releases": [
+        {
+          "id": "20261005-diary",
+          "label": "5 October 2026",
+          "url": "https://ventusltd.github.io/kuiper-belt/diary/20261005.html",
+          "published_at": "2026-10-05T08:33:00Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/kuiper-belt/commit/613b10f4746ae2603fd0268ef0a890fbfa85281a"
+        }
+      ]
+    },
+    {
       "id": "gridatlas",
       "title": "GridAtlas",
       "subtitle": "Explore the electricity network",
-      "description": "Find sites, explore network layers and inspect the connections around them.",
+      "description": "Optional UK lightning overlay (observed optical flashes, 12-month history) with the nearest substations and REPD projects, plus a Potential offtakers layer (industry, power stations, data centres) linked to the 15 nearest REPD projects.",
       "launch_label": "Open GridAtlas",
-      "operative_release_id": "202609241334",
+      "operative_release_id": "202611132345",
       "releases": [
         {
           "id": "202609241334",
@@ -65,6 +193,46 @@
           "source_ref": "https://github.com/Ventusltd/gridatlas",
           "archive_url": "https://ventusltd.github.io/gridatlas/atlas/manifests/202609241334-composition.json",
           "archive_kind": "manifest"
+        },
+        {
+          "id": "202610281340",
+          "label": "V9.172 - 28 October 2026",
+          "url": "https://ventusltd.github.io/gridatlas/atlas/",
+          "published_at": "2026-10-28T18:53:00Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/gridatlas/commit/08b5caeac1b0128311d7a5e985f1fbe1c18414ae",
+          "archive_url": "https://ventusltd.github.io/gridatlas/atlas/v/202610281340/",
+          "archive_kind": "app"
+        },
+        {
+          "id": "202610291044",
+          "label": "V9.186 - 29 October 2026",
+          "url": "https://ventusltd.github.io/gridatlas/atlas/",
+          "published_at": "2026-10-29T11:25:00Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/gridatlas/pull/72",
+          "archive_url": "https://ventusltd.github.io/gridatlas/atlas/v/202610291044/",
+          "archive_kind": "app"
+        },
+        {
+          "id": "202610312138",
+          "label": "V9.188 - 31 October 2026",
+          "url": "https://ventusltd.github.io/gridatlas/atlas/",
+          "published_at": "2026-10-31T22:53:00Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/gridatlas/commit/41729af0b49dcfbe8f2a3ebc485eff217a61b84d",
+          "archive_url": "https://ventusltd.github.io/gridatlas/atlas/v/202610312138/",
+          "archive_kind": "app"
+        },
+        {
+          "id": "202611132345",
+          "label": "V9.189 - 14 November 2026",
+          "url": "https://ventusltd.github.io/gridatlas/atlas/",
+          "published_at": "2026-11-14T01:56:00Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/gridatlas/commit/b0a3a93835739bf9a4987a2f4916938fa37ad124",
+          "archive_url": "https://ventusltd.github.io/gridatlas/atlas/v/202611132345/",
+          "archive_kind": "app"
         }
       ]
     },
@@ -168,7 +336,7 @@
       "subtitle": "Follow renewable energy projects",
       "description": "Explore the project register and follow the renewable energy pipeline.",
       "launch_label": "Open Pipeline News",
-      "operative_release_id": "202609082224",
+      "operative_release_id": "202611151300",
       "releases": [
         {
           "id": "202609082224",
@@ -177,6 +345,38 @@
           "published_at": "2026-09-08T22:24:00Z",
           "status": "available",
           "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/7c64560d282f3412a3dfd79939e236a37ee5e8da"
+        },
+        {
+          "id": "202611132345",
+          "label": "October 2026 REPD (14 November 2026)",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611132345/",
+          "published_at": "2026-11-14T00:39:07Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/07b6d51702a12aa3d69833d91e43f84d8901ba78/uk_renewables_pipeline/202611132345"
+        },
+        {
+          "id": "202611140306",
+          "label": "V9.20 · October 2026 REPD (14 November 2026)",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611140306/",
+          "published_at": "2026-11-14T03:06:00Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/a5988652003fb29e054ffa7860d8e53fe6458edc/uk_renewables_pipeline/202611140306"
+        },
+        {
+          "id": "202611141017",
+          "label": "V9.21 · October 2026 REPD · live headlines",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611141017/",
+          "published_at": "2026-11-15T10:09:07Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/9092ff8a8fcd4c83191d00bc928377412ad05f42/uk_renewables_pipeline/202611141017"
+        },
+        {
+          "id": "202611151300",
+          "label": "V9.22 · October 2026 REPD · project signals (known mobile issue)",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611151300/",
+          "published_at": "2026-11-15T22:33:00Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/0719ddc28f2a418281594549d4667c9916ff6b20/uk_renewables_pipeline/202611151300"
         }
       ]
     },
@@ -560,6 +760,24 @@
         }
       ],
       "parent_id": "cable-engineering"
+    },
+    {
+      "id": "cyber-resilience-log",
+      "title": "Cyber Resilience Log",
+      "subtitle": "Cloud outages, supply-chain risk and independent recovery",
+      "description": "A dated research log on operational failures, security incidents and the risks of relying on too few providers for critical systems.",
+      "launch_label": "Open Cyber Resilience Log",
+      "operative_release_id": "20261113",
+      "releases": [
+        {
+          "id": "20261113",
+          "label": "13 November 2026",
+          "url": "https://ventusltd.github.io/cyber-resilience/",
+          "published_at": "2026-11-13",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/cyber-resilience/commit/51e10d52be3916b50801cdd2510ea32c4ce4a490"
+        }
+      ]
     }
   ],
   "view": {
@@ -598,6 +816,10 @@
       },
       {
         "entity_id": "cable-engineering",
+        "open": false
+      },
+      {
+        "entity_id": "cyber-resilience-log",
         "open": false
       }
     ],
@@ -719,6 +941,69 @@
       "to_release_id": "ets-202609282123",
       "reason": "Owner: switch off scanner rows (drew one farm's rows from any location). 202609282123 (main a6b5ae6) checked live: smoke 14/14, 0 page errors",
       "promoted_at": "2026-09-28T20:29:49Z"
+    },
+    {
+      "entity_id": "gridatlas",
+      "from_release_id": "202609241334",
+      "to_release_id": "202610281340",
+      "reason": "GridAtlas v9.172 (generation 202610281340) is live on the canonical route and accepted by the owner",
+      "promoted_at": "2026-10-29T00:45:36Z"
+    },
+    {
+      "entity_id": "gridatlas",
+      "from_release_id": "202610281340",
+      "to_release_id": "202610291044",
+      "reason": "GridAtlas v9.186 (generation 202610291044) is live on the canonical route and accepted by the owner",
+      "promoted_at": "2026-10-29T11:26:19Z"
+    },
+    {
+      "entity_id": "gridatlas",
+      "from_release_id": "202610291044",
+      "to_release_id": "202610312138",
+      "reason": "GridAtlas v9.188 (generation 202610312138) is live on the canonical route and accepted by the owner",
+      "promoted_at": "2026-10-31T22:56:23Z"
+    },
+    {
+      "entity_id": "see-through",
+      "from_release_id": "20261005-0609",
+      "to_release_id": "202611020012",
+      "reason": "See Through 202611020012 published (kuiper-belt 7110022): reads the Kuiper's deep links, so a Kuiper card's link opens it at the right star; launch uses the stable see-through/ pointer, 20261005-0609 stays as an earlier release",
+      "promoted_at": "2026-11-02T02:19:08Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202609082224",
+      "to_release_id": "202611132345",
+      "reason": "Owner standing authorisation 14 November 2026; October REPD official source 43/43 independently accepted (run 43535583260), Q3 public SHA256/legacy byte parity and desktop/mobile CSV/MAP live checks passed (run 43535706937); previous September edition retained as rollback",
+      "promoted_at": "2026-11-14T00:41:59Z"
+    },
+    {
+      "entity_id": "gridatlas",
+      "from_release_id": "202610312138",
+      "to_release_id": "202611132345",
+      "reason": "GridAtlas v9.189 (generation 202611132345) is live on the canonical route (live-bytes and twin reproduction runs passed); published on the owner's instruction of 14 November 2026 to release without the acceptance step; no owner acceptance is recorded; 202610312138 retained as an earlier release",
+      "promoted_at": "2026-11-14T02:24:06Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611132345",
+      "to_release_id": "202611140306",
+      "reason": "Owner instruction 14 November 2026; V9.20 excludes unverified data-centre register and Energy24; independent hosted source/browser/CSV/MAP verification run 43577469586; preserve earlier October and September editions; subject to final served-byte and rollback verification",
+      "promoted_at": "2026-11-14T09:33:00Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611140306",
+      "to_release_id": "202611141017",
+      "reason": "Owner direct 15 Nov 2026 order to publish now without further internal reviews. Promote existing V9.21 versioned news-block candidate, preserve V9.20 rollback and 7,775 REPD records; possible matches remain unverified and no claim of producer PR112 deployment.",
+      "promoted_at": "2026-11-15T10:09:07Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611141017",
+      "to_release_id": "202611151300",
+      "reason": "Direct owner authorisation 15 November 2026: Agent9 publish V9.22 now as an iterative known-issues release, preserve V9.21/V9.20 rollback, leave GridAtlas intermittent mobile first-restoration defect and further work to V9.23; 7775 official REPD IDs kept, speculative news links possible matches only.",
+      "promoted_at": "2026-11-15T22:33:00Z"
     }
   ]
 }

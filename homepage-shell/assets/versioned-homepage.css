@@ -13,3 +13,4 @@ header .mission{max-width:780px;margin-top:22px;color:var(--ink);font-size:clamp
 .catalogue-archive>summary{display:block;cursor:pointer;color:var(--muted);font-size:14px;padding:6px 0}
 .catalogue-archive[open]>summary{margin-bottom:18px}
 footer p+p{margin-top:8px}
+.privacy-notice{margin-top:18px;border-top:1px solid var(--line);border-bottom:0}.privacy-notice>summary{display:block;padding:10px 0;font-size:12px;color:var(--green)}.privacy-notice>summary::after{content:" +";font-size:inherit}.privacy-notice[open]>summary::after{content:" -"}.privacy-body{max-width:770px;font-size:13px;line-height:1.6;padding-bottom:10px}.privacy-body h3{font-size:13px;font-weight:600;color:var(--ink);margin:18px 0 6px}.privacy-body p,.privacy-body ul{margin:0 0 10px}.privacy-body ul{padding-left:20px}.privacy-body code{overflow-wrap:anywhere}

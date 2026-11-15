@@ -83,6 +83,12 @@ def test_true_headlines_survive_the_gate():
     assert lost == []
 
 
+def test_east_yorkshire_alias_is_not_a_wrong_county():
+    assert G.judge("11678", "Government grants consent for Boom Power's 400MW East Yorkshire solar NSIP")[0] in ("ok", "possible")
+    # An actual different county remains an explicit contradiction, not a synonym.
+    assert G.judge("11678", "Boom Power's 400MW East Yorkshire solar project approved in West Yorkshire")[0] != "ok"
+
+
 def test_weak_development_candidates_never_become_confirmed_from_place_or_developer_alone():
     # The new candidate path must not turn roadworks, a different Boom Power
     # solar project or roof-panel coverage into a verified REPD project event.
@@ -180,8 +186,11 @@ def test_shared_links_follow_the_reviewers_findings():
         assert matches
         assert all("also_projects" not in item for ref, item in matches)
         assert all(item["confidence"] == "possible" for ref, item in matches)
-    for ref in ("6071", "7630"):                                                         # names neither: never as fact
-        assert on(ref, "edf-acquires-100mw")[0]["confidence"] == "possible"
+    edf = [(ref, item) for ref in ("6071", "7630") for item in on(ref, "edf-acquires-100mw")]
+    # An unnamed EDF article cannot become two independent confirmed REPD
+    # bindings. One discovery candidate is retained, never also_projects.
+    assert len(edf) == 1
+    assert edf[0][1]["confidence"] == "possible" and "also_projects" not in edf[0][1]
     assert "Defford Aerodrome solar farm" not in aliases["projects"]["7840"]["aliases"]
 
 

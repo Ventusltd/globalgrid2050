@@ -164,12 +164,18 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - name: Require V9.20 and V9.21 historical directories untouched
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Require exact V9.20 and V9.21 historical Git trees unchanged
         run: |
           set -euo pipefail
-          git diff --exit-code dd0fcceb08e71d6c40b77d18e4e5eff493529d45 HEAD -- \
-            uk_renewables_pipeline/202611140306 \
-            uk_renewables_pipeline/202611141017
+          # This works with GitHub Actions shallow checkouts: the HEAD tree
+          # contains both historical subtrees even without the parent commit.
+          test "$(git rev-parse 'HEAD:uk_renewables_pipeline/202611140306')" = \
+            "365d7df093368c39c3878daacf65449ba32e7267"
+          test "$(git rev-parse 'HEAD:uk_renewables_pipeline/202611141017')" = \
+            "0c56d3a81d7e3abaec164ab689b0f4c8a38e7129"
+          echo "Pinned V9.20 and V9.21 trees are byte-identical to published baselines."
       - name: Emit exact HEAD and source-byte SHA256 manifest for offline independent review
         shell: bash
         run: |
@@ -178,7 +184,7 @@ jobs:
           BUNDLE="$RUNNER_TEMP/agent7-v922-bundle"
           mkdir -p "$BUNDLE"
           printf '%s\n' "repository: Ventusltd/globalgrid2050" \
-            "candidate: $RELEASE" "source_head: $GITHUB_SHA" \
+            "candidate: $RELEASE" "source_head: $(git rev-parse HEAD)" \
             "parent_head: dd0fcceb08e71d6c40b77d18e4e5eff493529d45" \
             "published_baseline: 202611141017 V9.21" \
             "rollback: 202611140306 V9.20" \

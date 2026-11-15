@@ -53,7 +53,7 @@ function parseCsv(value) {
 
 const feed = {
   schema: 'globalgrid2050.news.pipeline-headlines.v1', status: 'ok',
-  generated_at: '2026-11-15T12:00:00Z',
+  generated_at: new Date().toISOString(),
   items: [], counts: { feeds_ok: 50, feeds_failed: 0 },
   scope: 'Headlines only. No confirmed REPD project associations.',
 };

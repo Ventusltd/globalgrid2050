@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Agent 4 P2 editorial iteration 08 — single-stream preview, not published</title>
+  <title>Agent 4 P2 editorial iteration 09 — single-stream preview, not published</title>
   <style>
     :root{color-scheme:light;--bg:#f5f6f8;--ink:#132539;--muted:#50647a;--border:#d8e0e7;--accent:#16466d;--white:#fff;--light:#ebf1f5}
     *{box-sizing:border-box}
@@ -66,8 +66,14 @@
     footer{border-top:1px solid var(--border);padding:22px 0 35px;font-size:.8rem;color:var(--muted)}
     @media(max-width:720px){.status-key{grid-template-columns:1fr}.columns{grid-template-columns:1fr}.limit{padding:0 15px}main{padding-top:22px}.panel{padding:18px}nav{gap:12px}nav a{font-size:.78rem}}
     @media(max-width:390px){.fields,.evidence-time{grid-template-columns:1fr}.brand{font-size:.87rem}nav{gap:9px}.meta{gap:5px}}
-    /* Iteration 08: one editorial stream; no unverified item can enter the headline list. */
+    /* Iteration 09: one editorial stream; no unverified item can enter the headline list. */
     .source-check{border:1px solid var(--border);border-radius:8px;padding:12px 14px;background:#f8fafc;margin:12px 0}.source-check strong{display:block;margin-bottom:6px}.source-check ul{margin:0;padding-left:20px}.source-check li{margin:4px 0}.source-check .missing{font-weight:700;color:#7b3d22}.source-check .eligible{font-weight:700;color:#245b48}
+    /* N09: narrow viewport overflow containment and touch-visible evidence navigation. */
+    html,body{max-width:100%;overflow-x:clip}
+    .limit,.panel,.disclosure,.stream{min-width:0}
+    .stream-heading,.evidence-time,.source-check{overflow-wrap:anywhere}
+    nav a{display:inline-flex;align-items:center;min-height:44px;padding:4px 0}
+    @media(max-width:390px){nav{width:100%;gap:12px}nav a{min-height:44px}.meta span{overflow-wrap:anywhere}}
     .stream-key{display:flex;gap:8px 12px;flex-wrap:wrap;margin:0 0 18px;color:var(--muted);font-size:.83rem}
     .stream-key span{border-left:2px solid var(--border);padding-left:10px}
     .stream{max-width:900px;margin:0 auto 18px}
@@ -89,7 +95,7 @@
   <a class="skip-link" href="#main-content">Skip to news evidence</a>
   <header>
     <div class="limit">
-      <div><div class="brand">GLOBALGRID2050 · PIPELINE NEWS</div><div class="sub">Agent 4 iteration 08 · evidence-first solar preview</div></div>
+      <div><div class="brand">GLOBALGRID2050 · PIPELINE NEWS</div><div class="sub">Agent 4 iteration 09 · evidence-first solar preview</div></div>
       <nav aria-label="Page navigation"><a href="#headlines">Headlines</a><a href="#evidence">Evidence policy</a></nav>
     </div>
   </header>
@@ -135,6 +141,9 @@
     <details id="review" class="disclosure"><summary>Unverified project and article review queue — not headlines</summary>
       <p class="quiet">Potential matches, future-dated items, summary-only claims, unsupported second-project associations, unknown event dates and unlicensed articles remain withheld. This preview shows no queue records and makes no claim that a reviewed URL establishes a project event.</p>
     </details>
+    <details id="mobile-acceptance" class="disclosure"><summary>Mobile and desktop acceptance — not yet executed</summary>
+      <p class="quiet">At 390px: inspect all cards, navigation, evidence timestamps and disclosure summaries at 100% zoom; verify no clipped words or horizontal document scrolling, minimum 44px tap targets, and keyboard focus visibility. At 1440px: check reading width, full source attribution, keyboard traversal and stable layout. A passing static preview is not a substitute for live MAP, CSV or Grid Engine browser acceptance.</p>
+    </details>
     <details id="map-journey" class="disclosure"><summary>MAP and Grid Engine — proposed visible status</summary>
       <div class="map-state" role="note"><strong>Map opened — calculation not yet confirmed</strong><p>Opening a destination is not evidence that the correct REPD identity loaded or that a nearest-grid calculation completed. The live candidate must distinguish destination opened, identity unavailable, engine result visible, and distant offshore constrained. Any nearby infrastructure is geographic context only, never a grid connection offer.</p></div>
       <p class="quiet">For the actual release, test 390px touch visibility and 1440px mouse/keyboard interaction, horizontal scroll and sticky action columns, iOS new-tab delays, correct Ref, and a visible result after the destination opens. This preview contains no working MAP button.</p>
@@ -144,6 +153,6 @@
       <p class="small">Unknown event dates are displayed as unknown; a year-only document does not supply a specific day. Two projects named in one article require two separately evidenced identity bindings. An article's URL alone does not prove an electrical grid connection.</p>
     </details>
   </main>
-  <footer><div class="limit">Agent 4 iteration 07 (15 Nov 2026) · static HTML · no live requests, third-party assets, attached source records, or publication authority. See P2-AGENT4-SOLAR-EDITORIAL-ACCEPTANCE.md.</div></footer>
+  <footer><div class="limit">Agent 4 iteration 09 (15 Nov 2026) · static HTML · no live requests, third-party assets, attached source records, or publication authority. See P2-AGENT4-SOLAR-EDITORIAL-ACCEPTANCE.md.</div></footer>
 </body>
 </html>

@@ -61,8 +61,40 @@ def test_no_false_headline_is_confirmed_by_the_gate_beyond_the_known_few():
 
 
 def test_true_headlines_survive_the_gate():
-    lost = [(ref, title) for ref, title, team in CASES["true"] if G.judge(ref, title, official=team == "official")[0] != "ok"]
-    assert lost == [] and len(CASES["true"]) >= 80
+    # Independent Agent2 ruling: these nine titles are plausible candidates,
+    # but the title ALONE does not establish full project/site or publisher proof.
+    # In particular, a road name, BOOM developer or county is not conclusive.
+    candidate_only = {
+        ("13043", "EDF and Luminous tweak Springwell solar design"),
+        ("15149", "Great North Road solar nears decision"),
+        ("17699", "Green Nation unveils 750MW Whitestone solar"),
+        ("8162", "METLEN to deliver EPC work at EDF’s 400MW Longfield solar PV farm"),
+        ("15252", "RES submits 600MW Steeple solar for DCO"),
+        ("11678", "Government grants consent for Boom Power's 400MW East Yorkshire solar NSIP"),
+        ("14098", "Boom Power wins Fenwick solar approval"),
+        ("14098", "BOOM Power’s Fenwick solar NSIP closes examination phase early"),
+        ("6557", "UK gives go-ahead for 50MW Little Crow solar"),
+    }
+    results = [(ref, title, G.judge(ref, title, official=team == "official")[0])
+               for ref, title, team in CASES["true"]]
+    lost = [(ref, title, verdict) for ref, title, verdict in results
+            if verdict != "ok" and not ((ref, title) in candidate_only and verdict == "possible")]
+    assert len(CASES["true"]) >= 80 and sum(verdict == "ok" for _, _, verdict in results) >= 81
+    assert lost == []
+
+
+def test_weak_development_candidates_never_become_confirmed_from_place_or_developer_alone():
+    # The new candidate path must not turn roadworks, a different Boom Power
+    # solar project or roof-panel coverage into a verified REPD project event.
+    for ref, title in (
+        ("15149", "Great North Road solar street lights planning granted"),
+        ("15149", "Great North Road residents discuss road resurfacing"),
+        ("14098", "Boom Power solar contract in another county"),
+        ("11678", "Boom Power 49.99MW Drove Lane solar farm approved in East Yorkshire"),
+        ("14098", "Fenwick solar panels installed on library roof"),
+    ):
+        assert G.judge(ref, title)[0] != "ok", (ref, title, G.judge(ref, title))
+
 
 
 def test_all_three_collectors_reject_the_false_headlines():

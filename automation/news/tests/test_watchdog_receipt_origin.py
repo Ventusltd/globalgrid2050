@@ -41,7 +41,7 @@ def receipt_eligible(item, body, now):
         # Content-Type is a server claim, not proof that bytes contain HTML.
         # Avoid treating an error string or binary payload as an article receipt.
         prefix = body[:4096].lstrip().lower()
-        if not (prefix.startswith(b"<!doctype html") or prefix.startswith(b"<html") or (re.match(rb"^<\?xml\b[^>]*\?>\s*<html(?:\s|>)", prefix) is not None)):
+        if not ((re.match(rb"^<!doctype html(?:\s[^>]*)?>\s*<html(?:\s|>)", prefix) is not None) or prefix.startswith(b"<html") or (re.match(rb"^<\?xml\b[^>]*\?>\s*<html(?:\s|>)", prefix) is not None)):
             return False
         if item.get("publisher_rights") not in _ALLOWED_RIGHTS:
             return False
@@ -129,6 +129,11 @@ class ReceiptOriginContract(unittest.TestCase):
 
     def test_html_document_receipt_positive(self):
         self.assertTrue(receipt_eligible(self.item, self.body, self.now))
+
+    def test_doctype_html_followed_by_rss_rejected(self):
+        self.body = b"<!doctype html><rss><channel>not an article</channel></rss>"
+        self.item["response_sha256"] = hashlib.sha256(self.body).hexdigest()
+        self.assertFalse(receipt_eligible(self.item, self.body, self.now))
 
     def test_xml_non_html_receipt_rejected(self):
         self.body = b'<?xml version="1.0"?><rss><channel>not an article</channel></rss>'

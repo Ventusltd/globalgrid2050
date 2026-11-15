@@ -86,6 +86,7 @@ REGIONS = {"grampian": ["Aberdeenshire", "Moray", "Aberdeen"], "tayside": ["Angu
            "lothian": ["Midlothian", "East Lothian", "West Lothian"], "dyfed": ["Carmarthenshire", "Pembrokeshire", "Ceredigion"],
            "yorkshire": ["North Yorkshire", "East Yorkshire", "East Riding", "South Yorkshire", "West Yorkshire"],
            "north yorkshire": ["East Yorkshire", "East Riding"], "east yorkshire": ["East Riding"],
+    "east riding of yorkshire": ["East Yorkshire", "East Riding"],
            "south glamorgan": ["Cardiff", "Vale of Glamorgan"], "west glamorgan": ["Swansea"], "avon": ["South Gloucestershire", "Somerset"],
            "county durham": ["Durham"], "durham": ["County Durham"]}
 EVERYDAY = frozenset(

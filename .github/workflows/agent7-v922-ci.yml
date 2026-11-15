@@ -118,8 +118,12 @@ jobs:
           if-no-files-found: warn
 
   real-grid-engine-diagnostic:
-    name: Real Pipeline MAP click to public GridAtlas engine (partial sample)
+    name: Real MAP→GridAtlas engine 3-class partial sample at ${{ matrix.width }}px
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        width: [390, 1440]
     timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
@@ -138,8 +142,8 @@ jobs:
         env:
           AGENT7_ENGINE_REPORT_DIR: /tmp/agent7-real-engine
           AGENT7_ENGINE_MODE: local
-          AGENT7_ENGINE_WIDTH: '1440'
-          AGENT7_ENGINE_SAMPLE_LIMIT: '2'
+          AGENT7_ENGINE_WIDTH: '${{ matrix.width }}'
+          AGENT7_ENGINE_SAMPLE_LIMIT: '3'
           AGENT7_ENGINE_WAIT_MS: '85000'
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/agent7-grid-http.log 2>&1 &
@@ -150,6 +154,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: agent7-real-grid-engine-click-partial-1440
+          name: agent7-real-grid-engine-click-partial-${{ matrix.width }}
           path: /tmp/agent7-real-engine/
           if-no-files-found: warn

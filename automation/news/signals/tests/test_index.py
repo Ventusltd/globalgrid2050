@@ -66,8 +66,12 @@ def test_match_rule(projects):
     assert I.match_item(botley, "Botley West solar farm refused by minister")[0] == "strong"
     assert I.match_item(botley, "Botley West solar project decision due")[0] == "strong"
     assert I.match_item(botley, "Decision on EN010147 published")[0] == "strong"
-    assert I.match_item(botley, "Huge solar farm refused", "The Botley West Solar Farm would have covered farmland.", True)[0] == "strong"
-    assert I.match_item(botley, "Huge solar farm refused", "The Botley West Solar Farm in Oxfordshire is refused.")[0] == "strong"
+    # County RSS summaries may discover a candidate, but they do not prove the identity of a generic headline.
+    assert I.match_item(botley, "Huge solar farm refused", "The Botley West Solar Farm would have covered farmland.", True)[0] == "weak"
+    assert I.match_item(botley, "Huge solar farm refused", "The Botley West Solar Farm in Oxfordshire is refused.")[0] == "weak"
+    unrelated = I.match_item(botley, "Longfield Solar Farm receives consent",
+                             "Botley West Solar Farm was discussed in a separate item.", True)
+    assert unrelated is None or unrelated[0] != "strong"  # wrong scheme in title never gains confirmed identity
     assert I.match_item(botley, "Huge solar farm refused", "The Botley West Solar Farm would have covered farmland.")[0] == "weak"
     assert I.match_item(botley, "Solar plan near Botley West divides villagers")[0] == "weak"
     assert I.match_item(botley, "Botley West residents meet over road closure") is None      # a bare name is not enough
@@ -116,8 +120,8 @@ def test_collect_rss_reads_summary_but_never_stores_it(projects):
     item = items[0]
     assert item == {"repd_ref": "12588", "title": "Minister refuses giant solar farm",
                     "link": "https://www.bbc.co.uk/news/articles/abc", "publisher": "BBC News", "date": "2026-11-10",
-                    "family": "bbc", "confidence": "confirmed",
-                    "basis": "BBC News RSS: alias 'Botley West Solar Farm' in feed summary; the feed is the project's county feed"}
+                    "family": "bbc", "confidence": "uncertain",
+                    "basis": "BBC News RSS: alias 'Botley West Solar Farm' in feed summary; the feed is the project's county feed; kept as weak: headline lacks a verified project name"}
     assert "refused development consent" not in json.dumps(items)
     record = I.source_record("bbc-rss", I.BBC_BASE, health)
     assert record["status"] == "partial" and record["failures"] == 1 and record["items"] == 1

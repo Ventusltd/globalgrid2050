@@ -306,9 +306,41 @@ def clean_item(raw, team, today=None, collected_at=None, as_of=None):
         return None, "no title or link"
     if _excluded(link):
         return None, "source not allowed"
-    date = parse_date(raw.get("date"), today) or DATES.url_day(link, today)   # a full date in the link is the article's own
+    when = raw.get("collected_at") if isinstance(raw.get("collected_at"), str) and raw.get("collected_at") else collected_at
+    collection_clock = None
+    if isinstance(when, str):
+        try:
+            collection_clock = dt.datetime.fromisoformat(when.replace("Z", "+00:00"))
+            if collection_clock.tzinfo is None:
+                collection_clock = None
+        except ValueError:
+            collection_clock = None
+    raw_date = raw.get("date")
+    future = False
+    # Keep the publisher's written calendar day, but never promote a story
+    # published AFTER the actual fetch/observation time into recent news.
+    # Timezone-free stamps may provide a calendar day, never a precise UTC
+    # instant; no offset is silently invented.
+    if collection_clock is not None and isinstance(raw_date, str) and raw_date.strip():
+        value = raw_date.strip()
+        try:
+            if re.match(r"^\d{4}-\d\d-\d\d[T ]\d\d:", value):
+                publication = dt.datetime.fromisoformat(value.replace("Z", "+00:00"))
+                if publication.tzinfo is not None:
+                    future = publication > collection_clock + dt.timedelta(minutes=5)
+                else:
+                    future = publication.date() > collection_clock.date()
+            else:
+                publisher_day = DATES.day(value)
+                future = bool(publisher_day and dt.date.fromisoformat(publisher_day) > collection_clock.date())
+        except ValueError:
+            pass
+    date = None if future else (parse_date(raw_date, today) or DATES.url_day(link, today))
     year = int(date[:4]) if date else None
-    if year is None:                                        # only the year is known: still an undated item, but labelled
+    # The calendar year alone can be evidenced by a reviewed entry or a
+    # source URL without knowing a day. This is year-only ARCHIVE metadata,
+    # never a fresh news date or proof that an event happened on that day.
+    if year is None:
         hint = raw.get("year")
         year = hint if isinstance(hint, int) and DATES.FIRST_YEAR <= hint <= today.year else DATES.url_year(link, today)
     family = raw.get("family") if raw.get("family") in FAMILIES else ("official" if team == "official" else
@@ -321,7 +353,6 @@ def clean_item(raw, team, today=None, collected_at=None, as_of=None):
     reviewed = team == REVIEWED or raw.get("obtained") == "reviewed" or basis.startswith(REVIEWED)
     if reviewed and not basis.startswith(REVIEWED):
         basis = REVIEWED
-    when = raw.get("collected_at") if isinstance(raw.get("collected_at"), str) and raw.get("collected_at") else collected_at
     return {"repd_ref": str(raw.get("repd_ref") or ""), "title": title, "link": link,
             "publisher": D.clean_text(str(raw.get("publisher") or ""), 80) or (urllib.parse.urlsplit(link).hostname or ""),
             "date": date, "year": year, "tier": tier_of(family, date, today),
@@ -361,17 +392,31 @@ def _citation(item):
 
 
 def cluster(ref, items):
-    """One story once. Items of one tier with the same headline, or the same event within 14 days, become the
-    first of them in display order with the others as its "sources"."""
+    """One story once only within an evidenced event-time window.
+
+    Same headline text can be reused for distinct decisions years apart. Never
+    infer that an undated article covers the same event as a dated one merely
+    because its words are identical; URL deduplication happens upstream.
+    """
     items = sorted(items, key=order_key)
     groups, by_title = [], {}
-    for item in items:                                      # same headline from another publisher: one story
+    for item in items:
         key = title_key(item["title"])
-        if key in by_title:
-            by_title[key].append(item)
+        home = None
+        if item["date"]:
+            day = dt.date.fromisoformat(item["date"])
+            for candidate in by_title.get(key, []):
+                lead = candidate[0]
+                if lead["date"] and lead["event"] == item["event"] and \
+                        abs((dt.date.fromisoformat(lead["date"]) - day).days) <= CLUSTER_DAYS:
+                    home = candidate
+                    break
+        if home is not None:
+            home.append(item)
         else:
-            by_title[key] = [item]
-            groups.append(by_title[key])
+            group = [item]
+            groups.append(group)
+            by_title.setdefault(key, []).append(group)
     merged = []
     for group in groups:                                    # same event within 14 days of the cluster's first date
         lead = group[0]
@@ -588,12 +633,36 @@ def combine(rows, aliases=None, parts=None, planning=None, previous=None, now_is
             dropped["exclusion rule"] += 1
             return False
         entry = aliases.get(ref) or {}
+        if is_reviewed(item):
+            # "reviewed" means the URL was manually discovered, NOT that its
+            # particular REPD binding has an independent identity receipt.
+            # The multi-project URL cleanup below cannot catch a sole URL
+            # incorrectly pasted onto the wrong project's record.
+            names_this_site = names_project(item["title"], entry, rows_by_ref[ref])
+            if not names_this_site:
+                other_sites_named = [
+                    other for other in refs if other != ref
+                    and names_project(item["title"], aliases.get(other) or {}, rows_by_ref[other])
+                    and GATE.judge(other, item["title"], project=gate_project(other),
+                                   official=item["family"] == "official")[0] == "ok"
+                ]
+                if other_sites_named:
+                    dropped["title gate"] += 1  # explicit different scheme; never promote the wrong REPD
+                    return False
+                if item["confidence"] == "confirmed":
+                    item["confidence"] = "possible"
+                    item["basis"] = D.clean_text(
+                        "%s; possible only: reviewed URL lacks a named project in the headline"
+                        % item["basis"], 240)
+                    downgraded["title gate"] += 1
         if not is_reviewed(item) and "reference" not in item["basis"]:
             verdict, why = GATE.judge(ref, item["title"], project=gate_project(ref), official=item["family"] == "official")
             if verdict == "drop":                          # also purges a carried-forward copy of a match now rejected
                 dropped["title gate"] += 1
                 return False
-            if verdict == "possible" and item["confidence"] == "confirmed":
+            if verdict in ("possible", "none") and item["confidence"] == "confirmed":
+                # No name in the title is not a confirmed identity match merely
+                # because one collector accepted the phrase or summary.
                 item["confidence"] = "possible"
                 item["basis"] = D.clean_text("%s; possible only: %s" % (item["basis"], why), 240)
                 downgraded["title gate"] += 1
@@ -656,7 +725,13 @@ def combine(rows, aliases=None, parts=None, planning=None, previous=None, now_is
             continue
         found = {ref: next(i for i in gathered[ref] if link_key(i["link"]) == link) for ref in on}
         named = {ref: names_project(found[ref]["title"], aliases.get(ref) or {}, rows_by_ref[ref]) for ref in on}
-        keep = [ref for ref in on if named[ref] or is_reviewed(found[ref])]
+        # A reviewed record is a source discovery method, not itself evidence
+        # that one URL concerns every REPD row to which it was pasted. The
+        # specific identity of *each* project must be supported independently.
+        # This also permits a genuinely two-project headline when both names
+        # occur; a future reviewed binding may qualify only with a separately
+        # audited project-specific receipt.
+        keep = [ref for ref in on if named[ref]]
         if not keep:
             keep = [min(on, key=lambda ref: (found[ref]["confidence"] != "confirmed",
                                               standing(ref) != "confirmed",

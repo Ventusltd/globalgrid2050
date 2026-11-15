@@ -88,10 +88,11 @@ def test_tier_comes_from_the_date_and_family_not_from_how_the_item_arrived():
                            item("12588", "old", "regional", "2026-08-15"), item("12588", "undated", "national", None),
                            item("12588", "dev", "trade", "2026-11-12", link="https://www.pvdp.co.uk/news/1")])
     official = part("official", [item("12588", "notice", "official", "2024-01-05"), item("12588", "case", "official", None)])
-    reviewed = part("reviewed", [item("12588", "r-new", "regional", "2026-11-01", basis="reviewed 2026-11-14"),
+    reviewed = part("reviewed", [item("12588", "r-new", "regional", "2026-11-01", basis="reviewed 2026-11-14",
+                                 title="Botley West Solar Farm permit approved"),
                                  item("12588", "r-old", "regional", "2014-11-13", basis="reviewed 2026-11-14")])
     p = run({"index": index, "official": official, "reviewed": reviewed})["projects"]["12588"]
-    assert [i["title"] for i in p["recent_news"]] == ["Headline new", "Headline r-new", "Headline edge"]
+    assert [i["title"] for i in p["recent_news"]] == ["Headline new", "Botley West Solar Farm permit approved", "Headline edge"]
     assert [(i["title"], i["freshness"]) for i in p["official"]] == [("Headline notice", "older")]
     assert {i["title"]: (i["year"], i["freshness"]) for i in p["archive"]} == {
         "Headline dev": (2026, "recent"), "Headline old": (2026, "older"), "Headline r-old": (2014, "older"),
@@ -123,17 +124,26 @@ def test_impossible_and_future_dates_are_treated_as_undated():
 # ---------------------------------------------------------------- ordering
 
 def test_newest_first_confidence_only_breaks_ties_undated_last():
-    index = part("index", [item("12588", "old-confirmed", "trade", "2026-09-01"),
-                           item("12588", "new-possible", "trade", "2026-11-13", "uncertain"),
-                           item("12588", "same-day-possible", "bbc", "2026-10-01", "uncertain"),
-                           item("12588", "same-day-confirmed", "regional", "2026-10-01")])
+    # Synthetic *named* articles isolate sorting from the unrelated title-identity gate.
+    index = part("index", [item("12588", "old-confirmed", "trade", "2026-09-01",
+                                title="Botley West Solar Farm construction begins"),
+                           item("12588", "new-possible", "trade", "2026-11-13", "uncertain",
+                                title="Botley West Solar Farm financing secured"),
+                           item("12588", "same-day-possible", "bbc", "2026-10-01", "uncertain",
+                                title="Botley West Solar Farm consultation opens"),
+                           item("12588", "same-day-confirmed", "regional", "2026-10-01",
+                                title="Botley West Solar Farm consent decision issued")])
     old = part("reviewed", [item("12588", "undated-confirmed", "trade", None, basis="reviewed 2026-11-14"),
                             item("12588", "y2014", "trade", "2014-01-01", "uncertain", basis="reviewed 2026-11-14")])
     result = run({"index": index, "reviewed": old})
     p = result["projects"]["12588"]
-    assert [i["title"] for i in p["recent_news"]] == ["Headline new-possible", "Headline same-day-confirmed",
-                                                      "Headline same-day-possible", "Headline old-confirmed"]
-    assert p["recent_news"][0]["confidence"] == "possible"              # shown first, but labelled, never as fact
+    assert [i["title"] for i in p["recent_news"]] == [
+        "Botley West Solar Farm financing secured",
+        "Botley West Solar Farm consent decision issued",
+        "Botley West Solar Farm consultation opens",
+        "Botley West Solar Farm construction begins"]
+    assert [i["confidence"] for i in p["recent_news"]] == ["possible", "confirmed", "possible", "confirmed"]
+    assert p["recent_news"][0]["confidence"] == "possible"  # newest, but not declared verified
     assert [i["title"] for i in p["archive"]] == ["Headline y2014", "Headline undated-confirmed"]
     assert C.schema_errors(result) == []
 
@@ -150,16 +160,20 @@ def test_a_recent_item_is_never_hidden_by_older_ones():
 # ---------------------------------------------------------------- confidence earned
 
 def test_confidence_needs_recorded_alias_evidence():
-    index = part("index", [item("12588", "a", date="2026-11-01"), item("20001", "b", date="2026-11-01", title="Rigifa Solar Farm approved"),
+    index = part("index", [item("12588", "a", date="2026-11-01", title="Botley West Solar Farm approved"),
+                           item("20001", "b", date="2026-11-01", title="Rigifa Solar Farm approved"),
                            item("20003", "c", date="2026-11-01", title="Quiet Solar Farm approved")])
     result = run({"index": index})
     assert result["projects"]["12588"]["alias_standing"] == "confirmed"
-    assert result["projects"]["20001"]["alias_standing"] == "possible"       # confirmed status, but no evidence recorded
+    assert result["projects"]["20001"]["alias_standing"] == "possible"  # no recorded alias evidence
     assert result["projects"]["20003"]["alias_standing"] == "possible"
     assert result["projects"]["20001"]["recent_news"][0]["confidence"] == "possible"
     assert result["counts"]["headline"]["value"] == 1 and result["counts"]["with_possible_recent_news"] == 2
     assert result["counts"]["by_tier"]["archive_only"] == 2 and result["counts"]["possible_only"] == 2
     assert result["downgraded"]["alias without recorded evidence"] == 2
+    # Recorded alias standing cannot manufacture a verified headline absent site identity.
+    generic = run({"index": part("index", [item("12588", "generic", date="2026-11-01")])})
+    assert generic["counts"]["headline"]["value"] == 0
     standings = {"projects": {"12588": {"standing": "possible"}, "20003": {"standing": "confirmed"}, "20001": {"standing": "unknown"}}}
     again = run({"index": index}, standings=standings)
     assert [again["projects"][r]["alias_standing"] for r in ("12588", "20003", "20001")] == ["possible", "confirmed", "possible"]
@@ -226,11 +240,56 @@ def test_link_on_several_projects_only_when_title_or_reviewer_names_each():
     result = run({"index": part("index", neither)})
     assert len(everything(result["projects"]["12588"])) == 1 and everything(result["projects"]["20004"]) == []
     by_hand = [dict(i, basis="reviewed 2026-11-14") for i in neither]
-    result = run({"reviewed": part("reviewed", by_hand)})                  # a reviewer tied the story to each project
-    assert all(len(everything(result["projects"][r])) == 1 for r in ("12588", "20004"))
+    result = run({"reviewed": part("reviewed", by_hand)})  # reviewed is discovery, not proof of two REPD bindings
+    assert len(everything(result["projects"]["12588"])) == 1
+    assert everything(result["projects"]["20004"]) == []
+    assert "also_projects" not in everything(result["projects"]["12588"])[0]
+    assert result["dropped"]["link on several projects"] == 1
+
+
+
+def test_single_reviewed_wrong_project_is_not_confirmed_without_duplicate_link():
+    # Regression: no second copy of this URL exists under the real project.
+    # Merely marking the wrong project as "reviewed" cannot bypass title identity.
+    wrong = item("20004", "misbound", title="Botley West Solar Farm wins consent",
+                 basis="reviewed 2026-11-14")
+    result = run({"reviewed": part("reviewed", [wrong])})
+    assert everything(result["projects"]["20004"]) == []
+    assert result["counts"]["headline"]["value"] == 0
+
+    generic = item("12588", "unsupported", title="A huge solar farm wins approval",
+                   basis="reviewed 2026-11-14")
+    result = run({"reviewed": part("reviewed", [generic])})
+    hits = everything(result["projects"]["12588"])
+    assert len(hits) == 1 and hits[0]["confidence"] == "possible"
+    assert result["counts"]["headline"]["value"] == 0
+
+    named = item("12588", "site-named", title="Botley West Solar Farm wins consent",
+                 basis="reviewed 2026-11-14")
+    result = run({"reviewed": part("reviewed", [named])})
+    assert everything(result["projects"]["12588"])[0]["confidence"] == "confirmed"
+
 
 
 # ---------------------------------------------------------------- events and clusters
+
+def test_same_headline_on_distinct_historic_dates_is_not_one_event():
+    # A publisher reusing a headline years apart must not erase an earlier
+    # decision or make the latest decision inherit the earlier source.
+    old = item("12588", "historic-decision-2018", "regional", "2018-02-01",
+               title="Botley West Solar Farm consent decision published")
+    new = item("12588", "historic-decision-2020", "regional", "2020-06-01",
+               title="Botley West Solar Farm consent decision published")
+    near = item("12588", "historic-syndication-2020", "regional", "2020-06-02",
+                title="Botley West Solar Farm consent decision published")
+    result = run({"trade": part("trade", [old, new, near])})
+    archive = result["projects"]["12588"]["archive"]
+    assert len(archive) == 2
+    assert {entry["date"] for entry in archive} == {"2018-02-01", "2020-06-02"}
+    modern = next(entry for entry in archive if entry["date"] == "2020-06-02")
+    assert {source["date"] for source in modern.get("sources", [])} == {"2020-06-01"}
+    assert "sources" not in next(entry for entry in archive if entry["date"] == "2018-02-01")
+
 
 def test_event_from_the_title_and_one_story_shown_once_with_its_sources():
     trade = part("trade", [item("12588", "a", "trade", "2026-11-11", title="UK government refuses 840MW Botley West Solar Farm"),
@@ -368,8 +427,11 @@ def test_main_writes_file_and_summary_with_counts_by_tier(tmp_path):
     assert data["parts"]["official"]["status"] == "failed" and data["parts"]["index"]["status"] == "ok"
     assert data["generated_at"] == NOW and data["stale"] is True
     text = md.read_text()
-    for line in ("**Projects with recent verified news: 1 of 5**", "| with recent news | 1 |",
-                 "| with an official item (and no recent news) | 0 |", "| with archive only (older or undated items, shown with their year) | 1 |",
+    # A generic index headline cannot become verified merely because a source was fetched.
+    assert data["counts"]["headline"]["value"] == 0
+    assert data["counts"]["by_tier"]["archive_only"] == 2
+    for line in ("**Projects with recent verified news: 0 of 5**", "| with recent news | 0 |",
+                 "| with an official item (and no recent news) | 0 |", "| with archive only (older or undated items, shown with their year) | 2 |",
                  "| with planning file only | 3 |", "| with nothing (zero) | 0 |", "**Published.**"):
         assert line in text, line
     assert "/home/" not in out.read_text() + text and "@" not in text

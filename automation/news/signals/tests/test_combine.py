@@ -123,17 +123,26 @@ def test_impossible_and_future_dates_are_treated_as_undated():
 # ---------------------------------------------------------------- ordering
 
 def test_newest_first_confidence_only_breaks_ties_undated_last():
-    index = part("index", [item("12588", "old-confirmed", "trade", "2026-09-01"),
-                           item("12588", "new-possible", "trade", "2026-11-13", "uncertain"),
-                           item("12588", "same-day-possible", "bbc", "2026-10-01", "uncertain"),
-                           item("12588", "same-day-confirmed", "regional", "2026-10-01")])
+    # Synthetic *named* articles isolate sorting from the unrelated title-identity gate.
+    index = part("index", [item("12588", "old-confirmed", "trade", "2026-09-01",
+                                title="Botley West Solar Farm construction begins"),
+                           item("12588", "new-possible", "trade", "2026-11-13", "uncertain",
+                                title="Botley West Solar Farm financing secured"),
+                           item("12588", "same-day-possible", "bbc", "2026-10-01", "uncertain",
+                                title="Botley West Solar Farm consultation opens"),
+                           item("12588", "same-day-confirmed", "regional", "2026-10-01",
+                                title="Botley West Solar Farm consent decision issued")])
     old = part("reviewed", [item("12588", "undated-confirmed", "trade", None, basis="reviewed 2026-11-14"),
                             item("12588", "y2014", "trade", "2014-01-01", "uncertain", basis="reviewed 2026-11-14")])
     result = run({"index": index, "reviewed": old})
     p = result["projects"]["12588"]
-    assert [i["title"] for i in p["recent_news"]] == ["Headline new-possible", "Headline same-day-confirmed",
-                                                      "Headline same-day-possible", "Headline old-confirmed"]
-    assert p["recent_news"][0]["confidence"] == "possible"              # shown first, but labelled, never as fact
+    assert [i["title"] for i in p["recent_news"]] == [
+        "Botley West Solar Farm financing secured",
+        "Botley West Solar Farm consent decision issued",
+        "Botley West Solar Farm consultation opens",
+        "Botley West Solar Farm construction begins"]
+    assert [i["confidence"] for i in p["recent_news"]] == ["possible", "confirmed", "possible", "confirmed"]
+    assert p["recent_news"][0]["confidence"] == "possible"  # newest, but not declared verified
     assert [i["title"] for i in p["archive"]] == ["Headline y2014", "Headline undated-confirmed"]
     assert C.schema_errors(result) == []
 
@@ -150,16 +159,20 @@ def test_a_recent_item_is_never_hidden_by_older_ones():
 # ---------------------------------------------------------------- confidence earned
 
 def test_confidence_needs_recorded_alias_evidence():
-    index = part("index", [item("12588", "a", date="2026-11-01"), item("20001", "b", date="2026-11-01", title="Rigifa Solar Farm approved"),
+    index = part("index", [item("12588", "a", date="2026-11-01", title="Botley West Solar Farm approved"),
+                           item("20001", "b", date="2026-11-01", title="Rigifa Solar Farm approved"),
                            item("20003", "c", date="2026-11-01", title="Quiet Solar Farm approved")])
     result = run({"index": index})
     assert result["projects"]["12588"]["alias_standing"] == "confirmed"
-    assert result["projects"]["20001"]["alias_standing"] == "possible"       # confirmed status, but no evidence recorded
+    assert result["projects"]["20001"]["alias_standing"] == "possible"  # no recorded alias evidence
     assert result["projects"]["20003"]["alias_standing"] == "possible"
     assert result["projects"]["20001"]["recent_news"][0]["confidence"] == "possible"
     assert result["counts"]["headline"]["value"] == 1 and result["counts"]["with_possible_recent_news"] == 2
     assert result["counts"]["by_tier"]["archive_only"] == 2 and result["counts"]["possible_only"] == 2
     assert result["downgraded"]["alias without recorded evidence"] == 2
+    # Recorded alias standing cannot manufacture a verified headline absent site identity.
+    generic = run({"index": part("index", [item("12588", "generic", date="2026-11-01")])})
+    assert generic["counts"]["headline"]["value"] == 0
     standings = {"projects": {"12588": {"standing": "possible"}, "20003": {"standing": "confirmed"}, "20001": {"standing": "unknown"}}}
     again = run({"index": index}, standings=standings)
     assert [again["projects"][r]["alias_standing"] for r in ("12588", "20003", "20001")] == ["possible", "confirmed", "possible"]

@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 
 const require = createRequire(new URL('../package.json', import.meta.url));
-const { chromium } = require('playwright');
+const { chromium, webkit } = require('playwright');
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, '..');
 const ORIGIN = process.env.V9_BASE_URL ||
@@ -58,13 +58,17 @@ const feed = {
   scope: 'Headlines only. No confirmed REPD project associations.',
 };
 const browser = await chromium.launch({ headless: true });
+const webkitBrowser = await webkit.launch({ headless: true });
 await mkdir(OUT, { recursive: true });
 let passed = 0;
 try {
-  for (const width of [390, 1440]) {
-    const context = await browser.newContext({
+  for (const width of [390, 393, 1440]) {
+    // 393px runs through WebKit to catch iOS-browser layout regressions.
+    // 390px and 1440px retain the existing Chromium reference tests.
+    const engine = width === 393 ? webkitBrowser : browser;
+    const context = await engine.newContext({
       viewport: { width, height: 900 }, acceptDownloads: true,
-      isMobile: width === 390, hasTouch: width === 390,
+      isMobile: width < 600, hasTouch: width < 600,
     });
     const page = await context.newPage();
     // Chart.js is an optional CDN dependency; substitute a stub while verifying
@@ -147,12 +151,13 @@ try {
       console.log('CSV verified 7,775/7,775 unique exact REPD refs against Q3 partitions');
     }
     passed++;
-    console.log(width + 'px actual Chromium staging: PASS; MAP href + hit target checked, '
+    console.log(width + 'px actual ' + (width === 393 ? 'WebKit' : 'Chromium') + ' staging: PASS; MAP href + hit target checked, '
       + 'Grid Engine execution NOT checked');
     await context.close();
   }
 } finally {
   await browser.close();
+  await webkitBrowser.close();
 }
-assert.equal(passed, 2);
-console.log('Agent7 Chromium STAGING PASS at 390 and 1440, NOT public served-byte/engine acceptance');
+assert.equal(passed, 3);
+console.log('Agent8 cross-browser STAGING PASS at Chromium 390/1440 and WebKit 393; NOT public served-byte or engine acceptance');

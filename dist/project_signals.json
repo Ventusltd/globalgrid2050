@@ -1,6 +1,6 @@
 {
  "schema": "project-signals.v1",
- "generated_at": "2026-11-14T21:48:51Z",
+ "generated_at": "2026-11-15T13:18:04Z",
  "scope": "200 largest Solar Photovoltaics rows, REPD October 2026",
  "counts": {
   "projects": 200,
@@ -33,17 +33,17 @@
   "official": {
    "status": "ok",
    "items": 89,
-   "generated_at": "2026-11-14T21:35:34Z"
+   "generated_at": "2026-11-15T12:50:41Z"
   },
   "trade": {
    "status": "ok",
    "items": 197,
-   "generated_at": "2026-11-14T21:39:31Z"
+   "generated_at": "2026-11-15T12:54:37Z"
   },
   "index": {
    "status": "ok",
-   "items": 5,
-   "generated_at": "2026-11-14T21:43:07Z"
+   "items": 9,
+   "generated_at": "2026-11-15T12:56:56Z"
   },
   "reviewed": {
    "status": "ok",
@@ -58,7 +58,7 @@
   "exclude phrase": 0,
   "not an object": 0
  },
- "carried_from_previous": 416,
+ "carried_from_previous": 422,
  "sources": [
   {
    "team": "official",
@@ -95,7 +95,7 @@
    "id": "solar-power-portal",
    "url": "https://www.solarpowerportal.co.uk",
    "status": "ok",
-   "requests": 176,
+   "requests": 132,
    "failures": 0,
    "items": 105,
    "error": ""
@@ -104,11 +104,11 @@
    "team": "trade",
    "id": "pv-tech",
    "url": "https://www.pv-tech.org",
-   "status": "partial",
-   "requests": 7,
+   "status": "ok",
+   "requests": 3,
    "failures": 0,
    "items": 1,
-   "error": "no search route usable: wp_posts HTTP 403; wp_rss HTTP 403; wp_rss HTTP 403; html HTTP 403; wp_search HTTP 403"
+   "error": ""
   },
   {
    "team": "trade",
@@ -205,10 +205,10 @@
    "id": "gdelt-doc",
    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
    "status": "partial",
-   "requests": 12,
-   "failures": 12,
-   "items": 8,
-   "error": "HTTP 429 on 6 queries running, each retried once; GDELT left alone for the rest of this run; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
+   "requests": 51,
+   "failures": 39,
+   "items": 12,
+   "error": "time budget for GDELT reached; the rest are asked on later runs; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   }
  ],
  "projects": {
@@ -1272,6 +1272,16 @@
     },
     {
      "repd_ref": "17494",
+     "title": "East Pye solar farm - which could be built near Long Stratton",
+     "link": "https://www.dissexpress.co.uk/news/astronomical-price-for-proposed-solar-farm-revealed-9479967/",
+     "publisher": "dissexpress.co.uk",
+     "date": "2026-08-25",
+     "family": "regional",
+     "basis": "GDELT index, UK sources: alias 'East Pye Solar' in title",
+     "confidence": "confirmed"
+    },
+    {
+     "repd_ref": "17494",
      "title": "One of UK's largest ever proposed solar farms moves forwards",
      "link": "https://www.hellorayo.co.uk/greatest-hits/norfolk/news/one-uk-largest-proposed-solar-farms-forwards",
      "publisher": "Rayo / Greatest Hits Radio Norfolk",
@@ -1298,16 +1308,6 @@
      "date": "2025-06-23",
      "family": "regional",
      "basis": "reviewed 2026-11-14",
-     "confidence": "confirmed"
-    },
-    {
-     "repd_ref": "17494",
-     "title": "Island Green Power opens East Pye Solar consultation",
-     "link": "https://www.renews.biz/solar/island-green-power-opens-east-pye-solar-consultation/",
-     "publisher": "reNEWS",
-     "date": "2025-06-18",
-     "family": "trade",
-     "basis": "reNEWS search: alias phrase 'East Pye' in title with developer 'Island Green'",
      "confidence": "confirmed"
     }
    ],

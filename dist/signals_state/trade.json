@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "trade",
- "generated_at": "2026-11-14T21:39:31Z",
+ "generated_at": "2026-11-15T12:54:37Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -1979,7 +1979,7 @@
    "id": "solar-power-portal",
    "url": "https://www.solarpowerportal.co.uk",
    "status": "ok",
-   "requests": 176,
+   "requests": 132,
    "failures": 0,
    "items": 105,
    "error": "",
@@ -2023,63 +2023,41 @@
    "cached": 0,
    "skipped": 0,
    "feed_archive": {
-    "pages_read": 21,
-    "entries": 1909,
-    "oldest": "2010-04-16",
-    "matched": 37,
-    "next_page": 51,
-    "complete": true
+    "pages_read": 0,
+    "note": "complete; next pass after 30 days"
    },
    "notes": [],
    "sitemap": {
     "files_known": 195,
     "files_read_this_run": 90,
-    "files_never_read": 15,
-    "urls_read": 3915,
-    "links_matching_an_alias": 91,
-    "pages_opened": 60,
-    "headlines_known": 67
+    "files_never_read": 2,
+    "urls_read": 715,
+    "links_matching_an_alias": 104,
+    "pages_opened": 37,
+    "headlines_known": 104
    }
   },
   {
    "id": "pv-tech",
    "url": "https://www.pv-tech.org",
-   "status": "partial",
-   "requests": 7,
+   "status": "ok",
+   "requests": 3,
    "failures": 0,
    "items": 1,
-   "error": "no search route usable: wp_posts HTTP 403; wp_rss HTTP 403; wp_rss HTTP 403; html HTTP 403; wp_search HTTP 403",
-   "route": "",
+   "error": "",
+   "route": "wp_posts /wp-json/wp/v2/posts?search={q}&per_page=20&orderby=relevance&_fields=title,link,date,excerpt",
    "routes": [
     {
      "route": "wp_posts",
      "url": "https://www.pv-tech.org/wp-json/wp/v2/posts?search=solar+farm&per_page=20&orderby=relevance&_fields=title,link,date,excerpt",
-     "status": "failed",
-     "error": "HTTP 403"
-    },
-    {
-     "route": "wp_rss",
-     "url": "https://www.pv-tech.org/?s=solar+farm&feed=rss2",
-     "status": "failed",
-     "error": "HTTP 403"
-    },
-    {
-     "route": "wp_rss",
-     "url": "https://www.pv-tech.org/feed/?s=solar+farm",
-     "status": "failed",
-     "error": "HTTP 403"
-    },
-    {
-     "route": "html",
-     "url": "https://www.pv-tech.org/?s=solar+farm",
-     "status": "failed",
-     "error": "HTTP 403"
-    },
-    {
-     "route": "wp_search",
-     "url": "https://www.pv-tech.org/wp-json/wp/v2/search?search=solar+farm&per_page=20",
-     "status": "failed",
-     "error": "HTTP 403"
+     "status": "ok",
+     "content_type": "application/json",
+     "bytes": 8664,
+     "results": 20,
+     "dated": 20,
+     "summaries": 20,
+     "relevant": 20,
+     "sample": "Southern Power starts commercial operations at second phase of Millers Branch solar farm, signs seven-party VPPA"
     }
    ],
    "feeds": [
@@ -2092,7 +2070,7 @@
     }
    ],
    "searched": 0,
-   "cached": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": []
   },
@@ -2309,7 +2287,7 @@
      "url": "https://www.planningresource.co.uk/search/articles?KeyWords=solar+farm",
      "status": "not search results (0 of 8 links say solar)",
      "content_type": "text/html",
-     "bytes": 41713,
+     "bytes": 42422,
      "results": 8,
      "dated": 0,
      "summaries": 0,
@@ -2321,7 +2299,7 @@
      "url": "https://www.planningresource.co.uk/search?q=solar+farm",
      "status": "not search results (0 of 8 links say solar)",
      "content_type": "text/html",
-     "bytes": 41713,
+     "bytes": 42422,
      "results": 8,
      "dated": 0,
      "summaries": 0,

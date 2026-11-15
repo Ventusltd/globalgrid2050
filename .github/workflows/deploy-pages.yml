@@ -260,10 +260,88 @@ jobs:
           }finally{await browser.close();}
           JS
 
+  verify_v922_public:
+    name: Agent8 V9.22 public served-byte, browser and real MAP acceptance
+    needs: [build, deploy]
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.build.outputs.deployed_sha }}
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fetch public HTTPS V9.22 and immutable V9.21/V9.20, compare exact source bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/agent8-v922-public
+          report=/tmp/agent8-v922-public/served-sha256.txt
+          echo "deployed_commit=$(git rev-parse HEAD)" > "$report"
+          for relative in \
+            uk_renewables_pipeline/202611151300/index.html \
+            uk_renewables_pipeline/202611151300/scripts/plugins/live-news.js \
+            uk_renewables_pipeline/202611151300/data/v9.1/build_manifest.json \
+            uk_renewables_pipeline/202611151300/contracts/release.v9.1.json \
+            uk_renewables_pipeline/202611151300/news/pipeline_headlines.snapshot.json \
+            uk_renewables_pipeline/202611141017/index.html \
+            uk_renewables_pipeline/202611140306/index.html
+          do
+            test -s "$relative" || { echo "Source file missing or empty: $relative"; exit 1; }
+            target=/tmp/agent8-v922-public/"$(echo "$relative" | tr '/' '_')"
+            expected="$(sha256sum "$relative" | cut -d' ' -f1)"
+            matched=0
+            for attempt in 1 2 3 4 5 6 7 8 9 10 11 12; do
+              if curl --fail --silent --show-error --location --max-time 40 --retry 1 \
+                "https://globalgrid2050.com/$relative?source=$(git rev-parse --short HEAD)" -o "$target"; then
+                actual="$(sha256sum "$target" | cut -d' ' -f1)"
+                if [ "$actual" = "$expected" ]; then matched=1; break; fi
+              fi
+              sleep 8
+            done
+            echo "$relative source=$expected served=$(sha256sum "$target" 2>/dev/null | cut -d' ' -f1) match=$matched" | tee -a "$report"
+            test "$matched" = 1 || { echo "PUBLIC BYTE MISMATCH/UNVERIFIED: $relative" >&2; exit 1; }
+          done
+          echo "Exact public served bytes for V9.22 and historical rollback paths: PASS" | tee -a "$report"
+      - name: Install browser engines for real public source acceptance
+        working-directory: uk_renewables_pipeline/202611151300
+        run: |
+          npm ci --no-audit --no-fund
+          npx playwright install --with-deps chromium webkit
+      - name: Public V9.22 Chromium 390/1440 + WebKit 393, actual REPD/CSV/MAP controls
+        env:
+          V9_BASE_URL: https://globalgrid2050.com/uk_renewables_pipeline/202611151300/
+          AGENT7_SCREENSHOT_DIR: /tmp/agent8-v922-public/browser
+        run: node uk_renewables_pipeline/202611151300/tests/browser_stage_agent7.mjs
+      - name: Real PUBLIC V9.22 MAP click through live GridAtlas to three actual nearest calculations
+        env:
+          AGENT7_PIPELINE_SOURCE: https://globalgrid2050.com/uk_renewables_pipeline/202611151300/
+          AGENT7_ENGINE_MODE: public
+          AGENT7_ENGINE_SAMPLE_LIMIT: '3'
+          AGENT7_ENGINE_WAIT_MS: '85000'
+          AGENT7_ENGINE_REPORT_DIR: /tmp/agent8-v922-public/engine
+        shell: bash
+        run: |
+          set -euo pipefail
+          for width in 390 1440; do
+            export AGENT7_ENGINE_WIDTH="$width"
+            node uk_renewables_pipeline/202611151300/tests/browser_real_map_to_engine_agent7.mjs
+          done
+          echo "Public three-class MAP→GridAtlas real-engine sample success is not fleet-wide acceptance."
+      - name: Preserve real public source SHA and browser/engine receipts including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent8-v922-public-served-sha-browser-grid
+          path: /tmp/agent8-v922-public/
+          if-no-files-found: warn
+
   report:
     if: always()
     runs-on: ubuntu-latest
-    needs: [build, deploy, verify_v9_7_candidate]
+    needs: [build, deploy, verify_v9_7_candidate, verify_v922_public]
     steps:
       - name: Publish Pages deployment result
         env:
@@ -272,16 +350,17 @@ jobs:
           BUILD_RESULT: ${{ needs.build.result }}
           DEPLOY_RESULT: ${{ needs.deploy.result }}
           LIVE_RESULT: ${{ needs.verify_v9_7_candidate.result }}
+          V922_RESULT: ${{ needs.verify_v922_public.result }}
         run: |
-          if [[ "$BUILD_RESULT" == "success" && "$DEPLOY_RESULT" == "success" && "$LIVE_RESULT" == "success" ]]; then
+          if [[ "$BUILD_RESULT" == "success" && "$DEPLOY_RESULT" == "success" && "$LIVE_RESULT" == "success" && "$V922_RESULT" == "success" ]]; then
             state=success
-            description='Pages deployment and V9.7 candidate browser proof passed'
-          elif [[ "$BUILD_RESULT" == "cancelled" || "$DEPLOY_RESULT" == "cancelled" || "$LIVE_RESULT" == "cancelled" ]]; then
+            description='Pages, V9.7 and V9.22 public served bytes/browser/engine passed'
+          elif [[ "$BUILD_RESULT" == "cancelled" || "$DEPLOY_RESULT" == "cancelled" || "$LIVE_RESULT" == "cancelled" || "$V922_RESULT" == "cancelled" ]]; then
             state=error
             description='GlobalGrid2050 Pages verification cancelled'
           else
             state=failure
-            description='Pages deployment or V9.7 candidate proof failed'
+            description='Pages, V9.7, or V9.22 public served-byte/browser/engine acceptance failed'
           fi
           gh api --method POST \
             -H "X-GitHub-Api-Version: 2022-11-28" \

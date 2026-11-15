@@ -434,7 +434,7 @@
    "known_faults": [],
    "ci": null,
    "merge_commit": "24a1c2ee2579f576edf4ff6f8f27a306e5e50ad0",
-   "state": "operative (homepage points here); no data-centre register content",
+   "state": "available rollback (V9.21 homepage operative); no data-centre register content",
    "datacentre_features": "no data-centre register content; data-centre headlines (public feeds, links only) retained",
    "removed_features": [
     "nearest-datacentre",
@@ -520,7 +520,7 @@
    ],
    "ci": null,
    "merge_commit": null,
-   "state": "published",
+   "state": "operative on homepage (V9.22 source candidate not yet publicly served)",
    "datacentre_features": "no data-centre register content; data-centre headlines (public feeds, links only) retained",
    "browser_probes": [
     {
@@ -572,23 +572,77 @@
      ]
     }
    ]
+  },
+  {
+   "id": "202611151300",
+   "version": "V9.22",
+   "parent": "202611141017",
+   "date": "2026-11-15T13:00:00Z",
+   "added": "Versioned evidence-conscious successor to V9.21. Preserves 7,775 frozen DESNZ Q3 original project identities, official source status and every MAP link; adds event-aware RSS dedupe, honest empty/partial/stale/failed/snapshot health, publisher versus collection dates, and guarded project-signals candidates without false verified claims. Browser tests include 390/393/1440; real GridAtlas engine computed a limited three-class sample, not fleet-wide.",
+   "data_changed": false,
+   "runner": "tests/run_v9_22.sh",
+   "trees": [
+    "301e163ccacf274bbb780688e12258b0aed3dbdd"
+   ],
+   "features": [
+    {
+     "id": "v922-explicit-partial",
+     "file": "scripts/plugins/live-news.js",
+     "contains": "Partial source collection"
+    },
+    {
+     "id": "v922-publisher-date",
+     "file": "scripts/plugins/live-news.js",
+     "contains": "PUBLISHER DATE "
+    },
+    {
+     "id": "v922-visible-candidate-identity",
+     "file": "scripts/plugins/live-news.js",
+     "contains": "Possible match: "
+    }
+   ],
+   "known_faults": [
+    "Three example real MAP-to-GridAtlas nearest calculations passed in a sampled run, but 390px GridAtlas can intermittently minimise the solar result card after first restore; this is not proof of a failed engine computation or fleet-wide reliability.",
+    "Project/news associations remain possible algorithmic matches. Original publisher byte receipts, specific REPD event binding and independent legal reuse have not been certified; the reader must not claim verified new project events.",
+    "Independent public V9.22 source-versus-served SHA256, WebKit/Chromium network browser and rollback proof remain required before this candidate may be named operative."
+   ],
+   "ci": null,
+   "merge_commit": null,
+   "state": "SOURCE CANDIDATE — NOT YET PUBLISHED",
+   "datacentre_features": "no 258 unverified UK data-centre register records; attributed general external headlines only, separate from REPD",
+   "removed_probes": [
+    "stale rule: 13 days old reads as stale, 2 hours old as updated, failed refresh as stale",
+    "headline list: newest first, text only, possible-match chip"
+   ],
+   "browser_probes": [
+    {
+     "name": "V9.22 honest partial/failed/empty source statuses",
+     "selector": "body",
+     "js": "(function(){var P=window.pipelineHeadlines,n=Date.parse('2026-11-15T13:00:00Z');var q=P.label('2026-11-15T12:00:00Z','partial',n,'live',{feeds_ok:49,feeds_failed:1});var f=P.label('2026-11-15T12:00:00Z','failed',n,'live',{});var e=P.valid({schema:P.schema,status:'ok',generated_at:'2026-11-15T12:00:00Z',items:[]});var s=P.label('2026-11-15T12:00:00Z','ok',n,'snapshot',{});return q.state==='partial'&&q.text.includes('49 sources succeeded, 1 failed')&&f.state==='failed'&&e&&s.state==='snapshot';})()"
+    },
+    {
+     "name": "V9.22 article date distinct from crawl and unverified match chip",
+     "selector": "body",
+     "js": "(function(){var P=window.pipelineHeadlines;P.render({schema:P.schema,generated_at:'2026-11-15T12:00:00Z',status:'ok',counts:{feeds_ok:50,feeds_failed:0},items:[{title:'PROBE <em>neutral</em>',link:'https://example.org/one',date:'2026-11-11T10:00:00Z',first_seen:'2026-11-15T11:00:00Z',category:'refusal',technology:'solar',source:'Source sample',possible_match:{repd_ref:'12588',site_name:'Botley West',basis:'technology'}}]},'live',Date.parse('2026-11-15T13:00:00Z'));var x=document.querySelector('#liveNews .ln-item'),a=x?.querySelector('a.ln-title'),m=x?.querySelector('.ln-meta'),chip=x?.querySelector('.ln-match');return a?.textContent==='PROBE <em>neutral</em>'&&!x.querySelector('em')&&a?.rel==='noopener noreferrer'&&m?.textContent.includes('PUBLISHER DATE 11 NOV 2026')&&chip?.textContent==='Possible match: Botley West (REPD 12588)'&&chip?.title.includes('not a confirmed link');})()"
+    }
+   ]
   }
  ],
  "size_budget_mb": 18,
  "size_budget_from": "202611140136",
  "release_candidate": {
-  "id": "202611141017",
-  "version": "V9.21",
-  "state": "candidate (news block)",
+  "id": "202611151300",
+  "version": "V9.22",
+  "state": "SOURCE CANDIDATE — PUBLIC SHA AND REAL BROWSER ACCEPTANCE PENDING",
   "operative": {
-   "id": "202611140306",
-   "version": "V9.20"
+   "id": "202611141017",
+   "version": "V9.21"
   },
   "held_candidate": {
    "id": "202611140247",
    "version": "V9.19",
    "state": "held candidate (data-centre register context, awaiting licence verification)"
   },
-  "note": "The homepage opens 202611140306 (V9.20). Candidate: 202611141017 (V9.21), the same page with a news block that reads live headlines; it awaits live checks before the homepage is moved. Held: 202611140247 (V9.19), with data-centre register context, awaiting verification of the register's source licences."
+  "note": "V9.22 (202611151300) is a staged, immutable-source candidate. It is NOT a verified public release until source bytes are served and actual browser/CSV/MAP execution and rollback pass. The homepage currently opens V9.21 (202611141017), with V9.20 (202611140306) retained as rollback. News matches remain possible, not independently verified events. V9.19 with unlicensed data-centre context remains held."
  }
 }

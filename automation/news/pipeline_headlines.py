@@ -464,32 +464,82 @@ def title_key(title):
     return N.norm(_SUFFIX.sub("", title)) or N.norm(title)
 
 
+def _publisher_day(item):
+    """Only publisher-supplied dates may delimit article copies. First-seen is a crawl date."""
+    raw = item.get("date")
+    if not isinstance(raw, str) or not raw:
+        return None
+    try:
+        return dt.date.fromisoformat(raw[:10])
+    except ValueError:
+        return None
+
+
+def _project_ref(item):
+    match = item.get("possible_match") or {}
+    return str(match.get("repd_ref") or "") if isinstance(match, dict) else ""
+
+
+def _same_documented_event(item, other):
+    """Fail open to TWO headlines when publisher/project/event identity is ambiguous.
+
+    A common article URL identifies one article. Two different URLs require a common
+    candidate REPD Ref, a consistent category and distinct publisher sources; planning
+    decisions also require the same explicit decision/event reference. This is article
+    display deduplication, never evidence of verified REPD identity or publisher rights.
+    """
+    for field in ("planning_reference", "decision_reference", "event_reference", "event_type"):
+        left, right = item.get(field), other.get(field)
+        if (left or right) and left != right:
+            return False
+    left_ref, right_ref = _project_ref(item), _project_ref(other)
+    if left_ref != right_ref:
+        return False
+    if item.get("link") == other.get("link"):
+        return True
+    if not left_ref or item.get("source") == other.get("source"):
+        return False
+    if item.get("category") != other.get("category"):
+        return False
+    if item.get("category") in ("planning_decision", "consent", "refusal", "dco"):
+        # Two same-named planning decisions can occur days apart: never equate them
+        # merely because their headlines and candidate project identifiers agree.
+        return bool(item.get("decision_reference") or item.get("event_reference"))
+    return True
+
+
 def dedupe_titles(items):
-    """Collapse near-identical titles (same words, or 85% of words shared, within 3 days). The earliest
-    published copy stays; the link breaks ties."""
+    """Collapse documented article copies, not unrelated same-title project events.
+
+    Require publisher dates within three days for different article URLs and
+    independently non-conflicting article/project/event identifiers. When evidence
+    is absent, retaining a repeated-looking headline is safer than losing an event.
+    """
     kept = []
     for item in sorted(items, key=lambda i: (when(i), i["link"])):
         key = title_key(item["title"])
         words = set(key.split())
-        day = when(item)[:10]
+        day = _publisher_day(item)
         duplicate = False
-        for other_key, other_words, other_day in ((k["_k"], k["_w"], k["_d"]) for k in kept):
-            if key == other_key:
+        for other in kept:
+            if not _same_documented_event(item, other):
+                continue
+            # Identical canonical URLs were already handled by the upstream link
+            # merge, but may be present in direct calls to this function.
+            if item.get("link") != other.get("link"):
+                other_day = _publisher_day(other)
+                if day is None or other_day is None or abs((day - other_day).days) > 3:
+                    continue
+            if key == other["_k"]:
                 duplicate = True
-            elif len(words) >= 5 and abs(_days(day, other_day)) <= 3:
-                duplicate = len(words & other_words) / len(words | other_words) >= 0.85
+            elif len(words) >= 5:
+                union = words | other["_w"]
+                duplicate = bool(union) and len(words & other["_w"]) / len(union) >= 0.85
             if duplicate:
                 break
         if not duplicate:
-            kept.append(dict(item, _k=key, _w=words, _d=day))
+            kept.append(dict(item, _k=key, _w=words))
     return [{f: k.get(f) for f in ITEM_FIELDS} for k in kept]
-
-
-def _days(a, b):
-    try:
-        return (dt.date.fromisoformat(a) - dt.date.fromisoformat(b)).days
-    except ValueError:
-        return 0
 
 
 def merge(previous, incoming, repd, now_iso, cap=MAX_ITEMS, max_age_days=MAX_AGE_DAYS, lanes=None):

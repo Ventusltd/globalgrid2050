@@ -1,0 +1,206 @@
+name: Agent 7 V9.22 staging regressions
+
+on:
+  pull_request:
+    paths:
+      - 'automation/news/pipeline_headlines.py'
+      - 'automation/news/tests/test_agent7_dedupe_regressions.py'
+      - 'automation/news/tests/test_agent7_evidence_ledger.py'
+      - 'automation/news/evidence_ledger.py'
+      - 'automation/news/tests/test_pipeline_headlines.py'
+      - 'uk_renewables_pipeline/202611151300/**'
+      - '.github/workflows/agent7-v922-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-staging-regressions:
+    name: Strict offline regressions (not release approval)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install test runner
+        run: python -m pip install --disable-pip-version-check pytest
+      - name: RSS collector historical and Agent7 regressions
+        run: python -m pytest -q automation/news/tests/test_pipeline_headlines.py automation/news/tests/test_agent7_dedupe_regressions.py automation/news/tests/test_agent7_evidence_ledger.py
+      - name: V9.22 actual reader healthy-empty and partial-source regression tests
+        run: node --test uk_renewables_pipeline/202611151300/tests/live_news_regression_v9_22.mjs
+      - name: V9.22 full offline inherited spine and MAP URL-contract checks
+        run: bash uk_renewables_pipeline/202611151300/tests/run_v9_22.sh
+      - name: Explicit acceptance limitation
+        if: always()
+        run: |
+          echo "Offline staging checks are NOT per-article rights clearance, independent review,"
+          echo "public served-byte validation, browser 390/1440, CSV click or MAP-to-engine execution."
+          echo "No automatic merge, deployment or homepage pointer update is authorised."
+
+  chromium-staging-preflight:
+    name: Chromium 390/1440 staging UI + CSV (engine not certified)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned candidate Playwright
+        working-directory: uk_renewables_pipeline/202611151300
+        run: |
+          npm ci --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Real 390px and 1440px Chromium, CSV and MAP hit-target preflight
+        env:
+          AGENT7_SCREENSHOT_DIR: /tmp/agent7-v922-browser
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/agent7-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          node uk_renewables_pipeline/202611151300/tests/browser_stage_agent7.mjs
+      - name: Retain independent review screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent7-v922-chromium-390-1440
+          path: /tmp/agent7-v922-browser/
+          if-no-files-found: warn
+
+  published-baseline-readback:
+    name: V9.21 + V9.20 public served-byte & rollback readback (not V9.22)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch actual published baseline, bytes not redirect status alone
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/agent7-public-readback
+          report=/tmp/agent7-public-readback/source-vs-served-sha256.txt
+          printf 'BROWSER RELEASE CANDIDATE V9.22: NOT PUBLISHED / NOT CERTIFIED\n' > "$report"
+          printf 'Source HEAD: %s\n' "$GITHUB_SHA" >> "$report"
+          for relative in \
+            uk_renewables_pipeline/202611141017/index.html \
+            uk_renewables_pipeline/202611141017/scripts/plugins/live-news.js \
+            uk_renewables_pipeline/202611141017/news/pipeline_headlines.snapshot.json \
+            uk_renewables_pipeline/202611141017/data/v9.1/build_manifest.json \
+            uk_renewables_pipeline/202611140306/index.html
+          do
+            printf 'Checking public %s\n' "$relative" | tee -a "$report"
+            fetched="/tmp/agent7-public-readback/$(printf '%s' "$relative" | tr '/' '_')"
+            url="https://globalgrid2050.com/$relative"
+            curl --fail --location --silent --show-error --retry 2 --connect-timeout 15 --max-time 90 \
+              --output "$fetched" "$url" || { echo "UNVERIFIED/FAIL: public GET $url" | tee -a "$report"; exit 1; }
+            srcsha="$(sha256sum "$relative" | awk '{print $1}')"
+            pubsha="$(sha256sum "$fetched" | awk '{print $1}')"
+            printf 'source %s / served %s / path %s\n' "$srcsha" "$pubsha" "$relative" | tee -a "$report"
+            test "$srcsha" = "$pubsha" || { echo "FAIL: served bytes differ" | tee -a "$report"; exit 1; }
+          done
+          echo 'Baseline V9.21 and rollback V9.20 independently served-identical in this run' | tee -a "$report"
+          echo 'No V9.22 served-byte acceptance, no real browser MAP→engine and no independent human release approval.' | tee -a "$report"
+      - name: Preserve served-byte hash report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent7-v921-v920-served-byte-readback
+          path: /tmp/agent7-public-readback/source-vs-served-sha256.txt
+          if-no-files-found: warn
+
+  real-grid-engine-diagnostic:
+    name: Real MAP→GridAtlas engine 3-class partial sample at ${{ matrix.width }}px
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        width: [390, 1440]
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned candidate Chromium
+        working-directory: uk_renewables_pipeline/202611151300
+        run: |
+          npm ci --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Click real MAP anchors and demand composer plus actual nearest result
+        env:
+          AGENT7_ENGINE_REPORT_DIR: /tmp/agent7-real-engine
+          AGENT7_ENGINE_MODE: local
+          AGENT7_ENGINE_WIDTH: '${{ matrix.width }}'
+          AGENT7_ENGINE_SAMPLE_LIMIT: '3'
+          AGENT7_ENGINE_WAIT_MS: '85000'
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/agent7-grid-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          node uk_renewables_pipeline/202611151300/tests/browser_real_map_to_engine_agent7.mjs
+      - name: Always retain real per-REPD engine receipts and screenshots, including failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent7-real-grid-engine-click-partial-${{ matrix.width }}
+          path: /tmp/agent7-real-engine/
+          if-no-files-found: warn
+
+  immutable-candidate-bundle:
+    name: Pinned V9.22 offline staging bundle and byte manifest (not public)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Require exact V9.20 and V9.21 historical Git trees unchanged
+        run: |
+          set -euo pipefail
+          # This works with GitHub Actions shallow checkouts: the HEAD tree
+          # contains both historical subtrees even without the parent commit.
+          test "$(git rev-parse 'HEAD:uk_renewables_pipeline/202611140306')" = \
+            "365d7df093368c39c3878daacf65449ba32e7267"
+          test "$(git rev-parse 'HEAD:uk_renewables_pipeline/202611141017')" = \
+            "0c56d3a81d7e3abaec164ab689b0f4c8a38e7129"
+          echo "Pinned V9.20 and V9.21 trees are byte-identical to published baselines."
+      - name: Emit exact HEAD and source-byte SHA256 manifest for offline independent review
+        shell: bash
+        run: |
+          set -euo pipefail
+          RELEASE=uk_renewables_pipeline/202611151300
+          BUNDLE="$RUNNER_TEMP/agent7-v922-bundle"
+          mkdir -p "$BUNDLE"
+          printf '%s\n' "repository: Ventusltd/globalgrid2050" \
+            "candidate: $RELEASE" "source_head: $(git rev-parse HEAD)" \
+            "parent_head: dd0fcceb08e71d6c40b77d18e4e5eff493529d45" \
+            "published_baseline: 202611141017 V9.21" \
+            "rollback: 202611140306 V9.20" \
+            "status: DRAFT / NOT SERVED OR RELEASE-ACCEPTED" \
+            "no verified project-news permissions asserted" > "$BUNDLE/RELEASE-IDENTITY.txt"
+          find "$RELEASE" -type f | LC_ALL=C sort | while IFS= read -r file; do
+            sha256sum "$file"
+          done > "$BUNDLE/V9.22-SOURCE-SHA256SUMS.txt"
+          cp "$RELEASE/data/v9.1/build_manifest.json" "$BUNDLE/REPD-Q3-BUILD-MANIFEST.json"
+          cp "$RELEASE/CHANGES.md" "$BUNDLE/CHANGES.md"
+          cp docs/news/agent7-v922-delivery-recovery-20261115.md "$BUNDLE/RECOVERY.md"
+          echo "No external browser or article rights acceptance is inferred from these hashes."
+          wc -l "$BUNDLE/V9.22-SOURCE-SHA256SUMS.txt"
+      - name: Upload candidate manifest for independent Agent 2/3/4 reuse
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent7-v922-exact-source-manifest
+          path: ${{ runner.temp }}/agent7-v922-bundle/
+          if-no-files-found: error

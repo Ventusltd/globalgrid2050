@@ -110,8 +110,13 @@ def _schema(doc, fail):
     if not isinstance(counts.get("by_tier"), dict) or set(counts.get("by_tier") or {}) != set(TIERS):
         fail("counts.by_tier must have exactly %s" % ", ".join(TIERS))
     headline = counts.get("headline")
-    if not isinstance(headline, dict) or headline.get("label") != "projects with recent verified news":
-        fail("counts.headline.label is not 'projects with recent verified news'")
+    # This checker is the *new producer* publication gate, not an archival file
+    # viewer. Legacy published snapshots retain their bytes and historical
+    # checker pinned to their own source revision. A new project-signals.v2
+    # file must NEVER pass while claiming candidate matches are verified news.
+    expected_label = "projects with recent candidate news (independent evidence pending)"
+    if not isinstance(headline, dict) or headline.get("label") != expected_label:
+        fail("counts.headline.label must declare recent candidate news pending independent evidence")
     for ref, project in (doc.get("projects") or {}).items():
         if not isinstance(project, dict):
             fail("project %s is not an object" % ref)
@@ -204,8 +209,18 @@ def check(doc, now=None):
                     found["dates"].append("project %s %s: %r is not a calendar date" % (ref, name, raw))
                 elif day and day > last_day:
                     found["dates"].append("project %s %s: %s is in the future" % (ref, name, raw))
-                if v2 and "year" in item and item.get("year") != (day.year if day else None):
-                    found["dates"].append("project %s %s: year %r does not belong to date %r" % (ref, name, item.get("year"), raw))
+                if v2 and "year" in item:
+                    year = item.get("year")
+                    if day is not None and year != day.year:
+                        found["dates"].append("project %s %s: year %r does not belong to date %r" %
+                                              (ref, name, year, raw))
+                    elif day is None and year is not None:
+                        # A reviewed page or URL may support a YEAR only. Do
+                        # not upgrade it to a fabricated exact date or fresh
+                        # news, and refuse impossible/future-year hints.
+                        if name != "archive" or type(year) is not int or not 2005 <= year <= last_day.year:
+                            found["dates"].append("project %s %s: invalid year-only archive hint %r" %
+                                                  (ref, name, year))
                 if day is None:
                     seen_undated = seen_undated if seen_undated is not None else position
                     continue

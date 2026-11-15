@@ -443,14 +443,19 @@ def test_world_lanes_are_capped_never_matched_to_repd_and_do_not_crowd_out_uk_ne
     assert len(again["items"]) == 21
 
 
-def test_near_identical_titles_from_two_feeds_collapse_to_the_earliest():
+def test_near_identical_titles_without_event_or_project_identity_are_not_silently_collapsed():
+    # Former test assumed 85% text overlap alone proved one event. This is unsafe:
+    # separate article URLs can cover separate decisions, even for the same developer.
+    # Keep all three for independent project/article adjudication when source identity
+    # has no REPD Ref, original URL lineage or common decision reference.
     a = {"title": "Statkraft hits key milestone at first UK solar scheme in Yorkshire", "link": "https://a.example/1",
          "source": "A", "date": "2026-09-01T09:00:00Z", "first_seen": NOW}
     b = dict(a, title="Statkraft hits key milestone at first UK solar scheme in Yorkshire - Example Site",
              link="https://b.example/2", source="B", date="2026-09-02T09:00:00Z")
     c = dict(a, title="Statkraft hits a key milestone at first UK solar scheme in Yorkshire", link="https://c.example/3")
     merged = P.merge([], [b, a, c], P.Repd(), NOW)
-    assert [i["link"] for i in merged] == ["https://a.example/1"]
+    assert {i["link"] for i in merged} == {a["link"], b["link"], c["link"]}
+    assert len(merged) == 3
 
 
 def test_probe_report_lists_every_feed_and_kept_headline(tmp_path):

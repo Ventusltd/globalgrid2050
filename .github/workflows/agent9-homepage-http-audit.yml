@@ -1,0 +1,63 @@
+name: Agent9 public homepage HTTP audit (read only)
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/agent9-homepage-http-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live-homepage-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Verify actual HTTP homepage and Pipeline News link with fresh cache keys
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import urllib.request, urllib.error, re, json
+          from html import unescape
+          import time
+          stamp = str(int(time.time()))
+          urls = {
+            "root": "https://globalgrid2050.com/",
+            "root_cachebuster": f"https://globalgrid2050.com/?agent9_release_check={stamp}",
+            "index_cachebuster": f"https://globalgrid2050.com/index.html?agent9_release_check={stamp}",
+            "catalogue": f"https://globalgrid2050.com/homepage-shell/data/homepage.json?agent9_release_check={stamp}",
+            "v922": f"https://globalgrid2050.com/uk_renewables_pipeline/202611151300/index.html?agent9_release_check={stamp}",
+          }
+          success = True
+          for name,url in urls.items():
+              req = urllib.request.Request(url,headers={"Cache-Control":"no-cache,no-store,max-age=0","Pragma":"no-cache","User-Agent":"Agent9-Homepage-Publish-Audit/1.0"})
+              try:
+                  with urllib.request.urlopen(req,timeout=32) as res:
+                      body=res.read(2_000_000).decode('utf-8','replace')
+                      print(f"{name} HTTP={res.status} final={res.url} bytes={len(body)} age={res.headers.get('Age')} cache={res.headers.get('Cache-Control')} etag={res.headers.get('ETag')}",flush=True)
+              except Exception as e:
+                  print(f"{name}: ERROR {e}",flush=True)
+                  success=False
+                  continue
+              if name.startswith("root") or name=="index_cachebuster":
+                  pattern=r'<details id="pipeline-news">[\s\S]*?<a class="launch" href="([^"]+)"'
+                  m=re.search(pattern,body)
+                  link=unescape(m.group(1)) if m else "NOT-FOUND"
+                  print(f"{name} PIPELINE_LAUNCH={link}",flush=True)
+                  if link != "https://globalgrid2050.com/uk_renewables_pipeline/202611151300/":
+                      success=False
+              elif name=="catalogue":
+                  o=json.loads(body)
+                  item=next(x for x in o["entities"] if x["id"]=="pipeline-news")
+                  print(f"CATALOGUE_OPERATIVE={item['operative_release_id']}",flush=True)
+                  if item['operative_release_id']!="202611151300":
+                      success=False
+              elif name=="v922":
+                  print(f"V922_PAGE_TITLE={re.search(r'<title>([^<]+)',body).group(1) if re.search(r'<title>([^<]+)',body) else 'NO-TITLE'}",flush=True)
+                  if "202611151300" not in body:
+                      success=False
+          print("PUBLIC_HOMEPAGE_V922_ACCEPTANCE="+("PASS" if success else "FAIL"),flush=True)
+          raise SystemExit(0 if success else 1)
+          PY

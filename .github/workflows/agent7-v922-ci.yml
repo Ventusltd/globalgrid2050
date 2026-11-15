@@ -157,3 +157,44 @@ jobs:
           name: agent7-real-grid-engine-click-partial-${{ matrix.width }}
           path: /tmp/agent7-real-engine/
           if-no-files-found: warn
+
+  immutable-candidate-bundle:
+    name: Pinned V9.22 offline staging bundle and byte manifest (not public)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require V9.20 and V9.21 historical directories untouched
+        run: |
+          set -euo pipefail
+          git diff --exit-code dd0fcceb08e71d6c40b77d18e4e5eff493529d45 HEAD -- \
+            uk_renewables_pipeline/202611140306 \
+            uk_renewables_pipeline/202611141017
+      - name: Emit exact HEAD and source-byte SHA256 manifest for offline independent review
+        shell: bash
+        run: |
+          set -euo pipefail
+          RELEASE=uk_renewables_pipeline/202611151300
+          BUNDLE="$RUNNER_TEMP/agent7-v922-bundle"
+          mkdir -p "$BUNDLE"
+          printf '%s\n' "repository: Ventusltd/globalgrid2050" \
+            "candidate: $RELEASE" "source_head: $GITHUB_SHA" \
+            "parent_head: dd0fcceb08e71d6c40b77d18e4e5eff493529d45" \
+            "published_baseline: 202611141017 V9.21" \
+            "rollback: 202611140306 V9.20" \
+            "status: DRAFT / NOT SERVED OR RELEASE-ACCEPTED" \
+            "no verified project-news permissions asserted" > "$BUNDLE/RELEASE-IDENTITY.txt"
+          find "$RELEASE" -type f | LC_ALL=C sort | while IFS= read -r file; do
+            sha256sum "$file"
+          done > "$BUNDLE/V9.22-SOURCE-SHA256SUMS.txt"
+          cp "$RELEASE/data/v9.1/build_manifest.json" "$BUNDLE/REPD-Q3-BUILD-MANIFEST.json"
+          cp "$RELEASE/CHANGES.md" "$BUNDLE/CHANGES.md"
+          cp docs/news/agent7-v922-delivery-recovery-20261115.md "$BUNDLE/RECOVERY.md"
+          echo "No external browser or article rights acceptance is inferred from these hashes."
+          wc -l "$BUNDLE/V9.22-SOURCE-SHA256SUMS.txt"
+      - name: Upload candidate manifest for independent Agent 2/3/4 reuse
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent7-v922-exact-source-manifest
+          path: ${{ runner.temp }}/agent7-v922-bundle/
+          if-no-files-found: error

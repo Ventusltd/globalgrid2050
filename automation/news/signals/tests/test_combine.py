@@ -273,6 +273,24 @@ def test_single_reviewed_wrong_project_is_not_confirmed_without_duplicate_link()
 
 # ---------------------------------------------------------------- events and clusters
 
+def test_same_headline_on_distinct_historic_dates_is_not_one_event():
+    # A publisher reusing a headline years apart must not erase an earlier
+    # decision or make the latest decision inherit the earlier source.
+    old = item("12588", "historic-decision-2018", "regional", "2018-02-01",
+               title="Botley West Solar Farm consent decision published")
+    new = item("12588", "historic-decision-2020", "regional", "2020-06-01",
+               title="Botley West Solar Farm consent decision published")
+    near = item("12588", "historic-syndication-2020", "regional", "2020-06-02",
+                title="Botley West Solar Farm consent decision published")
+    result = run({"trade": part("trade", [old, new, near])})
+    archive = result["projects"]["12588"]["archive"]
+    assert len(archive) == 2
+    assert {entry["date"] for entry in archive} == {"2018-02-01", "2020-06-01"}
+    modern = next(entry for entry in archive if entry["date"] == "2020-06-01")
+    assert {source["date"] for source in modern.get("sources", [])} == {"2020-06-02"}
+    assert "sources" not in next(entry for entry in archive if entry["date"] == "2018-02-01")
+
+
 def test_event_from_the_title_and_one_story_shown_once_with_its_sources():
     trade = part("trade", [item("12588", "a", "trade", "2026-11-11", title="UK government refuses 840MW Botley West Solar Farm"),
                            item("12588", "b", "trade", "2026-11-10", title="UK rejects 840MW Botley West solar farm", publisher="reNEWS"),

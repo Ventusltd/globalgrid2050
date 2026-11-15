@@ -1109,11 +1109,34 @@ def run(projects, cache, fetch, now, args):
             else:
                 store[link] = hit
         sources.append(result["health"])
+    # An item held in cache may be useful historical evidence, but must not
+    # be promoted as newly fetched because a different publisher answered.
+    # Build an independent *per site, per URL* observation ledger from only
+    # successful fresh queries, feeds and sitemap article fetches THIS run.
+    observed = {}
+    for site in SITES:
+        site_id = site["id"]
+        result = results.get(site_id) or {}
+        urls = set((result.get("feed_hits") or {}).keys())
+        for query in (result.get("queries") or {}).values():
+            if query.get("status") != "ok":
+                continue
+            for row in query.get("results") or []:
+                if isinstance(row, list) and len(row) >= 2 and isinstance(row[1], str):
+                    urls.add(row[1])
+        observed[site_id] = urls
     cache["updated_at"] = iso(now)
     items = build_items(projects, cache)
     publisher = {s["publisher"]: s["id"] for s in SITES}
+    for item in items:
+        source_id = publisher[item["publisher"]]
+        this_run = item["link"] in observed.get(source_id, set())
+        item["source_id"] = source_id
+        item["fetched_this_run"] = this_run
+        item["observed_at"] = iso(now) if this_run else None
     for source in sources:
         source["items"] = sum(1 for i in items if publisher[i["publisher"]] == source["id"])
+        source["observed_urls"] = sorted(observed.get(source["id"], set()))
     return {"schema": SCHEMA, "team": TEAM, "generated_at": iso(now), "items": items, "sources": sources,
             "rotation": {"projects": len(projects), "searched_this_run": len(todo), "batch": args.batch,
                          "stale_days": args.stale_days, "fresh_days": args.fresh_days,

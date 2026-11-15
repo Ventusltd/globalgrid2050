@@ -343,7 +343,10 @@ def test_run_writes_contract_part_uses_cache_and_survives_a_failing_site(tmp_pat
         ("12588", "https://one.example/big/", "2026-11-11", "uncertain", "trade"),
         ("12588", "https://one.example/bw/", "2026-11-10", "confirmed", "trade"),
         ("12926", "https://one.example/tween/", "2026-11-09", "uncertain", "trade")]
-    assert all(set(i) == {"repd_ref", "title", "link", "publisher", "date", "family", "basis", "confidence"}
+    public_fields = {"repd_ref", "title", "link", "publisher", "date", "family", "basis", "confidence"}
+    observation_fields = {"source_id", "fetched_this_run", "observed_at"}
+    assert all(set(i) == public_fields | observation_fields for i in part["items"])
+    assert all(i["source_id"] == "one" and i["fetched_this_run"] and i["observed_at"]
                for i in part["items"])
     assert "summary" in part["items"][0]["basis"] and "Example Power" not in json.dumps(part)
     assert "search" in part["items"][1]["basis"] and "feed" in part["items"][2]["basis"]
@@ -357,7 +360,13 @@ def test_run_writes_contract_part_uses_cache_and_survives_a_failing_site(tmp_pat
     before = len(calls)
     assert T.main(argv, fetch=fetch) == 0
     assert not any("search=Botley" in c for c in calls[before:])
-    assert json.loads(out.read_text())["items"] == part["items"]
+    after = json.loads(out.read_text())
+    # Editorial headline data is unchanged. Provenance MUST change: cached
+    # search hits are not re-observed; the current main feed is re-observed.
+    assert [{k: i[k] for k in public_fields} for i in after["items"]] == [
+        {k: i[k] for k in public_fields} for i in part["items"]]
+    assert [i["fetched_this_run"] for i in after["items"]] == [False, False, True]
+    assert after["sources"][0]["observed_urls"] == ["https://one.example/tween/"]
     cache = json.loads((tmp_path / "part.cache.json").read_text())
     assert cache["queries"]["one|botley west"]["results"][0] == ["Botley West refused", "https://one.example/bw/", "2026-11-10"]
     assert "was refused" not in json.dumps(cache)  # the summary text is never stored

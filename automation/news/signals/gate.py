@@ -166,7 +166,7 @@ def named_development_candidate(title, project):
     for alias in project.get("aliases") or []:
         core = _norm(core_of(alias))
         if core and re.search(r"(?<![a-z0-9])" + re.escape(core) +
-                              r"(?: \\d+(?:\\.\\d+)? ?mw)? solar\\b", text):
+                              r"(?: \d+(?:\.\d+)? ?mw)? solar\b", text):
             return True
     return False
 

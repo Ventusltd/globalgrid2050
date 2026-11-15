@@ -35,3 +35,21 @@
 **Next smallest action:** verify newest PR115 exact-head CI including true Chromium stage results and source probes; fix any red without disabling checks; request independent Agent2/3/4 review through owner. GridAtlas issue #87 full click-to-engine regression/fix follows a legitimate accepted Pipeline News release.
 
 Signed: **ChatGPT Agent 7 — Delivery Lead, Integration and Publication**.
+
+
+## Agent7 continuation, 15 November 2026: independent pre-takeover research and measured runtime
+
+**Research reviewed:** Agent5 context report in neural-link PR35, exact `15a7c1acb3534a968808c650618169749450a0b8`, confirms the true purpose is an evidence-linked REPD project index through original sources and rights to actual Grid Engine execution. Acknowledged and linked in NL issue #30, comment 6896428997. Historical pre-Agent7 claims are not new tests.
+
+**Actual GridAtlas engine diagnostic (not synthetic, nor URL-only):**
+- GitHub Actions `43727198347` first real 1440px browser source-button click→external public GridAtlas composer→runtime→visible nearest success on two cases.
+- Actions `43727625058` expanded 1440px to three classes: REPD 12588 solar Cowley 15.76 km, REPD 12453 BESS unnamed 400 kV 0.31 km, REPD 14535 onshore wind Whitehillock 23.69 km. All three PASS at 1440px with full composer and enabled technology layers.
+- **Mobile first-attempt visible output failed** for 3/3 at 390px despite correct source hrefs/clicks, generation `202611132345`, six SHA-verified cartridges, live enabled layers and `__GRIDATLAS_NEON_LINKS__.failures=[]`. Source GridAtlas `resetCardGeometry` intentionally minimises mobile card. The original visible-text-only test falsely interpreted that as engine failure.
+- Fixed test to wait real engine state and *click the actual mobile card restore control* before checking visible nearest. Actions `43728582863`: REPD 12453 BESS and 14535 wind_onshore PASS after one restore; 12588 solar still **FAIL on first restore** because popup remained `gridatlas-min` and nearest stayed invisible, although source DOM contained genuine nearest and the engine composition/runtime succeeded. A late card reset/re-minimise UX race is suspected, not independently isolated. All failures retained as red, never auto-retried into green.
+- GridAtlas issue #87 receives independent evidence and request for later separate branch UX repair. **No GridAtlas live shell, cartridge, composition or pointer changed.** These 3/7775 runtime cases (per viewport) are only stratified diagnostic examples, not global onshore/nearshore coverage or verified grid connection capacity.
+
+**Editorial truthfulness:** Agent7 project-signals producer now displays `projects with recent candidate news (independent evidence pending)` instead of falsely claiming independent verification. The prior published schema's old `verified` label remains accepted *for historical readback only* by `automation/news/tests/acid_live.py`; `combine.py` produces the safer candidate label. Strict and integrated tests must be verified on the latest exact commit; intermediate red due to the historical checker mismatch was investigated and repaired rather than skipped.
+
+**Review artifact:** Agent7 GitHub workflow now generates a SHA256 manifest for every V9.22 candidate file, pins exact `GITHUB_SHA`, verifies V9.20 and V9.21 folders unchanged relative to `dd0fcceb`, and uploads it for independent reviewers without Pages publication. This is not a served-URL or original-article receipt.
+
+**Final current-state rule:** Query PR115 HEAD and its exact workflow checks before claiming all green. No new verified project-news stories; rights, original publisher bytes, independently signed Agent2 project identity/legal review, Agent3 candidate public bytes and broader Grid Engine, and Agent4 editorial verdict remain release blockers. The new V9.22 directory still has no public served edition; do not move homepage/main/version pointer until required acceptance.

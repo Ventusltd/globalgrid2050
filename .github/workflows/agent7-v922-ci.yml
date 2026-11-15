@@ -5,6 +5,8 @@ on:
     paths:
       - 'automation/news/pipeline_headlines.py'
       - 'automation/news/tests/test_agent7_dedupe_regressions.py'
+      - 'automation/news/tests/test_agent7_evidence_ledger.py'
+      - 'automation/news/evidence_ledger.py'
       - 'automation/news/tests/test_pipeline_headlines.py'
       - 'uk_renewables_pipeline/202611151300/**'
       - '.github/workflows/agent7-v922-ci.yml'
@@ -29,7 +31,7 @@ jobs:
       - name: Install test runner
         run: python -m pip install --disable-pip-version-check pytest
       - name: RSS collector historical and Agent7 regressions
-        run: python -m pytest -q automation/news/tests/test_pipeline_headlines.py automation/news/tests/test_agent7_dedupe_regressions.py
+        run: python -m pytest -q automation/news/tests/test_pipeline_headlines.py automation/news/tests/test_agent7_dedupe_regressions.py automation/news/tests/test_agent7_evidence_ledger.py
       - name: V9.22 actual reader healthy-empty and partial-source regression tests
         run: node --test uk_renewables_pipeline/202611151300/tests/live_news_regression_v9_22.mjs
       - name: V9.22 full offline inherited spine and MAP URL-contract checks

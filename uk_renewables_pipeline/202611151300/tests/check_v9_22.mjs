@@ -98,6 +98,7 @@ assert.ok(html.includes(`UK RENEWABLES PIPELINE ${ID}`), "index.html h1 names th
 assert.ok(new RegExp(`Canonical DESNZ REPD Q3 2026[^<]*${fmt(manifest.project_count)} solar, BESS and wind records`).test(html), "index.html states the Q3 register count");
 assert.ok(!html.includes("REPD Q2 2026: 7,680"), "index.html must not claim the Q2 register");
 assert.ok(html.includes("scripts/app-v9-8.js"), "index.html loads the v9.8 app");
+assert.ok(html.includes("MAP ON A PHONE:") && html.includes("not available grid capacity"), "mobile GridAtlas result-card presentation and screening limits must be disclosed");
 const label = html.slice(html.indexOf("<body>"), html.indexOf('<section class="newspaper">'));
 assert.ok(!/CANDIDATE/.test(label.replaceAll("RELEASE CANDIDATE", "")), "brand, nav, h1 and meta carry no candidate label other than this version's own state");
 assert.ok(label.includes(`<small>UK RENEWABLES PIPELINE · V${VERSION}</small>`), "brand names the version");

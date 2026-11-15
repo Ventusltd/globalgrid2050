@@ -43,6 +43,10 @@ def receipt_eligible(item, body, now):
         prefix = body[:4096].lstrip().lower()
         if not ((re.match(rb"^<!doctype html(?:\s[^>]*)?>\s*<html(?:\s|>)", prefix) is not None) or (re.match(rb"^<html(?:\s|>)", prefix) is not None) or (re.match(rb"^<\?xml\b[^>]*\?>\s*<html(?:\s|>)", prefix) is not None)):
             return False
+        # A plausible HTML prefix alone does not establish a complete article.
+        # Truncated documents cannot serve as response-byte publication receipts.
+        if re.search(rb"</html\\s*>\\s*$", body, re.IGNORECASE) is None:
+            return False
         if item.get("publisher_rights") not in _ALLOWED_RIGHTS:
             return False
         digest = item["response_sha256"]
@@ -154,6 +158,16 @@ class ReceiptOriginContract(unittest.TestCase):
 
     def test_html_prefix_impostor_rejected(self):
         self.body = b"<htmlish><body>not a valid HTML root</body></htmlish>"
+        self.item["response_sha256"] = hashlib.sha256(self.body).hexdigest()
+        self.assertFalse(receipt_eligible(self.item, self.body, self.now))
+
+    def test_truncated_html_article_rejected(self):
+        self.body = b"<!doctype html><html><body>partial article"
+        self.item["response_sha256"] = hashlib.sha256(self.body).hexdigest()
+        self.assertFalse(receipt_eligible(self.item, self.body, self.now))
+
+    def test_feed_appended_after_html_rejected(self):
+        self.body += b"<rss><channel>unrelated feed</channel></rss>"
         self.item["response_sha256"] = hashlib.sha256(self.body).hexdigest()
         self.assertFalse(receipt_eligible(self.item, self.body, self.now))
 

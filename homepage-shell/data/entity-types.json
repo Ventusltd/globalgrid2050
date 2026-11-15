@@ -224,6 +224,57 @@
         "learners"
       ],
       "roles": []
+    },
+    "learn-the-kuiper": {
+      "type": "application",
+      "purpose": "Explore square roots and MOD through two linked numbers and a moving dot, and compare the square-root-of-key exercise with the live Kuiper rule, whose radius is the square root of key plus a half.",
+      "audience": [
+        "learners",
+        "developers",
+        "grid researchers"
+      ],
+      "roles": []
+    },
+    "see-through": {
+      "type": "application",
+      "purpose": "Explore mapped substation records through illustrative 3D models that distinguish mapped features from estimated equipment, supporting questions about connection options without calculating their probability or feasibility.",
+      "audience": [
+        "grid researchers",
+        "developers",
+        "learners"
+      ],
+      "roles": []
+    },
+    "kuiper-diary": {
+      "type": "reference",
+      "purpose": "Explain in plain words what the Kuiper is, what Learn the Kuiper and See Through do, what they could become, and how they may help with grid connection.",
+      "audience": [
+        "learners",
+        "grid researchers",
+        "developers"
+      ],
+      "roles": []
+    },
+    "kuiper-editions": {
+      "type": "application",
+      "purpose": "Find the estate's verified lines of code on the Kuiper wafer, each placed at its own key and linked to its repository, commit, file and line, with every dated edition kept unchanged as history.",
+      "audience": [
+        "developers",
+        "grid researchers",
+        "learners"
+      ],
+      "roles": []
+    },
+    "cyber-resilience-log": {
+      "type": "reference",
+      "purpose": "Document verified cloud-service outages, cybercrime incidents, supplier concentration risks and practical independent-recovery measures.",
+      "audience": [
+        "critical infrastructure operators",
+        "developers",
+        "risk and procurement teams",
+        "learners"
+      ],
+      "roles": []
     }
   }
 }

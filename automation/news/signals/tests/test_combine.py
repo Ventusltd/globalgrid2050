@@ -70,7 +70,7 @@ def test_no_parts_every_project_has_a_planning_file_labelled_as_what_it_is():
     result = C.combine(ROWS, None, {}, now_iso=NOW, use_module=False)
     c = result["counts"]
     assert c["by_tier"] == {"recent_news": 0, "official": 0, "archive_only": 0, "planning_file_only": 5, "nothing": 0}
-    assert c["headline"] == {"label": "projects with recent verified news", "value": 0}
+    assert c["headline"] == {"label": "projects with recent candidate news (independent evidence pending)", "value": 0}
     assert result["generated_at"] is None and result["stale"] is False
     assert {t: s["status"] for t, s in result["parts"].items()} == {
         "official": "absent", "trade": "absent", "index": "absent", "reviewed": "absent", "planning": "absent"}
@@ -430,7 +430,7 @@ def test_main_writes_file_and_summary_with_counts_by_tier(tmp_path):
     # A generic index headline cannot become verified merely because a source was fetched.
     assert data["counts"]["headline"]["value"] == 0
     assert data["counts"]["by_tier"]["archive_only"] == 2
-    for line in ("**Projects with recent verified news: 0 of 5**", "| with recent news | 0 |",
+    for line in ("**Projects with recent candidate news (independent evidence pending): 0 of 5**", "| with recent news | 0 |",
                  "| with an official item (and no recent news) | 0 |", "| with archive only (older or undated items, shown with their year) | 2 |",
                  "| with planning file only | 3 |", "| with nothing (zero) | 0 |", "**Published.**"):
         assert line in text, line

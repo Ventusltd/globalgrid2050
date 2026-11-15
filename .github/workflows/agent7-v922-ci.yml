@@ -1,0 +1,42 @@
+name: Agent 7 V9.22 staging regressions
+
+on:
+  pull_request:
+    paths:
+      - 'automation/news/pipeline_headlines.py'
+      - 'automation/news/tests/test_agent7_dedupe_regressions.py'
+      - 'automation/news/tests/test_pipeline_headlines.py'
+      - 'uk_renewables_pipeline/202611151300/**'
+      - '.github/workflows/agent7-v922-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-staging-regressions:
+    name: Strict offline regressions (not release approval)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install test runner
+        run: python -m pip install --disable-pip-version-check pytest
+      - name: RSS collector historical and Agent7 regressions
+        run: python -m pytest -q automation/news/tests/test_pipeline_headlines.py automation/news/tests/test_agent7_dedupe_regressions.py
+      - name: V9.22 actual reader healthy-empty and partial-source regression tests
+        run: node --test uk_renewables_pipeline/202611151300/tests/live_news_regression_v9_22.mjs
+      - name: V9.22 full offline inherited spine and MAP URL-contract checks
+        run: bash uk_renewables_pipeline/202611151300/tests/run_v9_22.sh
+      - name: Explicit acceptance limitation
+        if: always()
+        run: |
+          echo "Offline staging checks are NOT per-article rights clearance, independent review,"
+          echo "public served-byte validation, browser 390/1440, CSV click or MAP-to-engine execution."
+          echo "No automatic merge, deployment or homepage pointer update is authorised."

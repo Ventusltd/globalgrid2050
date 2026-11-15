@@ -88,10 +88,11 @@ def test_tier_comes_from_the_date_and_family_not_from_how_the_item_arrived():
                            item("12588", "old", "regional", "2026-08-15"), item("12588", "undated", "national", None),
                            item("12588", "dev", "trade", "2026-11-12", link="https://www.pvdp.co.uk/news/1")])
     official = part("official", [item("12588", "notice", "official", "2024-01-05"), item("12588", "case", "official", None)])
-    reviewed = part("reviewed", [item("12588", "r-new", "regional", "2026-11-01", basis="reviewed 2026-11-14"),
+    reviewed = part("reviewed", [item("12588", "r-new", "regional", "2026-11-01", basis="reviewed 2026-11-14",
+                                 title="Botley West Solar Farm permit approved"),
                                  item("12588", "r-old", "regional", "2014-11-13", basis="reviewed 2026-11-14")])
     p = run({"index": index, "official": official, "reviewed": reviewed})["projects"]["12588"]
-    assert [i["title"] for i in p["recent_news"]] == ["Headline new", "Headline r-new", "Headline edge"]
+    assert [i["title"] for i in p["recent_news"]] == ["Headline new", "Botley West Solar Farm permit approved", "Headline edge"]
     assert [(i["title"], i["freshness"]) for i in p["official"]] == [("Headline notice", "older")]
     assert {i["title"]: (i["year"], i["freshness"]) for i in p["archive"]} == {
         "Headline dev": (2026, "recent"), "Headline old": (2026, "older"), "Headline r-old": (2014, "older"),

@@ -110,8 +110,16 @@ def _schema(doc, fail):
     if not isinstance(counts.get("by_tier"), dict) or set(counts.get("by_tier") or {}) != set(TIERS):
         fail("counts.by_tier must have exactly %s" % ", ".join(TIERS))
     headline = counts.get("headline")
-    if not isinstance(headline, dict) or headline.get("label") != "projects with recent verified news":
-        fail("counts.headline.label is not 'projects with recent verified news'")
+    # Read back either legacy published v2 files or the corrected candidate label.
+    # Historical nomenclature is NOT proof of independently cleared article rights:
+    # the new producer emits only the candidate label, and this checker separately
+    # tests counts, project identity, chronology and item evidence.
+    headline_labels = (
+        "projects with recent verified news",  # historical file readback only
+        "projects with recent candidate news (independent evidence pending)",
+    )
+    if not isinstance(headline, dict) or headline.get("label") not in headline_labels:
+        fail("counts.headline.label is not a recognised historical or candidate news label")
     for ref, project in (doc.get("projects") or {}).items():
         if not isinstance(project, dict):
             fail("project %s is not an object" % ref)

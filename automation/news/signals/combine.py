@@ -619,6 +619,28 @@ def combine(rows, aliases=None, parts=None, planning=None, previous=None, now_is
             dropped["exclusion rule"] += 1
             return False
         entry = aliases.get(ref) or {}
+        if is_reviewed(item):
+            # "reviewed" means the URL was manually discovered, NOT that its
+            # particular REPD binding has an independent identity receipt.
+            # The multi-project URL cleanup below cannot catch a sole URL
+            # incorrectly pasted onto the wrong project's record.
+            names_this_site = names_project(item["title"], entry, rows_by_ref[ref])
+            if not names_this_site:
+                other_sites_named = [
+                    other for other in refs if other != ref
+                    and names_project(item["title"], aliases.get(other) or {}, rows_by_ref[other])
+                    and GATE.judge(other, item["title"], project=gate_project(other),
+                                   official=item["family"] == "official")[0] == "ok"
+                ]
+                if other_sites_named:
+                    dropped["title gate"] += 1  # explicit different scheme; never promote the wrong REPD
+                    return False
+                if item["confidence"] == "confirmed":
+                    item["confidence"] = "possible"
+                    item["basis"] = D.clean_text(
+                        "%s; possible only: reviewed URL lacks a named project in the headline"
+                        % item["basis"], 240)
+                    downgraded["title gate"] += 1
         if not is_reviewed(item) and "reference" not in item["basis"]:
             verdict, why = GATE.judge(ref, item["title"], project=gate_project(ref), official=item["family"] == "official")
             if verdict == "drop":                          # also purges a carried-forward copy of a match now rejected

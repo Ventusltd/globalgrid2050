@@ -29,6 +29,9 @@ def receipt_eligible(item, body, now):
             return False
         if (original.hostname.lower(), original.port or 443) != (final.hostname.lower(), final.port or 443):
             return False
+        # Same hostname is insufficient: receipts cannot prove other articles.
+        if (original.path or "/", original.query) != (final.path or "/", final.query):
+            return False
         if item.get("publisher_rights") not in _ALLOWED_RIGHTS:
             return False
         digest = item["response_sha256"]
@@ -62,6 +65,14 @@ class ReceiptOriginContract(unittest.TestCase):
 
     def test_cross_publisher_redirect_rejected(self):
         self.item["fetched_url"] = "https://other.example/article?id=7"
+        self.assertFalse(receipt_eligible(self.item, self.body, self.now))
+
+    def test_same_host_different_article_path_rejected(self):
+        self.item["fetched_url"] = "https://publisher.example/other?id=7"
+        self.assertFalse(receipt_eligible(self.item, self.body, self.now))
+
+    def test_same_host_different_article_query_rejected(self):
+        self.item["fetched_url"] = "https://publisher.example/article?id=8"
         self.assertFalse(receipt_eligible(self.item, self.body, self.now))
 
     def test_http_downgrade_rejected(self):

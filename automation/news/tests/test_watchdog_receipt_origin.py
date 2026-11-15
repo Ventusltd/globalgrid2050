@@ -20,12 +20,12 @@ def receipt_eligible(item, body, now):
     this check alone cannot establish either. Redirects across origins require
     separately reviewed publisher ownership, rather than implicit trust.
     """
-    if not isinstance(item, dict) or not isinstance(body, bytes):
+    if not isinstance(item, dict) or not isinstance(body, bytes) or not body:
         return False
     try:
         original = urlsplit(item["publisher_url"])
         final = urlsplit(item["fetched_url"])
-        if any(u.scheme != "https" or not u.hostname or u.username or u.password for u in (original, final)):
+        if any(u.scheme != "https" or not u.hostname or u.username or u.password or u.fragment for u in (original, final)):
             return False
         if (original.hostname.lower(), original.port or 443) != (final.hostname.lower(), final.port or 443):
             return False
@@ -73,6 +73,15 @@ class ReceiptOriginContract(unittest.TestCase):
 
     def test_same_host_different_article_query_rejected(self):
         self.item["fetched_url"] = "https://publisher.example/article?id=8"
+        self.assertFalse(receipt_eligible(self.item, self.body, self.now))
+
+    def test_fragment_article_identity_rejected(self):
+        self.item["fetched_url"] += "#alternate-story"
+        self.assertFalse(receipt_eligible(self.item, self.body, self.now))
+
+    def test_empty_response_body_rejected(self):
+        self.body = b""
+        self.item["response_sha256"] = hashlib.sha256(self.body).hexdigest()
         self.assertFalse(receipt_eligible(self.item, self.body, self.now))
 
     def test_http_downgrade_rejected(self):

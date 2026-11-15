@@ -72,6 +72,8 @@ if str(NEWS) not in sys.path:
     sys.path.insert(0, str(NEWS))
 
 import datacentre_feed as D  # noqa: E402  parse_feed, parse_date, canonical_link, clean_text, limits
+import dates as DATES  # noqa: E402  one date rule shared by the collectors and the combiner
+import gate as GATE  # noqa: E402  the title gate shared with official.py, index.py and combine.py
 import pipeline_headlines as P  # noqa: E402  FOREIGN and UK_WORDS: a headline naming another country is not UK news
 
 SCHEMA = "project-signals-part.v1"
@@ -317,11 +319,18 @@ def _valid_date(year, month, day):
 
 def day_of(value):
     """YYYY-MM-DD from an RSS, Atom or ISO date; None when unreadable. A WordPress REST date has no zone."""
+    found = DATES.day(value)        # the publisher's own calendar day, whatever the zone or the lack of one
+    if found:
+        return found
     stamp = D.parse_date(value)
     if stamp:
         return stamp[:10]
     found = re.match(r"\s*(\d{4})-(\d{2})-(\d{2})", value or "")
     return _valid_date(*found.groups()) if found else None
+
+
+def _tomorrow():
+    return (dt.datetime.now(dt.timezone.utc).date() + dt.timedelta(days=1)).isoformat()
 
 
 def date_near(text):
@@ -330,14 +339,16 @@ def date_near(text):
     if found:
         return found.group(1)
     plain = D.clean_text(text, 4000)
+    best = None                                             # the date written nearest the headline, whatever its spelling
     for regex, order in ((DMY_RE, (2, 1, 0)), (MDY_RE, (2, 0, 1))):
         for found in regex.finditer(plain):
             parts = found.groups()
             month = MONTHS.get(parts[order[1]].lower()[:3])
             date = month and _valid_date(parts[order[0]], month, parts[order[2]])
-            if date:
-                return date
-    return None
+            if date and date <= _tomorrow() and (best is None or found.start() < best[0]):
+                best = (found.start(), date)                # a date still to come is an event date, not a publication date
+                break
+    return best[1] if best else None
 
 
 def parse_html_results(body, base):
@@ -556,6 +567,7 @@ def _tokens(text, stop):
 class Project:
     def __init__(self, record, counties=()):
         self.ref = str(record["repd_ref"])
+        self.record = record
         self.rank = record.get("rank") or 999
         self.site_name = record.get("site_name") or ""
         self.status = record.get("alias_status") or "derived"
@@ -603,6 +615,11 @@ class Project:
         return out
 
     def match(self, title, summary=""):
+        """The module's own rule (_match), then the shared title gate (gate.py): a name in the title without a
+        solar term, abroad or in another county is not this project; thin support is kept as uncertain."""
+        return GATE.gated(self.record, straight(title), self._match(title, summary))
+
+    def _match(self, title, summary=""):
         """(basis, confidence) when the title names this project, else None. The summary rule of the contract
         is the fallback: the alias phrase in the feed or search summary together with the developer, county,
         planning authority or planning reference (in the title or the summary). Such an item is always

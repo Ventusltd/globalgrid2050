@@ -130,23 +130,49 @@ try {
           why: req.failure()?.errorText || 'request failed' });
       });
       await arrival.waitForLoadState('domcontentloaded', { timeout: 60000 });
-      // Conclusive nearest-substation text is required in addition to console-
-      // independent JS state, otherwise a spinner/card is a false success.
+      // Real engine state first. A phone intentionally collapses the project
+      // card on arrival; looking only at document.body.innerText before the
+      // user expands it would falsely report a failed calculation.
+      await arrival.waitForFunction(() => {
+        const runtime = window.__GRIDATLAS_NEON_LINKS__;
+        const atlas = window.__GRIDATLAS_ATLAS__;
+        return !!atlas && !!runtime
+          && Array.isArray(runtime.failures) && runtime.failures.length === 0
+          && !!document.documentElement.dataset.gridatlasGeneration
+          && runtime.technology_layer?.enabled === true
+          && !!runtime.project_layer_enabled;
+      }, null, { timeout: MAX_MS });
+      const initialCard = await arrival.evaluate(() => {
+        const popup = document.querySelector('.maplibregl-popup');
+        const hidden = document.body?.textContent || '';
+        const visible = document.body?.innerText || '';
+        const button = popup?.querySelector('.gridatlas-card-bar button.min');
+        return {
+          popup_found: !!popup,
+          minimized: popup?.classList.contains('gridatlas-min') || false,
+          control_exists: !!button,
+          control_text: button?.textContent?.trim() || null,
+          nearest_in_hidden_dom: /Nearest\s+\d+\s*kV\s+substation\s*:/i.test(hidden),
+          nearest_visible: /Nearest\s+\d+\s*kV\s+substation\s*:/i.test(visible),
+          viewport_visibility: document.visibilityState
+        };
+      });
+      receipt.phases.card_on_arrival = initialCard;
+      if (initialCard.minimized) {
+        // Simulate the reader explicitly restoring the mobile measurement card.
+        // This is NOT a fake engine result: only an actual user-operable click
+        // may expose the real computed nearest and source-identity evidence.
+        assert.ok(initialCard.control_exists, 'mobile project card minimised with no restore button');
+        const restore = arrival.locator('.maplibregl-popup.gridatlas-min .gridatlas-card-bar button.min').first();
+        await restore.click({ timeout: 15000 });
+        receipt.phases.card_restored_by_real_click = true;
+      }
       try {
-        await arrival.waitForFunction(() => {
-          const runtime = window.__GRIDATLAS_NEON_LINKS__;
-          const atlas = window.__GRIDATLAS_ATLAS__;
-          const body = document.body?.innerText || '';
-          return !!atlas && !!runtime && Array.isArray(runtime.failures)
-            && runtime.failures.length === 0
-            && !!document.documentElement.dataset.gridatlasGeneration
-            && !!runtime.technology_layer
-            && runtime.technology_layer.enabled === true
-            && !!runtime.project_layer_enabled
-            && /Nearest\s+\d+\s*kV\s+substation\s*:/i.test(body);
-        }, null, { timeout: MAX_MS });
+        await arrival.waitForFunction(() =>
+          /Nearest\s+\d+\s*kV\s+substation\s*:/i.test(document.body?.innerText || ''),
+        null, { timeout: 35000 });
       } catch (e) {
-        receipt.phases.runtime_timeout = String(e.message).slice(0,180);
+        receipt.phases.visible_nearest_timeout = String(e.message).slice(0,180);
       }
       const state = await arrival.evaluate(() => {
         const a = window.__GRIDATLAS_ATLAS__ || null;
@@ -161,6 +187,8 @@ try {
           project_layer_enabled: x?.project_layer_enabled ?? null,
           failures: x?.failures || null,
           nearest_excerpt: (body.match(/Nearest\s+\d+\s*kV\s+substation\s*:[^\n]{0,150}/i) || [])[0] || null,
+          still_minimised: !!document.querySelector('.maplibregl-popup.gridatlas-min'),
+          nearest_in_dom_even_if_hidden: /Nearest\s+\d+\s*kV\s+substation\s*:/i.test(document.body?.textContent || ''),
           has_loading_spinner: /GRIDATLAS COMPOSITION FAILED|verifying immutable shell and cartridges/i.test(body),
           headline: body.slice(0, 360)
         };

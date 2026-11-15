@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Agent 4 P2 editorial prototype — not a published release</title>
+  <title>Agent 4 P2 editorial iteration 02 — not a published release</title>
   <style>
     :root{color-scheme:light;--bg:#f5f6f8;--ink:#132539;--muted:#50647a;--border:#d8e0e7;--accent:#16466d;--white:#fff;--light:#ebf1f5}
     *{box-sizing:border-box}
@@ -13,6 +13,13 @@
     a{color:#164b78;text-underline-offset:3px}
     :focus-visible{outline:3px solid #176aa7;outline-offset:2px}
     .limit{max-width:1180px;margin:auto;padding:0 22px}
+    .skip-link{position:absolute;left:12px;top:-80px;z-index:100;background:#fff;color:#123c61;padding:12px 16px;border:2px solid #123c61;border-radius:6px}
+    .skip-link:focus{top:8px}
+    .status-key{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0 26px}
+    .status-key article{background:#fff;border:1px solid var(--border);border-radius:9px;padding:13px;min-width:0}
+    .status-key strong{display:block;font-size:.88rem}
+    .status-key p{font-size:.8rem;color:var(--muted);margin:5px 0 0}
+    .time-note{font-size:.8rem;color:var(--muted);margin-top:8px}
     header{background:var(--ink);color:#fff;padding:15px 0}
     header .limit{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
     .brand{font-size:1rem;letter-spacing:.05em;font-weight:750}
@@ -57,14 +64,15 @@
     .template p{color:var(--muted);font-size:.9rem}
     .small{font-size:.78rem;color:var(--muted)}
     footer{border-top:1px solid var(--border);padding:22px 0 35px;font-size:.8rem;color:var(--muted)}
-    @media(max-width:720px){.columns{grid-template-columns:1fr}.limit{padding:0 15px}main{padding-top:22px}.panel{padding:18px}nav{gap:12px}nav a{font-size:.78rem}}
+    @media(max-width:720px){.status-key{grid-template-columns:1fr}.columns{grid-template-columns:1fr}.limit{padding:0 15px}main{padding-top:22px}.panel{padding:18px}nav{gap:12px}nav a{font-size:.78rem}}
     @media(max-width:390px){.fields,.evidence-time{grid-template-columns:1fr}.brand{font-size:.87rem}nav{gap:9px}.meta{gap:5px}}
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to news evidence</a>
   <header>
     <div class="limit">
-      <div><div class="brand">GLOBALGRID2050 · PIPELINE NEWS</div><div class="sub">Agent 4 iteration 01 · separate official decisions and reporting</div></div>
+      <div><div class="brand">GLOBALGRID2050 · PIPELINE NEWS</div><div class="sub">Agent 4 iteration 02 · explicit freshness and evidence states</div></div>
       <nav aria-label="Prototype section navigation">
         <a href="#verified">Verified</a>
         <a href="#reports">Reports</a>
@@ -76,7 +84,7 @@
     </div>
   </header>
   <div class="preview"><div class="limit">DESIGN PREVIEW ONLY · NOT LIVE, NOT A RELEASE, NO SOURCE ARTICLES OR PROJECT EVENTS LOADED</div></div>
-  <main class="limit">
+  <main class="limit" id="main-content">
     <h1>UK solar project intelligence</h1>
     <p class="lede">Decisions and material infrastructure events, linked to the correct REPD project and backed by independently checked sources. The searchable project catalogue remains available even when no article qualifies as verified news.</p>
     <div class="meta" aria-label="Dataset context">
@@ -84,6 +92,11 @@
       <span>News last verified: not available</span>
       <span>Source fetch: not available</span>
       <span>Data centres: excluded from this candidate</span>
+    </div>
+    <div class="status-key" aria-label="Evidence and freshness status legend">
+      <article><strong>Verified decision</strong><p>Original authority decision and project-specific reference checked. An application search is not a decision.</p></article>
+      <article><strong>Attributed recent report</strong><p>Original publisher, dated event, rights and REPD binding checked independently. A recent crawl alone is not recent news.</p></article>
+      <article><strong>Archive or unknown</strong><p>Historical publication and undated candidates remain labelled and outside current verified headlines.</p></article>
     </div>
     <div class="columns">
       <div>
@@ -109,6 +122,7 @@
               <div><dt>Last fetched</dt><dd>Unknown — source health only</dd></div>
               <div><dt>Verified at</dt><dd>Unknown — no reviewer receipt</dd></div>
             </dl>
+            <p class="time-note">Unknown dates remain unknown; year-only evidence is historical precision, not a fabricated publication day. Display times with an explicit UTC zone when available.</p>
             <p class="small">Each eligible card must link to its original publisher, cite a source-byte receipt, record rights clearance and a separate independently supported binding for each REPD project.</p>
           </div>
         </section>
@@ -167,6 +181,6 @@
       </div>
     </div>
   </main>
-  <footer><div class="limit">Agent 4 iteration 01 (15 Nov 2026) · static HTML · no live requests, third-party assets, attached source records, or publication authority. See P2-AGENT4-SOLAR-EDITORIAL-ACCEPTANCE.md.</div></footer>
+  <footer><div class="limit">Agent 4 iteration 02 (15 Nov 2026) · static HTML · no live requests, third-party assets, attached source records, or publication authority. See P2-AGENT4-SOLAR-EDITORIAL-ACCEPTANCE.md.</div></footer>
 </body>
 </html>

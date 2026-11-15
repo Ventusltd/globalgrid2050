@@ -143,8 +143,11 @@ def test_shared_links_follow_the_reviewers_findings():
     for first, second, needle in (("9729", "9739", "morpethherald"),
                                   ("7823", "8254", "high-court")):
         matches = [(ref, item) for ref in (first, second) for item in on(ref, needle)]
-        assert len(matches) == 1
-        assert "also_projects" not in matches[0][1]
+        # An ambiguous historical link can appear only as separate possible review
+        # candidates, not a proven multi-project binding or confirmed headline.
+        assert matches
+        assert all("also_projects" not in item for ref, item in matches)
+        assert all(item["confidence"] == "possible" for ref, item in matches)
     for ref in ("6071", "7630"):                                                         # names neither: never as fact
         assert on(ref, "edf-acquires-100mw")[0]["confidence"] == "possible"
     assert "Defford Aerodrome solar farm" not in aliases["projects"]["7840"]["aliases"]

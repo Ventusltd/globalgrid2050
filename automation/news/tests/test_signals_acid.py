@@ -867,6 +867,18 @@ def test_R15_live_checker_passes_a_file_that_meets_the_contract():
     assert L.failures(good_file(), NOW) == {}
 
 
+def test_R15_new_v2_must_not_call_uncleared_project_news_verified():
+    doc = good_file()
+    # Changing only the wording to the historical label must be rejected even
+    # if all other dates, tiers and synthetic fixture values are consistent.
+    doc["counts"]["headline"]["label"] = "projects with recent verified news"
+    failures = L.failures(doc, NOW)
+    assert "schema" in failures
+    assert any("candidate news" in message for message in failures["schema"])
+    # Source-history readback belongs to its own pinned old revision; it is
+    # never used as an exception in the current producer's publication gate.
+
+
 def _diode(doc):
     doc["projects"]["9050"]["archive"][0]["title"] = "New bypass diode design cuts shading losses in PV modules"
 

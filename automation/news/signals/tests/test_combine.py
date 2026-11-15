@@ -239,8 +239,11 @@ def test_link_on_several_projects_only_when_title_or_reviewer_names_each():
     result = run({"index": part("index", neither)})
     assert len(everything(result["projects"]["12588"])) == 1 and everything(result["projects"]["20004"]) == []
     by_hand = [dict(i, basis="reviewed 2026-11-14") for i in neither]
-    result = run({"reviewed": part("reviewed", by_hand)})                  # a reviewer tied the story to each project
-    assert all(len(everything(result["projects"][r])) == 1 for r in ("12588", "20004"))
+    result = run({"reviewed": part("reviewed", by_hand)})  # reviewed is discovery, not proof of two REPD bindings
+    assert len(everything(result["projects"]["12588"])) == 1
+    assert everything(result["projects"]["20004"]) == []
+    assert "also_projects" not in everything(result["projects"]["12588"])[0]
+    assert result["dropped"]["link on several projects"] == 1
 
 
 # ---------------------------------------------------------------- events and clusters
@@ -381,8 +384,11 @@ def test_main_writes_file_and_summary_with_counts_by_tier(tmp_path):
     assert data["parts"]["official"]["status"] == "failed" and data["parts"]["index"]["status"] == "ok"
     assert data["generated_at"] == NOW and data["stale"] is True
     text = md.read_text()
-    for line in ("**Projects with recent verified news: 1 of 5**", "| with recent news | 1 |",
-                 "| with an official item (and no recent news) | 0 |", "| with archive only (older or undated items, shown with their year) | 1 |",
+    # A generic index headline cannot become verified merely because a source was fetched.
+    assert data["counts"]["headline"]["value"] == 0
+    assert data["counts"]["by_tier"]["archive_only"] == 2
+    for line in ("**Projects with recent verified news: 0 of 5**", "| with recent news | 0 |",
+                 "| with an official item (and no recent news) | 0 |", "| with archive only (older or undated items, shown with their year) | 2 |",
                  "| with planning file only | 3 |", "| with nothing (zero) | 0 |", "**Published.**"):
         assert line in text, line
     assert "/home/" not in out.read_text() + text and "@" not in text

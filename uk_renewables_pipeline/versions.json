@@ -7,17 +7,17 @@
  "release_candidate": {
   "id": "202611151300",
   "version": "V9.22",
-  "state": "SOURCE CANDIDATE — PUBLIC SHA AND REAL BROWSER ACCEPTANCE PENDING",
+  "state": "PUBLISHED — ITERATIVE WITH KNOWN GRIDATLAS MOBILE ISSUE",
   "operative": {
-   "id": "202611141017",
-   "version": "V9.21"
+   "id": "202611151300",
+   "version": "V9.22"
   },
   "held_candidate": {
    "id": "202611140247",
    "version": "V9.19",
    "state": "held candidate (data-centre register context, awaiting licence verification)"
   },
-  "note": "V9.22 (202611151300) is a staged, immutable-source candidate. It is NOT a verified public release until source bytes are served and actual browser/CSV/MAP execution and rollback pass. The homepage currently opens V9.21 (202611141017), with V9.20 (202611140306) retained as rollback. News matches remain possible, not independently verified events. V9.19 with unlicensed data-centre context remains held."
+  "note": "V9.22 (202611151300) was published on 15 November 2026 under the owner's explicit iterative-release direction. The homepage now opens V9.22; V9.21 and V9.20 remain accessible as prior versions and rollback. GridAtlas mobile first-restore intermittently re-minimises the nearest result (REPD 2470 at 5.3 seconds in the 24-project sample); this known failure is deferred to V9.23, not called a PASS. News associations remain possible matches, not independently verified events. V9.19 with unlicensed data-centre register context remains held."
  },
  "map_link_state": {
   "schema": "globalgrid2050.pipeline-news.gridatlas-map-link-state.v1",
@@ -58,7 +58,7 @@
     "name": "The East Anglia Array - Norfolk Vanguard East",
     "technology": "wind_offshore",
     "repd_status": "Awaiting Construction",
-    "capacity_mw": 1380.0,
+    "capacity_mw": 1380,
     "has_map_point": true,
     "reason": "REPD point 52.6200 N, 2.5500 E lies outside the area GridAtlas compiles (longitude -9 to 2.5, latitude 49 to 61)",
     "page_note": "GRIDATLAS: MAP OPENS ON THE PROJECT POINT · NO PROJECT CARD THERE: POINT IS EAST OF THE AREA GRIDATLAS COMPILES"
@@ -68,7 +68,7 @@
     "name": "The East Anglia Array - Norfolk Boreas",
     "technology": "wind_offshore",
     "repd_status": "Under Construction",
-    "capacity_mw": 1400.0,
+    "capacity_mw": 1400,
     "has_map_point": true,
     "reason": "REPD point 52.6200 N, 2.5500 E lies outside the area GridAtlas compiles (longitude -9 to 2.5, latitude 49 to 61)",
     "page_note": "GRIDATLAS: MAP OPENS ON THE PROJECT POINT · NO PROJECT CARD THERE: POINT IS EAST OF THE AREA GRIDATLAS COMPILES"
@@ -78,7 +78,7 @@
     "name": "The East Anglia Array - Norfolk Vanguard West",
     "technology": "wind_offshore",
     "repd_status": "Awaiting Construction",
-    "capacity_mw": 1380.0,
+    "capacity_mw": 1380,
     "has_map_point": true,
     "reason": "REPD point 52.6200 N, 2.5500 E lies outside the area GridAtlas compiles (longitude -9 to 2.5, latitude 49 to 61)",
     "page_note": "GRIDATLAS: MAP OPENS ON THE PROJECT POINT · NO PROJECT CARD THERE: POINT IS EAST OF THE AREA GRIDATLAS COMPILES"
@@ -92,7 +92,7 @@
    "version": "V9.22",
    "parent": "202611141017",
    "date": "2026-11-15T13:00:00Z",
-   "state": "SOURCE CANDIDATE — NOT YET PUBLISHED",
+   "state": "published",
    "added": "Versioned evidence-conscious successor to V9.21. Preserves 7,775 frozen DESNZ Q3 original project identities, official source status and every MAP link; adds event-aware RSS dedupe, honest empty/partial/stale/failed/snapshot health, publisher versus collection dates, and guarded project-signals candidates without false verified claims. Browser tests include 390/393/1440; real GridAtlas engine computed a limited three-class sample, not fleet-wide.",
    "data_changed": false,
    "url": "202611151300/",
@@ -415,12 +415,18 @@
      "error": null
     }
    },
-   "ci": null,
-   "merge_commit": null,
+   "ci": {
+    "workflow": "Deploy GlobalGrid2050 Pages",
+    "run_id": 43769884506,
+    "conclusion": "success",
+    "url": "https://github.com/Ventusltd/globalgrid2050/actions/runs/43769884506",
+    "note": "Exact V9.22 source merge 0719ddc2; known GridAtlas mobile issue declared under owner iterative-release instruction."
+   },
+   "merge_commit": "0719ddc28f2a418281594549d4667c9916ff6b20",
    "known_faults": [
     "Three example real MAP-to-GridAtlas nearest calculations passed in a sampled run, but 390px GridAtlas can intermittently minimise the solar result card after first restore; this is not proof of a failed engine computation or fleet-wide reliability.",
     "Project/news associations remain possible algorithmic matches. Original publisher byte receipts, specific REPD event binding and independent legal reuse have not been certified; the reader must not claim verified new project events.",
-    "Independent public V9.22 source-versus-served SHA256, WebKit/Chromium network browser and rollback proof remain required before this candidate may be named operative."
+    "Owner authorised a known-issues release: REPD 2470 at 390px re-minimised after 5.3 seconds in the 24-case real GridAtlas browser test (23/24 PASS). The mobile fix, full 24/24 acceptance and physical iPhone review are deferred to V9.23, not represented as green."
    ],
    "datacentre_features": "no 258 unverified UK data-centre register records; attributed general external headlines only, separate from REPD"
   },
@@ -429,7 +435,7 @@
    "version": "V9.21",
    "parent": "202611140306",
    "date": "2026-11-14T10:17:00Z",
-   "state": "operative on homepage (V9.22 source candidate not yet publicly served)",
+   "state": "published",
    "added": "News block only. Opens with a list of headlines read from a file a scheduled workflow refreshes, newest first, with a browser-computed 'Headlines updated' or 'Stale since' label, a saved-copy fallback and a 'possible match' chip where the file names a REPD project. The August headlines become a labelled archive without REPD projects printed under unmatched headlines. Bug fix: the MAP button is no longer cut off at 1440 px. Table columns, CSV and every MAP link unchanged.",
    "data_changed": false,
    "url": "202611141017/",

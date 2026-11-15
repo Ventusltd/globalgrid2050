@@ -1,6 +1,6 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-14T21:35:13Z",
+ "generated_at": "2026-11-15T12:50:26Z",
  "status": "ok",
  "counts": {
   "items": 5,
@@ -28,15 +28,15 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "sha256": "e6c86d024c8651920e56a70e66efb4c9b1b66327d632f6ae7f64f724d087ec59"
+   "sha256": "ff23fec460709e802879a7c57111d21f3ace5cfbcf3cc691d12ed1eb3ee72261"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 56,
+   "entries": 57,
    "kept": 0,
-   "sha256": "fdcea09db7629161e69201bcaf7dd9a434edf27772e7a9fa5b83c70252621534"
+   "sha256": "6e728cc188709f7bee31dbe7b0c6d357269071edefe0b459f5e4c760ec3f78d9"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
@@ -44,7 +44,7 @@
    "status": "ok",
    "entries": 61,
    "kept": 0,
-   "sha256": "6ff66f513a4079a38371c37d8759e69797608f4e1d5da09e3ab8960e432bfdcb"
+   "sha256": "29cadf9533e9c8a403f6bf0eba57d3204eaf3903aec33064abe7e2e53e746427"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 41,
    "kept": 0,
-   "sha256": "721b8b53b410e12e750ab19ebe2eaefaaf18ae35fdafce0265d2bec998acbca1"
+   "sha256": "c00539caf202cb1368370534ff74f47ac53732cbb9cf25c60434f0526309df98"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -84,15 +84,15 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "03375e134f1bc24bbaf6bd25f2043058675a3c47ea4b603e29ec1f44579f9ada"
+   "sha256": "c903a34894a9a3267411d5098e123f63b74a159eecbbc46e8667e5cd4838ec9e"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
    "source": "DatacenterDynamics",
    "status": "ok",
    "entries": 20,
-   "kept": 3,
-   "sha256": "05bae8a5163909b1de3914055d168bb7b07a05ba0ad7071f77e59abd76b6d496"
+   "kept": 2,
+   "sha256": "72116ccdbdf5289f23e8d343756d7b351fd75809c28ae4b83c8a97ea5d187ec6"
   }
  ],
  "items": [

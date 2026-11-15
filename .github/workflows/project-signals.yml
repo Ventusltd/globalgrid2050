@@ -9,9 +9,13 @@ name: Project signals (top 200 solar, twice a day, data branch)
 # beside it under dist/signals_state/, so the next run keeps earlier signals and asks each source only for what is
 # stale; trade.py and index.py each search a rotating share of the 200 per run).
 # It never pushes to main, never opens a PR, never deploys. A push made with GITHUB_TOKEN starts no other workflow.
-# One script or one source failing is recorded in the file and does not fail the job: the combiner runs with whatever
-# parts exist, and every one of the 200 projects always has its planning file. The job fails only when the combiner
-# itself fails (a project with neither a signal nor a planning file) and there is no earlier file to keep.
+# One script or one source failing does not fail the job, and is never hidden: the combiner (contract version 2)
+# gives every part its own status and collected_at, keeps the items published before with their own times when a
+# part fails or comes back empty (status "stale"), and moves generated_at only when a live collection succeeded.
+# The combiner refuses to write the file (exit 3, the job fails, nothing is pushed, the reason is in the job
+# summary) when the file fails its schema check or the counts fall by more than a third. Only a run on the default
+# branch publishes. The job summary reports the 200 by tier: recent news, official, archive only, planning file
+# only, nothing.
 # Two slots a day at off-peak minutes; scheduled runs in this repository can arrive late or be dropped.
 # On a pull request that touches the scripts, the "probe" job (read-only, writes to no branch) runs index.py and the
 # combiner against the live sources and prints coverage, source health and the comparison with the reviewers'
@@ -24,6 +28,7 @@ on:
     paths:
       - 'automation/news/signals/**'
       - 'automation/news/datacentre_feed.py'
+      - 'automation/news/tests/test_signals_*.py'
       - '.github/workflows/project-signals.yml'
 permissions:
   contents: read
@@ -33,6 +38,12 @@ concurrency:
 env:
   DATA_BRANCH: project-signals-data
   SIG: automation/news/signals
+  # every suite of the signals code, in one call: the three collectors, the planning files and the combiner
+  SIGNAL_TESTS: >-
+    automation/news/signals/tests
+    automation/news/tests/test_signals_official.py
+    automation/news/tests/test_signals_planning_file.py
+    automation/news/tests/test_signals_trade.py
 jobs:
   probe:
     if: github.event_name == 'pull_request'
@@ -54,10 +65,19 @@ jobs:
       - name: Tests (offline)
         run: |
           python -m pip install --quiet pytest
-          python -m pytest -q -p no:cacheprovider "$SIG/tests/test_index.py" "$SIG/tests/test_combine.py"
-      - name: Run index.py against the live sources (no branch written)
+          python -m pytest -q -p no:cacheprovider $SIGNAL_TESTS
+      - name: Read the published file from the data branch (read only)
         run: |
           mkdir -p "$RUNNER_TEMP/parts"
+          code=0; git ls-remote --exit-code --heads origin "$DATA_BRANCH" >/dev/null || code=$?
+          if [ "$code" = 0 ]; then
+            git fetch --depth=1 origin "$DATA_BRANCH"
+            git show FETCH_HEAD:dist/project_signals.json > "$RUNNER_TEMP/previous.json" || rm -f "$RUNNER_TEMP/previous.json"
+          else
+            echo "no published file read (ls-remote exit $code); the probe combines without one"
+          fi
+      - name: Run index.py against the live sources (no branch written)
+        run: |
           python "$SIG/index.py" --out "$RUNNER_TEMP/parts/index.json" --probe "$RUNNER_TEMP/index-probe.md" \
             --cache "$RUNNER_TEMP/parts/gdelt_cache.json" --gdelt-max "$GDELT_MAX" --gdelt-experiment "$GDELT_EXPERIMENT" --gdelt-seconds "$GDELT_SECONDS"
           cat "$RUNNER_TEMP/index-probe.md" | tee -a "$GITHUB_STEP_SUMMARY"
@@ -74,13 +94,15 @@ jobs:
       - name: Combine
         run: |
           if [ -f "$SIG/planning_file.py" ]; then
-            python "$SIG/planning_file.py" --out "$RUNNER_TEMP/parts/planning.json" || echo "::warning::planning_file.py failed; the combiner uses the alias table and its own last resort"
+            timeout 20m python "$SIG/planning_file.py" --verify --out "$RUNNER_TEMP/parts/planning.json" || echo "::warning::planning_file.py failed; the combiner uses the alias table and its own last resort"
           fi
           python "$SIG/combine.py" --planning "$RUNNER_TEMP/parts/planning.json" \
             --official "$RUNNER_TEMP/parts/official.json" --trade "$RUNNER_TEMP/parts/trade.json" \
-            --index "$RUNNER_TEMP/parts/index.json" --out "$RUNNER_TEMP/parts/project_signals.json" \
-            --summary "$RUNNER_TEMP/combine-probe.md"
-          cat "$RUNNER_TEMP/combine-probe.md" | tee -a "$GITHUB_STEP_SUMMARY"
+            --index "$RUNNER_TEMP/parts/index.json" --previous "$RUNNER_TEMP/previous.json" \
+            --out "$RUNNER_TEMP/parts/project_signals.json" --summary "$RUNNER_TEMP/combine-probe.md" || code=$?
+          cat "$RUNNER_TEMP/combine-probe.md" >> "$GITHUB_STEP_SUMMARY"
+          sed -n '1,40p' "$RUNNER_TEMP/combine-probe.md"
+          exit "${code:-0}"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -90,7 +112,8 @@ jobs:
             ${{ runner.temp }}/*-probe.md
           retention-days: 14
   refresh:
-    if: github.event_name != 'pull_request'
+    # only the default branch publishes: a manual run on another branch must not overwrite the published file
+    if: github.event_name != 'pull_request' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
     runs-on: ubuntu-latest
     timeout-minutes: 110
     permissions:
@@ -105,12 +128,18 @@ jobs:
       - name: Tests (offline)
         run: |
           python -m pip install --quiet pytest
-          python -m pytest -q -p no:cacheprovider "$SIG/tests/test_index.py" "$SIG/tests/test_combine.py"
+          python -m pytest -q -p no:cacheprovider $SIGNAL_TESTS
       - name: Bring in the previous file, parts and cache from the data branch
         run: |
           mkdir -p dist/signals_state
-          if git ls-remote --exit-code --heads origin "$DATA_BRANCH" >/dev/null; then
+          code=0; git ls-remote --exit-code --heads origin "$DATA_BRANCH" >/dev/null || code=$?
+          if [ "$code" != 0 ] && [ "$code" != 2 ]; then
+            echo "::error::could not read the data branch (ls-remote exit $code); a run that has not read the published state must not publish"
+            exit 1
+          fi
+          if [ "$code" = 0 ]; then
             git fetch --depth=1 origin "$DATA_BRANCH"
+            echo "DATA_SHA=$(git rev-parse FETCH_HEAD)" >> "$GITHUB_ENV"
             git show FETCH_HEAD:dist/project_signals.json > dist/project_signals.json || rm -f dist/project_signals.json
             for name in official.json trade.json index.json gdelt_cache.json trade_cache.json; do
               git show "FETCH_HEAD:dist/signals_state/$name" > "dist/signals_state/$name" 2>/dev/null || rm -f "dist/signals_state/$name"
@@ -138,22 +167,27 @@ jobs:
         run: |
           timeout 35m python "$SIG/index.py" --out "$RUNNER_TEMP/parts/index.json" --previous dist/signals_state/index.json \
             --cache dist/signals_state/gdelt_cache.json --gdelt-max 80 --gdelt-seconds 1200 --probe "$RUNNER_TEMP/index-report.md"
-      - name: Keep the last good part where a script gave none this run
+      - name: Keep the last good part where a script collected nothing this run
         run: |
+          # dist/signals_state/ is the collectors' own state. A part replaces the saved one only if it collected
+          # something: right schema, at least one item, not every source failed (the combiner's own test).
           for team in official trade index; do
-            if python -c "import json,sys; d=json.load(open(sys.argv[1])); assert d['schema']=='project-signals-part.v1'" "$RUNNER_TEMP/parts/$team.json" 2>/dev/null; then
+            if python -c "import json,sys; sys.path.insert(0, sys.argv[2]); import combine as C; good, why = C._part_good(json.load(open(sys.argv[1]))); print(why); sys.exit(0 if good else 1)" "$RUNNER_TEMP/parts/$team.json" "$SIG"; then
               cp "$RUNNER_TEMP/parts/$team.json" "dist/signals_state/$team.json"
-            elif [ -f "dist/signals_state/$team.json" ]; then
-              echo "::warning::$team: no part from this run; the part of the previous run is used"
+            else
+              echo "::warning::$team: nothing collected in this run; the combiner marks the part stale and keeps what was published before"
             fi
           done
       - name: Combine into dist/project_signals.json
         run: |
           if [ -f "$SIG/planning_file.py" ]; then
-            python "$SIG/planning_file.py" --out "$RUNNER_TEMP/parts/planning.json" || echo "::warning::planning_file.py failed; the combiner uses the alias table and its own last resort"
+            timeout 20m python "$SIG/planning_file.py" --verify --out "$RUNNER_TEMP/parts/planning.json" || echo "::warning::planning_file.py failed; the combiner uses the alias table and its own last resort"
           fi
-          python "$SIG/combine.py" --planning "$RUNNER_TEMP/parts/planning.json" --official dist/signals_state/official.json --trade dist/signals_state/trade.json \
-            --index dist/signals_state/index.json --previous dist/project_signals.json --out dist/project_signals.json \
+          # The parts of THIS run only: a part that is missing, empty or failed is marked stale by the combiner and
+          # its items come from the published file with their own collected_at. Exit 3: not written, nothing pushed.
+          python "$SIG/combine.py" --planning "$RUNNER_TEMP/parts/planning.json" --official "$RUNNER_TEMP/parts/official.json" \
+            --trade "$RUNNER_TEMP/parts/trade.json" --index "$RUNNER_TEMP/parts/index.json" \
+            --previous dist/project_signals.json --out dist/project_signals.json \
             --summary "$RUNNER_TEMP/combine-report.md"
       - name: Summary
         if: always()
@@ -166,8 +200,8 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           pub="$RUNNER_TEMP/pub"
-          if git ls-remote --exit-code --heads origin "$DATA_BRANCH" >/dev/null; then
-            git worktree add --detach "$pub" FETCH_HEAD
+          if [ -n "${DATA_SHA:-}" ]; then
+            git worktree add --detach "$pub" "$DATA_SHA"
           else
             git worktree add --detach "$pub" HEAD
             git -C "$pub" checkout --orphan project-signals-tmp
@@ -180,7 +214,8 @@ jobs:
             if [ -f "dist/signals_state/$name" ]; then cp "dist/signals_state/$name" "$pub/dist/signals_state/$name"; fi
           done
           printf '%s\n' "Published by .github/workflows/project-signals.yml. Headlines and links only." \
-            "dist/project_signals.json is read by the Pipeline News page; dist/signals_state/ is the run's own state." \
+            "dist/project_signals.json (schema project-signals.v2) is read by the Pipeline News page; dist/signals_state/ is the run's own state." \
+            "generated_at is the newest successful live collection, not the time of this commit; see parts for each part's status." \
             "Do not edit by hand." > "$pub/README.txt"
           git -C "$pub" add dist README.txt
           if git -C "$pub" diff --cached --quiet; then

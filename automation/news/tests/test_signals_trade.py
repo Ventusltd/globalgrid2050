@@ -50,8 +50,10 @@ def test_core_of(alias, core):
 
 def test_distinctive_phrase_matches_alone_and_is_word_bounded():
     p = project(12588, 1, ["Botley West Solar Farm"])
-    basis, confidence = p.match("Miliband refuses Botley West")
-    assert "Botley West" in basis and confidence == "confirmed"
+    basis, confidence = p.match("Miliband refuses Botley West")          # the title gate: no solar term, so not confirmed
+    assert "Botley West" in basis and confidence == "uncertain" and "no solar term" in basis
+    assert p.match("Miliband refuses Botley West solar farm")[1] == "confirmed"
+    assert p.match("Botley West footpath closed after landslip") is None  # a distinctive name alone is not the project
     assert p.match("Botley Westfield plan lodged") is None
     assert p.match("West Botley residents object to solar") is None
     assert p.match("Botley West's 840MW solar plan refused")
@@ -61,7 +63,10 @@ def test_single_word_alias_needs_a_second_term():
     p = project(7188, 10, ["Sunnica Energy Farm"], county="Cambridgeshire")
     assert p.match("Sunnica wins court case") is None
     assert "solar" in p.match("Sunnica solar farm wins court case")[0]
-    assert "county" in p.match("Sunnica scheme in Cambridgeshire cleared")[0]
+    assert p.match("Sunnica scheme in Cambridgeshire cleared") is None    # a county agrees only beside a solar term
+    assert "county" in p.match("Sunnica solar scheme in Cambridgeshire cleared")[0]
+    assert p.match("Sunnica solar farm plan in Lancashire") is None       # placed in another county
+    assert p.match("Sunnica solar panels for village hall") is None       # panels are not a solar farm
     assert "developer" in p.match("Example hails Sunnica ruling")[0]
 
 
@@ -341,7 +346,7 @@ def test_run_writes_contract_part_uses_cache_and_survives_a_failing_site(tmp_pat
     assert part["schema"] == "project-signals-part.v1" and part["team"] == "trade"
     assert [(i["repd_ref"], i["link"], i["date"], i["confidence"], i["family"]) for i in part["items"]] == [
         ("12588", "https://one.example/big/", "2026-11-11", "uncertain", "trade"),
-        ("12588", "https://one.example/bw/", "2026-11-10", "confirmed", "trade"),
+        ("12588", "https://one.example/bw/", "2026-11-10", "uncertain", "trade"),    # "Botley West refused": no solar term
         ("12926", "https://one.example/tween/", "2026-11-09", "uncertain", "trade")]
     assert all(set(i) == {"repd_ref", "title", "link", "publisher", "date", "family", "basis", "confidence"}
                for i in part["items"])

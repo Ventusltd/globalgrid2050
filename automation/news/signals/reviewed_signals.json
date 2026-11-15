@@ -682,7 +682,9 @@
 "date": null,
 "family": "official",
 "basis": "reviewed 2026-11-14",
-"confidence": "confirmed"
+"confidence": "confirmed",
+"year": 2024,
+"date_basis": "title 'February 2024'; the upload folder /2023/12/ is earlier and contradicts it (a replaced file keeps its original folder), so the title wins"
 },
 {
 "repd_ref": "7956",
@@ -1352,7 +1354,9 @@
 "date": null,
 "family": "official",
 "basis": "reviewed 2026-11-14",
-"confidence": "confirmed"
+"confidence": "confirmed",
+"year": 2025,
+"date_basis": "upload folder /2025/12/ (month the file was uploaded: the decision is on or before it); application reference CA/25/00570 gives 2025 as a lower bound"
 },
 {
 "repd_ref": "8904",
@@ -1409,10 +1413,11 @@
 "title": "key milestone at first uk solar scheme",
 "link": "https://www.statkraft.co.uk/newsroom/2026/key-milestone-at-first-uk-solar-scheme/",
 "publisher": "Statkraft",
-"date": null,
+"date": "2026-09-10",
 "family": "official",
 "basis": "reviewed 2026-11-14",
-"confidence": "confirmed"
+"confidence": "confirmed",
+"date_basis": "year 2026 from the /newsroom/2026/ path; the day from the same event's dated EnergyGlobal item (/solar/10092026/statkraft-hits-key-milestone-at-first-uk-solar-s"
 },
 {
 "repd_ref": "9050",
@@ -2029,10 +2034,11 @@
 "title": "East Yorkshire solar farm receives development consent in the UK",
 "link": "https://www.energyglobal.com/solar/12052025/east-yorkshire-solar-farm-receives-development-consent-in-the-uk/",
 "publisher": "Energy Global",
-"date": null,
+"date": "2025-05-12",
 "family": "trade",
 "basis": "reviewed 2026-11-14",
-"confidence": "confirmed"
+"confidence": "confirmed",
+"date_basis": "link path segment 12052025 read as DDMMYYYY; EnergyGlobal's convention is confirmed by dated items in the corpus whose day exceeds 12 (13102025, 16092026, 23042"
 },
 {
 "repd_ref": "11678",
@@ -2109,10 +2115,11 @@
 "title": "Carlton Solar Farm Camblesforth PC 15.03.23 FINAL",
 "link": "https://camblesforth-parishcouncil.org.uk/wp-content/uploads/2023/03/Carlton-Solar-Farm-Camblesforth-PC-15.03.23-FINAL.pdf",
 "publisher": "Camblesforth Parish Council",
-"date": null,
+"date": "2023-03-15",
 "family": "official",
 "basis": "reviewed 2026-11-14",
-"confidence": "confirmed"
+"confidence": "confirmed",
+"date_basis": "title '15.03.23' (DD.MM.YY, two-digit year) agrees with the upload folder /2023/03/"
 },
 {
 "repd_ref": "12017",
@@ -2442,7 +2449,9 @@
 "date": null,
 "family": "official",
 "basis": "reviewed 2026-11-14",
-"confidence": "confirmed"
+"confidence": "confirmed",
+"year": 2026,
+"date_basis": "file name and title 'Hearing Notice March 2026'"
 },
 {
 "repd_ref": "14100",
@@ -2729,10 +2738,11 @@
 "title": "East Park Energy (EN010141) project page: examination closed 16 September 2026; recommendation due 16 December 2026",
 "link": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN010141",
 "publisher": "Planning Inspectorate",
-"date": null,
+"date": "2026-09-16",
 "family": "official",
 "basis": "reviewed 2026-11-14",
-"confidence": "confirmed"
+"confidence": "confirmed",
+"date_basis": "title 'examination closed 16 September 2026'; the title's other date, 'recommendation due 16 December 2026', is in the future and must not be taken"
 },
 {
 "repd_ref": "15347",

@@ -75,3 +75,44 @@ jobs:
           name: agent7-v922-chromium-390-1440
           path: /tmp/agent7-v922-browser/
           if-no-files-found: warn
+
+  published-baseline-readback:
+    name: V9.21 + V9.20 public served-byte & rollback readback (not V9.22)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch actual published baseline, bytes not redirect status alone
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/agent7-public-readback
+          report=/tmp/agent7-public-readback/source-vs-served-sha256.txt
+          printf 'BROWSER RELEASE CANDIDATE V9.22: NOT PUBLISHED / NOT CERTIFIED\n' > "$report"
+          printf 'Source HEAD: %s\n' "$GITHUB_SHA" >> "$report"
+          for relative in \
+            uk_renewables_pipeline/202611141017/index.html \
+            uk_renewables_pipeline/202611141017/scripts/plugins/live-news.js \
+            uk_renewables_pipeline/202611141017/news/pipeline_headlines.snapshot.json \
+            uk_renewables_pipeline/202611141017/data/v9.1/build_manifest.json \
+            uk_renewables_pipeline/202611140306/index.html
+          do
+            printf 'Checking public %s\n' "$relative" | tee -a "$report"
+            fetched="/tmp/agent7-public-readback/$(printf '%s' "$relative" | tr '/' '_')"
+            url="https://globalgrid2050.com/$relative"
+            curl --fail --location --silent --show-error --retry 2 --connect-timeout 15 --max-time 90 \
+              --output "$fetched" "$url" || { echo "UNVERIFIED/FAIL: public GET $url" | tee -a "$report"; exit 1; }
+            srcsha="$(sha256sum "$relative" | awk '{print $1}')"
+            pubsha="$(sha256sum "$fetched" | awk '{print $1}')"
+            printf 'source %s / served %s / path %s\n' "$srcsha" "$pubsha" "$relative" | tee -a "$report"
+            test "$srcsha" = "$pubsha" || { echo "FAIL: served bytes differ" | tee -a "$report"; exit 1; }
+          done
+          echo 'Baseline V9.21 and rollback V9.20 independently served-identical in this run' | tee -a "$report"
+          echo 'No V9.22 served-byte acceptance, no real browser MAP→engine and no independent human release approval.' | tee -a "$report"
+      - name: Preserve served-byte hash report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent7-v921-v920-served-byte-readback
+          path: /tmp/agent7-public-readback/source-vs-served-sha256.txt
+          if-no-files-found: warn

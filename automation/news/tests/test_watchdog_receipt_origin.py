@@ -32,6 +32,12 @@ def receipt_eligible(item, body, now):
         # Same hostname is insufficient: receipts cannot prove other articles.
         if (original.path or "/", original.query) != (final.path or "/", final.query):
             return False
+        # An error page or binary asset is not a fetched article, even if hashed.
+        if type(item.get("http_status")) is not int or item["http_status"] != 200:
+            return False
+        content_type = item.get("content_type")
+        if not isinstance(content_type, str) or content_type.split(";", 1)[0].strip().lower() not in {"text/html", "application/xhtml+xml"}:
+            return False
         if item.get("publisher_rights") not in _ALLOWED_RIGHTS:
             return False
         digest = item["response_sha256"]
@@ -56,6 +62,8 @@ class ReceiptOriginContract(unittest.TestCase):
             "publisher_url": "https://publisher.example/article?id=7",
             "fetched_url": "https://publisher.example/article?id=7",
             "publisher_rights": "verified",
+            "http_status": 200,
+            "content_type": "text/html; charset=utf-8",
             "response_sha256": hashlib.sha256(self.body).hexdigest(),
             "fetched_at": "2026-11-15T00:59:00Z",
         }
@@ -83,6 +91,26 @@ class ReceiptOriginContract(unittest.TestCase):
         self.body = b""
         self.item["response_sha256"] = hashlib.sha256(self.body).hexdigest()
         self.assertFalse(receipt_eligible(self.item, self.body, self.now))
+
+    def test_http_error_page_receipt_rejected(self):
+        self.item["http_status"] = 404
+        self.assertFalse(receipt_eligible(self.item, self.body, self.now))
+
+    def test_redirect_status_not_article_receipt(self):
+        self.item["http_status"] = 302
+        self.assertFalse(receipt_eligible(self.item, self.body, self.now))
+
+    def test_binary_asset_receipt_rejected(self):
+        self.item["content_type"] = "application/pdf"
+        self.assertFalse(receipt_eligible(self.item, self.body, self.now))
+
+    def test_missing_content_type_rejected(self):
+        del self.item["content_type"]
+        self.assertFalse(receipt_eligible(self.item, self.body, self.now))
+
+    def test_xhtml_article_receipt_accepted(self):
+        self.item["content_type"] = "application/xhtml+xml"
+        self.assertTrue(receipt_eligible(self.item, self.body, self.now))
 
     def test_http_downgrade_rejected(self):
         self.item["fetched_url"] = "http://publisher.example/article?id=7"

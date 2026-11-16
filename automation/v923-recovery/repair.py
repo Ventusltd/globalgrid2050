@@ -91,7 +91,7 @@ def build():
     path.write_text(txt)
     path=B/"scripts/plugins/projects-v9-8.js";txt=path.read_text()
     target='</td><td><div class="project-actions">'+chr(36)+'{mapAction}'
-    boundary="\\nfunction projectRowHtml(project) {"
+    boundary="\nfunction projectRowHtml(project) {"
     if txt.count(boundary)!=1:raise RuntimeError("Missing unique REPD row boundary")
     inter, repd = txt.split(boundary,1)
     if inter.count(target)!=1 or repd.count(target)!=1:
@@ -133,6 +133,9 @@ def reconcile():
       {"name":"V9.23 accessible Machine Read Notes opens without altering MAP",
        "selector":"body",
        "js":"(function(){var b=document.querySelector('#tbody tr button.machine-note-button'),a=b?.closest('tr')?.querySelector('a.atlaslink');if(!b||!a)return false;var before=a.href;b.click();var d=document.querySelector('dialog.machine-note-dialog');var content=d?.querySelector('#machineNoteBody')?.textContent||'';var pass=d?.open&&(/CANDIDATE|INSUFFICIENT EVIDENCE/.test(content))&&content.includes('OFFICIAL SOURCE STATUS')&&a.href===before&&d.querySelector('button.machine-note-close')?.getBoundingClientRect().height>=44;if(d?.open)d.close();return !!pass;})()"},
+      {"name":"V9.23 latest refusal headline visible in project row without changing official status",
+       "selector":"body",
+       "js":"(function(){var row=document.querySelector('#tbody tr[id^=repd-]'),b=row?.querySelector('.machine-note-cell .machine-note-button');if(!b)return false;var ref=b.dataset.noteRef,official=row.children[4]?.textContent;var p=window.pipelineHeadlines;if(!p?.render)return false;p.render({schema:p.schema,generated_at:'2026-11-16T00:00:00Z',status:'ok',items:[{title:'Sample solar application refused',link:'https://example.org/original',source:'Synthetic example',date:'2026-11-11T12:00:00Z',first_seen:'2026-11-15T10:00:00Z',category:'refusal',technology:'solar',possible_match:{repd_ref:ref,site_name:'Synthetic matching name',basis:'name_plus_technology'}}]},'live');return b.textContent.includes('REFUSAL REPORTED')&&b.dataset.noteCandidate==='possible'&&b.getAttribute('aria-label').includes('unverified')&&row.children[4]?.textContent===official;})()"},
       {"name":"V9.23 one live feed, no separate politics or dead show table action",
        "selector":"body",
        "js":"!!document.querySelector('#liveNews')&&!document.querySelector('#dcNews')&&!!document.querySelector('#newsArchive[hidden]')&&!document.querySelector('#liveNews button.ln-match')"},
@@ -200,7 +203,9 @@ def check():
     assert "datacentre-news.js?v=1" not in html and 'id="newsArchive" hidden' in html
     assert "function showProject(" not in live
     assert "pipeline-feed-loaded" in live
-    boundary="\\nfunction projectRowHtml(project) {"
+    notes_js=(B/"scripts/plugins/machine-notes-v923.js").read_text()
+    assert "headlineSummaryV923" in notes_js, "Machine summary missing from native notes column"
+    boundary="\nfunction projectRowHtml(project) {"
     assert pj.count(boundary)==1, "REPD row boundary changed"
     inter,repd=pj.split(boundary,1)
     assert inter.count('class="machine-note-cell"')==1, "Duplicate interconnector note cell"

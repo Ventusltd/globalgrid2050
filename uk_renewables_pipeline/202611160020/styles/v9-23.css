@@ -9,3 +9,9 @@
 /* Phone: note action in site cell, independent of horizontal table scroll. */
 .mobile-machine-note{display:none!important}
 @media(max-width:768px){.mobile-machine-note{display:inline-flex!important;align-items:center;margin-top:8px;font-size:11px;min-width:112px}.tablewrap th:nth-last-child(2),.tablewrap td.machine-note-cell{display:none}}
+
+/* Candidate headline summary remains visible in the REPD row before the reader opens the brief. */
+.machine-note-button{white-space:normal;text-align:left;line-height:1.35;overflow-wrap:anywhere;max-width:220px}
+.machine-note-cell{min-width:180px;max-width:230px}
+.machine-note-button[data-note-candidate="possible"]{border-color:#b28436;background:#373022;color:#fff1c8}
+@media(max-width:768px){.mobile-machine-note{max-width:min(100%,280px);white-space:normal;text-align:left}}

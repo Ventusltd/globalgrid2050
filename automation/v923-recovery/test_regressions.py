@@ -23,6 +23,13 @@ class IncompleteBuildTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError,"PARTIAL_CANDIDATE"):
                 repair.require_completed_candidate(Path(d),{"id":repair.OLD,"version":"V9.22"})
 
+
+    def test_inline_headline_summary_exists_and_is_candidate_only(self):
+        notes=(repair.B/"scripts/plugins/machine-notes-v923.js").read_text()
+        self.assertIn("headlineSummaryV923",notes)
+        self.assertIn("Possible, unverified project headline",notes)
+        self.assertNotIn("CONFIRMED BY MACHINE",notes)
+
     def test_candidate_columns_are_one_per_vertical(self):
         content=(repair.B/"scripts/plugins/projects-v9-8.js").read_text()
         marker="\nfunction projectRowHtml(project) {"

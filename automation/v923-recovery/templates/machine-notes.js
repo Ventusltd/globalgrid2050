@@ -13,6 +13,27 @@
     try { var u = new URL(String(raw)); return u.protocol === 'https:' ? u.href : null; }
     catch (_) { return null; }
   }
+  function headlineSummaryV923(item) {
+    var kind = {
+      refusal: 'REFUSAL REPORTED',
+      consent: 'CONSENT REPORTED',
+      planning_decision: 'PLANNING DECISION REPORTED',
+      construction: 'CONSTRUCTION REPORTED',
+      finance: 'FINANCING REPORTED',
+      grid: 'GRID UPDATE REPORTED',
+      energisation: 'ENERGISATION REPORTED',
+      dco: 'DCO UPDATE REPORTED',
+      datacentre: 'DATA CENTRE UPDATE REPORTED'
+    }[item.category] || 'PROJECT HEADLINE';
+    var d = new Date(item.published);
+    var date = Number.isNaN(d.getTime()) ? 'DATE UNKNOWN' :
+      d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }).toUpperCase();
+    return kind + ' · ' + date;
+  }
+  function latestTime(item) {
+    var t = Date.parse(item.published || item.observed || '');
+    return Number.isFinite(t) ? t : 0;
+  }
   function load(doc) {
     notes.clear();
     if (doc && Array.isArray(doc.items)) doc.items.forEach(function (item) {
@@ -25,11 +46,24 @@
       if (!notes.has(id)) notes.set(id, []);
       notes.get(id).push({
         title: String(item.title || ''), publisher: String(item.source || 'Publisher not stated'),
-        url: uri, published: String(item.date || ''), observed: String(item.first_seen || '')
+        url: uri, category: String(item.category || 'other'),
+        published: String(item.date || ''), observed: String(item.first_seen || '')
       });
     });
+    // The first line is useful before any click: short event and publisher date.
+    // Never turn an algorithmic name association into an official REPD decision.
+    notes.forEach(function (events) { events.sort(function (a, b) {
+      return latestTime(b) - latestTime(a) || a.title.localeCompare(b.title);
+    }); });
     document.querySelectorAll('.machine-note-button').forEach(function (b) {
-      b.textContent = notes.has(String(b.dataset.noteRef)) ? 'READ BRIEF' : 'NO EVIDENCE';
+      var items = notes.get(String(b.dataset.noteRef)) || [];
+      b.textContent = items.length ? headlineSummaryV923(items[0]) : 'NO MATCHED HEADLINE';
+      b.setAttribute('aria-label', items.length
+        ? 'Possible, unverified project headline: ' + headlineSummaryV923(items[0]) + '. Open evidence brief'
+        : 'No matched project headline. Open evidence state');
+      b.title = items.length ? 'POSSIBLE MATCH · ' + items[0].publisher + ' · verify at original source'
+        : 'No independently evidenced project headline';
+      b.dataset.noteCandidate = items.length ? 'possible' : 'none';
     });
     window.dispatchEvent(new Event('machine-notes-updated'));
   }

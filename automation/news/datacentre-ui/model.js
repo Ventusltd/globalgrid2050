@@ -101,8 +101,25 @@
     validateGroups(bundle.groups);
     validateAudit(bundle.audit, projects);
     const baseline = validateProjects(bundle.baseline);
-    const ids = new Set(projects.records.map(x => x.id));
-    baseline.records.forEach(x => requireValid(ids.has(x.id), 'original baseline identity lost: ' + x.id));
+    const byId = new Map(projects.records.map(x => [x.id, x]));
+    // Compare semantics, not JSON key order; retrieval times are intentionally newer.
+    function canonical(x) {
+      if (Array.isArray(x)) return '[' + x.map(canonical).join(',') + ']';
+      if (x !== null && typeof x === 'object') return '{' +
+        Object.keys(x).sort().map(k => JSON.stringify(k) + ':' + canonical(x[k])).join(',') + '}';
+      return JSON.stringify(x);
+    }
+    const sameFields = ['name','record_type','country','operator','operating_status',
+      'verification_status','location','capacity','capacity_sources','field_sources'];
+    baseline.records.forEach(x => {
+      const newer = byId.get(x.id);
+      requireValid(!!newer, 'original baseline identity lost: ' + x.id);
+      sameFields.forEach(k => requireValid(canonical(x[k]) === canonical(newer[k]),
+        'original baseline semantic field changed: ' + x.id + '/' + k));
+      ['publisher','url','revision_url','revision','licence','licence_url'].forEach(k =>
+        requireValid(x.source[k] === newer.source[k],
+          'original baseline source changed: ' + x.id + '/' + k));
+    });
     requireValid(baseline.record_count <= projects.record_count, 'baseline larger than expansion');
     return bundle;
   }

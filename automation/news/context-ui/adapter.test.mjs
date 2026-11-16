@@ -80,6 +80,20 @@ const mutations = {
     row.numeric_claims[0].claim.provenance.retrieved_at = stamp;
     row.native_record.numeric_claims[0].provenance.retrieved_at = stamp;
   },
+  'future source publication day within assessment year': r => {
+    const row = r.records.find(x => x.family === 'grid' && x.numeric_claims.length === 0);
+    const future = '2026-11-17'; // as_of is 2026-11-16T18:00:00Z
+    row.source_links[0].published_date = future;
+    row.source_links[0].receipt.published_date = future;
+    row.native_record.source.published_date = future;
+  },
+  'future source publication month within assessment year': r => {
+    const row = r.records.find(x => x.family === 'grid' && x.numeric_claims.length === 0);
+    const future = '2026-12'; // precision is month, not an assumed current day
+    row.source_links[0].published_date = future;
+    row.source_links[0].receipt.published_date = future;
+    row.native_record.source.published_date = future;
+  },
   'impossible source calendar day': r => {
     const row = r.records.find(x => x.family === 'grid');
     row.source_links[0].published_date = '2026-02-30';

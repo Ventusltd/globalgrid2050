@@ -14,8 +14,12 @@ Evidence rows represent project/article associations, so one article can appear
 under several projects. No-match projects remain present in the projects table.
 Source rights receipts and the source snapshot hash remain in the manifest.
 
-Dependencies: `duckdb==1.5.5`; no PyArrow, SQLite extension or CUDA required.
-The CI producer owns dependency and orchestration changes.
+Integrated dependency: `duckdb==1.3.2`; no PyArrow, SQLite extension or CUDA
+required. The original adapter was developed with 1.5.5; the complete dedicated
+suite also passes in an isolated 1.3.2 environment. The CI producer owns the
+dependency pin and orchestration changes. Immutable manifest receipts retain
+their actual DuckDB runtime version; changing runtimes does not authorize
+overwriting an existing analytical generation.
 
 ```python
 receipt = export_analytics(payload, staging_directory,

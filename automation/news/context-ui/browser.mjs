@@ -48,6 +48,16 @@ try {
     assert.equal(await page.locator('#news > [data-transition-context-root]').count(), 1);
     assert.equal(await page.locator('[data-context-id]').count(), 14);
     assert.equal(await page.locator('[data-figure-claim]').count(), 3);
+    assert.deepEqual(await page.evaluate(() => {
+      const root = document.querySelector('[data-transition-context-root]');
+      const figure = root.querySelector('[data-filings-figures-root]');
+      const amount = figure.querySelector('[data-figure-value]');
+      const host = getComputedStyle(document.querySelector('#news'));
+      return {font: getComputedStyle(amount).fontSize === host.fontSize,
+        color: getComputedStyle(figure).color === host.color,
+        background: getComputedStyle(figure).backgroundColor,
+        native: root.contextReport.records.length};
+    }), {font: true, color: true, background: 'rgba(0, 0, 0, 0)', native: 14});
     await page.locator('[data-transition-context-root] > summary').click();
     // Keyboard access uses native disclosure semantics.
     const first = page.locator('[data-context-id]').first();
@@ -55,8 +65,8 @@ try {
     assert.equal(await first.getAttribute('open'), '');
     await page.evaluate(() => document.querySelectorAll('[data-context-id] > details.filings-figures, [data-context-figure] > details').forEach(x => x.open = true));
     const text = await page.locator('[data-transition-context-root]').textContent();
-    for (const required of ['REJECTED', 'UNKNOWN', 'REPORTED_PROGRESS', 'IN_PROGRESS', 'Upper bound (up to)',
-      '2021-09-22', '2024', 'Published:', 'Reviewed:', 'Retrieved:', 'Unknown', 'UNLINKED', 'NOT_ASSESSED']) assert.ok(text.includes(required), required);
+    for (const required of ['Rejected', 'Unknown', 'Reported progress', 'In progress', 'Upper bound (up to)',
+      '2021-09-22', '2024', 'Published:', 'Reviewed:', 'Retrieved:', 'Not confirmed', 'Not assessed']) assert.ok(text.includes(required), required);
     assert.equal(await page.locator('[data-figure-value]').allTextContents().then(v => v.join('|')), '480 MW|350 MW|280 MW');
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
     for (const a of await page.locator('[data-transition-context-root] a').all()) {
@@ -76,7 +86,7 @@ try {
     });
     assert.equal(await page.locator('[data-transition-context-root] img, [data-transition-context-root] script').count(), 0);
     assert.equal(await page.evaluate(() => window.pwned), undefined);
-    assert.ok((await page.locator('[data-transition-context-root]').textContent()).includes('revision_history'));
+    assert.ok((await page.locator('[data-transition-context-root]').textContent()).includes('Revision history'));
     // Failed refresh must clear every stale value and preserve neighboring controls.
     await page.evaluate(async () => render(original, '0'.repeat(64)));
     assert.equal(await page.locator('[data-transition-context-root]').getAttribute('data-state'), 'unavailable');
@@ -88,7 +98,7 @@ try {
     assert.equal(await page.locator('[data-transition-context-root]').getAttribute('data-state'), 'unavailable');
     assert.equal(await page.locator('[data-transition-context-root]').count(), 1);
     assert.deepEqual(external, []); assert.deepEqual(errors, []);
-    results.push({width, checks: ['actual exporter', '14 contexts', '3 exact figures', 'unknown and historical states',
+    results.push({width, checks: ['actual exporter', '14 contexts', '3 exact figures', 'inherited typography and colors', 'complete native data retained', 'unknown and historical states',
       'distinct clocks', 'upper-bound qualifier', 'native keyboard disclosure', 'no horizontal overflow',
       'safe source links', 'text escaped', 'history retained', 'stale values cleared', 'neighbor control preserved', 'latest request wins', 'no external requests'],
       screenshot, screenshot_sha256: sha(await readFile(resolve(artifacts, screenshot)))});

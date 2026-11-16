@@ -6,14 +6,18 @@ bounded/invalid UTF-8 input, all 14 native contexts and receipts, exact coverage
 unknown policy/COP31 fields, forged scope/linkage/state/clock/qualifier, numeric
 coercion, source receipt changes, unsafe links, and asynchronous input mutation.
 
-Installed Chrome **157.0.8103.51** passed 15 checks at each of **375, 768 and
+Installed Chrome **157.0.8103.51** passed 17 checks at each of **375, 768 and
 1440 px**. Actual exporter bytes and pinned external modules were fulfilled by
 Playwright from memory at a loopback origin; no HTTP server or public serving
 claim is involved. This is an explicit workaround for observed workstation
 socket exhaustion, not a skipped browser check. No external request, page error
-or horizontal overflow was observed. The 375 px screenshot was visually
-inspected: the News disclosure stays inline and the rejected 480 MW amendment
-retains Forecast, UNKNOWN current state, distinct dates and provisional status.
+or horizontal overflow was observed. The initial 375 px screenshot was visually
+inspected at `320a5c46`. After COMMAND's V9.24 presentation correction, the
+single affected browser run additionally checks inherited host font size/color,
+transparent figure surfaces and retention of the complete native report. Source
+states now use readable words (for example, Unknown) without changing their
+underlying values. This component harness does not claim a full-page V9.24
+comparison; that acceptance remains with COMMAND.
 
 The browser checks cover 14 contexts, 3 unchanged figures, unknown and
 historical states, clocks, upper bounds, native keyboard disclosure, overflow,
@@ -22,9 +26,9 @@ preserved neighboring control identity/listener, and latest-request ordering.
 
 | Screenshot | SHA-256 |
 | --- | --- |
-| `context-375.png` | `debb98001f954c3bf7c7a7498dde06d607d98b11aacfd8d9547e9cfcf9b573da` |
-| `context-768.png` | `755c180179a7fd30c8de2250a3b780df5b366ce2bda3c2dda04a69c89eb92921` |
-| `context-1440.png` | `7b3d91d4c737850a0d7d9072133699ab2c9de9fc748cba167b714fd76501e3df` |
+| `context-375.png` | `3bad6b5bc74982420a949fd5ba64ad1ff3dfaba3e00e904f78ec6e54481c9675` |
+| `context-768.png` | `81b2861fdebe5201c217c6f0be750d1bcfa171bfd5d6d35d5521ee879d14c530` |
+| `context-1440.png` | `b200ed4d24ada19ef5bb10a854a27ed093eb9a0753873cc5671e082bfc240233` |
 
 Screenshots and `proof.json` are local integration artifacts, reproducible with
 `browser.mjs`; private workspace locations are not part of the public receipt.

@@ -45,13 +45,23 @@ existing model. It is a consumer boundary, not another complete producer
 validator or a source-truth verifier. SHA-256 matching establishes accepted
 export identity, not independent factual verification.
 
-The disclosure preserves complete native records, revision history, nulls and
+The adapter and returned root's `contextReport` preserve every complete native
+record and input receipt, including exact identifiers, hashes and producer
+limitations. User-facing source and history details use readable labels rather
+than JSON. Transport/schema identifiers are not presented; figures use only the
+injected renderer, without a second numerical rendering in history details.
+The disclosure preserves revision history, nulls and
 producer metadata. It distinguishes publication, review, retrieval, evaluation
 and figure clocks. Rejected amendments stay rejected; historical forecasts
 stay forecasts; portfolio access never becomes site allocation. Null values
 display as Unknown. COP31 background remains IN_PROGRESS with missing original
 bytes and retrieval explicitly unknown; no extra commitment or outcome is
-invented. Full source receipts and native history are nested disclosures.
+invented. Source evidence and native history are nested disclosures. The
+component inherits the News host's font and colors, including the immutable
+V9.24 `202611161244` theme. Scoped overrides flatten the external renderer's
+light cards and enlarged amount typography while retaining quantities and
+provisional status text. It introduces no numerical rank, priority or score
+badges. Full-page comparison and formal integration remain with COMMAND.
 
 Only this component's direct child root is replaced. Existing host buttons and
 listeners survive. Failed updates clear stale quantities and contexts. A later

@@ -90,7 +90,8 @@ product, with its full input provenance, for offline contract tests.
 
 ## Validation receipt (bounded local checkpoint)
 
-- 24 pytest cases pass: real-node selection, nulls, units, repeated rows,
+- 24 pytest cases pass under both the estate's DuckDB 1.3.2 and local 1.5.5:
+  real-node selection, nulls, units, repeated rows,
   schema/count/size/hash rejection, dirty-working-copy isolation, safe pins,
   missing/tampered input failure, Parquet source caveats and podcast locators.
 - Complete index rebuilt twice from pinned objects with identical bytes.

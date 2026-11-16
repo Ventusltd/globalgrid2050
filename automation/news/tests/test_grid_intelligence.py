@@ -144,7 +144,7 @@ def test_parquet_reader_preserves_owner_rights_caveats_and_nulls(tmp_path):
     path = tmp_path / "fixture.parquet"
     con = duckdb.connect()
     con.execute("CREATE TABLE sources AS SELECT 'grid' AS source_id, 'wired' AS wiring, 12 AS features, 'hash' AS input_sha256, 'partitions/grid.parquet' AS partition_path, 'UNVERIFIED' AS authority_state, 'UNVERIFIED' AS licence_state, 'QUARANTINE' AS disposition, false AS publishable")
-    con.execute("COPY sources TO ? (FORMAT PARQUET)", [str(path)])
+    con.table("sources").write_parquet(str(path))
     con.close()
     rows = parquet_source_index(path.read_bytes())
     assert rows[0]["licence_state"] == "UNVERIFIED"

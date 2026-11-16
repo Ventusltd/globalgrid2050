@@ -1,0 +1,8 @@
+/* Scoped to the disclosure inside the existing News host. */
+.transition-context { margin-block: .5rem; line-height: 1.5; overflow-wrap: anywhere; }
+.transition-context details { margin: .5rem 0 .5rem .75rem; }
+.transition-context summary { cursor: pointer; }
+.transition-context summary:focus-visible, .transition-context a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.transition-context p { margin-block: .35rem; }
+.transition-context pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: .8rem; }
+.transition-context [data-context-figure] { border-inline-start: 2px solid currentColor; padding-inline-start: .5rem; }

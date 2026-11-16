@@ -25,11 +25,15 @@ def num(version):  # "V9.14" -> "9_14"
     return version.lstrip("V").replace(".", "_")
 
 
-def create(new_id, version, title, state="BUILD"):
+def create(new_id, version, title, state="BUILD", dry_run=False):
     reg = load_registry()
     parent = reg["versions"][-1]
     src, dst = PIPELINE / parent["id"], PIPELINE / new_id
     assert re.fullmatch(r"\d{12}", new_id) and not dst.exists(), "new id must be an unused 12-digit UTC stamp"
+    print(f"parent: {parent['id']} ({parent['version']})")
+    if dry_run:
+        print(f"dry-run: would create {dst} as {version}; no files written")
+        return
     shutil.copytree(src, dst, ignore=shutil.ignore_patterns("__pycache__", "node_modules", "*.pyc"))
     pv, nv = parent["version"], version
     (dst / parent["runner"]).unlink()
@@ -44,7 +48,7 @@ def create(new_id, version, title, state="BUILD"):
     path.write_text(runner)
     path.chmod(0o755)
 
-    day = datetime.now(timezone.utc).strftime("%-d %B %Y")
+    day = datetime.now(timezone.utc).strftime("%d %B %Y").lstrip("0")
     html = (dst / "index.html").read_text()
     html = html.replace(f"UK Renewables Pipeline {parent['id']}</title>", f"UK Renewables Pipeline {new_id}</title>")
     html = html.replace(f"<small>UK RENEWABLES PIPELINE · {pv}</small>", f"<small>UK RENEWABLES PIPELINE · {nv}</small>")
@@ -94,8 +98,11 @@ def finalize(new_id, added, faults, features):
 
 if __name__ == "__main__":
     args = sys.argv[1:]
+    dry_run = "--dry-run" in args
+    if dry_run:
+        args.remove("--dry-run")
     if args[:1] == ["create"] and len(args) in (4, 5):
-        create(*args[1:])
+        create(*args[1:], dry_run=dry_run)
     elif args[:1] == ["finalize"] and len(args) >= 3:
         rest, faults, features = args[3:], [], []
         while rest:

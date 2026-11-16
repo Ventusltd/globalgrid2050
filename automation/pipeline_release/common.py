@@ -38,9 +38,25 @@ def tree_hash(version_id: str, root: Path = ROOT) -> str:
     with tempfile.TemporaryDirectory() as scratch:
         env = dict(os.environ, GIT_DIR=f"{scratch}/objects.git", GIT_WORK_TREE=str(root), GIT_INDEX_FILE=f"{scratch}/index")
         subprocess.run(["git", "init", "-q", "--bare", f"{scratch}/objects.git"], check=True, env={k: v for k, v in os.environ.items() if not k.startswith("GIT_")})
-        subprocess.run(["git", "-C", str(root), "-c", "core.autocrlf=false", "-c", "core.fileMode=true", "update-index", "--add", "--stdin"],
-                       input="\n".join(files) + "\n", text=True, check=True, env=env)
+        subprocess.run(["git", "-C", str(root), "-c", "core.autocrlf=false", "-c", "core.fileMode=true", "update-index", "--add", "-z", "--stdin"],
+                       input=("\0".join(files) + "\0").encode("utf-8"), check=True, env=env)
+        # Windows cannot recover executable bits from disk. Preserve tracked
+        # modes; new release runners are executable by the release contract.
+        if os.name == "nt":
+            tracked = subprocess.run(["git", "-C", str(root), "ls-files", "-s", "-z", "--", rel],
+                                     check=True, capture_output=True).stdout
+            modes = {entry.split(b"\t", 1)[1].decode(): entry.split(b" ", 1)[0].decode()
+                     for entry in tracked.split(b"\0") if entry}
+            for path in files:
+                mode = modes.get(path, "100755" if re_runner(path) else "100644")
+                subprocess.run(["git", "update-index", "--chmod=" + ("+x" if mode == "100755" else "-x"), path],
+                               check=True, env=env, cwd=root)
         return subprocess.run(["git", "write-tree", f"--prefix={rel}/"], check=True, env=env, capture_output=True, text=True).stdout.strip()
+
+
+def re_runner(path):
+    import re
+    return bool(re.search(r"/tests/run_v9_\d+\.sh$", path))
 
 
 def data_digest(folder: Path) -> str:

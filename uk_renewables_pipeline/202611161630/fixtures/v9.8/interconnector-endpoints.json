@@ -10,7 +10,7 @@
   "east": 13.0
  },
  "flow_data": {
-  "source": "C:/Users/vikra/OneDrive/Documents/GitHub/globalgrid2050/uk_energy_tracking_v6/generation_history/interconnectors/generation_interconnector_index.json",
+  "source": "https://github.com/Ventusltd/globalgrid2050/blob/main/uk_energy_tracking_v6/generation_history/interconnectors/generation_interconnector_index.json",
   "title": "GB interconnector import/export index",
   "label_contract": "country - interconnector name - BMRS code",
   "sign_convention": "Imports are positive MWh. Exports are negative MWh.",

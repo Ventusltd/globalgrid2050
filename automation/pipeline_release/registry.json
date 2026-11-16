@@ -729,11 +729,11 @@
       "version": "V9.25",
       "parent": "202611161244",
       "date": "2026-11-16T16:30:00Z",
-      "added": "Provisional solar feed evidence pipeline, SQLite snapshots and read-only evidence panel",
+      "added": "UK transition dashboard and provisional solar evidence pipeline with immutable snapshots",
       "data_changed": false,
       "runner": "tests/run_v9_25.sh",
       "trees": [
-        "0f474a4585bfed7e7d9f2fa3969c12dcf1825eed"
+        "bfed11967e82d9bd24ae5956d428c8e8a74a220b"
       ],
       "features": [
         {
@@ -743,8 +743,8 @@
         }
       ],
       "known_faults": [
-        "Source rights unknown; feed disabled. Latest live probe: 10 articles, zero strict Solar-1000 matches. Manual review required.",
-        "Existing registry operative metadata drift and external GridAtlas mobile behaviour remain unverified."
+        "Source rights unknown; feed disabled. Live probe: 10 articles, zero strict Solar-1000 matches. Manual review required.",
+        "Existing operative metadata drift, homepage public-language findings and external GridAtlas mobile behaviour remain unresolved."
       ],
       "ci": null,
       "merge_commit": null,

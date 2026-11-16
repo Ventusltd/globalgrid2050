@@ -73,7 +73,11 @@ Monday 02:00 UTC/manual refresh requires repository variable
 `EVIDENCE_PUBLICATION_APPROVED=true` **and** an enabled source with accepted
 rights. Only its refresh job has contents-write permission. It restores all
 snapshots and SQLite from `pipeline-evidence-data`, commits only evidence output,
-and uses a non-forcing push: a stale branch head fails rather than overwrites.
+and uses an exact-ref lease: a stale branch head fails rather than overwrites,
+including concurrent rollback or initial branch creation. `publish.py` permits
+only a single direct successor of the restored commit (or an initial root).
+It uses Git's `--force-with-lease=ref:expected` as compare-and-swap; its ancestry
+guard forbids a non-fast-forward update. It never authorizes history rewriting.
 Its concurrency key serializes evidence writers; release/headlines/datacentre
 workflows use different branches and are untouched. No cross-repository atomic
 publication is claimed. Approval/config changes must follow manual review.
@@ -91,3 +95,24 @@ registry consistency, exact-head CI, independent review and public readback gate
 are satisfied. Rollback remains V9.24 `202611161244` / V9.23 `202611160020`.
 Coordination and public receipts belong in neural-link-between-agents issue #42;
 never include local filesystem or session paths in public reports.
+
+## Product continuity
+
+The dashboard strategy is UK Solar, BESS, Data Centres and Grid, with a distinct
+international context area. These are connected workspaces, not one merged
+register. The current evidence collector remains solar-only; BESS filtering,
+the existing data-centre view and GridAtlas keep their established owners.
+
+Independent GridAtlas history review covered 503 commits from its first commit
+on 29 August 2026 through 16 November. No April–28 August history exists in the
+inspected repository, so the requested seven-month span is explicitly partial.
+Preserve REPD identity/technology deep links, separate DC identifiers, and units:
+PV DC, inverter AC, export MW, storage MWh, IT MW and grid demand are different.
+Nearest-grid distance is screening, never evidence of an electrical connection.
+Reuse GridAtlas's hashed shell/cartridge contracts rather than copying its engine.
+Its register coverage differs from Pipeline News; passing local href tests does
+not demonstrate every receiver record or mobile compute card works.
+
+The independent continuity brief, historical receipts and known 390px receiver
+limitations are recorded at
+https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-6922522014.

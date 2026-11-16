@@ -93,17 +93,19 @@ jobs:
           remote=$(git ls-remote --heads origin "refs/heads/$DATA_BRANCH")
           if [ -n "$remote" ]; then
             git fetch origin "refs/heads/$DATA_BRANCH"
+            echo "EVIDENCE_EXPECTED_HEAD=$(git rev-parse FETCH_HEAD)" >> "$GITHUB_ENV"
             git worktree add --detach "$RUNNER_TEMP/evidence-pub" FETCH_HEAD
             mkdir -p dist/news/evidence
             cp -a "$RUNNER_TEMP/evidence-pub/dist/news/evidence/." dist/news/evidence/
           else
+            echo 'EVIDENCE_EXPECTED_HEAD=' >> "$GITHUB_ENV"
             git worktree add --detach "$RUNNER_TEMP/evidence-pub" HEAD
             git -C "$RUNNER_TEMP/evidence-pub" checkout --orphan evidence-bootstrap
             git -C "$RUNNER_TEMP/evidence-pub" rm -rq --cached .
           fi
       - name: Fetch, validate rights/schema and build immutable snapshot
         run: python -m automation.news.acquisition.run --report "${{ runner.temp }}/evidence-run.json"
-      - name: Commit snapshot, SQLite and pointer together (non-forcing push)
+      - name: Commit snapshot, SQLite and pointer together (exact-ref lease)
         shell: bash
         run: |
           set -euo pipefail
@@ -114,7 +116,7 @@ jobs:
           git -C "$pub" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git -C "$pub" add -f dist/news/evidence
           git -C "$pub" commit -m 'Validated weekly provisional solar evidence'
-          git -C "$pub" push origin "HEAD:refs/heads/$DATA_BRANCH"
+          python -m automation.news.acquisition.publish "$pub" "$EVIDENCE_EXPECTED_HEAD"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:

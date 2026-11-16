@@ -1,7 +1,8 @@
 """Release tooling must preserve the frozen parent and candidate semantics."""
-import importlib.util
+import json
 from pathlib import Path
 import sys
+import pytest
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "automation/pipeline_release"))
@@ -24,9 +25,25 @@ def test_release_text_is_utf8_lf(tmp_path):
     assert path.read_bytes() == "Solar · provisional\n".encode()
 
 
+def test_published_record_cannot_be_refinalized(monkeypatch):
+    monkeypatch.setattr(new_version, "load_registry", lambda: {
+        "versions": [{"id": "202611161244", "version": "V9.24", "state": "published"}]})
+    with pytest.raises(AssertionError, match="cannot be rewritten"):
+        new_version.finalize("202611161244", "change", [], [], "release_candidate_blocked")
+
+
 def test_frozen_parent_tree_and_candidate_data():
     assert common.tree_hash("202611161244") == "2d109396cdef80302914045b5330e4f7007e5830"
     parent = ROOT / "uk_renewables_pipeline/202611161244"
     candidate = ROOT / "uk_renewables_pipeline/202611161630"
     assert common.data_digest(parent) == common.data_digest(candidate)
     assert (parent / "solar1000/manifest.json").read_bytes() == (candidate / "solar1000/manifest.json").read_bytes()
+
+
+def test_candidate_provenance_sanitization_changes_no_facts():
+    relative = "fixtures/v9.8/interconnector-endpoints.json"
+    old = json.loads((ROOT / "uk_renewables_pipeline/202611161244" / relative).read_text())
+    new = json.loads((ROOT / "uk_renewables_pipeline/202611161630" / relative).read_text())
+    old["flow_data"]["source"] = new["flow_data"]["source"]
+    assert old == new
+    assert new["flow_data"]["source"].startswith("https://github.com/Ventusltd/")

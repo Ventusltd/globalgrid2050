@@ -29,7 +29,10 @@ test "$actual_tree" = "$PARENT_TREE" || { echo "parent $PARENT_ID tree is $actua
 CHANGED_FROM_PARENT=(
   CHANGES.md
   README.md
+  fixtures/v9.8/PRIVACY.md
+  fixtures/v9.8/interconnector-endpoints.json
   index.html
+  scripts/build/interconnectors-v9-8.mjs
   scripts/plugins/evidence-v925.js
   scripts/plugins/solar1000-v924.js
   styles/v9-25.css

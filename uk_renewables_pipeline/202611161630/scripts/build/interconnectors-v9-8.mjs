@@ -80,6 +80,11 @@ export const SOURCES = Object.freeze({
   }),
 });
 
+// Upstream provenance remains pinned in SOURCES. The local endpoints fixture
+// replaces only flow_data.source (unused by the builder) with a public URL.
+// See fixtures/v9.8/PRIVACY.md; output data is byte-identical to V9.24.
+const SANITIZED_ENDPOINTS_SHA256 = "ed29ea06f798b2baeb4b554a08d932dfad56aa88a75aaa31537b732eef4440e1";
+
 const sha256 = (bytes) => createHash("sha256").update(bytes).digest("hex");
 const round = (value, places) => Math.round((value + Number.EPSILON) * 10 ** places) / 10 ** places;
 
@@ -265,7 +270,7 @@ export async function buildInterconnectorsV9_8() {
   for (const [key, source] of Object.entries(SOURCES)) {
     const bytes = await readFile(join(RELEASE, source.path));
     const digest = sha256(bytes);
-    invariant(digest === source.sha256, `${source.path} sha256 ${digest} is not the pinned ${source.sha256}`);
+    invariant(digest === (key === "endpoints" ? SANITIZED_ENDPOINTS_SHA256 : source.sha256), `${source.path} sha256 ${digest} is not the pinned ${source.sha256}`);
     inputs[key] = bytes.toString("utf8");
   }
   const cables = parseCsv(inputs.cables_csv);

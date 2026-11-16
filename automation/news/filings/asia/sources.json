@@ -1,0 +1,86 @@
+{
+  "schema": "globalgrid2050.asia-filing-sources.v1",
+  "scope": "successor offline metadata intake; no enabled collector or publisher",
+  "sources": {
+    "sse": {
+      "market": "Shanghai",
+      "authority": "Shanghai Stock Exchange listed-company announcements",
+      "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/",
+      "allowed_hosts": ["www.sse.com.cn", "static.sse.com.cn", "english.sse.com.cn"],
+      "issuer_code_pattern": "[0-9]{6}",
+      "utc_offset_minutes": 480,
+      "collection_enabled": false,
+      "rights_status": "unknown",
+      "api_status": "unconfirmed",
+      "disabled_reason": "Public announcement search identified; no collection/reuse approval or confirmed owner adapter.",
+      "authority_evidence_url": "https://english.sse.com.cn/markets/equities/announcements/"
+    },
+    "hkex": {
+      "market": "Hong Kong",
+      "authority": "HKEXnews listed-company information",
+      "url": "https://www.hkexnews.hk/index.htm?sc_lang=en",
+      "allowed_hosts": ["www.hkexnews.hk", "www2.hkexnews.hk"],
+      "issuer_code_pattern": "[0-9]{5}",
+      "utc_offset_minutes": 480,
+      "collection_enabled": false,
+      "rights_status": "restricted_unapproved",
+      "api_status": "unconfirmed",
+      "disabled_reason": "HKEX disclaimer reserves third-party rights and consent requirements; public visibility is not reuse approval.",
+      "authority_evidence_url": "https://www2.hkexnews.hk/-/media/HKEXnews/Homepage/Listed-Company-Publications/Search-Guide/TitleSearchGuide_e.pdf",
+      "terms_url": "https://www2.hkexnews.hk/-/media/HKEXnews/Homepage/Listed-Company-Publications/Search-Guide/SearchDisclaimer_e.pdf"
+    },
+    "sgx": {
+      "market": "Singapore",
+      "authority": "Singapore Exchange company announcements",
+      "url": "https://www.sgx.com/securities/company-announcements",
+      "allowed_hosts": ["www.sgx.com", "links.sgx.com"],
+      "issuer_code_pattern": "[A-Z0-9]{1,12}",
+      "utc_offset_minutes": 480,
+      "collection_enabled": false,
+      "rights_status": "unknown",
+      "api_status": "unconfirmed",
+      "disabled_reason": "Public announcements identified; security code is not issuer/group proof and reuse/API access remains unapproved.",
+      "authority_evidence_url": "https://www.sgx.com/stock-exchange/company-announcements"
+    },
+    "jpx": {
+      "market": "Tokyo",
+      "authority": "Japan Exchange Group / TDnet company announcements",
+      "url": "https://www.jpx.co.jp/english/equities/listing/disclosure/tdnet/index.html",
+      "allowed_hosts": ["www.jpx.co.jp", "www.release.tdnet.info", "www2.jpx.co.jp"],
+      "issuer_code_pattern": "[0-9A-Z]{4}",
+      "utc_offset_minutes": 540,
+      "collection_enabled": false,
+      "rights_status": "restricted_unapproved",
+      "api_status": "paid_service_excluded",
+      "disabled_reason": "Public TDnet viewing is distinct from paid API/database products; commercial collection requires permission. No paid service used.",
+      "authority_evidence_url": "https://www.jpx.co.jp/english/equities/listing/disclosure/tdnet/index.html",
+      "terms_url": "https://www.jpx.co.jp/english/term-of-use/"
+    },
+    "bse": {
+      "market": "Mumbai",
+      "authority": "BSE corporate announcements",
+      "url": "https://www.bseindia.com/corporates/ann.html",
+      "allowed_hosts": ["www.bseindia.com"],
+      "issuer_code_pattern": "[0-9]{6}",
+      "utc_offset_minutes": 330,
+      "collection_enabled": false,
+      "rights_status": "unknown",
+      "api_status": "unconfirmed",
+      "disabled_reason": "SEBI identifies BSE corporate filing system; no confirmed collection/reuse permission or owner adapter.",
+      "authority_evidence_url": "https://www.sebi.gov.in/curation/corporate_filings.html"
+    },
+    "nse": {
+      "market": "Mumbai",
+      "authority": "NSE corporate filings / announcements",
+      "url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements",
+      "allowed_hosts": ["www.nseindia.com", "www.nseindia.in", "archives.nseindia.com", "nsearchives.nseindia.com"],
+      "issuer_code_pattern": "[A-Z0-9&-]{1,30}",
+      "utc_offset_minutes": 330,
+      "collection_enabled": false,
+      "rights_status": "unknown",
+      "api_status": "unconfirmed",
+      "disabled_reason": "Official mixed-category filings portal includes SME/debt records; explicit eligible listed-parent evidence required. No collection/reuse approval.",
+      "authority_evidence_url": "https://www.sebi.gov.in/curation/corporate_filings.html"
+    }
+  }
+}

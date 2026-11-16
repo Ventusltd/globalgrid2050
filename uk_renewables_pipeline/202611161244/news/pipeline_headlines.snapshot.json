@@ -1,0 +1,9 @@
+{
+ "schema": "globalgrid2050.news.pipeline-headlines.v1",
+ "generated_at": null,
+ "status": "failed",
+ "note": "Saved copy of the live headlines file, read only when the live file cannot be reached. When this page was built the headlines workflow had not yet produced its first file, so this copy holds no headlines and the page says that live headlines are not available.",
+ "counts": {"items": 0, "with_possible_match": 0, "feeds_ok": 0, "feeds_failed": 0, "by_category": {}},
+ "feeds": [],
+ "items": []
+}

@@ -1,0 +1,188 @@
+{
+  "export": {
+    "as_of": "2026-11-16T18:00:00Z",
+    "linked_projects": 0,
+    "numeric_claims": 3,
+    "records": 14,
+    "sha256": "de0d205186ae2a30914711e1b25bacefc325f7c02efb880e4d5d5a6c070a87c1"
+  },
+  "figures": {
+    "commit": "b460cb7f76172691b5ffb6d2a7f1a8e12057ba20",
+    "directory": "sandbox/filings-ui",
+    "files": {
+      "figures.css": "8616989ec796c7f12442c8a3999e538f7f0d5ab4502f047d3071e9d682db0498",
+      "model.mjs": "2e3f7b78313b1a3e67e1afb3749de90cf59d4de3fcb22fad5aa4dfdc1e92d504",
+      "render.mjs": "fb7d974f9385c4a3a8628f10036de4e8175484b804fd535099bb4cb543b9e804"
+    },
+    "repository": "Ventusltd/TestCode"
+  },
+  "preview_only": true,
+  "publication_authorized": false,
+  "schema": "globalgrid2050.v928-context-closure.v1",
+  "source_commit": "3b4f723943469d61f49be02840c1f17c4821bde8",
+  "source_files": [
+    {
+      "bytes": 12002,
+      "git_blob_sha1": "63c6cc57ebb39739c3e04c2eef9ed6037aac1370",
+      "path": "automation/news/build_transition_context.py",
+      "role": "runtime",
+      "sha256": "bf8aff4e052dc51a10fdef1bb01db873359b1f2dd63d740bf2a8333d70574734"
+    },
+    {
+      "bytes": 15338,
+      "git_blob_sha1": "2ebc0984ce3d033e92bcfcd521e5890e20f825c5",
+      "path": "automation/news/filings/contracts.py",
+      "role": "runtime",
+      "sha256": "7db9f5334529bd51e3d1dc64abbd7ec0180b69e832c196d37cc93caf09e133c2"
+    },
+    {
+      "bytes": 79,
+      "git_blob_sha1": "87f792d0987e2250ac7d84db70d0e73e1d478093",
+      "path": "automation/news/policy_commitments/__init__.py",
+      "role": "runtime",
+      "sha256": "62acd7e82e502c86e24f2563bb97787ec4e67e593c83c135bb0ac249e4c99449"
+    },
+    {
+      "bytes": 22786,
+      "git_blob_sha1": "eceaad75de63820e37a9b725de4217ebf6af8427",
+      "path": "automation/news/policy_commitments/ledger.py",
+      "role": "runtime",
+      "sha256": "c6297623ec99024ef0064c2411d9e8a90eb123e5cb848ab2ca486aebde2fec01"
+    },
+    {
+      "bytes": 14526,
+      "git_blob_sha1": "9364294a30923841cbeaace268b4f7c7eb8cf8ae",
+      "path": "automation/news/policy_commitments/sample_ledger.json",
+      "role": "runtime",
+      "sha256": "9088ba4e8b7086809a6eebcc7f3cdff756f41857781ae04d3b5e2808c86a276d"
+    },
+    {
+      "bytes": 13640,
+      "git_blob_sha1": "79d7d06ec96727cc1e939965cafa0ea5909744e6",
+      "path": "automation/news/dc_context/grid.py",
+      "role": "runtime",
+      "sha256": "df4cbe8b5b028b142ddf55e206c5ec315f0eaee444175bf1eaf390a9c0a1f0a7"
+    },
+    {
+      "bytes": 14404,
+      "git_blob_sha1": "2542cc25db28f6308090fb485a6d0ad409d9ac50",
+      "path": "automation/news/dc_context/solar.py",
+      "role": "runtime",
+      "sha256": "1960f53c8f89041d9d503e5715404dc9fcf9e383608222dc6a5ff474608b617b"
+    },
+    {
+      "bytes": 4259,
+      "git_blob_sha1": "ddc20bed9591e75ce24d7cca3a1956d7c4b984bb",
+      "path": "automation/news/dc_context/grid-source-fixture.json",
+      "role": "runtime",
+      "sha256": "b06270123641a99537ed06816ae73fde3819bb1dd61a86bd5c158757076ce779"
+    },
+    {
+      "bytes": 9172,
+      "git_blob_sha1": "71c4e8f2a23ce4013cc7b7f12d9f4bd134c28505",
+      "path": "automation/news/dc_context/fixtures/solar-context.json",
+      "role": "runtime",
+      "sha256": "ef7b4faad197fbc19e889a0f7b90b9dc90f27bf1c2a35d6632ca40ab1397f0d0"
+    },
+    {
+      "bytes": 12249,
+      "git_blob_sha1": "c1ded334acb95ebba6dfc4e2f708704ba54c42d5",
+      "path": "automation/news/context-ui/adapter.mjs",
+      "role": "runtime",
+      "sha256": "ea000700262d1079538161ac0b789fd6475e20234bb363d7894640a28716b844"
+    },
+    {
+      "bytes": 10014,
+      "git_blob_sha1": "40aeab14ce97f752526ea20500d91876cfba8b83",
+      "path": "automation/news/context-ui/render.mjs",
+      "role": "runtime",
+      "sha256": "61f2ef09a3b3ad0bee8b2231fbec76ce1aea41fecc6fef9df9b5c15645cdc2a7"
+    },
+    {
+      "bytes": 1690,
+      "git_blob_sha1": "d94856c05e1a0e716a8f6ee4a95d2d5ccb596c28",
+      "path": "automation/news/context-ui/context.css",
+      "role": "runtime",
+      "sha256": "834a5d76ad201ad433e5ac51bbfc0c8a44b33a33f1f43ab1697e7e5ec26fbca0"
+    },
+    {
+      "bytes": 637,
+      "git_blob_sha1": "d8c7d7e47b214c17cdc4156b5d328a6a0ca2ebb7",
+      "path": "automation/news/context-ui/pins.json",
+      "role": "runtime",
+      "sha256": "84170f07d54abae81fba140ddca535c7efc4ac34d759eb7ac2632152b4a93d0c"
+    },
+    {
+      "bytes": 17394,
+      "git_blob_sha1": "2c0586d174d49c3237306c66c657deed2cb91384",
+      "path": "automation/news/tests/test_transition_context.py",
+      "role": "validation",
+      "sha256": "36007ab82abe89599e2652a45d36267453d490ccaff98b3294ed8fb6559604b6"
+    },
+    {
+      "bytes": 10029,
+      "git_blob_sha1": "551e23b1128c0af40ed14608b6ef0538202517ce",
+      "path": "automation/news/tests/test_grid_dc_context.py",
+      "role": "validation",
+      "sha256": "71ae39e8326ae180de59a84826e546b70a564577f03a9f6f589e5d9f757e5524"
+    },
+    {
+      "bytes": 8075,
+      "git_blob_sha1": "83a5714c7cfc3cd1544d77c32e2d7a9e413b6503",
+      "path": "automation/news/tests/test_solar_dc_context.py",
+      "role": "validation",
+      "sha256": "f09a6ba454ff692135e31c2296eb7a1cbbf462c3064be050583b1cbc1bd63a28"
+    },
+    {
+      "bytes": 15227,
+      "git_blob_sha1": "538a597cc9789fe29740cd2f4a4eaff861dab371",
+      "path": "automation/news/tests/test_policy_commitments.py",
+      "role": "validation",
+      "sha256": "eb1fd19d4a90d18e83fde43823d5da20b8628add01506f19e08fb8ed25cca406"
+    },
+    {
+      "bytes": 10789,
+      "git_blob_sha1": "b9e44fd389d9c35bd5a771e2c945c36b034ddd97",
+      "path": "automation/news/tests/test_filing_figures.py",
+      "role": "validation",
+      "sha256": "dcddbc76467b1c5b957076fb0654340c03a9ce42c6f1ba45dce66960ec678063"
+    },
+    {
+      "bytes": 5783,
+      "git_blob_sha1": "05278e6e4093541ef1457340507dbe5e68d47491",
+      "path": "automation/news/dc_context/grid-context-fixture.json",
+      "role": "validation",
+      "sha256": "e1ec654b3738f3a7fb7bd55a890970903d43642e3df74cd369252322d27f1ac9"
+    },
+    {
+      "bytes": 18479,
+      "git_blob_sha1": "52a17ffc265c774a481ebdf2c0bdbba55816b3ba",
+      "path": "automation/news/policy_commitments/historical_sources.json",
+      "role": "validation",
+      "sha256": "d3f68631deebfc094d479bab1487641f13749c8cbe5c4c253838cb3a8944acb1"
+    },
+    {
+      "bytes": 8403,
+      "git_blob_sha1": "e072452d4dfa295a57a968db10e7fc3b35c9e5c3",
+      "path": "automation/news/context-ui/adapter.test.mjs",
+      "role": "validation",
+      "sha256": "5da40dcdd0029713bdbcd02320c9f5d37ed3100ccaec0c6b9e77cd38a7005f20"
+    },
+    {
+      "bytes": 1770,
+      "git_blob_sha1": "ee5653edb8c7b396cd24ebc7c47172ecca29488d",
+      "path": "automation/news/context-ui/test-support.mjs",
+      "role": "validation",
+      "sha256": "0a6fb0da6b6c8070a8815b866eb5839715210af749552e99289a318668777c43"
+    },
+    {
+      "bytes": 9808,
+      "git_blob_sha1": "a9fde90ca1e9be0ae245fe2a56255d8a4bc594e8",
+      "path": "automation/news/context-ui/browser.mjs",
+      "role": "validation",
+      "sha256": "1f883ac76056daf66924d64d29d9574fcd37065079167318076e0b456a82acb1"
+    }
+  ],
+  "source_repository": "Ventusltd/globalgrid2050",
+  "source_rights_status": "UNASSESSED"
+}

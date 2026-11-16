@@ -1,0 +1,413 @@
+{
+  "schema": "globalgrid2050.policy-commitments.v1",
+  "coverage_note": "Bounded Covenant publication, parliamentary answer and COP31 landing-page review. See historical_sources.json for separately inventoried treaty/COP coverage. No project compliance, exhaustive source search or final COP31 outcome assessed.",
+  "documents": [
+    {
+      "id": "uk:dc-covenant:2026-10-28",
+      "title": "The Data Centre Covenant",
+      "issuer": "UK Government / HM Treasury",
+      "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant",
+      "version": "Published 2026-10-28; original HTML response reviewed",
+      "published_on": "2026-10-28",
+      "reviewed_at": "2026-11-16T17:16:51Z",
+      "retrieved_at": "2026-11-16T17:16:27Z",
+      "content_sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+      "hash_limitation": null,
+      "document_state": "PUBLISHED_POLICY",
+      "source_kind": "PRIMARY_POLICY",
+      "read_coverage": {
+        "state": "READ",
+        "locators": [
+          "Introduction",
+          "Section 1",
+          "Section 2",
+          "Section 3",
+          "Section 4",
+          "Section 5",
+          "Support offer after Section 5",
+          "Closing reform bullets"
+        ],
+        "note": "Main publication text read. Linked legislation, guidance and other policy documents not reviewed."
+      }
+    },
+    {
+      "id": "uk:written-answer:41981",
+      "title": "Data Centres: written answer 41981",
+      "issuer": "Department for Business, Innovation, Science and Trade",
+      "url": "https://questions-statements.parliament.uk/written-questions/detail/2026-11-10/41981",
+      "version": "Question 2026-11-10; answer 2026-11-13",
+      "published_on": "2026-11-13",
+      "reviewed_at": "2026-11-16T17:16:51Z",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "hash_limitation": "Original HTML retrieval returned HTTP 403; primary question and answer read through web extraction. Original-byte digest unavailable.",
+      "document_state": "PUBLISHED_POLICY",
+      "source_kind": "OFFICIAL_ANSWER",
+      "read_coverage": {
+        "state": "READ",
+        "locators": [
+          "Answer, paragraph 1",
+          "Answer, paragraph 2"
+        ],
+        "note": "Question and both answer paragraphs reviewed; no inference about unreviewed implementation instruments."
+      }
+    },
+    {
+      "id": "unfccc:cop31:2026-11-16",
+      "title": "UN Climate Change Conference - Antalya, November 2026",
+      "issuer": "UNFCCC Secretariat",
+      "url": "https://unfccc.int/cop31",
+      "version": "Live conference landing page reviewed 2026-11-16",
+      "published_on": null,
+      "reviewed_at": "2026-11-16T17:16:51Z",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "hash_limitation": "Direct response was an access interstitial, not the conference document; original-byte digest unavailable. Primary page read through web extraction.",
+      "document_state": "IN_PROGRESS",
+      "source_kind": "CONFERENCE_INDEX",
+      "read_coverage": {
+        "state": "PARTIAL",
+        "locators": [
+          "Conference schedule",
+          "Updates dated 16 November 2026",
+          "Sessions and documents links"
+        ],
+        "note": "Conference scheduled 9-20 November 2026. Landing-page dates and current updates read; no substantive final COP31 decision reviewed."
+      }
+    }
+  ],
+  "scopes": [
+    {
+      "id": "scope:uk-dc-policy-class",
+      "jurisdiction": "United Kingdom",
+      "description": "Data-centre policy class; strategic support eligibility is not established for any named facility.",
+      "entity_id": null,
+      "figure_entity_scope": null
+    },
+    {
+      "id": "scope:uk-government",
+      "jurisdiction": "United Kingdom",
+      "description": "Government undertaking to establish a support process.",
+      "entity_id": "public:uk-government",
+      "figure_entity_scope": "public_institution"
+    },
+    {
+      "id": "scope:uk-national-ai-capacity",
+      "jurisdiction": "United Kingdom",
+      "description": "National aggregate estimate; no individual project or load type established.",
+      "entity_id": null,
+      "figure_entity_scope": null
+    }
+  ],
+  "commitments": [
+    {
+      "id": "uk:dc:energy-costs",
+      "issuer": "UK Government / HM Treasury",
+      "source": {
+        "document_id": "uk:dc-covenant:2026-10-28",
+        "locator": "Section 1"
+      },
+      "scope_id": "scope:uk-dc-policy-class",
+      "statement_type": "EXPECTATION",
+      "statement": "Developers should cover imposed energy-system costs and support resilience.",
+      "conditions": [],
+      "metric": {
+        "label": "Energy-system cost and resilience expectations",
+        "numeric_support": "UNSUPPORTED",
+        "limitation": "No project cost measurement, baseline or quantified allocation supplied."
+      },
+      "target": null,
+      "baseline": null,
+      "baseline_state": "UNKNOWN",
+      "deadline": {
+        "value": null,
+        "wording": null
+      },
+      "reporting_obligation": null,
+      "applicability": {
+        "state": "UNKNOWN",
+        "reason": "No stable project identity and conditional eligibility evidence supplied.",
+        "evidence": []
+      },
+      "revision": {
+        "id": "original",
+        "supersedes_commitment_id": null,
+        "baseline_changed": false
+      }
+    },
+    {
+      "id": "uk:dc:community-benefit",
+      "issuer": "UK Government / HM Treasury",
+      "source": {
+        "document_id": "uk:dc-covenant:2026-10-28",
+        "locator": "Section 2"
+      },
+      "scope_id": "scope:uk-dc-policy-class",
+      "statement_type": "CONDITIONAL_REQUIREMENT",
+      "statement": "Strategic developers should agree community investment plans.",
+      "conditions": [
+        "Strategic eligibility and additional government support conditions."
+      ],
+      "metric": {
+        "label": "Community benefit plan",
+        "numeric_support": "UNSUPPORTED",
+        "limitation": "No quantified project commitment or adopted assessment framework supplied."
+      },
+      "target": null,
+      "baseline": null,
+      "baseline_state": "UNKNOWN",
+      "deadline": {
+        "value": null,
+        "wording": null
+      },
+      "reporting_obligation": null,
+      "applicability": {
+        "state": "UNKNOWN",
+        "reason": "No stable project identity and conditional eligibility evidence supplied.",
+        "evidence": []
+      },
+      "revision": {
+        "id": "original",
+        "supersedes_commitment_id": null,
+        "baseline_changed": false
+      }
+    },
+    {
+      "id": "uk:dc:environment",
+      "issuer": "UK Government / HM Treasury",
+      "source": {
+        "document_id": "uk:dc-covenant:2026-10-28",
+        "locator": "Section 3"
+      },
+      "scope_id": "scope:uk-dc-policy-class",
+      "statement_type": "EXPECTATION",
+      "statement": "Facilities should use resources efficiently, report consumption and reuse heat where viable.",
+      "conditions": [
+        "Heat reuse depends on a viable local recipient."
+      ],
+      "metric": {
+        "label": "Environmental design, PUE, water and heat reuse",
+        "numeric_support": "UNSUPPORTED",
+        "limitation": "Ratios and water metrics are outside FIGURES v1; no threshold is relabelled as power."
+      },
+      "target": null,
+      "baseline": null,
+      "baseline_state": "UNKNOWN",
+      "deadline": {
+        "value": null,
+        "wording": null
+      },
+      "reporting_obligation": "Annual resource-use and related performance reporting expected for strategic facilities.",
+      "applicability": {
+        "state": "UNKNOWN",
+        "reason": "No stable project identity and conditional eligibility evidence supplied.",
+        "evidence": []
+      },
+      "revision": {
+        "id": "original",
+        "supersedes_commitment_id": null,
+        "baseline_changed": false
+      }
+    },
+    {
+      "id": "uk:dc:jobs-hardware",
+      "issuer": "UK Government / HM Treasury",
+      "source": {
+        "document_id": "uk:dc-covenant:2026-10-28",
+        "locator": "Section 4"
+      },
+      "scope_id": "scope:uk-dc-policy-class",
+      "statement_type": "EXPECTATION",
+      "statement": "Developers should support local skills, suppliers and domestic hardware capability.",
+      "conditions": [],
+      "metric": {
+        "label": "Jobs, skills and hardware expectations",
+        "numeric_support": "UNSUPPORTED",
+        "limitation": "No jobs, procurement or hardware outcome measurement supplied."
+      },
+      "target": null,
+      "baseline": null,
+      "baseline_state": "UNKNOWN",
+      "deadline": {
+        "value": null,
+        "wording": null
+      },
+      "reporting_obligation": null,
+      "applicability": {
+        "state": "UNKNOWN",
+        "reason": "No stable project identity and conditional eligibility evidence supplied.",
+        "evidence": []
+      },
+      "revision": {
+        "id": "original",
+        "supersedes_commitment_id": null,
+        "baseline_changed": false
+      }
+    },
+    {
+      "id": "uk:dc:security",
+      "issuer": "UK Government / HM Treasury",
+      "source": {
+        "document_id": "uk:dc-covenant:2026-10-28",
+        "locator": "Section 5"
+      },
+      "scope_id": "scope:uk-dc-policy-class",
+      "statement_type": "EXPECTATION",
+      "statement": "Operators should improve resilience and plan for disruption.",
+      "conditions": [],
+      "metric": {
+        "label": "Security and continuity expectations",
+        "numeric_support": "UNSUPPORTED",
+        "limitation": "No site security assessment or measured outcome supplied."
+      },
+      "target": null,
+      "baseline": null,
+      "baseline_state": "UNKNOWN",
+      "deadline": {
+        "value": null,
+        "wording": null
+      },
+      "reporting_obligation": null,
+      "applicability": {
+        "state": "UNKNOWN",
+        "reason": "No stable project identity and conditional eligibility evidence supplied.",
+        "evidence": []
+      },
+      "revision": {
+        "id": "original",
+        "supersedes_commitment_id": null,
+        "baseline_changed": false
+      }
+    },
+    {
+      "id": "uk:dc:support-offer",
+      "issuer": "UK Government / HM Treasury",
+      "source": {
+        "document_id": "uk:dc-covenant:2026-10-28",
+        "locator": "Support offer after Section 5"
+      },
+      "scope_id": "scope:uk-dc-policy-class",
+      "statement_type": "CONDITIONAL_OFFER",
+      "statement": "Government proposes conditional connection and temporary-power support.",
+      "conditions": [
+        "Strategic value and eligibility must be established.",
+        "Temporary power is conditional on exceptional strategic need and safeguards."
+      ],
+      "metric": {
+        "label": "Strategic support process",
+        "numeric_support": "UNSUPPORTED",
+        "limitation": "No allocated connection, available grid capacity or project entitlement established."
+      },
+      "target": null,
+      "baseline": null,
+      "baseline_state": "UNKNOWN",
+      "deadline": {
+        "value": null,
+        "wording": null
+      },
+      "reporting_obligation": null,
+      "applicability": {
+        "state": "UNKNOWN",
+        "reason": "No stable project identity and conditional eligibility evidence supplied.",
+        "evidence": []
+      },
+      "revision": {
+        "id": "original",
+        "supersedes_commitment_id": null,
+        "baseline_changed": false
+      }
+    },
+    {
+      "id": "uk:dc:control-centre",
+      "issuer": "UK Government / HM Treasury",
+      "source": {
+        "document_id": "uk:dc-covenant:2026-10-28",
+        "locator": "Support offer after Section 5"
+      },
+      "scope_id": "scope:uk-government",
+      "statement_type": "UNDERTAKING",
+      "statement": "Government undertakes to establish a Ministerial Control Centre.",
+      "conditions": [],
+      "metric": {
+        "label": "Control-centre establishment",
+        "numeric_support": "UNSUPPORTED",
+        "limitation": "Qualitative process update; no operational outcome measured."
+      },
+      "target": null,
+      "baseline": null,
+      "baseline_state": "UNKNOWN",
+      "deadline": {
+        "value": null,
+        "wording": null
+      },
+      "reporting_obligation": null,
+      "applicability": {
+        "state": "ESTABLISHED",
+        "reason": "The source attributes this institutional undertaking to government itself, not a facility.",
+        "evidence": [
+          {
+            "document_id": "uk:dc-covenant:2026-10-28",
+            "locator": "Support offer after Section 5"
+          }
+        ]
+      },
+      "revision": {
+        "id": "original",
+        "supersedes_commitment_id": null,
+        "baseline_changed": false
+      }
+    },
+    {
+      "id": "uk:dc:national-capacity-context",
+      "issuer": "UK Government / HM Treasury",
+      "source": {
+        "document_id": "uk:dc-covenant:2026-10-28",
+        "locator": "Introduction"
+      },
+      "scope_id": "scope:uk-national-ai-capacity",
+      "statement_type": "CONTEXT",
+      "statement": "Government provides a national AI capacity estimate.",
+      "conditions": [],
+      "metric": {
+        "label": "National AI data-centre capacity estimate",
+        "numeric_support": "UNSUPPORTED",
+        "limitation": "Regional aggregate and ambiguous load scope are unsupported by FIGURES v1."
+      },
+      "target": null,
+      "baseline": null,
+      "baseline_state": "UNKNOWN",
+      "deadline": {
+        "value": "2030",
+        "wording": "by 2030"
+      },
+      "reporting_obligation": null,
+      "applicability": {
+        "state": "UNKNOWN",
+        "reason": "No stable project identity and conditional eligibility evidence supplied.",
+        "evidence": []
+      },
+      "revision": {
+        "id": "original",
+        "supersedes_commitment_id": null,
+        "baseline_changed": false
+      }
+    }
+  ],
+  "updates": [
+    {
+      "id": "uk:dc:control-centre:answer41981",
+      "commitment_id": "uk:dc:control-centre",
+      "commitment_revision_id": "original",
+      "baseline_revision_id": "original",
+      "source": {
+        "document_id": "uk:written-answer:41981",
+        "locator": "Answer, paragraph 2"
+      },
+      "reported_on": "2026-11-13",
+      "statement": "The minister reports establishment work underway; assessment detail remains forthcoming.",
+      "kind": "PROCESS_REPORT",
+      "claim": null,
+      "measurement_state": "REPORTED"
+    }
+  ]
+}

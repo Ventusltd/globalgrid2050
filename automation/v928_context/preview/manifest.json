@@ -1,0 +1,69 @@
+{
+  "as_of": "2026-11-16T18:00:00Z",
+  "coverage": {
+    "families": {
+      "grid": 2,
+      "policy": 8,
+      "solar": 4
+    },
+    "linked_projects": 0,
+    "numeric_claims": 3,
+    "records": 14,
+    "scope": "BOUNDED_SUPPLIED_CONTEXT"
+  },
+  "figures": {
+    "cache_directory": "figures/b460cb7f76172691b5ffb6d2a7f1a8e12057ba20/",
+    "commit": "b460cb7f76172691b5ffb6d2a7f1a8e12057ba20",
+    "directory": "sandbox/filings-ui",
+    "files": {
+      "figures.css": "8616989ec796c7f12442c8a3999e538f7f0d5ab4502f047d3071e9d682db0498",
+      "model.mjs": "2e3f7b78313b1a3e67e1afb3749de90cf59d4de3fcb22fad5aa4dfdc1e92d504",
+      "render.mjs": "fb7d974f9385c4a3a8628f10036de4e8175484b804fd535099bb4cb543b9e804"
+    },
+    "repository": "Ventusltd/TestCode"
+  },
+  "files": {
+    "adapter.mjs": {
+      "bytes": 12249,
+      "sha256": "ea000700262d1079538161ac0b789fd6475e20234bb363d7894640a28716b844"
+    },
+    "context.css": {
+      "bytes": 1690,
+      "sha256": "834a5d76ad201ad433e5ac51bbfc0c8a44b33a33f1f43ab1697e7e5ec26fbca0"
+    },
+    "figures/b460cb7f76172691b5ffb6d2a7f1a8e12057ba20/figures.css": {
+      "bytes": 3241,
+      "sha256": "8616989ec796c7f12442c8a3999e538f7f0d5ab4502f047d3071e9d682db0498"
+    },
+    "figures/b460cb7f76172691b5ffb6d2a7f1a8e12057ba20/model.mjs": {
+      "bytes": 14086,
+      "sha256": "2e3f7b78313b1a3e67e1afb3749de90cf59d4de3fcb22fad5aa4dfdc1e92d504"
+    },
+    "figures/b460cb7f76172691b5ffb6d2a7f1a8e12057ba20/render.mjs": {
+      "bytes": 6948,
+      "sha256": "fb7d974f9385c4a3a8628f10036de4e8175484b804fd535099bb4cb543b9e804"
+    },
+    "render.mjs": {
+      "bytes": 10014,
+      "sha256": "61f2ef09a3b3ad0bee8b2231fbec76ce1aea41fecc6fef9df9b5c15645cdc2a7"
+    },
+    "transition-context.json": {
+      "bytes": 82690,
+      "sha256": "de0d205186ae2a30914711e1b25bacefc325f7c02efb880e4d5d5a6c070a87c1"
+    }
+  },
+  "limitations": [
+    "Dated source context; no current project delivery, legal compliance or source truth certified.",
+    "No identity crosswalk, site allocation, numerical aggregation, conversion or ranking.",
+    "Receipt hashes are supplied metadata; original source bytes were not reverified.",
+    "Publication, review, retrieval and figure dates remain distinct; composition time is not source freshness.",
+    "Historical inventory is separate; no exhaustive treaty history or final COP31 outcome inferred."
+  ],
+  "preview_only": true,
+  "publication_authorized": false,
+  "schema": "globalgrid2050.v928-context-preview.v1",
+  "source_commit": "3b4f723943469d61f49be02840c1f17c4821bde8",
+  "source_repository": "Ventusltd/globalgrid2050",
+  "source_rights_status": "UNASSESSED",
+  "transition_context_sha256": "de0d205186ae2a30914711e1b25bacefc325f7c02efb880e4d5d5a6c070a87c1"
+}

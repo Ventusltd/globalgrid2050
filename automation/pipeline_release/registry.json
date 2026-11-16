@@ -819,14 +819,92 @@
       "ci": null,
       "merge_commit": null,
       "state": "release_candidate_project_priority"
+    },
+    {
+      "id": "202611161757",
+      "version": "V9.28",
+      "parent": "202611161747",
+      "date": "2026-11-16T17:57:00Z",
+      "added": "Approved V9.24 two-block presentation with Solar/BESS/Grid/Data Centre tabs, source-attributed headlines and guarded source-indexed intelligence; unchanged qualifying REPD register and MAP/CSV.",
+      "data_changed": false,
+      "runner": "tests/run_v9_28.sh",
+      "trees": [
+        "cfc09fbd0ecfbfc7d6e7099951c4fead353359d0"
+      ],
+      "features": [
+        {
+          "id": "v928-two-block-shell",
+          "file": "index.html",
+          "contains": "REPD PIPELINE ANALYTICS"
+        },
+        {
+          "id": "v928-guarded-modules",
+          "file": "scripts/plugins/preview-v928.js",
+          "contains": "GGDataCentreUI.mount"
+        }
+      ],
+      "known_faults": [
+        "Zero independently verified Solar-1000 findings; source rights and project-event acceptance remain independent gates.",
+        "Grid is a 14-source directory with zero approved project developments; Data Centre operation/capacity/ownership remains unassessed or provisional.",
+        "Context cache is local-preview only and withheld on publication hosts pending source acceptance. Native Android device acceptance is unavailable."
+      ],
+      "ci": null,
+      "merge_commit": null,
+      "state": "release_candidate_owner_authorized",
+      "feature_migrations": [
+        {
+          "id": "solar1000-pilot",
+          "from": "202611161244",
+          "contract": "solar1000-inline-v1"
+        },
+        {
+          "id": "news-editorial-priority",
+          "from": "202611161734",
+          "contract": "news-priority-internal-v1"
+        },
+        {
+          "id": "inline-research-priority",
+          "from": "202611161747",
+          "contract": "research-priority-internal-v1"
+        },
+        {
+          "id": "source-bound-priority",
+          "from": "202611161747",
+          "contract": "research-priority-internal-v1"
+        },
+        {
+          "id": "global-dc-tab",
+          "from": "202611161630",
+          "contract": "global-dc-ui-v928-v1"
+        }
+      ],
+      "removed_probes": [
+        "V9.23 native 12-column notes and original MAP sibling",
+        "live file refused: saved copy or a plain statement, table still complete"
+      ],
+      "browser_probes": [
+        {
+          "name": "V9.28 compact 11-column notes with original MAP sibling",
+          "selector": "body",
+          "js": "document.querySelectorAll('thead th').length===11 && !!document.querySelector('#tbody tr .machine-note-button') && !!document.querySelector('#tbody tr a.atlaslink') && document.querySelectorAll('main > section').length===2"
+        },
+        {
+          "name": "V9.28 live feed refused: byte-pinned attributed snapshot with complete register",
+          "selector": "body",
+          "block": [
+            "*pipeline-news-data*"
+          ],
+          "js": "(async()=>{const r=await fetch('news/pipeline_headlines.snapshot.json');if(!r.ok)return false;const b=await r.arrayBuffer();const h=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',b)),x=>x.toString(16).padStart(2,'0')).join('');const d=JSON.parse(new TextDecoder().decode(b));const s=document.querySelector('#newsStatus');const titles=[...document.querySelectorAll('#liveNews .ln-title')];return h==='9a98193b5d8903cf33d5655ffa3acf4eab1ec3a92ca1a6d23f5eeb4df7d9f217'&&s?.dataset.state==='snapshot'&&d.items.length===71&&JSON.stringify(window.pipelineHeadlineDocument)===JSON.stringify(d)&&titles.length>0&&titles.every(a=>d.items.some(i=>i.title===a.textContent&&i.link===a.href))&&document.querySelector('#tbody')?.dataset.complete==='true'&&document.querySelector('#tbody')?.dataset.total==='7775';})()"
+        }
+      ]
     }
   ],
   "size_budget_mb": 18,
   "size_budget_from": "202611140136",
   "release_candidate": {
-    "id": "202611161630",
-    "version": "V9.25",
-    "state": "SOFTWARE CANDIDATE - EVIDENCE PUBLICATION DISABLED",
+    "id": "202611161757",
+    "version": "V9.28",
+    "state": "OWNER AUTHORIZED - EXACT-HEAD PUBLICATION CHECKS PENDING",
     "operative": {
       "id": "202611161244",
       "version": "V9.24"
@@ -836,6 +914,6 @@
       "version": "V9.19",
       "state": "held candidate (data-centre register context, awaiting licence verification)"
     },
-    "note": "V9.24 remains the public homepage operative release, confirmed against the served owner configuration and exact V9.24 index bytes on 16 November 2026. V9.25 is a software-only candidate: consolidated UK Pipeline and Global DC interface, unchanged 7,775 official records and exact Solar-1000. The solar source stays disabled because rights are unknown; the latest successful health probe produced zero strict project matches, and no real evidence snapshot has been published. The original real-match sprint criterion is not met. Software CI is not evidence-source approval or a public release. Historical registry entries, including their candidate labels and null release receipts, remain unchanged; see docs/pipeline/V9.25-RELEASE-METADATA.md for the separately audited publication evidence."
+    "note": "V9.28 publication authorized by the owner on 16 November 2026; exact-head checks, homepage-owner promotion and served-byte readback remain pending. V9.24 remains selected until that process completes. Evidence sources remain disabled unless independently accepted; source-indexed leads and provisional associations are not verified project events."
   }
 }

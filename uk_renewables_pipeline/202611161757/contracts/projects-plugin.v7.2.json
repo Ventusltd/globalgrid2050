@@ -1,0 +1,492 @@
+{
+  "schema": "globalgrid2050.v7.projects-plugin-contract.v1",
+  "target_release": "7.2",
+  "status": "SPECIFICATION_ONLY_UI_NOT_LIVE",
+  "feature": "canonical-uk-project-interface",
+  "governance": {
+    "human_acceptance_matrix": "uk_renewables_pipeline/v7/docs/08-v7.2-project-interface.md",
+    "project_spine_contract": "uk_renewables_pipeline/v7/contracts/project-spine.v7.2.json",
+    "project_spine_contract_sha256": "6425d81381eda13d204d88a2cd95a409d27d73561b33d65420e2b08428353397",
+    "rule": "V5 is the product-behaviour baseline; V6 supplies canonical identity and reliability lessons; this contract decides every deliberate V7.2 difference."
+  },
+  "release_state": {
+    "current_live_release": "7.1",
+    "current_project_source": "../../dist/repd_master.json",
+    "target_project_source": "data/v7.2/projects.json",
+    "target_geojson_source": "data/v7.2/projects.geojson",
+    "target_sources_are_same_origin": true,
+    "interactive_map_release": "7.7",
+    "v7_2_geojson_role": "validated map-ready derivative only"
+  },
+  "implementation_checkpoints": {
+    "checkpoint_1": {
+      "status": "IMPLEMENTED_ISOLATED_NOT_LIVE",
+      "scope": "canonical project adapter and state model",
+      "files": {
+        "uk_renewables_pipeline/v7/scripts/data/canonical-projects.js": "40d21f77ae817575a8f17181154cfe7e2c95de2fc2f716ce29cccebe3eb6bdf8",
+        "uk_renewables_pipeline/v7/scripts/core/project-state.js": "bf52f442cc1aaa7ba26a32ef9437a9dd0c4149120fc313a0ae6cf51d874557d8",
+        "uk_renewables_pipeline/v7/tests/check_v7_2_project_model.mjs": "dbdafd46a22f18cb40b62f4c4991b55549ec3f3c39ef51b77fee87b6c94a07e0"
+      },
+      "gates": [
+        "full validation precedes atomic state commit",
+        "same-origin relative sources and cross-origin redirects are rejected",
+        "failed refresh retains the last validated model",
+        "canonical project records and nested relationship arrays are immutable",
+        "exact REPD and GlobalGrid project IDs take precedence over contextual search",
+        "live V7.1 modules do not import the checkpoint"
+      ]
+    },
+    "checkpoint_2": {
+      "status": "IMPLEMENTED_ISOLATED_NOT_LIVE",
+      "scope": "gauges, lifecycle filters and canonical search controls",
+      "files": {
+        "uk_renewables_pipeline/v7/scripts/plugins/canonical-project-controls.js": "17651f44dd27506e99ee6abb97c6700b03bbcb3a6be44a14a6d5819b92cf233c",
+        "uk_renewables_pipeline/v7/tests/check_v7_2_project_controls.mjs": "3e8b5aeceeea5a197df5f8a653da37ffef838be6eb0c1cc6136d33038eabcfaa"
+      },
+      "gates": [
+        "four filtered gauges keep solar MWp and BESS MW separate",
+        "largest filtered record carries its technology-specific unit",
+        "lifecycle views remain disjoint at 670 current, 3 disputed, 63 historical and 30 review",
+        "exact REPD and GlobalGrid project IDs retain singleton precedence",
+        "Beacon Fen development, planning-reference and name searches retain both distinct components",
+        "combined filters are conjunctive and zero results remain zero",
+        "first-load failure is unavailable rather than a false zero market",
+        "refresh failure retains last-known-good controls and metrics",
+        "live V7.1 modules do not import the checkpoint"
+      ]
+    },
+    "checkpoint_3": {
+      "status": "IMPLEMENTED_ISOLATED_NOT_LIVE",
+      "scope": "canonical table, evidence fields and CSV export",
+      "files": {
+        "uk_renewables_pipeline/v7/scripts/plugins/canonical-project-table.js": "c5125a3701ab289d915e08aa631596fd5664cf23c6025dca1fb18a0b3717b94f",
+        "uk_renewables_pipeline/v7/scripts/plugins/canonical-project-export.js": "6a89629b67f68f0b98686d8a7a42805c43a7c02abaa75547e46ad5ff9885e8f6",
+        "uk_renewables_pipeline/v7/tests/check_v7_2_project_table_export.mjs": "17bdfd26d74d7db1d8a5297daf0e8243efa191c117e64830629deba42d6d5fdd"
+      },
+      "gates": [
+        "the table is a deeply immutable whitelist projection with no DOM or live-runtime dependency",
+        "filtered rows must be unique exact objects from the validated frozen canonical model",
+        "table and export snapshot canonical state before invoking the injected legacy-news resolver",
+        "all 766 REPD records remain separate and canonical capacity order is preserved",
+        "official values, derived lifecycle, relationships, geometry and provenance remain explicitly separated",
+        "legacy news is injected as external unverified context and cannot change canonical facts",
+        "news search URLs use a fixed HTTPS origin and remain context rather than evidence",
+        "CSV exports exactly the current filtered rows and zero results produce a header-only file",
+        "CSV uses a UTF-8 BOM, CRLF, fixed columns, technology-specific units and spreadsheet-formula protection",
+        "first-load failure disables table export while stale last-known-good data remains exportable",
+        "published provenance metadata is validated against the frozen contract before exposure",
+        "live V7.1 modules do not import the checkpoint"
+      ]
+    },
+    "checkpoint_4": {"status": "PENDING", "scope": "browser, mobile, exact-commit and live-promotion proof"}
+  },
+  "v7_1_runtime_guard": {
+    "purpose": "The specification pass must not change visible V7.1 behaviour.",
+    "files": {
+      "uk_renewables_pipeline/v7/index.html": "3ecd1f04695aeb457593eff4e9dba32c6ae9d6d200bcdaa6e21bd9a2a8ad27b2",
+      "uk_renewables_pipeline/v7/scripts/app.js": "b96ca6baa4e85c7985fed173aa1e37c9d62d8366a1e6d9cbe251a13a22f3cfe1",
+      "uk_renewables_pipeline/v7/scripts/core/state.js": "df96d850a249b318995dd4a14cec3ff41928710f6c23b96baf68650fe3d27f1b",
+      "uk_renewables_pipeline/v7/scripts/plugins/gauges.js": "c9172c8ca83a81d666ec04d10ad51bd5664004cd255c7acd4690aaf9a70e948f",
+      "uk_renewables_pipeline/v7/scripts/plugins/newspaper.js": "938c662a4ca461107f3f0851c70dd09bc29d0103ed1517a49920cb7ccbd06417",
+      "uk_renewables_pipeline/v7/scripts/plugins/project-export.js": "a5dbf6eff9670d7c08289d53e187c838b958f68eab2039928bc2a154e4689524",
+      "uk_renewables_pipeline/v7/scripts/plugins/project-filters.js": "348065a5800f21cbfb05d7a4a0d051215fc4263d016643be37d14687481440c6",
+      "uk_renewables_pipeline/v7/scripts/plugins/project-table.js": "cb9eab60637c87f940c2494590c301cf9c19e8b6c37eca6a38b9681a9e44c4f0",
+      "uk_renewables_pipeline/v7/scripts/plugins/projects.js": "45a962c4c6bdc3c2851b957110cea7d0b1a8d822352b3592058f5982a314e9f6",
+      "uk_renewables_pipeline/v7/styles/v7.css": "036dbfe43ef1ffb2c55ba277d49dec57ab7c7be976289226a5d568e1f1be319d",
+      "uk_renewables_pipeline/v7/styles/mobile.css": "9855b9c11255a85f477873d07cca45b057aedcdc8a6cc4aab2d29a0ffaac9b85",
+      "uk_renewables_pipeline/v7/data/plugin_manifest.json": "55191906571536a5131a49c3d90bf9e6564f316c369682e3660c6e6902fef5ce"
+    }
+  },
+  "measured_baselines": {
+    "v5_product": {
+      "legacy_source_features": 10784,
+      "displayed_projects": 5210,
+      "displayed_solar": 2667,
+      "displayed_bess": 1271,
+      "displayed_wind": 1272,
+      "newspaper_items": 125,
+      "newspaper_solar_items": 69,
+      "newspaper_bess_items": 56,
+      "newspaper_finance_items": 34,
+      "newspaper_fixture_sha256": "0268087daab2a69bddff4167b2e38d5c89ff70bf36a6c4495ae8becca8c7bd87",
+      "strengths_to_preserve": [
+        "newspaper layout, search and seven controls",
+        "project search, filter, table and CSV interaction",
+        "capacity-descending project order",
+        "independent project and newspaper failure handling",
+        "responsive horizontal project table"
+      ]
+    },
+    "v6_engineering": {
+      "identity_records": 14657,
+      "strengths_to_use": [
+        "reconciled official-source ingestion",
+        "REPD and GlobalGrid project identity",
+        "development relationships without destructive merge",
+        "same-origin validated publication assets",
+        "nullable official fields and separated article facts"
+      ],
+      "failures_not_to_inherit": [
+        "solar greater than 1 MW scope",
+        "BESS greater than 100 MW boundary",
+        "combined solar and BESS capacity",
+        "missing geometry and invisible lifecycle fields",
+        "name-only or inactive-record news attachment",
+        "browser-side government retrieval"
+      ]
+    }
+  },
+  "canonical_universe": {
+    "project_count": 766,
+    "development_count": 718,
+    "solar_count": 384,
+    "solar_mwp": 34073.49,
+    "solar_largest_mwp": 840.0,
+    "bess_count": 382,
+    "bess_mw": 106338.18,
+    "bess_largest_mw": 1450.0,
+    "geometry_count_this_edition": 766,
+    "missing_geometry_this_edition": 0,
+    "wind_count": 0,
+    "published_snapshot": {
+      "projects_sha256": "753afa29cd3d13eb9ad7e38be3d2344d2c43046deea59cd52d90da07cec83ceb",
+      "source_identity_sha256": "d614084c05c0380862cf2d9da58309c43cdb128d6917458db4dc53717062ea95",
+      "source_coordinate_fixture_sha256": "8ca7a99a9f3a95b4de6f1dff79af64ead3aaa14627356eb198ae7be21539741f",
+      "source_workbook_sha256": "99ec4d0509a9fdfb999116e33c459084ce9ab59b44e3fafba5fc9b280ae2d5a6",
+      "geometry_policy": {
+        "output_crs": "RFC 7946 WGS84",
+        "source_crs": "EPSG:27700",
+        "transform": "documented OSGB36-to-WGS84 seven-parameter Helmert approximation",
+        "use": "market map context only; never evidence of a grid connection or cadastral boundary"
+      },
+      "source_provenance": {
+        "canonical_identity_source_xlsx_sha256": "624a0a9712c58a7a93716e51f2bf054eec8b1af7170f6f9516cc10cd248e2657",
+        "coordinate_workbook_copy_sha256": "99ec4d0509a9fdfb999116e33c459084ce9ab59b44e3fafba5fc9b280ae2d5a6",
+        "dataset": "DESNZ Renewable Energy Planning Database Q2 2026",
+        "reconciliation": "14657/14657 Ref IDs; technology and capacity exact; site names exact after missing-value and _x000D_ normalization"
+      }
+    },
+    "thresholds": {
+      "solar_mwp_exclusive": 49.0,
+      "bess_mw_exclusive": 99.0
+    },
+    "source_files": {
+      "projects": {
+        "path": "uk_renewables_pipeline/v7/data/v7.2/projects.json",
+        "sha256": "ce7e0a7681da47c6d2bfe66c292e61c3727d9db02db667053be4fbe5e0952de9"
+      },
+      "geojson": {
+        "path": "uk_renewables_pipeline/v7/data/v7.2/projects.geojson",
+        "sha256": "74ccd73f3ee77a069c646cba0bcb5984609cdd68ea681292b8f3d7f33fe4bf8d"
+      },
+      "manifest": {
+        "path": "uk_renewables_pipeline/v7/data/v7.2/build_manifest.json",
+        "sha256": "a79892abd5ca468839824b68e288e94f0c25c421a0f81d8ce9f8383864652753"
+      }
+    }
+  },
+  "project_record": {
+    "required_non_null_strings": [
+      "gg_project_id",
+      "gg_development_id",
+      "identity_status",
+      "identity_confidence",
+      "repd_ref",
+      "name",
+      "technology",
+      "repd_technology",
+      "status",
+      "lifecycle",
+      "operator",
+      "county",
+      "region",
+      "country",
+      "planning_authority",
+      "geometry_status"
+    ],
+    "required_finite_numbers": ["capacity_mw"],
+    "required_integers": ["source_row"],
+    "required_true_booleans": ["capacity_known"],
+    "nullable_iso_dates": [
+      "repd_record_updated",
+      "planning_application_submitted",
+      "planning_application_withdrawn",
+      "planning_permission_granted",
+      "planning_permission_refused",
+      "planning_permission_expired",
+      "under_construction",
+      "operational"
+    ],
+    "nullable_strings": ["repd_old_ref", "coordinate_source"],
+    "nullable_numbers": ["easting", "northing", "longitude", "latitude"],
+    "string_may_be_empty": ["planning_application_reference"],
+    "required_arrays": [
+      "relationships",
+      "direct_related_repd_refs",
+      "planning_sibling_repd_refs",
+      "development_repd_refs"
+    ],
+    "relationship_object": {
+      "required_fields": ["repd_ref", "type", "source_field"],
+      "type_enum": ["CURRENT_VERSION", "PREVIOUS_REPD_REF", "COLOCATED_COMPONENT"],
+      "out_of_scope_targets_allowed": true
+    },
+    "identity_rules": [
+      "gg_project_id equals GG2050-REPD-{repd_ref}",
+      "REPD Ref and GlobalGrid project ID are unique",
+      "development_repd_refs contains the record's own REPD Ref",
+      "co-located records share a development ID but remain separate project rows",
+      "identity_status equals REPD_BOUND and identity_confidence equals authoritative"
+    ]
+  },
+  "lifecycle_views": [
+    {
+      "id": "ALL",
+      "label": "All",
+      "count": 766,
+      "rule": "all records"
+    },
+    {
+      "id": "CURRENT",
+      "label": "Current",
+      "count": 670,
+      "lifecycle_values": ["LIVE_PRE_CONSTRUCTION", "UNDER_CONSTRUCTION", "OPERATIONAL"]
+    },
+    {
+      "id": "DISPUTED",
+      "label": "Disputed",
+      "count": 3,
+      "lifecycle_values": ["UNKNOWN"],
+      "official_status_values": ["Appeal Lodged"]
+    },
+    {
+      "id": "HISTORICAL",
+      "label": "Historical / inactive",
+      "count": 63,
+      "lifecycle_values": ["INACTIVE"]
+    },
+    {
+      "id": "REVIEW",
+      "label": "Review",
+      "count": 30,
+      "lifecycle_values": ["UNKNOWN"],
+      "official_status_values": ["Revised"]
+    }
+  ],
+  "interface": {
+    "default_view": "ALL",
+    "sort": ["capacity_mw descending", "gg_project_id ascending"],
+    "technology_labels_and_units": {
+      "solar": {"label": "Solar", "unit": "MWp"},
+      "bess": {"label": "Battery Storage", "unit": "MW"}
+    },
+    "gauges": [
+      {"id": "solar_mwp", "label": "Solar pipeline", "unit": "MWp", "all_value": 34073.49},
+      {"id": "bess_mw", "label": "BESS pipeline", "unit": "MW", "all_value": 106338.18},
+      {"id": "project_count", "label": "Projects", "unit": "records", "all_value": 766},
+      {"id": "largest_project", "label": "Largest filtered project", "unit": "technology-specific", "all_value": 1450.0}
+    ],
+    "combined_capacity_metric_forbidden": true,
+    "filters": [
+      "technology",
+      "lifecycle_view",
+      "exact_official_status",
+      "county",
+      "region"
+    ],
+    "search_fields": [
+      "name",
+      "operator",
+      "repd_ref",
+      "repd_old_ref",
+      "gg_project_id",
+      "gg_development_id",
+      "planning_application_reference",
+      "planning_authority",
+      "county",
+      "region",
+      "country",
+      "direct_related_repd_refs",
+      "planning_sibling_repd_refs",
+      "development_repd_refs"
+    ],
+    "search_precedence": {
+      "exact_identifier_fields": ["repd_ref", "gg_project_id"],
+      "rule": "An exact REPD Ref or GlobalGrid project ID returns that project before relationship-context fields are searched."
+    },
+    "primary_table_columns": [
+      "Project",
+      "Location",
+      "Operator",
+      "Technology",
+      "Official REPD status",
+      "Capacity with technology-specific unit",
+      "REPD Ref",
+      "GlobalGrid project ID",
+      "Planning reference",
+      "REPD record last updated",
+      "Atlas V8",
+      "Legacy news signal — unverified",
+      "News"
+    ],
+    "primary_table_fields": [
+      {"id": "project", "label": "Project"},
+      {"id": "location", "label": "Location"},
+      {"id": "operator", "label": "Operator"},
+      {"id": "technology", "label": "Technology"},
+      {"id": "official_status", "label": "Official REPD status"},
+      {"id": "capacity", "label": "Capacity with technology-specific unit"},
+      {"id": "repd_ref", "label": "REPD Ref"},
+      {"id": "gg_project_id", "label": "GlobalGrid project ID"},
+      {"id": "planning_reference", "label": "Planning reference"},
+      {"id": "repd_record_updated", "label": "REPD record last updated"},
+      {"id": "atlas", "label": "Atlas V8"},
+      {"id": "legacy_news_signal", "label": "Legacy news signal — unverified"},
+      {"id": "news", "label": "News"}
+    ],
+    "evidence_fields": [
+      "gg_development_id",
+      "identity_status",
+      "identity_confidence",
+      "planning_authority",
+      "repd_record_updated",
+      "lifecycle",
+      "official milestone dates",
+      "relationships",
+      "geometry_status",
+      "source provenance"
+    ],
+    "official_milestone_fields": [
+      "planning_application_submitted",
+      "planning_application_withdrawn",
+      "planning_permission_granted",
+      "planning_permission_refused",
+      "planning_permission_expired",
+      "under_construction",
+      "operational"
+    ],
+    "missing_value_label": "not supplied by REPD",
+    "export": {
+      "scope": "current filtered rows only",
+      "zero_results": "header only",
+      "encoding": "UTF-8 with BOM",
+      "filename_contains": "v9_0",
+      "includes_canonical_identity_and_provenance": true,
+      "includes_technology_specific_unit": true,
+      "null_official_value": "empty CSV field",
+      "columns": [
+        {"id": "site_name", "label": "Site Name"},
+        {"id": "repd_ref", "label": "REPD Ref"},
+        {"id": "gg_project_id", "label": "GlobalGrid Project ID"},
+        {"id": "gg_development_id", "label": "GlobalGrid Development ID"},
+        {"id": "identity_status", "label": "Identity Status"},
+        {"id": "identity_confidence", "label": "Identity Confidence"},
+        {"id": "technology", "label": "Technology"},
+        {"id": "repd_technology", "label": "Official REPD Technology"},
+        {"id": "official_capacity", "label": "Official REPD Capacity"},
+        {"id": "capacity_unit", "label": "Capacity Unit"},
+        {"id": "official_status", "label": "Official REPD Status"},
+        {"id": "derived_lifecycle", "label": "Derived Lifecycle"},
+        {"id": "derived_lifecycle_view", "label": "Derived Lifecycle View"},
+        {"id": "operator", "label": "Operator or Applicant"},
+        {"id": "county", "label": "County"},
+        {"id": "region", "label": "Region"},
+        {"id": "country", "label": "Country"},
+        {"id": "planning_authority", "label": "Planning Authority"},
+        {"id": "planning_reference", "label": "Planning Application Reference"},
+        {"id": "repd_record_updated", "label": "REPD Record Updated"},
+        {"id": "planning_application_submitted", "label": "Planning Application Submitted"},
+        {"id": "planning_application_withdrawn", "label": "Planning Application Withdrawn"},
+        {"id": "planning_permission_granted", "label": "Planning Permission Granted"},
+        {"id": "planning_permission_refused", "label": "Planning Permission Refused"},
+        {"id": "planning_permission_expired", "label": "Planning Permission Expired"},
+        {"id": "under_construction", "label": "Under Construction"},
+        {"id": "operational", "label": "Operational"},
+        {"id": "repd_old_ref", "label": "Old REPD Ref"},
+        {"id": "direct_related_repd_refs", "label": "Direct Related REPD Refs"},
+        {"id": "planning_sibling_repd_refs", "label": "Planning Sibling REPD Refs"},
+        {"id": "development_repd_refs", "label": "Development REPD Refs"},
+        {"id": "relationships_json", "label": "Typed Relationships JSON"},
+        {"id": "geometry_status", "label": "Geometry Status"},
+        {"id": "easting", "label": "Easting"},
+        {"id": "northing", "label": "Northing"},
+        {"id": "source_crs", "label": "Source CRS"},
+        {"id": "longitude", "label": "Longitude"},
+        {"id": "latitude", "label": "Latitude"},
+        {"id": "atlas_url", "label": "Atlas V8 URL"},
+        {"id": "output_crs", "label": "Output CRS"},
+        {"id": "coordinate_transform", "label": "Coordinate Transform"},
+        {"id": "coordinate_use", "label": "Coordinate Use"},
+        {"id": "source_dataset", "label": "Source Dataset"},
+        {"id": "source_row", "label": "Source Row"},
+        {"id": "projects_sha256", "label": "Projects Array SHA-256"},
+        {"id": "source_identity_sha256", "label": "Source Identity SHA-256"},
+        {"id": "source_coordinate_fixture_sha256", "label": "Source Coordinate Fixture SHA-256"},
+        {"id": "source_workbook_sha256", "label": "Source Workbook SHA-256"},
+        {"id": "reconciliation", "label": "Source Reconciliation"},
+        {"id": "legacy_news_signal", "label": "Legacy News Signal — Unverified"},
+        {"id": "legacy_news_note", "label": "Legacy News Note — Unverified"}
+      ]
+    },
+    "mobile": {
+      "widths_px": [390, 430, 440, 768],
+      "document_horizontal_overflow_forbidden": true,
+      "project_table_horizontal_scroll_required": true
+    }
+  },
+  "legacy_news_isolation": {
+    "feed_path": "../../dist/major_project_news_v5.json",
+    "fixture_path": "uk_renewables_pipeline/v7/fixtures/v5/major_project_news_v5.json",
+    "fixture_sha256": "0268087daab2a69bddff4167b2e38d5c89ff70bf36a6c4495ae8becca8c7bd87",
+    "item_count": 125,
+    "solar_count": 69,
+    "bess_count": 56,
+    "finance_count": 34,
+    "plugin_sha256": "938c662a4ca461107f3f0851c70dd09bc29d0103ed1517a49920cb7ccbd06417",
+    "authority": "external legacy intelligence — unverified",
+    "rules": [
+      "V7.2 does not change discovery, matching, scoring, filtering or article order",
+      "a legacy signal never changes official status, capacity, identity, lifecycle or dates",
+      "there is no requirement that all 766 canonical records receive a legacy signal",
+      "project-data failure and newspaper failure remain independent",
+      "trusted project-event binding is V7.3 scope"
+    ]
+  },
+  "geometry": {
+    "canonical_json_rule": "all 766 official records remain searchable and exportable regardless of geometry",
+    "geojson_rule": "only valid WGS84 geometries are included",
+    "feature_id": "gg_project_id",
+    "use": "market map context only; never grid-connection or cadastral evidence",
+    "failure_rule": "missing or failed GeoJSON must not empty the project table"
+  },
+  "acceptance_examples": [
+    {"query": "13599", "expected_records": 1, "expected_repd_refs": ["13599"]},
+    {"query": "GG2050-REPD-13599", "expected_records": 1, "expected_repd_refs": ["13599"]},
+    {"query": "GG2050-DEV-E13842D4D80DEC", "expected_records": 2, "expected_repd_refs": ["13599", "13600"]},
+    {"query": "EN010151", "expected_records": 2, "expected_repd_refs": ["13599", "13600"]},
+    {"query": "Beacon Fen", "expected_records": 2, "expected_repd_refs": ["13599", "13600"]}
+  ],
+  "promotion_gates": {
+    "spec_phase": [
+      "all canonical data, schema, count, lifecycle, identity, geometry and legacy-news isolation assertions pass",
+      "V7.1 remains visibly and byte-for-byte unchanged",
+      "contract status remains SPECIFICATION_ONLY_UI_NOT_LIVE"
+    ],
+    "integrated_phase": [
+      "contract status advances to LIVE_CANDIDATE only in the implementation commit",
+      "visible version and manifest advance to 7.2",
+      "runtime project source changes to same-origin canonical JSON",
+      "all interaction, export, failure-isolation, mobile and search examples pass in a browser",
+      "exact committed SHA and deployed production bytes pass before live status"
+    ]
+  },
+  "deferred": {
+    "trusted_news_and_events": "7.3",
+    "market_analytics": "7.4",
+    "grid_watch": "7.5",
+    "ci_solar_and_ev": "7.6",
+    "interactive_map_project_pages_and_evidence_drawers": "7.7",
+    "worldwide_replication": "7.8",
+    "scheduled_writer_and_operations": "7.9"
+  }
+}

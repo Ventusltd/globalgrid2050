@@ -1,0 +1,37 @@
+/* Local, prefix-scoped V9.24-compatible dark/monospace presentation; no global CSS. */
+.ggdc-component { color: #e3eded; background: #070d10; font: 13px/1.45 ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace; min-width: 0; }
+.ggdc-component * { box-sizing: border-box; }
+.ggdc-title { margin: 0 0 .4rem; color: #62e7ed; font-size: 1rem; letter-spacing: .04em; }
+.ggdc-intro { color: #f4df73; margin: 0 0 .5rem; }
+.ggdc-muted, .ggdc-id, .ggdc-stamp { color: #97adb2; font-size: .78rem; }
+.ggdc-id, .ggdc-stamp { display: block; margin-top: .2rem; overflow-wrap: anywhere; }
+.ggdc-toolbar, .ggdc-filters { display: flex; flex-wrap: wrap; align-items: flex-end; gap: .45rem; margin: .7rem 0; }
+.ggdc-component button, .ggdc-component select, .ggdc-component input { font: inherit; color: #e3eded; background: #101c20; border: 1px solid #577279; border-radius: 2px; padding: .42rem .55rem; max-width: 100%; }
+.ggdc-component input { width: min(24rem, 100%); }
+.ggdc-component button { cursor: pointer; min-height: 37px; }
+.ggdc-component button[aria-pressed="true"] { border-color: #62e7ed; color: #62e7ed; text-decoration: underline; text-underline-offset: 3px; }
+.ggdc-component button:focus-visible, .ggdc-component input:focus-visible, .ggdc-component select:focus-visible,
+.ggdc-component a:focus-visible, .ggdc-scroll:focus-visible { outline: 2px solid #f4df73; outline-offset: 2px; }
+.ggdc-filters label { display: flex; flex-direction: column; gap: .25rem; }
+.ggdc-component [hidden] { display: none !important; }
+.ggdc-status { color: #62e7ed; margin: .5rem 0; }
+.ggdc-error { color: #ffc88c; border-left: 2px solid currentColor; padding: .45rem; }
+.ggdc-scroll { max-width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; border: 1px solid #28444c; }
+.ggdc-table { width: 100%; min-width: 790px; border-collapse: collapse; text-align: left; }
+.ggdc-table th { position: sticky; top: 0; background: #142328; color: #f4df73; font-weight: 700; }
+.ggdc-table th, .ggdc-table td { border-bottom: 1px solid #294047; padding: .5rem .6rem; vertical-align: top; }
+.ggdc-table tbody tr:hover { background: #111e23; }
+.ggdc-identity { font-weight: 650; min-width: 9rem; }
+.ggdc-evidence { display: flex; flex-direction: column; gap: .3rem; min-width: 8rem; }
+.ggdc-source { color: #63e2ed; text-decoration: underline; text-underline-offset: 2px; }
+.ggdc-empty { padding: 1rem .4rem; }
+@media (max-width: 600px) {
+  .ggdc-component { font-size: 12px; }
+  .ggdc-toolbar { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .ggdc-tab { text-align: left; font-size: 11px !important; min-width: 0; }
+  .ggdc-filters { align-items: stretch; }
+  .ggdc-filters label { flex: 1 1 100%; }
+  .ggdc-component input, .ggdc-component select { width: 100%; }
+  .ggdc-download { width: 100%; }
+  .ggdc-table { min-width: 720px; }
+}

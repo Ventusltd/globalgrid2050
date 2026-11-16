@@ -5,10 +5,13 @@
       copies the newest registered version to uk_renewables_pipeline/<new id>/, relabels
       index.html, README.md and the check script, and writes tests/run_v9_NN.sh pinned
       to the parent's tree hash. Then edit the new folder.
-  new_version.py finalize <new id> "<what it added>" [--fault "<known fault>"]... [--feature id:file:marker]... [--migrate-feature solar1000-inline-v1] [--state release_candidate_publication_blocked]
+  new_version.py finalize <new id> "<what it added>" [--fault "<known fault>"]... [--feature id:file:marker]... [--migrate-feature <audited-contract>]... [--state release_candidate_publication_blocked]
       lists every changed, new and removed file in the runner, and records the version
       (tree hash, features, faults) in registry.json. Only an unpublished candidate
       at the registry tail may be re-finalized; published records are immutable.
+      Audited contracts: solar1000-inline-v1, news-priority-internal-v1,
+      research-priority-internal-v1 and global-dc-ui-v928-v1. Each flag occurs
+      once; research expands to both exact inherited V9.27 feature identities.
 
 Published folders are never edited: create only ever writes a new folder.
 """
@@ -18,7 +21,7 @@ import sys
 from datetime import datetime, timezone
 
 from common import PIPELINE, HERE, load_registry, save_registry, tree_hash, walk
-from feature_contracts import SOLAR_MIGRATION
+from feature_contracts import SOLAR_MIGRATION, KNOWN_MIGRATIONS, MIGRATION_FLAGS
 
 RUNNER_TEMPLATE = (HERE / "runner_template.sh").read_text(encoding="utf-8")
 
@@ -29,6 +32,19 @@ def write_text(path, text):
 
 def num(version):  # "V9.14" -> "9_14"
     return version.lstrip("V").replace(".", "_")
+
+
+def migration_records(flags):
+    """Expand explicit audited flags; reject unknown/repeated features."""
+    records = []
+    for flag in flags:
+        if flag not in MIGRATION_FLAGS:
+            raise ValueError("Unknown or duplicate feature migration")
+        incoming = MIGRATION_FLAGS[flag]
+        if any(m["id"] in {old["id"] for old in records} for m in incoming):
+            raise ValueError("Unknown or duplicate feature migration")
+        records.extend(dict(m) for m in incoming)
+    return records
 
 
 def create(new_id, version, title, state="BUILD", dry_run=False):
@@ -83,8 +99,9 @@ def finalize(new_id, added, faults, features, state="published", feature_migrati
     assert not registered or (len(registered) == 1 and parent["id"] == new_id), "already registered; historical records cannot be rewritten"
     if feature_migrations is None:
         feature_migrations = parent.get("feature_migrations", []) if parent["id"] == new_id else []
-    assert isinstance(feature_migrations, list) and len(feature_migrations) <= 1 and all(
-        migration == SOLAR_MIGRATION for migration in feature_migrations), "unknown or duplicate feature migration"
+    assert isinstance(feature_migrations, list) and all(
+        migration in KNOWN_MIGRATIONS for migration in feature_migrations), "unknown feature migration"
+    assert len({migration["id"] for migration in feature_migrations}) == len(feature_migrations), "duplicate feature migration"
     if parent["id"] == new_id:
         assert parent.get("state", "").startswith("release_candidate_") and state.startswith("release_candidate_"), "already registered; published records cannot be rewritten"
         reg["versions"].pop()
@@ -121,7 +138,7 @@ if __name__ == "__main__":
         create(*args[1:], dry_run=dry_run)
     elif args[:1] == ["finalize"] and len(args) >= 3 and not dry_run:
         rest, faults, features = args[3:], [], []
-        state, migrations = "published", None
+        state, migrations, migration_flags = "published", None, []
         while rest:
             if len(rest) < 2 or rest[0] not in {"--fault", "--feature", "--state", "--migrate-feature"}:
                 sys.exit("Expected --fault, --feature, --state or --migrate-feature and value")
@@ -129,9 +146,11 @@ if __name__ == "__main__":
             if flag == "--state":
                 state = value
             elif flag == "--migrate-feature":
-                if value != SOLAR_MIGRATION["contract"] or migrations is not None:
-                    sys.exit("Unknown or duplicate feature migration")
-                migrations = [dict(SOLAR_MIGRATION)]
+                migration_flags.append(value)
+                try:
+                    migrations = migration_records(migration_flags)
+                except ValueError as exc:
+                    sys.exit(str(exc))
             else:
                 (faults if flag == "--fault" else features).append(value)
         finalize(args[1], args[2], faults, features, state=state, feature_migrations=migrations)

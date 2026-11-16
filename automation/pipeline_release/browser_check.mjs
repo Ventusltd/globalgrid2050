@@ -63,13 +63,14 @@ const PROBES = process.env.PROBES_FILE ? JSON.parse(readFileSync(process.env.PRO
  * inside it; `js` is an expression that must be true in the page. The row's MAP href is returned so the caller can compare it with the contract. */
 async function runProbe(evaluate, probe) {
   if (probe.search != null) {
+    await evaluate("document.querySelector('#solarTab')?.click(); document.querySelector('#clearFilters')?.click()");
     await evaluate(`(() => { const i = document.querySelector('#search'); i.value = ${JSON.stringify(String(probe.search))}; i.dispatchEvent(new Event('input', { bubbles: true })); })()`);
     await sleep(1500);
   }
-  const result = await evaluate(`((p) => {
+  const result = await evaluate(`(async (p) => {
     const scope = p.row ? document.getElementById(p.row) : document;
     if (!scope) return { pass: false, detail: 'row not drawn: ' + p.row };
-    if (p.js) { let ok = false; try { ok = !!(0, eval)(p.js); } catch (e) { ok = false; } return { pass: ok, detail: ok ? '' : 'expression is not true: ' + p.js }; }
+    if (p.js) { let ok = false; try { ok = !!(await (0, eval)(p.js)); } catch (e) { ok = false; } return { pass: ok, detail: ok ? '' : 'expression is not true: ' + p.js }; }
     const node = scope.querySelector(p.selector);
     if (!node) return { pass: false, detail: 'element not found: ' + p.selector };
     const text = node.textContent, faults = [];
@@ -98,6 +99,7 @@ async function visitBlocked(id, probe) {
   let complete = false;
   for (let i = 0; i < 240 && !complete; i += 1) { await sleep(250); complete = await evaluate("document.querySelector('#tbody')?.dataset.complete === 'true'").catch(() => false); }
   await sleep(1500);
+  await evaluate("document.querySelector('#clearFilters')?.click()");
   const meta = await evaluate("document.querySelector('#resultsMeta')?.textContent || ''");
   const result = await runProbe(evaluate, probe);
   if (!/of 7,775 records/.test(meta)) { result.pass = false; result.detail = `${result.detail}; table did not complete with the file blocked: ${meta}`; }
@@ -135,6 +137,10 @@ async function visit(id, vp) {
     complete = await evaluate("document.querySelector('#tbody')?.dataset.complete === 'true'").catch(() => false);
   }
   await sleep(Number(process.env.SETTLE_MS || 2500));
+  // Compare the complete official register/CSV across versions, even when a
+  // successor opens its Solar tab by default. Category behavior has its own probes.
+  await evaluate("document.querySelector('#clearFilters')?.click()");
+  await sleep(100);
   const state = await evaluate(`(() => {
     const q = (s) => document.querySelector(s);
     const meta = q('#resultsMeta')?.textContent || '';

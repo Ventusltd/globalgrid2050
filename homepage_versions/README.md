@@ -1792,3 +1792,13 @@ Measurement: required [restore-point workflow 43912722156](https://github.com/Ve
 Metrics: 69 lines, 3609 words, 54606 characters, 54621 bytes; SHA-256 `8ab7d86ac91285fce2d4e433cb4702d9b38018288c92028e909a750738b9711b`. Candidate imported root: `d178ed844cede23018321841f8202e6af8c2754325d1fcd53c80a58b9b5d5cc8`; source-index and imported-root hashes deliberately differ because the importer rewrites asset/catalogue paths.
 
 Rollback: restore `catalogue/homepage-owner.json` from `42fdb5af4b1479507b38cf8142dba5da1a238fa0`, deploy through the established process, and compare the served root with `homepage_v141.html`. Historical product folders and generated-root source remain untouched.
+
+## Version 142
+
+Pre-edit restore point: `homepage_v142.html`; measurements: `homepage_v142-metrics.json`. On 16 November 2026 at 23:00 UTC, the actual served root matched the unchanged production import transformation of all seven SHA-256-verified files at owner `1a343b8d8e70b4f9e2298e7870f129cbd32db896`, pinned by product main `65bcc01e0d7e4dc073e759345727e53cf7a95752`.
+
+Intention: preserve the V9.24-selected homepage before the owner-authorized V9.28 publication. The separately rejected homepage PR #20 remains unmerged. The required [restore-point workflow 43974767351](https://github.com/Ventusltd/globalgrid2050/actions/runs/43974767351) passed on the exact pre-edit main. No older snapshot was overwritten.
+
+Metrics: 69 lines, 3,608 words, 54,612 characters, 54,627 bytes; SHA-256 `d178ed844cede23018321841f8202e6af8c2754325d1fcd53c80a58b9b5d5cc8`. Source owner index and transformed public root hashes intentionally differ.
+
+Rollback: restore the prior owner pin `1a343b8d8e70b4f9e2298e7870f129cbd32db896`, deploy through the existing importer/Pages process, verify all seven served files, and compare the root with `homepage_v142.html`. Pipeline V9.24 and all earlier dated editions remain immutable.

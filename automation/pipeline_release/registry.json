@@ -762,6 +762,32 @@
           "contract": "solar1000-inline-v1"
         }
       ]
+    },
+    {
+      "id": "202611161734",
+      "version": "V9.26",
+      "parent": "202611161630",
+      "date": "2026-11-16T17:34:00Z",
+      "added": "Source-aware news priority keeps every credited headline, gives relevant primary sources useful prominence and limits publisher repetition; validates ranking against exact feed bytes and labels fallbacks honestly.",
+      "data_changed": false,
+      "runner": "tests/run_v9_26.sh",
+      "trees": [
+        "66616800b2a865e506508fb6e7d991ea435f94e9"
+      ],
+      "features": [
+        {
+          "id": "news-editorial-priority",
+          "file": "scripts/plugins/live-news.js",
+          "contains": "globalgrid2050.news.headline-priority.v1"
+        }
+      ],
+      "known_faults": [
+        "Live editorial priority requires a successful existing headlines refresh; absent or mismatched sidecar uses an explicitly labelled date-order fallback.",
+        "Project evidence remains disabled with zero independently verified findings; Global DC coverage remains a partial set of 12 sourced leads."
+      ],
+      "ci": null,
+      "merge_commit": null,
+      "state": "release_candidate_news_priority"
     }
   ],
   "size_budget_mb": 18,

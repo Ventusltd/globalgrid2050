@@ -27,8 +27,17 @@ test "$actual_tree" = "$PARENT_TREE" || { echo "parent $PARENT_ID tree is $actua
 
 # WHAT THIS VERSION CHANGES FROM ITS PARENT, NAMED ONE FILE AT A TIME.
 CHANGED_FROM_PARENT=(
+  CHANGES.md
+  README.md
+  index.html
+  scripts/plugins/live-news.js
+  styles/v9-26.css
+  tests/check_v9_26.mjs
+  tests/run_v9_26.sh
 )
 REMOVED_FROM_PARENT=(
+  tests/check_v9_25.mjs
+  tests/run_v9_25.sh
 )
 is_listed() {
   local needle="$1"; shift

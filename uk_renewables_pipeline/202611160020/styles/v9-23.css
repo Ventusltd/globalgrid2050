@@ -15,3 +15,8 @@
 .machine-note-cell{min-width:180px;max-width:230px}
 .machine-note-button[data-note-candidate="possible"]{border-color:#b28436;background:#373022;color:#fff1c8}
 @media(max-width:768px){.mobile-machine-note{max-width:min(100%,280px);white-space:normal;text-align:left}}
+
+/* Two compact lines: event/date plus the source's headline fragment (max ten words). */
+.machine-note-kind,.machine-note-headline{display:block;max-width:100%;white-space:normal}
+.machine-note-kind{font:700 11px/1.35 ui-monospace,monospace;letter-spacing:.01em}
+.machine-note-headline{font:400 12px/1.4 system-ui,sans-serif;margin-top:3px;overflow-wrap:anywhere}

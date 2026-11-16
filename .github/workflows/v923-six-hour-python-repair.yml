@@ -2,6 +2,10 @@ name: V9.23 six-hour Python repair and release gates
 # GitHub Actions, every 30 minutes. One fresh capped job, no background AI session.
 # Only builds/updates a nonlive candidate branch. Never deploys or changes homepage.
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/v923-six-hour-python-repair.yml'
   schedule:
     - cron: '0,30 * * * *'
   workflow_dispatch:

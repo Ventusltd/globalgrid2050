@@ -93,3 +93,7 @@ reject('baseline source identity lost', x => x.baseline.records[0].id='DC-WD-Q99
 reject('source rights removed', x => x.projects.records[0].source.licence='UNKNOWN');
 reject('timestamp fabricated', x => x.projects.records[0].source.retrieved_at='unknown');
 reject('official source mutated to bad URL', x => x.official.projects[0].source_document.url='https://user:pass@example.org/');
+
+reject('baseline original semantic name changed', x => x.baseline.records[0].name='Misidentified site');
+reject('baseline original operator changed', x => x.baseline.records[0].operator='Unverified new operator');
+reject('baseline original source revision tampered', x => x.baseline.records[0].source.revision=1);

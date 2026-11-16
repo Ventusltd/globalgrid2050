@@ -15,6 +15,7 @@ function fixture(){
   return {body,pointer:{schema,generated_at:generated,snapshot:'snapshot_20261116T163000Z',json:'snapshot_20261116T163000Z/evidence.json',sha256:{'evidence.json':createHash('sha256').update(body).digest('hex')},project_count:1000,evidence_count:1,review_required:true}};
 }
 async function installRoutes(page,mode='valid'){
+  const localOrigin=new URL(test.info().project.use.baseURL).origin;
   const f=fixture();
   if(mode==='bad-digest')f.pointer.sha256['evidence.json']='0'.repeat(64);
   const data=JSON.parse(f.body);
@@ -56,7 +57,7 @@ async function installRoutes(page,mode='valid'){
       return route.fulfill({contentType:'application/json',body:JSON.stringify(f.pointer)});
     }
     if(url===new URL(f.pointer.json,pointerURL).href)return route.fulfill({contentType:'application/json',body:f.body});
-    if(url.startsWith('http://127.0.0.1:4173/'))return route.continue();
+    if(url.startsWith(localOrigin+'/'))return route.continue();
     // Keep browser smoke deterministic. External service availability is a
     // separate live gate, never inferred from these intercepted test responses.
     return route.abort();
@@ -152,7 +153,9 @@ test('one pipeline switches datasets without changing UK filters, totals or expo
   await expect(page.locator('#globalProjectPanel')).toBeVisible();
   await expect(page.locator('#ukProjectsPanel')).toBeHidden();
   await expect(page.locator('#globalDatacentres')).toBeVisible();
-  await page.locator('#officialRegister').screenshot({path:testInfo.outputPath('global-pipeline.png')});
+  await expect(page.locator('#globalDcCount')).toHaveText('12 of 12 sites shown');
+  await page.locator('#officialRegister').evaluate(node=>node.scrollIntoView({block:'start',behavior:'instant'}));
+  await page.screenshot({path:testInfo.outputPath('global-pipeline.png')});
   await global.press('ArrowLeft');
   await expect(uk).toBeFocused();
   await expect(uk).toHaveAttribute('aria-selected','true');
@@ -162,5 +165,49 @@ test('one pipeline switches datasets without changing UK filters, totals or expo
   await global.click();await uk.click();
   await expect(page.locator('[data-technology="bess"]')).toHaveAttribute('aria-pressed','true');
   await page.locator('#clearFilters').click();
+  await expect(page.locator('#resultsMeta')).toContainText('7,775');
+});
+
+test('global data centres keep sourced identities, country filters and unknown capacities',async({page},testInfo)=>{
+  await installRoutes(page);await ready(page);
+  await page.getByRole('tab',{name:'Global data centres',exact:true}).click();
+  const cards=page.locator('#globalDatacentres [data-dc-id]');
+  await expect(cards).toHaveCount(12);
+  await expect(page.locator('#globalDatacentres')).toContainText('12 source-indexed sites in 10 countries');
+  await expect(page.locator('#globalDatacentres')).toContainText('not a comprehensive worldwide register');
+  await page.locator('#globalDcSearch').fill('Utah');
+  await expect(cards).toHaveCount(1);
+  await expect(cards.first()).toHaveAttribute('data-dc-id','DC-WD-Q12857142');
+  await expect(cards.first()).toContainText('IT load: not reported');
+  await expect(cards.first().locator('a[href*="openstreetmap.org"]')).toHaveAttribute('target','_blank');
+  await expect(cards.first().locator('a[href*="wikidata.org/w/index.php"]')).toHaveAttribute('href',/oldid=\d+/);
+  await page.locator('#globalDcSearch').fill('');
+  await page.locator('#globalDcCountry').selectOption('Q668');
+  await expect(cards).toHaveCount(1);
+  await expect(cards.first()).toContainText('Yotta NM1');
+  await expect(cards.first()).toContainText('Map unavailable');
+  await expect(cards.first().locator('a[href*="openstreetmap.org"]')).toHaveCount(0);
+  await page.locator('#globalDcCountry').selectOption('Q39');
+  await expect(cards.first()).toContainText('Swiss Fort Knox');
+  await expect(cards.first()).toContainText('approximate source point');
+  await page.locator('#globalDcCountry').selectOption('');
+  await page.locator('#globalDcSearch').fill('no such fixture site');
+  await expect(cards).toHaveCount(0);
+  await expect(page.locator('#globalDcCount')).toHaveText('0 of 12 sites shown');
+  await page.locator('#globalDcSearch').fill('');
+  await page.locator('#officialRegister').evaluate(node=>node.scrollIntoView({block:'start',behavior:'instant'}));
+  await page.screenshot({path:testInfo.outputPath('global-data-centres.png')});
+  await page.getByRole('tab',{name:'UK projects',exact:true}).click();
+  await expect(page.locator('#resultsMeta')).toContainText('7,775');
+});
+
+test('global dataset failure leaves UK register available and does not invent sites',async({page})=>{
+  await installRoutes(page);
+  await page.route('**/global-datacentres/projects.json',route=>route.fulfill({status:503,body:'unavailable'}));
+  await ready(page);
+  await page.getByRole('tab',{name:'Global data centres',exact:true}).click();
+  await expect(page.locator('#globalDatacentres .gdc-error')).toContainText('unavailable');
+  await expect(page.locator('#globalDatacentres [data-dc-id]')).toHaveCount(0);
+  await page.getByRole('tab',{name:'UK projects',exact:true}).click();
   await expect(page.locator('#resultsMeta')).toContainText('7,775');
 });

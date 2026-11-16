@@ -13,6 +13,9 @@ The interface has one News block followed by one Pipeline block. Evidence lives
 inside the UK table's project-record details; there is no separate Solar-1000
 list. Tests also exercise keyboard and pointer switching between UK projects
 and Global data centres while preserving UK technology filters and totals.
+The global tab tests use the committed sourced 12-site sample, covering country
+search, provenance links, unknown capacities, unavailable coordinates and an
+explicitly approximate map point. They also simulate a failed data request.
 
 Evidence and accepted-rights receipts are generated in memory and explicitly
 use **TEST FIXTURE ONLY** titles and `example.org/test-only-*` URLs. The synthetic

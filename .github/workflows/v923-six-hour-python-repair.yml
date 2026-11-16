@@ -91,6 +91,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh workflow run verify-pipeline-versions.yml --ref agent10/v923-six-hour-repair-20261116
+      - name: Refresh the existing Python ONE-FEED headline collector (six-hour scope only)
+        if: steps.window.outputs.active == 'true'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run pipeline-headlines.yml --ref main
       - name: Publish failures AND passing evidence to release issue (not homepage)
         if: always() && steps.window.outputs.active == 'true'
         continue-on-error: true

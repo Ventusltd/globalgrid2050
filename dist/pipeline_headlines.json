@@ -1,6 +1,6 @@
 {
  "schema": "globalgrid2050.news.pipeline-headlines.v1",
- "generated_at": "2026-11-15T21:13:18Z",
+ "generated_at": "2026-11-16T00:34:57Z",
  "status": "ok",
  "counts": {
   "items": 68,
@@ -30,17 +30,17 @@
    "url": "https://feeds.bbci.co.uk/news/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 30,
+   "entries": 33,
    "kept": 0,
-   "newest": "2026-11-15T20:03:08Z"
+   "newest": "2026-11-16T00:03:29Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/uk/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 24,
+   "entries": 28,
    "kept": 0,
-   "newest": "2026-11-15T17:15:46Z"
+   "newest": "2026-11-15T22:23:57Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
@@ -48,7 +48,7 @@
    "status": "ok",
    "entries": 57,
    "kept": 1,
-   "newest": "2026-11-15T14:56:21Z"
+   "newest": "2026-11-15T22:30:03Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/technology/rss.xml",
@@ -56,7 +56,7 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "newest": "2026-11-15T14:56:21Z"
+   "newest": "2026-11-15T22:24:20Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -72,7 +72,7 @@
    "status": "ok",
    "entries": 61,
    "kept": 0,
-   "newest": "2026-11-15T13:06:15Z"
+   "newest": "2026-11-15T22:30:03Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/rss.xml",
@@ -88,23 +88,23 @@
    "status": "ok",
    "entries": 36,
    "kept": 2,
-   "newest": "2026-11-15T20:53:34Z"
+   "newest": "2026-11-15T21:48:10Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/wales/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 29,
+   "entries": 30,
    "kept": 0,
-   "newest": "2026-11-15T19:10:43Z"
+   "newest": "2026-11-15T21:52:17Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/northern_ireland/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 30,
+   "entries": 35,
    "kept": 0,
-   "newest": "2026-11-15T20:52:12Z"
+   "newest": "2026-11-16T00:01:55Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/oxford/rss.xml",
@@ -398,9 +398,9 @@
    "url": "https://www.bloomberg.com/feeds/technology/news.rss",
    "source": "Bloomberg",
    "status": "ok",
-   "entries": 17,
-   "kept": 2,
-   "newest": "2026-11-15T20:16:10Z"
+   "entries": 20,
+   "kept": 1,
+   "newest": "2026-11-16T00:31:46Z"
   },
   {
    "url": "https://www.bloomberg.com/feeds/markets/news.rss",
@@ -408,7 +408,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 1,
-   "newest": "2026-11-15T21:00:00Z"
+   "newest": "2026-11-16T00:18:05Z"
   },
   {
    "url": "https://www.bloomberg.com/feeds/industries/news.rss",
@@ -416,7 +416,7 @@
    "status": "ok",
    "entries": 11,
    "kept": 0,
-   "newest": "2026-11-15T19:42:57Z"
+   "newest": "2026-11-15T23:15:39Z"
   },
   {
    "url": "https://www.pv-magazine.com/feed/",

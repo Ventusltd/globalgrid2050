@@ -1,0 +1,86 @@
+name: V9.24 Python release build and independent CI
+on:
+  push:
+    branches: [release/v924-agent11-solar1000-20261116]
+    paths:
+      - 'automation/v924_release/**'
+      - '.github/workflows/v924-python-release.yml'
+  pull_request:
+    paths:
+      - 'automation/v924_release/**'
+      - 'uk_renewables_pipeline/202611161250/**'
+      - 'automation/pipeline_release/registry.json'
+      - '.github/workflows/v924-python-release.yml'
+permissions:
+  contents: read
+concurrency:
+  group: v924-release-build
+  cancel-in-progress: false
+jobs:
+  build:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: true
+          sparse-checkout: |
+            /automation/
+            /uk_renewables_pipeline/20261*/
+            /uk_renewables_pipeline/versions.*
+            /dist/major_project_news_v9_5_1.json
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Generate V9.24 and run Python + browser/CSV/MAP checks
+        run: |
+          python automation/v924_release/build.py
+          python automation/v924_release/verify.py
+      - name: Commit release files and provenance to isolated branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add automation/pipeline_release/registry.json uk_renewables_pipeline/
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "release(v9.24): immutable Python-built Solar-1000 candidate"
+          git push origin HEAD:release/v924-agent11-solar1000-20261116
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v924-python-evidence
+          path: |
+            uk_renewables_pipeline/202611161250/CHANGES.md
+            uk_renewables_pipeline/202611161250/docs/V924-SOLAR1000-RELEASE.md
+          retention-days: 30
+  acceptance:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            /automation/
+            /uk_renewables_pipeline/20261*/
+            /uk_renewables_pipeline/versions.*
+            /dist/major_project_news_v9_5_1.json
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python automation/v924_release/verify.py
+      - run: python automation/pipeline_release/verify.py --browser --check

@@ -1,0 +1,108 @@
+name: V9.23 real MAP to GridAtlas engine 390 + 1440
+# Independent behavioural receipts, not a URL-only or HTTP200 proof.
+# Runs every 30 minutes within the owner's six-hour window. NO product writes.
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/v923-gridatlas-real-map-qa.yml'
+  schedule:
+    - cron: '0,30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: v923-map-behaviour-six-hour-window
+  cancel-in-progress: false
+
+jobs:
+  visible-nearest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Fixed UTC window gate
+        id: window
+        run: |
+          python3 - <<'PY'
+          from datetime import datetime,timezone
+          import os
+          now=datetime.now(timezone.utc)
+          active=datetime(2026,11,16,0,0,tzinfo=timezone.utc)<=now<datetime(2026,11,16,6,15,tzinfo=timezone.utc)
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('active='+str(active).lower()+'\n')
+          print(now.isoformat(),'active',active)
+          PY
+      - uses: actions/checkout@v4
+        if: steps.window.outputs.active == 'true'
+        with:
+          ref: agent10/v923-six-hour-repair-20261116
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        if: steps.window.outputs.active == 'true'
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        if: steps.window.outputs.active == 'true'
+        with:
+          node-version: '22'
+      - name: Browser dependencies for the pinned V9.23 harness
+        if: steps.window.outputs.active == 'true'
+        working-directory: uk_renewables_pipeline/202611160020
+        run: |
+          npm ci --ignore-scripts
+          npx playwright install --with-deps chromium
+      - name: Actual mobile and desktop MAP click, receiver compose and visible nearest
+        id: map
+        if: steps.window.outputs.active == 'true'
+        shell: bash
+        run: |
+          set +e
+          mkdir -p "$RUNNER_TEMP/v923-real-map"
+          python3 -m http.server 8765 --bind 127.0.0.1 >"$RUNNER_TEMP/v923-real-map/http.log" 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID 2>/dev/null || true' EXIT
+          sleep 2
+          source_sha="$(git rev-parse HEAD)"
+          echo "ACTUAL_SOURCE_SHA=$source_sha" >> "$GITHUB_ENV"
+          export AGENT7_PIPELINE_SOURCE=http://127.0.0.1:8765/uk_renewables_pipeline/202611160020/
+          export AGENT7_ENGINE_MODE=local
+          export AGENT7_ENGINE_SAMPLE_LIMIT=3
+          export AGENT7_ENGINE_WAIT_MS=85000
+          export AGENT7_ENGINE_REPORT_DIR="$RUNNER_TEMP/v923-real-map/390"
+          GITHUB_SHA="$source_sha" AGENT7_ENGINE_WIDTH=390 node uk_renewables_pipeline/202611160020/tests/browser_real_map_to_engine_agent7.mjs >"$RUNNER_TEMP/v923-real-map/390.log" 2>&1
+          mobile=$?
+          export AGENT7_ENGINE_REPORT_DIR="$RUNNER_TEMP/v923-real-map/1440"
+          GITHUB_SHA="$source_sha" AGENT7_ENGINE_WIDTH=1440 node uk_renewables_pipeline/202611160020/tests/browser_real_map_to_engine_agent7.mjs >"$RUNNER_TEMP/v923-real-map/1440.log" 2>&1
+          desktop=$?
+          printf 'SOURCE_SHA=%s\nMOBILE_390_EXIT=%s\nDESKTOP_1440_EXIT=%s\n' "$source_sha" "$mobile" "$desktop" | tee "$RUNNER_TEMP/v923-real-map/verdict.env"
+          if (( mobile != 0 || desktop != 0 )); then
+            echo "REAL ENGINE USER-VISIBLE CHECK RED. Logs, screenshots and JSON preserved."
+            exit 1
+          fi
+      - name: Report exact outcome in product release issue, no fake green
+        if: always() && steps.window.outputs.active == 'true'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MAP_OUTCOME: ${{ steps.map.outcome }}
+        run: |
+          {
+            echo "[V9.23 REAL MAP CI] 390px + 1440px — $MAP_OUTCOME"
+            echo "Run: https://github.com/Ventusltd/globalgrid2050/actions/runs/$GITHUB_RUN_ID"
+            echo "Exact candidate checkout: ${ACTUAL_SOURCE_SHA:-UNKNOWN}"
+            echo "Real external receiver: https://ventusltd.github.io/gridatlas/atlas/"
+            echo "No destination/interceptor mocks; V9.23 source is locally served."
+            if test -e "$RUNNER_TEMP/v923-real-map/verdict.env"; then cat "$RUNNER_TEMP/v923-real-map/verdict.env"; fi
+            echo "This is a 3-technology partial sample only, not 7,775-case approval."
+            echo "A hidden nearest result is not a visible result. GridAtlas still requires independent receiver-owner acceptance."
+          } > "$RUNNER_TEMP/v923-map-comment.txt"
+          gh issue comment 121 --repo Ventusltd/globalgrid2050 --body-file "$RUNNER_TEMP/v923-map-comment.txt"
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.window.outputs.active == 'true'
+        with:
+          name: v923-real-grid-engine-${{ github.run_id }}
+          path: ${{ runner.temp }}/v923-real-map/
+          retention-days: 14

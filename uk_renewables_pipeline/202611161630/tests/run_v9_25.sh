@@ -16,17 +16,29 @@ PARENT_TREE="2d109396cdef80302914045b5330e4f7007e5830"
 
 SCRATCH="$(mktemp -d)"
 trap 'rm -rf "$SCRATCH"' EXIT
-git init -q --bare "$SCRATCH/objects.git"
-(cd "$ROOT" && find "uk_renewables_pipeline/$PARENT_ID" -type f -not -path '*/__pycache__/*' -not -name '*.pyc' -not -path '*/node_modules/*' | sort) \
-  | GIT_DIR="$SCRATCH/objects.git" GIT_WORK_TREE="$ROOT" GIT_INDEX_FILE="$SCRATCH/index" \
-    git -C "$ROOT" -c core.autocrlf=false update-index --add --stdin
-actual_tree="$(GIT_DIR="$SCRATCH/objects.git" GIT_INDEX_FILE="$SCRATCH/index" git write-tree --prefix="uk_renewables_pipeline/$PARENT_ID/")"
+actual_tree="$(python - "$ROOT" "$PARENT_ID" <<'PYTREE'
+import sys
+sys.path.insert(0, sys.argv[1] + "/automation/pipeline_release")
+from common import tree_hash
+print(tree_hash(sys.argv[2]))
+PYTREE
+)"
 test "$actual_tree" = "$PARENT_TREE" || { echo "parent $PARENT_ID tree is $actual_tree, expected $PARENT_TREE" >&2; exit 1; }
 
 # WHAT THIS VERSION CHANGES FROM ITS PARENT, NAMED ONE FILE AT A TIME.
 CHANGED_FROM_PARENT=(
+  CHANGES.md
+  README.md
+  index.html
+  scripts/plugins/evidence-v925.js
+  scripts/plugins/solar1000-v924.js
+  styles/v9-25.css
+  tests/check_v9_25.mjs
+  tests/run_v9_25.sh
 )
 REMOVED_FROM_PARENT=(
+  tests/check_v9_24.mjs
+  tests/run_v9_24.sh
 )
 is_listed() {
   local needle="$1"; shift
@@ -71,7 +83,7 @@ mkdir -p "$SROOT/uk_renewables_pipeline/$FIXTURE_OWNER/fixtures"
 cp -a "$ROOT/uk_renewables_pipeline/$FIXTURE_OWNER/fixtures/2026q3" "$SROOT/uk_renewables_pipeline/$FIXTURE_OWNER/fixtures/"
 cp -a "$RELEASE" "$COPY"
 rm -rf "$COPY/data/v9.1"
-PYTHONDONTWRITEBYTECODE=1 python3 "$COPY/scripts/data/build_v9_1_spine.py"
+PYTHONDONTWRITEBYTECODE=1 python "$COPY/scripts/data/build_v9_1_spine.py"
 diff -r "$RELEASE/data/v9.1" "$COPY/data/v9.1"
 node "$COPY/scripts/build/interconnectors-v9-8.mjs" >/dev/null
 diff -r "$RELEASE/data/v9.8" "$COPY/data/v9.8"

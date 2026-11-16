@@ -47,10 +47,11 @@ def tree_hash(version_id: str, root: Path = ROOT) -> str:
                                      check=True, capture_output=True).stdout
             modes = {entry.split(b"\t", 1)[1].decode(): entry.split(b" ", 1)[0].decode()
                      for entry in tracked.split(b"\0") if entry}
-            for path in files:
-                mode = modes.get(path, "100755" if re_runner(path) else "100644")
-                subprocess.run(["git", "update-index", "--chmod=" + ("+x" if mode == "100755" else "-x"), path],
-                               check=True, env=env, cwd=root)
+            for mode in ("100644", "100755"):
+                paths = [p for p in files if modes.get(p, "100755" if re_runner(p) else "100644") == mode]
+                if paths:
+                    subprocess.run(["git", "update-index", "--chmod=" + ("+x" if mode == "100755" else "-x"), "-z", "--stdin"],
+                                   input=("\0".join(paths) + "\0").encode(), check=True, env=env, cwd=root)
         return subprocess.run(["git", "write-tree", f"--prefix={rel}/"], check=True, env=env, capture_output=True, text=True).stdout.strip()
 
 
@@ -72,4 +73,4 @@ def load_registry():
 
 
 def save_registry(reg):
-    REGISTRY.write_text(json.dumps(reg, indent=1, ensure_ascii=False) + "\n")
+    REGISTRY.write_text(json.dumps(reg, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")

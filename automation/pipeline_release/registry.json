@@ -723,6 +723,32 @@
       "ci": null,
       "merge_commit": null,
       "state": "release_candidate_known_unverified_sources"
+    },
+    {
+      "id": "202611161630",
+      "version": "V9.25",
+      "parent": "202611161244",
+      "date": "2026-11-16T16:30:00Z",
+      "added": "Provisional solar feed evidence pipeline, SQLite snapshots and read-only evidence panel",
+      "data_changed": false,
+      "runner": "tests/run_v9_25.sh",
+      "trees": [
+        "0f474a4585bfed7e7d9f2fa3969c12dcf1825eed"
+      ],
+      "features": [
+        {
+          "id": "evidence-panel",
+          "file": "index.html",
+          "contains": "data-evidence-status"
+        }
+      ],
+      "known_faults": [
+        "Source rights unknown; feed disabled. Latest live probe: 10 articles, zero strict Solar-1000 matches. Manual review required.",
+        "Existing registry operative metadata drift and external GridAtlas mobile behaviour remain unverified."
+      ],
+      "ci": null,
+      "merge_commit": null,
+      "state": "release_candidate_publication_blocked"
     }
   ],
   "size_budget_mb": 18,

@@ -31,11 +31,22 @@ CHANGED_FROM_PARENT=(
   README.md
   fixtures/v9.8/PRIVACY.md
   fixtures/v9.8/interconnector-endpoints.json
+  global-datacentres/README.md
+  global-datacentres/build.py
+  global-datacentres/data/facilities/generation=202611161630/source=WIKIDATA/global-data-centre-records-v1.parquet
+  global-datacentres/pipeline-audit.json
+  global-datacentres/projects.json
+  global-datacentres/requirements.txt
+  global-datacentres/source-facts.json
+  global-datacentres/test-model.cjs
   index.html
   scripts/build/interconnectors-v9-8.mjs
   scripts/plugins/evidence-v925.js
+  scripts/plugins/global-datacentres-v925.js
+  scripts/plugins/pipeline-tabs-v925.js
   scripts/plugins/solar1000-v924.js
   styles/v9-25.css
+  tests/check_solar1000_v924.mjs
   tests/check_v9_25.mjs
   tests/run_v9_25.sh
 )

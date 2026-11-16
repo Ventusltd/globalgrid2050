@@ -729,22 +729,28 @@
       "version": "V9.25",
       "parent": "202611161244",
       "date": "2026-11-16T16:30:00Z",
-      "added": "UK transition dashboard and provisional solar evidence pipeline with immutable snapshots",
+      "added": "Consolidated UK Pipeline and Global DC tabs with staged Parquet evidence analytics",
       "data_changed": false,
       "runner": "tests/run_v9_25.sh",
       "trees": [
-        "bfed11967e82d9bd24ae5956d428c8e8a74a220b"
+        "6eb586d58f886dcaffcfc8983e3c5b3922c67e96"
       ],
       "features": [
         {
-          "id": "evidence-panel",
+          "id": "inline-project-evidence",
           "file": "index.html",
           "contains": "data-evidence-status"
+        },
+        {
+          "id": "global-dc-tab",
+          "file": "index.html",
+          "contains": "global-datacentres-v925.js"
         }
       ],
       "known_faults": [
-        "Source rights unknown; feed disabled. Live probe: 10 articles, zero strict Solar-1000 matches. Manual review required.",
-        "Existing operative metadata drift, homepage public-language findings and external GridAtlas mobile behaviour remain unresolved."
+        "Source rights unknown; solar feed disabled. The successful health probe found zero strict Solar-1000 matches; no real project-evidence snapshot published.",
+        "Global DC is a partial sourced sample of 12 facilities in 10 countries, not verified operation or capacity.",
+        "Existing operative metadata drift, homepage language promotion and external GridAtlas live/mobile acceptance remain release gates."
       ],
       "ci": null,
       "merge_commit": null,

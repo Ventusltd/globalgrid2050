@@ -77,21 +77,24 @@ the tab is activated, or when the host is ready:
     };
     // Generate the five hex SHA256 values from the exact version-controlled
     // bytes at these paths (not their Git blob SHAs or source-facts SHA).
+    // Pins verified over exact V9.28 branch file bytes, not Git blob hashes.
     const hashPins = {
-      projects: '<SHA256 of projects.json>',
-      official: '<SHA256 of official-projects.json>',
-      groups: '<SHA256 of project-groups.json>',
-      audit: '<SHA256 of selection-audit.json>',
-      baseline: '<SHA256 of original 12 projects.json>'
+      projects: 'faf617d9979151b7d309554cb1cd59d343f70b9d60616f90db45e5c2a227d449',
+      official: 'bcf6473bebe78e7a7dab566b1998ea51237d653c5a8584420690c2cea9a5180f',
+      groups: 'b77afd5846a3c27697e49664fabb4c0020a81a88ccaa680fb5130f6d6d1b8970',
+      audit: 'faa79b4651d62baee822b8e6f748e447d0b8aebbe1c8c13beafd81d973b1c592',
+      baseline: '224b039d9801eea547ec4934b6e247f756ec7846e35c62ebe1774ef134597bae'
     };
     const result = await window.GGDataCentreUI.mount(
       document.getElementById('datacentreHost'),
       {urls: files, sha256: hashPins});
     if (result.error) console.error('Data Centre fail closed:', result.error);
 
-These placeholders are deliberately NOT fake digest values. Generate using
-sha256sum on the exact checkout, store pins in the ROOT-owned host or edition
-manifest, and verify served bytes on the final site. Do not use unpinned
+These **real SHA-256 digests** were computed from exact recovered JSON files on
+V9.28 integration base and the unchanged earlier twelve-record release; the
+official/group digests also agree with the V9.28 data-lineage manifest.
+ROOT must re-compute with sha256sum after any data rewrite; do not keep stale
+pins, and verify served bytes during final host/browser acceptance. Do not use unpinned
 remote mutable URLs or stale branch names in production. Component mount
 does not alter unrelated REPD or GridAtlas links.
 

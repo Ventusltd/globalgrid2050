@@ -1,0 +1,8 @@
+{
+  "purpose": "Small source-attributed manual transcription fixtures, not automatically licensed copies or verified published records",
+  "records": [
+    {"source_id":"nget-projects","source_url":"https://www.nationalgrid.com/electricity-transmission/network-and-infrastructure/infrastructure-projects","source_record_id":null,"source_sha256":null,"published_at":null,"retrieved_at":"2026-11-16T20:15:00Z","scheme_id":null,"scheme_name":"Bramford to Twinstead","network_operator":"NGET","network_type":"transmission","region":"East Anglia","stage":"unknown"},
+    {"source_id":"ssen-t-projects","source_url":"https://www.ssen-transmission.co.uk/projects/project-map?view=list","source_record_id":null,"source_sha256":null,"published_at":null,"retrieved_at":"2026-11-16T20:15:00Z","scheme_id":null,"scheme_name":"Eastern Green Link 2","network_operator":"SSEN-T","network_type":"transmission","region":"Aberdeenshire","stage":"under_construction"},
+    {"source_id":"sp-t-strategy","source_url":"https://www.spenergynetworks.co.uk/pages/strategic_network_design.aspx","source_record_id":null,"source_sha256":null,"published_at":null,"retrieved_at":"2026-11-16T20:15:00Z","scheme_id":"EGL1/E2DC","scheme_name":"Eastern Green Link 1","network_operator":"SPT","network_type":"transmission","region":"Scotland","stage":"unknown"}
+  ]
+}

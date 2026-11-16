@@ -1,0 +1,37 @@
+name: Agent 3 independent News Engine acceptance
+
+on:
+  push:
+    branches:
+      - qa/agent3-news-engine-acceptance-20261116
+
+permissions:
+  contents: read
+
+jobs:
+  exact-head-news-engine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Report immutable execution inputs
+        run: |
+          echo "tested_head=$(git rev-parse HEAD)"
+          echo "engine_blob=$(git rev-parse HEAD:automation/news/engine.py)"
+          echo "matcher_blob=$(git rev-parse HEAD:automation/news/acquisition/match.py)"
+          echo "original_PR130_head=dd571c6bfb57b2a05fd2a8ab2b0d9000630c4485"
+          git diff --name-only dd571c6bfb57b2a05fd2a8ab2b0d9000630c4485 HEAD
+      - name: Install offline test runner
+        run: python -m pip install pytest
+      - name: Execute ORIGINAL 24 PR130 tests unmodified
+        run: python -m pytest -q automation/news/tests/test_engine.py
+      - name: Execute INDEPENDENT adversarial tests
+        run: python -m pytest -q automation/news/tests/test_engine_independent.py
+      - name: Compile inspected Python modules
+        if: always()
+        run: python -m compileall -q automation/news/engine.py automation/news/acquisition/match.py automation/news/tests/test_engine.py automation/news/tests/test_engine_independent.py

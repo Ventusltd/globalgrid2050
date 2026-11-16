@@ -1779,3 +1779,16 @@ Intention: pin homepage owner `c7c1ed735a52e9fdb9e74db6331c5ad0e188a001`, which 
 Metrics: 69 lines, 3533 words, 53295 characters, 53299 bytes; SHA-256 `19a846bda779eca66c49c385530bd1669dc6f73b938f14627639263eba3de3c8`.
 
 Rollback: restore `catalogue/homepage-owner.json` to commit `92ba874c1668b39e225382b2ab9eb5900d3a3f46`, deploy, and compare the served root with `homepage_v140.html`.
+
+
+## Version 141
+
+Pre-edit restore point: `homepage_v141.html`; measurements: `homepage_v141-metrics.json`. Public main at inspection: `42fdb5af4b1479507b38cf8142dba5da1a238fa0`. The live domain returned HTTP 200 and exactly matched the root assembled by the unchanged production importer from the seven SHA-256 verified files at owner `bd705ee21946dc6332f6bb1950a5ca1ef12640fc`. The committed root is not used as the served-byte reference.
+
+Intention: prepare the accepted wording-only owner merge `1a343b8d8e70b4f9e2298e7870f129cbd32db896` (owner PR #19), removing three public-language findings. Preserve all 120 links, all release identities, and operative Pipeline News V9.24 (`202611161244`). This preparation does not merge, deploy, or promote V9.25.
+
+Measurement: required [restore-point workflow 43912722156](https://github.com/Ventusltd/globalgrid2050/actions/runs/43912722156) passed at the exact public-main commit; artifact `14248817395`. The native workflow measures committed files, while the separate HTTP/import comparison verifies the actual served root. Folder count: 239 files before, 241 after the two additive snapshot files. Highest existing HTML was v140; no existing snapshot was overwritten.
+
+Metrics: 69 lines, 3609 words, 54606 characters, 54621 bytes; SHA-256 `8ab7d86ac91285fce2d4e433cb4702d9b38018288c92028e909a750738b9711b`. Candidate imported root: `d178ed844cede23018321841f8202e6af8c2754325d1fcd53c80a58b9b5d5cc8`; source-index and imported-root hashes deliberately differ because the importer rewrites asset/catalogue paths.
+
+Rollback: restore `catalogue/homepage-owner.json` from `42fdb5af4b1479507b38cf8142dba5da1a238fa0`, deploy through the established process, and compare the served root with `homepage_v141.html`. Historical product folders and generated-root source remain untouched.

@@ -1,0 +1,25 @@
+{
+  "file": "homepage_versions/homepage_v141.html",
+  "lines": 69,
+  "words": 3609,
+  "characters": 54606,
+  "bytes": 54621,
+  "sha256": "8ab7d86ac91285fce2d4e433cb4702d9b38018288c92028e909a750738b9711b",
+  "source_commit": "42fdb5af4b1479507b38cf8142dba5da1a238fa0",
+  "source_owner_commit": "bd705ee21946dc6332f6bb1950a5ca1ef12640fc",
+  "source": "Live https://globalgrid2050.com/ HTTP 200 response exactly matches unchanged production importer output for all seven verified prior owner files.",
+  "measured_http_date": "Mon, 16 Nov 2026 16:55:41 GMT",
+  "folder_file_count_before": 239,
+  "folder_file_count_after": 241,
+  "restore_workflow": {
+    "url": "https://github.com/Ventusltd/globalgrid2050/actions/runs/43912722156",
+    "head_sha": "42fdb5af4b1479507b38cf8142dba5da1a238fa0",
+    "conclusion": "success",
+    "artifact_id": 14248817395,
+    "artifact_digest": "sha256:541ab245ef8a85cc66b657bd79cf9edb12604b6ee92d0865567230d5d95f2bfc",
+    "scope": "Native workflow measures committed files; independent HTTP/import comparison verifies served root bytes."
+  },
+  "intention": "Prepare the accepted homepage wording source at owner merge 1a343b8d8e70b4f9e2298e7870f129cbd32db896; preserve 120 links, historical releases and operative Pipeline News V9.24. No promotion or deployment by this commit.",
+  "rollback": "Restore catalogue/homepage-owner.json from 42fdb5af4b1479507b38cf8142dba5da1a238fa0; deploy only through accepted process and compare root with this immutable snapshot.",
+  "proposed_imported_root_sha256": "d178ed844cede23018321841f8202e6af8c2754325d1fcd53c80a58b9b5d5cc8"
+}

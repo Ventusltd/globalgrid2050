@@ -1,23 +1,23 @@
 {
  "schema": "globalgrid2050.pipeline-news.versions.v1",
- "generated_at": "2026-11-16T13:01:50Z",
+ "generated_at": "2026-11-16T17:24:27Z",
  "generated_by": "automation/pipeline_release/verify.py --browser",
  "where_run": "GitHub Actions",
  "note": "Every Pipeline News version from 202611132345 onward, newest first. Old versions stay published. 'verdict' is this tool's result when the file was written; 'ci' is the result of the Verify Pipeline News versions workflow on the pull request that published the version, recorded in the following version.",
  "release_candidate": {
-  "id": "202611160020",
-  "version": "V9.23",
-  "state": "PUBLISHED — ITERATIVE, EXTERNAL MOBILE GRIDATLAS STILL RED",
+  "id": "202611161630",
+  "version": "V9.25",
+  "state": "SOFTWARE CANDIDATE - EVIDENCE PUBLICATION DISABLED",
   "operative": {
-   "id": "202611160020",
-   "version": "V9.23"
+   "id": "202611161244",
+   "version": "V9.24"
   },
   "held_candidate": {
    "id": "202611140247",
    "version": "V9.19",
    "state": "held candidate (data-centre register context, awaiting licence verification)"
   },
-  "note": "V9.23 published 16 November 2026 on direct owner instruction. One simplified feed; native brief, possible-match Machine Read Notes visible in each project row; broken show-table shortcut removed. V9.22 (202611151300), V9.21 and V9.20 remain available and immutable. External GridAtlas real mobile first-restore: 390px 1/3 PASS for solar/BESS/wind, 1440px 3/3 PASS. Original publisher rights/independent per-article match verification not established; existing official REPD statuses unchanged. No claim that an independently verified planning event was created by heuristic notes."
+  "note": "V9.24 remains the public homepage operative release, confirmed against the served owner configuration and exact V9.24 index bytes on 16 November 2026. V9.25 is a software-only candidate: consolidated UK Pipeline and Global DC interface, unchanged 7,775 official records and exact Solar-1000. The solar source stays disabled because rights are unknown; the latest successful health probe produced zero strict project matches, and no real evidence snapshot has been published. The original real-match sprint criterion is not met. Software CI is not evidence-source approval or a public release. Historical registry entries, including their candidate labels and null release receipts, remain unchanged; see docs/pipeline/V9.25-RELEASE-METADATA.md for the separately audited publication evidence."
  },
  "map_link_state": {
   "schema": "globalgrid2050.pipeline-news.gridatlas-map-link-state.v1",
@@ -87,6 +87,459 @@
   "not_active_but_still_held_refs": []
  },
  "versions": [
+  {
+   "id": "202611161630",
+   "version": "V9.25",
+   "parent": "202611161244",
+   "date": "2026-11-16T16:30:00Z",
+   "state": "release_candidate_software_only_evidence_disabled",
+   "added": "Consolidated UK Pipeline and Global DC tabs with staged Parquet evidence analytics",
+   "data_changed": false,
+   "url": "202611161630/",
+   "tree": [
+    "6eb586d58f886dcaffcfc8983e3c5b3922c67e96"
+   ],
+   "verdict": "PASS",
+   "browser_checked": true,
+   "checks": {
+    "tree_unchanged": {
+     "pass": true,
+     "tree": "6eb586d58f886dcaffcfc8983e3c5b3922c67e96"
+    },
+    "runner": {
+     "pass": true,
+     "runner": "tests/run_v9_25.sh",
+     "last_line": "V9.25 (202611161630) validation suite: PASS (<repository>)"
+    },
+    "map_contract": {
+     "pass": true,
+     "rows": 7775,
+     "ok": 7775,
+     "with_point": 7749,
+     "without_point": 26
+    },
+    "grid_engine_contract": {
+     "pass": true,
+     "ok": 7775,
+     "examples": []
+    },
+    "map_links_identical_to_parent": {
+     "pass": true,
+     "identical": 7775,
+     "rows": 7775,
+     "parent": "202611161244"
+    },
+    "data_unchanged_from_parent": {
+     "pass": true,
+     "data_digest": "5bc68379308e88c9a7001fc2741eec0297cbc6059e29f4b503a826c4d10c1a18",
+     "declared_change": false
+    },
+    "features_kept": {
+     "pass": true,
+     "features": [
+      "map-deep-link",
+      "newspaper",
+      "csv-export",
+      "interconnectors-tab",
+      "versions-link",
+      "gridatlas-state",
+      "gridatlas-state-list",
+      "register-changes",
+      "register-changes-data",
+      "chartjs-pinned",
+      "repd-source-line",
+      "live-headlines",
+      "headlines-status-label",
+      "headlines-snapshot",
+      "news-archive",
+      "v922-explicit-partial",
+      "v922-publisher-date",
+      "v922-visible-candidate-identity",
+      "machine-notes-column",
+      "solar1000-pilot",
+      "inline-project-evidence",
+      "global-dc-tab"
+     ],
+     "missing": [],
+     "withdrawn_on_purpose": [
+      "data-sources-block",
+      "datacentre-news-panel",
+      "datacentre-sources",
+      "datacentres-page-link",
+      "nearest-datacentre",
+      "nearest-datacentre-data"
+     ],
+     "migrations": [
+      {
+       "id": "solar1000-pilot",
+       "from": "202611161244",
+       "contract": "solar1000-inline-v1",
+       "pass": true,
+       "failures": []
+      }
+     ],
+     "errors": []
+    },
+    "size_budget": {
+     "pass": true,
+     "bytes": 15970542,
+     "budget_mb": 18
+    },
+    "browser": {
+     "pass": true,
+     "views": [
+      {
+       "viewport": "desktop",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "404 https://raw.githubusercontent.com/Ventusltd/globalgrid2050/pipeline-evidence-data/dist/news/evidence/latest.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": false,
+        "nearest_datacentres": 0,
+        "register_changes_in_rows": 2,
+        "gridatlas_state_file": true,
+        "gridatlas_state_notes": 0,
+        "register_changes_section": true
+       }
+      },
+      {
+       "viewport": "phone",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "404 https://raw.githubusercontent.com/Ventusltd/globalgrid2050/pipeline-evidence-data/dist/news/evidence/latest.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": false,
+        "nearest_datacentres": 0,
+        "register_changes_in_rows": 2,
+        "gridatlas_state_file": true,
+        "gridatlas_state_notes": 0,
+        "register_changes_section": true
+       }
+      }
+     ]
+    },
+    "feature_probes": {
+     "pass": true,
+     "probes": 39,
+     "expected": 39,
+     "skipped_need_internet": 0,
+     "results": [
+      {
+       "name": "register change in the project record (REPD 15793)",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "charting library loaded from the pinned file",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no register content on the page",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no register content in a project record (REPD 10772)",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "REPD source and licence line",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "headlines label present and computed",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no typed-in counts or audited-snapshot wording",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "MAP button inside the viewport",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "archive: unmatched headlines carry no project line",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.22 honest partial/failed/empty source statuses",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.22 article date distinct from crawl and unverified match chip",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 native 12-column notes and original MAP sibling",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 accessible Machine Read Notes opens without altering MAP",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 latest refusal headline visible in project row without changing official status",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 one live feed, no separate politics or dead show table action",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 mobile note button visible and accessible without sideways scroll",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "Solar-1000 migration: unchanged selection in consolidated register",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "Solar-1000 migration: inherited source inside project 1019",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "Solar-1000 migration: inherited source inside project 1020",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "live file refused: saved copy or a plain statement, table still complete",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "register change in the project record (REPD 15793)",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "charting library loaded from the pinned file",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no register content on the page",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no register content in a project record (REPD 10772)",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "REPD source and licence line",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "headlines label present and computed",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no typed-in counts or audited-snapshot wording",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "MAP button inside the viewport",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "archive: unmatched headlines carry no project line",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.22 honest partial/failed/empty source statuses",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.22 article date distinct from crawl and unverified match chip",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 native 12-column notes and original MAP sibling",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 accessible Machine Read Notes opens without altering MAP",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 latest refusal headline visible in project row without changing official status",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 one live feed, no separate politics or dead show table action",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 mobile note button visible and accessible without sideways scroll",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "Solar-1000 migration: unchanged selection in consolidated register",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "Solar-1000 migration: inherited source inside project 1019",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "Solar-1000 migration: inherited source inside project 1020",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      }
+     ]
+    },
+    "csv_export": {
+     "pass": true,
+     "rows": 7775,
+     "header_sha256": "7a469cf40609e9dde30f8481fe1e37e0300d9492a5f3e6af14016e3e1ef9759a",
+     "body_sha256": "cc027acdbb42adb452665e7adf812fdcb8534a611cb1b57ba4940dfef211f2b7",
+     "columns_same_as_parent": true,
+     "body_same_as_parent": true,
+     "error": null
+    }
+   },
+   "ci": null,
+   "merge_commit": null,
+   "known_faults": [
+    "Source rights unknown; solar feed disabled. The successful health probe found zero strict Solar-1000 matches; no real project-evidence snapshot published.",
+    "Global DC is a partial sourced sample of 12 facilities in 10 countries, not verified operation or capacity.",
+    "Software promotion still requires exact-head CI for the metadata revision, GridAtlas live/mobile readback, homepage-owner promotion and exact served-byte verification. Native Android testing is unavailable."
+   ],
+   "datacentre_features": null
+  },
   {
    "id": "202611161244",
    "version": "V9.24",
@@ -166,7 +619,9 @@
       "datacentres-page-link",
       "nearest-datacentre",
       "nearest-datacentre-data"
-     ]
+     ],
+     "migrations": [],
+     "errors": []
     },
     "size_budget": {
      "pass": true,
@@ -560,7 +1015,9 @@
       "datacentres-page-link",
       "nearest-datacentre",
       "nearest-datacentre-data"
-     ]
+     ],
+     "migrations": [],
+     "errors": []
     },
     "size_budget": {
      "pass": true,
@@ -957,7 +1414,9 @@
       "datacentres-page-link",
       "nearest-datacentre",
       "nearest-datacentre-data"
-     ]
+     ],
+     "migrations": [],
+     "errors": []
     },
     "size_budget": {
      "pass": true,
@@ -1297,7 +1756,9 @@
       "datacentres-page-link",
       "nearest-datacentre",
       "nearest-datacentre-data"
-     ]
+     ],
+     "migrations": [],
+     "errors": []
     },
     "size_budget": {
      "pass": true,
@@ -1627,7 +2088,9 @@
       "datacentres-page-link",
       "nearest-datacentre",
       "nearest-datacentre-data"
-     ]
+     ],
+     "migrations": [],
+     "errors": []
     },
     "size_budget": {
      "pass": true,
@@ -1846,7 +2309,9 @@
       "chartjs-pinned"
      ],
      "missing": [],
-     "withdrawn_on_purpose": []
+     "withdrawn_on_purpose": [],
+     "migrations": [],
+     "errors": []
     },
     "size_budget": {
      "pass": true,
@@ -2091,7 +2556,9 @@
       "datacentre-sources"
      ],
      "missing": [],
-     "withdrawn_on_purpose": []
+     "withdrawn_on_purpose": [],
+     "migrations": [],
+     "errors": []
     },
     "size_budget": {
      "pass": true,
@@ -2324,7 +2791,9 @@
       "register-changes-data"
      ],
      "missing": [],
-     "withdrawn_on_purpose": []
+     "withdrawn_on_purpose": [],
+     "migrations": [],
+     "errors": []
     },
     "size_budget": {
      "pass": true,
@@ -2469,7 +2938,9 @@
       "nearest-datacentre-data"
      ],
      "missing": [],
-     "withdrawn_on_purpose": []
+     "withdrawn_on_purpose": [],
+     "migrations": [],
+     "errors": []
     },
     "size_budget": {
      "pass": true,
@@ -2613,7 +3084,9 @@
       "gridatlas-state-list"
      ],
      "missing": [],
-     "withdrawn_on_purpose": []
+     "withdrawn_on_purpose": [],
+     "migrations": [],
+     "errors": []
     },
     "size_budget": {
      "pass": true,
@@ -2753,7 +3226,9 @@
       "datacentres-page-link"
      ],
      "missing": [],
-     "withdrawn_on_purpose": []
+     "withdrawn_on_purpose": [],
+     "migrations": [],
+     "errors": []
     },
     "browser": {
      "pass": true,
@@ -2886,7 +3361,9 @@
       "interconnectors-tab"
      ],
      "missing": [],
-     "withdrawn_on_purpose": []
+     "withdrawn_on_purpose": [],
+     "migrations": [],
+     "errors": []
     },
     "browser": {
      "pass": true,
@@ -3011,7 +3488,9 @@
       "interconnectors-tab"
      ],
      "missing": [],
-     "withdrawn_on_purpose": []
+     "withdrawn_on_purpose": [],
+     "migrations": [],
+     "errors": []
     },
     "browser": {
      "pass": true,
@@ -3079,5 +3558,14 @@
    "known_faults": [],
    "datacentre_features": null
   }
- ]
+ ],
+ "metadata_receipt": {
+  "source": "https://github.com/Ventusltd/globalgrid2050/actions/runs/43917321930",
+  "artifact_id": 14250652249,
+  "artifact_file": "versions.ci.json",
+  "artifact_file_sha256": "ef8a78bc480ccc1cfd3fce29acf3be1b82079c9589b36f0adc6b667ff71c9bff",
+  "tested_head": "e2568fa9b818d39e28b106bbe49c3a53d0ad4fc2",
+  "tested_merge_ref": "5686d778d19d6eb852ce4a98cdfc577cd2ee523a",
+  "note": "Actual hosted verdicts retained without changing checks. Only current candidate state/limitations and the top-level operative/candidate summary were synchronized to the audited registry. The source tree is unchanged; this metadata revision still requires its own exact-head CI before publication."
+ }
 }

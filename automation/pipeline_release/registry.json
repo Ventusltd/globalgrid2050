@@ -723,23 +723,62 @@
       "ci": null,
       "merge_commit": null,
       "state": "release_candidate_known_unverified_sources"
+    },
+    {
+      "id": "202611161630",
+      "version": "V9.25",
+      "parent": "202611161244",
+      "date": "2026-11-16T16:30:00Z",
+      "added": "Consolidated UK Pipeline and Global DC tabs with staged Parquet evidence analytics",
+      "data_changed": false,
+      "runner": "tests/run_v9_25.sh",
+      "trees": [
+        "6eb586d58f886dcaffcfc8983e3c5b3922c67e96"
+      ],
+      "features": [
+        {
+          "id": "inline-project-evidence",
+          "file": "index.html",
+          "contains": "data-evidence-status"
+        },
+        {
+          "id": "global-dc-tab",
+          "file": "index.html",
+          "contains": "global-datacentres-v925.js"
+        }
+      ],
+      "known_faults": [
+        "Source rights unknown; solar feed disabled. The successful health probe found zero strict Solar-1000 matches; no real project-evidence snapshot published.",
+        "Global DC is a partial sourced sample of 12 facilities in 10 countries, not verified operation or capacity.",
+        "Software promotion still requires exact-head CI for the metadata revision, GridAtlas live/mobile readback, homepage-owner promotion and exact served-byte verification. Native Android testing is unavailable."
+      ],
+      "ci": null,
+      "merge_commit": null,
+      "state": "release_candidate_software_only_evidence_disabled",
+      "feature_migrations": [
+        {
+          "id": "solar1000-pilot",
+          "from": "202611161244",
+          "contract": "solar1000-inline-v1"
+        }
+      ]
     }
   ],
   "size_budget_mb": 18,
   "size_budget_from": "202611140136",
   "release_candidate": {
-    "id": "202611160020",
-    "version": "V9.23",
-    "state": "PUBLISHED — ITERATIVE, EXTERNAL MOBILE GRIDATLAS STILL RED",
+    "id": "202611161630",
+    "version": "V9.25",
+    "state": "SOFTWARE CANDIDATE - EVIDENCE PUBLICATION DISABLED",
     "operative": {
-      "id": "202611160020",
-      "version": "V9.23"
+      "id": "202611161244",
+      "version": "V9.24"
     },
     "held_candidate": {
       "id": "202611140247",
       "version": "V9.19",
       "state": "held candidate (data-centre register context, awaiting licence verification)"
     },
-    "note": "V9.23 published 16 November 2026 on direct owner instruction. One simplified feed; native brief, possible-match Machine Read Notes visible in each project row; broken show-table shortcut removed. V9.22 (202611151300), V9.21 and V9.20 remain available and immutable. External GridAtlas real mobile first-restore: 390px 1/3 PASS for solar/BESS/wind, 1440px 3/3 PASS. Original publisher rights/independent per-article match verification not established; existing official REPD statuses unchanged. No claim that an independently verified planning event was created by heuristic notes."
+    "note": "V9.24 remains the public homepage operative release, confirmed against the served owner configuration and exact V9.24 index bytes on 16 November 2026. V9.25 is a software-only candidate: consolidated UK Pipeline and Global DC interface, unchanged 7,775 official records and exact Solar-1000. The solar source stays disabled because rights are unknown; the latest successful health probe produced zero strict project matches, and no real evidence snapshot has been published. The original real-match sprint criterion is not met. Software CI is not evidence-source approval or a public release. Historical registry entries, including their candidate labels and null release receipts, remain unchanged; see docs/pipeline/V9.25-RELEASE-METADATA.md for the separately audited publication evidence."
   }
 }

@@ -122,3 +122,21 @@ when the last refresh failed) and orders the list newest first itself. A "possib
 project is shown only when the file gives one, always under those words, and never enters the project
 table. `window.pipelineHeadlines` exposes the label rule and the renderer so the release probes can test
 them with a document of the same schema.
+
+## Moving an inherited feature
+
+A presentation change can declare a named `feature_migrations` contract in the
+new candidate entry. This does not withdraw the feature or change the historical
+entry. Unknown contracts, duplicate declarations and mismatched ancestors fail.
+`finalize --migrate-feature solar1000-inline-v1` records the V9.24 Solar-1000
+transition into the existing UK project details. Later re-finalization retains
+that declaration.
+
+The contract in `automation/pipeline_release/feature_contracts.py` requires the
+exact frozen manifest and two candidate-source files, the same 1,000 IDs in their
+original numeric order, unchanged official data and the inline module wiring.
+The versions browser check adds mandatory desktop/phone probes for the coverage
+count and both original source URLs inside their existing project records. These
+probes cannot be removed with `removed_probes`. The V9.24 heading remains checked
+in V9.24 itself; the successor retains the data and access without a separate
+Solar-1000 box. Passing proves this migration, not source verification or rights.

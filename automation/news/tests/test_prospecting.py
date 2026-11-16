@@ -286,3 +286,50 @@ def test_public_links_allow_normal_dns_and_canonical_public_ips_offline(host, mo
     monkeypatch.setattr(socket, "getaddrinfo", forbidden)
     url = "https://" + host + "/source"
     assert p.public_url(url) == url
+
+
+@pytest.mark.parametrize("observed_again", [False, True])
+def test_later_source_run_only_refreshes_articles_actually_observed(observed_again, evidence, baseline, tmp_path):
+    rows, ids, _ = baseline
+    projects = [dict(r, id=r["repd_ref"]) for r, _ in rows if r["repd_ref"] in ids]
+    first_seen = "2026-10-27T18:00:00Z"
+    original = next(r for r in evidence["projects"] if r["evidence"])["evidence"][0]
+    article = {key: original[key] for key in ("id", "url", "title", "pub_date", "source_id", "publisher")}
+    article["pub_date"] = "2026-10-26T12:00:00Z"
+    first_source = copy.deepcopy(evidence["sources"][0])
+    first_source["fetched_at"] = first_seen
+    first_source["channel_access"]["checked_at"] = first_seen
+    first_source["article_access"][article["url"]]["checked_at"] = first_seen
+    latest_source = copy.deepcopy(first_source)
+    latest_source["fetched_at"] = FETCHED
+    latest_source["channel_access"]["checked_at"] = FETCHED
+    match = {"project_id": ids[0], "article_url": article["url"],
+             "status": "PROVISIONAL", "match_method": "repd_id"}
+    with EvidenceStore() as store:
+        store.record_run(projects, [article], [match], first_seen, [first_source])
+        store.record_run(projects, [article] if observed_again else [],
+                         [match] if observed_again else [], FETCHED, [latest_source])
+        snapshot = store.snapshot(timestamp=FETCHED)
+    records, receipt = p.evidence_input(write_pin(tmp_path, snapshot), ids, p._moment(AS_OF))
+    official, source = next(x for x in rows if x[0]["repd_ref"] == ids[0])
+    candidate = p.official_candidate(official, source, records[ids[0]], p._moment(AS_OF))
+    assert candidate["reasons"][-1]["points"] == (5 if observed_again else 0)
+    exported = candidate["evidence"][0]
+    assert exported["retrieval_freshness"]["state"] == ("WITHIN_WINDOW" if observed_again else "STALE")
+    assert exported["retrieval_freshness"]["timestamp"] == (FETCHED if observed_again else first_seen)
+    assert exported["retrieval_freshness"]["basis"] == "article last observed time"
+    assert exported["freshness"]["state"] == "WITHIN_WINDOW"
+    assert exported["pub_date"] == article["pub_date"] and exported["first_seen"] == first_seen
+    assert exported["source"]["fetched_at"] == FETCHED
+    assert receipt["freshness"]["state"] == "WITHIN_WINDOW"  # source health is separate
+
+
+@pytest.mark.parametrize("remove", [False, True])
+def test_article_observation_clock_missing_fails_closed(remove, evidence, tmp_path):
+    article = next(r for r in evidence["projects"] if r["evidence"])["evidence"][0]
+    if remove:
+        article.pop("last_seen")
+    else:
+        article["last_seen"] = None
+    with pytest.raises(ValueError):
+        p.build(as_of=AS_OF, evidence=write_pin(tmp_path, evidence), limit=1)

@@ -92,7 +92,7 @@ def reconcile():
     sys.path.insert(0,str(ROOT/"automation/pipeline_release"))
     from common import tree_hash
     v["trees"]=[tree_hash(NEW)]
-    registry.write_text(json.dumps(document,indent=2,ensure_ascii=False)+"\\n")
+    registry.write_text(json.dumps(document,indent=2,ensure_ascii=False)+"\n")
     print("V9.23 metadata: datacentre-news-panel explicitly withdrawn; candidate tree pinned")
 
 def check():

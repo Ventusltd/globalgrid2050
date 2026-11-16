@@ -165,3 +165,4 @@ def test_registry_and_real_transport_receipts_make_no_data_or_permission_claim()
     assert {r["http_status"] for r in receipts} == {200, 403, 503, None}
     assert all(r["method"] == "HEAD" and not r["body_retained"] for r in receipts)
     assert all(r["claim"] == "transport_observation_only" for r in receipts)
+    assert all(r["document_sha256"] is None and r["response_body_sha256"] is None for r in receipts)

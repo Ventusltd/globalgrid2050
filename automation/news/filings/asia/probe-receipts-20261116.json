@@ -2,13 +2,94 @@
   "schema": "globalgrid2050.source-transport-observations.v1",
   "purpose": "One bounded HEAD request per official portal, no redirects followed, no retries, no body retained. This does not establish listing identity, complete access, source content, reuse rights or API availability.",
   "user_agent": "GlobalGrid2050-SourceReview/1.0 (+https://globalgrid2050.com)",
-  "timeout_seconds": {"connect": 5, "read": 10},
+  "timeout_seconds": {
+    "connect": 5,
+    "read": 10
+  },
   "receipts": [
-    {"source_id":"sse","url":"https://www.sse.com.cn/disclosure/listedinfo/announcement/","method":"HEAD","checked_at":"2026-11-16T17:10:36Z","body_retained":false,"claim":"transport_observation_only","http_status":200,"location":null,"content_type":"text/html","result":"http_response"},
-    {"source_id":"hkex","url":"https://www.hkexnews.hk/index.htm?sc_lang=en","method":"HEAD","checked_at":"2026-11-16T17:10:38Z","body_retained":false,"claim":"transport_observation_only","http_status":503,"location":null,"content_type":"text/html","result":"http_response"},
-    {"source_id":"sgx","url":"https://www.sgx.com/securities/company-announcements","method":"HEAD","checked_at":"2026-11-16T17:10:38Z","body_retained":false,"claim":"transport_observation_only","http_status":403,"location":null,"content_type":"text/html","result":"http_response"},
-    {"source_id":"jpx","url":"https://www.jpx.co.jp/english/equities/listing/disclosure/tdnet/index.html","method":"HEAD","checked_at":"2026-11-16T17:10:39Z","body_retained":false,"claim":"transport_observation_only","http_status":200,"location":null,"content_type":"text/html","result":"http_response"},
-    {"source_id":"bse","url":"https://www.bseindia.com/corporates/ann.html","method":"HEAD","checked_at":"2026-11-16T17:10:39Z","body_retained":false,"claim":"transport_observation_only","http_status":403,"location":null,"content_type":"text/html","result":"http_response"},
-    {"source_id":"nse","url":"https://www.nseindia.com/companies-listing/corporate-filings-announcements","method":"HEAD","checked_at":"2026-11-16T17:10:40Z","body_retained":false,"claim":"transport_observation_only","http_status":null,"location":null,"content_type":null,"result":"ReadTimeout"}
+    {
+      "source_id": "sse",
+      "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/",
+      "method": "HEAD",
+      "checked_at": "2026-11-16T17:10:36Z",
+      "body_retained": false,
+      "claim": "transport_observation_only",
+      "http_status": 200,
+      "location": null,
+      "content_type": "text/html",
+      "result": "http_response",
+      "document_sha256": null,
+      "response_body_sha256": null
+    },
+    {
+      "source_id": "hkex",
+      "url": "https://www.hkexnews.hk/index.htm?sc_lang=en",
+      "method": "HEAD",
+      "checked_at": "2026-11-16T17:10:38Z",
+      "body_retained": false,
+      "claim": "transport_observation_only",
+      "http_status": 503,
+      "location": null,
+      "content_type": "text/html",
+      "result": "http_response",
+      "document_sha256": null,
+      "response_body_sha256": null
+    },
+    {
+      "source_id": "sgx",
+      "url": "https://www.sgx.com/securities/company-announcements",
+      "method": "HEAD",
+      "checked_at": "2026-11-16T17:10:38Z",
+      "body_retained": false,
+      "claim": "transport_observation_only",
+      "http_status": 403,
+      "location": null,
+      "content_type": "text/html",
+      "result": "http_response",
+      "document_sha256": null,
+      "response_body_sha256": null
+    },
+    {
+      "source_id": "jpx",
+      "url": "https://www.jpx.co.jp/english/equities/listing/disclosure/tdnet/index.html",
+      "method": "HEAD",
+      "checked_at": "2026-11-16T17:10:39Z",
+      "body_retained": false,
+      "claim": "transport_observation_only",
+      "http_status": 200,
+      "location": null,
+      "content_type": "text/html",
+      "result": "http_response",
+      "document_sha256": null,
+      "response_body_sha256": null
+    },
+    {
+      "source_id": "bse",
+      "url": "https://www.bseindia.com/corporates/ann.html",
+      "method": "HEAD",
+      "checked_at": "2026-11-16T17:10:39Z",
+      "body_retained": false,
+      "claim": "transport_observation_only",
+      "http_status": 403,
+      "location": null,
+      "content_type": "text/html",
+      "result": "http_response",
+      "document_sha256": null,
+      "response_body_sha256": null
+    },
+    {
+      "source_id": "nse",
+      "url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements",
+      "method": "HEAD",
+      "checked_at": "2026-11-16T17:10:40Z",
+      "body_retained": false,
+      "claim": "transport_observation_only",
+      "http_status": null,
+      "location": null,
+      "content_type": null,
+      "result": "ReadTimeout",
+      "document_sha256": null,
+      "response_body_sha256": null
+    }
   ]
 }

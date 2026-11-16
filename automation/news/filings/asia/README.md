@@ -65,6 +65,8 @@ at 17:10 UTC on 16 November 2026. Requests used HEAD, TLS verification, explicit
 response body or credential was retained. A 200 response here concerns a portal
 or overview only; it does not prove filing availability. Failures are preserved
 and were not bypassed. These checks are not a scheduled collector.
+Document and response-body SHA256 are explicitly null for every HEAD observation;
+no bytes were fetched to hash.
 
 [SEBI's own corporate-filings directory](https://www.sebi.gov.in/curation/corporate_filings.html)
 links BSE and NSE separately. Mumbai is the requested market location, not one

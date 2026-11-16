@@ -50,15 +50,28 @@ def public_url(value):
     """Offline link syntax check only; this module never resolves or fetches URLs."""
     _url(value)
     host = urlsplit(value).hostname.lower()
+    require(host.isascii() and "%" not in host, "Canonical public source hostname required")
     require(not any(c.isspace() or ord(c) < 32 for c in value) and "\\" not in value,
             "Invalid public source URL")
-    require("." in host and not host.endswith((".local", ".internal", ".localhost", ".test")),
-            "Public source hostname required")
     try:
         address = ipaddress.ip_address(host)
     except ValueError:
         address = None
-    require(address is None or address.is_global, "Non-public source address")
+    if address is not None:
+        require(address.is_global and not any((address.is_multicast, address.is_reserved,
+                address.is_private, address.is_loopback, address.is_link_local, address.is_unspecified)),
+                "Non-public source address")
+    else:
+        dns_host = host.removesuffix(".")
+        # Browsers interpret numeric final labels as IPv4, including short,
+        # octal and hex forms that ipaddress deliberately rejects. Do not let
+        # those forms fall through as DNS; do not decode escaped/Unicode hosts.
+        require(not re.fullmatch(r"(?:[0-9]+|0x[0-9a-f]*)", dns_host.rsplit(".", 1)[-1]),
+                "Canonical public IP address required")
+        label = r"[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?"
+        require(len(dns_host) <= 253 and re.fullmatch(label + r"(?:\." + label + r")+", dns_host)
+                and not dns_host.endswith((".local", ".internal", ".localhost", ".test")),
+                "Public source hostname required")
     return value
 
 
@@ -277,8 +290,10 @@ def dc_input(spec, as_of):
         require(clock(source["retrieved_at"], retrieved) == retrieved, "Inconsistent data-centre retrieval")
         for field in ("name", "country"):
             url = public_url(record["field_sources"][field])
-            require(re.fullmatch(r"https://www\.wikidata\.org/w/index\.php\?title=Q[1-9][0-9]*&oldid=[1-9][0-9]*", url),
-                    "Pinned field revision required")
+            revision = re.fullmatch(r"https://www\.wikidata\.org/w/index\.php\?title=(Q[1-9][0-9]*)&oldid=[1-9][0-9]*", url)
+            require(revision, "Pinned field revision required")
+            require(field != "country" or revision.group(1) == country["wikidata_id"],
+                    "Country revision identity differs")
         require(record["field_sources"]["name"] == source["revision_url"], "Name revision differs")
         reasons = [component("data_centre_topic", 15, 15, "Data-centre source record selected for research; status and demand unknown")]
         result.append(research_policy_fields({

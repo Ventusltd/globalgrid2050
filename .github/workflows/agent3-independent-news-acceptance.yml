@@ -25,7 +25,7 @@ jobs:
           echo "engine_blob=$(git rev-parse HEAD:automation/news/engine.py)"
           echo "matcher_blob=$(git rev-parse HEAD:automation/news/acquisition/match.py)"
           echo "original_PR130_head=dd571c6bfb57b2a05fd2a8ab2b0d9000630c4485"
-          git diff --name-only dd571c6bfb57b2a05fd2a8ab2b0d9000630c4485 HEAD
+          git status --short
       - name: Install offline test runner
         run: python -m pip install pytest
       - name: Execute ORIGINAL 24 PR130 tests unmodified

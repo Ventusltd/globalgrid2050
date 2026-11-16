@@ -1,8 +1,18 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readContext, MAX_BYTES, sourceUrl} from './adapter.mjs';
+import {evidenceValue, limitationText} from './render.mjs';
 import {buildViewModel, raw, report, pins, encode, sha} from './test-support.mjs';
 const options = {expectedSha256: pins.fixture_sha256, buildViewModel};
+test('source acronyms remain exact and unrecognized source limitations survive', () => {
+  for (const [key, value] of [['country', 'US'], ['country', 'GB'], ['currency', 'GBP'], ['unit', 'MW'], ['id', 'FERC']]) {
+    assert.equal(evidenceValue(key, value), value);
+  }
+  assert.equal(evidenceValue('source_state', 'REJECTED'), 'Rejected');
+  assert.equal(limitationText('Source excludes developments after 2024.'), 'Source excludes developments after 2024.');
+  assert.match(limitationText(report.limitations[2]), /Original source files were not checked again/);
+  assert.match(limitationText(report.limitations[4]), /not a complete treaty history/);
+});
 test('actual composer export: complete native record and receipt preservation', async () => {
   const actual = await readContext(raw, options);
   assert.deepEqual(actual, report);

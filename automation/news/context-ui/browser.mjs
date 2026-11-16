@@ -66,7 +66,8 @@ try {
     await page.evaluate(() => document.querySelectorAll('[data-context-id] > details.filings-figures, [data-context-figure] > details').forEach(x => x.open = true));
     const text = await page.locator('[data-transition-context-root]').textContent();
     for (const required of ['Rejected', 'Unknown', 'Reported progress', 'In progress', 'Upper bound (up to)',
-      '2021-09-22', '2024', 'Published:', 'Reviewed:', 'Retrieved:', 'Not confirmed', 'Not assessed']) assert.ok(text.includes(required), required);
+      '2021-09-22', '2024', 'Published:', 'Reviewed:', 'Retrieved:', 'Not confirmed', 'Not assessed',
+      'Original source files were not checked again', 'not a complete treaty history', 'Country: US', 'Country: GB']) assert.ok(text.includes(required), required);
     assert.equal(await page.locator('[data-figure-value]').allTextContents().then(v => v.join('|')), '480 MW|350 MW|280 MW');
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
     for (const a of await page.locator('[data-transition-context-root] a').all()) {

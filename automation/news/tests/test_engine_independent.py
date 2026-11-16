@@ -186,3 +186,21 @@ def test_independent_publisher_body_cannot_create_repd_id():
     item = {**ARTICLE, "title": "Industry capacity outlook in Britain",
             "content": "REPD reference 1018 and named East Meadow Solar Farm"}
     assert run(items=[item])["counts"]["provisional_project_edges"] == 0
+
+
+@pytest.mark.parametrize("field,bad", [
+    ("first_seen", "yesterday"), ("first_seen", "2026-11-31T14:00:00Z"),
+    ("fetched_at", "2026-14-01"), ("fetched_at", "2026-11-16T27:00:00Z"),
+])
+def test_independent_invalid_observation_timestamps_fail_closed(field, bad):
+    with pytest.raises(ValueError, match="timestamp"):
+        run(items=[{**ARTICLE, field: bad}])
+
+
+def test_independent_valid_iso_date_and_timezone_preserved_verbatim():
+    out = run(items=[{**ARTICLE, "pub_date": "2026-11-16",
+                      "first_seen": "2026-11-16T12:00:00+00:00"}])
+    row = out["articles"][0]
+    assert row["published_at"] == "2026-11-16"
+    assert row["first_seen"] == "2026-11-16T12:00:00+00:00"
+    assert row["verification_status"] == "NOT_VERIFIED"

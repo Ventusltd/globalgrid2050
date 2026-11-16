@@ -1,6 +1,6 @@
 {
  "schema": "globalgrid2050.pipeline-news.versions.v1",
- "generated_at": "2026-11-16T17:24:27Z",
+ "generated_at": "2026-11-16T18:12:21Z",
  "generated_by": "automation/pipeline_release/verify.py --browser",
  "where_run": "GitHub Actions",
  "note": "Every Pipeline News version from 202611132345 onward, newest first. Old versions stay published. 'verdict' is this tool's result when the file was written; 'ci' is the result of the Verify Pipeline News versions workflow on the pull request that published the version, recorded in the following version.",
@@ -87,6 +87,914 @@
   "not_active_but_still_held_refs": []
  },
  "versions": [
+  {
+   "id": "202611161747",
+   "version": "V9.27",
+   "parent": "202611161734",
+   "date": "2026-11-16T17:47:00Z",
+   "state": "release_candidate_project_priority",
+   "added": "Explained source-bound research priority and remarks within existing project rows, preserving the complete official inventory and separate immutable Solar-1000.",
+   "data_changed": false,
+   "url": "202611161747/",
+   "tree": [
+    "44e7f54ed14475edd72babf61a0e86fec965ef8d"
+   ],
+   "verdict": "PASS",
+   "browser_checked": true,
+   "checks": {
+    "tree_unchanged": {
+     "pass": true,
+     "tree": "44e7f54ed14475edd72babf61a0e86fec965ef8d"
+    },
+    "runner": {
+     "pass": true,
+     "runner": "tests/run_v9_27.sh",
+     "last_line": "V9.27 (202611161747) validation suite: PASS (<repository>)"
+    },
+    "map_contract": {
+     "pass": true,
+     "rows": 7775,
+     "ok": 7775,
+     "with_point": 7749,
+     "without_point": 26
+    },
+    "grid_engine_contract": {
+     "pass": true,
+     "ok": 7775,
+     "examples": []
+    },
+    "map_links_identical_to_parent": {
+     "pass": true,
+     "identical": 7775,
+     "rows": 7775,
+     "parent": "202611161734"
+    },
+    "data_unchanged_from_parent": {
+     "pass": true,
+     "data_digest": "5bc68379308e88c9a7001fc2741eec0297cbc6059e29f4b503a826c4d10c1a18",
+     "declared_change": false
+    },
+    "features_kept": {
+     "pass": true,
+     "features": [
+      "map-deep-link",
+      "newspaper",
+      "csv-export",
+      "interconnectors-tab",
+      "versions-link",
+      "gridatlas-state",
+      "gridatlas-state-list",
+      "register-changes",
+      "register-changes-data",
+      "chartjs-pinned",
+      "repd-source-line",
+      "live-headlines",
+      "headlines-status-label",
+      "headlines-snapshot",
+      "news-archive",
+      "v922-explicit-partial",
+      "v922-publisher-date",
+      "v922-visible-candidate-identity",
+      "machine-notes-column",
+      "solar1000-pilot",
+      "inline-project-evidence",
+      "global-dc-tab",
+      "news-editorial-priority",
+      "inline-research-priority",
+      "source-bound-priority"
+     ],
+     "missing": [],
+     "withdrawn_on_purpose": [
+      "data-sources-block",
+      "datacentre-news-panel",
+      "datacentre-sources",
+      "datacentres-page-link",
+      "nearest-datacentre",
+      "nearest-datacentre-data"
+     ],
+     "migrations": [
+      {
+       "id": "solar1000-pilot",
+       "from": "202611161244",
+       "contract": "solar1000-inline-v1",
+       "pass": true,
+       "failures": []
+      }
+     ],
+     "errors": []
+    },
+    "size_budget": {
+     "pass": true,
+     "bytes": 18565562,
+     "budget_mb": 18
+    },
+    "browser": {
+     "pass": true,
+     "views": [
+      {
+       "viewport": "desktop",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "404 https://raw.githubusercontent.com/Ventusltd/globalgrid2050/pipeline-evidence-data/dist/news/evidence/latest.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": false,
+        "nearest_datacentres": 0,
+        "register_changes_in_rows": 2,
+        "gridatlas_state_file": true,
+        "gridatlas_state_notes": 0,
+        "register_changes_section": true
+       }
+      },
+      {
+       "viewport": "phone",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "404 https://raw.githubusercontent.com/Ventusltd/globalgrid2050/pipeline-evidence-data/dist/news/evidence/latest.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": false,
+        "nearest_datacentres": 0,
+        "register_changes_in_rows": 2,
+        "gridatlas_state_file": true,
+        "gridatlas_state_notes": 0,
+        "register_changes_section": true
+       }
+      }
+     ]
+    },
+    "feature_probes": {
+     "pass": true,
+     "probes": 39,
+     "expected": 39,
+     "skipped_need_internet": 0,
+     "results": [
+      {
+       "name": "register change in the project record (REPD 15793)",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "charting library loaded from the pinned file",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no register content on the page",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no register content in a project record (REPD 10772)",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "REPD source and licence line",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "headlines label present and computed",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no typed-in counts or audited-snapshot wording",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "MAP button inside the viewport",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "archive: unmatched headlines carry no project line",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.22 honest partial/failed/empty source statuses",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.22 article date distinct from crawl and unverified match chip",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 native 12-column notes and original MAP sibling",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 accessible Machine Read Notes opens without altering MAP",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 latest refusal headline visible in project row without changing official status",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 one live feed, no separate politics or dead show table action",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 mobile note button visible and accessible without sideways scroll",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "Solar-1000 migration: unchanged selection in consolidated register",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "Solar-1000 migration: inherited source inside project 1019",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "Solar-1000 migration: inherited source inside project 1020",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "live file refused: saved copy or a plain statement, table still complete",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "register change in the project record (REPD 15793)",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "charting library loaded from the pinned file",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no register content on the page",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no register content in a project record (REPD 10772)",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "REPD source and licence line",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "headlines label present and computed",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no typed-in counts or audited-snapshot wording",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "MAP button inside the viewport",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "archive: unmatched headlines carry no project line",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.22 honest partial/failed/empty source statuses",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.22 article date distinct from crawl and unverified match chip",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 native 12-column notes and original MAP sibling",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 accessible Machine Read Notes opens without altering MAP",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 latest refusal headline visible in project row without changing official status",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 one live feed, no separate politics or dead show table action",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 mobile note button visible and accessible without sideways scroll",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "Solar-1000 migration: unchanged selection in consolidated register",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "Solar-1000 migration: inherited source inside project 1019",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "Solar-1000 migration: inherited source inside project 1020",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      }
+     ]
+    },
+    "csv_export": {
+     "pass": true,
+     "rows": 7775,
+     "header_sha256": "7a469cf40609e9dde30f8481fe1e37e0300d9492a5f3e6af14016e3e1ef9759a",
+     "body_sha256": "cc027acdbb42adb452665e7adf812fdcb8534a611cb1b57ba4940dfef211f2b7",
+     "columns_same_as_parent": true,
+     "body_same_as_parent": true,
+     "error": null
+    }
+   },
+   "ci": null,
+   "merge_commit": null,
+   "known_faults": [
+    "Research ranking is separate from the Solar-1000 pilot; unranked projects remain in the full register. News momentum and financing are unknown without accepted project evidence.",
+    "Evidence publication remains disabled; Global DC remains 12 sourced leads. Native Android verification is unavailable."
+   ],
+   "datacentre_features": null
+  },
+  {
+   "id": "202611161734",
+   "version": "V9.26",
+   "parent": "202611161630",
+   "date": "2026-11-16T17:34:00Z",
+   "state": "release_candidate_news_priority",
+   "added": "Source-aware news priority keeps every credited headline, gives relevant primary sources useful prominence and limits publisher repetition; validates ranking against exact feed bytes and labels fallbacks honestly.",
+   "data_changed": false,
+   "url": "202611161734/",
+   "tree": [
+    "66616800b2a865e506508fb6e7d991ea435f94e9"
+   ],
+   "verdict": "PASS",
+   "browser_checked": true,
+   "checks": {
+    "tree_unchanged": {
+     "pass": true,
+     "tree": "66616800b2a865e506508fb6e7d991ea435f94e9"
+    },
+    "runner": {
+     "pass": true,
+     "runner": "tests/run_v9_26.sh",
+     "last_line": "V9.26 (202611161734) validation suite: PASS (<repository>)"
+    },
+    "map_contract": {
+     "pass": true,
+     "rows": 7775,
+     "ok": 7775,
+     "with_point": 7749,
+     "without_point": 26
+    },
+    "grid_engine_contract": {
+     "pass": true,
+     "ok": 7775,
+     "examples": []
+    },
+    "map_links_identical_to_parent": {
+     "pass": true,
+     "identical": 7775,
+     "rows": 7775,
+     "parent": "202611161630"
+    },
+    "data_unchanged_from_parent": {
+     "pass": true,
+     "data_digest": "5bc68379308e88c9a7001fc2741eec0297cbc6059e29f4b503a826c4d10c1a18",
+     "declared_change": false
+    },
+    "features_kept": {
+     "pass": true,
+     "features": [
+      "map-deep-link",
+      "newspaper",
+      "csv-export",
+      "interconnectors-tab",
+      "versions-link",
+      "gridatlas-state",
+      "gridatlas-state-list",
+      "register-changes",
+      "register-changes-data",
+      "chartjs-pinned",
+      "repd-source-line",
+      "live-headlines",
+      "headlines-status-label",
+      "headlines-snapshot",
+      "news-archive",
+      "v922-explicit-partial",
+      "v922-publisher-date",
+      "v922-visible-candidate-identity",
+      "machine-notes-column",
+      "solar1000-pilot",
+      "inline-project-evidence",
+      "global-dc-tab",
+      "news-editorial-priority"
+     ],
+     "missing": [],
+     "withdrawn_on_purpose": [
+      "data-sources-block",
+      "datacentre-news-panel",
+      "datacentre-sources",
+      "datacentres-page-link",
+      "nearest-datacentre",
+      "nearest-datacentre-data"
+     ],
+     "migrations": [
+      {
+       "id": "solar1000-pilot",
+       "from": "202611161244",
+       "contract": "solar1000-inline-v1",
+       "pass": true,
+       "failures": []
+      }
+     ],
+     "errors": []
+    },
+    "size_budget": {
+     "pass": true,
+     "bytes": 15976550,
+     "budget_mb": 18
+    },
+    "browser": {
+     "pass": true,
+     "views": [
+      {
+       "viewport": "desktop",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "404 https://raw.githubusercontent.com/Ventusltd/globalgrid2050/pipeline-evidence-data/dist/news/evidence/latest.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": false,
+        "nearest_datacentres": 0,
+        "register_changes_in_rows": 2,
+        "gridatlas_state_file": true,
+        "gridatlas_state_notes": 0,
+        "register_changes_section": true
+       }
+      },
+      {
+       "viewport": "phone",
+       "pass": true,
+       "record_count": 7775,
+       "rows_drawn": 20,
+       "page_errors": [],
+       "console_errors": [],
+       "failed_same_origin": [],
+       "failed_external": [
+        "404 https://raw.githubusercontent.com/Ventusltd/globalgrid2050/pipeline-evidence-data/dist/news/evidence/latest.json"
+       ],
+       "overflow": false,
+       "map_links_drawn": 20,
+       "map_links_drawn_equal_contract_href": true,
+       "first_map_link": "https://ventusltd.github.io/gridatlas/atlas/?repd_ref=9873&technology=wind_offshore&latitude=56.4431397&longitude=-1.4664021&zoom=12",
+       "features_seen": {
+        "newspaper": true,
+        "datacentre_news_panel": false,
+        "nearest_datacentres": 0,
+        "register_changes_in_rows": 2,
+        "gridatlas_state_file": true,
+        "gridatlas_state_notes": 0,
+        "register_changes_section": true
+       }
+      }
+     ]
+    },
+    "feature_probes": {
+     "pass": true,
+     "probes": 39,
+     "expected": 39,
+     "skipped_need_internet": 0,
+     "results": [
+      {
+       "name": "register change in the project record (REPD 15793)",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "charting library loaded from the pinned file",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no register content on the page",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no register content in a project record (REPD 10772)",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "REPD source and licence line",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "headlines label present and computed",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no typed-in counts or audited-snapshot wording",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "MAP button inside the viewport",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "archive: unmatched headlines carry no project line",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.22 honest partial/failed/empty source statuses",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.22 article date distinct from crawl and unverified match chip",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 native 12-column notes and original MAP sibling",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 accessible Machine Read Notes opens without altering MAP",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 latest refusal headline visible in project row without changing official status",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 one live feed, no separate politics or dead show table action",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 mobile note button visible and accessible without sideways scroll",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "Solar-1000 migration: unchanged selection in consolidated register",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "Solar-1000 migration: inherited source inside project 1019",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "Solar-1000 migration: inherited source inside project 1020",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "live file refused: saved copy or a plain statement, table still complete",
+       "viewport": "desktop",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "register change in the project record (REPD 15793)",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "charting library loaded from the pinned file",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no register content on the page",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no register content in a project record (REPD 10772)",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "REPD source and licence line",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "headlines label present and computed",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "no typed-in counts or audited-snapshot wording",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "MAP button inside the viewport",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "archive: unmatched headlines carry no project line",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.22 honest partial/failed/empty source statuses",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.22 article date distinct from crawl and unverified match chip",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 native 12-column notes and original MAP sibling",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 accessible Machine Read Notes opens without altering MAP",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 latest refusal headline visible in project row without changing official status",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 one live feed, no separate politics or dead show table action",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "V9.23 mobile note button visible and accessible without sideways scroll",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "Solar-1000 migration: unchanged selection in consolidated register",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "Solar-1000 migration: inherited source inside project 1019",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      },
+      {
+       "name": "Solar-1000 migration: inherited source inside project 1020",
+       "viewport": "phone",
+       "pass": true,
+       "detail": "",
+       "link": null
+      }
+     ]
+    },
+    "csv_export": {
+     "pass": true,
+     "rows": 7775,
+     "header_sha256": "7a469cf40609e9dde30f8481fe1e37e0300d9492a5f3e6af14016e3e1ef9759a",
+     "body_sha256": "cc027acdbb42adb452665e7adf812fdcb8534a611cb1b57ba4940dfef211f2b7",
+     "columns_same_as_parent": true,
+     "body_same_as_parent": true,
+     "error": null
+    }
+   },
+   "ci": null,
+   "merge_commit": null,
+   "known_faults": [
+    "Live editorial priority requires a successful existing headlines refresh; absent or mismatched sidecar uses an explicitly labelled date-order fallback.",
+    "Project evidence remains disabled with zero independently verified findings; Global DC coverage remains a partial set of 12 sourced leads."
+   ],
+   "datacentre_features": null
+  },
   {
    "id": "202611161630",
    "version": "V9.25",
@@ -3558,14 +4466,5 @@
    "known_faults": [],
    "datacentre_features": null
   }
- ],
- "metadata_receipt": {
-  "source": "https://github.com/Ventusltd/globalgrid2050/actions/runs/43917321930",
-  "artifact_id": 14250652249,
-  "artifact_file": "versions.ci.json",
-  "artifact_file_sha256": "ef8a78bc480ccc1cfd3fce29acf3be1b82079c9589b36f0adc6b667ff71c9bff",
-  "tested_head": "e2568fa9b818d39e28b106bbe49c3a53d0ad4fc2",
-  "tested_merge_ref": "5686d778d19d6eb852ce4a98cdfc577cd2ee523a",
-  "note": "Actual hosted verdicts retained without changing checks. Only current candidate state/limitations and the top-level operative/candidate summary were synchronized to the audited registry. The source tree is unchanged; this metadata revision still requires its own exact-head CI before publication."
- }
+ ]
 }

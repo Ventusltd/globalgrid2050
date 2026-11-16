@@ -50,7 +50,13 @@ class IncompleteBuildTests(unittest.TestCase):
             "feature_probes":{"pass":False,"results":[
                 {"name":"Native notes column","viewport":"phone","pass":False,
                  "detail":"Missing row cell"}]},
-            "map_contract":{"pass":True}
+            "map_contract":{"pass":True},
+            "tree_unchanged":{"pass":True},
+            "runner":{"pass":True},
+            "grid_engine_contract":{"pass":True},
+            "map_links_identical_to_parent":{"pass":True},
+            "data_unchanged_from_parent":{"pass":True},
+            "features_kept":{"pass":True}
         }}]}
         outcome=feedback.analyse(record, "frozen-test-sha")
         self.assertEqual(outcome["verdict"],"PRODUCT_CI_FAIL")

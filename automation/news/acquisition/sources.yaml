@@ -1,0 +1,8 @@
+- id: pv_magazine_global
+  publisher: PV Magazine
+  kind: rss
+  url: https://www.pv-magazine.com/feed/
+  technology: [solar]
+  interval_hours: 168
+  enabled: true
+  output_policy: headline_link_only

@@ -52,6 +52,7 @@ jobs:
       - name: Python creates new V9.23 only once; archive V9.22 untouched
         if: steps.window.outputs.active == 'true'
         run: |
+          mkdir -p "$RUNNER_TEMP/v923"
           python3 -m py_compile automation/v923-recovery/repair.py
           python3 automation/v923-recovery/repair.py build
       - name: Commit candidate on its EXCLUSIVE branch before running tests

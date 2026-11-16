@@ -788,6 +788,37 @@
       "ci": null,
       "merge_commit": null,
       "state": "release_candidate_news_priority"
+    },
+    {
+      "id": "202611161747",
+      "version": "V9.27",
+      "parent": "202611161734",
+      "date": "2026-11-16T17:47:00Z",
+      "added": "Explained source-bound research priority and remarks within existing project rows, preserving the complete official inventory and separate immutable Solar-1000.",
+      "data_changed": false,
+      "runner": "tests/run_v9_27.sh",
+      "trees": [
+        "44e7f54ed14475edd72babf61a0e86fec965ef8d"
+      ],
+      "features": [
+        {
+          "id": "inline-research-priority",
+          "file": "index.html",
+          "contains": "research-priority-v927.js"
+        },
+        {
+          "id": "source-bound-priority",
+          "file": "index.html",
+          "contains": "researchPriorityStatus"
+        }
+      ],
+      "known_faults": [
+        "Research ranking is separate from the Solar-1000 pilot; unranked projects remain in the full register. News momentum and financing are unknown without accepted project evidence.",
+        "Evidence publication remains disabled; Global DC remains 12 sourced leads. Native Android verification is unavailable."
+      ],
+      "ci": null,
+      "merge_commit": null,
+      "state": "release_candidate_project_priority"
     }
   ],
   "size_budget_mb": 18,

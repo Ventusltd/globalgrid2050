@@ -1,0 +1,524 @@
+{
+  "schema": "globalgrid2050.global-datacentres.projects.v1",
+  "generated_from_retrieval": "2026-11-16T16:41:40Z",
+  "coverage": "Curated global sample; not a comprehensive worldwide register. Countries and facilities without selected records are not implied absent.",
+  "scope": "global",
+  "record_count": 12,
+  "country_count": 10,
+  "source_facts_sha256": "bf36a33365a3a89eefc1e1017538b22759bef6ccd224fb8535fdbbbe9f036090",
+  "records": [
+    {
+      "id": "DC-WD-Q142068695",
+      "name": "NEXTDC M3 Melbourne",
+      "record_type": "data_centre",
+      "country": {
+        "code": "AU",
+        "name": "Australia",
+        "wikidata_id": "Q408"
+      },
+      "operator": null,
+      "operating_status": "not_assessed",
+      "verification_status": "SOURCE_INDEXED",
+      "location": null,
+      "capacity": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "capacity_sources": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "source": {
+        "publisher": "Wikidata",
+        "url": "https://www.wikidata.org/wiki/Q142068695",
+        "revision_url": "https://www.wikidata.org/w/index.php?title=Q142068695&oldid=2565424685",
+        "revision": 2565424685,
+        "retrieved_at": "2026-11-16T16:41:40Z",
+        "licence": "CC0-1.0",
+        "licence_url": "https://www.wikidata.org/wiki/Wikidata:Copyright"
+      },
+      "field_sources": {
+        "name": "https://www.wikidata.org/w/index.php?title=Q142068695&oldid=2565424685",
+        "country": "https://www.wikidata.org/w/index.php?title=Q408&oldid=2567535006",
+        "location": null,
+        "operator": null
+      }
+    },
+    {
+      "id": "DC-WD-Q1277574",
+      "name": "earthDATAsafe",
+      "record_type": "data_centre",
+      "country": {
+        "code": "AT",
+        "name": "Austria",
+        "wikidata_id": "Q40"
+      },
+      "operator": "Cancom Austria AG",
+      "operating_status": "not_assessed",
+      "verification_status": "SOURCE_INDEXED",
+      "location": {
+        "latitude": 47.4492,
+        "longitude": 15.3382,
+        "precision_degrees": 0.0001,
+        "basis": "Wikidata P625 source point; not surveyed accuracy"
+      },
+      "capacity": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "capacity_sources": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "source": {
+        "publisher": "Wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1277574",
+        "revision_url": "https://www.wikidata.org/w/index.php?title=Q1277574&oldid=1362173510",
+        "revision": 1362173510,
+        "retrieved_at": "2026-11-16T16:41:40Z",
+        "licence": "CC0-1.0",
+        "licence_url": "https://www.wikidata.org/wiki/Wikidata:Copyright"
+      },
+      "field_sources": {
+        "name": "https://www.wikidata.org/w/index.php?title=Q1277574&oldid=1362173510",
+        "country": "https://www.wikidata.org/w/index.php?title=Q40&oldid=2569180955",
+        "location": "https://www.wikidata.org/w/index.php?title=Q1277574&oldid=1362173510#P625",
+        "operator": "https://www.wikidata.org/w/index.php?title=Q15822775&oldid=2547994368"
+      }
+    },
+    {
+      "id": "DC-WD-Q142068699",
+      "name": "ODATA SP04",
+      "record_type": "data_centre",
+      "country": {
+        "code": "BR",
+        "name": "Brazil",
+        "wikidata_id": "Q155"
+      },
+      "operator": null,
+      "operating_status": "not_assessed",
+      "verification_status": "SOURCE_INDEXED",
+      "location": null,
+      "capacity": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "capacity_sources": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "source": {
+        "publisher": "Wikidata",
+        "url": "https://www.wikidata.org/wiki/Q142068699",
+        "revision_url": "https://www.wikidata.org/w/index.php?title=Q142068699&oldid=2565424835",
+        "revision": 2565424835,
+        "retrieved_at": "2026-11-16T16:41:40Z",
+        "licence": "CC0-1.0",
+        "licence_url": "https://www.wikidata.org/wiki/Wikidata:Copyright"
+      },
+      "field_sources": {
+        "name": "https://www.wikidata.org/w/index.php?title=Q142068699&oldid=2565424835",
+        "country": "https://www.wikidata.org/w/index.php?title=Q155&oldid=2568773711",
+        "location": null,
+        "operator": null
+      }
+    },
+    {
+      "id": "DC-WD-Q19721053",
+      "name": "Foulum Data Center",
+      "record_type": "data_centre",
+      "country": {
+        "code": "DK",
+        "name": "Denmark",
+        "wikidata_id": "Q35"
+      },
+      "operator": null,
+      "operating_status": "not_assessed",
+      "verification_status": "SOURCE_INDEXED",
+      "location": {
+        "latitude": 56.4834,
+        "longitude": 9.5739,
+        "precision_degrees": 0.0001,
+        "basis": "Wikidata P625 source point; not surveyed accuracy"
+      },
+      "capacity": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "capacity_sources": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "source": {
+        "publisher": "Wikidata",
+        "url": "https://www.wikidata.org/wiki/Q19721053",
+        "revision_url": "https://www.wikidata.org/w/index.php?title=Q19721053&oldid=2446280675",
+        "revision": 2446280675,
+        "retrieved_at": "2026-11-16T16:41:40Z",
+        "licence": "CC0-1.0",
+        "licence_url": "https://www.wikidata.org/wiki/Wikidata:Copyright"
+      },
+      "field_sources": {
+        "name": "https://www.wikidata.org/w/index.php?title=Q19721053&oldid=2446280675",
+        "country": "https://www.wikidata.org/w/index.php?title=Q35&oldid=2568774044",
+        "location": "https://www.wikidata.org/w/index.php?title=Q19721053&oldid=2446280675#P625",
+        "operator": null
+      }
+    },
+    {
+      "id": "DC-WD-Q142068471",
+      "name": "Yotta NM1",
+      "record_type": "data_centre",
+      "country": {
+        "code": "IN",
+        "name": "India",
+        "wikidata_id": "Q668"
+      },
+      "operator": null,
+      "operating_status": "not_assessed",
+      "verification_status": "SOURCE_INDEXED",
+      "location": null,
+      "capacity": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "capacity_sources": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "source": {
+        "publisher": "Wikidata",
+        "url": "https://www.wikidata.org/wiki/Q142068471",
+        "revision_url": "https://www.wikidata.org/w/index.php?title=Q142068471&oldid=2565410832",
+        "revision": 2565410832,
+        "retrieved_at": "2026-11-16T16:41:40Z",
+        "licence": "CC0-1.0",
+        "licence_url": "https://www.wikidata.org/wiki/Wikidata:Copyright"
+      },
+      "field_sources": {
+        "name": "https://www.wikidata.org/w/index.php?title=Q142068471&oldid=2565410832",
+        "country": "https://www.wikidata.org/w/index.php?title=Q668&oldid=2568774463",
+        "location": null,
+        "operator": null
+      }
+    },
+    {
+      "id": "DC-WD-Q11236058",
+      "name": "NTT Telepark Dojima",
+      "record_type": "data_centre",
+      "country": {
+        "code": "JP",
+        "name": "Japan",
+        "wikidata_id": "Q17"
+      },
+      "operator": null,
+      "operating_status": "not_assessed",
+      "verification_status": "SOURCE_INDEXED",
+      "location": {
+        "latitude": 34.695447,
+        "longitude": 135.491381,
+        "precision_degrees": 1e-05,
+        "basis": "Wikidata P625 source point; not surveyed accuracy"
+      },
+      "capacity": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "capacity_sources": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "source": {
+        "publisher": "Wikidata",
+        "url": "https://www.wikidata.org/wiki/Q11236058",
+        "revision_url": "https://www.wikidata.org/w/index.php?title=Q11236058&oldid=2269909393",
+        "revision": 2269909393,
+        "retrieved_at": "2026-11-16T16:41:40Z",
+        "licence": "CC0-1.0",
+        "licence_url": "https://www.wikidata.org/wiki/Wikidata:Copyright"
+      },
+      "field_sources": {
+        "name": "https://www.wikidata.org/w/index.php?title=Q11236058&oldid=2269909393",
+        "country": "https://www.wikidata.org/w/index.php?title=Q17&oldid=2568774645",
+        "location": "https://www.wikidata.org/w/index.php?title=Q11236058&oldid=2269909393#P625",
+        "operator": null
+      }
+    },
+    {
+      "id": "DC-WD-Q140089116",
+      "name": "Microsoft Data Center Campus Middenmeer",
+      "record_type": "data_centre",
+      "country": {
+        "code": null,
+        "name": "Netherlands",
+        "wikidata_id": "Q55"
+      },
+      "operator": null,
+      "operating_status": "not_assessed",
+      "verification_status": "SOURCE_INDEXED",
+      "location": {
+        "latitude": 52.761418,
+        "longitude": 5.037557,
+        "precision_degrees": 1e-06,
+        "basis": "Wikidata P625 source point; not surveyed accuracy"
+      },
+      "capacity": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "capacity_sources": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "source": {
+        "publisher": "Wikidata",
+        "url": "https://www.wikidata.org/wiki/Q140089116",
+        "revision_url": "https://www.wikidata.org/w/index.php?title=Q140089116&oldid=2529992387",
+        "revision": 2529992387,
+        "retrieved_at": "2026-11-16T16:41:40Z",
+        "licence": "CC0-1.0",
+        "licence_url": "https://www.wikidata.org/wiki/Wikidata:Copyright"
+      },
+      "field_sources": {
+        "name": "https://www.wikidata.org/w/index.php?title=Q140089116&oldid=2529992387",
+        "country": "https://www.wikidata.org/w/index.php?title=Q55&oldid=2569181539",
+        "location": "https://www.wikidata.org/w/index.php?title=Q140089116&oldid=2529992387#P625",
+        "operator": null
+      }
+    },
+    {
+      "id": "DC-WD-Q520438",
+      "name": "Swiss Fort Knox",
+      "record_type": "data_centre",
+      "country": {
+        "code": "CH",
+        "name": "Switzerland",
+        "wikidata_id": "Q39"
+      },
+      "operator": null,
+      "operating_status": "not_assessed",
+      "verification_status": "SOURCE_INDEXED",
+      "location": {
+        "latitude": 46.4856,
+        "longitude": 7.25417,
+        "precision_degrees": 0.13046727572111,
+        "basis": "Wikidata P625 source point; not surveyed accuracy"
+      },
+      "capacity": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "capacity_sources": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "source": {
+        "publisher": "Wikidata",
+        "url": "https://www.wikidata.org/wiki/Q520438",
+        "revision_url": "https://www.wikidata.org/w/index.php?title=Q520438&oldid=2037334889",
+        "revision": 2037334889,
+        "retrieved_at": "2026-11-16T16:41:40Z",
+        "licence": "CC0-1.0",
+        "licence_url": "https://www.wikidata.org/wiki/Wikidata:Copyright"
+      },
+      "field_sources": {
+        "name": "https://www.wikidata.org/w/index.php?title=Q520438&oldid=2037334889",
+        "country": "https://www.wikidata.org/w/index.php?title=Q39&oldid=2569181414",
+        "location": "https://www.wikidata.org/w/index.php?title=Q520438&oldid=2037334889#P625",
+        "operator": null
+      }
+    },
+    {
+      "id": "DC-WD-Q138426651",
+      "name": "Telehouse North",
+      "record_type": "data_centre",
+      "country": {
+        "code": "GB",
+        "name": "United Kingdom",
+        "wikidata_id": "Q145"
+      },
+      "operator": "Telehouse Europe",
+      "operating_status": "not_assessed",
+      "verification_status": "SOURCE_INDEXED",
+      "location": {
+        "latitude": 51.51206,
+        "longitude": -0.00198,
+        "precision_degrees": 1e-05,
+        "basis": "Wikidata P625 source point; not surveyed accuracy"
+      },
+      "capacity": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "capacity_sources": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "source": {
+        "publisher": "Wikidata",
+        "url": "https://www.wikidata.org/wiki/Q138426651",
+        "revision_url": "https://www.wikidata.org/w/index.php?title=Q138426651&oldid=2483375974",
+        "revision": 2483375974,
+        "retrieved_at": "2026-11-16T16:41:40Z",
+        "licence": "CC0-1.0",
+        "licence_url": "https://www.wikidata.org/wiki/Wikidata:Copyright"
+      },
+      "field_sources": {
+        "name": "https://www.wikidata.org/w/index.php?title=Q138426651&oldid=2483375974",
+        "country": "https://www.wikidata.org/w/index.php?title=Q145&oldid=2570257445",
+        "location": "https://www.wikidata.org/w/index.php?title=Q138426651&oldid=2483375974#P625",
+        "operator": "https://www.wikidata.org/w/index.php?title=Q3517302&oldid=2534632991"
+      }
+    },
+    {
+      "id": "DC-WD-Q139609394",
+      "name": "Meta Henrico Data Center",
+      "record_type": "data_centre",
+      "country": {
+        "code": "US",
+        "name": "United States",
+        "wikidata_id": "Q30"
+      },
+      "operator": null,
+      "operating_status": "not_assessed",
+      "verification_status": "SOURCE_INDEXED",
+      "location": {
+        "latitude": 37.483928208517945,
+        "longitude": -77.2373111466901,
+        "precision_degrees": 1e-08,
+        "basis": "Wikidata P625 source point; not surveyed accuracy"
+      },
+      "capacity": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "capacity_sources": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "source": {
+        "publisher": "Wikidata",
+        "url": "https://www.wikidata.org/wiki/Q139609394",
+        "revision_url": "https://www.wikidata.org/w/index.php?title=Q139609394&oldid=2486732685",
+        "revision": 2486732685,
+        "retrieved_at": "2026-11-16T16:41:40Z",
+        "licence": "CC0-1.0",
+        "licence_url": "https://www.wikidata.org/wiki/Wikidata:Copyright"
+      },
+      "field_sources": {
+        "name": "https://www.wikidata.org/w/index.php?title=Q139609394&oldid=2486732685",
+        "country": "https://www.wikidata.org/w/index.php?title=Q30&oldid=2568564901",
+        "location": "https://www.wikidata.org/w/index.php?title=Q139609394&oldid=2486732685#P625",
+        "operator": null
+      }
+    },
+    {
+      "id": "DC-WD-Q24259253",
+      "name": "NCAR-Wyoming Supercomputing Center",
+      "record_type": "data_centre",
+      "country": {
+        "code": "US",
+        "name": "United States",
+        "wikidata_id": "Q30"
+      },
+      "operator": null,
+      "operating_status": "not_assessed",
+      "verification_status": "SOURCE_INDEXED",
+      "location": {
+        "latitude": 41.1289,
+        "longitude": -104.8974,
+        "precision_degrees": 0.00027777777777778,
+        "basis": "Wikidata P625 source point; not surveyed accuracy"
+      },
+      "capacity": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "capacity_sources": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "source": {
+        "publisher": "Wikidata",
+        "url": "https://www.wikidata.org/wiki/Q24259253",
+        "revision_url": "https://www.wikidata.org/w/index.php?title=Q24259253&oldid=2396294891",
+        "revision": 2396294891,
+        "retrieved_at": "2026-11-16T16:41:40Z",
+        "licence": "CC0-1.0",
+        "licence_url": "https://www.wikidata.org/wiki/Wikidata:Copyright"
+      },
+      "field_sources": {
+        "name": "https://www.wikidata.org/w/index.php?title=Q24259253&oldid=2396294891",
+        "country": "https://www.wikidata.org/w/index.php?title=Q30&oldid=2568564901",
+        "location": "https://www.wikidata.org/w/index.php?title=Q24259253&oldid=2396294891#P625",
+        "operator": null
+      }
+    },
+    {
+      "id": "DC-WD-Q12857142",
+      "name": "Utah Data Center",
+      "record_type": "data_centre",
+      "country": {
+        "code": "US",
+        "name": "United States",
+        "wikidata_id": "Q30"
+      },
+      "operator": "National Security Agency",
+      "operating_status": "not_assessed",
+      "verification_status": "SOURCE_INDEXED",
+      "location": {
+        "latitude": 40.43153,
+        "longitude": -111.933092,
+        "precision_degrees": 2.77777777778e-06,
+        "basis": "Wikidata P625 source point; not surveyed accuracy"
+      },
+      "capacity": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "capacity_sources": {
+        "it_load_mw": null,
+        "site_demand_mw": null,
+        "grid_connection_mw": null
+      },
+      "source": {
+        "publisher": "Wikidata",
+        "url": "https://www.wikidata.org/wiki/Q12857142",
+        "revision_url": "https://www.wikidata.org/w/index.php?title=Q12857142&oldid=2540146251",
+        "revision": 2540146251,
+        "retrieved_at": "2026-11-16T16:41:40Z",
+        "licence": "CC0-1.0",
+        "licence_url": "https://www.wikidata.org/wiki/Wikidata:Copyright"
+      },
+      "field_sources": {
+        "name": "https://www.wikidata.org/w/index.php?title=Q12857142&oldid=2540146251",
+        "country": "https://www.wikidata.org/w/index.php?title=Q30&oldid=2568564901",
+        "location": "https://www.wikidata.org/w/index.php?title=Q12857142&oldid=2540146251#P625",
+        "operator": "https://www.wikidata.org/w/index.php?title=Q121194&oldid=2565599540"
+      }
+    }
+  ]
+}

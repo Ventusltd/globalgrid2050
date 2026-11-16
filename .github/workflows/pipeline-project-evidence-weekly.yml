@@ -8,6 +8,7 @@ on:
       - 'automation/news/**'
       - 'automation/pipeline_release/**'
       - 'uk_renewables_pipeline/202611161630/**'
+      - 'uk_renewables_pipeline/202611161747/**'
       - '.github/workflows/pipeline-project-evidence-weekly.yml'
 permissions:
   contents: read
@@ -50,6 +51,10 @@ jobs:
           node --test automation/news/acquisition/browser/harness.test.mjs
           npm exec --prefix automation/news/acquisition/browser -- playwright install --with-deps chromium
           npm test --prefix automation/news/acquisition/browser
+      - name: V9.27 source-bound priority, real register and inherited news browser checks
+        run: |
+          node --test automation/news/prospecting-ui/tests/adapter.test.mjs automation/news/prospecting-ui/tests/bundle.test.mjs
+          npm exec --prefix automation/news/acquisition/browser -- playwright test --config automation/news/acquisition/browser/prospecting-priority.config.mjs
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:

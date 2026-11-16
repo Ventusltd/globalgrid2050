@@ -32,6 +32,13 @@ class IncompleteBuildTests(unittest.TestCase):
         self.assertNotIn("CONFIRMED BY MACHINE",notes)
 
 
+
+    def test_late_gridatlas_card_collapse_must_be_checked(self):
+        script=(repair.B/"tests/browser_real_map_to_engine_agent7.mjs").read_text()
+        self.assertIn("visibility_stability",script)
+        self.assertIn("visibilityStability.every",script)
+        self.assertIn("1700, 4000, 4400",script)
+
     def test_feedback_keeps_failed_browser_probe_red(self):
         spec2=importlib.util.spec_from_file_location(
             "v923_feedback_under_test",SOURCE.parent/"feedback.py")

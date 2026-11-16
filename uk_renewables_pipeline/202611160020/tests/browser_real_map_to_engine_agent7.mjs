@@ -174,6 +174,23 @@ try {
       } catch (e) {
         receipt.phases.visible_nearest_timeout = String(e.message).slice(0,180);
       }
+      // Recheck at 1.7 s, 5.7 s (past the known 5.3 s reset) and 10.1 s.
+      // A computed-but-hidden result or a card that re-minimises is a FAIL.
+      const visibilityStability = [];
+      let elapsedMs = 0;
+      for (const deltaMs of [1700, 4000, 4400]) {
+        await arrival.waitForTimeout(deltaMs);
+        elapsedMs += deltaMs;
+        const sample = await arrival.evaluate(() => {
+          const body = document.body?.innerText || '';
+          return {
+            nearest_visible: /Nearest\\s+\\d+\\s*kV\\s+substation\\s*:/i.test(body),
+            minimised: !!document.querySelector('.maplibregl-popup.gridatlas-min')
+          };
+        });
+        visibilityStability.push({ elapsed_ms: elapsedMs, ...sample });
+      }
+      receipt.phases.visibility_stability = visibilityStability;
       const state = await arrival.evaluate(() => {
         const a = window.__GRIDATLAS_ATLAS__ || null;
         const x = window.__GRIDATLAS_NEON_LINKS__ || null;
@@ -206,6 +223,9 @@ try {
       assert.equal(state.technology_layer?.enabled, true, 'technology layer not enabled');
       assert.ok(state.project_layer_enabled, 'project layer not enabled');
       assert.ok(state.nearest_excerpt, 'NO real nearest-substation output observed');
+      assert.ok(visibilityStability.length === 3
+        && visibilityStability.every(s => s.nearest_visible && !s.minimised),
+        'Mobile nearest result not continuously user-visible after manual restore at 1.7/5.7/10.1 s');
       assert.equal(receipt.page_errors.length, 0, 'destination page exceptions');
       receipt.status = 'PASS';
     } catch (error) {

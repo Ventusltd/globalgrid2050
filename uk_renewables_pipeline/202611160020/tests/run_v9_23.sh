@@ -33,6 +33,7 @@ CHANGED_FROM_PARENT=(
   scripts/plugins/machine-notes-v923.js
   scripts/plugins/projects-v9-8.js
   styles/v9-23.css
+  tests/browser_real_map_to_engine_agent7.mjs
   tests/check_v9_23.mjs
   tests/run_v9_23.sh
 )

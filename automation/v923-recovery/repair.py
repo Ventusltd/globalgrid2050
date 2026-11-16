@@ -215,6 +215,8 @@ def check():
     assert "headlineSummaryV923" in notes_js, "Machine summary missing from native notes column"
     assert "pipeline-projects-rendered" in notes_js, "Note listener missing on table rerender"
     assert "pipeline-projects-rendered" in pj, "Table fails to dispatch note-rebinding event"
+    map_test=(B/"tests/browser_real_map_to_engine_agent7.mjs").read_text()
+    assert "visibility_stability" in map_test and "visibilityStability.every" in map_test, "Delayed GridAtlas card-visibility test missing"
     boundary="\nfunction projectRowHtml(project) {"
     assert pj.count(boundary)==1, "REPD row boundary changed"
     inter,repd=pj.split(boundary,1)

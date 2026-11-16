@@ -58,9 +58,11 @@ function source(document, parent, link) {
     ['Section', link.locator.section], ['Page', link.locator.page], ['Locator', link.locator.text]]) line(document, details, label, value);
   evidence(document, disclosure(document, details, 'Source details'), link.receipt);
 }
-/** Mount only inside a host explicitly designated by the News integrator. */
+/** Mount only inside an explicitly opted-in existing News or Pipeline tab. */
+export const isContextHost = host => Boolean(host?.hasAttribute?.('data-news-context-host') ||
+  host?.hasAttribute?.('data-pipeline-context-host'));
 export async function renderContext(host, bytes, {expectedSha256, figures}) {
-  if (!host?.hasAttribute('data-news-context-host')) throw new TypeError('An opted-in News host is required');
+  if (!isContextHost(host)) throw new TypeError('An opted-in News or Pipeline host is required');
   const generation = (generations.get(host) ?? 0) + 1; generations.set(host, generation);
   const document = host.ownerDocument;
   const root = node(document, 'details'); root.setAttribute(rootAttribute, ''); root.className = 'transition-context';

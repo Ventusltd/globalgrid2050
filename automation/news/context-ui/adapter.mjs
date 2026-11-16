@@ -28,6 +28,11 @@ function date(value, timestamp = false) {
   requireValue(typeof value === 'string' && (timestamp
     ? /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?(?:Z|[+-]\d{2}:\d{2})$/
     : /^\d{4}(?:-\d{2}(?:-\d{2})?)?$/).test(value));
+  // A well-shaped date such as 2026-02-30 is not a valid source clock.
+  const [year, month = 1, day = 1] = value.slice(0, 10).split('-').map(Number);
+  requireValue(month >= 1 && month <= 12 && day >= 1 &&
+    day <= new Date(Date.UTC(year, month, 0)).getUTCDate());
+  if (timestamp) requireValue(Number.isFinite(Date.parse(value)));
 }
 function scope(nativeScope, entity, family, relationship) {
   const kind = relationship === 'portfolio_storage_access' || nativeScope === 'consolidated_group'
@@ -110,6 +115,72 @@ export async function readContext(raw, {expectedSha256, buildViewModel}) {
     for (const doc of receipt.native_metadata.documents ?? []) {
       sourceUrl(doc.url); date(doc.published_on); date(doc.reviewed_at, true); date(doc.retrieved_at, true);
       requireValue(doc.content_sha256 === null || digestPattern.test(doc.content_sha256));
+    }
+  }
+  // The payload is already hash-pinned by the host. Still fail closed when
+  // multiple *internal* copies of the same source contradict each other.
+  // Neither matching receipts nor a hash pin amounts to source-truth review.
+  const sourceDocuments = new Map();
+  const registerSource = (id, receipt) => {
+    text(id);
+    const prior = sourceDocuments.get(id);
+    requireValue(prior === undefined || equal(prior, receipt));
+    sourceDocuments.set(id, receipt);
+  };
+  const policyReceipt = report.input_receipts.find(r => r.family === 'policy');
+  requireValue(Array.isArray(policyReceipt.native_metadata.documents) &&
+    policyReceipt.native_metadata.documents.length === policyReceipt.source_count);
+  for (const doc of policyReceipt.native_metadata.documents) {
+    sourceUrl(doc.url); date(doc.published_on); date(doc.reviewed_at, true); date(doc.retrieved_at, true);
+    registerSource(doc.id, doc);
+  }
+  for (const family of ['grid', 'solar']) {
+    const receipt = report.input_receipts.find(r => r.family === family);
+    const familyRows = report.records.filter(r => r.family === family);
+    const meta = receipt.native_metadata;
+    requireValue(meta.context_count === familyRows.length &&
+      meta.numeric_claim_count === familyRows.reduce((n, row) => n + row.numeric_claims.length, 0) &&
+      meta.linked_project_count === 0 &&
+      (meta.source_byte_validation === undefined || meta.source_byte_validation === 'RECEIPTS_ONLY'));
+    requireValue(Array.isArray(meta.limitations) && meta.limitations.length > 0);
+    meta.limitations.forEach(text);
+    for (const row of familyRows) {
+      const native = row.native_record;
+      requireValue(row.source_links.length === 1 && native.source && native.source_id === native.source.id);
+      const link = row.source_links[0];
+      requireValue(equal(link.receipt, native.source) &&
+        link.document_id === native.source.document_id &&
+        link.locator.section === native.section && link.locator.page === native.page);
+      registerSource(link.document_id, link.receipt);
+      // A FIGURES claim may not borrow another source's identity, date or locator.
+      for (const {claim} of row.numeric_claims) {
+        const p = claim.provenance;
+        requireValue(p.document_id === link.document_id && p.document_url === link.url &&
+          p.sha256 === link.sha256 && p.published_date === link.published_date &&
+          p.retrieved_at === link.retrieved_at && p.section === link.locator.section &&
+          p.page === link.locator.page);
+      }
+    }
+  }
+  const asOfTime = Date.parse(report.as_of);
+  for (const row of report.records) {
+    if (row.family === 'policy') {
+      const native = row.native_record;
+      const references = [native.source, ...native.applicability.evidence,
+        ...native.updates.map(u => u.source)];
+      for (const ref of references) requireValue(row.source_links.some(link =>
+        link.document_id === ref.document_id && link.locator.text === ref.locator));
+    }
+    for (const link of row.source_links) {
+      requireValue(equal(sourceDocuments.get(link.document_id), link.receipt));
+      for (const clock of [link.reviewed_at, link.retrieved_at]) {
+        if (clock !== null) requireValue(Date.parse(clock) <= asOfTime);
+      }
+      if (link.published_date !== null) {
+        date(link.published_date);
+        const year = Number(link.published_date.slice(0, 4));
+        requireValue(year <= Number(report.as_of.slice(0, 4)));
+      }
     }
   }
   return report; // untouched native records, nulls, source clocks and metadata

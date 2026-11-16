@@ -151,7 +151,7 @@ def test_export_validation_failure_does_not_commit_staged_database(setup, monkey
     assert state_bytes(setup["out"]) == previous
 
 
-def test_immutable_output_conflict_keeps_previous_database_and_pointer(setup):
+def test_changed_article_keeps_previous_database_and_pointer(setup):
     build(setup)
     previous = state_bytes(setup["out"])
 
@@ -160,7 +160,7 @@ def test_immutable_output_conflict_keeps_previous_database_and_pointer(setup):
         result["articles"][0]["title"] += " revised"
         return result
 
-    with pytest.raises(ValueError, match="Immutable snapshot conflict"):
+    with pytest.raises(EvidenceValidationError, match="Stored article metadata changed"):
         run.collect(setup["out"], sources_path=setup["config"], fetcher=changed_fetcher)
     assert state_bytes(setup["out"]) == previous
 

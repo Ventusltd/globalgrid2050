@@ -190,6 +190,14 @@ class EvidenceStore:
             _article(article)
             _require(article["source_id"] in source_ids, "Article has no successful source receipt")
             _require(article["url"] not in article_by_url, "Duplicate article URLs in run")
+            previous = self.connection.execute(
+                "SELECT id,title,pub_date,source_id,publisher FROM articles WHERE url=?",
+                (article["url"],)).fetchone()
+            # Historical bindings refer to the metadata first observed at this
+            # URL. Without versioned article identities, replacing it would
+            # silently rewrite the evidence for every earlier project match.
+            _require(previous is None or all(previous[key] == article[key] for key in previous.keys()),
+                     "Stored article metadata changed; manual review required")
             article_by_url[article["url"]] = article
         for match in matches:
             _require(match.get("status") == PROVISIONAL, "Machine matches must remain PROVISIONAL")
@@ -201,8 +209,7 @@ class EvidenceStore:
                 "INSERT INTO projects VALUES (?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET researched_at=excluded.researched_at",
                 [(p["id"], p["name"], p.get("latitude"), p.get("longitude"), fetched_at) for p in projects])
             self.connection.executemany(
-                "INSERT INTO articles VALUES (?,?,?,?,?,?) ON CONFLICT(url) DO UPDATE SET "
-                "title=excluded.title,pub_date=excluded.pub_date",
+                "INSERT INTO articles VALUES (?,?,?,?,?,?) ON CONFLICT(url) DO NOTHING",
                 [(a["url"], a["id"], a["title"], a["pub_date"], a["source_id"], a["publisher"]) for a in articles])
             for match in matches:
                 self.connection.execute("DELETE FROM evidence WHERE project_id=? AND article_url IS NULL", (match["project_id"],))
@@ -258,7 +265,7 @@ def validate_snapshot(payload, expected_project_ids):
     _require(isinstance(payload.get("research_scope"), str) and payload["research_scope"], "Research scope required")
     _moment(payload.get("generated_at"))
     _moment(payload.get("source_run_at"))
-    _sources(payload.get("sources"))
+    source_ids = _sources(payload.get("sources"))
     _require(payload.get("review_required") is True and type(payload.get("verified_count")) is int
              and payload["verified_count"] == 0, "Provisional snapshot cannot assert verification")
     rows = payload.get("projects")
@@ -287,6 +294,7 @@ def validate_snapshot(payload, expected_project_ids):
             _require(set(article) == {"id", "url", "title", "pub_date", "source_id", "publisher", "status",
                                      "match_method", "first_seen", "last_seen"}, "Unexpected evidence fields")
             _article(article)
+            _require(article["source_id"] in source_ids, "Article has no successful source receipt")
             _require(article.get("status") == PROVISIONAL and article.get("match_method") in METHODS,
                      "Evidence must be a strict provisional match")
             _require(not any(k in article for k in ("content", "body", "summary", "description")),

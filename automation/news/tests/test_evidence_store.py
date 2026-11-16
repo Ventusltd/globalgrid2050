@@ -62,6 +62,9 @@ def test_database_is_durable_idempotent_and_has_no_bodies(tmp_path, projects, ar
         snapshot = validate_snapshot(store.snapshot(), [p["id"] for p in projects])
         assert snapshot["evidence_count"] == 1
         assert snapshot["projects"][0]["evidence"][0]["first_seen"] == NOW
+        assert {key: snapshot["projects"][0]["evidence"][0][key]
+                for key in ("id", "title", "pub_date", "source_id", "publisher")} == {
+                    key: articles[0][key] for key in ("id", "title", "pub_date", "source_id", "publisher")}
         assert snapshot["projects"][0]["last_researched_at"] == LATER
 
 
@@ -143,9 +146,8 @@ def test_immutable_exports_roundtrip_and_pointer(tmp_path, projects, articles, s
         assert export_snapshot(store, tmp_path, expected_project_ids=ids) == pointer
         previous = (tmp_path / "latest.json").read_bytes()
         articles[0]["title"] = "Changed article title"
-        store.record_run(projects, articles, matches(articles), NOW, sources)
-        with pytest.raises(EvidenceValidationError, match="Immutable"):
-            export_snapshot(store, tmp_path, expected_project_ids=ids)
+        with pytest.raises(EvidenceValidationError, match="Stored article metadata changed"):
+            store.record_run(projects, articles, matches(articles), NOW, sources)
         assert (tmp_path / "latest.json").read_bytes() == previous
 
 
@@ -192,3 +194,69 @@ def test_no_successful_run_cannot_export(tmp_path, projects):
         with pytest.raises(EvidenceValidationError, match="No successful"):
             export_snapshot(store, tmp_path, expected_project_ids=[p["id"] for p in projects])
     assert not (tmp_path / "latest.json").exists()
+
+
+@pytest.mark.parametrize("field,value", [
+    ("id", "replacement-article-id"),
+    ("title", "Project 1001 solar plans"),
+    ("pub_date", "2026-11-22T10:00:00Z"),
+    ("source_id", "replacement_source"),
+    ("publisher", "Replacement publisher"),
+])
+def test_changed_article_is_rejected_before_state_or_exports_change(
+        tmp_path, projects, articles, sources, field, value):
+    from automation.news.acquisition.match import match_articles
+
+    database = tmp_path / "state.sqlite"
+    with EvidenceStore(database) as store:
+        store.record_run(projects, articles, match_articles(articles, projects), NOW, sources)
+        ids = [p["id"] for p in projects]
+        export_snapshot(store, tmp_path, expected_project_ids=ids)
+        before = {str(path.relative_to(tmp_path)): path.read_bytes()
+                  for path in tmp_path.rglob("*") if path.is_file()}
+        previous_snapshot = store.snapshot()
+        changed = [{**articles[0], field: value}]
+        receipts = copy.deepcopy(sources)
+        if field == "source_id":
+            # The replacement has a valid receipt, isolating metadata immutability
+            # from the independent requirement to have an accepted source.
+            receipts.append({**sources[0], "id": value})
+        changed_matches = match_articles(changed, projects)
+        if field == "title":
+            assert [m["project_id"] for m in changed_matches] == ["1001"]
+        with pytest.raises(EvidenceValidationError, match="Stored article metadata changed"):
+            store.record_run(projects, changed, changed_matches, LATER, receipts)
+        assert store.snapshot() == previous_snapshot
+        assert {str(path.relative_to(tmp_path)): path.read_bytes()
+                for path in tmp_path.rglob("*") if path.is_file()} == before
+
+
+def test_existing_snapshot_bytes_cannot_be_overwritten(tmp_path, projects, articles, sources):
+    with EvidenceStore() as store:
+        store.record_run(projects, articles, matches(articles), NOW, sources)
+        ids = [p["id"] for p in projects]
+        pointer = export_snapshot(store, tmp_path, expected_project_ids=ids)
+        previous = (tmp_path / "latest.json").read_bytes()
+        target = tmp_path / pointer["json"]
+        target.write_bytes(b"Synthetic conflicting snapshot bytes")
+        with pytest.raises(EvidenceValidationError, match="Immutable snapshot"):
+            export_snapshot(store, tmp_path, expected_project_ids=ids)
+        assert target.read_bytes() == b"Synthetic conflicting snapshot bytes"
+        assert (tmp_path / "latest.json").read_bytes() == previous
+
+
+def test_snapshot_rejects_evidence_without_accepted_source_receipt(
+        tmp_path, projects, articles, sources, monkeypatch):
+    with EvidenceStore() as store:
+        store.record_run(projects, articles, matches(articles), NOW, sources)
+        ids = [p["id"] for p in projects]
+        export_snapshot(store, tmp_path, expected_project_ids=ids)
+        before = {str(path.relative_to(tmp_path)): path.read_bytes()
+                  for path in tmp_path.rglob("*") if path.is_file()}
+        payload = copy.deepcopy(store.snapshot(LATER))
+        payload["projects"][0]["evidence"][0]["source_id"] = "no-accepted-source-receipt"
+        monkeypatch.setattr(store, "snapshot", lambda timestamp=None: payload)
+        with pytest.raises(EvidenceValidationError, match="Article has no successful source receipt"):
+            export_snapshot(store, tmp_path, expected_project_ids=ids)
+        assert {str(path.relative_to(tmp_path)): path.read_bytes()
+                for path in tmp_path.rglob("*") if path.is_file()} == before

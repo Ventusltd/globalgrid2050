@@ -44,6 +44,11 @@ def collect(out, *, sources_path=None, probe=False, fetcher=fetch_source):
         with EvidenceStore(staged_db) as store:
             store.record_run(projects, articles, matches, now, receipts)
             pointer = export_snapshot(store, staged, expected_project_ids=[p["id"] for p in projects])
+        # Analytical artifacts belong to the same candidate transaction. Import
+        # only on this path: health probes never load or create analytical data.
+        from .analytics import export_analytics
+        payload = json.loads((staged / pointer["json"]).read_text(encoding="utf-8"))
+        analytics = export_analytics(payload, staged, expected_project_ids=[p["id"] for p in projects])
         # Check immutable conflicts before copying any candidate file.
         for path in staged.rglob("*"):
             if not path.is_file() or path.name in {"evidence.sqlite", "latest.json"}:
@@ -58,6 +63,7 @@ def collect(out, *, sources_path=None, probe=False, fetcher=fetch_source):
                 shutil.copyfile(path, destination)
         (out / "latest.json").write_bytes((staged / "latest.json").read_bytes())
     report["pointer"] = pointer
+    report["analytics"] = analytics
     return report
 
 

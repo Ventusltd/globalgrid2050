@@ -73,12 +73,19 @@ def test_real_seed_synthetic_feed_through_sqlite_and_all_exports(setup):
     assert result["verified"] == 0 and result["probe_only"] is False
     out, pointer = setup["out"], result["pointer"]
     assert json.loads((out / "latest.json").read_text()) == pointer
-    payload = json.loads((out / pointer["json"]).read_text())
+    payload = json.loads((out / pointer["json"]).read_text(encoding="utf-8"))
     validate_snapshot(payload, setup["ids"])
     row = next(row for row in payload["projects"] if row["project_id"] == "1018")
     assert row["evidence_count"] == 1 and row["evidence"][0]["status"] == "PROVISIONAL"
     assert row["evidence"][0]["match_method"] == "repd_id"
     assert (out / pointer["csv"]).is_file() and (out / pointer["geojson"]).is_file()
+    analytics = result["analytics"]
+    assert analytics["project_count"] == 1000 and analytics["evidence_count"] == 1
+    assert not Path(analytics["manifest"]).is_absolute()
+    manifest_bytes = (out / analytics["manifest"]).read_bytes()
+    assert hashlib.sha256(manifest_bytes).hexdigest() == analytics["sha256"]
+    from automation.news.acquisition.analytics import validate_analytics
+    validate_analytics(out / analytics["directory"], payload, expected_project_ids=setup["ids"])
     with sqlite3.connect(out / "evidence.sqlite") as db:
         assert db.execute("SELECT count(*) FROM projects").fetchone()[0] == 1000
         assert db.execute("SELECT count(*) FROM evidence").fetchone()[0] == 1000
@@ -103,6 +110,26 @@ def test_probe_returns_health_without_creating_or_changing_state(setup):
     build(setup)
     previous = state_bytes(setup["out"])
     build(setup, probe=True)
+    assert state_bytes(setup["out"]) == previous
+
+
+def test_analytics_failure_preserves_accepted_database_snapshots_and_pointer(setup, monkeypatch):
+    from automation.news.acquisition import analytics
+
+    build(setup)
+    previous = state_bytes(setup["out"])
+
+    def fail_analytics(payload, out, **kwargs):
+        # A real adapter failure can occur after partial candidate writes.
+        (out / "partial-analytics.parquet").write_bytes(b"synthetic partial artifact")
+        raise EvidenceValidationError("Injected analytical readback failure")
+
+    monkeypatch.setattr(analytics, "export_analytics", fail_analytics)
+    with pytest.raises(EvidenceValidationError, match="analytical readback"):
+        build(setup)
+    assert state_bytes(setup["out"]) == previous
+    # Health probes must never invoke the failing analytical adapter.
+    assert build(setup, probe=True)["probe_only"] is True
     assert state_bytes(setup["out"]) == previous
 
 

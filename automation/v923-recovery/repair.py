@@ -109,7 +109,13 @@ def reconcile():
     html=idx.read_text()
     old='<span><b>DATA-CENTRE HEADLINES:</b> headlines and links from public news and government feeds; no article text is stored or shown. This version carries no content from the UK data-centre register.</span>'
     if old in html:
-        idx.write_text(html.replace(old,'<span><b>HEADLINES:</b> One public energy-infrastructure feed, with no content from the UK data-centre register. Machine Read Notes are candidate screening interpretations; original evidence and official REPD status remain separate.</span>'))
+        html=html.replace(old,'<span><b>HEADLINES:</b> One public energy-infrastructure feed, with no content from the UK data-centre register. Machine Read Notes are candidate screening interpretations; original evidence and official REPD status remain separate.</span>')
+    if "One public energy-infrastructure feed. Machine Read Notes" in html:
+        html=html.replace("One public energy-infrastructure feed. Machine Read Notes",
+                          "One public energy-infrastructure feed, with no content from the UK data-centre register. Machine Read Notes")
+    if "no content from the UK data-centre register" not in html:
+        raise RuntimeError("The register-exclusion statement was lost")
+    if html != idx.read_text():idx.write_text(html)
     rowmodule=B/"scripts/plugins/projects-v9-8.js"
     project_js=rowmodule.read_text()
     if 'class="machine-note-button mobile-machine-note"' not in project_js:

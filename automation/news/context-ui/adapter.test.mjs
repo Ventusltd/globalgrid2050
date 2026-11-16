@@ -1,9 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readContext, MAX_BYTES, sourceUrl} from './adapter.mjs';
-import {evidenceValue, limitationText} from './render.mjs';
+import {evidenceValue, limitationText, isContextHost} from './render.mjs';
 import {buildViewModel, raw, report, pins, encode, sha} from './test-support.mjs';
 const options = {expectedSha256: pins.fixture_sha256, buildViewModel};
+test('existing News or Pipeline tabs may opt in, unrelated hosts may not', () => {
+  assert.equal(isContextHost({hasAttribute: name => name === 'data-news-context-host'}), true);
+  assert.equal(isContextHost({hasAttribute: name => name === 'data-pipeline-context-host'}), true);
+  assert.equal(isContextHost({hasAttribute: () => false}), false);
+  assert.equal(isContextHost(null), false);
+});
 test('source acronyms remain exact and unrecognized source limitations survive', () => {
   for (const [key, value] of [['country', 'US'], ['country', 'GB'], ['currency', 'GBP'], ['unit', 'MW'], ['id', 'FERC']]) {
     assert.equal(evidenceValue(key, value), value);

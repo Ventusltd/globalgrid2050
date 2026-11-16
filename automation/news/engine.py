@@ -6,6 +6,7 @@ verifies identities, or publishes. Uses acquisition.match.match_articles.
 from __future__ import annotations
 
 import argparse
+from datetime import date, datetime
 import hashlib
 import json
 from pathlib import Path
@@ -46,6 +47,31 @@ def canonical_url(value):
     query = urlencode([(k, v) for k, v in parse_qsl(p.query, keep_blank_values=True)
                        if not (k.lower().startswith("utm_") or k.lower() in _TRACKING)])
     return urlunsplit(("https", host, p.path or "/", query, ""))
+
+
+def _checked_timestamp(value, field):
+    """Keep original ISO date text but reject impossible or malformed clocks.
+
+    These are metadata validation checks only; not independent publisher evidence.
+    """
+    if value is None:
+        return None
+    if not isinstance(value, str):
+        raise ValueError(field + " timestamp must be text or null")
+    try:
+        if re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", value):
+            date.fromisoformat(value)
+        elif re.fullmatch(
+            r"[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"
+            r"(?::[0-9]{2}(?:\.[0-9]{1,6})?)?(?:Z|[+-][0-9]{2}:[0-9]{2})?",
+            value,
+        ):
+            datetime.fromisoformat(value.replace("Z", "+00:00"))
+        else:
+            raise ValueError("bad timestamp format")
+    except ValueError as exc:
+        raise ValueError(field + " invalid timestamp") from exc
+    return value
 
 
 def _sources(rows):
@@ -132,13 +158,11 @@ def build_intelligence(articles, sources, projects=()):
         src = policies[sid]
         if a.get("publisher", src["publisher"]) != src["publisher"]:
             raise ValueError("publisher attribution conflicts with source")
-        published = a.get("pub_date", a.get("date"))
-        if published is not None and not isinstance(published, str):
-            raise ValueError("publication timestamp must be text or null")
-        first_seen = a.get("first_seen")
-        fetched = a.get("fetched_at")
-        if any(x is not None and not isinstance(x, str) for x in (first_seen, fetched)):
-            raise ValueError("observation timestamps must be text or null")
+        if a.get("source") is not None and a["source"] != src["publisher"]:
+            raise ValueError("publisher attribution conflicts with source label")
+        published = _checked_timestamp(a.get("pub_date", a.get("date")), "publication")
+        first_seen = _checked_timestamp(a.get("first_seen"), "first_seen")
+        fetched = _checked_timestamp(a.get("fetched_at"), "fetched_at")
         receipt = a.get("source_receipt_sha256")
         if receipt is not None and (not isinstance(receipt, str) or not _SHA.fullmatch(receipt)):
             raise ValueError("invalid source receipt hash")

@@ -1,0 +1,5 @@
+.v925-evidence{grid-column:1/-1;border-left:3px solid #e3b764;padding:6px 10px;min-width:0}
+.v925-evidence summary{cursor:pointer;color:#f1c770;font-weight:700;min-height:28px;overflow-wrap:anywhere}
+.v925-evidence p{margin:8px 0}.v925-evidence small{display:block;color:#b5c2d0;margin-top:4px}
+.v925-evidence a{color:#70d7f4;overflow-wrap:anywhere}
+[data-evidence-status]{overflow-wrap:anywhere}

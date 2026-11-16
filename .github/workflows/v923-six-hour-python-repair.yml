@@ -55,17 +55,6 @@ jobs:
           mkdir -p "$RUNNER_TEMP/v923"
           python3 -m py_compile automation/v923-recovery/repair.py
           python3 automation/v923-recovery/repair.py build
-      - name: Commit candidate on its EXCLUSIVE branch before running tests
-        if: steps.window.outputs.active == 'true'
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add uk_renewables_pipeline/202611160020/ automation/pipeline_release/registry.json
-          if ! git diff --staged --quiet; then
-            git commit -m 'build(v923): new nonlive one-feed Machine Read Notes candidate'
-            git push origin HEAD:agent10/v923-six-hour-repair-20261116
-          fi
-          echo "ACTUAL_CANDIDATE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
       - name: Python source, link, UI and backwards compatibility gates
         id: checks
         if: steps.window.outputs.active == 'true'
@@ -78,27 +67,63 @@ jobs:
           node --check uk_renewables_pipeline/202611160020/scripts/plugins/live-news.js
           node --check uk_renewables_pipeline/202611160020/scripts/plugins/projects-v9-8.js
           bash uk_renewables_pipeline/202611160020/tests/run_v9_23.sh 2>&1 | tee "$RUNNER_TEMP/v923/runner.log"
+      - name: CVAA negative tests — interrupted build, note columns, feedback and page rerender
+        id: adversarial
+        if: steps.window.outputs.active == 'true'
+        shell: bash
+        run: |
+          set -o pipefail
+          python3 -m unittest discover -s automation/v923-recovery -p 'test_*.py' -v 2>&1 | tee "$RUNNER_TEMP/v923/adversarial.log"
       - name: Existing historical version/REPD/CSV/MAP regression runner
         id: regression
         if: steps.window.outputs.active == 'true' && steps.checks.outcome == 'success'
         shell: bash
         run: |
           set -o pipefail
-          python3 automation/pipeline_release/verify.py --check 2>&1 | tee "$RUNNER_TEMP/v923/version-parity.log"
+          VERIFY_OUT="$RUNNER_TEMP/v923/versions.json" python3 automation/pipeline_release/verify.py --check 2>&1 | tee "$RUNNER_TEMP/v923/version-parity.log"
+      - name: Re-check UTC cutoff before any new branch write
+        id: final_window
+        if: steps.window.outputs.active == 'true' && steps.regression.outcome == 'success'
+        run: |
+          python3 - <<'PY'
+          from datetime import datetime, timezone
+          now=datetime.now(timezone.utc)
+          stop=datetime(2026,11,16,6,15,tzinfo=timezone.utc)
+          print('utc',now.isoformat(),'cutoff',stop.isoformat())
+          if now >= stop: raise SystemExit('STOP: 06:15 UTC passed; no new candidate commits')
+          PY
+      - name: Commit only after Python and release parity gates pass
+        if: steps.final_window.outcome == 'success'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add uk_renewables_pipeline/202611160020/ automation/pipeline_release/registry.json
+          if ! git diff --staged --quiet; then
+            git commit -m 'build(v923): new nonlive one-feed Machine Read Notes candidate'
+            git push origin HEAD:agent10/v923-six-hour-repair-20261116
+          fi
+          echo "ACTUAL_CANDIDATE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
       - name: Request independent existing full browser, CSV, MAP and historical version CI
-        if: steps.window.outputs.active == 'true' && steps.checks.outcome == 'success'
+        if: steps.final_window.outcome == 'success' && steps.regression.outcome == 'success'
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh workflow run verify-pipeline-versions.yml --ref agent10/v923-six-hour-repair-20261116
       - name: Refresh the existing Python ONE-FEED headline collector (six-hour scope only)
-        if: steps.window.outputs.active == 'true'
+        if: steps.final_window.outcome == 'success'
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh workflow run pipeline-headlines.yml --ref main
+      - name: Produce machine-readable failure analysis and next repair for every run
+        if: always() && steps.window.outputs.active == 'true'
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/v923"
+          python3 automation/v923-recovery/feedback.py "$RUNNER_TEMP/v923/versions.json" \
+            "$RUNNER_TEMP/v923/feedback.json" "$RUNNER_TEMP/v923/feedback.md"
       - name: Publish failures AND passing evidence to release issue (not homepage)
         if: always() && steps.window.outputs.active == 'true'
         continue-on-error: true
@@ -120,6 +145,9 @@ jobs:
             echo "Physical iPhone and served preview SHA: UNVERIFIED"
             echo "No GridAtlas/Agent9 files, historic version, homepage pointer or production change authorised."
           } > "$RUNNER_TEMP/v923/summary.txt"
+          if [ -f "$RUNNER_TEMP/v923/feedback.md" ]; then
+            cat "$RUNNER_TEMP/v923/feedback.md" >> "$RUNNER_TEMP/v923/summary.txt"
+          fi
           gh issue comment 121 --repo Ventusltd/globalgrid2050 --body-file "$RUNNER_TEMP/v923/summary.txt"
       - uses: actions/upload-artifact@v4
         if: always() && steps.window.outputs.active == 'true'

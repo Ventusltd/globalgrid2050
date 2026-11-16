@@ -1,0 +1,25 @@
+{
+  "schema": "globalgrid2050.global-datacentres.furnace-audit.v1",
+  "source_facts_sha256": "a5f36756acb26a3b5986a2afb571a94f0596e4c68d7ffa523bfe1d11ca2c829c",
+  "duckdb_version": "1.3.2",
+  "source_grain": "one Wikidata entity; not adjudicated facility identity",
+  "row_count": 12,
+  "distinct_source_ids": 12,
+  "quarantined_rows": 0,
+  "source_rights": "CC0-1.0 structured data",
+  "parquet": "data/facilities/generation=202611161630/source=WIKIDATA/global-data-centre-records-v1.parquet",
+  "parquet_sha256": "20a60bf7ccc7722d618320ab9fc9782cf68af6661c288936a37cbbb0dce1c1da",
+  "compression": "ZSTD",
+  "double_compile": "BYTE_IDENTICAL",
+  "readback": "EXACT_VALUES_AND_NULLS",
+  "browser_export_source": "DUCKDB_PARQUET_READBACK",
+  "verified_rows": 0,
+  "stages": [
+    "pinned_cc0_facts",
+    "validate_or_quarantine",
+    "typed_normalization",
+    "parquet_double_compile",
+    "duckdb_readback",
+    "browser_projection"
+  ]
+}

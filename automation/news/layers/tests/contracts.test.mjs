@@ -84,7 +84,7 @@ test('impossible dates, future publication and private-address headlines are wit
   const common={title:'Synthetic source title',source:'Fixture',link:'https://publisher.example/article'};
   const asOf=Date.parse('2026-11-16T23:00:00Z');
   for(const date of ['2026-02-30','2026-11-31T12:00:00Z','2099-01-01','2026-11-17T00:00:00Z','2026-11-16T25:00:00Z'])assert.deepEqual(latestHeadlines([{...common,date}],10,{asOf}),[],date);
-  for(const link of ['https://127.0.0.1/private','https://[::1]/private','https://localhost/private','https://router.local/private','https://192.168.0.1/private'])assert.deepEqual(latestHeadlines([{...common,date:'2026-11-16',link}],10,{asOf}),[],link);
+  for(const link of ['https://127.0.0.1/private','https://[::1]/private','https://localhost/private','https://router.local/private','https://192.168.0.1/private','https://localhost./private','https://router.local./private','https://router.internal./private','https://localhost%2e/private'])assert.deepEqual(latestHeadlines([{...common,date:'2026-11-16',link}],10,{asOf}),[],link);
   assert.equal(latestHeadlines([{...common,date:'2024-02-29'}],10,{asOf}).length,1);
 });
 test('Prices URLs reject at both the registry and renderer URL-policy boundary',()=>{

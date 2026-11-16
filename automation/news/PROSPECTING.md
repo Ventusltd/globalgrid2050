@@ -105,7 +105,8 @@ Priority is a sum of named components reused from `relevance.py`: nonnegative
 official capacity (0–30), official technology (0–15), explicit national planning
 route (0 or 8) and official-record evidence tier (15). A single follow-up component
 (0 or 5) indicates at least one provisional news association inside both freshness
-windows. It does not increase with the number of articles. A DC source record gets
+windows: published within 30 days and actually observed within 14 days. It does
+not increase with the number of articles. A DC source record gets
 15 topic-priority points and no capacity/authority inference. Scores are research
 ordering choices, not commercial value, available grid or verification measures.
 Equal scores sort by source-qualified ID. An optional type filter supports focused
@@ -125,8 +126,13 @@ confirmations. A future heat adapter needs accepted, dated origin/independence a
 event-deduplication receipts before any positive momentum score.
 
 Freshness is separately labelled by its actual basis: official record update date
-(90-day window), article publication time (30 days), source receipt or DC retrieval
-time (14 days). STALE inputs retain their original clocks. UNKNOWN means no clock
+(90-day window), article publication time (30 days), article last observation or
+DC retrieval time (14 days). Article `retrieval_freshness` uses its own `last_seen`,
+not the latest source-level `fetched_at`. The news input receipt's `freshness`
+describes source-run health separately; original source receipt clocks remain in
+each evidence item's `source`. A later successful empty scan cannot make an old
+article recently observed or restore its follow-up points. Missing article
+observation clocks fail closed. STALE inputs retain their original clocks. UNKNOWN means no clock
 is available. WITHIN_WINDOW is only age against the supplied `as_of`, not a claim
 that all facts are current. A recently retrieved Wikidata record has unknown
 official-record recency. The official baseline has no observation timestamp, so
@@ -173,4 +179,7 @@ negative/nonfinite/unknown capacity, future/stale clocks, missing/failed rights
 and access receipts, paywalls, unreceipted articles, raw headline rejection,
 unknown listed-parent eligibility, omitted personal fields, no manufactured
 momentum from reposts, source hashes, DC state boundaries, failure retention,
-historical write refusal and network-free execution.
+historical write refusal and network-free execution. An actual two-run
+`EvidenceStore` regression verifies that an empty later scan leaves article
+observation stale while source health is recent, and that observing the same
+article again updates observation freshness without changing publication time.

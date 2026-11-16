@@ -204,7 +204,7 @@ def evidence_input(spec, seed_ids, as_of):
                      ("id", "url", "title", "publisher", "pub_date", "first_seen", "last_seen", "match_method")}
             entry.update(state="PROVISIONAL", source=source, access=admission,
                          freshness=freshness(article["pub_date"], as_of, 30, "publication time"),
-                         retrieval_freshness=freshness(source["fetched_at"], as_of, 14, "source receipt time"))
+                         retrieval_freshness=freshness(article["last_seen"], as_of, 14, "article last observed time"))
             articles.append(entry)
         records[row["project_id"]] = {"last_researched_at": row["last_researched_at"],
                                       "articles": sorted(articles, key=lambda a: a["url"])}

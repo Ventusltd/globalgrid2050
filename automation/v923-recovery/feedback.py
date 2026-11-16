@@ -53,6 +53,14 @@ def analyse(document: dict | None, head: str = "") -> dict:
         result["next_repair_actions"].append("MISSING_V923_VERDICT: verify the branch and exact candidate identity.")
         return result
     checks = version.get("checks") or {}
+    mandatory = ("tree_unchanged", "runner", "map_contract", "grid_engine_contract",
+                 "map_links_identical_to_parent", "data_unchanged_from_parent", "features_kept")
+    missing = [name for name in mandatory if name not in checks]
+    if missing:
+        result["verdict"] = "INCOMPLETE_VERDICT"
+        result["next_repair_actions"].append("MISSING_MANDATORY_CHECKS: " + ", ".join(missing))
+        return result
+    result["browser_checked"] = version.get("browser_checked") is True
     failed = sorted(name for name, value in checks.items() if not isinstance(value, dict) or value.get("pass") is not True)
     result["failed_checks"] = failed
     for name in failed:
@@ -64,7 +72,12 @@ def analyse(document: dict | None, head: str = "") -> dict:
                  "detail": str(p.get("detail") or "")[:500]}
                 for p in probes if p.get("pass") is not True
             ][:30]
-    result["verdict"] = "PRODUCT_CI_PASS_WITH_OPEN_EXTERNAL_HOLDS" if not failed else "PRODUCT_CI_FAIL"
+    if failed:
+        result["verdict"] = "PRODUCT_CI_FAIL"
+    elif result["browser_checked"]:
+        result["verdict"] = "PRODUCT_BROWSER_PARITY_PASS_WITH_OPEN_EXTERNAL_HOLDS"
+    else:
+        result["verdict"] = "STATIC_PARITY_PASS_BROWSER_AND_GRIDATLAS_PENDING"
     return result
 
 def main(argv: list[str]) -> int:

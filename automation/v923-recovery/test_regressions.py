@@ -56,6 +56,28 @@ class IncompleteBuildTests(unittest.TestCase):
         self.assertEqual(outcome["failed_browser_probes"][0]["viewport"],"phone")
         self.assertNotEqual(outcome["verdict"],"PRODUCT_CI_PASS_WITH_OPEN_EXTERNAL_HOLDS")
 
+    def test_feedback_missing_mandatory_checks_is_incomplete(self):
+        spec2=importlib.util.spec_from_file_location(
+            "v923_feedback_under_test",SOURCE.parent/"feedback.py")
+        feedback=importlib.util.module_from_spec(spec2)
+        spec2.loader.exec_module(feedback)
+        outcome=feedback.analyse({"versions":[{"id":repair.NEW,"checks":{}}]})
+        self.assertEqual(outcome["verdict"],"INCOMPLETE_VERDICT")
+
+    def test_feedback_static_pass_is_not_a_browser_pass(self):
+        spec2=importlib.util.spec_from_file_location(
+            "v923_feedback_under_test",SOURCE.parent/"feedback.py")
+        feedback=importlib.util.module_from_spec(spec2)
+        spec2.loader.exec_module(feedback)
+        names=("tree_unchanged","runner","map_contract","grid_engine_contract",
+               "map_links_identical_to_parent","data_unchanged_from_parent","features_kept")
+        doc={"versions":[{"id":repair.NEW,"browser_checked":False,
+              "checks":{n:{"pass":True} for n in names}}]}
+        outcome=feedback.analyse(doc)
+        self.assertEqual(outcome["verdict"],
+          "STATIC_PARITY_PASS_BROWSER_AND_GRIDATLAS_PENDING")
+        self.assertFalse(outcome["browser_checked"])
+
     def test_feedback_missing_verdict_is_not_success(self):
         spec2=importlib.util.spec_from_file_location(
             "v923_feedback_under_test",SOURCE.parent/"feedback.py")

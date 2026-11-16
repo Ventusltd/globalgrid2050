@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "trade",
- "generated_at": "2026-11-15T21:57:52Z",
+ "generated_at": "2026-11-16T13:52:14Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -30,8 +30,8 @@
    "publisher": "Solar Power Portal",
    "date": "2026-09-03",
    "family": "trade",
-   "basis": "Solar Power Portal feed archive: alias phrase 'Botley West' in title",
-   "confidence": "confirmed"
+   "basis": "Solar Power Portal feed archive: alias phrase 'Botley West' in title; kept as uncertain: a distinctive name in a planning or energy headline, but no solar term",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "12588",
@@ -170,8 +170,8 @@
    "publisher": "reNEWS",
    "date": "2023-12-11",
    "family": "trade",
-   "basis": "reNEWS search: alias phrase 'Springwell' in title with developer 'EDF'",
-   "confidence": "confirmed"
+   "basis": "reNEWS search: alias phrase 'Springwell' in title with developer 'EDF'; kept as uncertain: a weak name and a solar term apart, with an agreeing fact",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "13043",
@@ -200,8 +200,8 @@
    "publisher": "reNEWS",
    "date": "2026-05-11",
    "family": "trade",
-   "basis": "reNEWS search: alias phrase 'Great North Road' in title with solar or energy word directly after it",
-   "confidence": "confirmed"
+   "basis": "reNEWS search: alias phrase 'Great North Road' in title with solar or energy word directly after it; kept as uncertain: weak project core followed by solar in a development headline; independent identity absent",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "15149",
@@ -270,8 +270,8 @@
    "publisher": "reNEWS",
    "date": "2024-11-14",
    "family": "trade",
-   "basis": "reNEWS search: alias phrase 'Whitestone' in title with capacity '750MW'",
-   "confidence": "confirmed"
+   "basis": "reNEWS search: alias phrase 'Whitestone' in title with capacity '750MW'; kept as uncertain: a weak name and a solar term apart, with an agreeing fact",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "14806",
@@ -490,8 +490,8 @@
    "publisher": "reNEWS",
    "date": "2021-11-19",
    "family": "trade",
-   "basis": "reNEWS search: alias phrase 'Sunnica' in title with capacity '500MW'",
-   "confidence": "confirmed"
+   "basis": "reNEWS search: alias phrase 'Sunnica' in title with capacity '500MW'; kept as uncertain: a weak name and a solar term apart, with an agreeing fact",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "7188",
@@ -530,8 +530,8 @@
    "publisher": "Solar Power Portal",
    "date": "2025-12-19",
    "family": "trade",
-   "basis": "Solar Power Portal feed archive: alias phrase 'Longfield' in title with solar or energy word directly after it",
-   "confidence": "confirmed"
+   "basis": "Solar Power Portal feed archive: alias phrase 'Longfield' in title with solar or energy word directly after it; kept as uncertain: a weak name and a solar term apart, with an agreeing fact",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "8162",
@@ -765,16 +765,6 @@
   },
   {
    "repd_ref": "10916",
-   "title": "EDF’s West Burton A coal-fired plant officially closes",
-   "link": "https://www.solarpowerportal.co.uk/solar-projects/edf-s-west-burton-a-coal-fired-plant-officially-closes",
-   "publisher": "Solar Power Portal",
-   "date": "2023-04-04",
-   "family": "trade",
-   "basis": "Solar Power Portal feed archive: alias phrase 'West Burton' in title",
-   "confidence": "confirmed"
-  },
-  {
-   "repd_ref": "10916",
    "title": "Island Green Power to develop 1GW+ of solar on ex-coal sites",
    "link": "https://www.solarpowerportal.co.uk/solar-projects/island-green-power-to-develop-1gw-of-solar-on-ex-coal-sites",
    "publisher": "Solar Power Portal",
@@ -790,8 +780,8 @@
    "publisher": "Solar Power Portal",
    "date": "2021-09-01",
    "family": "trade",
-   "basis": "Solar Power Portal feed archive: alias phrase 'West Burton' in title",
-   "confidence": "confirmed"
+   "basis": "Solar Power Portal feed archive: alias phrase 'West Burton' in title; kept as uncertain: a distinctive name in a planning or energy headline, but no solar term",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "15252",
@@ -840,8 +830,8 @@
    "publisher": "reNEWS",
    "date": "2025-06-12",
    "family": "trade",
-   "basis": "reNEWS search: alias phrase 'Steeple' in title with solar or energy word directly after it",
-   "confidence": "confirmed"
+   "basis": "reNEWS search: alias phrase 'Steeple' in title with solar or energy word directly after it; kept as uncertain: a weak name and a solar term apart, with an agreeing fact",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "15252",
@@ -855,23 +845,13 @@
   },
   {
    "repd_ref": "11678",
-   "title": "Boom Power secures planning permission for 49.99MW Drove Lane solar PV plant in East Yorkshire",
-   "link": "https://www.solarpowerportal.co.uk/solar-projects/boom-power-secures-planning-permission-for-49-99mw-drove-lane-solar-pv-plant-in-east-yorkshire",
-   "publisher": "Solar Power Portal",
-   "date": "2026-10-23",
-   "family": "trade",
-   "basis": "Solar Power Portal feed: alias phrase 'East Yorkshire' in title with developer 'Boom'",
-   "confidence": "confirmed"
-  },
-  {
-   "repd_ref": "11678",
    "title": "Ampyr acquires 530MW East Yorkshire Solar Farm",
    "link": "https://www.renews.biz/solar/ampyr-acquires-530mw-east-yorkshire-solar-farm/",
    "publisher": "reNEWS",
    "date": "2026-02-20",
    "family": "trade",
-   "basis": "reNEWS search: alias phrase 'East Yorkshire' in title with the full alias",
-   "confidence": "confirmed"
+   "basis": "reNEWS search: alias phrase 'East Yorkshire' in title with the full alias; kept as uncertain: a generic or shared name with no agreeing fact",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "11678",
@@ -880,8 +860,8 @@
    "publisher": "Solar Power Portal",
    "date": "2026-02-20",
    "family": "trade",
-   "basis": "Solar Power Portal feed archive: alias phrase 'East Yorkshire' in title with solar or energy word directly after it",
-   "confidence": "confirmed"
+   "basis": "Solar Power Portal feed archive: alias phrase 'East Yorkshire' in title with solar or energy word directly after it; kept as uncertain: project core followed by solar in a development headline; independent case identity absent",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "11678",
@@ -890,8 +870,8 @@
    "publisher": "Solar Power Portal",
    "date": "2025-05-12",
    "family": "trade",
-   "basis": "Solar Power Portal feed archive: alias phrase 'East Yorkshire' in title with developer 'Boom'",
-   "confidence": "confirmed"
+   "basis": "Solar Power Portal feed archive: alias phrase 'East Yorkshire' in title with developer 'Boom'; kept as uncertain: project core followed by solar in a development headline; independent case identity absent",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "11678",
@@ -932,36 +912,6 @@
    "family": "trade",
    "basis": "Solar Power Portal feed archive: alias phrase 'East Yorkshire' in the summary with developer 'Boom'; the headline does not name the project",
    "confidence": "uncertain"
-  },
-  {
-   "repd_ref": "11678",
-   "title": "Modular specialist to shut East Yorkshire factory",
-   "link": "https://www.constructionenquirer.com/2015/09/15/modular-specialist-to-shut-east-yorkshire-factory/",
-   "publisher": "Construction Enquirer",
-   "date": "2015-09-15",
-   "family": "trade",
-   "basis": "Construction Enquirer search: alias phrase 'East Yorkshire' in title",
-   "confidence": "confirmed"
-  },
-  {
-   "repd_ref": "11678",
-   "title": "Falling masonry kills man in East Yorkshire",
-   "link": "https://www.constructionenquirer.com/2014/10/07/falling-masonry-kills-man-in-east-yorkshire/",
-   "publisher": "Construction Enquirer",
-   "date": "2014-10-07",
-   "family": "trade",
-   "basis": "Construction Enquirer search: alias phrase 'East Yorkshire' in title",
-   "confidence": "confirmed"
-  },
-  {
-   "repd_ref": "11678",
-   "title": "Jackson to start £10m East Yorkshire road scheme",
-   "link": "https://www.constructionenquirer.com/2012/05/08/jackson-to-start-10m-east-yorkshire-road-scheme/",
-   "publisher": "Construction Enquirer",
-   "date": "2012-05-08",
-   "family": "trade",
-   "basis": "Construction Enquirer search: alias phrase 'East Yorkshire' in title",
-   "confidence": "confirmed"
   },
   {
    "repd_ref": "13599",
@@ -1110,8 +1060,8 @@
    "publisher": "reNEWS",
    "date": "2025-03-17",
    "family": "trade",
-   "basis": "reNEWS search: alias phrase 'Cleve Hill' in title with developer 'Quinbrook'",
-   "confidence": "confirmed"
+   "basis": "reNEWS search: alias phrase 'Cleve Hill' in title with developer 'Quinbrook'; kept as uncertain: the name and the developer, but no solar term",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "6502",
@@ -1210,8 +1160,8 @@
    "publisher": "reNEWS",
    "date": "2024-05-16",
    "family": "trade",
-   "basis": "reNEWS search: alias phrase 'Mallard Pass' in title",
-   "confidence": "confirmed"
+   "basis": "reNEWS search: alias phrase 'Mallard Pass' in title; kept as uncertain: a distinctive name in a planning or energy headline, but no solar term",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "9904",
@@ -1350,8 +1300,8 @@
    "publisher": "reNEWS",
    "date": "2026-02-18",
    "family": "trade",
-   "basis": "reNEWS search: alias phrase 'Fenwick' in title with developer 'Boom'",
-   "confidence": "confirmed"
+   "basis": "reNEWS search: alias phrase 'Fenwick' in title with developer 'Boom'; kept as uncertain: weak project core followed by solar in a development headline; independent identity absent",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "14098",
@@ -1360,8 +1310,8 @@
    "publisher": "Solar Power Portal",
    "date": "2025-09-05",
    "family": "trade",
-   "basis": "Solar Power Portal feed archive: alias phrase 'Fenwick' in title with developer 'Boom'",
-   "confidence": "confirmed"
+   "basis": "Solar Power Portal feed archive: alias phrase 'Fenwick' in title with developer 'Boom'; kept as uncertain: weak project core followed by solar in a development headline; independent identity absent",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "14098",
@@ -1421,16 +1371,6 @@
    "date": "2025-12-03",
    "family": "trade",
    "basis": "reNEWS search: alias phrase 'Helios' in title with capacity '190MW'",
-   "confidence": "confirmed"
-  },
-  {
-   "repd_ref": "11476",
-   "title": "Helios grows PV projects portfolio to 500MW",
-   "link": "https://www.renews.biz/solar/helios-grows-pv-projects-portfolio-to-500mw/",
-   "publisher": "reNEWS",
-   "date": "2021-05-11",
-   "family": "trade",
-   "basis": "reNEWS search: alias phrase 'Helios' in title with solar or energy word directly after it",
    "confidence": "confirmed"
   },
   {
@@ -1520,8 +1460,8 @@
    "publisher": "reNEWS",
    "date": "2022-04-06",
    "family": "trade",
-   "basis": "reNEWS search: alias phrase 'Little Crow' in title with solar or energy word directly after it",
-   "confidence": "confirmed"
+   "basis": "reNEWS search: alias phrase 'Little Crow' in title with solar or energy word directly after it; kept as uncertain: the name and a broad solar mention without project-specific identity",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "6557",
@@ -1574,16 +1514,6 @@
    "confidence": "uncertain"
   },
   {
-   "repd_ref": "14550",
-   "title": "FVS Dean Moor Ltd",
-   "link": "https://www.solarpowerportal.co.uk/keyword/fvs-dean-moor-ltd",
-   "publisher": "Solar Power Portal",
-   "date": null,
-   "family": "trade",
-   "basis": "Solar Power Portal sitemap: alias phrase 'Dean Moor' in title",
-   "confidence": "confirmed"
-  },
-  {
    "repd_ref": "14096",
    "title": "Major solar projects by Elements Green, Cubico granted DCOs",
    "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/major-solar-projects-by-elements-green-cubico-granted-dcos",
@@ -1620,8 +1550,8 @@
    "publisher": "reNEWS",
    "date": "2024-11-08",
    "family": "trade",
-   "basis": "reNEWS search: alias phrase 'Frodsham' in title with developer 'Cubico'",
-   "confidence": "confirmed"
+   "basis": "reNEWS search: alias phrase 'Frodsham' in title with developer 'Cubico'; kept as uncertain: the name and the developer, but no solar term",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "14096",
@@ -1740,8 +1670,8 @@
    "publisher": "reNEWS",
    "date": "2025-06-19",
    "family": "trade",
-   "basis": "reNEWS search: alias phrase 'Oaklands' in title with solar or energy word directly after it",
-   "confidence": "confirmed"
+   "basis": "reNEWS search: alias phrase 'Oaklands' in title with solar or energy word directly after it; kept as uncertain: shared name without a project-specific developer, capacity or reference",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "7701",
@@ -1790,8 +1720,8 @@
    "publisher": "Solar Power Portal",
    "date": "2022-10-28",
    "family": "trade",
-   "basis": "Solar Power Portal feed archive: alias phrase 'Ashorne' in title with developer 'JBM'",
-   "confidence": "confirmed"
+   "basis": "Solar Power Portal feed archive: alias phrase 'Ashorne' in title with developer 'JBM'; kept as uncertain: a weak name and a solar term apart, with an agreeing fact",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "11927",
@@ -1900,8 +1830,8 @@
    "publisher": "Solar Power Portal",
    "date": "2022-08-10",
    "family": "trade",
-   "basis": "Solar Power Portal feed archive: alias phrase 'Bloy's Grove' in title with developer 'EDF'",
-   "confidence": "confirmed"
+   "basis": "Solar Power Portal feed archive: alias phrase 'Bloy's Grove' in title with developer 'EDF'; kept as uncertain: the name and a broad solar mention without project-specific identity",
+   "confidence": "uncertain"
   },
   {
    "repd_ref": "8308",
@@ -1981,7 +1911,7 @@
    "status": "ok",
    "requests": 95,
    "failures": 0,
-   "items": 105,
+   "items": 102,
    "error": "",
    "route": "sitemap (links by alias in the path, headline from the article's metadata)",
    "routes": [
@@ -2015,8 +1945,8 @@
      "url": "https://www.solarpowerportal.co.uk/rss.xml?content_types=article&limit=100",
      "status": "ok",
      "entries": 100,
-     "matched": 6,
-     "newest": "2026-11-13"
+     "matched": 5,
+     "newest": "2026-11-16"
     }
    ],
    "searched": 200,
@@ -2031,7 +1961,7 @@
     "files_known": 195,
     "files_read_this_run": 90,
     "files_never_read": 2,
-    "urls_read": 3271,
+    "urls_read": 1045,
     "links_matching_an_alias": 104,
     "pages_opened": 0,
     "headlines_known": 104
@@ -2040,42 +1970,24 @@
   {
    "id": "pv-tech",
    "url": "https://www.pv-tech.org",
-   "status": "partial",
-   "requests": 7,
+   "status": "ok",
+   "requests": 3,
    "failures": 0,
    "items": 1,
-   "error": "no search route usable: wp_posts HTTP 403; wp_rss HTTP 403; wp_rss HTTP 403; html HTTP 403; wp_search HTTP 403",
-   "route": "",
+   "error": "",
+   "route": "wp_posts /wp-json/wp/v2/posts?search={q}&per_page=20&orderby=relevance&_fields=title,link,date,excerpt",
    "routes": [
     {
      "route": "wp_posts",
      "url": "https://www.pv-tech.org/wp-json/wp/v2/posts?search=solar+farm&per_page=20&orderby=relevance&_fields=title,link,date,excerpt",
-     "status": "failed",
-     "error": "HTTP 403"
-    },
-    {
-     "route": "wp_rss",
-     "url": "https://www.pv-tech.org/?s=solar+farm&feed=rss2",
-     "status": "failed",
-     "error": "HTTP 403"
-    },
-    {
-     "route": "wp_rss",
-     "url": "https://www.pv-tech.org/feed/?s=solar+farm",
-     "status": "failed",
-     "error": "HTTP 403"
-    },
-    {
-     "route": "html",
-     "url": "https://www.pv-tech.org/?s=solar+farm",
-     "status": "failed",
-     "error": "HTTP 403"
-    },
-    {
-     "route": "wp_search",
-     "url": "https://www.pv-tech.org/wp-json/wp/v2/search?search=solar+farm&per_page=20",
-     "status": "failed",
-     "error": "HTTP 403"
+     "status": "ok",
+     "content_type": "application/json",
+     "bytes": 8664,
+     "results": 20,
+     "dated": 20,
+     "summaries": 20,
+     "relevant": 20,
+     "sample": "Southern Power starts commercial operations at second phase of Millers Branch solar farm, signs seven-party VPPA"
     }
    ],
    "feeds": [
@@ -2084,11 +1996,11 @@
      "status": "ok",
      "entries": 300,
      "matched": 0,
-     "newest": "2026-11-13"
+     "newest": "2026-11-16"
     }
    ],
    "searched": 0,
-   "cached": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": []
   },
@@ -2121,7 +2033,7 @@
      "status": "ok",
      "entries": 10,
      "matched": 0,
-     "newest": "2026-11-14"
+     "newest": "2026-11-16"
     }
    ],
    "searched": 0,
@@ -2182,7 +2094,7 @@
      "status": "ok",
      "entries": 300,
      "matched": 0,
-     "newest": "2026-11-13"
+     "newest": "2026-11-16"
     }
    ],
    "searched": 0,
@@ -2199,7 +2111,7 @@
    "requests": 7,
    "failures": 0,
    "items": 0,
-   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 19 links say solar); wp_search not JSON",
+   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 20 links say solar); wp_search not JSON",
    "route": "",
    "routes": [
     {
@@ -2223,10 +2135,10 @@
     {
      "route": "html",
      "url": "https://www.current-news.co.uk/?s=solar+farm",
-     "status": "not search results (1 of 19 links say solar)",
+     "status": "not search results (1 of 20 links say solar)",
      "content_type": "text/html",
-     "bytes": 475868,
-     "results": 19,
+     "bytes": 475510,
+     "results": 20,
      "dated": 0,
      "summaries": 0,
      "relevant": 1,
@@ -2259,7 +2171,7 @@
    "status": "ok",
    "requests": 4,
    "failures": 0,
-   "items": 79,
+   "items": 78,
    "error": "",
    "route": "wp_posts /wp-json/wp/v2/posts?search={q}&per_page=20&orderby=relevance&_fields=title,link,date,excerpt",
    "routes": [
@@ -2282,7 +2194,7 @@
      "status": "ok",
      "entries": 30,
      "matched": 0,
-     "newest": "2026-11-13"
+     "newest": "2026-11-16"
     }
    ],
    "searched": 0,
@@ -2345,7 +2257,7 @@
    "status": "ok",
    "requests": 3,
    "failures": 0,
-   "items": 3,
+   "items": 0,
    "error": "",
    "route": "wp_posts /wp-json/wp/v2/posts?search={q}&per_page=20&orderby=relevance&_fields=title,link,date,excerpt",
    "routes": [
@@ -2368,7 +2280,7 @@
      "status": "ok",
      "entries": 10,
      "matched": 0,
-     "newest": "2026-11-13"
+     "newest": "2026-11-16"
     }
    ],
    "searched": 0,

@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "official",
- "generated_at": "2026-11-15T21:53:55Z",
+ "generated_at": "2026-11-16T13:47:55Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -890,8 +890,8 @@
    "publisher": "Department for Energy Security and Net Zero",
    "date": "2025-10-07",
    "family": "official",
-   "basis": "GOV.UK search for \"Oaklands Farm Solar Park\": alias 'Oaklands Farm Solar Park' in the title",
-   "confidence": "confirmed",
+   "basis": "GOV.UK search for \"Oaklands Farm Solar Park\": alias 'Oaklands Farm Solar Park' in the title; kept as uncertain: shared name without a project-specific developer, capacity or reference",
+   "confidence": "uncertain",
    "kind": "govuk_page"
   },
   {
@@ -901,8 +901,8 @@
    "publisher": "Department for Energy Security and Net Zero",
    "date": "2025-06-19",
    "family": "official",
-   "basis": "GOV.UK search for \"Oaklands Farm Solar Park\": alias 'Oaklands Farm Solar Park' in the title",
-   "confidence": "confirmed",
+   "basis": "GOV.UK search for \"Oaklands Farm Solar Park\": alias 'Oaklands Farm Solar Park' in the title; kept as uncertain: shared name without a project-specific developer, capacity or reference",
+   "confidence": "uncertain",
    "kind": "govuk_page"
   },
   {
@@ -912,8 +912,8 @@
    "publisher": "Planning Inspectorate",
    "date": "2025-06-19",
    "family": "official",
-   "basis": "GOV.UK search for \"Oaklands Farm Solar Park\": alias 'Oaklands Farm Solar Park' in the title",
-   "confidence": "confirmed",
+   "basis": "GOV.UK search for \"Oaklands Farm Solar Park\": alias 'Oaklands Farm Solar Park' in the title; kept as uncertain: shared name without a project-specific developer, capacity or reference",
+   "confidence": "uncertain",
    "kind": "govuk_page"
   },
   {
@@ -981,6 +981,226 @@
    "basis": "GOV.UK search for \"Stonestreet Green Solar\": alias 'Stonestreet Green Solar' in the title",
    "confidence": "confirmed",
    "kind": "govuk_page"
+  },
+  {
+   "repd_ref": "17779",
+   "title": "Bowshiel Solar Farm: Section 36 application ECU00005085 (Energy Consents Unit case)",
+   "link": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=ECU00005085",
+   "publisher": "Scottish Government Energy Consents Unit",
+   "date": null,
+   "family": "official",
+   "basis": "Energy Consents Unit case page for ECU00005085, which names 'Bowshiel'; title composed from the reference",
+   "confidence": "confirmed",
+   "kind": "case_page"
+  },
+  {
+   "repd_ref": "19016",
+   "title": "Springfield Solar Farm: Section 36 application ECU00004815 (Energy Consents Unit case)",
+   "link": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=ECU00004815",
+   "publisher": "Scottish Government Energy Consents Unit",
+   "date": null,
+   "family": "official",
+   "basis": "Energy Consents Unit case page for ECU00004815, which names 'Springfield'; title composed from the reference",
+   "confidence": "confirmed",
+   "kind": "case_page"
+  },
+  {
+   "repd_ref": "14543",
+   "title": "Tealing Solar Energy Park: Section 36 application ECU00004882 (Energy Consents Unit case)",
+   "link": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=ECU00004882",
+   "publisher": "Scottish Government Energy Consents Unit",
+   "date": null,
+   "family": "official",
+   "basis": "Energy Consents Unit case page for ECU00004882, which names 'Tealing'; title composed from the reference",
+   "confidence": "confirmed",
+   "kind": "case_page"
+  },
+  {
+   "repd_ref": "14193",
+   "title": "Rogerhill Solar Farm: Section 36 application ECU00004823 (Energy Consents Unit case)",
+   "link": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=ECU00004823",
+   "publisher": "Scottish Government Energy Consents Unit",
+   "date": null,
+   "family": "official",
+   "basis": "Energy Consents Unit case page for ECU00004823, which names 'Rogerhill'; title composed from the reference",
+   "confidence": "confirmed",
+   "kind": "case_page"
+  },
+  {
+   "repd_ref": "20768",
+   "title": "Dupplin Solar Farm: Section 36 application ECU00006264 (Energy Consents Unit case)",
+   "link": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=ECU00006264",
+   "publisher": "Scottish Government Energy Consents Unit",
+   "date": null,
+   "family": "official",
+   "basis": "Energy Consents Unit case page for ECU00006264, which names 'Dupplin'; title composed from the reference",
+   "confidence": "confirmed",
+   "kind": "case_page"
+  },
+  {
+   "repd_ref": "16026",
+   "title": "M74 West Renewable Energy Park: Section 36 application ECU00005019 (Energy Consents Unit case)",
+   "link": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=ECU00005019",
+   "publisher": "Scottish Government Energy Consents Unit",
+   "date": null,
+   "family": "official",
+   "basis": "Energy Consents Unit case page for ECU00005019, which names 'M74 West'; title composed from the reference",
+   "confidence": "confirmed",
+   "kind": "case_page"
+  },
+  {
+   "repd_ref": "15538",
+   "title": "Nettly Burn Renewable Energy Park: Section 36 application ECU00006007 (Energy Consents Unit case)",
+   "link": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=ECU00006007",
+   "publisher": "Scottish Government Energy Consents Unit",
+   "date": null,
+   "family": "official",
+   "basis": "Energy Consents Unit case page for ECU00006007, which names 'Nettly Burn'; title composed from the reference",
+   "confidence": "confirmed",
+   "kind": "case_page"
+  },
+  {
+   "repd_ref": "14293",
+   "title": "Houston Solar PV Farm and Energy Storage Facility: Section 36 application ECU00004825 (Energy Consents Unit case)",
+   "link": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=ECU00004825",
+   "publisher": "Scottish Government Energy Consents Unit",
+   "date": null,
+   "family": "official",
+   "basis": "Energy Consents Unit case page for ECU00004825, which names 'Houston'; title composed from the reference",
+   "confidence": "confirmed",
+   "kind": "case_page"
+  },
+  {
+   "repd_ref": "14540",
+   "title": "Fernieshaw Solar Farm & Battery Energy Storage Facility: Section 36 application ECU00004871 (Energy Consents Unit case)",
+   "link": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=ECU00004871",
+   "publisher": "Scottish Government Energy Consents Unit",
+   "date": null,
+   "family": "official",
+   "basis": "Energy Consents Unit case page for ECU00004871, which names 'Fernishaw'; title composed from the reference",
+   "confidence": "confirmed",
+   "kind": "case_page"
+  },
+  {
+   "repd_ref": "14301",
+   "title": "Lower Bodachra Solar and Storage: Section 36 application ECU00004848 (Energy Consents Unit case)",
+   "link": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=ECU00004848",
+   "publisher": "Scottish Government Energy Consents Unit",
+   "date": null,
+   "family": "official",
+   "basis": "Energy Consents Unit case page for ECU00004848, which names 'Lower Bodachra'; title composed from the reference",
+   "confidence": "confirmed",
+   "kind": "case_page"
+  },
+  {
+   "repd_ref": "10541",
+   "title": "Benthead Solar Farm: Section 36 application ECU00004702 (Energy Consents Unit case)",
+   "link": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=ECU00004702",
+   "publisher": "Scottish Government Energy Consents Unit",
+   "date": null,
+   "family": "official",
+   "basis": "Energy Consents Unit case page for ECU00004702, which names 'Benthead'; title composed from the reference",
+   "confidence": "confirmed",
+   "kind": "case_page"
+  },
+  {
+   "repd_ref": "10993",
+   "title": "Frodo Solar Farm: Section 36 application ECU00003345 (Energy Consents Unit case)",
+   "link": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=ECU00003345",
+   "publisher": "Scottish Government Energy Consents Unit",
+   "date": null,
+   "family": "official",
+   "basis": "Energy Consents Unit case page for ECU00003345, which names 'Frodo'; title composed from the reference",
+   "confidence": "confirmed",
+   "kind": "case_page"
+  },
+  {
+   "repd_ref": "11864",
+   "title": "Lees Hill Renewable Energy Park: Section 36 application ECU00004571 (Energy Consents Unit case)",
+   "link": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=ECU00004571",
+   "publisher": "Scottish Government Energy Consents Unit",
+   "date": null,
+   "family": "official",
+   "basis": "Energy Consents Unit case page for ECU00004571, which names 'Lees Hill'; title composed from the reference",
+   "confidence": "confirmed",
+   "kind": "case_page"
+  },
+  {
+   "repd_ref": "12285",
+   "title": "Hagshaw Energy Cluster Western Expansion: Section 36 application ECU00004623 (Energy Consents Unit case)",
+   "link": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=ECU00004623",
+   "publisher": "Scottish Government Energy Consents Unit",
+   "date": null,
+   "family": "official",
+   "basis": "Energy Consents Unit case page for ECU00004623, which names 'Hagshaw'; title composed from the reference",
+   "confidence": "confirmed",
+   "kind": "case_page"
+  },
+  {
+   "repd_ref": "14994",
+   "title": "Stirling Battery and Solar Energy Park: Section 36 application ECU00005014 (Energy Consents Unit case)",
+   "link": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=ECU00005014",
+   "publisher": "Scottish Government Energy Consents Unit",
+   "date": null,
+   "family": "official",
+   "basis": "Energy Consents Unit case page for ECU00005014, which names 'Stirling Battery and'; title composed from the reference",
+   "confidence": "confirmed",
+   "kind": "case_page"
+  },
+  {
+   "repd_ref": "18477",
+   "title": "Craigo Glenskinno Solar Park: Section 36 application ECU00006104 (Energy Consents Unit case)",
+   "link": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=ECU00006104",
+   "publisher": "Scottish Government Energy Consents Unit",
+   "date": null,
+   "family": "official",
+   "basis": "Energy Consents Unit case page for ECU00006104, which names 'Craigo Glenskinno'; title composed from the reference",
+   "confidence": "confirmed",
+   "kind": "case_page"
+  },
+  {
+   "repd_ref": "6341",
+   "title": "Milltown Airfield solar farm: Section 36 application ECU00000452 (Energy Consents Unit case)",
+   "link": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=ECU00000452",
+   "publisher": "Scottish Government Energy Consents Unit",
+   "date": null,
+   "family": "official",
+   "basis": "Energy Consents Unit case page for ECU00000452, which names 'Milltown Airfield'; title composed from the reference",
+   "confidence": "confirmed",
+   "kind": "case_page"
+  },
+  {
+   "repd_ref": "6383",
+   "title": "Randolph Solar Farm: Section 36 application ECU00002222 (Energy Consents Unit case)",
+   "link": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=ECU00002222",
+   "publisher": "Scottish Government Energy Consents Unit",
+   "date": null,
+   "family": "official",
+   "basis": "Energy Consents Unit case page for ECU00002222, which names 'Randolph'; title composed from the reference",
+   "confidence": "confirmed",
+   "kind": "case_page"
+  },
+  {
+   "repd_ref": "12822",
+   "title": "Kirkton Solar Farm: Section 36 application ECU00003226 (Energy Consents Unit case)",
+   "link": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=ECU00003226",
+   "publisher": "Scottish Government Energy Consents Unit",
+   "date": null,
+   "family": "official",
+   "basis": "Energy Consents Unit case page for ECU00003226, which names 'Kirkton'; title composed from the reference",
+   "confidence": "confirmed",
+   "kind": "case_page"
+  },
+  {
+   "repd_ref": "17470",
+   "title": "Kintore Solar Farm: Section 36 application ECU00005245 (Energy Consents Unit case)",
+   "link": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=ECU00005245",
+   "publisher": "Scottish Government Energy Consents Unit",
+   "date": null,
+   "family": "official",
+   "basis": "Energy Consents Unit case page for ECU00005245, which names 'Kintore'; title composed from the reference",
+   "confidence": "confirmed",
+   "kind": "case_page"
   }
  ],
  "sources": [
@@ -1006,11 +1226,11 @@
   {
    "id": "ecu-case",
    "url": "https://www.energyconsents.scot/ApplicationDetails.aspx?cr=<reference>",
-   "status": "failed",
+   "status": "ok",
    "requests": 20,
-   "failures": 20,
-   "items": 0,
-   "error": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl."
+   "failures": 0,
+   "items": 20,
+   "error": ""
   }
  ]
 }

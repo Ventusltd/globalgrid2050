@@ -27,8 +27,24 @@ test "$actual_tree" = "$PARENT_TREE" || { echo "parent $PARENT_ID tree is $actua
 
 # WHAT THIS VERSION CHANGES FROM ITS PARENT, NAMED ONE FILE AT A TIME.
 CHANGED_FROM_PARENT=(
+  CHANGES.md
+  README.md
+  index.html
+  prospecting/README.md
+  prospecting/manifest.json
+  prospecting/priority.csv
+  prospecting/priority.json
+  scripts/plugins/prospecting/adapter.mjs
+  scripts/plugins/prospecting/bundle.mjs
+  scripts/plugins/prospecting/view.mjs
+  scripts/plugins/research-priority-v927.js
+  styles/research-priority-v927.css
+  tests/check_v9_27.mjs
+  tests/run_v9_27.sh
 )
 REMOVED_FROM_PARENT=(
+  tests/check_v9_26.mjs
+  tests/run_v9_26.sh
 )
 is_listed() {
   local needle="$1"; shift

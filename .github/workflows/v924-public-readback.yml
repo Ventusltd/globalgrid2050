@@ -1,5 +1,11 @@
-name: V9.24 public served-byte and rollback verification
+name: Pipeline News public served-byte and rollback verification
+# Retain this existing workflow identity; no additional scheduler.
 on:
+  pull_request:
+    paths:
+      - 'automation/v924_public/**'
+      - 'scripts/import_homepage_owner.py'
+      - '.github/workflows/v924-public-readback.yml'
   workflow_run:
     workflows: ["Deploy GlobalGrid2050 Pages"]
     types: [completed]
@@ -8,36 +14,76 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: v924-public-readback
+  group: pipeline-public-readback-${{ github.event_name == 'pull_request' && github.ref || 'public' }}
   cancel-in-progress: true
 jobs:
-  verify:
+  offline:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
-          ref: main
+          persist-credentials: false
+          sparse-checkout: |
+            automation/v924_public
+            scripts
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Test pin, transformed bytes, operative selection and failure gates offline
+        run: python3 -m unittest discover -s automation/v924_public -p test_verify.py -v
+  verify:
+    if: github.event_name != 'pull_request'
+    needs: offline
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          # Check the triggering source, not a newer moving main. The receipt
+          # states exactly which checkout was compared with the public bytes.
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          persist-credentials: false
           fetch-depth: 1
           sparse-checkout: |
             /automation/v924_public/
+            /automation/pipeline_release/registry.json
             /catalogue/homepage-owner.json
-            /uk_renewables_pipeline/202611160020/
-            /uk_renewables_pipeline/202611161244/
+            /uk_renewables_pipeline/20*/index.html
+            /uk_renewables_pipeline/20*/solar1000/manifest.json
             /uk_renewables_pipeline/versions.json
           sparse-checkout-cone-mode: false
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.12'
-      - name: Verify public V9.24 and preserved V9.23 rollback
+      - name: Record source and trigger identities
         env:
-          V924_RECEIPT_PATH: /tmp/v924-public-receipt.json
-          V924_VERIFY_ATTEMPTS: 16
-          V924_VERIFY_DELAY_SECONDS: 12
+          TRIGGER_RUN: ${{ github.event.workflow_run.html_url }}
+          TRIGGER_HEAD: ${{ github.event.workflow_run.head_sha }}
+          TRIGGER_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib, subprocess
+          out = pathlib.Path(os.environ['RUNNER_TEMP']) / 'pipeline-readback-trigger.json'
+          out.write_text(json.dumps({
+              'checked_source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
+              'trigger_run': os.environ.get('TRIGGER_RUN'),
+              'trigger_head': os.environ.get('TRIGGER_HEAD'),
+              'trigger_conclusion': os.environ.get('TRIGGER_CONCLUSION'),
+              'scope': 'Source compared with served bytes; trigger head is not assumed to be the Pages build checkout.'
+          }, indent=2) + '\n')
+          PY
+      - name: Verify pinned operative release, homepage bundle and V9.24/V9.23 rollback
+        env:
+          PIPELINE_RECEIPT_PATH: ${{ runner.temp }}/pipeline-public-receipt.json
+          PIPELINE_VERIFY_ATTEMPTS: 3
+          PIPELINE_VERIFY_DELAY_SECONDS: 8
         run: python3 automation/v924_public/verify.py
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:
-          name: v924-public-byte-receipt
-          path: /tmp/v924-public-receipt.json
+          name: pipeline-public-byte-receipt
+          path: |
+            ${{ runner.temp }}/pipeline-public-receipt.json
+            ${{ runner.temp }}/pipeline-readback-trigger.json
           retention-days: 30

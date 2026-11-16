@@ -55,11 +55,14 @@ def test_older_registered_release_cannot_be_refinalized(tmp_path, monkeypatch, o
     assert list(tmp_path.iterdir()) == []
 
 
-def test_unpublished_tail_can_be_refinalized(tmp_path, monkeypatch):
+@pytest.mark.parametrize("migration", [False, True])
+def test_unpublished_tail_can_be_refinalized(tmp_path, monkeypatch, migration):
     registry = {"versions": [
         {"id": "202611161244", "version": "V9.24", "state": "published"},
         {"id": "202611161630", "version": "V9.25", "state": "release_candidate_blocked"},
     ]}
+    if migration:
+        registry["versions"][-1]["feature_migrations"] = [dict(new_version.SOLAR_MIGRATION)]
     parent = tmp_path / "202611161244"
     candidate = tmp_path / "202611161630"
     parent.mkdir()
@@ -75,6 +78,7 @@ def test_unpublished_tail_can_be_refinalized(tmp_path, monkeypatch):
     assert len(saved[0]["versions"]) == 2
     assert saved[0]["versions"][-1]["parent"] == "202611161244"
     assert saved[0]["versions"][-1]["trees"] == ["synthetic-candidate-tree"]
+    assert saved[0]["versions"][-1].get("feature_migrations", []) == ([new_version.SOLAR_MIGRATION] if migration else [])
     assert list(parent.iterdir()) == []
 
 

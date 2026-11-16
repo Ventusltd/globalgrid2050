@@ -5,7 +5,7 @@
       copies the newest registered version to uk_renewables_pipeline/<new id>/, relabels
       index.html, README.md and the check script, and writes tests/run_v9_NN.sh pinned
       to the parent's tree hash. Then edit the new folder.
-  new_version.py finalize <new id> "<what it added>" [--fault "<known fault>"]... [--feature id:file:marker]... [--state release_candidate_publication_blocked]
+  new_version.py finalize <new id> "<what it added>" [--fault "<known fault>"]... [--feature id:file:marker]... [--migrate-feature solar1000-inline-v1] [--state release_candidate_publication_blocked]
       lists every changed, new and removed file in the runner, and records the version
       (tree hash, features, faults) in registry.json. Only an unpublished candidate
       at the registry tail may be re-finalized; published records are immutable.
@@ -18,6 +18,7 @@ import sys
 from datetime import datetime, timezone
 
 from common import PIPELINE, HERE, load_registry, save_registry, tree_hash, walk
+from feature_contracts import SOLAR_MIGRATION
 
 RUNNER_TEMPLATE = (HERE / "runner_template.sh").read_text(encoding="utf-8")
 
@@ -75,11 +76,15 @@ def create(new_id, version, title, state="BUILD", dry_run=False):
     print(f"created {dst} from {parent['id']}")
 
 
-def finalize(new_id, added, faults, features, state="published"):
+def finalize(new_id, added, faults, features, state="published", feature_migrations=None):
     reg = load_registry()
     parent = reg["versions"][-1]
     registered = [entry for entry in reg["versions"] if entry["id"] == new_id]
     assert not registered or (len(registered) == 1 and parent["id"] == new_id), "already registered; historical records cannot be rewritten"
+    if feature_migrations is None:
+        feature_migrations = parent.get("feature_migrations", []) if parent["id"] == new_id else []
+    assert isinstance(feature_migrations, list) and len(feature_migrations) <= 1 and all(
+        migration == SOLAR_MIGRATION for migration in feature_migrations), "unknown or duplicate feature migration"
     if parent["id"] == new_id:
         assert parent.get("state", "").startswith("release_candidate_") and state.startswith("release_candidate_"), "already registered; published records cannot be rewritten"
         reg["versions"].pop()
@@ -101,6 +106,7 @@ def finalize(new_id, added, faults, features, state="published"):
         "added": added, "data_changed": False, "runner": runner, "trees": [tree_hash(new_id)],
         "features": [dict(zip(("id", "file", "contains"), f.split(":", 2))) for f in features],
         "known_faults": faults, "ci": None, "merge_commit": None, "state": state,
+        **({"feature_migrations": feature_migrations} if feature_migrations else {}),
     })
     save_registry(reg)
     print(f"finalized {new_id}: {len(changed)} changed or new, {len(removed)} removed, tree {reg['versions'][-1]['trees'][0]}")
@@ -115,15 +121,19 @@ if __name__ == "__main__":
         create(*args[1:], dry_run=dry_run)
     elif args[:1] == ["finalize"] and len(args) >= 3 and not dry_run:
         rest, faults, features = args[3:], [], []
-        state = "published"
+        state, migrations = "published", None
         while rest:
-            if len(rest) < 2 or rest[0] not in {"--fault", "--feature", "--state"}:
-                sys.exit("Expected --fault, --feature or --state and value")
+            if len(rest) < 2 or rest[0] not in {"--fault", "--feature", "--state", "--migrate-feature"}:
+                sys.exit("Expected --fault, --feature, --state or --migrate-feature and value")
             flag, value, rest = rest[0], rest[1], rest[2:]
             if flag == "--state":
                 state = value
+            elif flag == "--migrate-feature":
+                if value != SOLAR_MIGRATION["contract"] or migrations is not None:
+                    sys.exit("Unknown or duplicate feature migration")
+                migrations = [dict(SOLAR_MIGRATION)]
             else:
                 (faults if flag == "--fault" else features).append(value)
-        finalize(args[1], args[2], faults, features, state=state)
+        finalize(args[1], args[2], faults, features, state=state, feature_migrations=migrations)
     else:
         sys.exit(__doc__)

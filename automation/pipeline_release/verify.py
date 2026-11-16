@@ -25,6 +25,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from common import HERE, PIPELINE, ROOT, data_digest, load_registry, tree_hash
+from feature_contracts import check_features
 
 ARGS = sys.argv[1:]
 BROWSER, WRITE, CHECK = "--browser" in ARGS, "--write" in ARGS, "--check" in ARGS
@@ -42,7 +43,7 @@ def main():
     versions = reg["versions"]
     by_id = {v["id"]: v for v in versions}
     scratch = Path(tempfile.mkdtemp(prefix="pn-verify-"))
-    hrefs, digests, results = {}, {}, {}
+    hrefs, digests, results, migration_probes = {}, {}, {}, {}
 
     for v in versions:
         vid, folder = v["id"], PIPELINE / v["id"]
@@ -73,15 +74,7 @@ def main():
                                                     "data_digest": digests[vid], "declared_change": bool(v.get("data_changed"))}
         else:
             checks["data_unchanged_from_parent"] = {"pass": True, "data_digest": digests[vid], "declared_change": True, "note": "parent is outside the checked range"}
-        inherited, node, dropped = [], v, set()
-        while node:
-            # A version may withdraw a feature on purpose; it must say so (removed_features), and
-            # the withdrawal holds for its descendants.
-            dropped |= set(node.get("removed_features", []))
-            inherited = [f for f in node["features"] if f["id"] not in dropped] + inherited
-            node = by_id.get(node["parent"])
-        missing = [f["id"] for f in inherited if not (folder / f["file"]).exists() or f["contains"] not in (folder / f["file"]).read_text(errors="replace")]
-        checks["features_kept"] = {"pass": not missing, "features": [f["id"] for f in inherited], "missing": missing, "withdrawn_on_purpose": sorted(dropped)}
+        checks["features_kept"], migration_probes[vid] = check_features(v, by_id, PIPELINE)
         if reg.get("size_budget_mb") and vid >= reg.get("size_budget_from", ""):
             size = sum((folder / rel).stat().st_size for rel in __import__("common").walk(folder))
             checks["size_budget"] = {"pass": size <= reg["size_budget_mb"] * 1024 * 1024, "bytes": size, "budget_mb": reg["size_budget_mb"]}
@@ -107,7 +100,8 @@ def main():
                     gone |= set(node.get("removed_probes", []))
                     chain = [p for p in node.get("browser_probes", []) if p["name"] not in gone] + chain
                     node = by_id.get(node["parent"])
-                probes[v["id"]] = chain
+                # Migrations add mandatory executable checks, not removable aliases.
+                probes[v["id"]] = chain + migration_probes[v["id"]]
             (scratch / "probes.json").write_text(json.dumps(probes))
             os.environ["PROBES_FILE"] = str(scratch / "probes.json")
             p = subprocess.run(["node", str(HERE / "browser_check.mjs"), f"http://127.0.0.1:{port}/uk_renewables_pipeline/", str(out_file)] + [v["id"] for v in versions], text=True)

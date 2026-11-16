@@ -754,7 +754,14 @@
       ],
       "ci": null,
       "merge_commit": null,
-      "state": "release_candidate_publication_blocked"
+      "state": "release_candidate_publication_blocked",
+      "feature_migrations": [
+        {
+          "id": "solar1000-pilot",
+          "from": "202611161244",
+          "contract": "solar1000-inline-v1"
+        }
+      ]
     }
   ],
   "size_budget_mb": 18,

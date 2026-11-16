@@ -1,0 +1,261 @@
+{
+  "schema": "globalgrid.grid-source-pins.v1",
+  "sources": [
+    {
+      "id": "atlas_current",
+      "repository": "Ventusltd/gridatlas",
+      "commit": "76653e40cf883e39497a0859d2532eb8b05930b1",
+      "path": "atlas/current.json",
+      "bytes": 70205,
+      "sha256": "790135a7a7de2ce8e0f3b6ad2759ead635f872b49f7b19fb63cd384df6666af6"
+    },
+    {
+      "id": "atlas_data_registry",
+      "repository": "Ventusltd/data-gridatlas",
+      "commit": "8bf88da9e210ce9f61dc0398869d3369f3fa2445",
+      "path": "202608291237-data-gridatlas/browser-layer-registry.json",
+      "bytes": 64993,
+      "sha256": "9b2169bcfd47bf51f0aaf8350487de19578e32358e191b961385a149a4637e1b"
+    },
+    {
+      "id": "atlas_data_release",
+      "repository": "Ventusltd/data-gridatlas",
+      "commit": "8bf88da9e210ce9f61dc0398869d3369f3fa2445",
+      "path": "202608291237-data-gridatlas/release.json",
+      "bytes": 18333,
+      "sha256": "19684ac3e86fac4346fab121a948bab0aa857108564fec5be242484d2baefd06"
+    },
+    {
+      "id": "atlas_shell",
+      "repository": "Ventusltd/gridatlas",
+      "commit": "76653e40cf883e39497a0859d2532eb8b05930b1",
+      "path": "atlas/releases/202608300453-atlas-v9/index.html",
+      "bytes": 21238,
+      "sha256": "87a3aaf463843ce33ed5c151096395715cbc80f2575bcb7208f271e94d2ec467"
+    },
+    {
+      "id": "atlas_sources_parquet",
+      "repository": "Ventusltd/data-gridatlas",
+      "commit": "8bf88da9e210ce9f61dc0398869d3369f3fa2445",
+      "path": "202608291237-data-gridatlas/data/sources.parquet",
+      "bytes": 12412,
+      "sha256": "1c17d405592a055088a7bb38cee6ad522f44c980b046447ea3b1c8014d297ada"
+    },
+    {
+      "id": "cartridge_sld-sandbox",
+      "repository": "Ventusltd/gridatlas",
+      "commit": "76653e40cf883e39497a0859d2532eb8b05930b1",
+      "path": "atlas/cartridges/202609241334-sld-sandbox-v9-8.js",
+      "bytes": 435218,
+      "sha256": "7812953671d8bb22a566de5e98fd3137da2d23411c5aecd526df5afa111ca4ca"
+    },
+    {
+      "id": "cartridge_streaming-parquet-bridge",
+      "repository": "Ventusltd/gridatlas",
+      "commit": "76653e40cf883e39497a0859d2532eb8b05930b1",
+      "path": "atlas/cartridges/202609241251-streaming-parquet-bridge-v9-5.js",
+      "bytes": 13589,
+      "sha256": "60be8215ba873ac2886786bf6e3fd51e5764e7c5e26684fde71ebe9974a329a2"
+    },
+    {
+      "id": "cartridge_substation-intelligence",
+      "repository": "Ventusltd/gridatlas",
+      "commit": "76653e40cf883e39497a0859d2532eb8b05930b1",
+      "path": "atlas/cartridges/202609062358-substation-intelligence-v9-63.js",
+      "bytes": 451935,
+      "sha256": "d94b0de50deddac77643325b10fbe490ce44b8c406dbc6c67e6e7cadbdaa8ec6"
+    },
+    {
+      "id": "cartridge_uk-gazetteer-flyto",
+      "repository": "Ventusltd/gridatlas",
+      "commit": "76653e40cf883e39497a0859d2532eb8b05930b1",
+      "path": "atlas/cartridges/202611132345-place-global-search-v9-5.js",
+      "bytes": 41115,
+      "sha256": "a27a11c45d4d02c4dbecf09e8ba2acc38215a77fc87bd23b1024f349f8dea619"
+    },
+    {
+      "id": "cartridge_uk-lightning-overlay",
+      "repository": "Ventusltd/gridatlas",
+      "commit": "76653e40cf883e39497a0859d2532eb8b05930b1",
+      "path": "atlas/modules/202610291043-uk-lightning-overlay.js",
+      "bytes": 63707,
+      "sha256": "15ff1e37890770efc42b75651fac2fcc98a16c71a694481c79778ae0a6d818db"
+    },
+    {
+      "id": "cartridge_uk-offtakers-overlay",
+      "repository": "Ventusltd/gridatlas",
+      "commit": "76653e40cf883e39497a0859d2532eb8b05930b1",
+      "path": "atlas/modules/202611132345-uk-offtakers-overlay.js",
+      "bytes": 71191,
+      "sha256": "eee30014b3c2549455753651ddc9719f179c9cd59db4ae616c08c3a9708bfdb6"
+    },
+    {
+      "id": "connection_points",
+      "repository": "Ventusltd/data-grid-gb",
+      "commit": "5181de3423e4fe50c77c568b9f3066c61a1d9e41",
+      "path": "derived/connection-points.v3.json",
+      "bytes": 2934509,
+      "sha256": "8db7171d94763399d85c819e522dcb83ef1ecedc93fbeff032fb45ca02f81f35"
+    },
+    {
+      "id": "engine_compute-observer",
+      "repository": "Ventusltd/ventus-grid-engine",
+      "commit": "d9a6234a5ec262844e7ef5172e938fcefd2396a1",
+      "path": "engine/compute-observer.js",
+      "bytes": 5657,
+      "sha256": "b24ab4db9933e045af0255a9c7e243f4692e97c00fcfd418715e825733b9b1d0"
+    },
+    {
+      "id": "engine_compute-presentation",
+      "repository": "Ventusltd/ventus-grid-engine",
+      "commit": "d9a6234a5ec262844e7ef5172e938fcefd2396a1",
+      "path": "engine/compute-presentation.js",
+      "bytes": 1111,
+      "sha256": "a05aa11eea114097e4f6d04aa07048dd178ab070568ed2c45ef8709fa64d44bb"
+    },
+    {
+      "id": "engine_corridor-estimate",
+      "repository": "Ventusltd/ventus-grid-engine",
+      "commit": "d9a6234a5ec262844e7ef5172e938fcefd2396a1",
+      "path": "engine/corridor-estimate.js",
+      "bytes": 3668,
+      "sha256": "aaad0cbf4fcd9748d5a80099821db183664bf2de1087652a2bbc972d0d4ecf28"
+    },
+    {
+      "id": "engine_deeplink",
+      "repository": "Ventusltd/ventus-grid-engine",
+      "commit": "d9a6234a5ec262844e7ef5172e938fcefd2396a1",
+      "path": "deeplink/contract.js",
+      "bytes": 11847,
+      "sha256": "ed436968f622c865b8457a6d99d546fa6a84d8f5e056c78b2761c9e4187e7ad7"
+    },
+    {
+      "id": "engine_electrical-distance",
+      "repository": "Ventusltd/ventus-grid-engine",
+      "commit": "d9a6234a5ec262844e7ef5172e938fcefd2396a1",
+      "path": "engine/electrical-distance.js",
+      "bytes": 10958,
+      "sha256": "b6b55e2207e29a7078f0ab9a1ee0575125a0252386907e93434b78aeead2c4a3"
+    },
+    {
+      "id": "engine_geo-area",
+      "repository": "Ventusltd/ventus-grid-engine",
+      "commit": "d9a6234a5ec262844e7ef5172e938fcefd2396a1",
+      "path": "engine/geo-area.js",
+      "bytes": 4387,
+      "sha256": "d097e0998847e86b3414d62fa50ad07009a7312246a2d82b9aca21422cf6a48d"
+    },
+    {
+      "id": "engine_geo-core",
+      "repository": "Ventusltd/ventus-grid-engine",
+      "commit": "d9a6234a5ec262844e7ef5172e938fcefd2396a1",
+      "path": "engine/geo-core.js",
+      "bytes": 4716,
+      "sha256": "8af04d444aae152ab7e821f36662fbcd5ee074e1fa471aca00d4a8516c302b98"
+    },
+    {
+      "id": "engine_geo-geojson",
+      "repository": "Ventusltd/ventus-grid-engine",
+      "commit": "d9a6234a5ec262844e7ef5172e938fcefd2396a1",
+      "path": "engine/geo-geojson.js",
+      "bytes": 1087,
+      "sha256": "fe2431f6bb5c417b1a0e4cd30b6d7b927de4087f8bc6f3e11ec9a500ead8bf62"
+    },
+    {
+      "id": "engine_geo-shapes",
+      "repository": "Ventusltd/ventus-grid-engine",
+      "commit": "d9a6234a5ec262844e7ef5172e938fcefd2396a1",
+      "path": "engine/geo-shapes.js",
+      "bytes": 2029,
+      "sha256": "30c90efab64feb6c9e3478076d669f2f2fbf92ea993ba83de1438bd8e72b200d"
+    },
+    {
+      "id": "engine_network-topology",
+      "repository": "Ventusltd/ventus-grid-engine",
+      "commit": "d9a6234a5ec262844e7ef5172e938fcefd2396a1",
+      "path": "engine/network-topology.js",
+      "bytes": 12661,
+      "sha256": "cf04c754e550e594ddd09096ec2b2c04c0082058126897c6e7afdeee92f7561c"
+    },
+    {
+      "id": "engine_package",
+      "repository": "Ventusltd/ventus-grid-engine",
+      "commit": "d9a6234a5ec262844e7ef5172e938fcefd2396a1",
+      "path": "package.json",
+      "bytes": 1226,
+      "sha256": "e7c93fdec7e5314ed513fb2384fc17e058ce6d689db7b66b05e2e27a0e5446f6"
+    },
+    {
+      "id": "engine_published-fault-level",
+      "repository": "Ventusltd/ventus-grid-engine",
+      "commit": "d9a6234a5ec262844e7ef5172e938fcefd2396a1",
+      "path": "engine/published-fault-level.js",
+      "bytes": 12258,
+      "sha256": "d407b32cbd9f5b593b77ee7e58082744861a17af0c9ba42f2c8aac1931ad1fb1"
+    },
+    {
+      "id": "engine_rating-envelope",
+      "repository": "Ventusltd/ventus-grid-engine",
+      "commit": "d9a6234a5ec262844e7ef5172e938fcefd2396a1",
+      "path": "engine/rating-envelope.js",
+      "bytes": 6600,
+      "sha256": "946d4970833154ae75242c5914d8fe0be788cc8a7235e1943a578d6d92382b13"
+    },
+    {
+      "id": "engine_site-tile",
+      "repository": "Ventusltd/ventus-grid-engine",
+      "commit": "d9a6234a5ec262844e7ef5172e938fcefd2396a1",
+      "path": "engine/site-tile.js",
+      "bytes": 7535,
+      "sha256": "2ffd837113e842a2da039ba41a6b70890e89e74a91edc4048b9653a8d60f6392"
+    },
+    {
+      "id": "engine_v9-geodesy",
+      "repository": "Ventusltd/ventus-grid-engine",
+      "commit": "d9a6234a5ec262844e7ef5172e938fcefd2396a1",
+      "path": "engine/v9-geodesy.js",
+      "bytes": 6395,
+      "sha256": "af9b5a8796b51a1e4368491b98961a197adec539f2fa0f3ed226552a876864bb"
+    },
+    {
+      "id": "engine_v9-nearest-search",
+      "repository": "Ventusltd/ventus-grid-engine",
+      "commit": "d9a6234a5ec262844e7ef5172e938fcefd2396a1",
+      "path": "engine/v9-nearest-search.js",
+      "bytes": 4057,
+      "sha256": "28cc8b973f9c294882ceffa9e27c3a2f14062e5263a8f82a08f5a861fb2b43fc"
+    },
+    {
+      "id": "etys_normalized",
+      "repository": "Ventusltd/data-grid-gb",
+      "commit": "5181de3423e4fe50c77c568b9f3066c61a1d9e41",
+      "path": "chatgpt/derived/etys-2025.normalized.json",
+      "bytes": 8076145,
+      "sha256": "40f0aa1cbdcb35d9f62e9c87e89d8230b93faa4e45d0e08e6ecd18cf287010d0"
+    },
+    {
+      "id": "etys_sources",
+      "repository": "Ventusltd/data-grid-gb",
+      "commit": "5181de3423e4fe50c77c568b9f3066c61a1d9e41",
+      "path": "sources/sources-manifest.json",
+      "bytes": 1600,
+      "sha256": "edc9727fc5ae23777a00e3971fd5f4ccfda262fdddfb946a4390dc0ff646cb2d"
+    },
+    {
+      "id": "podcast",
+      "repository": "Ventusltd/globalgrid2050",
+      "commit": "e2568fa9b818d39e28b106bbe49c3a53d0ad4fc2",
+      "path": "podcast_transcripts/index.md",
+      "bytes": 1145784,
+      "sha256": "a4fdfb528ec7fac07223dc70e82ae48cf36518c0d29f316f51d9d9151bb28d73"
+    },
+    {
+      "id": "spider_plan",
+      "repository": "Ventusltd/spiders",
+      "commit": "b47609b9252f65f8ccf7ac6a2393619e374ecf30",
+      "path": "codex/build-plan/master-plan.geojson",
+      "bytes": 233026,
+      "sha256": "705dd7578d09b68df8645a720dd0424d6c0eaf8264f0edc1d35fdb45b66354af"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "schema": "data-grid-gb.etys.normalized.v1",
+  "edition": "ETYS 2025",
+  "circuit_changes": [
+    {
+      "autumn_rating_mva": 2327,
+      "b_percent_100mva": 15.6941,
+      "cable_length_km": 0,
+      "circuit_type": "OHL",
+      "kind": "circuit_change",
+      "node_1": "ABHA41",
+      "node_2": "LAGA41",
+      "ohl_length_km": 26.121,
+      "owner": "NGET",
+      "r_percent_100mva": 0.0417,
+      "source_sheet": "B-2-2c",
+      "spring_rating_mva": 2327,
+      "status": "Change",
+      "summer_rating_mva": 2168,
+      "winter_rating_mva": 2423,
+      "x_percent_100mva": 0.5027,
+      "year": 2028
+    },
+    {
+      "autumn_rating_mva": 2327,
+      "b_percent_100mva": 15.6941,
+      "cable_length_km": 0,
+      "circuit_type": "OHL",
+      "kind": "circuit_change",
+      "node_1": "ABHA42",
+      "node_2": "LAGA41",
+      "ohl_length_km": 26.121,
+      "owner": "NGET",
+      "r_percent_100mva": 0.0417,
+      "source_sheet": "B-2-2c",
+      "spring_rating_mva": 2327,
+      "status": "Change",
+      "summer_rating_mva": 2168,
+      "winter_rating_mva": 2423,
+      "x_percent_100mva": 0.5027,
+      "year": 2028
+    }
+  ],
+  "transformer_changes": [
+    {
+      "b_percent_100mva": -0.0377,
+      "kind": "transformer_change",
+      "node_1": "ABTB21",
+      "node_2": "ABEB11",
+      "owner": "NGET",
+      "r_percent_100mva": 0.0744,
+      "rating_mva": 360,
+      "source_sheet": "B-3-2c",
+      "status": "Addition",
+      "x_percent_100mva": 8.3386,
+      "year": 2030
+    }
+  ],
+  "counts": {
+    "circuit_changes": 2,
+    "transformer_changes": 1
+  },
+  "fixture_provenance": {
+    "id": "etys_normalized",
+    "repository": "Ventusltd/data-grid-gb",
+    "commit": "5181de3423e4fe50c77c568b9f3066c61a1d9e41",
+    "path": "chatgpt/derived/etys-2025.normalized.json",
+    "bytes": 8076145,
+    "sha256": "40f0aa1cbdcb35d9f62e9c87e89d8230b93faa4e45d0e08e6ecd18cf287010d0"
+  }
+}

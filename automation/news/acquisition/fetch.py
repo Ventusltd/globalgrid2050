@@ -35,7 +35,8 @@ class _PublicHTTPSConnection(HTTPSConnection):
     def _new_conn(self):
         try:
             addresses = socket.getaddrinfo(self._dns_host, self.port, type=socket.SOCK_STREAM)
-            if not addresses or any(not ipaddress.ip_address(a[4][0]).is_global for a in addresses):
+            ips = [ipaddress.ip_address(a[4][0]) for a in addresses]
+            if not ips or any(not ip.is_global or ip.is_multicast or ip.is_reserved for ip in ips):
                 raise FetchError("Publisher DNS resolved to a non-public address")
             for family, socktype, proto, _, address in addresses:
                 sock = socket.socket(family, socktype, proto)

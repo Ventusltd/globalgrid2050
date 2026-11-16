@@ -172,7 +172,7 @@ def test_ambiguity_outside_pilot_blocks_name_match_but_not_explicit_id():
     assert match_articles([article], projects)[0]['match_method'] == 'repd_id'
 
 
-@pytest.mark.parametrize('address', ['127.0.0.1', '10.0.0.1', '169.254.169.254', '192.168.1.1', '::1', 'fc00::1'])
+@pytest.mark.parametrize('address', ['127.0.0.1', '10.0.0.1', '169.254.169.254', '192.168.1.1', '::1', 'fc00::1', '224.0.0.1', 'ff02::1'])
 def test_private_dns_answer_rejected_before_connect(monkeypatch, address):
     monkeypatch.setattr(socket, 'getaddrinfo', lambda *a, **kw: [(socket.AF_INET, socket.SOCK_STREAM, 6, '', (address, 443))])
     monkeypatch.setattr(socket, 'socket', lambda *a: pytest.fail('Private address must never connect'))

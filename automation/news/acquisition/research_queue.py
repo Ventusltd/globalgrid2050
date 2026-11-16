@@ -15,7 +15,10 @@ ROOT = Path(__file__).resolve().parents[3]
 
 
 def _read_pinned(path, digest):
-    data = path.read_bytes()
+    try:
+        data = path.read_bytes()
+    except OSError as exc:
+        raise ValueError("Required immutable V9.24 input unavailable") from exc
     if hashlib.sha256(data).hexdigest() != digest:
         raise ValueError("Immutable V9.24 input changed")
     return json.loads(data)

@@ -252,3 +252,37 @@ def test_generator_requires_no_network(monkeypatch):
     monkeypatch.setattr(socket, "socket", forbidden)
     monkeypatch.setattr(socket, "getaddrinfo", forbidden)
     assert p.build(as_of=AS_OF, limit=1)["returned_count"] == 1
+
+
+def test_dc_country_revision_must_identify_declared_country(dc, tmp_path):
+    record = dc["records"][0]
+    assert record["country"]["wikidata_id"] == "Q408"
+    record["field_sources"]["country"] = record["source"]["revision_url"]
+    with pytest.raises(ValueError, match="Country revision identity differs"):
+        p.build(as_of=AS_OF, datacentres=write_pin(tmp_path, dc), record_type="data_centre")
+
+
+@pytest.mark.parametrize("host", [
+    "127.1", "127.0.0.1", "127.0.0.1.", "127.0.0.01", "0177.0.0.1",
+    "0x7f.1", "0x7f000001", "0x7f000001.", "2130706433", "2130706433.",
+    "%31%32%37.0.0.%31", "１２７.０.０.１", "224.0.0.1", "239.255.255.250",
+    "240.0.0.1", "10.0.0.1", "169.254.169.254", "192.0.2.1", "0.0.0.0",
+    "[::1]", "[ff02::1]", "[fe80::1]", "[::ffff:127.0.0.1]", "[2606:4700:4700::1111%eth0]",
+    "localhost.", "host.local.",
+])
+def test_public_links_reject_browser_numeric_aliases_and_nonpublic_addresses(host):
+    with pytest.raises(ValueError):
+        p.public_url("https://" + host + "/private")
+
+
+@pytest.mark.parametrize("host", ["www.gov.uk", "www.wikidata.org", "www.gov.uk.",
+                                  "8.8.8.8", "1.1.1.1", "[2606:4700:4700::1111]"])
+def test_public_links_allow_normal_dns_and_canonical_public_ips_offline(host, monkeypatch):
+    import socket
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("Public link validation must remain offline")
+
+    monkeypatch.setattr(socket, "getaddrinfo", forbidden)
+    url = "https://" + host + "/source"
+    assert p.public_url(url) == url

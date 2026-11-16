@@ -32,6 +32,13 @@ the top N or selected type. Invalid data are never silently replaced with an emp
 feed. Input files are bounded at 16 MiB; DC records at 1,000; evidence at 10,000
 associations and 100 source receipts. Output is capped at 1,000 rows.
 
+DC country-revision links must identify the declared country QID. Exported URLs
+use offline HTTPS syntax checks: ordinary ASCII DNS names and public IP literals
+are accepted; browser numeric IPv4 aliases, escaped/Unicode host forms and
+non-public, multicast or reserved IPs are rejected. A country revision is a
+provenance link, not independent factual validation. URL checks neither resolve
+DNS nor establish where a DNS name will point; there is no fetching in this module.
+
 Existing source receipt objects must additionally contain:
 
 ```json

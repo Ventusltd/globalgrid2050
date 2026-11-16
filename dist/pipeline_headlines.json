@@ -1,6 +1,6 @@
 {
  "schema": "globalgrid2050.news.pipeline-headlines.v1",
- "generated_at": "2026-11-16T00:43:01Z",
+ "generated_at": "2026-11-16T00:57:38Z",
  "status": "ok",
  "counts": {
   "items": 68,
@@ -32,15 +32,15 @@
    "status": "ok",
    "entries": 33,
    "kept": 0,
-   "newest": "2026-11-16T00:13:14Z"
+   "newest": "2026-11-16T00:50:39Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/uk/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 28,
+   "entries": 31,
    "kept": 0,
-   "newest": "2026-11-15T22:23:57Z"
+   "newest": "2026-11-16T00:50:39Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
@@ -48,7 +48,7 @@
    "status": "ok",
    "entries": 57,
    "kept": 1,
-   "newest": "2026-11-15T22:30:03Z"
+   "newest": "2026-11-16T00:50:39Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/technology/rss.xml",
@@ -408,7 +408,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 1,
-   "newest": "2026-11-16T00:34:26Z"
+   "newest": "2026-11-16T00:40:46Z"
   },
   {
    "url": "https://www.bloomberg.com/feeds/industries/news.rss",

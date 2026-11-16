@@ -32,6 +32,44 @@ def test_published_record_cannot_be_refinalized(monkeypatch):
         new_version.finalize("202611161244", "change", [], [], "release_candidate_blocked")
 
 
+@pytest.mark.parametrize("old_state", ["published", "release_candidate_blocked"])
+def test_older_registered_release_cannot_be_refinalized(tmp_path, monkeypatch, old_state):
+    registry = {"versions": [
+        {"id": "202611161244", "version": "V9.24", "state": old_state},
+        {"id": "202611161630", "version": "V9.25", "state": "release_candidate_blocked"},
+    ]}
+    monkeypatch.setattr(new_version, "load_registry", lambda: registry)
+    monkeypatch.setattr(new_version, "PIPELINE", tmp_path)
+    monkeypatch.setattr(new_version, "walk", lambda _: pytest.fail("Historical filesystem was accessed"))
+    with pytest.raises(AssertionError, match="cannot be rewritten"):
+        new_version.finalize("202611161244", "change", [], [], "release_candidate_blocked")
+    assert len(registry["versions"]) == 2
+    assert list(tmp_path.iterdir()) == []
+
+
+def test_unpublished_tail_can_be_refinalized(tmp_path, monkeypatch):
+    registry = {"versions": [
+        {"id": "202611161244", "version": "V9.24", "state": "published"},
+        {"id": "202611161630", "version": "V9.25", "state": "release_candidate_blocked"},
+    ]}
+    parent = tmp_path / "202611161244"
+    candidate = tmp_path / "202611161630"
+    parent.mkdir()
+    (candidate / "tests").mkdir(parents=True)
+    runner = candidate / "tests/run_v9_25.sh"
+    runner.write_text("CHANGED_FROM_PARENT=(\n)\nREMOVED_FROM_PARENT=(\n)\n", encoding="utf-8")
+    monkeypatch.setattr(new_version, "load_registry", lambda: registry)
+    monkeypatch.setattr(new_version, "PIPELINE", tmp_path)
+    monkeypatch.setattr(new_version, "tree_hash", lambda _: "synthetic-candidate-tree")
+    saved = []
+    monkeypatch.setattr(new_version, "save_registry", saved.append)
+    new_version.finalize("202611161630", "candidate revision", [], [], "release_candidate_blocked")
+    assert len(saved[0]["versions"]) == 2
+    assert saved[0]["versions"][-1]["parent"] == "202611161244"
+    assert saved[0]["versions"][-1]["trees"] == ["synthetic-candidate-tree"]
+    assert list(parent.iterdir()) == []
+
+
 def test_frozen_parent_tree_and_candidate_data():
     assert common.tree_hash("202611161244") == "2d109396cdef80302914045b5330e4f7007e5830"
     parent = ROOT / "uk_renewables_pipeline/202611161244"

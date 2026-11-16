@@ -78,6 +78,8 @@ def create(new_id, version, title, state="BUILD", dry_run=False):
 def finalize(new_id, added, faults, features, state="published"):
     reg = load_registry()
     parent = reg["versions"][-1]
+    registered = [entry for entry in reg["versions"] if entry["id"] == new_id]
+    assert not registered or (len(registered) == 1 and parent["id"] == new_id), "already registered; historical records cannot be rewritten"
     if parent["id"] == new_id:
         assert parent.get("state", "").startswith("release_candidate_") and state.startswith("release_candidate_"), "already registered; published records cannot be rewritten"
         reg["versions"].pop()

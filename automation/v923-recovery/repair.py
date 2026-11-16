@@ -107,6 +107,17 @@ def reconcile():
     old='<span><b>DATA-CENTRE HEADLINES:</b> headlines and links from public news and government feeds; no article text is stored or shown. This version carries no content from the UK data-centre register.</span>'
     if old in html:
         idx.write_text(html.replace(old,'<span><b>HEADLINES:</b> One public energy-infrastructure feed, with no content from the UK data-centre register. Machine Read Notes are candidate screening interpretations; original evidence and official REPD status remain separate.</span>'))
+    rowmodule=B/"scripts/plugins/projects-v9-8.js"
+    project_js=rowmodule.read_text()
+    if 'class="machine-note-button mobile-machine-note"' not in project_js:
+        target='<div class="mobile-extra">'+chr(36)+'{escapeHtml([location, project.operator].filter(Boolean).join(" | "))}</div><details class="project-record">'
+        addition='<div class="mobile-extra">'+chr(36)+'{escapeHtml([location, project.operator].filter(Boolean).join(" | "))}</div><button type="button" class="machine-note-button mobile-machine-note" data-note-ref="'+chr(36)+'{escapeHtml(project.repd_ref)}" data-note-name="'+chr(36)+'{escapeHtml(project.name)}" data-note-status="'+chr(36)+'{escapeHtml(project.status)}">NOTES · CHECK</button><details class="project-record">'
+        if project_js.count(target)!=1:raise RuntimeError("Cannot safely insert mobile project note action")
+        rowmodule.write_text(project_js.replace(target,addition,1))
+    style=B/"styles/v9-23.css"
+    css=style.read_text()
+    rule="\n/* Phone: note action in site cell, independent of horizontal table scroll. */\n.mobile-machine-note{display:none!important}\n@media(max-width:768px){.mobile-machine-note{display:inline-flex!important;align-items:center;margin-top:8px;font-size:11px;min-width:112px}.tablewrap th:nth-last-child(2),.tablewrap td.machine-note-cell{display:none}}\n"
+    if "Phone: note action in site cell" not in css:style.write_text(css+rule)
     js=B/"scripts/plugins/live-news.js"
     feed=js.read_text()
     feed=feed.replace("Unverified headline match, not a proven project event",

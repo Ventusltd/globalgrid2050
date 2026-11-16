@@ -8,8 +8,20 @@ logins, page fetches, contact enrichment or publication occur here.
 
 Owner directions: [successor boundary](https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-6922998352),
 [trend contract](https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-6923067676),
-[source-policy override](https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-6923111596).
-The later policy excludes paywalled channels entirely.
+[listed-parent/source policy](https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-6923111596),
+and the latest [News discovery override](https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-6923484114)
+with [News owner acknowledgement](https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-6923492317).
+The latest override supersedes the earlier blanket paywall exclusion: permitted
+Bloomberg headline/link metadata may remain low-priority DISCOVERY_ONLY in the
+News owner's separate contract, pending that owner's implementation. Prefer
+official originals. Discovery clues cannot substantiate project or funding
+figures, and do not permit article bodies or paywall bypass.
+
+Here, `SOURCE_POLICY.paywalled_channels=EXCLUDED` applies specifically to this
+adapter's qualifying project-evidence input, not overall News discovery display.
+Its OPEN-only channel/article receipts remain required. Bloomberg discovery
+cannot award follow-up points or heat, establish figures, or enter this evidence
+adapter through the separate discovery allowance. No discovery adapter is added.
 
 ## Inputs and authority
 

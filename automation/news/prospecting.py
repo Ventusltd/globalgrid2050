@@ -31,6 +31,9 @@ PROFILE = {
     "record_stale_days": 90, "article_stale_days": 30, "retrieval_stale_days": 14,
     "tie_break": "source-qualified ID ascending", "maximum_output_records": 1000,
 }
+# Scope: qualifying project-evidence inputs only. Separate News-owner Bloomberg
+# DISCOVERY_ONLY headline/link display is permitted by NL42/6923484114; it cannot
+# supply follow-up/heat points or substantiate figures through this adapter.
 SOURCE_POLICY = {
     "paywalled_channels": "EXCLUDED", "unknown_access": "DISABLED",
     "preferred_authorities": ["government", "regulator", "institutional_funding", "official_filings"],

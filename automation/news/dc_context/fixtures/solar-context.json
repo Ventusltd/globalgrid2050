@@ -1,0 +1,214 @@
+{
+  "schema": "globalgrid2050.solar-dc-context-input.v1",
+  "sources": [
+    {
+      "id": "google-epa-2021",
+      "document_id": "document:google-epa-2021",
+      "url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf",
+      "publisher": "Google (presentation hosted by US EPA)",
+      "title": "24/7 Carbon-Free Energy by 2030",
+      "authority": "ISSUER_PRESENTATION_GOVERNMENT_HOSTED",
+      "published_date": "2021-09-22",
+      "retrieved_at": "2026-11-16T17:21:02Z",
+      "http_status": 200,
+      "bytes": 1817288,
+      "sha256": "6efe47b80b69b707d7a7b82cb629b672838b57c146b498487d44011cb0249d30",
+      "access_state": "OPEN_OBSERVED",
+      "output_policy": "FACT_METADATA_ONLY"
+    },
+    {
+      "id": "google-shell-2025",
+      "document_id": "document:google-shell-2025",
+      "url": "https://www.googlecloudpresscorner.com/2025-09-16-Google-Opens-Waltham-Cross-Data-Centre-as-Part-of-Two-year-GBP5-Billion-Investment-in-the-UK-to-Help-Power-its-AI-Economy",
+      "publisher": "Google Cloud",
+      "title": "Google opens Waltham Cross data centre and announces UK energy portfolio agreement",
+      "authority": "ISSUER_RELEASE",
+      "published_date": "2025-09-16",
+      "retrieved_at": "2026-11-16T17:21:02Z",
+      "http_status": 200,
+      "bytes": 62569,
+      "sha256": "2e3df07ab9723b8b60e90c9f8102807b40a358ce8376f9f12e95b935a15a308c",
+      "access_state": "OPEN_OBSERVED",
+      "output_policy": "FACT_METADATA_ONLY"
+    },
+    {
+      "id": "sma-livingston",
+      "document_id": "document:sma-livingston",
+      "url": "https://www.sma-uk.com/references/iron-mountain-data-center-livingston",
+      "publisher": "SMA Solar Technology AG",
+      "title": "Iron Mountain data centre in Livingston: commercial PV case study",
+      "authority": "SUPPLIER_CASE_STUDY",
+      "published_date": null,
+      "retrieved_at": "2026-11-16T17:21:03Z",
+      "http_status": 200,
+      "bytes": 118620,
+      "sha256": "a5a8fce85311098c6b01c4548e52e882a28f357ce37ec712de0743177575dd3d",
+      "access_state": "OPEN_OBSERVED",
+      "output_policy": "FACT_METADATA_ONLY"
+    }
+  ],
+  "contexts": [
+    {
+      "id": "solar:google-nevada-2021",
+      "name": "Google/NV Energy solar procurement programme",
+      "country": "US",
+      "entity": {
+        "id": "procurement:google-nvenergy-2020",
+        "scope": "project",
+        "consolidation_group_id": null,
+        "identity_evidence_url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf"
+      },
+      "source_id": "google-epa-2021",
+      "section": "Working with utilities on the path to 24/7",
+      "page": "12",
+      "relationship": "solar_procurement",
+      "source_state": "AGREEMENT_REPORTED",
+      "source_as_of": "2021-09-22",
+      "numeric_claims": [
+        {
+          "qualifier": "stated",
+          "claim": {
+            "schema": "globalgrid2050.filing-figure.v1",
+            "claim_id": "solar:google-nevada-2021:generation_power",
+            "status": "machine-provisional",
+            "quantity_kind": "generation_power",
+            "metric": "Solar procurement capacity",
+            "value": "350",
+            "scale": "1",
+            "unit": "MW",
+            "original_unit": "MW",
+            "currency": null,
+            "finance_stage": null,
+            "entity": {
+              "id": "procurement:google-nvenergy-2020",
+              "scope": "project",
+              "consolidation_group_id": null,
+              "identity_evidence_url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf"
+            },
+            "reporting_period": null,
+            "as_of": "2024",
+            "basis": "forecast",
+            "assurance": "unknown",
+            "provenance": {
+              "document_id": "document:google-epa-2021",
+              "document_url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf",
+              "sha256": "6efe47b80b69b707d7a7b82cb629b672838b57c146b498487d44011cb0249d30",
+              "page": "12",
+              "section": "Working with utilities on the path to 24/7",
+              "published_date": "2021-09-22",
+              "retrieved_at": "2026-11-16T17:21:02Z"
+            },
+            "revision": {
+              "id": "source-2021-09-22",
+              "supersedes_claim_id": null,
+              "restated": false
+            }
+          }
+        }
+      ],
+      "figures_omitted_reason": null,
+      "scope_note": "Procurement programme for operations and the grid; no named site allocation or present delivery demonstrated."
+    },
+    {
+      "id": "storage:google-nevada-2021",
+      "name": "Google/NV Energy battery procurement programme",
+      "country": "US",
+      "entity": {
+        "id": "procurement:google-nvenergy-2020",
+        "scope": "project",
+        "consolidation_group_id": null,
+        "identity_evidence_url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf"
+      },
+      "source_id": "google-epa-2021",
+      "section": "Working with utilities on the path to 24/7",
+      "page": "12",
+      "relationship": "storage_procurement",
+      "source_state": "AGREEMENT_REPORTED",
+      "source_as_of": "2021-09-22",
+      "numeric_claims": [
+        {
+          "qualifier": "upper_bound",
+          "claim": {
+            "schema": "globalgrid2050.filing-figure.v1",
+            "claim_id": "storage:google-nevada-2021:storage_power",
+            "status": "machine-provisional",
+            "quantity_kind": "storage_power",
+            "metric": "Battery storage procurement power upper bound",
+            "value": "280",
+            "scale": "1",
+            "unit": "MW",
+            "original_unit": "MW",
+            "currency": null,
+            "finance_stage": null,
+            "entity": {
+              "id": "procurement:google-nvenergy-2020",
+              "scope": "project",
+              "consolidation_group_id": null,
+              "identity_evidence_url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf"
+            },
+            "reporting_period": null,
+            "as_of": "2024",
+            "basis": "forecast",
+            "assurance": "unknown",
+            "provenance": {
+              "document_id": "document:google-epa-2021",
+              "document_url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf",
+              "sha256": "6efe47b80b69b707d7a7b82cb629b672838b57c146b498487d44011cb0249d30",
+              "page": "12",
+              "section": "Working with utilities on the path to 24/7",
+              "published_date": "2021-09-22",
+              "retrieved_at": "2026-11-16T17:21:02Z"
+            },
+            "revision": {
+              "id": "source-2021-09-22",
+              "supersedes_claim_id": null,
+              "restated": false
+            }
+          }
+        }
+      ],
+      "figures_omitted_reason": null,
+      "scope_note": "Shared storage procurement has an upper power bound; energy duration and allocation to individual data centres are not stated."
+    },
+    {
+      "id": "storage:google-uk-shell-2025",
+      "name": "Google UK portfolio storage-management agreement",
+      "country": "GB",
+      "entity": {
+        "id": "issuer:google",
+        "scope": "issuer",
+        "consolidation_group_id": null,
+        "identity_evidence_url": "https://www.googlecloudpresscorner.com/2025-09-16-Google-Opens-Waltham-Cross-Data-Centre-as-Part-of-Two-year-GBP5-Billion-Investment-in-the-UK-to-Help-Power-its-AI-Economy"
+      },
+      "source_id": "google-shell-2025",
+      "section": "Energy efficiency and capacity",
+      "page": null,
+      "relationship": "portfolio_storage_access",
+      "source_state": "AGREEMENT_REPORTED",
+      "source_as_of": "2025-09-16",
+      "numeric_claims": [],
+      "figures_omitted_reason": "No storage MW, MWh or site-specific allocation stated in this section.",
+      "scope_note": "UK portfolio management includes BESS access. The Waltham Cross announcement does not allocate a battery to that site."
+    },
+    {
+      "id": "solar:sma-iron-mountain-livingston",
+      "name": "Iron Mountain Livingston onsite solar PPA context",
+      "country": "GB",
+      "entity": {
+        "id": "source-site:sma-iron-mountain-livingston",
+        "scope": "site",
+        "consolidation_group_id": null,
+        "identity_evidence_url": "https://www.sma-uk.com/references/iron-mountain-data-center-livingston"
+      },
+      "source_id": "sma-livingston",
+      "section": "Commercial PV power plant; Commissioning; Specific requirements; End Energy User",
+      "page": null,
+      "relationship": "onsite_solar_ppa",
+      "source_state": "COMMISSIONED_REPORTED",
+      "source_as_of": "2020-03",
+      "numeric_claims": [],
+      "figures_omitted_reason": "Source headline and nominal-power labels differ; capacity scope is unresolved, so no numeric rating is selected.",
+      "scope_note": "Supplier describes a named Livingston installation and PPA model. This source-specific site key is not a canonical cohort binding."
+    }
+  ]
+}

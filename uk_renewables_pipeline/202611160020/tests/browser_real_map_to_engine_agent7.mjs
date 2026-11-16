@@ -184,7 +184,7 @@ try {
         const sample = await arrival.evaluate(() => {
           const body = document.body?.innerText || '';
           return {
-            nearest_visible: /Nearest\\s+\\d+\\s*kV\\s+substation\\s*:/i.test(body),
+            nearest_visible: /Nearest\s+\d+\s*kV\s+substation\s*:/i.test(body),
             minimised: !!document.querySelector('.maplibregl-popup.gridatlas-min')
           };
         });

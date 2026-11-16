@@ -16,7 +16,9 @@ def build():
     reg=json.loads(register.read_text())
     if B.exists():
         if reg["versions"][-1]["id"]!=NEW:raise RuntimeError("Unregistered candidate")
-        print("Candidate already exists; no overwrite");return
+        reconcile()
+        print("Candidate exists; reconciled declared feature withdrawal and proof hash")
+        return
     if reg["versions"][-1]["id"]!=OLD:raise RuntimeError("V9.22 no longer latest parent")
     subprocess.run([sys.executable,"automation/pipeline_release/new_version.py","create",NEW,"V9.23","one news feed with machine notes","BUILD"],cwd=ROOT,check=True)
     path=B/"index.html"; txt=path.read_text()
@@ -55,9 +57,44 @@ def build():
     subprocess.run([sys.executable,"automation/pipeline_release/new_version.py","finalize",NEW,
         "one feed, Machine Read Notes, no show-table jump","--fault","Known GridAtlas 390px nearest-card failure unresolved",
         "--feature","machine-notes-column:index.html:MACHINE READ NOTES"],cwd=ROOT,check=True)
-    reg=json.loads(register.read_text());reg["versions"][-1]["state"]="nonlive_candidate"
-    register.write_text(json.dumps(reg,indent=2,ensure_ascii=False)+"\n")
+    reconcile()
     print("CREATED NONLIVE V9.23 CANDIDATE")
+def reconcile():
+    """Pin the NEW candidate after documenting deliberate removals; never edit the parent."""
+    registry=ROOT/"automation/pipeline_release/registry.json"
+    document=json.loads(registry.read_text())
+    v=document["versions"][-1]
+    if v["id"]!=NEW:raise RuntimeError("V9.23 is not the newest candidate")
+    withdrawn=set(v.get("removed_features",[]))
+    withdrawn.add("datacentre-news-panel")
+    v["removed_features"]=sorted(withdrawn)
+    v["state"]="nonlive_candidate"
+    changes=B/"CHANGES.md"
+    txt=changes.read_text()
+    if "TO BE WRITTEN" in txt:
+        txt=txt.replace("TO BE WRITTEN","""## Changed
+- Removed the non-functional headline-to-table jump. A possible match no longer changes search or paging.
+- Removed the secondary data-centre politics feed. One main infrastructure headline feed remains visible.
+- Added native Machine Read Notes for candidate-only, explicitly unverified headline associations.
+- Kept the complete 7,775-identity REPD source, MAP deep-link emitter, CSV and historic editions untouched.
+
+## Outstanding
+- GridAtlas receiver mobile sheet can re-minimise a calculated nearest result at 390px (REPD 12588 / 2470): **FAIL** until separate GridAtlas release.
+- Publisher bytes, independent per-project binding, rights, owner iPhone and served V9.23 SHA are **UNVERIFIED**.
+- Data-centre register source rights are unverified; its separate news panel was intentionally withdrawn.
+""")
+        changes.write_text(txt)
+    idx=B/"index.html"
+    html=idx.read_text()
+    old='<span><b>DATA-CENTRE HEADLINES:</b> headlines and links from public news and government feeds; no article text is stored or shown. This version carries no content from the UK data-centre register.</span>'
+    if old in html:
+        idx.write_text(html.replace(old,'<span><b>HEADLINES:</b> One public energy-infrastructure feed. Machine Read Notes are candidate screening interpretations; original evidence and official REPD status remain separate.</span>'))
+    sys.path.insert(0,str(ROOT/"automation/pipeline_release"))
+    from common import tree_hash
+    v["trees"]=[tree_hash(NEW)]
+    registry.write_text(json.dumps(document,indent=2,ensure_ascii=False)+"\\n")
+    print("V9.23 metadata: datacentre-news-panel explicitly withdrawn; candidate tree pinned")
+
 def check():
     if not B.exists():raise RuntimeError("Candidate not generated")
     html=(B/"index.html").read_text(); live=(B/"scripts/plugins/live-news.js").read_text()

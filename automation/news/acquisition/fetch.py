@@ -4,6 +4,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 import hashlib
 from pathlib import Path
+from urllib.parse import urlsplit
 import xml.etree.ElementTree as ET
 
 import requests
@@ -19,7 +20,16 @@ class FetchError(RuntimeError):
     """Critical fetch/parse failure: retain previous snapshot, require review."""
 
 
-def load_sources(path=None):
+def _rights_accepted(source):
+    try:
+        review = urlsplit(source.get("rights_review_url") or "")
+        return (source.get("rights_status") == "accepted" and review.scheme == "https"
+                and bool(review.hostname) and not review.username and not review.password)
+    except ValueError:
+        return False
+
+
+def load_sources(path=None, *, include_disabled=False):
     sources = yaml.safe_load(Path(path or Path(__file__).with_name("sources.yaml")).read_text(encoding="utf-8"))
     if not isinstance(sources, list) or not sources:
         raise ValueError("sources must be a nonempty list")
@@ -31,12 +41,15 @@ def load_sources(path=None):
             raise ValueError("Duplicate source ID")
         seen.add(source["id"])
         if (not safe_publisher_url(source.get("url")) or source.get("kind") != "rss"
-                or source.get("technology") != ["solar"] or source.get("enabled") is not True
+                or source.get("technology") != ["solar"] or type(source.get("enabled")) is not bool
+                or source.get("rights_status") not in {"unknown", "accepted"}
                 or source.get("output_policy") != "headline_link_only"
                 or type(source.get("interval_hours")) is not int or source["interval_hours"] != 168
                 or not isinstance(source.get("publisher"), str) or not source["publisher"].strip()):
             raise ValueError("Invalid solar source configuration")
-    return sources
+        if source["enabled"] and not _rights_accepted(source):
+            raise ValueError("Source requires attributable rights acceptance before enabling")
+    return sources if include_disabled else [s for s in sources if s["enabled"]]
 
 
 def parse_feed(raw, source):
@@ -61,12 +74,14 @@ def parse_feed(raw, source):
         raise FetchError(f"Invalid RSS: {exc}") from exc
 
 
-def fetch_source(source, cache=None, *, session=None, now=None):
+def fetch_source(source, cache=None, *, session=None, now=None, probe=False):
     """Return articles, a source receipt, and raw in-memory conditional cache.
 
     Cached XML is intentionally caller-owned and must not be included in public
     artifacts. A 304 without a byte-verified cached body fails closed.
     """
+    if not probe and (source.get("enabled") is not True or not _rights_accepted(source)):
+        raise FetchError("Source disabled or rights unaccepted; explicit health probe only")
     if not safe_publisher_url(source.get("url")):
         raise FetchError("Unapproved source URL")
     client = session or requests.Session()
@@ -105,6 +120,9 @@ def fetch_source(source, cache=None, *, session=None, now=None):
                     "publisher": source["publisher"], "fetched_at": fetched_at,
                     "http_status": response.status_code, "response_sha256": digest, "etag": etag,
                     "article_count": len(articles), "output_policy": "headline_link_only",
+                    "probe_only": probe, "eligible_for_publication": not probe and _rights_accepted(source),
+                    "rights_status": source.get("rights_status", "unknown"),
+                    "rights_review_url": source.get("rights_review_url"),
                 }, "cache": {"url": source["url"], "etag": etag, "body": raw, "response_sha256": digest}}
     except requests.RequestException as exc:
         raise FetchError(f"Critical source transport failure: {source['id']}: {exc}") from exc

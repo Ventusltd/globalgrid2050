@@ -4,5 +4,7 @@
   url: https://www.pv-magazine.com/feed/
   technology: [solar]
   interval_hours: 168
-  enabled: true
+  enabled: false
+  rights_status: unknown
+  rights_review_url: null
   output_policy: headline_link_only

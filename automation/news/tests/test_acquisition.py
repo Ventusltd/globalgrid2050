@@ -13,7 +13,7 @@ from automation.news.acquisition.normalise import normalise_article
 from automation.news.acquisition.research_queue import ROOT, load_seed_projects
 
 
-SOURCE = load_sources()[0]
+SOURCE = load_sources(include_disabled=True)[0]
 RSS = b'''<?xml version="1.0"?><rss version="2.0"><channel><item>
 <title>Solar Farm A plans approved</title><link>https://www.pv-magazine.com/example/</link>
 <pubDate>Mon, 16 Nov 2026 10:00:00 GMT</pubDate><description><![CDATA[<p>A proposal.</p>]]></description>
@@ -95,8 +95,8 @@ def test_missing_date_is_not_replaced_with_fetch_date():
 
 def test_fetch_receipt_and_conditional_request():
     session = Session(Response(headers={'ETag': 'v1'}), Response(304))
-    first = fetch_source(SOURCE, session=session)
-    second = fetch_source(SOURCE, cache=first['cache'], session=session)
+    first = fetch_source(SOURCE, session=session, probe=True)
+    second = fetch_source(SOURCE, cache=first['cache'], session=session, probe=True)
     assert first['articles'] == second['articles']
     assert first['source']['response_sha256'] == hashlib.sha256(RSS).hexdigest()
     assert second['source']['http_status'] == 304
@@ -110,7 +110,34 @@ def test_fetch_receipt_and_conditional_request():
     Response(302, headers={'Location': 'http://127.0.0.1/private'})])
 def test_critical_source_failures_never_produce_success(response):
     with pytest.raises(FetchError):
-        fetch_source(SOURCE, session=Session(response))
+        fetch_source(SOURCE, session=Session(response), probe=True)
+
+
+def test_rights_unknown_disabled_by_default_and_probe_never_authorizes():
+    assert load_sources() == []
+    session = Session(Response())
+    with pytest.raises(FetchError, match='disabled'):
+        fetch_source(SOURCE, session=session)
+    assert session.calls == []
+    probe = fetch_source(SOURCE, session=session, probe=True)
+    assert probe['source']['eligible_for_publication'] is False
+    assert probe['source']['probe_only'] is True
+    assert probe['source']['rights_status'] == 'unknown'
+
+
+def test_enabled_source_requires_attributable_rights_acceptance(tmp_path):
+    p = tmp_path / 'sources.yaml'
+    p.write_text(yaml.safe_dump([dict(SOURCE, enabled=True)]))
+    with pytest.raises(ValueError, match='rights acceptance'):
+        load_sources(p)
+    # A structural review URL is necessary, not independent proof of rights.
+    accepted = dict(SOURCE, enabled=True, rights_status='accepted',
+                    rights_review_url='https://example.org/review/accepted')
+    p.write_text(yaml.safe_dump([accepted]))
+    assert load_sources(p) == [accepted]
+    receipt = fetch_source(accepted, session=Session(Response()))['source']
+    assert receipt['eligible_for_publication'] is True
+    assert receipt['rights_review_url'] == accepted['rights_review_url']
 
 
 def test_xml_entity_rejected():

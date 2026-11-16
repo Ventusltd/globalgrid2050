@@ -1,0 +1,1481 @@
+{
+  "schema": "globalgrid2050.global-datacentres.source-facts.v1",
+  "retrieved_at": "2026-11-16T16:41:40Z",
+  "publisher": "Wikidata",
+  "licence": "CC0-1.0",
+  "licence_url": "https://www.wikidata.org/wiki/Wikidata:Copyright",
+  "selected_ids": [
+    "Q12857142",
+    "Q520438",
+    "Q1277574",
+    "Q11236058",
+    "Q19721053",
+    "Q142068471",
+    "Q142068695",
+    "Q142068699",
+    "Q138426651",
+    "Q140089116",
+    "Q139609394",
+    "Q24259253"
+  ],
+  "requests": [
+    {
+      "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q12857142%7CQ520438%7CQ1277574%7CQ11236058%7CQ19721053%7CQ142068471%7CQ142068695%7CQ142068699%7CQ138426651%7CQ140089116%7CQ139609394%7CQ24259253&props=labels%7Cclaims%7Cinfo&languages=en&format=json&maxlag=5",
+      "response_sha256": "0e25ca52b5a4d03a3f6f8aa549a2afab2b1db4b35835833a54bd28a73e1b8f29",
+      "http_status": 200
+    },
+    {
+      "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q121194%7CQ145%7CQ155%7CQ15822775%7CQ17%7CQ30%7CQ35%7CQ3517302%7CQ39%7CQ40%7CQ408%7CQ55%7CQ668&props=labels%7Cclaims%7Cinfo&languages=en&format=json&maxlag=5",
+      "response_sha256": "7c4741610163491e4e7a69f92af533dba97177c227bc7316cb862db14b9643c7",
+      "http_status": 200
+    }
+  ],
+  "entities": {
+    "Q12857142": {
+      "id": "Q12857142",
+      "revision": 2540146251,
+      "label": "Utah Data Center",
+      "claims": {
+        "P31": [
+          {
+            "id": "q12857142$183df9d2-4408-645c-59ef-74f797f689e2",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 651476,
+              "id": "Q651476"
+            }
+          },
+          {
+            "id": "Q12857142$097CF41E-78D8-409B-B14B-F1F10C1BD297",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 671224,
+              "id": "Q671224"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "Q12857142$A4CCDEFD-28A5-412D-968E-B1606E16DDF6",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 30,
+              "id": "Q30"
+            }
+          }
+        ],
+        "P625": [
+          {
+            "id": "Q12857142$D46EFBB4-8B45-421C-9E0F-C24933DD4801",
+            "rank": "normal",
+            "value": {
+              "latitude": 40.43153,
+              "longitude": -111.933092,
+              "altitude": null,
+              "precision": 2.77777777778e-06,
+              "globe": "http://www.wikidata.org/entity/Q2"
+            }
+          }
+        ],
+        "P137": [
+          {
+            "id": "Q12857142$c0252ca9-44eb-6fab-42f6-9c3e808c50cb",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 121194,
+              "id": "Q121194"
+            }
+          }
+        ]
+      }
+    },
+    "Q520438": {
+      "id": "Q520438",
+      "revision": 2037334889,
+      "label": "Swiss Fort Knox",
+      "claims": {
+        "P31": [
+          {
+            "id": "Q520438$1AF63D0A-8C06-4135-8567-93D5EE8377AD",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 671224,
+              "id": "Q671224"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "q520438$C223376E-F4D5-4F2A-9310-79D08FD1BF3C",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 39,
+              "id": "Q39"
+            }
+          }
+        ],
+        "P625": [
+          {
+            "id": "Q520438$82A0B255-01E4-41EB-AB03-68F2F75247E8",
+            "rank": "normal",
+            "value": {
+              "latitude": 46.4856,
+              "longitude": 7.25417,
+              "altitude": null,
+              "precision": 0.13046727572111,
+              "globe": "http://www.wikidata.org/entity/Q2"
+            }
+          }
+        ]
+      }
+    },
+    "Q1277574": {
+      "id": "Q1277574",
+      "revision": 1362173510,
+      "label": "earthDATAsafe",
+      "claims": {
+        "P31": [
+          {
+            "id": "Q1277574$78F6C866-DB77-4E05-AE9A-FB20209339BE",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 671224,
+              "id": "Q671224"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "q1277574$2028C19A-A31F-4D01-BBEF-136AECCC9922",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 40,
+              "id": "Q40"
+            }
+          }
+        ],
+        "P625": [
+          {
+            "id": "Q1277574$BEE0B1CF-9563-4B0F-B4BD-C6E74D7F8DE0",
+            "rank": "normal",
+            "value": {
+              "latitude": 47.4492,
+              "longitude": 15.3382,
+              "altitude": null,
+              "precision": 0.0001,
+              "globe": "http://www.wikidata.org/entity/Q2"
+            }
+          }
+        ],
+        "P137": [
+          {
+            "id": "Q1277574$f1e13f3f-4a42-8114-8b42-a0bd832d950a",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 15822775,
+              "id": "Q15822775"
+            }
+          }
+        ]
+      }
+    },
+    "Q11236058": {
+      "id": "Q11236058",
+      "revision": 2269909393,
+      "label": "NTT Telepark Dojima",
+      "claims": {
+        "P31": [
+          {
+            "id": "Q11236058$22c23586-49ef-2646-be96-417dc7ed8a3b",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 671224,
+              "id": "Q671224"
+            }
+          },
+          {
+            "id": "Q11236058$3aec09d9-4368-551d-5804-95be1b6779c3",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 182060,
+              "id": "Q182060"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "Q11236058$52CE391D-C8DB-42DE-A28D-CBC5DCE79221",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 17,
+              "id": "Q17"
+            }
+          }
+        ],
+        "P625": [
+          {
+            "id": "Q11236058$22157F38-06EC-49E6-92B6-6AE31BF695CD",
+            "rank": "normal",
+            "value": {
+              "latitude": 34.695447,
+              "longitude": 135.491381,
+              "altitude": null,
+              "precision": 1e-05,
+              "globe": "http://www.wikidata.org/entity/Q2"
+            }
+          }
+        ]
+      }
+    },
+    "Q19721053": {
+      "id": "Q19721053",
+      "revision": 2446280675,
+      "label": "Foulum Data Center",
+      "claims": {
+        "P31": [
+          {
+            "id": "Q19721053$7926e05a-45bd-92eb-f093-32342d17cf88",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 671224,
+              "id": "Q671224"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "Q19721053$C6B57DB5-3527-4F99-AB55-B247A2C00556",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 35,
+              "id": "Q35"
+            }
+          }
+        ],
+        "P625": [
+          {
+            "id": "Q19721053$2abed59c-407a-4d6f-5e74-917cc1489ae6",
+            "rank": "normal",
+            "value": {
+              "latitude": 56.4834,
+              "longitude": 9.5739,
+              "altitude": null,
+              "precision": 0.0001,
+              "globe": "http://www.wikidata.org/entity/Q2"
+            }
+          }
+        ]
+      }
+    },
+    "Q142068471": {
+      "id": "Q142068471",
+      "revision": 2565410832,
+      "label": "Yotta NM1",
+      "claims": {
+        "P31": [
+          {
+            "id": "Q142068471$46B6806C-3E78-4468-821D-6A48B5090270",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 671224,
+              "id": "Q671224"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "Q142068471$C6297563-52F2-48ED-9D0B-21D8B74A87B7",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 668,
+              "id": "Q668"
+            }
+          }
+        ]
+      }
+    },
+    "Q142068695": {
+      "id": "Q142068695",
+      "revision": 2565424685,
+      "label": "NEXTDC M3 Melbourne",
+      "claims": {
+        "P31": [
+          {
+            "id": "Q142068695$8DA165DE-748E-4920-BD5C-C4EF3FC7790E",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 671224,
+              "id": "Q671224"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "Q142068695$3F8F1998-8520-45F9-BB4D-2E3EC971F1F5",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 408,
+              "id": "Q408"
+            }
+          }
+        ]
+      }
+    },
+    "Q142068699": {
+      "id": "Q142068699",
+      "revision": 2565424835,
+      "label": "ODATA SP04",
+      "claims": {
+        "P31": [
+          {
+            "id": "Q142068699$F28A427E-C961-4584-8EA4-10B09BE79E46",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 671224,
+              "id": "Q671224"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "Q142068699$60F54D10-04D4-4380-9B38-19EA4F4288D5",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 155,
+              "id": "Q155"
+            }
+          }
+        ]
+      }
+    },
+    "Q138426651": {
+      "id": "Q138426651",
+      "revision": 2483375974,
+      "label": "Telehouse North",
+      "claims": {
+        "P31": [
+          {
+            "id": "Q138426651$ac6003e2-457b-8731-1980-2943ebdfa28a",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 671224,
+              "id": "Q671224"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "Q138426651$7b7560ab-4b0a-394e-5a39-15b9b0399ee2",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 145,
+              "id": "Q145"
+            }
+          }
+        ],
+        "P625": [
+          {
+            "id": "Q138426651$7a4748b3-4d3e-4d07-b7df-2a8b64b6be52",
+            "rank": "normal",
+            "value": {
+              "latitude": 51.51206,
+              "longitude": -0.00198,
+              "altitude": null,
+              "precision": 1e-05,
+              "globe": "http://www.wikidata.org/entity/Q2"
+            }
+          }
+        ],
+        "P137": [
+          {
+            "id": "Q138426651$654d404e-49ec-6f8e-6558-88c96ecc93bd",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 3517302,
+              "id": "Q3517302"
+            }
+          }
+        ]
+      }
+    },
+    "Q140089116": {
+      "id": "Q140089116",
+      "revision": 2529992387,
+      "label": "Microsoft Data Center Campus Middenmeer",
+      "claims": {
+        "P31": [
+          {
+            "id": "Q140089116$684f7c54-4005-05b5-105d-eb48255c3d70",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 671224,
+              "id": "Q671224"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "Q140089116$9eb7079b-4a2c-bb55-62d2-f50dfeb3a939",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 55,
+              "id": "Q55"
+            }
+          }
+        ],
+        "P625": [
+          {
+            "id": "Q140089116$3da35fd2-4a46-3e3d-e084-49b3bc3a4fab",
+            "rank": "normal",
+            "value": {
+              "latitude": 52.761418,
+              "longitude": 5.037557,
+              "altitude": null,
+              "precision": 1e-06,
+              "globe": "http://www.wikidata.org/entity/Q2"
+            }
+          }
+        ]
+      }
+    },
+    "Q139609394": {
+      "id": "Q139609394",
+      "revision": 2486732685,
+      "label": "Meta Henrico Data Center",
+      "claims": {
+        "P31": [
+          {
+            "id": "Q139609394$fdb60ebc-4f5c-d1fb-9a85-01a2da245b36",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 671224,
+              "id": "Q671224"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "Q139609394$b8b69de7-4b97-6f6c-b98e-cae009ddb47e",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 30,
+              "id": "Q30"
+            }
+          }
+        ],
+        "P625": [
+          {
+            "id": "Q139609394$fa2e100a-40f5-fbf2-8e8f-e43b4ca68d7d",
+            "rank": "normal",
+            "value": {
+              "latitude": 37.483928208517945,
+              "longitude": -77.2373111466901,
+              "altitude": null,
+              "precision": 1e-08,
+              "globe": "http://www.wikidata.org/entity/Q2"
+            }
+          }
+        ]
+      }
+    },
+    "Q24259253": {
+      "id": "Q24259253",
+      "revision": 2396294891,
+      "label": "NCAR-Wyoming Supercomputing Center",
+      "claims": {
+        "P31": [
+          {
+            "id": "Q24259253$7115f451-4109-05b2-54d1-741a5d25713b",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 43229,
+              "id": "Q43229"
+            }
+          },
+          {
+            "id": "Q24259253$68036599-4d9c-8207-8033-712a3011fbc8",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 671224,
+              "id": "Q671224"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "Q24259253$DB98CED9-D4B7-435D-B453-22536A735A5B",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 30,
+              "id": "Q30"
+            }
+          }
+        ],
+        "P625": [
+          {
+            "id": "Q24259253$C2A634EF-D23E-41F4-9978-7867DCA6DC16",
+            "rank": "normal",
+            "value": {
+              "latitude": 41.1289,
+              "longitude": -104.8974,
+              "altitude": null,
+              "precision": 0.00027777777777778,
+              "globe": "http://www.wikidata.org/entity/Q2"
+            }
+          }
+        ]
+      }
+    },
+    "Q121194": {
+      "id": "Q121194",
+      "revision": 2565599540,
+      "label": "National Security Agency",
+      "claims": {
+        "P31": [
+          {
+            "id": "Q121194$25db7583-4fd4-df63-7181-933aa3e2848c",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 47913,
+              "id": "Q47913"
+            }
+          },
+          {
+            "id": "Q121194$92b6fd21-461f-8773-e2c2-83f5730985e9",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 16827539,
+              "id": "Q16827539"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "Q121194$331f5ae2-485b-bc92-75dc-94b32f1d7501",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 30,
+              "id": "Q30"
+            }
+          }
+        ],
+        "P625": [
+          {
+            "id": "Q121194$2B08D320-F145-4DB6-95B7-8FBFE536E1FD",
+            "rank": "normal",
+            "value": {
+              "latitude": 39.10889,
+              "longitude": -76.77139,
+              "altitude": null,
+              "precision": 1e-05,
+              "globe": "http://www.wikidata.org/entity/Q2"
+            }
+          }
+        ]
+      }
+    },
+    "Q145": {
+      "id": "Q145",
+      "revision": 2570257445,
+      "label": "United Kingdom",
+      "claims": {
+        "P31": [
+          {
+            "id": "Q145$8c1d251a-46be-1b63-f39a-0afc5168b378",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 3624078,
+              "id": "Q3624078"
+            }
+          },
+          {
+            "id": "Q145$bf2e4106-4829-9835-837d-a7cd94563d5f",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 6256,
+              "id": "Q6256"
+            }
+          },
+          {
+            "id": "Q145$a2f95058-468a-183c-adea-1e89623284f5",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 20181813,
+              "id": "Q20181813"
+            }
+          },
+          {
+            "id": "Q145$13c1041f-466b-4e43-5386-a0eb8170e186",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 112099,
+              "id": "Q112099"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "Q145$F54115E9-9B26-479B-A81A-87941E0AC126",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 145,
+              "id": "Q145"
+            }
+          }
+        ],
+        "P625": [
+          {
+            "id": "q145$b5d9c174-45ce-8807-5146-21a2ece72fc1",
+            "rank": "normal",
+            "value": {
+              "latitude": 54.6,
+              "longitude": -2,
+              "altitude": null,
+              "precision": 0.1,
+              "globe": "http://www.wikidata.org/entity/Q2"
+            }
+          }
+        ],
+        "P297": [
+          {
+            "id": "q145$638D9E2A-227E-4040-851C-457AFCEBFFF7",
+            "rank": "normal",
+            "value": "GB"
+          }
+        ]
+      }
+    },
+    "Q155": {
+      "id": "Q155",
+      "revision": 2568773711,
+      "label": "Brazil",
+      "claims": {
+        "P31": [
+          {
+            "id": "q155$3BF35646-D69E-4BC3-843A-2BFDFEC6D9BB",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 3624078,
+              "id": "Q3624078"
+            }
+          },
+          {
+            "id": "q155$8774ac4a-4da3-0343-7785-b4c161eb89d2",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 859563,
+              "id": "Q859563"
+            }
+          },
+          {
+            "id": "q155$9740be48-4542-bbea-41b3-fb254858e780",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 6256,
+              "id": "Q6256"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "Q155$fb667976-4745-bea8-b307-1c6d3b98a315",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 200464,
+              "id": "Q200464"
+            }
+          },
+          {
+            "id": "Q155$86FFD456-3A42-4CE5-983B-DA2C0875F554",
+            "rank": "preferred",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 155,
+              "id": "Q155"
+            }
+          }
+        ],
+        "P625": [
+          {
+            "id": "q155$6ca4b3f6-40ea-6380-0972-89a790d7052a",
+            "rank": "normal",
+            "value": {
+              "latitude": -14,
+              "longitude": -53,
+              "altitude": null,
+              "precision": 1,
+              "globe": "http://www.wikidata.org/entity/Q2"
+            }
+          }
+        ],
+        "P297": [
+          {
+            "id": "q155$6C3F2E1B-1FE5-40D4-B98B-BD588222C0D3",
+            "rank": "normal",
+            "value": "BR"
+          }
+        ]
+      }
+    },
+    "Q15822775": {
+      "id": "Q15822775",
+      "revision": 2547994368,
+      "label": "Cancom Austria AG",
+      "claims": {
+        "P31": [
+          {
+            "id": "Q15822775$7AF865EE-7D49-48F3-B3AC-5DD2947AB038",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 4830453,
+              "id": "Q4830453"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "Q15822775$5030FE5A-A711-4514-932C-7BF56B85B04E",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 40,
+              "id": "Q40"
+            }
+          }
+        ]
+      }
+    },
+    "Q17": {
+      "id": "Q17",
+      "revision": 2568774645,
+      "label": "Japan",
+      "claims": {
+        "P31": [
+          {
+            "id": "q17$A8DE8E7F-299E-4A1C-8E12-A7BD386F9AAA",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 3624078,
+              "id": "Q3624078"
+            }
+          },
+          {
+            "id": "Q17$70fc7f89-4d27-7505-b1b3-ae006cc550e4",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 112099,
+              "id": "Q112099"
+            }
+          },
+          {
+            "id": "q17$FE40C754-87AD-4295-801F-6610ACF7AA42",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 6256,
+              "id": "Q6256"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "Q17$06025436-4eca-0455-8370-16ead1faa2b4",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 17,
+              "id": "Q17"
+            }
+          }
+        ],
+        "P625": [
+          {
+            "id": "q17$12543722-4452-7aee-103d-ed04b223320d",
+            "rank": "normal",
+            "value": {
+              "latitude": 35,
+              "longitude": 136,
+              "altitude": null,
+              "precision": 1,
+              "globe": "http://www.wikidata.org/entity/Q2"
+            }
+          }
+        ],
+        "P297": [
+          {
+            "id": "q17$568789DC-E1D3-4B4D-B4D5-1BAEA87A09A7",
+            "rank": "normal",
+            "value": "JP"
+          }
+        ]
+      }
+    },
+    "Q30": {
+      "id": "Q30",
+      "revision": 2568564901,
+      "label": "United States",
+      "claims": {
+        "P31": [
+          {
+            "id": "q30$21F2DBD8-C4F6-4A60-B5ED-309A9140FD92",
+            "rank": "preferred",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 3624078,
+              "id": "Q3624078"
+            }
+          },
+          {
+            "id": "Q30$41515d88-454d-addc-aa84-fa205f3b90bc",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 1489259,
+              "id": "Q1489259"
+            }
+          },
+          {
+            "id": "q30$2b29cf99-4b72-27e7-9518-ce933ffdf4fa",
+            "rank": "preferred",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 6256,
+              "id": "Q6256"
+            }
+          },
+          {
+            "id": "Q30$2f478889-4a3f-0b2b-e9de-856c4987d8a9",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 99541706,
+              "id": "Q99541706"
+            }
+          },
+          {
+            "id": "Q30$ca3766f6-403c-cc0f-35a0-ed9ca3f162f3",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 1520223,
+              "id": "Q1520223"
+            }
+          },
+          {
+            "id": "Q30$47839179-4392-c33d-66cf-2d7d50ea0436",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 5035794,
+              "id": "Q5035794"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "Q30$4fdcaebd-420b-20db-750c-5700311c222a",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 30,
+              "id": "Q30"
+            }
+          }
+        ],
+        "P625": [
+          {
+            "id": "Q30$d5083dcd-44d3-ed29-8ba4-9fca9bee6bc7",
+            "rank": "normal",
+            "value": {
+              "latitude": 39.828175,
+              "longitude": -98.5795,
+              "altitude": null,
+              "precision": 1e-06,
+              "globe": "http://www.wikidata.org/entity/Q2"
+            }
+          }
+        ],
+        "P297": [
+          {
+            "id": "q30$8BE463FD-B84D-46DB-A3BC-2CFA2B395ABD",
+            "rank": "normal",
+            "value": "US"
+          }
+        ]
+      }
+    },
+    "Q35": {
+      "id": "Q35",
+      "revision": 2568774044,
+      "label": "Denmark",
+      "claims": {
+        "P31": [
+          {
+            "id": "Q35$8c062087-43ce-3d84-90ab-f5015fe5d35c",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 7275,
+              "id": "Q7275"
+            }
+          },
+          {
+            "id": "Q35$13067ef6-40e0-2e17-f9dc-82203389e24c",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 20181813,
+              "id": "Q20181813"
+            }
+          },
+          {
+            "id": "Q35$6faeb6f1-4b21-3b52-41a2-0feaf4f9016e",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 63791824,
+              "id": "Q63791824"
+            }
+          },
+          {
+            "id": "Q35$ca43e702-4824-89a5-4944-df20f5527e17",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 6256,
+              "id": "Q6256"
+            }
+          },
+          {
+            "id": "Q35$cece6df7-4bf1-34d1-8789-8d7199e21260",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 66724388,
+              "id": "Q66724388"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "Q35$C2A4941A-F91B-492B-95B0-D2C89E8A3983",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 756617,
+              "id": "Q756617"
+            }
+          }
+        ],
+        "P625": [
+          {
+            "id": "q35$e99e5558-4b4d-5806-807f-e594199f0cc5",
+            "rank": "normal",
+            "value": {
+              "latitude": 56,
+              "longitude": 10,
+              "altitude": null,
+              "precision": 1,
+              "globe": "http://www.wikidata.org/entity/Q2"
+            }
+          }
+        ],
+        "P297": [
+          {
+            "id": "q35$3190F6A7-22AC-4556-AD6E-9D96776BB8A4",
+            "rank": "normal",
+            "value": "DK"
+          }
+        ]
+      }
+    },
+    "Q3517302": {
+      "id": "Q3517302",
+      "revision": 2534632991,
+      "label": "Telehouse Europe",
+      "claims": {
+        "P31": [
+          {
+            "id": "Q3517302$6ECEA2EB-8601-4679-BF10-7C604E66E478",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 4830453,
+              "id": "Q4830453"
+            }
+          },
+          {
+            "id": "Q3517302$451F5283-F147-4FEF-9632-30B3500CAC09",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 1433061,
+              "id": "Q1433061"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "Q3517302$44B7989E-C0AE-4603-8C63-963E818C8EAE",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 145,
+              "id": "Q145"
+            }
+          }
+        ]
+      }
+    },
+    "Q39": {
+      "id": "Q39",
+      "revision": 2569181414,
+      "label": "Switzerland",
+      "claims": {
+        "P31": [
+          {
+            "id": "q39$ACA626BF-9DA6-465E-9175-CABD99AF120B",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 7275,
+              "id": "Q7275"
+            }
+          },
+          {
+            "id": "Q39$c7d4b406-4b9a-0676-191a-7017c42182b5",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 123480,
+              "id": "Q123480"
+            }
+          },
+          {
+            "id": "Q39$01fa59c5-411a-c967-60ba-5c1ca1253258",
+            "rank": "deprecated",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 170156,
+              "id": "Q170156"
+            }
+          },
+          {
+            "id": "Q39$b2ebdcba-47df-78e6-44db-03e3b60f0fff",
+            "rank": "deprecated",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 687554,
+              "id": "Q687554"
+            }
+          },
+          {
+            "id": "Q39$245e0a73-4c05-3079-a377-067b8aa4915f",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 43702,
+              "id": "Q43702"
+            }
+          },
+          {
+            "id": "Q39$30ac4b25-4ca1-d3f6-3d34-c7a6c1268b1f",
+            "rank": "deprecated",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 206696,
+              "id": "Q206696"
+            }
+          },
+          {
+            "id": "Q39$775fb86c-4f0c-dc56-92e0-e10d43b69898",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 3624078,
+              "id": "Q3624078"
+            }
+          },
+          {
+            "id": "Q39$fbe1ac75-4a8a-93c4-6009-81055d79f9cb",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 6256,
+              "id": "Q6256"
+            }
+          }
+        ],
+        "P625": [
+          {
+            "id": "q39$1B33195B-3B11-4780-927D-96DEA921D468",
+            "rank": "normal",
+            "value": {
+              "latitude": 46.798562,
+              "longitude": 8.231973,
+              "altitude": null,
+              "precision": 1e-06,
+              "globe": "http://www.wikidata.org/entity/Q2"
+            }
+          }
+        ],
+        "P297": [
+          {
+            "id": "q39$033D65E5-527A-486E-A2C7-3A77D1352572",
+            "rank": "normal",
+            "value": "CH"
+          }
+        ]
+      }
+    },
+    "Q40": {
+      "id": "Q40",
+      "revision": 2569180955,
+      "label": "Austria",
+      "claims": {
+        "P31": [
+          {
+            "id": "q40$F7F1CF99-577E-419C-8F98-90F779AFE91A",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 3624078,
+              "id": "Q3624078"
+            }
+          },
+          {
+            "id": "Q40$6a6f2e34-45b8-fd65-654b-3f0c79d2f33d",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 4209223,
+              "id": "Q4209223"
+            }
+          },
+          {
+            "id": "Q40$b6e5da5a-4b21-2480-eb20-94dd9c0801dd",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 123480,
+              "id": "Q123480"
+            }
+          },
+          {
+            "id": "Q40$2104c319-4d8c-59cd-5974-670551fee374",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 127693126,
+              "id": "Q127693126"
+            }
+          },
+          {
+            "id": "Q40$e1343394-40e9-86f1-c2d4-407f0189fca6",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 6256,
+              "id": "Q6256"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "Q40$B1B28A98-BB4A-4C4E-91E7-43775B6BDF0E",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 40,
+              "id": "Q40"
+            }
+          }
+        ],
+        "P625": [
+          {
+            "id": "q40$8a4584fa-441c-c147-b07b-7bf7dc0c64ab",
+            "rank": "normal",
+            "value": {
+              "latitude": 48,
+              "longitude": 14,
+              "altitude": null,
+              "precision": 1,
+              "globe": "http://www.wikidata.org/entity/Q2"
+            }
+          }
+        ],
+        "P297": [
+          {
+            "id": "q40$580993F6-89B7-4178-B481-6FB4E0924375",
+            "rank": "normal",
+            "value": "AT"
+          }
+        ]
+      }
+    },
+    "Q408": {
+      "id": "Q408",
+      "revision": 2567535006,
+      "label": "Australia",
+      "claims": {
+        "P31": [
+          {
+            "id": "q408$9CEF634B-F2C5-4C15-BD87-13EE6095616A",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 202686,
+              "id": "Q202686"
+            }
+          },
+          {
+            "id": "Q408$1f4b7b0c-4167-a86f-db09-0f9f8529d32b",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 223832,
+              "id": "Q223832"
+            }
+          },
+          {
+            "id": "Q408$ABD3222A-F5B9-4ABF-9AB5-E04BA4D42E19",
+            "rank": "preferred",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 3624078,
+              "id": "Q3624078"
+            }
+          },
+          {
+            "id": "Q408$cb08026e-4cf9-2fb0-3950-3f5ff9f8be88",
+            "rank": "preferred",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 43702,
+              "id": "Q43702"
+            }
+          },
+          {
+            "id": "Q408$bf4ba796-4e55-64a5-d591-1aeaab344e6c",
+            "rank": "preferred",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 6256,
+              "id": "Q6256"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "Q408$FEF2ACF2-2A97-4806-B690-A5120783F5F2",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 408,
+              "id": "Q408"
+            }
+          }
+        ],
+        "P625": [
+          {
+            "id": "q408$3B56FACE-EF04-4C3E-ADC5-764C6751F6FA",
+            "rank": "normal",
+            "value": {
+              "latitude": -25,
+              "longitude": 133,
+              "altitude": null,
+              "precision": 1,
+              "globe": "http://www.wikidata.org/entity/Q2"
+            }
+          }
+        ],
+        "P297": [
+          {
+            "id": "q408$7F318FE3-1460-4C42-B53A-0D62E7E2B3C6",
+            "rank": "normal",
+            "value": "AU"
+          }
+        ]
+      }
+    },
+    "Q55": {
+      "id": "Q55",
+      "revision": 2569181539,
+      "label": "Netherlands",
+      "claims": {
+        "P31": [
+          {
+            "id": "q55$E3418C6B-2F14-4FF2-AE16-C3B3C09F9C88",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 15304003,
+              "id": "Q15304003"
+            }
+          },
+          {
+            "id": "Q55$1cb6d815-41a0-f653-b18e-14ea756cb162",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 6256,
+              "id": "Q6256"
+            }
+          },
+          {
+            "id": "Q55$780d5ec2-4756-4660-c2a6-87194670d31e",
+            "rank": "deprecated",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 3624078,
+              "id": "Q3624078"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "q55$3F58B793-57C8-4C66-87ED-403C7E298EBF",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 29999,
+              "id": "Q29999"
+            }
+          }
+        ],
+        "P625": [
+          {
+            "id": "q55$3A32286D-F350-4FE4-B2DF-37AC31A1999B",
+            "rank": "normal",
+            "value": {
+              "latitude": 52.316666666667,
+              "longitude": 5.55,
+              "altitude": null,
+              "precision": 0.016666666666667,
+              "globe": "http://www.wikidata.org/entity/Q2"
+            }
+          }
+        ],
+        "P297": [
+          {
+            "id": "Q55$05765181-4953-233d-5fae-82dd362b3254",
+            "rank": "deprecated",
+            "value": "NL"
+          }
+        ]
+      }
+    },
+    "Q668": {
+      "id": "Q668",
+      "revision": 2568774463,
+      "label": "India",
+      "claims": {
+        "P31": [
+          {
+            "id": "q668$F3C705A4-E22B-4E31-B023-B54D0A293623",
+            "rank": "preferred",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 6256,
+              "id": "Q6256"
+            }
+          },
+          {
+            "id": "q668$4A765D94-BBE5-4E19-BB91-B1AF8CD383E7",
+            "rank": "preferred",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 3624078,
+              "id": "Q3624078"
+            }
+          },
+          {
+            "id": "Q668$17bc7bba-4ffe-20d9-09ed-1691da2cf83f",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 223832,
+              "id": "Q223832"
+            }
+          }
+        ],
+        "P17": [
+          {
+            "id": "Q668$7912e556-4f1a-94bc-9592-d3259f69c167",
+            "rank": "normal",
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 668,
+              "id": "Q668"
+            }
+          }
+        ],
+        "P625": [
+          {
+            "id": "q668$A160C75B-2538-4306-8C2E-C5D5B97E2F29",
+            "rank": "normal",
+            "value": {
+              "latitude": 22.8,
+              "longitude": 83,
+              "altitude": null,
+              "precision": 0.1,
+              "globe": "http://www.wikidata.org/entity/Q2"
+            }
+          }
+        ],
+        "P297": [
+          {
+            "id": "q668$E198548B-5D49-499D-83AD-CC4686624834",
+            "rank": "normal",
+            "value": "IN"
+          }
+        ]
+      }
+    }
+  }
+}

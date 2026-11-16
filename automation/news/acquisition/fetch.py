@@ -3,12 +3,17 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 import hashlib
+import ipaddress
 from pathlib import Path
+import socket
 from urllib.parse import urlsplit
 import xml.etree.ElementTree as ET
 
 import requests
 import yaml
+from urllib3.connection import HTTPSConnection
+from urllib3.connectionpool import HTTPSConnectionPool
+from urllib3.exceptions import NewConnectionError
 
 from .normalise import normalise_article, safe_publisher_url
 
@@ -18,6 +23,46 @@ MAX_ENTRIES = 200
 
 class FetchError(RuntimeError):
     """Critical fetch/parse failure: retain previous snapshot, require review."""
+
+
+class _PublicHTTPSConnection(HTTPSConnection):
+    """Resolve once, reject private answers, connect to that validated address.
+
+    The surrounding urllib3 TLS implementation still verifies the original
+    hostname. Connecting to the resolved sockaddr avoids a DNS rebind between
+    a separate safety check and the actual connection.
+    """
+    def _new_conn(self):
+        try:
+            addresses = socket.getaddrinfo(self._dns_host, self.port, type=socket.SOCK_STREAM)
+            if not addresses or any(not ipaddress.ip_address(a[4][0]).is_global for a in addresses):
+                raise FetchError("Publisher DNS resolved to a non-public address")
+            for family, socktype, proto, _, address in addresses:
+                sock = socket.socket(family, socktype, proto)
+                try:
+                    sock.settimeout(self.timeout)
+                    for option in self.socket_options or []:
+                        sock.setsockopt(*option)
+                    if self.source_address:
+                        sock.bind(self.source_address)
+                    sock.connect(address)
+                    return sock
+                except OSError:
+                    sock.close()
+            raise NewConnectionError(self, "Publisher connection failed")
+        except (OSError, ValueError) as exc:
+            raise NewConnectionError(self, "Publisher DNS or connection failed") from exc
+
+
+class _PublicHTTPSPool(HTTPSConnectionPool):
+    ConnectionCls = _PublicHTTPSConnection
+
+
+class _PublicHTTPSAdapter(requests.adapters.HTTPAdapter):
+    def init_poolmanager(self, *args, **kwargs):
+        super().init_poolmanager(*args, **kwargs)
+        self.poolmanager.pool_classes_by_scheme = dict(self.poolmanager.pool_classes_by_scheme)
+        self.poolmanager.pool_classes_by_scheme["https"] = _PublicHTTPSPool
 
 
 def _rights_accepted(source):
@@ -85,6 +130,11 @@ def fetch_source(source, cache=None, *, session=None, now=None, probe=False):
     if not safe_publisher_url(source.get("url")):
         raise FetchError("Unapproved source URL")
     client = session or requests.Session()
+    if session is None:
+        # An environment proxy would resolve the publisher elsewhere and defeat
+        # the validated-address connection policy.
+        client.trust_env = False
+        client.mount("https://", _PublicHTTPSAdapter())
     headers = {"User-Agent": "GlobalGrid2050-Evidence/9.25 (+https://globalgrid2050.com)", "Accept": "application/rss+xml, application/xml"}
     if cache and cache.get("url") == source["url"] and cache.get("etag"):
         headers["If-None-Match"] = cache["etag"]
@@ -125,7 +175,7 @@ def fetch_source(source, cache=None, *, session=None, now=None, probe=False):
                     "rights_review_url": source.get("rights_review_url"),
                 }, "cache": {"url": source["url"], "etag": etag, "body": raw, "response_sha256": digest}}
     except requests.RequestException as exc:
-        raise FetchError(f"Critical source transport failure: {source['id']}: {exc}") from exc
+        raise FetchError(f"Critical source transport failure: {source['id']}") from exc
     finally:
         if session is None:
             client.close()

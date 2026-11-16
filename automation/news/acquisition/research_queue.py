@@ -3,7 +3,10 @@ from __future__ import annotations
 
 import hashlib
 import json
+from collections import Counter
 from pathlib import Path
+
+from .match import normalise_name
 
 RELEASE_ID = "202611161244"
 MANIFEST_SHA256 = "c625edbb9c471a1e9a9034a1afe99881fbfabb1fcadcf0623355931f5b6aed1f"
@@ -14,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[3]
 def _read_pinned(path, digest):
     data = path.read_bytes()
     if hashlib.sha256(data).hexdigest() != digest:
-        raise ValueError(f"Immutable V9.24 input changed: {path}")
+        raise ValueError("Immutable V9.24 input changed")
     return json.loads(data)
 
 
@@ -38,7 +41,9 @@ def load_seed_projects(repo_root=None):
         raise ValueError("Official REPD population changed")
     if ids != solar_ids[:1000]:
         raise ValueError("Solar-1000 differs from V9.24 selection")
-    return [dict(index[ref], id=ref) for ref in ids]
+    name_counts = Counter(normalise_name(p["name"]) for p in projects if p["technology"] == "solar")
+    return [dict(index[ref], id=ref, name_ambiguous=name_counts[normalise_name(index[ref]["name"])] > 1)
+            for ref in ids]
 
 
 if __name__ == "__main__":

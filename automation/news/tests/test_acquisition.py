@@ -1,13 +1,14 @@
 """Network-free failure gates and identity regression tests for V9.25."""
 import hashlib
 import json
+import socket
 from pathlib import Path
 
 import pytest
 import requests
 import yaml
 
-from automation.news.acquisition.fetch import FetchError, MAX_BYTES, fetch_source, load_sources, parse_feed
+from automation.news.acquisition.fetch import FetchError, MAX_BYTES, _PublicHTTPSConnection, fetch_source, load_sources, parse_feed
 from automation.news.acquisition.match import match_articles
 from automation.news.acquisition.normalise import normalise_article
 from automation.news.acquisition.research_queue import ROOT, load_seed_projects
@@ -161,3 +162,43 @@ def test_content_match_and_idempotent_results():
     result = match_articles([article, article], [{'id': '1019', 'name': 'Solar Farm A'}])
     assert len(result) == 1
     assert result[0]['status'] == 'PROVISIONAL'
+
+
+def test_ambiguity_outside_pilot_blocks_name_match_but_not_explicit_id():
+    projects = [{'id': '1019', 'name': 'Solar Farm A', 'name_ambiguous': True}]
+    article = {'title': 'Solar Farm A plans approved', 'url': 'https://www.pv-magazine.com/a/'}
+    assert match_articles([article], projects) == []
+    article['title'] += ' REPD 1019'
+    assert match_articles([article], projects)[0]['match_method'] == 'repd_id'
+
+
+@pytest.mark.parametrize('address', ['127.0.0.1', '10.0.0.1', '169.254.169.254', '192.168.1.1', '::1', 'fc00::1'])
+def test_private_dns_answer_rejected_before_connect(monkeypatch, address):
+    monkeypatch.setattr(socket, 'getaddrinfo', lambda *a, **kw: [(socket.AF_INET, socket.SOCK_STREAM, 6, '', (address, 443))])
+    monkeypatch.setattr(socket, 'socket', lambda *a: pytest.fail('Private address must never connect'))
+    with pytest.raises(FetchError, match='non-public'):
+        _PublicHTTPSConnection('www.pv-magazine.com', timeout=10)._new_conn()
+
+
+def test_public_dns_address_is_connected_without_second_resolution(monkeypatch):
+    calls = []
+    class FakeSocket:
+        def settimeout(self, value):
+            assert value == 10
+        def setsockopt(self, *args):
+            pass
+        def connect(self, address):
+            calls.append(address)
+    def resolve(*args, **kwargs):
+        calls.append('resolve')
+        return [(socket.AF_INET, socket.SOCK_STREAM, 6, '', ('8.8.8.8', 443))]
+    monkeypatch.setattr(socket, 'getaddrinfo', resolve)
+    monkeypatch.setattr(socket, 'socket', lambda *args: FakeSocket())
+    _PublicHTTPSConnection('www.pv-magazine.com', timeout=10)._new_conn()
+    assert calls == ['resolve', ('8.8.8.8', 443)]
+
+
+def test_transport_error_does_not_expose_local_paths():
+    with pytest.raises(FetchError) as error:
+        fetch_source(SOURCE, session=Session(requests.ConnectionError('C:/private/session/file.pem')), probe=True)
+    assert 'C:/' not in str(error.value)

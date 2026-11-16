@@ -1,0 +1,1142 @@
+{
+  "as_of": "2026-11-16T18:08:01Z",
+  "entries": [
+    {
+      "freshness_state": "current",
+      "link": "https://www.lincolnshire.gov.uk/news/article/3031/uk-s-largest-solar-farm-approval-deemed-lawful-by-high-court",
+      "rank": 1,
+      "requires_primary_followup": false,
+      "role": "primary_context",
+      "score": 59.17,
+      "source": "Lincolnshire County Council",
+      "source_kind": "government",
+      "subscription_notice": false,
+      "title": "UK’s largest Solar farm approval deemed lawful by High Court",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.gov.uk/government/news/major-undersea-power-cable-given-green-light",
+      "rank": 2,
+      "requires_primary_followup": false,
+      "role": "primary_context",
+      "score": 50.51,
+      "source": "GOV.UK DESNZ",
+      "source_kind": "government",
+      "subscription_notice": false,
+      "title": "Major undersea power cable given green light",
+      "topics": [
+        "grid"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.energy-storage.news/toll-makes-way-for-floor-offtake-contracting-beginning-to-standardise-in-uk-bess-market/",
+      "rank": 3,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 49.12,
+      "source": "Energy-Storage.news",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Toll makes way for floor, offtake contracting beginning to standardise in UK BESS market",
+      "topics": [
+        "storage"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.bbc.co.uk/news/articles/c893rpz742z4o",
+      "rank": 4,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 48.71,
+      "source": "BBC News",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Challenge to UK's largest solar farm plan rejected",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.pv-tech.org/plans-for-uks-largest-pv-project-rejected/",
+      "rank": 5,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 48.32,
+      "source": "PV Tech",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Plans for UK’s largest PV project rejected",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/solar-planning/uk-government-refuses-840mw-botley-west-solar-farm-in-first-ever-solar-nsip-no",
+      "rank": 6,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 48.28,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "UK government refuses 840MW Botley West Solar Farm in first-ever solar NSIP no",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.datacenterdynamics.com/en/news/aws-breaks-ground-on-7bn-data-center-in-indiana/",
+      "rank": 7,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 45.72,
+      "source": "DatacenterDynamics",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "AWS breaks ground on $7bn data center in Indiana",
+      "topics": [
+        "datacentre"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.bloomberg.com/news/articles/2026-11-16/singapore-wealth-fund-saudi-telecom-bid-for-uk-s-pure-data-centres-stake",
+      "rank": 8,
+      "requires_primary_followup": true,
+      "role": "discovery_lead",
+      "score": 44.79,
+      "source": "Bloomberg",
+      "source_kind": "discovery",
+      "subscription_notice": true,
+      "title": "Singapore Wealth Fund, Saudi Telecom Bid for UK’s Pure Data Centres Stake",
+      "topics": [
+        "datacentre"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.constructionenquirer.com/2026/11/13/550m-humber-to-midlands-pylon-project-clears-first-hurdle/",
+      "rank": 9,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 44.12,
+      "source": "Construction Enquirer",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "£550m Humber to Midlands pylon project clears first hurdle",
+      "topics": [
+        "grid"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.planningresource.co.uk/article/1975088/judge-dismisses-councils-high-court-solar-farm-challenge-plus-developer-revives-plans-4000-green-belt-homes",
+      "rank": 10,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 43.69,
+      "source": "Planning Resource",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "‘Judge dismisses councils’ High Court solar farm challenge, plus developer revives plans for 4,000 green belt homes’",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.gov.uk/government/news/great-north-road-solar-and-biodiversity-park-development-consent-decision-announced",
+      "rank": 11,
+      "requires_primary_followup": false,
+      "role": "primary_context",
+      "score": 42.11,
+      "source": "GOV.UK Planning Inspectorate",
+      "source_kind": "government",
+      "subscription_notice": false,
+      "title": "Great North Road Solar and Biodiversity Park development consent decision announced",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/solar-finance/karpowership-acquires-inland-uk-100mwh-bess-site-for-development",
+      "rank": 12,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 39.91,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Karpowership acquires UK 100MWh BESS site for development",
+      "topics": [
+        "storage"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.offshorewind.biz/2026/11/13/orsted-gearing-up-for-turbine-installation-at-29-gw-uk-offshore-wind-farm",
+      "rank": 13,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 39.05,
+      "source": "offshoreWIND.biz",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Ørsted Gearing Up for Turbine Installation at 2.9 GW UK Offshore Wind Farm",
+      "topics": [
+        "wind"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.renews.biz/offshore-wind/cadeler-secures-uk-offshore-wind-installation-deal/",
+      "rank": 14,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 38.25,
+      "source": "reNEWS",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Cadeler secures UK offshore wind installation deal",
+      "topics": [
+        "wind"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.energy-storage.news/bw-ess-puts-europes-largest-bess-commercial-operation-uk-gb/",
+      "rank": 15,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 38.13,
+      "source": "Energy-Storage.news",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "BW ESS puts Europe’s largest BESS into commercial operation in the UK",
+      "topics": [
+        "storage"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.bbc.co.uk/news/articles/cw074njg4yelo",
+      "rank": 16,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 37.91,
+      "source": "BBC News",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "'Fight on' call after solar farm challenge fails",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.planningresource.co.uk/article/1974979/energy-minister-refuses-huge-green-belt-solar-farm-plan-citing-harm-green-belt-heritage-assets",
+      "rank": 17,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 35.3,
+      "source": "Planning Resource",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Energy minister refuses huge green belt solar farm plan citing harm to green belt and heritage assets",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.gov.uk/government/news/frodsham-solar-development-consent-decision-announced",
+      "rank": 18,
+      "requires_primary_followup": false,
+      "role": "primary_context",
+      "score": 34.1,
+      "source": "GOV.UK Planning Inspectorate",
+      "source_kind": "government",
+      "subscription_notice": false,
+      "title": "Frodsham Solar development consent decision announced",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.theguardian.com/environment/2026/aug/23/onshore-windfarm-applications-10-year-high-england",
+      "rank": 19,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 32.41,
+      "source": "The Guardian",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Onshore windfarm applications hit 10-year high in England",
+      "topics": [
+        "wind"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/solar-finance/metlen-sells-119mw-uk-solar-portfolio-to-nala-renewables",
+      "rank": 20,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 31.91,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Metlen sells 119MW UK solar portfolio to Nala Renewables",
+      "topics": [
+        "solar",
+        "renewables"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.bloomberg.com/news/articles/2026-11-16/asian-data-center-loan-syndication-is-delayed-in-rare-deal-pause",
+      "rank": 21,
+      "requires_primary_followup": true,
+      "role": "discovery_lead",
+      "score": 31.74,
+      "source": "Bloomberg",
+      "source_kind": "discovery",
+      "subscription_notice": true,
+      "title": "Asian Data Center Loan Syndication Is Delayed in Rare Deal Pause",
+      "topics": [
+        "datacentre"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.offshorewind.biz/2026/11/12/cadeler-secures-turbine-and-foundation-installation-work-on-large-uk-offshore-wind-farm",
+      "rank": 22,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 30.61,
+      "source": "offshoreWIND.biz",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Cadeler Secures Turbine and Foundation Installation Work on Large UK Offshore Wind Farm",
+      "topics": [
+        "wind"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.energy-storage.news/you-need-to-get-comfortable-with-regulatory-reform-as-a-known-risk-battery-asset-management-summit-uk-ireland-kicks-off/",
+      "rank": 23,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 27.9,
+      "source": "Energy-Storage.news",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "‘You need to get comfortable with regulatory reform as a known risk’: Battery Asset Management Summit UK & Ireland kicks off",
+      "topics": [
+        "storage"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.renews.biz/other-news/miliband-champions-renewables-at-cop31/",
+      "rank": 24,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 25.63,
+      "source": "reNEWS",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Miliband champions renewables at COP31",
+      "topics": [
+        "renewables"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.gov.uk/government/news/green-hill-solar-farm-development-consent-decision-announced",
+      "rank": 25,
+      "requires_primary_followup": false,
+      "role": "primary_context",
+      "score": 24.63,
+      "source": "GOV.UK Planning Inspectorate",
+      "source_kind": "government",
+      "subscription_notice": false,
+      "title": "Green Hill Solar Farm development consent decision announced",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.bloomberg.com/news/videos/2026-11-15/ai-investors-brace-for-data-center-restrictions-video",
+      "rank": 26,
+      "requires_primary_followup": true,
+      "role": "discovery_lead",
+      "score": 23.24,
+      "source": "Bloomberg",
+      "source_kind": "discovery",
+      "subscription_notice": true,
+      "title": "AI Investors Brace for Data Center Restrictions",
+      "topics": [
+        "datacentre"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/energy-policy/how-delay-to-next-cfd-auction-affects-uk-solar",
+      "rank": 27,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 22.56,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "How delay to next CfD auction affects UK solar",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.offshorewind.biz/2026/11/11/rwe-and-kkr-reach-financial-close-for-28-gw-uk-offshore-wind-projects",
+      "rank": 28,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 22.21,
+      "source": "offshoreWIND.biz",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "RWE and KKR Reach Financial Close for 2.8 GW UK Offshore Wind Projects",
+      "topics": [
+        "wind"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.bbc.co.uk/sounds/play/m00349ks",
+      "rank": 29,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 21.94,
+      "source": "BBC News",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Scotcast - Data centres: Why a political reckoning is coming",
+      "topics": [
+        "datacentre"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.gov.uk/government/news/prime-minister-hails-major-investment-in-uk-renewables",
+      "rank": 30,
+      "requires_primary_followup": false,
+      "role": "primary_context",
+      "score": 16.18,
+      "source": "GOV.UK",
+      "source_kind": "government",
+      "subscription_notice": false,
+      "title": "Prime Minister hails major investment in UK renewables",
+      "topics": [
+        "renewables"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/energy-policy/energy-independence-bill-to-mandate-community-benefit-funds-for-uk-solar",
+      "rank": 31,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 14.53,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Energy Independence Bill to mandate community benefit funds for UK solar",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.bbc.co.uk/news/articles/c58j4y0r490vo",
+      "rank": 32,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 12.77,
+      "source": "BBC News",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Protest over plan for data centre near nature site",
+      "topics": [
+        "datacentre"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.offshorewind.biz/2026/11/02/wind-turbine-installation-starts-at-inch-cape-site-offshore-scotland",
+      "rank": 33,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 11.95,
+      "source": "offshoreWIND.biz",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Wind Turbine Installation Starts at Inch Cape Site Offshore Scotland",
+      "topics": [
+        "wind"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.gov.uk/government/news/morgan-and-morecambe-offshore-wind-farms-transmission-assets-development-consent-decision-announced",
+      "rank": 34,
+      "requires_primary_followup": false,
+      "role": "primary_context",
+      "score": 7.81,
+      "source": "GOV.UK Planning Inspectorate",
+      "source_kind": "government",
+      "subscription_notice": false,
+      "title": "Morgan and Morecambe Offshore Wind Farms Transmission Assets development consent decision announced",
+      "topics": [
+        "wind",
+        "grid"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/solar-thermal/mtc-invests-1-3-million-in-naked-energy-solar-thermal-installation-at-coventry-site",
+      "rank": 35,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 6.32,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "MTC and Naked Energy installing UK's largest solar thermal project at Coventry site",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.bbc.co.uk/news/articles/c8n50w445zgpo",
+      "rank": 36,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 4.73,
+      "source": "BBC News",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Thousands turn out in Edinburgh to protest against AI data centres",
+      "topics": [
+        "datacentre"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.offshorewind.biz/2026/11/04/cadeler-adds-wind-apex-to-dogger-bank-c-turbine-installation-campaign",
+      "rank": 37,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -0.7,
+      "source": "offshoreWIND.biz",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Cadeler Adds Wind Apex to Dogger Bank C Turbine Installation Campaign",
+      "topics": [
+        "wind"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/elgin-to-invest-400-million-in-230mw-solar-plus-storage-projects-in-the-uk",
+      "rank": 38,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -2.91,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Elgin to invest £400 million in 230MW solar-plus-storage projects in the UK",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.bbc.co.uk/news/articles/cx5y13104z4vo",
+      "rank": 39,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -3.87,
+      "source": "BBC News",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "New large solar project announced for county",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.gov.uk/government/news/steeple-renewables-project-development-consent-decision-announced",
+      "rank": 40,
+      "requires_primary_followup": false,
+      "role": "primary_context",
+      "score": -9.32,
+      "source": "GOV.UK Planning Inspectorate",
+      "source_kind": "government",
+      "subscription_notice": false,
+      "title": "Steeple Renewables Project development consent decision announced",
+      "topics": [
+        "renewables"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.offshorewind.biz/2026/10/27/seaway7-completes-inter-array-cable-installation-at-east-anglia-three-offshore-wind-farm",
+      "rank": 41,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -9.93,
+      "source": "offshoreWIND.biz",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Seaway7 Completes Inter-Array Cable Installation at East Anglia Three Offshore Wind Farm",
+      "topics": [
+        "wind"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/solar-planning/res-secures-planning-consents-for-ni-bess-scottish-solar",
+      "rank": 42,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -10.93,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "RES secures planning consents for NI BESS, Scottish solar",
+      "topics": [
+        "solar",
+        "storage"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.bbc.co.uk/news/articles/cdr7n610rmzo",
+      "rank": 43,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -17.35,
+      "source": "BBC News",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Why are more roofs not made of solar tiles?",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.gov.uk/government/news/beacon-fen-energy-park-development-consent-decision-announced",
+      "rank": 44,
+      "requires_primary_followup": false,
+      "role": "primary_context",
+      "score": -18.62,
+      "source": "GOV.UK Planning Inspectorate",
+      "source_kind": "government",
+      "subscription_notice": false,
+      "title": "Beacon Fen Energy Park development consent decision announced",
+      "topics": [
+        "renewables"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/solar-projects/uk-solar-approvals-progress-purchases",
+      "rank": 45,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -19.35,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "UK solar approvals, progress and purchases",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/battery-storage/ares-invests-in-1-9gw-of-statera-s-uk-battery-and-gas-portfolio-but-not-its-ldes-projects",
+      "rank": 46,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -27.69,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Ares invests in 1.9GW of Statera’s UK battery and gas portfolio, but not its LDES projects",
+      "topics": [
+        "storage"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/energy-storage/foresight-invests-in-40gwh-ldes-cap-and-floor-winning-pumped-hydro-project-in-scotland",
+      "rank": 47,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -35.69,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Foresight invests in 40GWh LDES cap-and-floor winning pumped hydro project in Scotland",
+      "topics": [
+        "storage",
+        "renewables"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/energy-storage/statkraft-starts-commercial-operations-at-first-phase-of-750mw-neilston-bess-project",
+      "rank": 48,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -43.9,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Statkraft starts commercial operations at first phase of 750MW Neilston BESS project",
+      "topics": [
+        "storage"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/solar-finance/totalenergies-acquires-450mw-solar-plus-150mw-bess-nsip-project",
+      "rank": 49,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -51.94,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "TotalEnergies acquires 450MW solar, 150MW BESS NSIP project",
+      "topics": [
+        "solar",
+        "storage"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/scottish-council-approves-40mw-kirknewton-solar-plus-storage-project",
+      "rank": 50,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -60.32,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Scottish council approves 40MW Kirknewton solar-plus-storage project",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/solar-investment/first-community-funded-solar-plus-storage-plant-opens-for-investment",
+      "rank": 51,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -70.24,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "First community-funded solar-plus-storage plant opens for investment",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/solar-projects/recurrent-energy-starts-commercial-operations-at-20mwp-south-devon-solar-project",
+      "rank": 52,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -78.24,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Recurrent Energy starts commercial operations at 20MWp South Devon solar project",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/energy-storage/wave-of-bess-augmentation-financing-expected-in-a-few-years",
+      "rank": 53,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -87.02,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Wave of BESS augmentation financing expected in a few years",
+      "topics": [
+        "storage"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/solar-projects/brookfield-owned-onpath-energy-reaches-financial-close-on-first-solar-plus-storage-project",
+      "rank": 54,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -95.05,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Brookfield-owned OnPath Energy reaches financial close on first solar-plus-storage project",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/battery-storage/bw-ess-puts-1-24gwh-bess-europe-s-largest-into-commercial-operation",
+      "rank": 55,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -103.06,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "BW ESS puts 1.24GWh BESS, Europe’s largest, into commercial operation",
+      "topics": [
+        "storage"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/major-solar-projects-by-elements-green-cubico-granted-dcos",
+      "rank": 56,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -111.8,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Major solar projects by Elements Green, Cubico granted DCOs",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/solar-projects/enviromena-acquires-18-1mwp-cheshire-solar-project-from-anglo-renewables",
+      "rank": 57,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -119.92,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Enviromena acquires 18.1MWp Cheshire solar project from Anglo Renewables",
+      "topics": [
+        "solar",
+        "renewables"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/solar-projects/boom-power-secures-planning-permission-for-49-99mw-drove-lane-solar-pv-plant-in-east-yorkshire",
+      "rank": 58,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -128.38,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Boom Power secures planning permission for 49.99MW Drove Lane solar PV plant in East Yorkshire",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/battery-storage/bw-ess-secures-financing-for-3-5-hour-350mw-hams-hall-bess",
+      "rank": 59,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -136.44,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "BW ESS secures financing for 3.5-hour 350MW Hams Hall BESS",
+      "topics": [
+        "storage"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/solar-investment/octopus-investment-company-orit-takes-on-onpath-developed-west-yorkshire-solar-farm",
+      "rank": 60,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -144.98,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Octopus investment company ORIT takes on OnPath-developed West Yorkshire solar farm",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/solar-finance/european-energy-28-million-bedfordshire-solar-farm-construction",
+      "rank": 61,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -153.16,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "European Energy secures £28.8 million for Bedfordshire solar farm construction",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/solar-planning/large-scale-solar-plant-in-nottinghamshire-approved-by-government-second-one-this-week",
+      "rank": 62,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -161.31,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Large-scale solar plant in Nottinghamshire approved by government, second one this week",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/fahnbulleh-consents-major-500mw-solar-plant-plans-for-northamptonshire",
+      "rank": 63,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -169.37,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Fahnbulleh consents major 500MW solar plant plans for Northamptonshire",
+      "topics": [
+        "solar"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.solarpowerportal.co.uk/energy-policy/uk-energy-policy-clean-power-2030-affordability-politics",
+      "rank": 64,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -181.91,
+      "source": "Solar Power Portal",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "UK energy policy decoupled from Clean Power 2030 as affordability and politics take precedence",
+      "topics": [
+        "renewables"
+      ],
+      "uk_context": true
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.datacenterdynamics.com/en/whitepapers/3q-2026-global-data-center-market-report/",
+      "rank": 65,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 29.78,
+      "source": "DatacenterDynamics",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "3Q 2026 global data center market report",
+      "topics": [
+        "datacentre"
+      ],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.datacenterdynamics.com/en/news/humain-raises-667m-for-ai-buildout-in-saudi-arabia/",
+      "rank": 66,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": 0.5,
+      "source": "DatacenterDynamics",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Humain raises $667m for AI buildout in Saudi Arabia",
+      "topics": [],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.bloomberg.com/news/videos/2026-11-16/nvidia-earnings-to-test-ai-boom-as-hike-looms-video",
+      "rank": 67,
+      "requires_primary_followup": true,
+      "role": "discovery_lead",
+      "score": -12.05,
+      "source": "Bloomberg",
+      "source_kind": "discovery",
+      "subscription_notice": true,
+      "title": "Nvidia Earnings to Test AI Boom as Hike Looms",
+      "topics": [],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.bloomberg.com/news/articles/2026-11-15/stock-market-today-dow-s-p-live-updates",
+      "rank": 68,
+      "requires_primary_followup": true,
+      "role": "discovery_lead",
+      "score": -20.56,
+      "source": "Bloomberg",
+      "source_kind": "discovery",
+      "subscription_notice": true,
+      "title": "Stocks Slide as AI Trade Enters High-Stakes Week: Markets Wrap",
+      "topics": [],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.bloomberg.com/news/features/2026-11-15/anthropic-s-ipo-makes-dario-amodei-the-new-face-of-the-ai-boom",
+      "rank": 69,
+      "requires_primary_followup": true,
+      "role": "discovery_lead",
+      "score": -28.64,
+      "source": "Bloomberg",
+      "source_kind": "discovery",
+      "subscription_notice": true,
+      "title": "Anthropic’s IPO Makes Dario Amodei the New Face of the AI Boom",
+      "topics": [],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.bloomberg.com/news/articles/2026-11-15/india-stock-market-rebounds-as-ai-trade-unwinds-foreign-funds-return",
+      "rank": 70,
+      "requires_primary_followup": true,
+      "role": "discovery_lead",
+      "score": -37.11,
+      "source": "Bloomberg",
+      "source_kind": "discovery",
+      "subscription_notice": true,
+      "title": "India Stock Market Rebounds as AI Trade Unwinds, Foreign Funds Return",
+      "topics": [],
+      "uk_context": false
+    },
+    {
+      "freshness_state": "current",
+      "link": "https://www.bbc.co.uk/news/articles/cmn50zl5pvq2o",
+      "rank": 71,
+      "requires_primary_followup": true,
+      "role": "attributed_reporting",
+      "score": -38.34,
+      "source": "BBC News",
+      "source_kind": "reporting",
+      "subscription_notice": false,
+      "title": "Critics say major energy schemes risk unfair burden",
+      "topics": [],
+      "uk_context": false
+    }
+  ],
+  "input_bytes": 39265,
+  "input_count": 71,
+  "input_generated_at": "2026-11-16T18:08:01Z",
+  "input_sha256": "9a98193b5d8903cf33d5655ffa3acf4eab1ec3a92ca1a6d23f5eeb4df7d9f217",
+  "profile_id": "uk-transition-global-context.v1",
+  "profile_sha256": "06250f2435088a522d8d25676f31f813165a430df1e19f602bd8baae03961c05",
+  "schema": "globalgrid2050.news.headline-priority.v1"
+}

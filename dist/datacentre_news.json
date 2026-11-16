@@ -1,10 +1,10 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-15T21:53:41Z",
+ "generated_at": "2026-11-16T13:47:06Z",
  "status": "ok",
  "counts": {
-  "items": 5,
-  "capex": 4,
+  "items": 8,
+  "capex": 7,
   "politics": 1,
   "with_register_site": 0,
   "feeds_ok": 9,
@@ -28,23 +28,23 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "sha256": "1fd3cd55f183226f1bc6982089d488ae0ec653172fd05a2de727a4d82e0e42bc"
+   "sha256": "5b4bc368d00bc8126018732ae9ab48c0d99df254382f68f0c44c307c601c2e20"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 57,
+   "entries": 56,
    "kept": 0,
-   "sha256": "b866b25dca3663b4ef3ff8058e721498fbfe508ce57c6129d1b94451df756018"
+   "sha256": "8790306895de2d854196edcd65afb420479e6dbbf6f6e8621bad3586cbffa7c3"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 61,
+   "entries": 66,
    "kept": 0,
-   "sha256": "2bce95369bfb448efb0a8b21616932f1c822771dfb202052618d507d917eb23b"
+   "sha256": "ce8d2a171ae05e6f7bb4be9c7da1c8275f63c364c7cf88515e1e41be17205bdc"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 41,
    "kept": 0,
-   "sha256": "0e21884eed8ae0f4d341711da22d6bd485bed57f59816f87815776d36486e5be"
+   "sha256": "74bcc208fac3a76d1186b940bb9c9fbc8c80aec8836428c627de992e6b24d8ac"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -60,7 +60,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "2288052a00dade0e830186747c5151f2d8ed841ee5296325b7db4302dc70d45d"
+   "sha256": "37286afd39d1bd9a2f1e38ad1ed2769eeb4de8762d259b078666a0284c770bcd"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-energy-security-and-net-zero.atom",
@@ -68,7 +68,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "12f60510276696eb749d3d1ab7ee382b0f51760596c616d8707c0a4cbdceddc0"
+   "sha256": "3d645eab6d0accaf9b813f5b127764e232bd3b6b2de3bfa66cf14e19cd93e7f6"
   },
   {
    "url": "https://www.gov.uk/search/news-and-communications.atom?keywords=data+centre",
@@ -76,7 +76,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "46472bf6030d3d103f66588f0450d5c70b2ab0fee5f2bc530d563bea8175448a"
+   "sha256": "dd3a2d267277426fffe5d968c6476409bb5fdae3683aee91d963a23502d72653"
   },
   {
    "url": "https://bills.parliament.uk/rss/allbills.rss",
@@ -84,18 +84,120 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "e6eb5be30c7a7780e2e637c5e13ea366867d1ea869bbb07f0cb1bdd59916802f"
+   "sha256": "8aecbde6bc129add04ee17561df1ad82c275233f990d77a9ea9ae1a5fdeb2f98"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
    "source": "DatacenterDynamics",
    "status": "ok",
    "entries": 20,
-   "kept": 2,
-   "sha256": "72116ccdbdf5289f23e8d343756d7b351fd75809c28ae4b83c8a97ea5d187ec6"
+   "kept": 4,
+   "sha256": "20ef7780ba050823fcd16e15dc4f8ba167c47f94697933e4b04c34a0db23c1e9"
   }
  ],
  "items": [
+  {
+   "title": "Engie could supply power to planned Google data center in Châteauroux, France",
+   "link": "https://www.datacenterdynamics.com/en/news/engie-could-supply-power-to-planned-google-data-center-in-ch%C3%A2teauroux-france/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-16T11:36:01Z",
+   "first_seen": "2026-11-16T13:47:06Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "investment"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [
+    {
+     "id": "dcuk-ca20866e219f01c0",
+     "name": "Google data centre, Waltham Cross",
+     "status": "operational",
+     "matched_on": "operator",
+     "matched_text": "Google"
+    }
+   ],
+   "site_matches": 1
+  },
+  {
+   "title": "Brazil's ABL Group launches new data center unit Astella, opens data center in Curitiba",
+   "link": "https://www.datacenterdynamics.com/en/news/astella-part-of-the-abl-group-opens-a-data-center-in-curitiba-with-an-investment-of-r60-million/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-16T10:36:50Z",
+   "first_seen": "2026-11-16T13:47:06Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "million"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "AWS breaks ground on $7bn data center in Indiana",
+   "link": "https://www.datacenterdynamics.com/en/news/aws-breaks-ground-on-7bn-data-center-in-indiana/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-16T08:20:26Z",
+   "first_seen": "2026-11-16T13:47:06Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "billion"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [
+    {
+     "id": "dcuk-e2a1f0a6f8829be4",
+     "name": "AWS Swindon Data Centre",
+     "status": "operational",
+     "matched_on": "operator",
+     "matched_text": "AWS"
+    },
+    {
+     "id": "dcuk-e828557f93d8168d",
+     "name": "AWS Didcot Data Centre",
+     "status": "operational",
+     "matched_on": "operator",
+     "matched_text": "AWS"
+    },
+    {
+     "id": "dcuk-eb71b9ee8627052a",
+     "name": "AWS Bracknell Data Centre",
+     "status": "operational",
+     "matched_on": "operator",
+     "matched_text": "AWS"
+    }
+   ],
+   "site_matches": 3
+  },
   {
    "title": "European Union offers to build data center for Moldova",
    "link": "https://www.datacenterdynamics.com/en/news/european-union-offers-to-build-data-center-for-moldova/",

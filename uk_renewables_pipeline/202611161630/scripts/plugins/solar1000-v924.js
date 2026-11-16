@@ -65,7 +65,7 @@ async function start(){
  const evidenceStatus=root.querySelector('[data-evidence-status]');
  loadEvidence(root.dataset.evidencePointer,ids).then(data=>{
   evidenceState.loading=false;evidenceState.data=data;
-  evidenceStatus.textContent='Evidence snapshot '+data.generatedAt+' · '+data.count+' provisional matches · 0 verified events';
+  evidenceStatus.textContent='Evidence snapshot '+data.generatedAt+' · '+data.count+' provisional matches · 0 verified events · '+data.freshnessLabel;
   display();
  }).catch(()=>{
   evidenceState.loading=false;

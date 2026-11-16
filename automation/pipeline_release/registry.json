@@ -654,9 +654,15 @@
       "known_faults": [
         "Known GridAtlas 390px nearest-card failure unresolved"
       ],
-      "ci": null,
-      "merge_commit": null,
-      "state": "nonlive_candidate",
+      "ci": {
+        "workflow": "Verify Pipeline News versions",
+        "run_id": 43785343834,
+        "conclusion": "success",
+        "url": "https://github.com/Ventusltd/globalgrid2050/actions/runs/43785343834",
+        "note": "Exact V9.23 candidate head 2d553a0 real browser/CSV/map-static PASS; separate real GridAtlas 390px 1/3 PASS, 1440px 3/3 PASS, and 24-project known re-minimisation remain unresolved and visible. User directs iterative release."
+      },
+      "merge_commit": "1559f40e73a4e454c39b23d5172cf4c5e96ef3ea",
+      "state": "published_iterative_known_gridatlas_mobile_issue",
       "removed_features": [
         "datacentre-news-panel"
       ],
@@ -695,18 +701,18 @@
   "size_budget_mb": 18,
   "size_budget_from": "202611140136",
   "release_candidate": {
-    "id": "202611151300",
-    "version": "V9.22",
-    "state": "PUBLISHED — ITERATIVE WITH KNOWN GRIDATLAS MOBILE ISSUE",
+    "id": "202611160020",
+    "version": "V9.23",
+    "state": "PUBLISHED — ITERATIVE, EXTERNAL MOBILE GRIDATLAS STILL RED",
     "operative": {
-      "id": "202611151300",
-      "version": "V9.22"
+      "id": "202611160020",
+      "version": "V9.23"
     },
     "held_candidate": {
       "id": "202611140247",
       "version": "V9.19",
       "state": "held candidate (data-centre register context, awaiting licence verification)"
     },
-    "note": "V9.22 (202611151300) was published on 15 November 2026 under the owner's explicit iterative-release direction. The homepage now opens V9.22; V9.21 and V9.20 remain accessible as prior versions and rollback. GridAtlas mobile first-restore intermittently re-minimises the nearest result (REPD 2470 at 5.3 seconds in the 24-project sample); this known failure is deferred to V9.23, not called a PASS. News associations remain possible matches, not independently verified events. V9.19 with unlicensed data-centre register context remains held."
+    "note": "V9.23 published 16 November 2026 on direct owner instruction. One simplified feed; native brief, possible-match Machine Read Notes visible in each project row; broken show-table shortcut removed. V9.22 (202611151300), V9.21 and V9.20 remain available and immutable. External GridAtlas real mobile first-restore: 390px 1/3 PASS for solar/BESS/wind, 1440px 3/3 PASS. Original publisher rights/independent per-article match verification not established; existing official REPD statuses unchanged. No claim that an independently verified planning event was created by heuristic notes."
   }
 }

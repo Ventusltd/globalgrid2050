@@ -1,0 +1,50 @@
+name: Publish V9.23 version ledger with complete real browser verdict
+# Targeted release metadata refresh; preserves all immutable version folders.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/pipeline_release/registry.json'
+      - '.github/workflows/publish-pipeline-v923-ledger.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: pipeline-v923-ledger-publication
+  cancel-in-progress: false
+
+jobs:
+  ledger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify historical source+7,775 maps and regenerate published version ledger
+        run: |
+          python3 automation/pipeline_release/verify.py --browser --check --write
+      - name: Commit generated version list only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add uk_renewables_pipeline/versions.json uk_renewables_pipeline/versions.html
+          if ! git diff --staged --quiet; then
+            git commit -m 'docs(pipeline-news): update published V9.23 versions index and retain V9.22'
+            git push origin HEAD:main
+          fi
+      - name: Dispatch Pages for latest source and the new versions index
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run deploy-pages.yml --ref main

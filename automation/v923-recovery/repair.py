@@ -11,13 +11,58 @@ def swap(txt,old,new):
     n=txt.count(old)
     if n!=1:raise RuntimeError(f"Unsafe anchor count {n} for {old[:100]!r}")
     return txt.replace(old,new,1)
+def require_completed_candidate(directory, version):
+    """CVAA-01: never treat an interrupted candidate as a successful retry."""
+    required = (
+        "index.html", "CHANGES.md", "README.md", "tests/run_v9_23.sh",
+        "scripts/plugins/projects-v9-8.js", "scripts/plugins/live-news.js",
+        "scripts/plugins/machine-notes-v923.js", "styles/v9-23.css",
+        "docs/V923-AUDIT.md",
+    )
+    if version.get("id") != NEW or version.get("version") != "V9.23" or version.get("parent") != OLD:
+        raise RuntimeError("PARTIAL_CANDIDATE: release registry has no complete V9.23 parent/identity")
+    for name in required:
+        path = directory / name
+        if not path.is_file() or path.stat().st_size == 0:
+            raise RuntimeError("PARTIAL_CANDIDATE: missing or empty " + name)
+    if version.get("runner") != "tests/run_v9_23.sh" or not version.get("trees"):
+        raise RuntimeError("PARTIAL_CANDIDATE: release runner or immutable tree receipt missing")
+
+
+def repair_existing_columns():
+    """Correct only the known V9.23 insertion error; refuse unrecognised row structures."""
+    path = B / "scripts/plugins/projects-v9-8.js"
+    source = path.read_text()
+    marker = "\nfunction projectRowHtml(project) {"
+    if source.count(marker) != 1:
+        raise RuntimeError("PARTIAL_CANDIDATE: missing unique row-function boundary")
+    inter, repd = source.split(marker, 1)
+    broken = r'</td><td class="machine-note-cell">NOT A REPD RECORD</td><td class="machine-note-cell"><button[^<>]*>CHECK NOTE</button></td><td><div class="project-actions">'
+    fixed = '</td><td class="machine-note-cell">NOT A REPD RECORD</td><td><div class="project-actions">'
+    inter, n = re.subn(broken, fixed, inter, count=1)
+    if inter.count('class="machine-note-cell"') != 1:
+        raise RuntimeError("PARTIAL_CANDIDATE: interconnector must have exactly one notes cell")
+    target = '</td><td><div class="project-actions">' + chr(36) + '{mapAction}'
+    if repd.count('class="machine-note-cell"') == 0:
+        if repd.count(target) != 1:
+            raise RuntimeError("PARTIAL_CANDIDATE: missing exact REPD notes insertion anchor")
+        cell = '</td><td class="machine-note-cell"><button type="button" class="machine-note-button" data-note-ref="' + chr(36) + '{escapeHtml(project.repd_ref)}" data-note-name="' + chr(36) + '{escapeHtml(project.name)}" data-note-status="' + chr(36) + '{escapeHtml(project.status)}">CHECK NOTE</button></td><td><div class="project-actions">' + chr(36) + '{mapAction}'
+        repd = repd.replace(target, cell, 1)
+    if repd.count('class="machine-note-cell"') != 1 or inter.count('data-note-ref') != 0:
+        raise RuntimeError("PARTIAL_CANDIDATE: REPD notes cell absent, duplicated or on wrong vertical")
+    cleaned = inter + marker + repd
+    if cleaned != source:
+        path.write_text(cleaned)
+
+
 def build():
     register=ROOT/"automation/pipeline_release/registry.json"
     reg=json.loads(register.read_text())
     if B.exists():
-        if reg["versions"][-1]["id"]!=NEW:raise RuntimeError("Unregistered candidate")
+        require_completed_candidate(B, reg["versions"][-1])
         reconcile()
-        print("Candidate exists; reconciled declared feature withdrawal and proof hash")
+        check()
+        print("Candidate exists; completion receipt and actual contents validated")
         return
     if reg["versions"][-1]["id"]!=OLD:raise RuntimeError("V9.22 no longer latest parent")
     subprocess.run([sys.executable,"automation/pipeline_release/new_version.py","create",NEW,"V9.23","one news feed with machine notes","BUILD"],cwd=ROOT,check=True)
@@ -46,10 +91,15 @@ def build():
     path.write_text(txt)
     path=B/"scripts/plugins/projects-v9-8.js";txt=path.read_text()
     target='</td><td><div class="project-actions">'+chr(36)+'{mapAction}'
-    if txt.count(target)!=2:raise RuntimeError("REPD/interconnector row anchors moved")
-    txt=txt.replace(target,'</td><td class="machine-note-cell">NOT A REPD RECORD</td><td><div class="project-actions">'+chr(36)+'{mapAction}',1)
+    boundary="\\nfunction projectRowHtml(project) {"
+    if txt.count(boundary)!=1:raise RuntimeError("Missing unique REPD row boundary")
+    inter, repd = txt.split(boundary,1)
+    if inter.count(target)!=1 or repd.count(target)!=1:
+        raise RuntimeError("REPD/interconnector row anchors moved or duplicated")
+    inter=inter.replace(target,'</td><td class="machine-note-cell">NOT A REPD RECORD</td><td><div class="project-actions">'+chr(36)+'{mapAction}',1)
     cell='</td><td class="machine-note-cell"><button type="button" class="machine-note-button" data-note-ref="'+chr(36)+'{escapeHtml(project.repd_ref)}" data-note-name="'+chr(36)+'{escapeHtml(project.name)}" data-note-status="'+chr(36)+'{escapeHtml(project.status)}">CHECK NOTE</button></td><td><div class="project-actions">'+chr(36)+'{mapAction}'
-    txt=txt.replace(target,cell,1).replace('colspan="11"','colspan="12"')
+    repd=repd.replace(target,cell,1)
+    txt=(inter+boundary+repd).replace('colspan="11"','colspan="12"')
     path.write_text(txt)
     (B/"scripts/plugins/machine-notes-v923.js").write_text((HERE/"templates/machine-notes.js").read_text())
     (B/"styles/v9-23.css").write_text((HERE/"templates/v9-23.css").read_text())
@@ -58,6 +108,7 @@ def build():
         "one feed, Machine Read Notes, no show-table jump","--fault","Known GridAtlas 390px nearest-card failure unresolved",
         "--feature","machine-notes-column:index.html:MACHINE READ NOTES"],cwd=ROOT,check=True)
     reconcile()
+    check()
     print("CREATED NONLIVE V9.23 CANDIDATE")
 def reconcile():
     """Pin the NEW candidate after documenting deliberate removals; never edit the parent."""
@@ -65,6 +116,7 @@ def reconcile():
     document=json.loads(registry.read_text())
     v=document["versions"][-1]
     if v["id"]!=NEW:raise RuntimeError("V9.23 is not the newest candidate")
+    repair_existing_columns()
     withdrawn=set(v.get("removed_features",[]))
     withdrawn.add("datacentre-news-panel")
     v["removed_features"]=sorted(withdrawn)
@@ -148,6 +200,15 @@ def check():
     assert "datacentre-news.js?v=1" not in html and 'id="newsArchive" hidden' in html
     assert "function showProject(" not in live
     assert "pipeline-feed-loaded" in live
+    boundary="\\nfunction projectRowHtml(project) {"
+    assert pj.count(boundary)==1, "REPD row boundary changed"
+    inter,repd=pj.split(boundary,1)
+    assert inter.count('class="machine-note-cell"')==1, "Duplicate interconnector note cell"
+    assert inter.count('data-note-ref')==0, "Interconnector wrongly using a REPD key"
+    assert repd.count('class="machine-note-cell"')==1, "Missing REPD note column"
+    assert repd.count('data-note-ref="')>=2, "Missing desktop or mobile REPD note button"
+    reg=json.loads((ROOT/"automation/pipeline_release/registry.json").read_text())
+    require_completed_candidate(B,reg["versions"][-1])
     for n in ["scripts/core/atlas-receiver-v9-7.js","scripts/data/canonical-projects-v9-5-1.js"]:
         assert (A/n).read_bytes()==(B/n).read_bytes()
     print("PASS: V9.23 structural and canonical REPD/MAP source parity")

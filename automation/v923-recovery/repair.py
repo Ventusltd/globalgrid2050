@@ -35,7 +35,7 @@ def build():
     start=txt.index("      var chip = el('button', 'ln-match'")
     end=txt.index("      box.appendChild(chip);",start)+len("      box.appendChild(chip);")
     txt=txt[:start]+"""      var chip = el('span', 'ln-match', 'Possible match: ' + m.site_name + ' (REPD ' + m.repd_ref + ')');
-      chip.title = 'Unverified headline match, not a proven project event';
+      chip.title = 'Unverified name coincidence; not a confirmed link to a project event; inspect the original publisher.';
       box.appendChild(chip);"""+txt[end:]
     txt=swap(txt,"    var archive = document.getElementById('newsArchive');",
                 "    var archive = document.getElementById('newsArchive');\n    window.pipelineHeadlineDocument = ok ? doc : null;\n    window.dispatchEvent(new CustomEvent('pipeline-feed-loaded', { detail: ok ? doc : null }));")
@@ -68,6 +68,24 @@ def reconcile():
     withdrawn=set(v.get("removed_features",[]))
     withdrawn.add("datacentre-news-panel")
     v["removed_features"]=sorted(withdrawn)
+    # Version-scoped acceptance: old table has 11 columns; the owner explicitly
+    # asked for one additional native Machine Read Notes column in V9.23.
+    # Withdraw ONLY the obsolete assertion, replace with positive 12-col proof.
+    obsolete="table columns unchanged from the parent"
+    v["removed_probes"]=sorted(set(v.get("removed_probes",[])) | {obsolete})
+    labels="SITE NAME|COUNTY|OPERATOR|TECHNOLOGY|OFFICIAL REPD STATUS|OFFICIAL CAPACITY|REPD REF|GLOBALGRID REF|REPD UPDATED|NEWS SIGNAL|MACHINE READ NOTES|ACTIONS"
+    checks=[
+      {"name":"V9.23 native 12-column notes and original MAP sibling",
+       "selector":"body",
+       "js":"(function(){var headers=[...document.querySelectorAll('.tablewrap thead th')].map(function(th){return th.textContent.replace(/[^A-Z ]/g,'').trim().replace(/ +/g,' ')}).join('|');var row=document.querySelector('#tbody tr');var notes=row?.querySelector('button.machine-note-button[data-note-ref]');return headers==="+json.dumps(labels)+"&&row?.children.length===12&&!!notes&&!!row.querySelector('a.atlaslink[href*=repd_ref]')&&!!document.querySelector('#newsArchive[hidden]')&&!document.querySelector('script[src*=datacentre-news]');})()"},
+      {"name":"V9.23 accessible Machine Read Notes opens without altering MAP",
+       "selector":"body",
+       "js":"(function(){var b=document.querySelector('#tbody tr button.machine-note-button'),a=b?.closest('tr')?.querySelector('a.atlaslink');if(!b||!a)return false;var before=a.href;b.click();var d=document.querySelector('dialog.machine-note-dialog');var content=d?.querySelector('#machineNoteBody')?.textContent||'';var pass=d?.open&&content.includes('CANDIDATE')===false&&content.includes('OFFICIAL SOURCE STATUS')&&a.href===before&&d.querySelector('button.machine-note-close')?.getBoundingClientRect().height>=44;if(d?.open)d.close();return !!pass;})()"},
+      {"name":"V9.23 one live feed, no separate politics or dead show table action",
+       "selector":"body",
+       "js":"!!document.querySelector('#liveNews')&&!document.querySelector('#dcNews')&&!!document.querySelector('#newsArchive[hidden]')&&!document.querySelector('#liveNews button.ln-match')"}
+    ]
+    v["browser_probes"]=[p for p in v.get("browser_probes",[]) if p["name"] not in {x["name"] for x in checks}]+checks
     v["state"]="nonlive_candidate"
     changes=B/"CHANGES.md"
     txt=changes.read_text()
@@ -88,7 +106,14 @@ def reconcile():
     html=idx.read_text()
     old='<span><b>DATA-CENTRE HEADLINES:</b> headlines and links from public news and government feeds; no article text is stored or shown. This version carries no content from the UK data-centre register.</span>'
     if old in html:
-        idx.write_text(html.replace(old,'<span><b>HEADLINES:</b> One public energy-infrastructure feed. Machine Read Notes are candidate screening interpretations; original evidence and official REPD status remain separate.</span>'))
+        idx.write_text(html.replace(old,'<span><b>HEADLINES:</b> One public energy-infrastructure feed, with no content from the UK data-centre register. Machine Read Notes are candidate screening interpretations; original evidence and official REPD status remain separate.</span>'))
+    js=B/"scripts/plugins/live-news.js"
+    feed=js.read_text()
+    feed=feed.replace("Unverified headline match, not a proven project event",
+                      "Unverified name coincidence; not a confirmed link to a project event; inspect the original publisher.")
+    if feed!=js.read_text():js.write_text(feed)
+    if "no content from the UK data-centre register" not in idx.read_text():
+        raise RuntimeError("The register-exclusion statement was lost")
     sys.path.insert(0,str(ROOT/"automation/pipeline_release"))
     from common import tree_hash
     v["trees"]=[tree_hash(NEW)]

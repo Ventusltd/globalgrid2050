@@ -178,8 +178,12 @@ export async function readContext(raw, {expectedSha256, buildViewModel}) {
       }
       if (link.published_date !== null) {
         date(link.published_date);
-        const year = Number(link.published_date.slice(0, 4));
-        requireValue(year <= Number(report.as_of.slice(0, 4)));
+        // Date precision may be year, month or day. Reject source publications
+        // whose earliest possible date is later than the evaluation clock.
+        const earliestDay = link.published_date.length === 4
+          ? link.published_date + '-01-01'
+          : link.published_date.length === 7 ? link.published_date + '-01' : link.published_date;
+        requireValue(Date.parse(earliestDay + 'T00:00:00Z') <= asOfTime);
       }
     }
   }

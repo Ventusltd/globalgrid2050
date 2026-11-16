@@ -137,6 +137,11 @@ try {
     const original=dataManifest.project_partitions.flatMap(p=>JSON.parse(readFileSync(resolve(BASELINE,p.path),'utf8')).projects)
       .find(p=>String(p.repd_ref)==='8162');
     assert.equal(mapHref,baselineReceiver.buildAtlasDeepLinkV9_7(original),'rendered search result original MAP route');
+    const note = width <= 768 ? page.locator('#repd-8162 .mobile-machine-note') : page.locator('#repd-8162 .machine-note-cell .machine-note-button');
+    await note.click();
+    assert.equal(await page.locator('.machine-note-dialog').isVisible(),true,'Machine Read Notes remain reachable after signal column removal');
+    assert.match(await page.locator('.machine-note-dialog').innerText(),/INSUFFICIENT EVIDENCE|NOT INDEPENDENTLY VERIFIED/);
+    await page.locator('.machine-note-close').click();
     const searched=await downloadCsv(page,`candidate-search-${width}.csv`);
     const refColumn=searched.rows[0].indexOf('REPD Ref');assert.ok(refColumn>=0);
     assert.ok(searched.rows.slice(1).some(r=>r[refColumn]==='8162'),'searched CSV contains correct REPD identity');
@@ -150,6 +155,7 @@ try {
     await page.waitForFunction(()=>['snapshot','unavailable','failed'].includes(document.getElementById('newsStatus')?.dataset.state));
     const sourceState=await page.locator('#newsStatus').getAttribute('data-state');
     assert.ok(['snapshot','unavailable','failed'].includes(sourceState),'offline headline state disclosed: '+sourceState);
+    assert.ok(await page.locator('#liveNews .ln-item').count()>0,'pinned existing source headlines remain useful offline');
     for(const row of await page.locator('#liveNews .ln-item').all()) {
       assert.match(await row.locator('.ln-title').getAttribute('href'),/^https:\/\//,'original source HTTPS link');
       assert.ok((await row.locator('.ln-meta').innerText()).includes('·'),'publisher/date attribution');

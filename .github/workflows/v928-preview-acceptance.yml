@@ -24,8 +24,6 @@ jobs:
       PYTHONUTF8: '1'
       PYTHONDONTWRITEBYTECODE: '1'
       FIGURES_UI_DIR: ${{ github.workspace }}/external/TestCode/sandbox/filings-ui
-      V928_OUT: ${{ runner.temp }}/v928-proof
-      V928_PLAYWRIGHT: ${{ runner.temp }}/v928-tools/node_modules/playwright/index.mjs
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
@@ -48,7 +46,9 @@ jobs:
           python -m pip install pytest==9.2.0 duckdb==1.3.2
           npm install --prefix "$RUNNER_TEMP/v928-tools" --no-save --ignore-scripts playwright@1.65.2
           "$RUNNER_TEMP/v928-tools/node_modules/.bin/playwright" install --with-deps chromium
-          git fetch --depth 1 origin 65bcc01e0d7e4dc073e759345727e53cf7a95752
+          git fetch --depth 1 origin 65bcc01e0d7e4dc073e759345727e53cf7a95752 3cf3cc0fd1a0b14f46fc1eb7a16d2b01fb50f550
+          echo "V928_OUT=$RUNNER_TEMP/v928-proof" >> "$GITHUB_ENV"
+          echo "V928_PLAYWRIGHT=$RUNNER_TEMP/v928-tools/node_modules/playwright/index.mjs" >> "$GITHUB_ENV"
       - name: Verify selected component bytes and Context export
         run: |
           python -B automation/v928_intelligence/verify_imports.py

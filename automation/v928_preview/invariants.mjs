@@ -53,6 +53,13 @@ try {
   const editionBytes = directoryBytes(CANDIDATE);
   assert.ok(editionBytes <= 18 * 1024 * 1024, 'actual working candidate must fit 18 MiB, including newly staged/untracked assets');
   pass('actual complete candidate fits unchanged 18 MiB budget', {bytes: editionBytes, limit: 18 * 1024 * 1024});
+  const snapshot = bytes(resolve(CANDIDATE, 'news/pipeline_headlines.snapshot.json'));
+  const snapshotReceipt = json(resolve(CANDIDATE, 'news/snapshot-provenance.json'));
+  const originalSnapshot = execFileSync('git', ['show', snapshotReceipt.source_commit + ':' + snapshotReceipt.source_path], {cwd:ROOT});
+  assert.deepEqual(snapshot, originalSnapshot, 'saved headline snapshot must retain exact existing owner-feed bytes');
+  assert.equal(sha(snapshot), snapshotReceipt.sha256);
+  assert.equal(JSON.parse(snapshot).items.length, snapshotReceipt.items);
+  pass('source-attributed headline snapshot equals pinned existing feed', {items:snapshotReceipt.items,source_commit:snapshotReceipt.source_commit,sha256:snapshotReceipt.sha256});
   const [candidate, baseline] = await Promise.all([population(CANDIDATE), population(BASELINE)]);
   assert.deepEqual(candidate.rows, baseline.rows, 'every official row and its order must equal frozen V9.24');
   pass('canonical 7,775 rows / 3,604 solar with complete V9.24 record parity', {record_count:7775, solar_count:3604});

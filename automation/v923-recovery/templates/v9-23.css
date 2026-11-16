@@ -1,0 +1,7 @@
+/* V9.23 nonlive briefing; full text is present before any animation. */
+.machine-note-cell{min-width:118px}.machine-note-button,.machine-note-close{min-width:88px;min-height:44px;padding:8px 10px;border:1px solid #c4ab72;background:#28251d;color:#fff0ca;font:600 12px ui-monospace,monospace;cursor:pointer}.machine-note-button:focus-visible,.machine-note-close:focus-visible{outline:3px solid #cda84e;outline-offset:3px}
+.machine-note-dialog{box-sizing:border-box;width:min(700px,calc(100vw - 12px));max-height:94dvh;background:#f3ecdc;color:#262116;padding:clamp(12px,3vw,30px);border:2px solid #66553c;font:14px/1.6 ui-monospace,monospace;overflow-y:auto}
+.machine-note-dialog::backdrop{background:rgba(0,0,0,.8)}.machine-note-dialog h2{font:700 22px/1.3 ui-monospace,monospace;margin:14px 0}.machine-note-dialog a{overflow-wrap:anywhere;color:#164a78}.machine-note-dialog .machine-note-stamp{font-weight:700;border-block:2px solid #62573f;padding:8px 0}.machine-note-source{border-top:1px solid #aa9b7a;padding:12px 0}.machine-note-close{float:right;margin:0 0 6px 12px}
+@media(max-width:600px){.machine-note-dialog h2{font-size:18px;clear:both}.machine-note-button{min-width:86px}.machine-note-cell{min-width:100px}}
+@media(prefers-reduced-motion:reduce){.machine-note-dialog *{animation:none!important;transition:none!important}}
+@media print{.machine-note-dialog{position:static;max-height:none;overflow:visible;border:0;width:auto}.machine-note-close{display:none}}

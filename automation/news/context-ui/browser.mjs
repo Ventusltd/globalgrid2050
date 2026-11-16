@@ -9,11 +9,11 @@ const artifacts = resolve(process.env.CONTEXT_UI_ARTIFACTS);
 const {chromium} = await import(process.env.PLAYWRIGHT_MODULE ? pathToFileURL(resolve(process.env.PLAYWRIGHT_MODULE)).href : 'playwright');
 const html = `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Context UI integration proof</title><link rel="stylesheet" href="/context.css"><link rel="stylesheet" href="/figures/figures.css">
-<body><main><section id="news" aria-label="News" data-news-context-host><h1>News</h1><button id="sentinel">Existing news control</button></section></main>
+<body><main><section id="news" aria-label="News" data-news-context-host><h1>News</h1><button id="sentinel">Existing news control</button></section><section id="pipeline" aria-label="Pipeline" data-pipeline-context-host><h1>Pipeline</h1></section></main>
 <script type="module" src="/boot.mjs"></script></body></html>`;
 const boot = `import {renderContext} from '/render.mjs';
 import {buildViewModel} from '/figures/model.mjs'; import {renderFigures} from '/figures/render.mjs';
-const host = document.querySelector('#news'); window.sentinel = document.querySelector('#sentinel');
+const host = document.querySelector(location.hash === '#pipeline' ? '#pipeline' : '#news'); window.sentinel = document.querySelector('#sentinel');
 window.clicks = 0; sentinel.addEventListener('click', () => window.clicks++);
 window.original = new Uint8Array(await (await fetch('/fixture.json')).arrayBuffer());
 window.hash = async b => Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', b)), x => x.toString(16).padStart(2,'0')).join('');
@@ -31,7 +31,7 @@ const results = []; let browser;
 try {
   await mkdir(artifacts, {recursive: true});
   browser = await chromium.launch({headless: true, channel: 'chrome', args: ['--no-proxy-server']});
-  for (const width of [375, 768, 1440]) {
+  for (const width of [375, 390, 393, 768, 1440]) {
     const context = await browser.newContext({viewport: {width, height: 950}, serviceWorkers: 'block'});
     const external = [], errors = [];
     await context.route('**/*', route => {
@@ -43,16 +43,17 @@ try {
       external.push(route.request().url()); return route.abort();
     });
     const page = await context.newPage(); page.on('pageerror', error => errors.push(error.message));
-    await page.goto(origin); await page.waitForFunction(() => window.ready);
+    const hostSelector = width === 390 || width === 393 ? '#pipeline' : '#news';
+    await page.goto(origin + (hostSelector === '#pipeline' ? '/#pipeline' : '/')); await page.waitForFunction(() => window.ready);
     assert.equal(await page.locator('[data-transition-context-root]').getAttribute('data-state'), 'available');
-    assert.equal(await page.locator('#news > [data-transition-context-root]').count(), 1);
+    assert.equal(await page.locator(hostSelector + ' > [data-transition-context-root]').count(), 1);
     assert.equal(await page.locator('[data-context-id]').count(), 14);
     assert.equal(await page.locator('[data-figure-claim]').count(), 3);
     assert.deepEqual(await page.evaluate(() => {
       const root = document.querySelector('[data-transition-context-root]');
       const figure = root.querySelector('[data-filings-figures-root]');
       const amount = figure.querySelector('[data-figure-value]');
-      const host = getComputedStyle(document.querySelector('#news'));
+      const host = getComputedStyle(root.parentElement);
       return {font: getComputedStyle(amount).fontSize === host.fontSize,
         color: getComputedStyle(figure).color === host.color,
         background: getComputedStyle(figure).backgroundColor,
@@ -99,7 +100,7 @@ try {
     assert.equal(await page.locator('[data-transition-context-root]').getAttribute('data-state'), 'unavailable');
     assert.equal(await page.locator('[data-transition-context-root]').count(), 1);
     assert.deepEqual(external, []); assert.deepEqual(errors, []);
-    results.push({width, checks: ['actual exporter', '14 contexts', '3 exact figures', 'inherited typography and colors', 'complete native data retained', 'unknown and historical states',
+    results.push({width, host: hostSelector, checks: ['actual exporter', '14 contexts', '3 exact figures', 'inherited typography and colors', 'complete native data retained', 'unknown and historical states',
       'distinct clocks', 'upper-bound qualifier', 'native keyboard disclosure', 'no horizontal overflow',
       'safe source links', 'text escaped', 'history retained', 'stale values cleared', 'neighbor control preserved', 'latest request wins', 'no external requests'],
       screenshot, screenshot_sha256: sha(await readFile(resolve(artifacts, screenshot)))});

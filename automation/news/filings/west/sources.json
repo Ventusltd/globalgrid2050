@@ -1,0 +1,86 @@
+{
+  "schema": "globalgrid2050.official-filings-west-sources.v1",
+  "automatic_collection_enabled": false,
+  "purpose": "Disabled source inventory for listed corporate-group research; not a collector or venue-membership proof",
+  "sources": [
+    {
+      "source_id": "us-sec-edgar", "country": "US", "venue_context": "US listed issuers; EDGAR is the regulator filing system, not an exchange",
+      "authority": "US Securities and Exchange Commission",
+      "official_reference": "https://www.sec.gov/search-filings/edgar-application-programming-interfaces",
+      "disclosure_system": "https://data.sec.gov/submissions/CIK##########.json",
+      "issuer_identity": "10-digit CIK; explicitly reviewed corporate-group eligibility, ticker and exchange in source",
+      "adapter": "automation.news.filings.west.sec.normalize_submissions",
+      "rights_evidence": "https://www.sec.gov/about/webmaster-frequently-asked-questions",
+      "rights_status": "OFFICIAL_EDGAR_REUSE_POLICY_IDENTIFIED; activation review pending",
+      "probe_receipt": "probe_receipts_20261116.json#us-sec-edgar",
+      "enabled": false,
+      "disabled_reason": "Actual submissions probe returned403; no raw filing obtained or real-payload validation. Offline adapter only; owner collector destination and activation not approved."
+    },
+    {
+      "source_id": "uk-fca-nsm", "country": "GB", "venue_context": "London/UK regulated disclosures; FCA Official List and LSE admission are distinct",
+      "authority": "Financial Conduct Authority",
+      "official_reference": "https://www.fca.org.uk/markets/primary-markets/regulatory-disclosures/national-storage-mechanism",
+      "disclosure_system": "National Storage Mechanism",
+      "issuer_identity": "LEI and issuer name, independently reconciled with listing evidence",
+      "rights_status": "UNREVIEWED_FOR_AUTOMATED_REUSE",
+      "probe_receipt": "probe_receipts_20261116.json#uk-fca-nsm",
+      "enabled": false,
+      "disabled_reason": "Guidance page reachable, no document/API acquisition validated; PIP submission API is not a public retrieval API. No listed-group allowlist or adapter."
+    },
+    {
+      "source_id": "uk-lse-rns", "country": "GB", "venue_context": "London Stock Exchange regulatory news",
+      "authority": "London Stock Exchange Group",
+      "official_reference": "https://www.lseg.com/en/capital-markets/regulatory-news-service",
+      "disclosure_system": "https://www.londonstockexchange.com/en/news",
+      "issuer_identity": "Explicit issuer LEI/ISIN and listing evidence; RNS publication alone does not prove listed status",
+      "rights_status": "UNREVIEWED_FOR_AUTOMATED_REUSE",
+      "probe_receipt": "probe_receipts_20261116.json#uk-lse-rns",
+      "enabled": false,
+      "disabled_reason": "Informational page only. Retrieval terms, supported interface and listed-group eligibility unresolved; no paywall or restricted-feed access."
+    },
+    {
+      "source_id": "uk-companies-house-owner", "country": "GB", "venue_context": "Corporate accounts registry; not a stock exchange or proof of listing/group membership",
+      "authority": "Companies House",
+      "official_reference": "https://download.companieshouse.gov.uk/en_accountsdata.html",
+      "owner_module": "https://github.com/Ventusltd/companies/blob/ac70a37408d4f434e89e8a80cc36d40e450d3cfb/build/python/202608262245-companies-house-source.py",
+      "issuer_identity": "Company number plus independently evidenced listed-parent-group relation",
+      "rights_status": "OWNER_ADAPTER_EXISTS; this slice does not accept reuse or issuer scope",
+      "enabled": false,
+      "disabled_reason": "Reuse confirmed owner module instead of duplicating its collector. No person/SME enrichment or inferred parent matching. No bulk data copied into publication repository."
+    },
+    {
+      "source_id": "ch-six-notices", "country": "CH", "venue_context": "SIX Swiss Exchange listed issuers",
+      "authority": "SIX Exchange Regulation",
+      "official_reference": "https://www.ser-ag.com/en/resources/notifications-market-participants/official-notices.html",
+      "disclosure_system": "Official Notices and attributable issuer ad-hoc directories",
+      "issuer_identity": "Official issuer/security identifier with separately evidenced legal-entity scope",
+      "rights_status": "UNREVIEWED_FOR_AUTOMATED_REUSE",
+      "probe_receipt": "probe_receipts_20261116.json#ch-six-notices",
+      "enabled": false,
+      "disabled_reason": "Official notices landing page only; no complete filings feed or document access tested. Issuer submission systems are not assumed public retrieval APIs."
+    },
+    {
+      "source_id": "de-company-register", "country": "DE", "venue_context": "German corporate reporting, including Frankfurt-listed issuers subject to independent listing proof",
+      "authority": "Unternehmensregister / Bundesanzeiger Verlag",
+      "official_reference": "https://www.unternehmensregister.de/de",
+      "disclosure_system": "Unternehmensregister",
+      "issuer_identity": "EUID/register identity and separate ISIN/LEI/listed-group evidence",
+      "rights_status": "UNREVIEWED_FOR_AUTOMATED_REUSE",
+      "probe_receipt": "probe_receipts_20261116.json#de-company-register",
+      "enabled": false,
+      "disabled_reason": "Landing page reachable, document/API access and reuse conditions unvalidated. Registry presence alone does not establish Frankfurt admission. No account, paid document or personal register extraction."
+    },
+    {
+      "source_id": "fr-dila-oam", "country": "FR", "venue_context": "French regulated disclosures including Euronext Paris issuers with separate identity/listing proof",
+      "authority": "Direction de l'information legale et administrative; AMF regulatory context",
+      "official_reference": "https://www.dila.gouv.fr/services/repertoire-des-informations-publiques/les-donnees-economiques-et-financieres",
+      "disclosure_system": "https://dilaamf.opendatasoft.com/pages/home/",
+      "additional_reference": "https://www.amf-france.org/fr/ou-trouver-les-informations-sur-les-societes-cotees",
+      "issuer_identity": "Official issuer identifiers with separate LEI/ISIN/legal-entity reconciliation",
+      "rights_status": "OFFICIAL_FREE_API_DOCUMENTATION_IDENTIFIED; precise reuse scope unreviewed",
+      "probe_receipt": "probe_receipts_20261116.json#fr-dila-oam",
+      "enabled": false,
+      "disabled_reason": "OAM landing page reachable, API/document retrieval untested. No adapter, listed-group allowlist, accepted reuse receipt or collection activation."
+    }
+  ]
+}

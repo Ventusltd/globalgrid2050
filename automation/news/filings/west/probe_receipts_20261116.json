@@ -1,0 +1,85 @@
+{
+  "schema": "globalgrid2050.filing-access-probes.v1",
+  "automatic_collection_enabled": false,
+  "raw_bodies_saved": false,
+  "receipts": [
+    {
+      "source_id": "us-sec-edgar",
+      "requested_url": "https://data.sec.gov/submissions/CIK0000789019.json",
+      "retrieved_at": "2026-11-16T17:11:02.518736+00:00",
+      "probe_only": true,
+      "eligible_for_publication": false,
+      "http_status": 403,
+      "final_url": "https://data.sec.gov/submissions/CIK0000789019.json",
+      "content_type": "text/html",
+      "bytes": 4818,
+      "payload_sha256": "59d0b6c5a6cfed7d5656732ceb72fd1bc11e7e999dc3ed295765edc4e3d49485",
+      "status": "HTTP_RESPONSE"
+    },
+    {
+      "source_id": "uk-fca-nsm",
+      "requested_url": "https://www.fca.org.uk/markets/primary-markets/regulatory-disclosures/national-storage-mechanism",
+      "retrieved_at": "2026-11-16T17:11:02.873106+00:00",
+      "probe_only": true,
+      "eligible_for_publication": false,
+      "http_status": 200,
+      "final_url": "https://www.fca.org.uk/markets/primary-markets/regulatory-disclosures/national-storage-mechanism",
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 191192,
+      "payload_sha256": "be086b5ccc79c77e03e0e65087e1a3dee423affe5e414d8398e2fb97caed72bc",
+      "status": "HTTP_RESPONSE"
+    },
+    {
+      "source_id": "uk-lse-rns",
+      "requested_url": "https://www.lseg.com/en/capital-markets/regulatory-news-service",
+      "retrieved_at": "2026-11-16T17:11:03.192906+00:00",
+      "probe_only": true,
+      "eligible_for_publication": false,
+      "http_status": 200,
+      "final_url": "https://www.lseg.com/en/capital-markets/regulatory-news-service",
+      "content_type": "text/html;charset=utf-8",
+      "bytes": 126037,
+      "payload_sha256": "66ecd553e98df794bf3b71ed00a313827e12366eef93dee080a066fad3ff78cc",
+      "status": "HTTP_RESPONSE"
+    },
+    {
+      "source_id": "ch-six-notices",
+      "requested_url": "https://www.ser-ag.com/en/resources/notifications-market-participants/official-notices.html",
+      "retrieved_at": "2026-11-16T17:11:03.513290+00:00",
+      "probe_only": true,
+      "eligible_for_publication": false,
+      "http_status": 200,
+      "final_url": "https://www.ser-ag.com/en/resources/notifications-market-participants/official-notices.html",
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 78767,
+      "payload_sha256": "2f6ed3ee66470662612c7c4bf6f81d7a2a12427f08968d8c0cd8b76fe484a58d",
+      "status": "HTTP_RESPONSE"
+    },
+    {
+      "source_id": "de-company-register",
+      "requested_url": "https://www.unternehmensregister.de/de",
+      "retrieved_at": "2026-11-16T17:11:03.912892+00:00",
+      "probe_only": true,
+      "eligible_for_publication": false,
+      "http_status": 200,
+      "final_url": "https://www.unternehmensregister.de/de",
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 580101,
+      "payload_sha256": "d4378e2595fd67d2bc697b5a35ed4a5cdaf3a6f487d4ff351cc272028e89b79c",
+      "status": "HTTP_RESPONSE"
+    },
+    {
+      "source_id": "fr-dila-oam",
+      "requested_url": "https://dilaamf.opendatasoft.com/pages/home/",
+      "retrieved_at": "2026-11-16T17:11:05.092413+00:00",
+      "probe_only": true,
+      "eligible_for_publication": false,
+      "http_status": 200,
+      "final_url": "https://dilaamf.opendatasoft.com/pages/home/",
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 63759,
+      "payload_sha256": "6d61b64c722313d56873b6d879b6b18ba09f41ad28c0545403931b573812829f",
+      "status": "HTTP_RESPONSE"
+    }
+  ]
+}

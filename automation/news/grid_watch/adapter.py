@@ -87,6 +87,7 @@ def normalise(record, sources):
     source_hash = record.get("source_sha256")
     if source_hash is not None and (not isinstance(source_hash, str) or not re.fullmatch(r"[a-f0-9]{64}", source_hash)):
         raise ValueError("invalid source byte hash")
+    licence_state = _text(source.get("licence_state", "UNASSESSED"), "source licence state")
     published = _timestamp(record.get("published_at"))
     retrieved = _timestamp(record.get("retrieved_at"), required=True)
     if published and published > retrieved:
@@ -122,7 +123,7 @@ def normalise(record, sources):
                      "url": url, "source_record_id": source_record_id,
                      "source_sha256": source_hash, "published_at": published,
                      "retrieved_at": retrieved, "reported_stage": stage,
-                     "licence_state": "UNASSESSED", "review_state": "REVIEW_REQUIRED"},
+                     "licence_state": licence_state, "review_state": "REVIEW_REQUIRED"},
         "reported_metric": metric,
         "links": {"repd_ref": None, "grid_connection": None, "available_capacity_mw": None,
                   "etys_node_code_as_reported": node, "etys_node_link_verified": False},

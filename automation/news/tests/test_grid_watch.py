@@ -71,6 +71,16 @@ class GridWatchTest(unittest.TestCase):
             b["reported_metric"]["value"] = v
             with self.assertRaises(ValueError): normalise(b, SOURCES)
 
+    def test_preserves_explicit_source_rights_without_granting_publication(self):
+        sources = deepcopy(SOURCES)
+        sources["nget-projects"]["licence_state"] = "RESTRICTED"
+        row = normalise(RECORDS[0], sources)
+        self.assertEqual(row["evidence"]["licence_state"], "RESTRICTED")
+        self.assertEqual(row["evidence"]["review_state"], "REVIEW_REQUIRED")
+        self.assertFalse(row["publishable"])
+        sources["nget-projects"].pop("licence_state")
+        self.assertEqual(normalise(RECORDS[0], sources)["evidence"]["licence_state"], "UNASSESSED")
+
     def test_publication_cannot_follow_retrieval(self):
         b = dict(RECORDS[0], published_at="2027-01-01T00:00:00Z")
         with self.assertRaises(ValueError): normalise(b, SOURCES)

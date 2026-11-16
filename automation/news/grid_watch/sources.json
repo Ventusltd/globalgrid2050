@@ -1,0 +1,16 @@
+{
+  "schema": "globalgrid2050.grid_watch.sources.v1",
+  "catalogued_at_utc": "2026-11-16T20:15:00Z",
+  "status": "CATALOGUE_ONLY_NO_REUSE_RIGHTS_GRANTED",
+  "sources": [
+    {"id":"neso-etys","publisher":"National Energy System Operator","operator":"NESO","role":"system_operator","hostname":"www.neso.energy","url":"https://www.neso.energy/publications/electricity-ten-year-statement-etys/etys-documents-and-appendices","coverage":"ETYS 2025 appendices; existing pinned owner data in data-grid-gb, do not redownload","licence_state":"UNASSESSED"},
+    {"id":"neso-data","publisher":"National Energy System Operator","operator":"NESO","role":"system_operator","hostname":"www.neso.energy","url":"https://www.neso.energy/data-portal","coverage":"NESO datasets including connection registers; no automatic access enabled","licence_state":"UNASSESSED"},
+    {"id":"nget-projects","publisher":"National Grid Electricity Transmission","operator":"NGET","role":"transmission_owner","hostname":"www.nationalgrid.com","url":"https://www.nationalgrid.com/electricity-transmission/network-and-infrastructure/infrastructure-projects","coverage":"Transmission upgrades and individual project pages; scheme stages require item-level evidence","licence_state":"UNASSESSED"},
+    {"id":"nget-upgrade","publisher":"National Grid Electricity Transmission","operator":"NGET","role":"transmission_owner","hostname":"www.nationalgrid.com","url":"https://www.nationalgrid.com/the-great-grid-upgrade/where-its-happening","coverage":"Great Grid Upgrade project directory; not an approved investment or commissioning register","licence_state":"UNASSESSED"},
+    {"id":"ssen-t-projects","publisher":"SSEN Transmission","operator":"SSEN-T","role":"transmission_owner","hostname":"www.ssen-transmission.co.uk","url":"https://www.ssen-transmission.co.uk/projects/project-map?view=list","coverage":"Transmission project listings with publisher-reported stage labels","licence_state":"UNASSESSED"},
+    {"id":"sp-t-strategy","publisher":"SP Energy Networks - SP Transmission","operator":"SPT","role":"transmission_owner","hostname":"www.spenergynetworks.co.uk","url":"https://www.spenergynetworks.co.uk/pages/strategic_network_design.aspx","coverage":"Strategic transmission scheme names; plans not delivery confirmation","licence_state":"UNASSESSED"},
+    {"id":"sp-t-connections","publisher":"SP Energy Networks - SP Transmission","operator":"SPT","role":"transmission_owner","hostname":"www.spenergynetworks.co.uk","url":"https://www.spenergynetworks.co.uk/pages/transmission_connections.aspx","coverage":"Transmission connection guidance, heatmap and TORI reports","licence_state":"UNASSESSED"},
+    {"id":"ukpn-open","publisher":"UK Power Networks","operator":"UKPN","role":"distribution_operator","hostname":"www.ukpowernetworks.co.uk","url":"https://www.ukpowernetworks.co.uk/our-company/open-data-portal","coverage":"Distribution asset, capacity and planning data; some tables require registration","licence_state":"UNASSESSED"},
+    {"id":"ofgem-licensees","publisher":"Ofgem","operator":"OFGEM","role":"regulator","hostname":"www.ofgem.gov.uk","url":"https://www.ofgem.gov.uk/data/list-all-electricity-licensees-including-suppliers","coverage":"Operator/licensee reference, not evidence of physical scheme delivery","licence_state":"UNASSESSED"}
+  ]
+}

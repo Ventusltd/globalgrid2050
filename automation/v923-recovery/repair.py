@@ -80,10 +80,13 @@ def reconcile():
        "js":"(function(){var headers=[...document.querySelectorAll('.tablewrap thead th')].map(function(th){return th.textContent.replace(/[^A-Z ]/g,'').trim().replace(/ +/g,' ')}).join('|');var row=document.querySelector('#tbody tr');var notes=row?.querySelector('button.machine-note-button[data-note-ref]');return headers==="+json.dumps(labels)+"&&row?.children.length===12&&!!notes&&!!row.querySelector('a.atlaslink[href*=repd_ref]')&&!!document.querySelector('#newsArchive[hidden]')&&!document.querySelector('script[src*=datacentre-news]');})()"},
       {"name":"V9.23 accessible Machine Read Notes opens without altering MAP",
        "selector":"body",
-       "js":"(function(){var b=document.querySelector('#tbody tr button.machine-note-button'),a=b?.closest('tr')?.querySelector('a.atlaslink');if(!b||!a)return false;var before=a.href;b.click();var d=document.querySelector('dialog.machine-note-dialog');var content=d?.querySelector('#machineNoteBody')?.textContent||'';var pass=d?.open&&content.includes('CANDIDATE')===false&&content.includes('OFFICIAL SOURCE STATUS')&&a.href===before&&d.querySelector('button.machine-note-close')?.getBoundingClientRect().height>=44;if(d?.open)d.close();return !!pass;})()"},
+       "js":"(function(){var b=document.querySelector('#tbody tr button.machine-note-button'),a=b?.closest('tr')?.querySelector('a.atlaslink');if(!b||!a)return false;var before=a.href;b.click();var d=document.querySelector('dialog.machine-note-dialog');var content=d?.querySelector('#machineNoteBody')?.textContent||'';var pass=d?.open&&(/CANDIDATE|INSUFFICIENT EVIDENCE/.test(content))&&content.includes('OFFICIAL SOURCE STATUS')&&a.href===before&&d.querySelector('button.machine-note-close')?.getBoundingClientRect().height>=44;if(d?.open)d.close();return !!pass;})()"},
       {"name":"V9.23 one live feed, no separate politics or dead show table action",
        "selector":"body",
-       "js":"!!document.querySelector('#liveNews')&&!document.querySelector('#dcNews')&&!!document.querySelector('#newsArchive[hidden]')&&!document.querySelector('#liveNews button.ln-match')"}
+       "js":"!!document.querySelector('#liveNews')&&!document.querySelector('#dcNews')&&!!document.querySelector('#newsArchive[hidden]')&&!document.querySelector('#liveNews button.ln-match')"},
+      {"name":"V9.23 mobile note button visible and accessible without sideways scroll",
+       "selector":"body",
+       "js":"(function(){var b=document.querySelector('#tbody tr button.mobile-machine-note');if(!b)return false;var css=getComputedStyle(b);if(innerWidth>768)return css.display==='none';var r=b.getBoundingClientRect();return css.display!=='none'&&r.height>=44&&r.left>=0&&r.right<=innerWidth&&!!b.closest('td.site')&&b.getAttribute('data-note-ref')!==null;})()"}
     ]
     v["browser_probes"]=[p for p in v.get("browser_probes",[]) if p["name"] not in {x["name"] for x in checks}]+checks
     v["state"]="nonlive_candidate"

@@ -335,7 +335,7 @@
           "name": "data-centre attribution block",
           "selector": "#dcAttribution",
           "contains": [
-            "© OpenStreetMap contributors",
+            "\u00a9 OpenStreetMap contributors",
             "ODbL 1.0",
             "Open Government Licence v3.0",
             "unverified",
@@ -531,7 +531,7 @@
         {
           "name": "no typed-in counts or audited-snapshot wording",
           "selector": "body",
-          "js": "!/133 HEADLINES · 45 UK|AUDITED SNAPSHOT|ENERGY DAILY/i.test(document.body.textContent)"
+          "js": "!/133 HEADLINES \u00b7 45 UK|AUDITED SNAPSHOT|ENERGY DAILY/i.test(document.body.textContent)"
         },
         {
           "name": "table columns unchanged from the parent",
@@ -551,7 +551,7 @@
         {
           "name": "headline list: newest first, text only, possible-match chip",
           "selector": "body",
-          "js": "(function(){window.pipelineHeadlines.render({\"schema\": \"globalgrid2050.news.pipeline-headlines.v1\", \"generated_at\": \"2026-11-14T09:00:00Z\", \"status\": \"ok\", \"items\": [{\"title\": \"PROBE older headline\", \"link\": \"https://example.org/a\", \"source\": \"Probe Source\", \"date\": \"2026-11-10T08:00:00Z\", \"first_seen\": \"2026-11-10T09:00:00Z\", \"category\": \"grid\", \"technology\": null, \"possible_match\": null}, {\"title\": \"PROBE newest <b>headline</b>\", \"link\": \"https://example.org/b\", \"source\": \"Probe Source\", \"date\": \"2026-11-13T08:00:00Z\", \"first_seen\": \"2026-11-13T09:00:00Z\", \"category\": \"refusal\", \"technology\": \"solar\", \"possible_match\": {\"repd_ref\": \"13599\", \"site_name\": \"Beacon Fen Energy Park\", \"basis\": \"technology\"}}, {\"title\": \"PROBE undated middle headline\", \"link\": \"https://example.org/c\", \"source\": \"Probe Source\", \"date\": null, \"first_seen\": \"2026-11-12T09:00:00Z\", \"category\": \"other\", \"technology\": null, \"possible_match\": null}]},'live',Date.parse('2026-11-14T10:00:00Z'));var t=[...document.querySelectorAll('#liveNews .ln-title')].map(function(a){return a.textContent;});var chip=document.querySelector('#liveNews .ln-match');var first=document.querySelector('#liveNews .ln-item');return t.join('|')==='PROBE newest <b>headline</b>|PROBE undated middle headline|PROBE older headline'&&!document.querySelector('#liveNews .ln-title b')&&chip.textContent==='Possible match: Beacon Fen Energy Park (REPD 13599)'&&first.contains(chip)&&/13 NOV 2026 · REFUSED · SOLAR · Probe Source/.test(first.textContent)&&document.querySelector('#liveNews .ln-title').rel==='noopener noreferrer'&&document.querySelector('#newsStatus').textContent==='Headlines updated 14 Nov 2026 09:00 UTC';})()"
+          "js": "(function(){window.pipelineHeadlines.render({\"schema\": \"globalgrid2050.news.pipeline-headlines.v1\", \"generated_at\": \"2026-11-14T09:00:00Z\", \"status\": \"ok\", \"items\": [{\"title\": \"PROBE older headline\", \"link\": \"https://example.org/a\", \"source\": \"Probe Source\", \"date\": \"2026-11-10T08:00:00Z\", \"first_seen\": \"2026-11-10T09:00:00Z\", \"category\": \"grid\", \"technology\": null, \"possible_match\": null}, {\"title\": \"PROBE newest <b>headline</b>\", \"link\": \"https://example.org/b\", \"source\": \"Probe Source\", \"date\": \"2026-11-13T08:00:00Z\", \"first_seen\": \"2026-11-13T09:00:00Z\", \"category\": \"refusal\", \"technology\": \"solar\", \"possible_match\": {\"repd_ref\": \"13599\", \"site_name\": \"Beacon Fen Energy Park\", \"basis\": \"technology\"}}, {\"title\": \"PROBE undated middle headline\", \"link\": \"https://example.org/c\", \"source\": \"Probe Source\", \"date\": null, \"first_seen\": \"2026-11-12T09:00:00Z\", \"category\": \"other\", \"technology\": null, \"possible_match\": null}]},'live',Date.parse('2026-11-14T10:00:00Z'));var t=[...document.querySelectorAll('#liveNews .ln-title')].map(function(a){return a.textContent;});var chip=document.querySelector('#liveNews .ln-match');var first=document.querySelector('#liveNews .ln-item');return t.join('|')==='PROBE newest <b>headline</b>|PROBE undated middle headline|PROBE older headline'&&!document.querySelector('#liveNews .ln-title b')&&chip.textContent==='Possible match: Beacon Fen Energy Park (REPD 13599)'&&first.contains(chip)&&/13 NOV 2026 \u00b7 REFUSED \u00b7 SOLAR \u00b7 Probe Source/.test(first.textContent)&&document.querySelector('#liveNews .ln-title').rel==='noopener noreferrer'&&document.querySelector('#newsStatus').textContent==='Headlines updated 14 Nov 2026 09:00 UTC';})()"
         },
         {
           "name": "archive: unmatched headlines carry no project line",
@@ -723,23 +723,61 @@
       "ci": null,
       "merge_commit": null,
       "state": "release_candidate_known_unverified_sources"
+    },
+    {
+      "id": "202611161250",
+      "version": "V9.24",
+      "parent": "202611161244",
+      "date": "2026-11-16T12:50:00Z",
+      "added": "1,000 pinned Solar-1000 refs; 2 provisional leads, 998 not researched, 0 verified",
+      "data_changed": false,
+      "runner": "tests/run_v9_24.sh",
+      "trees": [
+        "fdd27b1e2a7ce66d370d4361376183c8d17cfc1e"
+      ],
+      "features": [
+        {
+          "id": "v924-pilot",
+          "file": "news/solar1000-v924.json",
+          "contains": "globalgrid2050.solar1000.pilot.v1"
+        },
+        {
+          "id": "v924-notes",
+          "file": "scripts/plugins/solar1000-v924.js",
+          "contains": "solar1000Pilot"
+        },
+        {
+          "id": "v924-ui",
+          "file": "index.html",
+          "contains": "solar1000Banner"
+        }
+      ],
+      "known_faults": [
+        "GridAtlas nearest-result mobile sheet can re-minimise at 390px",
+        "Original publisher rights/bytes and independent identity not verified"
+      ],
+      "ci": null,
+      "merge_commit": null,
+      "state": "candidate_owner_directed_known_limits",
+      "pilot_evidence": {
+        "register": 7775,
+        "solar": 3604,
+        "selected": 1000,
+        "search_candidates": 2,
+        "independently_verified": 0,
+        "not_researched": 998
+      }
     }
   ],
   "size_budget_mb": 18,
   "size_budget_from": "202611140136",
   "release_candidate": {
-    "id": "202611160020",
-    "version": "V9.23",
-    "state": "PUBLISHED — ITERATIVE, EXTERNAL MOBILE GRIDATLAS STILL RED",
+    "id": "202611161250",
+    "version": "V9.24",
+    "state": "OWNER DIRECTED CANDIDATE; ZERO VERIFIED SOURCE NEWS",
     "operative": {
       "id": "202611160020",
       "version": "V9.23"
-    },
-    "held_candidate": {
-      "id": "202611140247",
-      "version": "V9.19",
-      "state": "held candidate (data-centre register context, awaiting licence verification)"
-    },
-    "note": "V9.23 published 16 November 2026 on direct owner instruction. One simplified feed; native brief, possible-match Machine Read Notes visible in each project row; broken show-table shortcut removed. V9.22 (202611151300), V9.21 and V9.20 remain available and immutable. External GridAtlas real mobile first-restore: 390px 1/3 PASS for solar/BESS/wind, 1440px 3/3 PASS. Original publisher rights/independent per-article match verification not established; existing official REPD statuses unchanged. No claim that an independently verified planning event was created by heuristic notes."
+    }
   }
 }

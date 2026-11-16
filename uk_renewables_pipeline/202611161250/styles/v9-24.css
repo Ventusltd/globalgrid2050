@@ -1,0 +1,5 @@
+.solar1000-banner{padding:1rem 1.25rem;margin:1.2rem 0;background:#142226;border:1px solid #4e9084;border-radius:8px;color:#eef6f3}
+.solar1000-banner h2{font-size:1.15rem;margin:0 0 .6rem}.solar1000-banner p{line-height:1.5}
+.solar1000-banner button,.solar1000-banner a{display:inline-block;margin:.4rem .5rem .3rem 0;padding:.65rem .8rem;background:#193a3e;border:1px solid #8ac9b9;color:#e9fffa;border-radius:5px;cursor:pointer;font:inherit;font-size:.9rem}
+.solar1000-note{margin-top:1rem;border-top:2px solid #75aa9f;padding:1rem;line-height:1.5;overflow-wrap:anywhere}
+@media(max-width:768px){.solar1000-banner{padding:.75rem}.solar1000-banner button,.solar1000-banner a{width:100%;box-sizing:border-box;text-align:center}}

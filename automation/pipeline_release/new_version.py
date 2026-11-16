@@ -19,7 +19,7 @@ from datetime import datetime, timezone
 
 from common import PIPELINE, HERE, load_registry, save_registry, tree_hash, walk
 
-RUNNER_TEMPLATE = (HERE / "runner_template.sh").read_text()
+RUNNER_TEMPLATE = (HERE / "runner_template.sh").read_text(encoding="utf-8")
 
 
 def write_text(path, text):
@@ -45,7 +45,7 @@ def create(new_id, version, title, state="BUILD", dry_run=False):
     old_check = dst / f"tests/check_v{num(pv)}.mjs"
     check_template = HERE / "check_template.mjs"
     old_check.unlink()
-    check = check_template.read_text().replace("@VERSION@", nv.lstrip("V")).replace("@PARENT_ID@", parent["id"]).replace("@FIXTURE_OWNER@", reg["fixture_owner"]).replace("@NUM@", num(nv)).replace("@STATE@", state)
+    check = check_template.read_text(encoding="utf-8").replace("@VERSION@", nv.lstrip("V")).replace("@PARENT_ID@", parent["id"]).replace("@FIXTURE_OWNER@", reg["fixture_owner"]).replace("@NUM@", num(nv)).replace("@STATE@", state)
     write_text(dst / f"tests/check_v{num(nv)}.mjs", check)
     runner = (RUNNER_TEMPLATE.replace("@NUM@", num(nv)).replace("@VERSION@", nv).replace("@PARENT_ID@", parent["id"])
               .replace("@PARENT_TREE@", tree_hash(parent["id"])).replace("@FIXTURE_OWNER@", reg["fixture_owner"]))
@@ -54,7 +54,7 @@ def create(new_id, version, title, state="BUILD", dry_run=False):
     path.chmod(0o755)
 
     day = datetime.now(timezone.utc).strftime("%d %B %Y").lstrip("0")
-    html = (dst / "index.html").read_text()
+    html = (dst / "index.html").read_text(encoding="utf-8")
     html = html.replace(f"UK Renewables Pipeline {parent['id']}</title>", f"UK Renewables Pipeline {new_id}</title>")
     html = html.replace(f"<small>UK RENEWABLES PIPELINE · {pv}</small>", f"<small>UK RENEWABLES PIPELINE · {nv}</small>")
     html, n = re.subn(r'<a class="active" href="#">[^<]*</a>\n(\s*)(<a href="\.\./versions\.html">[^<]*</a>\n\s*)?',
@@ -89,7 +89,7 @@ def finalize(new_id, added, faults, features, state="published"):
     changed = sorted(p for p in new if p not in old or (src / p).read_bytes() != (dst / p).read_bytes())
     removed = sorted(old - new)
     runner = next(p for p in changed if re.fullmatch(r"tests/run_v9_\d+\.sh", p))
-    text = (dst / runner).read_text()
+    text = (dst / runner).read_text(encoding="utf-8")
     block = lambda name, items: f"{name}=(\n" + "".join(f"  {i}\n" for i in items) + ")"
     text = re.sub(r"CHANGED_FROM_PARENT=\(\n.*?\n?\)", block("CHANGED_FROM_PARENT", changed), text, count=1, flags=re.S)
     text = re.sub(r"REMOVED_FROM_PARENT=\(\n.*?\n?\)", block("REMOVED_FROM_PARENT", removed), text, count=1, flags=re.S)

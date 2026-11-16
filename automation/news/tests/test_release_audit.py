@@ -25,6 +25,14 @@ def test_release_text_is_utf8_lf(tmp_path):
     assert path.read_bytes() == "Solar · provisional\n".encode()
 
 
+def test_registry_round_trip_preserves_utf8_metadata(tmp_path, monkeypatch):
+    path = tmp_path / "registry.json"
+    monkeypatch.setattr(common, "REGISTRY", path)
+    registry = {"versions": [{"added": "Solar · quoted \u201ccandidate\u201d · 東京"}]}
+    common.save_registry(registry)
+    assert common.load_registry() == registry
+
+
 def test_published_record_cannot_be_refinalized(monkeypatch):
     monkeypatch.setattr(new_version, "load_registry", lambda: {
         "versions": [{"id": "202611161244", "version": "V9.24", "state": "published"}]})

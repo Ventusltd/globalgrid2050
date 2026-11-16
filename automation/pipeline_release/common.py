@@ -69,7 +69,7 @@ def data_digest(folder: Path) -> str:
 
 
 def load_registry():
-    return json.loads(REGISTRY.read_text())
+    return json.loads(REGISTRY.read_text(encoding="utf-8"))
 
 
 def save_registry(reg):

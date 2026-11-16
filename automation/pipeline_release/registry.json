@@ -642,7 +642,7 @@
       "data_changed": false,
       "runner": "tests/run_v9_23.sh",
       "trees": [
-        "5d6e2b4c72646093cdbc4a053869c840ceb26f3e"
+        "aa5e6f62d7ca50a6789be8e5ea9d4d713e99f9e5"
       ],
       "features": [
         {
@@ -659,6 +659,31 @@
       "state": "nonlive_candidate",
       "removed_features": [
         "datacentre-news-panel"
+      ],
+      "removed_probes": [
+        "table columns unchanged from the parent"
+      ],
+      "browser_probes": [
+        {
+          "name": "V9.23 native 12-column notes and original MAP sibling",
+          "selector": "body",
+          "js": "(function(){var headers=[...document.querySelectorAll('.tablewrap thead th')].map(function(th){return th.textContent.replace(/[^A-Z ]/g,'').trim().replace(/ +/g,' ')}).join('|');var row=document.querySelector('#tbody tr');var notes=row?.querySelector('button.machine-note-button[data-note-ref]');return headers===\"SITE NAME|COUNTY|OPERATOR|TECHNOLOGY|OFFICIAL REPD STATUS|OFFICIAL CAPACITY|REPD REF|GLOBALGRID REF|REPD UPDATED|NEWS SIGNAL|MACHINE READ NOTES|ACTIONS\"&&row?.children.length===12&&!!notes&&!!row.querySelector('a.atlaslink[href*=repd_ref]')&&!!document.querySelector('#newsArchive[hidden]')&&!document.querySelector('script[src*=datacentre-news]');})()"
+        },
+        {
+          "name": "V9.23 accessible Machine Read Notes opens without altering MAP",
+          "selector": "body",
+          "js": "(function(){var b=document.querySelector('#tbody tr button.machine-note-button'),a=b?.closest('tr')?.querySelector('a.atlaslink');if(!b||!a)return false;var before=a.href;b.click();var d=document.querySelector('dialog.machine-note-dialog');var content=d?.querySelector('#machineNoteBody')?.textContent||'';var pass=d?.open&&(/CANDIDATE|INSUFFICIENT EVIDENCE/.test(content))&&content.includes('OFFICIAL SOURCE STATUS')&&a.href===before&&d.querySelector('button.machine-note-close')?.getBoundingClientRect().height>=44;if(d?.open)d.close();return !!pass;})()"
+        },
+        {
+          "name": "V9.23 one live feed, no separate politics or dead show table action",
+          "selector": "body",
+          "js": "!!document.querySelector('#liveNews')&&!document.querySelector('#dcNews')&&!!document.querySelector('#newsArchive[hidden]')&&!document.querySelector('#liveNews button.ln-match')"
+        },
+        {
+          "name": "V9.23 mobile note button visible and accessible without sideways scroll",
+          "selector": "body",
+          "js": "(function(){var b=document.querySelector('#tbody tr button.mobile-machine-note');if(!b)return false;var css=getComputedStyle(b);if(innerWidth>768)return css.display==='none';var r=b.getBoundingClientRect();return css.display!=='none'&&r.height>=44&&r.left>=0&&r.right<=innerWidth&&!!b.closest('td.site')&&b.getAttribute('data-note-ref')!==null;})()"
+        }
       ]
     }
   ],

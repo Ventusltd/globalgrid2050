@@ -89,7 +89,7 @@
     var m = item.possible_match;
     if (m && /^\d+$/.test(String(m.repd_ref || '')) && m.site_name) {
       var chip = el('span', 'ln-match', 'Possible match: ' + m.site_name + ' (REPD ' + m.repd_ref + ')');
-      chip.title = 'Unverified headline match, not a proven project event';
+      chip.title = 'Unverified name coincidence; not a confirmed link to a project event; inspect the original publisher.';
       box.appendChild(chip);
     }
     return box;

@@ -5,3 +5,7 @@
 @media(max-width:600px){.machine-note-dialog h2{font-size:18px;clear:both}.machine-note-button{min-width:86px}.machine-note-cell{min-width:100px}}
 @media(prefers-reduced-motion:reduce){.machine-note-dialog *{animation:none!important;transition:none!important}}
 @media print{.machine-note-dialog{position:static;max-height:none;overflow:visible;border:0;width:auto}.machine-note-close{display:none}}
+
+/* Phone: note action in site cell, independent of horizontal table scroll. */
+.mobile-machine-note{display:none!important}
+@media(max-width:768px){.mobile-machine-note{display:inline-flex!important;align-items:center;margin-top:8px;font-size:11px;min-width:112px}.tablewrap th:nth-last-child(2),.tablewrap td.machine-note-cell{display:none}}

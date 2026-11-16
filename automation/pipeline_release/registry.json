@@ -696,6 +696,33 @@
           "js": "(function(){var b=document.querySelector('#tbody tr button.mobile-machine-note');if(!b)return false;var css=getComputedStyle(b);if(innerWidth>768)return css.display==='none';var r=b.getBoundingClientRect();return css.display!=='none'&&r.height>=44&&r.left>=0&&r.right<=innerWidth&&!!b.closest('td.site')&&b.getAttribute('data-note-ref')!==null;})()"
         }
       ]
+    },
+    {
+      "id": "202611161244",
+      "version": "V9.24",
+      "parent": "202611160020",
+      "date": "2026-11-16T12:44:00Z",
+      "added": "Solar 1000 numeric REPD pilot with two provisional candidate source links; official register unchanged",
+      "data_changed": false,
+      "runner": "tests/run_v9_24.sh",
+      "trees": [
+        "2d109396cdef80302914045b5330e4f7007e5830"
+      ],
+      "features": [
+        {
+          "id": "solar1000-pilot",
+          "file": "index.html",
+          "contains": "SOLAR 1000 EVIDENCE PILOT"
+        }
+      ],
+      "known_faults": [
+        "Zero independently verified publisher article/REPD bindings or rights; 2 provisional candidates only, 998 not researched.",
+        "Inherited external GridAtlas 390px nearest-card first-restore instability; MAP hrefs unchanged.",
+        "No paid external search configured or executed."
+      ],
+      "ci": null,
+      "merge_commit": null,
+      "state": "release_candidate_known_unverified_sources"
     }
   ],
   "size_budget_mb": 18,

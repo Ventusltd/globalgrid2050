@@ -1,0 +1,1956 @@
+{
+  "as_of": "2026-11-16T18:00:00Z",
+  "coverage": {
+    "families": {
+      "grid": 2,
+      "policy": 8,
+      "solar": 4
+    },
+    "linked_projects": 0,
+    "numeric_claims": 3,
+    "records": 14,
+    "scope": "BOUNDED_SUPPLIED_CONTEXT"
+  },
+  "input_receipts": [
+    {
+      "family": "policy",
+      "input_schema": "globalgrid2050.policy-commitments.v1",
+      "input_sha256": "850a89603bdced28f824c3e80dc25dae4cada1200f49f55a6770c9ec18221a37",
+      "native_metadata": {
+        "as_of": "2026-11-16T18:00:00Z",
+        "coverage_note": "Bounded Covenant publication, parliamentary answer and COP31 landing-page review. See historical_sources.json for separately inventoried treaty/COP coverage. No project compliance, exhaustive source search or final COP31 outcome assessed.",
+        "documents": [
+          {
+            "content_sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+            "document_state": "PUBLISHED_POLICY",
+            "hash_limitation": null,
+            "id": "uk:dc-covenant:2026-10-28",
+            "issuer": "UK Government / HM Treasury",
+            "published_on": "2026-10-28",
+            "read_coverage": {
+              "locators": [
+                "Introduction",
+                "Section 1",
+                "Section 2",
+                "Section 3",
+                "Section 4",
+                "Section 5",
+                "Support offer after Section 5",
+                "Closing reform bullets"
+              ],
+              "note": "Main publication text read. Linked legislation, guidance and other policy documents not reviewed.",
+              "state": "READ"
+            },
+            "retrieved_at": "2026-11-16T17:16:27Z",
+            "reviewed_at": "2026-11-16T17:16:51Z",
+            "source_kind": "PRIMARY_POLICY",
+            "title": "The Data Centre Covenant",
+            "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant",
+            "version": "Published 2026-10-28; original HTML response reviewed"
+          },
+          {
+            "content_sha256": null,
+            "document_state": "PUBLISHED_POLICY",
+            "hash_limitation": "Original HTML retrieval returned HTTP 403; primary question and answer read through web extraction. Original-byte digest unavailable.",
+            "id": "uk:written-answer:41981",
+            "issuer": "Department for Business, Innovation, Science and Trade",
+            "published_on": "2026-11-13",
+            "read_coverage": {
+              "locators": [
+                "Answer, paragraph 1",
+                "Answer, paragraph 2"
+              ],
+              "note": "Question and both answer paragraphs reviewed; no inference about unreviewed implementation instruments.",
+              "state": "READ"
+            },
+            "retrieved_at": null,
+            "reviewed_at": "2026-11-16T17:16:51Z",
+            "source_kind": "OFFICIAL_ANSWER",
+            "title": "Data Centres: written answer 41981",
+            "url": "https://questions-statements.parliament.uk/written-questions/detail/2026-11-10/41981",
+            "version": "Question 2026-11-10; answer 2026-11-13"
+          },
+          {
+            "content_sha256": null,
+            "document_state": "IN_PROGRESS",
+            "hash_limitation": "Direct response was an access interstitial, not the conference document; original-byte digest unavailable. Primary page read through web extraction.",
+            "id": "unfccc:cop31:2026-11-16",
+            "issuer": "UNFCCC Secretariat",
+            "published_on": null,
+            "read_coverage": {
+              "locators": [
+                "Conference schedule",
+                "Updates dated 16 November 2026",
+                "Sessions and documents links"
+              ],
+              "note": "Conference scheduled 9-20 November 2026. Landing-page dates and current updates read; no substantive final COP31 decision reviewed.",
+              "state": "PARTIAL"
+            },
+            "retrieved_at": null,
+            "reviewed_at": "2026-11-16T17:16:51Z",
+            "source_kind": "CONFERENCE_INDEX",
+            "title": "UN Climate Change Conference - Antalya, November 2026",
+            "url": "https://unfccc.int/cop31",
+            "version": "Live conference landing page reviewed 2026-11-16"
+          }
+        ],
+        "schema": "globalgrid2050.policy-commitment-evaluation.v1"
+      },
+      "output_schema": "globalgrid2050.policy-commitment-evaluation.v1",
+      "record_count": 8,
+      "source_byte_validation": "RECEIPTS_ONLY",
+      "source_count": 3
+    },
+    {
+      "family": "grid",
+      "input_schema": "globalgrid2050.grid-dc-context-input.v1",
+      "input_sha256": "1f12601d0c365a441ea572f18876c48c2bf3c034aeb2299a838ac2627e4a95d9",
+      "native_metadata": {
+        "as_of": "2026-11-16T18:00:00Z",
+        "context_count": 2,
+        "input_sha256": "9c74b8e400f14199f8481728a2279cde5090446d1cd5322a8b00addad954697b",
+        "limitations": [
+          "Dated document context; current delivery and ownership are not established.",
+          "No site crosswalk, proximity inference, aggregation, ranking or publication approval.",
+          "Successful source retrieval is not independent factual or numerical verification."
+        ],
+        "linked_project_count": 0,
+        "numeric_claim_count": 1,
+        "schema": "globalgrid2050.grid-dc-context.v1"
+      },
+      "output_schema": "globalgrid2050.grid-dc-context.v1",
+      "record_count": 2,
+      "source_byte_validation": "RECEIPTS_ONLY",
+      "source_count": 2
+    },
+    {
+      "family": "solar",
+      "input_schema": "globalgrid2050.solar-dc-context-input.v1",
+      "input_sha256": "2318ca816a82086824b0134329278b27f98ba993347e0f5386ea5d23ce4f5807",
+      "native_metadata": {
+        "as_of": "2026-11-16T18:00:00Z",
+        "context_count": 4,
+        "coverage": "BOUNDED_PRIMARY_SOURCE_SLICE",
+        "input_sha256": "57963df3e7eaa33c1f2b2abfd26d5621735454afb793771b8a1d26f6116336a4",
+        "limitations": [
+          "Dated source claims are provisional; present delivery is unknown.",
+          "No canonical site crosswalk, proximity inference, quantity allocation or aggregation.",
+          "Receipt hashes identify observed bytes, not source truth or publication rights."
+        ],
+        "linked_project_count": 0,
+        "numeric_claim_count": 2,
+        "schema": "globalgrid2050.solar-dc-context.v1",
+        "source_byte_validation": "RECEIPTS_ONLY"
+      },
+      "output_schema": "globalgrid2050.solar-dc-context.v1",
+      "record_count": 4,
+      "source_byte_validation": "RECEIPTS_ONLY",
+      "source_count": 3
+    }
+  ],
+  "limitations": [
+    "Dated source context; no current project delivery, legal compliance or source truth certified.",
+    "No identity crosswalk, site allocation, numerical aggregation, conversion or ranking.",
+    "Receipt hashes are supplied metadata; original source bytes were not reverified.",
+    "Publication, review, retrieval and figure dates remain distinct; composition time is not source freshness.",
+    "Historical inventory is separate; no exhaustive treaty history or final COP31 outcome inferred."
+  ],
+  "records": [
+    {
+      "applicability_state": "UNKNOWN",
+      "evaluation_state": "UNKNOWN",
+      "family": "grid",
+      "id": "grid:grid-context:ferc-er24-2172-amendment",
+      "native_record": {
+        "available_grid_capacity": null,
+        "binding_basis": "DOCUMENT_CONTEXT_ONLY",
+        "canonical_project_id": null,
+        "country": "US",
+        "current_energised_load": null,
+        "current_project_state": "UNKNOWN",
+        "current_secured_connection": null,
+        "entity_scope": "project",
+        "figures_omitted_reason": null,
+        "id": "grid-context:ferc-er24-2172-amendment",
+        "kind": "connection_amendment_decision",
+        "name": "Susquehanna co-located load amendment",
+        "numeric_claims": [
+          {
+            "as_of": "2024-11-01",
+            "assurance": "unknown",
+            "basis": "forecast",
+            "claim_id": "ferc:ER24-2172-001:proposed-colocated-load",
+            "currency": null,
+            "entity": {
+              "consolidation_group_id": null,
+              "id": "grid-context:ferc-er24-2172-amendment",
+              "identity_evidence_url": "https://www.ferc.gov/sites/default/files/2024-11/20241101-3061_ER24-2172-000.pdf",
+              "scope": "project"
+            },
+            "finance_stage": null,
+            "metric": "Proposed co-located load in the rejected amended ISA",
+            "original_unit": "MW",
+            "provenance": {
+              "document_id": "ferc:ER24-2172-001:189-61-078",
+              "document_url": "https://www.ferc.gov/sites/default/files/2024-11/20241101-3061_ER24-2172-000.pdf",
+              "page": "1",
+              "published_date": "2024-11-01",
+              "retrieved_at": "2026-11-16T17:13:22.629832Z",
+              "section": "Paragraph 1",
+              "sha256": "69b04b60cfc5f0150af8cb2f96eabca1c6af9ff74f8bbdbd41a2929b0bf69934"
+            },
+            "quantity_kind": "project_demand",
+            "reporting_period": null,
+            "revision": {
+              "id": "original",
+              "restated": false,
+              "supersedes_claim_id": null
+            },
+            "scale": "1",
+            "schema": "globalgrid2050.filing-figure.v1",
+            "status": "machine-provisional",
+            "unit": "MW",
+            "value": "480"
+          }
+        ],
+        "page": "1",
+        "research_action": "Check later docket decisions; rejection of this amendment does not reject every existing arrangement.",
+        "retrieval_age_days": 0,
+        "section": "Paragraph 1",
+        "site_capex": null,
+        "source": {
+          "access_state": "OPEN_OBSERVED",
+          "authority": "REGULATOR",
+          "bytes": 607216,
+          "document_id": "ferc:ER24-2172-001:189-61-078",
+          "http_status": 200,
+          "id": "ferc:189-61-078",
+          "output_policy": "FACT_METADATA_ONLY",
+          "published_date": "2024-11-01",
+          "publisher": "Federal Energy Regulatory Commission",
+          "retrieved_at": "2026-11-16T17:13:22.629832Z",
+          "sha256": "69b04b60cfc5f0150af8cb2f96eabca1c6af9ff74f8bbdbd41a2929b0bf69934",
+          "title": "Order rejecting amendments to interconnection service agreement",
+          "url": "https://www.ferc.gov/sites/default/files/2024-11/20241101-3061_ER24-2172-000.pdf"
+        },
+        "source_document_age_days": 745,
+        "source_entity_reference": "ER24-2172-000; ER24-2172-001; Service Agreement No. 1442",
+        "source_id": "ferc:189-61-078",
+        "source_state": "REJECTED",
+        "status": "PROVISIONAL"
+      },
+      "native_schema": "globalgrid2050.grid-dc-context.v1",
+      "numeric_claims": [
+        {
+          "claim": {
+            "as_of": "2024-11-01",
+            "assurance": "unknown",
+            "basis": "forecast",
+            "claim_id": "ferc:ER24-2172-001:proposed-colocated-load",
+            "currency": null,
+            "entity": {
+              "consolidation_group_id": null,
+              "id": "grid-context:ferc-er24-2172-amendment",
+              "identity_evidence_url": "https://www.ferc.gov/sites/default/files/2024-11/20241101-3061_ER24-2172-000.pdf",
+              "scope": "project"
+            },
+            "finance_stage": null,
+            "metric": "Proposed co-located load in the rejected amended ISA",
+            "original_unit": "MW",
+            "provenance": {
+              "document_id": "ferc:ER24-2172-001:189-61-078",
+              "document_url": "https://www.ferc.gov/sites/default/files/2024-11/20241101-3061_ER24-2172-000.pdf",
+              "page": "1",
+              "published_date": "2024-11-01",
+              "retrieved_at": "2026-11-16T17:13:22.629832Z",
+              "section": "Paragraph 1",
+              "sha256": "69b04b60cfc5f0150af8cb2f96eabca1c6af9ff74f8bbdbd41a2929b0bf69934"
+            },
+            "quantity_kind": "project_demand",
+            "reporting_period": null,
+            "revision": {
+              "id": "original",
+              "restated": false,
+              "supersedes_claim_id": null
+            },
+            "scale": "1",
+            "schema": "globalgrid2050.filing-figure.v1",
+            "status": "machine-provisional",
+            "unit": "MW",
+            "value": "480"
+          },
+          "qualifier": null,
+          "role": "CONTEXT"
+        }
+      ],
+      "scope": {
+        "binding": "UNLINKED",
+        "canonical_project_id": null,
+        "entity_id": "grid-context:ferc-er24-2172-amendment",
+        "kind": "project",
+        "native_scope": "project"
+      },
+      "source_links": [
+        {
+          "document_id": "ferc:ER24-2172-001:189-61-078",
+          "locator": {
+            "page": "1",
+            "section": "Paragraph 1",
+            "text": null
+          },
+          "published_date": "2024-11-01",
+          "publisher": "Federal Energy Regulatory Commission",
+          "receipt": {
+            "access_state": "OPEN_OBSERVED",
+            "authority": "REGULATOR",
+            "bytes": 607216,
+            "document_id": "ferc:ER24-2172-001:189-61-078",
+            "http_status": 200,
+            "id": "ferc:189-61-078",
+            "output_policy": "FACT_METADATA_ONLY",
+            "published_date": "2024-11-01",
+            "publisher": "Federal Energy Regulatory Commission",
+            "retrieved_at": "2026-11-16T17:13:22.629832Z",
+            "sha256": "69b04b60cfc5f0150af8cb2f96eabca1c6af9ff74f8bbdbd41a2929b0bf69934",
+            "title": "Order rejecting amendments to interconnection service agreement",
+            "url": "https://www.ferc.gov/sites/default/files/2024-11/20241101-3061_ER24-2172-000.pdf"
+          },
+          "retrieved_at": "2026-11-16T17:13:22.629832Z",
+          "reviewed_at": null,
+          "sha256": "69b04b60cfc5f0150af8cb2f96eabca1c6af9ff74f8bbdbd41a2929b0bf69934",
+          "url": "https://www.ferc.gov/sites/default/files/2024-11/20241101-3061_ER24-2172-000.pdf"
+        }
+      ],
+      "source_state": "REJECTED",
+      "title": "Susquehanna co-located load amendment"
+    },
+    {
+      "applicability_state": "UNKNOWN",
+      "evaluation_state": "UNKNOWN",
+      "family": "grid",
+      "id": "grid:grid-context:govuk-culham-aigz-2025-proposal",
+      "native_record": {
+        "available_grid_capacity": null,
+        "binding_basis": "DOCUMENT_CONTEXT_ONLY",
+        "canonical_project_id": null,
+        "country": "GB",
+        "current_energised_load": null,
+        "current_project_state": "UNKNOWN",
+        "current_secured_connection": null,
+        "entity_scope": "zone",
+        "figures_omitted_reason": "The proposal uses generic capacity; IT load, project demand and grid-connection basis are not distinguished. Zone scope is outside the shared numerical v1 contract.",
+        "id": "grid-context:govuk-culham-aigz-2025-proposal",
+        "kind": "development_proposal",
+        "name": "Culham AI Growth Zone proposal",
+        "numeric_claims": [],
+        "page": null,
+        "research_action": "Seek a named development scheme, planning record and dated connection evidence.",
+        "retrieval_age_days": 0,
+        "section": "Building sufficient, secure, and sustainable AI infrastructure",
+        "site_capex": null,
+        "source": {
+          "access_state": "OPEN_OBSERVED",
+          "authority": "GOVERNMENT",
+          "bytes": 190859,
+          "document_id": "govuk:ai-opportunities-action-plan-government-response",
+          "http_status": 200,
+          "id": "govuk:ai-action-response-2025",
+          "output_policy": "FACT_METADATA_ONLY",
+          "published_date": "2025-01-13",
+          "publisher": "Department for Science, Innovation and Technology",
+          "retrieved_at": "2026-11-16T17:13:22.197274Z",
+          "sha256": "b97f474f6308b8c1e4b9f77f0a4181bfc9bfca657764e8539d90e8d3a98fcc3b",
+          "title": "AI Opportunities Action Plan: government response",
+          "url": "https://www.gov.uk/government/publications/ai-opportunities-action-plan-government-response/ai-opportunities-action-plan-government-response"
+        },
+        "source_document_age_days": 672,
+        "source_entity_reference": "Culham; UK Atomic Energy Authority",
+        "source_id": "govuk:ai-action-response-2025",
+        "source_state": "PROPOSED",
+        "status": "PROVISIONAL"
+      },
+      "native_schema": "globalgrid2050.grid-dc-context.v1",
+      "numeric_claims": [],
+      "scope": {
+        "binding": "UNLINKED",
+        "canonical_project_id": null,
+        "entity_id": "grid-context:govuk-culham-aigz-2025-proposal",
+        "kind": "UNKNOWN",
+        "native_scope": "zone"
+      },
+      "source_links": [
+        {
+          "document_id": "govuk:ai-opportunities-action-plan-government-response",
+          "locator": {
+            "page": null,
+            "section": "Building sufficient, secure, and sustainable AI infrastructure",
+            "text": null
+          },
+          "published_date": "2025-01-13",
+          "publisher": "Department for Science, Innovation and Technology",
+          "receipt": {
+            "access_state": "OPEN_OBSERVED",
+            "authority": "GOVERNMENT",
+            "bytes": 190859,
+            "document_id": "govuk:ai-opportunities-action-plan-government-response",
+            "http_status": 200,
+            "id": "govuk:ai-action-response-2025",
+            "output_policy": "FACT_METADATA_ONLY",
+            "published_date": "2025-01-13",
+            "publisher": "Department for Science, Innovation and Technology",
+            "retrieved_at": "2026-11-16T17:13:22.197274Z",
+            "sha256": "b97f474f6308b8c1e4b9f77f0a4181bfc9bfca657764e8539d90e8d3a98fcc3b",
+            "title": "AI Opportunities Action Plan: government response",
+            "url": "https://www.gov.uk/government/publications/ai-opportunities-action-plan-government-response/ai-opportunities-action-plan-government-response"
+          },
+          "retrieved_at": "2026-11-16T17:13:22.197274Z",
+          "reviewed_at": null,
+          "sha256": "b97f474f6308b8c1e4b9f77f0a4181bfc9bfca657764e8539d90e8d3a98fcc3b",
+          "url": "https://www.gov.uk/government/publications/ai-opportunities-action-plan-government-response/ai-opportunities-action-plan-government-response"
+        }
+      ],
+      "source_state": "PROPOSED",
+      "title": "Culham AI Growth Zone proposal"
+    },
+    {
+      "applicability_state": "UNKNOWN",
+      "evaluation_state": "UNKNOWN",
+      "family": "policy",
+      "id": "policy:uk:dc:community-benefit",
+      "native_record": {
+        "applicability": {
+          "evidence": [],
+          "reason": "No stable project identity and conditional eligibility evidence supplied.",
+          "state": "UNKNOWN"
+        },
+        "baseline": null,
+        "baseline_state": "UNKNOWN",
+        "commitment_id": "uk:dc:community-benefit",
+        "comparison": null,
+        "conditions": [
+          "Strategic eligibility and additional government support conditions."
+        ],
+        "deadline": {
+          "value": null,
+          "wording": null
+        },
+        "document_state": "PUBLISHED_POLICY",
+        "issuer": "UK Government / HM Treasury",
+        "legal_compliance": "NOT_ASSESSED",
+        "measurement_state": "UNKNOWN",
+        "metric": {
+          "label": "Community benefit plan",
+          "limitation": "No quantified project commitment or adopted assessment framework supplied.",
+          "numeric_support": "UNSUPPORTED"
+        },
+        "reasons": [
+          "Applicability to a stable entity is unknown; conditions do not establish compliance"
+        ],
+        "reporting_obligation": null,
+        "revision": {
+          "baseline_changed": false,
+          "id": "original",
+          "supersedes_commitment_id": null
+        },
+        "scope": {
+          "description": "Data-centre policy class; strategic support eligibility is not established for any named facility.",
+          "entity_id": null,
+          "figure_entity_scope": null,
+          "id": "scope:uk-dc-policy-class",
+          "jurisdiction": "United Kingdom"
+        },
+        "source": {
+          "content_sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+          "document_id": "uk:dc-covenant:2026-10-28",
+          "locator": "Section 2",
+          "published_on": "2026-10-28",
+          "retrieved_at": "2026-11-16T17:16:27Z",
+          "reviewed_at": "2026-11-16T17:16:51Z",
+          "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant"
+        },
+        "state": "UNKNOWN",
+        "statement": "Strategic developers should agree community investment plans.",
+        "statement_type": "CONDITIONAL_REQUIREMENT",
+        "status": "machine-provisional",
+        "superseded_by": [],
+        "target": null,
+        "updates": []
+      },
+      "native_schema": "globalgrid2050.policy-commitment-evaluation.v1",
+      "numeric_claims": [],
+      "scope": {
+        "binding": "UNLINKED",
+        "canonical_project_id": null,
+        "entity_id": null,
+        "kind": "policy",
+        "native_scope": null
+      },
+      "source_links": [
+        {
+          "document_id": "uk:dc-covenant:2026-10-28",
+          "locator": {
+            "page": null,
+            "section": null,
+            "text": "Section 2"
+          },
+          "published_date": "2026-10-28",
+          "publisher": "UK Government / HM Treasury",
+          "receipt": {
+            "content_sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+            "document_state": "PUBLISHED_POLICY",
+            "hash_limitation": null,
+            "id": "uk:dc-covenant:2026-10-28",
+            "issuer": "UK Government / HM Treasury",
+            "published_on": "2026-10-28",
+            "read_coverage": {
+              "locators": [
+                "Introduction",
+                "Section 1",
+                "Section 2",
+                "Section 3",
+                "Section 4",
+                "Section 5",
+                "Support offer after Section 5",
+                "Closing reform bullets"
+              ],
+              "note": "Main publication text read. Linked legislation, guidance and other policy documents not reviewed.",
+              "state": "READ"
+            },
+            "retrieved_at": "2026-11-16T17:16:27Z",
+            "reviewed_at": "2026-11-16T17:16:51Z",
+            "source_kind": "PRIMARY_POLICY",
+            "title": "The Data Centre Covenant",
+            "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant",
+            "version": "Published 2026-10-28; original HTML response reviewed"
+          },
+          "retrieved_at": "2026-11-16T17:16:27Z",
+          "reviewed_at": "2026-11-16T17:16:51Z",
+          "sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+          "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant"
+        }
+      ],
+      "source_state": "PUBLISHED_POLICY",
+      "title": "Strategic developers should agree community investment plans."
+    },
+    {
+      "applicability_state": "ESTABLISHED",
+      "evaluation_state": "REPORTED_PROGRESS",
+      "family": "policy",
+      "id": "policy:uk:dc:control-centre",
+      "native_record": {
+        "applicability": {
+          "evidence": [
+            {
+              "document_id": "uk:dc-covenant:2026-10-28",
+              "locator": "Support offer after Section 5"
+            }
+          ],
+          "reason": "The source attributes this institutional undertaking to government itself, not a facility.",
+          "state": "ESTABLISHED"
+        },
+        "baseline": null,
+        "baseline_state": "UNKNOWN",
+        "commitment_id": "uk:dc:control-centre",
+        "comparison": null,
+        "conditions": [],
+        "deadline": {
+          "value": null,
+          "wording": null
+        },
+        "document_state": "PUBLISHED_POLICY",
+        "issuer": "UK Government / HM Treasury",
+        "legal_compliance": "NOT_ASSESSED",
+        "measurement_state": "UNKNOWN",
+        "metric": {
+          "label": "Control-centre establishment",
+          "limitation": "Qualitative process update; no operational outcome measured.",
+          "numeric_support": "UNSUPPORTED"
+        },
+        "reasons": [
+          "Attributable update recorded; measurement, scope or baseline support is insufficient for a result"
+        ],
+        "reporting_obligation": null,
+        "revision": {
+          "baseline_changed": false,
+          "id": "original",
+          "supersedes_commitment_id": null
+        },
+        "scope": {
+          "description": "Government undertaking to establish a support process.",
+          "entity_id": "public:uk-government",
+          "figure_entity_scope": "public_institution",
+          "id": "scope:uk-government",
+          "jurisdiction": "United Kingdom"
+        },
+        "source": {
+          "content_sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+          "document_id": "uk:dc-covenant:2026-10-28",
+          "locator": "Support offer after Section 5",
+          "published_on": "2026-10-28",
+          "retrieved_at": "2026-11-16T17:16:27Z",
+          "reviewed_at": "2026-11-16T17:16:51Z",
+          "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant"
+        },
+        "state": "REPORTED_PROGRESS",
+        "statement": "Government undertakes to establish a Ministerial Control Centre.",
+        "statement_type": "UNDERTAKING",
+        "status": "machine-provisional",
+        "superseded_by": [],
+        "target": null,
+        "updates": [
+          {
+            "baseline_revision_id": "original",
+            "claim": null,
+            "commitment_id": "uk:dc:control-centre",
+            "commitment_revision_id": "original",
+            "id": "uk:dc:control-centre:answer41981",
+            "kind": "PROCESS_REPORT",
+            "measurement_state": "REPORTED",
+            "reported_on": "2026-11-13",
+            "source": {
+              "document_id": "uk:written-answer:41981",
+              "locator": "Answer, paragraph 2"
+            },
+            "statement": "The minister reports establishment work underway; assessment detail remains forthcoming."
+          }
+        ]
+      },
+      "native_schema": "globalgrid2050.policy-commitment-evaluation.v1",
+      "numeric_claims": [],
+      "scope": {
+        "binding": "UNLINKED",
+        "canonical_project_id": null,
+        "entity_id": "public:uk-government",
+        "kind": "policy",
+        "native_scope": "public_institution"
+      },
+      "source_links": [
+        {
+          "document_id": "uk:dc-covenant:2026-10-28",
+          "locator": {
+            "page": null,
+            "section": null,
+            "text": "Support offer after Section 5"
+          },
+          "published_date": "2026-10-28",
+          "publisher": "UK Government / HM Treasury",
+          "receipt": {
+            "content_sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+            "document_state": "PUBLISHED_POLICY",
+            "hash_limitation": null,
+            "id": "uk:dc-covenant:2026-10-28",
+            "issuer": "UK Government / HM Treasury",
+            "published_on": "2026-10-28",
+            "read_coverage": {
+              "locators": [
+                "Introduction",
+                "Section 1",
+                "Section 2",
+                "Section 3",
+                "Section 4",
+                "Section 5",
+                "Support offer after Section 5",
+                "Closing reform bullets"
+              ],
+              "note": "Main publication text read. Linked legislation, guidance and other policy documents not reviewed.",
+              "state": "READ"
+            },
+            "retrieved_at": "2026-11-16T17:16:27Z",
+            "reviewed_at": "2026-11-16T17:16:51Z",
+            "source_kind": "PRIMARY_POLICY",
+            "title": "The Data Centre Covenant",
+            "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant",
+            "version": "Published 2026-10-28; original HTML response reviewed"
+          },
+          "retrieved_at": "2026-11-16T17:16:27Z",
+          "reviewed_at": "2026-11-16T17:16:51Z",
+          "sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+          "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant"
+        },
+        {
+          "document_id": "uk:written-answer:41981",
+          "locator": {
+            "page": null,
+            "section": null,
+            "text": "Answer, paragraph 2"
+          },
+          "published_date": "2026-11-13",
+          "publisher": "Department for Business, Innovation, Science and Trade",
+          "receipt": {
+            "content_sha256": null,
+            "document_state": "PUBLISHED_POLICY",
+            "hash_limitation": "Original HTML retrieval returned HTTP 403; primary question and answer read through web extraction. Original-byte digest unavailable.",
+            "id": "uk:written-answer:41981",
+            "issuer": "Department for Business, Innovation, Science and Trade",
+            "published_on": "2026-11-13",
+            "read_coverage": {
+              "locators": [
+                "Answer, paragraph 1",
+                "Answer, paragraph 2"
+              ],
+              "note": "Question and both answer paragraphs reviewed; no inference about unreviewed implementation instruments.",
+              "state": "READ"
+            },
+            "retrieved_at": null,
+            "reviewed_at": "2026-11-16T17:16:51Z",
+            "source_kind": "OFFICIAL_ANSWER",
+            "title": "Data Centres: written answer 41981",
+            "url": "https://questions-statements.parliament.uk/written-questions/detail/2026-11-10/41981",
+            "version": "Question 2026-11-10; answer 2026-11-13"
+          },
+          "retrieved_at": null,
+          "reviewed_at": "2026-11-16T17:16:51Z",
+          "sha256": null,
+          "url": "https://questions-statements.parliament.uk/written-questions/detail/2026-11-10/41981"
+        }
+      ],
+      "source_state": "PUBLISHED_POLICY",
+      "title": "Government undertakes to establish a Ministerial Control Centre."
+    },
+    {
+      "applicability_state": "UNKNOWN",
+      "evaluation_state": "UNKNOWN",
+      "family": "policy",
+      "id": "policy:uk:dc:energy-costs",
+      "native_record": {
+        "applicability": {
+          "evidence": [],
+          "reason": "No stable project identity and conditional eligibility evidence supplied.",
+          "state": "UNKNOWN"
+        },
+        "baseline": null,
+        "baseline_state": "UNKNOWN",
+        "commitment_id": "uk:dc:energy-costs",
+        "comparison": null,
+        "conditions": [],
+        "deadline": {
+          "value": null,
+          "wording": null
+        },
+        "document_state": "PUBLISHED_POLICY",
+        "issuer": "UK Government / HM Treasury",
+        "legal_compliance": "NOT_ASSESSED",
+        "measurement_state": "UNKNOWN",
+        "metric": {
+          "label": "Energy-system cost and resilience expectations",
+          "limitation": "No project cost measurement, baseline or quantified allocation supplied.",
+          "numeric_support": "UNSUPPORTED"
+        },
+        "reasons": [
+          "Applicability to a stable entity is unknown; conditions do not establish compliance"
+        ],
+        "reporting_obligation": null,
+        "revision": {
+          "baseline_changed": false,
+          "id": "original",
+          "supersedes_commitment_id": null
+        },
+        "scope": {
+          "description": "Data-centre policy class; strategic support eligibility is not established for any named facility.",
+          "entity_id": null,
+          "figure_entity_scope": null,
+          "id": "scope:uk-dc-policy-class",
+          "jurisdiction": "United Kingdom"
+        },
+        "source": {
+          "content_sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+          "document_id": "uk:dc-covenant:2026-10-28",
+          "locator": "Section 1",
+          "published_on": "2026-10-28",
+          "retrieved_at": "2026-11-16T17:16:27Z",
+          "reviewed_at": "2026-11-16T17:16:51Z",
+          "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant"
+        },
+        "state": "UNKNOWN",
+        "statement": "Developers should cover imposed energy-system costs and support resilience.",
+        "statement_type": "EXPECTATION",
+        "status": "machine-provisional",
+        "superseded_by": [],
+        "target": null,
+        "updates": []
+      },
+      "native_schema": "globalgrid2050.policy-commitment-evaluation.v1",
+      "numeric_claims": [],
+      "scope": {
+        "binding": "UNLINKED",
+        "canonical_project_id": null,
+        "entity_id": null,
+        "kind": "policy",
+        "native_scope": null
+      },
+      "source_links": [
+        {
+          "document_id": "uk:dc-covenant:2026-10-28",
+          "locator": {
+            "page": null,
+            "section": null,
+            "text": "Section 1"
+          },
+          "published_date": "2026-10-28",
+          "publisher": "UK Government / HM Treasury",
+          "receipt": {
+            "content_sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+            "document_state": "PUBLISHED_POLICY",
+            "hash_limitation": null,
+            "id": "uk:dc-covenant:2026-10-28",
+            "issuer": "UK Government / HM Treasury",
+            "published_on": "2026-10-28",
+            "read_coverage": {
+              "locators": [
+                "Introduction",
+                "Section 1",
+                "Section 2",
+                "Section 3",
+                "Section 4",
+                "Section 5",
+                "Support offer after Section 5",
+                "Closing reform bullets"
+              ],
+              "note": "Main publication text read. Linked legislation, guidance and other policy documents not reviewed.",
+              "state": "READ"
+            },
+            "retrieved_at": "2026-11-16T17:16:27Z",
+            "reviewed_at": "2026-11-16T17:16:51Z",
+            "source_kind": "PRIMARY_POLICY",
+            "title": "The Data Centre Covenant",
+            "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant",
+            "version": "Published 2026-10-28; original HTML response reviewed"
+          },
+          "retrieved_at": "2026-11-16T17:16:27Z",
+          "reviewed_at": "2026-11-16T17:16:51Z",
+          "sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+          "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant"
+        }
+      ],
+      "source_state": "PUBLISHED_POLICY",
+      "title": "Developers should cover imposed energy-system costs and support resilience."
+    },
+    {
+      "applicability_state": "UNKNOWN",
+      "evaluation_state": "UNKNOWN",
+      "family": "policy",
+      "id": "policy:uk:dc:environment",
+      "native_record": {
+        "applicability": {
+          "evidence": [],
+          "reason": "No stable project identity and conditional eligibility evidence supplied.",
+          "state": "UNKNOWN"
+        },
+        "baseline": null,
+        "baseline_state": "UNKNOWN",
+        "commitment_id": "uk:dc:environment",
+        "comparison": null,
+        "conditions": [
+          "Heat reuse depends on a viable local recipient."
+        ],
+        "deadline": {
+          "value": null,
+          "wording": null
+        },
+        "document_state": "PUBLISHED_POLICY",
+        "issuer": "UK Government / HM Treasury",
+        "legal_compliance": "NOT_ASSESSED",
+        "measurement_state": "UNKNOWN",
+        "metric": {
+          "label": "Environmental design, PUE, water and heat reuse",
+          "limitation": "Ratios and water metrics are outside FIGURES v1; no threshold is relabelled as power.",
+          "numeric_support": "UNSUPPORTED"
+        },
+        "reasons": [
+          "Applicability to a stable entity is unknown; conditions do not establish compliance"
+        ],
+        "reporting_obligation": "Annual resource-use and related performance reporting expected for strategic facilities.",
+        "revision": {
+          "baseline_changed": false,
+          "id": "original",
+          "supersedes_commitment_id": null
+        },
+        "scope": {
+          "description": "Data-centre policy class; strategic support eligibility is not established for any named facility.",
+          "entity_id": null,
+          "figure_entity_scope": null,
+          "id": "scope:uk-dc-policy-class",
+          "jurisdiction": "United Kingdom"
+        },
+        "source": {
+          "content_sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+          "document_id": "uk:dc-covenant:2026-10-28",
+          "locator": "Section 3",
+          "published_on": "2026-10-28",
+          "retrieved_at": "2026-11-16T17:16:27Z",
+          "reviewed_at": "2026-11-16T17:16:51Z",
+          "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant"
+        },
+        "state": "UNKNOWN",
+        "statement": "Facilities should use resources efficiently, report consumption and reuse heat where viable.",
+        "statement_type": "EXPECTATION",
+        "status": "machine-provisional",
+        "superseded_by": [],
+        "target": null,
+        "updates": []
+      },
+      "native_schema": "globalgrid2050.policy-commitment-evaluation.v1",
+      "numeric_claims": [],
+      "scope": {
+        "binding": "UNLINKED",
+        "canonical_project_id": null,
+        "entity_id": null,
+        "kind": "policy",
+        "native_scope": null
+      },
+      "source_links": [
+        {
+          "document_id": "uk:dc-covenant:2026-10-28",
+          "locator": {
+            "page": null,
+            "section": null,
+            "text": "Section 3"
+          },
+          "published_date": "2026-10-28",
+          "publisher": "UK Government / HM Treasury",
+          "receipt": {
+            "content_sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+            "document_state": "PUBLISHED_POLICY",
+            "hash_limitation": null,
+            "id": "uk:dc-covenant:2026-10-28",
+            "issuer": "UK Government / HM Treasury",
+            "published_on": "2026-10-28",
+            "read_coverage": {
+              "locators": [
+                "Introduction",
+                "Section 1",
+                "Section 2",
+                "Section 3",
+                "Section 4",
+                "Section 5",
+                "Support offer after Section 5",
+                "Closing reform bullets"
+              ],
+              "note": "Main publication text read. Linked legislation, guidance and other policy documents not reviewed.",
+              "state": "READ"
+            },
+            "retrieved_at": "2026-11-16T17:16:27Z",
+            "reviewed_at": "2026-11-16T17:16:51Z",
+            "source_kind": "PRIMARY_POLICY",
+            "title": "The Data Centre Covenant",
+            "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant",
+            "version": "Published 2026-10-28; original HTML response reviewed"
+          },
+          "retrieved_at": "2026-11-16T17:16:27Z",
+          "reviewed_at": "2026-11-16T17:16:51Z",
+          "sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+          "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant"
+        }
+      ],
+      "source_state": "PUBLISHED_POLICY",
+      "title": "Facilities should use resources efficiently, report consumption and reuse heat where viable."
+    },
+    {
+      "applicability_state": "UNKNOWN",
+      "evaluation_state": "UNKNOWN",
+      "family": "policy",
+      "id": "policy:uk:dc:jobs-hardware",
+      "native_record": {
+        "applicability": {
+          "evidence": [],
+          "reason": "No stable project identity and conditional eligibility evidence supplied.",
+          "state": "UNKNOWN"
+        },
+        "baseline": null,
+        "baseline_state": "UNKNOWN",
+        "commitment_id": "uk:dc:jobs-hardware",
+        "comparison": null,
+        "conditions": [],
+        "deadline": {
+          "value": null,
+          "wording": null
+        },
+        "document_state": "PUBLISHED_POLICY",
+        "issuer": "UK Government / HM Treasury",
+        "legal_compliance": "NOT_ASSESSED",
+        "measurement_state": "UNKNOWN",
+        "metric": {
+          "label": "Jobs, skills and hardware expectations",
+          "limitation": "No jobs, procurement or hardware outcome measurement supplied.",
+          "numeric_support": "UNSUPPORTED"
+        },
+        "reasons": [
+          "Applicability to a stable entity is unknown; conditions do not establish compliance"
+        ],
+        "reporting_obligation": null,
+        "revision": {
+          "baseline_changed": false,
+          "id": "original",
+          "supersedes_commitment_id": null
+        },
+        "scope": {
+          "description": "Data-centre policy class; strategic support eligibility is not established for any named facility.",
+          "entity_id": null,
+          "figure_entity_scope": null,
+          "id": "scope:uk-dc-policy-class",
+          "jurisdiction": "United Kingdom"
+        },
+        "source": {
+          "content_sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+          "document_id": "uk:dc-covenant:2026-10-28",
+          "locator": "Section 4",
+          "published_on": "2026-10-28",
+          "retrieved_at": "2026-11-16T17:16:27Z",
+          "reviewed_at": "2026-11-16T17:16:51Z",
+          "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant"
+        },
+        "state": "UNKNOWN",
+        "statement": "Developers should support local skills, suppliers and domestic hardware capability.",
+        "statement_type": "EXPECTATION",
+        "status": "machine-provisional",
+        "superseded_by": [],
+        "target": null,
+        "updates": []
+      },
+      "native_schema": "globalgrid2050.policy-commitment-evaluation.v1",
+      "numeric_claims": [],
+      "scope": {
+        "binding": "UNLINKED",
+        "canonical_project_id": null,
+        "entity_id": null,
+        "kind": "policy",
+        "native_scope": null
+      },
+      "source_links": [
+        {
+          "document_id": "uk:dc-covenant:2026-10-28",
+          "locator": {
+            "page": null,
+            "section": null,
+            "text": "Section 4"
+          },
+          "published_date": "2026-10-28",
+          "publisher": "UK Government / HM Treasury",
+          "receipt": {
+            "content_sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+            "document_state": "PUBLISHED_POLICY",
+            "hash_limitation": null,
+            "id": "uk:dc-covenant:2026-10-28",
+            "issuer": "UK Government / HM Treasury",
+            "published_on": "2026-10-28",
+            "read_coverage": {
+              "locators": [
+                "Introduction",
+                "Section 1",
+                "Section 2",
+                "Section 3",
+                "Section 4",
+                "Section 5",
+                "Support offer after Section 5",
+                "Closing reform bullets"
+              ],
+              "note": "Main publication text read. Linked legislation, guidance and other policy documents not reviewed.",
+              "state": "READ"
+            },
+            "retrieved_at": "2026-11-16T17:16:27Z",
+            "reviewed_at": "2026-11-16T17:16:51Z",
+            "source_kind": "PRIMARY_POLICY",
+            "title": "The Data Centre Covenant",
+            "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant",
+            "version": "Published 2026-10-28; original HTML response reviewed"
+          },
+          "retrieved_at": "2026-11-16T17:16:27Z",
+          "reviewed_at": "2026-11-16T17:16:51Z",
+          "sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+          "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant"
+        }
+      ],
+      "source_state": "PUBLISHED_POLICY",
+      "title": "Developers should support local skills, suppliers and domestic hardware capability."
+    },
+    {
+      "applicability_state": "UNKNOWN",
+      "evaluation_state": "UNKNOWN",
+      "family": "policy",
+      "id": "policy:uk:dc:national-capacity-context",
+      "native_record": {
+        "applicability": {
+          "evidence": [],
+          "reason": "No stable project identity and conditional eligibility evidence supplied.",
+          "state": "UNKNOWN"
+        },
+        "baseline": null,
+        "baseline_state": "UNKNOWN",
+        "commitment_id": "uk:dc:national-capacity-context",
+        "comparison": null,
+        "conditions": [],
+        "deadline": {
+          "value": "2030",
+          "wording": "by 2030"
+        },
+        "document_state": "PUBLISHED_POLICY",
+        "issuer": "UK Government / HM Treasury",
+        "legal_compliance": "NOT_ASSESSED",
+        "measurement_state": "UNKNOWN",
+        "metric": {
+          "label": "National AI data-centre capacity estimate",
+          "limitation": "Regional aggregate and ambiguous load scope are unsupported by FIGURES v1.",
+          "numeric_support": "UNSUPPORTED"
+        },
+        "reasons": [
+          "Applicability to a stable entity is unknown; conditions do not establish compliance"
+        ],
+        "reporting_obligation": null,
+        "revision": {
+          "baseline_changed": false,
+          "id": "original",
+          "supersedes_commitment_id": null
+        },
+        "scope": {
+          "description": "National aggregate estimate; no individual project or load type established.",
+          "entity_id": null,
+          "figure_entity_scope": null,
+          "id": "scope:uk-national-ai-capacity",
+          "jurisdiction": "United Kingdom"
+        },
+        "source": {
+          "content_sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+          "document_id": "uk:dc-covenant:2026-10-28",
+          "locator": "Introduction",
+          "published_on": "2026-10-28",
+          "retrieved_at": "2026-11-16T17:16:27Z",
+          "reviewed_at": "2026-11-16T17:16:51Z",
+          "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant"
+        },
+        "state": "UNKNOWN",
+        "statement": "Government provides a national AI capacity estimate.",
+        "statement_type": "CONTEXT",
+        "status": "machine-provisional",
+        "superseded_by": [],
+        "target": null,
+        "updates": []
+      },
+      "native_schema": "globalgrid2050.policy-commitment-evaluation.v1",
+      "numeric_claims": [],
+      "scope": {
+        "binding": "UNLINKED",
+        "canonical_project_id": null,
+        "entity_id": null,
+        "kind": "policy",
+        "native_scope": null
+      },
+      "source_links": [
+        {
+          "document_id": "uk:dc-covenant:2026-10-28",
+          "locator": {
+            "page": null,
+            "section": null,
+            "text": "Introduction"
+          },
+          "published_date": "2026-10-28",
+          "publisher": "UK Government / HM Treasury",
+          "receipt": {
+            "content_sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+            "document_state": "PUBLISHED_POLICY",
+            "hash_limitation": null,
+            "id": "uk:dc-covenant:2026-10-28",
+            "issuer": "UK Government / HM Treasury",
+            "published_on": "2026-10-28",
+            "read_coverage": {
+              "locators": [
+                "Introduction",
+                "Section 1",
+                "Section 2",
+                "Section 3",
+                "Section 4",
+                "Section 5",
+                "Support offer after Section 5",
+                "Closing reform bullets"
+              ],
+              "note": "Main publication text read. Linked legislation, guidance and other policy documents not reviewed.",
+              "state": "READ"
+            },
+            "retrieved_at": "2026-11-16T17:16:27Z",
+            "reviewed_at": "2026-11-16T17:16:51Z",
+            "source_kind": "PRIMARY_POLICY",
+            "title": "The Data Centre Covenant",
+            "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant",
+            "version": "Published 2026-10-28; original HTML response reviewed"
+          },
+          "retrieved_at": "2026-11-16T17:16:27Z",
+          "reviewed_at": "2026-11-16T17:16:51Z",
+          "sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+          "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant"
+        }
+      ],
+      "source_state": "PUBLISHED_POLICY",
+      "title": "Government provides a national AI capacity estimate."
+    },
+    {
+      "applicability_state": "UNKNOWN",
+      "evaluation_state": "UNKNOWN",
+      "family": "policy",
+      "id": "policy:uk:dc:security",
+      "native_record": {
+        "applicability": {
+          "evidence": [],
+          "reason": "No stable project identity and conditional eligibility evidence supplied.",
+          "state": "UNKNOWN"
+        },
+        "baseline": null,
+        "baseline_state": "UNKNOWN",
+        "commitment_id": "uk:dc:security",
+        "comparison": null,
+        "conditions": [],
+        "deadline": {
+          "value": null,
+          "wording": null
+        },
+        "document_state": "PUBLISHED_POLICY",
+        "issuer": "UK Government / HM Treasury",
+        "legal_compliance": "NOT_ASSESSED",
+        "measurement_state": "UNKNOWN",
+        "metric": {
+          "label": "Security and continuity expectations",
+          "limitation": "No site security assessment or measured outcome supplied.",
+          "numeric_support": "UNSUPPORTED"
+        },
+        "reasons": [
+          "Applicability to a stable entity is unknown; conditions do not establish compliance"
+        ],
+        "reporting_obligation": null,
+        "revision": {
+          "baseline_changed": false,
+          "id": "original",
+          "supersedes_commitment_id": null
+        },
+        "scope": {
+          "description": "Data-centre policy class; strategic support eligibility is not established for any named facility.",
+          "entity_id": null,
+          "figure_entity_scope": null,
+          "id": "scope:uk-dc-policy-class",
+          "jurisdiction": "United Kingdom"
+        },
+        "source": {
+          "content_sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+          "document_id": "uk:dc-covenant:2026-10-28",
+          "locator": "Section 5",
+          "published_on": "2026-10-28",
+          "retrieved_at": "2026-11-16T17:16:27Z",
+          "reviewed_at": "2026-11-16T17:16:51Z",
+          "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant"
+        },
+        "state": "UNKNOWN",
+        "statement": "Operators should improve resilience and plan for disruption.",
+        "statement_type": "EXPECTATION",
+        "status": "machine-provisional",
+        "superseded_by": [],
+        "target": null,
+        "updates": []
+      },
+      "native_schema": "globalgrid2050.policy-commitment-evaluation.v1",
+      "numeric_claims": [],
+      "scope": {
+        "binding": "UNLINKED",
+        "canonical_project_id": null,
+        "entity_id": null,
+        "kind": "policy",
+        "native_scope": null
+      },
+      "source_links": [
+        {
+          "document_id": "uk:dc-covenant:2026-10-28",
+          "locator": {
+            "page": null,
+            "section": null,
+            "text": "Section 5"
+          },
+          "published_date": "2026-10-28",
+          "publisher": "UK Government / HM Treasury",
+          "receipt": {
+            "content_sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+            "document_state": "PUBLISHED_POLICY",
+            "hash_limitation": null,
+            "id": "uk:dc-covenant:2026-10-28",
+            "issuer": "UK Government / HM Treasury",
+            "published_on": "2026-10-28",
+            "read_coverage": {
+              "locators": [
+                "Introduction",
+                "Section 1",
+                "Section 2",
+                "Section 3",
+                "Section 4",
+                "Section 5",
+                "Support offer after Section 5",
+                "Closing reform bullets"
+              ],
+              "note": "Main publication text read. Linked legislation, guidance and other policy documents not reviewed.",
+              "state": "READ"
+            },
+            "retrieved_at": "2026-11-16T17:16:27Z",
+            "reviewed_at": "2026-11-16T17:16:51Z",
+            "source_kind": "PRIMARY_POLICY",
+            "title": "The Data Centre Covenant",
+            "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant",
+            "version": "Published 2026-10-28; original HTML response reviewed"
+          },
+          "retrieved_at": "2026-11-16T17:16:27Z",
+          "reviewed_at": "2026-11-16T17:16:51Z",
+          "sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+          "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant"
+        }
+      ],
+      "source_state": "PUBLISHED_POLICY",
+      "title": "Operators should improve resilience and plan for disruption."
+    },
+    {
+      "applicability_state": "UNKNOWN",
+      "evaluation_state": "UNKNOWN",
+      "family": "policy",
+      "id": "policy:uk:dc:support-offer",
+      "native_record": {
+        "applicability": {
+          "evidence": [],
+          "reason": "No stable project identity and conditional eligibility evidence supplied.",
+          "state": "UNKNOWN"
+        },
+        "baseline": null,
+        "baseline_state": "UNKNOWN",
+        "commitment_id": "uk:dc:support-offer",
+        "comparison": null,
+        "conditions": [
+          "Strategic value and eligibility must be established.",
+          "Temporary power is conditional on exceptional strategic need and safeguards."
+        ],
+        "deadline": {
+          "value": null,
+          "wording": null
+        },
+        "document_state": "PUBLISHED_POLICY",
+        "issuer": "UK Government / HM Treasury",
+        "legal_compliance": "NOT_ASSESSED",
+        "measurement_state": "UNKNOWN",
+        "metric": {
+          "label": "Strategic support process",
+          "limitation": "No allocated connection, available grid capacity or project entitlement established.",
+          "numeric_support": "UNSUPPORTED"
+        },
+        "reasons": [
+          "Applicability to a stable entity is unknown; conditions do not establish compliance"
+        ],
+        "reporting_obligation": null,
+        "revision": {
+          "baseline_changed": false,
+          "id": "original",
+          "supersedes_commitment_id": null
+        },
+        "scope": {
+          "description": "Data-centre policy class; strategic support eligibility is not established for any named facility.",
+          "entity_id": null,
+          "figure_entity_scope": null,
+          "id": "scope:uk-dc-policy-class",
+          "jurisdiction": "United Kingdom"
+        },
+        "source": {
+          "content_sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+          "document_id": "uk:dc-covenant:2026-10-28",
+          "locator": "Support offer after Section 5",
+          "published_on": "2026-10-28",
+          "retrieved_at": "2026-11-16T17:16:27Z",
+          "reviewed_at": "2026-11-16T17:16:51Z",
+          "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant"
+        },
+        "state": "UNKNOWN",
+        "statement": "Government proposes conditional connection and temporary-power support.",
+        "statement_type": "CONDITIONAL_OFFER",
+        "status": "machine-provisional",
+        "superseded_by": [],
+        "target": null,
+        "updates": []
+      },
+      "native_schema": "globalgrid2050.policy-commitment-evaluation.v1",
+      "numeric_claims": [],
+      "scope": {
+        "binding": "UNLINKED",
+        "canonical_project_id": null,
+        "entity_id": null,
+        "kind": "policy",
+        "native_scope": null
+      },
+      "source_links": [
+        {
+          "document_id": "uk:dc-covenant:2026-10-28",
+          "locator": {
+            "page": null,
+            "section": null,
+            "text": "Support offer after Section 5"
+          },
+          "published_date": "2026-10-28",
+          "publisher": "UK Government / HM Treasury",
+          "receipt": {
+            "content_sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+            "document_state": "PUBLISHED_POLICY",
+            "hash_limitation": null,
+            "id": "uk:dc-covenant:2026-10-28",
+            "issuer": "UK Government / HM Treasury",
+            "published_on": "2026-10-28",
+            "read_coverage": {
+              "locators": [
+                "Introduction",
+                "Section 1",
+                "Section 2",
+                "Section 3",
+                "Section 4",
+                "Section 5",
+                "Support offer after Section 5",
+                "Closing reform bullets"
+              ],
+              "note": "Main publication text read. Linked legislation, guidance and other policy documents not reviewed.",
+              "state": "READ"
+            },
+            "retrieved_at": "2026-11-16T17:16:27Z",
+            "reviewed_at": "2026-11-16T17:16:51Z",
+            "source_kind": "PRIMARY_POLICY",
+            "title": "The Data Centre Covenant",
+            "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant",
+            "version": "Published 2026-10-28; original HTML response reviewed"
+          },
+          "retrieved_at": "2026-11-16T17:16:27Z",
+          "reviewed_at": "2026-11-16T17:16:51Z",
+          "sha256": "5f89b78a5d4e28fa7947e16d43d9fc1b555dae67ef2737462785595c1d6a593d",
+          "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant"
+        }
+      ],
+      "source_state": "PUBLISHED_POLICY",
+      "title": "Government proposes conditional connection and temporary-power support."
+    },
+    {
+      "applicability_state": "UNKNOWN",
+      "evaluation_state": "UNKNOWN",
+      "family": "solar",
+      "id": "solar:solar:google-nevada-2021",
+      "native_record": {
+        "canonical_binding": "UNLINKED",
+        "canonical_project_id": null,
+        "country": "US",
+        "current_delivery": "UNKNOWN",
+        "current_site_supply_mw": null,
+        "current_storage_energy_mwh": null,
+        "entity": {
+          "consolidation_group_id": null,
+          "id": "procurement:google-nvenergy-2020",
+          "identity_evidence_url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf",
+          "scope": "project"
+        },
+        "figures_omitted_reason": null,
+        "id": "solar:google-nevada-2021",
+        "name": "Google/NV Energy solar procurement programme",
+        "numeric_claims": [
+          {
+            "claim": {
+              "as_of": "2024",
+              "assurance": "unknown",
+              "basis": "forecast",
+              "claim_id": "solar:google-nevada-2021:generation_power",
+              "currency": null,
+              "entity": {
+                "consolidation_group_id": null,
+                "id": "procurement:google-nvenergy-2020",
+                "identity_evidence_url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf",
+                "scope": "project"
+              },
+              "finance_stage": null,
+              "metric": "Solar procurement capacity",
+              "original_unit": "MW",
+              "provenance": {
+                "document_id": "document:google-epa-2021",
+                "document_url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf",
+                "page": "12",
+                "published_date": "2021-09-22",
+                "retrieved_at": "2026-11-16T17:21:02Z",
+                "section": "Working with utilities on the path to 24/7",
+                "sha256": "6efe47b80b69b707d7a7b82cb629b672838b57c146b498487d44011cb0249d30"
+              },
+              "quantity_kind": "generation_power",
+              "reporting_period": null,
+              "revision": {
+                "id": "source-2021-09-22",
+                "restated": false,
+                "supersedes_claim_id": null
+              },
+              "scale": "1",
+              "schema": "globalgrid2050.filing-figure.v1",
+              "status": "machine-provisional",
+              "unit": "MW",
+              "value": "350"
+            },
+            "qualifier": "stated"
+          }
+        ],
+        "page": "12",
+        "relationship": "solar_procurement",
+        "research_action": "Check delivery, named supply assets and allocation; contracted generation is not data-centre demand.",
+        "scope_note": "Procurement programme for operations and the grid; no named site allocation or present delivery demonstrated.",
+        "section": "Working with utilities on the path to 24/7",
+        "source": {
+          "access_state": "OPEN_OBSERVED",
+          "authority": "ISSUER_PRESENTATION_GOVERNMENT_HOSTED",
+          "bytes": 1817288,
+          "document_id": "document:google-epa-2021",
+          "http_status": 200,
+          "id": "google-epa-2021",
+          "output_policy": "FACT_METADATA_ONLY",
+          "published_date": "2021-09-22",
+          "publisher": "Google (presentation hosted by US EPA)",
+          "retrieved_at": "2026-11-16T17:21:02Z",
+          "sha256": "6efe47b80b69b707d7a7b82cb629b672838b57c146b498487d44011cb0249d30",
+          "title": "24/7 Carbon-Free Energy by 2030",
+          "url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf"
+        },
+        "source_as_of": "2021-09-22",
+        "source_document_age_days": 1881,
+        "source_id": "google-epa-2021",
+        "source_state": "AGREEMENT_REPORTED",
+        "status": "PROVISIONAL"
+      },
+      "native_schema": "globalgrid2050.solar-dc-context.v1",
+      "numeric_claims": [
+        {
+          "claim": {
+            "as_of": "2024",
+            "assurance": "unknown",
+            "basis": "forecast",
+            "claim_id": "solar:google-nevada-2021:generation_power",
+            "currency": null,
+            "entity": {
+              "consolidation_group_id": null,
+              "id": "procurement:google-nvenergy-2020",
+              "identity_evidence_url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf",
+              "scope": "project"
+            },
+            "finance_stage": null,
+            "metric": "Solar procurement capacity",
+            "original_unit": "MW",
+            "provenance": {
+              "document_id": "document:google-epa-2021",
+              "document_url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf",
+              "page": "12",
+              "published_date": "2021-09-22",
+              "retrieved_at": "2026-11-16T17:21:02Z",
+              "section": "Working with utilities on the path to 24/7",
+              "sha256": "6efe47b80b69b707d7a7b82cb629b672838b57c146b498487d44011cb0249d30"
+            },
+            "quantity_kind": "generation_power",
+            "reporting_period": null,
+            "revision": {
+              "id": "source-2021-09-22",
+              "restated": false,
+              "supersedes_claim_id": null
+            },
+            "scale": "1",
+            "schema": "globalgrid2050.filing-figure.v1",
+            "status": "machine-provisional",
+            "unit": "MW",
+            "value": "350"
+          },
+          "qualifier": "stated",
+          "role": "CONTEXT"
+        }
+      ],
+      "scope": {
+        "binding": "UNLINKED",
+        "canonical_project_id": null,
+        "entity_id": "procurement:google-nvenergy-2020",
+        "kind": "project",
+        "native_scope": "project"
+      },
+      "source_links": [
+        {
+          "document_id": "document:google-epa-2021",
+          "locator": {
+            "page": "12",
+            "section": "Working with utilities on the path to 24/7",
+            "text": null
+          },
+          "published_date": "2021-09-22",
+          "publisher": "Google (presentation hosted by US EPA)",
+          "receipt": {
+            "access_state": "OPEN_OBSERVED",
+            "authority": "ISSUER_PRESENTATION_GOVERNMENT_HOSTED",
+            "bytes": 1817288,
+            "document_id": "document:google-epa-2021",
+            "http_status": 200,
+            "id": "google-epa-2021",
+            "output_policy": "FACT_METADATA_ONLY",
+            "published_date": "2021-09-22",
+            "publisher": "Google (presentation hosted by US EPA)",
+            "retrieved_at": "2026-11-16T17:21:02Z",
+            "sha256": "6efe47b80b69b707d7a7b82cb629b672838b57c146b498487d44011cb0249d30",
+            "title": "24/7 Carbon-Free Energy by 2030",
+            "url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf"
+          },
+          "retrieved_at": "2026-11-16T17:21:02Z",
+          "reviewed_at": null,
+          "sha256": "6efe47b80b69b707d7a7b82cb629b672838b57c146b498487d44011cb0249d30",
+          "url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf"
+        }
+      ],
+      "source_state": "AGREEMENT_REPORTED",
+      "title": "Google/NV Energy solar procurement programme"
+    },
+    {
+      "applicability_state": "UNKNOWN",
+      "evaluation_state": "UNKNOWN",
+      "family": "solar",
+      "id": "solar:solar:sma-iron-mountain-livingston",
+      "native_record": {
+        "canonical_binding": "UNLINKED",
+        "canonical_project_id": null,
+        "country": "GB",
+        "current_delivery": "UNKNOWN",
+        "current_site_supply_mw": null,
+        "current_storage_energy_mwh": null,
+        "entity": {
+          "consolidation_group_id": null,
+          "id": "source-site:sma-iron-mountain-livingston",
+          "identity_evidence_url": "https://www.sma-uk.com/references/iron-mountain-data-center-livingston",
+          "scope": "site"
+        },
+        "figures_omitted_reason": "Source headline and nominal-power labels differ; capacity scope is unresolved, so no numeric rating is selected.",
+        "id": "solar:sma-iron-mountain-livingston",
+        "name": "Iron Mountain Livingston onsite solar PPA context",
+        "numeric_claims": [],
+        "page": null,
+        "relationship": "onsite_solar_ppa",
+        "research_action": "Check current operation and reconcile source capacity labels before using a numeric site rating.",
+        "scope_note": "Supplier describes a named Livingston installation and PPA model. This source-specific site key is not a canonical cohort binding.",
+        "section": "Commercial PV power plant; Commissioning; Specific requirements; End Energy User",
+        "source": {
+          "access_state": "OPEN_OBSERVED",
+          "authority": "SUPPLIER_CASE_STUDY",
+          "bytes": 118620,
+          "document_id": "document:sma-livingston",
+          "http_status": 200,
+          "id": "sma-livingston",
+          "output_policy": "FACT_METADATA_ONLY",
+          "published_date": null,
+          "publisher": "SMA Solar Technology AG",
+          "retrieved_at": "2026-11-16T17:21:03Z",
+          "sha256": "a5a8fce85311098c6b01c4548e52e882a28f357ce37ec712de0743177575dd3d",
+          "title": "Iron Mountain data centre in Livingston: commercial PV case study",
+          "url": "https://www.sma-uk.com/references/iron-mountain-data-center-livingston"
+        },
+        "source_as_of": "2020-03",
+        "source_document_age_days": null,
+        "source_id": "sma-livingston",
+        "source_state": "COMMISSIONED_REPORTED",
+        "status": "PROVISIONAL"
+      },
+      "native_schema": "globalgrid2050.solar-dc-context.v1",
+      "numeric_claims": [],
+      "scope": {
+        "binding": "UNLINKED",
+        "canonical_project_id": null,
+        "entity_id": "source-site:sma-iron-mountain-livingston",
+        "kind": "project",
+        "native_scope": "site"
+      },
+      "source_links": [
+        {
+          "document_id": "document:sma-livingston",
+          "locator": {
+            "page": null,
+            "section": "Commercial PV power plant; Commissioning; Specific requirements; End Energy User",
+            "text": null
+          },
+          "published_date": null,
+          "publisher": "SMA Solar Technology AG",
+          "receipt": {
+            "access_state": "OPEN_OBSERVED",
+            "authority": "SUPPLIER_CASE_STUDY",
+            "bytes": 118620,
+            "document_id": "document:sma-livingston",
+            "http_status": 200,
+            "id": "sma-livingston",
+            "output_policy": "FACT_METADATA_ONLY",
+            "published_date": null,
+            "publisher": "SMA Solar Technology AG",
+            "retrieved_at": "2026-11-16T17:21:03Z",
+            "sha256": "a5a8fce85311098c6b01c4548e52e882a28f357ce37ec712de0743177575dd3d",
+            "title": "Iron Mountain data centre in Livingston: commercial PV case study",
+            "url": "https://www.sma-uk.com/references/iron-mountain-data-center-livingston"
+          },
+          "retrieved_at": "2026-11-16T17:21:03Z",
+          "reviewed_at": null,
+          "sha256": "a5a8fce85311098c6b01c4548e52e882a28f357ce37ec712de0743177575dd3d",
+          "url": "https://www.sma-uk.com/references/iron-mountain-data-center-livingston"
+        }
+      ],
+      "source_state": "COMMISSIONED_REPORTED",
+      "title": "Iron Mountain Livingston onsite solar PPA context"
+    },
+    {
+      "applicability_state": "UNKNOWN",
+      "evaluation_state": "UNKNOWN",
+      "family": "solar",
+      "id": "solar:storage:google-nevada-2021",
+      "native_record": {
+        "canonical_binding": "UNLINKED",
+        "canonical_project_id": null,
+        "country": "US",
+        "current_delivery": "UNKNOWN",
+        "current_site_supply_mw": null,
+        "current_storage_energy_mwh": null,
+        "entity": {
+          "consolidation_group_id": null,
+          "id": "procurement:google-nvenergy-2020",
+          "identity_evidence_url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf",
+          "scope": "project"
+        },
+        "figures_omitted_reason": null,
+        "id": "storage:google-nevada-2021",
+        "name": "Google/NV Energy battery procurement programme",
+        "numeric_claims": [
+          {
+            "claim": {
+              "as_of": "2024",
+              "assurance": "unknown",
+              "basis": "forecast",
+              "claim_id": "storage:google-nevada-2021:storage_power",
+              "currency": null,
+              "entity": {
+                "consolidation_group_id": null,
+                "id": "procurement:google-nvenergy-2020",
+                "identity_evidence_url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf",
+                "scope": "project"
+              },
+              "finance_stage": null,
+              "metric": "Battery storage procurement power upper bound",
+              "original_unit": "MW",
+              "provenance": {
+                "document_id": "document:google-epa-2021",
+                "document_url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf",
+                "page": "12",
+                "published_date": "2021-09-22",
+                "retrieved_at": "2026-11-16T17:21:02Z",
+                "section": "Working with utilities on the path to 24/7",
+                "sha256": "6efe47b80b69b707d7a7b82cb629b672838b57c146b498487d44011cb0249d30"
+              },
+              "quantity_kind": "storage_power",
+              "reporting_period": null,
+              "revision": {
+                "id": "source-2021-09-22",
+                "restated": false,
+                "supersedes_claim_id": null
+              },
+              "scale": "1",
+              "schema": "globalgrid2050.filing-figure.v1",
+              "status": "machine-provisional",
+              "unit": "MW",
+              "value": "280"
+            },
+            "qualifier": "upper_bound"
+          }
+        ],
+        "page": "12",
+        "relationship": "storage_procurement",
+        "research_action": "Check delivery, shared rights and duration separately; MW does not establish MWh or site allocation.",
+        "scope_note": "Shared storage procurement has an upper power bound; energy duration and allocation to individual data centres are not stated.",
+        "section": "Working with utilities on the path to 24/7",
+        "source": {
+          "access_state": "OPEN_OBSERVED",
+          "authority": "ISSUER_PRESENTATION_GOVERNMENT_HOSTED",
+          "bytes": 1817288,
+          "document_id": "document:google-epa-2021",
+          "http_status": 200,
+          "id": "google-epa-2021",
+          "output_policy": "FACT_METADATA_ONLY",
+          "published_date": "2021-09-22",
+          "publisher": "Google (presentation hosted by US EPA)",
+          "retrieved_at": "2026-11-16T17:21:02Z",
+          "sha256": "6efe47b80b69b707d7a7b82cb629b672838b57c146b498487d44011cb0249d30",
+          "title": "24/7 Carbon-Free Energy by 2030",
+          "url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf"
+        },
+        "source_as_of": "2021-09-22",
+        "source_document_age_days": 1881,
+        "source_id": "google-epa-2021",
+        "source_state": "AGREEMENT_REPORTED",
+        "status": "PROVISIONAL"
+      },
+      "native_schema": "globalgrid2050.solar-dc-context.v1",
+      "numeric_claims": [
+        {
+          "claim": {
+            "as_of": "2024",
+            "assurance": "unknown",
+            "basis": "forecast",
+            "claim_id": "storage:google-nevada-2021:storage_power",
+            "currency": null,
+            "entity": {
+              "consolidation_group_id": null,
+              "id": "procurement:google-nvenergy-2020",
+              "identity_evidence_url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf",
+              "scope": "project"
+            },
+            "finance_stage": null,
+            "metric": "Battery storage procurement power upper bound",
+            "original_unit": "MW",
+            "provenance": {
+              "document_id": "document:google-epa-2021",
+              "document_url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf",
+              "page": "12",
+              "published_date": "2021-09-22",
+              "retrieved_at": "2026-11-16T17:21:02Z",
+              "section": "Working with utilities on the path to 24/7",
+              "sha256": "6efe47b80b69b707d7a7b82cb629b672838b57c146b498487d44011cb0249d30"
+            },
+            "quantity_kind": "storage_power",
+            "reporting_period": null,
+            "revision": {
+              "id": "source-2021-09-22",
+              "restated": false,
+              "supersedes_claim_id": null
+            },
+            "scale": "1",
+            "schema": "globalgrid2050.filing-figure.v1",
+            "status": "machine-provisional",
+            "unit": "MW",
+            "value": "280"
+          },
+          "qualifier": "upper_bound",
+          "role": "CONTEXT"
+        }
+      ],
+      "scope": {
+        "binding": "UNLINKED",
+        "canonical_project_id": null,
+        "entity_id": "procurement:google-nvenergy-2020",
+        "kind": "project",
+        "native_scope": "project"
+      },
+      "source_links": [
+        {
+          "document_id": "document:google-epa-2021",
+          "locator": {
+            "page": "12",
+            "section": "Working with utilities on the path to 24/7",
+            "text": null
+          },
+          "published_date": "2021-09-22",
+          "publisher": "Google (presentation hosted by US EPA)",
+          "receipt": {
+            "access_state": "OPEN_OBSERVED",
+            "authority": "ISSUER_PRESENTATION_GOVERNMENT_HOSTED",
+            "bytes": 1817288,
+            "document_id": "document:google-epa-2021",
+            "http_status": 200,
+            "id": "google-epa-2021",
+            "output_policy": "FACT_METADATA_ONLY",
+            "published_date": "2021-09-22",
+            "publisher": "Google (presentation hosted by US EPA)",
+            "retrieved_at": "2026-11-16T17:21:02Z",
+            "sha256": "6efe47b80b69b707d7a7b82cb629b672838b57c146b498487d44011cb0249d30",
+            "title": "24/7 Carbon-Free Energy by 2030",
+            "url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf"
+          },
+          "retrieved_at": "2026-11-16T17:21:02Z",
+          "reviewed_at": null,
+          "sha256": "6efe47b80b69b707d7a7b82cb629b672838b57c146b498487d44011cb0249d30",
+          "url": "https://www.epa.gov/system/files/documents/2021-10/gpp_webinar_092221_texier.pdf"
+        }
+      ],
+      "source_state": "AGREEMENT_REPORTED",
+      "title": "Google/NV Energy battery procurement programme"
+    },
+    {
+      "applicability_state": "UNKNOWN",
+      "evaluation_state": "UNKNOWN",
+      "family": "solar",
+      "id": "solar:storage:google-uk-shell-2025",
+      "native_record": {
+        "canonical_binding": "UNLINKED",
+        "canonical_project_id": null,
+        "country": "GB",
+        "current_delivery": "UNKNOWN",
+        "current_site_supply_mw": null,
+        "current_storage_energy_mwh": null,
+        "entity": {
+          "consolidation_group_id": null,
+          "id": "issuer:google",
+          "identity_evidence_url": "https://www.googlecloudpresscorner.com/2025-09-16-Google-Opens-Waltham-Cross-Data-Centre-as-Part-of-Two-year-GBP5-Billion-Investment-in-the-UK-to-Help-Power-its-AI-Economy",
+          "scope": "issuer"
+        },
+        "figures_omitted_reason": "No storage MW, MWh or site-specific allocation stated in this section.",
+        "id": "storage:google-uk-shell-2025",
+        "name": "Google UK portfolio storage-management agreement",
+        "numeric_claims": [],
+        "page": null,
+        "relationship": "portfolio_storage_access",
+        "research_action": "Identify contracted storage assets and allocations; portfolio access does not establish onsite batteries.",
+        "scope_note": "UK portfolio management includes BESS access. The Waltham Cross announcement does not allocate a battery to that site.",
+        "section": "Energy efficiency and capacity",
+        "source": {
+          "access_state": "OPEN_OBSERVED",
+          "authority": "ISSUER_RELEASE",
+          "bytes": 62569,
+          "document_id": "document:google-shell-2025",
+          "http_status": 200,
+          "id": "google-shell-2025",
+          "output_policy": "FACT_METADATA_ONLY",
+          "published_date": "2025-09-16",
+          "publisher": "Google Cloud",
+          "retrieved_at": "2026-11-16T17:21:02Z",
+          "sha256": "2e3df07ab9723b8b60e90c9f8102807b40a358ce8376f9f12e95b935a15a308c",
+          "title": "Google opens Waltham Cross data centre and announces UK energy portfolio agreement",
+          "url": "https://www.googlecloudpresscorner.com/2025-09-16-Google-Opens-Waltham-Cross-Data-Centre-as-Part-of-Two-year-GBP5-Billion-Investment-in-the-UK-to-Help-Power-its-AI-Economy"
+        },
+        "source_as_of": "2025-09-16",
+        "source_document_age_days": 426,
+        "source_id": "google-shell-2025",
+        "source_state": "AGREEMENT_REPORTED",
+        "status": "PROVISIONAL"
+      },
+      "native_schema": "globalgrid2050.solar-dc-context.v1",
+      "numeric_claims": [],
+      "scope": {
+        "binding": "UNLINKED",
+        "canonical_project_id": null,
+        "entity_id": "issuer:google",
+        "kind": "portfolio",
+        "native_scope": "issuer"
+      },
+      "source_links": [
+        {
+          "document_id": "document:google-shell-2025",
+          "locator": {
+            "page": null,
+            "section": "Energy efficiency and capacity",
+            "text": null
+          },
+          "published_date": "2025-09-16",
+          "publisher": "Google Cloud",
+          "receipt": {
+            "access_state": "OPEN_OBSERVED",
+            "authority": "ISSUER_RELEASE",
+            "bytes": 62569,
+            "document_id": "document:google-shell-2025",
+            "http_status": 200,
+            "id": "google-shell-2025",
+            "output_policy": "FACT_METADATA_ONLY",
+            "published_date": "2025-09-16",
+            "publisher": "Google Cloud",
+            "retrieved_at": "2026-11-16T17:21:02Z",
+            "sha256": "2e3df07ab9723b8b60e90c9f8102807b40a358ce8376f9f12e95b935a15a308c",
+            "title": "Google opens Waltham Cross data centre and announces UK energy portfolio agreement",
+            "url": "https://www.googlecloudpresscorner.com/2025-09-16-Google-Opens-Waltham-Cross-Data-Centre-as-Part-of-Two-year-GBP5-Billion-Investment-in-the-UK-to-Help-Power-its-AI-Economy"
+          },
+          "retrieved_at": "2026-11-16T17:21:02Z",
+          "reviewed_at": null,
+          "sha256": "2e3df07ab9723b8b60e90c9f8102807b40a358ce8376f9f12e95b935a15a308c",
+          "url": "https://www.googlecloudpresscorner.com/2025-09-16-Google-Opens-Waltham-Cross-Data-Centre-as-Part-of-Two-year-GBP5-Billion-Investment-in-the-UK-to-Help-Power-its-AI-Economy"
+        }
+      ],
+      "source_state": "AGREEMENT_REPORTED",
+      "title": "Google UK portfolio storage-management agreement"
+    }
+  ],
+  "schema": "globalgrid2050.transition-context.v1",
+  "status": "PROVISIONAL"
+}

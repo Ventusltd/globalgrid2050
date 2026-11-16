@@ -1,0 +1,21 @@
+/* Bounded successor layout; approved V9.24 styles remain the substrate. */
+[hidden]{display:none!important}
+.preview-status{font-size:10px;color:var(--muted);margin:0 0 12px;padding:7px 0;border-bottom:1px solid var(--soft)}
+.pipeline-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.pipeline-tabs button{background:#000;color:var(--muted);border:1px solid var(--line);padding:10px 14px;min-height:44px;cursor:pointer;font:700 12px 'Courier New',monospace}
+.pipeline-tabs [aria-selected="true"]{border-color:var(--accent);color:var(--accent);background:#001414}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--solar);outline-offset:3px}
+.category-scope{font-size:11px;color:var(--muted);line-height:1.5;margin:0 0 12px;overflow-wrap:anywhere}
+.scope-notes{font-size:11px;color:var(--muted);margin:12px 0;line-height:1.5}
+.scope-notes>summary{cursor:pointer;padding:9px 0;color:var(--accent);min-height:36px}
+.scope-notes .meta{margin-bottom:0}.scope-notes .category-scope{margin-top:10px}
+#officialRegister{min-width:0}#officialRegister>[role="tabpanel"]{min-width:0}
+#gridDirectory{max-height:60vh;overflow:auto;border:1px solid var(--line)}
+.grid-source{padding:10px 12px;border-bottom:1px solid var(--soft);line-height:1.6}
+.grid-source a{color:var(--accent)}.grid-source small{display:block;color:var(--muted)}
+.grid-source p{margin-top:5px;overflow-wrap:anywhere}
+.newspaper .live-news{max-height:420px;overflow:auto;overscroll-behavior:contain}
+.masthead h2{font-size:21px}.gauges{margin-bottom:15px}.chart{height:95px}
+.tablewrap{max-height:60vh}.machine-note-cell{min-width:180px}
+#contextHost{min-width:0}.transition-context{max-height:55vh;overflow:auto}
+@media(max-width:768px){.main{padding:14px 12px}.pipeline-tabs{gap:5px}.pipeline-tabs button{padding:9px 10px;font-size:11px}.masthead h2{font-size:18px}.gauges{gap:8px}.card{padding:9px 4px}.card h3{font-size:9px}.chart{height:78px}.value{font-size:18px}.newspaper .live-news{max-height:360px}.category-scope{font-size:10px}}

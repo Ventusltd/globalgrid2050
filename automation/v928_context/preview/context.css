@@ -1,0 +1,24 @@
+/* Scoped to the disclosure inside the existing News host. */
+.transition-context { margin-block: .5rem; font: inherit; color: inherit; overflow-wrap: anywhere; }
+.transition-context details { margin: .5rem 0 .5rem .75rem; }
+.transition-context summary { cursor: pointer; }
+.transition-context summary:focus-visible, .transition-context a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.transition-context p { margin-block: .35rem; }
+.transition-context [data-context-figure] { padding-inline-start: .5rem; }
+/* Override only this consumer's injected figures, leaving PR23 unchanged. */
+.transition-context [data-filings-figures-root],
+.transition-context [data-filings-figures-root] .ff-claim,
+.transition-context [data-filings-figures-root] .ff-badge {
+  background: transparent; color: inherit; border: 0; border-radius: 0; font: inherit;
+}
+.transition-context [data-filings-figures-root] { line-height: inherit; margin-block: .5rem; }
+.transition-context [data-filings-figures-root] .ff-amount,
+.transition-context [data-filings-figures-root] .ff-metric,
+.transition-context [data-filings-figures-root] .ff-summary { font: inherit; }
+.transition-context [data-filings-figures-root] .ff-status,
+.transition-context [data-filings-figures-root] .ff-field-label { color: inherit; }
+.transition-context [data-filings-figures-root] .ff-summary::marker { color: inherit; }
+.transition-context [data-filings-figures-root] .ff-claim { padding: .35rem 0; }
+.transition-context [data-filings-figures-root] .ff-summary { padding: .35rem 0; }
+.transition-context [data-filings-figures-root] .ff-badge { padding: 0; }
+.transition-context a { color: var(--accent, inherit); }

@@ -1,0 +1,327 @@
+{
+  "schema": "globalgrid2050.policy-history.sources.v1",
+  "as_of": "2026-11-16T17:19:01Z",
+  "coverage_note": "Bounded primary-source inventory for selected treaty, energy-transition, finance and implementation records. This is a discovery and review ledger, not an exhaustive history, commitment comparison, measurement or determination of project applicability. PDF page locators count physical pages from one, including covers.",
+  "review_method": "Primary documents were examined through browser-extracted text. Direct HTTP requests returned challenge HTML instead of the intended source documents. Original document bytes were therefore unavailable for authentication: retrieved_at, content_sha256 and hash_basis remain null. as_of records the review checkpoint, not source publication or successful byte retrieval.",
+  "rights_note": "Public reachability does not establish redistribution rights. This inventory contains source metadata, locators and brief paraphrases, without publisher document bodies or a licence claim.",
+  "coverage_gaps": [
+    "Intervening COP/CMA decisions, treaty amendments, ratification and withdrawal status, country NDCs and national implementing measures were not comprehensively reviewed.",
+    "Only the sections named in each read_coverage entry were reviewed; other sections and linked documents remain unreviewed.",
+    "COP30 coverage selects one final implementation decision and its advance-version discovery index; it does not cover the complete package.",
+    "COP31 is ongoing at the checkpoint. Negotiating drafts and final substantive outcomes are not catalogued or asserted; a separately listed adopted agenda establishes only procedure.",
+    "No source in this inventory independently demonstrates expenditure, disbursement, delivered capacity, emissions reduction or compliance by a particular entity."
+  ],
+  "sources": [
+    {
+      "id": "unfccc_1992",
+      "title": "United Nations Framework Convention on Climate Change",
+      "issuer": "United Nations / UNFCCC",
+      "url": "https://unfccc.int/files/essential_background/background_publications_htmlpdf/application/pdf/conveng.pdf",
+      "document_id": "UNFCCC (1992 treaty text)",
+      "document_date": null,
+      "document_date_basis": "The cover gives 1992 without a publication day; the closing clause separately dates the treaty to 9 May 1992.",
+      "adopted_on": "1992-05-09",
+      "document_state": "ADOPTED",
+      "edition_status": "TREATY_TEXT",
+      "artifact_role": "TREATY",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "hash_basis": null,
+      "read_coverage": {
+        "state": "PARTIAL",
+        "locators": [
+          "Cover, PDF page 1",
+          "Article 2, PDF page 9",
+          "Article 4(1)(a)-(c), PDF page 10",
+          "Closing execution clause, PDF page 31"
+        ],
+        "note": "Reviewed the objective, selected inventory/programme/technology provisions and date clause through extracted primary text. Remaining articles and annexes were not systematically reviewed."
+      },
+      "summary": "Establishes a climate framework and differentiated national commitments concerning emissions inventories, mitigation/adaptation programmes and technological cooperation.",
+      "limitations": [
+        "National circumstances qualify the selected provisions; this entry does not determine obligations for a company or project.",
+        "Current participation, amendments and implementation evidence were not assessed.",
+        "Direct retrieval supplied challenge HTML; no original-byte receipt or hash is claimed."
+      ]
+    },
+    {
+      "id": "kyoto_1997",
+      "title": "Kyoto Protocol",
+      "issuer": "United Nations / UNFCCC",
+      "url": "https://unfccc.int/resource/docs/convkp/kpeng.html",
+      "document_id": "Kyoto Protocol to the UNFCCC",
+      "document_date": "1997-12-11",
+      "document_date_basis": "Date in the treaty's closing execution clause; not a separately verified HTML publication date.",
+      "adopted_on": "1997-12-11",
+      "document_state": "ADOPTED",
+      "edition_status": "ORIGINAL_TREATY_TEXT",
+      "artifact_role": "TREATY",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "hash_basis": null,
+      "read_coverage": {
+        "state": "PARTIAL",
+        "locators": [
+          "Article 3(1)",
+          "Closing execution clause following Article 28",
+          "Annex A and Annex B headings"
+        ],
+        "note": "Reviewed the original first-period commitment clause, execution date and annex headings in official HTML. Other provisions and annex entries were not systematically reviewed."
+      },
+      "summary": "Provides the original quantified emissions commitment framework for relevant Annex I Parties, with assigned amounts linked to annexed commitments.",
+      "limitations": [
+        "The original first commitment period is historical; later amendments, subsequent periods and present participation were not evaluated.",
+        "Annex references do not establish current national or project obligations.",
+        "Direct retrieval supplied challenge HTML; no original-byte receipt or hash is claimed."
+      ]
+    },
+    {
+      "id": "paris_2015",
+      "title": "Paris Agreement",
+      "issuer": "UNFCCC",
+      "url": "https://unfccc.int/sites/default/files/parisagreement_publication.pdf",
+      "document_id": "FCCC/CP/2015/10/Add.1; Paris Agreement and decision 1/CP.21",
+      "document_date": null,
+      "document_date_basis": "The publication carries a 2016 copyright year without a day; its introduction separately records adoption on 12 December 2015.",
+      "adopted_on": "2015-12-12",
+      "document_state": "ADOPTED",
+      "edition_status": "2016_PUBLICATION_OF_ADOPTED_TEXT",
+      "artifact_role": "TREATY",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "hash_basis": null,
+      "read_coverage": {
+        "state": "PARTIAL",
+        "locators": [
+          "Publication and adoption information, PDF pages 2-3",
+          "Article 2, PDF page 6",
+          "Article 4(1)-(3) and 4(9), PDF pages 6-7"
+        ],
+        "note": "Reviewed collective aims, selected nationally determined contribution provisions and adoption/publication metadata. The accompanying COP decision and remaining treaty provisions were not systematically reviewed."
+      },
+      "summary": "Sets collective climate aims and a framework for successive nationally determined contributions and domestic mitigation measures, retaining differentiated national circumstances.",
+      "limitations": [
+        "Country-specific contributions, participation, implementation rules and delivery evidence require separate sources.",
+        "Collective aims do not alone specify a company's measurable duty.",
+        "Direct retrieval supplied challenge HTML; no original-byte receipt or hash is claimed."
+      ]
+    },
+    {
+      "id": "glasgow_2021_1_cma3",
+      "title": "Glasgow Climate Pact: decision 1/CMA.3",
+      "issuer": "UNFCCC / CMA",
+      "url": "https://unfccc.int/sites/default/files/resource/cma2021_10a01E.pdf",
+      "document_id": "FCCC/PA/CMA/2021/10/Add.1; decision 1/CMA.3",
+      "document_date": "2022-03-08",
+      "document_date_basis": "Distribution date on the final session-report cover; the decision's closing plenary line separately records adoption.",
+      "adopted_on": "2021-11-13",
+      "document_state": "ADOPTED",
+      "edition_status": "FINAL_SESSION_REPORT",
+      "artifact_role": "CMA_DECISION",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "hash_basis": null,
+      "read_coverage": {
+        "state": "PARTIAL",
+        "locators": [
+          "Report cover and contents, PDF page 1",
+          "Decision 1/CMA.3, paragraph 36, PDF page 5",
+          "Decision 1/CMA.3 closing plenary line, PDF page 10"
+        ],
+        "note": "Verified the energy paragraph and adoption date against the final report. Other decisions and annexes in the report were not systematically reviewed."
+      },
+      "summary": "Calls for faster low-emission energy deployment, efficiency, reduced unabated coal use and removal of inefficient fossil-fuel subsidies, with national-circumstance and transition-support qualifiers.",
+      "limitations": [
+        "The selected paragraph is not a universal deadline or an entity-specific compliance assessment.",
+        "No implementation outcome is established by adoption alone.",
+        "Direct retrieval supplied challenge HTML; no original-byte receipt or hash is claimed."
+      ]
+    },
+    {
+      "id": "cop28_2023_1_cma5",
+      "title": "First global stocktake: decision 1/CMA.5",
+      "issuer": "UNFCCC / CMA",
+      "url": "https://unfccc.int/sites/default/files/resource/cma2023_16a01E.pdf",
+      "document_id": "FCCC/PA/CMA/2023/16/Add.1; decision 1/CMA.5",
+      "document_date": "2024-03-15",
+      "document_date_basis": "Distribution date on the final session-report cover; the decision's closing plenary line separately records adoption.",
+      "adopted_on": "2023-12-13",
+      "document_state": "ADOPTED",
+      "edition_status": "FINAL_SESSION_REPORT",
+      "artifact_role": "CMA_DECISION",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "hash_basis": null,
+      "read_coverage": {
+        "state": "PARTIAL",
+        "locators": [
+          "Report cover, PDF page 1",
+          "Decision 1/CMA.5, paragraphs 27-31, PDF pages 5-6",
+          "Decision 1/CMA.5 closing plenary line, PDF page 21"
+        ],
+        "note": "Reviewed the selected energy-transition passages, their national-contribution framing and the adoption line. Remaining stocktake sections and other decisions were not systematically reviewed."
+      },
+      "summary": "Sets collective energy-transition directions involving renewables, efficiency and fossil fuels while preserving nationally determined contributions and differing national circumstances.",
+      "limitations": [
+        "Global capacity ambitions are not annual generation measurements or individual plant duties.",
+        "Country contributions and delivered results are not established by this decision alone.",
+        "Direct retrieval supplied challenge HTML; no original-byte receipt or hash is claimed."
+      ]
+    },
+    {
+      "id": "cop29_2024_1_cma6",
+      "title": "Climate-finance goal: decision 1/CMA.6",
+      "issuer": "UNFCCC / CMA",
+      "url": "https://unfccc.int/sites/default/files/resource/cma2024_17a01E.pdf",
+      "document_id": "FCCC/PA/CMA/2024/17/Add.1; decision 1/CMA.6",
+      "document_date": "2025-03-27",
+      "document_date_basis": "Distribution date on the final session-report cover; the decision's closing plenary line separately records adoption.",
+      "adopted_on": "2024-11-24",
+      "document_state": "ADOPTED",
+      "edition_status": "FINAL_SESSION_REPORT",
+      "artifact_role": "CMA_DECISION",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "hash_basis": null,
+      "read_coverage": {
+        "state": "PARTIAL",
+        "locators": [
+          "Report cover, PDF page 1",
+          "Decision 1/CMA.6, paragraphs 7-10, PDF page 3",
+          "Decision 1/CMA.6 closing plenary line, PDF page 6"
+        ],
+        "note": "Reviewed the distinct finance goal and broader scaling call, source/contributor qualifiers and adoption line. Remaining finance provisions and other decisions were not systematically reviewed."
+      },
+      "summary": "Distinguishes an all-actor finance scaling call from the developed-country-led collective finance goal, retaining mixed funding sources and contribution qualifiers.",
+      "limitations": [
+        "Goals do not demonstrate actual disbursement or funding awarded to a named project.",
+        "Different finance aggregates must not be treated as the same metric or as entirely public grants.",
+        "Direct retrieval supplied challenge HTML; no original-byte receipt or hash is claimed."
+      ]
+    },
+    {
+      "id": "cop30_2025_1_cma7",
+      "title": "Mutirao implementation decision: 1/CMA.7",
+      "issuer": "UNFCCC / CMA",
+      "url": "https://unfccc.int/sites/default/files/resource/cma2025_19a01E.pdf",
+      "document_id": "FCCC/PA/CMA/2025/19/Add.1; decision 1/CMA.7",
+      "document_date": "2026-03-30",
+      "document_date_basis": "Final report publication date confirmed by the official document catalogue at https://unfccc.int/documents/655270; adoption is recorded separately in the decision.",
+      "adopted_on": "2025-11-22",
+      "document_state": "ADOPTED",
+      "edition_status": "FINAL_SESSION_REPORT",
+      "artifact_role": "CMA_DECISION",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "hash_basis": null,
+      "read_coverage": {
+        "state": "PARTIAL",
+        "locators": [
+          "Report cover and contents, PDF page 1",
+          "Decision 1/CMA.7, paragraphs 40-42, PDF page 7",
+          "Decision 1/CMA.7 closing plenary line, PDF page 8",
+          "Official document catalogue 655270, publication-date field"
+        ],
+        "note": "Reviewed the implementation accelerator, separate Belem mission and adoption/publication metadata. Remaining decision sections and the wider COP30 package were not systematically reviewed."
+      },
+      "summary": "Establishes a voluntary implementation accelerator and a separate Belem mission supporting national climate plans; their establishment does not demonstrate completed delivery.",
+      "limitations": [
+        "The accelerator's cooperative design does not create a universal project obligation in this inventory.",
+        "Implementation progress and the wider COP30 outcomes require separate review.",
+        "Direct retrieval supplied challenge HTML; no original-byte receipt or hash is claimed."
+      ]
+    },
+    {
+      "id": "cop30_auv_index",
+      "title": "COP30 advance unedited outcomes index",
+      "issuer": "UNFCCC",
+      "url": "https://unfccc.int/cop30/auvs",
+      "document_id": null,
+      "document_date": null,
+      "document_date_basis": "No stable index publication day was established from the reviewed page.",
+      "adopted_on": null,
+      "document_state": "UNKNOWN",
+      "edition_status": "ADVANCE_UNEDITED_INDEX",
+      "artifact_role": "DISCOVERY_INDEX",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "hash_basis": null,
+      "read_coverage": {
+        "state": "PARTIAL",
+        "locators": [
+          "Page heading identifying advance unedited versions",
+          "Introductory explanation",
+          "Belem political package table and Mutirao entry"
+        ],
+        "note": "Reviewed index metadata and links. Linked advance-version bodies were not reviewed here; the selected final decision is catalogued separately as cop30_2025_1_cma7."
+      },
+      "summary": "Provides discovery links to advance editions of COP30 decisions. The index is not itself an adopted decision or a substitute for the selected final report.",
+      "limitations": [
+        "UNKNOWN describes the index's inapplicable single-decision status; it does not deny adoption of listed decisions.",
+        "Advance unedited status must not be conflated with a negotiating draft; each linked document needs its own edition check.",
+        "Direct retrieval supplied challenge HTML; no original-byte receipt or hash is claimed."
+      ]
+    },
+    {
+      "id": "cop31_2026_portal",
+      "title": "COP31 Antalya conference portal",
+      "issuer": "UNFCCC",
+      "url": "https://unfccc.int/cop31",
+      "document_id": null,
+      "document_date": null,
+      "document_date_basis": "Live conference portal; no stable publication or revision day was established.",
+      "adopted_on": null,
+      "document_state": "IN_PROGRESS",
+      "edition_status": "LIVE_CONFERENCE_PORTAL",
+      "artifact_role": "DISCOVERY_INDEX",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "hash_basis": null,
+      "read_coverage": {
+        "state": "PARTIAL",
+        "locators": [
+          "Conference overview identifying Antalya, Turkiye and 9-20 November 2026",
+          "Sessions and documents discovery links"
+        ],
+        "note": "Reviewed the conference overview and document-discovery sections. Ongoing status follows from the published conference interval and this inventory's checkpoint. Linked negotiating documents were not systematically reviewed."
+      },
+      "summary": "Provides current conference and document discovery for the ongoing Antalya session. No final substantive COP31 outcome is asserted.",
+      "limitations": [
+        "The portal changes over time; the inventory does not capture a complete versioned page body.",
+        "Speeches, proposals and side-event pledges must be distinguished from adopted substantive decisions.",
+        "Direct retrieval supplied challenge HTML; no original-byte receipt or hash is claimed."
+      ]
+    },
+    {
+      "id": "cop31_2026_adopted_agenda",
+      "title": "COP31 adopted agenda",
+      "issuer": "UNFCCC / COP",
+      "url": "https://unfccc.int/sites/default/files/resource/COP%2031%20agenda%20as%20adopted.pdf",
+      "document_id": "COP31 agenda as adopted, first plenary",
+      "document_date": "2026-11-09",
+      "document_date_basis": "Date of agenda adoption in footnote 1; not a separately established publication timestamp.",
+      "adopted_on": "2026-11-09",
+      "document_state": "ADOPTED",
+      "edition_status": "ADOPTED_AGENDA",
+      "artifact_role": "PROCEDURAL_AGENDA",
+      "retrieved_at": null,
+      "content_sha256": null,
+      "hash_basis": null,
+      "read_coverage": {
+        "state": "PARTIAL",
+        "locators": [
+          "Title, PDF page 1",
+          "Agenda items 1-8, PDF page 1",
+          "Adoption footnote 1, PDF page 1"
+        ],
+        "note": "Reviewed the first page and its adoption footnote. The second page and substantive documents associated with agenda items were not reviewed."
+      },
+      "summary": "Records the adopted order of business for COP31. Adoption of the agenda does not establish agreement on the substantive matters listed.",
+      "limitations": [
+        "ADOPTED applies only to this procedural agenda, not to a final COP31 policy outcome.",
+        "Substantive outcomes remain unknown in this inventory at the ongoing conference checkpoint.",
+        "Direct retrieval supplied challenge HTML; no original-byte receipt or hash is claimed."
+      ]
+    }
+  ]
+}

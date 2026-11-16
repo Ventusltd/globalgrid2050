@@ -1,0 +1,133 @@
+{
+  "as_of": "2026-11-16T18:00:00Z",
+  "context_count": 2,
+  "input_sha256": "9c74b8e400f14199f8481728a2279cde5090446d1cd5322a8b00addad954697b",
+  "limitations": [
+    "Dated document context; current delivery and ownership are not established.",
+    "No site crosswalk, proximity inference, aggregation, ranking or publication approval.",
+    "Successful source retrieval is not independent factual or numerical verification."
+  ],
+  "linked_project_count": 0,
+  "numeric_claim_count": 1,
+  "records": [
+    {
+      "available_grid_capacity": null,
+      "binding_basis": "DOCUMENT_CONTEXT_ONLY",
+      "canonical_project_id": null,
+      "country": "US",
+      "current_energised_load": null,
+      "current_project_state": "UNKNOWN",
+      "current_secured_connection": null,
+      "entity_scope": "project",
+      "figures_omitted_reason": null,
+      "id": "grid-context:ferc-er24-2172-amendment",
+      "kind": "connection_amendment_decision",
+      "name": "Susquehanna co-located load amendment",
+      "numeric_claims": [
+        {
+          "as_of": "2024-11-01",
+          "assurance": "unknown",
+          "basis": "forecast",
+          "claim_id": "ferc:ER24-2172-001:proposed-colocated-load",
+          "currency": null,
+          "entity": {
+            "consolidation_group_id": null,
+            "id": "grid-context:ferc-er24-2172-amendment",
+            "identity_evidence_url": "https://www.ferc.gov/sites/default/files/2024-11/20241101-3061_ER24-2172-000.pdf",
+            "scope": "project"
+          },
+          "finance_stage": null,
+          "metric": "Proposed co-located load in the rejected amended ISA",
+          "original_unit": "MW",
+          "provenance": {
+            "document_id": "ferc:ER24-2172-001:189-61-078",
+            "document_url": "https://www.ferc.gov/sites/default/files/2024-11/20241101-3061_ER24-2172-000.pdf",
+            "page": "1",
+            "published_date": "2024-11-01",
+            "retrieved_at": "2026-11-16T17:13:22.629832Z",
+            "section": "Paragraph 1",
+            "sha256": "69b04b60cfc5f0150af8cb2f96eabca1c6af9ff74f8bbdbd41a2929b0bf69934"
+          },
+          "quantity_kind": "project_demand",
+          "reporting_period": null,
+          "revision": {
+            "id": "original",
+            "restated": false,
+            "supersedes_claim_id": null
+          },
+          "scale": "1",
+          "schema": "globalgrid2050.filing-figure.v1",
+          "status": "machine-provisional",
+          "unit": "MW",
+          "value": "480"
+        }
+      ],
+      "page": "1",
+      "research_action": "Check later docket decisions; rejection of this amendment does not reject every existing arrangement.",
+      "retrieval_age_days": 0,
+      "section": "Paragraph 1",
+      "site_capex": null,
+      "source": {
+        "access_state": "OPEN_OBSERVED",
+        "authority": "REGULATOR",
+        "bytes": 607216,
+        "document_id": "ferc:ER24-2172-001:189-61-078",
+        "http_status": 200,
+        "id": "ferc:189-61-078",
+        "output_policy": "FACT_METADATA_ONLY",
+        "published_date": "2024-11-01",
+        "publisher": "Federal Energy Regulatory Commission",
+        "retrieved_at": "2026-11-16T17:13:22.629832Z",
+        "sha256": "69b04b60cfc5f0150af8cb2f96eabca1c6af9ff74f8bbdbd41a2929b0bf69934",
+        "title": "Order rejecting amendments to interconnection service agreement",
+        "url": "https://www.ferc.gov/sites/default/files/2024-11/20241101-3061_ER24-2172-000.pdf"
+      },
+      "source_document_age_days": 745,
+      "source_entity_reference": "ER24-2172-000; ER24-2172-001; Service Agreement No. 1442",
+      "source_id": "ferc:189-61-078",
+      "source_state": "REJECTED",
+      "status": "PROVISIONAL"
+    },
+    {
+      "available_grid_capacity": null,
+      "binding_basis": "DOCUMENT_CONTEXT_ONLY",
+      "canonical_project_id": null,
+      "country": "GB",
+      "current_energised_load": null,
+      "current_project_state": "UNKNOWN",
+      "current_secured_connection": null,
+      "entity_scope": "zone",
+      "figures_omitted_reason": "The proposal uses generic capacity; IT load, project demand and grid-connection basis are not distinguished. Zone scope is outside the shared numerical v1 contract.",
+      "id": "grid-context:govuk-culham-aigz-2025-proposal",
+      "kind": "development_proposal",
+      "name": "Culham AI Growth Zone proposal",
+      "numeric_claims": [],
+      "page": null,
+      "research_action": "Seek a named development scheme, planning record and dated connection evidence.",
+      "retrieval_age_days": 0,
+      "section": "Building sufficient, secure, and sustainable AI infrastructure",
+      "site_capex": null,
+      "source": {
+        "access_state": "OPEN_OBSERVED",
+        "authority": "GOVERNMENT",
+        "bytes": 190859,
+        "document_id": "govuk:ai-opportunities-action-plan-government-response",
+        "http_status": 200,
+        "id": "govuk:ai-action-response-2025",
+        "output_policy": "FACT_METADATA_ONLY",
+        "published_date": "2025-01-13",
+        "publisher": "Department for Science, Innovation and Technology",
+        "retrieved_at": "2026-11-16T17:13:22.197274Z",
+        "sha256": "b97f474f6308b8c1e4b9f77f0a4181bfc9bfca657764e8539d90e8d3a98fcc3b",
+        "title": "AI Opportunities Action Plan: government response",
+        "url": "https://www.gov.uk/government/publications/ai-opportunities-action-plan-government-response/ai-opportunities-action-plan-government-response"
+      },
+      "source_document_age_days": 672,
+      "source_entity_reference": "Culham; UK Atomic Energy Authority",
+      "source_id": "govuk:ai-action-response-2025",
+      "source_state": "PROPOSED",
+      "status": "PROVISIONAL"
+    }
+  ],
+  "schema": "globalgrid2050.grid-dc-context.v1"
+}

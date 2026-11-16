@@ -1,0 +1,136 @@
+{
+  "purpose": "Exact selected corrected component import bytes only; not a source-rights, project-evidence, UI, integration or publication approval.",
+  "existing_dependency_paths": [
+    "automation/news/acquisition/__init__.py",
+    "automation/news/__init__.py"
+  ],
+  "files": [
+    {
+      "path": "automation/news/engine.py",
+      "component": "news",
+      "source_commit": "87b16162d4579862dd6d131f29e92c374b5353c2",
+      "git_blob": "06474b955a63fcd2bc36ecaf9571ee8e3412d460",
+      "sha256": "7d1a4b04c584cd4ac46dc4d146e5598c028d204cc52898831b7e32b5368395b8",
+      "bytes": 11451
+    },
+    {
+      "path": "automation/news/ENGINE.md",
+      "component": "news",
+      "source_commit": "87b16162d4579862dd6d131f29e92c374b5353c2",
+      "git_blob": "de624b098912d1cf7bdebbea3d0c1372ff540cb0",
+      "sha256": "319bb838190a9bcc7557b0564c700c1ee728f4040f635ee1cdb0b3cbaee3abbe",
+      "bytes": 6675
+    },
+    {
+      "path": "automation/news/AGENT3_ACCEPTANCE_V928.md",
+      "component": "news",
+      "source_commit": "87b16162d4579862dd6d131f29e92c374b5353c2",
+      "git_blob": "15010eeeafb71481071ce260ddd3e514a163d5a1",
+      "sha256": "f8c21aff23f3a5258b40b040ffc6c353f163dd1f86d382b16bb3e36d4c1c82a0",
+      "bytes": 10176
+    },
+    {
+      "path": "automation/news/tests/test_engine.py",
+      "component": "news",
+      "source_commit": "87b16162d4579862dd6d131f29e92c374b5353c2",
+      "git_blob": "61c4d788b81229a61581b8328ba878309aab5f53",
+      "sha256": "f97dd5ad733ba73023bbf57c9e6cb56a35a62c44e18b25a9631ab3dc5388b695",
+      "bytes": 7152
+    },
+    {
+      "path": "automation/news/tests/test_engine_independent.py",
+      "component": "news",
+      "source_commit": "87b16162d4579862dd6d131f29e92c374b5353c2",
+      "git_blob": "118d93b6d04103653f71779238074d428272e383",
+      "sha256": "6f03f93762ae8c7ff5310ce10ab923213dd330ea6cfb12fbfe334367cde567d8",
+      "bytes": 8226
+    },
+    {
+      "path": "automation/news/tests/news_engine_acceptance_demo.py",
+      "component": "news",
+      "source_commit": "87b16162d4579862dd6d131f29e92c374b5353c2",
+      "git_blob": "ed6c4097500776eb1b04cc9f400c961b8e290a6b",
+      "sha256": "ac4baac5b21351e548503f02b82535b39623dee399e5d9cba824097107be0fed",
+      "bytes": 3621
+    },
+    {
+      "path": "automation/news/acquisition/match.py",
+      "component": "news",
+      "source_commit": "87b16162d4579862dd6d131f29e92c374b5353c2",
+      "git_blob": "d1142e947ce2fc5013cf59dd02c3ce97d82768fe",
+      "sha256": "0e87cf7f9c379a5cc4098dfb7b1874d241dc253855eed43c69236b050ec15ea9",
+      "bytes": 1621
+    },
+    {
+      "path": "automation/news/grid_watch/__init__.py",
+      "component": "grid",
+      "source_commit": "5649fca9ea5a5c7f25b1cb4f8f9b000d40201f89",
+      "git_blob": "348c0a07a9181235ca82bb84910509cec8e18315",
+      "sha256": "adedbbbcd015cfad723ee6fb6e81bb5e23646b3be56f96b929d1cbcd9827ed5e",
+      "bytes": 157
+    },
+    {
+      "path": "automation/news/grid_watch/adapter.py",
+      "component": "grid",
+      "source_commit": "5649fca9ea5a5c7f25b1cb4f8f9b000d40201f89",
+      "git_blob": "4486009392f21655600ade88642b75417c948a4e",
+      "sha256": "2cfd3ce8571a9d528d73ef7592410ea306a01f6aeb037273d9209936a45e327e",
+      "bytes": 7499
+    },
+    {
+      "path": "automation/news/grid_watch/sources.json",
+      "component": "grid",
+      "source_commit": "5649fca9ea5a5c7f25b1cb4f8f9b000d40201f89",
+      "git_blob": "1486be2750b914222cffabe3bb7042bed84cf73d",
+      "sha256": "d4ef4584859d712ac15c07e02b9e201cc693b65542ccdc204427c8a7b114ca62",
+      "bytes": 6054
+    },
+    {
+      "path": "automation/news/grid_watch/fixtures.json",
+      "component": "grid",
+      "source_commit": "5649fca9ea5a5c7f25b1cb4f8f9b000d40201f89",
+      "git_blob": "f44644aa652adc2d3a0a881db0240f799c5022d5",
+      "sha256": "bc4d3a969b908145b47e8ca01691f0dac4de75236de553fb626b834401339f95",
+      "bytes": 1333
+    },
+    {
+      "path": "automation/news/grid_watch/README.md",
+      "component": "grid",
+      "source_commit": "5649fca9ea5a5c7f25b1cb4f8f9b000d40201f89",
+      "git_blob": "ba54ea6fb2a1705cd919b6beef339eb47aa56012",
+      "sha256": "95cf1a657e0196b810133aa84e831c3c327e8cabb356e9016bce3f00b1c8d7be",
+      "bytes": 5475
+    },
+    {
+      "path": "automation/news/tests/test_grid_watch.py",
+      "component": "grid",
+      "source_commit": "5649fca9ea5a5c7f25b1cb4f8f9b000d40201f89",
+      "git_blob": "88a9db4e78ce98c1a321427116cd134dabf05bc9",
+      "sha256": "f4c53c239abb128bfb8fa7f278f454ce1be46d92503c12e6ea58720a609515fd",
+      "bytes": 4972
+    }
+  ],
+  "execution_receipts": {
+    "grid131": {
+      "head": "5649fca9ea5a5c7f25b1cb4f8f9b000d40201f89",
+      "command": "python -B -m unittest discover -s automation/news/tests -p test_grid_watch.py -v",
+      "tests": 13,
+      "result": "PASS",
+      "runtime": "CPython 3.13.18",
+      "scope": "Five exact Git blobs reconstructed; offline unit contracts only."
+    },
+    "news132": {
+      "head": "87b16162d4579862dd6d131f29e92c374b5353c2",
+      "tests": 182,
+      "result": "SUCCESS",
+      "run_url": "https://github.com/Ventusltd/globalgrid2050/actions/runs/43966372840",
+      "scope": "Previously independently read exact-head hosted receipt; not rerun by this helper."
+    }
+  },
+  "public_boundary": {
+    "news_engine_output": "WITHHELD_INDEPENDENT_REVIEW_REQUIRED",
+    "grid_project_rows_approved": 0,
+    "grid_sources_catalogue_entries": 14,
+    "grid_fixtures_public": false
+  }
+}

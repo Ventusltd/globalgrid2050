@@ -21,7 +21,7 @@ import sys
 from datetime import datetime, timezone
 
 from common import PIPELINE, HERE, load_registry, save_registry, tree_hash, walk
-from feature_contracts import KNOWN_MIGRATIONS, MIGRATION_FLAGS
+from feature_contracts import SOLAR_MIGRATION, KNOWN_MIGRATIONS, MIGRATION_FLAGS
 
 RUNNER_TEMPLATE = (HERE / "runner_template.sh").read_text(encoding="utf-8")
 

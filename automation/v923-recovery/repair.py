@@ -59,7 +59,7 @@ def repair_existing_columns():
     if 'pipeline-projects-rendered' not in path_text:
         if path_text.count(hook) != 1:
             raise RuntimeError("PARTIAL_CANDIDATE: missing unique renderTable hook")
-        path.write_text(path_text.replace(hook,hook+'\\n  window.dispatchEvent(new Event("pipeline-projects-rendered"));',1))
+        path.write_text(path_text.replace(hook,hook+'\n  window.dispatchEvent(new Event("pipeline-projects-rendered"));',1))
 
 
 

@@ -31,6 +31,30 @@ class IncompleteBuildTests(unittest.TestCase):
         self.assertIn("Possible, unverified project headline",notes)
         self.assertNotIn("CONFIRMED BY MACHINE",notes)
 
+
+    def test_feedback_keeps_failed_browser_probe_red(self):
+        spec2=importlib.util.spec_from_file_location(
+            "v923_feedback_under_test",SOURCE.parent/"feedback.py")
+        feedback=importlib.util.module_from_spec(spec2)
+        spec2.loader.exec_module(feedback)
+        record={"versions":[{"id":repair.NEW,"checks":{
+            "feature_probes":{"pass":False,"results":[
+                {"name":"Native notes column","viewport":"phone","pass":False,
+                 "detail":"Missing row cell"}]},
+            "map_contract":{"pass":True}
+        }}]}
+        outcome=feedback.analyse(record, "frozen-test-sha")
+        self.assertEqual(outcome["verdict"],"PRODUCT_CI_FAIL")
+        self.assertEqual(outcome["failed_checks"],["feature_probes"])
+        self.assertEqual(outcome["failed_browser_probes"][0]["viewport"],"phone")
+        self.assertNotEqual(outcome["verdict"],"PRODUCT_CI_PASS_WITH_OPEN_EXTERNAL_HOLDS")
+
+    def test_feedback_missing_verdict_is_not_success(self):
+        spec2=importlib.util.spec_from_file_location(
+            "v923_feedback_under_test",SOURCE.parent/"feedback.py")
+        feedback=importlib.util.module_from_spec(spec2)
+        spec2.loader.exec_module(feedback)
+        self.assertEqual(feedback.analyse(None)["verdict"],"UNVERIFIED")
     def test_candidate_columns_are_one_per_vertical(self):
         content=(repair.B/"scripts/plugins/projects-v9-8.js").read_text()
         marker="\nfunction projectRowHtml(project) {"

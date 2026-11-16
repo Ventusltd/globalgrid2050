@@ -11,7 +11,7 @@ isolated preview path and `V928_BASE_SHA` for the recorded product main base.
 Run from the product repository root with Node 24:
 
 ```powershell
-$env:V928_OUT = 'D:\githubfiles\.qa-artifacts\20261116-agent1\integrated'
+$env:V928_OUT = '<artifact-directory>'
 node automation/v928_preview/invariants.mjs
 ```
 
@@ -29,8 +29,8 @@ It imports established MAP functions rather than creating a new link builder.
 Install/provision Playwright in a separate tooling directory, then:
 
 ```powershell
-$env:V928_PLAYWRIGHT = 'D:\githubfiles\.qa-tools\node\node_modules\playwright\index.mjs'
-$env:PLAYWRIGHT_BROWSERS_PATH = 'D:\githubfiles\.qa-tools\browsers'
+$env:V928_PLAYWRIGHT = '<tooling-directory>/node_modules/playwright/index.mjs'
+$env:PLAYWRIGHT_BROWSERS_PATH = '<browser-cache-directory>'
 node automation/v928_preview/browser.mjs
 ```
 

@@ -21,11 +21,13 @@ writing any generated assets:
 python -B automation/v928_context/build.py --figures-dir '<TestCode>/sandbox/filings-ui' --verify-validation
 ```
 
-Add `--output-dir uk_renewables_pipeline/202611161757/context` to stage a
+Add `--output-dir automation/v928_context/preview` to stage a
 **new** self-contained preview cache. An existing output directory is rejected;
 remove or replace no historical tree. Dependency verification completes before
 the output directory is created; the consumer manifest is written last. An
 interrupted staging attempt without its complete manifest is unavailable.
+The host requires the exact manifest digest and verifies every cached asset
+before importing the modules; missing manifest or changed export bytes fails closed.
 
 The cache contains the unchanged Context adapter, renderer and stylesheet;
 the exact producer export; and three original FIGURES files under the immutable

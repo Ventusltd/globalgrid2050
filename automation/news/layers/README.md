@@ -60,7 +60,11 @@ MAP links currently use the existing coordinate-only GridAtlas arrival parameter
 (`longitude`, `latitude`, `zoom`, `project`, `technology`). No REPD ID is invented.
 They mean **source location**, not an ETYS identity match or a known electrical
 connection. Exact substation/offtaker arrival and mobile behavior require separate
-live receiver proof before ROOT accepts this link adapter. Missing geometry has
+live receiver proof before ROOT accepts this link adapter. Live browser inspection
+at 390/1440 confirmed camera movement and a computation receipt with entity kind
+`location` and `ARRIVAL_LINK` provenance. The receiver does not recognize
+`technology=substation` as a typed project layer: this is location screening,
+not automatic substation identity resolution. Missing geometry has
 no MAP link. DNO associations, project crosswalks, headroom and behind-the-meter
 eligibility are not inferred from point distance or identical names.
 
@@ -71,6 +75,7 @@ From repository root, with Node 24:
 ```sh
 node --test automation/news/layers/tests/contracts.test.mjs
 node automation/news/layers/tests/browser.mjs
+node automation/news/layers/serve.mjs
 ```
 
 The browser harness serves `demo/index.html`, injects only byte-identical pinned
@@ -78,6 +83,13 @@ source files for deterministic offline UI checks and records its limits. Live
 MAP receivers and original Prices embedding are separate checks. In normal use
 the demo reads immutable source URLs directly and the existing headline data
 branch; it does not create a scheduler.
+
+Separate live inspection confirmed that the original Prices page embeds without
+frame-policy errors. It did **not** confirm current actual-price data: its default
+9–15 November electricity chart says no actual data and shows an indicative
+seasonal baseline, while the displayed live/frequency observation dates were
+18 June 2026. The host preserves those graphs and exposes their date/data limitation.
+The iframe's technical success must not be reported as actual-price-series acceptance.
 
 The data repository chosen by the owner for future shared intelligence is
 `Ventusltd/data-grid-gb`. Existing GridAtlas products remain with their current

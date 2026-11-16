@@ -100,6 +100,7 @@ export function renderGridProjects(host) {
 export function renderPrices(host,{layer}) {
   const doc=host.ownerDocument;
   host.append(node(doc,'p',layer.sourceLabel,'pn-source'),link(doc,'Open original electricity market workspace',layer.url));
+  host.append(node(doc,'p','Inspect each graph’s observation dates and actual-data label. The existing workspace can show indicative price baselines when actual prices are unavailable.','pn-note'));
   const button=node(doc,'button','Show original graphs here');button.type='button';host.append(button);
   button.addEventListener('click',()=>{
     const frame=node(doc,'iframe');frame.title='Original Electricity Market Intelligence graphs';frame.loading='lazy';frame.src=layer.url;frame.referrerPolicy='no-referrer';

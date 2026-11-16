@@ -1,0 +1,103 @@
+{
+  "schema": "globalgrid2050.grid-dc-context-input.v1",
+  "sources": [
+    {
+      "id": "govuk:ai-action-response-2025",
+      "document_id": "govuk:ai-opportunities-action-plan-government-response",
+      "url": "https://www.gov.uk/government/publications/ai-opportunities-action-plan-government-response/ai-opportunities-action-plan-government-response",
+      "publisher": "Department for Science, Innovation and Technology",
+      "authority": "GOVERNMENT",
+      "title": "AI Opportunities Action Plan: government response",
+      "published_date": "2025-01-13",
+      "retrieved_at": "2026-11-16T17:13:22.197274Z",
+      "http_status": 200,
+      "sha256": "b97f474f6308b8c1e4b9f77f0a4181bfc9bfca657764e8539d90e8d3a98fcc3b",
+      "bytes": 190859,
+      "access_state": "OPEN_OBSERVED",
+      "output_policy": "FACT_METADATA_ONLY"
+    },
+    {
+      "id": "ferc:189-61-078",
+      "document_id": "ferc:ER24-2172-001:189-61-078",
+      "url": "https://www.ferc.gov/sites/default/files/2024-11/20241101-3061_ER24-2172-000.pdf",
+      "publisher": "Federal Energy Regulatory Commission",
+      "authority": "REGULATOR",
+      "title": "Order rejecting amendments to interconnection service agreement",
+      "published_date": "2024-11-01",
+      "retrieved_at": "2026-11-16T17:13:22.629832Z",
+      "http_status": 200,
+      "sha256": "69b04b60cfc5f0150af8cb2f96eabca1c6af9ff74f8bbdbd41a2929b0bf69934",
+      "bytes": 607216,
+      "access_state": "OPEN_OBSERVED",
+      "output_policy": "FACT_METADATA_ONLY"
+    }
+  ],
+  "contexts": [
+    {
+      "id": "grid-context:govuk-culham-aigz-2025-proposal",
+      "name": "Culham AI Growth Zone proposal",
+      "country": "GB",
+      "entity_scope": "zone",
+      "source_entity_reference": "Culham; UK Atomic Energy Authority",
+      "source_id": "govuk:ai-action-response-2025",
+      "section": "Building sufficient, secure, and sustainable AI infrastructure",
+      "page": null,
+      "kind": "development_proposal",
+      "source_state": "PROPOSED",
+      "numeric_claims": [],
+      "figures_omitted_reason": "The proposal uses generic capacity; IT load, project demand and grid-connection basis are not distinguished. Zone scope is outside the shared numerical v1 contract."
+    },
+    {
+      "id": "grid-context:ferc-er24-2172-amendment",
+      "name": "Susquehanna co-located load amendment",
+      "country": "US",
+      "entity_scope": "project",
+      "source_entity_reference": "ER24-2172-000; ER24-2172-001; Service Agreement No. 1442",
+      "source_id": "ferc:189-61-078",
+      "section": "Paragraph 1",
+      "page": "1",
+      "kind": "connection_amendment_decision",
+      "source_state": "REJECTED",
+      "numeric_claims": [
+        {
+          "schema": "globalgrid2050.filing-figure.v1",
+          "claim_id": "ferc:ER24-2172-001:proposed-colocated-load",
+          "status": "machine-provisional",
+          "quantity_kind": "project_demand",
+          "metric": "Proposed co-located load in the rejected amended ISA",
+          "value": "480",
+          "scale": "1",
+          "unit": "MW",
+          "original_unit": "MW",
+          "currency": null,
+          "finance_stage": null,
+          "entity": {
+            "scope": "project",
+            "id": "grid-context:ferc-er24-2172-amendment",
+            "consolidation_group_id": null,
+            "identity_evidence_url": "https://www.ferc.gov/sites/default/files/2024-11/20241101-3061_ER24-2172-000.pdf"
+          },
+          "reporting_period": null,
+          "as_of": "2024-11-01",
+          "basis": "forecast",
+          "assurance": "unknown",
+          "provenance": {
+            "document_id": "ferc:ER24-2172-001:189-61-078",
+            "document_url": "https://www.ferc.gov/sites/default/files/2024-11/20241101-3061_ER24-2172-000.pdf",
+            "sha256": "69b04b60cfc5f0150af8cb2f96eabca1c6af9ff74f8bbdbd41a2929b0bf69934",
+            "page": "1",
+            "section": "Paragraph 1",
+            "published_date": "2024-11-01",
+            "retrieved_at": "2026-11-16T17:13:22.629832Z"
+          },
+          "revision": {
+            "id": "original",
+            "supersedes_claim_id": null,
+            "restated": false
+          }
+        }
+      ],
+      "figures_omitted_reason": null
+    }
+  ]
+}

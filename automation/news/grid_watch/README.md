@@ -11,7 +11,7 @@
 
 ## Official UK source inventory
 
-sources.json lists nine reviewed primary pages: NESO ETYS and data portal; National Grid Electricity Transmission project listing and Great Grid Upgrade; SSEN Transmission project listings; SP Transmission strategic projects and connections; UK Power Networks distribution open data; Ofgem licensees. Rights are UNASSESSED, and discovery of a website is not permission to automate extraction or redistribution. Other DNO coverage is pending; this is not a complete national operator monitor.
+sources.json lists fourteen reviewed primary pages: NESO ETYS and data portal; National Grid Electricity Transmission project listing and Great Grid Upgrade; SSEN Transmission project listings; SP Transmission strategic projects and connections; UK Power Networks, NGED, Northern Powergrid, SSEN Distribution, SP Energy Networks Distribution and SP Electricity North West portals; Ofgem licensees. Rights are UNASSESSED, and discovery of a website is not permission to automate extraction or redistribution. This covers the main GB distribution ownership groups at directory level only; it does not prove record-level coverage, permissions, or live monitoring.
 
 ## API / contract
 
@@ -53,3 +53,7 @@ assert len(rows) == 3 and all(not row["publishable"] for row in rows)
 The independently authored local file set passed 12/12 unittest methods on 16 November 2026. **GitHub Actions exact-branch CI is unverified until it runs.** V9.28 root must review dataset rights, actual item receipts, consistent scheme identities and the host integration hook. If accepted, add GRID as a tab inside the one Pipeline block with existing V9.24 black/monospace/cyan/yellow styling. No extra panel, score, homepage promotion or merge is authorised by this handoff.
 
 Coordination: https://github.com/Ventusltd/neural-link-between-agents/issues/42
+
+## Additional owner research recovered
+
+Ventusltd/data_uk_dno_and_tso already contains a second-stage DNO/TSO API comparison at dno_tso_second_stage_study_apis_datasets_joins.md.md on main. It maps Opendatasoft, CKAN and direct-download portal families, ECR, LTDS, DFES and NDP datasets, and stated rate limits. Reuse and independently recheck this research before any future collector; do not construct an unapproved second fetch infrastructure. Its rights assumptions are not approvals by grid_watch.

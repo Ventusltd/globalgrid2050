@@ -76,6 +76,10 @@ def _sources(sources):
     for source in sources:
         _require(isinstance(source, dict) and source.get("status") == "ok",
                  "Critical source failure: manual review required")
+        _require(source.get("eligible_for_publication") is True and source.get("probe_only") is False
+                 and source.get("rights_status") == "accepted",
+                 "Source rights unknown or probe-only: manual review required")
+        _url(source.get("rights_review_url"))
         _require(isinstance(source.get("id"), str) and source["id"], "Source ID required")
         ids.append(source["id"])
         _url(source.get("url"))

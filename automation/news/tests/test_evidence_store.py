@@ -36,7 +36,9 @@ def articles():
 @pytest.fixture
 def sources():
     return [{"id": "pv_magazine_global", "status": "ok", "url": "https://www.pv-magazine.com/feed/",
-             "fetched_at": NOW, "response_sha256": "a" * 64, "http_status": 200}]
+             "fetched_at": NOW, "response_sha256": "a" * 64, "http_status": 200,
+             "eligible_for_publication": True, "probe_only": False, "rights_status": "accepted",
+             "rights_review_url": "https://fixtures.example/synthetic-rights-review"}]
 
 
 def matches(articles):
@@ -78,6 +80,10 @@ def test_no_evidence_row_replaced_when_match_found(projects, articles, sources):
     lambda p, a, m, s: m[0].update(match_method="fuzzy"),
     lambda p, a, m, s: s[0].update(status="failed"),
     lambda p, a, m, s: s[0].update(response_sha256=""),
+    lambda p, a, m, s: s[0].update(eligible_for_publication=False),
+    lambda p, a, m, s: s[0].update(probe_only=True),
+    lambda p, a, m, s: s[0].update(rights_status="unknown"),
+    lambda p, a, m, s: s[0].update(rights_review_url=None),
     lambda p, a, m, s: a[0].update(url="javascript:alert(1)"),
     lambda p, a, m, s: a[0].update(pub_date="not a date"),
     lambda p, a, m, s: p.pop(),
@@ -153,6 +159,8 @@ def test_immutable_exports_roundtrip_and_pointer(tmp_path, projects, articles, s
     lambda x: x["projects"][0].update(last_event="planning approved"),
     lambda x: x["projects"][0]["evidence"][0].update(content="body"),
     lambda x: x["sources"][0].update(status="failed"),
+    lambda x: x["sources"][0].update(rights_status="unknown"),
+    lambda x: x["sources"][0].update(probe_only=True),
 ])
 def test_schema_failure_keeps_previous_pointer(tmp_path, projects, articles, sources, mutation, monkeypatch):
     with EvidenceStore() as store:

@@ -1,0 +1,10 @@
+/* Additive project-detail styling only; existing table, actions and CSV unchanged. */
+.project-record>.research-priority{max-width:100%;margin-top:10px;border-top:1px solid #304550;white-space:normal}
+.project-record>.research-priority>summary{padding:9px 0;min-height:40px;color:#86e1d1;white-space:normal;cursor:pointer}
+.project-record .priority-content{padding:2px 0 12px;font-size:12px;line-height:1.55;overflow-wrap:anywhere}
+.project-record .priority-content p{margin:8px 0;font-weight:400}
+.project-record .priority-content ul{margin:8px 0;padding-left:18px}
+.project-record .priority-content li{margin:6px 0}
+.project-record .priority-content .priority-note{color:#d5b976}
+.project-record .priority-content .priority-unknown{font-weight:600}
+.project-record>[data-priority-state]{display:block;margin-top:8px;font-size:12px;line-height:1.5;color:#a9bdc9;white-space:normal;overflow-wrap:anywhere}

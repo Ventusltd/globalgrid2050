@@ -1,0 +1,43 @@
+name: V9.24 public served-byte and rollback verification
+on:
+  workflow_run:
+    workflows: ["Deploy GlobalGrid2050 Pages"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: v924-public-readback
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          sparse-checkout: |
+            /automation/v924_public/
+            /catalogue/homepage-owner.json
+            /uk_renewables_pipeline/202611160020/
+            /uk_renewables_pipeline/202611161244/
+            /uk_renewables_pipeline/versions.json
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify public V9.24 and preserved V9.23 rollback
+        env:
+          V924_RECEIPT_PATH: /tmp/v924-public-receipt.json
+          V924_VERIFY_ATTEMPTS: 16
+          V924_VERIFY_DELAY_SECONDS: 12
+        run: python3 automation/v924_public/verify.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v924-public-byte-receipt
+          path: /tmp/v924-public-receipt.json
+          retention-days: 30

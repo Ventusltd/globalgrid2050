@@ -642,7 +642,7 @@
       "data_changed": false,
       "runner": "tests/run_v9_23.sh",
       "trees": [
-        "5fb62514857524bab38ba21b93788fdbb3a16b9d"
+        "5d6e2b4c72646093cdbc4a053869c840ceb26f3e"
       ],
       "features": [
         {
@@ -656,7 +656,10 @@
       ],
       "ci": null,
       "merge_commit": null,
-      "state": "nonlive_candidate"
+      "state": "nonlive_candidate",
+      "removed_features": [
+        "datacentre-news-panel"
+      ]
     }
   ],
   "size_budget_mb": 18,

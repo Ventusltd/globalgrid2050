@@ -42,6 +42,11 @@ async function ready(page){
 test('provisional evidence, escaping, search, map contract, and full CSV',async({page},testInfo)=>{
   const errors=[];page.on('pageerror',error=>errors.push(error.message));
   await installRoutes(page);await ready(page);
+  await expect(page.locator('.v925-overview .v925-stat strong')).toHaveText(['7,775','3,604','1,000','0']);
+  await expect(page.locator('.v925-pillars a')).toHaveCount(4);
+  await expect(page.locator('.v925-pillars a[href="../datacentres/"]')).toContainText('Data centres');
+  await expect(page.locator('.v925-context-note')).toContainText('International headlines provide market context');
+  await page.screenshot({path:testInfo.outputPath('dashboard-overview.png')});
   await expect(page.locator('[data-evidence-status]')).toContainText('1 provisional matches');
   await page.locator('[data-pilot-search]').fill('1018');
   const panel=page.locator('[data-evidence-project="1018"]');

@@ -1,4 +1,4 @@
-name: Publish V9.23 version ledger with complete real browser verdict
+name: Publish Pipeline News version ledger with full Python and browser checks
 # Targeted release metadata refresh; preserves all immutable version folders.
 on:
   push:
@@ -13,7 +13,7 @@ permissions:
   actions: write
 
 concurrency:
-  group: pipeline-v923-ledger-publication
+  group: pipeline-version-ledger-publication
   cancel-in-progress: false
 
 jobs:
@@ -34,14 +34,27 @@ jobs:
       - name: Verify historical source+7,775 maps and regenerate published version ledger
         run: |
           python3 automation/pipeline_release/verify.py --browser --check --write
-      - name: Commit generated version list only
+      - name: Commit generated version list only (retry unrelated concurrent main commits)
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add uk_renewables_pipeline/versions.json uk_renewables_pipeline/versions.html
           if ! git diff --staged --quiet; then
-            git commit -m 'docs(pipeline-news): update published V9.23 versions index and retain V9.22'
-            git push origin HEAD:main
+            git commit -m 'docs(pipeline-news): regenerate version catalogue through V9.24'
+            if git push origin HEAD:main; then
+              echo "Version catalogue committed successfully"
+            else
+              echo "Concurrent main update detected; reconcile without rewriting history"
+              git fetch origin main
+              if ! git show origin/main:automation/pipeline_release/registry.json | cmp -s - automation/pipeline_release/registry.json; then
+                echo "Registry moved during verification; refuse stale catalogue, rerun workflow from new main" >&2
+                exit 1
+              fi
+              git rebase origin/main
+              git push origin HEAD:main
+            fi
+          else
+            echo "Published version catalogue already current"
           fi
       - name: Dispatch Pages for latest source and the new versions index
         env:

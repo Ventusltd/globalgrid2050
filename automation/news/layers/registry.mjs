@@ -55,7 +55,8 @@ export function createDataRegistry(manifest, {fetchImpl = globalThis.fetch, time
       const layer = layers.find(x => x.id === id);
       if (!layer) throw Error('Unknown layer');
       if (!layer.data) return null;
-      const key = layer.data.url + ':' + layer.data.sha256;
+      // Validation belongs to the complete accepted contract, not merely its bytes.
+      const key = JSON.stringify([layer.data.url, layer.data.sha256, layer.data.schema, layer.data.rows, layer.data.maxBytes]);
       if (!cache.has(key)) {
         const work = (async () => {
           const controller = new AbortController();

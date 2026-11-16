@@ -23,6 +23,12 @@ test('changed bytes fail before parsing or rendering and allow an explicit retry
   let bad=true;const registry=createDataRegistry(spec(),{fetchImpl:async()=>new Response(bad?Buffer.concat([bytes,Buffer.from(' ')]):bytes)});
   await assert.rejects(registry.load('test'),/integrity/);bad=false;assert.equal((await registry.load('test')).features.length,1);
 });
+test('a warmed source cannot bypass another layer’s stricter schema/count/byte contract',async()=>{
+  const manifest=spec(),second=structuredClone(manifest.layers[0]);second.id='strict';second.data.rows=2;second.data.maxBytes=1;second.data.schema='WRONG';manifest.layers.push(second);
+  const registry=createDataRegistry(manifest,{fetchImpl:async()=>new Response(bytes)});
+  assert.equal((await registry.load('test')).features.length,1);
+  await assert.rejects(registry.load('strict'),/byte budget/);
+});
 test('stream size is enforced without trusting the declared content length',async()=>{
   const manifest=spec();manifest.layers[0].data.maxBytes=1;
   const registry=createDataRegistry(manifest,{fetchImpl:async()=>new Response(bytes)});
@@ -62,6 +68,11 @@ test('search and CSV cover the same selected rows; deliberate cross-domain overl
   const rows=[...assetRows(source,'substation'),...assetRows(source,'offtaker')];assert.equal(rows.length,2);
   const selected=selectRows(rows,'source:1');assert.equal(selected.length,2);assert.equal(assetCsv(selected).split('\r\n').length,4);
   rows[0].name='=HYPERLINK("malicious")';assert.ok(assetCsv(rows).includes("'=HYPERLINK"));
+});
+test('downloaded records retain original source URLs, licences and dataset-level attribution',()=>{
+  const input=structuredClone(source);input.features[0].properties.sources=[{name:'NAEI',url:'https://naei.example/record',licence:'OGL v3.0'}];
+  const rows=assetRows(input,'offtaker');const csv=assetCsv(rows,{sourceUrl:'https://source.example/pinned.json',datasetAttribution:{database:'ODbL',credit:'OpenStreetMap contributors'}});
+  for(const value of ['https://naei.example/record','OGL v3.0','https://source.example/pinned.json','ODbL','OpenStreetMap contributors'])assert.ok(csv.includes(value),value);
 });
 test('ticker selects ten latest dated distinct HTTPS headlines without unsafe URLs',()=>{
   const items=Array.from({length:12},(_,i)=>({title:'Item '+i,link:'https://publisher.example/'+i,date:`2026-11-${String(i+1).padStart(2,'0')}`,source:'Publisher'}));

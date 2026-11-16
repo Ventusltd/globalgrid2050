@@ -6,14 +6,19 @@ function csvCell(value) {
   if(typeof value!=='number' && /^[=+@\-\t\r]/.test(s))s="'"+s;
   return /[",\r\n]/.test(s)?'"'+s.replaceAll('"','""')+'"':s;
 }
-export function assetCsv(rows) {
-  return [['Source ID','Name','Operator','Category','Published voltage','Longitude','Latitude','MAP location'],
-    ...rows.map(r=>[r.sourceId,r.name,r.operator,r.category,r.voltage,r.coordinates?.[0],r.coordinates?.[1],locationLink(r)])]
+export function assetCsv(rows,{sourceUrl=null,datasetAttribution=null}={}) {
+  return [['Source ID','Name','Operator','Category','Published voltage','Longitude','Latitude','MAP location','Source dataset URL','Source attribution and licences','Dataset attribution and licence','Source record'],
+    ...rows.map(r=>[r.sourceId,r.name,r.operator,r.category,r.voltage,r.coordinates?.[0],r.coordinates?.[1],locationLink(r),sourceUrl,
+      JSON.stringify(r.properties?.sources??[]),JSON.stringify(datasetAttribution),JSON.stringify(r.properties)])]
     .map(row=>row.map(csvCell).join(',')).join('\r\n')+'\r\n';
 }
 export function renderAssets(host,{data,layer}) {
   const doc=host.ownerDocument, rows=assetRows(data,layer.kind); let page=0;
   host.append(node(doc,'p',layer.sourceLabel,'pn-source'));
+  const provenance={sourceUrl:layer.data.url,sha256:layer.data.sha256,
+    datasetAttribution:data.licence??data.license??data.attribution??layer.sourceLabel};
+  const disclosure=node(doc,'details'),disclosureTitle=node(doc,'summary','Dataset source and attribution');
+  disclosure.append(disclosureTitle,node(doc,'pre',JSON.stringify(provenance,null,2)));host.append(disclosure);
   host.append(node(doc,'p',layer.kind==='substation'
     ? 'Mapped substations; source names and voltages retained. A mapped site does not establish available capacity or a project connection.'
     : 'Potential offtakers for screening. Data-centre overlap is retained; a listed site is not confirmed demand, a contract or a connection.','pn-note'));
@@ -87,7 +92,7 @@ export function renderAssets(host,{data,layer}) {
     if(selected){search.value=selected.sourceId;page=0;update();search.focus();}
   });
   exportButton.addEventListener('click',()=>{
-    const href=URL.createObjectURL(new Blob([assetCsv(filtered)],{type:'text/csv;charset=utf-8'}));
+    const href=URL.createObjectURL(new Blob([assetCsv(filtered,provenance)],{type:'text/csv;charset=utf-8'}));
     const a=link(doc,'',href);a.download=layer.id+'-results.csv';doc.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(href),1000);
   });
   update();

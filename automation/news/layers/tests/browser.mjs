@@ -78,6 +78,21 @@ try {
         controls.destroy();root.remove();return {latest,failed,recovered};
       });
       assert.deepEqual(race,{latest:'latest',failed:'unavailable',recovered:'latest'},'Late response cannot overwrite new tab and a failed module does not poison neighbors');
+      const unsafePrice=await page.evaluate(async()=>{
+        const {renderPrices}=await import('/automation/news/layers/views.mjs');
+        const {validateRegistry}=await import('/automation/news/layers/registry.mjs');
+        const host=document.createElement('div');host.id='unsafe-price-proof';document.body.append(host);
+        window.__layerProbe=0;
+        const layer={id:'prices',label:'Prices',group:'Prices',owner:'Synthetic test',renderer:'prices',url:'javascript:parent.__layerProbe=1'};
+        let registryRejected=false,rendererRejected=false;
+        try{validateRegistry({schema:'globalgrid2050.pipeline-layers.v1',layers:[layer]});}catch{registryRejected=true;}
+        try{renderPrices(host,{layer});}catch{rendererRejected=true;}
+        // On the unfixed renderer this real click creates a javascript: iframe.
+        host.querySelector('button')?.click();await new Promise(r=>setTimeout(r,50));
+        const result={registryRejected,rendererRejected,frames:host.querySelectorAll('iframe').length,links:host.querySelectorAll('a').length,probe:window.__layerProbe};
+        host.remove();delete window.__layerProbe;return result;
+      });
+      assert.deepEqual(unsafePrice,{registryRejected:true,rendererRejected:true,frames:0,links:0,probe:0},'Unsafe Prices input cannot execute through direct renderer or registry');
     }
     // Return reuses the same pinned raw source rather than downloading it again.
     assert.equal(requests.filter(u=>u===catalogue.layers[0].data.url).length,1);

@@ -1,10 +1,12 @@
+import {publicHttpsUrl} from './url-policy.mjs';
 export function assetRows(payload, kind) {
   if (payload?.type !== 'FeatureCollection' || !Array.isArray(payload.features)) throw Error('Invalid source collection');
   const seen = new Set();
   return payload.features.map(feature => {
     const p = feature.properties || {};
     const rawId = feature.id ?? p.id;
-    if (rawId === undefined || rawId === null || String(rawId).length > 160) throw Error('Missing source identity');
+    if (!['string','number'].includes(typeof rawId) || !String(rawId).trim() || String(rawId).length > 160
+      || (typeof rawId === 'number' && (!Number.isSafeInteger(rawId) || rawId < 0))) throw Error('Missing source identity');
     const id = `${kind}:${rawId}`;
     if (seen.has(id)) throw Error('Duplicate source identity'); seen.add(id);
     const c = feature.geometry?.type === 'Point' ? feature.geometry.coordinates : null;
@@ -33,15 +35,23 @@ export function locationLink(row) {
     project: row.name || row.sourceId, technology: row.id.startsWith('substation:') ? 'substation' : 'offtaker'});
   return url.href;
 }
-export function latestHeadlines(items, limit = 10) {
-  if (!Array.isArray(items)) return [];
+function publicationStamp(value) {
+  if(typeof value!=='string')return NaN;
+  const match=/^(\d{4})-(\d{2})-(\d{2})(?:T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d{1,9})?(?:Z|[+-](?:[01]\d|2[0-3]):[0-5]\d))?$/.exec(value);
+  if(!match)return NaN;
+  const year=Number(match[1]),month=Number(match[2]),day=Number(match[3]);
+  const leap=year%4===0&&(year%100!==0||year%400===0),days=[31,leap?29:28,31,30,31,30,31,31,30,31,30,31];
+  if(year<1900||month<1||month>12||day<1||day>days[month-1])return NaN;
+  return Date.parse(value);
+}
+export function latestHeadlines(items, limit = 10, {asOf=Date.now()}={}) {
+  if (!Array.isArray(items) || items.length>10000 || !Number.isFinite(asOf) || !Number.isInteger(limit) || limit<1 || limit>10) return [];
   const unique = new Map();
   for (const item of items) {
     if (typeof item?.title !== 'string' || !item.title.trim() || item.title.length > 1000) continue;
-    let u; try { u = new URL(item.link); } catch { continue; }
-    if (u.protocol !== 'https:' || u.username || u.password) continue;
-    const stamp = Date.parse(item.date || item.first_seen || '');
-    if (!Number.isFinite(stamp)) continue;
+    let u; try { u = publicHttpsUrl(item.link); } catch { continue; }
+    const stamp = publicationStamp(item.date || item.first_seen || '');
+    if (!Number.isFinite(stamp) || stamp>asOf) continue;
     const row = {title: item.title, link: u.href, source: String(item.source || 'Publisher not supplied'), date: item.date || item.first_seen, stamp};
     if (!unique.has(row.link) || unique.get(row.link).stamp < stamp) unique.set(row.link, row);
   }

@@ -28,6 +28,10 @@ registry entry names a renderer, pinned dataset, schema, expected count and byte
 budget. Changing a dataset requires a reviewed composition; a payload cannot
 repin itself. Unknown modules, failed fetches, changed bytes and invalid counts
 leave just that view unavailable. Late responses cannot replace a newer tab.
+Browser navigation rejects IP literals, local hostnames, credentials and unsafe
+schemes. Prices is restricted to the explicitly accepted existing workspace at
+both registry and renderer boundaries. Headline dates must be calendar-valid
+and not later than the evaluation clock; malformed/future items are withheld.
 
 ## Views
 

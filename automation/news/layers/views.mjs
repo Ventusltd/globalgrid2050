@@ -1,4 +1,5 @@
 import {assetRows, selectRows, locationLink, voltageLabel} from './model.mjs';
+import {priceWorkspaceUrl} from './url-policy.mjs';
 const node = (doc, tag, text, cls) => { const n=doc.createElement(tag); if(text!==undefined)n.textContent=text; if(cls)n.className=cls; return n; };
 function link(doc, label, href) { const a=node(doc,'a',label); a.href=href; a.target='_blank'; a.rel='noopener noreferrer'; return a; }
 function csvCell(value) {
@@ -104,11 +105,12 @@ export function renderGridProjects(host) {
 }
 export function renderPrices(host,{layer}) {
   const doc=host.ownerDocument;
-  host.append(node(doc,'p',layer.sourceLabel,'pn-source'),link(doc,'Open original electricity market workspace',layer.url));
+  const acceptedUrl=priceWorkspaceUrl(layer.url);
+  host.append(node(doc,'p',layer.sourceLabel,'pn-source'),link(doc,'Open original electricity market workspace',acceptedUrl));
   host.append(node(doc,'p','Inspect each graph’s observation dates and actual-data label. The existing workspace can show indicative price baselines when actual prices are unavailable.','pn-note'));
   const button=node(doc,'button','Show original graphs here');button.type='button';host.append(button);
   button.addEventListener('click',()=>{
-    const frame=node(doc,'iframe');frame.title='Original Electricity Market Intelligence graphs';frame.loading='lazy';frame.src=layer.url;frame.referrerPolicy='no-referrer';
+    const frame=node(doc,'iframe');frame.title='Original Electricity Market Intelligence graphs';frame.loading='lazy';frame.src=acceptedUrl;frame.referrerPolicy='no-referrer';
     host.append(frame);button.remove();
   },{once:true});
 }

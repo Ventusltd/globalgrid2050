@@ -4,6 +4,7 @@ import {createHash} from 'node:crypto';
 import {createDataRegistry,validateRegistry} from '../registry.mjs';
 import {assetRows,selectRows,locationLink,latestHeadlines,voltageLabel} from '../model.mjs';
 import {assetCsv} from '../views.mjs';
+import {priceWorkspaceUrl,publicHttpsUrl} from '../url-policy.mjs';
 const source={type:'FeatureCollection',features:[{type:'Feature',id:'source:1',properties:{name:'Named substation',voltage:'132000'},geometry:{type:'Point',coordinates:[-1,52]}}]};
 const bytes=Buffer.from(JSON.stringify(source));
 const digest=createHash('sha256').update(bytes).digest('hex');
@@ -78,4 +79,22 @@ test('ticker selects ten latest dated distinct HTTPS headlines without unsafe UR
   const items=Array.from({length:12},(_,i)=>({title:'Item '+i,link:'https://publisher.example/'+i,date:`2026-11-${String(i+1).padStart(2,'0')}`,source:'Publisher'}));
   items.push({...items[0]},{title:'Unsafe',link:'javascript:alert(1)',date:'2026-11-15'});
   const result=latestHeadlines(items);assert.equal(result.length,10);assert.equal(result[0].title,'Item 11');assert.equal(result.at(-1).title,'Item 2');
+});
+test('impossible dates, future publication and private-address headlines are withheld',()=>{
+  const common={title:'Synthetic source title',source:'Fixture',link:'https://publisher.example/article'};
+  const asOf=Date.parse('2026-11-16T23:00:00Z');
+  for(const date of ['2026-02-30','2026-11-31T12:00:00Z','2099-01-01','2026-11-17T00:00:00Z','2026-11-16T25:00:00Z'])assert.deepEqual(latestHeadlines([{...common,date}],10,{asOf}),[],date);
+  for(const link of ['https://127.0.0.1/private','https://[::1]/private','https://localhost/private','https://router.local/private','https://192.168.0.1/private'])assert.deepEqual(latestHeadlines([{...common,date:'2026-11-16',link}],10,{asOf}),[],link);
+  assert.equal(latestHeadlines([{...common,date:'2024-02-29'}],10,{asOf}).length,1);
+});
+test('Prices URLs reject at both the registry and renderer URL-policy boundary',()=>{
+  for(const url of ['javascript:alert(1)','https://127.0.0.1/private','https://evil.example/graphs']) {
+    const manifest=spec();manifest.layers.push({id:'prices',label:'Prices',group:'Prices',owner:'Fixture',renderer:'prices',url});
+    assert.throws(()=>validateRegistry(manifest),undefined,url);assert.throws(()=>priceWorkspaceUrl(url),undefined,url);
+  }
+  assert.equal(priceWorkspaceUrl('https://globalgrid2050.com/uk_energy_tracking_v6/'),'https://globalgrid2050.com/uk_energy_tracking_v6/');
+  assert.throws(()=>publicHttpsUrl('https://127.1/private'));
+});
+test('blank and non-identity source values cannot become fabricated asset keys',()=>{
+  for(const id of ['', '   ',null,{},true,NaN]){const value=structuredClone(source);value.features[0].id=id;assert.throws(()=>assetRows(value,'substation'),/source identity/,String(id));}
 });

@@ -1,4 +1,5 @@
 /* A data-plane extension of Pipeline's existing plugin host, not a script loader. */
+import {publicHttpsUrl,priceWorkspaceUrl} from './url-policy.mjs';
 const HEX = /^[a-f0-9]{64}$/;
 const ID = /^[a-z][a-z0-9-]{0,63}$/;
 export function validateRegistry(manifest) {
@@ -8,8 +9,10 @@ export function validateRegistry(manifest) {
     if (!ID.test(layer.id) || ids.has(layer.id)) throw Error('Invalid or duplicate layer id');
     ids.add(layer.id);
     if (![layer.label, layer.group, layer.owner, layer.renderer].every(x => typeof x === 'string' && x.length > 0 && x.length <= 160)) throw Error('Layer metadata is incomplete');
+    if (layer.url !== undefined) publicHttpsUrl(layer.url);
+    if (layer.renderer === 'prices') priceWorkspaceUrl(layer.url);
     if (layer.data) {
-      const u = new URL(layer.data.url);
+      const u = publicHttpsUrl(layer.data.url);
       if (u.protocol !== 'https:' || u.username || u.password || u.hash || !HEX.test(layer.data.sha256)) throw Error('Invalid pinned data source');
       if (!Number.isSafeInteger(layer.data.maxBytes) || layer.data.maxBytes < 1 || layer.data.maxBytes > 8 * 1024 * 1024) throw Error('Layer exceeds browser byte policy');
       if (!Number.isSafeInteger(layer.data.rows) || layer.data.rows < 0 || layer.data.rows > 25000) throw Error('Layer exceeds browser row policy');

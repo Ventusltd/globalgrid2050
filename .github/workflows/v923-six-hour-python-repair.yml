@@ -1,0 +1,110 @@
+name: V9.23 six-hour Python repair and release gates
+# GitHub Actions, every 30 minutes. One fresh capped job, no background AI session.
+# Only builds/updates a nonlive candidate branch. Never deploys or changes homepage.
+on:
+  schedule:
+    - cron: '0,30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  actions: write
+
+concurrency:
+  group: v923-six-hour-product-repair
+  cancel-in-progress: false
+
+jobs:
+  repair-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Six-hour cutoff, fail no-op outside authorised window
+        id: window
+        run: |
+          python3 - <<'PY'
+          from datetime import datetime,timezone
+          import os
+          now=datetime.now(timezone.utc)
+          enabled=datetime(2026,11,16,0,0,tzinfo=timezone.utc)<=now<datetime(2026,11,16,6,15,tzinfo=timezone.utc)
+          with open(os.environ['GITHUB_OUTPUT'],'a') as fp: fp.write('active='+str(enabled).lower()+'\n')
+          print('active',enabled,'UTC',now.isoformat())
+          PY
+      - uses: actions/checkout@v4
+        if: steps.window.outputs.active == 'true'
+        with:
+          ref: agent10/v923-six-hour-repair-20261116
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        if: steps.window.outputs.active == 'true'
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        if: steps.window.outputs.active == 'true'
+        with:
+          node-version: '22'
+      - name: Python creates new V9.23 only once; archive V9.22 untouched
+        if: steps.window.outputs.active == 'true'
+        run: |
+          python3 -m py_compile automation/v923-recovery/repair.py
+          python3 automation/v923-recovery/repair.py build
+      - name: Commit candidate on its EXCLUSIVE branch before running tests
+        if: steps.window.outputs.active == 'true'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add uk_renewables_pipeline/202611160020/ automation/pipeline_release/registry.json
+          if ! git diff --staged --quiet; then
+            git commit -m 'build(v923): new nonlive one-feed Machine Read Notes candidate'
+            git push origin HEAD:agent10/v923-six-hour-repair-20261116
+          fi
+          echo "ACTUAL_CANDIDATE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+      - name: Python source, link, UI and backwards compatibility gates
+        id: checks
+        if: steps.window.outputs.active == 'true'
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p "$RUNNER_TEMP/v923"
+          python3 automation/v923-recovery/repair.py check 2>&1 | tee "$RUNNER_TEMP/v923/structure.log"
+          node --check uk_renewables_pipeline/202611160020/scripts/plugins/machine-notes-v923.js
+          node --check uk_renewables_pipeline/202611160020/scripts/plugins/live-news.js
+          node --check uk_renewables_pipeline/202611160020/scripts/plugins/projects-v9-8.js
+          bash uk_renewables_pipeline/202611160020/tests/run_v9_23.sh 2>&1 | tee "$RUNNER_TEMP/v923/runner.log"
+      - name: Existing historical version/REPD/CSV/MAP regression runner
+        id: regression
+        if: steps.window.outputs.active == 'true' && steps.checks.outcome == 'success'
+        shell: bash
+        run: |
+          set -o pipefail
+          python3 automation/pipeline_release/verify.py --check 2>&1 | tee "$RUNNER_TEMP/v923/version-parity.log"
+      - name: Publish failures AND passing evidence to release issue (not homepage)
+        if: always() && steps.window.outputs.active == 'true'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CHECK_STATUS: ${{ steps.checks.outcome }}
+          HISTORY_STATUS: ${{ steps.regression.outcome }}
+        shell: bash
+        run: |
+          {
+            echo "[V9.23 PYTHON ACTIONS AUDIT] NONLIVE — 2026-11-16"
+            echo "Candidate branch: agent10/v923-six-hour-repair-20261116"
+            echo "Tested commit: ${ACTUAL_CANDIDATE_SHA:-unknown}"
+            echo "Direct run: https://github.com/Ventusltd/globalgrid2050/actions/runs/${GITHUB_RUN_ID}"
+            echo "Candidate structural / own-runner verdict: $CHECK_STATUS"
+            echo "All historical versions/CSV/MAP static regression: $HISTORY_STATUS"
+            echo "Real GridAtlas 390px visible nearest output: UNVERIFIED / known REPD12588, REPD2470 RED"
+            echo "Original publisher rights/project-binding: UNVERIFIED"
+            echo "Physical iPhone and served preview SHA: UNVERIFIED"
+            echo "No GridAtlas/Agent9 files, historic version, homepage pointer or production change authorised."
+          } > "$RUNNER_TEMP/v923/summary.txt"
+          gh issue comment 121 --repo Ventusltd/globalgrid2050 --body-file "$RUNNER_TEMP/v923/summary.txt"
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.window.outputs.active == 'true'
+        with:
+          name: v923-repair-verdict-${{ github.run_id }}
+          path: ${{ runner.temp }}/v923/
+          retention-days: 14

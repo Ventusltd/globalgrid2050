@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GlobalGrid2050 | UK Renewables Pipeline 202611161734</title>
+  <!-- The deep-link contract this page verifies its MAP receiver against lives
+       on a second origin. Nothing waits on that request any more, but it still
+       costs DNS + TCP + TLS on a cold mobile radio the first time it is made;
+       starting the handshake here overlaps it with the project payload instead
+       of paying for it in series. -->
+  <link rel="preconnect" href="https://ventusltd.github.io" crossorigin>
+  <link rel="stylesheet" href="styles/v7.css?v=9.8">
+  <link rel="stylesheet" href="styles/mobile.css?v=9.8">
+  <link rel="stylesheet" href="styles/v9-3.css?v=9.8">
+  <link rel="stylesheet" href="styles/v9-4.css?v=9.8">
+  <link rel="stylesheet" href="styles/v9-5-1.css?v=9.8">
+  <link rel="stylesheet" href="styles/v9-6-1.css?v=9.8">
+  <link rel="stylesheet" href="styles/v9-10.css?v=9.10">
+  <link rel="stylesheet" href="styles/v9-21.css?v=9.21">
+  <link rel="stylesheet" href="styles/v9-22.css?v=9.22">
+  <link rel="stylesheet" href="styles/v9-23.css?v=9.23">
+  <link rel="stylesheet" href="styles/v9-24.css?v=9.24">
+  <link rel="stylesheet" href="styles/v9-25.css?v=9.25">
+  <link rel="stylesheet" href="styles/v9-26.css?v=9.26">
+  <!-- Chart.js is pinned to one exact file and checked by Subresource Integrity
+       (the pin first made in 202610290230). 4.5.1 is the version every V9 page
+       was built and tested with. If the CDN serves other bytes the browser
+       refuses the script and the three gauges stay empty; the table, news,
+       search, export and MAP links do not depend on it. -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js" integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <b>GLOBALGRID2050</b>
+      <small>UK RENEWABLES PIPELINE · V9.26</small>
+    </div>
+    <nav class="nav">
+      <a class="active" href="#">V9.26 RELEASE CANDIDATE · REPD Q3 2026</a>
+      <a href="../versions.html">ALL VERSIONS · CI VERDICTS</a>
+      <a href="../202611161630/">V9.25 202611161630 · REPD Q3 2026</a>
+      <a href="../202611161244/">V9.24 202611161244 · REPD Q3 2026</a>
+      <details class="v925-history">
+        <summary>Previous editions</summary>
+      <a href="../202611160020/">V9.23 202611160020 · PREVIOUS EDITION</a>
+      <a href="../202611151300/">V9.22 202611151300 · REPD Q3 2026</a>
+      <a href="../202611141017/">V9.21 202611141017 · PREVIOUS EDITION</a>
+      <a href="../202611140306/">V9.20 202611140306 · REPD Q3 2026</a>
+      <a href="../202611140247/">V9.19 202611140247 · REPD Q3 2026</a>
+      <a href="../202611140223/">V9.18 202611140223 · REPD Q3 2026</a>
+      <a href="../202611140216/">V9.17 202611140216 · REPD Q3 2026</a>
+      <a href="../202611140058/">V9.13 202611140058 · REPD Q3 2026</a>
+      <a href="../202611132345/">V9.12 202611132345 · REPD Q3 2026</a>
+      <a href="../202609082224/">V9.10 202609082224 · REPD Q2 2026</a>
+      <a href="../202609061329/">V9.7 202609061329</a>
+      <a href="../v9.6.2/">V9.6.2 LIVE VALIDATED</a>
+      <a href="../v9.6.1/">V9.6.1 FROZEN APP</a>
+      <a href="../v9.6/">V9.6 DISCONTINUED</a>
+      <a href="../v9.5.1/">V9.5.1 FROZEN APP</a>
+      <a href="../v9.5/">V9.5 FROZEN APP</a>
+      <a href="../v9.4/">V9.4 FROZEN APP</a>
+      <a href="../v9/">V9.3.1 FROZEN APP</a>
+      <a href="https://github.com/Ventusltd/globalgrid2050/tree/eee4cf7d854bf44235c249d337c2aad3916bcdc0/uk_renewables_pipeline/v9" target="_blank" rel="noopener">V9.3 CHECKPOINT</a>
+      <a href="https://github.com/Ventusltd/globalgrid2050/tree/77085a5dc8a8ce42cd4de7dad927eaf9aaf785ee/uk_renewables_pipeline/v9" target="_blank" rel="noopener">V9.2 CHECKPOINT</a>
+      <a href="https://github.com/Ventusltd/globalgrid2050/tree/59f74e319fbaad62abdb995107dba5759d7f3ca2/uk_renewables_pipeline/v9" target="_blank" rel="noopener">V9.1 CHECKPOINT</a>
+      <a href="../v8/">V8.1 FALLBACK</a>
+      <a href="../v7/">V7 FALLBACK</a>
+      <a href="../dashboard_v6_live.html">V6</a>
+      <a href="../dashboard_v5_live.html">V5</a>
+      <a href="../dashboard_v4_live.html">V4</a>
+      <a href="../dashboard_v3_live_2026-08-22.html">V3</a>
+      <a href="../dashboard_v2_2026-08-22.html">V2</a>
+      <a href="../dashboard.html">V1 LEGACY</a>
+      </details>
+      <a href="../../index.html">DIRECTORY</a>
+      <!-- This opened ../../repd_grid_atlasv8/ until 2026-09-05. That route is
+           named RETIRED by the very contract this page compiles in, and every
+           row's MAP cell had already moved to the canonical receiver - so the
+           nav button and the table disagreed about where the Atlas is, and the
+           button was the one that was wrong. The link gate never saw it because
+           its scanner accepts only .js and .mjs, so "0 live sites" was true of
+           the JavaScript and false of the HTML.
+           The href below is the compiled canonical route, and it is re-pointed
+           by scripts/plugins/projects-v9-5-1.js if the live contract names a
+           different one - the same signal the MAP cells already follow. -->
+      <a href="https://ventusltd.github.io/gridatlas/atlas/" id="mapAtlasNav">MAP ATLAS</a>
+      <a href="#" id="export">EXPORT UK CSV</a>
+    </nav>
+  </aside>
+  <main class="main" id="dashboard">
+    <div class="header v925-hero">
+      <div>
+        <p class="v925-eyebrow">UNITED KINGDOM / ENERGY TRANSITION</p>
+        <h1>UK RENEWABLES PIPELINE 202611161734</h1>
+        <h2>UK energy transition</h2>
+        <p class="v925-intro">Solar, battery storage, wind and grid infrastructure, with global data-centre context.</p>
+      </div>
+      <div class="status"><b>V9.25 RELEASE CANDIDATE</b><br>● REPD OCTOBER 2026 · ALL PROJECTS ≥1 MW</div>
+    </div>
+    <p class="v925-release-meta"><strong>V9.26 · REPD OCTOBER 2026 (Q3) · SOURCE-AWARE NEWS PRIORITY · RELEASE CANDIDATE · 16 November 2026</strong></p>
+    <nav class="v925-sections" aria-label="Dashboard sections">
+      <a href="#transitionContext">01 <span>News</span></a>
+      <a href="#officialRegister">02 <span>Pipeline</span></a>
+      <a href="https://ventusltd.github.io/gridatlas/atlas/"><span>GridAtlas &#8599;</span></a>
+      <a href="../datacentres/"><span>UK data-centre context &#8599;</span></a>
+    </nav>
+    <section class="newspaper">
+      <div class="masthead" id="transitionContext">
+        <p class="v925-eyebrow context">01 / UK AND INTERNATIONAL CONTEXT</p>
+        <h2>NEWS <span>AND CONTEXT</span></h2>
+        <p class="v925-context-note">UK developments in a wider energy transition. International headlines provide market context; they are not UK REPD project records or verified project evidence. Cross-border infrastructure is available in the separate Interconnectors tab.</p>
+        <div class="strap">
+          <span id="newsStatus" data-state="loading">Loading headlines…</span>
+          <span>Solar, storage, grid and data-centre headlines with publisher credit. Possible project matches are unverified research leads.</span>
+        </div>
+      </div>
+      <div class="live-news" id="liveNews"></div>
+      <details class="news-archive" id="newsArchive" hidden>
+        <summary>ARCHIVE · PROJECT HEADLINES COLLECTED UP TO AUGUST 2026 · NOT UPDATED</summary>
+        <div class="strap">
+          <span id="newsMeta">loading archive…</span>
+        </div>
+      <div class="news-tools" id="newsTools">
+        <button class="active" data-news="ALL">ALL</button>
+        <button data-news="UK">UK</button>
+        <button data-news="INTERNATIONAL">INTERNATIONAL</button>
+        <button data-news="US">US</button>
+        <button data-news="EUROPE">EUROPE</button>
+        <button data-news="SOLAR">SOLAR</button>
+        <button data-news="BESS">BESS</button>
+        <button data-news="CONSENT">CONSENT</button>
+        <button data-news="CONSTRUCTION">CONSTRUCTION</button>
+        <button data-news="OPERATIONAL">OPERATIONAL</button>
+        <button data-news="FINANCE">FINANCE / M&amp;A</button>
+        <input id="newsSearch" placeholder="SEARCH HEADLINES / PROJECT / OPERATOR">
+      </div>
+        <div class="paper">
+          <div class="stories" id="stories">
+            <div class="news-empty">Loading the archive…</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="v925-pipeline" id="officialRegister" aria-labelledby="pipelineHeading">
+      <div class="v925-register-heading"><p class="v925-eyebrow">02 / PROJECTS AND INFRASTRUCTURE</p><h2 id="pipelineHeading">PIPELINE</h2><p>Explore the UK register or switch to global data-centre projects. Each view retains its own sources and identities.</p></div>
+      <div class="v925-tabs" role="tablist" aria-label="Pipeline geography">
+        <button id="ukProjectsTab" role="tab" aria-selected="true" aria-controls="ukProjectsPanel" tabindex="0">UK projects</button>
+        <button id="globalProjectsTab" role="tab" aria-selected="false" aria-controls="globalProjectPanel" tabindex="-1">Global data centres</button>
+      </div>
+      <div id="ukProjectsPanel" role="tabpanel" aria-labelledby="ukProjectsTab">
+        <p class="v925-scope"><strong>7,775 official REPD records</strong> <span>Solar, battery storage and wind at 1 MW and above. Interconnectors are a separate dataset.</span></p>
+        <details class="v925-disclosure"><summary>REPD source and release details</summary>
+    <div class="meta">
+      <span>Canonical DESNZ REPD Q3 2026 (October 2026): 7,775 solar, BESS and wind records at ≥1 MW. Sixteen GB interconnectors on their own tab, outside the REPD spine.</span>
+      <span id="releaseMeta" class="release-meta">Loading canonical release contract…</span>
+      <a href="https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract" target="_blank" rel="noopener">Official REPD source</a>
+    </div>
+
+        </details>
+        <details class="v925-disclosure" id="evidenceCoverage" data-evidence-pointer="https://raw.githubusercontent.com/Ventusltd/globalgrid2050/pipeline-evidence-data/dist/news/evidence/latest.json">
+          <summary>Project evidence coverage</summary>
+          <p data-evidence-selection>Loading the unchanged V9.24 Solar-1000 selection...</p>
+          <p data-evidence-status role="status">Loading weekly evidence...</p>
+          <p>Source matches appear within the selected project's record details. All machine matches remain provisional; no independently verified events are asserted.</p>
+        </details>
+    <div class="gauges">
+      <div class="card">
+        <h3>FILTERED CAPACITY (MW)</h3>
+        <div class="chart"><canvas id="g1"></canvas><div class="value" id="v1">0</div></div>
+      </div>
+      <div class="card">
+        <h3>FILTERED PROJECTS (≥1MW)</h3>
+        <div class="chart"><canvas id="g2"></canvas><div class="value" id="v2">0</div></div>
+      </div>
+      <div class="card">
+        <h3>LARGEST SINGLE SITE (MW)</h3>
+        <div class="chart"><canvas id="g3"></canvas><div class="value" id="v3">0</div></div>
+      </div>
+    </div>
+
+    <div class="filters" id="tech">
+      <button class="btn active" data-technology="all" aria-pressed="true">ALL TECH</button>
+      <button class="btn" data-technology="solar" aria-pressed="false">SOLAR</button>
+      <button class="btn" data-technology="bess" aria-pressed="false">BATTERY</button>
+      <button class="btn" data-technology="wind_onshore" aria-pressed="false">ONSHORE</button>
+      <button class="btn" data-technology="wind_offshore" aria-pressed="false">OFFSHORE</button>
+      <button class="btn" data-technology="interconnector" aria-pressed="false">INTERCONNECTORS</button>
+    </div>
+    <div class="filters" id="status">
+      <button class="btn active" data-official-status="All" aria-pressed="true">ALL STATUS</button>
+      <button class="btn" data-official-status="Operational" aria-pressed="false">OPERATIONAL</button>
+      <button class="btn" data-official-status="Under Construction" aria-pressed="false">CONSTRUCTING</button>
+      <button class="btn" data-official-status="Awaiting Construction" aria-pressed="false">AWAITING</button>
+      <button class="btn" data-official-status="Application Submitted" aria-pressed="false">SUBMITTED</button>
+    </div>
+    <div class="filters">
+      <select id="county"><option value="All">🌍 ALL COUNTIES</option></select>
+      <select id="sortProjects" aria-label="Sort projects">
+        <option value="capacity_desc">SORT: CAPACITY (DEFAULT)</option>
+        <option value="updated_desc">SORT: REPD UPDATED — NEWEST</option>
+        <option value="updated_asc">SORT: REPD UPDATED — OLDEST</option>
+      </select>
+      <input id="search" class="asset-search" placeholder="🔍 SEARCH PROJECT / REPD / GLOBALGRID / PLANNING..." autocomplete="off">
+      <button class="btn clear-filters" id="clearFilters">CLEAR FILTERS</button>
+      <button class="btn export-inline" id="exportInline">EXPORT FILTERED CSV</button>
+      <span id="resultsMeta" class="results-meta">Loading all qualifying records…</span>
+      <span id="exportMeta" class="export-meta">CSV contains the current filtered rows only</span>
+    </div>
+    <details class="v925-disclosure"><summary>How to interpret statuses, maps and news</summary>
+    <div class="meta">
+      <strong>STATUS DISCIPLINE</strong>
+      <span><b>DEFAULT:</b> every qualifying ≥1 MW record is loaded. Filters are user controls; they never redefine or truncate the pipeline.</span>
+      <span><b>NEWS:</b> relevance scores are algorithmic screening only and never change an official REPD fact.</span>
+      <span><b>ATLAS:</b> valid geometry resolves the exact REPD Ref. Missing geometry remains in search and CSV and is labelled NO MAP.</span>
+      <span><b>MAP ON A PHONE:</b> GridAtlas can open its project result card minimised so the map remains visible. Expand the card to read the nearest-substation screening. A distance is not available grid capacity or a connection offer.</span>
+      <span id="gaStateSummary" hidden></span>
+      <span><b>INTERCONNECTORS:</b> not REPD records and never counted in ALL TECH. Their MAP link carries the link's own identity; a midpoint is a label anchor, not a location.</span>
+    </div>
+    </details>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>SITE NAME</th>
+            <th class="hide-mobile">COUNTY</th>
+            <th class="hide-mobile">OPERATOR</th>
+            <th>TECHNOLOGY</th>
+            <th>OFFICIAL REPD STATUS</th>
+            <th>OFFICIAL CAPACITY</th>
+            <th class="hide-mobile">REPD REF</th>
+            <th class="hide-mobile">GLOBALGRID REF</th>
+            <th class="hide-mobile repd-updated-heading" id="repdUpdatedHeader" aria-sort="none">
+              <button id="sortUpdated" type="button" aria-label="Sort by REPD updated date, newest first">
+                REPD UPDATED <span id="updatedSortIndicator" aria-hidden="true">↕</span>
+              </button>
+            </th>
+            <th>NEWS SIGNAL</th>
+            <th>MACHINE READ NOTES</th>
+            <th>ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+      </div>
+      <div id="globalProjectPanel" role="tabpanel" aria-labelledby="globalProjectsTab" hidden>
+        <section id="globalDatacentres" aria-label="Global data centre projects">
+          <p class="gdc-empty">Global data-centre records are not available until their source register loads. UK REPD totals remain separate.</p>
+        </section>
+      </div>
+    </section>
+    <div class="meta" id="dataSources">
+      <strong>DATA SOURCES AND LICENCES</strong>
+      <span><b>REPD:</b> Renewable Energy Planning Database, Department for Energy Security and Net Zero. Contains public sector information licensed under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" target="_blank" rel="noopener">Open Government Licence v3.0</a>.</span>
+      <span><b>HEADLINES:</b> One public energy-infrastructure feed, with no content from the UK data-centre register. Machine Read Notes are candidate screening interpretations; original evidence and official REPD status remain separate.</span>
+    </div>
+  </main>
+  <script type="module" src="scripts/app-v9-8.js?v=9.10"></script>
+  <script type="module" src="scripts/plugins/capacity-presentation-v9-3.js?v=9.8"></script>
+  <script defer src="scripts/plugins/live-news.js?v=9.26"></script>
+  <script defer src="scripts/plugins/machine-notes-v923.js?v=9.23"></script>
+  <script type="module" src="scripts/plugins/solar1000-v924.js?v=9.25"></script>
+  <script defer src="scripts/plugins/pipeline-tabs-v925.js?v=9.25"></script>
+  <script defer src="scripts/plugins/global-datacentres-v925.js?v=9.25"></script>
+  <script defer src="scripts/plugins/gridatlas-state.js?v=1"></script>
+  <script defer src="scripts/plugins/register-changes.js?v=1"></script>
+</body>
+</html>

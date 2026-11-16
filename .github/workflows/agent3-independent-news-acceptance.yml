@@ -32,6 +32,11 @@ jobs:
         run: python -m pytest -q automation/news/tests/test_engine.py
       - name: Execute INDEPENDENT adversarial tests
         run: python -m pytest -q automation/news/tests/test_engine_independent.py
+      - name: Regress existing ranking headline binding and relevance algorithms
+        run: |
+          python -m pytest -q automation/news/tests/test_news_algorithm.py automation/news/tests/test_pipeline_headlines.py automation/news/tests/test_binder.py automation/news/tests/test_relevance.py
+      - name: Demonstrate SYNTHETIC offline CLI
+        run: python -m automation.news.tests.news_engine_acceptance_demo
       - name: Compile inspected Python modules
         if: always()
         run: python -m compileall -q automation/news/engine.py automation/news/acquisition/match.py automation/news/tests/test_engine.py automation/news/tests/test_engine_independent.py

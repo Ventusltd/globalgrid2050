@@ -55,6 +55,10 @@
     notes.forEach(function (events) { events.sort(function (a, b) {
       return latestTime(b) - latestTime(a) || a.title.localeCompare(b.title);
     }); });
+    updateVisibleNotes();
+    window.dispatchEvent(new Event('machine-notes-updated'));
+  }
+  function updateVisibleNotes() {
     document.querySelectorAll('.machine-note-button').forEach(function (b) {
       var items = notes.get(String(b.dataset.noteRef)) || [];
       b.textContent = items.length ? headlineSummaryV923(items[0]) : 'NO MATCHED HEADLINE';
@@ -65,7 +69,6 @@
         : 'No independently evidenced project headline';
       b.dataset.noteCandidate = items.length ? 'possible' : 'none';
     });
-    window.dispatchEvent(new Event('machine-notes-updated'));
   }
   function panel() {
     if (dialog) return dialog;
@@ -111,6 +114,7 @@
   }
   window.pipelineMachineNotes = { has: function (ref) { return notes.has(String(ref)); } };
   window.addEventListener('pipeline-feed-loaded', function (ev) { load(ev.detail); });
+  window.addEventListener('pipeline-projects-rendered', updateVisibleNotes);
   document.addEventListener('click', function (ev) {
     var b = ev.target && ev.target.closest ? ev.target.closest('.machine-note-button') : null;
     if (b) open(b);

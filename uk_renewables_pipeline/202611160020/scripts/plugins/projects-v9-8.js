@@ -304,6 +304,8 @@ function renderTable() {
   const from = page * PAGE_ROWS;
   const slice = filtered.slice(from, from + PAGE_ROWS);
   body.innerHTML = slice.map(projectRowHtml).join("");
+  // A later filter, sort or page change must keep precomputed notes on new rows.
+  window.dispatchEvent(new Event("pipeline-projects-rendered"));
   body.dataset.rendered = String(slice.length);
   body.dataset.total = String(total);
   body.dataset.page = String(page + 1);

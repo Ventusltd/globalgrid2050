@@ -27,6 +27,7 @@ class IncompleteBuildTests(unittest.TestCase):
     def test_inline_headline_summary_exists_and_is_candidate_only(self):
         notes=(repair.B/"scripts/plugins/machine-notes-v923.js").read_text()
         self.assertIn("headlineSummaryV923",notes)
+        self.assertIn("pipeline-projects-rendered", notes)
         self.assertIn("Possible, unverified project headline",notes)
         self.assertNotIn("CONFIRMED BY MACHINE",notes)
 

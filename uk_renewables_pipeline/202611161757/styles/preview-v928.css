@@ -14,6 +14,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 .grid-source{padding:10px 12px;border-bottom:1px solid var(--soft);line-height:1.6}
 .grid-source a{color:var(--accent)}.grid-source small{display:block;color:var(--muted)}
 .grid-source p{margin-top:5px;overflow-wrap:anywhere}
+.v925-inherited-source{font-size:11px;line-height:1.5;margin-top:8px;color:var(--muted)}
+.v925-inherited-source a{color:var(--accent)}
 .newspaper .live-news{max-height:420px;overflow:auto;overscroll-behavior:contain}
 .masthead h2{font-size:21px}.gauges{margin-bottom:15px}.chart{height:95px}
 .tablewrap{max-height:60vh}.machine-note-cell{min-width:180px}

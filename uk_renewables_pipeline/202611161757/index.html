@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>GlobalGrid2050 | Pipeline News V9.28 preview</title>
+  <title>GlobalGrid2050 | Pipeline News V9.28 · 202611161757</title>
   <!-- The deep-link contract this page verifies its MAP receiver against lives
        on a second origin. Nothing waits on that request any more, but it still
        costs DNS + TCP + TLS on a cold mobile radio the first time it is made;
@@ -36,11 +36,12 @@
   <aside class="sidebar">
     <div class="brand">
       <b>GLOBALGRID2050</b>
-      <small>PIPELINE NEWS · V9.28 PREVIEW</small>
+      <small>PIPELINE NEWS · V9.28</small>
     </div>
     <nav class="nav">
-      <a class="active" href="#">V9.28 · NON-LIVE PREVIEW</a>
-      <a href="../202611161244/">V9.24 · APPROVED EDITION</a>
+      <a class="active" href="#">V9.28 · PIPELINE NEWS</a>
+      <a href="../202611161244/">V9.24 · PREVIOUS SELECTED EDITION</a>
+      <a href="../202611161747/">V9.27 · SOFTWARE PARENT</a>
       <a href="../versions.html">ALL VERSIONS · CI VERDICTS</a>
       <a href="../202611160020/">V9.23 202611160020 · PREVIOUS EDITION</a>
       <a href="../202611151300/">V9.22 202611151300 · REPD Q3 2026</a>
@@ -87,8 +88,8 @@
     </nav>
   </aside>
   <main class="main">
-    <p class="preview-status">V9.28 PREVIEW · Development candidate · V9.24 remains the selected edition</p>
-    <section class="newspaper" aria-labelledby="headlinesHeading">
+    <p class="preview-status" data-edition="202611161757">V9.28 · 16 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+    <section class="newspaper">
       <div class="masthead">
         <h2 id="headlinesHeading">GLOBALGRID2050 <span>HEADLINES</span></h2>
         <div class="strap">
@@ -123,7 +124,7 @@
         </div>
       </details>
     </section>
-    <section id="officialRegister" aria-labelledby="pipelineHeading">
+    <section id="officialRegister" aria-labelledby="pipelineHeading" data-register-changes="inline-only">
       <h2 class="section-title" id="pipelineHeading">REPD PIPELINE ANALYTICS</h2>
       <div class="pipeline-tabs" role="tablist" aria-label="Pipeline categories">
         <button id="solarTab" role="tab" aria-selected="true" aria-controls="repdPanel" tabindex="0" data-view="solar">Solar</button>
@@ -132,7 +133,7 @@
         <button id="datacentreTab" role="tab" aria-selected="false" aria-controls="datacentrePanel" tabindex="-1" data-view="datacentre">Data Centres</button>
       </div>
       <div id="repdPanel" role="tabpanel" aria-labelledby="solarTab"><span id="releaseMeta" hidden></span>
-        <p class="category-scope">Official October 2026 REPD records. Use All Tech to inspect the complete register, including wind; interconnectors retain their separate identities.</p>
+        <p class="category-scope">Canonical DESNZ REPD Q3 2026: 7,775 solar, BESS and wind records at ≥1 MW from 14,967 source rows. Use All Tech for this full qualifying register; interconnectors retain their separate identities.</p>
 
     <div class="gauges">
       <div class="card">
@@ -219,12 +220,14 @@
       <div id="datacentrePanel" role="tabpanel" aria-labelledby="datacentreTab" hidden>
         <div id="datacentreHost" aria-live="polite">Loading source-indexed leads…</div>
       </div>
-      <details id="contextDisclosure" class="scope-notes">
+      <details id="contextDisclosure" class="scope-notes" hidden>
         <summary>Energy and data-centre context · historical and provisional</summary>
-        <p class="category-scope">Dated source context for this non-live preview. It establishes no UK project association, current capacity or publication-rights approval.</p>
+        <p class="category-scope">Dated provisional source context. It establishes no UK project association, current capacity or publication-rights approval.</p>
         <div id="contextHost" data-pipeline-context-host>Context unavailable.</div>
       </details>
-      <details class="scope-notes"><summary>Sources and research coverage</summary>
+      <details class="scope-notes" id="evidenceCoverage" data-evidence-pointer="https://raw.githubusercontent.com/Ventusltd/globalgrid2050/pipeline-evidence-data/dist/news/evidence/latest.json"><summary>Sources and research coverage</summary>
+        <p class="category-scope" data-evidence-selection>Loading the unchanged 1,000-project research selection…</p>
+        <p class="category-scope" data-evidence-status>Research evidence unavailable until source validation completes.</p>
         <p class="category-scope">7,775 official REPD records; 3,604 solar. The unchanged 1,000-project research selection has zero independently verified findings. Missing research is not evidence that no development exists.</p>
         <div class="meta" id="dataSources">
       <strong>DATA SOURCES AND LICENCES</strong>
@@ -238,7 +241,9 @@
   <script type="module" src="scripts/plugins/capacity-presentation-v9-3.js?v=9.8"></script>
   <script defer src="scripts/plugins/live-news.js?v=9.28"></script>
   <script defer src="scripts/plugins/machine-notes-v923.js?v=9.23"></script>
+  <script type="module" src="scripts/plugins/solar1000-v924.js?v=9.28"></script>
   <script defer src="scripts/plugins/gridatlas-state.js?v=1"></script>
+  <script defer src="scripts/plugins/register-changes.js?v=9.28"></script>
   <script src="../../automation/news/datacentre-ui/model.js"></script>
   <script src="../../automation/news/datacentre-ui/view.js"></script>
   <script type="module" src="scripts/plugins/preview-v928.js"></script>

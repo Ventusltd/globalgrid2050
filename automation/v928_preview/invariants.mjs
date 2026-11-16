@@ -99,9 +99,17 @@ try {
     ...git(['ls-files','--others','--exclude-standard']).split(/\r?\n/),
   ].filter(Boolean));
   const candidateRel = receipt.candidate + '/';
+  const restoreFiles = new Set(['homepage_versions/homepage_v142.html','homepage_versions/homepage_v142-metrics.json']);
+  for (const path of restoreFiles) {
+    assert.equal(git(['ls-tree', BASE_SHA, '--', path]), '', 'restore point must be additive, never overwrite old bytes');
+  }
+  const oldRestoreReadme = execFileSync('git',['show',BASE_SHA+':homepage_versions/README.md'],{cwd:ROOT,encoding:'utf8'});
+  assert.ok(bytes(resolve(ROOT,'homepage_versions/README.md')).toString('utf8').replaceAll('\r\n','\n').startsWith(oldRestoreReadme.replaceAll('\r\n','\n')),
+    'restore-point ledger retains its entire prior history');
   const forbidden = [...changed].filter(p =>
+    !restoreFiles.has(p) && p !== 'homepage_versions/README.md' && (
     (/^uk_renewables_pipeline\/\d{12}\//.test(p) && !p.startsWith(candidateRel)) ||
-    /^(?:index\.html|catalogue\/homepage-owner\.json|homepage-shell\/|homepage_versions\/|homepage_v\d+\.html)/.test(p));
+    /^(?:index\.html|catalogue\/homepage-owner\.json|homepage-shell\/|homepage_versions\/|homepage_v\d+\.html)/.test(p)));
   assert.deepEqual(forbidden, [], 'historical editions and operative homepage bytes must remain unchanged');
   pass('historical editions and operative homepage preserved against source base');
   receipt.source_sha256 = Object.fromEntries(['index.html','data/v9.1/build_manifest.json','solar1000/manifest.json']

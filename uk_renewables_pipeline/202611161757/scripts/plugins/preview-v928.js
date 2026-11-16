@@ -114,8 +114,12 @@ window.addEventListener('pipeline-projects-rendered', initialiseCategory);
 if (document.getElementById('tbody').dataset.complete === 'true') initialiseCategory();
 
 let contextStarted = false;
-document.getElementById('contextDisclosure').addEventListener('toggle', async event => {
-  if (!event.target.open || contextStarted) return;
+const contextDisclosure = document.getElementById('contextDisclosure');
+// This cache is explicitly preview-only: production must not self-grant source acceptance.
+const contextPreview = ['127.0.0.1', 'localhost', '[::1]'].includes(location.hostname);
+contextDisclosure.hidden = !contextPreview;
+contextDisclosure.addEventListener('toggle', async event => {
+  if (!contextPreview || !event.target.open || contextStarted) return;
   contextStarted = true;
   const host = document.getElementById('contextHost');
   try {

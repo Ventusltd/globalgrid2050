@@ -43,6 +43,9 @@
   }
 
   function section(doc) {
+    // V9.28 withdraws the standalone panel and keeps original register events
+    // inside their existing project records, with no change to MAP/CSV.
+    if (document.querySelector('[data-register-changes="inline-only"]')) return;
     var anchor = document.getElementById('dcNews') || document.querySelector('section.newspaper');
     if (!anchor || document.getElementById('regChanges')) return;
     style();

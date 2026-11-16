@@ -27,8 +27,33 @@ test "$actual_tree" = "$PARENT_TREE" || { echo "parent $PARENT_ID tree is $actua
 
 # WHAT THIS VERSION CHANGES FROM ITS PARENT, NAMED ONE FILE AT A TIME.
 CHANGED_FROM_PARENT=(
+  CHANGES.md
+  README.md
+  global-datacentres/README.md
+  global-datacentres/build.py
+  global-datacentres/data/facilities/generation=202611161757/source=WIKIDATA/global-data-centre-records-v1.parquet
+  global-datacentres/integration-manifest.json
+  global-datacentres/official-projects.json
+  global-datacentres/pipeline-audit.json
+  global-datacentres/project-groups.json
+  global-datacentres/projects.json
+  global-datacentres/selection-audit.json
+  global-datacentres/source-facts.json
+  index.html
+  news/pipeline_headlines.snapshot.json
+  news/snapshot-provenance.json
+  scripts/plugins/live-news.js
+  scripts/plugins/preview-v928.js
+  scripts/plugins/projects-v9-8.js
+  scripts/plugins/register-changes.js
+  styles/preview-v928.css
+  tests/check_v9_28.mjs
+  tests/run_v9_28.sh
 )
 REMOVED_FROM_PARENT=(
+  global-datacentres/data/facilities/generation=202611161630/source=WIKIDATA/global-data-centre-records-v1.parquet
+  tests/check_v9_27.mjs
+  tests/run_v9_27.sh
 )
 is_listed() {
   local needle="$1"; shift

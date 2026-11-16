@@ -52,12 +52,16 @@ function parseCsv(input) {
   assert.equal(quoted,false,'CSV quoted field must terminate');
   if(cell.length||row.length){row.push(cell);records.push(row);}return records;
 }
-async function openPage(browser,width,folder,tamper=false) {
+async function openPage(browser,width,folder,tamper=false,publication=false) {
   const context=await browser.newContext({viewport:{width,height:1000},acceptDownloads:true});
   const page=await context.newPage();
   const failures=[];page.on('pageerror',e=>failures.push(String(e)));
   await context.route('**/*',async route=>{
     const url=new URL(route.request().url());
+    if(publication && url.origin==='https://publication-preview.invalid') {
+      const response=await route.fetch({url:origin+url.pathname+url.search});
+      return route.fulfill({response});
+    }
     if(url.origin!==origin) {receipt.blocked_external.push(url.origin+url.pathname);return route.abort();}
     if(tamper==='context-manifest' && url.pathname.endsWith('/automation/v928_context/preview/manifest.json')) {
       return route.fulfill({status:404,contentType:'application/json',body:'{}'});
@@ -71,7 +75,7 @@ async function openPage(browser,width,folder,tamper=false) {
     }
     return route.continue();
   });
-  await page.goto(urlFor(folder),{waitUntil:'domcontentloaded'});
+  await page.goto(publication?urlFor(folder).replace(origin,'https://publication-preview.invalid'):urlFor(folder),{waitUntil:'domcontentloaded'});
   await page.waitForFunction(()=>Number(document.getElementById('tbody')?.dataset.total)>0);
   return {context,page,failures};
 }
@@ -221,6 +225,12 @@ try {
     await missing.context.close();
     pass(scenario+' fails closed without context figures or REPD regression');
   }
+  const production=await openPage(browser,393,CANDIDATE,false,true);
+  assert.equal(await production.page.locator('#contextDisclosure').isVisible(),false,'unaccepted preview-only Context stays withheld on publication host');
+  assert.equal(await production.page.locator('#contextHost [data-context-id], #contextHost [data-figure-claim]').count(),0);
+  await allRows(production.page);
+  await production.context.close();
+  pass('production host withholds preview-only Context and retains complete REPD register');
   receipt.status='PASS';
 } catch(error) {receipt.status='FAIL';receipt.failure=error.stack||String(error);throw error;}
 finally {

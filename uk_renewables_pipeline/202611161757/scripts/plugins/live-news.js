@@ -154,17 +154,8 @@
     a.target = '_blank';
     a.rel = 'noopener noreferrer';
     box.appendChild(a);
-    if (priority) {
-      var sourceLabel = {government:'Government source',regulator:'Regulator source',institution:'Institutional source',listed_parent:'Issuer source',reporting:'Attributed reporting',discovery:'Research lead'}[priority.source_kind];
-      var reasons = ['Priority ' + priority.rank, sourceLabel];
-      if (priority.topics.length) reasons.push(priority.topics.join(' / ').replace('datacentre','data centres'));
-      if (priority.uk_context) reasons.push('UK context');
-      if (priority.freshness_state === 'unknown') reasons.push('Publisher date unknown');
-      if (priority.freshness_state === 'stale') reasons.push('Older context');
-      if (priority.freshness_state === 'future') reasons.push('Future date: review');
-      if (priority.subscription_notice) reasons.push('May require subscription');
-      box.appendChild(el('span', 'ln-priority', reasons.join(' · ')));
-    }
+    // Ranking remains an internal ordering signal. Public rows retain only
+    // original headlines, source attribution, clocks and provisional links.
     var m = item.possible_match;
     if (m && /^\d+$/.test(String(m.repd_ref || '')) && m.site_name) {
       var chip = el('span', 'ln-match', 'Possible match: ' + m.site_name + ' (REPD ' + m.repd_ref + ')');
@@ -199,8 +190,8 @@
     var items = ranked || doc.items.map(function (it, i) { return {item:it, index:i}; })
       .sort(function (a, b) { return when(b.item) - when(a.item) || a.index - b.index; });
     status.setAttribute('data-order', ranked ? 'priority' : 'date');
-    status.textContent += ranked ? ' Research priority considers topic, source type, publication date and publisher variety; it is not project verification.'
-      : ' Priority unavailable for this collection; showing date order.';
+    status.textContent += ranked ? ' Source-aware headline order; original article dates shown separately.'
+      : ' Showing publisher-date order.';
     var shown = 0;
     var more = el('button', 'ln-more', '');
     more.type = 'button';

@@ -99,6 +99,7 @@ async function visitBlocked(id, probe) {
   let complete = false;
   for (let i = 0; i < 240 && !complete; i += 1) { await sleep(250); complete = await evaluate("document.querySelector('#tbody')?.dataset.complete === 'true'").catch(() => false); }
   await sleep(1500);
+  await evaluate("document.querySelector('#clearFilters')?.click()");
   const meta = await evaluate("document.querySelector('#resultsMeta')?.textContent || ''");
   const result = await runProbe(evaluate, probe);
   if (!/of 7,775 records/.test(meta)) { result.pass = false; result.detail = `${result.detail}; table did not complete with the file blocked: ${meta}`; }

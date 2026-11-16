@@ -43,6 +43,14 @@ async function population(folder) {
   return {manifest, rows};
 }
 try {
+  const originalRegistry = JSON.parse(execFileSync('git',['show',BASE_SHA+':automation/pipeline_release/registry.json'],{cwd:ROOT,encoding:'utf8'}));
+  const currentRegistry = json(resolve(ROOT,'automation/pipeline_release/registry.json'));
+  assert.deepEqual(currentRegistry.versions.slice(0,originalRegistry.versions.length),originalRegistry.versions,
+    'all pre-existing release records, Unicode and probes must retain their exact meanings');
+  for (const key of Object.keys(originalRegistry).filter(key=>!['versions','release_candidate'].includes(key))) {
+    assert.deepEqual(currentRegistry[key],originalRegistry[key], 'unrelated registry metadata '+key);
+  }
+  pass('prior release registry records and unrelated metadata preserved, including Unicode');
   function directoryBytes(folder) {
     return readdirSync(folder).reduce((total, name) => {
       if (name === '__pycache__') return total;

@@ -32,6 +32,8 @@ on:
       - 'compute/**'
       - 'kuiper-grid/**'
       - 'scripts/check_public_language.py'
+      - 'scripts/import_homepage_owner.py'
+      - 'catalogue/homepage-owner.json'
       - '.github/workflows/public-language-gate.yml'
   pull_request:
     branches: [main]
@@ -103,6 +105,12 @@ jobs:
           }
           Write-Host ("python: " + $py.Source)
           python --version
+
+      - name: Assemble the hash-pinned homepage used by Pages
+        shell: powershell
+        run: |
+          python scripts/import_homepage_owner.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Show the published surface
         shell: powershell

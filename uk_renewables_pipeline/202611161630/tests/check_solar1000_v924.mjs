@@ -14,6 +14,7 @@ assert.ok(manifest.ids.every((id,i,a)=>i===0||+id>+a[i-1]));
 assert.deepEqual(candidates.map(c=>c.repd_ref),['1019','1020']);
 assert.ok(candidates.every(c=>c.rights_basis==='unknown'&&c.verification==='provisional_candidate_only'));
 const html=await readFile(new URL('../index.html',import.meta.url),'utf8');
-assert.match(html,/SOLAR 1000 EVIDENCE PILOT/);
+assert.match(html,/id="evidenceCoverage"/);
+assert.ok(!html.includes('id="solar1000Pilot"'), 'Evidence is integrated in project details, not a second project list');
 assert.match(html,/solar1000-v924.js/);
 console.log('V9.24 Solar-1000 membership and provisional evidence: PASS');

@@ -9,6 +9,11 @@ cases include empty/failed source receipts, unknown rights, probe-only results,
 missing source references, invalid dates and mismatched research scope. A recent
 export of an old acquisition remains labelled overdue after seven days.
 
+The interface has one News block followed by one Pipeline block. Evidence lives
+inside the UK table's project-record details; there is no separate Solar-1000
+list. Tests also exercise keyboard and pointer switching between UK projects
+and Global data centres while preserving UK technology filters and totals.
+
 Evidence and accepted-rights receipts are generated in memory and explicitly
 use **TEST FIXTURE ONLY** titles and `example.org/test-only-*` URLs. The synthetic
 receipt tests the accepted state; it is not an actual rights decision.

@@ -64,20 +64,21 @@ async function installRoutes(page,mode='valid'){
 }
 async function ready(page){
   await page.goto(release);
-  await expect(page.locator('[data-pilot-status]')).toContainText('Pilot loaded');
+  await expect(page.locator('#evidenceCoverage')).toHaveAttribute('data-selection-count','1000');
   await expect(page.locator('#tbody')).toHaveAttribute('data-complete','true');
   await expect(page.locator('#resultsMeta')).toContainText('7,775');
 }
 test('provisional evidence, escaping, search, map contract, and full CSV',async({page},testInfo)=>{
   const errors=[];page.on('pageerror',error=>errors.push(error.message));
   await installRoutes(page);await ready(page);
-  await expect(page.locator('.v925-overview .v925-stat strong')).toHaveText(['7,775','3,604','1,000','0']);
-  await expect(page.locator('.v925-pillars a')).toHaveCount(4);
-  await expect(page.locator('.v925-pillars a[href="../datacentres/"]')).toContainText('Data centres');
-  await expect(page.locator('.v925-context-note')).toContainText('International headlines provide market context');
+  await expect(page.locator('#solar1000Pilot')).toHaveCount(0);
+  await expect(page.getByRole('tab',{name:'UK projects',exact:true})).toHaveAttribute('aria-selected','true');
+  await expect(page.getByRole('tab',{name:'Global data centres',exact:true})).toBeVisible();
+  expect(await page.evaluate(()=>Boolean(document.querySelector('.newspaper').compareDocumentPosition(document.querySelector('#officialRegister')) & Node.DOCUMENT_POSITION_FOLLOWING))).toBe(true);
   await page.screenshot({path:testInfo.outputPath('dashboard-overview.png')});
   await expect(page.locator('[data-evidence-status]')).toContainText('1 provisional matches');
-  await page.locator('[data-pilot-search]').fill('1018');
+  await page.locator('#search').fill('1018');
+  await page.locator('#repd-1018 .project-record > summary').click();
   const panel=page.locator('[data-evidence-project="1018"]');
   await expect(panel.locator('summary')).toHaveText('Evidence · Provisional: 1');
   await panel.locator('summary').click();
@@ -89,14 +90,17 @@ test('provisional evidence, escaping, search, map contract, and full CSV',async(
   const panelBox=await panel.boundingBox();
   expect(panelBox.x).toBeGreaterThanOrEqual(0);
   expect(panelBox.x+panelBox.width).toBeLessThanOrEqual(page.viewportSize().width);
-  await page.locator('#solar1000Pilot').screenshot({path:testInfo.outputPath('evidence-panel.png')});
-  const map=page.locator('.v924-row').filter({has:panel}).locator('a.v924-map');
+  await page.locator('#repd-1018 .project-record').screenshot({path:testInfo.outputPath('evidence-panel.png')});
+  const map=page.locator('#repd-1018 a.atlaslink');
   await expect(map).toHaveAttribute('target','_blank');
   const mapURL=new URL(await map.getAttribute('href'));
   expect(mapURL.protocol).toBe('https:');expect(mapURL.searchParams.get('repd_ref')).toBe('1018');
   expect(mapURL.searchParams.get('technology')).toBe('solar');
-  await page.locator('[data-pilot-search]').fill('1019');
+  await page.locator('#search').fill('1019');
+  await page.locator('#repd-1019 .project-record > summary').click();
   await expect(page.locator('[data-evidence-project="1019"] summary')).toHaveText('Evidence · Provisional: 0');
+  await page.locator('#clearFilters').click();
+  await expect(page.locator('#resultsMeta')).toContainText('7,775');
   const downloadPromise=page.waitForEvent('download');
   await page.locator('#exportInline').click();
   const download=await downloadPromise;
@@ -108,9 +112,11 @@ test('provisional evidence, escaping, search, map contract, and full CSV',async(
 for(const mode of ['unavailable','bad-digest','invalid-status','no-sources','failed-source','unknown-rights','probe-only','not-eligible','missing-rights-receipt','duplicate-source','missing-source-reference','invalid-run-time','run-after-generation','incorrect-scope','invalid-http-receipt','invalid-source-hash','source-after-run'])test(`${mode} evidence preserves register and maps`,async({page})=>{
   await installRoutes(page,mode);await ready(page);
   await expect(page.locator('[data-evidence-status]')).toContainText('Evidence unavailable');
-  await page.locator('[data-pilot-search]').fill('1018');
+  await page.locator('#search').fill('1018');
+  await page.locator('#repd-1018 .project-record > summary').click();
   await expect(page.locator('[data-evidence-project="1018"] summary')).toHaveText('Evidence · Unavailable');
-  await expect(page.locator('.v924-row a.v924-map')).toHaveAttribute('href',/repd_ref=1018/);
+  await expect(page.locator('#repd-1018 a.atlaslink')).toHaveAttribute('href',/repd_ref=1018/);
+  await page.locator('#search').fill('');
   await page.locator('[data-technology="solar"]').click();
   await expect(page.locator('#resultsMeta')).toContainText('3,604');
 });
@@ -121,7 +127,8 @@ test('stale collection remains explicitly overdue even when snapshot generation 
   await expect(status).toContainText('Evidence snapshot 2026-11-16T16:30:00Z');
   await expect(status).toContainText('Last successful collection: 2026-11-08T16:30:00Z');
   await expect(status).toContainText('Overdue: more than 7 days since collection');
-  await page.locator('[data-pilot-search]').fill('1018');
+  await page.locator('#search').fill('1018');
+  await page.locator('#repd-1018 .project-record > summary').click();
   const panel=page.locator('[data-evidence-project="1018"]');
   await expect(panel.locator('summary')).toContainText('Provisional: 1');
   await panel.locator('summary').click();
@@ -131,6 +138,29 @@ test('retained evidence can reference an older successful source receipt',async(
   await installRoutes(page,'retained-source');await ready(page);
   await expect(page.locator('[data-evidence-status]')).toContainText('1 provisional matches');
   await expect(page.locator('[data-evidence-status]')).toContainText('Last successful collection: 2026-11-16T16:30:00Z');
-  await page.locator('[data-pilot-search]').fill('1018');
+  await page.locator('#search').fill('1018');
+  await page.locator('#repd-1018 .project-record > summary').click();
   await expect(page.locator('[data-evidence-project="1018"] summary')).toContainText('Provisional: 1');
+});
+
+test('one pipeline switches datasets without changing UK filters, totals or exports',async({page},testInfo)=>{
+  await installRoutes(page);await ready(page);
+  const uk=page.getByRole('tab',{name:'UK projects',exact:true});
+  const global=page.getByRole('tab',{name:'Global data centres',exact:true});
+  await global.click();
+  await expect(global).toHaveAttribute('aria-selected','true');
+  await expect(page.locator('#globalProjectPanel')).toBeVisible();
+  await expect(page.locator('#ukProjectsPanel')).toBeHidden();
+  await expect(page.locator('#globalDatacentres')).toBeVisible();
+  await page.locator('#officialRegister').screenshot({path:testInfo.outputPath('global-pipeline.png')});
+  await global.press('ArrowLeft');
+  await expect(uk).toBeFocused();
+  await expect(uk).toHaveAttribute('aria-selected','true');
+  await expect(page.locator('#resultsMeta')).toContainText('7,775');
+  await page.locator('[data-technology="bess"]').click();
+  await expect(page.locator('[data-technology="bess"]')).toHaveAttribute('aria-pressed','true');
+  await global.click();await uk.click();
+  await expect(page.locator('[data-technology="bess"]')).toHaveAttribute('aria-pressed','true');
+  await page.locator('#clearFilters').click();
+  await expect(page.locator('#resultsMeta')).toContainText('7,775');
 });

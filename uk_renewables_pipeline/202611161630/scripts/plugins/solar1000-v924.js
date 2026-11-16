@@ -1,77 +1,71 @@
-import { loadEvidence, renderEvidence } from './evidence-v925.js';
-
-import { loadCanonicalProjectsV9_5_1 } from '../data/canonical-projects-v9-5-1.js';
-import { atlasUrlV9_5_1 } from './projects-v9-8.js';
-const root=document.getElementById('solar1000Pilot');
-const result=root?.querySelector('[data-pilot-status]');
-const input=root?.querySelector('[data-pilot-search]');
-const page=root?.querySelector('[data-pilot-page]');
-const prev=root?.querySelector('[data-pilot-prev]');
-const next=root?.querySelector('[data-pilot-next]');
-const list=root?.querySelector('[data-pilot-rows]');
-const counts=root?.querySelector('[data-pilot-count]');
-const stamp=root?.querySelector('[data-pilot-source]');
-const sourceBadge=root?.querySelector('[data-pilot-verification]');
-const PAGE_SIZE=25;
-let records=[],current=0;
-const evidenceState={loading:true,data:null};
-function add(parent,tag,value,cls){const n=document.createElement(tag);if(cls)n.className=cls;if(value!==undefined)n.textContent=String(value);parent.appendChild(n);return n;}
-function display(){
- const needle=String(input.value||'').toLowerCase().trim();
- const rows=records.filter(({project:p})=>!needle || [p.repd_ref,p.name,p.county,p.operator,p.planning_application_reference].some(v=>String(v||'').toLowerCase().includes(needle)));
- const total=Math.max(1,Math.ceil(rows.length/PAGE_SIZE));current=Math.min(current,total-1);
- list.textContent='';
- for(const {project:p,candidate:c} of rows.slice(current*PAGE_SIZE,(current+1)*PAGE_SIZE)){
-   const r=add(list,'div',undefined,'v924-row');
-   const name=add(r,'div',undefined,'v924-row-name');
-   add(name,'strong',p.name);
-   add(name,'span','REPD '+p.repd_ref+' · '+(p.county||'County not specified'));
-   const detail=add(r,'div',undefined,'v924-row-detail');
-   add(detail,'span','OFFICIAL: '+(p.status||'Unknown'));
-   add(detail,'span',typeof p.capacity_mw==='number'?p.capacity_mw.toLocaleString('en-GB',{maximumFractionDigits:2})+' MW':'Capacity not supplied');
-   const facts=add(r,'div',undefined,'v924-row-note');
-   add(facts,'strong',c?'INHERITED PROVISIONAL SOURCE CANDIDATE — UNVERIFIED':'NO INHERITED SOURCE CANDIDATE');
-   if(c){add(facts,'span',c.event_date+' · '+c.publisher+' · '+c.remarks);const a=add(facts,'a','Original source ↗');a.href=c.source_url;a.target='_blank';a.rel='noopener noreferrer';}
-   const href=atlasUrlV9_5_1(p);
-   if(href){const a=add(r,'a','MAP · GRIDATLAS ↗','v924-map');a.href=href;a.target='_blank';a.rel='noopener noreferrer';}
-   else add(r,'span','MAP UNAVAILABLE — SOURCE COORDINATES NOT PRESENT','v924-map');
-   renderEvidence(r,p,evidenceState);
- }
- page.textContent='Showing '+(rows.length?current*PAGE_SIZE+1:0)+'–'+Math.min((current+1)*PAGE_SIZE,rows.length)+' of '+rows.length+' selected solar projects';
- prev.disabled=current<=0;next.disabled=current>=total-1;
+// V9.25 keeps the V9.24 selection, adding evidence to existing UK records.
+// It does not create another project list or change official filters/exports.
+import {loadEvidence, renderEvidence} from './evidence-v925.js';
+import {loadCanonicalProjectsV9_5_1} from '../data/canonical-projects-v9-5-1.js';
+const coverage = document.getElementById('evidenceCoverage');
+const selection = coverage?.querySelector('[data-evidence-selection]');
+const status = coverage?.querySelector('[data-evidence-status]');
+const state = {loading:true,data:null};
+let projects = new Map(), candidates = new Map();
+function attachEvidence() {
+  for (const row of document.querySelectorAll('#tbody > tr[id^="repd-"]')) {
+    const id = row.id.slice(5), project = projects.get(id);
+    const details = row.querySelector('.project-record');
+    if (!project || !details || details.querySelector('[data-integrated-evidence]')) continue;
+    details.querySelector('summary').textContent = 'PROJECT RECORD · SOURCES';
+    const host = document.createElement('div');
+    host.dataset.integratedEvidence = id;
+    details.appendChild(host);
+    renderEvidence(host,project,state);
+    const inherited = candidates.get(id);
+    if (inherited) {
+      const note = document.createElement('p');
+      note.className = 'v925-inherited-source';
+      note.textContent = 'Inherited V9.24 source candidate - unverified. ';
+      const url = new URL(inherited.source_url);
+      if (url.protocol === 'https:' && !url.username && !url.password) {
+        const link = document.createElement('a');
+        link.href = url.href;link.target = '_blank';link.rel = 'noopener noreferrer';
+        link.textContent = inherited.publisher;
+        note.appendChild(link);
+      }
+      host.appendChild(note);
+    }
+  }
 }
-async function start(){
- if(!root)return;
- try{
- const [data,candidates,model]=await Promise.all([
-  fetch('solar1000/manifest.json').then(r=>{if(!r.ok)throw Error('Pilot manifest unavailable');return r.json()}),
-  fetch('solar1000/candidates.json').then(r=>{if(!r.ok)throw Error('Candidate register unavailable');return r.json()}),
-  loadCanonicalProjectsV9_5_1()
- ]);
- const ids=data.ids.map(String);
- if(ids.length!==1000||new Set(ids).size!==1000||ids.some((x,i)=>i&&Number(x)<=Number(ids[i-1]))||data.selection!=='numeric-repd-ref-ascending')throw Error('Pilot membership failed identity checks');
- const byRef=new Map(model.projects.map(p=>[String(p.repd_ref),p]));
- const byCandidate=new Map(candidates.map(c=>[String(c.repd_ref),c]));
- records=ids.map(ref=>({project:byRef.get(ref),candidate:byCandidate.get(ref)}));
- if(records.some(v=>!v.project||v.project.technology!=='solar')||candidates.length!==2||data.independently_verified!==0)throw Error('Pilot source/technology verification failed');
- counts.textContent='1,000 selected of 3,604 solar · 7,775 total REPD records · 2 inherited source candidates · ZERO independently verified';
- sourceBadge.textContent='Research pilot: candidate evidence only — no publisher rights or project-event decisions verified';
- stamp.textContent='V9.23 immutable source · numeric REPD IDs '+ids[0]+'–'+ids.at(-1)+' · 16 source partitions · Agent 11 f8ab48e8';
- result.textContent='Pilot loaded · 1,000 official REPD records, unchanged';
- input.addEventListener('input',()=>{current=0;display()});
- prev.addEventListener('click',()=>{current--;display()});
- next.addEventListener('click',()=>{current++;display()});
- display();
- const evidenceStatus=root.querySelector('[data-evidence-status]');
- loadEvidence(root.dataset.evidencePointer,ids).then(data=>{
-  evidenceState.loading=false;evidenceState.data=data;
-  evidenceStatus.textContent='Evidence snapshot '+data.generatedAt+' · '+data.count+' provisional matches · 0 verified events · '+data.freshnessLabel;
-  display();
- }).catch(()=>{
-  evidenceState.loading=false;
-  evidenceStatus.textContent='Evidence unavailable — last collection failed or no validated snapshot is available. Manual review required.';
-  display();
- });
- }catch(e){result.textContent='Pilot unavailable: '+String(e.message||e)+'; full REPD register and MAP remain available below.';result.setAttribute('data-error','true');}
+function refreshEvidence() {
+  document.querySelectorAll('[data-integrated-evidence]').forEach(node=>node.remove());
+  attachEvidence();
+}
+async function start() {
+  if (!coverage) return;
+  try {
+    const [manifest,inherited,model] = await Promise.all([
+      fetch('solar1000/manifest.json').then(r=>{if(!r.ok)throw Error('Manifest unavailable');return r.json();}),
+      fetch('solar1000/candidates.json').then(r=>{if(!r.ok)throw Error('Inherited candidates unavailable');return r.json();}),
+      loadCanonicalProjectsV9_5_1()
+    ]);
+    const ids = manifest.ids.map(String);
+    if (ids.length!==1000 || new Set(ids).size!==1000 || manifest.selection!=='numeric-repd-ref-ascending' || ids.some((id,i)=>i&&Number(id)<=Number(ids[i-1]))) throw Error('Invalid pinned selection');
+    const byId = new Map(model.projects.map(p=>[String(p.repd_ref),p]));
+    projects = new Map(ids.map(id=>[id,byId.get(id)]));
+    if ([...projects.values()].some(p=>!p||p.technology!=='solar') || model.projects.length!==7775 || inherited.length!==2 || manifest.independently_verified!==0) throw Error('Invalid source identities');
+    candidates = new Map(inherited.map(c=>[String(c.repd_ref),c]));
+    coverage.dataset.selectionCount = String(projects.size);
+    selection.textContent = '1,000 selected of 3,604 solar projects; exact V9.24 membership retained. Evidence is shown inside project record details.';
+    window.addEventListener('pipeline-projects-rendered',attachEvidence);
+    attachEvidence();
+    try {
+      state.data = await loadEvidence(coverage.dataset.evidencePointer,ids);
+      status.textContent = 'Evidence snapshot '+state.data.generatedAt+' / '+state.data.count+' provisional matches / 0 verified events / '+state.data.freshnessLabel;
+    } catch {
+      status.textContent = 'Evidence unavailable - no validated snapshot is available. Manual review required.';
+    }
+    state.loading = false;
+    refreshEvidence();
+  } catch {
+    selection.textContent = 'Evidence selection unavailable. The official UK register remains available.';
+    status.textContent = 'Evidence unavailable - source identity checks failed. Manual review required.';
+  }
 }
 start();

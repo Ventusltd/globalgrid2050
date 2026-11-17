@@ -308,9 +308,19 @@ def check_features(version, by_id, pipeline):
     folder = pipeline / version["id"]
     missing, receipts, probes = [], [], []
     for feature_id, migration in migrations.items():
-        origins = [origin for feature, origin in inherited if feature["id"] == feature_id]
+        declarations = [(feature, origin) for feature, origin in inherited if feature["id"] == feature_id]
+        origins = [origin for _, origin in declarations]
+        origin_valid = origins == [migration["from"]]
+        if migration in NEON_MIGRATIONS:
+            # V9.37-39 repeat the original V9.36 feature records verbatim.
+            # Admit only those identical restatements, with one original source
+            # and no duplicate identity inside any edition. Other migrations
+            # retain their original exact single-source requirement.
+            origin_valid = (bool(origins) and origins[0] == migration["from"]
+                            and len(set(origins)) == len(origins)
+                            and all(feature == declarations[0][0] for feature, _ in declarations))
         faults = []
-        if origins != [migration["from"]] or feature_id in dropped or version["id"] == migration["from"]:
+        if not origin_valid or feature_id in dropped or version["id"] == migration["from"]:
             faults.append("migration must preserve its exact inherited feature and source")
         else:
             try:

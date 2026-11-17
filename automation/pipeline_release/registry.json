@@ -2029,6 +2029,225 @@
           "js": "(()=>{const h=document.querySelector('#gridPanel .pn-document-facts');return !!h&&h.dataset.state==='source-qualified'&&h.dataset.documentCount==='2'&&h.dataset.factCount==='6'&&h.querySelectorAll('section > details').length===6&&h.querySelectorAll('code').length===6&&h.querySelectorAll('a').length===2&&h.textContent.includes('PDF extraction unavailable');})()"
         }
       ]
+    },
+    {
+      "id": "202611171710",
+      "version": "V9.40",
+      "parent": "202611171609",
+      "date": "2026-11-17T17:10:00Z",
+      "added": "PN-NEWS: continuously flowing restrained red-neon headlines with one accessible original-link list, inert visual repetition and the existing main news query moved to a compact white-on-black header",
+      "data_changed": false,
+      "runner": "tests/run_v9_40.sh",
+      "trees": [
+        "2d44f3460bd5074044f5c90ff4a3c68a297122e5"
+      ],
+      "features": [
+        {
+          "id": "v932-primary-source-contract",
+          "file": "contracts/primary-notes.v932.json",
+          "contains": "b5eed3d2ae878c78e5153be06ef531c11fff2148"
+        },
+        {
+          "id": "v932-primary-source-host",
+          "file": "scripts/plugins/primary-notes-v932.mjs",
+          "contains": "setPrimaryNotes"
+        },
+        {
+          "id": "v932-provisional-primary-brief",
+          "file": "scripts/plugins/machine-notes-v923.js",
+          "contains": "PROVISIONAL PROJECT ASSOCIATION"
+        },
+        {
+          "id": "v931-daily-price-contract",
+          "file": "contracts/prices.v931.json",
+          "contains": "78d5360239e1a5fcffa83fcb30d5937c5521acb9"
+        },
+        {
+          "id": "v931-daily-price-host",
+          "file": "scripts/plugins/prices-v931.mjs",
+          "contains": "mountDailyPrices"
+        },
+        {
+          "id": "v930-dc-location-contract",
+          "file": "contracts/dc-locations.v930.json",
+          "contains": "83e7c36d08ef98f3665f7f35b8637405391dc4be"
+        },
+        {
+          "id": "v930-dc-location-host",
+          "file": "scripts/plugins/dc-locations-v930.mjs",
+          "contains": "attachLocationActions"
+        },
+        {
+          "id": "v929-pinned-layers",
+          "file": "scripts/plugins/layers-v929.mjs",
+          "contains": "mountLayerControls"
+        },
+        {
+          "id": "v933-four-development-decisions",
+          "file": "contracts/primary-notes.v932.json",
+          "contains": "f421513f7cbd85ad45727ef236e053a6c67f92d9"
+        },
+        {
+          "id": "v934-submitted-column",
+          "file": "index.html",
+          "contains": "planningSubmittedHeader"
+        },
+        {
+          "id": "v934-date-controls",
+          "file": "scripts/plugins/projects-v9-8.js",
+          "contains": "compareProjectSubmissionsV934"
+        },
+        {
+          "id": "v934-date-source-contract",
+          "file": "contracts/date-controls.v934.json",
+          "contains": "planning_application_submitted"
+        },
+        {
+          "id": "v934-expanded-analytics",
+          "file": "index.html",
+          "contains": "repd_expand_ui/expand.mjs"
+        },
+        {
+          "id": "v935-operational-column",
+          "file": "index.html",
+          "contains": "operationalHeader"
+        },
+        {
+          "id": "v935-operational-contract",
+          "file": "contracts/operational-date.v935.json",
+          "contains": "operational_year"
+        },
+        {
+          "id": "v935-operational-controls",
+          "file": "scripts/plugins/projects-v9-8.js",
+          "contains": "compareProjectOperationalV935"
+        },
+        {
+          "id": "v936-ticker-contract",
+          "file": "contracts/ticker.v936.json",
+          "contains": "100"
+        },
+        {
+          "id": "v936-ticker-bounded-static",
+          "file": "scripts/layers/ticker.mjs",
+          "contains": "size=20"
+        },
+        {
+          "id": "v936-ticker-source-guards",
+          "file": "scripts/layers/model.mjs",
+          "contains": "latestHeadlines"
+        },
+        {
+          "id": "v937-news-quality-view",
+          "file": "index.html",
+          "contains": "news_quality_ui/20261117-v937/view.mjs"
+        },
+        {
+          "id": "v937-news-quality-contract",
+          "file": "contracts/news-quality.v937.json",
+          "contains": "publisher date"
+        },
+        {
+          "id": "v937-news-derived-view",
+          "file": "scripts/plugins/live-news.js",
+          "contains": "attachView"
+        },
+        {
+          "id": "v938-grid-notice-host",
+          "file": "index.html",
+          "contains": "grid_notice_ui/20261117-v938/view.mjs"
+        },
+        {
+          "id": "v938-grid-notice-contract",
+          "file": "contracts/grid-notice.v938.json",
+          "contains": "DAY"
+        },
+        {
+          "id": "v939-document-facts-host",
+          "file": "index.html",
+          "contains": "document_facts_ui/20261117-v939/view.mjs"
+        },
+        {
+          "id": "v939-document-facts-contract",
+          "file": "contracts/document-facts.v939.json",
+          "contains": "HTML documents"
+        },
+        {
+          "id": "v940-neon-ticker-contract",
+          "file": "contracts/ticker.v940.json",
+          "contains": "globalgrid2050.neon-headline-ticker.v940"
+        },
+        {
+          "id": "v940-neon-ticker-binding",
+          "file": "scripts/layers/ticker.mjs",
+          "contains": "createTickerRenderer"
+        },
+        {
+          "id": "v940-main-query-header",
+          "file": "index.html",
+          "contains": "ticker_neon_ui/20261117-v940/header.mjs"
+        }
+      ],
+      "known_faults": [
+        "All four row associations remain PROVISIONAL; independently VERIFIED and Solar-1000 deltas are zero.",
+        "Consent is a development-level planning event; separate Battery capacities, current output, energisation, commissioning and corporate ownership remain unknown.",
+        "Evidence feed is withheld when unavailable or unaccepted; price history retains declared gaps and UTC disagreements; native handset acceptance is unknown.",
+        "Actual eligible headline count depends on existing live/saved source; no minimum100 coverage is claimed. Keyboard/touch/reduced-motion checks are automated; physical VoiceOver/handset acceptance remains unknown.",
+        "Publisher-label counts are not independently verified publishing organizations. Source types classify accepted current exact-input priority metadata; they confer no verification or new reuse rights.",
+        "One government consent event supported by two documents is not directory/network event coverage; grid connection, commissioned capacity and geometry remain unknown.",
+        "PDF extraction is unavailable: no approved local PDF or installed extractor; only two pinned government HTML publications are supported. All distilled facts remain machine-provisional and confer no verified joins."
+      ],
+      "ci": null,
+      "merge_commit": null,
+      "state": "release_candidate_publication_blocked",
+      "feature_migrations": [
+        {
+          "id": "solar1000-pilot",
+          "from": "202611161244",
+          "contract": "solar1000-inline-v1"
+        },
+        {
+          "id": "news-editorial-priority",
+          "from": "202611161734",
+          "contract": "news-priority-internal-v1"
+        },
+        {
+          "id": "inline-research-priority",
+          "from": "202611161747",
+          "contract": "research-priority-internal-v1"
+        },
+        {
+          "id": "source-bound-priority",
+          "from": "202611161747",
+          "contract": "research-priority-internal-v1"
+        },
+        {
+          "id": "global-dc-tab",
+          "from": "202611161630",
+          "contract": "global-dc-ui-v928-v1"
+        },
+        {
+          "id": "v936-ticker-contract",
+          "from": "202611171507",
+          "contract": "ticker-neon-v940-v1"
+        },
+        {
+          "id": "v936-ticker-bounded-static",
+          "from": "202611171507",
+          "contract": "ticker-neon-v940-v1"
+        }
+      ],
+      "removed_probes": [
+        "V9.36 bounded static ticker with accessible search and no Pause",
+        "V9.37 derived news filters and lazy provenance within existing block"
+      ],
+      "browser_probes": [
+        {
+          "name": "V9.40 actual flowing ticker, focus reading, bounded originals and relocated main query",
+          "selector": "#headlineTicker",
+          "js": "(async()=>{\ndocument.querySelector('#clearFilters')?.click();\nconst t=document.querySelector('#headlineTicker'),q=document.querySelector('.pn-news-header-search input'),quality=document.querySelector('.pn-news-quality'),list=t?.querySelector('ul'),copy=t?.querySelector('.pn-ticker-copy'),viewport=t?.querySelector('.pn-ticker-viewport');\nif(!t||!q||!q.closest('.masthead')||document.querySelectorAll('.masthead input[type=search]').length!==1||quality?.querySelector('input[type=search]')||quality?.querySelectorAll('select').length!==4||!quality.querySelector('details summary')||t.querySelectorAll('input,button').length||t.querySelectorAll('ul').length!==1||!copy?.hasAttribute('inert')||copy.getAttribute('aria-hidden')!=='true'||copy.querySelectorAll('a,[tabindex]').length)return false;\nconst n=Number(t.dataset.count),links=list.querySelectorAll('a');if(n<0||n>100||links.length!==n||list.querySelectorAll('time').length!==n)return false;\nconst model=await import(new URL('scripts/layers/model.mjs',location.href));const boundary=Array.from({length:105},(_,i)=>({title:'Boundary '+i,source:'Synthetic boundary publisher',link:'https://example.com/'+i,date:'2026-11-17T10:00:00Z'}));if(model.latestHeadlines(boundary).length!==100)return false;\nconst active=document.activeElement;active?.blur();const x=()=>list.getBoundingClientRect().x;await new Promise(r=>setTimeout(r,80));let a=x();await new Promise(r=>setTimeout(r,220));let b=x();const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;if(n>1&&(reduced?Math.abs(b-a)>1:a-b<3))return false;\nviewport.focus();a=x();await new Promise(r=>setTimeout(r,100));const stable=Math.abs(x()-a)<1&&t.dataset.reading==='true';viewport.blur();if(active&&active!==document.body)active.focus();return stable&&Number(document.querySelector('#tbody')?.dataset.total)===7775&&!!window.pipelineHeadlines?.attachView;\n})()"
+        }
+      ]
     }
   ],
   "size_budget_mb": 18,

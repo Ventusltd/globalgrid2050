@@ -8,12 +8,15 @@ on:
       - 'uk_renewables_pipeline/202611171526/**'
       - 'uk_renewables_pipeline/202611171550/**'
       - 'uk_renewables_pipeline/202611171609/**'
+      - 'uk_renewables_pipeline/202611171710/**'
       - 'automation/v934_preview/**'
       - 'automation/v935_preview/**'
       - 'automation/v936_preview/**'
       - 'automation/v937_preview/**'
       - 'automation/v938_preview/**'
       - 'automation/v939_preview/**'
+      - 'automation/v940_preview/**'
+      - 'automation/ticker_neon_ui/**'
       - 'automation/document_facts_ui/**'
       - 'automation/news/filings/**'
       - 'automation/grid_notice_ui/**'
@@ -46,6 +49,9 @@ jobs:
           - edition: '202611171609'
             version: '9_39'
             suite: v939_preview
+          - edition: '202611171710'
+            version: '9_40'
+            suite: v940_preview
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -79,6 +85,11 @@ jobs:
       - name: Exact document fact bytes, typed-source and refusal contracts
         if: matrix.suite == 'v939_preview'
         run: node --test automation/v939_preview/contracts.test.mjs
+      - name: Moving ticker, source guards, shared pins and explicit migration contracts
+        if: matrix.suite == 'v940_preview'
+        run: |
+          node --test automation/v940_preview/contracts.test.mjs
+          python -m unittest discover -s automation/v940_preview -p 'test_migration*.py' -v
       - name: Date and news interaction on desktop and mobile
         env:
           PLAYWRIGHT_MODULE: ${{ github.workspace }}/automation/news/acquisition/browser/node_modules/playwright/index.mjs
@@ -88,6 +99,7 @@ jobs:
           V937_OUT: ${{ runner.temp }}/date-proof
           V938_OUT: ${{ runner.temp }}/date-proof
           V939_OUT: ${{ runner.temp }}/date-proof
+          V940_OUT: ${{ runner.temp }}/date-proof
         run: node automation/${{ matrix.suite }}/browser.mjs
       - name: Expanded analytics, close, focus, scroll and rotation
         env:

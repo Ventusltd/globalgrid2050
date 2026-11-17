@@ -13,6 +13,7 @@ on:
       - 'automation/dc_location_ui/**'
       - 'automation/price_daily_ui/**'
       - 'automation/primary_note_ui/**'
+      - 'automation/repd_expand_ui/**'
       - '.github/workflows/verify-pipeline-versions.yml'
   workflow_dispatch:
     inputs:
@@ -49,6 +50,7 @@ jobs:
             /automation/dc_location_ui/
             /automation/price_daily_ui/
             /automation/primary_note_ui/
+            /automation/repd_expand_ui/
             /dist/major_project_news_v9_5_1.json
             /dist/convergence/2026q3/pipelinenews/
             /dist/news/

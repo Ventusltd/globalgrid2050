@@ -1325,7 +1325,17 @@
       ],
       "ci": null,
       "merge_commit": null,
-      "state": "release_candidate_publication_blocked"
+      "state": "release_candidate_publication_blocked",
+      "removed_probes": [
+        "V9.28 compact 11-column notes with original MAP sibling"
+      ],
+      "browser_probes": [
+        {
+          "name": "V9.34 12-column dates with original note and MAP sibling",
+          "selector": "body",
+          "js": "document.querySelectorAll('thead th').length===12 && !!document.querySelector('#tbody tr .machine-note-button') && !!document.querySelector('#tbody tr a.atlaslink') && document.querySelectorAll('main > section').length===2 && document.querySelector('#planningSubmittedHeader').previousElementSibling.id==='repdUpdatedHeader'"
+        }
+      ]
     }
   ],
   "size_budget_mb": 18,

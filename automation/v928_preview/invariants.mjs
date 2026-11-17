@@ -10,7 +10,8 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const CANDIDATE = resolve(ROOT, process.env.V928_CANDIDATE || 'uk_renewables_pipeline/202611161757');
 const BASELINE = resolve(ROOT, 'uk_renewables_pipeline/202611161244');
-const BASE_SHA = process.env.V928_BASE_SHA || execFileSync('git',['rev-parse','origin/main'],{cwd:ROOT,encoding:'utf8'}).trim();
+const BASE_SHA = '65bcc01e0d7e4dc073e759345727e53cf7a95752';
+const HISTORY_BASE_SHA = process.env.V928_BASE_SHA || execFileSync('git',['rev-parse','origin/main'],{cwd:ROOT,encoding:'utf8'}).trim();
 const OUT = process.env.V928_OUT ? resolve(process.env.V928_OUT) : null;
 assert.ok(CANDIDATE.startsWith(ROOT + sep), 'candidate must be inside this repository');
 const bytes = p => readFileSync(p);
@@ -18,7 +19,7 @@ const json = p => JSON.parse(bytes(p).toString('utf8'));
 const sha = b => createHash('sha256').update(b).digest('hex');
 const git = args => execFileSync('git', args, { cwd: ROOT, encoding: 'utf8' }).trim();
 const receipt = { status: 'RUNNING', utc: new Date().toISOString(), head: git(['rev-parse', 'HEAD']),
-  preservation_base: BASE_SHA, candidate: relative(ROOT, CANDIDATE).replaceAll('\\', '/'),
+  preservation_base: BASE_SHA, historical_base: HISTORY_BASE_SHA, candidate: relative(ROOT, CANDIDATE).replaceAll('\\', '/'),
   baseline: relative(ROOT, BASELINE).replaceAll('\\', '/'), checks: [], limitations: [
     'Offline gate proves original link construction, not execution of the public GridAtlas receiver.',
     'Preserved records and fixture source states are not live-source or publication acceptance.'] };
@@ -104,20 +105,23 @@ try {
     {cwd: ROOT, encoding:'utf8'}).trim();
   pass('all 7,775 original MAP routes and established all-row contract', {located, ref_only:7775-located, legacy});
   const changed = new Set([
-    ...git(['diff','--name-only',BASE_SHA,'--']).split(/\r?\n/),
+    ...git(['diff','--name-only',HISTORY_BASE_SHA,'--']).split(/\r?\n/),
     ...git(['ls-files','--others','--exclude-standard']).split(/\r?\n/),
   ].filter(Boolean));
-  const historical=protectedEditionChanges({cwd:ROOT,base:BASE_SHA});
+  const historical=protectedEditionChanges({cwd:ROOT,base:HISTORY_BASE_SHA});
   assert.deepEqual(historical,[],'every numeric edition present at the pinned published base remains immutable');
   const restoreFiles = new Set(['homepage_versions/homepage_v142.html','homepage_versions/homepage_v142-metrics.json']);
   for (const path of restoreFiles) {
-    if (git(['ls-tree', BASE_SHA, '--', path])) {
-      assert.deepEqual(bytes(resolve(ROOT,path)),execFileSync('git',['show',BASE_SHA+':'+path],{cwd:ROOT}),'existing restore point remains immutable');
+    assert.equal(git(['ls-tree', BASE_SHA, '--', path]), '', 'original V142 restore point was additive against its original source base');
+    if (git(['ls-tree', HISTORY_BASE_SHA, '--', path])) {
+      assert.deepEqual(bytes(resolve(ROOT,path)),execFileSync('git',['show',HISTORY_BASE_SHA+':'+path],{cwd:ROOT}),'existing restore point remains immutable');
     }
   }
   const oldRestoreReadme = execFileSync('git',['show',BASE_SHA+':homepage_versions/README.md'],{cwd:ROOT,encoding:'utf8'});
   assert.ok(bytes(resolve(ROOT,'homepage_versions/README.md')).toString('utf8').replaceAll('\r\n','\n').startsWith(oldRestoreReadme.replaceAll('\r\n','\n')),
     'restore-point ledger retains its entire prior history');
+  const currentRestoreReadme = execFileSync('git',['show',HISTORY_BASE_SHA+':homepage_versions/README.md'],{cwd:ROOT,encoding:'utf8'});
+  assert.ok(bytes(resolve(ROOT,'homepage_versions/README.md')).toString('utf8').replaceAll('\r\n','\n').startsWith(currentRestoreReadme.replaceAll('\r\n','\n')), 'restore-point ledger retains the current published history too');
   const forbidden = [...changed].filter(p =>
     !restoreFiles.has(p) && p !== 'homepage_versions/README.md' && (
     /^(?:index\.html|catalogue\/homepage-owner\.json|homepage-shell\/|homepage_versions\/|homepage_v\d+\.html)/.test(p)));

@@ -1086,14 +1086,82 @@
         "served_verified_at": "2026-11-17T03:53:22.931776+00:00",
         "receipt": "automation/pipeline_release/receipts/v931-public-20261117.json"
       }
+    },
+    {
+      "id": "202611170324",
+      "version": "V9.32",
+      "parent": "202611170243",
+      "date": "2026-11-17T03:24:00Z",
+      "added": "One reviewed government planning decision in the existing Machine Read Notes brief, with provisional exact-ID association, preserved source/rights/date distinctions and unchanged REPD, CSV, MAP, DC and Prices.",
+      "data_changed": false,
+      "runner": "tests/run_v9_32.sh",
+      "trees": [
+        "193afca4c85e8432a723e0e5690988bdd6954f1e"
+      ],
+      "features": [
+        {
+          "id": "v932-primary-source-contract",
+          "file": "contracts/primary-notes.v932.json",
+          "contains": "b5eed3d2ae878c78e5153be06ef531c11fff2148"
+        },
+        {
+          "id": "v932-primary-source-host",
+          "file": "scripts/plugins/primary-notes-v932.mjs",
+          "contains": "setPrimaryNotes"
+        },
+        {
+          "id": "v932-provisional-primary-brief",
+          "file": "scripts/plugins/machine-notes-v923.js",
+          "contains": "PROVISIONAL PROJECT ASSOCIATION"
+        },
+        {
+          "id": "v931-daily-price-contract",
+          "file": "contracts/prices.v931.json",
+          "contains": "78d5360239e1a5fcffa83fcb30d5937c5521acb9"
+        },
+        {
+          "id": "v931-daily-price-host",
+          "file": "scripts/plugins/prices-v931.mjs",
+          "contains": "mountDailyPrices"
+        },
+        {
+          "id": "v930-dc-location-contract",
+          "file": "contracts/dc-locations.v930.json",
+          "contains": "83e7c36d08ef98f3665f7f35b8637405391dc4be"
+        },
+        {
+          "id": "v930-dc-location-host",
+          "file": "scripts/plugins/dc-locations-v930.mjs",
+          "contains": "attachLocationActions"
+        },
+        {
+          "id": "v929-pinned-layers",
+          "file": "scripts/plugins/layers-v929.mjs",
+          "contains": "mountLayerControls"
+        }
+      ],
+      "known_faults": [
+        "One reviewed government fact is provisionally associated with REPD 12588. Frozen REPD status and source-specific dates are retained; final reduced capacity, later status and judicial review remain unknown. No VERIFIED association or Solar-1000 delta.",
+        "Historical Prices end on 31 October 2026 with source-declared dates, missing/partial coverage and UTC disagreements. DC points do not establish facilities, connections or available capacity. Native handset and broader source-rights approval remain unavailable."
+      ],
+      "ci": null,
+      "merge_commit": null,
+      "state": "release_candidate_publication_blocked",
+      "browser_probes": [
+        {
+          "name": "V9.32 compact full-width page, six tabs and two principal blocks",
+          "selector": "body",
+          "js": "(()=>{const r=document.querySelector('main').getBoundingClientRect();return !document.querySelector('aside')&&document.querySelectorAll('main > section').length===2&&document.querySelectorAll('.pipeline-tabs > [role=tab]').length===6&&r.x===0&&document.documentElement.scrollWidth<=innerWidth+2;})()"
+        }
+      ]
     }
   ],
   "size_budget_mb": 18,
   "size_budget_from": "202611140136",
   "release_candidate": {
-    "id": "202611170243",
-    "version": "V9.31",
-    "state": "PUBLISHED - SOURCE, HOMEPAGE AND SERVED BYTES VERIFIED",
+    "id": "202611170324",
+    "version": "V9.32",
+    "state": "NON-LIVE CANDIDATE - HOST CI AND PUBLIC ACCEPTANCE REQUIRED",
     "operative": {
       "id": "202611170243",
       "version": "V9.31"
@@ -1103,6 +1171,6 @@
       "version": "V9.19",
       "state": "held candidate (data-centre register context, awaiting licence verification)"
     },
-    "note": "V9.31 is selected by the accepted owner/publisher pin after exact-source CI, actual public graph/price-source/coverage, root JS/no-JS and rollback acceptance. Source-declared historical daily groups retain gaps, partial periods and UTC disagreement; no live quote or intraday certification. REPD/DC/CSV/MAP and all earlier editions remain unchanged."
+    "note": "One reviewed primary government decision is displayed in the existing brief with a provisional exact-identity association; source clocks, receipts and narrow rights remain distinct. V9.31 remains operative until source CI, actual public note/source/flow acceptance, owner promotion, pinned import and final root/rollback verification. All official records, CSV/MAP, headline associations, DC and Prices remain unchanged."
   }
 }

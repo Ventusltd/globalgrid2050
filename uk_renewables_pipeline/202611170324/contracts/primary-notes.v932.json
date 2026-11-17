@@ -1,0 +1,43 @@
+{
+  "schema": "globalgrid2050.primary-note-cartridge.v1",
+  "producer": {
+    "repository": "Ventusltd/globalgrid2050",
+    "commit": "b5eed3d2ae878c78e5153be06ef531c11fff2148",
+    "pull_request": 147
+  },
+  "files": {
+    "catalogue.mjs": {
+      "bytes": 5820,
+      "sha256": "f5b4e46343c7d3bd9877ec30b88ead3a404e9d2f390752b498863af182398703",
+      "git_blob": "541d5169f36cf3b3d8447d418e792ef08eb51d5d",
+      "source_path": "automation/news/primary-notes/catalogue.mjs"
+    },
+    "model.mjs": {
+      "bytes": 10523,
+      "sha256": "3dd06c24f4c11bffc31e35751c976636b50828f143b83cc90b3d10f1d4973f28",
+      "git_blob": "e03ff37655970a1bf65e539cae361b28445d7311",
+      "source_path": "automation/news/primary-notes/model.mjs"
+    },
+    "notes.json": {
+      "bytes": 5566,
+      "sha256": "cb202f2bc1c62f39471fb11a7f462eed4d4c8d82eeeba0f78eaa8e9fd49b1c74",
+      "git_blob": "eba8ba059ddb67ea30a0e2fac76fe057647158fc",
+      "source_path": "automation/news/primary-notes/notes.json"
+    }
+  },
+  "renderer": {
+    "path": "automation/primary_note_ui/host-202611170324/brief.mjs",
+    "owner": "AGENT1_ROOT",
+    "bytes": 3748,
+    "sha256": "45344a1ad8b3926811f7146bb0bdc458d605e688af30b286bec294fc5f0a4806",
+    "git_blob": "d0eab3adc2a2220c6ca1e78fa50988fea7b2fcb2"
+  },
+  "expected": {
+    "canonical_population": 7775,
+    "associations": 1,
+    "verified": 0,
+    "solar1000_verified_delta": 0
+  },
+  "scope": "One reviewed government decision fact; exact canonical association remains PROVISIONAL. No new matcher, collector or REPD mutation. Auxiliary news metadata is not a rights approval.",
+  "fallback": "Keep the existing headline-based Machine Read Notes and all project/CSV/MAP behaviour if the optional source model, renderer, JSON MIME or receipt validation is unavailable."
+}

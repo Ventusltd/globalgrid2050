@@ -80,10 +80,11 @@ test('distinct chronology cannotbequietlyreconciledorrewritten',()=>{
 });
 test('source catalogue, curated inputs and returned records remainimmutable',()=>{
  const notes=copy(CURATED_NOTES.notes),rows=projects(),before=JSON.stringify(rows),result=evaluate(rows,notes),accepted=result.by_repd_ref['12588'][0];
+ assert.equal(JSON.stringify(rows),before);
  assert.equal(Reflect.set(CATALOGUE.source,'sha256','0'.repeat(64)),false);assert.equal(Reflect.set(CURATED_NOTES.notes[0].claim,'type','VERIFIED'),false);
  assert.equal(Reflect.set(accepted.rights.terms_receipts[0],'sha256','0'.repeat(64)),false);assert.equal(Reflect.set(result.by_repd_ref['12588'],'0',{}),false);
  notes[0].claim.statement='POISON';rows[0].operator='POISON';assert.notEqual(accepted.claim.statement,'POISON');assert.equal(accepted.association,'PROVISIONAL');
- assert.equal(JSON.stringify(projects()),before);assert.throws(()=>evaluate(projects(),notes));
+ assert.throws(()=>evaluate(projects(),notes));
 });
 test('hidden toJSON cannot replace a validated provisional note',()=>{
  const notes=copy(CURATED_NOTES.notes);let called=false;

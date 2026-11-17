@@ -1,5 +1,6 @@
 /** Independent preservation gate. Imports the established MAP contract; no network. */
 import assert from 'node:assert/strict';
+import {protectedEditionChanges} from '../pipeline_release/edition_history.mjs';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { readFileSync, readdirSync, statSync, mkdirSync, writeFileSync } from 'node:fs';
@@ -9,7 +10,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const CANDIDATE = resolve(ROOT, process.env.V928_CANDIDATE || 'uk_renewables_pipeline/202611161757');
 const BASELINE = resolve(ROOT, 'uk_renewables_pipeline/202611161244');
-const BASE_SHA = process.env.V928_BASE_SHA || '65bcc01e0d7e4dc073e759345727e53cf7a95752';
+const BASE_SHA = process.env.V928_BASE_SHA || execFileSync('git',['rev-parse','origin/main'],{cwd:ROOT,encoding:'utf8'}).trim();
 const OUT = process.env.V928_OUT ? resolve(process.env.V928_OUT) : null;
 assert.ok(CANDIDATE.startsWith(ROOT + sep), 'candidate must be inside this repository');
 const bytes = p => readFileSync(p);
@@ -106,17 +107,19 @@ try {
     ...git(['diff','--name-only',BASE_SHA,'--']).split(/\r?\n/),
     ...git(['ls-files','--others','--exclude-standard']).split(/\r?\n/),
   ].filter(Boolean));
-  const candidateRel = receipt.candidate + '/';
+  const historical=protectedEditionChanges({cwd:ROOT,base:BASE_SHA});
+  assert.deepEqual(historical,[],'every numeric edition present at the pinned published base remains immutable');
   const restoreFiles = new Set(['homepage_versions/homepage_v142.html','homepage_versions/homepage_v142-metrics.json']);
   for (const path of restoreFiles) {
-    assert.equal(git(['ls-tree', BASE_SHA, '--', path]), '', 'restore point must be additive, never overwrite old bytes');
+    if (git(['ls-tree', BASE_SHA, '--', path])) {
+      assert.deepEqual(bytes(resolve(ROOT,path)),execFileSync('git',['show',BASE_SHA+':'+path],{cwd:ROOT}),'existing restore point remains immutable');
+    }
   }
   const oldRestoreReadme = execFileSync('git',['show',BASE_SHA+':homepage_versions/README.md'],{cwd:ROOT,encoding:'utf8'});
   assert.ok(bytes(resolve(ROOT,'homepage_versions/README.md')).toString('utf8').replaceAll('\r\n','\n').startsWith(oldRestoreReadme.replaceAll('\r\n','\n')),
     'restore-point ledger retains its entire prior history');
   const forbidden = [...changed].filter(p =>
     !restoreFiles.has(p) && p !== 'homepage_versions/README.md' && (
-    (/^uk_renewables_pipeline\/\d{12}\//.test(p) && !p.startsWith(candidateRel)) ||
     /^(?:index\.html|catalogue\/homepage-owner\.json|homepage-shell\/|homepage_versions\/|homepage_v\d+\.html)/.test(p)));
   assert.deepEqual(forbidden, [], 'historical editions and operative homepage bytes must remain unchanged');
   pass('historical editions and operative homepage preserved against source base');

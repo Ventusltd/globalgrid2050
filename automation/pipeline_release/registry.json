@@ -1144,16 +1144,23 @@
         "One reviewed government fact is provisionally associated with REPD 12588. Frozen REPD status and source-specific dates are retained; final reduced capacity, later status and judicial review remain unknown. No VERIFIED association or Solar-1000 delta.",
         "Historical Prices end on 31 October 2026 with source-declared dates, missing/partial coverage and UTC disagreements. DC points do not establish facilities, connections or available capacity. Native handset and broader source-rights approval remain unavailable."
       ],
-      "ci": null,
-      "merge_commit": null,
-      "state": "release_candidate_publication_blocked",
+      "ci": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44016860896",
+      "merge_commit": "270ca95dd50301c653ec39fca5ba2f6e42991111",
+      "state": "published_verified",
       "browser_probes": [
         {
           "name": "V9.32 compact full-width page, six tabs and two principal blocks",
           "selector": "body",
           "js": "(()=>{const r=document.querySelector('main').getBoundingClientRect();return !document.querySelector('aside')&&document.querySelectorAll('main > section').length===2&&document.querySelectorAll('.pipeline-tabs > [role=tab]').length===6&&r.x===0&&document.documentElement.scrollWidth<=innerWidth+2;})()"
         }
-      ]
+      ],
+      "publication": {
+        "homepage_owner_commit": "de65c95a7861ebc23733f2d04252ba9227c14e2d",
+        "domain_pin_merge": "5048713e2003a4ef92a7344890edd6f0faa33ad9",
+        "deployment_run": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44020023420",
+        "served_verified_at": "2026-11-17T05:00:18.319267+00:00",
+        "receipt": "automation/pipeline_release/receipts/v932-public-20261117.json"
+      }
     }
   ],
   "size_budget_mb": 18,

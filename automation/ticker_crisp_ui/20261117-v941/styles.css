@@ -1,0 +1,4 @@
+/* V9.41: crisp red on solid black; existing focus/touch/reduced-motion rules remain authoritative. */
+#headlineTicker,#headlineTicker *{background:#000!important;color:#f33!important;text-shadow:none!important;box-shadow:none!important;filter:none!important;backdrop-filter:none!important}
+#headlineTicker{border-color:#333!important}
+#headlineTicker .pn-ticker-track{animation-duration:max(12s,calc(var(--pn-cycle-duration,120s)*.84))}

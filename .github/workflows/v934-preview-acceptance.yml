@@ -101,6 +101,13 @@ jobs:
           V939_OUT: ${{ runner.temp }}/date-proof
           V940_OUT: ${{ runner.temp }}/date-proof
         run: node automation/${{ matrix.suite }}/browser.mjs
+      - name: Named Android portrait, landscape, touch and reduced-motion proof
+        if: matrix.suite == 'v940_preview'
+        env:
+          PLAYWRIGHT_MODULE: ${{ github.workspace }}/automation/news/acquisition/browser/node_modules/playwright/index.mjs
+          V940_ANDROID_OUT: ${{ runner.temp }}/date-proof/android
+          ANDROID_DEVICE: 'Pixel 7,Galaxy S9+'
+        run: node automation/v940_preview/android.mjs
       - name: Expanded analytics, close, focus, scroll and rotation
         env:
           PLAYWRIGHT_MODULE: ${{ github.workspace }}/automation/news/acquisition/browser/node_modules/playwright/index.mjs

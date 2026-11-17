@@ -10,6 +10,7 @@ on:
     paths:
       - 'uk_renewables_pipeline/**'
       - 'automation/pipeline_release/**'
+      - 'automation/dc_location_ui/**'
       - '.github/workflows/verify-pipeline-versions.yml'
   workflow_dispatch:
     inputs:
@@ -43,6 +44,7 @@ jobs:
             /automation/news/datacentre-ui/
             /automation/news/grid_watch/sources.json
             /automation/v928_context/preview/
+            /automation/dc_location_ui/
             /dist/major_project_news_v9_5_1.json
             /dist/convergence/2026q3/pipelinenews/
             /dist/news/

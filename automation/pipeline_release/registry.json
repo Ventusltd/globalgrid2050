@@ -908,14 +908,63 @@
         "served_verified_at": "2026-11-16T23:56:47.143939+00:00",
         "receipt": "automation/pipeline_release/receipts/v928-public-20261117.json"
       }
+    },
+    {
+      "id": "202611162354",
+      "version": "V9.29",
+      "parent": "202611161757",
+      "date": "2026-11-16T23:54:00Z",
+      "added": "Full-width Pipeline without the left sidebar, mobile rotation document flow, existing GridAtlas substations/offtakers, original Prices and a source-clocked ten-headline ticker; unchanged official REPD/CSV/MAP.",
+      "data_changed": false,
+      "runner": "tests/run_v9_29.sh",
+      "trees": [
+        "a500df1fea47ba23aad4159632558e9f0cb4d775"
+      ],
+      "features": [
+        {
+          "id": "v929-pinned-layers",
+          "file": "scripts/plugins/layers-v929.mjs",
+          "contains": "mountLayerControls"
+        },
+        {
+          "id": "v929-source-catalogue",
+          "file": "scripts/layers/catalogue.mjs",
+          "contains": "globalgrid2050.pipeline-layers.v1"
+        },
+        {
+          "id": "v929-ten-headline-ticker",
+          "file": "scripts/plugins/layers-v929.mjs",
+          "contains": "pipeline-feed-loaded"
+        },
+        {
+          "id": "v929-fullwidth-layout",
+          "file": "index.html",
+          "contains": "release-header"
+        }
+      ],
+      "known_faults": [
+        "Grid source snapshots are dated existing screening records; names, proximity and voltage do not establish connection, capacity or fresh network state. Grid Projects has zero independently approved events.",
+        "Original Prices may show stale observations or indicative baselines; no fresh actual-price-series acceptance is implied. MAP is generic source-location arrival, not typed substation identity.",
+        "Independent project evidence remains unavailable or unaccepted; no verified Solar-1000 bindings, public Context enablement or native Android acceptance."
+      ],
+      "ci": null,
+      "merge_commit": null,
+      "state": "release_candidate_modular_layers",
+      "browser_probes": [
+        {
+          "name": "V9.29 full-width page, no sidebar, six tabs and exactly two principal blocks",
+          "selector": "body",
+          "js": "(()=>{const m=document.querySelector('main'),r=m.getBoundingClientRect();return !document.querySelector('aside')&&!!document.querySelector('.release-header')&&document.querySelectorAll('main > section').length===2&&document.querySelectorAll('.pipeline-tabs > [role=tab]').length===6&&r.x===0&&r.right>=document.documentElement.clientWidth-1&&document.documentElement.scrollWidth<=innerWidth+2&&getComputedStyle(document.body).overflowY!=='hidden';})()"
+        }
+      ]
     }
   ],
   "size_budget_mb": 18,
   "size_budget_from": "202611140136",
   "release_candidate": {
-    "id": "202611161757",
-    "version": "V9.28",
-    "state": "PUBLISHED - SOURCE, HOMEPAGE AND SERVED BYTES VERIFIED",
+    "id": "202611162354",
+    "version": "V9.29",
+    "state": "NON-LIVE CANDIDATE - EXACT-HEAD ACCEPTANCE PENDING",
     "operative": {
       "id": "202611161757",
       "version": "V9.28"
@@ -925,6 +974,6 @@
       "version": "V9.19",
       "state": "held candidate (data-centre register context, awaiting licence verification)"
     },
-    "note": "V9.28 is the homepage-selected edition after explicit owner authorization, exact-head CI, owner/publisher pin and independent public source-byte, mobile/desktop browser and rollback checks. All official qualifying REPD records and original MAP/CSV identities remain. Independent evidence is still unavailable or unaccepted where recorded; Grid directory entries and Data Centre leads are not verified project events. V9.24 and V9.23 remain immutable rollback editions."
+    "note": "V9.28 remains selected by the homepage and independently public-verified. V9.29 adds source-pinned existing GridAtlas views, original Prices and a headline ticker in a separate candidate. Exact-head CI, public receiver/Prices review, owner promotion, served-byte and rollback gates remain pending. Source rights and independent project evidence are not granted by these technical checks."
   }
 }

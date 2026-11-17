@@ -44,6 +44,16 @@ test('missing points remain without screening actions',()=>{
  Object.assign(d.counts,{with_geometry:0,unknown_geometry:1,postcode_centroids:0});
  assert.equal(screenUrl(indexLocations(d).get('DC-WD-Q1')),null);
 });
+test('foreign and unknown country points keep geometry without a GB screening route',()=>{
+ for(const country of [{code:'FR'},{code:'US'},{code:'UK'},{code:null},undefined]){
+  const d=fixture(),f=d.features[0];f.properties.country=country;
+  f.geometry.coordinates=[7.73,48.58];f.properties.location_precision='WIKIDATA_REPORTED_POINT';
+  f.properties.geometry_licence='CC0-1.0';f.properties.geometry_licence_url='https://www.wikidata.org/wiki/Wikidata:Copyright';
+  d.counts.postcode_centroids=0;
+  assert.equal(indexLocations(d).size,1);assert.deepEqual(f.geometry.coordinates,[7.73,48.58]);
+  assert.equal(screenUrl(f),null);
+ }
+});
 test('postcode points require their own terms and GB bounds',()=>{
  for(const mutate of [p=>p.geometry_licence='CC0-1.0',p=>p.geometry_licence_url='https://bad.example/terms']){
   const d=fixture();mutate(d.features[0].properties);assert.throws(()=>indexLocations(d),/terms/);

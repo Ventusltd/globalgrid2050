@@ -21,6 +21,7 @@ const bundle={projects:await readJson(path.join(edition,'projects.json')),
 const raw=await fs.readFile(path.join(dataRoot,'datacentres/locations/data/20261117T002200Z/datacentre-locations.geojson'));
 assert.equal(raw.length,INPUT.bytes);assert.equal(createHash('sha256').update(raw).digest('hex'),INPUT.sha256);
 const locations=JSON.parse(raw),mapped=new Set(locations.features.filter(x=>x.geometry).map(x=>x.id));
+const screenable=new Set(locations.features.filter(x=>x.geometry&&x.properties.country?.code==='GB').map(x=>x.id));
 const expectedUK=bundle.projects.records.filter(x=>['GB','UK'].includes(x.country.code)&&mapped.has(x.id)).length;
 const resources=new Map([
  ['/model.js',[await fs.readFile(path.join(productRoot,'automation/news/datacentre-ui/model.js')),'text/javascript']],
@@ -51,8 +52,11 @@ try {
   assert.equal(await page.locator('.ggdc-screen-footnote').count(),1);
   assert.deepEqual(await page.evaluate(()=>({fetches:window.fetches,same:window.sameHandle})),{fetches:1,same:true});
   await page.getByRole('button',{name:/^Global leads/}).click();
-  await page.waitForFunction(n=>document.querySelectorAll('.ggdc-screen-actions').length===n,mapped.size);
+  await page.waitForFunction(n=>document.querySelectorAll('.ggdc-screen-actions').length===n,screenable.size);
   assert.equal(await page.locator('.ggdc-screen-footnote').count(),1);
+  assert.equal(await page.locator('a[href^="https://www.openstreetmap.org/"]').count(),bundle.projects.records.filter(x=>x.location).length);
+  const foreign=locations.features.filter(f=>f.properties.country?.code!=='GB').map(f=>f.id);
+  assert.equal(await page.evaluate(ids=>[...document.querySelectorAll('tbody tr')].filter(r=>ids.includes(r.querySelector('.ggdc-id')?.textContent.trim())&&r.querySelector('.ggdc-screen-actions')).length,foreign),0);
   const unmapped=locations.features.filter(f=>!f.geometry).map(f=>f.id);
   const invalid=await page.evaluate(ids=>[...document.querySelectorAll('tbody tr')].filter(r=>ids.includes(r.querySelector('.ggdc-id')?.textContent.trim())&&r.querySelector('.ggdc-screen-actions')).length,unmapped);
   assert.equal(invalid,0);
@@ -88,7 +92,7 @@ try {
   }
   await page.evaluate(()=>window.actions.disconnect());assert.equal(await page.locator('.ggdc-screen-actions').count(),0);assert.equal(await page.locator('.ggdc-screen-footnote').count(),0);
   assert.equal(await page.getByText('No mapped coordinates',{exact:true}).isVisible(),true);
-  proofs.push({label,expectedUK,totalMapped:mapped.size,dimensions,errors,screenHref:href,duplicateMount:'one fetch / one handle',corruptInput:'rejected / DOM unchanged',disconnect:'original source message restored'});
+  proofs.push({label,expectedUK,totalMapped:mapped.size,screenableGB:screenable.size,foreignScreenActions:0,globalOriginalMaps:'all preserved',dimensions,errors,screenHref:href,duplicateMount:'one fetch / one handle',corruptInput:'rejected / DOM unchanged',disconnect:'original source message restored'});
   await context.close();
  }
  await fs.writeFile(path.join(artifactRoot,'browser.json'),JSON.stringify(proofs,null,2));console.log(JSON.stringify(proofs));

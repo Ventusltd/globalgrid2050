@@ -10,8 +10,11 @@ The default input is pinned to data-owner commit
 `b33190f2a95a2046e108c2ba465c6a9195759892`, 183,561 bytes and SHA-256
 `6f68e078d9b57057acdda679288730e638553f68df884dfd747c5049e56ea88e`.
 It retains 100 source IDs: 39 Wikidata points, 25 approximate postcode points
-and 36 unknown locations. The 54-row UK view has 34 usable point actions; the
-100-row global view has 64. These are observed snapshot counts, not permanent
+and 36 unknown locations. The 54-row UK view has 34 usable screening actions;
+the 100-row global view retains those same 34 actions. Its 30 other mapped
+international records keep their original map/source links without claiming
+local network screening coverage. Unknown-country points have no GB screening
+action. These are observed snapshot counts, not permanent
 coverage targets or verified facility counts.
 
 ## Wire into a new edition
@@ -33,7 +36,7 @@ infer a row binding from a name. Unknown geometries have no invented action.
 Rerenders, same-row identity changes and duplicate mounts cannot retain another
 record's screening link. Disconnect restores source messages it temporarily hid.
 
-The one shared footer reads **¹ Screening only; not a grid-capacity assessment.**
+The one shared footer reads **¹ UK screening coverage. Screening only; not a grid-capacity assessment.**
 Postcode locations are marked approximate beside the action; original source
 revisions are linked. Marker, source text and address strings use plain text
 DOM methods. No article body, raw publisher markup or producer-provided action

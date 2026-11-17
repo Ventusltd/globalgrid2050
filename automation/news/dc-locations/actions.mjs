@@ -6,7 +6,7 @@ export const INPUT = Object.freeze({
 });
 const PRECISIONS = new Set(['WIKIDATA_REPORTED_POINT', 'POSTCODE_CENTROID_APPROXIMATE', 'UNKNOWN']);
 const ATTACHMENTS = new WeakMap();
-export const FOOTNOTE = 'Screening only; not a grid-capacity assessment.';
+export const FOOTNOTE = 'UK screening coverage. Screening only; not a grid-capacity assessment.';
 const requireValid = (ok, field) => { if (!ok) throw new Error('DC locations rejected: ' + field); };
 
 function checkedPoint(feature) {
@@ -61,7 +61,7 @@ export function indexLocations(document) {
 }
 
 export function screenUrl(feature) {
-  if (!feature.geometry) return null;
+  if (!feature?.geometry || feature.properties?.country?.code !== 'GB') return null;
   const [longitude, latitude] = checkedPoint(feature);
   requireValid(typeof feature.properties?.name === 'string' && feature.properties.name.trim(), 'source label');
   // Reconstruct from checked coordinates; never execute a producer-supplied action URL.
@@ -120,12 +120,13 @@ async function mount(host, {transport = fetch, pin = INPUT, noteId = 'dc-screeni
     let count = 0;
     for (const row of host.querySelectorAll('tbody tr')) {
       const id = row.querySelector('.ggdc-id')?.textContent?.trim(), feature = index.get(id);
-      const stale = [...row.querySelectorAll('.ggdc-screen-actions')].filter(n => !feature?.geometry || n.dataset.sourceId !== id);
+      const screenable = feature?.geometry && feature.properties.country?.code === 'GB';
+      const stale = [...row.querySelectorAll('.ggdc-screen-actions')].filter(n => !screenable || n.dataset.sourceId !== id);
       for (const n of stale) n.remove();
       if (stale.length) row.querySelectorAll('[data-dc-location-hidden]').forEach(n => {
         if (n.dataset.dcLocationHidden === noteId) { n.hidden = false; delete n.dataset.dcLocationHidden; }
       });
-      if (!feature?.geometry || row.querySelector('.ggdc-screen-actions')) continue;
+      if (!screenable || row.querySelector('.ggdc-screen-actions')) continue;
       const cell = row.lastElementChild;
       if (!cell) continue;
       const p = feature.properties, actions = document.createElement('div');

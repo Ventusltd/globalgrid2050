@@ -1,0 +1,88 @@
+{
+  "purpose": "One narrowly source-attributed notice supported by two actual government HTML retrievals; REVIEW_REQUIRED, no public approval implied",
+  "records": [
+    {
+      "source_id": "gov-pins-sealink",
+      "source_url": "https://www.gov.uk/government/news/sea-link-development-consent-decision-announced",
+      "source_record_id": "EN020026",
+      "source_sha256": "b9ba26b90820292e0b181da7993d2d3a2180fc2de0ac53cc6239adeb4cccfaeb",
+      "source_receipt": {
+        "source_url": "https://www.gov.uk/government/news/sea-link-development-consent-decision-announced",
+        "http_status": 200,
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 68432,
+        "sha256": "b9ba26b90820292e0b181da7993d2d3a2180fc2de0ac53cc6239adeb4cccfaeb",
+        "retrieved_at": "2026-11-17T15:48:11Z",
+        "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+        "licence_evidence": "Actual GOV.UK HTML footer: Open Government Licence v3.0 except where otherwise stated; narrow government-authored facts only; images and linked third-party materials excluded"
+      },
+      "published_at": null,
+      "published_date": {
+        "value": "2026-10-30",
+        "precision": "DAY"
+      },
+      "event_date": {
+        "value": "2026-10-30",
+        "precision": "DAY"
+      },
+      "retrieved_at": "2026-11-17T15:48:11Z",
+      "scheme_id": "EN020026",
+      "scheme_name": "Sea Link",
+      "network_operator": "NGET",
+      "network_type": "transmission",
+      "region": "Suffolk-Kent",
+      "stage": "consented",
+      "milestones": {
+        "application_submitted": {
+          "value": "2025-03-27",
+          "precision": "DAY"
+        },
+        "accepted_for_examination": {
+          "value": "2025-04-23",
+          "precision": "DAY"
+        },
+        "recommendation": {
+          "value": "2026-07-30",
+          "precision": "DAY"
+        }
+      }
+    },
+    {
+      "source_id": "gov-desnz-sealink",
+      "source_url": "https://www.gov.uk/government/publications/sea-link-development-consent-order-planning-act-2008",
+      "source_record_id": "EN020026",
+      "source_sha256": "c26f93aa307740f8b4ec8ad150b152fb6d30e77f201e5bc31a6da52bba16e0d0",
+      "source_receipt": {
+        "source_url": "https://www.gov.uk/government/publications/sea-link-development-consent-order-planning-act-2008",
+        "http_status": 200,
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 69536,
+        "sha256": "c26f93aa307740f8b4ec8ad150b152fb6d30e77f201e5bc31a6da52bba16e0d0",
+        "retrieved_at": "2026-11-17T15:48:11Z",
+        "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+        "licence_evidence": "Actual GOV.UK HTML footer: Open Government Licence v3.0 except where otherwise stated; narrow government-authored facts only; images and linked third-party materials excluded"
+      },
+      "published_at": null,
+      "published_date": {
+        "value": "2026-10-30",
+        "precision": "DAY"
+      },
+      "event_date": {
+        "value": "2026-10-30",
+        "precision": "DAY"
+      },
+      "retrieved_at": "2026-11-17T15:48:11Z",
+      "scheme_id": "EN020026",
+      "scheme_name": "Sea Link",
+      "network_operator": "NGET",
+      "network_type": "transmission",
+      "region": "Suffolk-Kent",
+      "stage": "consented",
+      "reported_metric": {
+        "value": 2000,
+        "unit": "MW",
+        "kind": "planned_transmission_upper_bound"
+      }
+    }
+  ]
+}

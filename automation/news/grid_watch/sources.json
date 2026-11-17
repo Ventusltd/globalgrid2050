@@ -142,6 +142,58 @@
       "url": "https://www.enwl.co.uk/future-energy/data-and-digitalisation/data-portal/",
       "coverage": "SP Electricity North West distribution network datasets, embedded capacity registers and plans",
       "licence_state": "UNASSESSED"
+    },
+    {
+      "id": "gov-pins-sealink",
+      "publisher": "Planning Inspectorate",
+      "operator": null,
+      "role": "government_authority",
+      "hostname": "www.gov.uk",
+      "url": "https://www.gov.uk/government/news/sea-link-development-consent-decision-announced",
+      "allowed_urls": [
+        "https://www.gov.uk/government/news/sea-link-development-consent-decision-announced"
+      ],
+      "reported_operators": [
+        "NGET"
+      ],
+      "coverage": "Only this source-qualified Sea Link EN020026 government-authored HTML fact record; no images, linked documents or blanket feed reuse",
+      "licence_state": "OGL_V3_FACTS_REVIEW_REQUIRED",
+      "document_receipt": {
+        "source_url": "https://www.gov.uk/government/news/sea-link-development-consent-decision-announced",
+        "http_status": 200,
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 68432,
+        "sha256": "b9ba26b90820292e0b181da7993d2d3a2180fc2de0ac53cc6239adeb4cccfaeb",
+        "retrieved_at": "2026-11-17T15:48:11Z",
+        "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+        "licence_evidence": "Actual GOV.UK HTML footer: Open Government Licence v3.0 except where otherwise stated; narrow government-authored facts only; images and linked third-party materials excluded"
+      }
+    },
+    {
+      "id": "gov-desnz-sealink",
+      "publisher": "Department for Energy Security and Net Zero",
+      "operator": null,
+      "role": "government_authority",
+      "hostname": "www.gov.uk",
+      "url": "https://www.gov.uk/government/publications/sea-link-development-consent-order-planning-act-2008",
+      "allowed_urls": [
+        "https://www.gov.uk/government/publications/sea-link-development-consent-order-planning-act-2008"
+      ],
+      "reported_operators": [
+        "NGET"
+      ],
+      "coverage": "Only this source-qualified Sea Link EN020026 government-authored HTML fact record; no images, linked documents or blanket feed reuse",
+      "licence_state": "OGL_V3_FACTS_REVIEW_REQUIRED",
+      "document_receipt": {
+        "source_url": "https://www.gov.uk/government/publications/sea-link-development-consent-order-planning-act-2008",
+        "http_status": 200,
+        "content_type": "text/html; charset=utf-8",
+        "bytes": 69536,
+        "sha256": "c26f93aa307740f8b4ec8ad150b152fb6d30e77f201e5bc31a6da52bba16e0d0",
+        "retrieved_at": "2026-11-17T15:48:11Z",
+        "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+        "licence_evidence": "Actual GOV.UK HTML footer: Open Government Licence v3.0 except where otherwise stated; narrow government-authored facts only; images and linked third-party materials excluded"
+      }
     }
   ]
 }

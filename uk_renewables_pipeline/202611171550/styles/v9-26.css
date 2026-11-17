@@ -1,0 +1,5 @@
+/* One credited news list; compact explanations stay beside each headline. */
+.ln-priority { display:block; margin-top:6px; color:#a7cbbd; font-size:11px; line-height:1.5; overflow-wrap:anywhere; }
+#newsStatus { line-height:1.6; }
+#newsStatus[data-order="date"] { color:var(--muted,#a6adbb); }
+.ln-title:focus-visible,.ln-more:focus-visible { outline:2px solid var(--accent,#0ff); outline-offset:3px; }

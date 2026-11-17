@@ -1,0 +1,44 @@
+{
+  "schema": "globalgrid2050.primary-note-cartridge.v1",
+  "producer": {
+    "repository": "Ventusltd/globalgrid2050",
+    "commit": "f421513f7cbd85ad45727ef236e053a6c67f92d9",
+    "pull_request": 151,
+    "extends_commit": "b5eed3d2ae878c78e5153be06ef531c11fff2148"
+  },
+  "files": {
+    "catalogue.mjs": {
+      "bytes": 32142,
+      "sha256": "7252979c22d560091cd4e738ca14fb925434464a44f07976f9a9b64013d23b9d",
+      "git_blob": "dafd4cfbf2a9f3cf74b9c1345f3bf5fbd59f7e92",
+      "source_path": "automation/news/primary-notes/catalogue.mjs"
+    },
+    "model.mjs": {
+      "bytes": 12081,
+      "sha256": "02855072d96b6d77ede197e1640264e03422e72a70fe6036eb48345e828049b1",
+      "git_blob": "f87162d8ec7f21cb794b1b0cd120b9a65fb093ef",
+      "source_path": "automation/news/primary-notes/model.mjs"
+    },
+    "notes.json": {
+      "bytes": 29085,
+      "sha256": "81db6e09994088a2f08b4418ee334350eba5a1e208dc48af233a702da4826b84",
+      "git_blob": "58d48422b388d7e3986cf400dcc506d48ff37bd2",
+      "source_path": "automation/news/primary-notes/notes.json"
+    }
+  },
+  "renderer": {
+    "path": "automation/primary_note_ui/host-202611170512/brief.mjs",
+    "owner": "AGENT1_ROOT",
+    "bytes": 6884,
+    "sha256": "4cc9b278d5638a65fa7d8fc59cd42681666adf49a6089ffd0673f1c37446068c",
+    "git_blob": "55694a533050827ca1a7ae037506285db8bd21fc"
+  },
+  "expected": {
+    "canonical_population": 7775,
+    "associations": 4,
+    "verified": 0,
+    "solar1000_verified_delta": 0
+  },
+  "scope": "Four reviewed government decisions; whole-development scope and provisional solar-row associations preserve separate battery identities and unknown capacities. The original Botley record and headline associations are retained.",
+  "fallback": "Keep the existing headline-based Machine Read Notes and all project/CSV/MAP behaviour if the optional source model, renderer, JSON MIME or receipt validation is unavailable."
+}

@@ -1,0 +1,150 @@
+{
+  "schema": "globalgrid2050.uk-renewables.release.v9.3",
+  "release": "9.3",
+  "feature": "v9-3-1-exposes-official-repd-and-globalgrid-references-and-official-repd-update-date-with-date-sorting",
+  "frozen_parent": {
+    "release": "9.2",
+    "commit": "77085a5dc8a8ce42cd4de7dad927eaf9aaf785ee",
+    "tree": "3807968dbf5c73e4499c6de9157464e3185dd241"
+  },
+  "data_parent": {
+    "release": "9.1",
+    "contract": "contracts/release.v9.1.json",
+    "manifest": "data/v9.1/build_manifest.json",
+    "data_changed": false
+  },
+  "behaviour_parent": {
+    "release": "9.2",
+    "contract": "contracts/release.v9.2.json",
+    "retained_files": {
+      "project_filter": "scripts/core/project-filter-v9-2.js",
+      "news_relevance": "scripts/core/news-relevance-v9-2.js",
+      "gauges": "scripts/plugins/gauges-v9-2.js",
+      "newspaper": "scripts/plugins/newspaper-v9-2.js",
+      "project_reference": "scripts/plugins/projects-v9-2.js"
+    },
+    "application_logic_changed": true,
+    "interface_changed": true,
+    "capacity_presentation_changed": true
+  },
+  "v9_3_presentation": {
+    "module": "scripts/plugins/capacity-presentation-v9-3.js",
+    "scope": "display only",
+    "filtered_capacity_maximum_fraction_digits": 0,
+    "rounding": "nearest whole MW using en-GB number formatting",
+    "applies_to": [
+      "primary filtered-capacity gauge",
+      "filtered results summary"
+    ],
+    "exact_capacity_preserved_in": [
+      "V9.1 canonical data partitions",
+      "filtered CSV export",
+      "project table official capacity",
+      "Atlas URL capacity_mw",
+      "release and build manifests"
+    ]
+  },
+  "v9_3_1_patch": {
+    "version": "9.3.1",
+    "frozen_v9_3_commit": "eee4cf7d854bf44235c249d337c2aad3916bcdc0",
+    "data_changed": false,
+    "desktop_columns_added": [
+      "REPD Ref",
+      "GlobalGrid Ref",
+      "REPD Record Updated"
+    ],
+    "mobile_identity_location": "beneath site name",
+    "sort_modes": [
+      "canonical capacity order",
+      "REPD updated newest",
+      "REPD updated oldest"
+    ],
+    "missing_update_dates": "retained as not supplied by REPD and sorted after dated records"
+  },
+  "scope": {
+    "capacity_mw_inclusive_minimum": 1.0,
+    "technologies": [
+      "solar",
+      "bess",
+      "wind_onshore",
+      "wind_offshore"
+    ],
+    "all_official_statuses": true,
+    "default_universe": "all_qualifying_records",
+    "record_identity_preserved": true,
+    "development_deduplication_forbidden": true,
+    "additional_filters_deferred_to": "9.4"
+  },
+  "expected": {
+    "project_count": 7680,
+    "capacity_mw": 356474.09,
+    "displayed_capacity_mw": 356474,
+    "largest_mw": 4100.0,
+    "valid_geometry_count": 7652,
+    "missing_geometry_count": 28,
+    "solar_count": 3563,
+    "bess_count": 1609,
+    "wind_onshore_count": 2399,
+    "wind_offshore_count": 109
+  },
+  "ui_contract": {
+    "reference": "V5 visual shell plus the proven V7.1 mobile overflow repair, V2/V5 whole-MW capacity formatting and a bounded V9.3 tablet-header correction",
+    "stylesheets_in_order": [
+      "styles/v7.css",
+      "styles/mobile.css",
+      "styles/v9-3.css"
+    ],
+    "forbidden_runtime_overrides": [
+      "styles/v8.css",
+      "styles/v9-2.css"
+    ],
+    "primary_gauges": 3,
+    "filtered_capacity_fraction_digits": 0,
+    "desktop_gauge_columns": 3,
+    "intermediate_gauge_columns": 3,
+    "desktop_header_row_from_px": 921,
+    "intermediate_header_wrap_range_px": [
+      769,
+      920
+    ],
+    "intermediate_header_direction": "column",
+    "intermediate_status_wrap": true,
+    "intermediate_test_widths_px": [
+      769,
+      800,
+      900,
+      920
+    ],
+    "mobile_breakpoint_px": 768,
+    "mobile_gauge_columns": 1,
+    "mobile_header_direction": "column",
+    "mobile_status_wrap": true,
+    "mobile_test_widths_px": [
+      390,
+      430,
+      440,
+      768
+    ],
+    "project_table_columns": 11,
+    "retain": [
+      "canonical_ids",
+      "official_update_date",
+      "filtered_csv",
+      "legacy_news_relevance_screen",
+      "exact_atlas_link",
+      "missing_geometry_records",
+      "shareable_filters",
+      "copy_project_id",
+      "expandable_project_record",
+      "official_update_date_sort"
+    ]
+  },
+  "algorithms": {
+    "pipeline": "load all qualifying records before applying optional user filters",
+    "project_search": "inherit V9.2 normalised multi-token AND search",
+    "project_sort": "default canonical capacity order; optional official REPD update date newest or oldest; missing official dates always last",
+    "news": "inherit V9.2 legacy-feed relevance screen; remain explicitly unverified",
+    "atlas": "exact REPD Ref identity with coordinate fallback only after exact lookup failure",
+    "official_facts": "news and contextual geography cannot overwrite REPD identity, status, capacity or dates"
+  }
+}

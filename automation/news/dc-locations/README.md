@@ -17,6 +17,12 @@ local network screening coverage. Unknown-country points have no GB screening
 action. These are observed snapshot counts, not permanent
 coverage targets or verified facility counts.
 
+All 38 exact-ID records with address statements have a compact **Reported
+address** disclosure and their original Wikidata revision, including foreign
+sites and records without coordinates. Every reported address statement is
+retained verbatim as plain text; an address does not establish facility identity.
+The shared sources disclosure also links the exact full 100-record GeoJSON.
+
 ## Wire into a new edition
 
 Load `actions.css` once. After the existing component has rendered into its

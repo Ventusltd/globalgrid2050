@@ -56,12 +56,28 @@ try {
   assert.match(await page.locator('.ggdc-location-sources').innerText(),/Contains Ordnance Survey data/);
   assert.match(await page.locator('.ggdc-location-sources').innerText(),/Contains Royal Mail data/);
   assert.match(await page.locator('.ggdc-location-sources').innerText(),/approximate postcode locations/);
+  assert.equal(await page.getByRole('link',{name:'Source GeoJSON (100 records)',exact:true}).getAttribute('href'),INPUT.url);
   await page.getByText('Location sources and accuracy',{exact:true}).click();
   assert.deepEqual(await page.evaluate(()=>({fetches:window.fetches,same:window.sameHandle})),{fetches:1,same:true});
   await page.getByRole('button',{name:/^Global leads/}).click();
   await page.waitForFunction(n=>document.querySelectorAll('.ggdc-screen-actions').length===n,screenable.size);
   assert.equal(await page.locator('.ggdc-screen-footnote').count(),1);
   assert.equal(await page.locator('.ggdc-location-sources').count(),1);
+  assert.equal(await page.locator('.ggdc-reported-address').count(),locations.features.filter(f=>f.properties.addresses.length).length);
+  const addressProof=await page.evaluate(features=>{
+    const proof={allStatements:0,foreign:0,unknownGeometry:0};
+    for(const feature of features.filter(f=>f.properties.addresses.length)){
+      const row=[...document.querySelectorAll('tbody tr')].find(r=>r.querySelector('.ggdc-id')?.textContent.trim()===feature.id);
+      const actual=[...row.querySelectorAll('.ggdc-reported-address p')].map(n=>n.textContent);
+      if(JSON.stringify(actual)!==JSON.stringify(feature.properties.addresses.map(a=>a.text)))throw Error('Address statements changed: '+feature.id);
+      if(row.querySelector('.ggdc-location-actions a[href*="wikidata.org"]').href!==feature.properties.source_revision_url)throw Error('Address revision changed');
+      if(!feature.geometry&&row.querySelector('[data-dc-location-hidden]'))throw Error('Unknown coordinates hidden');
+      proof.allStatements+=actual.length;
+      if(feature.properties.country?.code!=='GB')proof.foreign++;
+      if(!feature.geometry)proof.unknownGeometry++;
+    }return proof;
+  },locations.features);
+  assert(addressProof.foreign>0);assert(addressProof.unknownGeometry>0);
   assert.equal(await page.locator('a[href^="https://www.openstreetmap.org/"]').count(),bundle.projects.records.filter(x=>x.location).length);
   const foreign=locations.features.filter(f=>f.properties.country?.code!=='GB').map(f=>f.id);
   assert.equal(await page.evaluate(ids=>[...document.querySelectorAll('tbody tr')].filter(r=>ids.includes(r.querySelector('.ggdc-id')?.textContent.trim())&&r.querySelector('.ggdc-screen-actions')).length,foreign),0);
@@ -79,6 +95,11 @@ try {
   await page.evaluate(id=>{document.querySelector('tbody tr .ggdc-id').firstChild.data=id;},unmapped[0]);
   await page.waitForFunction(()=>document.querySelectorAll('.ggdc-screen-actions').length===0);
   assert.equal(await page.locator('.ggdc-screen-footnote').isVisible(),false);
+  const replacement=locations.features.find(f=>f.id===unmapped[0]);
+  assert.deepEqual(await page.locator('.ggdc-reported-address p').allTextContents(),replacement.properties.addresses.map(a=>a.text));
+  await page.evaluate(()=>{document.querySelector('tbody tr .ggdc-id').textContent='DC-WD-Q999999999999';});
+  await page.waitForFunction(()=>document.querySelectorAll('.ggdc-location-actions').length===0);
+  assert.equal(await page.locator('.ggdc-location-sources').isVisible(),false);
   await page.evaluate(()=>{document.querySelector('tbody tr .ggdc-id').textContent='DC-WD-Q138394549';});
   await page.waitForFunction(()=>document.querySelectorAll('.ggdc-screen-actions').length===1);
   assert.equal(await page.getByRole('link',{name:'Screen¹',exact:true}).getAttribute('href'),href);
@@ -100,8 +121,9 @@ try {
   }
   await page.evaluate(()=>window.actions.disconnect());assert.equal(await page.locator('.ggdc-screen-actions').count(),0);assert.equal(await page.locator('.ggdc-screen-footnote').count(),0);
   assert.equal(await page.locator('.ggdc-location-sources').count(),0);
+  assert.equal(await page.locator('.ggdc-reported-address').count(),0);
   assert.equal(await page.getByText('No mapped coordinates',{exact:true}).isVisible(),true);
-  proofs.push({label,expectedUK,totalMapped:mapped.size,screenableGB:screenable.size,foreignScreenActions:0,globalOriginalMaps:'all preserved',dimensions,errors,screenHref:href,duplicateMount:'one fetch / one handle',corruptInput:'rejected / DOM unchanged',disconnect:'original source message restored'});
+  proofs.push({label,expectedUK,totalMapped:mapped.size,screenableGB:screenable.size,foreignScreenActions:0,addressProof,globalOriginalMaps:'all preserved',dimensions,errors,screenHref:href,duplicateMount:'one fetch / one handle',corruptInput:'rejected / DOM unchanged',disconnect:'original source message restored'});
   await context.close();
  }
  await fs.writeFile(path.join(artifactRoot,'browser.json'),JSON.stringify(proofs,null,2));console.log(JSON.stringify(proofs));

@@ -122,25 +122,38 @@ async function mount(host, {transport = fetch, pin = INPUT, noteId = 'dc-screeni
     for (const row of host.querySelectorAll('tbody tr')) {
       const id = row.querySelector('.ggdc-id')?.textContent?.trim(), feature = index.get(id);
       const screenable = feature?.geometry && feature.properties.country?.code === 'GB';
-      const stale = [...row.querySelectorAll('.ggdc-screen-actions')].filter(n => !screenable || n.dataset.sourceId !== id);
+      const addresses = feature?.properties.addresses || [];
+      const eligible = screenable || addresses.length > 0;
+      const stale = [...row.querySelectorAll('.ggdc-location-actions')].filter(n => !eligible || n.dataset.sourceId !== id);
       for (const n of stale) n.remove();
       if (stale.length) row.querySelectorAll('[data-dc-location-hidden]').forEach(n => {
         if (n.dataset.dcLocationHidden === noteId) { n.hidden = false; delete n.dataset.dcLocationHidden; }
       });
-      if (!screenable || row.querySelector('.ggdc-screen-actions')) continue;
+      if (!eligible || row.querySelector('.ggdc-location-actions')) continue;
       const cell = row.lastElementChild;
       if (!cell) continue;
       const p = feature.properties, actions = document.createElement('div');
-      actions.className = 'ggdc-screen-actions'; actions.dataset.sourceId = id;
+      actions.className = 'ggdc-location-actions' + (screenable ? ' ggdc-screen-actions' : ''); actions.dataset.sourceId = id;
+      if (screenable) {
       const link = document.createElement('a'); link.textContent = 'Screen¹';
       link.href = screenUrl(feature); link.target = '_blank'; link.rel = 'noopener noreferrer';
       link.setAttribute('aria-describedby', noteId);
       link.title = p.location_precision === 'POSTCODE_CENTROID_APPROXIMATE'
         ? 'Approximate postcode location — open existing grid vicinity screening' : 'Source-reported location — open existing grid vicinity screening';
       actions.append(link);
+      }
       const source = document.createElement('a'); source.textContent = 'Location source';
       source.href = revision(p.source_revision_url, p.wikidata_id); source.target = '_blank'; source.rel = 'noopener noreferrer';
       actions.append(source);
+      if (addresses.length) {
+        const reported = document.createElement('details'); reported.className = 'ggdc-reported-address';
+        const summary = document.createElement('summary'); summary.textContent = 'Reported address'; reported.append(summary);
+        for (const statement of addresses) {
+          const line = document.createElement('p'); line.textContent = statement.text; reported.append(line);
+        }
+        actions.append(reported);
+      }
+      if (screenable) {
       const location = document.createElement('small'); location.className = 'ggdc-screen-location';
       location.textContent = (p.location_precision === 'POSTCODE_CENTROID_APPROXIMATE' ? 'Approx. postcode: ' : 'Source point: ') +
         (p.location_source?.postcode || p.addresses[0]?.text || p.name);
@@ -148,19 +161,24 @@ async function mount(host, {transport = fetch, pin = INPUT, noteId = 'dc-screeni
       for (const n of cell.querySelectorAll('.ggdc-muted')) if (n.textContent.trim() === 'No mapped coordinates') {
         n.hidden = true; n.dataset.dcLocationHidden = noteId;
       }
+      }
       cell.append(actions); count++;
     }
     if (!host.querySelector('#' + noteId) && host.querySelector('.ggdc-screen-actions')) {
       const note = document.createElement('small'); note.id = noteId; note.className = 'ggdc-screen-footnote';
       note.textContent = '¹ ' + FOOTNOTE; host.append(note);
     }
-    if (!host.querySelector('.ggdc-location-sources') && host.querySelector('.ggdc-screen-actions')) {
+    if (!host.querySelector('.ggdc-location-sources') && host.querySelector('.ggdc-location-actions')) {
       const disclosure = document.createElement('details'); disclosure.className = 'ggdc-location-sources';
       const summary = document.createElement('summary'); summary.textContent = 'Location sources and accuracy';
       disclosure.append(summary);
       const description = document.createElement('p');
       description.textContent = 'Addresses and source-reported points use Wikidata structured statements. GB postcode points use Postcodes.io and are approximate postcode locations.';
       disclosure.append(description);
+      const data = document.createElement('a'); data.textContent = 'Source GeoJSON (100 records)';
+      data.href = pin.url; data.target = '_blank'; data.rel = 'noopener noreferrer'; disclosure.append(data);
+      const identity = document.createElement('p');
+      identity.textContent = 'Reported address statements do not independently verify facility identity.'; disclosure.append(identity);
       const terms = document.createElement('p');
       for (const [label, href] of [['Wikidata CC0 terms', 'https://www.wikidata.org/wiki/Wikidata:Copyright'],
         ['Postcode-provider terms', 'https://postcodes.io/docs/licences/']]) {
@@ -179,7 +197,7 @@ async function mount(host, {transport = fetch, pin = INPUT, noteId = 'dc-screeni
     const note = host.querySelector('#' + noteId);
     if (note) note.hidden = !host.querySelector('.ggdc-screen-actions');
     const disclosure = host.querySelector('.ggdc-location-sources');
-    if (disclosure) disclosure.hidden = !host.querySelector('.ggdc-screen-actions');
+    if (disclosure) disclosure.hidden = !host.querySelector('.ggdc-location-actions');
     return count;
   }
   const observer = new MutationObserver(() => {
@@ -190,7 +208,7 @@ async function mount(host, {transport = fetch, pin = INPUT, noteId = 'dc-screeni
   refresh(); observer.observe(host, {childList: true, characterData: true, subtree: true});
   return {refresh, disconnect() {
     closed = true; observer.disconnect();
-    host.querySelectorAll('.ggdc-screen-actions').forEach(n => n.remove());
+    host.querySelectorAll('.ggdc-location-actions').forEach(n => n.remove());
     host.querySelector('#' + noteId)?.remove();
     host.querySelector('.ggdc-location-sources')?.remove();
     host.querySelectorAll('[data-dc-location-hidden]').forEach(n => {

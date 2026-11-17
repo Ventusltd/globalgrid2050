@@ -25,6 +25,11 @@ export function mountDailyPrices(host,{transport=fetch}={}){
   for(const label of ['Source date','Available mean £/MWh','High £/MWh','Low £/MWh','Priced / expected','Source-day coverage','UTC disagreements']){const th=element(doc,'th',label);th.scope='col';header.append(th);}thead.append(header);const tbody=element(doc,'tbody');table.append(thead,tbody);tableWrap.append(table);details.append(tableWrap);root.append(details);
   host.append(root);tools.hidden=true;canvas.hidden=true;stats.hidden=true;coverage.hidden=true;quality.hidden=true;
   let store=null,closed=false,generation=0,current=null,resizeFrame=null;
+  function clearResults(){
+    canvas.hidden=true;stats.hidden=true;coverage.hidden=true;quality.hidden=true;current=null;
+    stats.replaceChildren();tbody.replaceChildren();coverage.textContent='';quality.textContent='';delete canvas.dataset.series;
+  }
+  function unavailable(message){clearResults();root.dataset.state='unavailable';status.textContent=message;}
   function paint(result){
     if(closed)return;current=result;const s=summarise(result.rows);canvas.hidden=false;stats.hidden=false;coverage.hidden=false;quality.hidden=false;
     const receipt=drawDaily(canvas,result);canvas.dataset.series=JSON.stringify(receipt);
@@ -37,7 +42,7 @@ export function mountDailyPrices(host,{transport=fetch}={}){
   async function load(){
     if(!store||closed)return;const token=++generation;root.dataset.state='loading';status.textContent='Loading selected source days…';
     // Hide the previous window while another window is loading or fails.
-    canvas.hidden=true;stats.hidden=true;coverage.hidden=true;quality.hidden=true;tbody.replaceChildren();current=null;
+    clearResults();
     try{
       const last=store.index.last_date,first=store.index.first_date;
       const boundedEnd=dateAt(Math.min(dateMs(last),Math.max(dateMs(first),dateMs(end.value))));end.value=boundedEnd;
@@ -45,11 +50,13 @@ export function mountDailyPrices(host,{transport=fetch}={}){
       if(period.value==='year'){const y=Number(year.value);range={start:dateAt(Math.max(dateMs(first),Date.UTC(y,0,1))),end:dateAt(Math.min(dateMs(last),Date.UTC(y+1,0,1)-86400000))};end.value=range.end;}
       else{range=trailingWindow(boundedEnd,Number(period.value),first);year.value=boundedEnd.slice(0,4);}
       const result=await store.window(range.start,range.end);if(!closed&&token===generation)paint(result);
-    }catch{if(!closed&&token===generation){root.dataset.state='unavailable';status.textContent='Selected daily price data unavailable. Inspect the pinned source links or select another window.';}}
+    }catch{if(!closed&&token===generation)unavailable('Selected daily price data unavailable. Inspect the pinned source links or select another window.');}
   }
   year.addEventListener('change',()=>{period.value='year';void load();});period.addEventListener('change',()=>void load());end.addEventListener('change',()=>{if(period.value==='year')period.value='30';void load();});
-  const resize=new ResizeObserver(()=>{if(!current||closed)return;cancelAnimationFrame(resizeFrame);resizeFrame=requestAnimationFrame(()=>{if(current&&!closed)drawDaily(canvas,current);});});resize.observe(root);
-  const controller={ready:null,disconnect(){closed=true;generation++;resize.disconnect();cancelAnimationFrame(resizeFrame);root.remove();MOUNTS.delete(host);}};
+  const resize=new ResizeObserver(()=>{if(!current||closed)return;cancelAnimationFrame(resizeFrame);resizeFrame=requestAnimationFrame(()=>{
+    if(current&&!closed)try{drawDaily(canvas,current);}catch{unavailable('Daily price graph unavailable. Select another window to retry.');}
+  });});resize.observe(root);
+  const controller={ready:null,disconnect(){if(closed)return;closed=true;generation++;resize.disconnect();cancelAnimationFrame(resizeFrame);root.remove();if(MOUNTS.get(host)===controller)MOUNTS.delete(host);}};
   MOUNTS.set(host,controller);
   controller.ready=(async()=>{
     try{
@@ -57,6 +64,6 @@ export function mountDailyPrices(host,{transport=fetch}={}){
       sourceLine.textContent='Latest source date: '+index.last_date+' · historical Elexon system-sell prices · GBP/MWh';
       for(const part of [...index.parts].reverse()){const option=element(doc,'option',String(part.year));option.value=String(part.year);year.append(option);}
       year.value=index.last_date.slice(0,4);end.min=index.first_date;end.max=index.last_date;end.value=index.last_date;tools.hidden=false;await load();
-    }catch{if(!closed){root.dataset.state='unavailable';sourceLine.textContent='Historical system-sell source unavailable.';status.textContent='Daily price data unavailable. The original electricity workspace remains separate.';}}
+    }catch{if(!closed){sourceLine.textContent='Historical system-sell source unavailable.';unavailable('Daily price data unavailable. The original electricity workspace remains separate.');}}
   })();return controller;
 }

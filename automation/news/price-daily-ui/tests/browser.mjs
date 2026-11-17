@@ -60,11 +60,24 @@ try{
    delayed=null;releaseDelay();await page.waitForTimeout(100);assert.match(await page.locator('.pnd-status').innerText(),/^2023-01-01/);
    await page.getByLabel('Source year').selectOption('2026');await page.waitForFunction(()=>document.querySelector('.pn-daily-prices').dataset.state==='available');
    await page.getByLabel('Daily window').selectOption('30');await page.waitForFunction(()=>document.querySelector('.pnd-status').textContent.includes('30 calendar days'));
+   await page.evaluate(()=>{document.querySelector('canvas').getContext=()=>null;});
+   await page.getByLabel('Source year').selectOption('2025');await page.waitForFunction(()=>document.querySelector('.pn-daily-prices').dataset.state==='unavailable');
+   assert.equal(await page.locator('canvas').isVisible(),false);assert.equal(await page.locator('.pnd-stats').isVisible(),false);assert.equal(await page.locator('.pnd-stats').innerText(),'');assert.equal(await page.locator('tbody tr').count(),0);
+   await page.evaluate(()=>{delete document.querySelector('canvas').getContext;});await page.getByLabel('Source year').selectOption('2026');await page.waitForFunction(()=>document.querySelector('.pn-daily-prices').dataset.state==='available');
+   await page.getByLabel('Daily window').selectOption('30');await page.waitForFunction(()=>document.querySelector('.pnd-status').textContent.includes('30 calendar days'));
   }
   if(label==='android-portrait'||live)for(const viewport of [{width:915,height:412},{width:390,height:844}]){await page.setViewportSize(viewport);await page.waitForTimeout(80);assert.equal(await page.locator('.pn-daily-prices').getAttribute('data-state'),'available');const size=await page.evaluate(()=>({width:innerWidth,document:document.documentElement.scrollWidth}));assert(size.document<=size.width+1,JSON.stringify(size));}
   await page.getByText('Source and daily observations',{exact:true}).click();assert((await page.locator('tbody tr').count())>0);assert.equal(await page.getByRole('link',{name:'Pinned data index',exact:true}).getAttribute('href'),SOURCE.base+'index.json');
   const dimensions=await page.evaluate(()=>({viewport:innerWidth,document:document.documentElement.scrollWidth,canvas:document.querySelector('canvas').getBoundingClientRect().width}));assert(dimensions.document<=dimensions.viewport+1);assert.deepEqual(errors,[]);
   await page.screenshot({path:path.join(artifactFolder,label+'.png'),fullPage:true});proofs.push({label,mode:live?'actual HTTPS without route interception':'exact owner snapshot with controlled transport',sourceCommit:SOURCE.commit,defaultRange:'2026-10-02/2026-10-31',lazyRequests:requests,negativeLow:low,dimensions,errors,gaps:live?'unit + deterministic browser separately':'explicit null/omitted gaps verified in actual canvas paths; no zero/baseline'});
+  if(!live){
+   assert.equal(await page.evaluate(async()=>{
+    const old=window.controller,host=document.querySelector('#host');old.disconnect();
+    const replacement=window.viewModule.mountDailyPrices(host);await replacement.ready;old.disconnect();
+    const again=window.viewModule.mountDailyPrices(host);window.controller=replacement;
+    return replacement===again&&host.querySelectorAll('.pn-daily-prices').length===1;
+   }),true);
+  }
   await page.evaluate(()=>window.controller.disconnect());assert.equal(await page.locator('.pn-daily-prices').count(),0);
   if(!live){blocked=true;await page.reload();await page.waitForFunction(()=>window.initialReady);assert.equal(await page.locator('.pn-daily-prices').getAttribute('data-state'),'unavailable');assert.equal(await page.locator('canvas').isVisible(),false);assert.equal(await page.locator('.pnd-tools').isVisible(),false);}
   await context.close();

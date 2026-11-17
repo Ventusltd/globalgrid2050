@@ -1,0 +1,47 @@
+name: V9.34 planning submission and date controls
+on:
+  pull_request:
+    paths:
+      - 'uk_renewables_pipeline/202611171141/**'
+      - 'automation/v934_preview/**'
+      - 'automation/repd_expand_ui/**'
+      - '.github/workflows/v934-preview-acceptance.yml'
+permissions:
+  contents: read
+jobs:
+  date-controls:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.13'
+      - name: Formal edition and unchanged canonical data
+        run: bash uk_renewables_pipeline/202611171141/tests/run_v9_34.sh
+      - name: Existing locked browser dependencies
+        run: |
+          npm ci --prefix automation/news/acquisition/browser --ignore-scripts
+          npm exec --prefix automation/news/acquisition/browser -- playwright install --with-deps chromium
+      - name: Date source equality, sorting, year filters and CSV on desktop and mobile
+        env:
+          PLAYWRIGHT_MODULE: ${{ github.workspace }}/automation/news/acquisition/browser/node_modules/playwright/index.mjs
+          V934_OUT: ${{ runner.temp }}/v934-proof
+        run: node automation/v934_preview/browser.mjs
+      - name: Expanded analytics, close, focus, scroll and rotation
+        env:
+          PLAYWRIGHT_MODULE: ${{ github.workspace }}/automation/news/acquisition/browser/node_modules/playwright/index.mjs
+          REPD_EXPAND_EDITION: uk_renewables_pipeline/202611171141
+          REPD_EXPAND_OUT: ${{ runner.temp }}/v934-proof/expand
+        run: node automation/repd_expand_ui/browser.mjs
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: v934-date-controls-proof
+          path: ${{ runner.temp }}/v934-proof
+          retention-days: 14

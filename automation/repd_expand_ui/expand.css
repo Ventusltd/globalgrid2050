@@ -1,0 +1,11 @@
+.repd-expand-launcher{display:flex;justify-content:flex-end;margin:0 0 10px}
+.repd-expand-open,.repd-expand-close{min-height:44px;color:var(--accent,#0ff);touch-action:manipulation}
+.repd-expand-dialog{position:fixed;inset:0;margin:0;border:0;padding:0;width:100%;max-width:none;height:100vh;height:100dvh;max-height:none;background:#000;color:var(--text,#fff);overflow:hidden;overscroll-behavior:none;box-sizing:border-box}
+.repd-expand-dialog[open]{display:flex;flex-direction:column}
+.repd-expand-dialog::backdrop{background:#000}
+.repd-expand-bar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid var(--line,#333);background:#000;padding:8px 12px;padding-top:max(8px,env(safe-area-inset-top));padding-right:max(12px,env(safe-area-inset-right));padding-left:max(12px,env(safe-area-inset-left));font:700 11px 'Courier New',monospace;color:var(--accent,#0ff)}
+.repd-expand-dialog #officialRegister{flex:1;min-height:0;margin:0;padding:12px;padding-right:max(12px,env(safe-area-inset-right));padding-bottom:max(12px,env(safe-area-inset-bottom));padding-left:max(12px,env(safe-area-inset-left));overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable}
+.repd-expand-dialog .repd-expand-launcher{display:none}
+.repd-expand-dialog .tablewrap{max-height:75vh;max-height:75dvh;overscroll-behavior:contain}
+.repd-expand-dialog button:focus-visible{outline:2px solid var(--solar,#ff0);outline-offset:2px}
+@media(max-width:768px){.repd-expand-bar span{font-size:10px;max-width:40%}.repd-expand-close{font-size:10px;padding:8px}.repd-expand-dialog .gauges{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.repd-expand-dialog .card{padding:8px 3px}.repd-expand-dialog .card h3{font-size:8px}.repd-expand-dialog .chart{height:65px}.repd-expand-dialog .value{font-size:16px}}

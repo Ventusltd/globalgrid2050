@@ -1239,23 +1239,115 @@
           "js": "(()=>{const r=document.querySelector('main').getBoundingClientRect();return !document.querySelector('aside')&&document.querySelectorAll('main > section').length===2&&document.querySelectorAll('.pipeline-tabs > [role=tab]').length===6&&r.x===0&&document.documentElement.scrollWidth<=innerWidth+2;})()"
         }
       ]
+    },
+    {
+      "id": "202611171141",
+      "version": "V9.34",
+      "parent": "202611170512",
+      "date": "2026-11-17T11:41:00Z",
+      "added": "Planning submission date beside REPD updated; both dates sortable with independent year filters, header menus, mobile records and filtered CSV. Mobile analytics expansion preserves the live controls and supports close/restore.",
+      "data_changed": false,
+      "runner": "tests/run_v9_34.sh",
+      "trees": [
+        "81428e4204072b10e1537f1d8aef89177b48e6ba"
+      ],
+      "features": [
+        {
+          "id": "v932-primary-source-contract",
+          "file": "contracts/primary-notes.v932.json",
+          "contains": "b5eed3d2ae878c78e5153be06ef531c11fff2148"
+        },
+        {
+          "id": "v932-primary-source-host",
+          "file": "scripts/plugins/primary-notes-v932.mjs",
+          "contains": "setPrimaryNotes"
+        },
+        {
+          "id": "v932-provisional-primary-brief",
+          "file": "scripts/plugins/machine-notes-v923.js",
+          "contains": "PROVISIONAL PROJECT ASSOCIATION"
+        },
+        {
+          "id": "v931-daily-price-contract",
+          "file": "contracts/prices.v931.json",
+          "contains": "78d5360239e1a5fcffa83fcb30d5937c5521acb9"
+        },
+        {
+          "id": "v931-daily-price-host",
+          "file": "scripts/plugins/prices-v931.mjs",
+          "contains": "mountDailyPrices"
+        },
+        {
+          "id": "v930-dc-location-contract",
+          "file": "contracts/dc-locations.v930.json",
+          "contains": "83e7c36d08ef98f3665f7f35b8637405391dc4be"
+        },
+        {
+          "id": "v930-dc-location-host",
+          "file": "scripts/plugins/dc-locations-v930.mjs",
+          "contains": "attachLocationActions"
+        },
+        {
+          "id": "v929-pinned-layers",
+          "file": "scripts/plugins/layers-v929.mjs",
+          "contains": "mountLayerControls"
+        },
+        {
+          "id": "v933-four-development-decisions",
+          "file": "contracts/primary-notes.v932.json",
+          "contains": "f421513f7cbd85ad45727ef236e053a6c67f92d9"
+        },
+        {
+          "id": "v934-submitted-column",
+          "file": "index.html",
+          "contains": "planningSubmittedHeader"
+        },
+        {
+          "id": "v934-date-controls",
+          "file": "scripts/plugins/projects-v9-8.js",
+          "contains": "compareProjectSubmissionsV934"
+        },
+        {
+          "id": "v934-date-source-contract",
+          "file": "contracts/date-controls.v934.json",
+          "contains": "planning_application_submitted"
+        },
+        {
+          "id": "v934-expanded-analytics",
+          "file": "index.html",
+          "contains": "repd_expand_ui/expand.mjs"
+        }
+      ],
+      "known_faults": [
+        "All four row associations remain PROVISIONAL; independently VERIFIED and Solar-1000 deltas are zero.",
+        "Consent is a development-level planning event; separate Battery capacities, current output, energisation, commissioning and corporate ownership remain unknown.",
+        "Evidence feed is withheld when unavailable or unaccepted; price history retains declared gaps and UTC disagreements; native handset acceptance is unknown."
+      ],
+      "ci": null,
+      "merge_commit": null,
+      "state": "release_candidate_publication_blocked",
+      "removed_probes": [
+        "V9.28 compact 11-column notes with original MAP sibling"
+      ],
+      "browser_probes": [
+        {
+          "name": "V9.34 12-column dates with original note and MAP sibling",
+          "selector": "body",
+          "js": "document.querySelectorAll('thead th').length===12 && !!document.querySelector('#tbody tr .machine-note-button') && !!document.querySelector('#tbody tr a.atlaslink') && document.querySelectorAll('main > section').length===2 && document.querySelector('#planningSubmittedHeader').previousElementSibling.id==='repdUpdatedHeader'"
+        }
+      ]
     }
   ],
   "size_budget_mb": 18,
   "size_budget_from": "202611140136",
   "release_candidate": {
-    "id": "202611170512",
-    "version": "V9.33",
-    "state": "NON-LIVE CANDIDATE - EXACT SOURCE CI AND PUBLIC ACCEPTANCE REQUIRED",
+    "id": "202611171141",
+    "version": "V9.34",
+    "state": "NON-LIVE CANDIDATE - REVIEW AND RELEASE ACCEPTANCE REQUIRED",
     "operative": {
-      "id": "202611170324",
-      "version": "V9.32"
+      "id": "202611170512",
+      "version": "V9.33"
     },
-    "held_candidate": {
-      "id": "202611140247",
-      "version": "V9.19",
-      "state": "held candidate (data-centre register context, awaiting licence verification)"
-    },
-    "note": "Four reviewed government decisions are provisionally displayed on solar rows in the existing brief, with whole-development scope, separate Battery identities, source-specific precision and narrow attributed rights. The original Botley record and official data remain unchanged. V9.32 stays operative until exact source/host/public acceptance, owner promotion, pinned import and final root/rollback verification pass."
+    "note": "Date controls and Agent B mobile expansion integrated. Independent review and exact source hosted checks pending; V9.33 remains live."
   }
 }

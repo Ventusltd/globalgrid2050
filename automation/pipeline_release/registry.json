@@ -1689,7 +1689,7 @@
         {
           "id": "v937-news-quality-contract",
           "file": "contracts/news-quality.v937.json",
-          "contains": "Publisher"
+          "contains": "publisher date"
         },
         {
           "id": "v937-news-derived-view",
@@ -1711,7 +1711,7 @@
         {
           "name": "V9.37 derived news filters and lazy provenance within existing block",
           "selector": ".pn-news-quality",
-          "js": "(()=>{const h=document.querySelector('.pn-news-quality');return !!h&&!!h.querySelector('input[type=search]')&&h.querySelectorAll('select').length===4&&!!h.querySelector('details summary')&&!!window.pipelineHeadlines?.attachView&&Number(document.querySelector('#tbody')?.dataset.total)===7775;})()"
+          "js": "(()=>{document.querySelector('#clearFilters')?.click();const h=document.querySelector('.pn-news-quality');return !!h&&!!h.querySelector('input[type=search]')&&h.querySelectorAll('select').length===4&&!!h.querySelector('details summary')&&!!window.pipelineHeadlines?.attachView&&Number(document.querySelector('#tbody')?.dataset.total)===7775;})()"
         }
       ]
     }

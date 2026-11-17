@@ -3,4 +3,8 @@
 .ggdc-screen-actions a:focus-visible{outline:2px solid #ffff00;outline-offset:2px}
 .ggdc-screen-location{display:block;flex-basis:100%;max-width:40ch;font-size:10px;line-height:1.4;color:#a6adbb;overflow-wrap:anywhere}
 .ggdc-screen-footnote{display:block;margin-top:8px;color:#a6adbb;font-size:10px;line-height:1.5}
-.ggdc-screen-footnote[hidden],[data-dc-location-hidden][hidden]{display:none!important}
+.ggdc-screen-footnote[hidden],.ggdc-location-sources[hidden],[data-dc-location-hidden][hidden]{display:none!important}
+.ggdc-location-sources{margin-top:8px;font-size:11px;line-height:1.5;color:#a6adbb}
+.ggdc-location-sources summary{cursor:pointer;color:#00ffff;min-height:32px;padding:6px 0}
+.ggdc-location-sources p{margin:6px 0}.ggdc-location-sources a{color:#00ffff;margin-right:10px}
+.ggdc-location-sources small{display:block;overflow-wrap:anywhere}

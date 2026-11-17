@@ -59,6 +59,8 @@ test('postcode points require their own terms and GB bounds',()=>{
   const d=fixture();mutate(d.features[0].properties);assert.throws(()=>indexLocations(d),/terms/);
  }
  const d=fixture();d.features[0].geometry.coordinates=[2.35,48.85];assert.throws(()=>indexLocations(d),/terms/);
+ const credit=fixture();credit.features[0].properties.geometry_attribution=[{text:'not text'}];
+ assert.throws(()=>indexLocations(credit),/rights/);
 });
 test('pinned bounded loader rejects altered or excessive source bytes',async()=>{
  const bytes=new TextEncoder().encode(JSON.stringify(fixture()));

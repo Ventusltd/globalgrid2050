@@ -38,7 +38,11 @@ record's screening link. Disconnect restores source messages it temporarily hid.
 
 The one shared footer reads **¹ UK screening coverage. Screening only; not a grid-capacity assessment.**
 Postcode locations are marked approximate beside the action; original source
-revisions are linked. Marker, source text and address strings use plain text
+revisions are linked. One collapsed **Location sources and accuracy** disclosure
+links separate Wikidata CC0 and postcode-provider terms and carries the actual
+OS/Royal Mail/National Statistics/NRS geometry attribution from the pinned
+projection. It preserves the distinction between the address statement and
+the postcode coordinates. Marker, source text and address strings use plain text
 DOM methods. No article body, raw publisher markup or producer-provided action
 URL is rendered.
 

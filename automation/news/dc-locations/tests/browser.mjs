@@ -50,10 +50,18 @@ try {
   },bundle);
   assert.equal(await page.locator('.ggdc-screen-actions').count(),expectedUK);
   assert.equal(await page.locator('.ggdc-screen-footnote').count(),1);
+  assert.equal(await page.locator('.ggdc-location-sources').count(),1);
+  await page.getByText('Location sources and accuracy',{exact:true}).click();
+  assert.equal(await page.getByRole('link',{name:'Postcode-provider terms'}).getAttribute('href'),'https://postcodes.io/docs/licences/');
+  assert.match(await page.locator('.ggdc-location-sources').innerText(),/Contains Ordnance Survey data/);
+  assert.match(await page.locator('.ggdc-location-sources').innerText(),/Contains Royal Mail data/);
+  assert.match(await page.locator('.ggdc-location-sources').innerText(),/approximate postcode locations/);
+  await page.getByText('Location sources and accuracy',{exact:true}).click();
   assert.deepEqual(await page.evaluate(()=>({fetches:window.fetches,same:window.sameHandle})),{fetches:1,same:true});
   await page.getByRole('button',{name:/^Global leads/}).click();
   await page.waitForFunction(n=>document.querySelectorAll('.ggdc-screen-actions').length===n,screenable.size);
   assert.equal(await page.locator('.ggdc-screen-footnote').count(),1);
+  assert.equal(await page.locator('.ggdc-location-sources').count(),1);
   assert.equal(await page.locator('a[href^="https://www.openstreetmap.org/"]').count(),bundle.projects.records.filter(x=>x.location).length);
   const foreign=locations.features.filter(f=>f.properties.country?.code!=='GB').map(f=>f.id);
   assert.equal(await page.evaluate(ids=>[...document.querySelectorAll('tbody tr')].filter(r=>ids.includes(r.querySelector('.ggdc-id')?.textContent.trim())&&r.querySelector('.ggdc-screen-actions')).length,foreign),0);
@@ -91,6 +99,7 @@ try {
    }
   }
   await page.evaluate(()=>window.actions.disconnect());assert.equal(await page.locator('.ggdc-screen-actions').count(),0);assert.equal(await page.locator('.ggdc-screen-footnote').count(),0);
+  assert.equal(await page.locator('.ggdc-location-sources').count(),0);
   assert.equal(await page.getByText('No mapped coordinates',{exact:true}).isVisible(),true);
   proofs.push({label,expectedUK,totalMapped:mapped.size,screenableGB:screenable.size,foreignScreenActions:0,globalOriginalMaps:'all preserved',dimensions,errors,screenHref:href,duplicateMount:'one fetch / one handle',corruptInput:'rejected / DOM unchanged',disconnect:'original source message restored'});
   await context.close();

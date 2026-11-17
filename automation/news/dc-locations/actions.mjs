@@ -43,7 +43,8 @@ export function indexLocations(document) {
     if (f.geometry !== null) {
       const xy = checkedPoint(f);
       requireValid(p.location_precision !== 'UNKNOWN' && typeof p.geometry_licence === 'string' &&
-        Array.isArray(p.geometry_attribution) && p.geometry_attribution.length > 0, 'point/rights');
+        Array.isArray(p.geometry_attribution) && p.geometry_attribution.length > 0 &&
+        p.geometry_attribution.every(x => typeof x === 'string' && x.trim() && x.length <= 2000), 'point/rights');
       points++;
       if (p.location_precision === 'POSTCODE_CENTROID_APPROXIMATE') {
         requireValid(p.country?.code === 'GB' && xy[0] >= -8.7 && xy[0] <= 2 && xy[1] >= 49.8 && xy[1] <= 61.2 &&
@@ -153,8 +154,32 @@ async function mount(host, {transport = fetch, pin = INPUT, noteId = 'dc-screeni
       const note = document.createElement('small'); note.id = noteId; note.className = 'ggdc-screen-footnote';
       note.textContent = '¹ ' + FOOTNOTE; host.append(note);
     }
+    if (!host.querySelector('.ggdc-location-sources') && host.querySelector('.ggdc-screen-actions')) {
+      const disclosure = document.createElement('details'); disclosure.className = 'ggdc-location-sources';
+      const summary = document.createElement('summary'); summary.textContent = 'Location sources and accuracy';
+      disclosure.append(summary);
+      const description = document.createElement('p');
+      description.textContent = 'Addresses and source-reported points use Wikidata structured statements. GB postcode points use Postcodes.io and are approximate postcode locations.';
+      disclosure.append(description);
+      const terms = document.createElement('p');
+      for (const [label, href] of [['Wikidata CC0 terms', 'https://www.wikidata.org/wiki/Wikidata:Copyright'],
+        ['Postcode-provider terms', 'https://postcodes.io/docs/licences/']]) {
+        const link = document.createElement('a'); link.textContent = label; link.href = href;
+        link.target = '_blank'; link.rel = 'noopener noreferrer'; terms.append(link, document.createTextNode(' '));
+      }
+      disclosure.append(terms);
+      const credits = new Set([...index.values()].filter(f => f.geometry &&
+        f.properties.country?.code === 'GB' && f.properties.location_precision === 'POSTCODE_CENTROID_APPROXIMATE')
+        .flatMap(f => f.properties.geometry_attribution));
+      for (const credit of credits) {
+        const line = document.createElement('small'); line.textContent = credit; disclosure.append(line);
+      }
+      host.append(disclosure);
+    }
     const note = host.querySelector('#' + noteId);
     if (note) note.hidden = !host.querySelector('.ggdc-screen-actions');
+    const disclosure = host.querySelector('.ggdc-location-sources');
+    if (disclosure) disclosure.hidden = !host.querySelector('.ggdc-screen-actions');
     return count;
   }
   const observer = new MutationObserver(() => {
@@ -167,6 +192,7 @@ async function mount(host, {transport = fetch, pin = INPUT, noteId = 'dc-screeni
     closed = true; observer.disconnect();
     host.querySelectorAll('.ggdc-screen-actions').forEach(n => n.remove());
     host.querySelector('#' + noteId)?.remove();
+    host.querySelector('.ggdc-location-sources')?.remove();
     host.querySelectorAll('[data-dc-location-hidden]').forEach(n => {
       if (n.dataset.dcLocationHidden === noteId) { n.hidden = false; delete n.dataset.dcLocationHidden; }
     });

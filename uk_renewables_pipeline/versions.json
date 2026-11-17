@@ -1,23 +1,23 @@
 {
  "schema": "globalgrid2050.pipeline-news.versions.v1",
- "generated_at": "2026-11-17T01:08:44Z",
+ "generated_at": "2026-11-17T02:08:45Z",
  "generated_by": "automation/pipeline_release/verify.py --browser",
  "where_run": "GitHub Actions",
  "note": "Every Pipeline News version from 202611132345 onward, newest first. Old versions stay published. 'verdict' is this tool's result when the file was written; 'ci' is the result of the Verify Pipeline News versions workflow on the pull request that published the version, recorded in the following version.",
  "release_candidate": {
   "id": "202611162354",
   "version": "V9.29",
-  "state": "NON-LIVE CANDIDATE - EXACT-HEAD ACCEPTANCE PENDING",
+  "state": "PUBLISHED - SOURCE, HOMEPAGE AND SERVED BYTES VERIFIED",
   "operative": {
-   "id": "202611161757",
-   "version": "V9.28"
+   "id": "202611162354",
+   "version": "V9.29"
   },
   "held_candidate": {
    "id": "202611140247",
    "version": "V9.19",
    "state": "held candidate (data-centre register context, awaiting licence verification)"
   },
-  "note": "V9.28 remains selected by the homepage and independently public-verified. V9.29 adds source-pinned existing GridAtlas views, original Prices and a headline ticker in a separate candidate. Exact-head CI, public receiver/Prices review, owner promotion, served-byte and rollback gates remain pending. Source rights and independent project evidence are not granted by these technical checks."
+  "note": "V9.29 is the homepage-selected sidebar-free edition after exact-head source/Android/history checks, owner/publisher pins and independent actual public byte, JS/no-JS browser, location-MAP and rollback acceptance. Official REPD rows and original CSV/MAP identities remain unchanged. Source locations and nearest screening are not connections or available capacity; original Prices can remain dated/indicative. Independent evidence, source rights and native-handset acceptance remain separate. V9.28 and earlier immutable editions remain available for rollback."
  },
  "map_link_state": {
   "schema": "globalgrid2050.pipeline-news.gridatlas-map-link-state.v1",
@@ -92,7 +92,7 @@
    "version": "V9.29",
    "parent": "202611161757",
    "date": "2026-11-16T23:54:00Z",
-   "state": "release_candidate_modular_layers",
+   "state": "published_verified",
    "added": "Full-width Pipeline without the left sidebar, mobile rotation document flow, existing GridAtlas substations/offtakers, original Prices and a source-clocked ten-headline ticker; unchanged official REPD/CSV/MAP.",
    "data_changed": false,
    "url": "202611162354/",
@@ -624,8 +624,12 @@
      "error": null
     }
    },
-   "ci": null,
-   "merge_commit": null,
+   "ci": {
+    "url": "https://github.com/Ventusltd/globalgrid2050/actions/runs/43990908186",
+    "conclusion": "success",
+    "source_commit": "bc8ba03b74dc88cd1fa9d181eb40eb45045b1291"
+   },
+   "merge_commit": "6e819b895ad506f8d8af8536f2f3ef763c7830a1",
    "known_faults": [
     "Grid source snapshots are dated existing screening records; names, proximity and voltage do not establish connection, capacity or fresh network state. Grid Projects has zero independently approved events.",
     "Original Prices may show stale observations or indicative baselines; no fresh actual-price-series acceptance is implied. MAP is generic source-location arrival, not typed substation identity.",

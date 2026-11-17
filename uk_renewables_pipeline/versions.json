@@ -1,23 +1,23 @@
 {
  "schema": "globalgrid2050.pipeline-news.versions.v1",
- "generated_at": "2026-11-16T23:40:03Z",
+ "generated_at": "2026-11-17T00:19:29Z",
  "generated_by": "automation/pipeline_release/verify.py --browser",
  "where_run": "GitHub Actions",
  "note": "Every Pipeline News version from 202611132345 onward, newest first. Old versions stay published. 'verdict' is this tool's result when the file was written; 'ci' is the result of the Verify Pipeline News versions workflow on the pull request that published the version, recorded in the following version.",
  "release_candidate": {
   "id": "202611161757",
   "version": "V9.28",
-  "state": "OWNER AUTHORIZED - EXACT-HEAD PUBLICATION CHECKS PENDING",
+  "state": "PUBLISHED - SOURCE, HOMEPAGE AND SERVED BYTES VERIFIED",
   "operative": {
-   "id": "202611161244",
-   "version": "V9.24"
+   "id": "202611161757",
+   "version": "V9.28"
   },
   "held_candidate": {
    "id": "202611140247",
    "version": "V9.19",
    "state": "held candidate (data-centre register context, awaiting licence verification)"
   },
-  "note": "V9.28 publication authorized by the owner on 16 November 2026; exact-head checks, homepage-owner promotion and served-byte readback remain pending. V9.24 remains selected until that process completes. Evidence sources remain disabled unless independently accepted; source-indexed leads and provisional associations are not verified project events."
+  "note": "V9.28 is the homepage-selected edition after explicit owner authorization, exact-head CI, owner/publisher pin and independent public source-byte, mobile/desktop browser and rollback checks. All official qualifying REPD records and original MAP/CSV identities remain. Independent evidence is still unavailable or unaccepted where recorded; Grid directory entries and Data Centre leads are not verified project events. V9.24 and V9.23 remain immutable rollback editions."
  },
  "map_link_state": {
   "schema": "globalgrid2050.pipeline-news.gridatlas-map-link-state.v1",
@@ -92,7 +92,7 @@
    "version": "V9.28",
    "parent": "202611161747",
    "date": "2026-11-16T17:57:00Z",
-   "state": "release_candidate_owner_authorized",
+   "state": "published_verified",
    "added": "Approved V9.24 two-block presentation with Solar/BESS/Grid/Data Centre tabs, source-attributed headlines and guarded source-indexed intelligence; unchanged qualifying REPD register and MAP/CSV.",
    "data_changed": false,
    "url": "202611161757/",
@@ -606,8 +606,12 @@
      "error": null
     }
    },
-   "ci": null,
-   "merge_commit": null,
+   "ci": {
+    "url": "https://github.com/Ventusltd/globalgrid2050/actions/runs/43978940484",
+    "conclusion": "success",
+    "source_commit": "84c739ad711b3ce8476acdfab219c8f8b67f102d"
+   },
+   "merge_commit": "10ecf4a7b1832ffee1d206ee5cb2f89a036835ad",
    "known_faults": [
     "Zero independently verified Solar-1000 findings; source rights and project-event acceptance remain independent gates.",
     "Grid is a 14-source directory with zero approved project developments; Data Centre operation/capacity/ownership remains unassessed or provisional.",

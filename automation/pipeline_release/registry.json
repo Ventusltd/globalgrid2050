@@ -1144,12 +1144,93 @@
         "One reviewed government fact is provisionally associated with REPD 12588. Frozen REPD status and source-specific dates are retained; final reduced capacity, later status and judicial review remain unknown. No VERIFIED association or Solar-1000 delta.",
         "Historical Prices end on 31 October 2026 with source-declared dates, missing/partial coverage and UTC disagreements. DC points do not establish facilities, connections or available capacity. Native handset and broader source-rights approval remain unavailable."
       ],
+      "ci": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44016860896",
+      "merge_commit": "270ca95dd50301c653ec39fca5ba2f6e42991111",
+      "state": "published_verified",
+      "browser_probes": [
+        {
+          "name": "V9.32 compact full-width page, six tabs and two principal blocks",
+          "selector": "body",
+          "js": "(()=>{const r=document.querySelector('main').getBoundingClientRect();return !document.querySelector('aside')&&document.querySelectorAll('main > section').length===2&&document.querySelectorAll('.pipeline-tabs > [role=tab]').length===6&&r.x===0&&document.documentElement.scrollWidth<=innerWidth+2;})()"
+        }
+      ],
+      "publication": {
+        "homepage_owner_commit": "de65c95a7861ebc23733f2d04252ba9227c14e2d",
+        "domain_pin_merge": "5048713e2003a4ef92a7344890edd6f0faa33ad9",
+        "deployment_run": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44020023420",
+        "served_verified_at": "2026-11-17T05:00:18.319267+00:00",
+        "receipt": "automation/pipeline_release/receipts/v932-public-20261117.json"
+      }
+    },
+    {
+      "id": "202611170512",
+      "version": "V9.33",
+      "parent": "202611170324",
+      "date": "2026-11-17T05:12:00Z",
+      "added": "Three reviewed government consents extend existing Machine Read Notes to four provisional solar-row associations with whole-development scope and explicit source precision.",
+      "data_changed": false,
+      "runner": "tests/run_v9_33.sh",
+      "trees": [
+        "c1b03811671b8dfa221a9b4380adec1fbe10602c"
+      ],
+      "features": [
+        {
+          "id": "v932-primary-source-contract",
+          "file": "contracts/primary-notes.v932.json",
+          "contains": "b5eed3d2ae878c78e5153be06ef531c11fff2148"
+        },
+        {
+          "id": "v932-primary-source-host",
+          "file": "scripts/plugins/primary-notes-v932.mjs",
+          "contains": "setPrimaryNotes"
+        },
+        {
+          "id": "v932-provisional-primary-brief",
+          "file": "scripts/plugins/machine-notes-v923.js",
+          "contains": "PROVISIONAL PROJECT ASSOCIATION"
+        },
+        {
+          "id": "v931-daily-price-contract",
+          "file": "contracts/prices.v931.json",
+          "contains": "78d5360239e1a5fcffa83fcb30d5937c5521acb9"
+        },
+        {
+          "id": "v931-daily-price-host",
+          "file": "scripts/plugins/prices-v931.mjs",
+          "contains": "mountDailyPrices"
+        },
+        {
+          "id": "v930-dc-location-contract",
+          "file": "contracts/dc-locations.v930.json",
+          "contains": "83e7c36d08ef98f3665f7f35b8637405391dc4be"
+        },
+        {
+          "id": "v930-dc-location-host",
+          "file": "scripts/plugins/dc-locations-v930.mjs",
+          "contains": "attachLocationActions"
+        },
+        {
+          "id": "v929-pinned-layers",
+          "file": "scripts/plugins/layers-v929.mjs",
+          "contains": "mountLayerControls"
+        },
+        {
+          "id": "v933-four-development-decisions",
+          "file": "contracts/primary-notes.v932.json",
+          "contains": "f421513f7cbd85ad45727ef236e053a6c67f92d9"
+        }
+      ],
+      "known_faults": [
+        "All four row associations remain PROVISIONAL; independently VERIFIED and Solar-1000 deltas are zero.",
+        "Consent is a development-level planning event; separate Battery capacities, current output, energisation, commissioning and corporate ownership remain unknown.",
+        "Evidence feed is withheld when unavailable or unaccepted; price history retains declared gaps and UTC disagreements; native handset acceptance is unknown."
+      ],
       "ci": null,
       "merge_commit": null,
       "state": "release_candidate_publication_blocked",
       "browser_probes": [
         {
-          "name": "V9.32 compact full-width page, six tabs and two principal blocks",
+          "name": "V9.33 compact full-width page, six tabs and two principal blocks",
           "selector": "body",
           "js": "(()=>{const r=document.querySelector('main').getBoundingClientRect();return !document.querySelector('aside')&&document.querySelectorAll('main > section').length===2&&document.querySelectorAll('.pipeline-tabs > [role=tab]').length===6&&r.x===0&&document.documentElement.scrollWidth<=innerWidth+2;})()"
         }
@@ -1159,18 +1240,18 @@
   "size_budget_mb": 18,
   "size_budget_from": "202611140136",
   "release_candidate": {
-    "id": "202611170324",
-    "version": "V9.32",
-    "state": "NON-LIVE CANDIDATE - HOST CI AND PUBLIC ACCEPTANCE REQUIRED",
+    "id": "202611170512",
+    "version": "V9.33",
+    "state": "NON-LIVE CANDIDATE - EXACT SOURCE CI AND PUBLIC ACCEPTANCE REQUIRED",
     "operative": {
-      "id": "202611170243",
-      "version": "V9.31"
+      "id": "202611170324",
+      "version": "V9.32"
     },
     "held_candidate": {
       "id": "202611140247",
       "version": "V9.19",
       "state": "held candidate (data-centre register context, awaiting licence verification)"
     },
-    "note": "One reviewed primary government decision is displayed in the existing brief with a provisional exact-identity association; source clocks, receipts and narrow rights remain distinct. V9.31 remains operative until source CI, actual public note/source/flow acceptance, owner promotion, pinned import and final root/rollback verification. All official records, CSV/MAP, headline associations, DC and Prices remain unchanged."
+    "note": "Four reviewed government decisions are provisionally displayed on solar rows in the existing brief, with whole-development scope, separate Battery identities, source-specific precision and narrow attributed rights. The original Botley record and official data remain unchanged. V9.32 stays operative until exact source/host/public acceptance, owner promotion, pinned import and final root/rollback verification pass."
   }
 }

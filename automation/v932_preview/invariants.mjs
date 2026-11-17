@@ -5,6 +5,7 @@ import {execFileSync} from 'node:child_process';
 import {readFileSync,readdirSync,statSync,mkdirSync,writeFileSync} from 'node:fs';
 import {dirname,resolve,basename,relative} from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
+import {protectedEditionChanges} from '../pipeline_release/edition_history.mjs';
 const ROOT=resolve(dirname(fileURLToPath(import.meta.url)),'../..');
 const EDITION=process.env.V932_CANDIDATE||'uk_renewables_pipeline/202611170324';
 const candidate=resolve(ROOT,EDITION),baseline=resolve(ROOT,'uk_renewables_pipeline/202611170243');
@@ -126,10 +127,9 @@ try{
   assert.deepEqual(bytes(resolve(candidate,'news/snapshot-provenance.json')),bytes(resolve(baseline,'news/snapshot-provenance.json')),'original source clock/provenance receipt bytes preserved');
   assert.equal(hash(snapshot),source.sha256);assert.equal(JSON.parse(snapshot).items.length,71);assert.deepEqual(snapshot,bytes(resolve(baseline,'news/pipeline_headlines.snapshot.json')));
   pass('original saved 71-headline source bytes and publication clock preserved',{source_commit:source.source_commit,generated_at:source.generated_at,sha256:source.sha256});
-  const changed=[...git(['diff','--name-only',sourceBase,'--']).split(/\r?\n/),...git(['ls-files','--others','--exclude-standard']).split(/\r?\n/)].filter(Boolean);
-  const historical=changed.filter(p=>/^uk_renewables_pipeline\/\d{12}\//.test(p)&&!p.startsWith(EDITION+'/'));
-  assert.deepEqual(historical,[],'historical edition trees unchanged relative to current origin/main');
-  pass('every historical edition tree remains unchanged against origin/main',{base:sourceBase});
+  const historical=protectedEditionChanges({cwd:ROOT,base:sourceBase});
+  assert.deepEqual(historical,[],'every edition directory present in the pinned base remains unchanged');
+  pass('every baseline edition tree remains unchanged against the pinned Git base',{base:sourceBase});
   receipt.status='PASS';
 }catch(error){receipt.status='FAIL';receipt.failure=error.stack;throw error;}
 finally{if(out){mkdirSync(out,{recursive:true});writeFileSync(resolve(out,'invariants.json'),JSON.stringify(receipt,null,2)+'\n');}}

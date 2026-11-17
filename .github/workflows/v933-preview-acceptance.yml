@@ -1,0 +1,68 @@
+name: V9.33 reviewed development consent-note acceptance
+
+on:
+  pull_request:
+    paths:
+      - 'uk_renewables_pipeline/202611170512/**'
+      - 'automation/v933_preview/**'
+      - 'automation/dc_location_ui/83e7c36d08ef98f3665f7f35b8637405391dc4be/**'
+      - 'automation/price_daily_ui/78d5360239e1a5fcffa83fcb30d5937c5521acb9/**'
+      - 'automation/primary_note_ui/**'
+      - 'automation/news/datacentre-ui/**'
+      - 'automation/news/grid_watch/sources.json'
+      - 'automation/v928_context/preview/**'
+      - '.github/workflows/v933-preview-acceptance.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: v933-preview-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONUTF8: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
+      V933_BASE_SHA: 5048713e2003a4ef92a7344890edd6f0faa33ad9
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.13'
+      - name: Install existing locked test dependencies
+        run: |
+          git fetch --depth 1 origin "$V933_BASE_SHA" 8f94299afc8628908dc8bf461cb5ea607560332b 83e7c36d08ef98f3665f7f35b8637405391dc4be 78d5360239e1a5fcffa83fcb30d5937c5521acb9 b5eed3d2ae878c78e5153be06ef531c11fff2148
+          git fetch --depth 2 origin f421513f7cbd85ad45727ef236e053a6c67f92d9
+          python -m pip install pytest==9.2.0 duckdb==1.3.2
+          npm ci --prefix automation/news/acquisition/browser --ignore-scripts
+          npm exec --prefix automation/news/acquisition/browser -- playwright install --with-deps chromium
+          echo "V933_OUT=$RUNNER_TEMP/v933-proof" >> "$GITHUB_ENV"
+          echo "V933_PLAYWRIGHT=$GITHUB_WORKSPACE/automation/news/acquisition/browser/node_modules/playwright/index.mjs" >> "$GITHUB_ENV"
+      - name: Successor generation and reviewed primary-note/module contracts
+        run: |
+          python -B -m pytest -q -p no:cacheprovider automation/pipeline_release/tests/test_compact_successor.py
+          node --test automation/pipeline_release/tests/edition_history.test.mjs
+          node --test automation/v929_preview/contracts.test.mjs automation/v933_preview/contracts.test.mjs
+      - name: Exact module closure, immutable history, canonical rows and package budget
+        run: node automation/v933_preview/invariants.mjs
+      - name: Formal edition source and rebuilt data on Linux
+        run: bash uk_renewables_pipeline/202611170512/tests/run_v9_33.sh
+      - name: Integrated browser flows and source-failure isolation
+        run: node automation/v933_preview/browser.mjs
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: v932-exact-head-proof
+          path: ${{ runner.temp }}/v933-proof
+          retention-days: 14

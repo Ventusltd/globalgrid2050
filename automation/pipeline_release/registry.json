@@ -1001,16 +1001,27 @@
         "Reported addresses and source or approximate postcode points do not independently verify facility identity, operation, demand, connections or available capacity. Only GB points receive UK screening links.",
         "Independent Solar-1000 evidence remains zero verified; Context stays unaccepted for public output; original Prices can remain stale or indicative. No native Android handset certification."
       ],
-      "ci": null,
-      "merge_commit": null,
-      "state": "release_candidate_publication_blocked",
+      "ci": {
+        "url": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44003316019",
+        "conclusion": "success",
+        "source_commit": "ed7b972435dc11c2aa99c69226719c31d822ed21"
+      },
+      "merge_commit": "ae494a58c0bdf08f23ca90574806c7327119fd84",
+      "state": "published_verified",
       "browser_probes": [
         {
           "name": "V9.30 compact full-width page, six tabs and exactly two principal blocks",
           "selector": "body",
           "js": "(()=>{const m=document.querySelector('main'),r=m.getBoundingClientRect();return !document.querySelector('aside')&&!!document.querySelector('.release-header')&&document.querySelectorAll('main > section').length===2&&document.querySelectorAll('.pipeline-tabs > [role=tab]').length===6&&r.x===0&&r.right>=document.documentElement.clientWidth-1&&document.documentElement.scrollWidth<=innerWidth+2&&getComputedStyle(document.body).overflowY!=='hidden';})()"
         }
-      ]
+      ],
+      "publication": {
+        "homepage_owner_commit": "98ddca23be7e1b634b852c032a3f5de2cba51616",
+        "domain_pin_merge": "180e5029f1f0e6179a5e660eb63e6c0fc2b06f7e",
+        "deployment_run": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44006235258",
+        "served_verified_at": "2026-11-17T03:03:22.192414+00:00",
+        "receipt": "automation/pipeline_release/receipts/v930-public-20261117.json"
+      }
     }
   ],
   "size_budget_mb": 18,
@@ -1018,16 +1029,16 @@
   "release_candidate": {
     "id": "202611170147",
     "version": "V9.30",
-    "state": "NON-LIVE CANDIDATE - HOST CI AND PUBLIC ACCEPTANCE REQUIRED",
+    "state": "PUBLISHED - SOURCE, HOMEPAGE AND SERVED BYTES VERIFIED",
     "operative": {
-      "id": "202611162354",
-      "version": "V9.29"
+      "id": "202611170147",
+      "version": "V9.30"
     },
     "held_candidate": {
       "id": "202611140247",
       "version": "V9.19",
       "state": "held candidate (data-centre register context, awaiting licence verification)"
     },
-    "note": "Optional Data Centre address/location cartridge in a new edition only. V9.29 remains operative until exact-head CI, public source/browser checks, owner promotion, pinned import and served-byte/rollback verification. Original source records, REPD, Solar-1000, CSV and MAP are unchanged. Reported addresses, postcode approximations and vicinity screening do not verify facilities or electrical capacity."
+    "note": "V9.30 is selected by the accepted owner/publisher pin after exact-source CI, actual public source/address/UKreceiver, root JS/no-JS and rollback acceptance. Source-reported/approximate locations do not verify facilities, connections or available capacity; original Prices and zero verified Solar-1000 evidence remain explicit limitations. All prior immutable editions remain available."
   }
 }

@@ -29,6 +29,7 @@ test "$actual_tree" = "$PARENT_TREE" || { echo "parent $PARENT_ID tree is $actua
 CHANGED_FROM_PARENT=(
   CHANGES.md
   README.md
+  contracts/date-controls.v934.json
   index.html
   scripts/plugins/projects-v9-8.js
   tests/check_v9_34.mjs

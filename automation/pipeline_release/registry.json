@@ -1245,11 +1245,11 @@
       "version": "V9.34",
       "parent": "202611170512",
       "date": "2026-11-17T11:41:00Z",
-      "added": "Planning submission date beside REPD updated; both dates sortable with independent year filters, header menus, mobile records and filtered CSV.",
+      "added": "Planning submission date beside REPD updated; both dates sortable with independent year filters, header menus, mobile records and filtered CSV. Mobile analytics expansion preserves the live controls and supports close/restore.",
       "data_changed": false,
       "runner": "tests/run_v9_34.sh",
       "trees": [
-        "8545477257d4b4e070ec41a90d054aba0e0f3277"
+        "81428e4204072b10e1537f1d8aef89177b48e6ba"
       ],
       "features": [
         {
@@ -1306,6 +1306,16 @@
           "id": "v934-date-controls",
           "file": "scripts/plugins/projects-v9-8.js",
           "contains": "compareProjectSubmissionsV934"
+        },
+        {
+          "id": "v934-date-source-contract",
+          "file": "contracts/date-controls.v934.json",
+          "contains": "planning_application_submitted"
+        },
+        {
+          "id": "v934-expanded-analytics",
+          "file": "index.html",
+          "contains": "repd_expand_ui/expand.mjs"
         }
       ],
       "known_faults": [
@@ -1328,6 +1338,6 @@
       "id": "202611170512",
       "version": "V9.33"
     },
-    "note": "Date controls implemented by Agent A; Agent B mobile fullscreen work and independent review remain separate pending integration."
+    "note": "Date controls and Agent B mobile expansion integrated. Independent review and exact source hosted checks pending; V9.33 remains live."
   }
 }

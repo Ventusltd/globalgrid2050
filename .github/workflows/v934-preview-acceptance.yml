@@ -4,6 +4,7 @@ on:
     paths:
       - 'uk_renewables_pipeline/202611171141/**'
       - 'automation/v934_preview/**'
+      - 'automation/repd_expand_ui/**'
       - '.github/workflows/v934-preview-acceptance.yml'
 permissions:
   contents: read
@@ -32,6 +33,12 @@ jobs:
           PLAYWRIGHT_MODULE: ${{ github.workspace }}/automation/news/acquisition/browser/node_modules/playwright/index.mjs
           V934_OUT: ${{ runner.temp }}/v934-proof
         run: node automation/v934_preview/browser.mjs
+      - name: Expanded analytics, close, focus, scroll and rotation
+        env:
+          PLAYWRIGHT_MODULE: ${{ github.workspace }}/automation/news/acquisition/browser/node_modules/playwright/index.mjs
+          REPD_EXPAND_EDITION: uk_renewables_pipeline/202611171141
+          REPD_EXPAND_OUT: ${{ runner.temp }}/v934-proof/expand
+        run: node automation/repd_expand_ui/browser.mjs
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:

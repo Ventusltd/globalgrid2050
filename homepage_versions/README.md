@@ -1900,3 +1900,11 @@ Preserves the actual V9.37 public root before the owner-requested moving red-neo
 Observed2026-11-17T17:51:24.237878+00:00:56998bytes,69lines,3704words,56985characters; SHA256 `f5f52cc777a9c3e0c47af878d8c94228bd9b661d4c6c62dfa0274cc8dfbe4e2b`. Physical folder files261 before,263 after snapshot and metrics.
 
 Rollback restores the prior owner pin through the existing importer and Pages process, then compares all seven owner inputs and transformed root with V152. Every older dated release and homepage catalogue record remains retained. Intermediate V9.38/V9.39 source editions remain immutable; this homepage promotes their inherited features together in V9.40 without claiming intermediate homepage publications.
+
+## V153 - before Pipeline News V9.41 crisp ticker promotion
+
+Preserves the actual V9.40 root before the owner-requested crisp red text on solid black, removal of glow/glass and slightly faster full-feed movement. Snapshot `homepage_v153.html`; metrics `homepage_v153-metrics.json`; former owner pin `170ddeb34857e06f4cd0c52a741b097130840fbe`. Restore measurement [44161995615](https://github.com/Ventusltd/globalgrid2050/actions/runs/44161995615) succeeded before owner edits.
+
+Observed2026-11-17T19:46:08.201704+00:00:57302bytes,69lines,3722words,57289characters; SHA256 `175744b8ebe9b15f9300a688d0897fe97542f90568dd4dd791e378d3221cc39a`. Actual folder files263 before,265 after snapshot and metrics.
+
+Rollback restores the previous owner pin through the existing importer/Pages process and compares all seven inputs and transformed root with V153. All prior product and homepage releases remain retained; frozen V9.40 renderer, stylesheet and data are unchanged.

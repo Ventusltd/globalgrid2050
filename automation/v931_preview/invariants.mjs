@@ -1,5 +1,6 @@
 /** Exact-source and historical-preservation acceptance for the formal V9.31 edition. */
 import assert from 'node:assert/strict';
+import {protectedEditionChanges} from '../pipeline_release/edition_history.mjs';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {readFileSync,readdirSync,statSync,mkdirSync,writeFileSync} from 'node:fs';
@@ -105,9 +106,8 @@ try{
   assert.deepEqual(bytes(resolve(candidate,'news/snapshot-provenance.json')),bytes(resolve(baseline,'news/snapshot-provenance.json')),'original source clock/provenance receipt bytes preserved');
   assert.equal(hash(snapshot),source.sha256);assert.equal(JSON.parse(snapshot).items.length,71);assert.deepEqual(snapshot,bytes(resolve(baseline,'news/pipeline_headlines.snapshot.json')));
   pass('original saved 71-headline source bytes and publication clock preserved',{source_commit:source.source_commit,generated_at:source.generated_at,sha256:source.sha256});
-  const changed=[...git(['diff','--name-only',sourceBase,'--']).split(/\r?\n/),...git(['ls-files','--others','--exclude-standard']).split(/\r?\n/)].filter(Boolean);
-  const historical=changed.filter(p=>/^uk_renewables_pipeline\/\d{12}\//.test(p)&&!p.startsWith(EDITION+'/'));
-  assert.deepEqual(historical,[],'historical edition trees unchanged relative to current origin/main');
+  const historical=protectedEditionChanges({cwd:ROOT,base:sourceBase});
+  assert.deepEqual(historical,[],'all numeric edition trees present in the pinned base remain immutable, including staged/unstaged changes and deletions');
   pass('every historical edition tree remains unchanged against origin/main',{base:sourceBase});
   receipt.status='PASS';
 }catch(error){receipt.status='FAIL';receipt.failure=error.stack;throw error;}

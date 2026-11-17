@@ -1,0 +1,129 @@
+{
+  "schema": "globalgrid2050.reviewed-grid-notice.v1",
+  "facts_sha256": "f9802c96444c21e84b328d612475353861c8053cde31f55196d1ea5862918afb",
+  "facts": {
+    "notice_id": "government:EN020026:consented:2026-10-30",
+    "scheme": "Sea Link",
+    "application_ref": "EN020026",
+    "reported_network_operator": "NGET",
+    "reported_stage": "consented",
+    "event_date": {
+      "value": "2026-10-30",
+      "precision": "DAY"
+    },
+    "description": "Proposed Suffolk-Kent high voltage direct current transmission link",
+    "planned_metric": {
+      "value": 2000,
+      "unit": "MW",
+      "kind": "planned_transmission_upper_bound"
+    },
+    "current_capacity_mw": null,
+    "commissioned": null,
+    "connection": null,
+    "repd_ref": null,
+    "coordinates": null,
+    "documents": [
+      {
+        "record_id": "grid:0fef315bef2a5707411dccbe",
+        "source_id": "gov-pins-sealink",
+        "publisher": "Planning Inspectorate",
+        "role": "government_authority",
+        "url": "https://www.gov.uk/government/news/sea-link-development-consent-decision-announced",
+        "source_record_id": "EN020026",
+        "source_sha256": "b9ba26b90820292e0b181da7993d2d3a2180fc2de0ac53cc6239adeb4cccfaeb",
+        "published_at": null,
+        "retrieved_at": "2026-11-17T15:48:11Z",
+        "reported_stage": "consented",
+        "licence_state": "OGL_V3_FACTS_REVIEW_REQUIRED",
+        "review_state": "REVIEW_REQUIRED",
+        "published_date": {
+          "value": "2026-10-30",
+          "precision": "DAY"
+        },
+        "event_date": {
+          "value": "2026-10-30",
+          "precision": "DAY"
+        },
+        "milestones": {
+          "application_submitted": {
+            "value": "2025-03-27",
+            "precision": "DAY"
+          },
+          "accepted_for_examination": {
+            "value": "2025-04-23",
+            "precision": "DAY"
+          },
+          "recommendation": {
+            "value": "2026-07-30",
+            "precision": "DAY"
+          }
+        },
+        "source_receipt": {
+          "source_url": "https://www.gov.uk/government/news/sea-link-development-consent-decision-announced",
+          "http_status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 68432,
+          "sha256": "b9ba26b90820292e0b181da7993d2d3a2180fc2de0ac53cc6239adeb4cccfaeb",
+          "retrieved_at": "2026-11-17T15:48:11Z",
+          "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+          "licence_evidence": "Actual GOV.UK HTML footer: Open Government Licence v3.0 except where otherwise stated; narrow government-authored facts only; images and linked third-party materials excluded"
+        }
+      },
+      {
+        "record_id": "grid:04040b31c4ac8f06a4365acd",
+        "source_id": "gov-desnz-sealink",
+        "publisher": "Department for Energy Security and Net Zero",
+        "role": "government_authority",
+        "url": "https://www.gov.uk/government/publications/sea-link-development-consent-order-planning-act-2008",
+        "source_record_id": "EN020026",
+        "source_sha256": "c26f93aa307740f8b4ec8ad150b152fb6d30e77f201e5bc31a6da52bba16e0d0",
+        "published_at": null,
+        "retrieved_at": "2026-11-17T15:48:11Z",
+        "reported_stage": "consented",
+        "licence_state": "OGL_V3_FACTS_REVIEW_REQUIRED",
+        "review_state": "REVIEW_REQUIRED",
+        "published_date": {
+          "value": "2026-10-30",
+          "precision": "DAY"
+        },
+        "event_date": {
+          "value": "2026-10-30",
+          "precision": "DAY"
+        },
+        "milestones": null,
+        "source_receipt": {
+          "source_url": "https://www.gov.uk/government/publications/sea-link-development-consent-order-planning-act-2008",
+          "http_status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 69536,
+          "sha256": "c26f93aa307740f8b4ec8ad150b152fb6d30e77f201e5bc31a6da52bba16e0d0",
+          "retrieved_at": "2026-11-17T15:48:11Z",
+          "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+          "licence_evidence": "Actual GOV.UK HTML footer: Open Government Licence v3.0 except where otherwise stated; narrow government-authored facts only; images and linked third-party materials excluded"
+        }
+      }
+    ]
+  },
+  "approval": {
+    "state": "APPROVED_FACTS_ONLY",
+    "rights_scope": "government_html_facts_only_no_images_or_third_party_material",
+    "facts_sha256": "f9802c96444c21e84b328d612475353861c8053cde31f55196d1ea5862918afb",
+    "reviews": [
+      {
+        "role": "AGENT_A",
+        "decision": "PASS",
+        "reference": "https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-6953350836"
+      },
+      {
+        "role": "AGENT_B",
+        "decision": "PASS",
+        "reference": "https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-6953404444"
+      }
+    ]
+  },
+  "publishable": true,
+  "review_state": "NARROW_FACTS_REVIEWED",
+  "notice_count": 1,
+  "document_count": 2,
+  "limitations": "Government facts only; no images or third-party content, no current capacity/commissioning/connection, no REPD/ETYS join or coordinates, no interconnector row or VERIFIED association"
+}

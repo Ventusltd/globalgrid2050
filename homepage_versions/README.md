@@ -1874,3 +1874,12 @@ Preserves the actual V9.34-selected public root before the owner-authorized Oper
 Before snapshot creation the folder held 257 files; snapshot plus metrics bring it to 259. Metrics: 69 lines, 3673 words, 56271 characters, 56284 bytes; SHA256 `0477ce6738ee331946b90321874f5953c20cf5880271aafaec445cd1ac366634`. Actual retrieval time is in the metrics; workflow and observation clocks are distinct.
 
 Rollback: restore owner pin `67c0f30c2f9450f813a48b73093f47cccf2f26c9`, use the existing importer/Pages process and verify all seven owner inputs plus transformed root against V149. V9.34 and every earlier dated edition remain immutable and available.
+
+
+## V150 - before Pipeline News V9.36 PN-TICKER promotion
+
+Preserves the actual V9.35-selected public root before the owner-directed static ticker promotion. Snapshot `homepage_v150.html`; metrics `homepage_v150-metrics.json`; former owner pin `403149b28589aa97aebf98598602b8c3ef3cce75`. Existing restore measurement [44114987072](https://github.com/Ventusltd/globalgrid2050/actions/runs/44114987072) passed before edits.
+
+Before snapshot creation the folder held 259 files; snapshot plus metrics bring it to 261. Metrics: 69 lines,3683 words,56508 characters,56521 bytes; SHA256 `a89f241f1d237a87a3f76d34d24ee2b8c995d88a151a56e0a6aeb4cab35c85f0`. Observation clock retained separately in metrics.
+
+Rollback: restore owner pin `403149b28589aa97aebf98598602b8c3ef3cce75`, deploy through existing importer/Pages and compare all seven verified owner inputs plus transformed root with V150. V9.35 and all prior dated releases remain immutable and available.

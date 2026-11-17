@@ -2248,6 +2248,86 @@
           "js": "(async()=>{\ndocument.querySelector('#clearFilters')?.click();\nconst t=document.querySelector('#headlineTicker'),q=document.querySelector('.pn-news-header-search input'),quality=document.querySelector('.pn-news-quality'),list=t?.querySelector('ul'),copy=t?.querySelector('.pn-ticker-copy'),viewport=t?.querySelector('.pn-ticker-viewport');\nif(!t||!q||!q.closest('.masthead')||document.querySelectorAll('.masthead input[type=search]').length!==1||quality?.querySelector('input[type=search]')||quality?.querySelectorAll('select').length!==4||!quality.querySelector('details summary')||t.querySelectorAll('input,button').length||t.querySelectorAll('ul').length!==1||!copy?.hasAttribute('inert')||copy.getAttribute('aria-hidden')!=='true'||copy.querySelectorAll('a,[tabindex]').length)return false;\nconst n=Number(t.dataset.count),links=list.querySelectorAll('a');if(n<0||n>100||links.length!==n||list.querySelectorAll('time').length!==n)return false;\nconst model=await import(new URL('scripts/layers/model.mjs',location.href));const boundary=Array.from({length:105},(_,i)=>({title:'Boundary '+i,source:'Synthetic boundary publisher',link:'https://example.com/'+i,date:'2026-11-17T10:00:00Z'}));if(model.latestHeadlines(boundary).length!==100)return false;\nconst active=document.activeElement;active?.blur();const x=()=>list.getBoundingClientRect().x;await new Promise(r=>setTimeout(r,80));let a=x();await new Promise(r=>setTimeout(r,220));let b=x();const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;if(n>1&&(reduced?Math.abs(b-a)>1:a-b<3))return false;\nviewport.focus();a=x();await new Promise(r=>setTimeout(r,100));const stable=Math.abs(x()-a)<1&&t.dataset.reading==='true';viewport.blur();if(active&&active!==document.body)active.focus();return stable&&Number(document.querySelector('#tbody')?.dataset.total)===7775&&!!window.pipelineHeadlines?.attachView;\n})()"
         }
       ]
+    },
+    {
+      "id": "202611171940",
+      "version": "V9.41",
+      "parent": "202611171710",
+      "date": "2026-11-17T19:40:00Z",
+      "added": "PN-NEWS: crisp red headlines on solid black without effects; unchanged renderer and controls,50px/s on long cycles with a12s minimum duration",
+      "data_changed": false,
+      "runner": "tests/run_v9_41.sh",
+      "trees": [
+        "71c8f37b99675c9cd60745d59cb045b395381325"
+      ],
+      "features": [
+        {
+          "id": "v941-crisp-contract",
+          "file": "contracts/ticker.v941.json",
+          "contains": "globalgrid2050.crisp-headline-ticker.v941"
+        },
+        {
+          "id": "v941-crisp-override",
+          "file": "index.html",
+          "contains": "ticker_crisp_ui/20261117-v941/styles.css"
+        }
+      ],
+      "known_faults": [
+        "All four row associations remain PROVISIONAL; independently VERIFIED and Solar-1000 deltas are zero.",
+        "Consent is a development-level planning event; separate Battery capacities, current output, energisation, commissioning and corporate ownership remain unknown.",
+        "Evidence feed is withheld when unavailable or unaccepted; price history retains declared gaps and UTC disagreements; native handset acceptance is unknown.",
+        "Actual eligible headline count depends on existing live/saved source; no minimum100 coverage is claimed. Keyboard/touch/reduced-motion checks are automated; physical VoiceOver/handset acceptance remains unknown.",
+        "Publisher-label counts are not independently verified publishing organizations. Source types classify accepted current exact-input priority metadata; they confer no verification or new reuse rights.",
+        "One government consent event supported by two documents is not directory/network event coverage; grid connection, commissioned capacity and geometry remain unknown.",
+        "PDF extraction is unavailable: no approved local PDF or installed extractor; only two pinned government HTML publications are supported. All distilled facts remain machine-provisional and confer no verified joins."
+      ],
+      "ci": null,
+      "merge_commit": null,
+      "state": "release_candidate_publication_blocked",
+      "feature_migrations": [
+        {
+          "id": "solar1000-pilot",
+          "from": "202611161244",
+          "contract": "solar1000-inline-v1"
+        },
+        {
+          "id": "news-editorial-priority",
+          "from": "202611161734",
+          "contract": "news-priority-internal-v1"
+        },
+        {
+          "id": "inline-research-priority",
+          "from": "202611161747",
+          "contract": "research-priority-internal-v1"
+        },
+        {
+          "id": "source-bound-priority",
+          "from": "202611161747",
+          "contract": "research-priority-internal-v1"
+        },
+        {
+          "id": "global-dc-tab",
+          "from": "202611161630",
+          "contract": "global-dc-ui-v928-v1"
+        },
+        {
+          "id": "v936-ticker-contract",
+          "from": "202611171507",
+          "contract": "ticker-neon-v940-v1"
+        },
+        {
+          "id": "v936-ticker-bounded-static",
+          "from": "202611171507",
+          "contract": "ticker-neon-v940-v1"
+        }
+      ],
+      "browser_probes": [
+        {
+          "name": "V9.41 crisp red solid black without effects and long-cycle fifty-pixel flow with static reading",
+          "selector": "#headlineTicker",
+          "js": "(async()=>{\ndocument.querySelector('#clearFilters')?.click();await document.fonts?.ready;\nconst host=document.querySelector('#headlineTicker'),track=host?.querySelector('.pn-ticker-track'),list=host?.querySelector('ul'),viewport=host?.querySelector('.pn-ticker-viewport');if(!host||!track||!list||!viewport)return false;\nfor(const node of [host,...host.querySelectorAll('*')]){const s=getComputedStyle(node);if(s.backgroundColor!=='rgb(0, 0, 0)'||s.backgroundImage!=='none'||s.color!=='rgb(255, 51, 51)'||s.textShadow!=='none'||s.boxShadow!=='none'||s.filter!=='none'||s.backdropFilter!=='none')return false;}\nconst active=document.activeElement;active?.blur();await new Promise(r=>setTimeout(r,80));const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches,n=Number(host.dataset.count),x=()=>list.getBoundingClientRect().x;\nlet a=x(),start=performance.now();await new Promise(r=>setTimeout(r,600));let delta=a-x(),seconds=(performance.now()-start)/1000;\nif(reduced||n<2){if(Math.abs(delta)>1||getComputedStyle(track).animationName!=='none')return false;}else{const base=parseFloat(host.style.getPropertyValue('--pn-cycle-duration')),duration=parseFloat(getComputedStyle(track).animationDuration);const expectedDuration=Math.max(12,base*.84),rate=list.getBoundingClientRect().width/duration;if(Math.abs(duration-expectedDuration)>.02||duration<12||Math.abs(delta/seconds-rate)>Math.max(2,rate*.1)||(base*.84>12&&Math.abs(rate-50)>.05))return false;}\nviewport.focus();a=x();await new Promise(r=>setTimeout(r,100));const stable=Math.abs(x()-a)<1&&host.dataset.reading==='true'&&getComputedStyle(track).animationName==='none';viewport.blur();if(active&&active!==document.body)active.focus();return stable&&Number(document.querySelector('#tbody')?.dataset.total)===7775;\n})()"
+        }
+      ]
     }
   ],
   "size_budget_mb": 18,

@@ -1,0 +1,9 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import {pathToFileURL} from 'node:url';
+const root=path.resolve(import.meta.dirname,'../..');
+const {chromium}=await import(process.env.PLAYWRIGHT_MODULE?pathToFileURL(process.env.PLAYWRIGHT_MODULE).href:'playwright');
+const base=fs.readFileSync(path.join(root,'automation/ticker_neon_ui/20261117-v940/styles.css'),'utf8'),override=fs.readFileSync(path.join(root,'automation/ticker_crisp_ui/20261117-v941/styles.css'),'utf8');
+test('computed short-feed minimum, long-cycle factor and static reading/reduced motion',async()=>{const browser=await chromium.launch({headless:true});try{const context=await browser.newContext({reducedMotion:'no-preference'}),page=await context.newPage();await page.setContent(`<style>${base}</style><style>${override}</style><div id="headlineTicker" class="pn-neon-ticker" style="--pn-cycle-duration:12s;--pn-cycle-width:200px"><div class="pn-ticker-track"><ul class="pn-ticker-cycle"><li class="pn-ticker-item">Short synthetic feed</li></ul></div></div>`);const state=()=>page.locator('.pn-ticker-track').evaluate(n=>({duration:parseFloat(getComputedStyle(n).animationDuration),name:getComputedStyle(n).animationName}));assert.equal((await state()).duration,12);assert.equal((await state()).name,'pn-neon-flow');await page.locator('#headlineTicker').evaluate(n=>n.style.setProperty('--pn-cycle-duration','36s'));assert.ok(Math.abs((await state()).duration-30.24)<.001);await page.locator('#headlineTicker').evaluate(n=>n.dataset.reading='true');assert.equal((await state()).name,'none');await page.locator('#headlineTicker').evaluate(n=>delete n.dataset.reading);await page.emulateMedia({reducedMotion:'reduce'});assert.equal((await state()).name,'none');await context.close();}finally{await browser.close();}});

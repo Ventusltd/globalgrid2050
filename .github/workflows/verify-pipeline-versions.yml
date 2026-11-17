@@ -18,6 +18,7 @@ on:
       - 'automation/grid_notice_ui/**'
       - 'automation/document_facts_ui/**'
       - 'automation/ticker_neon_ui/**'
+      - 'automation/ticker_crisp_ui/**'
       - '.github/workflows/verify-pipeline-versions.yml'
   workflow_dispatch:
     inputs:
@@ -59,6 +60,7 @@ jobs:
             /automation/grid_notice_ui/
             /automation/document_facts_ui/
             /automation/ticker_neon_ui/
+            /automation/ticker_crisp_ui/
             /dist/major_project_news_v9_5_1.json
             /dist/convergence/2026q3/pipelinenews/
             /dist/news/

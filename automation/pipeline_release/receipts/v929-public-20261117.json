@@ -1,0 +1,135 @@
+{
+  "status": "PASS",
+  "checked_at": "2026-11-17T01:27:01.721407+00:00",
+  "source_commit": "5fe15a059ad17929d4db51fe19c165ea1162c529",
+  "homepage_owner_commit": "05b43c999ee515f58496fcd9945fabacb103d524",
+  "release": "202611162354",
+  "version": "V9.29",
+  "owner_source_index_sha256": "3af8510f5392553cc7d6ed523f264ed3f533c2453399693ed5f190cbd10f01b5",
+  "transformed_root_sha256": "bc9d36cf922e5957bed178b5178907bf4c29846582eb50ced714cbf391710617",
+  "served_sha256": {
+    "index.html": "bc9d36cf922e5957bed178b5178907bf4c29846582eb50ced714cbf391710617",
+    "homepage-shell/assets/versioned-homepage.css": "0c405224efa71f262011db49c5c7a559a265801ec98609c8c9b16a5d83df35d2",
+    "homepage-shell/assets/versioned-homepage.js": "691df697ba930eab95ba67251ca3bee673ebb8c4174e010d8f6bb73ab24ea0f1",
+    "homepage-shell/data/homepage.json": "f77461ba963eb8480229cc9605b0bb119166e381ff14dd6ccf2f08b109044da3",
+    "homepage-shell/data/active-pages.json": "4ee017277a6e0a7a5e92b5320486cdf908300ac34629d71249d53b0e4d31fdeb",
+    "homepage-shell/data/presentation.json": "66285dafe5369cfb991030e80ffdf8c7893de279efb5aa15a86493434d9fed11",
+    "homepage-shell/data/entity-types.json": "43081131c3735827b9132bd78c5221401061d82ea9debba9150f6b7ddd86ba61",
+    "uk_renewables_pipeline/202611162354/index.html": "dc41d63a7ead42c015aa79153f932cc5978d7bee4fd947e60c8c5fc0d3d1cadd",
+    "uk_renewables_pipeline/202611161244/index.html": "8fd2b7baf867186a8f6ed21fc6c5490ffedfba8e849a75a8b4ead1c0b6038007",
+    "uk_renewables_pipeline/202611160020/index.html": "c13124d1248808eaa34cdf7736221300e67df22f802706a8c934f5e4b3281538",
+    "uk_renewables_pipeline/202611162354/solar1000/manifest.json": "c625edbb9c471a1e9a9034a1afe99881fbfabb1fcadcf0623355931f5b6aed1f",
+    "uk_renewables_pipeline/202611161244/solar1000/manifest.json": "c625edbb9c471a1e9a9034a1afe99881fbfabb1fcadcf0623355931f5b6aed1f",
+    "uk_renewables_pipeline/versions.json": "a19a8dc33f2d10cccac556c8131b6d737856d35bd0ef13aa7ad69a41dfd2fcd2"
+  },
+  "rollback_releases": [
+    "202611161244",
+    "202611160020"
+  ],
+  "solar_1000": 1000,
+  "scope": "Completed exact source/owner/deployment/served-byte and real public browser/location-receiver publication acceptance, subject to recorded data and platform limits.",
+  "schema": "globalgrid2050.pipeline-publication-receipt.v1",
+  "source_ci": {
+    "commit": "bc8ba03b74dc88cd1fa9d181eb40eb45045b1291",
+    "release_run": 43990908186,
+    "targeted_run": 43990908296,
+    "evidence_run": 43990908242,
+    "language_run": 43990908323,
+    "size_run": 43990908207,
+    "conclusion": "success"
+  },
+  "deployment": {
+    "run": 43994705900,
+    "commit": "5fe15a059ad17929d4db51fe19c165ea1162c529",
+    "conclusion": "success"
+  },
+  "real_browser": {
+    "engine": "Chromium 159.0.8154.6",
+    "viewports": [
+      390,
+      393,
+      1440
+    ],
+    "route_mocks": false,
+    "js_root_navigation": "PASS",
+    "no_js_root_navigation": "PASS",
+    "root_verified_at": "2026-11-17T01:26:55Z",
+    "served_edition_assets": 56,
+    "imported_module_mime": "PASS",
+    "principal_blocks": 2,
+    "outer_tabs": 6,
+    "sidebar_count": 0,
+    "public_android_touch_rotation": [
+      [
+        412,
+        839
+      ],
+      [
+        915,
+        412
+      ],
+      [
+        412,
+        839
+      ]
+    ],
+    "hosted_android_touch_orientations": 9,
+    "native_scroll_and_painted_content": "PASS",
+    "repd_rows": 7775,
+    "solar_rows": 3604,
+    "solar1000_ids": 1000,
+    "csv_exact_actual_v928": true,
+    "csv_sha256": "5a964bfb28f69ac1ef49420e5b8c6d6ea39961b28961cf7ee8fff589db7aba4d",
+    "substations": 5800,
+    "named_substations": 4460,
+    "unnamed_substations": 1340,
+    "offtakers": 1568,
+    "grid_source_directories": 14,
+    "approved_grid_events": 0,
+    "dc_uk": 54,
+    "dc_global": 100,
+    "ticker_links": 10,
+    "ticker_source_generated_at": "2026-11-17T00:27:34Z",
+    "public_context_withheld": true,
+    "uncaught_js_errors": 0,
+    "same_origin_http_failures": 0
+  },
+  "real_location_map": {
+    "samples": 4,
+    "viewports": [
+      390,
+      1440
+    ],
+    "kinds": [
+      "substation",
+      "offtaker"
+    ],
+    "receiver_generation": "202611161720",
+    "cartridges": 6,
+    "identity_kind": "location",
+    "provenance": "ARRIVAL_LINK",
+    "computation": "PASS",
+    "runtime_failures": 0,
+    "visible_nearest_after_real_mobile_expansion": "PASS",
+    "mobile_initially_minimized": true,
+    "fullscreen_enter_exit": "PASS",
+    "source_return_search_retained": "PASS",
+    "scope": "Bounded actual coordinate/nearest screening, not typed asset identity, available capacity, connection or all-row receiver execution."
+  },
+  "immediate_rollback": {
+    "owner_commit": "839e30939c88f6a5a9e6e85139567916e0dda58f",
+    "edition": "202611161757",
+    "index_sha256": "e1e4e48e0a078bad2304fba0bb9325349728eac2f305012276d289581b324497",
+    "solar1000_sha256": "c625edbb9c471a1e9a9034a1afe99881fbfabb1fcadcf0623355931f5b6aed1f",
+    "restore_point": "homepage_versions/homepage_v143.html",
+    "restore_root_sha256": "818b99256b1f83ab118d83fd73fbc7b765a324291ebd413ed1fc188ec39a2f0c",
+    "served_exact": "PASS"
+  },
+  "limitations": [
+    "Android UA/touch/orientation is Chromium emulation, not a physical Android handset.",
+    "Original Prices displayed Updated: 18 Jun, 22:52:31 and indicative behavior; this is not current actual-price acceptance.",
+    "Independent project-evidence snapshot unavailable (HTTP404); zero verified Solar-1000 bindings.",
+    "Mapped source locations and nearest distances do not establish typed identity, capacity or connection.",
+    "Grid directory entries are not independently approved project developments; Context remains withheld."
+  ]
+}

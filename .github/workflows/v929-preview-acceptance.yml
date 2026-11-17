@@ -5,7 +5,12 @@ on:
     paths:
       - 'uk_renewables_pipeline/202611162354/**'
       - 'automation/v929_preview/**'
-      - 'automation/pipeline_release/**'
+      # The published edition has an explicit runtime closure. Future release
+      # registries are checked by Verify Pipeline News versions and their own
+      # host suite; they do not alter this immutable V9.29 application.
+      - 'automation/news/datacentre-ui/**'
+      - 'automation/news/grid_watch/sources.json'
+      - 'automation/v928_context/preview/**'
       - '.github/workflows/v929-preview-acceptance.yml'
   workflow_dispatch:
 

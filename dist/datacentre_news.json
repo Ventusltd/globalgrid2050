@@ -1,10 +1,10 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-17T00:52:27Z",
+ "generated_at": "2026-11-17T14:38:23Z",
  "status": "ok",
  "counts": {
-  "items": 9,
-  "capex": 7,
+  "items": 10,
+  "capex": 8,
   "politics": 2,
   "with_register_site": 0,
   "feeds_ok": 9,
@@ -28,31 +28,31 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "sha256": "64b3bed1b9425fef5f51731b55c15aa4c78e5f8224c67c2677c77d0155f3284e"
+   "sha256": "e0a0774d4f978dd6a9e1dfc3f0b516585eefe39731b8b559a9d9885aea2c2b46"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 56,
+   "entries": 55,
    "kept": 0,
-   "sha256": "5923caf664a882837485e200698287fe5aaf9e3acc7035640e154c47ca65c69e"
+   "sha256": "36bd76212f3447b899b68af657c9273b3cca87f795fc0c3495d80b3b64798323"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 66,
+   "entries": 65,
    "kept": 0,
-   "sha256": "283e8ba76ac77e6b80e6e69b5f99e4d052cf0a0dd9546afe53910992f5cd3dc5"
+   "sha256": "7e41cb1b56c725205b7adfb2ea591acebe66eaca6099e8f22ca91d61a83530ac"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 41,
+   "entries": 42,
    "kept": 0,
-   "sha256": "ea54dc9e32bf0c1a94489cbe91c482e7ce522a8cb50a09c96259615b14e4476e"
+   "sha256": "67cb82ebf61af30c9a52a136e3f469ef096d607601bf2b346e8cb15759b0ea04"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -68,7 +68,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "38678a418f0aa757922044796e5215bf4a22ba02944cfd8c8db15496e5916564"
+   "sha256": "f1b4ecc5072daac590f22bc954bbf67b68a81f984a92d8bbeb3a3ad1db1f1705"
   },
   {
    "url": "https://www.gov.uk/search/news-and-communications.atom?keywords=data+centre",
@@ -76,7 +76,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "f79a9cc27beda6aa76f36702da3c0d97bbf6dd03e04d9faf34a093ecff76bc0b"
+   "sha256": "2c92bf76107b8ee0dee1f6f3b611d3a8350ce80f6c168ab6cf5531e7dc6f4327"
   },
   {
    "url": "https://bills.parliament.uk/rss/allbills.rss",
@@ -84,7 +84,7 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "fd23514c7a2d8004b12bfaf0817f6b9498900f02c37e90341d241b2be6d38e77"
+   "sha256": "0588a0c206cf929ec9a793dbe625af372f70ffb971556a7a20161930482fa7b9"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
@@ -92,10 +92,42 @@
    "status": "ok",
    "entries": 20,
    "kept": 1,
-   "sha256": "8134023229cb19b655e284575706e64c7f7d4604a8301c12f1ca3d42ab9d85e6"
+   "sha256": "85836ad07818909829513503ac4ed67627dc24e17a39a5d5455bf97ab12d9542"
   }
  ],
  "items": [
+  {
+   "title": "Vodafone joint venture to develop two major data center projects in Egypt",
+   "link": "https://www.datacenterdynamics.com/en/news/vodafone-joint-venture-to-develop-two-major-data-center-projects-in-egypt/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-17T11:25:35Z",
+   "first_seen": "2026-11-17T14:38:23Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [
+    {
+     "id": "dcuk-1c20af1a0a7dbfde",
+     "name": "Unnamed data centre",
+     "status": "operational",
+     "matched_on": "operator",
+     "matched_text": "Vodafone"
+    }
+   ],
+   "site_matches": 1
+  },
   {
    "title": "Bill introduced to ban data center development on some federally-owned land in US",
    "link": "https://www.datacenterdynamics.com/en/news/bill-introduced-to-ban-data-center-development-on-some-federally-owned-land-in-us/",

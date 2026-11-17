@@ -1856,3 +1856,12 @@ Intention: retain the verified operative homepage before any later accepted V9.3
 Before creating this numbered restore point the folder contained 251 files; afterward it contains 253. Snapshot metrics: 69 lines, 3,649 words, 55,761 characters, 55,774 bytes; SHA-256 `1203db7ed9bf01d4cc7df63a4a52b99e0ed6621230099529778170ab8eaca25e`.
 
 Rollback: restore owner pin `de65c95a7861ebc23733f2d04252ba9227c14e2d`, deploy through the existing importer and Pages process, verify all seven served owner-derived files and compare root bytes with `homepage_v147.html`. V9.32 and every earlier dated release remain immutable.
+
+
+## V148 - before Pipeline News V9.34 promotion
+
+Pre-edit restore point: `homepage_v148.html`; metrics: `homepage_v148-metrics.json`. The actual V9.33-selected public root was authenticated before edits against owner pin `e007b2b2780206058b897501445fd99d9e55fd7b`, source main `36e105a8b74b0f63dcd2e287834182339ae5afde`. Existing restore-point workflow [44080404237](https://github.com/Ventusltd/globalgrid2050/actions/runs/44080404237) passed.
+
+Intention: promote owner-authorized V9.34 planning submission dates, date sorting/year filters and expanded mobile analytics after source checks and public acceptance. Before this snapshot the folder held 255 files; snapshot plus metrics bring it to 257. Metrics: 69 lines, 3658 words, 56001 characters, 56014 bytes; SHA256 `eea6ac1bf40b1069e022881a36f10dd0573c60b7f3d12d416911f85126e4832f`.
+
+Rollback: restore owner pin `e007b2b2780206058b897501445fd99d9e55fd7b`, deploy through the existing verified importer/Pages process, compare all seven owner inputs and the transformed root with V148. V9.33 and all earlier dated editions remain immutable and accessible.

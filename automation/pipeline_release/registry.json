@@ -848,9 +848,13 @@
         "Grid is a 14-source directory with zero approved project developments; Data Centre operation/capacity/ownership remains unassessed or provisional.",
         "Context cache is local-preview only and withheld on publication hosts pending source acceptance. Native Android device acceptance is unavailable."
       ],
-      "ci": null,
-      "merge_commit": null,
-      "state": "release_candidate_owner_authorized",
+      "ci": {
+        "url": "https://github.com/Ventusltd/globalgrid2050/actions/runs/43978940484",
+        "conclusion": "success",
+        "source_commit": "84c739ad711b3ce8476acdfab219c8f8b67f102d"
+      },
+      "merge_commit": "10ecf4a7b1832ffee1d206ee5cb2f89a036835ad",
+      "state": "published_verified",
       "feature_migrations": [
         {
           "id": "solar1000-pilot",
@@ -896,7 +900,14 @@
           ],
           "js": "(async()=>{const r=await fetch('news/pipeline_headlines.snapshot.json');if(!r.ok)return false;const b=await r.arrayBuffer();const h=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',b)),x=>x.toString(16).padStart(2,'0')).join('');const d=JSON.parse(new TextDecoder().decode(b));const s=document.querySelector('#newsStatus');const titles=[...document.querySelectorAll('#liveNews .ln-title')];return h==='9a98193b5d8903cf33d5655ffa3acf4eab1ec3a92ca1a6d23f5eeb4df7d9f217'&&s?.dataset.state==='snapshot'&&d.items.length===71&&JSON.stringify(window.pipelineHeadlineDocument)===JSON.stringify(d)&&titles.length>0&&titles.every(a=>d.items.some(i=>i.title===a.textContent&&i.link===a.href))&&document.querySelector('#tbody')?.dataset.complete==='true'&&document.querySelector('#tbody')?.dataset.total==='7775';})()"
         }
-      ]
+      ],
+      "publication": {
+        "homepage_owner_commit": "839e30939c88f6a5a9e6e85139567916e0dda58f",
+        "domain_pin_merge": "d1baa7a9c20de78dc7e1995042df335c3212adbf",
+        "deployment_run": "https://github.com/Ventusltd/globalgrid2050/actions/runs/43982670898",
+        "served_verified_at": "2026-11-16T23:56:47.143939+00:00",
+        "receipt": "automation/pipeline_release/receipts/v928-public-20261117.json"
+      }
     }
   ],
   "size_budget_mb": 18,
@@ -904,16 +915,16 @@
   "release_candidate": {
     "id": "202611161757",
     "version": "V9.28",
-    "state": "OWNER AUTHORIZED - EXACT-HEAD PUBLICATION CHECKS PENDING",
+    "state": "PUBLISHED - SOURCE, HOMEPAGE AND SERVED BYTES VERIFIED",
     "operative": {
-      "id": "202611161244",
-      "version": "V9.24"
+      "id": "202611161757",
+      "version": "V9.28"
     },
     "held_candidate": {
       "id": "202611140247",
       "version": "V9.19",
       "state": "held candidate (data-centre register context, awaiting licence verification)"
     },
-    "note": "V9.28 publication authorized by the owner on 16 November 2026; exact-head checks, homepage-owner promotion and served-byte readback remain pending. V9.24 remains selected until that process completes. Evidence sources remain disabled unless independently accepted; source-indexed leads and provisional associations are not verified project events."
+    "note": "V9.28 is the homepage-selected edition after explicit owner authorization, exact-head CI, owner/publisher pin and independent public source-byte, mobile/desktop browser and rollback checks. All official qualifying REPD records and original MAP/CSV identities remain. Independent evidence is still unavailable or unaccepted where recorded; Grid directory entries and Data Centre leads are not verified project events. V9.24 and V9.23 remain immutable rollback editions."
   }
 }

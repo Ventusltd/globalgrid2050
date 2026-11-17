@@ -61,7 +61,20 @@ async function fullWidth(page){
 }
 async function painted(page,selector){
   const target=page.locator(selector).first();await target.scrollIntoViewIfNeeded();
-  const paint=await target.evaluate(n=>{const r=n.getBoundingClientRect(),s=getComputedStyle(n),x=Math.max(0,Math.min(innerWidth-1,r.left+Math.min(r.width/2,innerWidth/2))),y=Math.max(0,Math.min(innerHeight-1,r.top+Math.min(r.height/2,innerHeight/2))),hit=document.elementFromPoint(x,y);return{width:r.width,height:r.height,top:r.top,left:r.left,display:s.display,visibility:s.visibility,opacity:s.opacity,text:n.textContent.trim().slice(0,120),hit:!!hit&&(n===hit||n.contains(hit)),viewport:{width:innerWidth,height:innerHeight}};});
+  const paint=await target.evaluate(n=>{
+    const r=n.getBoundingClientRect(),s=getComputedStyle(n);
+    let left=Math.max(0,r.left),right=Math.min(innerWidth,r.right),top=Math.max(0,r.top),bottom=Math.min(innerHeight,r.bottom);
+    // A wide table row may begin offscreen after native horizontal scrolling.
+    // Test the visible intersection, including the scroll container's borders.
+    for(let a=n.parentElement;a;a=a.parentElement){
+      if(a===document.documentElement)continue; // Root scrolling clips to the viewport above.
+      const style=getComputedStyle(a),box=a.getBoundingClientRect();
+      if(/auto|scroll|hidden|clip/.test(style.overflowX)){left=Math.max(left,box.left+a.clientLeft);right=Math.min(right,box.left+a.clientLeft+a.clientWidth);}
+      if(/auto|scroll|hidden|clip/.test(style.overflowY)){top=Math.max(top,box.top+a.clientTop);bottom=Math.min(bottom,box.top+a.clientTop+a.clientHeight);}
+    }
+    const x=(left+right)/2,y=(top+bottom)/2,hit=right>left&&bottom>top?document.elementFromPoint(x,y):null;
+    return{width:r.width,height:r.height,top:r.top,left:r.left,visible:{left,right,top,bottom},hitPoint:{x,y},display:s.display,visibility:s.visibility,opacity:s.opacity,text:n.textContent.trim().slice(0,120),hit:!!hit&&(n===hit||n.contains(hit)),viewport:{width:innerWidth,height:innerHeight}};
+  });
   assert.ok(paint.width>0&&paint.height>0&&paint.display!=='none'&&paint.visibility==='visible'&&Number(paint.opacity)>0&&paint.text.length>0&&paint.hit,'visible painted target '+selector+': '+JSON.stringify(paint));return paint;
 }
 async function settleTouch(page){await page.evaluate(async()=>{let previous='',stable=0;const end=performance.now()+2500;while(performance.now()<end){await new Promise(requestAnimationFrame);const state=[scrollY,visualViewport.pageTop,...[...document.querySelectorAll('.tablewrap')].map(n=>n.scrollLeft)].join('|');if(state===previous)stable++;else stable=0;previous=state;if(stable>=8)return;}});}

@@ -1144,7 +1144,11 @@
         "One reviewed government fact is provisionally associated with REPD 12588. Frozen REPD status and source-specific dates are retained; final reduced capacity, later status and judicial review remain unknown. No VERIFIED association or Solar-1000 delta.",
         "Historical Prices end on 31 October 2026 with source-declared dates, missing/partial coverage and UTC disagreements. DC points do not establish facilities, connections or available capacity. Native handset and broader source-rights approval remain unavailable."
       ],
-      "ci": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44016860896",
+      "ci": {
+        "url": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44016860896",
+        "conclusion": "success",
+        "source_commit": "ba57b59447c4c7619262d440f6d4cac449dac8a2"
+      },
       "merge_commit": "270ca95dd50301c653ec39fca5ba2f6e42991111",
       "state": "published_verified",
       "browser_probes": [

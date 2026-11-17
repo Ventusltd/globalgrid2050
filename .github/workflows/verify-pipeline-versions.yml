@@ -64,6 +64,7 @@ jobs:
           VERIFY_OUT: ${{ runner.temp }}/versions.ci.json
           SHOT_DIR: ${{ runner.temp }}/shots
         run: |
+          python3 -B -m unittest discover -s automation/pipeline_release/tests -p test_registry_metadata.py -v
           mkdir -p "$SHOT_DIR"
           python3 automation/pipeline_release/verify.py --browser --check
       - name: Optional - do all active rows of the newest version resolve in the named GridAtlas registry?

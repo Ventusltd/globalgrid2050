@@ -33,6 +33,7 @@ jobs:
           node-version: 22
       - name: Verify historical source+7,775 maps and regenerate published version ledger
         run: |
+          python3 -B -m unittest discover -s automation/pipeline_release/tests -p test_registry_metadata.py -v
           python3 automation/pipeline_release/verify.py --browser --check --write
       - name: Commit generated version list only (retry unrelated concurrent main commits)
         run: |

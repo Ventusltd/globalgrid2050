@@ -68,9 +68,31 @@ def data_digest(folder: Path) -> str:
     return h.hexdigest()
 
 
+def validate_registry_metadata(reg):
+    """Reject malformed CI metadata before release checks or registry writes."""
+    if not isinstance(reg, dict) or not isinstance(reg.get("versions"), list):
+        raise ValueError("release registry must be an object with a versions array")
+    for index, version in enumerate(reg["versions"]):
+        if not isinstance(version, dict):
+            raise ValueError(f"registry versions[{index}] must be an object")
+        label = version.get("id", f"versions[{index}]")
+        ci = version.get("ci")
+        if ci is None:
+            continue
+        if not isinstance(ci, dict):
+            raise ValueError(f"registry version {label}: ci must be an object or null")
+        # These are the optional fields used by the ledger renderer. Preserve
+        # all other historical metadata and impose no URL or result enum policy.
+        for field in ("url", "conclusion"):
+            if field in ci and not isinstance(ci[field], str):
+                raise ValueError(f"registry version {label}: ci.{field} must be a string")
+    return reg
+
+
 def load_registry():
-    return json.loads(REGISTRY.read_text(encoding="utf-8"))
+    return validate_registry_metadata(json.loads(REGISTRY.read_text(encoding="utf-8")))
 
 
 def save_registry(reg):
+    validate_registry_metadata(reg)
     REGISTRY.write_text(json.dumps(reg, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")

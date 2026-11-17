@@ -1,11 +1,11 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-16T13:47:06Z",
+ "generated_at": "2026-11-17T00:52:27Z",
  "status": "ok",
  "counts": {
-  "items": 8,
+  "items": 9,
   "capex": 7,
-  "politics": 1,
+  "politics": 2,
   "with_register_site": 0,
   "feeds_ok": 9,
   "feeds_failed": 0
@@ -28,7 +28,7 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "sha256": "5b4bc368d00bc8126018732ae9ab48c0d99df254382f68f0c44c307c601c2e20"
+   "sha256": "64b3bed1b9425fef5f51731b55c15aa4c78e5f8224c67c2677c77d0155f3284e"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
@@ -36,7 +36,7 @@
    "status": "ok",
    "entries": 56,
    "kept": 0,
-   "sha256": "8790306895de2d854196edcd65afb420479e6dbbf6f6e8621bad3586cbffa7c3"
+   "sha256": "5923caf664a882837485e200698287fe5aaf9e3acc7035640e154c47ca65c69e"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
@@ -44,7 +44,7 @@
    "status": "ok",
    "entries": 66,
    "kept": 0,
-   "sha256": "ce8d2a171ae05e6f7bb4be9c7da1c8275f63c364c7cf88515e1e41be17205bdc"
+   "sha256": "283e8ba76ac77e6b80e6e69b5f99e4d052cf0a0dd9546afe53910992f5cd3dc5"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 41,
    "kept": 0,
-   "sha256": "74bcc208fac3a76d1186b940bb9c9fbc8c80aec8836428c627de992e6b24d8ac"
+   "sha256": "ea54dc9e32bf0c1a94489cbe91c482e7ce522a8cb50a09c96259615b14e4476e"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -68,7 +68,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "3d645eab6d0accaf9b813f5b127764e232bd3b6b2de3bfa66cf14e19cd93e7f6"
+   "sha256": "38678a418f0aa757922044796e5215bf4a22ba02944cfd8c8db15496e5916564"
   },
   {
    "url": "https://www.gov.uk/search/news-and-communications.atom?keywords=data+centre",
@@ -76,7 +76,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "dd3a2d267277426fffe5d968c6476409bb5fdae3683aee91d963a23502d72653"
+   "sha256": "f79a9cc27beda6aa76f36702da3c0d97bbf6dd03e04d9faf34a093ecff76bc0b"
   },
   {
    "url": "https://bills.parliament.uk/rss/allbills.rss",
@@ -84,18 +84,42 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "8aecbde6bc129add04ee17561df1ad82c275233f990d77a9ea9ae1a5fdeb2f98"
+   "sha256": "fd23514c7a2d8004b12bfaf0817f6b9498900f02c37e90341d241b2be6d38e77"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
    "source": "DatacenterDynamics",
    "status": "ok",
    "entries": 20,
-   "kept": 4,
-   "sha256": "20ef7780ba050823fcd16e15dc4f8ba167c47f94697933e4b04c34a0db23c1e9"
+   "kept": 1,
+   "sha256": "8134023229cb19b655e284575706e64c7f7d4604a8301c12f1ca3d42ab9d85e6"
   }
  ],
  "items": [
+  {
+   "title": "Bill introduced to ban data center development on some federally-owned land in US",
+   "link": "https://www.datacenterdynamics.com/en/news/bill-introduced-to-ban-data-center-development-on-some-federally-owned-land-in-us/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-16T13:54:42Z",
+   "first_seen": "2026-11-17T00:52:27Z",
+   "lanes": [
+    "politics"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [],
+    "politics": [
+     "bill"
+    ]
+   },
+   "capex_basis": null,
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
   {
    "title": "Engie could supply power to planned Google data center in Châteauroux, France",
    "link": "https://www.datacenterdynamics.com/en/news/engie-could-supply-power-to-planned-google-data-center-in-ch%C3%A2teauroux-france/",

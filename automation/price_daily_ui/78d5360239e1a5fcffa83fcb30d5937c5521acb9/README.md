@@ -1,0 +1,3 @@
+# Qualified daily historical price runtime
+
+Four byte-identical files selected from PR144 at `78d5360239e1a5fcffa83fcb30d5937c5521acb9`. The edition pins each Git blob, SHA-256 and byte count before import; CSS has SRI. They preserve the original V6 canvas appearance without modifying its workspace or introducing a chart framework. Data stays with the accepted electricity owner. Source-declared coverage, null gaps, negative prices and inherited UTC counters remain explicit. No collection, timestamp repair, interpolation, forecast, realtime quote or revenue claim is added. Window summaries label the unweighted mean of daily means.

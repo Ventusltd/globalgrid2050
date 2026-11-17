@@ -1022,14 +1022,67 @@
         "served_verified_at": "2026-11-17T03:03:22.192414+00:00",
         "receipt": "automation/pipeline_release/receipts/v930-public-20261117.json"
       }
+    },
+    {
+      "id": "202611170243",
+      "version": "V9.31",
+      "parent": "202611170147",
+      "date": "2026-11-17T02:43:00Z",
+      "added": "Qualified daily historical electricity system-sell graph with pinned lazy data, null-gap and negative-price preservation, explicit coverage/clocks and original-workspace link; unchanged REPD, DC, CSV, MAP and historical releases.",
+      "data_changed": false,
+      "runner": "tests/run_v9_31.sh",
+      "trees": [
+        "800b2a3ed1ffc3d7d3592a75e143ef151e5c50b4"
+      ],
+      "features": [
+        {
+          "id": "v931-daily-price-contract",
+          "file": "contracts/prices.v931.json",
+          "contains": "78d5360239e1a5fcffa83fcb30d5937c5521acb9"
+        },
+        {
+          "id": "v931-daily-price-host",
+          "file": "scripts/plugins/prices-v931.mjs",
+          "contains": "mountDailyPrices"
+        },
+        {
+          "id": "v930-dc-location-contract",
+          "file": "contracts/dc-locations.v930.json",
+          "contains": "83e7c36d08ef98f3665f7f35b8637405391dc4be"
+        },
+        {
+          "id": "v930-dc-location-host",
+          "file": "scripts/plugins/dc-locations-v930.mjs",
+          "contains": "attachLocationActions"
+        },
+        {
+          "id": "v929-pinned-layers",
+          "file": "scripts/plugins/layers-v929.mjs",
+          "contains": "mountLayerControls"
+        }
+      ],
+      "known_faults": [
+        "Historical system-sell observations end on 31 October 2026. Source-declared daily dates retain 106,668 UTC disagreements; daily completeness does not certify intraday timing. This is not a live quote, market-index price or forecast.",
+        "Reported/approximate DC points and vicinity screening do not verify facilities, capacity or connections. Solar-1000 has zero independently verified links; public Context and physical Android acceptance remain unavailable."
+      ],
+      "ci": null,
+      "merge_commit": null,
+      "state": "release_candidate_publication_blocked",
+      "browser_probes": [
+        {
+          "name": "V9.31 compact full-width page, six tabs and two principal blocks",
+          "selector": "body",
+          "js": "(()=>{const m=document.querySelector('main'),r=m.getBoundingClientRect();return !document.querySelector('aside')&&!!document.querySelector('.release-header')&&document.querySelectorAll('main > section').length===2&&document.querySelectorAll('.pipeline-tabs > [role=tab]').length===6&&r.x===0&&r.right>=document.documentElement.clientWidth-1&&document.documentElement.scrollWidth<=innerWidth+2&&getComputedStyle(document.body).overflowY!=='hidden';})()"
+        }
+      ]
     }
   ],
   "size_budget_mb": 18,
   "size_budget_from": "202611140136",
   "release_candidate": {
-    "id": "202611170147",
-    "version": "V9.30",
-    "state": "PUBLISHED - SOURCE, HOMEPAGE AND SERVED BYTES VERIFIED",
+    "id": "202611170243",
+    "version": "V9.31",
+    "state": "NON-LIVE CANDIDATE - HOST CI AND PUBLIC ACCEPTANCE REQUIRED",
     "operative": {
       "id": "202611170147",
       "version": "V9.30"
@@ -1039,6 +1092,6 @@
       "version": "V9.19",
       "state": "held candidate (data-centre register context, awaiting licence verification)"
     },
-    "note": "V9.30 is selected by the accepted owner/publisher pin after exact-source CI, actual public source/address/UKreceiver, root JS/no-JS and rollback acceptance. Source-reported/approximate locations do not verify facilities, connections or available capacity; original Prices and zero verified Solar-1000 evidence remain explicit limitations. All prior immutable editions remain available."
+    "note": "Qualified historical daily system-sell Prices in a new edition only; source dates, null gaps, negative prices and coverage/UTC counters are retained. V9.30 remains operative until exact-source CI, actual public source/graph acceptance, owner promotion, pinned import and root/rollback verification. All official REPD and existing DC data, original CSV/MAP and historical releases remain unchanged."
   }
 }

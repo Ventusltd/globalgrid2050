@@ -136,10 +136,10 @@
     var ref = String(button.dataset.noteRef || '');
     var events = notes.get(ref) || [];
     var primary = primaryLayer && primaryLayer.records.get(ref);
-    body.appendChild(el('p', 'machine-note-stamp', primary ? 'PRIMARY GOVERNMENT SOURCE - PROVISIONAL PROJECT ASSOCIATION' : events.length ?
+    body.appendChild(el('p', 'machine-note-stamp', primary ? 'PRIMARY GOVERNMENT SOURCE - PROVISIONAL PROJECT ASSOCIATION (CANDIDATE)' : events.length ?
       'CANDIDATE — NOT INDEPENDENTLY VERIFIED' : 'INSUFFICIENT EVIDENCE'));
     body.appendChild(el('p', null, 'REPD ' + ref + ' · ' + String(button.dataset.noteName || 'Project')));
-    body.appendChild(el('p', null, 'FROZEN REPD STATUS · ' + String(button.dataset.noteStatus || 'Unknown')));
+    body.appendChild(el('p', null, 'OFFICIAL SOURCE STATUS (FROZEN REPD) · ' + String(button.dataset.noteStatus || 'Unknown')));
     if (primary) primaryLayer.view.appendPrimaryBrief(body, primary.note, primary.project);
     if (!events.length && !primary) {
       body.appendChild(el('p', null, 'No adequate matched headline evidence is currently available. The official source remains unchanged.'));

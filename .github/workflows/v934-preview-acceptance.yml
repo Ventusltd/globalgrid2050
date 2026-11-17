@@ -1,11 +1,13 @@
-name: REPD date controls and expanded analytics
+name: Pipeline candidate source and interaction acceptance
 on:
   pull_request:
     paths:
       - 'uk_renewables_pipeline/202611171141/**'
       - 'uk_renewables_pipeline/202611171217/**'
+      - 'uk_renewables_pipeline/202611171507/**'
       - 'automation/v934_preview/**'
       - 'automation/v935_preview/**'
+      - 'automation/v936_preview/**'
       - 'automation/repd_expand_ui/**'
       - '.github/workflows/v934-preview-acceptance.yml'
 permissions:
@@ -21,6 +23,9 @@ jobs:
           - edition: '202611171217'
             version: '9_35'
             suite: v935_preview
+          - edition: '202611171507'
+            version: '9_36'
+            suite: v936_preview
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -39,11 +44,15 @@ jobs:
         run: |
           npm ci --prefix automation/news/acquisition/browser --ignore-scripts
           npm exec --prefix automation/news/acquisition/browser -- playwright install --with-deps chromium
+      - name: Ticker source guards, truthful counts and bounded browsing contracts
+        if: matrix.suite == 'v936_preview'
+        run: node --test automation/v936_preview/contracts.test.mjs
       - name: Date source equality, sorting, year filters and CSV on desktop and mobile
         env:
           PLAYWRIGHT_MODULE: ${{ github.workspace }}/automation/news/acquisition/browser/node_modules/playwright/index.mjs
           V934_OUT: ${{ runner.temp }}/date-proof
           V935_OUT: ${{ runner.temp }}/date-proof
+          V936_OUT: ${{ runner.temp }}/date-proof
         run: node automation/${{ matrix.suite }}/browser.mjs
       - name: Expanded analytics, close, focus, scroll and rotation
         env:

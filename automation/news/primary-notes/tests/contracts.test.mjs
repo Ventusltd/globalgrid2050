@@ -98,3 +98,20 @@ test('accessors and custom prototypes cannot change validated metadata',()=>{
  const rows=projects();Object.defineProperty(rows[0],'repd_ref',{get(){return '12588';}});assert.throws(()=>evaluate(rows),/accessors/);
  const proto=copy(CURATED_NOTES.notes);Object.setPrototypeOf(proto[0],{selfApproved:true});assert.throws(()=>evaluate(projects(),proto),/prototype/);
 });
+test('caller filter cannot substitute a reviewed row into an invalid population',()=>{
+ for(const enumerable of [true,false]){
+  const rows=projects();rows[0].planning_application_reference='UNRELATED';rows[0].operator='Wrong Developer';let called=false;
+  Object.defineProperty(rows,'filter',{enumerable,value(){called=true;return [copy(TARGET)];}});
+  assert.throws(()=>evaluate(rows),/canonical array/);assert.equal(called,false);
+ }
+});
+test('canonical iterator/custom/prototype/sparse/accessor arrays reject withoutcalls',()=>{
+ const changes=[
+  (rows,called)=>Object.defineProperty(rows,Symbol.iterator,{value(){called.value++;return Array.prototype[Symbol.iterator].call(rows);}}),
+  rows=>Object.defineProperty(rows,'selfApproved',{value:true}),
+  rows=>Object.setPrototypeOf(rows,Object.create(Array.prototype)),
+  rows=>delete rows[1],
+  (rows,called)=>Object.defineProperty(rows,'0',{enumerable:true,get(){called.value++;return copy(TARGET);}})
+ ];
+ for(const change of changes){const rows=projects(),called={value:0};change(rows,called);assert.throws(()=>evaluate(rows),/canonical array/);assert.equal(called.value,0);}
+});

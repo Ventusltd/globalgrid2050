@@ -33,6 +33,9 @@ look up notes by `by_project_id` or `by_repd_ref`. Validation requires exactly
 one `EN010147`, unique original IDs and the reviewed target's exact canonical
 name, developer, geography, coordinates, frozen status and dates. This targets
 the preserved snapshot; a changed future register requires a new review.
+The canonical input must be a plain dense array with own data elements and no
+extra, symbolic or accessor members. Validation reads indexed descriptors and
+never calls a caller-supplied filter or iterator.
 The canonical partition path/hash is retained in each binding. The caller
 must obtain rows from the accepted canonical loader; this structural API does
 not independently authenticate an arbitrary caller's dataset.

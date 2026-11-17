@@ -45,15 +45,22 @@ export function utcInstant(value){
 }
 function day(value){requireValid(typeof value==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(value),'date');return utcInstant(value+'T00:00:00Z');}
 function canonical(projects){
-  requireValid(Array.isArray(projects)&&projects.length===CATALOGUE.canonical.expected_population,'complete canonical population required');
-  const refs=new Set(),ids=new Set();
+  requireValid(Array.isArray(projects)&&Object.getPrototypeOf(projects)===Array.prototype,'plain canonical array required');
+  const population=CATALOGUE.canonical.expected_population,length=Object.getOwnPropertyDescriptor(projects,'length');
+  requireValid(length&&'value'in length&&length.value===population,'complete canonical population required');
+  const members=Reflect.ownKeys(projects);
+  requireValid(members.length===population+1&&members.every(key=>key==='length'||typeof key==='string'&&/^(0|[1-9]\d*)$/.test(key)&&Number(key)<population),'canonical array JSON members');
+  const refs=new Set(),ids=new Set(),matches=[];
   const field=(row,name)=>{const d=Object.getOwnPropertyDescriptor(row,name);requireValid(!d||'value'in d,'canonical accessors forbidden');return d?.value;};
-  for(const row of projects){
+  for(let index=0;index<population;index++){
+    const descriptor=Object.getOwnPropertyDescriptor(projects,String(index));
+    requireValid(descriptor&&descriptor.enumerable&&'value'in descriptor,'dense canonical array data required');
+    const row=descriptor.value;
     requireValid(row&&typeof row==='object','canonical row');const ref=field(row,'repd_ref'),id=field(row,'gg_project_id');
     requireValid(typeof ref==='string'&&/^[1-9]\d*$/.test(ref)&&id==='GG2050-REPD-'+ref,'canonical original IDs');
     requireValid(!refs.has(ref)&&!ids.has(id),'duplicate canonical identity');refs.add(ref);ids.add(id);
+    if(field(row,'planning_application_reference')===CATALOGUE.source.planning_reference)matches.push(row);
   }
-  const matches=projects.filter(row=>field(row,'planning_application_reference')===CATALOGUE.source.planning_reference);
   requireValid(matches.length===1,'exact planning reference must be unique');const row=jsonCopy(matches[0]);
   for(const [field,expected] of Object.entries(CATALOGUE.canonical.fields))requireValid(Object.is(row[field],expected),'canonical '+field+' mismatch');
   return row;

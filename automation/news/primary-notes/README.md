@@ -1,10 +1,10 @@
 # Curated primary planning notes
 
-This small offline model supplies one reviewed government decision note for the
+This small offline model supplies four individually reviewed government decision notes for the
 existing Machine Read Notes brief. It is not a collector, matcher, renderer or
 new panel. ROOT owns the future edition/host hook and publication.
 
-The accepted catalogue pins the exact DESNZ decision PDF URL, its 1,247,918
+The original Botley catalogue pins the exact DESNZ decision PDF URL, its 1,247,918
 bytes and SHA-256, author, paragraph locators, observed HTTP headers and actual
 retrieval clock. It pins the reviewed PINS/OGL terms receipts and the limited
 government-fact paraphrase scope. A caller flag, common hostname or changed
@@ -20,7 +20,7 @@ fetches or writes.
 ```js
 import {buildPrimaryNotes} from './primary-notes/model.mjs';
 const notes = buildPrimaryNotes(allCanonicalProjects, {
-  asOf: '2026-11-17T03:16:20Z' // explicit UTC processing cutoff
+  asOf: '2026-11-17T05:12:23.048665Z' // explicit UTC processing cutoff
 });
 const rowNotes = notes.by_project_id['GG2050-REPD-12588'] || [];
 // Existing brief: rowNotes[0].claim.statement
@@ -30,7 +30,7 @@ const rowNotes = notes.by_project_id['GG2050-REPD-12588'] || [];
 
 Call once with all 7,775 accepted canonical rows, before display filtering, then
 look up notes by `by_project_id` or `by_repd_ref`. Validation requires exactly
-one `EN010147`, unique original IDs and the reviewed target's exact canonical
+one match per reviewed planning reference within the 7,775-row scope, unique original IDs and each reviewed target's exact canonical
 name, developer, geography, coordinates, frozen status and dates. This targets
 the preserved snapshot; a changed future register requires a new review.
 The canonical input must be a plain dense array with own data elements and no
@@ -51,7 +51,7 @@ scope. It cannot expand the catalogue. No rights-acceptance option exists.
 ## Kept distinctions
 
 The note association is always **PROVISIONAL**. `verified_count` and
-`solar1000_verified_delta` are zero; the target is outside frozen Solar-1000.
+`solar1000_verified_delta` are zero; all four displayed targets are outside frozen Solar-1000.
 No verified lead or global verification counter is created or reset.
 
 The primary letter records refusal on 10 November 2026. The separate news
@@ -79,7 +79,7 @@ Only the narrow government-authored factual paraphrase and source link were
 reviewed. Preserve the OGL attribution and licence link. Applicant/third-party
 documents, maps, photographs, personal information, standalone logos and any
 government endorsement are excluded. This is not blanket permission for files
-on a government domain. The terms review used supplied original HTML and exact
+on a government domain. The original Botley terms review used supplied original HTML and exact
 receipt hashes because the independent web reader could not open those pages;
 the PDF's actual bytes were independently matched. No full PDF or legal-page
 body is stored here, and no source registry or disabled acquisition gate changes.
@@ -99,3 +99,66 @@ invalid/future clocks and mutation. The separate offline runner hashes every
 actual canonical partition, checks all 7,775 rows and confirms Solar-1000
 non-membership. No tests request a network source or refresh data. Browser
 integration, rights acceptance and publication remain the release owner's gates.
+
+
+## Three additional accepted government fact scopes
+
+The original Botley catalogue and note object are preserved exactly from b5.
+The additional trust catalogue entries and three curations use the same three
+runtime files and API; there is no collector, renderer, source registry or
+workflow here. Default output is four PROVISIONAL associations. Nonempty
+`records` proposals must supply all four valid notes, or the entire call rejects.
+The existing explicit `records: []` opt-out remains a zero-note result.
+
+| Display solar row | Planning reference | Approved narrow fact | Separate battery component |
+|---|---|---|---|
+| 15149 Great North Road | EN010162 | Government consent with modifications,27October2026 | 15150; MW and MWh unknown |
+| 14806 One Earth | EN010159 | Government consent with modifications,8July2026 | 14807; MW and MWh unknown |
+| 15000 Peartree Hill | EN010157 | Government consent granted,2July2026; public HTML only | 15001; MW and MWh unknown |
+
+Each additional decision concerns a WHOLE DEVELOPMENT. The solar row is a
+provisional display anchor, never an exclusive component identity. The ENs are
+unique only in the 7,775-row browser view: the separately pinned14,967-row
+fixture includes the paired Battery rows, each with NULL power, outside the
+at-least-1-MW browser population. Those rows are not added, removed or deduplicated
+by this model, and unknown power/energy never becomes zero. Each note pins its
+full identity fixture URL/hash and development/component IDs. No reported MW
+is allocated to a component or certified as original, final, current or as-built.
+Frozen solar baselines800/740/320 and government proposed/export/up-to descriptions
+retain their own basis. Original/final project capacities remain unknown.
+
+GNR submission27June2025 agrees with frozen REPD; acceptance22July is a separate
+stage. There is no submission-date discrepancy. One Earth submission27February
+and acceptance27March2025, and Peartree submission21February and acceptance21March,
+remain separate. The latter two grant dates already match frozen REPD: the notes
+add primary provenance, not new current status. Government applicant names are
+retained separately from REPD operators; no corporate ownership equivalence,
+actual electrical connection, commissioning or later judicial-review result is
+inferred. Frozen status and source update dates are unchanged.
+
+GNR and One Earth pin their individually reviewed DESNZ letters. Peartree pins
+the public Planning Inspectorate government announcement, which explicitly
+grants consent; its DESNZ HTML corroboration supplies EN/date/up-to design scope.
+No modification qualifier, body or URL from the excluded Peartree PDF is in the
+cartridge. Each record is checked against its OWN exact source/receipt/rights/
+claim catalogue; sharing a government domain or swapping case receipts cannot
+approve another fact. Rights cover only attributed own paraphrases of reviewed
+government facts, with the exact OGL/terms receipts and exclusions retained.
+
+The three additional records use `GOVERNMENT_PUBLICATION_METADATA_ONLY`, not an
+invented RSS first-seen/feed time or a headline association. Original publication
+metadata and its normalized UTC value are both pinned. Administrative16November
+updates are explicitly not new decisions. Botley's existing auxiliary headline
+metadata is unchanged and still does not approve publisher body rights. All
+review/retrieval/publication/decision clocks remain distinct; `asOf` is an
+explicit processing cutoff, not a fresh source review. The new sources retain
+HTTP Last-Modified NULL when no value was observed.
+
+All seventeen original regression groups retain their substance. Ten additional
+groups challenge cross-case source and corroboration swaps, partial proposals,
+known Battery substitutions, capacity allocation/zero filling, Peartree PDF or
+modification leakage, changed original Botley content, future/invalid clocks,
+ownership/current-engineering claims and accessor callbacks. The offline actual
+canonical runner also checks the pinned full14,967-row fixture and all three
+unknown-capacity Battery pairs. Hosted host/browser acceptance and every release
+promotion remain ROOT's gates; this donor is not an application publication.

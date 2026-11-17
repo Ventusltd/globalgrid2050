@@ -120,3 +120,532 @@ export const CATALOGUE=freeze({
     }
   }
 });
+
+// Additional individually reviewed government decisions; original catalogue above is unchanged.
+export const CATALOGUES=freeze([{note_id:"PRIMARY-EN010147-002440-REFUSAL-20261110",catalogue:CATALOGUE},
+  {
+    "note_id": "PRIMARY-EN010162-001340-GRANT-20261027",
+    "catalogue": {
+      "schema": "globalgrid2050.primary-note-source-catalogue.v1",
+      "review": {
+        "status": "NARROW_GOVERNMENT_FACTS_REVIEWED",
+        "independent_review_at": "2026-11-17T04:58:25.027678+00:00",
+        "curated_at": "2026-11-17T05:12:23.048665Z",
+        "method": "Independent exact primary-source, canonical and licence review with ROOT-accepted development/HTML scope corrections; no publisher-wide grant"
+      },
+      "source": {
+        "url": "https://nsip-documents.planninginspectorate.gov.uk/published-documents/EN010162-001340-Great%20North%20Road%20Solar%20and%20Biodiversity%20Park%20-%20SoS%20Decision%20letter%20-%2027%20October%202026.pdf",
+        "sha256": "7f6470094b19c378ca36a267ab01108e6092e4c3dc0e791cdf71d59128bbf74e",
+        "bytes": 351076,
+        "retrieved_at": "2026-11-17T04:43:42.248899+00:00",
+        "headers": {
+          "Content-Type": "application/pdf",
+          "Last-Modified": "Tue, 27 Oct 2026 16:21:14 GMT",
+          "ETag": "0x8DF3446522609C0"
+        },
+        "id": "desnz-en010162-001340",
+        "author": "Department for Energy Security and Net Zero",
+        "authorship": "GOVERNMENT_DECISION_LETTER",
+        "document_date": "2026-10-27",
+        "document_stated_publication_date": "2026-10-27",
+        "allowed_claim": "DEVELOPMENT_CONSENT_GRANTED_WITH_MODIFICATIONS",
+        "planning_reference": "EN010162",
+        "locators": {
+          "decision": "page3 paragraphs3.2–3.3",
+          "application_date": "paragraph 1.1, page 1"
+        },
+        "project_url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN010162",
+        "project_url_scope": "Government project navigation; whole development, not a verified component identity",
+        "government_applicant": "Elements Green Trent Limited",
+        "corroboration": {
+          "url": "https://www.gov.uk/government/publications/great-north-road-solar-and-biodiversity-park-decision-on-application-for-development-consent-under-the-planning-act-2008",
+          "sha256": "0cb60fa34edcd600c1c344604034d934d9a97d857c4c17b598265f41beed9ee0",
+          "bytes": 70739,
+          "retrieved_at": "2026-11-17T04:42:54.507100+00:00",
+          "headers": {
+            "Content-Type": "text/html; charset=utf-8",
+            "Last-Modified": null,
+            "ETag": "W/\"0cb60fa34edcd600c1c344604034d934\""
+          }
+        }
+      },
+      "rights": {
+        "status": "REVIEWED_NARROW_OGL_FACT_PARAPHRASE",
+        "scope": "GOVERNMENT_AUTHORED_DECISION_FACTS_ONLY",
+        "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+        "attribution": "Contains public sector information licensed under the Open Government Licence v3.0.",
+        "exclusions": [
+          "Third-party and applicant documents, maps and photographs",
+          "Personal information",
+          "Standalone departmental logos and crests",
+          "Official endorsement"
+        ],
+        "terms_receipts": [
+          {
+            "url": "https://www.gov.uk/help/terms-conditions",
+            "bytes": 80624,
+            "sha256": "3341846c2c7f9581cdfd3fbce0c3f8b440f34f9f918f136574adf20d96389fa6",
+            "retrieved_at": "2026-11-17T04:42:54.660958+00:00"
+          },
+          {
+            "url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/terms-and-conditions",
+            "bytes": 74533,
+            "sha256": "1df62b52ec295788bc670da9b0f03c79f0843acfd33d3d70bb2e04988e65bac6",
+            "retrieved_at": "2026-11-17T04:42:54.737190+00:00"
+          },
+          {
+            "url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+            "bytes": 10450,
+            "sha256": "f5b2b9f2af63647cde889fa6c3508f5705925295b74912c68caa28dd37e64aa5",
+            "retrieved_at": "2026-11-17T04:42:54.831040+00:00"
+          }
+        ],
+        "review_limit": "Only selected government-authored facts and exact receipts reviewed; no publisher/domain licence. Public HTML only for EN010157; no additional PDF-derived qualifiers."
+      },
+      "canonical": {
+        "edition": "202611170324",
+        "expected_population": 7775,
+        "partition": "data/v9.1/projects/part-001.json",
+        "partition_sha256": "1dec5e14cb05d5d47a3543d66a8970a5dc6e74e3cd444c1471befba2fad0a2aa",
+        "fields": {
+          "repd_ref": "15149",
+          "gg_project_id": "GG2050-REPD-15149",
+          "gg_development_id": "GG2050-DEV-131D47580D8A59",
+          "planning_application_reference": "EN010162",
+          "name": "Great North Road Solar Park",
+          "operator": "Elements Green",
+          "county": "Nottinghamshire",
+          "country": "England",
+          "technology": "solar",
+          "capacity_known": true,
+          "capacity_mw": 800.0,
+          "status": "Application Submitted",
+          "repd_record_updated": "2025-10-13",
+          "planning_application_submitted": "2025-06-27",
+          "planning_permission_granted": null,
+          "latitude": 53.138419,
+          "longitude": -0.8134645,
+          "development_repd_refs": [
+            "15149",
+            "15150"
+          ],
+          "planning_sibling_repd_refs": [
+            "15150"
+          ]
+        }
+      },
+      "news_metadata": {
+        "basis": "GOVERNMENT_PUBLICATION_METADATA_ONLY",
+        "source_url": "https://www.gov.uk/government/publications/great-north-road-solar-and-biodiversity-park-decision-on-application-for-development-consent-under-the-planning-act-2008",
+        "sha256": "0cb60fa34edcd600c1c344604034d934d9a97d857c4c17b598265f41beed9ee0",
+        "bytes": 70739,
+        "publisher": "Department for Energy Security and Net Zero",
+        "read_at": "2026-11-17T04:42:54.507100+00:00",
+        "published_at": "2026-10-27T00:00:00Z",
+        "published_at_original": "2026-10-27T00:00:00+00:00",
+        "publication_precision": "DAY",
+        "administrative_updated_at": "2026-11-16T11:01:08Z",
+        "administrative_update_is_new_decision": false,
+        "article_body_reviewed": false,
+        "headline_association": "NONE",
+        "publisher_content_rights": "NARROW_GOVERNMENT_FACTS_ONLY"
+      },
+      "claim": {
+        "type": "DEVELOPMENT_CONSENT_GRANTED_WITH_MODIFICATIONS",
+        "decision_date": "2026-10-27",
+        "planning_reference": "EN010162",
+        "statement": "The government decision for development EN010162 records consent granted with modifications on 27 October 2026. The displayed solar REPD15149 association is provisional within a solar and battery development; the frozen REPD status remains Application Submitted.",
+        "source_application_submitted": "2025-06-27",
+        "source_application_accepted": "2025-07-22",
+        "frozen_grant_date_already_matches_decision": false,
+        "development_scope": {
+          "scope": "WHOLE_DEVELOPMENT",
+          "gg_development_id": "GG2050-DEV-131D47580D8A59",
+          "display_solar_repd_ref": "15149",
+          "component_repd_refs": [
+            "15149",
+            "15150"
+          ],
+          "battery_component": {
+            "repd_ref": "15150",
+            "capacity_mw": null,
+            "energy_mwh": null
+          },
+          "exclusive_solar_claim": false,
+          "capacity_allocation_mw": null,
+          "full_source_record_count": 14967,
+          "full_identity_fixture_url": "https://raw.githubusercontent.com/Ventusltd/globalgrid2050/ba57b59447c4c7619262d440f6d4cac449dac8a2/uk_renewables_pipeline/202611132345/fixtures/2026q3/project_identity_2026q3.json",
+          "full_identity_fixture_sha256": "d0840c20bbf5a7b9b268c2631a844ec972ddae3040be353f1fac7e75d3dab5ad",
+          "planning_reference_unique_only_in_browser_scope": true
+        },
+        "capacity_context": {
+          "frozen_solar_row_reported_mw": 800.0,
+          "government_reported_mw": 800,
+          "government_reported_basis": "export/import and proposed gross-output description, not as-built output",
+          "government_reported_source_url": "https://nsip-documents.planninginspectorate.gov.uk/published-documents/EN010162-001340-Great%20North%20Road%20Solar%20and%20Biodiversity%20Park%20-%20SoS%20Decision%20letter%20-%2027%20October%202026.pdf",
+          "original_project_capacity_mw": null,
+          "final_project_capacity_mw": null,
+          "component_allocation_mw": null
+        },
+        "unknowns": {
+          "judicial_review_status": null,
+          "later_project_status": null,
+          "current_installed_capacity_mw": null,
+          "electrical_connection_status": null,
+          "commissioning_status": null,
+          "ownership_equivalence": null
+        }
+      }
+    }
+  },
+  {
+    "note_id": "PRIMARY-EN010159-001569-GRANT-20260708",
+    "catalogue": {
+      "schema": "globalgrid2050.primary-note-source-catalogue.v1",
+      "review": {
+        "status": "NARROW_GOVERNMENT_FACTS_REVIEWED",
+        "independent_review_at": "2026-11-17T04:58:25.027678+00:00",
+        "curated_at": "2026-11-17T05:12:23.048665Z",
+        "method": "Independent exact primary-source, canonical and licence review with ROOT-accepted development/HTML scope corrections; no publisher-wide grant"
+      },
+      "source": {
+        "url": "https://nsip-documents.planninginspectorate.gov.uk/published-documents/EN010159-001569-One%20Earth%20Solar%20Farm%20-%20Decision%20Letter%20-%20Redacted.pdf",
+        "sha256": "708b1f63e2a73517791b586480be6b3d549dfd6e903130f4948125707db4721b",
+        "bytes": 508646,
+        "retrieved_at": "2026-11-17T04:44:25.415976+00:00",
+        "headers": {
+          "Content-Type": "application/pdf",
+          "Last-Modified": "Wed, 08 Jul 2026 13:26:50 GMT",
+          "ETag": "0x8DEDCF491BE0B2A"
+        },
+        "id": "desnz-en010159-001569",
+        "author": "Department for Energy Security and Net Zero",
+        "authorship": "GOVERNMENT_DECISION_LETTER",
+        "document_date": "2026-07-08",
+        "document_stated_publication_date": "2026-07-08",
+        "allowed_claim": "DEVELOPMENT_CONSENT_GRANTED_WITH_MODIFICATIONS",
+        "planning_reference": "EN010159",
+        "locators": {
+          "decision": "page4 paragraphs3.1–3.2",
+          "application_date": "paragraph 1.1, page 1"
+        },
+        "project_url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN010159",
+        "project_url_scope": "Government project navigation; whole development, not a verified component identity",
+        "government_applicant": "One Earth Solar Farm Limited",
+        "corroboration": {
+          "url": "https://www.gov.uk/government/publications/one-earth-solar-farm-development-consent-order-planning-act-2008",
+          "sha256": "0133ae81c514b40795ede717d4f34949b9ec773da2fab80ab638b8d81c0d638d",
+          "bytes": 70030,
+          "retrieved_at": "2026-11-17T04:42:54.382796+00:00",
+          "headers": {
+            "Content-Type": "text/html; charset=utf-8",
+            "Last-Modified": null,
+            "ETag": "W/\"0133ae81c514b40795ede717d4f34949\""
+          }
+        }
+      },
+      "rights": {
+        "status": "REVIEWED_NARROW_OGL_FACT_PARAPHRASE",
+        "scope": "GOVERNMENT_AUTHORED_DECISION_FACTS_ONLY",
+        "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+        "attribution": "Contains public sector information licensed under the Open Government Licence v3.0.",
+        "exclusions": [
+          "Third-party and applicant documents, maps and photographs",
+          "Personal information",
+          "Standalone departmental logos and crests",
+          "Official endorsement"
+        ],
+        "terms_receipts": [
+          {
+            "url": "https://www.gov.uk/help/terms-conditions",
+            "bytes": 80624,
+            "sha256": "3341846c2c7f9581cdfd3fbce0c3f8b440f34f9f918f136574adf20d96389fa6",
+            "retrieved_at": "2026-11-17T04:42:54.660958+00:00"
+          },
+          {
+            "url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/terms-and-conditions",
+            "bytes": 74533,
+            "sha256": "1df62b52ec295788bc670da9b0f03c79f0843acfd33d3d70bb2e04988e65bac6",
+            "retrieved_at": "2026-11-17T04:42:54.737190+00:00"
+          },
+          {
+            "url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+            "bytes": 10450,
+            "sha256": "f5b2b9f2af63647cde889fa6c3508f5705925295b74912c68caa28dd37e64aa5",
+            "retrieved_at": "2026-11-17T04:42:54.831040+00:00"
+          }
+        ],
+        "review_limit": "Only selected government-authored facts and exact receipts reviewed; no publisher/domain licence. Public HTML only for EN010157; no additional PDF-derived qualifiers."
+      },
+      "canonical": {
+        "edition": "202611170324",
+        "expected_population": 7775,
+        "partition": "data/v9.1/projects/part-001.json",
+        "partition_sha256": "1dec5e14cb05d5d47a3543d66a8970a5dc6e74e3cd444c1471befba2fad0a2aa",
+        "fields": {
+          "repd_ref": "14806",
+          "gg_project_id": "GG2050-REPD-14806",
+          "gg_development_id": "GG2050-DEV-8F9657E39A19E7",
+          "planning_application_reference": "EN010159",
+          "name": "One Earth Solar Farm",
+          "operator": "Orsted UK Limited & PS Renewables",
+          "county": "Nottinghamshire",
+          "country": "England",
+          "technology": "solar",
+          "capacity_known": true,
+          "capacity_mw": 740.0,
+          "status": "Awaiting Construction",
+          "repd_record_updated": "2026-07-13",
+          "planning_application_submitted": "2025-02-27",
+          "planning_permission_granted": "2026-07-08",
+          "latitude": 53.2226387,
+          "longitude": -0.7935386,
+          "development_repd_refs": [
+            "14806",
+            "14807"
+          ],
+          "planning_sibling_repd_refs": [
+            "14807"
+          ]
+        }
+      },
+      "news_metadata": {
+        "basis": "GOVERNMENT_PUBLICATION_METADATA_ONLY",
+        "source_url": "https://www.gov.uk/government/publications/one-earth-solar-farm-development-consent-order-planning-act-2008",
+        "sha256": "0133ae81c514b40795ede717d4f34949b9ec773da2fab80ab638b8d81c0d638d",
+        "bytes": 70030,
+        "publisher": "Department for Energy Security and Net Zero",
+        "read_at": "2026-11-17T04:42:54.382796+00:00",
+        "published_at": "2026-07-08T13:44:38Z",
+        "published_at_original": "2026-07-08T14:44:38+01:00",
+        "publication_precision": "RECORDED_METADATA_TIMESTAMP",
+        "administrative_updated_at": "2026-11-16T11:01:04Z",
+        "administrative_update_is_new_decision": false,
+        "article_body_reviewed": false,
+        "headline_association": "NONE",
+        "publisher_content_rights": "NARROW_GOVERNMENT_FACTS_ONLY"
+      },
+      "claim": {
+        "type": "DEVELOPMENT_CONSENT_GRANTED_WITH_MODIFICATIONS",
+        "decision_date": "2026-07-08",
+        "planning_reference": "EN010159",
+        "statement": "The government decision for development EN010159 records consent granted with modifications on 8 July 2026. The displayed solar REPD14806 association is provisional within a solar and battery development; the frozen REPD status remains Awaiting Construction. This adds primary provenance to the existing frozen grant date, not a new status change.",
+        "source_application_submitted": "2025-02-27",
+        "source_application_accepted": "2025-03-27",
+        "frozen_grant_date_already_matches_decision": true,
+        "development_scope": {
+          "scope": "WHOLE_DEVELOPMENT",
+          "gg_development_id": "GG2050-DEV-8F9657E39A19E7",
+          "display_solar_repd_ref": "14806",
+          "component_repd_refs": [
+            "14806",
+            "14807"
+          ],
+          "battery_component": {
+            "repd_ref": "14807",
+            "capacity_mw": null,
+            "energy_mwh": null
+          },
+          "exclusive_solar_claim": false,
+          "capacity_allocation_mw": null,
+          "full_source_record_count": 14967,
+          "full_identity_fixture_url": "https://raw.githubusercontent.com/Ventusltd/globalgrid2050/ba57b59447c4c7619262d440f6d4cac449dac8a2/uk_renewables_pipeline/202611132345/fixtures/2026q3/project_identity_2026q3.json",
+          "full_identity_fixture_sha256": "d0840c20bbf5a7b9b268c2631a844ec972ddae3040be353f1fac7e75d3dab5ad",
+          "planning_reference_unique_only_in_browser_scope": true
+        },
+        "capacity_context": {
+          "frozen_solar_row_reported_mw": 740.0,
+          "government_reported_mw": 740,
+          "government_reported_basis": "proposed generation/export to High Marnham, not as-built or current operational output",
+          "government_reported_source_url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/document/EN010159-001569",
+          "original_project_capacity_mw": null,
+          "final_project_capacity_mw": null,
+          "component_allocation_mw": null
+        },
+        "unknowns": {
+          "judicial_review_status": null,
+          "later_project_status": null,
+          "current_installed_capacity_mw": null,
+          "electrical_connection_status": null,
+          "commissioning_status": null,
+          "ownership_equivalence": null
+        }
+      }
+    }
+  },
+  {
+    "note_id": "PRIMARY-EN010157-GOVHTML-GRANT-20260702",
+    "catalogue": {
+      "schema": "globalgrid2050.primary-note-source-catalogue.v1",
+      "review": {
+        "status": "NARROW_GOVERNMENT_FACTS_REVIEWED",
+        "independent_review_at": "2026-11-17T04:58:25.027678+00:00",
+        "curated_at": "2026-11-17T05:12:23.048665Z",
+        "method": "Independent exact primary-source, canonical and licence review with ROOT-accepted development/HTML scope corrections; no publisher-wide grant"
+      },
+      "source": {
+        "url": "https://www.gov.uk/government/news/peartree-hill-solar-farm-development-consent-decision-announced",
+        "sha256": "cd73d7ae85c164ba53895f2326ffbb2f8ced9f08922e801cefdcc4fbb35c233f",
+        "bytes": 68652,
+        "retrieved_at": "2026-11-17T04:42:54.526563+00:00",
+        "headers": {
+          "Content-Type": "text/html; charset=utf-8",
+          "Last-Modified": null,
+          "ETag": "W/\"cd73d7ae85c164ba53895f2326ffbb2f\""
+        },
+        "id": "pins-en010157-consent-html",
+        "author": "Planning Inspectorate",
+        "authorship": "GOVERNMENT_PUBLIC_ANNOUNCEMENT",
+        "document_date": "2026-07-02",
+        "document_stated_publication_date": "2026-07-02",
+        "allowed_claim": "DEVELOPMENT_CONSENT_GRANTED",
+        "planning_reference": "EN010157",
+        "locators": {
+          "decision": "public DESNZ decision Details/Date of decision and PINS government announcement",
+          "application_date": "Public PINS announcement application/examination paragraph"
+        },
+        "project_url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN010157",
+        "project_url_scope": "Government project navigation; whole development, not a verified component identity",
+        "government_applicant": "RWE Renewables UK Solar and Storage Limited",
+        "corroboration": {
+          "url": "https://www.gov.uk/government/publications/peartree-hill-solar-farm-development-consent-order-planning-act-2008",
+          "sha256": "a8cbae9e5d6ae8d7e75e7f07504fa2b8b04bd470b272ec8b6e5619b601ca2667",
+          "bytes": 70162,
+          "retrieved_at": "2026-11-17T04:42:54.376387+00:00",
+          "headers": {
+            "Content-Type": "text/html; charset=utf-8",
+            "Last-Modified": null,
+            "ETag": "W/\"a8cbae9e5d6ae8d7e75e7f07504fa2b8\""
+          }
+        }
+      },
+      "rights": {
+        "status": "REVIEWED_NARROW_OGL_FACT_PARAPHRASE",
+        "scope": "GOVERNMENT_AUTHORED_DECISION_FACTS_ONLY",
+        "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+        "attribution": "Contains public sector information licensed under the Open Government Licence v3.0.",
+        "exclusions": [
+          "Third-party and applicant documents, maps and photographs",
+          "Personal information",
+          "Standalone departmental logos and crests",
+          "Official endorsement"
+        ],
+        "terms_receipts": [
+          {
+            "url": "https://www.gov.uk/help/terms-conditions",
+            "bytes": 80624,
+            "sha256": "3341846c2c7f9581cdfd3fbce0c3f8b440f34f9f918f136574adf20d96389fa6",
+            "retrieved_at": "2026-11-17T04:42:54.660958+00:00"
+          },
+          {
+            "url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/terms-and-conditions",
+            "bytes": 74533,
+            "sha256": "1df62b52ec295788bc670da9b0f03c79f0843acfd33d3d70bb2e04988e65bac6",
+            "retrieved_at": "2026-11-17T04:42:54.737190+00:00"
+          },
+          {
+            "url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+            "bytes": 10450,
+            "sha256": "f5b2b9f2af63647cde889fa6c3508f5705925295b74912c68caa28dd37e64aa5",
+            "retrieved_at": "2026-11-17T04:42:54.831040+00:00"
+          }
+        ],
+        "review_limit": "Only selected government-authored facts and exact receipts reviewed; no publisher/domain licence. Public HTML only for EN010157; no additional PDF-derived qualifiers."
+      },
+      "canonical": {
+        "edition": "202611170324",
+        "expected_population": 7775,
+        "partition": "data/v9.1/projects/part-001.json",
+        "partition_sha256": "1dec5e14cb05d5d47a3543d66a8970a5dc6e74e3cd444c1471befba2fad0a2aa",
+        "fields": {
+          "repd_ref": "15000",
+          "gg_project_id": "GG2050-REPD-15000",
+          "gg_development_id": "GG2050-DEV-3F6A51011B5DEE",
+          "planning_application_reference": "EN010157",
+          "name": "Peartree Hill Solar Farm",
+          "operator": "JBM Solar & RWE",
+          "county": "East Riding of Yorkshire",
+          "country": "England",
+          "technology": "solar",
+          "capacity_known": true,
+          "capacity_mw": 320.0,
+          "status": "Awaiting Construction",
+          "repd_record_updated": "2026-07-13",
+          "planning_application_submitted": "2025-02-21",
+          "planning_permission_granted": "2026-07-02",
+          "latitude": 53.8393664,
+          "longitude": -0.3337064,
+          "development_repd_refs": [
+            "15000",
+            "15001"
+          ],
+          "planning_sibling_repd_refs": [
+            "15001"
+          ]
+        }
+      },
+      "news_metadata": {
+        "basis": "GOVERNMENT_PUBLICATION_METADATA_ONLY",
+        "source_url": "https://www.gov.uk/government/news/peartree-hill-solar-farm-development-consent-decision-announced",
+        "sha256": "cd73d7ae85c164ba53895f2326ffbb2f8ced9f08922e801cefdcc4fbb35c233f",
+        "bytes": 68652,
+        "publisher": "Planning Inspectorate",
+        "read_at": "2026-11-17T04:42:54.526563+00:00",
+        "published_at": "2026-07-02T13:16:00Z",
+        "published_at_original": "2026-07-02T14:16:00+01:00",
+        "publication_precision": "RECORDED_METADATA_TIMESTAMP",
+        "administrative_updated_at": "2026-09-28T13:57:32Z",
+        "administrative_update_is_new_decision": false,
+        "article_body_reviewed": false,
+        "headline_association": "NONE",
+        "publisher_content_rights": "NARROW_GOVERNMENT_FACTS_ONLY"
+      },
+      "claim": {
+        "type": "DEVELOPMENT_CONSENT_GRANTED",
+        "decision_date": "2026-07-02",
+        "planning_reference": "EN010157",
+        "statement": "The government decision for development EN010157 records consent granted on 2 July 2026. The displayed solar REPD15000 association is provisional within a solar and battery development; the frozen REPD status remains Awaiting Construction. This adds primary provenance to the existing frozen grant date, not a new status change.",
+        "source_application_submitted": "2025-02-21",
+        "source_application_accepted": "2025-03-21",
+        "frozen_grant_date_already_matches_decision": true,
+        "development_scope": {
+          "scope": "WHOLE_DEVELOPMENT",
+          "gg_development_id": "GG2050-DEV-3F6A51011B5DEE",
+          "display_solar_repd_ref": "15000",
+          "component_repd_refs": [
+            "15000",
+            "15001"
+          ],
+          "battery_component": {
+            "repd_ref": "15001",
+            "capacity_mw": null,
+            "energy_mwh": null
+          },
+          "exclusive_solar_claim": false,
+          "capacity_allocation_mw": null,
+          "full_source_record_count": 14967,
+          "full_identity_fixture_url": "https://raw.githubusercontent.com/Ventusltd/globalgrid2050/ba57b59447c4c7619262d440f6d4cac449dac8a2/uk_renewables_pipeline/202611132345/fixtures/2026q3/project_identity_2026q3.json",
+          "full_identity_fixture_sha256": "d0840c20bbf5a7b9b268c2631a844ec972ddae3040be353f1fac7e75d3dab5ad",
+          "planning_reference_unique_only_in_browser_scope": true
+        },
+        "capacity_context": {
+          "frozen_solar_row_reported_mw": 320.0,
+          "government_reported_mw": 320,
+          "government_reported_basis": "up-to generating-capacity description, not as-built or BESS energy capacity",
+          "government_reported_source_url": "https://www.gov.uk/government/publications/peartree-hill-solar-farm-development-consent-order-planning-act-2008",
+          "original_project_capacity_mw": null,
+          "final_project_capacity_mw": null,
+          "component_allocation_mw": null
+        },
+        "unknowns": {
+          "judicial_review_status": null,
+          "later_project_status": null,
+          "current_installed_capacity_mw": null,
+          "electrical_connection_status": null,
+          "commissioning_status": null,
+          "ownership_equivalence": null
+        }
+      }
+    }
+  }
+]);

@@ -60,6 +60,8 @@ jobs:
       - name: Native Node component contracts
         run: node --test automation/news/datacentre-ui/tests/*.test.cjs automation/news/context-ui/adapter.test.mjs
       - name: Full canonical data, original MAP links and actual package budget
+        env:
+          V928_BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: node automation/v928_preview/invariants.mjs
       - name: Formal V9.28 source and rebuilt data runner on Linux
         run: bash uk_renewables_pipeline/202611161757/tests/run_v9_28.sh

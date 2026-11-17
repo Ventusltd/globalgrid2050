@@ -19,13 +19,38 @@ RESEARCH_MIGRATIONS = [
     {"id": feature, "from": "202611161747", "contract": "research-priority-internal-v1"}
     for feature in ("inline-research-priority", "source-bound-priority")
 ]
-KNOWN_MIGRATIONS = [SOLAR_MIGRATION, NEWS_MIGRATION, *RESEARCH_MIGRATIONS, GLOBAL_DC_MIGRATION]
+NEON_MIGRATIONS = [{"id": feature, "from": "202611171507", "contract": "ticker-neon-v940-v1"}
+                   for feature in ("v936-ticker-contract", "v936-ticker-bounded-static")]
+KNOWN_MIGRATIONS = [SOLAR_MIGRATION, NEWS_MIGRATION, *RESEARCH_MIGRATIONS, GLOBAL_DC_MIGRATION, *NEON_MIGRATIONS]
 MIGRATION_FLAGS = {
     "solar1000-inline-v1": [SOLAR_MIGRATION],
     "news-priority-internal-v1": [NEWS_MIGRATION],
     "research-priority-internal-v1": RESEARCH_MIGRATIONS,
     "global-dc-ui-v928-v1": [GLOBAL_DC_MIGRATION],
+    "ticker-neon-v940-v1": NEON_MIGRATIONS,
 }
+
+
+def _ticker_neon(folder, source):
+    """Explicit owner presentation replacement; historical static feature stays intact."""
+    failures = []
+    contract = json.loads((folder / "contracts/ticker.v940.json").read_text(encoding="utf-8"))
+    if contract.get("schema") != "globalgrid2050.neon-headline-ticker.v940" or contract.get("limit") != 100:
+        failures.append("invalid moving ticker contract")
+    shared = folder.parents[1] / "automation/ticker_neon_ui/20261117-v940"
+    hashes = contract.get("shared_sha256", {})
+    if set(hashes) != {"ticker.mjs", "header.mjs", "styles.css"}:
+        failures.append("incomplete shared successor pins")
+    for name, digest in hashes.items():
+        if name not in {"ticker.mjs", "header.mjs", "styles.css"} or hashlib.sha256((shared / name).read_bytes()).hexdigest() != digest:
+            failures.append("changed shared ticker/header bytes")
+    if data_digest(folder) != data_digest(source) or (folder / "scripts/layers/model.mjs").read_bytes() != (source / "scripts/layers/model.mjs").read_bytes():
+        failures.append("changed inherited source data or headline selection policy")
+    binding = "import {latestHeadlines} from './model.mjs';\nimport {createTickerRenderer} from '../../../../automation/ticker_neon_ui/20261117-v940/ticker.mjs';\nexport const renderTicker=createTickerRenderer(latestHeadlines);\n"
+    if (folder / "scripts/layers/ticker.mjs").read_text(encoding="utf-8") != binding:
+        failures.append("missing shared ticker binding")
+    probe = "(()=>{const t=document.querySelector('#headlineTicker'),q=document.querySelector('.pn-news-header-search input'),c=t?.querySelector('.pn-ticker-copy');return !!q&&q.closest('.masthead')&&t.querySelectorAll('input,button').length===0&&t.querySelectorAll('ul').length===1&&!!c&&c.hasAttribute('inert')&&c.getAttribute('aria-hidden')==='true'&&c.querySelectorAll('a,[tabindex]').length===0;})()"
+    return failures, [{"name": "V9.40 singular main header query and one semantic ticker list", "selector": "#headlineTicker", "js": probe}]
 INTERNAL_PRIORITY_IDS = {NEWS_MIGRATION["id"], *(m["id"] for m in RESEARCH_MIGRATIONS)}
 DC_PINS = {
     "projects.json": "faf617d9979151b7d309554cb1cd59d343f70b9d60616f90db45e5c2a227d449",
@@ -292,7 +317,8 @@ def check_features(version, by_id, pipeline):
                 validator = {"solar1000-inline-v1": _solar_inline,
                              "news-priority-internal-v1": _news_internal,
                              "research-priority-internal-v1": _research_internal,
-                             "global-dc-ui-v928-v1": _global_dc_ui}[migration["contract"]]
+                             "global-dc-ui-v928-v1": _global_dc_ui,
+                             "ticker-neon-v940-v1": _ticker_neon}[migration["contract"]]
                 faults, runtime = validator(folder, pipeline / migration["from"])
                 probes.extend(runtime)
             except (OSError, ValueError, KeyError, TypeError, AttributeError) as exc:

@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import {createHash} from 'node:crypto';
+import {latestHeadlines} from '../../uk_renewables_pipeline/202611171710/scripts/layers/model.mjs';
+import {protectedEditionChanges} from '../pipeline_release/edition_history.mjs';
+const root=path.resolve(import.meta.dirname,'../..'),current=path.join(root,'uk_renewables_pipeline/202611171710'),parent=path.join(root,'uk_renewables_pipeline/202611171609'),hash=p=>createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+test('canonical data/news/Solar files and selector policy remain byte-identical',()=>{let checked=0;for(const dir of ['data','news','solar1000']){const base=path.join(parent,dir);if(!fs.existsSync(base))continue;function walk(p){for(const f of fs.readdirSync(p,{withFileTypes:true})){const file=path.join(p,f.name);if(f.isDirectory())walk(file);else{assert.equal(hash(file),hash(path.join(current,path.relative(parent,file))));checked++;}}}walk(base);}assert.ok(checked>=54);assert.equal(hash(path.join(parent,'scripts/layers/model.mjs')),hash(path.join(current,'scripts/layers/model.mjs')));});
+test('safe source policy retains cap, attribution, null dates and hostile URL refusals',()=>{const items=Array.from({length:105},(_,i)=>({title:'Headline '+i,source:'Original publisher',link:'https://publisher.example/'+i,date:'2026-11-17T10:00:00Z'}));assert.equal(latestHeadlines(items).length,100);for(const bad of [{link:'javascript:alert(1)'},{date:'2050-01-01'},{date:'2026-02-30'},{date:null,first_seen:null}])assert.equal(latestHeadlines([{...items[0],...bad}]).length,0);});
+test('exact shared successor and historical editions are pinned',()=>{const c=JSON.parse(fs.readFileSync(path.join(current,'contracts/ticker.v940.json')));for(const [name,sha]of Object.entries(c.shared_sha256))assert.equal(hash(path.join(root,'automation/ticker_neon_ui/20261117-v940',name)),sha);assert.deepEqual(protectedEditionChanges({cwd:root,base:'3a3106e248131f6e430c1ea03b4858d659755303'}),[]);});

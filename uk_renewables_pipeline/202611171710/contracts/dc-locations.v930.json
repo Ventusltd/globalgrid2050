@@ -1,0 +1,54 @@
+{
+  "schema": "globalgrid2050.dc-location-cartridge.v1",
+  "producer": {
+    "repository": "Ventusltd/globalgrid2050",
+    "commit": "83e7c36d08ef98f3665f7f35b8637405391dc4be",
+    "pull_request": 140
+  },
+  "files": {
+    "actions.mjs": {
+      "bytes": 13372,
+      "sha256": "eb9ebbe45e174e405daf8189de5a810627adfde5876f53f3eac698e7553ad1f0",
+      "git_blob": "5c9630a830a942b660d8422b5ebd8a50956d5378",
+      "source_path": "automation/news/dc-locations/actions.mjs"
+    },
+    "actions.css": {
+      "bytes": 1261,
+      "sha256": "0af86f6ac75651a0bed54096ccab403e7abb5cb58b023238dc79e58b8a3ca039",
+      "git_blob": "dbdb84fdead5cd26d9f55b4e69bc026a39e80679",
+      "source_path": "automation/news/dc-locations/actions.css"
+    }
+  },
+  "input": {
+    "url": "https://raw.githubusercontent.com/Ventusltd/data-grid-gb/b33190f2a95a2046e108c2ba465c6a9195759892/datacentres/locations/data/20261117T002200Z/datacentre-locations.geojson",
+    "sha256": "6f68e078d9b57057acdda679288730e638553f68df884dfd747c5049e56ea88e",
+    "bytes": 183561
+  },
+  "expected": {
+    "records": 100,
+    "with_address": 38,
+    "address_statements": 39,
+    "with_geometry": 64,
+    "wikidata_reported_points": 39,
+    "postcode_centroids": 25,
+    "unknown_geometry": 36,
+    "screenable_gb_records": 34
+  },
+  "capabilities": {
+    "reported_addresses": true,
+    "uk_vicinity_screening": true,
+    "global_grid_screening": false,
+    "facility_identity_verified": false,
+    "grid_connection_assessed": false,
+    "capacity_assessed": false
+  },
+  "fallback": "Original Data Centre records and MAP links remain usable if this optional cartridge or source fails.",
+  "rights": {
+    "addresses_and_wikidata_geometry": "CC0-1.0; retain original statement revisions and qualifications",
+    "postcode_geometry": "OS OpenData / Postcodes.io terms with per-geometry attribution; approximate GB postcode locations; BT withheld",
+    "terms": [
+      "https://www.wikidata.org/wiki/Wikidata:Copyright",
+      "https://postcodes.io/docs/licences/"
+    ]
+  }
+}

@@ -1,0 +1,1433 @@
+{
+  "schema": "globalgrid2050.pipeline-publication-receipt.v1",
+  "version": "V9.33",
+  "edition": "202611170512",
+  "status": "PUBLISHED_VERIFIED",
+  "verified_at": "2026-11-17T07:35:33.909183+00:00",
+  "prepared_at": "2026-11-17T07:10:42.600902+00:00",
+  "release_count": 6,
+  "source": {
+    "commit": "e68a760bf41e98167cf5f3e86de474ed9e7bcfda",
+    "pull_request": 152,
+    "merge": "d5efb809ab4d777ca40cbcb09b86a8593b4f54ab",
+    "edition_tree": "c1b03811671b8dfa221a9b4380adec1fbe10602c",
+    "index_sha256": "15798f1d78f915b360973a4fa53622816a3c57a5a3f0ec915fd900f0ebc5c21d"
+  },
+  "publication": {
+    "owner_pull_request": 26,
+    "owner_head": "e007b2b2780206058b897501445fd99d9e55fd7b",
+    "owner_merge": "68420d1e9e08573273d2a11bbcfc71f798a032a8",
+    "actual_pinned_owner": "e007b2b2780206058b897501445fd99d9e55fd7b",
+    "publisher_pull_request": 153,
+    "publisher_head": "75f9f5db1c416fe9d6417bd4bda4352f5b076726",
+    "publisher_merge": "47a83e170d12f4f116735d7fb34065d23dc81db7",
+    "final_deployment": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44033072150",
+    "final_deployment_all_five_jobs": "SUCCESS",
+    "root_bytes": 56014,
+    "root_sha256": "eea6ac1bf40b1069e022881a36f10dd0573c60b7f3d12d416911f85126e4832f",
+    "owner_source_index_sha256": "f1af69d6990f0af0043652dc9522e90026e1f77ff6470f55714e4e6858df1d02",
+    "root_ui_status": "PASS",
+    "catalogue_deployment": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44039058256",
+    "catalogue_deployment_all_five_jobs": "SUCCESS"
+  },
+  "ci": {
+    "targeted": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44029902385",
+    "legacy_v932": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44029902555",
+    "history": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44029902211",
+    "evidence": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44029902215",
+    "size": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44029902343",
+    "language": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44029902303",
+    "source_deployment": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44030960003",
+    "final_deployment": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44033072150",
+    "source_checks": "https://github.com/Ventusltd/globalgrid2050/pull/152/checks",
+    "owner_checks": "https://github.com/Ventusltd/globalgrid2050-homepage/pull/26/checks",
+    "publisher_checks": "https://github.com/Ventusltd/globalgrid2050/pull/153/checks",
+    "ledger_failure": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44030960209",
+    "ledger_repair": "https://github.com/Ventusltd/globalgrid2050/pull/154",
+    "ledger_repair_history": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44036678977",
+    "ledger_writer": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44037950817"
+  },
+  "primary_note": {
+    "association": "PROVISIONAL",
+    "association_count": 4,
+    "verified_count": 0,
+    "solar1000_verified_delta": 0,
+    "donor": "f421513f7cbd85ad45727ef236e053a6c67f92d9"
+  },
+  "primary_notes": [
+    {
+      "repd_ref": "12588",
+      "planning_reference": "EN010147",
+      "association": "PROVISIONAL",
+      "decision": "DEVELOPMENT_CONSENT_REFUSED",
+      "decision_date": "2026-11-10",
+      "source": {
+        "url": "https://nsip-documents.planninginspectorate.gov.uk/published-documents/EN010147-002440-Botley%20West%20Solar%20Farm%20-%20Secretary%20of%20State%20for%20Energy%20Security%20and%20Net%20Zero%20Decision%20Letter.pdf",
+        "author": "Department for Energy Security and Net Zero",
+        "authorship": "GOVERNMENT_DECISION_LETTER",
+        "bytes": 1247918,
+        "sha256": "335eff9eed9c8e32658fe70186d2f02f4bf82a92ffbed1eaa835ac7ced0f857e",
+        "retrieved_at": "2026-11-17T02:08:14.252676+00:00",
+        "document_date": "2026-11-10",
+        "document_stated_publication_date": "2026-11-10",
+        "locators": {
+          "decision": "paragraph 3.9, page 5",
+          "application_date": "paragraph 1.1, page 1",
+          "original_proposal": "paragraph 1.9, page 2",
+          "later_capacity_uncertainty": "paragraph 4.14, page 8",
+          "publication": "Annex A, page 114"
+        }
+      },
+      "government_publication": {
+        "date": "2026-11-10",
+        "precision": "SOURCE_DOCUMENT_DATE"
+      },
+      "government_submission_date": "2024-11-14",
+      "government_acceptance_date": null,
+      "frozen_repd_status": "Application Submitted",
+      "frozen_repd_submission_date": "2024-11-15",
+      "frozen_solar_baseline_mw": 840,
+      "capacity_context": {
+        "original_application_repd_baseline_mw": 840,
+        "basis": "ORIGINAL_APPLICATION_AND_FROZEN_REPD_BASELINE",
+        "later_reduction_reported": true,
+        "final_reduced_capacity_mw": null
+      },
+      "unknowns": {
+        "judicial_review_status": null,
+        "later_project_status": null,
+        "current_installed_capacity_mw": null,
+        "electrical_connection_status": null
+      },
+      "rights": {
+        "status": "REVIEWED_NARROW_OGL_FACT_PARAPHRASE",
+        "scope": "GOVERNMENT_AUTHORED_DECISION_FACTS_ONLY",
+        "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+        "attribution": "Contains public sector information licensed under the Open Government Licence v3.0.",
+        "exclusions": [
+          "Third-party and applicant documents, maps and photographs",
+          "Personal information",
+          "Standalone departmental logos and crests",
+          "Official endorsement"
+        ],
+        "terms_receipts": [
+          {
+            "url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/terms-and-conditions",
+            "bytes": 74533,
+            "sha256": "6b64ce231a8a7bd91860fa4eb0a1d0109acf4174c0eb814c1090b48f3af95733",
+            "retrieved_at": "2026-11-17T02:14:30.331250+00:00"
+          },
+          {
+            "url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+            "bytes": 10450,
+            "sha256": "f5b2b9f2af63647cde889fa6c3508f5705925295b74912c68caa28dd37e64aa5",
+            "retrieved_at": "2026-11-17T02:14:30.443798+00:00"
+          }
+        ],
+        "review_limit": "Terms reviewed from supplied original HTML and exact receipt hashes; independent fresh web reader could not open those terms pages. Fresh primary PDF bytes were independently matched."
+      },
+      "article_body_reviewed": false,
+      "donor": "f421513f7cbd85ad45727ef236e053a6c67f92d9",
+      "headline_publication": "2026-11-11T12:29:34Z",
+      "headline_url": "https://www.solarpowerportal.co.uk/solar-planning/uk-government-refuses-840mw-botley-west-solar-farm-in-first-ever-solar-nsip-no",
+      "headline_publisher": "Solar Power Portal",
+      "publisher_content_rights": "NOT_ASSESSED"
+    },
+    {
+      "repd_ref": "14806",
+      "planning_reference": "EN010159",
+      "association": "PROVISIONAL",
+      "decision": "DEVELOPMENT_CONSENT_GRANTED_WITH_MODIFICATIONS",
+      "decision_date": "2026-07-08",
+      "source": {
+        "url": "https://nsip-documents.planninginspectorate.gov.uk/published-documents/EN010159-001569-One%20Earth%20Solar%20Farm%20-%20Decision%20Letter%20-%20Redacted.pdf",
+        "author": "Department for Energy Security and Net Zero",
+        "authorship": "GOVERNMENT_DECISION_LETTER",
+        "bytes": 508646,
+        "sha256": "708b1f63e2a73517791b586480be6b3d549dfd6e903130f4948125707db4721b",
+        "retrieved_at": "2026-11-17T04:44:25.415976+00:00",
+        "document_date": "2026-07-08",
+        "document_stated_publication_date": "2026-07-08",
+        "locators": {
+          "decision": "page4 paragraphs3.1–3.2",
+          "application_date": "paragraph 1.1, page 1"
+        }
+      },
+      "government_publication": {
+        "date": "2026-07-08",
+        "precision": "RECORDED_METADATA_TIMESTAMP",
+        "recorded_metadata_timestamp": "2026-07-08T13:44:38Z",
+        "administrative_updated_at": "2026-11-16T11:01:04Z",
+        "administrative_update_is_new_decision": false
+      },
+      "government_submission_date": "2025-02-27",
+      "government_acceptance_date": "2025-03-27",
+      "frozen_repd_status": "Awaiting Construction",
+      "frozen_repd_submission_date": "2025-02-27",
+      "frozen_solar_baseline_mw": 740,
+      "capacity_context": {
+        "frozen_solar_row_reported_mw": 740.0,
+        "government_reported_mw": 740,
+        "government_reported_basis": "proposed generation/export to High Marnham, not as-built or current operational output",
+        "government_reported_source_url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/document/EN010159-001569",
+        "original_project_capacity_mw": null,
+        "final_project_capacity_mw": null,
+        "component_allocation_mw": null
+      },
+      "unknowns": {
+        "judicial_review_status": null,
+        "later_project_status": null,
+        "current_installed_capacity_mw": null,
+        "electrical_connection_status": null,
+        "commissioning_status": null,
+        "ownership_equivalence": null
+      },
+      "rights": {
+        "status": "REVIEWED_NARROW_OGL_FACT_PARAPHRASE",
+        "scope": "GOVERNMENT_AUTHORED_DECISION_FACTS_ONLY",
+        "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+        "attribution": "Contains public sector information licensed under the Open Government Licence v3.0.",
+        "exclusions": [
+          "Third-party and applicant documents, maps and photographs",
+          "Personal information",
+          "Standalone departmental logos and crests",
+          "Official endorsement"
+        ],
+        "terms_receipts": [
+          {
+            "url": "https://www.gov.uk/help/terms-conditions",
+            "bytes": 80624,
+            "sha256": "3341846c2c7f9581cdfd3fbce0c3f8b440f34f9f918f136574adf20d96389fa6",
+            "retrieved_at": "2026-11-17T04:42:54.660958+00:00"
+          },
+          {
+            "url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/terms-and-conditions",
+            "bytes": 74533,
+            "sha256": "1df62b52ec295788bc670da9b0f03c79f0843acfd33d3d70bb2e04988e65bac6",
+            "retrieved_at": "2026-11-17T04:42:54.737190+00:00"
+          },
+          {
+            "url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+            "bytes": 10450,
+            "sha256": "f5b2b9f2af63647cde889fa6c3508f5705925295b74912c68caa28dd37e64aa5",
+            "retrieved_at": "2026-11-17T04:42:54.831040+00:00"
+          }
+        ],
+        "review_limit": "Only selected government-authored facts and exact receipts reviewed; no publisher/domain licence. Public HTML only for EN010157; no additional PDF-derived qualifiers."
+      },
+      "article_body_reviewed": false,
+      "donor": "f421513f7cbd85ad45727ef236e053a6c67f92d9",
+      "development_scope": {
+        "scope": "WHOLE_DEVELOPMENT",
+        "gg_development_id": "GG2050-DEV-8F9657E39A19E7",
+        "display_solar_repd_ref": "14806",
+        "component_repd_refs": [
+          "14806",
+          "14807"
+        ],
+        "battery_component": {
+          "repd_ref": "14807",
+          "capacity_mw": null,
+          "energy_mwh": null
+        },
+        "exclusive_solar_claim": false,
+        "capacity_allocation_mw": null,
+        "full_source_record_count": 14967,
+        "full_identity_fixture_url": "https://raw.githubusercontent.com/Ventusltd/globalgrid2050/ba57b59447c4c7619262d440f6d4cac449dac8a2/uk_renewables_pipeline/202611132345/fixtures/2026q3/project_identity_2026q3.json",
+        "full_identity_fixture_sha256": "d0840c20bbf5a7b9b268c2631a844ec972ddae3040be353f1fac7e75d3dab5ad",
+        "planning_reference_unique_only_in_browser_scope": true
+      },
+      "corporate_ownership_equivalence": null,
+      "government_applicant_and_frozen_operator_equivalence": "NOT_ESTABLISHED"
+    },
+    {
+      "repd_ref": "15000",
+      "planning_reference": "EN010157",
+      "association": "PROVISIONAL",
+      "decision": "DEVELOPMENT_CONSENT_GRANTED",
+      "decision_date": "2026-07-02",
+      "source": {
+        "url": "https://www.gov.uk/government/news/peartree-hill-solar-farm-development-consent-decision-announced",
+        "author": "Planning Inspectorate",
+        "authorship": "GOVERNMENT_PUBLIC_ANNOUNCEMENT",
+        "bytes": 68652,
+        "sha256": "cd73d7ae85c164ba53895f2326ffbb2f8ced9f08922e801cefdcc4fbb35c233f",
+        "retrieved_at": "2026-11-17T04:42:54.526563+00:00",
+        "document_date": "2026-07-02",
+        "document_stated_publication_date": "2026-07-02",
+        "locators": {
+          "decision": "public DESNZ decision Details/Date of decision and PINS government announcement",
+          "application_date": "Public PINS announcement application/examination paragraph"
+        }
+      },
+      "government_publication": {
+        "date": "2026-07-02",
+        "precision": "RECORDED_METADATA_TIMESTAMP",
+        "recorded_metadata_timestamp": "2026-07-02T13:16:00Z",
+        "administrative_updated_at": "2026-09-28T13:57:32Z",
+        "administrative_update_is_new_decision": false
+      },
+      "government_submission_date": "2025-02-21",
+      "government_acceptance_date": "2025-03-21",
+      "frozen_repd_status": "Awaiting Construction",
+      "frozen_repd_submission_date": "2025-02-21",
+      "frozen_solar_baseline_mw": 320,
+      "capacity_context": {
+        "frozen_solar_row_reported_mw": 320.0,
+        "government_reported_mw": 320,
+        "government_reported_basis": "up-to generating-capacity description, not as-built or BESS energy capacity",
+        "government_reported_source_url": "https://www.gov.uk/government/publications/peartree-hill-solar-farm-development-consent-order-planning-act-2008",
+        "original_project_capacity_mw": null,
+        "final_project_capacity_mw": null,
+        "component_allocation_mw": null
+      },
+      "unknowns": {
+        "judicial_review_status": null,
+        "later_project_status": null,
+        "current_installed_capacity_mw": null,
+        "electrical_connection_status": null,
+        "commissioning_status": null,
+        "ownership_equivalence": null
+      },
+      "rights": {
+        "status": "REVIEWED_NARROW_OGL_FACT_PARAPHRASE",
+        "scope": "GOVERNMENT_AUTHORED_DECISION_FACTS_ONLY",
+        "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+        "attribution": "Contains public sector information licensed under the Open Government Licence v3.0.",
+        "exclusions": [
+          "Third-party and applicant documents, maps and photographs",
+          "Personal information",
+          "Standalone departmental logos and crests",
+          "Official endorsement"
+        ],
+        "terms_receipts": [
+          {
+            "url": "https://www.gov.uk/help/terms-conditions",
+            "bytes": 80624,
+            "sha256": "3341846c2c7f9581cdfd3fbce0c3f8b440f34f9f918f136574adf20d96389fa6",
+            "retrieved_at": "2026-11-17T04:42:54.660958+00:00"
+          },
+          {
+            "url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/terms-and-conditions",
+            "bytes": 74533,
+            "sha256": "1df62b52ec295788bc670da9b0f03c79f0843acfd33d3d70bb2e04988e65bac6",
+            "retrieved_at": "2026-11-17T04:42:54.737190+00:00"
+          },
+          {
+            "url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+            "bytes": 10450,
+            "sha256": "f5b2b9f2af63647cde889fa6c3508f5705925295b74912c68caa28dd37e64aa5",
+            "retrieved_at": "2026-11-17T04:42:54.831040+00:00"
+          }
+        ],
+        "review_limit": "Only selected government-authored facts and exact receipts reviewed; no publisher/domain licence. Public HTML only for EN010157; no additional PDF-derived qualifiers."
+      },
+      "article_body_reviewed": false,
+      "donor": "f421513f7cbd85ad45727ef236e053a6c67f92d9",
+      "development_scope": {
+        "scope": "WHOLE_DEVELOPMENT",
+        "gg_development_id": "GG2050-DEV-3F6A51011B5DEE",
+        "display_solar_repd_ref": "15000",
+        "component_repd_refs": [
+          "15000",
+          "15001"
+        ],
+        "battery_component": {
+          "repd_ref": "15001",
+          "capacity_mw": null,
+          "energy_mwh": null
+        },
+        "exclusive_solar_claim": false,
+        "capacity_allocation_mw": null,
+        "full_source_record_count": 14967,
+        "full_identity_fixture_url": "https://raw.githubusercontent.com/Ventusltd/globalgrid2050/ba57b59447c4c7619262d440f6d4cac449dac8a2/uk_renewables_pipeline/202611132345/fixtures/2026q3/project_identity_2026q3.json",
+        "full_identity_fixture_sha256": "d0840c20bbf5a7b9b268c2631a844ec972ddae3040be353f1fac7e75d3dab5ad",
+        "planning_reference_unique_only_in_browser_scope": true
+      },
+      "corporate_ownership_equivalence": null,
+      "government_applicant_and_frozen_operator_equivalence": "NOT_ESTABLISHED"
+    },
+    {
+      "repd_ref": "15149",
+      "planning_reference": "EN010162",
+      "association": "PROVISIONAL",
+      "decision": "DEVELOPMENT_CONSENT_GRANTED_WITH_MODIFICATIONS",
+      "decision_date": "2026-10-27",
+      "source": {
+        "url": "https://nsip-documents.planninginspectorate.gov.uk/published-documents/EN010162-001340-Great%20North%20Road%20Solar%20and%20Biodiversity%20Park%20-%20SoS%20Decision%20letter%20-%2027%20October%202026.pdf",
+        "author": "Department for Energy Security and Net Zero",
+        "authorship": "GOVERNMENT_DECISION_LETTER",
+        "bytes": 351076,
+        "sha256": "7f6470094b19c378ca36a267ab01108e6092e4c3dc0e791cdf71d59128bbf74e",
+        "retrieved_at": "2026-11-17T04:43:42.248899+00:00",
+        "document_date": "2026-10-27",
+        "document_stated_publication_date": "2026-10-27",
+        "locators": {
+          "decision": "page3 paragraphs3.2–3.3",
+          "application_date": "paragraph 1.1, page 1"
+        }
+      },
+      "government_publication": {
+        "date": "2026-10-27",
+        "precision": "DAY",
+        "recorded_metadata_timestamp": null,
+        "administrative_updated_at": "2026-11-16T11:01:08Z",
+        "administrative_update_is_new_decision": false
+      },
+      "government_submission_date": "2025-06-27",
+      "government_acceptance_date": "2025-07-22",
+      "frozen_repd_status": "Application Submitted",
+      "frozen_repd_submission_date": "2025-06-27",
+      "frozen_solar_baseline_mw": 800,
+      "capacity_context": {
+        "frozen_solar_row_reported_mw": 800.0,
+        "government_reported_mw": 800,
+        "government_reported_basis": "export/import and proposed gross-output description, not as-built output",
+        "government_reported_source_url": "https://nsip-documents.planninginspectorate.gov.uk/published-documents/EN010162-001340-Great%20North%20Road%20Solar%20and%20Biodiversity%20Park%20-%20SoS%20Decision%20letter%20-%2027%20October%202026.pdf",
+        "original_project_capacity_mw": null,
+        "final_project_capacity_mw": null,
+        "component_allocation_mw": null
+      },
+      "unknowns": {
+        "judicial_review_status": null,
+        "later_project_status": null,
+        "current_installed_capacity_mw": null,
+        "electrical_connection_status": null,
+        "commissioning_status": null,
+        "ownership_equivalence": null
+      },
+      "rights": {
+        "status": "REVIEWED_NARROW_OGL_FACT_PARAPHRASE",
+        "scope": "GOVERNMENT_AUTHORED_DECISION_FACTS_ONLY",
+        "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+        "attribution": "Contains public sector information licensed under the Open Government Licence v3.0.",
+        "exclusions": [
+          "Third-party and applicant documents, maps and photographs",
+          "Personal information",
+          "Standalone departmental logos and crests",
+          "Official endorsement"
+        ],
+        "terms_receipts": [
+          {
+            "url": "https://www.gov.uk/help/terms-conditions",
+            "bytes": 80624,
+            "sha256": "3341846c2c7f9581cdfd3fbce0c3f8b440f34f9f918f136574adf20d96389fa6",
+            "retrieved_at": "2026-11-17T04:42:54.660958+00:00"
+          },
+          {
+            "url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/terms-and-conditions",
+            "bytes": 74533,
+            "sha256": "1df62b52ec295788bc670da9b0f03c79f0843acfd33d3d70bb2e04988e65bac6",
+            "retrieved_at": "2026-11-17T04:42:54.737190+00:00"
+          },
+          {
+            "url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+            "bytes": 10450,
+            "sha256": "f5b2b9f2af63647cde889fa6c3508f5705925295b74912c68caa28dd37e64aa5",
+            "retrieved_at": "2026-11-17T04:42:54.831040+00:00"
+          }
+        ],
+        "review_limit": "Only selected government-authored facts and exact receipts reviewed; no publisher/domain licence. Public HTML only for EN010157; no additional PDF-derived qualifiers."
+      },
+      "article_body_reviewed": false,
+      "donor": "f421513f7cbd85ad45727ef236e053a6c67f92d9",
+      "development_scope": {
+        "scope": "WHOLE_DEVELOPMENT",
+        "gg_development_id": "GG2050-DEV-131D47580D8A59",
+        "display_solar_repd_ref": "15149",
+        "component_repd_refs": [
+          "15149",
+          "15150"
+        ],
+        "battery_component": {
+          "repd_ref": "15150",
+          "capacity_mw": null,
+          "energy_mwh": null
+        },
+        "exclusive_solar_claim": false,
+        "capacity_allocation_mw": null,
+        "full_source_record_count": 14967,
+        "full_identity_fixture_url": "https://raw.githubusercontent.com/Ventusltd/globalgrid2050/ba57b59447c4c7619262d440f6d4cac449dac8a2/uk_renewables_pipeline/202611132345/fixtures/2026q3/project_identity_2026q3.json",
+        "full_identity_fixture_sha256": "d0840c20bbf5a7b9b268c2631a844ec972ddae3040be353f1fac7e75d3dab5ad",
+        "planning_reference_unique_only_in_browser_scope": true
+      },
+      "corporate_ownership_equivalence": null,
+      "government_applicant_and_frozen_operator_equivalence": "NOT_ESTABLISHED"
+    }
+  ],
+  "source_assets": [
+    {
+      "path": "uk_renewables_pipeline/202611170512/index.html",
+      "status": 200,
+      "source_sha256": "15798f1d78f915b360973a4fa53622816a3c57a5a3f0ec915fd900f0ebc5c21d",
+      "served_sha256": "15798f1d78f915b360973a4fa53622816a3c57a5a3f0ec915fd900f0ebc5c21d",
+      "mime": "text/html",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/styles/preview-v928.css",
+      "status": 200,
+      "source_sha256": "3a901207213ac382918e8d94ac519c5398ad06ca3a7d9a39bfd628a7c401c9c4",
+      "served_sha256": "3a901207213ac382918e8d94ac519c5398ad06ca3a7d9a39bfd628a7c401c9c4",
+      "mime": "text/css",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/scripts/plugins/layers-v929.mjs",
+      "status": 200,
+      "source_sha256": "ca5d6ff9b46a842304dc113ec6d3942b804fc0f669c48e5494e8eb9e048d5e97",
+      "served_sha256": "ca5d6ff9b46a842304dc113ec6d3942b804fc0f669c48e5494e8eb9e048d5e97",
+      "mime": "text/javascript",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/scripts/plugins/preview-v928.js",
+      "status": 200,
+      "source_sha256": "f4751ce4a9765e9120e77550fb49038228db7dfa1eeddea8bd7049e176b8b216",
+      "served_sha256": "f4751ce4a9765e9120e77550fb49038228db7dfa1eeddea8bd7049e176b8b216",
+      "mime": "application/javascript",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/scripts/plugins/live-news.js",
+      "status": 200,
+      "source_sha256": "9453be0fbe0bb3672ec4aabd48630f229d45f14b73b82cc19c8595c462a88eeb",
+      "served_sha256": "9453be0fbe0bb3672ec4aabd48630f229d45f14b73b82cc19c8595c462a88eeb",
+      "mime": "application/javascript",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/scripts/app-v9-8.js",
+      "status": 200,
+      "source_sha256": "060c0d46d84847b602a51cd4e985185a0014251c8cf17779d8f9dab9615f8f96",
+      "served_sha256": "060c0d46d84847b602a51cd4e985185a0014251c8cf17779d8f9dab9615f8f96",
+      "mime": "application/javascript",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/scripts/plugins/projects-v9-8.js",
+      "status": 200,
+      "source_sha256": "9ec22307957ccd16575045f107ec412d87f962f9e0e32e8874302d90711e456a",
+      "served_sha256": "9ec22307957ccd16575045f107ec412d87f962f9e0e32e8874302d90711e456a",
+      "mime": "application/javascript",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/data/v9.1/build_manifest.json",
+      "status": 200,
+      "source_sha256": "eb59fee0ab9bd4bf304cf7957755e69647038ad2360eabe680848d14e636c304",
+      "served_sha256": "eb59fee0ab9bd4bf304cf7957755e69647038ad2360eabe680848d14e636c304",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/solar1000/manifest.json",
+      "status": 200,
+      "source_sha256": "c625edbb9c471a1e9a9034a1afe99881fbfabb1fcadcf0623355931f5b6aed1f",
+      "served_sha256": "c625edbb9c471a1e9a9034a1afe99881fbfabb1fcadcf0623355931f5b6aed1f",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/solar1000/candidates.json",
+      "status": 200,
+      "source_sha256": "cf8842fc6c8c4a124e3c375d225a0af2f8f8eb4972487acff98fe37283aa88b0",
+      "served_sha256": "cf8842fc6c8c4a124e3c375d225a0af2f8f8eb4972487acff98fe37283aa88b0",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/news/snapshot-provenance.json",
+      "status": 200,
+      "source_sha256": "e9a1f1dc3a5f768cdeffdb8b72f055eaa4ef558b8c5d6f203aeff9ed04a7527a",
+      "served_sha256": "e9a1f1dc3a5f768cdeffdb8b72f055eaa4ef558b8c5d6f203aeff9ed04a7527a",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/scripts/plugins/dc-locations-v930.mjs",
+      "status": 200,
+      "source_sha256": "c63c1ca5e7db6e33d8110d36bc5f63bf0ae5c72d8276195d8bfaf4f5e469b473",
+      "served_sha256": "c63c1ca5e7db6e33d8110d36bc5f63bf0ae5c72d8276195d8bfaf4f5e469b473",
+      "mime": "text/javascript",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/global-datacentres/projects.json",
+      "status": 200,
+      "source_sha256": "faf617d9979151b7d309554cb1cd59d343f70b9d60616f90db45e5c2a227d449",
+      "served_sha256": "faf617d9979151b7d309554cb1cd59d343f70b9d60616f90db45e5c2a227d449",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "automation/dc_location_ui/83e7c36d08ef98f3665f7f35b8637405391dc4be/actions.mjs",
+      "status": 200,
+      "source_sha256": "eb9ebbe45e174e405daf8189de5a810627adfde5876f53f3eac698e7553ad1f0",
+      "served_sha256": "eb9ebbe45e174e405daf8189de5a810627adfde5876f53f3eac698e7553ad1f0",
+      "mime": "text/javascript",
+      "pass": true
+    },
+    {
+      "path": "automation/dc_location_ui/83e7c36d08ef98f3665f7f35b8637405391dc4be/actions.css",
+      "status": 200,
+      "source_sha256": "0af86f6ac75651a0bed54096ccab403e7abb5cb58b023238dc79e58b8a3ca039",
+      "served_sha256": "0af86f6ac75651a0bed54096ccab403e7abb5cb58b023238dc79e58b8a3ca039",
+      "mime": "text/css",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/scripts/plugins/prices-v931.mjs",
+      "status": 200,
+      "source_sha256": "a06f63838271a21d6a0ab0e849bbe381674fea7bc248ad84225c9d72c66f844e",
+      "served_sha256": "a06f63838271a21d6a0ab0e849bbe381674fea7bc248ad84225c9d72c66f844e",
+      "mime": "text/javascript",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/scripts/plugins/verified-inputs.mjs",
+      "status": 200,
+      "source_sha256": "70ae98e20d236dec92ab7b74701d0fffaddae5f227f274a54591942904f94440",
+      "served_sha256": "70ae98e20d236dec92ab7b74701d0fffaddae5f227f274a54591942904f94440",
+      "mime": "text/javascript",
+      "pass": true
+    },
+    {
+      "path": "automation/price_daily_ui/78d5360239e1a5fcffa83fcb30d5937c5521acb9/model.mjs",
+      "status": 200,
+      "source_sha256": "62f17105ee01451545e2aef086bbb6f1b4fc82a7e9de78d9fed2ecd2ea65136c",
+      "served_sha256": "62f17105ee01451545e2aef086bbb6f1b4fc82a7e9de78d9fed2ecd2ea65136c",
+      "mime": "text/javascript",
+      "pass": true
+    },
+    {
+      "path": "automation/price_daily_ui/78d5360239e1a5fcffa83fcb30d5937c5521acb9/canvas.mjs",
+      "status": 200,
+      "source_sha256": "aa4388c1dd5f0ce191e8455faf9ae2efcdae93613dc15c5610cd25f9623de188",
+      "served_sha256": "aa4388c1dd5f0ce191e8455faf9ae2efcdae93613dc15c5610cd25f9623de188",
+      "mime": "text/javascript",
+      "pass": true
+    },
+    {
+      "path": "automation/price_daily_ui/78d5360239e1a5fcffa83fcb30d5937c5521acb9/view.mjs",
+      "status": 200,
+      "source_sha256": "4f575a7ae45355b3e9e7bc05c80173c87aae0b1ca34e39175ea0fd71b208929e",
+      "served_sha256": "4f575a7ae45355b3e9e7bc05c80173c87aae0b1ca34e39175ea0fd71b208929e",
+      "mime": "text/javascript",
+      "pass": true
+    },
+    {
+      "path": "automation/price_daily_ui/78d5360239e1a5fcffa83fcb30d5937c5521acb9/styles.css",
+      "status": 200,
+      "source_sha256": "38cb88941bd896bc6ba3642e34e3b60f09e5e6ad3ada352cc4d8ccc713da695c",
+      "served_sha256": "38cb88941bd896bc6ba3642e34e3b60f09e5e6ad3ada352cc4d8ccc713da695c",
+      "mime": "text/css",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/scripts/plugins/primary-notes-v932.mjs",
+      "status": 200,
+      "source_sha256": "7acb61bd5544b5bf00046d54c6ea44f826ed8090fe8a840a0dc008fe83c9d812",
+      "served_sha256": "7acb61bd5544b5bf00046d54c6ea44f826ed8090fe8a840a0dc008fe83c9d812",
+      "mime": "text/javascript",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/scripts/plugins/machine-notes-v923.js",
+      "status": 200,
+      "source_sha256": "4f58f23947698b37d01be5984c1869ce061ab01c05cac3f75d9d35a199d7c594",
+      "served_sha256": "4f58f23947698b37d01be5984c1869ce061ab01c05cac3f75d9d35a199d7c594",
+      "mime": "application/javascript",
+      "pass": true
+    },
+    {
+      "path": "automation/primary_note_ui/f421513f7cbd85ad45727ef236e053a6c67f92d9/catalogue.mjs",
+      "status": 200,
+      "source_sha256": "7252979c22d560091cd4e738ca14fb925434464a44f07976f9a9b64013d23b9d",
+      "served_sha256": "7252979c22d560091cd4e738ca14fb925434464a44f07976f9a9b64013d23b9d",
+      "mime": "text/javascript",
+      "pass": true
+    },
+    {
+      "path": "automation/primary_note_ui/f421513f7cbd85ad45727ef236e053a6c67f92d9/model.mjs",
+      "status": 200,
+      "source_sha256": "02855072d96b6d77ede197e1640264e03422e72a70fe6036eb48345e828049b1",
+      "served_sha256": "02855072d96b6d77ede197e1640264e03422e72a70fe6036eb48345e828049b1",
+      "mime": "text/javascript",
+      "pass": true
+    },
+    {
+      "path": "automation/primary_note_ui/f421513f7cbd85ad45727ef236e053a6c67f92d9/notes.json",
+      "status": 200,
+      "source_sha256": "81db6e09994088a2f08b4418ee334350eba5a1e208dc48af233a702da4826b84",
+      "served_sha256": "81db6e09994088a2f08b4418ee334350eba5a1e208dc48af233a702da4826b84",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "automation/primary_note_ui/host-202611170512/brief.mjs",
+      "status": 200,
+      "source_sha256": "4cc9b278d5638a65fa7d8fc59cd42681666adf49a6089ffd0673f1c37446068c",
+      "served_sha256": "4cc9b278d5638a65fa7d8fc59cd42681666adf49a6089ffd0673f1c37446068c",
+      "mime": "text/javascript",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/scripts/layers/catalogue.mjs",
+      "status": 200,
+      "source_sha256": "59af6c38a6a53765fa8e6ee52d9504695e610458940239537c40babce988bd6c",
+      "served_sha256": "59af6c38a6a53765fa8e6ee52d9504695e610458940239537c40babce988bd6c",
+      "mime": "text/javascript",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/scripts/layers/controls.mjs",
+      "status": 200,
+      "source_sha256": "ffe076dc5f8e2ac44621a602b61464c87ba14bfe1f0a86ed26af134ae109588a",
+      "served_sha256": "ffe076dc5f8e2ac44621a602b61464c87ba14bfe1f0a86ed26af134ae109588a",
+      "mime": "text/javascript",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/scripts/layers/model.mjs",
+      "status": 200,
+      "source_sha256": "760157fec42fd7a7254bb5590f6221ba728766adae70cf2b4d29555168826880",
+      "served_sha256": "760157fec42fd7a7254bb5590f6221ba728766adae70cf2b4d29555168826880",
+      "mime": "text/javascript",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/scripts/layers/pipeline-layers.css",
+      "status": 200,
+      "source_sha256": "c6cf64741fcb8c21e438ee38db4281008c521f2502b5379fa92a58483485fb55",
+      "served_sha256": "c6cf64741fcb8c21e438ee38db4281008c521f2502b5379fa92a58483485fb55",
+      "mime": "text/css",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/scripts/layers/registry.mjs",
+      "status": 200,
+      "source_sha256": "e46584d1c019125dc0abadaa7adc6aef358fd75c524603f6fbc606110d734117",
+      "served_sha256": "e46584d1c019125dc0abadaa7adc6aef358fd75c524603f6fbc606110d734117",
+      "mime": "text/javascript",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/scripts/layers/ticker.mjs",
+      "status": 200,
+      "source_sha256": "9034928c351c36580881af731d9bb55a89ab68e526b9af2e97bc1a2ca6d35569",
+      "served_sha256": "9034928c351c36580881af731d9bb55a89ab68e526b9af2e97bc1a2ca6d35569",
+      "mime": "text/javascript",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/scripts/layers/url-policy.mjs",
+      "status": 200,
+      "source_sha256": "17a2712ad0beea2b9c471962a8cbb7cf6fe7ab2a4ab41a405b030778d868f8f4",
+      "served_sha256": "17a2712ad0beea2b9c471962a8cbb7cf6fe7ab2a4ab41a405b030778d868f8f4",
+      "mime": "text/javascript",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/scripts/layers/views.mjs",
+      "status": 200,
+      "source_sha256": "d5b477cc2ef67461458b8318ce976a313908a78ce09846b24a28591843d5ec2e",
+      "served_sha256": "d5b477cc2ef67461458b8318ce976a313908a78ce09846b24a28591843d5ec2e",
+      "mime": "text/javascript",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/dc-locations.v930.json",
+      "status": 200,
+      "source_sha256": "c6ad3c693b4ed76e8b0e5303f26db53136cc953ca2945f09a9a2007133c3b49f",
+      "served_sha256": "c6ad3c693b4ed76e8b0e5303f26db53136cc953ca2945f09a9a2007133c3b49f",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/fallback.v8.0.json",
+      "status": 200,
+      "source_sha256": "72fa01406efe13a582fcf4363534f5306848fdb2ab71ce58e87469fc7acc10ca",
+      "served_sha256": "72fa01406efe13a582fcf4363534f5306848fdb2ab71ce58e87469fc7acc10ca",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/interconnectors.v9.8.json",
+      "status": 200,
+      "source_sha256": "28e3e0e9253b8aef3048ad3c857af9554cf456f7715210ebe1e70d492a02e62b",
+      "served_sha256": "28e3e0e9253b8aef3048ad3c857af9554cf456f7715210ebe1e70d492a02e62b",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/layers-v929.json",
+      "status": 200,
+      "source_sha256": "f80b0a2e803c2c577f07e416e2a66461c9045131b73ebb4fb5f57fa34a6d3500",
+      "served_sha256": "f80b0a2e803c2c577f07e416e2a66461c9045131b73ebb4fb5f57fa34a6d3500",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/legacy-integrity.v9.json",
+      "status": 200,
+      "source_sha256": "ea59aa53df0a3d8033bbac29b1e3d612fe91f831ce174c44580914bf91cd863f",
+      "served_sha256": "ea59aa53df0a3d8033bbac29b1e3d612fe91f831ce174c44580914bf91cd863f",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/mvp.v8.1.json",
+      "status": 200,
+      "source_sha256": "1bdd558c835249032bb7827d9c0ed55a04d8d20997af1ae8cf3b5ab306a6e92f",
+      "served_sha256": "1bdd558c835249032bb7827d9c0ed55a04d8d20997af1ae8cf3b5ab306a6e92f",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/news-module-registry.v9.7.json",
+      "status": 200,
+      "source_sha256": "a4f2b9a1bb91a517874c8cd84f81eeeb1fa3715cf220f6dee5c07bdbcbcc9109",
+      "served_sha256": "a4f2b9a1bb91a517874c8cd84f81eeeb1fa3715cf220f6dee5c07bdbcbcc9109",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/north-star.v1.json",
+      "status": 200,
+      "source_sha256": "346f226dc172eabd95a1110cdfd918baee77a0cc213ea31097b70dd6e064326a",
+      "served_sha256": "346f226dc172eabd95a1110cdfd918baee77a0cc213ea31097b70dd6e064326a",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/plugin.v1.json",
+      "status": 200,
+      "source_sha256": "b4ed06d58891359e8df017bc3e9564ba49928e4f6696b1604cfa1e01ab354df5",
+      "served_sha256": "b4ed06d58891359e8df017bc3e9564ba49928e4f6696b1604cfa1e01ab354df5",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/prices.v931.json",
+      "status": 200,
+      "source_sha256": "57df11f2866836442395910ba307dc9232bf8f0bada365dfcfb0b64207af332c",
+      "served_sha256": "57df11f2866836442395910ba307dc9232bf8f0bada365dfcfb0b64207af332c",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/primary-notes.v932.json",
+      "status": 200,
+      "source_sha256": "b260aa3cd59c72d50609083c906682347601ef414d3a3003cefba87fae9271ce",
+      "served_sha256": "b260aa3cd59c72d50609083c906682347601ef414d3a3003cefba87fae9271ce",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/project-spine.v7.2.json",
+      "status": 200,
+      "source_sha256": "6425d81381eda13d204d88a2cd95a409d27d73561b33d65420e2b08428353397",
+      "served_sha256": "6425d81381eda13d204d88a2cd95a409d27d73561b33d65420e2b08428353397",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/projects-plugin.v7.2.json",
+      "status": 200,
+      "source_sha256": "a0be5a4e3008d3db8dc2ca983829d3d1fc2bef2c7ea0cd2b01bf2e72e78405d9",
+      "served_sha256": "a0be5a4e3008d3db8dc2ca983829d3d1fc2bef2c7ea0cd2b01bf2e72e78405d9",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/regional-news-sources.v9.7.json",
+      "status": 200,
+      "source_sha256": "7ea974f61dcfe0b3d952e74864ed3c7ef78045077dee156e60927fd3e808f261",
+      "served_sha256": "7ea974f61dcfe0b3d952e74864ed3c7ef78045077dee156e60927fd3e808f261",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/release.v9.0.json",
+      "status": 200,
+      "source_sha256": "03b64fae07c718ea2409445152864d26f93bc85c669126debf656e76c4f16cf6",
+      "served_sha256": "03b64fae07c718ea2409445152864d26f93bc85c669126debf656e76c4f16cf6",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/release.v9.1.json",
+      "status": 200,
+      "source_sha256": "a4e8afea9ac5b791b733454bddc939de1194f71f29e7ad25afbc27fe5acf3f4a",
+      "served_sha256": "a4e8afea9ac5b791b733454bddc939de1194f71f29e7ad25afbc27fe5acf3f4a",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/release.v9.2.json",
+      "status": 200,
+      "source_sha256": "8f0d9a68fecd6b5bef25e2cb00e27f4587d7998fb7fca42d9f5f05b135be458f",
+      "served_sha256": "8f0d9a68fecd6b5bef25e2cb00e27f4587d7998fb7fca42d9f5f05b135be458f",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/release.v9.3.json",
+      "status": 200,
+      "source_sha256": "48bd1fe7ab712737c1eeb8549b0e2e97bf592f262ecb404059adefc8202add01",
+      "served_sha256": "48bd1fe7ab712737c1eeb8549b0e2e97bf592f262ecb404059adefc8202add01",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/release.v9.4.json",
+      "status": 200,
+      "source_sha256": "86768834cebdf68d97da05e6b27fc42266e8f5ff72c9e29dd035879738cb7426",
+      "served_sha256": "86768834cebdf68d97da05e6b27fc42266e8f5ff72c9e29dd035879738cb7426",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/release.v9.5.1.json",
+      "status": 200,
+      "source_sha256": "28bd24870aeeb1dcf471a07d80e9af0eb4c3f585735c51dc4dd8ff8bba811a35",
+      "served_sha256": "28bd24870aeeb1dcf471a07d80e9af0eb4c3f585735c51dc4dd8ff8bba811a35",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/release.v9.5.json",
+      "status": 200,
+      "source_sha256": "7dd705f5ac64445d5b8b44a4b32e7bd829a2d325f39a699ed67833c074f31a79",
+      "served_sha256": "7dd705f5ac64445d5b8b44a4b32e7bd829a2d325f39a699ed67833c074f31a79",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/release.v9.6.1.json",
+      "status": 200,
+      "source_sha256": "df31bd6c78077eaf86918a12b8fcb72524f81e4b36138f27e9664a68a1c0dc28",
+      "served_sha256": "df31bd6c78077eaf86918a12b8fcb72524f81e4b36138f27e9664a68a1c0dc28",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/release.v9.6.2.json",
+      "status": 200,
+      "source_sha256": "ef9121ac2550c8e3c734255b091b78adbff92ccfab1bab6c4d418fc3188b67cf",
+      "served_sha256": "ef9121ac2550c8e3c734255b091b78adbff92ccfab1bab6c4d418fc3188b67cf",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/contracts/release.v9.7.json",
+      "status": 200,
+      "source_sha256": "cd40396657e1a604f20418cec074c32df2d7b592a5c25c12f086256ae71b8cd8",
+      "served_sha256": "cd40396657e1a604f20418cec074c32df2d7b592a5c25c12f086256ae71b8cd8",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/data/v9.1/projects/part-001.json",
+      "status": 200,
+      "source_sha256": "1dec5e14cb05d5d47a3543d66a8970a5dc6e74e3cd444c1471befba2fad0a2aa",
+      "served_sha256": "1dec5e14cb05d5d47a3543d66a8970a5dc6e74e3cd444c1471befba2fad0a2aa",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/data/v9.1/projects/part-002.json",
+      "status": 200,
+      "source_sha256": "1c9156f1c15914d48bb1d5b2e548dd619da18314f2ab35901ee807e624026e7d",
+      "served_sha256": "1c9156f1c15914d48bb1d5b2e548dd619da18314f2ab35901ee807e624026e7d",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/data/v9.1/projects/part-003.json",
+      "status": 200,
+      "source_sha256": "f9c58b6eba9e14408226743c3dc46bbc82284100ee2a658e525344299d12e480",
+      "served_sha256": "f9c58b6eba9e14408226743c3dc46bbc82284100ee2a658e525344299d12e480",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/data/v9.1/projects/part-004.json",
+      "status": 200,
+      "source_sha256": "e6c4ff63ca0592931258710e2acc533d83f0e98478c6adb4d4c792bb7fc76d2a",
+      "served_sha256": "e6c4ff63ca0592931258710e2acc533d83f0e98478c6adb4d4c792bb7fc76d2a",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/data/v9.1/projects/part-005.json",
+      "status": 200,
+      "source_sha256": "ed54b8487f8af2b45e03161fc227e1d621a192dff06783f82cb05035c1aad9ba",
+      "served_sha256": "ed54b8487f8af2b45e03161fc227e1d621a192dff06783f82cb05035c1aad9ba",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/data/v9.1/projects/part-006.json",
+      "status": 200,
+      "source_sha256": "0754bad6a8a35d5a88cde8be731c4d5151efaaf54a9ae5861421e3503c58e1c2",
+      "served_sha256": "0754bad6a8a35d5a88cde8be731c4d5151efaaf54a9ae5861421e3503c58e1c2",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/data/v9.1/projects/part-007.json",
+      "status": 200,
+      "source_sha256": "aab1edc98930510b283bf03aaa19bb034fe93432a5b90e6a6e60bc7fd50ae79d",
+      "served_sha256": "aab1edc98930510b283bf03aaa19bb034fe93432a5b90e6a6e60bc7fd50ae79d",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/data/v9.1/projects/part-008.json",
+      "status": 200,
+      "source_sha256": "6a1fd5450e45bb19aaaf04c066ffdd88b44920a066a0d8a13f101aa08339c2ac",
+      "served_sha256": "6a1fd5450e45bb19aaaf04c066ffdd88b44920a066a0d8a13f101aa08339c2ac",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/data/v9.1/projects/part-009.json",
+      "status": 200,
+      "source_sha256": "344f95a93d6aad29e45703d724414d18dedf2e73713f73ab20bd9607a5817255",
+      "served_sha256": "344f95a93d6aad29e45703d724414d18dedf2e73713f73ab20bd9607a5817255",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/data/v9.1/projects/part-010.json",
+      "status": 200,
+      "source_sha256": "0504bb6c01031f56557d6fc300409157fc45da8368e5fa2e497d63749e248680",
+      "served_sha256": "0504bb6c01031f56557d6fc300409157fc45da8368e5fa2e497d63749e248680",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/data/v9.1/projects/part-011.json",
+      "status": 200,
+      "source_sha256": "dbd9398b2f2cc36a8289f787e92f12fe6a67007a17447d4078f94a2bd64ad70b",
+      "served_sha256": "dbd9398b2f2cc36a8289f787e92f12fe6a67007a17447d4078f94a2bd64ad70b",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/data/v9.1/projects/part-012.json",
+      "status": 200,
+      "source_sha256": "3353d3682819501532562b729723580155a0904d9df991ad8de9d135eaed3a18",
+      "served_sha256": "3353d3682819501532562b729723580155a0904d9df991ad8de9d135eaed3a18",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/data/v9.1/projects/part-013.json",
+      "status": 200,
+      "source_sha256": "5def4c183b3a3b8ce05acf2a9634007b4522741e7e312b8ba20b832309b14f8d",
+      "served_sha256": "5def4c183b3a3b8ce05acf2a9634007b4522741e7e312b8ba20b832309b14f8d",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/data/v9.1/projects/part-014.json",
+      "status": 200,
+      "source_sha256": "508a671988d3b9adb818fc6099a87c10ec302f9c8f8997d25b871265cce92f18",
+      "served_sha256": "508a671988d3b9adb818fc6099a87c10ec302f9c8f8997d25b871265cce92f18",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/data/v9.1/projects/part-015.json",
+      "status": 200,
+      "source_sha256": "7d682d6700c606c2534518853ff28db29667f6eca493a9ac1c4d0fcea51ff460",
+      "served_sha256": "7d682d6700c606c2534518853ff28db29667f6eca493a9ac1c4d0fcea51ff460",
+      "mime": "application/json",
+      "pass": true
+    },
+    {
+      "path": "uk_renewables_pipeline/202611170512/data/v9.1/projects/part-016.json",
+      "status": 200,
+      "source_sha256": "9e656e4955b6a8d94c6b10aebff3290b3fdd32488987e18eb236286d623f4f86",
+      "served_sha256": "9e656e4955b6a8d94c6b10aebff3290b3fdd32488987e18eb236286d623f4f86",
+      "mime": "application/json",
+      "pass": true
+    }
+  ],
+  "actual_acceptance": {
+    "source_receipt_utc": "2026-11-17T06:32:51.118301+00:00",
+    "root_ui_verified_at": "2026-11-17T06:51:51.758561+00:00",
+    "root_first_observation_utc": "2026-11-17T06:50:32.303300+00:00",
+    "root_last_observation_utc": "2026-11-17T06:50:47.008482+00:00",
+    "widths": [
+      390,
+      393,
+      1440
+    ],
+    "all_rows_csv": 7775,
+    "solar_rows": 3604,
+    "solar1000": 1000,
+    "canonical_startup_requests": 32,
+    "canonical_unique_partitions": 16,
+    "extra_requests_after_primary_filters_paging": 0,
+    "baseline_comparison": "Actual same-settings V9.31 and V9.32 each initiated 32 startup requests; V9.33 preserves that baseline and adds zero requests for notes, filters or paging.",
+    "managed_chromium": "159.0.8154.6",
+    "physical_android": "UNKNOWN",
+    "route_mocks": false,
+    "native_touch_rotations": [
+      {
+        "orientation": "portrait",
+        "status": "PASS",
+        "note_refs": [
+          "12588",
+          "14806",
+          "15000",
+          "15149"
+        ],
+        "native_touch": true,
+        "canonical_requests": 32
+      },
+      {
+        "orientation": "landscape",
+        "status": "PASS",
+        "note_refs": [
+          "12588",
+          "14806",
+          "15000",
+          "15149"
+        ],
+        "native_touch": true,
+        "canonical_requests": 32
+      },
+      {
+        "orientation": "portrait-return",
+        "status": "PASS",
+        "note_refs": [
+          "12588",
+          "14806",
+          "15000",
+          "15149"
+        ],
+        "native_touch": true,
+        "canonical_requests": 32
+      }
+    ],
+    "dc_original_ids": 100,
+    "dc_original_map_links": 39,
+    "dc_original_csv_columns": 13,
+    "dc_address_records": 38,
+    "dc_address_statements": 39,
+    "dc_gb_screen_points": 34,
+    "dc_public_receiver": [
+      {
+        "width": 390,
+        "status": "PASS",
+        "entity_kind": "location",
+        "repd_ref": null,
+        "capacity_mw": null,
+        "provenance": "ARRIVAL_LINK",
+        "initially_minimized": true,
+        "nearest_visible_after_restore": true,
+        "return_search_retained": true
+      }
+    ],
+    "prices": {
+      "historical_only": true,
+      "source_last_date": "2026-10-31",
+      "snapshot_utc_disagreements": 106668,
+      "default": {
+        "days": 30,
+        "complete": 30,
+        "partial": 0,
+        "missing": 0,
+        "expected": 1442,
+        "observed": 1442,
+        "priced": 1442,
+        "utc": 0,
+        "high": 415.21,
+        "mean": 154.36152983333335,
+        "low": -28.490857
+      },
+      "gap90": {
+        "days": 90,
+        "complete": 76,
+        "partial": 1,
+        "missing": 13,
+        "expected": 4320,
+        "observed": 3694,
+        "priced": 3694,
+        "utc": 2208,
+        "high": 253.9,
+        "mean": 101.04157857142857,
+        "low": -77.0
+      },
+      "actual_canvas_paths_pixels_negative_values_partial_markers": "PASS",
+      "selected_2016": "PASS"
+    },
+    "page_errors": 0,
+    "root_views": [
+      {
+        "width": 390,
+        "javascript": true,
+        "observation_utc": "2026-11-17T06:50:32.303300+00:00",
+        "status": "PASS"
+      },
+      {
+        "width": 390,
+        "javascript": false,
+        "observation_utc": "2026-11-17T06:50:40.207467+00:00",
+        "status": "PASS"
+      },
+      {
+        "width": 393,
+        "javascript": true,
+        "observation_utc": "2026-11-17T06:50:40.712608+00:00",
+        "status": "PASS"
+      },
+      {
+        "width": 393,
+        "javascript": false,
+        "observation_utc": "2026-11-17T06:50:43.495997+00:00",
+        "status": "PASS"
+      },
+      {
+        "width": 1440,
+        "javascript": true,
+        "observation_utc": "2026-11-17T06:50:43.998567+00:00",
+        "status": "PASS"
+      },
+      {
+        "width": 1440,
+        "javascript": false,
+        "observation_utc": "2026-11-17T06:50:47.008482+00:00",
+        "status": "PASS"
+      }
+    ],
+    "served_owner_assets": [
+      {
+        "path": "index.html",
+        "status": 200,
+        "sha256": "eea6ac1bf40b1069e022881a36f10dd0573c60b7f3d12d416911f85126e4832f",
+        "pass": true
+      },
+      {
+        "path": "homepage-shell/assets/versioned-homepage.css",
+        "status": 200,
+        "sha256": "0c405224efa71f262011db49c5c7a559a265801ec98609c8c9b16a5d83df35d2",
+        "pass": true
+      },
+      {
+        "path": "homepage-shell/assets/versioned-homepage.js",
+        "status": 200,
+        "sha256": "691df697ba930eab95ba67251ca3bee673ebb8c4174e010d8f6bb73ab24ea0f1",
+        "pass": true
+      },
+      {
+        "path": "homepage-shell/data/homepage.json",
+        "status": 200,
+        "sha256": "a5999f0e0751d50c4ac202429dffb5cf9b13a9b321bf81d3fcdbe905ac6d6373",
+        "pass": true
+      },
+      {
+        "path": "homepage-shell/data/active-pages.json",
+        "status": 200,
+        "sha256": "4ee017277a6e0a7a5e92b5320486cdf908300ac34629d71249d53b0e4d31fdeb",
+        "pass": true
+      },
+      {
+        "path": "homepage-shell/data/presentation.json",
+        "status": 200,
+        "sha256": "66285dafe5369cfb991030e80ffdf8c7893de279efb5aa15a86493434d9fed11",
+        "pass": true
+      },
+      {
+        "path": "homepage-shell/data/entity-types.json",
+        "status": 200,
+        "sha256": "43081131c3735827b9132bd78c5221401061d82ea9debba9150f6b7ddd86ba61",
+        "pass": true
+      }
+    ],
+    "actual_publisher_pin": {
+      "source_commit": "47a83e170d12f4f116735d7fb34065d23dc81db7",
+      "status": 200,
+      "sha256": "aadf1bc9ffebcb790e8275cfa16ae8303783d476de6a27b1223cb7f78c4cf3f5",
+      "bytes": 812,
+      "pinned_owner": "e007b2b2780206058b897501445fd99d9e55fd7b",
+      "seven_pins_match": true
+    },
+    "immediate_rollback_assets": [
+      {
+        "path": "uk_renewables_pipeline/202611170324/index.html",
+        "status": 200,
+        "source_sha256": "d317a6a203a796c6c7ab320014c64920da7ce0c4f9c018aff1dc40989c27c530",
+        "served_sha256": "d317a6a203a796c6c7ab320014c64920da7ce0c4f9c018aff1dc40989c27c530",
+        "bytes": 15456,
+        "pass": true
+      },
+      {
+        "path": "uk_renewables_pipeline/202611170324/solar1000/manifest.json",
+        "status": 200,
+        "source_sha256": "c625edbb9c471a1e9a9034a1afe99881fbfabb1fcadcf0623355931f5b6aed1f",
+        "served_sha256": "c625edbb9c471a1e9a9034a1afe99881fbfabb1fcadcf0623355931f5b6aed1f",
+        "bytes": 12956,
+        "pass": true
+      },
+      {
+        "path": "homepage_versions/homepage_v147.html",
+        "status": 200,
+        "source_sha256": "1203db7ed9bf01d4cc7df63a4a52b99e0ed6621230099529778170ab8eaca25e",
+        "served_sha256": "1203db7ed9bf01d4cc7df63a4a52b99e0ed6621230099529778170ab8eaca25e",
+        "bytes": 55774,
+        "pass": true
+      }
+    ],
+    "root_principal_blocks": 2,
+    "root_category_tabs": 6,
+    "primary_note_associations": 4,
+    "verified_count": 0,
+    "solar1000_verified_delta": 0,
+    "fresh_government_pdf_article_or_terms_download": false,
+    "independent_final_readback": {
+      "at": "2026-11-17T07:36:54.517569+00:00",
+      "scope": "Independent bounded actual HTTPS readback: root, published JSON/HTML ledger, owner pin and three immediate rollback files; no browser rerun or release-counter write",
+      "deployment_commit": "36e105a8b74b0f63dcd2e287834182339ae5afde",
+      "source": "e68a760bf41e98167cf5f3e86de474ed9e7bcfda",
+      "owner": "e007b2b2780206058b897501445fd99d9e55fd7b",
+      "status": "PASS",
+      "failures": [],
+      "ledger": {
+        "generated_at": "2026-11-17T07:29:05Z",
+        "entries": 22,
+        "unique_ids": 22,
+        "pass_verdicts": 22,
+        "browser_checked": 22,
+        "v933": {
+          "id": "202611170512",
+          "version": "V9.33",
+          "tree": [
+            "c1b03811671b8dfa221a9b4380adec1fbe10602c"
+          ],
+          "verdict": "PASS",
+          "browser_checked": true,
+          "state": "release_candidate_publication_blocked",
+          "ci": null
+        },
+        "v932_ci": {
+          "url": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44016860896",
+          "conclusion": "success",
+          "source_commit": "ba57b59447c4c7619262d440f6d4cac449dac8a2"
+        },
+        "html_pass_rows": 22
+      }
+    }
+  },
+  "public_readback": {
+    "status": "PASS",
+    "checked_at": "2026-11-17T07:35:33.909183+00:00",
+    "source_commit": "36e105a8b74b0f63dcd2e287834182339ae5afde",
+    "homepage_owner_commit": "e007b2b2780206058b897501445fd99d9e55fd7b",
+    "release": "202611170512",
+    "version": "V9.33",
+    "owner_source_index_sha256": "f1af69d6990f0af0043652dc9522e90026e1f77ff6470f55714e4e6858df1d02",
+    "transformed_root_sha256": "eea6ac1bf40b1069e022881a36f10dd0573c60b7f3d12d416911f85126e4832f",
+    "served_sha256": {
+      "index.html": "eea6ac1bf40b1069e022881a36f10dd0573c60b7f3d12d416911f85126e4832f",
+      "homepage-shell/assets/versioned-homepage.css": "0c405224efa71f262011db49c5c7a559a265801ec98609c8c9b16a5d83df35d2",
+      "homepage-shell/assets/versioned-homepage.js": "691df697ba930eab95ba67251ca3bee673ebb8c4174e010d8f6bb73ab24ea0f1",
+      "homepage-shell/data/homepage.json": "a5999f0e0751d50c4ac202429dffb5cf9b13a9b321bf81d3fcdbe905ac6d6373",
+      "homepage-shell/data/active-pages.json": "4ee017277a6e0a7a5e92b5320486cdf908300ac34629d71249d53b0e4d31fdeb",
+      "homepage-shell/data/presentation.json": "66285dafe5369cfb991030e80ffdf8c7893de279efb5aa15a86493434d9fed11",
+      "homepage-shell/data/entity-types.json": "43081131c3735827b9132bd78c5221401061d82ea9debba9150f6b7ddd86ba61",
+      "uk_renewables_pipeline/202611170512/index.html": "15798f1d78f915b360973a4fa53622816a3c57a5a3f0ec915fd900f0ebc5c21d",
+      "uk_renewables_pipeline/202611161244/index.html": "8fd2b7baf867186a8f6ed21fc6c5490ffedfba8e849a75a8b4ead1c0b6038007",
+      "uk_renewables_pipeline/202611160020/index.html": "c13124d1248808eaa34cdf7736221300e67df22f802706a8c934f5e4b3281538",
+      "uk_renewables_pipeline/202611170512/solar1000/manifest.json": "c625edbb9c471a1e9a9034a1afe99881fbfabb1fcadcf0623355931f5b6aed1f",
+      "uk_renewables_pipeline/202611161244/solar1000/manifest.json": "c625edbb9c471a1e9a9034a1afe99881fbfabb1fcadcf0623355931f5b6aed1f",
+      "uk_renewables_pipeline/versions.json": "35574e577e22bee3595e73f3d8bb7636485df3e14b0cf48fce5fd5283a76b4d6"
+    },
+    "rollback_releases": [
+      "202611161244",
+      "202611160020"
+    ],
+    "solar_1000": 1000,
+    "scope": "Exact source-pinned HTTP bytes, operative owner release, ledger and V9.24/V9.23 rollback. Not rights approval, project verification, live MAP/browser acceptance or promotion."
+  },
+  "ledger": {
+    "status": "PUBLIC_VERIFIED",
+    "completed_release_count": 6,
+    "source_commit": "36e105a8b74b0f63dcd2e287834182339ae5afde",
+    "generated_at": "2026-11-17T07:29:05Z",
+    "version_count": 22,
+    "writer_run": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44037950817",
+    "catalogue_commit": "36e105a8b74b0f63dcd2e287834182339ae5afde",
+    "catalogue_pages": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44039058256",
+    "dynamic_status": "PASS",
+    "pre_repair_failure": {
+      "run": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44030960209",
+      "cause": "V9.32 ci URL string incompatible with existing renderer; corrected to object with early validation in PR154"
+    },
+    "narrower_root_ui_receipt_did_not_finalize_ledger": true,
+    "metadata_before_audit": {
+      "v933_state": "release_candidate_publication_blocked",
+      "v933_ci": null,
+      "note": "Deployed catalogue identity/tree/PASS/browser checks are verified. This audit records post-acceptance metadata; it does not change an edition or select a new release."
+    }
+  },
+  "limitations": [
+    "All four government-source row associations remain PROVISIONAL; independently VERIFIED and Solar-1000 deltas remain zero.",
+    "Consent is a whole-development planning event. Separate battery MW/MWh, current output, connection, commissioning and corporate ownership equivalence remain unknown.",
+    "Great North Road publication is day precision. One Earth and Peartree times are recorded publication metadata, not certified intraday decision times; administrative updates are separate.",
+    "Peartree qualification uses reviewed government HTML only; no excluded PDF-derived qualifiers or grant-with-modifications claim.",
+    "Latest evidence pointer returned404. Evidence remains withheld, with no exhaustive absence claim or publisher-wide licence grant.",
+    "Historical Prices retain gaps, partial source days and legacy UTC disagreements; no realtime, forecast or intraday certification.",
+    "Android touch/orientation tests use browser emulation; physical handset acceptance is UNKNOWN.",
+    "Publication acceptance is separate from source-rights and project-claim acceptance; no automatic VERIFIED association or blanket publisher licence."
+  ],
+  "catalogue_pages": {
+    "run": 44039058256,
+    "head": "36e105a8b74b0f63dcd2e287834182339ae5afde",
+    "status": "ALL_FIVE_SUCCESS",
+    "completed_at": "2026-11-17T07:36:59Z",
+    "job_source": "GitHub connector normalized jobs linked by run_id; head verified from raw run metadata",
+    "jobs": [
+      {
+        "id": 133888938514,
+        "run_id": 44039058256,
+        "name": "build",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 133890558420,
+        "run_id": 44039058256,
+        "name": "deploy",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 133891261769,
+        "run_id": 44039058256,
+        "name": "verify_v9_7_candidate",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 133891261911,
+        "run_id": 44039058256,
+        "name": "Agent8 V9.22 public served-byte, browser and real MAP acceptance",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 133892182821,
+        "run_id": 44039058256,
+        "name": "report",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  }
+}

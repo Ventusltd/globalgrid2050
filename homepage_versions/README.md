@@ -1892,3 +1892,11 @@ Preserves the actual V9.36-selected public root before the owner-directed news-f
 Before snapshot creation the folder held 259 files; snapshot plus metrics bring it to 261. Metrics: 69 lines, 3696 words, 56763 characters, 56776 bytes; SHA256 `fba45f83886f2d6a529d8beb50c307d469938cd9e9a4b6e0a1d58482cadafbfb`. Observation clock retained separately in metrics.
 
 Rollback: restore owner pin `e3d2514b395b89ec4de5c06f5c8f906f683efa17`, deploy through the existing importer/Pages process and compare all seven verified owner inputs plus transformed root with V151. V9.36 and all prior dated releases remain immutable and available.
+
+## V152 - before combined Pipeline News V9.40 promotion
+
+Preserves the actual V9.37 public root before the owner-requested moving red-neon ticker, with inherited source-qualified grid notice and document facts. Snapshot `homepage_v152.html`; metrics `homepage_v152-metrics.json`; prior owner pin `88d40001feffe6b1e6d461ee20c8d8e3cde50fc5`. Restore measurement [44141424250](https://github.com/Ventusltd/globalgrid2050/actions/runs/44141424250) succeeded before owner edits.
+
+Observed2026-11-17T17:51:24.237878+00:00:56998bytes,69lines,3704words,56985characters; SHA256 `f5f52cc777a9c3e0c47af878d8c94228bd9b661d4c6c62dfa0274cc8dfbe4e2b`. Physical folder files261 before,263 after snapshot and metrics.
+
+Rollback restores the prior owner pin through the existing importer and Pages process, then compares all seven owner inputs and transformed root with V152. Every older dated release and homepage catalogue record remains retained. Intermediate V9.38/V9.39 source editions remain immutable; this homepage promotes their inherited features together in V9.40 without claiming intermediate homepage publications.

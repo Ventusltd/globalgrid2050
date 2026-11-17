@@ -1065,14 +1065,93 @@
         "Historical system-sell observations end on 31 October 2026. Source-declared daily dates retain 106,668 UTC disagreements; daily completeness does not certify intraday timing. This is not a live quote, market-index price or forecast.",
         "Reported/approximate DC points and vicinity screening do not verify facilities, capacity or connections. Solar-1000 has zero independently verified links; public Context and physical Android acceptance remain unavailable."
       ],
-      "ci": null,
-      "merge_commit": null,
-      "state": "release_candidate_publication_blocked",
+      "ci": {
+        "url": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44008489399",
+        "conclusion": "success",
+        "source_commit": "a7641774faf9bde8862a5dc8c59f3b83805f4c96"
+      },
+      "merge_commit": "92a485b389c923e144cfa55ba093ac0f4a620fd3",
+      "state": "published_verified",
       "browser_probes": [
         {
           "name": "V9.31 compact full-width page, six tabs and two principal blocks",
           "selector": "body",
           "js": "(()=>{const m=document.querySelector('main'),r=m.getBoundingClientRect();return !document.querySelector('aside')&&!!document.querySelector('.release-header')&&document.querySelectorAll('main > section').length===2&&document.querySelectorAll('.pipeline-tabs > [role=tab]').length===6&&r.x===0&&r.right>=document.documentElement.clientWidth-1&&document.documentElement.scrollWidth<=innerWidth+2&&getComputedStyle(document.body).overflowY!=='hidden';})()"
+        }
+      ],
+      "publication": {
+        "homepage_owner_commit": "c4ba4ec5e9937dfc09813adecc1ebf24bf7b8706",
+        "domain_pin_merge": "7cc279e62c98acaf4700cba9196cf5ce30d2cfbc",
+        "deployment_run": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44011186363",
+        "served_verified_at": "2026-11-17T03:53:22.931776+00:00",
+        "receipt": "automation/pipeline_release/receipts/v931-public-20261117.json"
+      }
+    },
+    {
+      "id": "202611170324",
+      "version": "V9.32",
+      "parent": "202611170243",
+      "date": "2026-11-17T03:24:00Z",
+      "added": "One reviewed government planning decision in the existing Machine Read Notes brief, with provisional exact-ID association, preserved source/rights/date distinctions and unchanged REPD, CSV, MAP, DC and Prices.",
+      "data_changed": false,
+      "runner": "tests/run_v9_32.sh",
+      "trees": [
+        "50ca9e4e936c1f02c7f0eb6e010bfb899eb80b20"
+      ],
+      "features": [
+        {
+          "id": "v932-primary-source-contract",
+          "file": "contracts/primary-notes.v932.json",
+          "contains": "b5eed3d2ae878c78e5153be06ef531c11fff2148"
+        },
+        {
+          "id": "v932-primary-source-host",
+          "file": "scripts/plugins/primary-notes-v932.mjs",
+          "contains": "setPrimaryNotes"
+        },
+        {
+          "id": "v932-provisional-primary-brief",
+          "file": "scripts/plugins/machine-notes-v923.js",
+          "contains": "PROVISIONAL PROJECT ASSOCIATION"
+        },
+        {
+          "id": "v931-daily-price-contract",
+          "file": "contracts/prices.v931.json",
+          "contains": "78d5360239e1a5fcffa83fcb30d5937c5521acb9"
+        },
+        {
+          "id": "v931-daily-price-host",
+          "file": "scripts/plugins/prices-v931.mjs",
+          "contains": "mountDailyPrices"
+        },
+        {
+          "id": "v930-dc-location-contract",
+          "file": "contracts/dc-locations.v930.json",
+          "contains": "83e7c36d08ef98f3665f7f35b8637405391dc4be"
+        },
+        {
+          "id": "v930-dc-location-host",
+          "file": "scripts/plugins/dc-locations-v930.mjs",
+          "contains": "attachLocationActions"
+        },
+        {
+          "id": "v929-pinned-layers",
+          "file": "scripts/plugins/layers-v929.mjs",
+          "contains": "mountLayerControls"
+        }
+      ],
+      "known_faults": [
+        "One reviewed government fact is provisionally associated with REPD 12588. Frozen REPD status and source-specific dates are retained; final reduced capacity, later status and judicial review remain unknown. No VERIFIED association or Solar-1000 delta.",
+        "Historical Prices end on 31 October 2026 with source-declared dates, missing/partial coverage and UTC disagreements. DC points do not establish facilities, connections or available capacity. Native handset and broader source-rights approval remain unavailable."
+      ],
+      "ci": null,
+      "merge_commit": null,
+      "state": "release_candidate_publication_blocked",
+      "browser_probes": [
+        {
+          "name": "V9.32 compact full-width page, six tabs and two principal blocks",
+          "selector": "body",
+          "js": "(()=>{const r=document.querySelector('main').getBoundingClientRect();return !document.querySelector('aside')&&document.querySelectorAll('main > section').length===2&&document.querySelectorAll('.pipeline-tabs > [role=tab]').length===6&&r.x===0&&document.documentElement.scrollWidth<=innerWidth+2;})()"
         }
       ]
     }
@@ -1080,18 +1159,18 @@
   "size_budget_mb": 18,
   "size_budget_from": "202611140136",
   "release_candidate": {
-    "id": "202611170243",
-    "version": "V9.31",
+    "id": "202611170324",
+    "version": "V9.32",
     "state": "NON-LIVE CANDIDATE - HOST CI AND PUBLIC ACCEPTANCE REQUIRED",
     "operative": {
-      "id": "202611170147",
-      "version": "V9.30"
+      "id": "202611170243",
+      "version": "V9.31"
     },
     "held_candidate": {
       "id": "202611140247",
       "version": "V9.19",
       "state": "held candidate (data-centre register context, awaiting licence verification)"
     },
-    "note": "Qualified historical daily system-sell Prices in a new edition only; source dates, null gaps, negative prices and coverage/UTC counters are retained. V9.30 remains operative until exact-source CI, actual public source/graph acceptance, owner promotion, pinned import and root/rollback verification. All official REPD and existing DC data, original CSV/MAP and historical releases remain unchanged."
+    "note": "One reviewed primary government decision is displayed in the existing brief with a provisional exact-identity association; source clocks, receipts and narrow rights remain distinct. V9.31 remains operative until source CI, actual public note/source/flow acceptance, owner promotion, pinned import and final root/rollback verification. All official records, CSV/MAP, headline associations, DC and Prices remain unchanged."
   }
 }

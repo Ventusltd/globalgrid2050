@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "trade",
- "generated_at": "2026-11-16T13:52:14Z",
+ "generated_at": "2026-11-17T00:57:25Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -1961,7 +1961,7 @@
     "files_known": 195,
     "files_read_this_run": 90,
     "files_never_read": 2,
-    "urls_read": 1045,
+    "urls_read": 2431,
     "links_matching_an_alias": 104,
     "pages_opened": 0,
     "headlines_known": 104
@@ -2100,9 +2100,7 @@
    "searched": 0,
    "cached": 0,
    "skipped": 0,
-   "notes": [
-    "robots.txt www.energy-storage.news: HTTP 403 (treated as no rules)"
-   ]
+   "notes": []
   },
   {
    "id": "current",
@@ -2111,7 +2109,7 @@
    "requests": 7,
    "failures": 0,
    "items": 0,
-   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 20 links say solar); wp_search not JSON",
+   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 21 links say solar); wp_search not JSON",
    "route": "",
    "routes": [
     {
@@ -2135,11 +2133,11 @@
     {
      "route": "html",
      "url": "https://www.current-news.co.uk/?s=solar+farm",
-     "status": "not search results (1 of 20 links say solar)",
+     "status": "not search results (1 of 21 links say solar)",
      "content_type": "text/html",
-     "bytes": 475510,
-     "results": 20,
-     "dated": 0,
+     "bytes": 480477,
+     "results": 21,
+     "dated": 1,
      "summaries": 0,
      "relevant": 1,
      "sample": "Greenwheel Electric submits planning applications for Hunterston electric vehicle charging and solar hub"
@@ -2194,7 +2192,7 @@
      "status": "ok",
      "entries": 30,
      "matched": 0,
-     "newest": "2026-11-16"
+     "newest": "2026-11-17"
     }
    ],
    "searched": 0,
@@ -2217,7 +2215,7 @@
      "url": "https://www.planningresource.co.uk/search/articles?KeyWords=solar+farm",
      "status": "not search results (0 of 8 links say solar)",
      "content_type": "text/html",
-     "bytes": 41713,
+     "bytes": 42422,
      "results": 8,
      "dated": 0,
      "summaries": 0,
@@ -2229,7 +2227,7 @@
      "url": "https://www.planningresource.co.uk/search?q=solar+farm",
      "status": "not search results (0 of 8 links say solar)",
      "content_type": "text/html",
-     "bytes": 41713,
+     "bytes": 42422,
      "results": 8,
      "dated": 0,
      "summaries": 0,
@@ -2243,7 +2241,7 @@
      "status": "ok",
      "entries": 20,
      "matched": 0,
-     "newest": "2026-11-13"
+     "newest": "2026-11-16"
     }
    ],
    "searched": 0,
@@ -2303,7 +2301,7 @@
      "url": "https://solarenergyuk.org/wp-json/wp/v2/posts?search=solar+farm&per_page=20&orderby=relevance&_fields=title,link,date,excerpt",
      "status": "ok",
      "content_type": "application/json",
-     "bytes": 12687,
+     "bytes": 12724,
      "results": 20,
      "dated": 20,
      "summaries": 20,

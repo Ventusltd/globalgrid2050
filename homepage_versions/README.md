@@ -1823,3 +1823,14 @@ Intention: preserve the operative homepage before any later owner-authorized V9.
 Metrics: 69 lines, 3,624 words, 55,071 characters, 55,084 bytes; SHA-256 `bc9d36cf922e5957bed178b5178907bf4c29846582eb50ced714cbf391710617`.
 
 Rollback: restore owner pin `05b43c999ee515f58496fcd9945fabacb103d524`, deploy through the existing importer/Pages process, verify all seven served files and compare the transformed root with `homepage_v144.html`. V9.29 and all earlier dated editions remain immutable.
+
+
+## V145 - before Pipeline News V9.31 promotion
+
+Pre-edit restore point: `homepage_v145.html`; measurements: `homepage_v145-metrics.json`. On 17 November 2026 at 03:08 UTC, the actual served V9.30-selected root matched the import transformation of all seven SHA-256-verified owner files at `98ddca23be7e1b634b852c032a3f5de2cba51616`, pinned by product main `180e5029f1f0e6179a5e660eb63e6c0fc2b06f7e`.
+
+Intention: preserve the operative homepage before any later owner-authorized V9.31 promotion. The existing [restore-point check44008109552](https://github.com/Ventusltd/globalgrid2050/actions/runs/44008109552) passed on that exact pre-edit main. No older snapshot or owner promotion was changed to create this restore point.
+
+Metrics: 69 lines, 3,630 words, 55,291 characters, 55,304 bytes; SHA-256 `2b63a403c75e65c11dfbd910ddeb9a4ac14357af916a4b442b9c24f8884d5389`.
+
+Rollback: restore owner pin `98ddca23be7e1b634b852c032a3f5de2cba51616`, deploy through the existing importer/Pages process, verify all seven served files and compare the transformed root with `homepage_v145.html`. V9.30 and earlier dated editions remain immutable.

@@ -26,7 +26,7 @@
     var d = new Date(iso);
     if (!iso || isNaN(d)) return '';
     var day = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
-    if (!withTime) return day;
+    if (!withTime || iso.indexOf('T') < 0) return day;
     return day + ' ' + ('0' + d.getUTCHours()).slice(-2) + ':' + ('0' + d.getUTCMinutes()).slice(-2) + ' UTC';
   }
 
@@ -133,7 +133,7 @@
     var dateLabel = articleDate ? 'PUBLISHER DATE ' + articleDate.toUpperCase()
       : (collectedDate ? 'FIRST COLLECTED ' + collectedDate.toUpperCase() : 'ARTICLE DATE UNKNOWN');
     var meta = [dateLabel, CATEGORY[item.category] || '', TECHNOLOGY[item.technology] || '', String(item.source || '')];
-    box.appendChild(el('span', 'ln-meta', meta.filter(Boolean).join(' · ')));
+    box.appendChild(el('span', 'ln-meta', meta.filter(Boolean).join(' Â· ')));
     if (articleDate && collectedDate) box.appendChild(el('span', 'ln-collected', 'FIRST COLLECTED ' + stamp(item.first_seen, true).toUpperCase()));
     var a = el('a', 'ln-title', String(item.title || ''));
     var safe = safeLink(item.link);

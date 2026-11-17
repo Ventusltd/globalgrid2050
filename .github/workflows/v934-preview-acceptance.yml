@@ -88,6 +88,7 @@ jobs:
       - name: Moving ticker, source guards, shared pins and explicit migration contracts
         if: matrix.suite == 'v940_preview'
         run: |
+          git fetch --no-tags --depth=1 origin 3a3106e248131f6e430c1ea03b4858d659755303
           node --test automation/v940_preview/contracts.test.mjs
           python -m unittest discover -s automation/v940_preview -p 'test_migration*.py' -v
       - name: Date and news interaction on desktop and mobile

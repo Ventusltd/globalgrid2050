@@ -1,0 +1,31 @@
+{
+  "schema": "globalgrid2050.repd-date-controls.v934",
+  "source_page": "https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract",
+  "source_header": "Planning Application Submitted",
+  "source_column": "AL",
+  "source_column_1_based": 38,
+  "field": "planning_application_submitted",
+  "source_identity_sha256": "d0840c20bbf5a7b9b268c2631a844ec972ddae3040be353f1fac7e75d3dab5ad",
+  "canonical_rows": 7775,
+  "present": 7653,
+  "unknown": 122,
+  "placement": "immediately after repd_record_updated",
+  "display": "DD/MM/YYYY",
+  "machine_date": "YYYY-MM-DD or null; empty row attribute for null",
+  "unknown_label": "not supplied by REPD",
+  "sort": "both dates ascending or descending; unknown last",
+  "year_filters": "independent; intersect; all recorded years, All and missing",
+  "url_parameters": [
+    "sort",
+    "submitted_year",
+    "updated_year"
+  ],
+  "semantics": "Submission is an application event. REPD updated is record maintenance, not necessarily an application amendment.",
+  "mobile_expansion": {
+    "producer": "de91683cc7e33fa50cd2f0db97742799a7ec3dbc",
+    "assets": {
+      "expand.css": "4331f572b40de95cd1390f4e373fa7404bbcb99a567318551ea46f294f9820d0",
+      "expand.mjs": "b5b76371c1f0710e60858c7359a98e78a25361332515f40ba0db51ea51478d53"
+    }
+  }
+}

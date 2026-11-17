@@ -7,11 +7,18 @@ on:
       - 'uk_renewables_pipeline/202611171507/**'
       - 'uk_renewables_pipeline/202611171526/**'
       - 'uk_renewables_pipeline/202611171550/**'
+      - 'uk_renewables_pipeline/202611171609/**'
+      - 'uk_renewables_pipeline/202611171710/**'
       - 'automation/v934_preview/**'
       - 'automation/v935_preview/**'
       - 'automation/v936_preview/**'
       - 'automation/v937_preview/**'
       - 'automation/v938_preview/**'
+      - 'automation/v939_preview/**'
+      - 'automation/v940_preview/**'
+      - 'automation/ticker_neon_ui/**'
+      - 'automation/document_facts_ui/**'
+      - 'automation/news/filings/**'
       - 'automation/grid_notice_ui/**'
       - 'automation/news/grid_watch/**'
       - 'automation/news_quality_ui/**'
@@ -39,6 +46,12 @@ jobs:
           - edition: '202611171550'
             version: '9_38'
             suite: v938_preview
+          - edition: '202611171609'
+            version: '9_39'
+            suite: v939_preview
+          - edition: '202611171710'
+            version: '9_40'
+            suite: v940_preview
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -69,6 +82,15 @@ jobs:
           python -m unittest discover -s automation/news/tests -p test_grid_watch.py -v
           python -m unittest discover -s automation/news/tests -p test_grid_government_v938.py -v
           node --test automation/v938_preview/contracts.test.mjs
+      - name: Exact document fact bytes, typed-source and refusal contracts
+        if: matrix.suite == 'v939_preview'
+        run: node --test automation/v939_preview/contracts.test.mjs
+      - name: Moving ticker, source guards, shared pins and explicit migration contracts
+        if: matrix.suite == 'v940_preview'
+        run: |
+          git fetch --no-tags --depth=1 origin 3a3106e248131f6e430c1ea03b4858d659755303
+          node --test automation/v940_preview/contracts.test.mjs
+          python -m unittest discover -s automation/v940_preview -p 'test_migration*.py' -v
       - name: Date and news interaction on desktop and mobile
         env:
           PLAYWRIGHT_MODULE: ${{ github.workspace }}/automation/news/acquisition/browser/node_modules/playwright/index.mjs
@@ -77,7 +99,16 @@ jobs:
           V936_OUT: ${{ runner.temp }}/date-proof
           V937_OUT: ${{ runner.temp }}/date-proof
           V938_OUT: ${{ runner.temp }}/date-proof
+          V939_OUT: ${{ runner.temp }}/date-proof
+          V940_OUT: ${{ runner.temp }}/date-proof
         run: node automation/${{ matrix.suite }}/browser.mjs
+      - name: Named Android portrait, landscape, touch and reduced-motion proof
+        if: matrix.suite == 'v940_preview'
+        env:
+          PLAYWRIGHT_MODULE: ${{ github.workspace }}/automation/news/acquisition/browser/node_modules/playwright/index.mjs
+          V940_ANDROID_OUT: ${{ runner.temp }}/date-proof/android
+          ANDROID_DEVICE: 'Pixel 7,Galaxy S9+'
+        run: node automation/v940_preview/android.mjs
       - name: Expanded analytics, close, focus, scroll and rotation
         env:
           PLAYWRIGHT_MODULE: ${{ github.workspace }}/automation/news/acquisition/browser/node_modules/playwright/index.mjs

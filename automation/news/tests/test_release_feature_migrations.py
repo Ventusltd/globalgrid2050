@@ -10,7 +10,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "automation/pipeline_release"))
 import common
-from feature_contracts import check_features, NEWS_MIGRATION, RESEARCH_MIGRATIONS, KNOWN_MIGRATIONS, GLOBAL_DC_MIGRATION
+from feature_contracts import check_features, NEWS_MIGRATION, RESEARCH_MIGRATIONS, KNOWN_MIGRATIONS, GLOBAL_DC_MIGRATION, NEON_MIGRATIONS
 from new_version import migration_records
 
 SOURCE = "202611161244"
@@ -236,7 +236,10 @@ def test_descendant_may_restate_exact_inherited_contract_but_not_duplicate_local
 
 
 def test_release_flags_expand_only_explicit_reviewed_contracts():
-    result = migration_records(["solar1000-inline-v1", "news-priority-internal-v1", "research-priority-internal-v1", "global-dc-ui-v928-v1"])
+    old_flags = ["solar1000-inline-v1", "news-priority-internal-v1", "research-priority-internal-v1", "global-dc-ui-v928-v1"]
+    assert migration_records(old_flags) == [MIGRATION, NEWS_MIGRATION, *RESEARCH_MIGRATIONS, GLOBAL_DC_MIGRATION]
+    assert migration_records(["ticker-neon-v940-v1"]) == NEON_MIGRATIONS
+    result = migration_records([*old_flags, "ticker-neon-v940-v1"])
     assert result == KNOWN_MIGRATIONS
     assert migration_records(["solar1000-inline-v1"]) == [MIGRATION]
     result[0]["contract"] = "caller mutation"

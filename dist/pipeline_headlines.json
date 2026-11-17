@@ -1,9 +1,9 @@
 {
  "schema": "globalgrid2050.news.pipeline-headlines.v1",
- "generated_at": "2026-11-16T18:08:01Z",
+ "generated_at": "2026-11-17T00:27:34Z",
  "status": "ok",
  "counts": {
-  "items": 71,
+  "items": 72,
   "with_possible_match": 3,
   "feeds_ok": 50,
   "feeds_failed": 0,
@@ -16,7 +16,7 @@
    "construction": 8,
    "energisation": 4,
    "policy": 4,
-   "datacentre": 13,
+   "datacentre": 14,
    "other": 4
   }
  },
@@ -30,17 +30,17 @@
    "url": "https://feeds.bbci.co.uk/news/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 32,
+   "entries": 29,
    "kept": 0,
-   "newest": "2026-11-16T18:06:26Z"
+   "newest": "2026-11-17T00:09:54Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/uk/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 32,
+   "entries": 34,
    "kept": 0,
-   "newest": "2026-11-16T17:24:49Z"
+   "newest": "2026-11-17T00:09:54Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
@@ -48,7 +48,7 @@
    "status": "ok",
    "entries": 56,
    "kept": 1,
-   "newest": "2026-11-16T18:06:26Z"
+   "newest": "2026-11-17T00:18:01Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/technology/rss.xml",
@@ -56,7 +56,7 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "newest": "2026-11-16T18:06:26Z"
+   "newest": "2026-11-16T23:25:53Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -64,7 +64,7 @@
    "status": "ok",
    "entries": 41,
    "kept": 0,
-   "newest": "2026-11-16T10:02:04Z"
+   "newest": "2026-11-17T00:09:54Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
@@ -72,7 +72,7 @@
    "status": "ok",
    "entries": 66,
    "kept": 0,
-   "newest": "2026-11-16T16:05:37Z"
+   "newest": "2026-11-16T23:20:45Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/rss.xml",
@@ -80,7 +80,7 @@
    "status": "ok",
    "entries": 24,
    "kept": 0,
-   "newest": "2026-11-16T17:46:16Z"
+   "newest": "2026-11-16T19:24:51Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/scotland/rss.xml",
@@ -88,23 +88,23 @@
    "status": "ok",
    "entries": 30,
    "kept": 1,
-   "newest": "2026-11-16T17:00:35Z"
+   "newest": "2026-11-17T00:19:58Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/wales/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 32,
+   "entries": 31,
    "kept": 0,
-   "newest": "2026-11-16T17:36:25Z"
+   "newest": "2026-11-16T22:56:17Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/northern_ireland/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 38,
+   "entries": 40,
    "kept": 0,
-   "newest": "2026-11-16T17:24:49Z"
+   "newest": "2026-11-17T00:01:00Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/oxford/rss.xml",
@@ -112,7 +112,7 @@
    "status": "ok",
    "entries": 27,
    "kept": 0,
-   "newest": "2026-11-16T15:32:25Z"
+   "newest": "2026-11-16T20:40:52Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/lincolnshire/rss.xml",
@@ -136,7 +136,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "newest": "2026-11-16T17:46:59Z"
+   "newest": "2026-11-16T21:28:57Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/scotland/highlands_and_islands/rss.xml",
@@ -166,9 +166,9 @@
    "url": "https://feeds.bbci.co.uk/news/england/essex/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 37,
+   "entries": 38,
    "kept": 0,
-   "newest": "2026-11-16T14:57:43Z"
+   "newest": "2026-11-16T18:26:15Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/kent/rss.xml",
@@ -176,7 +176,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "newest": "2026-11-16T17:33:39Z"
+   "newest": "2026-11-16T19:27:02Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/devon/rss.xml",
@@ -184,7 +184,7 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "newest": "2026-11-16T17:45:12Z"
+   "newest": "2026-11-16T19:03:31Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/cornwall/rss.xml",
@@ -192,7 +192,7 @@
    "status": "ok",
    "entries": 17,
    "kept": 0,
-   "newest": "2026-11-16T12:14:07Z"
+   "newest": "2026-11-16T18:31:20Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/somerset/rss.xml",
@@ -208,7 +208,7 @@
    "status": "ok",
    "entries": 46,
    "kept": 0,
-   "newest": "2026-11-16T17:46:39Z"
+   "newest": "2026-11-16T18:19:42Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/wiltshire/rss.xml",
@@ -230,9 +230,9 @@
    "url": "https://feeds.bbci.co.uk/news/england/humberside/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 22,
+   "entries": 21,
    "kept": 0,
-   "newest": "2026-11-16T15:15:40Z"
+   "newest": "2026-11-16T19:41:16Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/northamptonshire/rss.xml",
@@ -254,7 +254,7 @@
    "url": "https://feeds.bbci.co.uk/news/england/hereford_and_worcester/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 26,
+   "entries": 23,
    "kept": 0,
    "newest": "2026-11-16T16:29:50Z"
   },
@@ -262,7 +262,7 @@
    "url": "https://feeds.bbci.co.uk/news/england/shropshire/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 26,
+   "entries": 24,
    "kept": 0,
    "newest": "2026-11-16T17:16:30Z"
   },
@@ -344,7 +344,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "newest": "2026-11-16T16:54:42Z"
+   "newest": "2026-11-17T00:22:13Z"
   },
   {
    "url": "https://www.theguardian.com/environment/windpower/rss",
@@ -375,7 +375,7 @@
    "source": "Planning Resource",
    "status": "ok",
    "entries": 20,
-   "kept": 1,
+   "kept": 0,
    "newest": "2026-11-16T12:59:51Z"
   },
   {
@@ -400,7 +400,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 1,
-   "newest": "2026-11-16T17:51:57Z"
+   "newest": "2026-11-17T00:13:13Z"
   },
   {
    "url": "https://www.bloomberg.com/feeds/markets/news.rss",
@@ -408,7 +408,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "newest": "2026-11-16T17:41:36Z"
+   "newest": "2026-11-17T00:00:50Z"
   },
   {
    "url": "https://www.bloomberg.com/feeds/industries/news.rss",
@@ -416,7 +416,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "newest": "2026-11-16T17:41:26Z"
+   "newest": "2026-11-16T22:25:37Z"
   },
   {
    "url": "https://www.pv-magazine.com/feed/",
@@ -428,6 +428,16 @@
   }
  ],
  "items": [
+  {
+   "title": "HSBC Sold $300 Million Troubled Data Center Loan at Discount",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-16/hsbc-sold-300-million-troubled-data-center-loan-at-discount",
+   "source": "Bloomberg",
+   "date": "2026-11-16T22:01:27Z",
+   "first_seen": "2026-11-17T00:27:34Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
   {
    "title": "Nvidia Earnings to Test AI Boom as Hike Looms",
    "link": "https://www.bloomberg.com/news/videos/2026-11-16/nvidia-earnings-to-test-ai-boom-as-hike-looms-video",
@@ -444,6 +454,16 @@
    "source": "BBC News",
    "date": "2026-11-16T16:00:00Z",
    "first_seen": "2026-11-16T18:08:01Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Scotcast - Data centres: Why a political reckoning is coming",
+   "link": "https://www.bbc.co.uk/sounds/play/live:bbc_radio_scotland_fm",
+   "source": "BBC News",
+   "date": "2026-11-16T16:00:00Z",
+   "first_seen": "2026-11-17T00:27:34Z",
    "category": "datacentre",
    "technology": null,
    "possible_match": null
@@ -564,16 +584,6 @@
    "source": "BBC News",
    "date": "2026-11-14T17:20:33Z",
    "first_seen": "2026-11-14T20:54:54Z",
-   "category": "datacentre",
-   "technology": null,
-   "possible_match": null
-  },
-  {
-   "title": "Humain raises $667m for AI buildout in Saudi Arabia",
-   "link": "https://www.datacenterdynamics.com/en/news/humain-raises-667m-for-ai-buildout-in-saudi-arabia/",
-   "source": "DatacenterDynamics",
-   "date": "2026-11-14T07:00:48Z",
-   "first_seen": "2026-11-14T10:47:43Z",
    "category": "datacentre",
    "technology": null,
    "possible_match": null

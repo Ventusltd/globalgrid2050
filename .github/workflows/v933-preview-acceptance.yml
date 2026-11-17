@@ -52,6 +52,7 @@ jobs:
       - name: Successor generation and reviewed primary-note/module contracts
         run: |
           python -B -m pytest -q -p no:cacheprovider automation/pipeline_release/tests/test_compact_successor.py
+          node --test automation/pipeline_release/tests/edition_history.test.mjs
           node --test automation/v929_preview/contracts.test.mjs automation/v933_preview/contracts.test.mjs
       - name: Exact module closure, immutable history, canonical rows and package budget
         run: node automation/v933_preview/invariants.mjs

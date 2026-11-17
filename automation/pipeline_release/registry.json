@@ -1065,16 +1065,27 @@
         "Historical system-sell observations end on 31 October 2026. Source-declared daily dates retain 106,668 UTC disagreements; daily completeness does not certify intraday timing. This is not a live quote, market-index price or forecast.",
         "Reported/approximate DC points and vicinity screening do not verify facilities, capacity or connections. Solar-1000 has zero independently verified links; public Context and physical Android acceptance remain unavailable."
       ],
-      "ci": null,
-      "merge_commit": null,
-      "state": "release_candidate_publication_blocked",
+      "ci": {
+        "url": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44008489399",
+        "conclusion": "success",
+        "source_commit": "a7641774faf9bde8862a5dc8c59f3b83805f4c96"
+      },
+      "merge_commit": "92a485b389c923e144cfa55ba093ac0f4a620fd3",
+      "state": "published_verified",
       "browser_probes": [
         {
           "name": "V9.31 compact full-width page, six tabs and two principal blocks",
           "selector": "body",
           "js": "(()=>{const m=document.querySelector('main'),r=m.getBoundingClientRect();return !document.querySelector('aside')&&!!document.querySelector('.release-header')&&document.querySelectorAll('main > section').length===2&&document.querySelectorAll('.pipeline-tabs > [role=tab]').length===6&&r.x===0&&r.right>=document.documentElement.clientWidth-1&&document.documentElement.scrollWidth<=innerWidth+2&&getComputedStyle(document.body).overflowY!=='hidden';})()"
         }
-      ]
+      ],
+      "publication": {
+        "homepage_owner_commit": "c4ba4ec5e9937dfc09813adecc1ebf24bf7b8706",
+        "domain_pin_merge": "7cc279e62c98acaf4700cba9196cf5ce30d2cfbc",
+        "deployment_run": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44011186363",
+        "served_verified_at": "2026-11-17T03:53:22.931776+00:00",
+        "receipt": "automation/pipeline_release/receipts/v931-public-20261117.json"
+      }
     }
   ],
   "size_budget_mb": 18,
@@ -1082,16 +1093,16 @@
   "release_candidate": {
     "id": "202611170243",
     "version": "V9.31",
-    "state": "NON-LIVE CANDIDATE - HOST CI AND PUBLIC ACCEPTANCE REQUIRED",
+    "state": "PUBLISHED - SOURCE, HOMEPAGE AND SERVED BYTES VERIFIED",
     "operative": {
-      "id": "202611170147",
-      "version": "V9.30"
+      "id": "202611170243",
+      "version": "V9.31"
     },
     "held_candidate": {
       "id": "202611140247",
       "version": "V9.19",
       "state": "held candidate (data-centre register context, awaiting licence verification)"
     },
-    "note": "Qualified historical daily system-sell Prices in a new edition only; source dates, null gaps, negative prices and coverage/UTC counters are retained. V9.30 remains operative until exact-source CI, actual public source/graph acceptance, owner promotion, pinned import and root/rollback verification. All official REPD and existing DC data, original CSV/MAP and historical releases remain unchanged."
+    "note": "V9.31 is selected by the accepted owner/publisher pin after exact-source CI, actual public graph/price-source/coverage, root JS/no-JS and rollback acceptance. Source-declared historical daily groups retain gaps, partial periods and UTC disagreement; no live quote or intraday certification. REPD/DC/CSV/MAP and all earlier editions remain unchanged."
   }
 }

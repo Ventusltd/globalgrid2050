@@ -94,18 +94,29 @@ for (const rel of ["contracts/interconnectors.v9.8.json", "data/v9.8/interconnec
 // 6. page identity
 const fmt = (n) => n.toLocaleString("en-GB");
 const html = await text(join(RELEASE, "index.html"));
-assert.ok(html.includes(`UK RENEWABLES PIPELINE ${ID}`), "index.html h1 names this release");
+const compact = html.includes(`data-edition="${ID}"`);
+assert.ok(compact || html.includes(`UK RENEWABLES PIPELINE ${ID}`), "visible page identity names this release");
 assert.ok(new RegExp(`Canonical DESNZ REPD Q3 2026[^<]*${fmt(manifest.project_count)} solar, BESS and wind records`).test(html), "index.html states the Q3 register count");
 assert.ok(!html.includes("REPD Q2 2026: 7,680"), "index.html must not claim the Q2 register");
 assert.ok(html.includes("scripts/app-v9-8.js"), "index.html loads the v9.8 app");
 const label = html.slice(html.indexOf("<body>"), html.indexOf('<section class="newspaper">'));
 assert.ok(!/CANDIDATE/.test(label.replaceAll("RELEASE CANDIDATE", "")), "brand, nav, h1 and meta carry no candidate label other than this version's own state");
+if (compact) {
+  assert.ok(label.includes(`<small>PIPELINE NEWS · V${VERSION}</small>`), "compact brand names the version");
+  assert.ok(label.includes(`>V${VERSION} · PIPELINE NEWS</a>`), "compact nav names the version");
+  assert.ok(label.includes(`V${VERSION} · `) && label.includes(' · REPD OCTOBER 2026 · '), "compact stamp names the version and source vintage");
+  assert.ok(html.includes(`<title>GlobalGrid2050 | Pipeline News V${VERSION} · ${ID}</title>`), "compact title names this release");
+  assert.equal((html.match(/<section\b/g)||[]).length,2,"exactly two principal blocks");
+  for (const tab of ['solarTab','bessTab','gridTab','datacentreTab']) assert.ok(html.includes(`id="${tab}" role="tab"`),`category ${tab}`);
+  assert.ok(!html.includes('<th>NEWS SIGNAL</th>')&&!html.includes('id="solar1000Pilot"'),"withdrawn panels/column do not return");
+} else {
 assert.ok(label.includes(`<small>UK RENEWABLES PIPELINE · V${VERSION}</small>`), "brand names the version");
 assert.ok(label.includes(`<a class="active" href="#">V${VERSION} ${STATE} · REPD Q3 2026</a>`), "nav names the version");
-assert.ok(label.includes(`<a href="../${PARENT_ID}/">`), "nav links back to the parent");
-assert.ok(label.includes('<a href="../versions.html">'), "nav links to the list of all versions");
 assert.ok(new RegExp(`<strong>V${VERSION.replace(".", "\\.")} · REPD OCTOBER 2026 \\(Q3\\) · [^<]+ · ${STATE} · \\d+ November 2026</strong>`).test(label), "meta line names the version and its date");
 assert.ok(html.includes(`<title>GlobalGrid2050 | UK Renewables Pipeline ${ID}</title>`), "title names this release");
+}
+assert.ok(label.includes(`<a href="../${PARENT_ID}/">`), "nav links back to the parent");
+assert.ok(label.includes('<a href="../versions.html">'), "nav links to the list of all versions");
 
 console.log(`check_v@NUM@: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
   + `${manifest.geometry_count} with geometry / ${manifest.missing_geometry_count} without; news feed unchanged, `

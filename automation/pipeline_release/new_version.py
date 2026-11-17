@@ -72,14 +72,33 @@ def create(new_id, version, title, state="BUILD", dry_run=False):
 
     day = datetime.now(timezone.utc).strftime("%d %B %Y").lstrip("0")
     html = (dst / "index.html").read_text(encoding="utf-8")
+    compact = f'data-edition="{parent["id"]}"' in html
     html = html.replace(f"UK Renewables Pipeline {parent['id']}</title>", f"UK Renewables Pipeline {new_id}</title>")
     html = html.replace(f"<small>UK RENEWABLES PIPELINE · {pv}</small>", f"<small>UK RENEWABLES PIPELINE · {nv}</small>")
-    html, n = re.subn(r'<a class="active" href="#">[^<]*</a>\n(\s*)(<a href="\.\./versions\.html">[^<]*</a>\n\s*)?',
-                      lambda m: f'<a class="active" href="#">{nv} {state} · REPD Q3 2026</a>\n{m.group(1)}<a href="../versions.html">ALL VERSIONS · CI VERDICTS</a>\n{m.group(1)}<a href="../{parent["id"]}/">{pv} {parent["id"]} · REPD Q3 2026</a>\n{m.group(1)}', html, count=1)
+    if compact:
+        html = html.replace(f"Pipeline News {pv} · {parent['id']}</title>", f"Pipeline News {nv} · {new_id}</title>")
+        html = html.replace(f"<small>PIPELINE NEWS · {pv}</small>", f"<small>PIPELINE NEWS · {nv}</small>")
+        html = html.replace(f'data-edition="{parent["id"]}"', f'data-edition="{new_id}"')
+        html, stamp_count = re.subn(r'(<p class="preview-status"[^>]*>)[^<]*(</p>)',
+            lambda m: f'{m[1]}{nv} · {day.upper()} · REPD OCTOBER 2026 · Source dates and provisional research states retained{m[2]}', html, count=1)
+        assert stamp_count == 1, "compact edition stamp not found"
+    active_label = f"{nv} · PIPELINE NEWS" if compact else f"{nv} {state} · REPD Q3 2026"
+    if compact and '<nav class="release-links"' in html:
+        # Keep the owner's replacement header bounded as further editions arrive.
+        links = [f'<a class="active" href="#" aria-current="page">{active_label}</a>',
+                 '<a href="../versions.html">ALL VERSIONS · CI VERDICTS</a>',
+                 f'<a href="../{parent["id"]}/">{pv} · PREVIOUS EDITION</a>',
+                 '<a href="https://ventusltd.github.io/gridatlas/atlas/" id="mapAtlasNav">MAP ATLAS</a>',
+                 '<a href="#" id="export">EXPORT CSV</a>', '<a href="../../index.html">DIRECTORY</a>']
+        html, n = re.subn(r'(<nav class="release-links"[^>]*>).*?(</nav>)',
+            lambda m: m[1] + "\n        " + "\n        ".join(links) + "\n      " + m[2], html, count=1, flags=re.S)
+    else:
+        html, n = re.subn(r'<a class="active" href="#"(?: aria-current="page")?>[^<]*</a>\n(\s*)(<a href="\.\./versions\.html">[^<]*</a>\n\s*)?',
+                          lambda m: f'<a class="active" href="#">{active_label}</a>\n{m.group(1)}<a href="../versions.html">ALL VERSIONS · CI VERDICTS</a>\n{m.group(1)}<a href="../{parent["id"]}/">{pv} {parent["id"]} · REPD Q3 2026</a>\n{m.group(1)}', html, count=1)
     assert n == 1, "nav active link not found"
     html = html.replace(f"<h1>UK RENEWABLES PIPELINE {parent['id']}</h1>", f"<h1>UK RENEWABLES PIPELINE {new_id}</h1>")
     html, n = re.subn(r"<strong>V9\.\d+ · [^<]*</strong>", f"<strong>{nv} · REPD OCTOBER 2026 (Q3) · {title.upper()} · {state} · {day}</strong>", html, count=1)
-    assert n == 1, "meta line not found"
+    assert compact or n == 1, "meta line not found"
     write_text(dst / "index.html", html)
     write_text(dst / "README.md",
         f"# GlobalGrid2050 UK Renewables Pipeline {new_id} ({nv})\n\n"

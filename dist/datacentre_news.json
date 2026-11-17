@@ -1,10 +1,10 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-17T14:38:23Z",
+ "generated_at": "2026-11-17T23:53:26Z",
  "status": "ok",
  "counts": {
-  "items": 10,
-  "capex": 8,
+  "items": 12,
+  "capex": 10,
   "politics": 2,
   "with_register_site": 0,
   "feeds_ok": 9,
@@ -28,7 +28,7 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "sha256": "e0a0774d4f978dd6a9e1dfc3f0b516585eefe39731b8b559a9d9885aea2c2b46"
+   "sha256": "c00265e1a2aaab7da191563f5bd9e13d8355e40abda447145718eff14d0a552d"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
@@ -36,15 +36,15 @@
    "status": "ok",
    "entries": 55,
    "kept": 0,
-   "sha256": "36bd76212f3447b899b68af657c9273b3cca87f795fc0c3495d80b3b64798323"
+   "sha256": "b852fde39ded4b2eb0b1c2e70ebc1d5476a2784b3ff5bb3bfb579cb35b137d64"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 65,
+   "entries": 69,
    "kept": 0,
-   "sha256": "7e41cb1b56c725205b7adfb2ea591acebe66eaca6099e8f22ca91d61a83530ac"
+   "sha256": "2da8d5ae5e49b6005723e06dd171b755c182ab3131b5347a6544ad917c1521aa"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 42,
    "kept": 0,
-   "sha256": "67cb82ebf61af30c9a52a136e3f469ef096d607601bf2b346e8cb15759b0ea04"
+   "sha256": "d1771d02d4816cab6ceb1b7dec3439c4900097a35cd224bd5841f81c15152b4e"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -68,7 +68,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "f1b4ecc5072daac590f22bc954bbf67b68a81f984a92d8bbeb3a3ad1db1f1705"
+   "sha256": "38ea0d2a3295eabc04bfd0e38899205bfbc1fc6f70c7455cb884a1a159472bca"
   },
   {
    "url": "https://www.gov.uk/search/news-and-communications.atom?keywords=data+centre",
@@ -76,7 +76,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "2c92bf76107b8ee0dee1f6f3b611d3a8350ce80f6c168ab6cf5531e7dc6f4327"
+   "sha256": "b323dd81c2ec2e4a464d2ec0beb391930655061d3413b078e7a26bbf5b7064b2"
   },
   {
    "url": "https://bills.parliament.uk/rss/allbills.rss",
@@ -84,18 +84,66 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "0588a0c206cf929ec9a793dbe625af372f70ffb971556a7a20161930482fa7b9"
+   "sha256": "ddb73591cea4a03c2780f5e97de4a8cd0eff13b667b70546df4ea581d71a73fa"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
    "source": "DatacenterDynamics",
    "status": "ok",
    "entries": 20,
-   "kept": 1,
-   "sha256": "85836ad07818909829513503ac4ed67627dc24e17a39a5d5455bf97ab12d9542"
+   "kept": 2,
+   "sha256": "f46a2c17433162796267527b52c93b699769e5ded5d22dc07e0c9fd538f9a884"
   }
  ],
  "items": [
+  {
+   "title": "Patmos plans 50MW data center outside Birmingham, Alabama",
+   "link": "https://www.datacenterdynamics.com/en/news/patmos-plans-50mw-data-center-outside-birmingham-alabama/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-17T17:08:56Z",
+   "first_seen": "2026-11-17T23:53:26Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Macquarie Data Centres eyes 200MW campus in Sydney, Australia",
+   "link": "https://www.datacenterdynamics.com/en/news/macquarie-data-centres-eyes-200mw-campus-in-sydney-australia/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-17T16:50:07Z",
+   "first_seen": "2026-11-17T23:53:26Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
   {
    "title": "Vodafone joint venture to develop two major data center projects in Egypt",
    "link": "https://www.datacenterdynamics.com/en/news/vodafone-joint-venture-to-develop-two-major-data-center-projects-in-egypt/",

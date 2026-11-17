@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import {createHash} from 'node:crypto';
+import {protectedEditionChanges} from '../pipeline_release/edition_history.mjs';
+const root=path.resolve(import.meta.dirname,'../..'),current=path.join(root,'uk_renewables_pipeline/202611171940'),parent=path.join(root,'uk_renewables_pipeline/202611171710'),hash=p=>createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+test('new crisp contract pins the exact additive CSS and requested rate',()=>{const c=JSON.parse(fs.readFileSync(path.join(current,'contracts/ticker.v941.json')));assert.equal(c.schema,'globalgrid2050.crisp-headline-ticker.v941');assert.equal(c.background,'#000000');assert.equal(c.foreground,'#ff3333');assert.equal(c.effects,'none');assert.equal(c.durationMultiplier,.84);assert.equal(c.minimumDurationSeconds,12);assert.equal(c.targetPixelsPerSecond,50);assert.equal(c.parentPixelsPerSecond,42);assert.equal(hash(path.join(root,c.shared_css)),c.sha256);const html=fs.readFileSync(path.join(current,'index.html'),'utf8');assert.ok(html.indexOf('ticker_crisp_ui/20261117-v941/styles.css')>html.indexOf('ticker_neon_ui/20261117-v940/styles.css'));});
+test('source model, renderer binding and V9.40 pins stay byte-identical',()=>{for(const rel of ['scripts/layers/model.mjs','scripts/layers/ticker.mjs','contracts/ticker.v940.json','contracts/ticker.v936.json'])assert.equal(hash(path.join(current,rel)),hash(path.join(parent,rel)));const c=JSON.parse(fs.readFileSync(path.join(current,'contracts/ticker.v940.json')));for(const [name,sha]of Object.entries(c.shared_sha256))assert.equal(hash(path.join(root,'automation/ticker_neon_ui/20261117-v940',name)),sha);});
+test('all historical editions in the accepted V9.40 publisher stay immutable',()=>{assert.deepEqual(protectedEditionChanges({cwd:root,base:'aaca1dd8138269b679d20db196a7c0d480d09389'}),[]);});

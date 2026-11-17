@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "trade",
- "generated_at": "2026-11-17T00:57:25Z",
+ "generated_at": "2026-11-17T14:43:34Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -1946,7 +1946,7 @@
      "status": "ok",
      "entries": 100,
      "matched": 5,
-     "newest": "2026-11-16"
+     "newest": "2026-11-17"
     }
    ],
    "searched": 200,
@@ -1961,7 +1961,7 @@
     "files_known": 195,
     "files_read_this_run": 90,
     "files_never_read": 2,
-    "urls_read": 2431,
+    "urls_read": 1743,
     "links_matching_an_alias": 104,
     "pages_opened": 0,
     "headlines_known": 104
@@ -1996,7 +1996,7 @@
      "status": "ok",
      "entries": 300,
      "matched": 0,
-     "newest": "2026-11-16"
+     "newest": "2026-11-17"
     }
    ],
    "searched": 0,
@@ -2033,7 +2033,7 @@
      "status": "ok",
      "entries": 10,
      "matched": 0,
-     "newest": "2026-11-16"
+     "newest": "2026-11-17"
     }
    ],
    "searched": 0,
@@ -2094,7 +2094,7 @@
      "status": "ok",
      "entries": 300,
      "matched": 0,
-     "newest": "2026-11-16"
+     "newest": "2026-11-17"
     }
    ],
    "searched": 0,
@@ -2135,9 +2135,9 @@
      "url": "https://www.current-news.co.uk/?s=solar+farm",
      "status": "not search results (1 of 21 links say solar)",
      "content_type": "text/html",
-     "bytes": 480477,
+     "bytes": 480500,
      "results": 21,
-     "dated": 1,
+     "dated": 0,
      "summaries": 0,
      "relevant": 1,
      "sample": "Greenwheel Electric submits planning applications for Hunterston electric vehicle charging and solar hub"
@@ -2215,7 +2215,7 @@
      "url": "https://www.planningresource.co.uk/search/articles?KeyWords=solar+farm",
      "status": "not search results (0 of 8 links say solar)",
      "content_type": "text/html",
-     "bytes": 42422,
+     "bytes": 41713,
      "results": 8,
      "dated": 0,
      "summaries": 0,
@@ -2227,7 +2227,7 @@
      "url": "https://www.planningresource.co.uk/search?q=solar+farm",
      "status": "not search results (0 of 8 links say solar)",
      "content_type": "text/html",
-     "bytes": 42422,
+     "bytes": 41713,
      "results": 8,
      "dated": 0,
      "summaries": 0,
@@ -2241,7 +2241,7 @@
      "status": "ok",
      "entries": 20,
      "matched": 0,
-     "newest": "2026-11-16"
+     "newest": "2026-11-17"
     }
    ],
    "searched": 0,
@@ -2278,7 +2278,7 @@
      "status": "ok",
      "entries": 10,
      "matched": 0,
-     "newest": "2026-11-16"
+     "newest": "2026-11-17"
     }
    ],
    "searched": 0,

@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "official",
- "generated_at": "2026-11-17T00:53:09Z",
+ "generated_at": "2026-11-17T14:39:13Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -1217,11 +1217,11 @@
   {
    "id": "govuk-search",
    "url": "https://www.gov.uk/api/search.json",
-   "status": "ok",
+   "status": "partial",
    "requests": 236,
-   "failures": 0,
+   "failures": 1,
    "items": 53,
-   "error": ""
+   "error": "HTTP 503"
   },
   {
    "id": "ecu-case",

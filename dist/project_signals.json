@@ -1,27 +1,27 @@
 {
  "schema": "project-signals.v2",
- "generated_at": "2026-11-17T00:59:08Z",
- "run_at": "2026-11-17T01:25:45Z",
+ "generated_at": "2026-11-17T14:45:20Z",
+ "run_at": "2026-11-17T15:08:05Z",
  "stale": false,
  "scope": "200 largest Solar Photovoltaics rows, REPD October 2026",
  "recent_days": 90,
  "parts": {
   "official": {
    "status": "ok",
-   "collected_at": "2026-11-17T00:53:09Z",
+   "collected_at": "2026-11-17T14:39:13Z",
    "items": 109,
    "note": ""
   },
   "trade": {
    "status": "ok",
-   "collected_at": "2026-11-17T00:57:25Z",
+   "collected_at": "2026-11-17T14:43:34Z",
    "items": 190,
    "note": ""
   },
   "index": {
    "status": "ok",
-   "collected_at": "2026-11-17T00:59:08Z",
-   "items": 16,
+   "collected_at": "2026-11-17T14:45:20Z",
+   "items": 17,
    "note": ""
   },
   "reviewed": {
@@ -32,7 +32,7 @@
   },
   "planning": {
    "status": "ok",
-   "collected_at": "2026-11-17T01:20:45Z",
+   "collected_at": "2026-11-17T15:02:53Z",
    "items": 200,
    "note": ""
   }
@@ -97,11 +97,11 @@
    "team": "official",
    "id": "govuk-search",
    "url": "https://www.gov.uk/api/search.json",
-   "status": "ok",
+   "status": "partial",
    "requests": 236,
-   "failures": 0,
+   "failures": 1,
    "items": 53,
-   "error": ""
+   "error": "HTTP 503"
   },
   {
    "team": "official",
@@ -228,10 +228,10 @@
    "id": "gdelt-doc",
    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
    "status": "partial",
-   "requests": 47,
-   "failures": 41,
-   "items": 20,
-   "error": "time budget for GDELT reached; the rest are asked on later runs; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
+   "requests": 40,
+   "failures": 34,
+   "items": 21,
+   "error": "HTTP 429 on 6 queries running, each retried once; GDELT left alone for the rest of this run; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   }
  ],
  "projects": {

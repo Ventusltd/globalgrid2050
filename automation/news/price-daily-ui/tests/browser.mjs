@@ -52,6 +52,21 @@ try{
     const separated=window.canvasModule.drawDaily(c,{start:'2026-10-01',end:'2026-10-05',rows:omitted});const p=window.pathProof;c.remove();return {empty,emptyPaths,separated,paths:p};
    },annual2026.rows);
    assert.equal(gapProbe.emptyPaths,0);assert(gapProbe.empty.every(s=>s.segments.length===0));assert(gapProbe.separated.every(s=>s.segments.length===2));assert.equal(gapProbe.paths.filter(p=>p.length===2).length,2);
+   // A caller cannot replace accepted pins or poison rows reused by later windows.
+   const expected2017=JSON.parse(await fs.readFile(path.join(dataFolder,'2017.json'))).rows[0].mean_available_gbp_per_mwh;
+   const expectedLatest=annual2026.rows.at(-1).mean_available_gbp_per_mwh;
+   const immutableProof=await page.evaluate(async()=>{
+    const {createStore}=await import('/model.mjs');const store=await createStore();const part=store.index.parts.find(p=>p.year===2017);
+    const pinRejected=Reflect.set(part,'sha256','0'.repeat(64))===false&&Reflect.set(store,'index',{})===false;
+    const yearWindow=await store.window('2017-01-01','2017-01-02');
+    const first=await store.window('2026-10-31','2026-10-31'),record=first.rows[0];
+    const rowRejected=Reflect.set(record,'mean_available_gbp_per_mwh',999)===false&&Reflect.set(first.rows,'0',{})===false;
+    const again=await store.window('2026-10-31','2026-10-31');
+    return {pinRejected,rowRejected,indexFrozen:Object.isFrozen(store.index)&&Object.isFrozen(store.index.parts)&&Object.isFrozen(store.index.sources),
+      sourceMean:yearWindow.rows[0].mean_available_gbp_per_mwh,latestMean:again.rows[0].mean_available_gbp_per_mwh};
+   });
+   assert.equal(immutableProof.pinRejected,true);assert.equal(immutableProof.indexFrozen,true);assert.equal(immutableProof.sourceMean,expected2017);
+   assert.equal(immutableProof.rowRejected,true);assert.equal(immutableProof.latestMean,expectedLatest);
    corrupt='2024.json';await page.getByLabel('Source year').selectOption('2024');await page.waitForFunction(()=>document.querySelector('.pn-daily-prices').dataset.state==='unavailable');
    assert.equal(await page.locator('canvas').isVisible(),false);assert.equal(await page.locator('.pnd-stats').isVisible(),false);assert.equal(await page.locator('tbody tr').count(),0);
    corrupt=null;delayed='2024.json';await page.getByLabel('Source year').selectOption('2024');

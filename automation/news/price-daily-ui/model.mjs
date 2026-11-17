@@ -9,6 +9,9 @@ const SCHEMA='data-gb-electricity.system-sell-daily.v1',BASIS='ELEXON_SYSTEM_SEL
 const fail=(ok,message)=>{if(!ok)throw Error('Daily prices rejected: '+message);};
 const integer=(n,max=2000000)=>Number.isSafeInteger(n)&&n>=0&&n<=max;
 const hash=s=>typeof s==='string'&&/^[a-f0-9]{64}$/.test(s);
+function immutable(value){
+  if(value&&typeof value==='object'&&!Object.isFrozen(value)){for(const item of Object.values(value))immutable(item);Object.freeze(value);}return value;
+}
 export function dateMs(date){
   fail(typeof date==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(date),'date');
   const n=Date.parse(date+'T00:00:00Z');fail(Number.isFinite(n)&&new Date(n).toISOString().slice(0,10)===date,'calendar date');return n;
@@ -64,20 +67,20 @@ export async function readPinned(url,pin,transport=fetch){
   fail(actual===pin.sha256,'SHA-256');return JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
 }
 export async function createStore(transport=fetch){
-  const index=validateIndex(await readPinned(SOURCE.base+'index.json',SOURCE.index,transport)),cache=new Map();
+  const index=immutable(validateIndex(await readPinned(SOURCE.base+'index.json',SOURCE.index,transport))),cache=new Map();
   async function year(n){
     const part=index.parts.find(p=>p.year===n);fail(part,'available year');
     if(cache.has(n)){const promise=cache.get(n);cache.delete(n);cache.set(n,promise);return promise;}
-    const promise=readPinned(SOURCE.base+part.path,part,transport).then(data=>validateYear(data,part,index)).catch(e=>{if(cache.get(n)===promise)cache.delete(n);throw e;});
+    const promise=readPinned(SOURCE.base+part.path,part,transport).then(data=>immutable(validateYear(data,part,index))).catch(e=>{if(cache.get(n)===promise)cache.delete(n);throw e;});
     cache.set(n,promise);if(cache.size>3)cache.delete(cache.keys().next().value);return promise;
   }
-  return {index,async window(start,end){
+  return Object.freeze({index,async window(start,end){
     const a=Math.max(dateMs(start),dateMs(index.first_date)),b=Math.min(dateMs(end),dateMs(index.last_date));
     fail(b>=a&&(b-a)/DAY<366,'bounded historical window');
     const years=[];for(let y=new Date(a).getUTCFullYear();y<=new Date(b).getUTCFullYear();y++)years.push(y);
     const rows=(await Promise.all(years.map(year))).flat().filter(r=>dateMs(r.date)>=a&&dateMs(r.date)<=b);
-    fail(rows.length===(b-a)/DAY+1,'window calendar continuity');return {start:dateAt(a),end:dateAt(b),rows};
-  }};
+    fail(rows.length===(b-a)/DAY+1,'window calendar continuity');return immutable({start:dateAt(a),end:dateAt(b),rows});
+  }});
 }
 export function summarise(rows){
   const values=rows.filter(r=>r.priced_periods>0);return {

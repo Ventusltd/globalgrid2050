@@ -19,6 +19,9 @@ bases, invalid counts and inconsistent coverage reject the load. Annual files
 are limited to 150 KB and the in-memory cache to three years. A requested
 window contains at most 366 calendar dates and loads only its annual parts.
 It never downloads browser Parquet or the full raw archive.
+Accepted index metadata, nested pins, cached rows and returned windows are
+immutable. A caller cannot replace a pin or poison a later cached window by
+editing a previously returned row.
 
 The default is the final 30 **source** dates, currently 2–31 October 2026. It
 does not use today's date to imply freshness. Available windows are 30, 90,

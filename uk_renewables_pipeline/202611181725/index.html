@@ -99,20 +99,12 @@
 </div>
 <div id="repdPanel" role="tabpanel" aria-labelledby="solarTab"><span id="releaseMeta" hidden></span>
 <p class="category-scope">Canonical DESNZ REPD Q3 2026: 7,775 solar, BESS and wind records at ≥1 MW from 14,967 source rows. Use All Tech for this full qualifying register; interconnectors retain their separate identities.</p>
-<div class="gauges">
-<div class="card">
-<h3>FILTERED CAPACITY (MW)</h3>
-<div class="chart"><canvas id="g1"></canvas><div class="value" id="v1">0</div></div>
+<div class="filters compact-mw-filter" aria-label="Capacity range">
+<label for="minMW">Min MW</label><input id="minMW" type="number" min="0" step="any" inputmode="decimal" placeholder="Any">
+<label for="maxMW">Max MW</label><input id="maxMW" type="number" min="0" step="any" inputmode="decimal" placeholder="Any">
+<button type="button" id="applyMW" class="btn">APPLY</button><span id="mwRangeError" role="alert"></span>
 </div>
-<div class="card">
-<h3>FILTERED PROJECTS (≥1MW)</h3>
-<div class="chart"><canvas id="g2"></canvas><div class="value" id="v2">0</div></div>
-</div>
-<div class="card">
-<h3>LARGEST SINGLE SITE (MW)</h3>
-<div class="chart"><canvas id="g3"></canvas><div class="value" id="v3">0</div></div>
-</div>
-</div>
+<details class="compact-register-filters"><summary>More project filters</summary>
 <div class="filters" id="tech">
 <button class="btn active" data-technology="all" aria-pressed="true">ALL TECH</button>
 <button class="btn" data-technology="solar" aria-pressed="false">SOLAR</button>
@@ -128,12 +120,23 @@
 <button class="btn" data-official-status="Awaiting Construction" aria-pressed="false">AWAITING</button>
 <button class="btn" data-official-status="Application Submitted" aria-pressed="false">SUBMITTED</button>
 </div>
-<div class="filters compact-mw-filter" aria-label="Capacity range">
-<label for="minMW">Min MW</label><input id="minMW" type="number" min="0" step="any" inputmode="decimal" placeholder="Any">
-<label for="maxMW">Max MW</label><input id="maxMW" type="number" min="0" step="any" inputmode="decimal" placeholder="Any">
-<button type="button" id="applyMW" class="btn">APPLY</button><span id="mwRangeError" role="alert"></span>
+
+<details class="compact-analytics"><summary>Capacity analytics</summary>
+<div class="gauges">
+<div class="card">
+<h3>FILTERED CAPACITY (MW)</h3>
+<div class="chart"><canvas id="g1"></canvas><div class="value" id="v1">0</div></div>
 </div>
-<details class="compact-register-filters"><summary>More project filters</summary>
+<div class="card">
+<h3>FILTERED PROJECTS (≥1MW)</h3>
+<div class="chart"><canvas id="g2"></canvas><div class="value" id="v2">0</div></div>
+</div>
+<div class="card">
+<h3>LARGEST SINGLE SITE (MW)</h3>
+<div class="chart"><canvas id="g3"></canvas><div class="value" id="v3">0</div></div>
+</div>
+</div>
+</details>
 <div class="filters">
 <select id="county"><option value="All">🌍 ALL COUNTIES</option></select>
 <select id="sortProjects" aria-label="Sort projects">
@@ -151,11 +154,12 @@
 <input id="search" class="asset-search" placeholder="🔍 SEARCH PROJECT / REPD / GLOBALGRID / PLANNING..." autocomplete="off">
 <button class="btn clear-filters" id="clearFilters">CLEAR FILTERS</button>
 <button class="btn export-inline" id="exportInline">EXPORT FILTERED CSV</button>
-<span id="resultsMeta" class="results-meta">Loading all qualifying records…</span>
+
 <span id="exportMeta" class="export-meta">CSV contains the current filtered rows only</span>
 </div>
 </details>
-<details class="scope-notes"><summary>Register scope and MAP guidance</summary><div class="meta">
+<span id="resultsMeta" class="results-meta">Loading all qualifying records…</span>
+<details class="scope-notes compact-register-scope"><summary>Register scope and MAP guidance</summary><div class="meta">
 <strong>STATUS DISCIPLINE</strong>
 <span><b>DEFAULT:</b> every qualifying ≥1 MW record is loaded. Filters are user controls; they never redefine or truncate the pipeline.</span>
 <span><b>NEWS:</b> relevance scores are algorithmic screening only and never change an official REPD fact.</span>

@@ -45,3 +45,19 @@
 .machine-note-dialog h2{font-size:15px!important}
 .machine-note-dialog{font-size:12px!important;line-height:1.4!important}
 }
+
+/* Put analytics and advanced filters behind a disclosure, not before the records. */
+.compact-analytics>summary{cursor:pointer;padding:8px 0;color:var(--accent)}
+#repdPanel>.results-meta{display:block;margin:4px 0 7px;font-size:10px}
+#repdPanel>.compact-register-scope{margin:0 0 6px;font-size:10px}
+#repdPanel>.compact-register-scope>summary{min-height:0;padding:5px 0}
+@media(max-width:768px){
+#officialRegister .repd-expand-launcher{display:none}
+#repdPanel .compact-mw-filter{margin-bottom:4px}
+#repdPanel .compact-register-filters>summary{padding:6px 0}
+#repdPanel .compact-analytics .gauges{grid-template-columns:repeat(3,minmax(0,1fr))}
+#repdPanel .compact-analytics .gauges .card{min-width:0}
+#repdPanel #tbody tr[id^="repd-"]>td:nth-child(5){line-height:1.2;overflow-wrap:break-word}
+#repdPanel #tbody .project-record summary{min-height:23px;padding:3px 0}
+#repdPanel #tbody tr[id^="repd-"]>td:nth-child(10),#repdPanel #tbody tr[id^="repd-"]>td:nth-child(11){font-size:10px;line-height:1.25}
+}

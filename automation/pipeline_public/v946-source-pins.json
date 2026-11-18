@@ -1,0 +1,204 @@
+{
+  "head": "169fe4e196741971c3cb380ddb49344977026b82",
+  "edition": "202611180633",
+  "tree": "97611064f880544ea22b8bb01af2aef318b93001",
+  "state": "PRIVATE_CANDIDATE_QA_REBIND_HOLD_FOR_SOURCE_CI_MERGE_HTTPS_REVIEW",
+  "source_blob_pins": [
+    {
+      "path": "uk_renewables_pipeline/202611180633/index.html",
+      "bytes": 19102,
+      "sha256": "e1d5ce5eb05d248bfd7ec5616ee151377380be1127929e3214b806365022ae04"
+    },
+    {
+      "path": "automation/repd_expand_ui/expand.css",
+      "bytes": 1832,
+      "sha256": "4331f572b40de95cd1390f4e373fa7404bbcb99a567318551ea46f294f9820d0"
+    },
+    {
+      "path": "automation/price_daily_ui/78d5360239e1a5fcffa83fcb30d5937c5521acb9/styles.css",
+      "bytes": 2090,
+      "sha256": "38cb88941bd896bc6ba3642e34e3b60f09e5e6ad3ada352cc4d8ccc713da695c"
+    },
+    {
+      "path": "automation/dc_location_ui/83e7c36d08ef98f3665f7f35b8637405391dc4be/actions.css",
+      "bytes": 1261,
+      "sha256": "0af86f6ac75651a0bed54096ccab403e7abb5cb58b023238dc79e58b8a3ca039"
+    },
+    {
+      "path": "automation/news/datacentre-ui/styles.css",
+      "bytes": 2860,
+      "sha256": "1612b94378f99336b901abaaa9e623c38a3f21f8991004212ec34a52bbe2ba27"
+    },
+    {
+      "path": "automation/v928_context/preview/context.css",
+      "bytes": 1690,
+      "sha256": "834a5d76ad201ad433e5ac51bbfc0c8a44b33a33f1f43ab1697e7e5ec26fbca0"
+    },
+    {
+      "path": "automation/v928_context/preview/figures/b460cb7f76172691b5ffb6d2a7f1a8e12057ba20/figures.css",
+      "bytes": 3241,
+      "sha256": "8616989ec796c7f12442c8a3999e538f7f0d5ab4502f047d3071e9d682db0498"
+    },
+    {
+      "path": "automation/news_quality_ui/20261117-v937/styles.css",
+      "bytes": 1033,
+      "sha256": "759f44e7a74b709d951162203c5f7d437903a7a883417adb6355613c834dea71"
+    },
+    {
+      "path": "automation/grid_notice_ui/20261117-v938/styles.css",
+      "bytes": 573,
+      "sha256": "64394140a086b8b772ad2dc9ed5034f41dff8a3e020011cc0354b3d4c0f3460f"
+    },
+    {
+      "path": "automation/document_facts_ui/20261117-v939/styles.css",
+      "bytes": 487,
+      "sha256": "99e226f44bda94ca5a47b58abbf7663bc64a77788e8ab53d11ad7309e0da4031"
+    },
+    {
+      "path": "automation/ticker_neon_ui/20261117-v940/styles.css",
+      "bytes": 3448,
+      "sha256": "9ac64ca9859a73263a532ef65f121c7a7e87627400e5abce6d235d46f4ae0db4"
+    },
+    {
+      "path": "automation/ticker_crisp_ui/20261117-v941/styles.css",
+      "bytes": 438,
+      "sha256": "0b9eb8c680301d2a736651649bdc180360535ce68a95eed50be3011bb471e300"
+    },
+    {
+      "path": "automation/ticker_neon_ui/20261117-v940/header.mjs",
+      "bytes": 1224,
+      "sha256": "17fbbbf9488ceadfd46baeef8849a3f37862d30261916991fa56f85eb0a3b94d"
+    },
+    {
+      "path": "automation/journey_entry_ui/20261118/styles.css",
+      "bytes": 841,
+      "sha256": "5d58b62a44c4370971b1a791220635555bc2722f8020bebf75cd8d783c838af1"
+    },
+    {
+      "path": "automation/news/datacentre-ui/model.js",
+      "bytes": 10010,
+      "sha256": "673866cce4c9a737aa183cf99564a3d1c50eae18df96038d3fb9fc0f408f37ec"
+    },
+    {
+      "path": "automation/news/datacentre-ui/view.js",
+      "bytes": 12430,
+      "sha256": "096e42218355417effb20ea2123d169f8e6c4248b0317c46c245d5aca9e627c1"
+    },
+    {
+      "path": "automation/repd_expand_ui/expand.mjs",
+      "bytes": 4332,
+      "sha256": "b5b76371c1f0710e60858c7359a98e78a25361332515f40ba0db51ea51478d53"
+    },
+    {
+      "path": "automation/news_quality_ui/20261117-v937/view.mjs",
+      "bytes": 4724,
+      "sha256": "8f350a0e4ee3a8c9a9c20b259a3cede9daa7d4213f56d1d4e7d90141cd8d3960"
+    },
+    {
+      "path": "automation/grid_notice_ui/20261117-v938/view.mjs",
+      "bytes": 3110,
+      "sha256": "251a7872f79c3eb4f9ffe0c53bf5751cba1d29e0f5dbc6cdc7bab6cfd524b969"
+    },
+    {
+      "path": "automation/document_facts_ui/20261117-v939/view.mjs",
+      "bytes": 3011,
+      "sha256": "e9f1b34d73bfb292063101fa6fd83fe703e4f1be77df669582c57db8eee1406e"
+    },
+    {
+      "path": "automation/mobile_map_ui/20261118-v942/navigation.mjs",
+      "bytes": 3042,
+      "sha256": "44ddc73a62dc3a0e7b81b7b077f5cfd2d4206fa23616e701c95bf48b7c957be4"
+    },
+    {
+      "path": "automation/journey_entry_ui/20261118/view.mjs",
+      "bytes": 6347,
+      "sha256": "1464a4f673f1e7a71c13508181946245ed30371b200269fa4ee45ad78ef48219"
+    },
+    {
+      "path": "automation/journey_entry_ui/20261118/model.mjs",
+      "bytes": 3241,
+      "sha256": "e369bc7ad15cdc7cef9b0bdfd0f358f9bece967af69b9ebf7a011c6460c7de9a"
+    },
+    {
+      "path": "uk_renewables_pipeline/202611180633/scripts/plugins/preview-v928.js",
+      "bytes": 8239,
+      "sha256": "eaef2c4d52e746e7488bd59fd5e0f4c0fefbf361247f3bb554cdd410484aa582"
+    },
+    {
+      "path": "uk_renewables_pipeline/202611180633/contracts/journey-return.v944.json",
+      "bytes": 126,
+      "sha256": "a7937e0436ca915ebd15b700e8c539fb9392fcc44d940c08b430ccecffb88359"
+    },
+    {
+      "path": "automation/energy_context_ui/20261118/closure.json",
+      "bytes": 1258,
+      "sha256": "41440558a54dcd167c2b6430bfab3e537b89fcd63e2ba493626d49bfafa5ece7"
+    },
+    {
+      "path": "automation/energy_context_ui/20261118/model.mjs",
+      "bytes": 7059,
+      "sha256": "6da127abe022ec76c2bad9169bfc551211310d5621570499f5e1a9724c89c720"
+    },
+    {
+      "path": "automation/energy_context_ui/20261118/view.mjs",
+      "bytes": 12405,
+      "sha256": "7485e27387f1ee37fd129566073547d49e79596aec4005dc3d3fa9e857646650"
+    },
+    {
+      "path": "automation/energy_context_ui/20261118/styles.css",
+      "bytes": 1020,
+      "sha256": "133dc7f381487c6a64a12db8b034a796b6dbe670526097835b818562d67db6ce"
+    },
+    {
+      "path": "automation/energy_context_ui/20261118/policy.json",
+      "bytes": 3519,
+      "sha256": "e2ba6c89c9bfd47456442ccb4c20e12d8297682630bca4b135da9a2e83a6d1ff"
+    },
+    {
+      "path": "automation/energy_context_ui/20261118/review.json",
+      "bytes": 555,
+      "sha256": "990769f45cfc3e26987e9b0a37b8786622397e824a3448d03c30cd56eaa2840a"
+    },
+    {
+      "path": "automation/energy_context_ui/20261118/verify-closure.mjs",
+      "bytes": 1964,
+      "sha256": "d22dc4121c6cbb06f516e175501474ef2b51c40cb143b81c690b089fda83d2ba"
+    },
+    {
+      "path": "automation/document_facts_ui/20261117-v939/model.mjs",
+      "bytes": 1070,
+      "sha256": "81d13997a05448feb87ac97beaa5fac19d6efb7413f9e6d5b9dc45bdfbb9b2ca"
+    },
+    {
+      "path": "automation/document_facts_ui/20261117-v939/facts.json",
+      "bytes": 6309,
+      "sha256": "e2af1d77b9cc49d5d202d4b8f814bcb9469c974193afea21cf9d186a0d722d0a"
+    },
+    {
+      "path": "automation/grid_notice_ui/20261117-v938/notice.json",
+      "bytes": 5300,
+      "sha256": "bef90e1a64e4f1921c62f85ee61d636d1fe02fcebd30ea1570a7b3bfd49f5148"
+    },
+    {
+      "path": "automation/grid_notice_ui/20261117-v938/model.mjs",
+      "bytes": 2841,
+      "sha256": "a2ea9cae62e74dc1381482e7f2741bc34d04241103ade3d1232459af57987130"
+    },
+    {
+      "path": "uk_renewables_pipeline/202611180633/contracts/energy-context.v945.json",
+      "bytes": 116,
+      "sha256": "c648ad36bc2978b28ba41bdb3e66e223dcf34808cf3c1e5645e57c3f58aca5d6"
+    },
+    {
+      "path": "uk_renewables_pipeline/202611180633/scripts/plugins/live-news.js",
+      "bytes": 14922,
+      "sha256": "9a93f41f4de42f25c657d32ac9845942003358c7b06557d30e8fb44114472991"
+    },
+    {
+      "path": "uk_renewables_pipeline/202611180633/scripts/plugins/projects-v9-8.js",
+      "bytes": 30795,
+      "sha256": "c6c91c5defab2a538ad2c623fb0e008f1d6087778ef816e1833004e3ac822db8"
+    }
+  ],
+  "public_acceptance": false
+}

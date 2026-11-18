@@ -1,9 +1,9 @@
 {
  "schema": "globalgrid2050.news.pipeline-headlines.v1",
- "generated_at": "2026-11-17T23:38:50Z",
+ "generated_at": "2026-11-18T13:23:36Z",
  "status": "ok",
  "counts": {
-  "items": 78,
+  "items": 80,
   "with_possible_match": 3,
   "feeds_ok": 50,
   "feeds_failed": 0,
@@ -16,8 +16,8 @@
    "construction": 8,
    "energisation": 5,
    "policy": 4,
-   "datacentre": 16,
-   "other": 6
+   "datacentre": 17,
+   "other": 7
   }
  },
  "limits": {
@@ -30,25 +30,25 @@
    "url": "https://feeds.bbci.co.uk/news/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 33,
+   "entries": 31,
    "kept": 0,
-   "newest": "2026-11-17T23:03:39Z"
+   "newest": "2026-11-18T13:17:06Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/uk/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 36,
+   "entries": 28,
    "kept": 0,
-   "newest": "2026-11-17T22:51:15Z"
+   "newest": "2026-11-18T13:19:39Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 55,
+   "entries": 44,
    "kept": 1,
-   "newest": "2026-11-17T23:03:39Z"
+   "newest": "2026-11-18T13:17:06Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/technology/rss.xml",
@@ -56,7 +56,7 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "newest": "2026-11-17T23:03:39Z"
+   "newest": "2026-11-18T13:16:53Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -64,71 +64,71 @@
    "status": "ok",
    "entries": 42,
    "kept": 1,
-   "newest": "2026-11-17T23:34:56Z"
+   "newest": "2026-11-18T12:13:32Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 69,
+   "entries": 66,
    "kept": 0,
-   "newest": "2026-11-17T22:31:32Z"
+   "newest": "2026-11-18T13:19:39Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 29,
+   "entries": 25,
    "kept": 0,
-   "newest": "2026-11-17T20:45:32Z"
+   "newest": "2026-11-18T13:15:49Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/scotland/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 28,
-   "kept": 0,
-   "newest": "2026-11-17T22:52:09Z"
+   "entries": 31,
+   "kept": 1,
+   "newest": "2026-11-18T13:19:07Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/wales/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 33,
+   "entries": 30,
    "kept": 0,
-   "newest": "2026-11-17T22:16:23Z"
+   "newest": "2026-11-18T12:45:35Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/northern_ireland/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 44,
+   "entries": 54,
    "kept": 0,
-   "newest": "2026-11-17T22:20:37Z"
+   "newest": "2026-11-18T13:13:05Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/oxford/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 27,
+   "entries": 26,
    "kept": 0,
-   "newest": "2026-11-17T20:09:03Z"
+   "newest": "2026-11-18T13:02:09Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/lincolnshire/rss.xml",
    "source": "BBC News",
    "status": "ok",
    "entries": 21,
-   "kept": 1,
-   "newest": "2026-11-17T19:36:26Z"
+   "kept": 0,
+   "newest": "2026-11-18T06:02:38Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/norfolk/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 20,
+   "entries": 17,
    "kept": 2,
-   "newest": "2026-11-17T11:08:23Z"
+   "newest": "2026-11-18T12:20:59Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/suffolk/rss.xml",
@@ -136,23 +136,23 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "newest": "2026-11-17T14:17:32Z"
+   "newest": "2026-11-18T11:48:43Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/scotland/highlands_and_islands/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 22,
+   "entries": 23,
    "kept": 0,
-   "newest": "2026-11-17T17:59:21Z"
+   "newest": "2026-11-18T11:56:51Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/cambridgeshire/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 41,
+   "entries": 39,
    "kept": 0,
-   "newest": "2026-11-17T17:21:43Z"
+   "newest": "2026-11-18T13:02:09Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/nottingham/rss.xml",
@@ -160,15 +160,15 @@
    "status": "ok",
    "entries": 29,
    "kept": 0,
-   "newest": "2026-11-17T20:00:46Z"
+   "newest": "2026-11-18T12:08:04Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/essex/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 41,
+   "entries": 40,
    "kept": 0,
-   "newest": "2026-11-17T22:17:47Z"
+   "newest": "2026-11-18T11:48:43Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/kent/rss.xml",
@@ -176,7 +176,7 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "newest": "2026-11-17T18:23:24Z"
+   "newest": "2026-11-18T12:42:54Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/devon/rss.xml",
@@ -184,7 +184,7 @@
    "status": "ok",
    "entries": 22,
    "kept": 0,
-   "newest": "2026-11-17T17:21:06Z"
+   "newest": "2026-11-18T11:45:49Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/cornwall/rss.xml",
@@ -192,7 +192,7 @@
    "status": "ok",
    "entries": 17,
    "kept": 0,
-   "newest": "2026-11-17T17:21:06Z"
+   "newest": "2026-11-18T08:16:24Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/somerset/rss.xml",
@@ -200,7 +200,7 @@
    "status": "ok",
    "entries": 37,
    "kept": 0,
-   "newest": "2026-11-17T20:24:29Z"
+   "newest": "2026-11-18T12:25:00Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/gloucestershire/rss.xml",
@@ -208,7 +208,7 @@
    "status": "ok",
    "entries": 46,
    "kept": 0,
-   "newest": "2026-11-17T22:46:30Z"
+   "newest": "2026-11-18T08:28:43Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/wiltshire/rss.xml",
@@ -216,63 +216,63 @@
    "status": "ok",
    "entries": 33,
    "kept": 1,
-   "newest": "2026-11-17T16:22:39Z"
+   "newest": "2026-11-18T12:07:49Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/york_and_north_yorkshire/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 22,
+   "entries": 23,
    "kept": 0,
-   "newest": "2026-11-17T20:24:13Z"
+   "newest": "2026-11-18T10:35:30Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/humberside/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 22,
+   "entries": 23,
    "kept": 0,
-   "newest": "2026-11-17T18:05:27Z"
+   "newest": "2026-11-18T11:25:41Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/northamptonshire/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 23,
+   "entries": 21,
    "kept": 0,
-   "newest": "2026-11-17T18:28:10Z"
+   "newest": "2026-11-18T12:46:12Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/leicester/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 23,
+   "entries": 22,
    "kept": 0,
-   "newest": "2026-11-17T18:28:57Z"
+   "newest": "2026-11-18T11:55:49Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/hereford_and_worcester/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 27,
+   "entries": 23,
    "kept": 0,
-   "newest": "2026-11-17T16:05:52Z"
+   "newest": "2026-11-18T13:00:07Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/shropshire/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 26,
+   "entries": 25,
    "kept": 0,
-   "newest": "2026-11-17T18:48:25Z"
+   "newest": "2026-11-18T12:53:27Z"
   },
   {
    "url": "https://www.solarpowerportal.co.uk/rss.xml?content_types=article",
    "source": "Solar Power Portal",
    "status": "ok",
    "entries": 50,
-   "kept": 26,
-   "newest": "2026-11-17T15:18:44Z"
+   "kept": 25,
+   "newest": "2026-11-18T09:12:49Z"
   },
   {
    "url": "https://www.gov.uk/search/news-and-communications.atom?organisations%5B%5D=planning-inspectorate",
@@ -296,7 +296,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 1,
-   "newest": "2026-11-17T13:38:00Z"
+   "newest": "2026-11-18T12:20:52Z"
   },
   {
    "url": "https://www.gov.uk/search/news-and-communications.atom?keywords=data+centre",
@@ -304,7 +304,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "newest": "2026-11-17T15:15:32Z"
+   "newest": "2026-11-18T13:10:25Z"
   },
   {
    "url": "https://www.energy-storage.news/feed/",
@@ -312,7 +312,7 @@
    "status": "ok",
    "entries": 300,
    "kept": 3,
-   "newest": "2026-11-17T15:20:37Z"
+   "newest": "2026-11-18T12:06:14Z"
   },
   {
    "url": "https://www.pv-tech.org/feed/",
@@ -320,7 +320,7 @@
    "status": "ok",
    "entries": 300,
    "kept": 1,
-   "newest": "2026-11-17T16:33:28Z"
+   "newest": "2026-11-18T11:51:44Z"
   },
   {
    "url": "https://feeds.feedburner.com/Renews-RenewableEnergyNews",
@@ -328,15 +328,15 @@
    "status": "ok",
    "entries": 30,
    "kept": 1,
-   "newest": "2026-11-17T16:10:08Z"
+   "newest": "2026-11-18T11:55:48Z"
   },
   {
    "url": "https://www.offshorewind.biz/feed/",
    "source": "offshoreWIND.biz",
    "status": "ok",
    "entries": 50,
-   "kept": 5,
-   "newest": "2026-11-17T14:00:48Z"
+   "kept": 4,
+   "newest": "2026-11-18T12:19:10Z"
   },
   {
    "url": "https://www.theguardian.com/environment/energy/rss",
@@ -344,7 +344,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "newest": "2026-11-17T19:12:15Z"
+   "newest": "2026-11-18T00:01:26Z"
   },
   {
    "url": "https://www.theguardian.com/environment/windpower/rss",
@@ -360,7 +360,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 1,
-   "newest": "2026-11-17T10:00:00Z"
+   "newest": "2026-11-18T12:01:00Z"
   },
   {
    "url": "https://www.constructionenquirer.com/feed/",
@@ -383,8 +383,8 @@
    "source": "DatacenterDynamics",
    "status": "ok",
    "entries": 20,
-   "kept": 1,
-   "newest": "2026-11-17T23:26:03Z"
+   "kept": 3,
+   "newest": "2026-11-18T13:21:42Z"
   },
   {
    "url": "https://datacentrereview.com/feed/",
@@ -392,15 +392,15 @@
    "status": "ok",
    "entries": 10,
    "kept": 2,
-   "newest": "2026-11-17T10:06:17Z"
+   "newest": "2026-11-18T08:00:00Z"
   },
   {
    "url": "https://www.bloomberg.com/feeds/technology/news.rss",
    "source": "Bloomberg",
    "status": "ok",
    "entries": 20,
-   "kept": 0,
-   "newest": "2026-11-17T23:12:06Z"
+   "kept": 3,
+   "newest": "2026-11-18T13:14:15Z"
   },
   {
    "url": "https://www.bloomberg.com/feeds/markets/news.rss",
@@ -408,7 +408,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 2,
-   "newest": "2026-11-17T23:01:33Z"
+   "newest": "2026-11-18T13:01:01Z"
   },
   {
    "url": "https://www.bloomberg.com/feeds/industries/news.rss",
@@ -416,20 +416,120 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "newest": "2026-11-17T21:28:54Z"
+   "newest": "2026-11-18T13:02:12Z"
   },
   {
    "url": "https://www.pv-magazine.com/feed/",
    "source": "pv magazine",
    "status": "ok",
    "entries": 10,
-   "kept": 1,
-   "newest": "2026-11-17T17:00:00Z"
+   "kept": 0,
+   "newest": "2026-11-18T10:30:00Z"
   }
  ],
  "items": [
   {
-   "title": "Pakistan's solar revolution seems unstoppable - but there's a problem",
+   "title": "Giga Energy secures $1bn lease for 60MW data center in Hunt County, Texas",
+   "link": "https://www.datacenterdynamics.com/en/news/giga-energy-secures-1bn-lease-for-60mw-data-center-in-hunt-county-texas/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-18T12:42:36Z",
+   "first_seen": "2026-11-18T13:23:36Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "UK's Network Rail taps Cognizant for £133.2m data center contract",
+   "link": "https://www.datacenterdynamics.com/en/news/uks-network-rail-taps-cognizant-for-1332m-data-center-contract/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-18T12:40:41Z",
+   "first_seen": "2026-11-18T13:23:36Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "US Stock Futures Rally as Nvidia Results Ease AI Trade Worries",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-18/us-stock-futures-rally-as-nvidia-results-ease-ai-trade-worries",
+   "source": "Bloomberg",
+   "date": "2026-11-18T12:34:46Z",
+   "first_seen": "2026-11-18T13:23:36Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Nvidia Earnings: Colette Kress Tightens AI Spending After Jensen Huang’s Exit",
+   "link": "https://www.bloomberg.com/news/newsletters/2026-11-18/nvidia-earnings-colette-kress-tightens-ai-spending-after-jensen-huang-s-exit",
+   "source": "Bloomberg",
+   "date": "2026-11-18T11:28:01Z",
+   "first_seen": "2026-11-18T13:23:36Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Hyperscale market shifts",
+   "link": "https://www.datacenterdynamics.com/en/whitepapers/hyperscale-market-shifts-afl-new/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-18T09:56:34Z",
+   "first_seen": "2026-11-18T13:23:36Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Council gets most representations ever over data centre",
+   "link": "https://www.bbc.co.uk/news/articles/cm930l51d387o",
+   "source": "BBC News",
+   "date": "2026-11-18T09:32:48Z",
+   "first_seen": "2026-11-18T13:23:36Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Tencent’s AI Spending Squeezes Profit While Revenue Disappoints",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-18/tencent-s-sales-miss-estimates-in-setback-for-founder-s-ai-push",
+   "source": "Bloomberg",
+   "date": "2026-11-18T08:36:54Z",
+   "first_seen": "2026-11-18T13:23:36Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "US Banks Seek Chip-Curbs Clause on Loan to Bain Data Center Firm",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-18/us-banks-seek-chip-curbs-clause-on-loan-to-bain-data-center-firm",
+   "source": "Bloomberg",
+   "date": "2026-11-18T08:02:29Z",
+   "first_seen": "2026-11-18T13:23:36Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Residents say they will fight data and solar farm",
+   "link": "https://www.bbc.co.uk/news/articles/c3j4r9jvwvw9o",
+   "source": "BBC News",
+   "date": "2026-11-18T05:54:33Z",
+   "first_seen": "2026-11-18T13:23:36Z",
+   "category": "other",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Copper and Tin Plunge as AI Trade Unravels in Metals Markets",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-18/copper-prices-industrial-metal-dollar-lme",
+   "source": "Bloomberg",
+   "date": "2026-11-18T05:16:25Z",
+   "first_seen": "2026-11-18T13:23:36Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Pakistan's solar revolution is so successful the national grid is lagging behind",
    "link": "https://www.bbc.co.uk/news/articles/ckvg2n2q3103o",
    "source": "BBC News",
    "date": "2026-11-17T23:34:56Z",
@@ -469,26 +569,6 @@
    "possible_match": null
   },
   {
-   "title": "SpaceX Debt for AI Chips to Hit Market as Soon as This Week",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-17/spacex-debt-for-ai-chips-to-hit-market-as-soon-as-this-week",
-   "source": "Bloomberg",
-   "date": "2026-11-17T14:53:10Z",
-   "first_seen": "2026-11-17T23:38:50Z",
-   "category": "datacentre",
-   "technology": null,
-   "possible_match": null
-  },
-  {
-   "title": "Mexico Is Missing Out on AI Data Center Boom as Energy Crunch Bites",
-   "link": "https://www.bloomberg.com/news/features/2026-11-17/mexico-is-missing-out-on-ai-data-center-boom-as-energy-crunch-bites",
-   "source": "Bloomberg",
-   "date": "2026-11-17T13:00:06Z",
-   "first_seen": "2026-11-17T13:48:13Z",
-   "category": "datacentre",
-   "technology": null,
-   "possible_match": null
-  },
-  {
    "title": "Satellite imagery reveals vegetation recovery at solar plant in semi-arid region of China",
    "link": "https://www.pv-magazine.com/2026/11/17/satellite-imagery-reveals-vegetation-recovery-at-solar-plant-in-semi-arid-region-of-china/",
    "source": "pv magazine",
@@ -503,16 +583,6 @@
    "link": "https://www.bbc.co.uk/news/articles/cmn80gqyv505o",
    "source": "BBC News",
    "date": "2026-11-17T08:41:43Z",
-   "first_seen": "2026-11-17T13:48:13Z",
-   "category": "datacentre",
-   "technology": null,
-   "possible_match": null
-  },
-  {
-   "title": "Envision Said to Weigh Adding Data Center Power Unit to IPO Plan",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-17/envision-said-to-consider-adding-data-center-power-to-ipo-plan",
-   "source": "Bloomberg",
-   "date": "2026-11-17T07:00:21Z",
    "first_seen": "2026-11-17T13:48:13Z",
    "category": "datacentre",
    "technology": null,
@@ -536,26 +606,6 @@
    "first_seen": "2026-11-17T13:48:13Z",
    "category": "energisation",
    "technology": "battery",
-   "possible_match": null
-  },
-  {
-   "title": "HSBC Sold $300 Million Troubled Data Center Loan at Discount",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-16/hsbc-sold-300-million-troubled-data-center-loan-at-discount",
-   "source": "Bloomberg",
-   "date": "2026-11-16T22:01:27Z",
-   "first_seen": "2026-11-17T00:27:34Z",
-   "category": "datacentre",
-   "technology": null,
-   "possible_match": null
-  },
-  {
-   "title": "Nvidia Earnings to Test AI Boom as Hike Looms",
-   "link": "https://www.bloomberg.com/news/videos/2026-11-16/nvidia-earnings-to-test-ai-boom-as-hike-looms-video",
-   "source": "Bloomberg",
-   "date": "2026-11-16T16:29:14Z",
-   "first_seen": "2026-11-16T18:08:01Z",
-   "category": "datacentre",
-   "technology": null,
    "possible_match": null
   },
   {
@@ -586,36 +636,6 @@
    "first_seen": "2026-11-16T18:08:01Z",
    "category": "planning_decision",
    "technology": "solar",
-   "possible_match": null
-  },
-  {
-   "title": "Singapore Wealth Fund, Saudi Telecom Bid for UK’s Pure Data Centres Stake",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-16/singapore-wealth-fund-saudi-telecom-bid-for-uk-s-pure-data-centres-stake",
-   "source": "Bloomberg",
-   "date": "2026-11-16T10:49:40Z",
-   "first_seen": "2026-11-16T13:06:13Z",
-   "category": "datacentre",
-   "technology": null,
-   "possible_match": null
-  },
-  {
-   "title": "3Q 2026 global data center market report",
-   "link": "https://www.datacenterdynamics.com/en/whitepapers/3q-2026-global-data-center-market-report/",
-   "source": "DatacenterDynamics",
-   "date": "2026-11-16T10:28:37Z",
-   "first_seen": "2026-11-16T13:06:13Z",
-   "category": "datacentre",
-   "technology": null,
-   "possible_match": null
-  },
-  {
-   "title": "Asian Data Center Loan Syndication Is Delayed in Rare Deal Pause",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-16/asian-data-center-loan-syndication-is-delayed-in-rare-deal-pause",
-   "source": "Bloomberg",
-   "date": "2026-11-16T09:04:22Z",
-   "first_seen": "2026-11-16T13:06:13Z",
-   "category": "datacentre",
-   "technology": null,
    "possible_match": null
   },
   {

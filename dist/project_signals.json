@@ -1,26 +1,26 @@
 {
  "schema": "project-signals.v2",
- "generated_at": "2026-11-17T23:59:33Z",
- "run_at": "2026-11-18T00:19:43Z",
+ "generated_at": "2026-11-18T14:25:06Z",
+ "run_at": "2026-11-18T14:52:44Z",
  "stale": false,
  "scope": "200 largest Solar Photovoltaics rows, REPD October 2026",
  "recent_days": 90,
  "parts": {
   "official": {
    "status": "ok",
-   "collected_at": "2026-11-17T23:53:33Z",
+   "collected_at": "2026-11-18T14:17:35Z",
    "items": 109,
    "note": ""
   },
   "trade": {
    "status": "ok",
-   "collected_at": "2026-11-17T23:57:51Z",
+   "collected_at": "2026-11-18T14:21:54Z",
    "items": 190,
    "note": ""
   },
   "index": {
    "status": "ok",
-   "collected_at": "2026-11-17T23:59:33Z",
+   "collected_at": "2026-11-18T14:25:06Z",
    "items": 17,
    "note": ""
   },
@@ -32,7 +32,7 @@
   },
   "planning": {
    "status": "ok",
-   "collected_at": "2026-11-18T00:13:09Z",
+   "collected_at": "2026-11-18T14:46:28Z",
    "items": 200,
    "note": ""
   }
@@ -127,18 +127,18 @@
    "team": "trade",
    "id": "pv-tech",
    "url": "https://www.pv-tech.org",
-   "status": "ok",
-   "requests": 3,
+   "status": "partial",
+   "requests": 7,
    "failures": 0,
    "items": 1,
-   "error": ""
+   "error": "no search route usable: wp_posts HTTP 403; wp_rss HTTP 403; wp_rss HTTP 403; html HTTP 403; wp_search HTTP 403"
   },
   {
    "team": "trade",
    "id": "pv-magazine",
    "url": "https://www.pv-magazine.com",
    "status": "ok",
-   "requests": 3,
+   "requests": 48,
    "failures": 0,
    "items": 9,
    "error": ""
@@ -161,14 +161,14 @@
    "requests": 7,
    "failures": 0,
    "items": 0,
-   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 22 links say solar); wp_search not JSON"
+   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 23 links say solar); wp_search not JSON"
   },
   {
    "team": "trade",
    "id": "renews",
    "url": "https://renews.biz",
    "status": "ok",
-   "requests": 4,
+   "requests": 49,
    "failures": 0,
    "items": 78,
    "error": ""
@@ -188,7 +188,7 @@
    "id": "construction-enquirer",
    "url": "https://www.constructionenquirer.com",
    "status": "ok",
-   "requests": 3,
+   "requests": 48,
    "failures": 0,
    "items": 0,
    "error": ""
@@ -198,7 +198,7 @@
    "id": "solar-energy-uk",
    "url": "https://solarenergyuk.org",
    "status": "ok",
-   "requests": 2,
+   "requests": 47,
    "failures": 0,
    "items": 0,
    "error": ""
@@ -228,10 +228,10 @@
    "id": "gdelt-doc",
    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
    "status": "partial",
-   "requests": 30,
-   "failures": 26,
+   "requests": 53,
+   "failures": 40,
    "items": 21,
-   "error": "HTTP 429 on 6 queries running, each retried once; GDELT left alone for the rest of this run; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
+   "error": "time budget for GDELT reached; the rest are asked on later runs; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   }
  ],
  "projects": {
@@ -7205,7 +7205,7 @@
     "link_type": "search",
     "authority": "South Kesteven",
     "reference": "S21/1018",
-    "url": "https://pa.southkesteven.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+    "url": "https://www.southkesteven.gov.uk/",
     "kind": "search_page",
     "verified": false,
     "note": "Search the register for S21/1018."
@@ -8418,7 +8418,7 @@
     "link_type": "search",
     "authority": "South Kesteven",
     "reference": "S20/1433",
-    "url": "https://pa.southkesteven.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+    "url": "https://www.southkesteven.gov.uk/",
     "kind": "search_page",
     "verified": false,
     "note": "Search the register for S20/1433."

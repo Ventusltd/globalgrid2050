@@ -1,0 +1,9 @@
+{
+  "schema": "globalgrid2050.mobile-map-native.v942",
+  "module": "automation/mobile_map_ui/20261118-v942/navigation.mjs",
+  "sha256": "44ddc73a62dc3a0e7b81b7b077f5cfd2d4206fa23616e701c95bf48b7c957be4",
+  "touch_navigation": "native-current-tab",
+  "desktop_navigation": "original-target",
+  "return_state": "URL filters and history page/scroll",
+  "receiver_presentation": "separate GridAtlas acceptance"
+}

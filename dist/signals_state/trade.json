@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "trade",
- "generated_at": "2026-11-18T14:21:54Z",
+ "generated_at": "2026-11-18T23:30:48Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -1115,12 +1115,32 @@
   },
   {
    "repd_ref": "6502",
+   "title": "Quinbrook breaks ground on ‘largest’ solar and storage project in the UK",
+   "link": "https://www.energy-storage.news/quinbrook-breaks-ground-on-largest-solar-and-storage-project-in-the-uk/",
+   "publisher": "Energy-Storage.news",
+   "date": "2023-04-26",
+   "family": "trade",
+   "basis": "Energy-Storage.news search: alias phrase 'Cleve Hill' in the summary with developer 'Quinbrook'; the headline does not name the project",
+   "confidence": "uncertain"
+  },
+  {
+   "repd_ref": "6502",
    "title": "UK gives go-ahead for 350MW mega-solar",
    "link": "https://www.renews.biz/solar/uk-gives-go-ahead-for-350mw-mega-solar/",
    "publisher": "reNEWS",
    "date": "2020-05-28",
    "family": "trade",
    "basis": "reNEWS search: alias phrase 'Cleve Hill' in the summary with county 'Kent'; the headline does not name the project",
+   "confidence": "uncertain"
+  },
+  {
+   "repd_ref": "6502",
+   "title": "Tesla mega-battery reports are wide of mark, say developers of 350MW+ UK solar farm",
+   "link": "https://www.energy-storage.news/tesla-mega-battery-reports-are-wide-of-mark-say-developers-of-350mw-uk-solar-farm/",
+   "publisher": "Energy-Storage.news",
+   "date": "2018-07-04",
+   "family": "trade",
+   "basis": "Energy-Storage.news search: alias phrase 'Cleve Hill' in the summary with county 'Kent'; the headline does not name the project",
    "confidence": "uncertain"
   },
   {
@@ -1908,12 +1928,12 @@
   {
    "id": "solar-power-portal",
    "url": "https://www.solarpowerportal.co.uk",
-   "status": "ok",
-   "requests": 95,
+   "status": "failed",
+   "requests": 4,
    "failures": 0,
    "items": 102,
-   "error": "",
-   "route": "sitemap (links by alias in the path, headline from the article's metadata)",
+   "error": "no search route usable: html refused by robots.txt; wp_posts HTTP 403; sitemap HTTP 403",
+   "route": "",
    "routes": [
     {
      "route": "html",
@@ -1925,87 +1945,52 @@
      "route": "wp_posts",
      "url": "https://www.solarpowerportal.co.uk/wp-json/wp/v2/posts?search=solar+farm&per_page=20&orderby=relevance&_fields=title,link,date,excerpt",
      "status": "failed",
-     "error": "HTTP 404"
+     "error": "HTTP 403"
     },
     {
      "route": "sitemap",
      "url": "https://www.solarpowerportal.co.uk/sitemap.xml",
-     "status": "ok",
-     "content_type": "text/xml",
-     "bytes": 4721,
-     "results": 26,
-     "dated": "",
-     "summaries": "",
-     "relevant": "",
-     "sample": "urls: https://www.solarpowerportal.co.uk/resources-current-briefings-tackling-grid-constraints-as-a-developer"
+     "status": "failed",
+     "error": "HTTP 403"
     }
    ],
    "feeds": [
     {
      "url": "https://www.solarpowerportal.co.uk/rss.xml?content_types=article&limit=100",
-     "status": "ok",
-     "entries": 100,
-     "matched": 5,
-     "newest": "2026-11-18"
+     "status": "failed",
+     "error": "HTTP 403"
     }
    ],
-   "searched": 200,
+   "searched": 0,
    "cached": 0,
    "skipped": 0,
    "feed_archive": {
     "pages_read": 0,
     "note": "complete; next pass after 30 days"
    },
-   "notes": [],
-   "sitemap": {
-    "files_known": 195,
-    "files_read_this_run": 90,
-    "files_never_read": 2,
-    "urls_read": 1010,
-    "links_matching_an_alias": 104,
-    "pages_opened": 0,
-    "headlines_known": 104
-   }
+   "notes": []
   },
   {
    "id": "pv-tech",
    "url": "https://www.pv-tech.org",
-   "status": "partial",
-   "requests": 7,
+   "status": "ok",
+   "requests": 48,
    "failures": 0,
    "items": 1,
-   "error": "no search route usable: wp_posts HTTP 403; wp_rss HTTP 403; wp_rss HTTP 403; html HTTP 403; wp_search HTTP 403",
-   "route": "",
+   "error": "",
+   "route": "wp_posts /wp-json/wp/v2/posts?search={q}&per_page=20&orderby=relevance&_fields=title,link,date,excerpt",
    "routes": [
     {
      "route": "wp_posts",
      "url": "https://www.pv-tech.org/wp-json/wp/v2/posts?search=solar+farm&per_page=20&orderby=relevance&_fields=title,link,date,excerpt",
-     "status": "failed",
-     "error": "HTTP 403"
-    },
-    {
-     "route": "wp_rss",
-     "url": "https://www.pv-tech.org/?s=solar+farm&feed=rss2",
-     "status": "failed",
-     "error": "HTTP 403"
-    },
-    {
-     "route": "wp_rss",
-     "url": "https://www.pv-tech.org/feed/?s=solar+farm",
-     "status": "failed",
-     "error": "HTTP 403"
-    },
-    {
-     "route": "html",
-     "url": "https://www.pv-tech.org/?s=solar+farm",
-     "status": "failed",
-     "error": "HTTP 403"
-    },
-    {
-     "route": "wp_search",
-     "url": "https://www.pv-tech.org/wp-json/wp/v2/search?search=solar+farm&per_page=20",
-     "status": "failed",
-     "error": "HTTP 403"
+     "status": "ok",
+     "content_type": "application/json",
+     "bytes": 8664,
+     "results": 20,
+     "dated": 20,
+     "summaries": 20,
+     "relevant": 20,
+     "sample": "Southern Power starts commercial operations at second phase of Millers Branch solar farm, signs seven-party VPPA"
     }
    ],
    "feeds": [
@@ -2017,7 +2002,7 @@
      "newest": "2026-11-18"
     }
    ],
-   "searched": 0,
+   "searched": 45,
    "cached": 0,
    "skipped": 0,
    "notes": []
@@ -2026,7 +2011,7 @@
    "id": "pv-magazine",
    "url": "https://www.pv-magazine.com",
    "status": "ok",
-   "requests": 48,
+   "requests": 3,
    "failures": 0,
    "items": 9,
    "error": "",
@@ -2054,56 +2039,32 @@
      "newest": "2026-11-18"
     }
    ],
-   "searched": 45,
-   "cached": 0,
+   "searched": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": []
   },
   {
    "id": "energy-storage-news",
    "url": "https://www.energy-storage.news",
-   "status": "partial",
-   "requests": 7,
+   "status": "ok",
+   "requests": 48,
    "failures": 0,
-   "items": 0,
-   "error": "no search route usable: wp_posts HTTP 403; wp_rss HTTP 403; wp_rss ignores the query (same items as the main feed); html HTTP 403; wp_search HTTP 403",
-   "route": "",
+   "items": 2,
+   "error": "",
+   "route": "wp_posts /wp-json/wp/v2/posts?search={q}&per_page=20&orderby=relevance&_fields=title,link,date,excerpt",
    "routes": [
     {
      "route": "wp_posts",
      "url": "https://www.energy-storage.news/wp-json/wp/v2/posts?search=solar+farm&per_page=20&orderby=relevance&_fields=title,link,date,excerpt",
-     "status": "failed",
-     "error": "HTTP 403"
-    },
-    {
-     "route": "wp_rss",
-     "url": "https://www.energy-storage.news/?s=solar+farm&feed=rss2",
-     "status": "failed",
-     "error": "HTTP 403"
-    },
-    {
-     "route": "wp_rss",
-     "url": "https://www.energy-storage.news/feed/?s=solar+farm",
-     "status": "ignores the query (same items as the main feed)",
-     "content_type": "application/rss+xml",
-     "bytes": 403992,
-     "results": 300,
-     "dated": 300,
-     "summaries": 300,
-     "relevant": 56,
-     "sample": "Zelestra, Salzgitter Flachstahl sign German solar-plus-storage PPA to power steelmaking"
-    },
-    {
-     "route": "html",
-     "url": "https://www.energy-storage.news/?s=solar+farm",
-     "status": "failed",
-     "error": "HTTP 403"
-    },
-    {
-     "route": "wp_search",
-     "url": "https://www.energy-storage.news/wp-json/wp/v2/search?search=solar+farm&per_page=20",
-     "status": "failed",
-     "error": "HTTP 403"
+     "status": "ok",
+     "content_type": "application/json",
+     "bytes": 10444,
+     "results": 20,
+     "dated": 20,
+     "summaries": 20,
+     "relevant": 20,
+     "sample": "Octopus Australia breaks ground on 486MWh Blind Creek Solar Farm and Battery project"
     }
    ],
    "feeds": [
@@ -2115,7 +2076,7 @@
      "newest": "2026-11-18"
     }
    ],
-   "searched": 0,
+   "searched": 45,
    "cached": 0,
    "skipped": 0,
    "notes": [
@@ -2155,7 +2116,7 @@
      "url": "https://www.current-news.co.uk/?s=solar+farm",
      "status": "not search results (1 of 23 links say solar)",
      "content_type": "text/html",
-     "bytes": 480664,
+     "bytes": 479548,
      "results": 23,
      "dated": 1,
      "summaries": 0,
@@ -2187,7 +2148,7 @@
    "id": "renews",
    "url": "https://renews.biz",
    "status": "ok",
-   "requests": 49,
+   "requests": 4,
    "failures": 0,
    "items": 78,
    "error": "",
@@ -2215,8 +2176,8 @@
      "newest": "2026-11-18"
     }
    ],
-   "searched": 45,
-   "cached": 0,
+   "searched": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": []
   },
@@ -2235,7 +2196,7 @@
      "url": "https://www.planningresource.co.uk/search/articles?KeyWords=solar+farm",
      "status": "not search results (0 of 8 links say solar)",
      "content_type": "text/html",
-     "bytes": 41713,
+     "bytes": 42422,
      "results": 8,
      "dated": 0,
      "summaries": 0,
@@ -2247,7 +2208,7 @@
      "url": "https://www.planningresource.co.uk/search?q=solar+farm",
      "status": "not search results (0 of 8 links say solar)",
      "content_type": "text/html",
-     "bytes": 41713,
+     "bytes": 42422,
      "results": 8,
      "dated": 0,
      "summaries": 0,
@@ -2261,7 +2222,7 @@
      "status": "ok",
      "entries": 20,
      "matched": 0,
-     "newest": "2026-11-17"
+     "newest": "2026-11-18"
     }
    ],
    "searched": 0,
@@ -2273,7 +2234,7 @@
    "id": "construction-enquirer",
    "url": "https://www.constructionenquirer.com",
    "status": "ok",
-   "requests": 48,
+   "requests": 3,
    "failures": 0,
    "items": 0,
    "error": "",
@@ -2298,11 +2259,11 @@
      "status": "ok",
      "entries": 10,
      "matched": 0,
-     "newest": "2026-11-17"
+     "newest": "2026-11-18"
     }
    ],
-   "searched": 45,
-   "cached": 0,
+   "searched": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": []
   },
@@ -2310,7 +2271,7 @@
    "id": "solar-energy-uk",
    "url": "https://solarenergyuk.org",
    "status": "ok",
-   "requests": 47,
+   "requests": 2,
    "failures": 0,
    "items": 0,
    "error": "",
@@ -2336,8 +2297,8 @@
      "error": "refused by robots.txt"
     }
    ],
-   "searched": 45,
-   "cached": 0,
+   "searched": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": []
   }

@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "trade",
- "generated_at": "2026-11-17T14:43:34Z",
+ "generated_at": "2026-11-17T23:57:51Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -1961,7 +1961,7 @@
     "files_known": 195,
     "files_read_this_run": 90,
     "files_never_read": 2,
-    "urls_read": 1743,
+    "urls_read": 2573,
     "links_matching_an_alias": 104,
     "pages_opened": 0,
     "headlines_known": 104
@@ -2100,7 +2100,9 @@
    "searched": 0,
    "cached": 0,
    "skipped": 0,
-   "notes": []
+   "notes": [
+    "robots.txt www.energy-storage.news: HTTP 403 (treated as no rules)"
+   ]
   },
   {
    "id": "current",
@@ -2109,7 +2111,7 @@
    "requests": 7,
    "failures": 0,
    "items": 0,
-   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 21 links say solar); wp_search not JSON",
+   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 22 links say solar); wp_search not JSON",
    "route": "",
    "routes": [
     {
@@ -2133,11 +2135,11 @@
     {
      "route": "html",
      "url": "https://www.current-news.co.uk/?s=solar+farm",
-     "status": "not search results (1 of 21 links say solar)",
+     "status": "not search results (1 of 22 links say solar)",
      "content_type": "text/html",
-     "bytes": 480500,
-     "results": 21,
-     "dated": 0,
+     "bytes": 479500,
+     "results": 22,
+     "dated": 1,
      "summaries": 0,
      "relevant": 1,
      "sample": "Greenwheel Electric submits planning applications for Hunterston electric vehicle charging and solar hub"

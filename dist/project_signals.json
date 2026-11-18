@@ -1,26 +1,26 @@
 {
  "schema": "project-signals.v2",
- "generated_at": "2026-11-17T14:45:20Z",
- "run_at": "2026-11-17T15:08:05Z",
+ "generated_at": "2026-11-17T23:59:33Z",
+ "run_at": "2026-11-18T00:19:43Z",
  "stale": false,
  "scope": "200 largest Solar Photovoltaics rows, REPD October 2026",
  "recent_days": 90,
  "parts": {
   "official": {
    "status": "ok",
-   "collected_at": "2026-11-17T14:39:13Z",
+   "collected_at": "2026-11-17T23:53:33Z",
    "items": 109,
    "note": ""
   },
   "trade": {
    "status": "ok",
-   "collected_at": "2026-11-17T14:43:34Z",
+   "collected_at": "2026-11-17T23:57:51Z",
    "items": 190,
    "note": ""
   },
   "index": {
    "status": "ok",
-   "collected_at": "2026-11-17T14:45:20Z",
+   "collected_at": "2026-11-17T23:59:33Z",
    "items": 17,
    "note": ""
   },
@@ -32,7 +32,7 @@
   },
   "planning": {
    "status": "ok",
-   "collected_at": "2026-11-17T15:02:53Z",
+   "collected_at": "2026-11-18T00:13:09Z",
    "items": 200,
    "note": ""
   }
@@ -97,11 +97,11 @@
    "team": "official",
    "id": "govuk-search",
    "url": "https://www.gov.uk/api/search.json",
-   "status": "partial",
+   "status": "ok",
    "requests": 236,
-   "failures": 1,
+   "failures": 0,
    "items": 53,
-   "error": "HTTP 503"
+   "error": ""
   },
   {
    "team": "official",
@@ -161,7 +161,7 @@
    "requests": 7,
    "failures": 0,
    "items": 0,
-   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 21 links say solar); wp_search not JSON"
+   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 22 links say solar); wp_search not JSON"
   },
   {
    "team": "trade",
@@ -228,8 +228,8 @@
    "id": "gdelt-doc",
    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
    "status": "partial",
-   "requests": 40,
-   "failures": 34,
+   "requests": 30,
+   "failures": 26,
    "items": 21,
    "error": "HTTP 429 on 6 queries running, each retried once; GDELT left alone for the rest of this run; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   }
@@ -7205,7 +7205,7 @@
     "link_type": "search",
     "authority": "South Kesteven",
     "reference": "S21/1018",
-    "url": "https://www.southkesteven.gov.uk/",
+    "url": "https://pa.southkesteven.gov.uk/online-applications/search.do?action=simple&searchType=Application",
     "kind": "search_page",
     "verified": false,
     "note": "Search the register for S21/1018."
@@ -8418,7 +8418,7 @@
     "link_type": "search",
     "authority": "South Kesteven",
     "reference": "S20/1433",
-    "url": "https://www.southkesteven.gov.uk/",
+    "url": "https://pa.southkesteven.gov.uk/online-applications/search.do?action=simple&searchType=Application",
     "kind": "search_page",
     "verified": false,
     "note": "Search the register for S20/1433."

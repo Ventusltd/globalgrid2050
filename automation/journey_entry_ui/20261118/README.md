@@ -45,3 +45,10 @@ host only; this is not published-edition acceptance. Without that flag the
 actual candidate must load the entry itself. Missing sparse-checkout assets
 fail explicitly. The inherited external evidence pointer may return 404 and is
 recorded separately; no same-origin failures or page errors are accepted.
+
+The separate public-only verifier `automation/pipeline_public/journey-entry.mjs`
+requires explicit PN_PUBLIC_EDITION and EXPECTED_ATLAS_GENERATION. It is prepared
+for the later accepted source/publisher gate, not run against an unpublished
+edition. Keeping it outside source-preview paths avoids rerunning unrelated
+historical source matrices on a publication-only verifier change. Actual public
+acceptance still requires the hosted/browser execution and retained receipts.

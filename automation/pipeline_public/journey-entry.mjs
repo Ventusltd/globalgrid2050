@@ -36,7 +36,7 @@ function sourceState(expected){
  return expected?JSON.stringify(state)===JSON.stringify(expected):state;
 }
 try{await verifyAtlasPins();for(const [engine,device,desktop]of [['chromium','Pixel 7',false],['webkit','iPhone 13',false],['chromium','Desktop Chrome',true]]){
- const browser=await pw[engine].launch({headless:true});
+ const browser=await pw[engine].launch({headless:true,...(engine==='chromium'?{args:['--use-gl=angle','--use-angle=swiftshader','--enable-webgl','--ignore-gpu-blocklist']}: {})});
  try{for(const kind of ['repd','substation','datacentre','manual']){
  const context=await browser.newContext(pw.devices[device]),sourcePage=await context.newPage(),errors=[];let page=sourcePage;page.on('pageerror',e=>errors.push(e.message));context.on('page',p=>p.on('pageerror',e=>errors.push(e.message)));
  const row={engine,device,desktop,kind,started:new Date().toISOString(),errors};report.results.push(row);
@@ -81,9 +81,9 @@ try{await verifyAtlasPins();for(const [engine,device,desktop]of [['chromium','Pi
  const train=await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridVicinity.snapshot().train);row.routeInitial=train;
  assert.equal(train.itinerary.schema,'gridatlas.user-itinerary.v1');assert.equal(train.itinerary.mode,'vicinity');assert.equal(train.itinerary.limit,90);assert.equal(train.itinerary.selectedCount,0);assert.equal(train.plan,null);
  assert.equal(train.index.schema,'gridatlas.station-index.v1');assert.equal(train.index.sourceRecords,5800);assert.equal(train.index.indexedRecords,5800);assert.equal(train.index.connectionsInferred,0);assert.equal(train.index.datasetPinStatus,'CALLER_SUPPLIED_NOT_REVALIDATED');assert.deepEqual(train.index.datasetPin,acceptedAtlas.stationSource);
- await route.getByRole('button',{name:'Journey ? 10 stops',exact:true})[desktop?'click':'tap']();
+ await route.getByRole('button',{name:'Journey \u00b7 10 stops',exact:true})[desktop?'click':'tap']();
  let state=await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridVicinity.snapshot());assert.equal(state.train.itinerary.mode,'journey');assert.equal(state.train.itinerary.limit,10);assert.equal(state.train.itinerary.selectedCount,0);assert.deepEqual(state.origin,row.arrival.state.origin);
- await route.getByRole('button',{name:'Vicinity ? 90 stops',exact:true})[desktop?'click':'tap']();
+ await route.getByRole('button',{name:'Vicinity \u00b7 90 stops',exact:true})[desktop?'click':'tap']();
  state=await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridVicinity.snapshot());assert.equal(state.train.itinerary.mode,'vicinity');assert.equal(state.train.itinerary.limit,90);assert.equal(state.train.itinerary.selectedCount,0);assert.equal(state.train.plan,null);assert.deepEqual(state.origin,row.arrival.state.origin);row.routeControls='Accessible selectors and empty selected-stop caps checked; no itinerary was constructed or route claimed.';
  await panel.getByRole('group',{name:'Radius in whole kilometres',exact:true}).getByRole('slider',{name:'Vicinity radius in kilometres',exact:true}).focus();await page.keyboard.press('End');assert.equal(await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridVicinity.snapshot().radiusKm),50);await page.keyboard.press('Home');assert.equal(await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridVicinity.snapshot().radiusKm),1);
  const checkbox=panel.getByRole('group',{name:'Source voltage tags',exact:true}).getByRole('checkbox',{name:'400 kV',exact:true});await checkbox.uncheck();assert.equal(await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridVicinity.snapshot().selectedBands.includes('400')),false);

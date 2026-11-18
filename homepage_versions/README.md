@@ -1926,3 +1926,12 @@ Preserves the authenticated Pipeline News V9.42-selected public root before prom
 Observed 2026-11-18T01:02:24.705Z: 57690 bytes, 69 lines, 3732 words, 57677 characters; SHA256 `05dc6efd607fac2cf06ad7641fd3d7f7007f860e6a3f062b8e4f14e38b2307f6`. Folder files 267 before and 269 after snapshot plus metrics.
 
 Rollback restores the prior owner pin through the existing verified importer and Pages deployment, then compares all seven owner files and transformed root with V155. Every prior snapshot, Pipeline News row and dated product edition remains retained. This is a homepage catalogue update; the GridAtlas source generation was independently released in its owner repository.
+
+
+## V156 - before GridAtlas V9.193 catalogue promotion
+
+Preserves the actual accepted V9.192 and Pipeline News V9.42 public homepage before promoting GridAtlas V9.193. Snapshot `homepage_v156.html`; metrics `homepage_v156-metrics.json`; source main `484b404fa4c4f5e6c92b408f00765df52ff7d296`; prior owner pin `0b29bf5fe6c3f536f3caadb73a027eb9941bbcbb`. Official restore measurement [44234250990](https://github.com/Ventusltd/globalgrid2050/actions/runs/44234250990) succeeded before owner merge or domain pin edits. All seven owner inputs were verified through the existing importer and its transformed root equals the actual public bytes.
+
+Observed 2026-11-18T04:00:46.113984+00:00: 58093 bytes, 69 lines, 3736 words, 58080 characters; SHA256 `826d207a8d9cb7a74c853e952004016608fbfd511e5f4fa0267898c022ee82ce`. Folder entries 271 before and 273 after snapshot and metrics.
+
+Rollback restores this prior owner pin through the existing importer and Pages deployment, then checks all seven inputs and transformed root against V156. Every prior snapshot, all twenty Pipeline News rows and dated product editions remain retained. The V9.192 predecessor remains reader-visible through its immutable dated app route.

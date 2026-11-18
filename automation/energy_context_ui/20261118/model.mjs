@@ -8,7 +8,7 @@ const digest=async text=>Array.from(new Uint8Array(await crypto.subtle.digest('S
 
 export function validOrigin(origin){
  if(!origin||!originKinds.has(origin.origin_type)||typeof origin.origin_id!=='string'||!/^[\w:.-]{1,120}$/.test(origin.origin_id))return null;
- if(origin.origin_type==='repd'&&!/^\d+$/.test(origin.origin_id))return null;
+ if(origin.origin_type==='repd'&&!/^(?:repd:)?\d+$/.test(origin.origin_id))return null;
  return {origin_type:origin.origin_type,origin_id:origin.origin_id,technology:typeof origin.technology==='string'?origin.technology.slice(0,50):null};
 }
 export function contextForOrigin(origin){

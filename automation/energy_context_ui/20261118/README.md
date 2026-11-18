@@ -15,7 +15,7 @@ After the module loads:
 ```js
 window.pipelineEnergyContext.selectOrigin({
   origin_type: 'repd', // or datacentre / substation
-  origin_id: '2470',
+  origin_id: 'repd:2470', // bare digits are also admitted for older callers
   technology: 'solar'
 });
 ```

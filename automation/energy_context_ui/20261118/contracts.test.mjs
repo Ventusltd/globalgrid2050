@@ -20,6 +20,7 @@ test('changed source/fact bytes or project compliance cannot pass policy pin',as
 test('three origin kinds retain stable identity and explicitly only topic context',()=>{
  for(const o of [repd,dc,{origin_type:'substation',origin_id:'site:XYZ'}]){const result=contextForOrigin(o);assert.equal(result.origin_id,o.origin_id);assert.equal(result.association,'TOPIC_CONTEXT_ONLY');assert.equal(result.compliance,null);assert.equal(result.connection,null);}
  assert.deepEqual(contextForOrigin(repd).topics,['solar']);assert.deepEqual(contextForOrigin(dc).topics,['datacentre','grid']);
+ assert.equal(contextForOrigin({...repd,origin_id:'repd:2470'}).origin_id,'repd:2470');
 });
 test('unknown origin, malformed REPD, oversized and URL IDs are refused',()=>{
  for(const o of [{},null,{origin_type:'repd',origin_id:'abc'},{origin_type:'repd',origin_id:'2470<script>'},{origin_type:'datacentre',origin_id:'https://evil.test'},{origin_type:'substation',origin_id:'x'.repeat(121)}])assert.equal(validOrigin(o),null);

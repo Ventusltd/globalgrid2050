@@ -2560,13 +2560,24 @@
       "data_changed": false,
       "runner": "tests/run_v9_46.sh",
       "trees": [
-        "d1bab73a45fe5cb61a7be8b12b983a1a737ed940"
+        "5d5d26a4dbbe77a5052468fc6ef0408e6d34c1c8"
       ],
-      "features": [],
+      "features": [
+        {
+          "id": "energy-context",
+          "file": "contracts/energy-context.v945.json",
+          "contains": "pipeline.energy-context.v1"
+        },
+        {
+          "id": "news-return-history",
+          "file": "scripts/plugins/projects-v9-8.js",
+          "contains": "history.replaceState(history.state, \"\", url)"
+        }
+      ],
       "known_faults": [],
       "ci": null,
       "merge_commit": null,
-      "state": "published"
+      "state": "release_candidate_publication_blocked"
     }
   ],
   "size_budget_mb": 18,

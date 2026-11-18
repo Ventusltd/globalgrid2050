@@ -22,6 +22,8 @@ def test_typed_policy_quantities_never_become_project_capacity_or_compliance():
     result = extract()
     assert len(result['themes']) == 5
     assert [(q['value'], q['unit']) for q in result['quantities']] == [('6', 'GW'), ('1.3', 'ratio')]
+    assert result['quantities'][1]['comparison'] == 'AT_MOST'
+    assert '1.3 or better' in result['quantities'][1]['meaning']
     assert result['published_date'] == {'value': '2026-10-28', 'precision': 'DAY'}
     assert result['project_compliance'] is result['available_capacity'] is None
     assert result['connections'] == result['asset_associations'] == []

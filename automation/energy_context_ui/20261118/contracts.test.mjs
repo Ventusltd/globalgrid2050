@@ -8,7 +8,7 @@ const article=(title,link='https://publisher.example/story',extra={})=>({title,l
 const approval=()=>({state:'APPROVED_FACTS_ONLY',policy_sha256:policyHash,source_sha256:data.source_sha256,scope:data.rights.scope,reviews:[{role:'GRID_ANALYSER',decision:'PASS',reference:'https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-100'},{role:'TRAIN_CONDUCTOR',decision:'PASS',reference:'https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-101'}]});
 
 test('actual pinned policy yields national facts only under synthetic approval',async()=>{
- const result=await acceptedPolicy(bytes,approval());assert.equal(result.source_url,policySource);assert.equal(result.themes.length,5);assert.equal(result.quantities.length,2);assert.equal(result.project_compliance,null);assert.equal(result.available_capacity,null);assert.deepEqual(result.asset_associations,[]);
+ const result=await acceptedPolicy(bytes,approval());assert.equal(result.source_url,policySource);assert.equal(result.themes.length,5);assert.equal(result.quantities.length,2);assert.equal(result.quantities[1].comparison,'AT_MOST');assert.match(result.quantities[1].meaning,/1\.3 or better/);assert.equal(result.project_compliance,null);assert.equal(result.available_capacity,null);assert.deepEqual(result.asset_associations,[]);
 });
 test('review pending, duplicated roles/references and wrong source pin fail closed',async()=>{
  const pending=JSON.parse(readFileSync(new URL('./review.json',import.meta.url)));assert.equal(await acceptedPolicy(bytes,pending),null);

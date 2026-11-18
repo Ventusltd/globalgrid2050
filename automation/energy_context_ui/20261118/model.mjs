@@ -1,5 +1,5 @@
 export const policySource='https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant';
-export const policyHash='98c0962276ecdf9203c700d590f50ca0dc95691d7404f4034055a9b987a09ba8';
+export const policyHash='e2ba6c89c9bfd47456442ccb4c20e12d8297682630bca4b135da9a2e83a6d1ff';
 const originKinds=new Set(['repd','datacentre','substation']);
 const topics=new Set(['datacentre','grid','renewables','storage','solar','wind']);
 const themes={datacentre:/\b(?:data[ -]?cent(?:re|er)s?|AI (?:power|energy|infrastructure|demand))\b/i,grid:/\b(?:grid|substation|transmission|distribution|connection|network upgrade)s?\b/i,storage:/\b(?:battery|batteries|storage|BESS|flexibility)\b/i,solar:/\b(?:solar|photovoltaic|PV)\b/i,wind:/\b(?:wind|offshore|onshore)\b/i,renewables:/\b(?:renewable|clean (?:power|energy)|energy transition)s?\b/i};

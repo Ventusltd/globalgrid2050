@@ -59,13 +59,14 @@ def extract_covenant(payload: bytes, *, source_url: str, retrieved_at: str) -> d
     quantities = []
     for name, expression, value, unit, meaning in (
         ('national_ai_capacity', r'\b6\s+GW\b.*\b2030\b', '6', 'GW', 'Government estimate of national AI data-centre capacity required by 2030; not existing capacity'),
-        ('new_facility_pue', r'Power Usage Effectiveness of 1\.3 or better', '1.3', 'ratio', 'Policy design expectation for new facilities; not a measured project efficiency'),
+        ('new_facility_pue', r'Power Usage Effectiveness of 1\.3 or better', '1.3', 'ratio', 'Policy design expectation of PUE 1.3 or better for new facilities; not a measured project efficiency'),
     ):
         found = [n for n in paragraphs if re.search(expression, n.text())]
         if len(found) != 1:
             raise ValueError('policy_quantity_missing_or_ambiguous')
         node = found[0]
         quantities.append({'id': name, 'value': value, 'unit': unit, 'meaning': meaning,
+                           'comparison': 'AT_MOST' if name == 'new_facility_pue' else 'ESTIMATE',
                            'locator': node.selector(), 'text_sha256': sha256(node.text().encode()).hexdigest()})
     return {'schema': 'globalgrid2050.energy-policy-context.v1', 'title': 'The Data Centre Covenant',
             'publisher': 'HM Treasury', 'source_url': SOURCE, 'source_sha256': sha256(payload).hexdigest(),

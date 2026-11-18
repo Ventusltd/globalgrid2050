@@ -27,7 +27,7 @@ function drawPolicy(){
  if(!policy){body.append(el('p','Policy facts await source-integrity and independent review. The official publication remains available.'));return;}
  body.append(el('p',`${policy.publisher} · published ${policy.published_date.value} (DAY). National policy context; no project compliance assessment.`));
  const ul=el('ul');for(const theme of policy.themes){const li=el('li');li.append(link(theme.label,policy.source_url+'#'+theme.fragment));ul.append(li);}body.append(ul);
- for(const q of policy.quantities)body.append(el('p',`${q.value} ${q.unit==='ratio'?'PUE':q.unit} — ${q.meaning}.`));
+ for(const q of policy.quantities)body.append(el('p',`${q.id==='new_facility_pue'?'PUE '+q.value+' or better':q.value+' '+q.unit} — ${q.meaning}.`));
  const details=el('details');details.append(el('summary','Source and fact provenance'),el('p',`Retrieved ${policy.retrieved_at}. Source SHA-256 ${policy.source_sha256}.`));
  for(const q of policy.quantities)details.append(el('p',`${q.id}: ${q.locator}; paragraph SHA-256 ${q.text_sha256}`));
  details.append(link('Open Government Licence v3.0',policy.rights.licence_url),el('p','Government-authored facts only. No image or third-party material reproduced.'));body.append(details);

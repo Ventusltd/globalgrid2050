@@ -58,6 +58,7 @@ window.pipelineEnergyContext={selectOrigin,topic:()=>activeTopic,newsBase:()=>ne
 window.addEventListener('pipeline-news-ready',()=>queueMicrotask(connectNews));D.addEventListener('DOMContentLoaded',connectNews,{once:true});connectNews();
 window.addEventListener('pipeline-journey-ready',connectEntry);connectEntry();
 window.addEventListener('pipeline-journey-origin',event=>{if(selectOrigin(event.detail))rememberNews();});
+D.addEventListener('click',event=>{if(event.target.closest?.('#journeyAtlasNav'))rememberNews();},true);
 for(const node of [newsQuery(),...filterKinds.map(newsSelect)].filter(Boolean))for(const type of ['input','change'])node.addEventListener(type,event=>{if(event.isTrusted)requestApplied=true;});
 const applyRequest=()=>{if(requestApplied||!Array.isArray(feed?.items))return;const saved=history.state?.[returnKey];if(saved?.path===location.pathname){setTimeout(()=>{if(!requestApplied)requestApplied=restoreNews(saved);},0);return;}const request=requestedContext(location.search);if(request){if(request.origin)selectOrigin(request.origin);setTimeout(()=>{if(!requestApplied)requestApplied=topicFilter(request.topic);},0);}};
 window.addEventListener('pipeline-feed-loaded',event=>{feed=event.detail;drawRelated();applyRequest();});

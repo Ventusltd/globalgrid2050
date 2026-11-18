@@ -335,7 +335,7 @@
           "name": "data-centre attribution block",
           "selector": "#dcAttribution",
           "contains": [
-            "© OpenStreetMap contributors",
+            "\u00a9 OpenStreetMap contributors",
             "ODbL 1.0",
             "Open Government Licence v3.0",
             "unverified",
@@ -531,7 +531,7 @@
         {
           "name": "no typed-in counts or audited-snapshot wording",
           "selector": "body",
-          "js": "!/133 HEADLINES · 45 UK|AUDITED SNAPSHOT|ENERGY DAILY/i.test(document.body.textContent)"
+          "js": "!/133 HEADLINES \u00b7 45 UK|AUDITED SNAPSHOT|ENERGY DAILY/i.test(document.body.textContent)"
         },
         {
           "name": "table columns unchanged from the parent",
@@ -551,7 +551,7 @@
         {
           "name": "headline list: newest first, text only, possible-match chip",
           "selector": "body",
-          "js": "(function(){window.pipelineHeadlines.render({\"schema\": \"globalgrid2050.news.pipeline-headlines.v1\", \"generated_at\": \"2026-11-14T09:00:00Z\", \"status\": \"ok\", \"items\": [{\"title\": \"PROBE older headline\", \"link\": \"https://example.org/a\", \"source\": \"Probe Source\", \"date\": \"2026-11-10T08:00:00Z\", \"first_seen\": \"2026-11-10T09:00:00Z\", \"category\": \"grid\", \"technology\": null, \"possible_match\": null}, {\"title\": \"PROBE newest <b>headline</b>\", \"link\": \"https://example.org/b\", \"source\": \"Probe Source\", \"date\": \"2026-11-13T08:00:00Z\", \"first_seen\": \"2026-11-13T09:00:00Z\", \"category\": \"refusal\", \"technology\": \"solar\", \"possible_match\": {\"repd_ref\": \"13599\", \"site_name\": \"Beacon Fen Energy Park\", \"basis\": \"technology\"}}, {\"title\": \"PROBE undated middle headline\", \"link\": \"https://example.org/c\", \"source\": \"Probe Source\", \"date\": null, \"first_seen\": \"2026-11-12T09:00:00Z\", \"category\": \"other\", \"technology\": null, \"possible_match\": null}]},'live',Date.parse('2026-11-14T10:00:00Z'));var t=[...document.querySelectorAll('#liveNews .ln-title')].map(function(a){return a.textContent;});var chip=document.querySelector('#liveNews .ln-match');var first=document.querySelector('#liveNews .ln-item');return t.join('|')==='PROBE newest <b>headline</b>|PROBE undated middle headline|PROBE older headline'&&!document.querySelector('#liveNews .ln-title b')&&chip.textContent==='Possible match: Beacon Fen Energy Park (REPD 13599)'&&first.contains(chip)&&/13 NOV 2026 · REFUSED · SOLAR · Probe Source/.test(first.textContent)&&document.querySelector('#liveNews .ln-title').rel==='noopener noreferrer'&&document.querySelector('#newsStatus').textContent==='Headlines updated 14 Nov 2026 09:00 UTC';})()"
+          "js": "(function(){window.pipelineHeadlines.render({\"schema\": \"globalgrid2050.news.pipeline-headlines.v1\", \"generated_at\": \"2026-11-14T09:00:00Z\", \"status\": \"ok\", \"items\": [{\"title\": \"PROBE older headline\", \"link\": \"https://example.org/a\", \"source\": \"Probe Source\", \"date\": \"2026-11-10T08:00:00Z\", \"first_seen\": \"2026-11-10T09:00:00Z\", \"category\": \"grid\", \"technology\": null, \"possible_match\": null}, {\"title\": \"PROBE newest <b>headline</b>\", \"link\": \"https://example.org/b\", \"source\": \"Probe Source\", \"date\": \"2026-11-13T08:00:00Z\", \"first_seen\": \"2026-11-13T09:00:00Z\", \"category\": \"refusal\", \"technology\": \"solar\", \"possible_match\": {\"repd_ref\": \"13599\", \"site_name\": \"Beacon Fen Energy Park\", \"basis\": \"technology\"}}, {\"title\": \"PROBE undated middle headline\", \"link\": \"https://example.org/c\", \"source\": \"Probe Source\", \"date\": null, \"first_seen\": \"2026-11-12T09:00:00Z\", \"category\": \"other\", \"technology\": null, \"possible_match\": null}]},'live',Date.parse('2026-11-14T10:00:00Z'));var t=[...document.querySelectorAll('#liveNews .ln-title')].map(function(a){return a.textContent;});var chip=document.querySelector('#liveNews .ln-match');var first=document.querySelector('#liveNews .ln-item');return t.join('|')==='PROBE newest <b>headline</b>|PROBE undated middle headline|PROBE older headline'&&!document.querySelector('#liveNews .ln-title b')&&chip.textContent==='Possible match: Beacon Fen Energy Park (REPD 13599)'&&first.contains(chip)&&/13 NOV 2026 \u00b7 REFUSED \u00b7 SOLAR \u00b7 Probe Source/.test(first.textContent)&&document.querySelector('#liveNews .ln-title').rel==='noopener noreferrer'&&document.querySelector('#newsStatus').textContent==='Headlines updated 14 Nov 2026 09:00 UTC';})()"
         },
         {
           "name": "archive: unmatched headlines carry no project line",
@@ -2537,7 +2537,7 @@
       "data_changed": false,
       "runner": "tests/run_v9_45.sh",
       "trees": [
-        "d4439866cc84572d87e14db7cc36a78a54dad81d"
+        "9fc9cd76365e82e87001959c85525125b848d286"
       ],
       "features": [
         {

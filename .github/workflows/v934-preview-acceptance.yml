@@ -162,6 +162,7 @@ jobs:
           PN_CONTEXT_EDITION: '202611180520'
           PN_CONTEXT_INTEGRATED: 'true'
           PN_CONTEXT_CANONICAL_REPLAY: 'true'
+          PN_CONTEXT_RETURN_REPLAY: 'true'
           PN_CONTEXT_OUTPUT: ${{ runner.temp }}/date-proof/context
         run: node automation/energy_context_ui/20261118/browser.test.mjs
       - name: Date and news interaction on desktop and mobile

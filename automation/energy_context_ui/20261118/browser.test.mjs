@@ -42,22 +42,35 @@ try{for(const width of [1440,393,390]){
  await page.evaluate(()=>window.pipelineHeadlines.render(window.pipelineHeadlineDocument,'snapshot'));
  await page.waitForTimeout(50);
  assert.deepEqual(await page.evaluate(()=>[document.querySelector('.pn-news-filter-tools select[aria-label="News topic"]').value,document.querySelector('.pn-news-filter-tools select[aria-label="News category"]').value,document.querySelector('.pn-news-header-search input').value]),selection,'feed redraw must preserve user filter after return context applied');
- if(process.env.PN_CONTEXT_ASYNC_ENTRY==='true'){
+ if(process.env.PN_CONTEXT_RETURN_REPLAY==='true'||process.env.PN_CONTEXT_ASYNC_ENTRY==='true'){
   assert.ok(canonicalReplay,'async opt-in requires an explicitly labelled canonical-origin fixture');
   await page.locator('.pipeline-tabs [data-view="solar"]').click();await page.locator('#clearFilters').click();
   await page.waitForFunction(()=>document.querySelector('#tbody')?.dataset.total==='7775');
-  const locationBefore=page.url(),mapsBefore=await page.locator('#tbody a.atlaslink').evaluateAll(items=>items.map(a=>a.href));
-  await page.addStyleTag({url:start+'/automation/journey_entry_ui/20261118/styles.css'});
-  await page.addScriptTag({type:'module',url:start+'/automation/journey_entry_ui/20261118/view.mjs'});
+  const locationBefore=page.url(),mapsBefore=await page.locator('#tbody a.atlaslink:not(.pn-journey-link)').evaluateAll(items=>items.map(a=>a.href));
+  if(!await page.evaluate(()=>!!window.pipelineJourneyEntry)){
+   assert.notEqual(process.env.PN_CONTEXT_INTEGRATED,'true','integrated source must own its entry runtime');
+   await page.addStyleTag({url:start+'/automation/journey_entry_ui/20261118/styles.css'});
+   await page.addScriptTag({type:'module',url:start+'/automation/journey_entry_ui/20261118/view.mjs'});
+  }else assert.equal(await page.locator('script[src*="journey_entry_ui/20261118/view.mjs"]').count(),1,'actual integrated entry is not injected twice');
   await page.waitForFunction(()=>window.pipelineJourneyEntry&&document.querySelector('#tbody .pn-journey-link')?.href.includes('news_context_url='));
   assert.equal(page.url(),locationBefore,'late entry readiness cannot auto-navigate');
   assert.deepEqual(await page.locator('#tbody a.atlaslink:not(.pn-journey-link)').evaluateAll(items=>items.map(a=>a.href)),mapsBefore);
+  const newsState=expected=>{if(!window.pipelineEnergyContext||!document.querySelector('.pn-news-header-search input'))return false;const state={query:document.querySelector('.pn-news-header-search input').value,...Object.fromEntries(['publisher','topic','category','ranking source type'].map(kind=>[kind,document.querySelector('.pn-news-filter-tools select[aria-label="News '+kind+'"]').value])),context:window.pipelineEnergyContext.topic()};return expected?JSON.stringify(state)===JSON.stringify(expected):state;};
+  for(const kind of ['publisher','ranking source type']){const select=page.locator('.pn-news-filter-tools select[aria-label="News '+kind+'"]'),value=await select.evaluate(node=>[...node.options].find(o=>o.value)?.value);if(value)await select.selectOption(value);}
+  await page.locator('.pn-news-header-search input').fill('data');const wanted=await page.evaluate(newsState);
   const target=page.locator('#tbody .pn-journey-link').first(),url=new URL(await target.getAttribute('href'));assert.equal(url.searchParams.get('news_context_url'),`${start}/uk_renewables_pipeline/${edition}/`);
-  // Prevent only this fixture's outbound navigation; both real source event handlers run.
+  // Suppress only fixture outbound navigation; actual source handlers store state.
   await page.evaluate(()=>document.addEventListener('click',event=>event.preventDefault(),{once:true}));await target.click();
-  assert.equal(await page.evaluate(()=>history.state.pipelineEnergyNewsReturn.filters.category),selection[1]);
-  await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(({hook,category})=>hook?window.pipelineEnergyContext?.topic()==='datacentre':document.querySelector('.pn-news-filter-tools select[aria-label="News category"]')?.value===category,{hook:hasTopicHook,category:selection[1]});
-  assert.equal(await page.locator('.pn-news-header-search input').inputValue(),selection[2],'full Back-style reload retains user news state over incoming topic');
+  assert.equal(await page.evaluate(()=>history.state.pipelineEnergyNewsReturn.origin?.origin_type),'repd');
+  await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(newsState,wanted);
+  assert.deepEqual(await page.evaluate(newsState),wanted,'typed cold reload retains every News filter and explicit context');
+  await page.evaluate(()=>window.pipelineEnergyContext.selectOrigin({origin_type:'unknown',origin_id:'none'}));
+  await page.locator('.pn-news-header-search input').fill('battery');const manualWanted=await page.evaluate(newsState),manual=page.locator('#journeyAtlasNav');await manual.waitFor();
+  assert.equal(new URL(await manual.getAttribute('href')).searchParams.get('news_context_url'),`${start}/uk_renewables_pipeline/${edition}/`);
+  await page.evaluate(()=>document.addEventListener('click',event=>event.preventDefault(),{once:true}));await manual.click();
+  assert.equal(await page.evaluate(()=>history.state.pipelineEnergyNewsReturn.origin),null,'manual entry creates no asset association');
+  await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(newsState,manualWanted);
+  assert.deepEqual(await page.evaluate(newsState),manualWanted,'manual cold reload retains every News filter and explicit context');
   if(hasTopicHook){await page.locator('#headlineContextStatus button').click();assert.equal(await page.evaluate(()=>window.pipelineEnergyContext.topic()),null);while(await page.locator('#liveNews .ln-more').count())await page.locator('#liveNews .ln-more').click();const all=await page.locator('#liveNews .ln-title').evaluateAll(as=>as.map(a=>a.href).sort());const original=await page.evaluate(()=>window.pipelineHeadlineDocument.items.map(item=>new URL(item.link).href).sort());assert.deepEqual(all,original,'reset exposes every original eligible article');}
   // Synthetic late-ranking-option lifecycle; original article/feed data is unchanged.
   await page.evaluate(()=>{const topic=document.querySelector('.pn-news-filter-tools select[aria-label="News topic"]');if(![...topic.options].some(o=>o.value==='storage'))topic.add(new Option('Storage','storage'));topic.value='storage';topic.dispatchEvent(new Event('change'));window.dispatchEvent(new CustomEvent('pipeline-journey-origin',{detail:{origin_type:'repd',origin_id:'repd:2470',technology:'battery'}}));});
@@ -89,6 +102,6 @@ try{for(const width of [1440,393,390]){
   await page.evaluate(()=>window.pipelineHeadlines.render(window.pipelineHeadlineDocument,'snapshot'));assert.equal(await page.locator('#liveNews .ln-title').count(),24,'same-input feed redraw retains expanded original view');
   assert.equal(await query.evaluate(node=>node===document.querySelector('.pn-news-header-search input')),true,'existing sole search node retained');assert.equal(await page.evaluate(()=>JSON.stringify(window.pipelineHeadlineDocument)),original);
  }
- assert.deepEqual(errors,[]);receipts.push({width,reduced_motion:width===390,source:'actual_saved_feed_replay',canonical_origin_fixture:canonicalReplay,async_entry:process.env.PN_CONTEXT_ASYNC_ENTRY==='true',main_context_hook:hasTopicHook,policy_state:state,synthetic_origin:true,original_feed_unchanged:true,errors});await context.close();
+ assert.deepEqual(errors,[]);receipts.push({width,reduced_motion:width===390,source:'actual_saved_feed_replay',canonical_origin_fixture:canonicalReplay,async_entry:process.env.PN_CONTEXT_ASYNC_ENTRY==='true',return_replay:process.env.PN_CONTEXT_RETURN_REPLAY==='true',main_context_hook:hasTopicHook,policy_state:state,synthetic_origin:true,original_feed_unchanged:true,errors});await context.close();
 }}finally{await browser.close();await new Promise(r=>server.close(r));writeFileSync(resolve(out,'receipt.json'),JSON.stringify({edition,public_acceptance:false,receipts},null,2)+'\n');}
 console.log(JSON.stringify(receipts));

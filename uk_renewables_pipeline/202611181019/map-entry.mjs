@@ -3,52 +3,44 @@ const document=globalThis.document;
 const canonical='https://ventusltd.github.io/gridatlas/atlas/';
 const stateKey='pipelineJourneyReturn';
 const origins=new WeakMap();
-const originals=new WeakMap();
 let newsContextUrl;
-// Reuse exactly the working JOURNEY destination, but expose ONE MAP action.
-// Keep the existing anchor alive for native mobile navigation and return state.
 function action(map,identity,parent){
-  if(!map){
-    if(!parent.querySelector(':scope > .pn-journey-unavailable')){
-      const span=document.createElement('span');span.className='pn-journey-unavailable';span.textContent='NO MAP';parent.append(span);
-    }
-    return;
-  }
-  if(!originals.has(map)) originals.set(map,map.href);
-  const original=originals.get(map);
-  const origin=mapOrigin(original,identity);
-  const href=origin?buildJourneyUrl(original,origin,{newsContextUrl}):null;
-  if(!href)return; // leave the original fallback alone if identity/coordinates cannot be validated
+  const existing=parent.querySelector(':scope > .pn-journey-action');
+  const origin=map?mapOrigin(map.href,identity):null;
+  const href=origin?buildJourneyUrl(map.href,origin,{newsContextUrl}):null;
   const signature=JSON.stringify([identity.origin_type,identity.origin_id,href]);
-  if(map.dataset.singleMapSignature===signature)return;
-  map.dataset.singleMapSignature=signature;
-  map.classList.add('action-link','atlaslink','pn-journey-link');
-  map.href=href;map.textContent='MAP';
-  map.title='Open the selected asset in GridAtlas';
-  map.removeAttribute('aria-label');
-  origins.set(map,origin);
+  if(existing?.dataset.signature===signature){if(href)origins.set(existing,origin);return}
+  existing?.remove();
+  const element=document.createElement(href?'a':'span');element.className='pn-journey-action';element.dataset.signature=signature;
+  if(href){
+    element.classList.add('action-link','atlaslink','pn-journey-link');element.href=href;element.target='_blank';element.rel='noopener noreferrer';element.textContent='MAP';
+    element.title='Explore nearby assets and documented network connectivity; not a connection assessment';origins.set(element,origin);
+  }else{
+    element.classList.add('pn-journey-unavailable');element.textContent='NO MAP';
+  }
+  if(map?.parentElement===parent){map.after(element);map.hidden=true;map.style.setProperty('display','none','important');}else parent.append(element);
 }
 function refresh(){
- for(const map of document.querySelectorAll('#tbody a.atlaslink')){
-   const url=new URL(originals.get(map)||map.href),ref=url.searchParams.get('repd_ref');if(!/^[1-9]\d*$/.test(ref||''))continue;
+ for(const map of document.querySelectorAll('#tbody a.atlaslink:not(.pn-journey-link)')){
+   const url=new URL(map.href),ref=url.searchParams.get('repd_ref');if(!/^[1-9]\d*$/.test(ref||''))continue;
    const row=map.closest('tr'),name=row?.querySelector('.site')?.firstChild?.textContent?.trim();
    action(map,{origin_type:'repd',origin_id:'repd:'+ref,name},map.parentElement);
  }
  for(const row of document.querySelectorAll('#gridLayerHost tr[data-source-id]')){
-   const map=[...row.querySelectorAll('a')].find(a=>a.href.startsWith(canonical));
+   const map=[...row.querySelectorAll('a:not(.pn-journey-link)')].find(a=>a.href.startsWith(canonical));
    if(!map)continue;
    action(map,{origin_type:'substation',origin_id:row.dataset.sourceId,name:row.querySelector('strong')?.textContent},map.parentElement);
  }
  for(const row of document.querySelectorAll('#datacentreHost .ggdc-table tbody tr')){
    const id=row.querySelector('.ggdc-id')?.textContent?.trim();if(!/^DC-WD-Q[1-9]\d*$/.test(id||''))continue;
    const actions=row.querySelector('.ggdc-location-actions');
-   const map=actions&&[...actions.querySelectorAll('a')].find(a=>a.href.startsWith(canonical));
+   const map=actions&&[...actions.querySelectorAll('a:not(.pn-journey-link)')].find(a=>a.href.startsWith(canonical));
    const parent=actions||row.lastElementChild;if(!parent)continue;
    // A late source-backed location replaces the unavailable placeholder.
    if(actions)row.querySelector('td > .pn-journey-unavailable')?.remove();
    action(map,{origin_type:'datacentre',origin_id:id,name:row.querySelector('.ggdc-identity')?.firstChild?.textContent},parent);
  }
- // Keep only the existing MAP ATLAS header link; the beta navigation is withdrawn.
+ // The existing general MAP ATLAS navigation is unchanged.
 }
 let queued=false;
 new MutationObserver(()=>{if(!queued){queued=true;queueMicrotask(()=>{queued=false;refresh()})}}).observe(document.body,{childList:true,subtree:true});

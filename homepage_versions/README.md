@@ -1908,3 +1908,12 @@ Preserves the actual V9.40 root before the owner-requested crisp red text on sol
 Observed2026-11-17T19:46:08.201704+00:00:57302bytes,69lines,3722words,57289characters; SHA256 `175744b8ebe9b15f9300a688d0897fe97542f90568dd4dd791e378d3221cc39a`. Actual folder files263 before,265 after snapshot and metrics.
 
 Rollback restores the previous owner pin through the existing importer/Pages process and compares all seven inputs and transformed root with V153. All prior product and homepage releases remain retained; frozen V9.40 renderer, stylesheet and data are unchanged.
+
+
+## V154 - before Pipeline News V9.42 mobile MAP promotion
+
+Preserves the actual accepted V9.41 public root before native mobile MAP handoff and return-state improvements. Snapshot `homepage_v154.html`; metrics `homepage_v154-metrics.json`; prior owner pin `d382937f519f2f2cc1ee533d8c69d6e94dead06d`. Restore measurement [44204496245](https://github.com/Ventusltd/globalgrid2050/actions/runs/44204496245) succeeded before owner edits.
+
+Observed 2026-11-18T00:05:53.063417+00:00: 57468 bytes, 69 lines, 3724 words, 57455 characters; SHA256 `24bd7fab530ef7d61c222b348f7058772a3363a88d242a314880279679c97bff`. Folder files 265 before, 267 after snapshot and metrics.
+
+Rollback restores the previous owner pin through the existing importer/Pages process and verifies all seven owner files plus transformed root against V154. All prior reader-visible product releases remain retained.

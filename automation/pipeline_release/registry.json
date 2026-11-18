@@ -2527,6 +2527,29 @@
           "contract": "ticker-neon-v940-v1"
         }
       ]
+    },
+    {
+      "id": "202611180520",
+      "version": "V9.45",
+      "parent": "202611180451",
+      "date": "2026-11-18T05:20:00Z",
+      "added": "Energy infrastructure news, national Covenant sources and explicit Journey return",
+      "data_changed": false,
+      "runner": "tests/run_v9_45.sh",
+      "trees": [
+        "04bbce70e7685d82983b6ecae021a766c1cf77d4"
+      ],
+      "features": [
+        {
+          "id": "energy-context",
+          "file": "contracts/energy-context.v945.json",
+          "contains": "pipeline.energy-context.v1"
+        }
+      ],
+      "known_faults": [],
+      "ci": null,
+      "merge_commit": null,
+      "state": "release_candidate_publication_blocked"
     }
   ],
   "size_budget_mb": 18,

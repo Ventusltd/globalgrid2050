@@ -23,6 +23,9 @@ on:
       - 'automation/v942_preview/**'
       - 'automation/journey_entry_ui/**'
       - 'automation/journey_return_ui/**'
+      - 'automation/energy_context_ui/**'
+      - 'automation/news/filings/policy_context.py'
+      - 'automation/news/tests/test_policy_context.py'
       - '.github/workflows/verify-pipeline-versions.yml'
   workflow_dispatch:
     inputs:
@@ -68,6 +71,7 @@ jobs:
             /automation/mobile_map_ui/
             /automation/journey_entry_ui/
             /automation/journey_return_ui/
+            /automation/energy_context_ui/
             /dist/major_project_news_v9_5_1.json
             /dist/convergence/2026q3/pipelinenews/
             /dist/news/

@@ -1,0 +1,17 @@
+{
+  "schema": "globalgrid2050.operational-date.v935",
+  "source_header": "Operational",
+  "source_column": "AY",
+  "source_column_1_based": 51,
+  "field": "operational",
+  "source_identity_sha256": "d0840c20bbf5a7b9b268c2631a844ec972ddae3040be353f1fac7e75d3dab5ad",
+  "canonical_rows": 7775,
+  "present": 2244,
+  "unknown": 5531,
+  "display": "DD/MM/YYYY; unknown not supplied by REPD",
+  "machine_date": "ISO YYYY-MM-DD or null; empty row attribute for null",
+  "sort": "ascending/descending; null last",
+  "year_filter": "operational_year; all recorded years, All, missing; intersects existing year filters",
+  "semantics": "Official historical REPD milestone only; not independent current operation, commissioning or capacity proof. Never infer a date from status or overwrite either field. Source NA normalizes to null.",
+  "status_edges": "Retain dated Awaiting Construction and Decommissioned records and Operational-status records without a date."
+}

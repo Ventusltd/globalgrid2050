@@ -335,7 +335,7 @@
           "name": "data-centre attribution block",
           "selector": "#dcAttribution",
           "contains": [
-            "© OpenStreetMap contributors",
+            "\u00a9 OpenStreetMap contributors",
             "ODbL 1.0",
             "Open Government Licence v3.0",
             "unverified",
@@ -531,7 +531,7 @@
         {
           "name": "no typed-in counts or audited-snapshot wording",
           "selector": "body",
-          "js": "!/133 HEADLINES · 45 UK|AUDITED SNAPSHOT|ENERGY DAILY/i.test(document.body.textContent)"
+          "js": "!/133 HEADLINES \u00b7 45 UK|AUDITED SNAPSHOT|ENERGY DAILY/i.test(document.body.textContent)"
         },
         {
           "name": "table columns unchanged from the parent",
@@ -551,7 +551,7 @@
         {
           "name": "headline list: newest first, text only, possible-match chip",
           "selector": "body",
-          "js": "(function(){window.pipelineHeadlines.render({\"schema\": \"globalgrid2050.news.pipeline-headlines.v1\", \"generated_at\": \"2026-11-14T09:00:00Z\", \"status\": \"ok\", \"items\": [{\"title\": \"PROBE older headline\", \"link\": \"https://example.org/a\", \"source\": \"Probe Source\", \"date\": \"2026-11-10T08:00:00Z\", \"first_seen\": \"2026-11-10T09:00:00Z\", \"category\": \"grid\", \"technology\": null, \"possible_match\": null}, {\"title\": \"PROBE newest <b>headline</b>\", \"link\": \"https://example.org/b\", \"source\": \"Probe Source\", \"date\": \"2026-11-13T08:00:00Z\", \"first_seen\": \"2026-11-13T09:00:00Z\", \"category\": \"refusal\", \"technology\": \"solar\", \"possible_match\": {\"repd_ref\": \"13599\", \"site_name\": \"Beacon Fen Energy Park\", \"basis\": \"technology\"}}, {\"title\": \"PROBE undated middle headline\", \"link\": \"https://example.org/c\", \"source\": \"Probe Source\", \"date\": null, \"first_seen\": \"2026-11-12T09:00:00Z\", \"category\": \"other\", \"technology\": null, \"possible_match\": null}]},'live',Date.parse('2026-11-14T10:00:00Z'));var t=[...document.querySelectorAll('#liveNews .ln-title')].map(function(a){return a.textContent;});var chip=document.querySelector('#liveNews .ln-match');var first=document.querySelector('#liveNews .ln-item');return t.join('|')==='PROBE newest <b>headline</b>|PROBE undated middle headline|PROBE older headline'&&!document.querySelector('#liveNews .ln-title b')&&chip.textContent==='Possible match: Beacon Fen Energy Park (REPD 13599)'&&first.contains(chip)&&/13 NOV 2026 · REFUSED · SOLAR · Probe Source/.test(first.textContent)&&document.querySelector('#liveNews .ln-title').rel==='noopener noreferrer'&&document.querySelector('#newsStatus').textContent==='Headlines updated 14 Nov 2026 09:00 UTC';})()"
+          "js": "(function(){window.pipelineHeadlines.render({\"schema\": \"globalgrid2050.news.pipeline-headlines.v1\", \"generated_at\": \"2026-11-14T09:00:00Z\", \"status\": \"ok\", \"items\": [{\"title\": \"PROBE older headline\", \"link\": \"https://example.org/a\", \"source\": \"Probe Source\", \"date\": \"2026-11-10T08:00:00Z\", \"first_seen\": \"2026-11-10T09:00:00Z\", \"category\": \"grid\", \"technology\": null, \"possible_match\": null}, {\"title\": \"PROBE newest <b>headline</b>\", \"link\": \"https://example.org/b\", \"source\": \"Probe Source\", \"date\": \"2026-11-13T08:00:00Z\", \"first_seen\": \"2026-11-13T09:00:00Z\", \"category\": \"refusal\", \"technology\": \"solar\", \"possible_match\": {\"repd_ref\": \"13599\", \"site_name\": \"Beacon Fen Energy Park\", \"basis\": \"technology\"}}, {\"title\": \"PROBE undated middle headline\", \"link\": \"https://example.org/c\", \"source\": \"Probe Source\", \"date\": null, \"first_seen\": \"2026-11-12T09:00:00Z\", \"category\": \"other\", \"technology\": null, \"possible_match\": null}]},'live',Date.parse('2026-11-14T10:00:00Z'));var t=[...document.querySelectorAll('#liveNews .ln-title')].map(function(a){return a.textContent;});var chip=document.querySelector('#liveNews .ln-match');var first=document.querySelector('#liveNews .ln-item');return t.join('|')==='PROBE newest <b>headline</b>|PROBE undated middle headline|PROBE older headline'&&!document.querySelector('#liveNews .ln-title b')&&chip.textContent==='Possible match: Beacon Fen Energy Park (REPD 13599)'&&first.contains(chip)&&/13 NOV 2026 \u00b7 REFUSED \u00b7 SOLAR \u00b7 Probe Source/.test(first.textContent)&&document.querySelector('#liveNews .ln-title').rel==='noopener noreferrer'&&document.querySelector('#newsStatus').textContent==='Headlines updated 14 Nov 2026 09:00 UTC';})()"
         },
         {
           "name": "archive: unmatched headlines carry no project line",
@@ -2326,6 +2326,78 @@
           "name": "V9.41 crisp red solid black without effects and long-cycle fifty-pixel flow with static reading",
           "selector": "#headlineTicker",
           "js": "(async()=>{\ndocument.querySelector('#clearFilters')?.click();await document.fonts?.ready;\nconst host=document.querySelector('#headlineTicker'),track=host?.querySelector('.pn-ticker-track'),list=host?.querySelector('ul'),viewport=host?.querySelector('.pn-ticker-viewport');if(!host||!track||!list||!viewport)return false;\nfor(const node of [host,...host.querySelectorAll('*')]){const s=getComputedStyle(node);if(s.backgroundColor!=='rgb(0, 0, 0)'||s.backgroundImage!=='none'||s.color!=='rgb(255, 51, 51)'||s.textShadow!=='none'||s.boxShadow!=='none'||s.filter!=='none'||s.backdropFilter!=='none')return false;}\nconst active=document.activeElement;active?.blur();await new Promise(r=>setTimeout(r,80));const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches,n=Number(host.dataset.count),x=()=>list.getBoundingClientRect().x;\nlet a=x(),start=performance.now();await new Promise(r=>setTimeout(r,600));let delta=a-x(),seconds=(performance.now()-start)/1000;\nif(reduced||n<2){if(Math.abs(delta)>1||getComputedStyle(track).animationName!=='none')return false;}else{const base=parseFloat(host.style.getPropertyValue('--pn-cycle-duration')),duration=parseFloat(getComputedStyle(track).animationDuration);const expectedDuration=Math.max(12,base*.84),rate=list.getBoundingClientRect().width/duration;if(Math.abs(duration-expectedDuration)>.02||duration<12||Math.abs(delta/seconds-rate)>Math.max(2,rate*.1)||(base*.84>12&&Math.abs(rate-50)>.05))return false;}\nviewport.focus();a=x();await new Promise(r=>setTimeout(r,100));const stable=Math.abs(x()-a)<1&&host.dataset.reading==='true'&&getComputedStyle(track).animationName==='none';viewport.blur();if(active&&active!==document.body)active.focus();return stable&&Number(document.querySelector('#tbody')?.dataset.total)===7775;\n})()"
+        }
+      ]
+    },
+    {
+      "id": "202611172355",
+      "version": "V9.42",
+      "parent": "202611171940",
+      "date": "2026-11-17T23:55:00Z",
+      "added": "Touch MAP opens natively in the current tab with Back filter and page recovery; desktop targets retained",
+      "data_changed": false,
+      "runner": "tests/run_v9_42.sh",
+      "trees": [
+        "f617087df59901042af2760e62655e0ad0821e74"
+      ],
+      "features": [
+        {
+          "id": "v942-mobile-map-native",
+          "file": "contracts/mobile-map.v942.json",
+          "contains": "globalgrid2050.mobile-map-native.v942"
+        },
+        {
+          "id": "v942-mobile-map-entry",
+          "file": "index.html",
+          "contains": "mobile_map_ui/20261118-v942/navigation.mjs"
+        }
+      ],
+      "known_faults": [],
+      "ci": null,
+      "merge_commit": null,
+      "state": "release_candidate_publication_blocked",
+      "feature_migrations": [
+        {
+          "id": "solar1000-pilot",
+          "from": "202611161244",
+          "contract": "solar1000-inline-v1"
+        },
+        {
+          "id": "news-editorial-priority",
+          "from": "202611161734",
+          "contract": "news-priority-internal-v1"
+        },
+        {
+          "id": "inline-research-priority",
+          "from": "202611161747",
+          "contract": "research-priority-internal-v1"
+        },
+        {
+          "id": "source-bound-priority",
+          "from": "202611161747",
+          "contract": "research-priority-internal-v1"
+        },
+        {
+          "id": "global-dc-tab",
+          "from": "202611161630",
+          "contract": "global-dc-ui-v928-v1"
+        },
+        {
+          "id": "v936-ticker-contract",
+          "from": "202611171507",
+          "contract": "ticker-neon-v940-v1"
+        },
+        {
+          "id": "v936-ticker-bounded-static",
+          "from": "202611171507",
+          "contract": "ticker-neon-v940-v1"
+        }
+      ],
+      "browser_probes": [
+        {
+          "name": "V9.42 native touch MAP and original desktop targets",
+          "selector": "#tbody a.atlaslink",
+          "js": "(()=>{const a=document.querySelector('#tbody a.atlaslink');return !!a&&a.dataset.mapNavigation===(matchMedia('(pointer: coarse)').matches?'current-tab':'new-tab')&&a.target===(matchMedia('(pointer: coarse)').matches?'_self':'_blank')&&a.getAttribute('aria-description').includes('grid map');})()"
         }
       ]
     }

@@ -1,0 +1,47 @@
+/* V9.50: compact default register. Retain existing IDs, links and listeners. */
+.release-header .release-links>a:not(.active):not(#mapAtlasNav),.preview-status{display:none!important}
+#repdPanel>.category-scope{display:none}
+#repdPanel .tablewrap table{width:100%;min-width:0!important;table-layout:fixed}
+#repdPanel .tablewrap :is(th,td):is(:nth-child(2),:nth-child(3),:nth-child(4),:nth-child(7),:nth-child(8),:nth-child(9),:nth-child(12)):not([colspan]){display:none!important}
+#repdPanel #tbody :is(.project-meta,.mobile-extra,.copy-id,.newslink,.map-note){display:none!important}
+#repdPanel .tablewrap :is(th,td){padding:8px;overflow-wrap:anywhere;white-space:normal}
+#repdPanel .tablewrap thead th:first-child{width:36%}
+#repdPanel .tablewrap thead th:last-child{width:76px}
+#repdPanel .tablewrap :is(th,td):last-child{right:auto;border-left:0;width:76px;max-width:76px}
+#repdPanel .tablewrap td:last-child{position:static}
+#repdPanel .project-actions{min-width:0;max-width:none;width:auto;gap:0;display:flex;align-items:center;justify-content:center}
+#repdPanel .project-actions :is(.action-link,.action-disabled,.pn-journey-unavailable){min-height:44px;min-width:44px;align-items:center;justify-content:center;font-size:12px;padding:6px}
+#repdPanel .project-record{margin:2px 0 0}
+#repdPanel .project-record summary{font-size:11px;padding:5px 0;min-height:28px}
+#repdPanel .record-grid{min-width:0;grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr));max-width:100%}
+#repdPanel .record-grid :is(b,span){font-size:11px}
+#repdPanel .compact-machine-note{display:inline-block;min-width:0;max-width:100%;min-height:44px;font-size:11px;padding:6px}
+#repdPanel .compact-news-detail .machine-note-headline{font-size:11px}
+.compact-mw-filter{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.compact-mw-filter input{width:80px;max-width:100%;min-height:44px;background:#000;color:#fff;border:1px solid var(--line);padding:6px;font:13px monospace}
+.compact-mw-filter label{color:var(--muted);font-size:11px}
+#mwRangeError:not(:empty){color:#ff9c9c;flex:1 0 100%;font-size:11px}
+.compact-register-filters{margin:0 0 8px;color:var(--muted)}.compact-register-filters>summary{padding:10px 0;color:var(--accent);cursor:pointer}
+@media(max-width:768px){
+#repdPanel .tablewrap{width:100%;max-height:none!important;overflow:visible!important}
+#repdPanel .tablewrap table,#repdPanel .tablewrap tbody{display:block;width:100%}
+#repdPanel .tablewrap thead{display:none}
+#repdPanel #tbody tr[id^="repd-"]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 58px;gap:4px 8px;padding:9px 8px;border-bottom:1px solid var(--line);align-items:start}
+#repdPanel #tbody tr[id^="repd-"]>td{padding:0;border:0;min-width:0;font-size:11px;background:transparent;position:static;width:auto;max-width:none}
+#repdPanel #tbody tr[id^="repd-"]>td.site{display:contents}
+#repdPanel .compact-project-name{grid-column:1/3;grid-row:1;font-size:14px;line-height:1.25;min-width:0}
+#repdPanel #tbody tr[id^="repd-"]>td:nth-child(5){grid-column:1;grid-row:2}
+#repdPanel #tbody tr[id^="repd-"]>td:nth-child(6){grid-column:2;grid-row:2;color:var(--ok);font-size:13px;text-align:right}
+#repdPanel #tbody tr[id^="repd-"]>td:nth-child(10){grid-column:1;grid-row:3}
+#repdPanel #tbody tr[id^="repd-"]>td:nth-child(11){grid-column:2/4;grid-row:3}
+#repdPanel #tbody tr[id^="repd-"]>td:nth-child(10)::before{content:"Submitted ";color:var(--muted)}
+#repdPanel #tbody tr[id^="repd-"]>td:nth-child(11)::before{content:"Operational ";color:var(--muted)}
+#repdPanel #tbody tr[id^="repd-"]>td:last-child{grid-column:3;grid-row:1/3;align-self:center;width:auto;max-width:none}
+#repdPanel .project-record{grid-column:1/-1;grid-row:4;min-width:0}
+#repdPanel .project-record:not([open]){margin:0}
+#repdPanel .project-record summary{min-height:28px;padding:4px 0}
+#repdPanel .record-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+#repdPanel .machine-note-dialog{width:calc(100vw - 16px);max-height:88dvh}
+.machine-note-dialog h2{font-size:15px!important}
+.machine-note-dialog{font-size:12px!important;line-height:1.4!important}
+}

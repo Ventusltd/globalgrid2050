@@ -1,0 +1,14 @@
+{
+  "schema": "globalgrid2050.grid-notice-host.v938",
+  "shared_reader": "automation/grid_notice_ui/20261117-v938/",
+  "sha256": {
+    "model.mjs": "a2ea9cae62e74dc1381482e7f2741bc34d04241103ade3d1232459af57987130",
+    "view.mjs": "251a7872f79c3eb4f9ffe0c53bf5751cba1d29e0f5dbc6cdc7bab6cfd524b969",
+    "styles.css": "64394140a086b8b772ad2dc9ed5034f41dff8a3e020011cc0354b3d4c0f3460f",
+    "notice.json": "bef90e1a64e4f1921c62f85ee61d636d1fe02fcebd30ea1570a7b3bfd49f5148"
+  },
+  "host": "Existing GRID tab #gridPanel adjacent #gridLayerHost; no new principal panel",
+  "scope": "One Sea Link EN020026 consent event, two exact attributed government HTML documents. Publisher differs from reported NGET. DAY publication/event/application/acceptance/recommendation clocks; retrieval is UTC instant. Up to2GW is a planned upper bound, not current capacity.",
+  "rights_gate": "Actual pinned HTML/OGL-footer receipts and separate AGENT_A/AGENT_B narrow fact review references required before display; no images/third-party/domain-wide reuse",
+  "unknown": "Current capacity, commissioning, connection, REPD/ETYS joins and coordinates remain unknown; not an interconnector dataset row or VERIFIED association"
+}

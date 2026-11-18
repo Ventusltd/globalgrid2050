@@ -10,6 +10,7 @@ on:
       - 'uk_renewables_pipeline/202611171609/**'
       - 'uk_renewables_pipeline/202611171710/**'
       - 'uk_renewables_pipeline/202611171940/**'
+      - 'uk_renewables_pipeline/202611172355/**'
       - 'automation/v934_preview/**'
       - 'automation/v935_preview/**'
       - 'automation/v936_preview/**'
@@ -19,6 +20,8 @@ on:
       - 'automation/v940_preview/**'
       - 'automation/v941_preview/**'
       - 'automation/ticker_crisp_ui/**'
+      - 'automation/mobile_map_ui/**'
+      - 'automation/v942_preview/**'
       - 'automation/ticker_neon_ui/**'
       - 'automation/document_facts_ui/**'
       - 'automation/news/filings/**'
@@ -58,6 +61,9 @@ jobs:
           - edition: '202611171940'
             version: '9_41'
             suite: v941_preview
+          - edition: '202611172355'
+            version: '9_42'
+            suite: v942_preview
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -105,6 +111,15 @@ jobs:
           git fetch --no-tags --depth=1 origin aaca1dd8138269b679d20db196a7c0d480d09389
           node --test automation/v941_preview/contracts.test.mjs
           node --test automation/v941_preview/minimum.test.mjs
+      - name: Mobile sender preservation, native navigation and browser Back
+        if: matrix.suite == 'v942_preview'
+        env:
+          PLAYWRIGHT_MODULE_ROOT: ${{ github.workspace }}/automation/news/acquisition/browser
+          MOBILE_MAP_REPORT: ${{ runner.temp }}/date-proof/sender-mechanics.json
+        run: |
+          mkdir -p "$RUNNER_TEMP/date-proof"
+          node --test automation/v942_preview/contracts.test.mjs
+          node automation/mobile_map_ui/20261118-v942/navigation.browser.mjs
       - name: Date and news interaction on desktop and mobile
         env:
           PLAYWRIGHT_MODULE: ${{ github.workspace }}/automation/news/acquisition/browser/node_modules/playwright/index.mjs
@@ -116,6 +131,7 @@ jobs:
           V939_OUT: ${{ runner.temp }}/date-proof
           V940_OUT: ${{ runner.temp }}/date-proof
           V941_OUT: ${{ runner.temp }}/date-proof
+          V942_OUT: ${{ runner.temp }}/date-proof
         run: node automation/${{ matrix.suite }}/browser.mjs
       - name: Named Android portrait, landscape, touch and reduced-motion proof
         if: matrix.suite == 'v940_preview'

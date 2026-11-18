@@ -2400,6 +2400,73 @@
           "js": "(()=>{const a=document.querySelector('#tbody a.atlaslink');return !!a&&a.dataset.mapNavigation===(matchMedia('(pointer: coarse)').matches?'current-tab':'new-tab')&&a.target===(matchMedia('(pointer: coarse)').matches?'_self':'_blank')&&a.getAttribute('aria-description').includes('grid map');})()"
         }
       ]
+    },
+    {
+      "id": "202611180058",
+      "version": "V9.43",
+      "parent": "202611172355",
+      "date": "2026-11-18T00:58:00Z",
+      "added": "JOURNEY actions beside located REPD, data centre and substation MAP plus manual Grid Journeys; native touch and Back recovery; existing MAP/data preserved",
+      "data_changed": false,
+      "runner": "tests/run_v9_43.sh",
+      "trees": [
+        "57300be4b448d46a8ce0715802a7514184cd5389"
+      ],
+      "features": [
+        {
+          "id": "journey-entry",
+          "file": "contracts/journey-entry.v943.json",
+          "contains": "pipeline.journey-entry.v1"
+        }
+      ],
+      "known_faults": [],
+      "ci": null,
+      "merge_commit": null,
+      "state": "release_candidate_publication_blocked",
+      "feature_migrations": [
+        {
+          "id": "solar1000-pilot",
+          "from": "202611161244",
+          "contract": "solar1000-inline-v1"
+        },
+        {
+          "id": "news-editorial-priority",
+          "from": "202611161734",
+          "contract": "news-priority-internal-v1"
+        },
+        {
+          "id": "inline-research-priority",
+          "from": "202611161747",
+          "contract": "research-priority-internal-v1"
+        },
+        {
+          "id": "source-bound-priority",
+          "from": "202611161747",
+          "contract": "research-priority-internal-v1"
+        },
+        {
+          "id": "global-dc-tab",
+          "from": "202611161630",
+          "contract": "global-dc-ui-v928-v1"
+        },
+        {
+          "id": "v936-ticker-contract",
+          "from": "202611171507",
+          "contract": "ticker-neon-v940-v1"
+        },
+        {
+          "id": "v936-ticker-bounded-static",
+          "from": "202611171507",
+          "contract": "ticker-neon-v940-v1"
+        }
+      ],
+      "browser_probes": [
+        {
+          "name": "V9.43 single Journey entry API and REPD action",
+          "selector": "#tbody .pn-journey-link",
+          "js": "(()=>{const a=document.querySelector('#tbody .pn-journey-link');if(!a)return false;const u=new URL(a.href);return window.pipelineJourneyEntry?.schema==='pipeline.journey-entry.v1'&&u.searchParams.get('journey')==='vicinity'&&u.searchParams.get('origin_type')==='repd'&&u.searchParams.get('origin_id')==='repd:'+a.closest('tr').querySelector('a.atlaslink').href.match(/[?&]repd_ref=(\\d+)/)?.[1];})()"
+        }
+      ]
     }
   ],
   "size_budget_mb": 18,

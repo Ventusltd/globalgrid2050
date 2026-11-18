@@ -21,6 +21,7 @@ on:
       - 'automation/ticker_crisp_ui/**'
       - 'automation/mobile_map_ui/**'
       - 'automation/v942_preview/**'
+      - 'automation/journey_entry_ui/**'
       - '.github/workflows/verify-pipeline-versions.yml'
   workflow_dispatch:
     inputs:
@@ -64,6 +65,7 @@ jobs:
             /automation/ticker_neon_ui/
             /automation/ticker_crisp_ui/
             /automation/mobile_map_ui/
+            /automation/journey_entry_ui/
             /dist/major_project_news_v9_5_1.json
             /dist/convergence/2026q3/pipelinenews/
             /dist/news/

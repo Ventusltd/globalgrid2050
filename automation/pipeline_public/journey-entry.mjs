@@ -28,6 +28,7 @@ async function verifyAtlasPins(){
  for(const pin of [acceptedAtlas.runtime,acceptedAtlas.composition,acceptedAtlas.stationSource]){const bytes=await get(pin.path),sha=createHash('sha256').update(bytes).digest('hex');assert.equal(bytes.length,pin.bytes,pin.path+' bytes');assert.equal(sha,pin.sha256,pin.path+' hash');report.receiverPins.assets.push({path:pin.path,bytes:bytes.length,sha256:sha});if(pin===acceptedAtlas.stationSource)assert.equal(JSON.parse(bytes).features.length,pin.features)}
  report.receiverPins.stationRuntimePinStatus='The runtime tag is CALLER_SUPPLIED_NOT_REVALIDATED; separate public source bytes were checked, not a cryptographic runtime payload assertion.';
 }
+function vicinityViewState(){const s=window.__GRIDATLAS_MODULES__.gridVicinity.snapshot();return{origin:s.origin,radiusKm:s.radiusKm,selectedBands:s.selectedBands,itinerary:s.train.itinerary}}
 function sourceState(expected){
  const value=id=>document.getElementById(id)?.value??null;
  const category=document.querySelector('.pipeline-tabs [aria-selected="true"]')?.dataset.view??null;
@@ -39,7 +40,7 @@ try{await verifyAtlasPins();for(const [engine,device,desktop]of [['chromium','Pi
  const browser=await pw[engine].launch({headless:true,...(engine==='chromium'?{args:['--use-gl=angle','--use-angle=swiftshader','--enable-webgl','--ignore-gpu-blocklist']}: {})});
  try{for(const kind of ['repd','substation','datacentre','manual']){
  const context=await browser.newContext(pw.devices[device]),sourcePage=await context.newPage(),errors=[];let page=sourcePage;page.on('pageerror',e=>errors.push(e.message));context.on('page',p=>p.on('pageerror',e=>errors.push(e.message)));
- const row={engine,device,desktop,kind,started:new Date().toISOString(),errors};report.results.push(row);
+ const row={engine,device,desktop,kind,phase:'source-load',started:new Date().toISOString(),errors};report.results.push(row);
  try{
  const response=await page.goto(source,{waitUntil:'domcontentloaded',timeout:60000});assert.equal(response.status(),200);assert.equal(createHash('sha256').update(await response.body()).digest('hex'),expected);
  await page.waitForFunction(()=>Number(document.querySelector('#tbody')?.dataset.total)>0,null,{timeout:60000});
@@ -72,6 +73,7 @@ try{await verifyAtlasPins();for(const [engine,device,desktop]of [['chromium','Pi
   assert.equal(arrived.searchParams.get('origin_id'),state.origin.id);
  }
  await page.waitForFunction(()=>window.__GRIDATLAS_MODULES__?.gridVicinity?.snapshot().train?.index?.indexedRecords===5800,null,{timeout:100000});
+ row.phase='receiver-controls';
  const route=panel.getByRole('group',{name:'Great Grid Journeys',exact:true});await route.waitFor({state:'visible'});
  const query=route.getByRole('searchbox',{name:'Station name, source ID, place or postcode',exact:true});await query.scrollIntoViewIfNeeded();await query.focus();assert.equal(await query.evaluate(e=>e===document.activeElement),true);
  const role=route.getByRole('combobox',{name:'Use search choice as',exact:true});row.routeOptions=await role.locator('option').evaluateAll(options=>options.map(o=>({value:o.value,label:o.textContent})));
@@ -87,15 +89,20 @@ try{await verifyAtlasPins();for(const [engine,device,desktop]of [['chromium','Pi
  state=await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridVicinity.snapshot());assert.equal(state.train.itinerary.mode,'vicinity');assert.equal(state.train.itinerary.limit,90);assert.equal(state.train.itinerary.selectedCount,0);assert.equal(state.train.plan,null);assert.deepEqual(state.origin,row.arrival.state.origin);row.routeControls='Accessible selectors and empty selected-stop caps checked; no itinerary was constructed or route claimed.';
  await panel.getByRole('group',{name:'Radius in whole kilometres',exact:true}).getByRole('slider',{name:'Vicinity radius in kilometres',exact:true}).focus();await page.keyboard.press('End');assert.equal(await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridVicinity.snapshot().radiusKm),50);await page.keyboard.press('Home');assert.equal(await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridVicinity.snapshot().radiusKm),1);
  const checkbox=panel.getByRole('group',{name:'Source voltage tags',exact:true}).getByRole('checkbox',{name:'400 kV',exact:true});await checkbox.uncheck();assert.equal(await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridVicinity.snapshot().selectedBands.includes('400')),false);
+ row.phase='rotation';row.beforeRotationState=await page.evaluate(vicinityViewState);
+ row.exitedFullscreen=await page.evaluate(async()=>{if(document.fullscreenElement){await document.exitFullscreen();return true;}return false;});
+ await page.waitForFunction(()=>!document.fullscreenElement,null,{timeout:10000});
  await page.setViewportSize({width:844,height:390});await page.waitForTimeout(250);const box=await panel.boundingBox();assert.ok(box.x>=0&&box.y>=0&&box.x+box.width<=845&&box.y+box.height<=391);assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+ row.afterRotationState=await page.evaluate(vicinityViewState);assert.deepEqual(row.afterRotationState,row.beforeRotationState,'fullscreen exit and rotation must preserve origin, itinerary and vicinity filters');
  await page.screenshot({path:resolve(out,engine+'-'+device.replace(/[^a-zA-Z0-9.-]+/g,'-')+'-'+kind+'.png')});
+ row.phase='source-return';
  if(desktop){await page.close();page=sourcePage;assert.equal(context.pages().length,1);row.returnState='source-tab-retained'}else{await page.goBack({waitUntil:'domcontentloaded'});row.returnState='native-back'}await page.waitForURL(source+'**');assert.equal(new URL(page.url()).origin+new URL(page.url()).pathname,source);
  if(kind==='repd')await page.waitForFunction(()=>document.querySelector('#search')?.value==='12588',null,{timeout:60000});
  if(kind==='substation')await page.waitForFunction(()=>document.querySelector('.pipeline-tabs [data-view="grid"]')?.getAttribute('aria-selected')==='true',null,{timeout:60000});
  if(kind==='datacentre')await page.waitForFunction(()=>document.querySelector('.pipeline-tabs [data-view="datacentre"]')?.getAttribute('aria-selected')==='true',null,{timeout:60000});
  await page.waitForFunction(sourceState,row.sourceState,{timeout:60000});row.restoredSourceState=await page.evaluate(sourceState);assert.deepEqual(row.restoredSourceState,row.sourceState,'actual source controls and active category must be restored or retained');
- assert.deepEqual(errors,[]);row.pass=true;
- }catch(e){row.pass=false;row.error=String(e);throw e}
+ assert.deepEqual(errors,[]);row.pass=true;row.phase='complete';
+ }catch(e){row.pass=false;row.error=String(e);row.failureScreenshot=engine+'-'+device.replace(/[^a-zA-Z0-9.-]+/g,'-')+'-'+kind+'-failure.png';try{await page.screenshot({path:resolve(out,row.failureScreenshot),timeout:10000})}catch(captureError){row.failureScreenshotError=String(captureError)}throw e}
  finally{row.finished=new Date().toISOString();writeFileSync(resolve(out,'receipt.json'),JSON.stringify(report,null,2)+'\n');await context.close()}
  }}finally{await browser.close()}
 }

@@ -64,7 +64,7 @@ try{for(const width of [1440,393,390]){
   assert.equal(await page.evaluate(()=>history.state.pipelineEnergyNewsReturn.origin?.origin_type),'repd');
   await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(newsState,wanted);
   assert.deepEqual(await page.evaluate(newsState),wanted,'typed cold reload retains every News filter and explicit context');
-  await page.evaluate(()=>window.pipelineEnergyContext.selectOrigin({origin_type:'unknown',origin_id:'none'}));
+  assert.equal(await page.evaluate(()=>history.state.pipelineEnergyNewsReturn.origin?.origin_type),'repd','manual follows a saved typed origin without clearing it artificially');
   await page.locator('.pn-news-header-search input').fill('battery');const manualWanted=await page.evaluate(newsState),manual=page.locator('#journeyAtlasNav');await manual.waitFor();
   assert.equal(new URL(await manual.getAttribute('href')).searchParams.get('news_context_url'),`${start}/uk_renewables_pipeline/${edition}/`);
   await page.evaluate(()=>document.addEventListener('click',event=>event.preventDefault(),{once:true}));await manual.click();

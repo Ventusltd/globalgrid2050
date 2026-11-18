@@ -330,6 +330,32 @@ jobs:
             node uk_renewables_pipeline/202611151300/tests/browser_real_map_to_engine_agent7.mjs
           done
           echo "Public three-class MAP→GridAtlas real-engine sample success is not fleet-wide acceptance."
+      - name: Scope V9.42 public mobile acceptance to its homepage publisher
+        id: v942_scope
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BEFORE_SHA: ${{ github.event.before }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          enabled=false
+          pin="$(python3 -c "import json; print(json.load(open('catalogue/homepage-owner.json'))['commit'])")"
+          if [ "$pin" = 'd760e9902698f7c01e0019d40d8b501dfafb5b44' ]; then
+            if [ "$EVENT_NAME" = workflow_dispatch ]; then
+              enabled=true
+            elif [ "$EVENT_NAME" = push ] && [[ "$BEFORE_SHA" =~ ^[0-9a-f]{40}$ ]] && [ "$BEFORE_SHA" != '0000000000000000000000000000000000000000' ]; then
+              git fetch --no-tags --depth=1 origin "$BEFORE_SHA"
+              if ! git diff --quiet "$BEFORE_SHA" HEAD -- catalogue/homepage-owner.json; then enabled=true; fi
+            fi
+          fi
+          echo "enabled=$enabled" >> "$GITHUB_OUTPUT"
+          echo "V9.42 public sender + actual Atlas result gate enabled=$enabled"
+      - name: Actual V9.42 Android and WebKit MAP tap, visible result, rotation and Back
+        if: steps.v942_scope.outputs.enabled == 'true'
+        env:
+          PLAYWRIGHT_MODULE: ${{ github.workspace }}/uk_renewables_pipeline/202611151300/node_modules/playwright/index.mjs
+          V942_PUBLIC_OUT: /tmp/agent8-v922-public/v942-mobile
+        run: node automation/v942_preview/public.mjs
       - name: Preserve real public source SHA and browser/engine receipts including failures
         if: always()
         uses: actions/upload-artifact@v4

@@ -1,10 +1,10 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-17T23:53:26Z",
+ "generated_at": "2026-11-18T14:15:25Z",
  "status": "ok",
  "counts": {
-  "items": 12,
-  "capex": 10,
+  "items": 15,
+  "capex": 13,
   "politics": 2,
   "with_register_site": 0,
   "feeds_ok": 9,
@@ -28,23 +28,23 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "sha256": "c00265e1a2aaab7da191563f5bd9e13d8355e40abda447145718eff14d0a552d"
+   "sha256": "50af8b0de01f729ee483d603a1fb7c46bd1285e5021388cef24d397a10fb26cc"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 55,
+   "entries": 45,
    "kept": 0,
-   "sha256": "b852fde39ded4b2eb0b1c2e70ebc1d5476a2784b3ff5bb3bfb579cb35b137d64"
+   "sha256": "fdb4d676640a4caa4c2e17f3ba8be441f3bfa15620114617383ace978f2b95dd"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 69,
+   "entries": 66,
    "kept": 0,
-   "sha256": "2da8d5ae5e49b6005723e06dd171b755c182ab3131b5347a6544ad917c1521aa"
+   "sha256": "15e84bcf2ff5f86bb769565a02d3ca7fd7de5eef366699bf62321fa33245c0e3"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 42,
    "kept": 0,
-   "sha256": "d1771d02d4816cab6ceb1b7dec3439c4900097a35cd224bd5841f81c15152b4e"
+   "sha256": "24fb3655dfbeabe36fbbd883dbae0488c5ff4bc1a33a302823ff185e698abd02"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -68,7 +68,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "38ea0d2a3295eabc04bfd0e38899205bfbc1fc6f70c7455cb884a1a159472bca"
+   "sha256": "3774c04906c60250488bab3230c4fce2a983324bbe54c8ae87c8ef78c2c72754"
   },
   {
    "url": "https://www.gov.uk/search/news-and-communications.atom?keywords=data+centre",
@@ -76,7 +76,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "b323dd81c2ec2e4a464d2ec0beb391930655061d3413b078e7a26bbf5b7064b2"
+   "sha256": "de901cc44c3b93a3fd6cdabe74e49a3a1c9162ec79a78445a5c40b554c94afeb"
   },
   {
    "url": "https://bills.parliament.uk/rss/allbills.rss",
@@ -84,18 +84,90 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "ddb73591cea4a03c2780f5e97de4a8cd0eff13b667b70546df4ea581d71a73fa"
+   "sha256": "f9264a77ee3963627e00d9914abc737dfd8cb43342011e62af30b8cefe05ffd6"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
    "source": "DatacenterDynamics",
    "status": "ok",
    "entries": 20,
-   "kept": 2,
-   "sha256": "f46a2c17433162796267527b52c93b699769e5ded5d22dc07e0c9fd538f9a884"
+   "kept": 4,
+   "sha256": "4051d56cfd8bffc901e8d053cb532d974c968a29bae81e5c277fbe506fef783e"
   }
  ],
  "items": [
+  {
+   "title": "Blue Owl data center REIT completes acquisition of first building on GCDC campus in Virginia",
+   "link": "https://www.datacenterdynamics.com/en/news/blue-owl-data-center-reit-completes-acquisition-of-first-building-on-gcdc-campus-in-virginia/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-18T13:00:59Z",
+   "first_seen": "2026-11-18T14:15:25Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Giga Energy secures $1bn lease for 60MW data center in Hunt County, Texas",
+   "link": "https://www.datacenterdynamics.com/en/news/giga-energy-secures-1bn-lease-for-60mw-data-center-in-hunt-county-texas/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-18T12:42:36Z",
+   "first_seen": "2026-11-18T14:15:25Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "billion"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "UK's Network Rail taps Cognizant for £133.2m data center contract",
+   "link": "https://www.datacenterdynamics.com/en/news/uks-network-rail-taps-cognizant-for-1332m-data-center-contract/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-18T12:40:41Z",
+   "first_seen": "2026-11-18T14:15:25Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "million"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
   {
    "title": "Patmos plans 50MW data center outside Birmingham, Alabama",
    "link": "https://www.datacenterdynamics.com/en/news/patmos-plans-50mw-data-center-outside-birmingham-alabama/",

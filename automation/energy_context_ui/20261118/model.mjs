@@ -25,7 +25,7 @@ export function relatedHeadlines(doc,origin,{limit=6}={}){
  const context=contextForOrigin(origin);if(!context||!Array.isArray(doc?.items)||doc.items.length>200||!Number.isInteger(limit)||limit<1||limit>12)return [];
  const seen=new Set(),result=[];
  for(const item of doc.items){
-  const url=safeUrl(item?.link);if(!url||typeof item.title!=='string'||!item.title.trim()||item.title.length>600||typeof item.source!=='string'||!item.source.trim()||item.source.length>160)continue;
+  const url=safeUrl(item?.link);if(!url||typeof item.title!=='string'||!item.title.trim()||item.title.length>600||typeof item.source!=='string'||!item.source.trim()||item.source.length>160||[item.date,item.first_seen].some(v=>v!==undefined&&v!==null&&(typeof v!=='string'||v.length>64)))continue;
   const matches=classifyHeadline(item).filter(t=>context.topics.includes(t));if(!matches.length)continue;
   // Only the duplicate key is normalised; original publisher URL/text/clocks remain untouched.
   url.hash='';for(const key of [...url.searchParams.keys()])if(/^utm_/i.test(key))url.searchParams.delete(key);

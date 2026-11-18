@@ -38,6 +38,7 @@ test('possible match never becomes exact project news or Journey origin',()=>{
 test('unsafe URLs, missing credits and arbitrary count inputs do not produce links',()=>{
  for(const bad of ['javascript:alert(1)','https://user:pass@publisher.example/x','http://publisher.example/x','https://127.0.0.1/x','https://host.internal/x'])assert.deepEqual(relatedHeadlines({items:[article('Data centre grid',bad)]},dc),[]);
  assert.deepEqual(relatedHeadlines({items:[article('Grid',{},{source:''})]},dc),[]);assert.deepEqual(relatedHeadlines({items:Array(201).fill(article('Grid'))},dc),[]);
+ assert.deepEqual(relatedHeadlines({items:[article('Grid','https://publisher.example/x',{date:'x'.repeat(65)})]},dc),[]);
  assert.deepEqual(relatedHeadlines({items:[article('Grid')]},dc,{limit:100}),[]);
 });
 test('context links point to current immutable Pipeline edition, no open redirects',()=>{

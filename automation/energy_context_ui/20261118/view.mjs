@@ -2,7 +2,7 @@ import {acceptedPolicy,policySource,relatedHeadlines,contextForOrigin,newsContex
 const D=document,news=D.querySelector('.pn-news-quality'),grid=D.getElementById('gridPanel');
 const el=(tag,text)=>{const n=D.createElement(tag);if(text!==undefined)n.textContent=text;return n;};
 const link=(text,url)=>{const a=el('a',text);a.href=url;a.target='_blank';a.rel='noopener noreferrer';return a;};
-let origin=null,policy=null,feed=window.pipelineHeadlineDocument;
+let origin=null,policy=null,feed=window.pipelineHeadlineDocument,requestApplied=false;
 const policyPanel=el('details'),summary=el('summary','AI demand, clean energy and grid policy');policyPanel.className='pn-energy-context';policyPanel.id='energyPolicyContext';policyPanel.append(summary);
 const body=el('div');policyPanel.append(body);news?.append(policyPanel);
 const related=el('details'),relatedBody=el('div');related.className='pn-energy-context';related.id='journeyNewsContext';related.append(el('summary','Journey context — original news and official sources'),relatedBody);grid?.append(related);
@@ -42,7 +42,7 @@ function drawRelated(){
 function selectOrigin(value){origin=contextForOrigin(value);drawRelated();return !!origin;}
 window.pipelineEnergyContext={selectOrigin,newsUrl:value=>newsContextUrl(location.href,value)};
 window.addEventListener('pipeline-journey-origin',event=>selectOrigin(event.detail));
-const applyRequest=()=>{const request=requestedContext(location.search);if(request){if(request.origin)selectOrigin(request.origin);setTimeout(()=>topicFilter(request.topic),0);}};
+const applyRequest=()=>{if(requestApplied)return;const request=requestedContext(location.search);if(request){if(request.origin)selectOrigin(request.origin);setTimeout(()=>{if(!requestApplied)requestApplied=topicFilter(request.topic);},0);}};
 window.addEventListener('pipeline-feed-loaded',event=>{feed=event.detail;drawRelated();applyRequest();});
 drawPolicy();drawRelated();
 if(feed)applyRequest();

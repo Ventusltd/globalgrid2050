@@ -12,6 +12,8 @@ on:
       - 'uk_renewables_pipeline/202611171940/**'
       - 'uk_renewables_pipeline/202611172355/**'
       - 'uk_renewables_pipeline/202611180058/**'
+      - 'uk_renewables_pipeline/202611180451/**'
+      - 'automation/journey_return_ui/**'
       - 'automation/journey_entry_ui/**'
       - 'automation/v934_preview/**'
       - 'automation/v935_preview/**'
@@ -69,6 +71,9 @@ jobs:
           - edition: '202611180058'
             version: '9_43'
             suite: v943_preview
+          - edition: '202611180451'
+            version: '9_44'
+            suite: journey_return_ui/20261118
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -132,6 +137,11 @@ jobs:
         run: |
           node --test automation/journey_entry_ui/20261118/model.test.mjs
           node automation/journey_entry_ui/20261118/view.browser.mjs
+      - name: One-shot return category, custom technology and genuine user intent
+        if: matrix.version == '9_44'
+        env:
+          PN_JOURNEY_EDITION: '202611180451'
+        run: node --test automation/journey_return_ui/20261118/restore.test.mjs
       - name: Date and news interaction on desktop and mobile
         env:
           PLAYWRIGHT_MODULE: ${{ github.workspace }}/automation/news/acquisition/browser/node_modules/playwright/index.mjs
@@ -146,6 +156,7 @@ jobs:
           V942_OUT: ${{ runner.temp }}/date-proof
           PN_JOURNEY_EDITION: ${{ matrix.edition }}
           PN_JOURNEY_OUT: ${{ runner.temp }}/date-proof
+          JOURNEY_RETURN_OUT: ${{ runner.temp }}/date-proof/return
         run: node automation/${{ matrix.suite }}/browser.mjs
       - name: Named Android portrait, landscape, touch and reduced-motion proof
         if: matrix.suite == 'v940_preview'

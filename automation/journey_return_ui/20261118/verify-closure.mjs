@@ -1,0 +1,10 @@
+import '../../journey_entry_ui/20261118/verify-closure.mjs';
+import {readFileSync} from 'node:fs';
+import {resolve} from 'node:path';
+import {createHash} from 'node:crypto';
+import assert from 'node:assert/strict';
+const release=resolve(process.argv[2]);
+const pin=JSON.parse(readFileSync(resolve(release,'contracts/journey-return.v944.json')));
+assert.equal(pin.schema,'pipeline.journey-return.v944');
+assert.equal(createHash('sha256').update(readFileSync(resolve(release,'scripts/plugins/preview-v928.js'))).digest('hex'),pin.preview_sha256);
+console.log('V9.44 own preview and immutable shared Journey closure: PASS');

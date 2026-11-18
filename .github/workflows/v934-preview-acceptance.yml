@@ -14,6 +14,8 @@ on:
       - 'uk_renewables_pipeline/202611180058/**'
       - 'uk_renewables_pipeline/202611180451/**'
       - 'uk_renewables_pipeline/202611180520/**'
+      - 'uk_renewables_pipeline/202611180633/**'
+      - 'automation/news_history_return/**'
       - 'automation/energy_context_ui/**'
       - 'automation/news/tests/test_policy_context.py'
       - 'automation/journey_return_ui/**'
@@ -80,6 +82,9 @@ jobs:
           - edition: '202611180520'
             version: '9_45'
             suite: journey_return_ui/20261118
+          - edition: '202611180633'
+            version: '9_46'
+            suite: journey_return_ui/20261118
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -144,27 +149,32 @@ jobs:
           node --test automation/journey_entry_ui/20261118/model.test.mjs
           node automation/journey_entry_ui/20261118/view.browser.mjs
       - name: One-shot return category, custom technology and genuine user intent
-        if: matrix.version == '9_44' || matrix.version == '9_45'
+        if: matrix.version == '9_44' || matrix.version == '9_45' || matrix.version == '9_46'
         env:
           PN_JOURNEY_EDITION: ${{ matrix.edition }}
         run: node --test automation/journey_return_ui/20261118/restore.test.mjs
       - name: Covenant source qualifications and explicit infrastructure context contracts
-        if: matrix.version == '9_45'
+        if: matrix.version == '9_45' || matrix.version == '9_46'
         run: |
           python -m pip install --disable-pip-version-check 'pytest>=8,<9'
           python -m pytest -q automation/news/tests/test_policy_context.py
           node --test automation/energy_context_ui/20261118/contracts.test.mjs
       - name: Actual V945 host, saved original feed and return filter context
-        if: matrix.version == '9_45'
+        if: matrix.version == '9_45' || matrix.version == '9_46'
         env:
           PLAYWRIGHT_IMPORT: ${{ github.workspace }}/automation/news/acquisition/browser/node_modules/playwright/index.mjs
           PN_CONTEXT_ROOT: ${{ github.workspace }}
-          PN_CONTEXT_EDITION: '202611180520'
+          PN_CONTEXT_EDITION: ${{ matrix.edition }}
           PN_CONTEXT_INTEGRATED: 'true'
           PN_CONTEXT_CANONICAL_REPLAY: 'true'
           PN_CONTEXT_RETURN_REPLAY: 'true'
           PN_CONTEXT_OUTPUT: ${{ runner.temp }}/date-proof/context
         run: node automation/energy_context_ui/20261118/browser.test.mjs
+      - name: Source URL sync preserves early, late and second cold news context
+        if: matrix.version == '9_46'
+        env:
+          PN_NEWS_RETURN_EDITION: ${{ matrix.edition }}
+        run: node --test automation/news_history_return/20261118/history.test.mjs
       - name: Date and news interaction on desktop and mobile
         env:
           PLAYWRIGHT_MODULE: ${{ github.workspace }}/automation/news/acquisition/browser/node_modules/playwright/index.mjs

@@ -1,0 +1,53 @@
+{
+  "schema": "globalgrid2050.daily-price-cartridge.v1",
+  "producer": {
+    "repository": "Ventusltd/globalgrid2050",
+    "commit": "78d5360239e1a5fcffa83fcb30d5937c5521acb9",
+    "pull_request": 144
+  },
+  "files": {
+    "model.mjs": {
+      "bytes": 9066,
+      "sha256": "62f17105ee01451545e2aef086bbb6f1b4fc82a7e9de78d9fed2ecd2ea65136c",
+      "git_blob": "0a0209d76d3fa8e90e13d44adcf7e99d64694da5"
+    },
+    "canvas.mjs": {
+      "bytes": 4484,
+      "sha256": "aa4388c1dd5f0ce191e8455faf9ae2efcdae93613dc15c5610cd25f9623de188",
+      "git_blob": "a4f4fd1d2fe7d2b16ba1cc0f756eece3710100ca"
+    },
+    "view.mjs": {
+      "bytes": 8569,
+      "sha256": "4f575a7ae45355b3e9e7bc05c80173c87aae0b1ca34e39175ea0fd71b208929e",
+      "git_blob": "c312f2380670d583b09c6f3b1bcc197d3902b983"
+    },
+    "styles.css": {
+      "bytes": 2090,
+      "sha256": "38cb88941bd896bc6ba3642e34e3b60f09e5e6ad3ada352cc4d8ccc713da695c",
+      "git_blob": "ab974c96548474b66406f4221fb432b4303c20e7"
+    }
+  },
+  "input": {
+    "repository": "Ventusltd/data-gb-electricity",
+    "commit": "cf48c8d6fdd9ab686c4af7261149d81a0129f7fc",
+    "base": "https://raw.githubusercontent.com/Ventusltd/data-gb-electricity/cf48c8d6fdd9ab686c4af7261149d81a0129f7fc/derived/price-daily-browser/",
+    "index": {
+      "path": "index.json",
+      "bytes": 3616,
+      "sha256": "3c3ad8e0d8169b4bc253dabbad2a7d35b64984f40accce1abd016e1ca15a1e8e"
+    }
+  },
+  "expected": {
+    "daily_rows": 3957,
+    "source_parts": 188,
+    "source_prices": 189270,
+    "complete_days": 3919,
+    "partial_days": 25,
+    "missing_days": 13,
+    "utc_disagreements": 106668,
+    "first_date": "2016-01-01",
+    "last_date": "2026-10-31"
+  },
+  "scope": "Historical source-declared settlement days and system-sell GBP/MWh; no interpolation, timestamp repair, intraday certification, forecast or realtime claim.",
+  "fallback": "The original electricity workspace remains independently linked."
+}

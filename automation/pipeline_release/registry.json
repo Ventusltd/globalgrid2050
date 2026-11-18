@@ -2550,6 +2550,34 @@
       "ci": null,
       "merge_commit": null,
       "state": "release_candidate_publication_blocked"
+    },
+    {
+      "id": "202611180633",
+      "version": "V9.46",
+      "parent": "202611180520",
+      "date": "2026-11-18T06:33:00Z",
+      "added": "Preserve captured news topic, filters and selected origin through REPD URL sync and repeated cold Journey return",
+      "data_changed": false,
+      "runner": "tests/run_v9_46.sh",
+      "trees": [
+        "97611064f880544ea22b8bb01af2aef318b93001"
+      ],
+      "features": [
+        {
+          "id": "energy-context",
+          "file": "contracts/energy-context.v945.json",
+          "contains": "pipeline.energy-context.v1"
+        },
+        {
+          "id": "news-return-history",
+          "file": "scripts/plugins/projects-v9-8.js",
+          "contains": "history.replaceState(history.state, \"\", url)"
+        }
+      ],
+      "known_faults": [],
+      "ci": null,
+      "merge_commit": null,
+      "state": "release_candidate_publication_blocked"
     }
   ],
   "size_budget_mb": 18,

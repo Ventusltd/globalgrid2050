@@ -1,10 +1,10 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-18T14:15:25Z",
+ "generated_at": "2026-11-18T23:26:29Z",
  "status": "ok",
  "counts": {
-  "items": 15,
-  "capex": 13,
+  "items": 20,
+  "capex": 18,
   "politics": 2,
   "with_register_site": 0,
   "feeds_ok": 9,
@@ -28,7 +28,7 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "sha256": "50af8b0de01f729ee483d603a1fb7c46bd1285e5021388cef24d397a10fb26cc"
+   "sha256": "59d0acb92eb1c3f6cd8a0d99a3b4bbb55d1c702631784a5ace07859a50e06cf2"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
@@ -36,7 +36,7 @@
    "status": "ok",
    "entries": 45,
    "kept": 0,
-   "sha256": "fdb4d676640a4caa4c2e17f3ba8be441f3bfa15620114617383ace978f2b95dd"
+   "sha256": "26e7e03c70d04d1f2920fc02654e107b291331215cddf78bd4b561d1fff0f6b0"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
@@ -44,7 +44,7 @@
    "status": "ok",
    "entries": 66,
    "kept": 0,
-   "sha256": "15e84bcf2ff5f86bb769565a02d3ca7fd7de5eef366699bf62321fa33245c0e3"
+   "sha256": "ef383bcba2eb0ab8b48e5177babae22c5833fa49c490c290472ec91c71201d0f"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 42,
    "kept": 0,
-   "sha256": "24fb3655dfbeabe36fbbd883dbae0488c5ff4bc1a33a302823ff185e698abd02"
+   "sha256": "78787e86e3f24d7233126375d70640be655a29bca644c36ecf43e38e52dce767"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -60,7 +60,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "37286afd39d1bd9a2f1e38ad1ed2769eeb4de8762d259b078666a0284c770bcd"
+   "sha256": "8949beeb0debbfedb2fedc2ff70243f85c8b212616b52eeca4575d59b69a8271"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-energy-security-and-net-zero.atom",
@@ -68,7 +68,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "3774c04906c60250488bab3230c4fce2a983324bbe54c8ae87c8ef78c2c72754"
+   "sha256": "438738f17b9eeac5a985ae5281c06d40e48b09f19a17d0b57691e94e28404c2f"
   },
   {
    "url": "https://www.gov.uk/search/news-and-communications.atom?keywords=data+centre",
@@ -76,7 +76,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "de901cc44c3b93a3fd6cdabe74e49a3a1c9162ec79a78445a5c40b554c94afeb"
+   "sha256": "b792a75cb1b1825a7b99aef62462d67fa462a8c3d3ee860a3b1a54e47595b402"
   },
   {
    "url": "https://bills.parliament.uk/rss/allbills.rss",
@@ -84,18 +84,139 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "f9264a77ee3963627e00d9914abc737dfd8cb43342011e62af30b8cefe05ffd6"
+   "sha256": "6c67b6dcc7bcc954fea45693c81b513d058e7df936a1c91d6736eab0f75520bf"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
    "source": "DatacenterDynamics",
    "status": "ok",
    "entries": 20,
-   "kept": 4,
-   "sha256": "4051d56cfd8bffc901e8d053cb532d974c968a29bae81e5c277fbe506fef783e"
+   "kept": 6,
+   "sha256": "8abae8db24ec4a2ad87eb87ce729120f19964b5663a68023b5a3c888b4721064"
   }
  ],
  "items": [
+  {
+   "title": "Navigating CEQA: what data center developers need to know before investing in California",
+   "link": "https://www.datacenterdynamics.com/en/opinions/navigating-ceqa-what-data-center-developers-need-to-know-before-investing-in-california/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-18T16:24:59Z",
+   "first_seen": "2026-11-18T23:26:29Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "investment"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Argentum AI and Kyndryl ink $630m AI infrastructure deal",
+   "link": "https://www.datacenterdynamics.com/en/news/argentum-ai-and-kyndryl-ink-630m-ai-infrastructure-deal/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-18T16:00:36Z",
+   "first_seen": "2026-11-18T23:26:29Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "AI infrastructure",
+     "data centre"
+    ],
+    "capex": [
+     "million"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Cleanview: US data center construction slows in Q3 2026 following record-breaking Q2",
+   "link": "https://www.datacenterdynamics.com/en/news/cleanview-us-data-center-construction-slows-in-q3-2026-following-record-breaking-q2/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-18T15:40:23Z",
+   "first_seen": "2026-11-18T23:26:29Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Cameron County commissioners reject SpaceX tax break request for $24bn Texas data center",
+   "link": "https://www.datacenterdynamics.com/en/news/cameron-county-commissioners-reject-spacex-tax-break-request-for-24bn-texas-data-center/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-18T15:25:07Z",
+   "first_seen": "2026-11-18T23:26:29Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "billion"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "DC Blox files for third building at Atlanta West data center campus",
+   "link": "https://www.datacenterdynamics.com/en/news/dc-blox-files-for-third-building-at-atlanta-west-data-center-campus/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-18T15:13:45Z",
+   "first_seen": "2026-11-18T23:26:29Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
   {
    "title": "Blue Owl data center REIT completes acquisition of first building on GCDC campus in Virginia",
    "link": "https://www.datacenterdynamics.com/en/news/blue-owl-data-center-reit-completes-acquisition-of-first-building-on-gcdc-campus-in-virginia/",

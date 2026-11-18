@@ -35,3 +35,11 @@ Validation: `node --test automation/journey_entry_ui/20261118/model.test.mjs` an
 local HTTP fixture pages with the existing V9.42 navigation module; it proves
 sender placement/identity/targets and refuses unlocated records, not public
 receiver acceptance. Set PLAYWRIGHT_MODULE_ROOT to the existing browser package.
+
+`entry.browser.mjs` exercises the real Pipeline host and existing pinned remote
+Data Centre/substation inputs at 393/1440. Before an edition is attached,
+PN_JOURNEY_HOST_PREVIEW=1 explicitly composes these modules into the local HTTP
+host only; this is not published-edition acceptance. Without that flag the
+actual candidate must load the entry itself. Missing sparse-checkout assets
+fail explicitly. The inherited external evidence pointer may return 404 and is
+recorded separately; no same-origin failures or page errors are accepted.

@@ -12,17 +12,23 @@ await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.
 try{for(const width of [1440,393,390]){
  const context=await browser.newContext({viewport:{width,height:844},isMobile:width<500,hasTouch:width<500,reducedMotion:width===390?'reduce':'no-preference'}),page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
  await context.route('**/*',route=>route.request().url().startsWith(origin)?route.continue():route.abort());
- await page.goto(`${origin}/uk_renewables_pipeline/${edition}/`,{waitUntil:'domcontentloaded'});
+ await page.goto(`${origin}/uk_renewables_pipeline/${edition}/?news_topic=grid&news_origin_type=repd&news_origin_id=2470`,{waitUntil:'domcontentloaded'});
  await page.waitForFunction(()=>window.pipelineHeadlineDocument?.items?.length>0&&document.querySelector('.pn-news-quality'),null,{timeout:20000});
  await page.addStyleTag({url:origin+'/automation/energy_context_ui/20261118/styles.css'});
  await page.addScriptTag({type:'module',url:origin+'/automation/energy_context_ui/20261118/view.mjs'});
  await page.waitForFunction(()=>['withheld','source-qualified'].includes(document.getElementById('energyPolicyContext')?.dataset.state));
  const state=await page.locator('#energyPolicyContext').getAttribute('data-state');
+ await page.waitForFunction(()=>document.querySelector('.pn-news-filter-tools select[aria-label="News topic"]').value==='grid'||document.querySelector('.pn-news-header-search input').value==='grid');
  await page.locator('#energyPolicyContext>summary').click();
  assert.equal(await page.locator('#energyPolicyContext a[href*="data-centre-covenant"]').count()>0,true);
  const before=await page.evaluate(()=>JSON.stringify(window.pipelineHeadlineDocument));
  await page.locator('#energyPolicyContext button[data-news-topic="grid"]').click();
  assert.equal(await page.evaluate(()=>document.querySelector('.pn-news-filter-tools select[aria-label="News topic"]').value==='grid'||document.querySelector('.pn-news-header-search input').value==='grid'),true);
+ await page.locator('#energyPolicyContext button[data-news-topic="datacentre"]').click();
+ const selection=await page.evaluate(()=>[document.querySelector('.pn-news-filter-tools select[aria-label="News topic"]').value,document.querySelector('.pn-news-filter-tools select[aria-label="News category"]').value,document.querySelector('.pn-news-header-search input').value]);
+ await page.evaluate(()=>window.pipelineHeadlines.render(window.pipelineHeadlineDocument,'snapshot'));
+ await page.waitForTimeout(50);
+ assert.deepEqual(await page.evaluate(()=>[document.querySelector('.pn-news-filter-tools select[aria-label="News topic"]').value,document.querySelector('.pn-news-filter-tools select[aria-label="News category"]').value,document.querySelector('.pn-news-header-search input').value]),selection,'feed redraw must preserve user filter after return context applied');
  await page.evaluate(()=>window.dispatchEvent(new CustomEvent('pipeline-journey-origin',{detail:{origin_type:'datacentre',origin_id:'dc:synthetic-origin'}})));
  await page.locator('#gridTab').click();await page.locator('#journeyNewsContext>summary').click();
  assert.match(await page.locator('#journeyNewsContext').innerText(),/DATACENTRE dc:synthetic-origin: topic context only/);

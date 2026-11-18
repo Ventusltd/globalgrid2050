@@ -1,0 +1,1 @@
+V9.23 NONLIVE. Candidate notes are name-matched metadata, not verified events. Source REPD unmodified. Politics panel removed, old show-table shortcut removed; old MAP builder inherited. GridAtlas 390px card failure remains RED. No homepage promotion.

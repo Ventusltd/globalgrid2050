@@ -21,7 +21,6 @@ jobs:
       EXPECTED_ATLAS_GENERATION: '202611180026'
       PLAYWRIGHT_MODULE: ${{ github.workspace }}/automation/news/acquisition/browser/node_modules/playwright/index.mjs
       PN_SOURCE_PIN_MANIFEST: ${{ github.workspace }}/automation/pipeline_public/v943-source-pins.json
-      PN_PUBLIC_OUT: ${{ runner.temp }}/pn2-public-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
@@ -37,6 +36,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          echo "PN_PUBLIC_OUT=$RUNNER_TEMP/pn2-public-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" >> "$GITHUB_ENV"
           test "$(git rev-parse HEAD:uk_renewables_pipeline/202611180058)" = '57300be4b448d46a8ce0715802a7514184cd5389'
           node automation/journey_entry_ui/20261118/verify-closure.mjs uk_renewables_pipeline/202611180058
       - name: Existing locked Playwright and both Linux browser engines

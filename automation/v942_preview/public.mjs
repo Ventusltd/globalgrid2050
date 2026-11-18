@@ -9,6 +9,7 @@ const root=resolve(dirname(fileURLToPath(import.meta.url)),'../..');
 const pw=await import(pathToFileURL(process.env.PLAYWRIGHT_MODULE||'D:/githubfiles/.qa-tools/node/node_modules/playwright/index.mjs').href);
 const output=process.env.V942_PUBLIC_OUT||resolve(root,'work/v942-public');mkdirSync(output,{recursive:true});
 const source='https://globalgrid2050.com/uk_renewables_pipeline/202611172355/';
+const expectedAtlasGeneration='202611172355';
 const digest=b=>createHash('sha256').update(b).digest('hex');
 const expected=digest(readFileSync(resolve(root,'uk_renewables_pipeline/202611172355/index.html')));
 const report={started:new Date().toISOString(),scope:'actual public V9.42 sender and served Atlas mobile result; bounded sample, not fleet or physical-device acceptance',results:[]};
@@ -30,7 +31,8 @@ for(const spec of cases){
  await link.tap();await page.waitForURL('https://ventusltd.github.io/gridatlas/atlas/**',{timeout:30000});assert.equal(context.pages().length,1);
  await page.waitForFunction(id=>{const s=window.__GRIDATLAS_NEON_LINKS__;return s?.compute_receipt?.status==='completed'&&s.compute_receipt.entity.id===id&&s.arrival_engine?.terminal&&s.last_selection?.nearest_name},ref,{timeout:100000});
  const summary=page.locator('.gridatlas-arrival-summary').first();await summary.waitFor({state:'visible',timeout:30000});
- row.receiver=await page.evaluate(()=>{const s=window.__GRIDATLAS_NEON_LINKS__;return{url:location.href,generation:document.documentElement.dataset.gridatlasGeneration,selection:s.last_selection,identity:s.compute_receipt.entity,engine:s.arrival_engine,measurements:s.compute_receipt.summary,failures:s.failures}});
+ row.receiver=await page.evaluate(()=>{const s=window.__GRIDATLAS_NEON_LINKS__;return{url:location.href,generation:document.documentElement.dataset.gridatlasGeneration,router:document.body.dataset.gridatlasRouter,selection:s.last_selection,identity:s.compute_receipt.entity,engine:s.arrival_engine,measurements:s.compute_receipt.summary,failures:s.failures}});
+ const arrived=new URL(row.receiver.url);assert.equal(arrived.origin+arrived.pathname,'https://ventusltd.github.io/gridatlas/atlas/');assert.equal(arrived.searchParams.get('repd_ref'),ref);assert.equal(row.receiver.generation,expectedAtlasGeneration);assert.notEqual(row.receiver.router,'failed');
  assert.equal(row.receiver.identity.id,ref);assert.deepEqual(row.receiver.failures,[]);const text=await summary.innerText();assert.ok(text.includes(row.receiver.selection.nearest_name));assert.ok(text.includes('km straight-line'));assert.ok(text.includes('Screening only; connection unverified.'));row.visibleSummary=text;
  const within=async locator=>locator.evaluate(e=>{const r=e.getBoundingClientRect();return r.x>=0&&r.y>=0&&r.right<=innerWidth+1&&r.bottom<=innerHeight+1});assert.ok(await within(summary),'compact result outside viewport');
  const details=page.getByRole('button',{name:'Show project details',exact:true});const box=await details.boundingBox();assert.ok(box.width>=44&&box.height>=44);await details.tap();await page.locator('.neon-km').first().waitFor({state:'visible'});
@@ -41,7 +43,7 @@ for(const spec of cases){
  }else{await page.setViewportSize({width:844,height:390});row.rotation='WebKit viewport landscape emulation'}
  await page.waitForTimeout(300);assert.ok(await within(summary),'landscape result outside viewport');assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
  await page.screenshot({path:resolve(output,spec.engine+'-'+spec.device.replaceAll(' ','-')+'-'+ref+'.png')});
- await page.goBack({waitUntil:'domcontentloaded'});await page.waitForFunction(id=>document.querySelector('#search')?.value===id&&!!document.querySelector('a.atlaslink[href*="repd_ref='+id+'"]'),ref,{timeout:60000});assert.equal(new URL(page.url()).searchParams.get('q'),ref);row.backRetainedSearch=true;assert.deepEqual(errors,[]);row.pass=true;
+ await page.goBack({waitUntil:'domcontentloaded'});await page.waitForFunction(id=>document.querySelector('#search')?.value===id&&!!document.querySelector('a.atlaslink[href*="repd_ref='+id+'"]'),ref,{timeout:60000});const returned=new URL(page.url());assert.equal(returned.origin+returned.pathname,source);assert.equal(returned.searchParams.get('q'),ref);row.backRetainedSearch=true;assert.deepEqual(errors,[]);row.pass=true;
  }catch(e){row.pass=false;row.error=String(e);throw e}
  finally{row.finished=new Date().toISOString();writeFileSync(resolve(output,'receipt.json'),JSON.stringify(report,null,2)+'\n');await context.close()}
  }}finally{await browser.close()}

@@ -86,6 +86,8 @@ diff -r "$RELEASE/data/v9.1" "$COPY/data/v9.1"
 node "$COPY/scripts/build/interconnectors-v9-8.mjs" >/dev/null
 diff -r "$RELEASE/data/v9.8" "$COPY/data/v9.8"
 
+node "$ROOT/automation/journey_return_ui/20261118/verify-closure.mjs" "$RELEASE"
+node "$ROOT/automation/energy_context_ui/20261118/verify-closure.mjs" "$RELEASE"
 PN_NEWS_RETURN_EDITION="$ID" node "$ROOT/automation/news_history_return/20261118/history.test.mjs"
 node "$HERE/check_v9_46.mjs"
 node "$HERE/check_map_contract_all_rows.mjs"

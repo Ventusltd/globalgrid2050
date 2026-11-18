@@ -21,6 +21,7 @@ on:
       - 'automation/ticker_crisp_ui/**'
       - 'automation/mobile_map_ui/**'
       - 'automation/v942_preview/**'
+      - 'automation/journey_entry_ui/**'
       - '.github/workflows/verify-pipeline-versions.yml'
   workflow_dispatch:
     inputs:

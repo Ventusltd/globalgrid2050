@@ -1,0 +1,46 @@
+{
+  "schema": "globalgrid2050.v7.change-accounting.v1",
+  "version": "7.1",
+  "feature": "modular-v5-parity",
+  "result": "PASS",
+  "preflight": {
+    "result": "PASS",
+    "checks": 172,
+    "contract_sha256": "2db74cf06ce378b055e74ffe4568da07afd28cfaac67093a86e10129fe2a511b"
+  },
+  "postflight": {
+    "result": "PASS",
+    "checks": 203,
+    "contract_sha256": "2db74cf06ce378b055e74ffe4568da07afd28cfaac67093a86e10129fe2a511b"
+  },
+  "identical_metrics": {
+    "legacy_features": 10784,
+    "legacy_display_total": 5210,
+    "legacy_display_solar": 2667,
+    "legacy_display_bess": 1271,
+    "legacy_display_wind": 1272,
+    "v5_eligible_projects": 559,
+    "v5_headlines": 125,
+    "v5_lookback_days": 366,
+    "v5_raw_solar_gt49": 321,
+    "v5_raw_bess_gt99": 328,
+    "v5_raw_bess_gt100": 239,
+    "v5_bess_gt99_minus_gt100": 89,
+    "v7_q2_bess_gt99": 382,
+    "v7_q2_bess_gt100": 269,
+    "v7_q2_bess_gt99_minus_gt100": 113
+  },
+  "intended_differences": [
+    "Byte-identical V5 and V6 reference assets were added under V7 fixtures; runtime dist paths remain unchanged.",
+    "North Star validation now derives baseline counts and canonical sentinels from immutable V7 fixtures.",
+    "The contract distinguishes the legacy V5 BESS threshold delta of 89 from the V6/Q2 delta of 113.",
+    "The contract distinguishes the V6 snapshot file hash from the canonical projects-array hash.",
+    "README architecture and provenance now include contracts and immutable fixtures."
+  ],
+  "forbidden_differences": {
+    "v1_to_v6_file_changes": 0,
+    "frozen_data_changes": 0,
+    "project_logic_changes": 0,
+    "news_signal_decision_changes": 0
+  }
+}

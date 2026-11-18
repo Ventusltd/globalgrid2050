@@ -11,6 +11,8 @@ on:
       - 'uk_renewables_pipeline/202611171710/**'
       - 'uk_renewables_pipeline/202611171940/**'
       - 'uk_renewables_pipeline/202611172355/**'
+      - 'uk_renewables_pipeline/202611180058/**'
+      - 'automation/journey_entry_ui/**'
       - 'automation/v934_preview/**'
       - 'automation/v935_preview/**'
       - 'automation/v936_preview/**'
@@ -64,6 +66,9 @@ jobs:
           - edition: '202611172355'
             version: '9_42'
             suite: v942_preview
+          - edition: '202611180058'
+            version: '9_43'
+            suite: v943_preview
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -120,6 +125,13 @@ jobs:
           mkdir -p "$RUNNER_TEMP/date-proof"
           node --test automation/v942_preview/contracts.test.mjs
           node automation/mobile_map_ui/20261118-v942/navigation.browser.mjs
+      - name: Journey identity, native sender placement and missing-coordinate refusal
+        if: matrix.suite == 'v943_preview'
+        env:
+          PLAYWRIGHT_MODULE_ROOT: ${{ github.workspace }}/automation/news/acquisition/browser
+        run: |
+          node --test automation/journey_entry_ui/20261118/model.test.mjs
+          node automation/journey_entry_ui/20261118/view.browser.mjs
       - name: Date and news interaction on desktop and mobile
         env:
           PLAYWRIGHT_MODULE: ${{ github.workspace }}/automation/news/acquisition/browser/node_modules/playwright/index.mjs
@@ -132,6 +144,8 @@ jobs:
           V940_OUT: ${{ runner.temp }}/date-proof
           V941_OUT: ${{ runner.temp }}/date-proof
           V942_OUT: ${{ runner.temp }}/date-proof
+          PN_JOURNEY_EDITION: ${{ matrix.edition }}
+          PN_JOURNEY_OUT: ${{ runner.temp }}/date-proof
         run: node automation/${{ matrix.suite }}/browser.mjs
       - name: Named Android portrait, landscape, touch and reduced-motion proof
         if: matrix.suite == 'v940_preview'

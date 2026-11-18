@@ -25,6 +25,7 @@ export function buildJourneyUrl(mapHref,origin,{radiusKm=10,newsContextUrl}={}){
   url.searchParams.delete('news_context_url');
   for(const [key,value]of Object.entries({journey:'vicinity',origin_type:checked.origin_type,origin_id:checked.origin_id,latitude:checked.latitude,longitude:checked.longitude,radius_km:radiusKm}))url.searchParams.set(key,String(value));
   if(checked.name&&!url.searchParams.has('project'))url.searchParams.set('project',checked.name);
+  if(checked.name&&!url.searchParams.has('name'))url.searchParams.set('name',checked.name);
   if(newsContextUrl!==undefined){const base=checkedNewsContextBase(newsContextUrl);if(!base)return null;url.searchParams.set('news_context_url',base)}
   return url.href;
 }

@@ -11,6 +11,8 @@ plus unchanged `repd_ref=2470` and technology/coordinates. Data centres retain
 `DC-WD-Q…` IDs and substations retain the pinned source's `grid_substations:…`
 IDs. These are source-record identities, not independently certified physical
 connections. Missing or mismatched points return null, never an invented point.
+The optional source display name is carried as `name` for the Vicinity panel;
+the original receiver's `project` label stays intact.
 
 The view places JOURNEY beside REPD MAP, source-backed Data Centre Screen and
 substation MAP actions, plus a Grid Journeys navigation entry for manual origin

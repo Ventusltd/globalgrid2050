@@ -7,6 +7,7 @@ test('REPD journey preserves legacy receiver identity, geometry and technology',
  const url=new URL(buildJourneyUrl(href,origin));
  for(const [key,value]of new URL(href).searchParams)assert.equal(url.searchParams.get(key),value);
  assert.equal(url.searchParams.get('journey'),'vicinity');assert.equal(url.searchParams.get('origin_id'),'repd:2470');assert.equal(url.searchParams.get('radius_km'),'10');
+ assert.equal(url.searchParams.get('name'),'East Anglia 3');
 });
 test('data centre and substation IDs remain opaque source identities',()=>{
  for(const [kind,id]of [['datacentre','DC-WD-Q100'],['substation','grid_substations:0']]){

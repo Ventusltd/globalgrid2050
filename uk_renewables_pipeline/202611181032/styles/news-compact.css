@@ -1,0 +1,11 @@
+/* V9.48: headline-first layout; existing controls remain accessible on demand. */
+.newspaper .masthead{padding:10px 14px}
+.newspaper .pn-news-header-line{display:block}
+.newspaper .pn-news-quality{padding:0 12px}
+.newspaper .pn-news-disclosure>summary{display:list-item;min-height:34px;padding:8px 0;font-size:11px;cursor:pointer}
+.newspaper .pn-news-quality .pn-news-disclosure>.pn-news-settings{max-height:none;overflow:visible;line-height:normal;padding:0 0 8px}
+.newspaper .pn-news-settings .pn-news-header-search{margin-bottom:8px;max-width:100%}
+#headlineTicker{-webkit-text-size-adjust:100%;text-size-adjust:100%;font-size:11px!important}
+#headlineTicker .pn-ticker-title,#headlineTicker a{font-size:11px!important;line-height:1.3!important}
+#headlineTicker .pn-ticker-item{min-height:32px!important}
+#headlineTicker time,#headlineTicker .pn-ticker-date{font-size:10px!important}

@@ -27,5 +27,12 @@ try{for(const mobile of [true,false]){
    const opened=context.waitForEvent('page');await page.locator('#tbody .pn-journey-link').click();await(await opened).close();
    assert.equal(await page.evaluate(()=>window.originEvents.length),2,'cloned Journey action must still emit its checked origin');
  }
+ assert.ok(entries.every(a=>!new URL(a.url).searchParams.has('news_context_url')),'entry release does not predeclare contextual news');
+ const contextBase='https://globalgrid2050.com/uk_renewables_pipeline/202611172355/';
+ await page.evaluate(base=>window.pipelineJourneyEntry.setNewsContextUrl(base),contextBase);
+ const linked=await page.locator('.pn-journey-link').evaluateAll(as=>as.map(a=>a.href));
+ assert.ok(linked.every(h=>new URL(h).searchParams.get('news_context_url')===contextBase),'explicit later opt-in reaches assets and manual Layers entry');
+ const rejected=await page.evaluate(()=>{try{window.pipelineJourneyEntry.setNewsContextUrl('https://example.com/');return false}catch{return true}});assert.equal(rejected,true);
+ assert.deepEqual(await page.locator('.pn-journey-link').evaluateAll(as=>as.map(a=>a.href)),linked);
  console.log(JSON.stringify({mobile,entries,unavailable:1,sourceHrefUnchanged:true,rerenderSingular:true,pass:true}));await context.close();
 }}finally{await browser.close();await new Promise(r=>server.close(r))}

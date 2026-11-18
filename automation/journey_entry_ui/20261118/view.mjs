@@ -44,6 +44,11 @@ function refresh(){
  if(map&&!document.getElementById('journeyAtlasNav')){
    const a=document.createElement('a');a.id='journeyAtlasNav';a.className='atlaslink pn-journey-link';a.textContent='GRID JOURNEYS';a.href=canonical+'?journey=vicinity';a.target='_blank';a.rel='noopener noreferrer';map.after(a);
  }
+ const nav=document.getElementById('journeyAtlasNav');if(nav){
+   const url=new URL(canonical);url.searchParams.set('journey','vicinity');
+   if(newsContextUrl)url.searchParams.set('news_context_url',newsContextUrl);
+   nav.href=url.href;
+ }
 }
 let queued=false;
 new MutationObserver(()=>{if(!queued){queued=true;queueMicrotask(()=>{queued=false;refresh()})}}).observe(document.body,{childList:true,subtree:true});

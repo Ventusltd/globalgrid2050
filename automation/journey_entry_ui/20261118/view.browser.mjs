@@ -17,6 +17,15 @@ try{for(const mobile of [true,false]){
  assert.equal(entries.filter(a=>new URL(a.url).searchParams.get('origin_type')==='repd').length,1);assert.equal(entries.filter(a=>new URL(a.url).searchParams.get('origin_type')==='substation').length,1);assert.equal(entries.filter(a=>new URL(a.url).searchParams.get('origin_type')==='datacentre').length,1);
  assert.equal(await page.locator('.pn-journey-unavailable').count(),1);assert.equal(await page.locator('#tbody a:not(.pn-journey-link)').getAttribute('href'),maps.repd);
  await page.locator('#tbody .pn-journey-link').focus();assert.equal(await page.locator('#tbody .pn-journey-link').evaluate(a=>a===document.activeElement),true);
+ if(!mobile){
+   await page.evaluate(()=>{window.originEvents=[];window.addEventListener('pipeline-journey-origin',e=>window.originEvents.push(e.detail))});
+   const opened=context.waitForEvent('page');await page.locator('#tbody .pn-journey-link').click();await(await opened).close();
+   assert.equal(await page.evaluate(()=>window.originEvents.length),1);
+ }
  await page.evaluate(()=>{const row=document.querySelector('#tbody tr');row.replaceWith(row.cloneNode(true))});await page.waitForTimeout(100);assert.equal(await page.locator('#tbody .pn-journey-link').count(),1);assert.deepEqual(errors,[]);
+ if(!mobile){
+   const opened=context.waitForEvent('page');await page.locator('#tbody .pn-journey-link').click();await(await opened).close();
+   assert.equal(await page.evaluate(()=>window.originEvents.length),2,'cloned Journey action must still emit its checked origin');
+ }
  console.log(JSON.stringify({mobile,entries,unavailable:1,sourceHrefUnchanged:true,rerenderSingular:true,pass:true}));await context.close();
 }}finally{await browser.close();await new Promise(r=>server.close(r))}

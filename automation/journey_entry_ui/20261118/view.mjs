@@ -9,7 +9,7 @@ function action(map,identity,parent){
   const origin=map?mapOrigin(map.href,identity):null;
   const href=origin?buildJourneyUrl(map.href,origin,{newsContextUrl}):null;
   const signature=JSON.stringify([identity.origin_type,identity.origin_id,href]);
-  if(existing?.dataset.signature===signature)return;
+  if(existing?.dataset.signature===signature){if(href)origins.set(existing,origin);return}
   existing?.remove();
   const element=document.createElement(href?'a':'span');element.className='pn-journey-action';element.dataset.signature=signature;
   if(href){

@@ -1944,3 +1944,12 @@ Preserves the actual accepted V9.42 and GridAtlas V9.193 homepage before promoti
 Observed 2026-11-18T06:00:20.590948+00:00: 58318 bytes, 69 lines, 3745 words, 58305 characters; SHA256 `2c3465cc186c326873280083d560fc04388ac0f14321dfb252344082eecc25f8`. Folder files 271 before and 273 after snapshot and metrics.
 
 Rollback restores the prior owner pin through the existing verified importer and Pages deployment, then verifies all seven inputs and transformed root against V157. Every older snapshot, all twenty older Pipeline records, immutable product editions and all Atlas versions remain reader-visible. The superseded V9.43 source remains immutable; its cold Back correction is included in V9.44 without claiming a separate accepted homepage release.
+
+
+## V158 - before Pipeline News V9.46 energy news and Journey context
+
+Preserves the accepted V9.44 and GridAtlas V9.193 homepage. Snapshot `homepage_v158.html`; metrics `homepage_v158-metrics.json`; prior owner `bbb27a15a3ba7910cfcfdc10acf36796700ce179`; source main `52894934b2c8bdd591170f5245461332575dd290`. Official pre-edit [measurement44250521055](https://github.com/Ventusltd/globalgrid2050/actions/runs/44250521055) passed before owner edits. All seven prior owner inputs were hash-verified and standard importer transformation matched the actual prior root.
+
+Observed 2026-11-18T07:05:21.873848+00:00: 58584 bytes, 69 lines, 3761 words, 58571 characters; SHA256 `63a21992f8ab2de4e281ac8373a924a94b908f7eb537706e96206ce869188cc2`. Folder files 273 before and 275 after snapshot and metrics.
+
+Rollback restores the prior owner pin through the existing importer and Pages, then checks all seven owner inputs and transformed root against V158. All older snapshots,21 prior reader-visible Pipeline records and every Atlas release remain retained. Source-only V9.45 stays immutable; its repeated-return correction is included in V9.46 without claiming a separate accepted homepage release. Public V9.46 product and final publication gates remain mandatory before merging this prepared update.

@@ -1,0 +1,53 @@
+{
+  "observed_at": "2026-11-18T04:00:46.113984+00:00",
+  "source_commit": "484b404fa4c4f5e6c92b408f00765df52ff7d296",
+  "source_owner_pin": "0b29bf5fe6c3f536f3caadb73a027eb9941bbcbb",
+  "bytes": 58093,
+  "sha256": "826d207a8d9cb7a74c853e952004016608fbfd511e5f4fa0267898c022ee82ce",
+  "lines": 69,
+  "words": 3736,
+  "characters": 58080,
+  "folder_files_before": 271,
+  "max_snapshot": 155,
+  "verified_owner_inputs": [
+    {
+      "path": "assets/versioned-homepage.css",
+      "bytes": 8916,
+      "sha256": "0c405224efa71f262011db49c5c7a559a265801ec98609c8c9b16a5d83df35d2"
+    },
+    {
+      "path": "assets/versioned-homepage.js",
+      "bytes": 16629,
+      "sha256": "691df697ba930eab95ba67251ca3bee673ebb8c4174e010d8f6bb73ab24ea0f1"
+    },
+    {
+      "path": "data/homepage.json",
+      "bytes": 63690,
+      "sha256": "cb11714b4b58cc8dd4f314f8e383f9ca05f92ea79007ae05a599702aa6d87538"
+    },
+    {
+      "path": "data/active-pages.json",
+      "bytes": 10775,
+      "sha256": "4ee017277a6e0a7a5e92b5320486cdf908300ac34629d71249d53b0e4d31fdeb"
+    },
+    {
+      "path": "data/presentation.json",
+      "bytes": 312,
+      "sha256": "66285dafe5369cfb991030e80ffdf8c7893de279efb5aa15a86493434d9fed11"
+    },
+    {
+      "path": "data/entity-types.json",
+      "bytes": 8760,
+      "sha256": "43081131c3735827b9132bd78c5221401061d82ea9debba9150f6b7ddd86ba61"
+    }
+  ],
+  "version": "V156",
+  "snapshot": "homepage_v156.html",
+  "snapshot_recorded_at": "2026-11-18T04:01:37.049746+00:00",
+  "measurement_workflow": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44234250990",
+  "measurement_job": 134566455837,
+  "measurement_status": "SUCCESS",
+  "folder_files_after": 273,
+  "actual_served_root_matches_verified_owner_bundle": true,
+  "intention": "Promote independently reviewed GridAtlas V9.193 in the homepage catalog, retain dated V9.192 and every prior app archive, and preserve Pipeline News V9.42 and all twenty prior news releases."
+}

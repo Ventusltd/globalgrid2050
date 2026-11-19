@@ -1,0 +1,13 @@
+/* Additive project-detail styling only; existing table, actions and CSV unchanged. */
+.project-record>.research-priority{max-width:100%;margin-top:10px;border-top:1px solid #304550;white-space:normal}
+.project-record>.research-priority>summary{padding:9px 0;min-height:40px;color:#86e1d1;white-space:normal;cursor:pointer}
+.project-record .priority-content{padding:2px 0 12px;font-size:12px;line-height:1.55;overflow-wrap:anywhere}
+.project-record .priority-content p{margin:8px 0;font-weight:400}
+.project-record .priority-content ul{margin:8px 0;padding-left:18px}
+.project-record .priority-content li{margin:6px 0}
+.project-record .priority-content .priority-note{color:#d5b976}
+.project-record .priority-content .priority-unknown{font-weight:600}
+.project-record>[data-priority-state]{display:block;margin-top:8px;font-size:12px;line-height:1.5;color:#a9bdc9;white-space:normal;overflow-wrap:anywhere}
+.v927-priority-hint{display:block;margin:7px 0 0;padding:5px 0;max-width:100%;border:0;background:transparent;color:#86e1d1;font:500 11px/1.5 Arial,sans-serif;text-align:left;cursor:pointer;white-space:normal}
+.v927-priority-hint:hover{text-decoration:underline}.v927-priority-hint:focus-visible{outline:2px solid #86e1d1;outline-offset:2px}
+.project-record>.research-priority{scroll-margin-top:80px}

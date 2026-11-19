@@ -1,0 +1,19 @@
+/* V9.48: headline-first layout; existing controls remain accessible on demand. */
+.newspaper .masthead{padding:10px 14px}
+.newspaper .pn-news-header-line{display:block}
+.newspaper .pn-news-quality{padding:0 12px}
+.newspaper .pn-news-disclosure>summary{display:list-item;min-height:34px;padding:8px 0;font-size:11px;cursor:pointer}
+.newspaper .pn-news-quality .pn-news-disclosure>.pn-news-settings{max-height:none;overflow:visible;line-height:normal;padding:0 0 8px}
+.newspaper .pn-news-settings .pn-news-header-search{margin-bottom:8px;max-width:100%}
+#headlineTicker{-webkit-text-size-adjust:100%;text-size-adjust:100%;font-size:11px!important}
+#headlineTicker .pn-ticker-title,#headlineTicker a{font-size:11px!important;line-height:1.3!important}
+#headlineTicker .pn-ticker-item{min-height:32px!important}
+#headlineTicker time,#headlineTicker .pn-ticker-date{font-size:10px!important}
+
+/* V9.49: headlines only; secondary tools at the bottom. */
+.newspaper .pn-news-quality{border-bottom:0;border-top:1px solid #303740}
+.newspaper #liveNews .ln-meta,.newspaper #liveNews .ln-collected,.newspaper #liveNews .ln-match,.newspaper #liveNews .ln-scope{display:none!important}
+.newspaper #liveNews .ln-title{margin-top:0}
+.newspaper #liveNews .ln-item{padding:10px 14px}
+#headlineTicker time,#headlineTicker .pn-ticker-date{display:none!important}
+.newspaper .pn-news-settings #newsStatus{display:block;font-size:10px;color:#aeb2b8;margin:0 0 8px}

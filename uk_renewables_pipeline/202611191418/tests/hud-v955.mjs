@@ -28,6 +28,15 @@ for(const [engine,launcher] of [['chromium',chromium],['webkit',webkit]]){
    assert.equal(await page.locator("#gaugeWarning").isVisible(), false);
    assert.deepEqual(errors, []);
    await page.screenshot({path:out+'/'+name+'.png'});
+   const rows = await page.locator('#tbody tr[id^="repd-"]').evaluateAll(records => records.map(record => {
+     const name = record.querySelector('td.site');
+     const capacity = record.querySelector('td.mw');
+     return {height:record.getBoundingClientRect().height, beside:capacity.cellIndex===name.cellIndex+1,
+       alignment:getComputedStyle(capacity).textAlign, notes:record.querySelector('.machine-note-button')?.getBoundingClientRect().height};
+   }));
+   assert.equal(rows.length, 50);
+   assert.ok(rows.every(row => row.beside && row.alignment === 'center'), 'MW column lost alignment');
+   assert.ok(rows.filter(row => row.notes).every(row => row.notes <= 34), 'Expanded news preview inflated a collapsed row');
    const wrap=page.locator('#repdScroll');await wrap.scrollIntoViewIfNeeded();
    const result=await page.evaluate(()=>{const w=document.querySelector('#repdScroll'),cell=w.querySelector('tbody tr[id^="repd-"] td.site');const before=cell.getBoundingClientRect().x;w.scrollLeft=Math.min(350,w.scrollWidth-w.clientWidth);return {before,after:cell.getBoundingClientRect().x,scroll:w.scrollLeft,width:cell.getBoundingClientRect().width,wrap:w.clientWidth}});
    assert.ok(result.scroll>0,'table not horizontally scrollable');assert.ok(Math.abs(result.before-result.after)<3,'project column not frozen');assert.ok(result.width<result.wrap*.85,'project column consumes viewport');

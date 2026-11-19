@@ -171,8 +171,10 @@
 #repdPanel #repdScroll #tbody tr[id^="repd-"]>td.mw{font-size:13px;color:#38f58c;text-align:center!important}
 #repdPanel #repdScroll .project-head{gap:4px}
 #repdPanel #repdScroll .column-sort{min-height:36px;font-size:10px}
+#repdPanel #repdScroll #tbody .project-actions :is(.action-link,.action-disabled,.pn-journey-unavailable){min-height:32px;height:32px;font-size:10px;padding:4px}
+}
+
+/* Keep the notes trigger compact even when its column starts off screen. */
 #repdPanel #repdScroll #tbody .machine-note-cell .machine-note-button{display:block;min-height:32px;height:32px;padding:4px;overflow:hidden;font-size:0!important;white-space:nowrap}
 #repdPanel #repdScroll #tbody .machine-note-cell .machine-note-button>*{display:none!important}
 #repdPanel #repdScroll #tbody .machine-note-cell .machine-note-button::after{content:"NOTES";font-size:10px;color:var(--accent)}
-#repdPanel #repdScroll #tbody .project-actions :is(.action-link,.action-disabled,.pn-journey-unavailable){min-height:32px;height:32px;font-size:10px;padding:4px}
-}

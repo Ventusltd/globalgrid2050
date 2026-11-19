@@ -1,0 +1,38 @@
+name: Pipeline News V9.55 HUD browser acceptance
+on:
+  pull_request:
+    paths:
+      - 'uk_renewables_pipeline/202611191305/**'
+      - '.github/workflows/pn-v955-hud.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  hud:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned browser harness
+        working-directory: uk_renewables_pipeline/202611191305
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+      - name: Prove unchanged data and MAP source
+        run: |
+          for path in data news solar1000 map-entry.mjs scripts; do
+            test "$(git rev-parse HEAD:uk_renewables_pipeline/202611191154/$path)" = "$(git rev-parse HEAD:uk_renewables_pipeline/202611191305/$path)"
+          done
+      - name: Headless real gauges, ticker and register at ten viewports
+        run: |
+          python3 -m http.server 8765 >/tmp/pn-hud-http.log 2>&1 &
+          node uk_renewables_pipeline/202611191305/tests/hud-v955.mjs
+      - name: Preserve browser screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pn-v955-hud-browser-evidence
+          path: /tmp/pn-hud/

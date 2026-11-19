@@ -123,3 +123,5 @@
 #repdPanel .phone-map-detail button{min-height:44px}
 #repdPanel .phone-map-status{color:var(--muted);font-size:10px}
 }
+
+#pipelineHeading #repdReportDate{color:var(--accent);font-weight:700}#pipelineHeading #repdDataDate{display:block;color:var(--muted);font:400 10px/1.45 'Courier New',monospace;letter-spacing:0;margin-top:3px}

@@ -434,6 +434,13 @@ if (tab) { tab.disabled = true; tab.title = interconnectorFailure; }
 state.interconnectors = interconnectors;
 filtered = all;
 metadata = model.metadata;
+// Label the loaded dataset, never the page build or news collection time.
+const reportDate=document.getElementById("repdReportDate"),dataDate=document.getElementById("repdDataDate");
+const sourceLabel=String(metadata.source_dataset||"");
+const receipt=Object.freeze({workbook:"87811e249395a05b223db6855952334f425e66cc9a2106caea0e38fd9e5037ea",report:"OCTOBER 2026",recorded:"14 Nov 2026",commit:"0c78c8c136ddc356724f9a8b13f80e81fb1aa377"});
+if(reportDate)reportDate.textContent=" · "+(metadata.source_workbook_sha256===receipt.workbook?receipt.report:sourceLabel.replace(/^DESNZ Renewable Energy Planning Database\s*/i,"")||"Report date unknown");
+if(dataDate){dataDate.textContent=metadata.source_workbook_sha256===receipt.workbook?"Data recorded "+receipt.recorded:"Data import date not recorded";dataDate.title=metadata.source_workbook_sha256===receipt.workbook?"Source fixture first committed to Git on "+receipt.recorded+"; not the page publication date.":"";}
+
 release = model.release;
 searchIndex = new Map(all.map((project) => [project.repd_ref, buildProjectSearchTextV9_2(project)]));
 for (const record of interconnectors) searchIndex.set(record.repd_ref, buildProjectSearchTextV9_2(record));

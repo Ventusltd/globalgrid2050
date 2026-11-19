@@ -1,0 +1,5 @@
+# V9.52
+
+Preserve V9.51 short-name/MW/status mobile summary as the leftmost full-width column. Restore all remaining original columns with a horizontal native scroll area and persistent accessible slider. Restore sticky headers and date sorting; add bidirectional sorting by name, status, capacity, county, operator, technology and references. Tap to expand still works. MAP remains in its supplementary column and is reachable through the expanded mobile summary via the existing link. No COPY ID; news tablet and original data unchanged. Previous releases and homepage pointer unchanged. Mobile and deployed-browser acceptance pending.
+
+REPD title identifies October 2026 (Q3) from the repository's release descriptor matched to the actual workbook hash. Data recorded 14 Nov 2026 is the first source fixture commit date, not a claim of automated refresh. Other workbook hashes fall back to their own dataset title; an unrecorded import date is explicitly unknown. Existing monthly check stages a PR for a new report and does not automatically promote the website.

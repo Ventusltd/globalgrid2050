@@ -1,0 +1,178 @@
+/* V9.50: compact default register. Retain existing IDs, links and listeners. */
+.release-header .release-links>a:not(.active):not(#mapAtlasNav),.preview-status{display:none!important}
+#repdPanel>.category-scope{display:none}
+#repdPanel .tablewrap table{width:100%;min-width:0!important;table-layout:fixed}
+#repdPanel #tbody :is(.project-meta,.mobile-extra,.copy-id,.newslink,.map-note){display:none!important}
+#repdPanel .tablewrap :is(th,td){padding:8px;overflow-wrap:anywhere;white-space:normal}
+#repdPanel .tablewrap thead th:first-child{width:36%}
+#repdPanel .tablewrap thead th:last-child{width:76px}
+#repdPanel .tablewrap :is(th,td):last-child{right:auto;border-left:0;width:76px;max-width:76px}
+#repdPanel .tablewrap td:last-child{position:static}
+#repdPanel .project-actions{min-width:0;max-width:none;width:auto;gap:0;display:flex;align-items:center;justify-content:center}
+#repdPanel .project-actions :is(.action-link,.action-disabled,.pn-journey-unavailable){min-height:44px;min-width:44px;align-items:center;justify-content:center;font-size:12px;padding:6px}
+#repdPanel .project-record{margin:2px 0 0}
+#repdPanel .project-record summary{font-size:11px;padding:5px 0;min-height:28px}
+#repdPanel .record-grid{min-width:0;grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr));max-width:100%}
+#repdPanel .record-grid :is(b,span){font-size:11px}
+#repdPanel .compact-machine-note{display:inline-block;min-width:0;max-width:100%;min-height:44px;font-size:11px;padding:6px}
+#repdPanel .compact-news-detail .machine-note-headline{font-size:11px}
+.compact-mw-filter{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.compact-mw-filter input{width:80px;max-width:100%;min-height:44px;background:#000;color:#fff;border:1px solid var(--line);padding:6px;font:13px monospace}
+.compact-mw-filter label{color:var(--muted);font-size:11px}
+#mwRangeError:not(:empty){color:#ff9c9c;flex:1 0 100%;font-size:11px}
+.compact-register-filters{margin:0 0 8px;color:var(--muted)}.compact-register-filters>summary{padding:10px 0;color:var(--accent);cursor:pointer}
+@media(max-width:768px){
+#repdPanel .tablewrap{width:100%;max-height:none!important;overflow:visible!important}
+#repdPanel .tablewrap table,#repdPanel .tablewrap tbody{display:block;width:100%}
+#repdPanel .tablewrap thead{display:none}
+#repdPanel #tbody tr[id^="repd-"]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 58px;gap:4px 8px;padding:9px 8px;border-bottom:1px solid var(--line);align-items:start}
+#repdPanel #tbody tr[id^="repd-"]>td{padding:0;border:0;min-width:0;font-size:11px;background:transparent;position:static;width:auto;max-width:none}
+#repdPanel #tbody tr[id^="repd-"]>td.site{display:contents}
+#repdPanel .compact-project-name{grid-column:1/3;grid-row:1;font-size:14px;line-height:1.25;min-width:0}
+#repdPanel #tbody tr[id^="repd-"]>td:nth-child(5){grid-column:1;grid-row:2}
+#repdPanel #tbody tr[id^="repd-"]>td:nth-child(6){grid-column:2;grid-row:2;color:var(--ok);font-size:13px;text-align:right}
+#repdPanel #tbody tr[id^="repd-"]>td:nth-child(10){grid-column:1;grid-row:3}
+#repdPanel #tbody tr[id^="repd-"]>td:nth-child(11){grid-column:2/4;grid-row:3}
+#repdPanel #tbody tr[id^="repd-"]>td:nth-child(10)::before{content:"Submitted ";color:var(--muted)}
+#repdPanel #tbody tr[id^="repd-"]>td:nth-child(11)::before{content:"Operational ";color:var(--muted)}
+#repdPanel #tbody tr[id^="repd-"]>td:last-child{grid-column:3;grid-row:1/3;align-self:center;width:auto;max-width:none}
+#repdPanel .project-record{grid-column:1/-1;grid-row:4;min-width:0}
+#repdPanel .project-record:not([open]){margin:0}
+#repdPanel .project-record summary{min-height:28px;padding:4px 0}
+#repdPanel .record-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+#repdPanel .machine-note-dialog{width:calc(100vw - 16px);max-height:88dvh}
+.machine-note-dialog h2{font-size:15px!important}
+.machine-note-dialog{font-size:12px!important;line-height:1.4!important}
+}
+
+/* Put analytics and advanced filters behind a disclosure, not before the records. */
+.compact-analytics>summary{cursor:pointer;padding:8px 0;color:var(--accent)}
+#repdPanel>.results-meta{display:block;margin:4px 0 7px;font-size:10px}
+#repdPanel>.compact-register-scope{margin:0 0 6px;font-size:10px}
+#repdPanel>.compact-register-scope>summary{min-height:0;padding:5px 0}
+@media(max-width:768px){
+#officialRegister .repd-expand-launcher{display:none}
+#repdPanel .compact-mw-filter{margin-bottom:4px}
+#repdPanel .compact-register-filters>summary{padding:6px 0}
+#repdPanel .compact-analytics .gauges{grid-template-columns:repeat(3,minmax(0,1fr))}
+#repdPanel .compact-analytics .gauges .card{min-width:0}
+#repdPanel #tbody tr[id^="repd-"]>td:nth-child(5){line-height:1.2;overflow-wrap:break-word}
+#repdPanel #tbody .project-record summary{min-height:23px;padding:3px 0}
+#repdPanel #tbody tr[id^="repd-"]>td:nth-child(10),#repdPanel #tbody tr[id^="repd-"]>td:nth-child(11){font-size:10px;line-height:1.25}
+}
+
+/* V9.51: news first, with compact mobile project summaries. */
+.minimal-page-tools{margin-top:12px;color:var(--muted);font-size:11px}
+.minimal-page-tools>summary{cursor:pointer;color:var(--accent);padding:12px 0}
+.minimal-page-tools .release-links{display:flex;flex-wrap:wrap}
+.minimal-page-tools .release-links>a{display:inline-flex!important}
+.minimal-page-tools .release-links>a.active{display:none!important}
+.minimal-page-tools p{padding:8px 0}
+.main>.newspaper{margin-top:0}
+.phone-project-label,.phone-project-mw,.phone-project-status{display:none}
+.compact-sort{margin:0 0 6px}
+.compact-sort select{width:100%;max-width:320px;min-height:44px;background:#000;color:var(--muted);border:1px solid var(--line);font:12px monospace;padding:6px}
+.copy-id,[data-copy-id]{display:none!important}
+@media(max-width:768px){
+.main{padding-top:4px}
+#repdPanel #tbody tr[id^="repd-"]{display:block;padding:0}
+#repdPanel #tbody tr[id^="repd-"]>td.site{display:block;padding:0}
+#repdPanel #tbody .compact-project-name{display:none}
+#repdPanel #tbody .project-record{margin:0;font-weight:normal}
+#repdPanel #tbody .project-record>summary{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:3px 8px;min-height:44px;padding:8px;font-size:12px;color:#fff;letter-spacing:0;list-style:none;cursor:pointer}
+#repdPanel #tbody .project-record>summary::before{display:none}
+#repdPanel #tbody .project-record>summary::-webkit-details-marker{display:none}
+#repdPanel #tbody .desktop-details-label{display:none}
+#repdPanel #tbody .phone-project-label{display:block;grid-column:1;font-weight:700;min-width:0;overflow-wrap:anywhere}
+#repdPanel #tbody .phone-project-mw{display:block;grid-column:2;grid-row:1;color:var(--ok);font-weight:700;text-align:right;white-space:nowrap}
+#repdPanel #tbody .phone-project-status{display:block;grid-column:1/-1;grid-row:2;font-size:10px;color:var(--muted);overflow-wrap:anywhere}
+#repdPanel #tbody .record-grid{margin:0 8px 8px}
+#repdPanel #tbody .compact-news-detail{grid-column:1/-1}
+#repdPanel #tbody .compact-machine-note{font-size:11px}
+#repdPanel #tbody .project-actions{justify-content:flex-start}
+}
+
+/* V9.52: restore all columns, preserve V9.51 mobile viewport on the first column. */
+.column-scroll-tools{display:flex;align-items:center;gap:8px;margin:5px 0;color:var(--muted);font-size:11px}
+.column-scroll-tools input{flex:1;min-width:0;height:28px;accent-color:var(--accent)}
+#repdPanel #repdScroll{--first-col:300px;width:100%;max-height:70vh;overflow:auto!important;overscroll-behavior:contain;scrollbar-gutter:stable;-webkit-overflow-scrolling:touch}
+#repdPanel #repdScroll table{display:table;width:calc(var(--first-col) + 1655px);min-width:100%!important;table-layout:fixed}
+#repdPanel #repdScroll .project-first-col{width:var(--first-col)}
+#repdPanel #repdScroll thead{display:table-header-group}
+#repdPanel #repdScroll tbody{display:table-row-group}
+#repdPanel #repdScroll tr{display:table-row}
+#repdPanel #repdScroll tr>th,#repdPanel #repdScroll tr>td{display:table-cell!important;vertical-align:middle;width:auto;max-width:none;position:static;padding:8px;min-width:0}
+#repdPanel #repdScroll thead th{position:sticky;top:0;z-index:6;background:#050505;color:var(--accent)}
+#repdPanel #repdScroll th:first-child{width:var(--first-col)}
+#repdPanel #repdScroll th:last-child{width:80px}
+#repdPanel #repdScroll .column-sort{background:transparent;border:0;color:var(--accent);font:700 11px 'Courier New',monospace;text-align:left;padding:5px 0;min-height:36px;cursor:pointer}
+#repdPanel #repdScroll .column-sort[aria-pressed="true"]{color:#fff}
+#repdPanel #repdScroll .project-head{display:flex;align-items:center;justify-content:space-between;gap:6px}
+#repdPanel #repdScroll .phone-sort,#repdPanel .phone-map-detail{display:none}
+#repdPanel #repdScroll .machine-note-cell{min-width:0;max-width:none}
+#repdPanel #repdScroll .machine-note-cell .machine-note-button{width:100%;min-width:0;max-width:none;font-size:10px;box-sizing:border-box;padding:5px}
+@media(max-width:768px){
+#repdPanel #repdScroll{--first-col:var(--phone-first,calc(100vw - 26px));max-height:70vh!important;max-height:70dvh!important;scrollbar-gutter:auto}
+#repdPanel #repdScroll #tbody tr[id^="repd-"]{display:table-row;padding:0}
+#repdPanel #repdScroll #tbody tr[id^="repd-"]>td{display:table-cell!important;padding:6px 8px;position:static;border-bottom:1px solid var(--line);vertical-align:middle}
+#repdPanel #repdScroll #tbody tr[id^="repd-"]>td.site{display:table-cell!important;padding:0}
+#repdPanel #repdScroll #tbody tr[id^="repd-"]>td:nth-child(10)::before,#repdPanel #repdScroll #tbody tr[id^="repd-"]>td:nth-child(11)::before{content:none}
+#repdPanel #repdScroll .phone-sort{display:inline-flex;align-items:center;gap:3px}
+#repdPanel #repdScroll .column-sort{min-height:44px}
+#repdPanel .phone-map-detail{display:block}
+#repdPanel .phone-map-detail button{min-height:44px}
+#repdPanel .phone-map-status{color:var(--muted);font-size:10px}
+}
+
+#pipelineHeading #repdReportDate{color:var(--accent);font-weight:700}#pipelineHeading #repdDataDate{display:block;color:var(--muted);font:400 10px/1.45 'Courier New',monospace;letter-spacing:0;margin-top:3px}
+
+/* V9.53: shallow, flexible MW range controls; all validation and input IDs retained. */
+#repdPanel .compact-mw-filter{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:6px;align-items:center;width:100%;max-width:640px;margin:4px 0 8px}
+#repdPanel .mw-bound{display:flex;gap:4px;align-items:center;min-width:0;height:36px;box-sizing:border-box;padding:0 7px;border:1px solid var(--line);background:#000;white-space:nowrap}
+#repdPanel .mw-bound span{flex:none;font-size:10px}
+#repdPanel .mw-bound input{flex:1 1 0;min-width:0;width:0;height:34px;min-height:0;box-sizing:border-box;padding:0 2px;border:0;background:transparent;color:#fff;text-align:right;font-size:16px;appearance:textfield;-moz-appearance:textfield}
+#repdPanel .mw-bound input::-webkit-inner-spin-button,#repdPanel .mw-bound input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+#repdPanel .mw-bound:focus-within{border-color:var(--accent)}
+#repdPanel #applyMW{height:36px;min-height:36px;margin:0;padding:0 10px;font-size:10px;white-space:nowrap}
+#repdPanel #mwRangeError{grid-column:1/-1}
+#repdPanel #mwRangeError:empty{display:none}
+@media(max-width:360px){#repdPanel .mw-bound{padding:0 4px;gap:2px}#repdPanel #applyMW{padding:0 6px}}
+
+/* V9.54: frozen project column, real MW column alongside, compact rows. */
+#repdPanel #repdScroll{--first-col:300px;--mw-col:95px}
+#repdPanel #repdScroll table{border-collapse:separate;border-spacing:0;width:calc(var(--first-col) + var(--mw-col) + 1560px);min-width:100%!important}
+#repdPanel #repdScroll tr>th{box-sizing:border-box;padding:6px 8px}
+#repdPanel #repdScroll th[data-column-heading="name"]{width:var(--first-col)}
+#repdPanel #repdScroll th[data-column-heading="capacity"]{width:var(--mw-col);text-align:center}
+#repdPanel #repdScroll th[data-column-heading="county"]{width:170px}
+#repdPanel #repdScroll th[data-column-heading="operator"]{width:210px}
+#repdPanel #repdScroll th[data-column-heading="technology"]{width:120px}
+#repdPanel #repdScroll th[data-column-heading="status"]{width:155px}
+#repdPanel #repdScroll th[data-column-heading="repd"]{width:105px}
+#repdPanel #repdScroll th[data-column-heading="globalgrid"]{width:155px}
+#repdPanel #repdScroll #repdUpdatedHeader{width:130px}
+#repdPanel #repdScroll #planningSubmittedHeader,#repdPanel #repdScroll #operationalHeader{width:145px}
+#repdPanel #repdScroll th:nth-last-child(2){width:145px}
+#repdPanel #repdScroll th:last-child{width:80px}
+#repdPanel #repdScroll thead th:first-child{position:sticky!important;left:0;top:0;z-index:12;background:#050505}
+#repdPanel #repdScroll #tbody tr[id^="repd-"]>td.site{position:sticky!important;left:0;z-index:8;background:#0e1116;box-shadow:1px 0 0 #303740}
+#repdPanel #repdScroll td.mw,#repdPanel #repdScroll th[data-column-heading="capacity"]{text-align:center!important;vertical-align:middle;color:#38f58c;font-variant-numeric:tabular-nums;white-space:nowrap}
+#repdPanel #repdScroll th[data-column-heading="capacity"] .column-sort{text-align:center!important}
+@media(max-width:768px){
+#repdPanel #repdScroll{--first-col:var(--phone-name,calc((100vw - 26px)*0.62));--mw-col:var(--phone-capacity,calc((100vw - 26px)*0.38))}
+#repdPanel #repdScroll table{width:calc(var(--first-col) + var(--mw-col) + 1405px)}
+/* Status is already shown inside the frozen summary; keep the desktop status column and status sort. */
+#repdPanel #repdScroll tr>th[data-column-heading="status"],#repdPanel #repdScroll #tbody tr[id^="repd-"]>td:nth-child(6){display:none!important}
+#repdPanel #repdScroll #tbody .project-record>summary{grid-template-columns:minmax(0,1fr);min-height:42px;gap:3px;padding:7px 8px;font-size:12px}
+#repdPanel #repdScroll #tbody .phone-project-label,#repdPanel #repdScroll #tbody .phone-project-status{grid-column:1}
+#repdPanel #repdScroll #tbody .phone-project-status{grid-row:2;font-size:10px}
+#repdPanel #repdScroll #tbody .record-grid{grid-template-columns:1fr}
+#repdPanel #repdScroll #tbody tr[id^="repd-"]>td:not(.site){font-size:11px;line-height:1.15;padding:4px 6px;vertical-align:middle}
+#repdPanel #repdScroll #tbody tr[id^="repd-"]>td.mw{font-size:13px;color:#38f58c;text-align:center!important}
+#repdPanel #repdScroll .project-head{gap:4px}
+#repdPanel #repdScroll .column-sort{min-height:36px;font-size:10px}
+#repdPanel #repdScroll #tbody .machine-note-cell .machine-note-button{display:block;min-height:32px;height:32px;padding:4px;overflow:hidden;font-size:0!important;white-space:nowrap}
+#repdPanel #repdScroll #tbody .machine-note-cell .machine-note-button>*{display:none!important}
+#repdPanel #repdScroll #tbody .machine-note-cell .machine-note-button::after{content:"NOTES";font-size:10px;color:var(--accent)}
+#repdPanel #repdScroll #tbody .project-actions :is(.action-link,.action-disabled,.pn-journey-unavailable){min-height:32px;height:32px;font-size:10px;padding:4px}
+}

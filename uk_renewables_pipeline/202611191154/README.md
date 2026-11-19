@@ -1,0 +1,3 @@
+# V9.54
+
+Owner-requested news reading window: no headline title or visible borders; full viewport height, short publisher date and attribution under original headline, publisher-date ordering (unknown dates last), no transient search controls, existing search disclosure and red small ticker retained. REPD: freeze first project column; real capacity column next and centred; hide duplicate status on mobile while retaining sortable status and full records. Compact off-screen provisional note button to prevent tall rows; notes and original links retained. All underlying data and previous releases unchanged. No homepage promotion. Browser and physical mobile acceptance pending.

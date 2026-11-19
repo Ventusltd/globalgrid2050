@@ -1,0 +1,58 @@
+{
+  "version": "V159",
+  "snapshot": "homepage_v159.html",
+  "observed_at": "2026-11-19T16:14:21.304034+00:00",
+  "source_commit": "5858a7d280a6ed087be205d583918141afd066c7",
+  "source_owner_pin": "3c742467ab54f503a3af62fdde322eba8fb4579b",
+  "bytes": 58849,
+  "sha256": "c84281274eb73343511f72b8983e0b9eed413b7efb478be03933509023a822be",
+  "lines": 69,
+  "words": 3775,
+  "characters": 58836,
+  "folder_files_before": 275,
+  "folder_files_after": 277,
+  "folder_entries_before": 277,
+  "folder_entries_after": 279,
+  "max_snapshot": 158,
+  "verified_owner_inputs": [
+    {
+      "path": "assets/versioned-homepage.css",
+      "bytes": 8916,
+      "sha256": "0c405224efa71f262011db49c5c7a559a265801ec98609c8c9b16a5d83df35d2"
+    },
+    {
+      "path": "assets/versioned-homepage.js",
+      "bytes": 16629,
+      "sha256": "691df697ba930eab95ba67251ca3bee673ebb8c4174e010d8f6bb73ab24ea0f1"
+    },
+    {
+      "path": "data/active-pages.json",
+      "bytes": 10775,
+      "sha256": "4ee017277a6e0a7a5e92b5320486cdf908300ac34629d71249d53b0e4d31fdeb"
+    },
+    {
+      "path": "data/entity-types.json",
+      "bytes": 8760,
+      "sha256": "43081131c3735827b9132bd78c5221401061d82ea9debba9150f6b7ddd86ba61"
+    },
+    {
+      "path": "data/homepage.json",
+      "bytes": 66756,
+      "sha256": "c754b9c851b924f73d871ffd96633bccfecb828a99827993d40e869eb8d9ebeb"
+    },
+    {
+      "path": "data/presentation.json",
+      "bytes": 312,
+      "sha256": "66285dafe5369cfb991030e80ffdf8c7893de279efb5aa15a86493434d9fed11"
+    },
+    {
+      "path": "index.html",
+      "bytes": 58804,
+      "sha256": "af732f58652794ed2e35e55d68f374c456312371dae996869e2742396d6efa2a"
+    }
+  ],
+  "actual_served_root_matches_verified_owner_bundle": true,
+  "measurement_workflow": "https://github.com/Ventusltd/globalgrid2050/actions/runs/44563750347",
+  "measurement_status": "SUCCESS",
+  "intention": "Promote the owner-approved Pipeline News V9.56 and keep V9.46 in the release archive."
+}

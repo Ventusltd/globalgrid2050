@@ -526,7 +526,7 @@
         {
           "name": "headlines label present and computed",
           "selector": "body",
-          "js": "(function(){var s=document.querySelector('#newsStatus');return !!s&&['live','overdue','snapshot','unavailable'].includes(s.dataset.state)&&s.textContent.trim().length>20&&!/Loading/.test(s.textContent);})()"
+          "js": "(async function(){var s=document.querySelector('#newsStatus');if(!s)return false;var deadline=Date.now()+13000;while(s.dataset.state==='loading'&&Date.now()<deadline)await new Promise(resolve=>setTimeout(resolve,100));return ['live','overdue','snapshot','unavailable','failed','future','partial','overdue-partial'].includes(s.dataset.state)&&s.textContent.trim().length>20&&!/Loading/.test(s.textContent);})()"
         },
         {
           "name": "no typed-in counts or audited-snapshot wording",

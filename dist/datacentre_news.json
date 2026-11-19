@@ -1,10 +1,10 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-19T14:30:48Z",
+ "generated_at": "2026-11-19T23:37:54Z",
  "status": "ok",
  "counts": {
-  "items": 21,
-  "capex": 19,
+  "items": 22,
+  "capex": 20,
   "politics": 2,
   "with_register_site": 0,
   "feeds_ok": 9,
@@ -28,15 +28,15 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "sha256": "beb569b200461991099ed944c9dcc6e47003fdef71523922c27a910db583ea9c"
+   "sha256": "49e0c2c7ac32a2cfd9dfeccd64dea1244df52c319c997c94a2f4b1b63b32c8a8"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 51,
+   "entries": 52,
    "kept": 0,
-   "sha256": "ae848f6159aee9646bbdebfdc2465da5db2f1084a505f038ffbbac092d879014"
+   "sha256": "6c0d559119e742f547d834a958eefb017eae685c3cf45478c7123180f2798746"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
@@ -44,7 +44,7 @@
    "status": "ok",
    "entries": 67,
    "kept": 0,
-   "sha256": "996515afe40bd5e5d3a6c485166e7c669f99ba0ef1a5c167fac05b2440cdbe4a"
+   "sha256": "8fece9b21617d30812430d3b4bbb2a8c53abcb335c436004bb4b92e830cc47b4"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 42,
    "kept": 0,
-   "sha256": "5d5556ed102e8302e067c103b8948e24cf618e66b0a2c5968fd90208049d5b3e"
+   "sha256": "a26df27de6e35cfe36ea7ecfbb895b7b8358eb0e893ce554fd3d778cd080f867"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -68,7 +68,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "57622ee8f760415e83e62f3d4af6c148dc46827668bc1bc1c2697f8e5a92554a"
+   "sha256": "4900894aeb04d0c5dbaf06181ffecaa99316970e26627158a9aadd0eaebc0ba5"
   },
   {
    "url": "https://www.gov.uk/search/news-and-communications.atom?keywords=data+centre",
@@ -76,7 +76,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "e7614a6d02e8a3f9c150b2080633ee9a7240df367f06440b9aeb43bfd08e6eb3"
+   "sha256": "ee5d34386f169b95a7453e45abf04f06214210dcd49008ace2aaf33716a78b4d"
   },
   {
    "url": "https://bills.parliament.uk/rss/allbills.rss",
@@ -84,7 +84,7 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "fb887554524721b1bae29669a845448d8841564b6c796cbc40ac68abc1bc0df5"
+   "sha256": "fa971b502dcd1bc29507f7de928ddeda553e9c4d15873abf6b8dac7b23a22fa3"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
@@ -92,10 +92,34 @@
    "status": "ok",
    "entries": 20,
    "kept": 1,
-   "sha256": "766df846bc4418e1a2e68b54510387502134f4781dbfac795315ade1d664391b"
+   "sha256": "7ff11f646c7575ec9438c669013f0fef7b9c0c21a25502fdb5cdbe9211e03fa6"
   }
  ],
  "items": [
+  {
+   "title": "PDG and Stockland file to develop Sydney data centers",
+   "link": "https://www.datacenterdynamics.com/en/news/pdg-and-stockland-file-to-develop-sydney-data-centers/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-19T17:00:42Z",
+   "first_seen": "2026-11-19T23:37:54Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "expansion"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
   {
    "title": "ChronoScale and STN form JV to develop data center campus in Odessa, Texas",
    "link": "https://www.datacenterdynamics.com/en/news/chronoscale-and-stn-form-jv-to-develop-data-center-campus-in-odessa-texas/",

@@ -32,7 +32,7 @@ for(const [engine,launcher] of [['chromium',chromium],['webkit',webkit]]){
      const name = record.querySelector('td.site');
      const capacity = record.querySelector('td.mw');
      return {height:record.getBoundingClientRect().height, beside:capacity.cellIndex===name.cellIndex+1,
-       alignment:getComputedStyle(capacity).textAlign, notes:record.querySelector('.machine-note-button')?.getBoundingClientRect().height};
+       alignment:getComputedStyle(capacity).textAlign, notes:record.querySelector('td.machine-note-cell .machine-note-button')?.getBoundingClientRect().height};
    }));
    assert.equal(rows.length, 50);
    assert.ok(rows.every(row => row.beside && row.alignment === 'center'), 'MW column lost alignment');

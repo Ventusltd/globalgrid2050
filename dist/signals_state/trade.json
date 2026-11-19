@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "trade",
- "generated_at": "2026-11-18T23:30:48Z",
+ "generated_at": "2026-11-19T14:36:08Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -1974,7 +1974,7 @@
    "id": "pv-tech",
    "url": "https://www.pv-tech.org",
    "status": "ok",
-   "requests": 48,
+   "requests": 3,
    "failures": 0,
    "items": 1,
    "error": "",
@@ -1999,11 +1999,11 @@
      "status": "ok",
      "entries": 300,
      "matched": 0,
-     "newest": "2026-11-18"
+     "newest": "2026-11-19"
     }
    ],
-   "searched": 45,
-   "cached": 0,
+   "searched": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": []
   },
@@ -2036,7 +2036,7 @@
      "status": "ok",
      "entries": 10,
      "matched": 0,
-     "newest": "2026-11-18"
+     "newest": "2026-11-19"
     }
    ],
    "searched": 0,
@@ -2048,7 +2048,7 @@
    "id": "energy-storage-news",
    "url": "https://www.energy-storage.news",
    "status": "ok",
-   "requests": 48,
+   "requests": 3,
    "failures": 0,
    "items": 2,
    "error": "",
@@ -2073,11 +2073,11 @@
      "status": "ok",
      "entries": 300,
      "matched": 0,
-     "newest": "2026-11-18"
+     "newest": "2026-11-19"
     }
    ],
-   "searched": 45,
-   "cached": 0,
+   "searched": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": [
     "robots.txt www.energy-storage.news: HTTP 403 (treated as no rules)"
@@ -2090,7 +2090,7 @@
    "requests": 7,
    "failures": 0,
    "items": 0,
-   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 23 links say solar); wp_search not JSON",
+   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (0 of 23 links say solar); wp_search not JSON",
    "route": "",
    "routes": [
     {
@@ -2114,14 +2114,14 @@
     {
      "route": "html",
      "url": "https://www.current-news.co.uk/?s=solar+farm",
-     "status": "not search results (1 of 23 links say solar)",
+     "status": "not search results (0 of 23 links say solar)",
      "content_type": "text/html",
-     "bytes": 479548,
+     "bytes": 478304,
      "results": 23,
-     "dated": 1,
+     "dated": 0,
      "summaries": 0,
-     "relevant": 1,
-     "sample": "Greenwheel Electric submits planning applications for Hunterston electric vehicle charging and solar hub"
+     "relevant": 0,
+     "sample": "In-kerb EV charge points to be trialled in East Lothian"
     },
     {
      "route": "wp_search",
@@ -2173,7 +2173,7 @@
      "status": "ok",
      "entries": 30,
      "matched": 0,
-     "newest": "2026-11-18"
+     "newest": "2026-11-19"
     }
    ],
    "searched": 0,
@@ -2196,7 +2196,7 @@
      "url": "https://www.planningresource.co.uk/search/articles?KeyWords=solar+farm",
      "status": "not search results (0 of 8 links say solar)",
      "content_type": "text/html",
-     "bytes": 42422,
+     "bytes": 41713,
      "results": 8,
      "dated": 0,
      "summaries": 0,
@@ -2208,7 +2208,7 @@
      "url": "https://www.planningresource.co.uk/search?q=solar+farm",
      "status": "not search results (0 of 8 links say solar)",
      "content_type": "text/html",
-     "bytes": 42422,
+     "bytes": 41713,
      "results": 8,
      "dated": 0,
      "summaries": 0,
@@ -2222,7 +2222,7 @@
      "status": "ok",
      "entries": 20,
      "matched": 0,
-     "newest": "2026-11-18"
+     "newest": "2026-11-19"
     }
    ],
    "searched": 0,

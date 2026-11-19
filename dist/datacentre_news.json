@@ -1,10 +1,10 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-18T23:26:29Z",
+ "generated_at": "2026-11-19T14:30:48Z",
  "status": "ok",
  "counts": {
-  "items": 20,
-  "capex": 18,
+  "items": 21,
+  "capex": 19,
   "politics": 2,
   "with_register_site": 0,
   "feeds_ok": 9,
@@ -28,23 +28,23 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "sha256": "59d0acb92eb1c3f6cd8a0d99a3b4bbb55d1c702631784a5ace07859a50e06cf2"
+   "sha256": "beb569b200461991099ed944c9dcc6e47003fdef71523922c27a910db583ea9c"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 45,
+   "entries": 51,
    "kept": 0,
-   "sha256": "26e7e03c70d04d1f2920fc02654e107b291331215cddf78bd4b561d1fff0f6b0"
+   "sha256": "ae848f6159aee9646bbdebfdc2465da5db2f1084a505f038ffbbac092d879014"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 66,
+   "entries": 67,
    "kept": 0,
-   "sha256": "ef383bcba2eb0ab8b48e5177babae22c5833fa49c490c290472ec91c71201d0f"
+   "sha256": "996515afe40bd5e5d3a6c485166e7c669f99ba0ef1a5c167fac05b2440cdbe4a"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 42,
    "kept": 0,
-   "sha256": "78787e86e3f24d7233126375d70640be655a29bca644c36ecf43e38e52dce767"
+   "sha256": "5d5556ed102e8302e067c103b8948e24cf618e66b0a2c5968fd90208049d5b3e"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -60,7 +60,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "8949beeb0debbfedb2fedc2ff70243f85c8b212616b52eeca4575d59b69a8271"
+   "sha256": "00033e06a6efda1c9dd85c1abc05e0ecb8d7469d9e554c49ed38ddcf6fd70d76"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-energy-security-and-net-zero.atom",
@@ -68,7 +68,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "438738f17b9eeac5a985ae5281c06d40e48b09f19a17d0b57691e94e28404c2f"
+   "sha256": "57622ee8f760415e83e62f3d4af6c148dc46827668bc1bc1c2697f8e5a92554a"
   },
   {
    "url": "https://www.gov.uk/search/news-and-communications.atom?keywords=data+centre",
@@ -76,7 +76,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "b792a75cb1b1825a7b99aef62462d67fa462a8c3d3ee860a3b1a54e47595b402"
+   "sha256": "e7614a6d02e8a3f9c150b2080633ee9a7240df367f06440b9aeb43bfd08e6eb3"
   },
   {
    "url": "https://bills.parliament.uk/rss/allbills.rss",
@@ -84,18 +84,42 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "6c67b6dcc7bcc954fea45693c81b513d058e7df936a1c91d6736eab0f75520bf"
+   "sha256": "fb887554524721b1bae29669a845448d8841564b6c796cbc40ac68abc1bc0df5"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
    "source": "DatacenterDynamics",
    "status": "ok",
    "entries": 20,
-   "kept": 6,
-   "sha256": "8abae8db24ec4a2ad87eb87ce729120f19964b5663a68023b5a3c888b4721064"
+   "kept": 1,
+   "sha256": "766df846bc4418e1a2e68b54510387502134f4781dbfac795315ade1d664391b"
   }
  ],
  "items": [
+  {
+   "title": "ChronoScale and STN form JV to develop data center campus in Odessa, Texas",
+   "link": "https://www.datacenterdynamics.com/en/news/chronoscale-and-stn-form-jv-to-develop-data-center-campus-in-odessa-texas/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-19T11:06:31Z",
+   "first_seen": "2026-11-19T14:30:48Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "million"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
   {
    "title": "Navigating CEQA: what data center developers need to know before investing in California",
    "link": "https://www.datacenterdynamics.com/en/opinions/navigating-ceqa-what-data-center-developers-need-to-know-before-investing-in-california/",

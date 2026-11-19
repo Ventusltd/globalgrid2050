@@ -1,0 +1,42 @@
+name: Pipeline News V9.56 HUD browser acceptance
+on:
+  pull_request:
+    paths:
+      - 'uk_renewables_pipeline/202611191418/**'
+      - '.github/workflows/pn-v956-hud.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  hud:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned browser harness
+        working-directory: uk_renewables_pipeline/202611191418
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+      - name: Prove unchanged data and MAP source
+        run: |
+          for path in data news solar1000 map-entry.mjs; do
+            test "$(git rev-parse HEAD:uk_renewables_pipeline/202611191305/$path)" = "$(git rev-parse HEAD:uk_renewables_pipeline/202611191418/$path)"
+          done
+      - name: Headless real gauges, ticker and register at fourteen engine/viewport combinations
+        run: |
+          python3 -m http.server 8765 >/tmp/pn-hud-http.log 2>&1 &
+          node uk_renewables_pipeline/202611191418/tests/hud-v955.mjs
+      - name: Prove Chart.js artifact integrity
+        run: |
+          printf '%s  %s\n' "$(openssl dgst -sha384 -binary uk_renewables_pipeline/202611191418/vendor/chart.umd.min.js | openssl base64 -A)" 'uk_renewables_pipeline/202611191418/vendor/chart.umd.min.js'
+          test "$(openssl dgst -sha384 -binary uk_renewables_pipeline/202611191418/vendor/chart.umd.min.js | openssl base64 -A)" = 'jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ'
+      - name: Preserve browser screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pn-v956-hud-browser-evidence
+          path: /tmp/pn-hud/

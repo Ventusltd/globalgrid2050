@@ -62,4 +62,5 @@ for(const [engine,launcher] of [['chromium',chromium],['webkit',webkit]]){
  }
  }finally{await browser.close();}
 }
+await import('./repd-summary-regression.mjs');
 assert.deepEqual(failures,[]);

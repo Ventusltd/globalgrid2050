@@ -1,26 +1,26 @@
 {
  "schema": "project-signals.v2",
- "generated_at": "2026-11-19T14:36:21Z",
- "run_at": "2026-11-19T15:01:04Z",
+ "generated_at": "2026-11-19T23:43:09Z",
+ "run_at": "2026-11-20T00:10:28Z",
  "stale": false,
  "scope": "200 largest Solar Photovoltaics rows, REPD October 2026",
  "recent_days": 90,
  "parts": {
   "official": {
    "status": "ok",
-   "collected_at": "2026-11-19T14:31:50Z",
+   "collected_at": "2026-11-19T23:38:38Z",
    "items": 109,
    "note": ""
   },
   "trade": {
    "status": "ok",
-   "collected_at": "2026-11-19T14:36:08Z",
+   "collected_at": "2026-11-19T23:42:55Z",
    "items": 192,
    "note": ""
   },
   "index": {
    "status": "ok",
-   "collected_at": "2026-11-19T14:36:21Z",
+   "collected_at": "2026-11-19T23:43:09Z",
    "items": 17,
    "note": ""
   },
@@ -32,7 +32,7 @@
   },
   "planning": {
    "status": "ok",
-   "collected_at": "2026-11-19T14:54:48Z",
+   "collected_at": "2026-11-20T00:04:45Z",
    "items": 200,
    "note": ""
   }
@@ -228,10 +228,10 @@
    "id": "gdelt-doc",
    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
    "status": "partial",
-   "requests": 43,
-   "failures": 39,
+   "requests": 52,
+   "failures": 42,
    "items": 21,
-   "error": "HTTP 429 on 6 queries running, each retried once; GDELT left alone for the rest of this run; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
+   "error": "time budget for GDELT reached; the rest are asked on later runs; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   }
  ],
  "projects": {
@@ -3366,19 +3366,13 @@
      "confidence": "confirmed",
      "freshness": "recent",
      "basis": "Solar Power Portal feed archive: alias phrase 'Beacon Fen' in title with developer 'Low Carbon'",
-     "cluster": "13599:consent:2026-08-21",
+     "cluster": "13599:consent:2026-08-24",
      "sources": [
       {
        "publisher": "pv magazine",
        "link": "https://www.pv-magazine.com/2026/08/25/uk-approves-400-mw-solar-project-with-600-mw-co-located-battery/",
        "date": "2026-08-25",
        "title": "UK approves 400 MW solar project with 600 MW co-located battery"
-      },
-      {
-       "publisher": "reNEWS",
-       "link": "https://www.renews.biz/solar/low-carbon-wins-permit-for-400mw-uk-solar-farm/",
-       "date": "2026-08-21",
-       "title": "Low Carbon wins permit for 400MW UK solar farm"
       }
      ]
     }
@@ -3397,7 +3391,7 @@
      "family": "official",
      "collected_at": "2026-11-15T21:53:55Z",
      "confidence": "confirmed",
-     "freshness": "recent",
+     "freshness": "older",
      "basis": "Planning Inspectorate project list, reference EN010151; title composed from the list's 'Date of decision' and stage"
     },
     {
@@ -3413,7 +3407,7 @@
      "family": "official",
      "collected_at": "2026-11-14T12:00:00Z",
      "confidence": "confirmed",
-     "freshness": "recent",
+     "freshness": "older",
      "basis": "reviewed 2026-11-14"
     },
     {
@@ -3429,7 +3423,7 @@
      "family": "official",
      "collected_at": "2026-11-15T21:53:55Z",
      "confidence": "confirmed",
-     "freshness": "recent",
+     "freshness": "older",
      "basis": "GOV.UK search for \"Beacon Fen Energy Park\": alias 'Beacon Fen Energy Park' in the title"
     },
     {
@@ -3445,11 +3439,27 @@
      "family": "official",
      "collected_at": "2026-11-15T21:53:55Z",
      "confidence": "confirmed",
-     "freshness": "recent",
+     "freshness": "older",
      "basis": "GOV.UK search for \"Beacon Fen Energy Park\": alias 'Beacon Fen Energy Park' in the title"
     }
    ],
    "archive": [
+    {
+     "title": "Low Carbon wins permit for 400MW UK solar farm",
+     "link": "https://www.renews.biz/solar/low-carbon-wins-permit-for-400mw-uk-solar-farm/",
+     "publisher": "reNEWS",
+     "date": "2026-08-21",
+     "year": 2026,
+     "tier": "archive",
+     "event": "consent",
+     "obtained": "fetched",
+     "source": "trade",
+     "family": "trade",
+     "collected_at": "2026-11-15T21:57:52Z",
+     "confidence": "possible",
+     "freshness": "older",
+     "basis": "reNEWS search: alias phrase 'Beacon Fen' in the summary with developer 'Low Carbon'; the headline does not name the project"
+    },
     {
      "title": "Low Carbon submits NSIP application for Beacon Fen Energy Park",
      "link": "https://www.solarpowerportal.co.uk/solar-projects/low-carbon-submits-nsip-application-for-beacon-fen-energy-park",
@@ -3503,22 +3513,6 @@
      "link": "https://www.renews.biz/solar/low-carbon-tweaks-uk-solar-site-plans/",
      "publisher": "reNEWS",
      "date": "2023-07-14",
-     "year": 2023,
-     "tier": "archive",
-     "event": null,
-     "obtained": "fetched",
-     "source": "trade",
-     "family": "trade",
-     "collected_at": "2026-11-16T13:52:14Z",
-     "confidence": "possible",
-     "freshness": "older",
-     "basis": "reNEWS search: alias phrase 'Beacon Fen' in the summary with developer 'Low Carbon'; the headline does not name the project"
-    },
-    {
-     "title": "Low Carbon consults on 600MW English solar site",
-     "link": "https://www.renews.biz/solar/low-carbon-consults-on-600mw-english-solar-site/",
-     "publisher": "reNEWS",
-     "date": "2023-05-03",
      "year": 2023,
      "tier": "archive",
      "event": null,

@@ -67,9 +67,9 @@ for (const [engine, launcher] of [['chromium', chromium], ['webkit', webkit]]) {
     await row.waitFor();
     assert.equal(await row.locator('.phone-project-label').isVisible(),true);
     assert.equal(await row.locator('.phone-project-status').isVisible(),true);
-    await row.locator('summary').click();
+    await row.locator('td.site .project-record > summary').click();
     assert.equal(await row.locator('[data-integrated-evidence]').isVisible(),true);
-    await row.locator('summary').click();
+    await row.locator('td.site .project-record > summary').click();
     await page.setViewportSize({width:1440,height:900});
     assert.equal(await row.locator('.compact-project-name').isVisible(),true);
     assert.equal(await row.locator('.desktop-details-label').textContent(),'PROJECT RECORD · SOURCES');

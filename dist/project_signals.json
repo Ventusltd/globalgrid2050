@@ -1,26 +1,26 @@
 {
  "schema": "project-signals.v2",
- "generated_at": "2026-11-19T23:43:09Z",
- "run_at": "2026-11-20T00:10:28Z",
+ "generated_at": "2026-11-20T14:14:08Z",
+ "run_at": "2026-11-20T14:42:18Z",
  "stale": false,
  "scope": "200 largest Solar Photovoltaics rows, REPD October 2026",
  "recent_days": 90,
  "parts": {
   "official": {
    "status": "ok",
-   "collected_at": "2026-11-19T23:38:38Z",
+   "collected_at": "2026-11-20T14:09:39Z",
    "items": 109,
    "note": ""
   },
   "trade": {
    "status": "ok",
-   "collected_at": "2026-11-19T23:42:55Z",
+   "collected_at": "2026-11-20T14:13:57Z",
    "items": 192,
    "note": ""
   },
   "index": {
    "status": "ok",
-   "collected_at": "2026-11-19T23:43:09Z",
+   "collected_at": "2026-11-20T14:14:08Z",
    "items": 17,
    "note": ""
   },
@@ -32,7 +32,7 @@
   },
   "planning": {
    "status": "ok",
-   "collected_at": "2026-11-20T00:04:45Z",
+   "collected_at": "2026-11-20T14:35:50Z",
    "items": 200,
    "note": ""
   }
@@ -79,7 +79,7 @@
  "downgraded": {
   "alias without recorded evidence": 11,
   "weak alias without a second term": 4,
-  "title gate": 199,
+  "title gate": 198,
   "shared link that names no project": 0
  },
  "sources": [
@@ -229,7 +229,7 @@
    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
    "status": "partial",
    "requests": 52,
-   "failures": 42,
+   "failures": 40,
    "items": 21,
    "error": "time budget for GDELT reached; the rest are asked on later runs; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   }

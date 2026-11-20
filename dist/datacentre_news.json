@@ -1,11 +1,11 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-19T23:37:54Z",
+ "generated_at": "2026-11-20T14:08:43Z",
  "status": "ok",
  "counts": {
-  "items": 22,
-  "capex": 20,
-  "politics": 2,
+  "items": 27,
+  "capex": 23,
+  "politics": 4,
   "with_register_site": 0,
   "feeds_ok": 9,
   "feeds_failed": 0
@@ -28,23 +28,23 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "sha256": "49e0c2c7ac32a2cfd9dfeccd64dea1244df52c319c997c94a2f4b1b63b32c8a8"
+   "sha256": "84742da0416bbbd487e88116f4d968e290a594c9743d02abdb4432616a09736a"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 52,
+   "entries": 57,
    "kept": 0,
-   "sha256": "6c0d559119e742f547d834a958eefb017eae685c3cf45478c7123180f2798746"
+   "sha256": "37edc5fabeee2f570432d36ecc834e59d5c2af920259fe5bf13a386d5f52efee"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 67,
+   "entries": 66,
    "kept": 0,
-   "sha256": "8fece9b21617d30812430d3b4bbb2a8c53abcb335c436004bb4b92e830cc47b4"
+   "sha256": "766980b7683d3378bd10b014859292fa7d64104750245ffab947ba7b3b1fd46c"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 42,
    "kept": 0,
-   "sha256": "a26df27de6e35cfe36ea7ecfbb895b7b8358eb0e893ce554fd3d778cd080f867"
+   "sha256": "27e67abf8b28868c2c1b481ff92c46dfdee2ca469ff30cfb84fb97af3460b3d4"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -60,7 +60,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "00033e06a6efda1c9dd85c1abc05e0ecb8d7469d9e554c49ed38ddcf6fd70d76"
+   "sha256": "cddb84a08ac3437490a91b5a21eb25b0d7e6dfe33fbb5ad768c18ceb68572537"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-energy-security-and-net-zero.atom",
@@ -68,7 +68,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "4900894aeb04d0c5dbaf06181ffecaa99316970e26627158a9aadd0eaebc0ba5"
+   "sha256": "e2684b5a8e009b3e3a5187e0df357413dd21dd0b1700e8398d866bc017e6e1e9"
   },
   {
    "url": "https://www.gov.uk/search/news-and-communications.atom?keywords=data+centre",
@@ -76,7 +76,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "ee5d34386f169b95a7453e45abf04f06214210dcd49008ace2aaf33716a78b4d"
+   "sha256": "0eb098398f4a68d255f03f2d582137e290ef3c5aaa8c242524f769b0a08a941d"
   },
   {
    "url": "https://bills.parliament.uk/rss/allbills.rss",
@@ -84,18 +84,139 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "fa971b502dcd1bc29507f7de928ddeda553e9c4d15873abf6b8dac7b23a22fa3"
+   "sha256": "6ba2a46eaf6423d79b5588d21c2e2a4512d0716860333c0900d6f125247c4f03"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
    "source": "DatacenterDynamics",
    "status": "ok",
    "entries": 20,
-   "kept": 1,
-   "sha256": "7ff11f646c7575ec9438c669013f0fef7b9c0c21a25502fdb5cdbe9211e03fa6"
+   "kept": 5,
+   "sha256": "dcd0794f1aa3a2ef4c51bafb0342c6b5c971977f5662a656ff5de704502d1a7f"
   }
  ],
  "items": [
+  {
+   "title": "Nebius expands Israel data center lease with Mega Or by 134MW",
+   "link": "https://www.datacenterdynamics.com/en/news/nebius-expands-israel-data-center-lease-with-mega-or-by-134mw/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-20T13:07:03Z",
+   "first_seen": "2026-11-20T14:08:43Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "expansion"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "L&G-led 90MW data center site in East London sold to unnamed buyer",
+   "link": "https://www.datacenterdynamics.com/en/news/lg-led-90mw-data-center-site-in-east-london-sold-to-unnamed-buyer/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-20T12:49:54Z",
+   "first_seen": "2026-11-20T14:08:43Z",
+   "lanes": [
+    "politics"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [],
+    "politics": [
+     "planning"
+    ]
+   },
+   "capex_basis": null,
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "PJM plan could cut data center and power plant grid connection times to 12 months",
+   "link": "https://www.datacenterdynamics.com/en/news/pjm-plan-could-cut-data-center-and-power-plant-grid-connection-times-to-12-months/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-20T12:47:18Z",
+   "first_seen": "2026-11-20T14:08:43Z",
+   "lanes": [
+    "politics"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [],
+    "politics": [
+     "bill",
+     "grid connection"
+    ]
+   },
+   "capex_basis": null,
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "EdgeCore launches Reno data center, tops out second building on campus",
+   "link": "https://www.datacenterdynamics.com/en/news/edgecore-launches-reno-data-center-tops-out-second-building-on-campus/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-20T12:42:36Z",
+   "first_seen": "2026-11-20T14:08:43Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "TeraWulf starts construction at Kentucky data center campus",
+   "link": "https://www.datacenterdynamics.com/en/news/terawulf-starts-construction-at-kentucky-data-center-campus/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-20T11:59:57Z",
+   "first_seen": "2026-11-20T14:08:43Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
   {
    "title": "PDG and Stockland file to develop Sydney data centers",
    "link": "https://www.datacenterdynamics.com/en/news/pdg-and-stockland-file-to-develop-sydney-data-centers/",

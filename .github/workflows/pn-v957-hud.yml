@@ -31,6 +31,21 @@ jobs:
           for path in data news solar1000 map-entry.mjs; do
             test "$(git rev-parse HEAD:uk_renewables_pipeline/202611191418/$path)" = "$(git rev-parse HEAD:uk_renewables_pipeline/202611201709/$path)"
           done
+      - name: Python immutable release delta gate
+        run: |
+          python3 - <<'PY'
+          import subprocess
+          from pathlib import Path
+          def tree(release):
+              out = subprocess.check_output(['git','ls-tree','-r','-z','HEAD:uk_renewables_pipeline/'+release])
+              return {p.decode(): m.split()[2].decode() for m,p in (entry.split(b'\t',1) for entry in out.split(b'\0') if entry)}
+          old,new=tree('202611191418'),tree('202611201709')
+          changes={p for p in old.keys() | new.keys() if old.get(p)!=new.get(p)}
+          expected={'CHANGES.md','README.md','index.html','scripts/plugins/solar1000-v924.js','tests/hud-v955.mjs','tests/repd-summary-regression.mjs'}
+          assert changes==expected,(changes,expected)
+          assert new['scripts/plugins/solar1000-v924.js']=='dae14d6e557ab237173736053e505f0b4aabf478'
+          print(f'PASS: {len(new)} tracked files; {len(changes)} expected changes; exact tested source blob')
+          PY
       - name: Headless real gauges, ticker and register at fourteen engine/viewport combinations
         run: |
           python3 -m http.server 8765 >/tmp/pn-hud-http.log 2>&1 &
@@ -45,3 +60,36 @@ jobs:
         with:
           name: pn-v957-hud-browser-evidence
           path: /tmp/pn-hud/
+  served:
+    if: github.event_name == 'push'
+    needs: hud
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Python independent public-byte readback
+        run: |
+          python3 - <<'PY'
+          import hashlib, time, urllib.request
+          from pathlib import Path
+          release='202611201709'
+          root=Path('uk_renewables_pipeline')/release
+          paths=['index.html','scripts/plugins/solar1000-v924.js']
+          deadline=time.monotonic()+720
+          while True:
+              try:
+                  for path in paths:
+                      url=f'https://globalgrid2050.com/uk_renewables_pipeline/{release}/{path}?verify={time.time_ns()}'
+                      with urllib.request.urlopen(url,timeout=15) as response:
+                          assert response.status==200
+                          actual=response.read()
+                      expected=(root/path).read_bytes()
+                      assert actual==expected, f'Byte mismatch: {path}'
+                      print(path, hashlib.sha256(actual).hexdigest(),flush=True)
+                  print('PASS: public release bytes match GitHub source',flush=True)
+                  break
+              except Exception as exc:
+                  if time.monotonic()>=deadline: raise
+                  print(f'Public readback pending: {exc}',flush=True)
+                  time.sleep(20)
+          PY

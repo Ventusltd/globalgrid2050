@@ -1,0 +1,36 @@
+name: Pipeline News code census
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/pipeline_release/code_census.py'
+      - '.github/workflows/pipeline-code-census.yml'
+  workflow_dispatch:
+    inputs:
+      release:
+        description: Current dated application folder
+        default: '202611201709'
+        required: true
+permissions:
+  contents: read
+jobs:
+  census:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            automation/pipeline_release
+          sparse-checkout-cone-mode: true
+      - name: Count and deduplicate committed code
+        env:
+          RELEASE: ${{ inputs.release || '202611201709' }}
+        run: |
+          python3 automation/pipeline_release/code_census.py --current "$RELEASE" --output /tmp/pipeline-code-census
+          cat /tmp/pipeline-code-census/summary.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-code-census
+          path: /tmp/pipeline-code-census/

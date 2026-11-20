@@ -59,6 +59,9 @@ for (const [engine, launcher] of [['chromium', chromium], ['webkit', webkit]]) {
     }
     assert.equal(seen.size,7775);assert.equal(evidenceCount,1000);
     // Search re-render and desktop switch; evidence remains available behind the summary.
+    console.log(engine+': PASS all 7775 rendered rows and 1000 evidence memberships; starting interactive checks');
+    const filters = page.locator('.compact-register-filters');
+    if (!(await filters.evaluate(e=>e.open))) await filters.locator(':scope > summary').click();
     await page.locator('#search').fill('Bradenstoke');
     const row=page.locator('#repd-2203');
     await row.waitFor();

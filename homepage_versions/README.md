@@ -1962,3 +1962,7 @@ Preserves the public homepage with Pipeline News V9.46 before promoting the owne
 Observed 2026-11-19T16:14:21.304034+00:00: 58,849 bytes, 69 lines, 3,775 words, 58,836 characters. SHA-256 `c84281274eb73343511f72b8983e0b9eed413b7efb478be03933509023a822be`. Folder files 275 before and 277 after snapshot and metrics.
 
 To roll back, restore the prior owner pin through the importer and Pages, then verify that the served root matches this snapshot. Pipeline News V9.46 remains in the reader-visible archive.
+
+## V160 — before Pipeline News V9.57 promotion
+
+Preserves the previous V9.56 homepage reconstructed from the verified seven-file owner bundle at d91a4b131cf06ace060626ccaaa2e23855573e6f. Snapshot `homepage_v160.html`, metrics `homepage_v160-metrics.json`. Only Pipeline News launch and catalogue archive change. To roll back restore the previous owner pin from 577233737689e1289c89436d76ae50a272fb3677. The previous public bytes were not independently measured in this session.

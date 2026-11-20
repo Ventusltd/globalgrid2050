@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "trade",
- "generated_at": "2026-11-20T14:13:57Z",
+ "generated_at": "2026-11-20T23:16:12Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -2079,9 +2079,7 @@
    "searched": 0,
    "cached": 45,
    "skipped": 0,
-   "notes": [
-    "robots.txt www.energy-storage.news: HTTP 403 (treated as no rules)"
-   ]
+   "notes": []
   },
   {
    "id": "current",
@@ -2090,7 +2088,7 @@
    "requests": 7,
    "failures": 0,
    "items": 0,
-   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (0 of 23 links say solar); wp_search not JSON",
+   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (0 of 21 links say solar); wp_search not JSON",
    "route": "",
    "routes": [
     {
@@ -2114,14 +2112,14 @@
     {
      "route": "html",
      "url": "https://www.current-news.co.uk/?s=solar+farm",
-     "status": "not search results (0 of 23 links say solar)",
+     "status": "not search results (0 of 21 links say solar)",
      "content_type": "text/html",
-     "bytes": 513444,
-     "results": 23,
-     "dated": 2,
+     "bytes": 512548,
+     "results": 21,
+     "dated": 1,
      "summaries": 0,
      "relevant": 0,
-     "sample": "In-kerb EV charge points to be trialled in East Lothian"
+     "sample": "China's EV charging network passes 25 million connectors, private charging surges 42.5%"
     },
     {
      "route": "wp_search",
@@ -2222,7 +2220,7 @@
      "status": "ok",
      "entries": 20,
      "matched": 0,
-     "newest": "2026-11-19"
+     "newest": "2026-11-20"
     }
    ],
    "searched": 0,

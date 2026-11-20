@@ -1,0 +1,57 @@
+name: Verify V9.57 homepage-only promotion
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'catalogue/homepage-owner.json'
+      - '.github/workflows/verify-v957-homepage.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    if: github.event_name == 'workflow_dispatch' || github.sha != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify complete homepage and public bytes with Python
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, subprocess, time, urllib.request
+          from pathlib import Path
+          pin=json.loads(Path('catalogue/homepage-owner.json').read_text())
+          if pin['commit']!='49e70dee0568136c734321de3d1afd7a40483d3f':
+              print('Not the V9.57 promotion; no action')
+              raise SystemExit(0)
+          subprocess.run(['python3','scripts/import_homepage_owner.py'],check=True)
+          old=Path('homepage_versions/homepage_v160.html').read_text().splitlines()
+          new=Path('index.html').read_text().splitlines()
+          assert len(old)==len(new), 'Homepage line count changed'
+          changed=[(a,b) for a,b in zip(old,new) if a!=b]
+          assert len(changed)==2
+          assert all(any(a.startswith(p) and b.startswith(p) for p in ('<details id="pipeline-news">','<tr data-entity-id="pipeline-news">')) for a,b in changed)
+          assert '202611201709' in changed[0][1] or '202611201709' in changed[1][1]
+          assert new[-1]=='</html>'
+          config=json.loads(Path('homepage-shell/data/homepage.json').read_text())
+          entry=next(e for e in config['entities'] if e['id']=='pipeline-news')
+          assert entry['operative_release_id']=='202611201709'
+          assert len(entry['releases'])==24
+          assert any(e['id']=='202611191418' for e in entry['releases'])
+          print('PASS: complete homepage retained; only two Pipeline News HTML lines changed',flush=True)
+          expected={'':Path('index.html').read_bytes()}
+          expected.update({f'homepage-shell/{p}':Path(f'homepage-shell/{p}').read_bytes() for p in pin['files'] if p!='index.html'})
+          deadline=time.monotonic()+720
+          while True:
+              try:
+                  for path,body in expected.items():
+                      with urllib.request.urlopen('https://globalgrid2050.com/'+path+'?verify='+str(time.time_ns()),timeout=15) as response:
+                          assert response.read()==body, f'Public bytes differ: {path or "/"}'
+                      print(path or '/',hashlib.sha256(body).hexdigest(),flush=True)
+                  print('PASS: root and all six published bundle files match expected bytes',flush=True)
+                  break
+              except Exception as exc:
+                  if time.monotonic()>=deadline: raise
+                  print('Awaiting publication:',exc,flush=True)
+                  time.sleep(20)
+          PY

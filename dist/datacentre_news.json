@@ -1,11 +1,11 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-20T14:08:43Z",
+ "generated_at": "2026-11-20T23:10:39Z",
  "status": "ok",
  "counts": {
-  "items": 27,
-  "capex": 23,
-  "politics": 4,
+  "items": 33,
+  "capex": 26,
+  "politics": 7,
   "with_register_site": 0,
   "feeds_ok": 9,
   "feeds_failed": 0
@@ -27,24 +27,24 @@
    "source": "BBC News",
    "status": "ok",
    "entries": 21,
-   "kept": 0,
-   "sha256": "84742da0416bbbd487e88116f4d968e290a594c9743d02abdb4432616a09736a"
+   "kept": 1,
+   "sha256": "10a337798dc427b1bf781b38587d4b46b309b2413457a73a8211bb156a9f0af1"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 57,
-   "kept": 0,
-   "sha256": "37edc5fabeee2f570432d36ecc834e59d5c2af920259fe5bf13a386d5f52efee"
+   "entries": 58,
+   "kept": 1,
+   "sha256": "d0776fffd83357285fff1bacd7bd9bb5880238cc57260e44e57ba8d6a489ab84"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 66,
+   "entries": 61,
    "kept": 0,
-   "sha256": "766980b7683d3378bd10b014859292fa7d64104750245ffab947ba7b3b1fd46c"
+   "sha256": "c5c9c1afc59c4ad292be873cf1108d6dfe46f4d605bdbdc14f5830135d3ec1e6"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 42,
    "kept": 0,
-   "sha256": "27e67abf8b28868c2c1b481ff92c46dfdee2ca469ff30cfb84fb97af3460b3d4"
+   "sha256": "9130ed224cfddce9c0810d0768645a986c16c06d451013a8d0e6f9486f061eef"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -68,7 +68,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "e2684b5a8e009b3e3a5187e0df357413dd21dd0b1700e8398d866bc017e6e1e9"
+   "sha256": "23db74706e5373e36cb01d3b8483f6d5a2332f5d29ba1f397df63b0045614328"
   },
   {
    "url": "https://www.gov.uk/search/news-and-communications.atom?keywords=data+centre",
@@ -76,7 +76,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "0eb098398f4a68d255f03f2d582137e290ef3c5aaa8c242524f769b0a08a941d"
+   "sha256": "4e2d64a27d3ba53108a77897aac1af43c753ac81e642b9fb38c7183446b0540e"
   },
   {
    "url": "https://bills.parliament.uk/rss/allbills.rss",
@@ -84,18 +84,177 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "6ba2a46eaf6423d79b5588d21c2e2a4512d0716860333c0900d6f125247c4f03"
+   "sha256": "147e99a790ef2c4de16e1cbbce4b43cf358de285a83a535faae64e484fb4d7ad"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
    "source": "DatacenterDynamics",
    "status": "ok",
    "entries": 20,
-   "kept": 5,
-   "sha256": "dcd0794f1aa3a2ef4c51bafb0342c6b5c971977f5662a656ff5de704502d1a7f"
+   "kept": 9,
+   "sha256": "df4c90abfb6dfea89200e9f893d725a21fcababa6d9f36f4de3b2650d4775698"
   }
  ],
  "items": [
+  {
+   "title": "Trump threatens ban on US firms building AI data centres overseas",
+   "link": "https://www.bbc.co.uk/news/articles/cmde1lw9y54ko",
+   "source": "BBC News",
+   "date": "2026-11-20T20:54:12Z",
+   "first_seen": "2026-11-20T23:10:39Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "UK competition body probes hyperscaler security and cloud lock-in",
+   "link": "https://www.datacenterdynamics.com/en/news/uk-competition-body-probes-hyperscaler-security-and-cloud-lock-in/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-20T17:09:15Z",
+   "first_seen": "2026-11-20T23:10:39Z",
+   "lanes": [
+    "politics"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "hyperscale"
+    ],
+    "capex": [],
+    "politics": [
+     "consultation"
+    ]
+   },
+   "capex_basis": null,
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Microsoft files for 316.7-acre data center campus in Mecklenburg County, Virginia",
+   "link": "https://www.datacenterdynamics.com/en/news/microsoft-files-for-3167-acre-data-center-campus-in-mecklenburg-county-virginia/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-20T17:06:21Z",
+   "first_seen": "2026-11-20T23:10:39Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [
+    {
+     "id": "dcuk-0da224822f07a7c8",
+     "name": "Microsoft Ireland",
+     "status": "operational",
+     "matched_on": "operator",
+     "matched_text": "Microsoft"
+    },
+    {
+     "id": "dcuk-9c6c76a0ecec3baf",
+     "name": "Microsoft Newport data centre",
+     "status": "operational",
+     "matched_on": "operator",
+     "matched_text": "Microsoft"
+    }
+   ],
+   "site_matches": 2
+  },
+  {
+   "title": "SpaceX expresses interest in building data centers in Bulgaria",
+   "link": "https://www.datacenterdynamics.com/en/news/spacex-expresses-interest-in-building-data-centers-in-bulgaria/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-20T15:47:03Z",
+   "first_seen": "2026-11-20T23:10:39Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Egypt’s Forbes International Tower to house a data center",
+   "link": "https://www.datacenterdynamics.com/en/news/egypts-forbes-international-tower-to-house-a-data-center/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-20T15:17:40Z",
+   "first_seen": "2026-11-20T23:10:39Z",
+   "lanes": [
+    "politics"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [],
+    "politics": [
+     "minister"
+    ]
+   },
+   "capex_basis": null,
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "US Senate passes bill requiring data centers to pay more for grid infrastructure",
+   "link": "https://www.datacenterdynamics.com/en/news/us-senate-passes-bill-requiring-data-centers-to-pay-more-for-grid-infrastructure/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-20T15:15:07Z",
+   "first_seen": "2026-11-20T23:10:39Z",
+   "lanes": [
+    "politics"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [],
+    "politics": [
+     "bill"
+    ]
+   },
+   "capex_basis": null,
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
   {
    "title": "Nebius expands Israel data center lease with Mega Or by 134MW",
    "link": "https://www.datacenterdynamics.com/en/news/nebius-expands-israel-data-center-lease-with-mega-or-by-134mw/",

@@ -1,0 +1,13 @@
+{
+  "schema": "globalgrid2050.energy24.release-pointer.v1",
+  "release_id": "2026q3",
+  "source_label": "October 2026",
+  "publication_date": "2026-11-13",
+  "release_directory": "202611132345",
+  "registry_count": 7775,
+  "unique_repd_refs": 14967,
+  "official_csv_sha256": "48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862",
+  "provenance": "automation/repd/releases/2026q3.json",
+  "status": "candidate; pointer to existing Q3 data only",
+  "notes": "An upcoming quarterly release is selected only via an independently validated descriptor and explicit new pointer; never root repd.csv."
+}

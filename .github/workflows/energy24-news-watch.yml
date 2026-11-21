@@ -1,0 +1,201 @@
+name: Energy24 six-market hourly news intelligence
+# Link-only source scans. Scheduled runs activate after this candidate is merged.
+# Cannot overwrite older REPD releases, indexes or the home page.
+on:
+  push:
+    branches:
+      - feature/energy24-intelligence-20261114
+    paths:
+      - 'automation/energy24/**'
+      - 'uk_renewables_pipeline/energy24/**'
+      - '.github/workflows/energy24-news-watch.yml'
+  pull_request:
+    paths:
+      - 'automation/energy24/**'
+      - 'uk_renewables_pipeline/energy24/**'
+      - '.github/workflows/energy24-news-watch.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: globalgrid2050-energy24-single-writer
+  cancel-in-progress: false
+
+jobs:
+  inspect:
+    name: Verify 24-hour market news scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout approved release + news scanner
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            automation/energy24
+            automation/repd/releases
+            repd-2026q3.csv
+            uk_renewables_pipeline/energy24
+      - name: Install Python 3.11 and Node
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run editorial, identity and date gate tests
+        run: |
+          set -euo pipefail
+          python -m unittest discover -v -s automation/energy24/tests -p 'test_*.py'
+          python -m py_compile automation/energy24/scan.py
+          node --check uk_renewables_pipeline/energy24/app.mjs
+      - name: Verify exact release pointer and canonical identity count
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('uk_renewables_pipeline/energy24/data/release.json').read_text())
+          assert p['schema']=='globalgrid2050.energy24.release-pointer.v1'
+          assert p['release_id']=='2026q3' and p['unique_repd_refs']==14967
+          assert p['official_csv_sha256']=='48e76c49f33a1090e78108d1ea9bfe689b35963ea3be1bb4f6516d038a5ff862'
+          PY
+      - name: Retrieve publisher RSS or Atom and rank qualified links
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/energy24
+          python -m automation.energy24.scan --repo-root . \
+            --release-id 2026q3 --out /tmp/energy24/news.latest.json \
+            --audit /tmp/energy24/news.audit.json
+      - name: Check publication contract, six desks and no empty feed
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('/tmp/energy24/news.latest.json').read_text())
+          a=json.loads(Path('/tmp/energy24/news.audit.json').read_text())
+          assert p['schema']=='globalgrid2050.energy24.news.v1'
+          assert p['release']==a['release']=='2026q3'
+          assert p['source_repd_identity_count']==14967
+          assert p['articles'] and a['accepted']>=len(p['articles'])
+          assert len(a['markets'])==6 and len(a['sources'])==4
+          assert any(x['status']=='OK' for x in a['sources'])
+          assert all(x['headline'] and x['source'] and x['url'].startswith('https://') for x in p['articles'])
+          print('Qualified articles:',len(p['articles']))
+          PY
+      - name: Preserve all evidence, including failed scans
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: energy24-six-market-scan-${{ github.run_number }}
+          path: /tmp/energy24/
+          retention-days: 90
+          if-no-files-found: warn
+
+  publish:
+    name: Write only verified live news snapshot on main
+    needs: inspect
+    if: ${{ github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout exact main SHA
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: true
+      - name: Download verified evidence from this run
+        uses: actions/download-artifact@v4
+        with:
+          name: energy24-six-market-scan-${{ github.run_number }}
+          path: /tmp/energy24
+      - name: Verify release unchanged before writing designated paths
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,pathlib
+          dest=pathlib.Path('uk_renewables_pipeline/energy24/data')
+          release=json.loads((dest/'release.json').read_text())
+          news=json.loads(pathlib.Path('/tmp/energy24/news.latest.json').read_text())
+          audit=json.loads(pathlib.Path('/tmp/energy24/news.audit.json').read_text())
+          assert news['release']==audit['release']==release['release_id']
+          assert news['source_repd_identity_count']==release['unique_repd_refs']
+          assert news['articles'] and audit['accepted']>=len(news['articles'])
+          assert len(audit['markets'])==6
+          for name in ('news.latest.json','news.audit.json'):
+              (dest/name).write_bytes((pathlib.Path('/tmp/energy24')/name).read_bytes())
+          PY
+      - name: Commit only allow-listed news files if main did not drift
+        run: |
+          set -euo pipefail
+          git config user.name "GlobalGrid2050 News Monitor"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch --quiet origin main
+          test "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" || {
+            echo "::error::Main drift; do not rewrite another commit"
+            exit 1
+          }
+          git add uk_renewables_pipeline/energy24/data/news.latest.json \
+                  uk_renewables_pipeline/energy24/data/news.audit.json
+          changed="$(git diff --cached --name-only)"
+          test -n "$changed" || exit 0
+          if echo "$changed" | grep -Ev '^uk_renewables_pipeline/energy24/data/news\.(latest|audit)\.json$'; then
+            echo "::error::Changed file outside news feed"; exit 1
+          fi
+          git diff --cached --check
+          git commit -m "data(energy24): verified six-market hourly news"
+          git push origin HEAD:main
+
+  browser:
+    name: Independent desktop / mobile Energy24 browser QA
+    if: ${{ github.event_name != 'schedule' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout only new dashboard and pinned October release
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            uk_renewables_pipeline/energy24
+            uk_renewables_pipeline/202611132345
+      - name: Use Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install existing Pipeline News Playwright toolchain
+        working-directory: uk_renewables_pipeline/202611132345
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Start local source-only HTTP server
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/energy24-server.log 2>&1 &
+          for i in $(seq 1 20); do
+            if curl -fsS -o /dev/null http://127.0.0.1:8765/uk_renewables_pipeline/energy24/index.html; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/energy24-server.log
+          exit 1
+      - name: Assert binding, filters, clocks and safe missing-news state on phones and desktop
+        env:
+          ENERGY24_BASE: http://127.0.0.1:8765/uk_renewables_pipeline/energy24/
+          ENERGY24_ARTIFACTS: /tmp/energy24-browser
+        run: node uk_renewables_pipeline/energy24/tests/browser.mjs
+      - name: Keep independent browser screenshots and logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: energy24-browser-qa-${{ github.run_number }}
+          path: |
+            /tmp/energy24-browser/
+            /tmp/energy24-server.log
+          retention-days: 30
+          if-no-files-found: warn

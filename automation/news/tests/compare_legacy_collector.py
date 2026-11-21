@@ -24,6 +24,8 @@ ALLOWED = {
     "automation/news/research_indexes.py",
     "automation/news/tests/test_research_context.py",
     "automation/news/tests/compare_legacy_collector.py",
+    "automation/news/original_article_links.py",
+    "automation/news/tests/test_original_article_links.py",
 }
 
 
@@ -59,21 +61,22 @@ def ensure_sources_are_additive(base: str) -> None:
         raise AssertionError("Existing publisher feeds, order, labels or flags modified")
     if new.get("source_release_id") != "20261121-global-context-v1":
         raise AssertionError("Unexpected source edition")
-    if len(feeds) <= len(legacy):
-        raise AssertionError("No new sources")
-    urls = [feed["url"] for feed in feeds]
-    if len(set(urls)) != len(urls):
-        raise AssertionError("Duplicate publisher endpoint")
-    for feed in feeds[len(legacy):]:
-        if feed.get("lane") != "global_context" or feed.get("focus") not in ("energy_research", "macro_policy"):
-            raise AssertionError("New sources must stay in isolated world-context lane")
-        if not feed["url"].startswith("https://"):
-            raise AssertionError("Only HTTPS acquisition allowed")
-        if feed.get("kind", "rss") not in ("rss", "rss1", "html_index", "curated"):
-            raise AssertionError("Unexpected source ingestion kind")
-        if feed.get("kind") == "curated" and not feed.get("title"):
-            raise AssertionError("Curated lead without attributable title")
-    print(f"PASS: {len(legacy)} existing sources unchanged; {len(feeds)-len(legacy)} new isolated sources")
+    if len(feeds) != len(legacy) + 1:
+        raise AssertionError("Expected precisely one additional source")
+    if new.get("source_patch_id") != "20261121-spp-original-link-fallback-v1":
+        raise AssertionError("Unapproved source patch edition")
+    last = feeds[-1]
+    expected_url = ("https://api.gdeltproject.org/api/v2/doc/doc?"
+                    "query=domain%3Asolarpowerportal.co.uk&mode=artlist&format=rss"
+                    "&maxrecords=50&timespan=1month&sort=datedesc")
+    if (last.get("url") != expected_url or last.get("source") != "Solar Power Portal"
+            or last.get("kind") != "public_article_index"
+            or last.get("uk_only") is not True or last.get("primary")
+            or last.get("lane") or last.get("focus")):
+        raise AssertionError("Fallback may only discover original Solar Power Portal links")
+    if len({feed["url"] for feed in feeds}) != len(feeds):
+        raise AssertionError("Duplicate source URL")
+    print(f"PASS: {len(legacy)} existing sources unchanged; one narrowly allowlisted third-party index")
 
 
 def main() -> None:

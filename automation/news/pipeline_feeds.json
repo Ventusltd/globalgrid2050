@@ -322,31 +322,36 @@
       "url": "https://www.bankofengland.co.uk/rss/news",
       "source": "Bank of England",
       "uk_only": false,
-      "lane": "global_context"
+      "lane": "global_context",
+      "focus": "macro_policy"
     },
     {
       "url": "https://www.federalreserve.gov/feeds/press_all.xml",
       "source": "Federal Reserve",
       "uk_only": false,
-      "lane": "global_context"
+      "lane": "global_context",
+      "focus": "macro_policy"
     },
     {
       "url": "https://www.gov.uk/government/organisations/hm-treasury.atom",
       "source": "HM Treasury",
       "uk_only": false,
-      "lane": "global_context"
+      "lane": "global_context",
+      "focus": "macro_policy"
     },
     {
       "url": "https://www.cnbc.com/id/20910258/device/rss/rss.html",
       "source": "CNBC Economy",
       "uk_only": false,
-      "lane": "global_context"
+      "lane": "global_context",
+      "focus": "macro_policy"
     },
     {
       "url": "https://feeds.content.dowjones.io/public/rss/RSSMarketsMain",
       "source": "Wall Street Journal Markets",
       "uk_only": false,
-      "lane": "global_context"
+      "lane": "global_context",
+      "focus": "macro_policy"
     },
     {
       "url": "https://www.deloitte.com/ch/en/about/press-room.html",

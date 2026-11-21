@@ -48,11 +48,8 @@
       for (const [el] of saved.inert) el.inert = true;
       html.classList.add('pn-news-max-open');
       html.style.overflow = 'hidden';
-      body.style.position = 'fixed';
-      body.style.top = '-' + saved.scrollY + 'px';
-      body.style.left = '0';
-      body.style.right = '0';
-      body.style.width = '100%';
+      // The full-screen fixed overlay and overflow lock are enough here.
+      // Avoid changing body.position on iPhone Safari: it can zero window.scrollY.
       body.style.overflow = 'hidden';
       label();
       toggle.focus({preventScroll:true});
@@ -76,7 +73,7 @@
     if (restoreFocus) toggle.focus({preventScroll:true});
     // Enlarging may make all rows fit and clamp scrollTop to zero.
     // After returning to the original short reader, restore its prior position.
-    // iOS WebKit needs a layout frame after releasing fixed-body scroll lock.
+    // Restore after the original reader height is back; no DOM nodes are moved.
     requestAnimationFrame(() => {
       list.scrollTop = newsScrollTop;
       window.scrollTo(0, y);

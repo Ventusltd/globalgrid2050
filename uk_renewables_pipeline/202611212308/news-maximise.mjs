@@ -34,6 +34,7 @@
       const body = document.body, html = document.documentElement;
       saved = {
         scrollY: window.scrollY,
+        newsScrollTop: list.scrollTop,
         body: {position:body.style.position, top:body.style.top, left:body.style.left,
           right:body.style.right, width:body.style.width, overflow:body.style.overflow},
         htmlOverflow: html.style.overflow,
@@ -69,10 +70,21 @@
     html.style.overflow = saved.htmlOverflow;
     for (const [key, value] of Object.entries(saved.body)) body.style[key] = value;
     const y = saved.scrollY;
+    const newsScrollTop = saved.newsScrollTop;
     saved = null;
     label();
-    window.scrollTo(0, y);
     if (restoreFocus) toggle.focus({preventScroll:true});
+    // Enlarging may make all rows fit and clamp scrollTop to zero.
+    // After returning to the original short reader, restore its prior position.
+    // iOS WebKit needs a layout frame after releasing fixed-body scroll lock.
+    requestAnimationFrame(() => {
+      list.scrollTop = newsScrollTop;
+      window.scrollTo(0, y);
+      requestAnimationFrame(() => {
+        list.scrollTop = newsScrollTop;
+        if (Math.abs(window.scrollY - y) > 1) window.scrollTo(0, y);
+      });
+    });
   }
 
   toggle.addEventListener('click', () => setOpen(!opened));

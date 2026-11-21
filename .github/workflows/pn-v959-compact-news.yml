@@ -1,0 +1,67 @@
+name: Pipeline News V9.59 independent maximise/restore regression
+on:
+  pull_request:
+    paths:
+      - 'uk_renewables_pipeline/202611212340/**'
+      - '.github/workflows/pn-v959-news-maximise.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  news-window:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Isolated Python inherited-release delta guard
+        run: |
+          python3 - <<'PY'
+          import subprocess
+          def tree(release):
+              entries=subprocess.check_output(['git','ls-tree','-r','-z','HEAD:uk_renewables_pipeline/'+release])
+              return {p.decode():m.split()[2].decode() for m,p in
+                      (entry.split(b'\t',1) for entry in entries.split(b'\0') if entry)}
+          old=tree('202611212308')
+          new=tree('202611212340')
+          changed={p for p in old.keys() | new.keys() if old.get(p)!=new.get(p)}
+          allow={'index.html','README.md','CHANGES.md','styles/news-maximise.css','tests/news-maximise.mjs'}
+          assert changed==allow,(changed,allow)
+          for p in ['data','scripts','news','solar1000','map-entry.mjs','vendor','gridatlas']:
+              a=subprocess.check_output(['git','rev-parse',f'HEAD:uk_renewables_pipeline/202611212308/{p}']).strip()
+              b=subprocess.check_output(['git','rev-parse',f'HEAD:uk_renewables_pipeline/202611212340/{p}']).strip()
+              assert a==b,p
+          html=subprocess.check_output(['git','show','HEAD:uk_renewables_pipeline/202611212340/index.html']).decode()
+          assert html.count('news-maximise.css')==1 and html.count('news-maximise.mjs')==1
+          assert 'V9.59' in html
+          print(f'PASS: {len(old)} inherited files; exactly {len(changed)} allowlisted changes; models and data byte-identical')
+          PY
+      - name: Install pinned browser test engines
+        working-directory: uk_renewables_pipeline/202611212340
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+      - name: Chromium and WebKit news expand/restore at phone tablet and desktop widths
+        run: |
+          python3 -m http.server 8765 >/tmp/pn-v959-server.log 2>&1 &
+          node uk_renewables_pipeline/202611212340/tests/news-maximise.mjs
+      - name: Install V9.58 inherited pinned browser harness
+        working-directory: uk_renewables_pipeline/202611212308
+        run: npm ci
+      - name: V9.58 inherited gauges ticker and register browser baseline
+        run: |
+          HUD_ARTIFACTS=/tmp/pn-v959-baseline node uk_renewables_pipeline/202611212308/tests/hud-v955.mjs
+      - name: Upload screenshots for visual review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pn-v959-news-viewport-evidence
+          path: |
+            /tmp/pn-v959/
+            /tmp/pn-v959-baseline/
+          retention-days: 14

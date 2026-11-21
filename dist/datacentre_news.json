@@ -1,6 +1,6 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-21T13:34:18Z",
+ "generated_at": "2026-11-21T22:14:17Z",
  "status": "ok",
  "counts": {
   "items": 33,
@@ -28,7 +28,7 @@
    "status": "ok",
    "entries": 21,
    "kept": 1,
-   "sha256": "1fe23f9672d72200f0cda21c92a3ee66c43c8f0099be84139a0d3942a9cfd3da"
+   "sha256": "05ecf89dae5335ed3eaea5a422ac54b96fd016551a338ca25c309b8f35cb0fa1"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
@@ -36,7 +36,7 @@
    "status": "ok",
    "entries": 58,
    "kept": 1,
-   "sha256": "f15729292bfd4978c51fc02bcac7386785a7cee34cc3c79b378d14463cfa8098"
+   "sha256": "0f7702aa6fe726611d97e535615d20d67377b493ce834fb9007948114f9c4ae6"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
@@ -44,7 +44,7 @@
    "status": "ok",
    "entries": 61,
    "kept": 0,
-   "sha256": "5eefbd3f8523c5ac245c8b469ce3ea42bd2feb4afd6eae6cd39ea0f3d22ff64b"
+   "sha256": "5157362d846f47938578f535a47fc0a9878e1ea7c59b6edf0c55c9572f834877"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 42,
    "kept": 0,
-   "sha256": "d5f32caa9f36243bd5103e4d9c0fdc476d7ffb4a7706c228552f57b71aa1a92e"
+   "sha256": "db58812979ca7fd3faf85dd37cd443db28c42f753d647661c79975c59e006080"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -84,15 +84,15 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "30b170c6064db81da6677a55f186cb09d7aadfb3865b404ca4166c27f21172e1"
+   "sha256": "3ef5819da0b6f3208f288ac096ad3cd4a974344e80351eff2a99bf67c7b58ef0"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
    "source": "DatacenterDynamics",
    "status": "ok",
    "entries": 20,
-   "kept": 8,
-   "sha256": "47f1cc81b9663bd84b38cc317f5b41cf7a353001a3a2abaf658c4be48c210ae6"
+   "kept": 7,
+   "sha256": "cad8a7e5dfa97d7dc92eb7da07094074903f3dbde569dff5006af3881df47e4b"
   }
  ],
  "items": [

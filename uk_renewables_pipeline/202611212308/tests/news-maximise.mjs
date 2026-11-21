@@ -41,6 +41,9 @@ for (const [engine, launcher] of [['chromium',chromium],['webkit',webkit]]) {
           window.scrollTo(0,Math.min(180,document.documentElement.scrollHeight-window.innerHeight));
           document.getElementById('liveNews').scrollTop=120;
         });
+        // A real tap requires the 44px control to be visible. Playwright
+        // otherwise auto-scrolls only at click time, after the old expectation.
+        await page.locator('#pnNewsMaximise').scrollIntoViewIfNeeded();
         const expected=await page.evaluate(()=>({
           y:scrollY, headlines:document.querySelectorAll('#liveNews .ln-item').length,
           scrollTop:document.getElementById('liveNews').scrollTop,
@@ -72,16 +75,6 @@ for (const [engine, launcher] of [['chromium',chromium],['webkit',webkit]]) {
         assert.equal(expected.ticker,true);
         await page.screenshot({path:folder+'/'+label+'-max.png'});
         await page.locator('#pnNewsMaximise').click();
-        await page.waitForTimeout(350);
-        const restoredDebug=await page.evaluate(()=>({
-          pageY:window.scrollY, listTop:document.getElementById('liveNews').scrollTop,
-          listMax:document.getElementById('liveNews').scrollHeight-document.getElementById('liveNews').clientHeight,
-          bodyPosition:document.body.style.position,
-          bodyOverflow:document.body.style.overflow, htmlOverflow:document.documentElement.style.overflow,
-          mainHeight:document.querySelector('.main').scrollHeight,
-          rootFixed:document.querySelector('.main>.newspaper').classList.contains('pn-news-maximised')
-        }));
-        console.log('RESTORE_DIAGNOSTIC '+label+' '+JSON.stringify({expected:{y:expected.y,top:expected.scrollTop},actual:restoredDebug}));
         await page.waitForFunction(target => {
           return !document.querySelector('.main>.newspaper').classList.contains('pn-news-maximised')
             && Math.abs(window.scrollY-target.y)<3

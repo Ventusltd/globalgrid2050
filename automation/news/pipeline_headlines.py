@@ -52,6 +52,7 @@ if str(HERE) not in sys.path:
 
 import datacentre_feed as D  # noqa: E402  fetch, parse, dates, links, sponsored filter, merge
 import names as N  # noqa: E402  the shared REPD name normalisation
+import research_indexes as R  # noqa: E402  bounded HTML index source discovery
 
 SCHEMA = "globalgrid2050.news.pipeline-headlines.v1"
 MAX_ITEMS = 200
@@ -64,8 +65,9 @@ SCOPE = ("Headlines and links from public RSS and Atom feeds; no article text is
          "are labels read from the headline. A possible match is a name coincidence for review, not a confirmed "
          "link to a REPD project. Data-centre market headlines and China solar headlines are world news, not UK "
          "project news.")
-WORLD_LANES = ("datacentre_money", "china_solar")
+WORLD_LANES = ("datacentre_money", "china_solar", "global_context")
 LANE_CAP = 10
+WORLD_LANE_CAPS = {"datacentre_money": 10, "china_solar": 10, "global_context": 35}
 
 
 def _rx(pattern):
@@ -167,12 +169,35 @@ CHINA = _rx(r"China|Chinese|LONGi|Jinko(?:Solar)?|Trina(?: Solar)?|JA Solar|Tong
 SOLAR_TRADE = _rx(r"solar|PV|photovoltaics?|modules?|polysilicon|wafers?|cells?|prices?|exports?|tariffs?")
 
 
+RESEARCH_GRID = _rx(r"electricity (?:grid|networks?|demand|supply)|power (?:grid|supply|demand|system|infrastructure)|"
+                    r"grid (?:capacity|constraints?|connections?|bottlenecks?|reinforcement|investment)|"
+                    r"transmission (?:grids?|networks?|capacity)|energy transition|renewable energy|"
+                    r"electricity infrastructure|energy infrastructure")
+RESEARCH_MACRO = _rx(r"interest rates?|bank rate|federal funds|monetary policy|inflation|"
+                     r"bond yields?|gilt yields?|borrowing costs?|credit conditions?|financial stability|"
+                     r"capital markets?|infrastructure (?:financing|investment)|project finance|"
+                     r"cost of capital")
+RESEARCH_ENERGY = _rx(r"solar|wind (?:power|energy|capacity)|batter(?:y|ies) (?:storage|energy)|BESS|"
+                      r"renewables?|power (?:generation|markets?|prices?)|electricity|energy transition")
+
+
 def lane_label(title, lane):
-    """World lanes: (category, technology, None) or None. Never a REPD match, never a UK claim."""
+    """World context is attributed discovery, never a REPD fact or implied UK event."""
     if lane == "datacentre_money":
         return ("datacentre", None, None) if AI_INFRA.search(title) and MONEY.search(title) else None
     if lane == "china_solar":
         return ("other", "solar", None) if CHINA.search(title) and SOLAR_TRADE.search(title) else None
+    if lane == "global_context":
+        if EXCLUDE.search(title) or BRANDED.search(title) or D.SPONSORED_RE.search(title):
+            return None
+        if TOPICS["datacentre"].search(title):
+            return ("datacentre", None, None)
+        if TOPICS["grid"].search(title) or RESEARCH_GRID.search(title):
+            return ("grid", None, None)
+        if RESEARCH_ENERGY.search(title):
+            return ("policy" if POLICY.search(title) else "other", technology_of(title), None)
+        if RESEARCH_MACRO.search(title):
+            return ("finance", None, None)
     return None
 
 # Paid-for items the shared sponsored filter does not name.
@@ -409,8 +434,13 @@ def collect(feeds, fetch, repd, now_iso):
     for feed in feeds:
         url, source = feed["url"], feed["source"]
         try:
-            body = fetch(url)
-            entries = D.parse_feed(body)
+            kind = feed.get("kind", "rss")
+            if kind == "curated":
+                # Curated primary-source lead; no claim of live fetching.
+                entries = [(feed["title"], url, feed.get("date"), "")]
+            else:
+                body = fetch(url)
+                entries = R.index_entries(body, feed) if kind == "html_index" else D.parse_feed(body)
         except Exception as error:  # one feed failing never stops the run
             health.append({"url": url, "source": source, "status": "failed",
                            "error": (type(error).__name__ + ": " + str(error))[:200]})
@@ -574,7 +604,7 @@ def merge(previous, incoming, repd, now_iso, cap=MAX_ITEMS, max_age_days=MAX_AGE
         lane = lanes.get(item["source"])
         if lane in WORLD_LANES:
             seen[lane] = seen.get(lane, 0) + 1
-            if seen[lane] > LANE_CAP:
+            if seen[lane] > WORLD_LANE_CAPS.get(lane, LANE_CAP):
                 continue
         capped.append(item)
     return capped[:cap]

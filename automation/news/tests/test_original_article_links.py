@@ -1,59 +1,61 @@
-"""Solar Power Portal public-link discovery: offline, no publisher page fetch."""
-import sys
+"""Solar Power Portal public homepage link discovery, without RSS bypass."""
 from pathlib import Path
+import sys
+import json
 import pytest
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT))
+PKG = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(PKG))
 import pipeline_headlines as P
-import original_article_links as A
+import original_article_links as O
 
-INDEX = ("https://api.gdeltproject.org/api/v2/doc/doc?"
-         "query=domain%3Asolarpowerportal.co.uk&mode=artlist&format=rss"
-         "&maxrecords=50&timespan=1month&sort=datedesc")
-FEED = {"url": INDEX, "source": "Solar Power Portal",
+HOME = "https://www.solarpowerportal.co.uk/"
+FEED = {"url": HOME, "source": "Solar Power Portal",
         "kind": "public_article_index", "uk_only": True}
 NOW = "2026-11-21T21:00:00Z"
 
 
-def rss(items):
-    parts = []
-    for title, url in items:
-        parts.append(f"<item><title>{title}</title><link>{url}</link>"
-                     "<pubDate>Sat, 21 Nov 2026 12:00:00 GMT</pubDate></item>")
-    return ('<rss version="2.0"><channel>'+"".join(parts)+'</channel></rss>').encode()
+def html(*links):
+    return ("<html><body>" + "".join(
+        f'<a href="{href}">{title}</a>' for title, href in links) +
+        "</body></html>").encode()
 
 
-def test_reject_redirect_other_hosts_and_non_public_links():
-    cases = [
-        ("Valid UK solar farm approved for construction",
-         "https://www.solarpowerportal.co.uk/uk-solar-farm-approved"),
-        ("Untrusted fake", "https://solarpowerportal.co.uk.evil.example/solar"),
-        ("Untrusted fake", "https://evil.solarpowerportal.co.uk/solar"),
-        ("Untrusted redirect", "https://news.google.com/rss/articles/abc"),
-        ("Untrusted insecure", "http://www.solarpowerportal.co.uk/solar"),
-        ("Untrusted script", "https://www.solarpowerportal.co.uk/rss.xml"),
-        ("Untrusted document", "https://www.solarpowerportal.co.uk/report.pdf"),
-        ("Valid UK solar farm approved for construction",
-         "https://www.solarpowerportal.co.uk/uk-solar-farm-approved"),
+def test_only_public_direct_article_links_are_kept():
+    links = [
+        ("New UK solar farm approved for construction",
+         "/solar-projects/new-uk-solar-farm-approved"),
+        ("Solar Power Portal editorial",
+         "https://evil.example/solar-projects/stolen"),
+        ("Unknown misleading page",
+         "/about"),
+        ("Fake on different publisher",
+         "https://solarpowerportal.co.uk.evil.example/battery-storage/fake"),
+        ("Valid energy grid policy decision announced",
+         "/energy-policy/grid-policy-decision"),
+        ("New UK solar farm approved for construction",
+         "/solar-projects/new-uk-solar-farm-approved"),
     ]
-    discovered = A.index_entries(rss(cases), FEED)
-    assert len(discovered) == 1
-    assert discovered[0] == (cases[0][0], cases[0][1], None, "")
+    entries = O.index_entries(html(*links), FEED)
+    assert len(entries) == 2
+    assert entries[0] == (links[0][0], HOME + "solar-projects/new-uk-solar-farm-approved", None, "")
+    assert entries[1][1] == HOME + "energy-policy/grid-policy-decision"
 
 
-@pytest.mark.parametrize("bad", [
-    {**FEED, "url": "https://www.solarpowerportal.co.uk/rss.xml"},
-    {**FEED, "url": INDEX.replace("api.gdeltproject.org", "evil.example")},
-    {**FEED, "url": INDEX.replace("domain%3Asolarpowerportal", "domain%3Aexample")},
-    {**FEED, "source": "GDELT"},
+@pytest.mark.parametrize("url", [
+    "https://www.solarpowerportal.co.uk/rss.xml",
+    "http://www.solarpowerportal.co.uk/",
+    "https://www.solarpowerportal.co.uk/battery-storage/example",
+    "https://other.solarpowerportal.co.uk/",
+    "https://www.solarpowerportal.co.uk/?page=4",
 ])
-def test_fail_closed_on_unapproved_index(bad):
+def test_fallback_url_must_be_exact_public_home(url):
     with pytest.raises(ValueError):
-        A.index_entries(rss([]), bad)
+        O.index_entries(html(("Solar project approved", "/solar-projects/one")),
+                        {**FEED, "url": url})
 
 
-def test_source_index_failure_is_diagnostic_but_existing_feed_can_fail():
+def test_blocked_rss_remains_diagnostic_and_homepage_links_work():
     original_url = "https://www.solarpowerportal.co.uk/rss.xml?content_types=article"
     original = {"url": original_url, "source": "Solar Power Portal", "uk_only": True}
     observed = []
@@ -61,47 +63,44 @@ def test_source_index_failure_is_diagnostic_but_existing_feed_can_fail():
         observed.append(url)
         if url == original_url:
             raise PermissionError("HTTP Error 403: Forbidden")
-        assert url == INDEX
-        return rss([("UK solar farm approved in Oxfordshire",
-                     "https://www.solarpowerportal.co.uk/uk-solar-farm-approved")])
+        assert url == HOME
+        return html(("UK solar farm approved in Oxfordshire",
+                     "/solar-projects/uk-solar-farm-approved"))
     items, health = P.collect([original, FEED], fetch, P.Repd([]), NOW)
-    assert observed == [original_url, INDEX]
+    assert observed == [original_url, HOME]  # never a single article page
     assert len(items) == 1
     assert items[0]["source"] == "Solar Power Portal"
-    assert items[0]["link"] == "https://www.solarpowerportal.co.uk/uk-solar-farm-approved"
-    assert items[0]["date"] is None  # Index's timestamp is NOT the publisher date
-    assert items[0]["possible_match"] is None
-    assert health[0]["status"] == "failed"
-    assert "403" in health[0]["error"]
-    assert health[1]["status"] == "ok"
-    assert "publisher not fetched" in health[1]["source"]
+    assert items[0]["link"] == HOME + "solar-projects/uk-solar-farm-approved"
+    assert items[0]["date"] is None and items[0]["possible_match"] is None
+    assert health[0]["status"] == "failed" and "403" in health[0]["error"]
+    assert health[1]["status"] == "ok" and health[1]["kept"] == 1
 
 
-def test_no_direct_links_is_reported_as_failed_not_success():
-    items, health = P.collect([FEED], lambda url: rss([
-        ("UK solar farm construction", "https://news.google.com/redirect/abc")
-    ]), P.Repd([]), NOW)
+def test_homepage_without_public_article_links_fails_closed():
+    items, health = P.collect([FEED], lambda url: html(
+        ("Read about solar power", "/about"),
+        ("Click external solar story", "https://news.google.com/rss/articles/xyz"),
+    ), P.Repd([]), NOW)
     assert items == []
     assert health[0]["status"] == "failed"
-    assert "no eligible direct publisher links" in health[0]["error"]
+    assert "No direct public article links" in health[0]["error"]
 
 
-def test_legacy_news_category_filters_still_apply():
-    body = rss([
-        ("New UK solar farm approved for construction", "https://www.solarpowerportal.co.uk/solar-1"),
-        ("Celebrity awards evening in London", "https://www.solarpowerportal.co.uk/irrelevant"),
-        ("Sponsored content: UK solar farm approved", "https://www.solarpowerportal.co.uk/sponsored"),
-    ])
-    items, health = P.collect([FEED], lambda url: body, P.Repd([]), NOW)
+def test_legacy_relevance_filters_still_apply():
+    body = html(
+        ("New UK solar farm approved for construction", "/solar-projects/uk-solar-1"),
+        ("Celebrity awards evening in London", "/solar-projects/irrelevant"),
+        ("Sponsored feature: solar farm approved", "/solar-projects/sponsored")
+    )
+    items, health = P.collect([FEED], lambda u: body, P.Repd([]), NOW)
     assert len(items) == 1
     assert items[0]["category"] in P.CATEGORIES
     assert health[0]["entries"] == 3 and health[0]["kept"] == 1
 
 
-def test_real_feed_config_preserves_direct_source_and_adds_index():
-    import json
-    feeds = json.loads((ROOT / "pipeline_feeds.json").read_text())["feeds"]
-    direct = [x for x in feeds if x["source"] == "Solar Power Portal" and x.get("kind", "rss") == "rss"]
-    indexed = [x for x in feeds if x.get("kind") == "public_article_index"]
-    assert len(direct) == len(indexed) == 1
-    assert indexed[0]["url"] == INDEX
+def test_source_catalogue_keeps_original_rss_as_separate_health_entry():
+    feeds = json.loads((PKG / "pipeline_feeds.json").read_text())["feeds"]
+    orig = [f for f in feeds if f["source"] == "Solar Power Portal" and f.get("kind", "rss") == "rss"]
+    home = [f for f in feeds if f.get("kind") == "public_article_index"]
+    assert len(orig) == len(home) == 1
+    assert home[0]["url"] == HOME

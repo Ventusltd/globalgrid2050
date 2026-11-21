@@ -611,7 +611,13 @@ def merge(previous, incoming, repd, now_iso, cap=MAX_ITEMS, max_age_days=MAX_AGE
             if seen[lane] > WORLD_LANE_CAPS.get(lane, LANE_CAP):
                 continue
         capped.append(item)
-    return capped[:cap]
+    # New research may use spare room but must never displace a legacy item.
+    # Final output remains newest-first for the existing client contract.
+    legacy = [i for i in capped if lanes.get(i["source"]) != "global_context"]
+    context = [i for i in capped if lanes.get(i["source"]) == "global_context"]
+    selected = legacy[:cap] + context[:max(0, cap - len(legacy))]
+    selected.sort(key=lambda i: (when(i), i["link"]), reverse=True)
+    return selected
 
 
 def build(previous, items, health, repd, now_iso, cap=MAX_ITEMS, lanes=None, focuses=None):

@@ -5,6 +5,7 @@ source verification, no REPD project links. Index health is reported by caller.
 """
 from html.parser import HTMLParser
 from urllib.parse import urljoin, urlsplit
+import xml.etree.ElementTree as ET
 
 MAX_HTML_BYTES = 2_000_000
 MAX_LINKS = 2000
@@ -75,3 +76,27 @@ def index_entries(body, feed):
             if len(out) >= MAX_KEPT:
                 break
     return out
+
+RDF = "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}RDF"
+RSS1 = "{http://purl.org/rss/1.0/}"
+DC_DATE = "{http://purl.org/dc/elements/1.1/}date"
+
+
+def rss1_entries(body):
+    """RSS 1.0/RDF official publisher feeds, without changing legacy RSS/Atom parsing."""
+    if not isinstance(body, bytes) or len(body) > MAX_HTML_BYTES:
+        raise ValueError("RSS1 missing or oversized")
+    if b"<!DOCTYPE" in body.upper() or b"<!ENTITY" in body.upper():
+        raise ValueError("Unsafe RSS1 XML")
+    root = ET.fromstring(body)
+    if root.tag != RDF:
+        raise ValueError("Not an RSS 1.0 RDF feed")
+    result = []
+    for node in root.findall(RSS1 + "item")[:250]:
+        title = node.findtext(RSS1 + "title")
+        link = node.findtext(RSS1 + "link")
+        date = node.findtext(DC_DATE)
+        summary = node.findtext(RSS1 + "description")
+        if title and link:
+            result.append((title, link, date, summary or ""))
+    return result

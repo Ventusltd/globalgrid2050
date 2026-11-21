@@ -234,7 +234,7 @@ def test_fixture_run_matches_schema_and_contract(tmp_path):
     assert all(set(i) == set(P.ITEM_FIELDS) for i in items)         # nothing beyond the contract is stored
     titles = [i["title"] for i in items]
     botley = [i for i in items if "Botley West" in i["title"]]
-    assert {i["category"] for i in botley} == {"refusal", "dco"}
+    assert {i["category"] for i in botley} == {"dco"}  # gov.uk primary evidence remains
     assert all(i["possible_match"]["repd_ref"] == "12588" for i in botley)
     assert not any("bus stop" in t for t in titles)
     assert not any(" | " in t for t in titles)                      # opinion column dropped

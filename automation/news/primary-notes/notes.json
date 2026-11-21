@@ -1,0 +1,111 @@
+{
+  "schema": "globalgrid2050.primary-notes.v1",
+  "notes": [
+    {
+      "id": "PRIMARY-EN010147-002440-REFUSAL-20261110",
+      "association": "PROVISIONAL",
+      "binding": {
+        "repd_ref": "12588",
+        "gg_project_id": "GG2050-REPD-12588",
+        "planning_reference": "EN010147",
+        "canonical_edition": "202611170147",
+        "canonical_partition": "data/v9.1/projects/part-001.json",
+        "canonical_partition_sha256": "1dec5e14cb05d5d47a3543d66a8970a5dc6e74e3cd444c1471befba2fad0a2aa"
+      },
+      "source": {
+        "id": "desnz-en010147-002440",
+        "author": "Department for Energy Security and Net Zero",
+        "authorship": "GOVERNMENT_DECISION_LETTER",
+        "url": "https://nsip-documents.planninginspectorate.gov.uk/published-documents/EN010147-002440-Botley%20West%20Solar%20Farm%20-%20Secretary%20of%20State%20for%20Energy%20Security%20and%20Net%20Zero%20Decision%20Letter.pdf",
+        "sha256": "335eff9eed9c8e32658fe70186d2f02f4bf82a92ffbed1eaa835ac7ced0f857e",
+        "bytes": 1247918,
+        "retrieved_at": "2026-11-17T02:08:14.252676+00:00",
+        "headers": {
+          "Content-Type": "application/pdf",
+          "Content-Length": "1247918",
+          "Last-Modified": "Tue, 10 Nov 2026 16:20:36 GMT",
+          "ETag": "0x8DF3F468DAAB111"
+        },
+        "document_date": "2026-11-10",
+        "document_stated_publication_date": "2026-11-10",
+        "allowed_claim": "DEVELOPMENT_CONSENT_REFUSED",
+        "planning_reference": "EN010147",
+        "locators": {
+          "decision": "paragraph 3.9, page 5",
+          "application_date": "paragraph 1.1, page 1",
+          "original_proposal": "paragraph 1.9, page 2",
+          "later_capacity_uncertainty": "paragraph 4.14, page 8",
+          "publication": "Annex A, page 114"
+        },
+        "project_url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN010147",
+        "project_url_scope": "Supplementary navigation only; not a newly reviewed project-page status"
+      },
+      "rights": {
+        "status": "REVIEWED_NARROW_OGL_FACT_PARAPHRASE",
+        "scope": "GOVERNMENT_AUTHORED_DECISION_FACTS_ONLY",
+        "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+        "attribution": "Contains public sector information licensed under the Open Government Licence v3.0.",
+        "exclusions": [
+          "Third-party and applicant documents, maps and photographs",
+          "Personal information",
+          "Standalone departmental logos and crests",
+          "Official endorsement"
+        ],
+        "terms_receipts": [
+          {
+            "url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/terms-and-conditions",
+            "bytes": 74533,
+            "sha256": "6b64ce231a8a7bd91860fa4eb0a1d0109acf4174c0eb814c1090b48f3af95733",
+            "retrieved_at": "2026-11-17T02:14:30.331250+00:00"
+          },
+          {
+            "url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+            "bytes": 10450,
+            "sha256": "f5b2b9f2af63647cde889fa6c3508f5705925295b74912c68caa28dd37e64aa5",
+            "retrieved_at": "2026-11-17T02:14:30.443798+00:00"
+          }
+        ],
+        "review_limit": "Terms reviewed from supplied original HTML and exact receipt hashes; independent fresh web reader could not open those terms pages. Fresh primary PDF bytes were independently matched."
+      },
+      "claim": {
+        "type": "DEVELOPMENT_CONSENT_REFUSED",
+        "decision_date": "2026-11-10",
+        "planning_reference": "EN010147",
+        "statement": "The government decision letter for EN010147 records refusal of development consent on 10 November 2026. The association with REPD12588 is provisional; the frozen REPD status remains Application Submitted.",
+        "source_application_submitted": "2024-11-14",
+        "capacity_context": {
+          "original_application_repd_baseline_mw": 840,
+          "basis": "ORIGINAL_APPLICATION_AND_FROZEN_REPD_BASELINE",
+          "later_reduction_reported": true,
+          "final_reduced_capacity_mw": null
+        },
+        "unknowns": {
+          "judicial_review_status": null,
+          "later_project_status": null,
+          "current_installed_capacity_mw": null,
+          "electrical_connection_status": null
+        }
+      },
+      "news_metadata": {
+        "source_url": "https://raw.githubusercontent.com/Ventusltd/globalgrid2050/c7343d45a6842ad05c88d5aa958e111df623c807/dist/pipeline_headlines.json",
+        "sha256": "f19f17df1780f118b4d7823a88dddc03264626888418a50369df722507ab6c26",
+        "bytes": 39620,
+        "read_at": "2026-11-17T03:14:42.759038+00:00",
+        "feed_generated_at": "2026-11-17T00:27:34Z",
+        "article_url": "https://www.solarpowerportal.co.uk/solar-planning/uk-government-refuses-840mw-botley-west-solar-farm-in-first-ever-solar-nsip-no",
+        "publisher": "Solar Power Portal",
+        "published_at": "2026-11-11T12:29:34Z",
+        "first_seen": "2026-11-14T10:47:43Z",
+        "basis": "EXISTING_FEED_METADATA_ONLY",
+        "article_body_reviewed": false,
+        "publisher_content_rights": "NOT_ASSESSED"
+      },
+      "evidence_review": {
+        "status": "NARROW_GOVERNMENT_FACTS_REVIEWED",
+        "independent_review_at": "2026-11-17T02:41:05.452826+00:00",
+        "curated_at": "2026-11-17T03:16:20Z",
+        "method": "Two-session primary PDF, exact canonical identity and terms review; not a publisher-wide rights grant"
+      }
+    }
+  ]
+}

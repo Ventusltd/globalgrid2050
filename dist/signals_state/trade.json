@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "trade",
- "generated_at": "2026-11-20T23:16:12Z",
+ "generated_at": "2026-11-21T13:39:10Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -2036,7 +2036,7 @@
      "status": "ok",
      "entries": 10,
      "matched": 0,
-     "newest": "2026-11-20"
+     "newest": "2026-11-21"
     }
    ],
    "searched": 0,
@@ -2079,7 +2079,9 @@
    "searched": 0,
    "cached": 45,
    "skipped": 0,
-   "notes": []
+   "notes": [
+    "robots.txt www.energy-storage.news: HTTP 403 (treated as no rules)"
+   ]
   },
   {
    "id": "current",
@@ -2114,7 +2116,7 @@
      "url": "https://www.current-news.co.uk/?s=solar+farm",
      "status": "not search results (0 of 21 links say solar)",
      "content_type": "text/html",
-     "bytes": 512548,
+     "bytes": 514754,
      "results": 21,
      "dated": 1,
      "summaries": 0,
@@ -2194,7 +2196,7 @@
      "url": "https://www.planningresource.co.uk/search/articles?KeyWords=solar+farm",
      "status": "not search results (0 of 8 links say solar)",
      "content_type": "text/html",
-     "bytes": 41713,
+     "bytes": 42422,
      "results": 8,
      "dated": 0,
      "summaries": 0,
@@ -2257,7 +2259,7 @@
      "status": "ok",
      "entries": 10,
      "matched": 0,
-     "newest": "2026-11-19"
+     "newest": "2026-11-20"
     }
    ],
    "searched": 0,

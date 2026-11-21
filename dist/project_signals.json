@@ -1,26 +1,26 @@
 {
  "schema": "project-signals.v2",
- "generated_at": "2026-11-20T23:16:24Z",
- "run_at": "2026-11-20T23:44:31Z",
+ "generated_at": "2026-11-21T13:39:23Z",
+ "run_at": "2026-11-21T14:07:23Z",
  "stale": false,
  "scope": "200 largest Solar Photovoltaics rows, REPD October 2026",
  "recent_days": 90,
  "parts": {
   "official": {
    "status": "ok",
-   "collected_at": "2026-11-20T23:11:54Z",
+   "collected_at": "2026-11-21T13:34:52Z",
    "items": 109,
    "note": ""
   },
   "trade": {
    "status": "ok",
-   "collected_at": "2026-11-20T23:16:12Z",
+   "collected_at": "2026-11-21T13:39:10Z",
    "items": 192,
    "note": ""
   },
   "index": {
    "status": "ok",
-   "collected_at": "2026-11-20T23:16:24Z",
+   "collected_at": "2026-11-21T13:39:23Z",
    "items": 17,
    "note": ""
   },
@@ -32,7 +32,7 @@
   },
   "planning": {
    "status": "ok",
-   "collected_at": "2026-11-20T23:38:08Z",
+   "collected_at": "2026-11-21T14:01:24Z",
    "items": 200,
    "note": ""
   }
@@ -228,9 +228,9 @@
    "id": "gdelt-doc",
    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
    "status": "partial",
-   "requests": 55,
-   "failures": 41,
-   "items": 21,
+   "requests": 54,
+   "failures": 42,
+   "items": 13,
    "error": "time budget for GDELT reached; the rest are asked on later runs; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   }
  ],
@@ -7199,7 +7199,7 @@
     "link_type": "search",
     "authority": "South Kesteven",
     "reference": "S21/1018",
-    "url": "https://www.southkesteven.gov.uk/",
+    "url": "https://pa.southkesteven.gov.uk/online-applications/search.do?action=simple&searchType=Application",
     "kind": "search_page",
     "verified": false,
     "note": "Search the register for S21/1018."
@@ -8412,7 +8412,7 @@
     "link_type": "search",
     "authority": "South Kesteven",
     "reference": "S20/1433",
-    "url": "https://www.southkesteven.gov.uk/",
+    "url": "https://pa.southkesteven.gov.uk/online-applications/search.do?action=simple&searchType=Application",
     "kind": "search_page",
     "verified": false,
     "note": "Search the register for S20/1433."

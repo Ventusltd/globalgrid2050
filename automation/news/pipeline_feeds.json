@@ -1,5 +1,5 @@
 {
-  "note": "Feeds read by automation/news/pipeline_headlines.py, fetched in this order: BBC News first, Solar Power Portal second (primary true), then the rest. Edit this list to add or drop a feed; no code change is needed. lane keywords (BBC News) = an item whose title or feed summary says solar or data centre is kept even without an event word. lane datacentre_money and lane china_solar = narrow world-news lanes, newest 10 each. No lane = the event-word rule. uk_only true = no UK word is required in the headline (a headline naming another country is still dropped). A source label belongs to one lane only. The original 50 feeds were tested on 14 November 2026; added sources need their own live probe (PwC and SWI RSS endpoints are supplied by public publisher/feed listings).",
+  "note": "Feeds read by automation/news/pipeline_headlines.py, fetched in this order: BBC News primary, followed by remaining publisher feeds. Edit this list to add or drop a feed; no code change is needed. lane keywords (BBC News) = an item whose title or feed summary says solar or data centre is kept even without an event word. lane datacentre_money and lane china_solar = narrow world-news lanes, newest 10 each. No lane = the event-word rule. uk_only true = no UK word is required in the headline (a headline naming another country is still dropped). A source label belongs to one lane only. The historic original feeds were tested on 14 November 2026; added sources need their own live probe (PwC and SWI RSS endpoints are supplied by public publisher/feed listings). Owner instruction 21 Nov 2026: exclude Solar Power Portal completely from collection and displayed output; historic snapshots remain in Git history only.",
   "feeds": [
     {
       "url": "https://feeds.bbci.co.uk/news/rss.xml",
@@ -209,12 +209,6 @@
       "source": "BBC News",
       "uk_only": true,
       "lane": "keywords",
-      "primary": true
-    },
-    {
-      "url": "https://www.solarpowerportal.co.uk/rss.xml?content_types=article",
-      "source": "Solar Power Portal",
-      "uk_only": true,
       "primary": true
     },
     {
@@ -500,40 +494,11 @@
         "/en/perspective/"
       ],
       "english_only": true
-    },
-    {
-      "title": "National Wealth Fund invests in Scottish battery storage projects totalling 1GW and 2GWh",
-      "url": "https://www.solarpowerportal.co.uk/battery-storage/national-wealth-fund-backs-nationally-significant-1gw-2gwh-of-scottish-bess",
-      "source": "Solar Power Portal",
-      "kind": "curated",
-      "uk_only": true,
-      "reason": "Verified publicly accessible original link; manually added while RSS and homepage return 403 to GitHub Actions; no article text or restricted request."
-    },
-    {
-      "title": "PACE secures £68m financing for a UK solar PV and BESS portfolio",
-      "url": "https://www.solarpowerportal.co.uk/solar-finance/pace-68-million-140mw-solar-pv-55mwh-bess-portfolio-funding",
-      "source": "Solar Power Portal",
-      "kind": "curated",
-      "uk_only": true,
-      "reason": "Verified publicly accessible original link; manually added while RSS and homepage return 403 to GitHub Actions; no article text or restricted request."
-    },
-    {
-      "title": "DESNZ announces new UK solar and wind CfD auction funding policy",
-      "url": "https://www.solarpowerportal.co.uk/energy-policy/desnz-sets-nominal-1-budget-for-ar8-separates-solar-and-wind-into-separate-pots",
-      "source": "Solar Power Portal",
-      "kind": "curated",
-      "uk_only": true,
-      "reason": "Verified publicly accessible original link; manually added while RSS and homepage return 403 to GitHub Actions; no article text or restricted request."
-    },
-    {
-      "title": "Low Carbon begins commercial operations at UK BESS projects colocated with solar",
-      "url": "https://www.solarpowerportal.co.uk/colocation/low-carbon-brings-65mw-bess-into-commercial-operation-in-uk",
-      "source": "Solar Power Portal",
-      "kind": "curated",
-      "uk_only": true,
-      "reason": "Verified publicly accessible original link; manually added while RSS and homepage return 403 to GitHub Actions; no article text or restricted request."
     }
   ],
   "source_release_id": "20261121-global-context-v1",
-  "source_patch_id": "20261121-spp-verified-links-v1"
+  "source_patch_id": "20261121-exclude-solar-power-portal-v1",
+  "excluded_sources": [
+    "Solar Power Portal"
+  ]
 }

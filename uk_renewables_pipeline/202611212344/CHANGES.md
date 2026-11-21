@@ -1,3 +1,3 @@
-# V9.59 compact news toggle
+# V9.60 landscape-only REPD dashboard
 
-Parent: V9.58 / 202611212308. All inherited source data and UI modules unchanged. Reduce news maximise button from 44px to 34px, reposition from above headline row to lower-right news-controls area and preserve 44px touch target. Add overlap regression in real WebKit and Chromium. Homepage stays V9.57 pending user test.
+Parent: V9.59 / 202611212340. Adds independent CSS+JS REPD viewport overlay, landscape gate and rotate message, including exit via button or Escape, orientation-change closure, intact analytics and project table. No grid, news, REPD records, gauges, models or homepage pointer are modified. Changes from parent: index labels and imports, README, CHANGES, repd-landscape.css, repd-landscape.mjs, tests/repd-landscape.mjs.

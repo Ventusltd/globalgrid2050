@@ -181,6 +181,7 @@ jobs:
           path: ./_site
 
   deploy:
+    timeout-minutes: 25
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -190,6 +191,8 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          timeout: 1200000
 
   verify_v9_7_candidate:
     runs-on: ubuntu-latest

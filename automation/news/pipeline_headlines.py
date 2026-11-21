@@ -481,7 +481,7 @@ def collect(feeds, fetch, repd, now_iso):
                           "category": verdict[0], "technology": verdict[1], "possible_match": verdict[2]})
             kept += 1
         health.append({"url": url, "source": source + (" (curated; not fetched)" if kind == "curated" else
-                   " (discovered via GDELT; publisher not fetched)" if kind == "public_article_index" else ""),
+                   " (public homepage links; no article body fetched)" if kind == "public_article_index" else ""),
                        "status": "ok", "entries": len(entries), "kept": kept,
                        "newest": newest})
     return items, health

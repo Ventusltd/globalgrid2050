@@ -45,6 +45,9 @@ jobs:
         run: |
           python3 -m http.server 8765 >/tmp/pn-v960-server.log 2>&1 &
           node uk_renewables_pipeline/202611212344/tests/repd-landscape.mjs
+      - name: Install inherited V9.59 pinned Playwright harness
+        working-directory: uk_renewables_pipeline/202611212340
+        run: npm ci
       - name: Re-run inherited V9.59 compact news button acceptance
         run: |
           node uk_renewables_pipeline/202611212340/tests/news-maximise.mjs

@@ -467,6 +467,34 @@
       "uk_only": false,
       "title": "Data centres in Switzerland: electricity grids and digital sovereignty",
       "focus": "energy_research"
+    },
+    {
+      "url": "https://www.snb.ch/public/rss/en/mopo",
+      "source": "Swiss National Bank",
+      "uk_only": false,
+      "lane": "global_context",
+      "kind": "rss1",
+      "focus": "macro_policy"
+    },
+    {
+      "url": "https://www.snb.ch/public/rss/en/pressrel",
+      "source": "Swiss National Bank",
+      "uk_only": false,
+      "lane": "global_context",
+      "kind": "rss1",
+      "focus": "macro_policy"
+    },
+    {
+      "url": "https://www.strom.ch/en/perspective/articles",
+      "source": "Swiss Electricity Association (VSE)",
+      "uk_only": false,
+      "lane": "global_context",
+      "kind": "html_index",
+      "focus": "energy_research",
+      "article_prefixes": [
+        "/en/perspective/"
+      ],
+      "english_only": true
     }
   ],
   "source_release_id": "20261121-global-context-v1"

@@ -50,6 +50,9 @@ jobs:
         run: |
           python3 -m http.server 8765 >/tmp/pn-v958-server.log 2>&1 &
           node uk_renewables_pipeline/202611212308/tests/news-maximise.mjs
+      - name: Install V9.57 inherited pinned browser harness
+        working-directory: uk_renewables_pipeline/202611201709
+        run: npm ci
       - name: V9.57 inherited gauges ticker and register browser baseline
         run: |
           HUD_ARTIFACTS=/tmp/pn-v958-baseline node uk_renewables_pipeline/202611201709/tests/hud-v955.mjs

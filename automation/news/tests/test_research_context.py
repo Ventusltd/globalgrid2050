@@ -115,3 +115,25 @@ def test_new_context_never_displaces_existing_headlines_at_capacity():
     assert len(got) == 3
     assert {x["link"] for x in got} == {x["link"] for x in legacy}
     assert all(x["possible_match"] is None for x in got)
+
+def test_swiss_national_bank_rdf_rss1_is_parsed_without_legacy_feed_changes():
+    xml = b"""<?xml version="1.0"?>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+             xmlns="http://purl.org/rss/1.0/"
+             xmlns:dc="http://purl.org/dc/elements/1.1/">
+       <item rdf:about="https://www.snb.ch/en/example/monetary">
+         <title>Swiss National Bank monetary policy assessment</title>
+         <link>https://www.snb.ch/en/example/monetary</link>
+         <dc:date>2026-11-19T10:00:00Z</dc:date>
+       </item>
+    </rdf:RDF>"""
+    feed = {"url":"https://www.snb.ch/public/rss/en/mopo","source":"Swiss National Bank",
+            "kind":"rss1","lane":"global_context","focus":"macro_policy"}
+    items, health = P.collect([feed], lambda url: xml, P.Repd([]), NOW)
+    assert len(items) == 1 and items[0]["date"] == "2026-11-19T10:00:00Z"
+    assert items[0]["category"] == "finance" and items[0]["possible_match"] is None
+    assert health[0]["status"] == "ok"
+
+def test_rss1_rejects_unsafe_entities():
+    with pytest.raises(ValueError):
+        R.rss1_entries(b'<!DOCTYPE rdf:RDF [<!ENTITY x "wrong">]><rdf:RDF/>')

@@ -359,6 +359,28 @@ def test_bbc_lane_uses_the_event_category_and_keeps_the_botley_west_wording():
     assert [bool(i["possible_match"]) for i in items] == [True, False, True, False, False]   # match reads the title only
 
 
+@pytest.mark.parametrize("title, summary, kept", [
+    ("Energy bills forecast to climb in January as inflation rises",
+     "The UK benchmark covers a typical household.", True),
+    ("Ofgem cuts the electricity price cap", "", True),
+    ("UK inflation forecast revised ahead of the next rate announcement",
+     "The report mentions electricity bills.", False),
+    ("Five ways to manage your energy bills",
+     "The UK price cap will also be reviewed.", False),
+    ("France forecasts a rise in electricity prices",
+     "Wholesale markets are under pressure.", False),
+    ("Energy bills forecast to rise as inflation accelerates",
+     "The article does not establish the market.", False),
+])
+def test_bbc_lane_requires_a_material_uk_energy_price_event(title, summary, kept):
+    items, _ = P.collect(BBC, lambda url: rss((title, summary)), REPD, NOW)
+    assert len(items) == int(kept)
+    if kept:
+        assert items[0]["category"] == "other"
+        assert items[0]["technology"] is None
+        assert items[0]["possible_match"] is None
+
+
 def test_the_same_keyword_only_headline_on_a_secondary_feed_is_not_kept():
     other = [{"url": "https://example.org/f", "source": "Other", "uk_only": True}]
     items, _ = P.collect(other, lambda u: rss(("Huge solar farm on palace estate divides village", "")), REPD, NOW)

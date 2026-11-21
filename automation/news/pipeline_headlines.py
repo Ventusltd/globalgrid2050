@@ -17,6 +17,7 @@ appeal, ...), and the story is about the UK.
   BBC news rss feed"): a BBC item whose title or feed summary says solar or data centre is kept even with no
   event word, because BBC titles rarely name the project ("huge solar farm on palace estate"). It gets the
   event category when the title has an event word, otherwise "other" (solar) or "datacentre".
+  This lane also retains UK energy-price events when the headline names both the market and the event.
 - Two narrow world-news lanes, each capped at the newest 10 so UK planning news is never crowded out:
   "datacentre_money" (Bloomberg and data-centre titles: data centres or AI infrastructure AND money or
   markets; category datacentre) and "china_solar" (pv magazine: China or a Chinese manufacturer AND solar,
@@ -133,6 +134,10 @@ PROJECT_NOUN = _rx(r"farms?|parks?|projects?|plants?|sites?|schemes?|arrays?|sta
                    r"interconnectors?|cables?|pylons?|lines?|BESS|windfarms?|turbines?|DCOs?")
 DC_EXTRA = _rx(r"planning|council|ministers?|government|grid|power|energy|water|billions?|millions?|"
                r"\d[\d.,]*\s?(?:bn|m)|campus|build(?:s|ing)?|expan(?:d|ds|ded|sion)|capex|spend(?:s|ing)?")
+
+ENERGY_PRICE_TOPIC = _rx(r"(?:energy|electricity|gas) (?:prices?|bills?|price caps?)|wholesale (?:electricity|power|gas)")
+ENERGY_PRICE_EVENT = _rx(r"forecasts?|predictions?|rises?|increases?|falls?|cuts?|freeze[sd]?|set to (?:jump|drop)")
+ENERGY_PRICE_CONTEXT = _rx(r"price caps?|wholesale|inflation|Ofgem")
 
 TECH_RULES = (
     ("offshore_wind", _rx(r"offshore wind|floating wind|offshore wind[\s-]?farms?")),
@@ -386,11 +391,15 @@ def label(title, repd):
 
 
 def priority_label(title, summary, repd):
-    """Priority lane: (category, technology, possible_match) when the title or feed summary says solar or
-    data centre, with or without an event word; None otherwise."""
+    """BBC priority: established solar/data-centre coverage and material UK energy-price events."""
+    if EXCLUDE.search(title):
+        return None
     text = title + " " + summary
     solar, datacentre = TOPICS["solar"].search(text), TOPICS["datacentre"].search(text)
-    if not (solar or datacentre) or EXCLUDE.search(title):
+    if not (solar or datacentre):
+        if (ENERGY_PRICE_TOPIC.search(title) and ENERGY_PRICE_EVENT.search(title)
+                and ENERGY_PRICE_CONTEXT.search(text) and UK_WORDS.search(text)):
+            return "other", None, None
         return None
     if not solar:
         return "datacentre", None, None

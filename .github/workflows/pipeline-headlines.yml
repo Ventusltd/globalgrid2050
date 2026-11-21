@@ -80,6 +80,26 @@ jobs:
         run: |
           python automation/news/pipeline_headlines.py --probe "$RUNNER_TEMP/pipeline-headlines-probe.md"
           cat "$RUNNER_TEMP/pipeline-headlines-probe.md" >> "$GITHUB_STEP_SUMMARY"
+      - name: Require live third-party index to return original Solar Power Portal links
+        env:
+          REPORT: ${{ runner.temp }}/pipeline-headlines-probe.md
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          rows = Path(os.environ["REPORT"]).read_text(encoding="utf-8").splitlines()
+          found = False
+          for line in rows:
+              if not line.startswith("| https://api.gdeltproject.org/api/v2/doc/doc?"):
+                  continue
+              cells = [part.strip() for part in line.strip().strip("|").split("|")]
+              # The Python allowlist has already checked each accepted original URL.
+              found = len(cells) >= 6 and cells[1] == "ok" and int(cells[4]) > 0
+              print("Solar Power Portal public-index discovery:", "PASS" if found else "NO VERIFIED LINKS")
+              break
+          if not found:
+              raise SystemExit("No usable direct Solar Power Portal links: keep existing production collector")
+          PY
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v4
         with:
           node-version: '22.23.4'

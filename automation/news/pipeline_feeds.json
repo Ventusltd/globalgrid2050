@@ -500,7 +500,15 @@
         "/en/perspective/"
       ],
       "english_only": true
+    },
+    {
+      "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=domain%3Asolarpowerportal.co.uk&mode=artlist&format=rss&maxrecords=50&timespan=1month&sort=datedesc",
+      "source": "Solar Power Portal",
+      "kind": "public_article_index",
+      "uk_only": true,
+      "discovery": "GDELT DOC public index: direct publisher links only; no publisher RSS or article fetched"
     }
   ],
-  "source_release_id": "20261121-global-context-v1"
+  "source_release_id": "20261121-global-context-v1",
+  "source_patch_id": "20261121-spp-original-link-fallback-v1"
 }

@@ -16,7 +16,7 @@ import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[3]
-MODULES = ("pipeline_headlines.py", "datacentre_feed.py", "names.py")
+MODULES = ("pipeline_headlines.py", "datacentre_feed.py", "names.py", "research_indexes.py")
 ALLOWED = {
     ".github/workflows/pipeline-headlines.yml",
     "automation/news/pipeline_headlines.py",

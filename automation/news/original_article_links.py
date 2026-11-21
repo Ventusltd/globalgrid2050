@@ -36,6 +36,8 @@ def index_entries(body: bytes, feed: dict):
     # Existing hardened RSS/Atom reader parses the third-party discovery feed.
     from datacentre_feed import parse_feed
     parsed = parse_feed(body)
+    if not parsed:
+        raise ValueError("GDELT returned zero RSS article entries for this publisher")
     kept, seen = [], set()
     for title, link, _index_date, _summary in parsed:
         target = urlsplit(link.strip())
@@ -52,4 +54,8 @@ def index_entries(body: bytes, feed: dict):
         kept.append((title, original, None, ""))
         if len(kept) >= MAX_ARTICLES:
             break
+    if not kept:
+        observed = sorted({urlsplit(link).hostname or "NO_HOST" for _, link, _, _ in parsed[:20]})
+        raise ValueError("Index returned no eligible direct publisher links; "
+                         f"index entries={len(parsed)}; hosts={','.join(observed)[:90]}")
     return kept

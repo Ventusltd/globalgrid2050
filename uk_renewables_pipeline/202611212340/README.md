@@ -1,5 +1,3 @@
-# Pipeline News V9.58 — 202611212308
+# Pipeline News V9.59 — 202611212340
 
-Immutable successor to V9.57 (202611201709). Add a small fixed-viewport maximise/restore news reader, iOS safe-area support, Escape, focus and scroll restoration. Existing REPD, ticker, feeds, MAP links, GridAtlas, data and project models are inherited unchanged.
-
-Only the new index, the CSS and JS toggle, this README, CHANGES and the new smoke test differ from V9.57.
+Immutable V9.58 successor. Compact 34px visible maximise control positioned in the news controls area, leaving headlines unobscured. A 44px touch target remains. Reader expand/restore, data, REPD, ticker and GridAtlas logic are inherited unchanged.

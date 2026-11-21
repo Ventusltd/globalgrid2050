@@ -1,10 +1,10 @@
-// V9.58: real Chromium/WebKit interactive news maximise tests; no external news dependency.
+// V9.59: compact button geometry and inherited Chromium/WebKit maximise tests.
 import assert from 'node:assert/strict';
 import {chromium, webkit} from 'playwright';
 import {mkdir} from 'node:fs/promises';
 
-const url='http://127.0.0.1:8765/uk_renewables_pipeline/202611212308/';
-const folder='/tmp/pn-v958';
+const url='http://127.0.0.1:8765/uk_renewables_pipeline/202611212340/';
+const folder='/tmp/pn-v959';
 await mkdir(folder,{recursive:true});
 const failures=[];
 const views=[[393,852],[667,375],[768,1024],[1440,900]];
@@ -24,7 +24,7 @@ for (const [engine, launcher] of [['chromium',chromium],['webkit',webkit]]) {
         await page.goto(url,{waitUntil:'domcontentloaded',timeout:60000});
         await page.waitForSelector('#pnNewsMaximise',{state:'visible',timeout:30000});
         await page.waitForSelector('#liveNews .ln-item',{timeout:30000});
-        assert.match(await page.title(), /V9\.58.*202611212308/);
+        assert.match(await page.title(), /V9\.59.*202611212340/);
         await page.waitForFunction(()=>document.querySelector('#v2')?.textContent.replaceAll(',','')==='3604',null,{timeout:90000});
         const normal=await page.evaluate(()=>{
           const root=document.querySelector('.main>.newspaper');
@@ -44,6 +44,20 @@ for (const [engine, launcher] of [['chromium',chromium],['webkit',webkit]]) {
         // A real tap requires the 44px control to be visible. Playwright
         // otherwise auto-scrolls only at click time, after the old expectation.
         await page.locator('#pnNewsMaximise').scrollIntoViewIfNeeded();
+        const compact=await page.evaluate(()=>{
+          const b=document.getElementById('pnNewsMaximise').getBoundingClientRect();
+          const list=document.getElementById('liveNews').getBoundingClientRect();
+          const ticker=document.getElementById('headlineTicker').getBoundingClientRect();
+          return {button:{x:b.x,y:b.y,width:b.width,height:b.height,bottom:b.bottom},
+            listBottom:list.bottom,tickerTop:ticker.top,withinWidth:b.right<=innerWidth};
+        });
+        assert.equal(compact.button.width,34,'compact button width');
+        assert.equal(compact.button.height,34,'compact button height');
+        assert.equal(compact.withinWidth,true);
+        assert.ok(compact.button.y>=compact.listBottom-8,
+          'news button overlaps headline list '+JSON.stringify(compact));
+        assert.ok(compact.button.bottom<=compact.tickerTop+8,
+          'news button overlaps ticker '+JSON.stringify(compact));
         const expected=await page.evaluate(()=>({
           y:scrollY, headlines:document.querySelectorAll('#liveNews .ln-item').length,
           scrollTop:document.getElementById('liveNews').scrollTop,

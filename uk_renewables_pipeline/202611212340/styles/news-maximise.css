@@ -1,13 +1,15 @@
-/* V9.58 isolated overlay: unchanged V9.57 newspaper flow when restored. */
+/* V9.59 compact news control: inherited V9.58 fixed overlay remains unchanged. */
 .main > .newspaper { position: relative; }
 #pnNewsMaximise {
-  position:absolute; z-index:16; right:10px; bottom:62px;
+  position:absolute; z-index:16; right:9px; bottom:16px;
   box-sizing:border-box; display:grid; place-items:center;
-  width:44px; height:44px; min-width:44px; min-height:44px;
+  width:34px; height:34px; min-width:34px; min-height:34px;
   padding:0; margin:0; border:1px solid #4c5a65; border-radius:4px;
-  background:#070b0e; color:#71f6fa; font:normal 26px/1 system-ui,sans-serif;
+  background:#070b0e; color:#71f6fa; font:normal 19px/1 system-ui,sans-serif;
   cursor:pointer; -webkit-tap-highlight-color:transparent;
 }
+/* Keep a 44px touch target via a pseudo-element without a large visible button. */
+#pnNewsMaximise::before{content:'';position:absolute;inset:-5px;}
 #pnNewsMaximise:hover { border-color:#71f6fa; }
 #pnNewsMaximise:focus-visible { outline:2px solid #71f6fa; outline-offset:3px; }
 #pnNewsMaximise .pn-news-icon { display:block; transform:translateY(-1px); }

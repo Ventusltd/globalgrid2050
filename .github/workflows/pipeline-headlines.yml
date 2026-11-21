@@ -15,6 +15,16 @@ on:
   schedule:
     - cron: '41 4,10,16 * * *'
   workflow_dispatch:
+  # Publish the validated additive source edition automatically upon merge.
+  push:
+    branches: [main]
+    paths:
+      - 'automation/news/pipeline_headlines.py'
+      - 'automation/news/pipeline_feeds.json'
+      - 'automation/news/research_indexes.py'
+      - 'automation/news/tests/test_research_context.py'
+      - 'automation/news/tests/compare_legacy_collector.py'
+      - '.github/workflows/pipeline-headlines.yml'
   pull_request:
     paths:
       - 'automation/news/pipeline_headlines.py'

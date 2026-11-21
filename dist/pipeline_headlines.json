@@ -1,6 +1,6 @@
 {
  "schema": "globalgrid2050.news.pipeline-headlines.v1",
- "generated_at": "2026-11-21T21:09:36Z",
+ "generated_at": "2026-11-21T21:51:37Z",
  "status": "partial",
  "counts": {
   "items": 119,
@@ -31,9 +31,9 @@
    "url": "https://feeds.bbci.co.uk/news/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 34,
+   "entries": 33,
    "kept": 0,
-   "newest": "2026-11-21T19:59:35Z"
+   "newest": "2026-11-21T21:39:22Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/uk/rss.xml",
@@ -81,7 +81,7 @@
    "status": "ok",
    "entries": 23,
    "kept": 0,
-   "newest": "2026-11-21T20:56:51Z"
+   "newest": "2026-11-21T21:30:28Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/scotland/rss.xml",
@@ -397,7 +397,7 @@
    "url": "https://www.bloomberg.com/feeds/technology/news.rss",
    "source": "Bloomberg",
    "status": "ok",
-   "entries": 20,
+   "entries": 17,
    "kept": 0,
    "newest": "2026-11-21T19:02:24Z"
   },
@@ -413,7 +413,7 @@
    "url": "https://www.bloomberg.com/feeds/industries/news.rss",
    "source": "Bloomberg",
    "status": "ok",
-   "entries": 12,
+   "entries": 11,
    "kept": 0,
    "newest": "2026-11-21T16:00:00Z"
   },

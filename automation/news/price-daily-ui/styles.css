@@ -1,0 +1,11 @@
+.pn-daily-prices{font-family:"Courier New",Courier,monospace;background:#05070c;color:#f5f7fb;border:1px solid rgba(0,255,255,.35);border-radius:10px;padding:12px;min-width:0;box-sizing:border-box}
+.pn-daily-prices *{box-sizing:border-box}.pn-daily-prices [hidden]{display:none!important}
+.pn-daily-prices h3{color:#00ffff;font-size:16px;margin:0 0 10px}.pn-daily-prices p{font-size:11px;line-height:1.6;overflow-wrap:anywhere}
+.pn-daily-prices .pnd-source{color:#00ff88}.pnd-tools{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}.pnd-tools label{display:flex;flex-direction:column;gap:5px;font-size:11px;flex:1;min-width:100px}
+.pnd-tools select,.pnd-tools input{font:inherit;min-height:44px;max-width:100%;min-width:0;padding:6px;background:#080b10;color:#00ffff;border:1px solid #00ffff;border-radius:6px;color-scheme:dark}
+.pn-daily-prices canvas{display:block;width:100%;height:440px;max-width:100%;min-width:0;border:1px solid rgba(0,255,255,.2);border-radius:8px}
+.pnd-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;border:1px solid rgba(0,255,255,.55);border-radius:10px;padding:12px;margin:10px 0;background:rgba(5,7,12,.92);box-shadow:0 0 10px rgba(0,255,255,.15)}
+.pnd-stats div{min-width:0}.pnd-stats dt{font-size:10px;color:#ff5555;line-height:1.5}.pnd-stats dd{margin:4px 0 0;font-size:13px;font-weight:bold;overflow-wrap:anywhere}
+.pnd-coverage,.pnd-quality,.pnd-note{color:#a6adbb}.pn-daily-prices details{font-size:11px;line-height:1.5}.pn-daily-prices summary{min-height:44px;padding:10px 0;cursor:pointer;color:#00ffff}.pn-daily-prices a{color:#00ffff;overflow-wrap:anywhere}
+.pn-daily-prices :focus-visible{outline:2px solid #ffff00;outline-offset:2px}.pnd-table{max-width:100%;overflow:auto;overscroll-behavior:contain}.pnd-table table{border-collapse:collapse;min-width:660px;width:100%;font-size:10px}.pnd-table th,.pnd-table td{padding:7px;text-align:left;border-bottom:1px solid #253040}
+@media(max-width:480px){.pnd-stats{grid-template-columns:1fr}.pn-daily-prices{padding:9px}.pn-daily-prices canvas{height:390px}.pnd-tools{gap:7px}}

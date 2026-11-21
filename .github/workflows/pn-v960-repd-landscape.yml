@@ -1,0 +1,57 @@
+name: Pipeline News V9.60 REPD landscape dashboard acceptance
+on:
+  pull_request:
+    paths:
+      - 'uk_renewables_pipeline/202611212344/**'
+      - '.github/workflows/pn-v960-repd-landscape.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  landscape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Guard inherited V9.59 models and data with Python Git-tree comparison
+        run: |
+          python3 - <<'PY'
+          import subprocess
+          def tree(release):
+              data=subprocess.check_output(['git','ls-tree','-r','-z','HEAD:uk_renewables_pipeline/'+release])
+              return {p.decode():m.split()[2].decode() for m,p in
+                (item.split(b'\t',1) for item in data.split(b'\0') if item)}
+          old,new=tree('202611212340'),tree('202611212344')
+          changes={p for p in old.keys()|new.keys() if old.get(p)!=new.get(p)}
+          allowed={'index.html','README.md','CHANGES.md','styles/repd-landscape.css',
+                   'repd-landscape.mjs','tests/repd-landscape.mjs'}
+          assert changes==allowed,(changes,allowed)
+          for path in ['data','scripts','news','solar1000','vendor','map-entry.mjs','news-maximise.mjs',
+                       'styles/news-maximise.css','gridatlas']:
+              a=subprocess.check_output(['git','rev-parse',f'HEAD:uk_renewables_pipeline/202611212340/{path}']).strip()
+              b=subprocess.check_output(['git','rev-parse',f'HEAD:uk_renewables_pipeline/202611212344/{path}']).strip()
+              assert a==b, f'{path} changed outside REPD landscape plugin'
+          print(f'PASS: exact inherited V9.59 tree, {len(changes)} allowed UI changes, no data/model diffs')
+          PY
+      - name: Install pinned Playwright
+        working-directory: uk_renewables_pipeline/202611212344
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+      - name: Landscape-only REPD Chromium and iOS WebKit interactions
+        run: |
+          python3 -m http.server 8765 >/tmp/pn-v960-server.log 2>&1 &
+          node uk_renewables_pipeline/202611212344/tests/repd-landscape.mjs
+      - name: Re-run inherited V9.59 compact news button acceptance
+        run: |
+          node uk_renewables_pipeline/202611212340/tests/news-maximise.mjs
+      - name: Preserve orientation screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pn-v960-repd-landscape-screenshots
+          path: /tmp/pn-v960-landscape/
+          retention-days: 14

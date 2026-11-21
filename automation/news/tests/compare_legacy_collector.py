@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
-"""Fail-closed byte-for-byte legacy headline regression against PR's Git base.
+"""Fail-closed exact legacy replay excluding an owner-rejected publisher.
 
-This checks the live, existing Python collector on the identical offline fixture
-feed corpus before and after the additive global-context changes. The *only*
-allowed baseline difference is the metadata SCOPE explanatory paragraph.
+All other publishers, records, REPD matches and counts must remain equivalent.
 No existing UI, REPD, publication, or version file may be changed by this PR.
 """
 from __future__ import annotations
@@ -21,11 +19,12 @@ ALLOWED = {
     ".github/workflows/pipeline-headlines.yml",
     "automation/news/pipeline_headlines.py",
     "automation/news/pipeline_feeds.json",
-    "automation/news/research_indexes.py",
-    "automation/news/tests/test_research_context.py",
-    "automation/news/tests/compare_legacy_collector.py",
+    "automation/news/tests/test_pipeline_headlines.py",
     "automation/news/tests/test_spp_verified_public_links.py",
+    "automation/news/tests/test_spp_excluded.py",
+    "automation/news/tests/compare_legacy_collector.py",
 }
+
 
 
 def git(*args: str) -> bytes:
@@ -37,7 +36,7 @@ def ensure_scope(base: str) -> None:
     forbidden = changed - ALLOWED
     if forbidden:
         raise AssertionError("Unrelated change detected: " + ", ".join(sorted(forbidden)))
-    expected = {"automation/news/pipeline_feeds.json", "automation/news/tests/test_spp_verified_public_links.py"}
+    expected = {"automation/news/pipeline_headlines.py", "automation/news/pipeline_feeds.json", "automation/news/tests/test_spp_excluded.py"}
     if not expected <= changed:
         raise AssertionError("Expected additive collector/config changes missing")
 
@@ -51,35 +50,26 @@ def run_once(script: Path, feeds: Path, fixtures: Path, repd: Path, dest: Path) 
     return json.loads(dest.read_text(encoding="utf-8"))
 
 
-def ensure_sources_are_additive(base: str) -> None:
+def ensure_only_owner_rejected_publisher_removed(base: str) -> None:
     old = json.loads(git("show", f"{base}:automation/news/pipeline_feeds.json"))
     new = json.loads((ROOT / "automation/news/pipeline_feeds.json").read_text(encoding="utf-8"))
     legacy = old["feeds"]
-    feeds = new["feeds"]
-    if feeds[:len(legacy)] != legacy:
-        raise AssertionError("Existing publisher feeds, order, labels or flags modified")
-    if new.get("source_release_id") != "20261121-global-context-v1":
-        raise AssertionError("Unexpected source edition")
-    if len(feeds) != len(legacy) + 4:
-        raise AssertionError("Only four directly verified public link leads may be appended")
-    if new.get("source_patch_id") != "20261121-spp-verified-links-v1":
-        raise AssertionError("Unapproved source patch ID")
+    excluded = [f for f in legacy if f.get("source") == "Solar Power Portal"]
+    remaining = [f for f in legacy if f.get("source") != "Solar Power Portal"]
+    if len(excluded) != 5:
+        raise AssertionError("Expected five Solar Power Portal original entries")
+    if new["feeds"] != remaining:
+        raise AssertionError("Unrelated source records, order, flags or dates changed")
+    if new.get("excluded_sources") != ["Solar Power Portal"]:
+        raise AssertionError("Publisher exclusion policy missing")
+    if new.get("source_patch_id") != "20261121-exclude-solar-power-portal-v1":
+        raise AssertionError("Unexpected exclusion source patch")
     if new.get("source_release_id") != old.get("source_release_id"):
-        raise AssertionError("Source release ID must not change")
-    if len({f["url"] for f in feeds}) != len(feeds):
-        raise AssertionError("Duplicate article/source URLs")
-    from urllib.parse import urlsplit
-    allowed_prefixes = ("/battery-storage/", "/solar-finance/",
-                        "/energy-policy/", "/colocation/")
-    for feed in feeds[len(legacy):]:
-        url = urlsplit(feed["url"])
-        if (feed.get("kind") != "curated" or feed.get("source") != "Solar Power Portal"
-                or feed.get("uk_only") is not True or feed.get("date")
-                or not feed.get("title") or not feed.get("reason")
-                or url.scheme != "https" or url.hostname != "www.solarpowerportal.co.uk"
-                or not url.path.startswith(allowed_prefixes)):
-            raise AssertionError("Only attributed, verified, direct public Solar Power Portal links accepted")
-    print(f"PASS: {len(legacy)} existing source configurations unchanged; four direct source links only")
+        raise AssertionError("Prior source edition must not change")
+    if any(f.get("url", "").startswith("https://www.solarpowerportal.co.uk/")
+           for f in new["feeds"]):
+        raise AssertionError("Excluded publisher endpoint still in active catalogue")
+    print(f"PASS: {len(remaining)} original nonexcluded sources unchanged; 5 blocked entries removed")
 
 
 def main() -> None:
@@ -88,7 +78,7 @@ def main() -> None:
     args = ap.parse_args()
     base = args.base
     ensure_scope(base)
-    ensure_sources_are_additive(base)
+    ensure_only_owner_rejected_publisher_removed(base)
     fixtures = ROOT / "automation/news/tests/fixtures/pipeline"
     with tempfile.TemporaryDirectory(prefix="pn-legacy-comparison-") as tmp:
         tmp = Path(tmp)
@@ -96,8 +86,12 @@ def main() -> None:
         baseline.mkdir(parents=True)
         for file in MODULES:
             (baseline / file).write_bytes(git("show", f"{base}:automation/news/{file}"))
-        # The exact original feed list is the testing contract, not the new feeds.
-        (tmp / "original_feeds.json").write_bytes(git("show", f"{base}:automation/news/tests/fixtures/pipeline/feeds.json"))
+        # Exclude Solar Power Portal from BOTH runs. Every other fixture item
+        # must match the unchanged baseline byte-for-byte.
+        fixture = json.loads(git("show", f"{base}:automation/news/tests/fixtures/pipeline/feeds.json"))
+        fixture["feeds"] = [f for f in fixture["feeds"]
+                            if f.get("source") != "Solar Power Portal"]
+        (tmp / "original_feeds.json").write_text(json.dumps(fixture), encoding="utf-8")
         repd = tmp / "repd-fixture.csv"
         with repd.open("w", encoding="utf-8", newline="") as fp:
             writer = csv.DictWriter(fp, fieldnames=[
@@ -113,13 +107,13 @@ def main() -> None:
                        fixtures, repd, tmp / "old.json")
         new = run_once(ROOT / "automation/news/pipeline_headlines.py",
                        tmp / "original_feeds.json", fixtures, repd, tmp / "new.json")
-    # The addition of global context is deliberately *not* permitted to rewrite
-    # any legacy article, time, source, REPD association, count or feed health.
+    # Except the explicitly removed publisher, existing article metadata, dates,
+    # REPD association, counts and feed health must remain unchanged.
     for key in ("items", "counts", "feeds", "status", "schema", "generated_at", "limits"):
         if old[key] != new[key]:
             raise AssertionError(f"Legacy output regression: {key}")
-    print(f"PASS: {len(old['items'])} legacy headlines unchanged on an identical "
-          f"offline corpus; no unrelated release or UI edits")
+    print(f"PASS: {len(old['items'])} remaining-publisher headlines unchanged; "
+          f"no unrelated release or UI edits")
 
 
 if __name__ == "__main__":

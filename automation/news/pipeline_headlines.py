@@ -45,6 +45,7 @@ import json
 import re
 import sys
 from pathlib import Path
+from urllib.parse import urlsplit
 
 HERE = Path(__file__).resolve().parent
 if str(HERE) not in sys.path:
@@ -69,6 +70,21 @@ SCOPE = ("Headlines and links from public RSS/Atom, English-language institution
 WORLD_LANES = ("datacentre_money", "china_solar", "global_context")
 LANE_CAP = 10
 WORLD_LANE_CAPS = {"datacentre_money": 10, "china_solar": 10, "global_context": 35}
+
+# Owner-excluded publisher, enforced on fresh feeds AND retained historic headlines.
+# Never request or display Solar Power Portal, including syndication links.
+EXCLUDED_PUBLISHERS = frozenset({"solar power portal"})
+EXCLUDED_DOMAIN = "solarpowerportal.co.uk"
+
+
+def excluded_publisher(source, link=""):
+    if str(source or "").strip().casefold() in EXCLUDED_PUBLISHERS:
+        return True
+    try:
+        host = (urlsplit(str(link or "")).hostname or "").casefold().rstrip(".")
+    except ValueError:
+        return False
+    return host == EXCLUDED_DOMAIN or host.endswith("." + EXCLUDED_DOMAIN)
 
 
 def _rx(pattern):
@@ -425,7 +441,8 @@ def priority_label(title, summary, repd):
 
 def load_feeds(path):
     feeds = json.loads(Path(path).read_text(encoding="utf-8"))["feeds"]
-    return [f for f in feeds if f.get("url", "").startswith("https://") and f.get("source")]
+    return [f for f in feeds if f.get("url", "").startswith("https://") and f.get("source")
+            and not excluded_publisher(f.get("source"), f.get("url"))]
 
 
 def collect(feeds, fetch, repd, now_iso):
@@ -434,6 +451,8 @@ def collect(feeds, fetch, repd, now_iso):
     horizon = _shift(now_iso, days=2)
     for feed in feeds:
         url, source = feed["url"], feed["source"]
+        if excluded_publisher(source, url):
+            continue  # No network request and no misleading health result for excluded sources.
         try:
             kind = feed.get("kind", "rss")
             if kind == "curated":
@@ -454,7 +473,7 @@ def collect(feeds, fetch, repd, now_iso):
             title, link, date = D.clean_text(title, 300), D.canonical_link(link), D.parse_date(date)
             if date and (newest is None or date > newest):
                 newest = date
-            if not title or not link or D.SPONSORED_RE.search(title) or BRANDED.search(title):
+            if not title or not link or excluded_publisher(source, link) or D.SPONSORED_RE.search(title) or BRANDED.search(title):
                 continue
             if date and date > horizon:
                 continue
@@ -584,6 +603,8 @@ def merge(previous, incoming, repd, now_iso, cap=MAX_ITEMS, max_age_days=MAX_AGE
     cut to its newest LANE_CAP items."""
     lanes = lanes or {}
     focuses = focuses or {}
+    previous = [i for i in previous if not excluded_publisher(i.get("source"), i.get("link"))]
+    incoming = [i for i in incoming if not excluded_publisher(i.get("source"), i.get("link"))]
     fresh = {i["link"]: i for i in incoming}
     by_link = D.merge(previous, incoming, cap=10 ** 6)
     cutoff = _shift(now_iso, days=-max_age_days)

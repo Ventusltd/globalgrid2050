@@ -218,7 +218,7 @@ def test_fixture_run_matches_schema_and_contract(tmp_path):
     code, d = run(tmp_path)
     assert code == 0
     validate(d, SCHEMA)
-    assert d["status"] == "partial" and d["counts"]["feeds_failed"] == 1 and d["counts"]["feeds_ok"] == 6
+    assert d["status"] == "partial" and d["counts"]["feeds_failed"] == 1 and d["counts"]["feeds_ok"] == 5
     assert d["feeds"][0]["source"] == "BBC News"                    # priority feeds are fetched first
     bbc = {i["title"]: i for i in d["items"] if i["source"] == "BBC News"}
     assert set(bbc) == {"Decision due on huge solar farm on palace estate",
@@ -226,7 +226,7 @@ def test_fixture_run_matches_schema_and_contract(tmp_path):
     failed = [f for f in d["feeds"] if f["status"] == "failed"]
     assert len(failed) == 1 and "error" in failed[0]
     items = d["items"]
-    assert d["counts"]["items"] == len(items) >= 30
+    assert d["counts"]["items"] == len(items) >= 10
     assert sum(d["counts"]["by_category"].values()) == len(items)
     keys = [(P.when(i), i["link"]) for i in items]
     assert keys == sorted(keys, reverse=True)                       # newest first
@@ -234,7 +234,7 @@ def test_fixture_run_matches_schema_and_contract(tmp_path):
     assert all(set(i) == set(P.ITEM_FIELDS) for i in items)         # nothing beyond the contract is stored
     titles = [i["title"] for i in items]
     botley = [i for i in items if "Botley West" in i["title"]]
-    assert {i["category"] for i in botley} == {"refusal", "dco"}
+    assert {i["category"] for i in botley} == {"dco"}  # gov.uk primary evidence remains
     assert all(i["possible_match"]["repd_ref"] == "12588" for i in botley)
     assert not any("bus stop" in t for t in titles)
     assert not any(" | " in t for t in titles)                      # opinion column dropped
@@ -374,10 +374,11 @@ def test_priority_items_kept_on_their_summary_survive_later_runs():
     assert later["items"][0]["first_seen"] == NOW
 
 
-def test_live_feed_list_order_is_bbc_then_solar_power_portal_then_the_rest():
+def test_live_feed_list_has_bbc_first_and_excludes_owner_rejected_publisher():
     feeds = json.loads((PKG / "pipeline_feeds.json").read_text(encoding="utf-8"))["feeds"]
     sources = list(dict.fromkeys(f["source"] for f in feeds))
-    assert sources[:2] == ["BBC News", "Solar Power Portal"]
+    assert sources[0] == "BBC News"
+    assert "Solar Power Portal" not in sources
     assert [f["source"] for f in feeds if f.get("primary")] == [f["source"] for f in feeds][:sum(bool(f.get("primary")) for f in feeds)]
     assert all(f.get("lane") == "keywords" for f in feeds if "feeds.bbci.co.uk" in f["url"])
     by_source = {}

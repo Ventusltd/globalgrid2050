@@ -72,6 +72,16 @@ for (const [engine, launcher] of [['chromium',chromium],['webkit',webkit]]) {
         assert.equal(expected.ticker,true);
         await page.screenshot({path:folder+'/'+label+'-max.png'});
         await page.locator('#pnNewsMaximise').click();
+        await page.waitForTimeout(350);
+        const restoredDebug=await page.evaluate(()=>({
+          pageY:window.scrollY, listTop:document.getElementById('liveNews').scrollTop,
+          listMax:document.getElementById('liveNews').scrollHeight-document.getElementById('liveNews').clientHeight,
+          bodyPosition:document.body.style.position,
+          bodyOverflow:document.body.style.overflow, htmlOverflow:document.documentElement.style.overflow,
+          mainHeight:document.querySelector('.main').scrollHeight,
+          rootFixed:document.querySelector('.main>.newspaper').classList.contains('pn-news-maximised')
+        }));
+        console.log('RESTORE_DIAGNOSTIC '+label+' '+JSON.stringify({expected:{y:expected.y,top:expected.scrollTop},actual:restoredDebug}));
         await page.waitForFunction(target => {
           return !document.querySelector('.main>.newspaper').classList.contains('pn-news-maximised')
             && Math.abs(window.scrollY-target.y)<3

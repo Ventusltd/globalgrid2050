@@ -8,7 +8,7 @@ from urllib.parse import urljoin, urlsplit
 
 MAX_HTML_BYTES = 2_000_000
 MAX_LINKS = 2000
-MAX_KEPT = 45
+MAX_KEPT = 250
 
 
 class _Anchors(HTMLParser):

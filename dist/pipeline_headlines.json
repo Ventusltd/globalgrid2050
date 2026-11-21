@@ -1,22 +1,22 @@
 {
  "schema": "globalgrid2050.news.pipeline-headlines.v1",
- "generated_at": "2026-11-21T22:21:41Z",
+ "generated_at": "2026-11-21T22:33:42Z",
  "status": "partial",
  "counts": {
-  "items": 123,
-  "with_possible_match": 3,
-  "feeds_ok": 71,
-  "feeds_failed": 2,
+  "items": 90,
+  "with_possible_match": 2,
+  "feeds_ok": 67,
+  "feeds_failed": 1,
   "by_category": {
    "planning_decision": 6,
-   "consent": 10,
-   "refusal": 3,
+   "consent": 3,
+   "refusal": 2,
    "dco": 6,
-   "finance": 36,
-   "construction": 9,
-   "energisation": 6,
+   "finance": 20,
+   "construction": 7,
+   "energisation": 2,
    "grid": 2,
-   "policy": 7,
+   "policy": 4,
    "datacentre": 25,
    "other": 13
   }
@@ -31,7 +31,7 @@
    "url": "https://feeds.bbci.co.uk/news/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 34,
+   "entries": 36,
    "kept": 0,
    "newest": "2026-11-22T09:00:00Z"
   },
@@ -81,7 +81,7 @@
    "status": "ok",
    "entries": 23,
    "kept": 0,
-   "newest": "2026-11-21T21:30:28Z"
+   "newest": "2026-11-21T22:27:36Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/scotland/rss.xml",
@@ -97,7 +97,7 @@
    "status": "ok",
    "entries": 26,
    "kept": 0,
-   "newest": "2026-11-21T22:09:26Z"
+   "newest": "2026-11-21T22:25:36Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/northern_ireland/rss.xml",
@@ -266,12 +266,6 @@
    "entries": 25,
    "kept": 0,
    "newest": "2026-11-21T12:58:00Z"
-  },
-  {
-   "url": "https://www.solarpowerportal.co.uk/rss.xml?content_types=article",
-   "source": "Solar Power Portal",
-   "status": "failed",
-   "error": "HTTPError: HTTP Error 403: Forbidden"
   },
   {
    "url": "https://www.gov.uk/search/news-and-communications.atom?organisations%5B%5D=planning-inspectorate",
@@ -493,7 +487,7 @@
    "status": "ok",
    "entries": 30,
    "kept": 1,
-   "newest": "2026-11-21T09:34:52Z"
+   "newest": "2026-11-21T12:42:23Z"
   },
   {
    "url": "https://www.dnv.com/energy/news/",
@@ -574,81 +568,9 @@
    "entries": 12,
    "kept": 3,
    "newest": null
-  },
-  {
-   "url": "https://www.solarpowerportal.co.uk/battery-storage/national-wealth-fund-backs-nationally-significant-1gw-2gwh-of-scottish-bess",
-   "source": "Solar Power Portal (curated; not fetched)",
-   "status": "ok",
-   "entries": 1,
-   "kept": 1,
-   "newest": null
-  },
-  {
-   "url": "https://www.solarpowerportal.co.uk/solar-finance/pace-68-million-140mw-solar-pv-55mwh-bess-portfolio-funding",
-   "source": "Solar Power Portal (curated; not fetched)",
-   "status": "ok",
-   "entries": 1,
-   "kept": 1,
-   "newest": null
-  },
-  {
-   "url": "https://www.solarpowerportal.co.uk/energy-policy/desnz-sets-nominal-1-budget-for-ar8-separates-solar-and-wind-into-separate-pots",
-   "source": "Solar Power Portal (curated; not fetched)",
-   "status": "ok",
-   "entries": 1,
-   "kept": 1,
-   "newest": null
-  },
-  {
-   "url": "https://www.solarpowerportal.co.uk/colocation/low-carbon-brings-65mw-bess-into-commercial-operation-in-uk",
-   "source": "Solar Power Portal (curated; not fetched)",
-   "status": "ok",
-   "entries": 1,
-   "kept": 1,
-   "newest": null
   }
  ],
  "items": [
-  {
-   "title": "PACE secures £68m financing for a UK solar PV and BESS portfolio",
-   "link": "https://www.solarpowerportal.co.uk/solar-finance/pace-68-million-140mw-solar-pv-55mwh-bess-portfolio-funding",
-   "source": "Solar Power Portal",
-   "date": null,
-   "first_seen": "2026-11-21T22:21:41Z",
-   "category": "finance",
-   "technology": "solar",
-   "possible_match": null
-  },
-  {
-   "title": "DESNZ announces new UK solar and wind CfD auction funding policy",
-   "link": "https://www.solarpowerportal.co.uk/energy-policy/desnz-sets-nominal-1-budget-for-ar8-separates-solar-and-wind-into-separate-pots",
-   "source": "Solar Power Portal",
-   "date": null,
-   "first_seen": "2026-11-21T22:21:41Z",
-   "category": "policy",
-   "technology": "solar",
-   "possible_match": null
-  },
-  {
-   "title": "Low Carbon begins commercial operations at UK BESS projects colocated with solar",
-   "link": "https://www.solarpowerportal.co.uk/colocation/low-carbon-brings-65mw-bess-into-commercial-operation-in-uk",
-   "source": "Solar Power Portal",
-   "date": null,
-   "first_seen": "2026-11-21T22:21:41Z",
-   "category": "energisation",
-   "technology": "solar",
-   "possible_match": null
-  },
-  {
-   "title": "National Wealth Fund invests in Scottish battery storage projects totalling 1GW and 2GWh",
-   "link": "https://www.solarpowerportal.co.uk/battery-storage/national-wealth-fund-backs-nationally-significant-1gw-2gwh-of-scottish-bess",
-   "source": "Solar Power Portal",
-   "date": null,
-   "first_seen": "2026-11-21T22:21:41Z",
-   "category": "finance",
-   "technology": "battery",
-   "possible_match": null
-  },
   {
    "title": "1 October 2026 | Media release First half of 2026: Less control energy deployed, procurement costs halved In the first half of 2026, the Swiss electricity system benefited from lower procurement costs thanks to a new imbalance energy price mechanism. Read article",
    "link": "https://www.swissgrid.ch/en/home/newsroom/newsfeed/20261001-01.html",
@@ -1030,16 +952,6 @@
    "possible_match": null
   },
   {
-   "title": "Macquarie injects funds into two Scottish BESS projects",
-   "link": "https://www.solarpowerportal.co.uk/battery-storage/macquarie-injects-funds-into-two-scottish-bess-projects",
-   "source": "Solar Power Portal",
-   "date": "2026-11-17T15:18:44Z",
-   "first_seen": "2026-11-17T23:38:50Z",
-   "category": "finance",
-   "technology": "battery",
-   "possible_match": null
-  },
-  {
    "title": "Satellite imagery reveals vegetation recovery at solar plant in semi-arid region of China",
    "link": "https://www.pv-magazine.com/2026/11/17/satellite-imagery-reveals-vegetation-recovery-at-solar-plant-in-semi-arid-region-of-china/",
    "source": "pv magazine",
@@ -1190,26 +1102,6 @@
    "possible_match": null
   },
   {
-   "title": "Statkraft starts commercial operations at first phase of 750MW Neilston BESS project",
-   "link": "https://www.solarpowerportal.co.uk/energy-storage/statkraft-starts-commercial-operations-at-first-phase-of-750mw-neilston-bess-project",
-   "source": "Solar Power Portal",
-   "date": "2026-11-13T11:25:08Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "energisation",
-   "technology": "battery",
-   "possible_match": null
-  },
-  {
-   "title": "TotalEnergies acquires 450MW solar, 150MW BESS NSIP project",
-   "link": "https://www.solarpowerportal.co.uk/solar-finance/totalenergies-acquires-450mw-solar-plus-150mw-bess-nsip-project",
-   "source": "Solar Power Portal",
-   "date": "2026-11-13T09:28:52Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "finance",
-   "technology": "solar",
-   "possible_match": null
-  },
-  {
    "title": "Ørsted Gearing Up for Turbine Installation at 2.9 GW UK Offshore Wind Farm",
    "link": "https://www.offshorewind.biz/2026/11/13/orsted-gearing-up-for-turbine-installation-at-29-gw-uk-offshore-wind-farm",
    "source": "offshoreWIND.biz",
@@ -1280,20 +1172,6 @@
    "possible_match": null
   },
   {
-   "title": "UK government refuses 840MW Botley West Solar Farm in first-ever solar NSIP no",
-   "link": "https://www.solarpowerportal.co.uk/solar-planning/uk-government-refuses-840mw-botley-west-solar-farm-in-first-ever-solar-nsip-no",
-   "source": "Solar Power Portal",
-   "date": "2026-11-11T12:29:34Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "refusal",
-   "technology": "solar",
-   "possible_match": {
-    "repd_ref": "12588",
-    "site_name": "Botley West, Botley - Botley West Solar Project",
-    "basis": "technology"
-   }
-  },
-  {
    "title": "Cadeler secures UK offshore wind installation deal",
    "link": "https://www.renews.biz/offshore-wind/cadeler-secures-uk-offshore-wind-installation-deal/",
    "source": "reNEWS",
@@ -1334,26 +1212,6 @@
    "possible_match": null
   },
   {
-   "title": "Karpowership acquires UK 100MWh BESS site for development",
-   "link": "https://www.solarpowerportal.co.uk/solar-finance/karpowership-acquires-inland-uk-100mwh-bess-site-for-development",
-   "source": "Solar Power Portal",
-   "date": "2026-11-10T11:53:19Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "finance",
-   "technology": "battery",
-   "possible_match": null
-  },
-  {
-   "title": "Metlen sells 119MW UK solar portfolio to Nala Renewables",
-   "link": "https://www.solarpowerportal.co.uk/solar-finance/metlen-sells-119mw-uk-solar-portfolio-to-nala-renewables",
-   "source": "Solar Power Portal",
-   "date": "2026-11-10T11:42:38Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "finance",
-   "technology": "solar",
-   "possible_match": null
-  },
-  {
    "title": "A key report for where inflation stood in October comes out Tuesday. Here's what to expect",
    "link": "https://www.cnbc.com/2026/11/09/october-cpi-report-2026-inflation.html",
    "source": "CNBC Economy",
@@ -1374,26 +1232,6 @@
    "possible_match": null
   },
   {
-   "title": "Recurrent Energy starts commercial operations at 20MWp South Devon solar project",
-   "link": "https://www.solarpowerportal.co.uk/solar-projects/recurrent-energy-starts-commercial-operations-at-20mwp-south-devon-solar-project",
-   "source": "Solar Power Portal",
-   "date": "2026-11-06T10:47:15Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "energisation",
-   "technology": "solar",
-   "possible_match": null
-  },
-  {
-   "title": "First community-funded solar-plus-storage plant opens for investment",
-   "link": "https://www.solarpowerportal.co.uk/solar-investment/first-community-funded-solar-plus-storage-plant-opens-for-investment",
-   "source": "Solar Power Portal",
-   "date": "2026-11-06T10:28:33Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "finance",
-   "technology": "solar",
-   "possible_match": null
-  },
-  {
    "title": "Bank of England hikes interest rate for the first time since Iran war, warns inflation will near 5%",
    "link": "https://www.cnbc.com/2026/11/05/interest-rates-inflation-uk.html",
    "source": "CNBC Economy",
@@ -1401,16 +1239,6 @@
    "first_seen": "2026-11-21T21:09:36Z",
    "category": "finance",
    "technology": null,
-   "possible_match": null
-  },
-  {
-   "title": "How delay to next CfD auction affects UK solar",
-   "link": "https://www.solarpowerportal.co.uk/energy-policy/how-delay-to-next-cfd-auction-affects-uk-solar",
-   "source": "Solar Power Portal",
-   "date": "2026-11-05T14:20:04Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "finance",
-   "technology": "solar",
    "possible_match": null
   },
   {
@@ -1424,16 +1252,6 @@
    "possible_match": null
   },
   {
-   "title": "Energy Independence Bill to mandate community benefit funds for UK solar",
-   "link": "https://www.solarpowerportal.co.uk/energy-policy/energy-independence-bill-to-mandate-community-benefit-funds-for-uk-solar",
-   "source": "Solar Power Portal",
-   "date": "2026-11-05T10:09:40Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "policy",
-   "technology": "solar",
-   "possible_match": null
-  },
-  {
    "title": "Euro zone inflation hits 4% for first time in three years as interest rate hike looms",
    "link": "https://www.cnbc.com/2026/11/04/euro-zone-cpi-inflation-october-ecb-rate-hike.html",
    "source": "CNBC Economy",
@@ -1441,16 +1259,6 @@
    "first_seen": "2026-11-21T21:09:36Z",
    "category": "finance",
    "technology": null,
-   "possible_match": null
-  },
-  {
-   "title": "MTC and Naked Energy installing UK's largest solar thermal project at Coventry site",
-   "link": "https://www.solarpowerportal.co.uk/solar-thermal/mtc-invests-1-3-million-in-naked-energy-solar-thermal-installation-at-coventry-site",
-   "source": "Solar Power Portal",
-   "date": "2026-11-04T10:13:21Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "construction",
-   "technology": "solar",
    "possible_match": null
   },
   {
@@ -1484,16 +1292,6 @@
    "possible_match": null
   },
   {
-   "title": "Wave of BESS augmentation financing expected in a few years",
-   "link": "https://www.solarpowerportal.co.uk/energy-storage/wave-of-bess-augmentation-financing-expected-in-a-few-years",
-   "source": "Solar Power Portal",
-   "date": "2026-11-02T15:01:50Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "finance",
-   "technology": "battery",
-   "possible_match": null
-  },
-  {
    "title": "Wind Turbine Installation Starts at Inch Cape Site Offshore Scotland",
    "link": "https://www.offshorewind.biz/2026/11/02/wind-turbine-installation-starts-at-inch-cape-site-offshore-scotland",
    "source": "offshoreWIND.biz",
@@ -1506,26 +1304,6 @@
     "site_name": "Inch Cape",
     "basis": "technology"
    }
-  },
-  {
-   "title": "Brookfield-owned OnPath Energy reaches financial close on first solar-plus-storage project",
-   "link": "https://www.solarpowerportal.co.uk/solar-projects/brookfield-owned-onpath-energy-reaches-financial-close-on-first-solar-plus-storage-project",
-   "source": "Solar Power Portal",
-   "date": "2026-11-02T10:47:00Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "finance",
-   "technology": "solar",
-   "possible_match": null
-  },
-  {
-   "title": "BW ESS puts 1.24GWh BESS, Europe’s largest, into commercial operation",
-   "link": "https://www.solarpowerportal.co.uk/battery-storage/bw-ess-puts-1-24gwh-bess-europe-s-largest-into-commercial-operation",
-   "source": "Solar Power Portal",
-   "date": "2026-11-02T10:07:02Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "energisation",
-   "technology": "battery",
-   "possible_match": null
   },
   {
    "title": "Major undersea power cable given green light",
@@ -1545,16 +1323,6 @@
    "first_seen": "2026-11-21T21:09:36Z",
    "category": "finance",
    "technology": null,
-   "possible_match": null
-  },
-  {
-   "title": "Major solar projects by Elements Green, Cubico granted DCOs",
-   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/major-solar-projects-by-elements-green-cubico-granted-dcos",
-   "source": "Solar Power Portal",
-   "date": "2026-10-28T09:27:32Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "consent",
-   "technology": "solar",
    "possible_match": null
   },
   {
@@ -1578,36 +1346,6 @@
    "possible_match": null
   },
   {
-   "title": "Elgin to invest £400 million in 230MW solar-plus-storage projects in the UK",
-   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/elgin-to-invest-400-million-in-230mw-solar-plus-storage-projects-in-the-uk",
-   "source": "Solar Power Portal",
-   "date": "2026-10-27T11:42:22Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "finance",
-   "technology": "solar",
-   "possible_match": null
-  },
-  {
-   "title": "Enviromena acquires 18.1MWp Cheshire solar project from Anglo Renewables",
-   "link": "https://www.solarpowerportal.co.uk/solar-projects/enviromena-acquires-18-1mwp-cheshire-solar-project-from-anglo-renewables",
-   "source": "Solar Power Portal",
-   "date": "2026-10-27T10:49:02Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "finance",
-   "technology": "solar",
-   "possible_match": null
-  },
-  {
-   "title": "RES secures planning consents for NI BESS, Scottish solar",
-   "link": "https://www.solarpowerportal.co.uk/solar-planning/res-secures-planning-consents-for-ni-bess-scottish-solar",
-   "source": "Solar Power Portal",
-   "date": "2026-10-27T09:22:38Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "consent",
-   "technology": "solar",
-   "possible_match": null
-  },
-  {
    "title": "Seaway7 Completes Inter-Array Cable Installation at East Anglia Three Offshore Wind Farm",
    "link": "https://www.offshorewind.biz/2026/10/27/seaway7-completes-inter-array-cable-installation-at-east-anglia-three-offshore-wind-farm",
    "source": "offshoreWIND.biz",
@@ -1615,76 +1353,6 @@
    "first_seen": "2026-11-14T10:47:43Z",
    "category": "construction",
    "technology": "offshore_wind",
-   "possible_match": null
-  },
-  {
-   "title": "UK solar approvals, progress and purchases",
-   "link": "https://www.solarpowerportal.co.uk/solar-projects/uk-solar-approvals-progress-purchases",
-   "source": "Solar Power Portal",
-   "date": "2026-10-23T09:25:29Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "consent",
-   "technology": "solar",
-   "possible_match": null
-  },
-  {
-   "title": "Boom Power secures planning permission for 49.99MW Drove Lane solar PV plant in East Yorkshire",
-   "link": "https://www.solarpowerportal.co.uk/solar-projects/boom-power-secures-planning-permission-for-49-99mw-drove-lane-solar-pv-plant-in-east-yorkshire",
-   "source": "Solar Power Portal",
-   "date": "2026-10-23T00:41:16Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "consent",
-   "technology": "solar",
-   "possible_match": null
-  },
-  {
-   "title": "BW ESS secures financing for 3.5-hour 350MW Hams Hall BESS",
-   "link": "https://www.solarpowerportal.co.uk/battery-storage/bw-ess-secures-financing-for-3-5-hour-350mw-hams-hall-bess",
-   "source": "Solar Power Portal",
-   "date": "2026-10-22T09:51:47Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "finance",
-   "technology": "battery",
-   "possible_match": null
-  },
-  {
-   "title": "Ares invests in 1.9GW of Statera’s UK battery and gas portfolio, but not its LDES projects",
-   "link": "https://www.solarpowerportal.co.uk/battery-storage/ares-invests-in-1-9gw-of-statera-s-uk-battery-and-gas-portfolio-but-not-its-ldes-projects",
-   "source": "Solar Power Portal",
-   "date": "2026-10-19T10:30:47Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "finance",
-   "technology": "battery",
-   "possible_match": null
-  },
-  {
-   "title": "Foresight invests in 40GWh LDES cap-and-floor winning pumped hydro project in Scotland",
-   "link": "https://www.solarpowerportal.co.uk/energy-storage/foresight-invests-in-40gwh-ldes-cap-and-floor-winning-pumped-hydro-project-in-scotland",
-   "source": "Solar Power Portal",
-   "date": "2026-10-19T09:34:30Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "finance",
-   "technology": "hydro",
-   "possible_match": null
-  },
-  {
-   "title": "UK energy policy decoupled from Clean Power 2030 as affordability and politics take precedence",
-   "link": "https://www.solarpowerportal.co.uk/energy-policy/uk-energy-policy-clean-power-2030-affordability-politics",
-   "source": "Solar Power Portal",
-   "date": "2026-10-16T09:10:35Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "policy",
-   "technology": null,
-   "possible_match": null
-  },
-  {
-   "title": "Octopus investment company ORIT takes on OnPath-developed West Yorkshire solar farm",
-   "link": "https://www.solarpowerportal.co.uk/solar-investment/octopus-investment-company-orit-takes-on-onpath-developed-west-yorkshire-solar-farm",
-   "source": "Solar Power Portal",
-   "date": "2026-10-15T08:21:46Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "finance",
-   "technology": "solar",
    "possible_match": null
   },
   {
@@ -1698,26 +1366,6 @@
    "possible_match": null
   },
   {
-   "title": "European Energy secures £28.8 million for Bedfordshire solar farm construction",
-   "link": "https://www.solarpowerportal.co.uk/solar-finance/european-energy-28-million-bedfordshire-solar-farm-construction",
-   "source": "Solar Power Portal",
-   "date": "2026-10-12T09:46:44Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "construction",
-   "technology": "solar",
-   "possible_match": null
-  },
-  {
-   "title": "Large-scale solar plant in Nottinghamshire approved by government, second one this week",
-   "link": "https://www.solarpowerportal.co.uk/solar-planning/large-scale-solar-plant-in-nottinghamshire-approved-by-government-second-one-this-week",
-   "source": "Solar Power Portal",
-   "date": "2026-10-09T15:03:46Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "consent",
-   "technology": "solar",
-   "possible_match": null
-  },
-  {
    "title": "Steeple Renewables Project development consent decision announced",
    "link": "https://www.gov.uk/government/news/steeple-renewables-project-development-consent-decision-announced",
    "source": "GOV.UK Planning Inspectorate",
@@ -1725,16 +1373,6 @@
    "first_seen": "2026-11-14T10:47:43Z",
    "category": "dco",
    "technology": null,
-   "possible_match": null
-  },
-  {
-   "title": "Scottish council approves 40MW Kirknewton solar-plus-storage project",
-   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/scottish-council-approves-40mw-kirknewton-solar-plus-storage-project",
-   "source": "Solar Power Portal",
-   "date": "2026-10-09T11:54:22Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "consent",
-   "technology": "solar",
    "possible_match": null
   },
   {
@@ -1760,16 +1398,6 @@
     "site_name": "Green Hill Solar Farm & Battery Storage",
     "basis": "technology"
    }
-  },
-  {
-   "title": "Fahnbulleh consents major 500MW solar plant plans for Northamptonshire",
-   "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/fahnbulleh-consents-major-500mw-solar-plant-plans-for-northamptonshire",
-   "source": "Solar Power Portal",
-   "date": "2026-10-08T12:46:30Z",
-   "first_seen": "2026-11-14T10:47:43Z",
-   "category": "consent",
-   "technology": "solar",
-   "possible_match": null
   },
   {
    "title": "2026-09-24 - Monetary policy assessment of 24 September 2026",

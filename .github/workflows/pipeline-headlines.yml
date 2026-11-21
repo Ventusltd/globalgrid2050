@@ -80,7 +80,7 @@ jobs:
         run: |
           python automation/news/pipeline_headlines.py --probe "$RUNNER_TEMP/pipeline-headlines-probe.md"
           cat "$RUNNER_TEMP/pipeline-headlines-probe.md" >> "$GITHUB_STEP_SUMMARY"
-      - name: Require live third-party index to return original Solar Power Portal links
+      - name: Require public homepage to return original Solar Power Portal links
         env:
           REPORT: ${{ runner.temp }}/pipeline-headlines-probe.md
         run: |
@@ -90,12 +90,12 @@ jobs:
           rows = Path(os.environ["REPORT"]).read_text(encoding="utf-8").splitlines()
           found = False
           for line in rows:
-              if not line.startswith("| https://api.gdeltproject.org/api/v2/doc/doc?"):
+              if not line.startswith("| https://www.solarpowerportal.co.uk/ (Solar Power Portal (public homepage links;"):
                   continue
               cells = [part.strip() for part in line.strip().strip("|").split("|")]
-              # The Python allowlist has already checked each accepted original URL.
+              # The Python allowlist has already checked every direct article URL.
               found = len(cells) >= 6 and cells[1] == "ok" and int(cells[4]) > 0
-              print("Solar Power Portal public-index discovery:", "PASS" if found else "NO VERIFIED LINKS")
+              print("Solar Power Portal public-home links:", "PASS" if found else "NO VERIFIED LINKS")
               break
           if not found:
               raise SystemExit("No usable direct Solar Power Portal links: keep existing production collector")

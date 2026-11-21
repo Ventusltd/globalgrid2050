@@ -63,12 +63,10 @@ def ensure_sources_are_additive(base: str) -> None:
         raise AssertionError("Unexpected source edition")
     if len(feeds) != len(legacy) + 1:
         raise AssertionError("Expected precisely one additional source")
-    if new.get("source_patch_id") != "20261121-spp-original-link-fallback-v1":
+    if new.get("source_patch_id") != "20261121-spp-public-home-links-v1":
         raise AssertionError("Unapproved source patch edition")
     last = feeds[-1]
-    expected_url = ("https://api.gdeltproject.org/api/v2/doc/doc?"
-                    "query=domain%3Asolarpowerportal.co.uk&mode=artlist&format=rss"
-                    "&maxrecords=50&timespan=1month&sort=datedesc")
+    expected_url = "https://www.solarpowerportal.co.uk/"
     if (last.get("url") != expected_url or last.get("source") != "Solar Power Portal"
             or last.get("kind") != "public_article_index"
             or last.get("uk_only") is not True or last.get("primary")
@@ -76,7 +74,7 @@ def ensure_sources_are_additive(base: str) -> None:
         raise AssertionError("Fallback may only discover original Solar Power Portal links")
     if len({feed["url"] for feed in feeds}) != len(feeds):
         raise AssertionError("Duplicate source URL")
-    print(f"PASS: {len(legacy)} existing sources unchanged; one narrowly allowlisted third-party index")
+    print(f"PASS: {len(legacy)} existing sources unchanged; one narrowly allowlisted publisher homepage index")
 
 
 def main() -> None:

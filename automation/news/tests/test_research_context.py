@@ -1,0 +1,150 @@
+"""International research lane regression checks: no weakening of UK/REPD controls."""
+from pathlib import Path
+import sys
+import pytest
+
+PKG = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(PKG))
+import pipeline_headlines as P
+import research_indexes as R
+
+NOW = "2026-11-21T16:00:00Z"
+
+@pytest.mark.parametrize("title,category", [
+    ("A study on data centres shows that the real bottleneck lies in the grid", "datacentre"),
+    ("DNV Energy Transition Outlook 2026: grid and storage investment", "grid"),
+    ("Swissgrid announces electricity transmission grid capacity improvements", "grid"),
+    ("Federal Reserve says interest rates will stay unchanged", "finance"),
+    ("Bank of England monetary policy statement and Bank Rate", "finance"),
+    ("HM Treasury announces infrastructure financing review", "finance"),
+    ("Powering the AI revolution: data centre grid connections", "datacentre"),
+    ("The Swiss electricity grid faces new power demand constraints", "grid"),
+])
+def test_global_context_keep(title, category):
+    assert P.lane_label(title, "global_context") == (category, None, None)
+
+@pytest.mark.parametrize("title", [
+    "Markets rally as chipmakers announce a share buyback",
+    "Deloitte appoints new chief executive in Zurich",
+    "KPMG wins national audit firm of the year",
+    "Swiss tourism industry reports summer growth",
+    "Federal Reserve publishes staff survey response",
+    "Sponsored feature: data centre grid investments",
+])
+def test_global_context_reject(title):
+    assert P.lane_label(title, "global_context", "energy_research") is None
+
+def test_institutional_research_rejects_general_financial_marketing():
+    assert P.lane_label("Banking & Capital Markets", "global_context", "energy_research") is None
+    assert P.lane_label("Deloitte confirms interest rates rise", "global_context", "energy_research") is None
+    assert P.lane_label("Data centres face electricity-grid bottleneck", "global_context", "energy_research") == ("datacentre", None, None)
+    assert P.lane_label("Federal Reserve says interest rates rise", "global_context", "macro_policy") == ("finance", None, None)
+
+def test_no_eligible_html_index_is_reported_unavailable_not_healthy():
+    feed = {"url": "https://www.dnv.com/news/", "source": "DNV", "kind": "html_index",
+            "lane": "global_context", "focus": "energy_research", "article_prefixes": ["/news/"]}
+    items, health = P.collect([feed], lambda url: b"<html><body>No relevant links</body></html>",
+                              P.Repd([]), NOW)
+    assert items == []
+    assert health[0]["status"] == "failed"
+    assert "No eligible index links" in health[0]["error"]
+
+def test_uk_standard_lane_still_rejects_swiss_non_uk_context():
+    repd = P.Repd([])
+    title = "Swiss electricity grid constraints hit data centre developers"
+    assert not P.is_uk(title, repd)
+    body = ('<rss><channel><item><title>' + title + '</title>'
+            '<link>https://example.org/swiss</link></item></channel></rss>').encode()
+    items, _ = P.collect([{"url":"https://x.example/feed", "source":"X", "uk_only":False}],
+                         lambda url: body, repd, NOW)
+    assert not items
+
+def test_curated_deloitte_is_attributed_without_fabricated_date_or_repd():
+    url = "https://www.deloitte.com/ch/en/about/press-room/studie-zu-rechenzentren-zeigt-der-eigentliche-engpass-liegt-im-netz.html"
+    feed = {"url": url, "source": "Deloitte Switzerland", "kind": "curated", "lane": "global_context",
+            "title": "A study on data centres shows that the real bottleneck lies in the grid"}
+    def must_not_fetch(url):
+        raise AssertionError("curated link must not be falsely described as fetched")
+    items, health = P.collect([feed], must_not_fetch, P.Repd([]), NOW)
+    assert len(items) == 1
+    assert items[0]["link"] == url
+    assert items[0]["source"] == "Deloitte Switzerland"
+    assert items[0]["date"] is None and items[0]["possible_match"] is None
+    assert health[0]["kept"] == 1
+
+def test_bounded_html_index_keeps_english_same_host_only():
+    feed = {"url":"https://www.deloitte.com/ch/en/about/press-room.html",
+            "article_prefixes":["/ch/en/about/press-room/"],"english_only":True}
+    body = b"""<html><body>
+    <a href="/ch/en/about/press-room/data-centres-grid.html">Data centres: electricity grid bottleneck research</a>
+    <a href="/ch/de/about/press-room/studie.html">Data centres on Swiss grid study</a>
+    <a href="https://evil.example/ch/en/about/press-room/fraud.html">Data centres fake offsite study</a>
+    <a href="/ch/en/about/press-room.html">Press room landing page</a>
+    <a href="/ch/en/about/press-room/data-centres-grid.html">Data centres: electricity grid bottleneck research</a>
+    </body></html>"""
+    got = R.index_entries(body, feed)
+    assert len(got) == 1
+    assert got[0][1] == "https://www.deloitte.com/ch/en/about/press-room/data-centres-grid.html"
+    assert got[0][2] is None
+
+def test_html_discovery_passes_through_context_classification():
+    feed = {"url":"https://www.dnv.com/news/", "source":"DNV", "lane":"global_context",
+            "kind":"html_index","article_prefixes":["/news/"]}
+    body = b"""<html><a href="/news/2026/critical-grid-update/">
+      DNV grid capacity and energy infrastructure study
+    </a><a href="/news/2026/irrelevant/">DNV announces new colleague in Oslo</a></html>"""
+    items, _ = P.collect([feed], lambda u: body, P.Repd([]), NOW)
+    assert len(items) == 1
+    assert items[0]["date"] is None and items[0]["possible_match"] is None
+
+def test_research_is_lane_capped_without_crowding_original_world_lanes():
+    assert P.WORLD_LANE_CAPS["global_context"] >= 25
+    assert P.WORLD_LANE_CAPS["china_solar"] == 10
+    assert P.WORLD_LANE_CAPS["datacentre_money"] == 10
+
+def test_new_context_never_displaces_existing_headlines_at_capacity():
+    def item(title, url, source, date):
+        return {"title": title, "link": url, "source": source, "date": date,
+                "first_seen": NOW, "category": "grid", "technology": None, "possible_match": None}
+    legacy = [item(f"UK National Grid connection reform {n}",
+                   f"https://example.org/uk-{n}", "Original", "2026-11-19T10:00:00Z") for n in range(3)]
+    extra = [item("Swiss data centres need more electricity grid capacity",
+                  "https://example.org/ch", "Swissgrid", "2026-11-21T10:00:00Z")]
+    got = P.merge([], legacy + extra, P.Repd([]), NOW, cap=3,
+                  lanes={"Swissgrid": "global_context"}, focuses={"Swissgrid": "energy_research"})
+    assert len(got) == 3
+    assert {x["link"] for x in got} == {x["link"] for x in legacy}
+    assert all(x["possible_match"] is None for x in got)
+
+def test_swiss_national_bank_rdf_rss1_is_parsed_without_legacy_feed_changes():
+    xml = b"""<?xml version="1.0"?>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+             xmlns="http://purl.org/rss/1.0/"
+             xmlns:dc="http://purl.org/dc/elements/1.1/">
+       <item rdf:about="https://www.snb.ch/en/example/monetary">
+         <title>Swiss National Bank monetary policy assessment</title>
+         <link>https://www.snb.ch/en/example/monetary</link>
+         <dc:date>2026-11-19T10:00:00Z</dc:date>
+       </item>
+    </rdf:RDF>"""
+    feed = {"url":"https://www.snb.ch/public/rss/en/mopo","source":"Swiss National Bank",
+            "kind":"rss1","lane":"global_context","focus":"macro_policy"}
+    items, health = P.collect([feed], lambda url: xml, P.Repd([]), NOW)
+    assert len(items) == 1 and items[0]["date"] == "2026-11-19T10:00:00Z"
+    assert items[0]["category"] == "finance" and items[0]["possible_match"] is None
+    assert health[0]["status"] == "ok"
+
+def test_rss1_rejects_unsafe_entities():
+    with pytest.raises(ValueError):
+        R.rss1_entries(b'<!DOCTYPE rdf:RDF [<!ENTITY x "wrong">]><rdf:RDF/>')
+
+def test_publisher_rss1_label_may_serve_valid_rss2_without_legacy_parser_change():
+    feed = b"""<?xml version="1.0"?>
+      <rss version="2.0"><channel><item>
+        <title>Swiss National Bank monetary policy assessment</title>
+        <link>https://www.snb.ch/en/release/monetary</link>
+        <pubDate>Thu, 19 Nov 2026 10:00:00 GMT</pubDate>
+      </item></channel></rss>"""
+    entries = R.rss1_entries(feed)
+    assert entries[0][0] == "Swiss National Bank monetary policy assessment"
+    assert len(entries) == 1

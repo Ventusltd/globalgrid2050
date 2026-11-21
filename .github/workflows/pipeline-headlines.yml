@@ -15,9 +15,22 @@ on:
   schedule:
     - cron: '41 4,10,16 * * *'
   workflow_dispatch:
+  # Publish the validated additive source edition automatically upon merge.
+  push:
+    branches: [main]
+    paths:
+      - 'automation/news/pipeline_headlines.py'
+      - 'automation/news/pipeline_feeds.json'
+      - 'automation/news/research_indexes.py'
+      - 'automation/news/tests/test_research_context.py'
+      - 'automation/news/tests/compare_legacy_collector.py'
+      - '.github/workflows/pipeline-headlines.yml'
   pull_request:
     paths:
       - 'automation/news/pipeline_headlines.py'
+      - 'automation/news/research_indexes.py'
+      - 'automation/news/tests/test_research_context.py'
+      - 'automation/news/tests/compare_legacy_collector.py'
       - 'automation/news/news_algorithm.py'
       - 'automation/news/build_news_priority.py'
       - 'automation/news/tests/test_news_algorithm.py'
@@ -49,14 +62,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 2
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Existing collector versus Git base (byte-equivalent legacy output)
+        run: python automation/news/tests/compare_legacy_collector.py --base HEAD^1
       - name: Tests (offline fixtures)
         run: |
           python -m pip install --quiet pytest
-          python -m pytest -q -p no:cacheprovider automation/news/tests/test_pipeline_headlines.py automation/news/tests/test_news_algorithm.py automation/news/tests/test_news_priority_export.py
+          python -m pytest -q -p no:cacheprovider automation/news/tests/test_pipeline_headlines.py automation/news/tests/test_news_algorithm.py automation/news/tests/test_news_priority_export.py automation/news/tests/test_research_context.py
       - name: Fetch every feed in the list and report (no data file, no branch written)
         run: |
           python automation/news/pipeline_headlines.py --probe "$RUNNER_TEMP/pipeline-headlines-probe.md"
@@ -94,7 +109,7 @@ jobs:
       - name: Tests (offline fixtures)
         run: |
           python -m pip install --quiet pytest
-          python -m pytest -q -p no:cacheprovider automation/news/tests/test_pipeline_headlines.py automation/news/tests/test_news_algorithm.py automation/news/tests/test_news_priority_export.py
+          python -m pytest -q -p no:cacheprovider automation/news/tests/test_pipeline_headlines.py automation/news/tests/test_news_algorithm.py automation/news/tests/test_news_priority_export.py automation/news/tests/test_research_context.py
       - name: Bring in the previous file from the data branch (keeps older items)
         run: |
           mkdir -p dist

@@ -1,7 +1,7 @@
 /* V9.59 compact news control: inherited V9.58 fixed overlay remains unchanged. */
 .main > .newspaper { position: relative; }
 #pnNewsMaximise {
-  position:absolute; z-index:16; right:9px; bottom:16px;
+  position:absolute; z-index:16; right:9px; bottom:32px;
   box-sizing:border-box; display:grid; place-items:center;
   width:34px; height:34px; min-width:34px; min-height:34px;
   padding:0; margin:0; border:1px solid #4c5a65; border-radius:4px;

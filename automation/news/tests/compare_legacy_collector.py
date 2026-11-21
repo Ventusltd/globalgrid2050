@@ -50,12 +50,39 @@ def run_once(script: Path, feeds: Path, fixtures: Path, repd: Path, dest: Path) 
     return json.loads(dest.read_text(encoding="utf-8"))
 
 
+def ensure_sources_are_additive(base: str) -> None:
+    old = json.loads(git("show", f"{base}:automation/news/pipeline_feeds.json"))
+    new = json.loads((ROOT / "automation/news/pipeline_feeds.json").read_text(encoding="utf-8"))
+    legacy = old["feeds"]
+    feeds = new["feeds"]
+    if feeds[:len(legacy)] != legacy:
+        raise AssertionError("Existing publisher feeds, order, labels or flags modified")
+    if new.get("source_release_id") != "20261121-global-context-v1":
+        raise AssertionError("Unexpected source edition")
+    if len(feeds) <= len(legacy):
+        raise AssertionError("No new sources")
+    urls = [feed["url"] for feed in feeds]
+    if len(set(urls)) != len(urls):
+        raise AssertionError("Duplicate publisher endpoint")
+    for feed in feeds[len(legacy):]:
+        if feed.get("lane") != "global_context" or feed.get("focus") not in ("energy_research", "macro_policy"):
+            raise AssertionError("New sources must stay in isolated world-context lane")
+        if not feed["url"].startswith("https://"):
+            raise AssertionError("Only HTTPS acquisition allowed")
+        if feed.get("kind", "rss") not in ("rss", "html_index", "curated"):
+            raise AssertionError("Unexpected source ingestion kind")
+        if feed.get("kind") == "curated" and not feed.get("title"):
+            raise AssertionError("Curated lead without attributable title")
+    print(f"PASS: {len(legacy)} existing sources unchanged; {len(feeds)-len(legacy)} new isolated sources")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--base", required=True, help="PR Git base, e.g. HEAD^1")
     args = ap.parse_args()
     base = args.base
     ensure_scope(base)
+    ensure_sources_are_additive(base)
     fixtures = ROOT / "automation/news/tests/fixtures/pipeline"
     with tempfile.TemporaryDirectory(prefix="pn-legacy-comparison-") as tmp:
         tmp = Path(tmp)

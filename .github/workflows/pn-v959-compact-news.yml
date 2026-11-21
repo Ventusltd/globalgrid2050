@@ -50,12 +50,12 @@ jobs:
         run: |
           python3 -m http.server 8765 >/tmp/pn-v959-server.log 2>&1 &
           node uk_renewables_pipeline/202611212340/tests/news-maximise.mjs
-      - name: Install V9.58 inherited pinned browser harness
-        working-directory: uk_renewables_pipeline/202611212308
+      - name: Install unchanged V9.57 HUD regression browser harness
+        working-directory: uk_renewables_pipeline/202611201709
         run: npm ci
-      - name: V9.58 inherited gauges ticker and register browser baseline
+      - name: V9.57 original gauges ticker and register browser baseline
         run: |
-          HUD_URL=http://127.0.0.1:8765/uk_renewables_pipeline/202611212308/ HUD_ARTIFACTS=/tmp/pn-v959-baseline node uk_renewables_pipeline/202611212308/tests/hud-v955.mjs
+          HUD_URL=http://127.0.0.1:8765/uk_renewables_pipeline/202611201709/ HUD_ARTIFACTS=/tmp/pn-v959-baseline node uk_renewables_pipeline/202611201709/tests/hud-v955.mjs
       - name: Upload screenshots for visual review
         if: always()
         uses: actions/upload-artifact@v4

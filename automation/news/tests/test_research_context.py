@@ -101,3 +101,17 @@ def test_research_is_lane_capped_without_crowding_original_world_lanes():
     assert P.WORLD_LANE_CAPS["global_context"] >= 25
     assert P.WORLD_LANE_CAPS["china_solar"] == 10
     assert P.WORLD_LANE_CAPS["datacentre_money"] == 10
+
+def test_new_context_never_displaces_existing_headlines_at_capacity():
+    def item(title, url, source, date):
+        return {"title": title, "link": url, "source": source, "date": date,
+                "first_seen": NOW, "category": "grid", "technology": None, "possible_match": None}
+    legacy = [item(f"UK National Grid connection reform {n}",
+                   f"https://example.org/uk-{n}", "Original", "2026-11-19T10:00:00Z") for n in range(3)]
+    extra = [item("Swiss data centres need more electricity grid capacity",
+                  "https://example.org/ch", "Swissgrid", "2026-11-21T10:00:00Z")]
+    got = P.merge([], legacy + extra, P.Repd([]), NOW, cap=3,
+                  lanes={"Swissgrid": "global_context"}, focuses={"Swissgrid": "energy_research"})
+    assert len(got) == 3
+    assert {x["link"] for x in got} == {x["link"] for x in legacy}
+    assert all(x["possible_match"] is None for x in got)

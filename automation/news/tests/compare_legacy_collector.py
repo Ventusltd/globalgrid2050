@@ -16,7 +16,7 @@ import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[3]
-MODULES = ("pipeline_headlines.py", "datacentre_feed.py", "names.py")
+MODULES = ("pipeline_headlines.py", "datacentre_feed.py", "names.py", "research_indexes.py")
 ALLOWED = {
     ".github/workflows/pipeline-headlines.yml",
     "automation/news/pipeline_headlines.py",
@@ -24,6 +24,7 @@ ALLOWED = {
     "automation/news/research_indexes.py",
     "automation/news/tests/test_research_context.py",
     "automation/news/tests/compare_legacy_collector.py",
+    "automation/news/tests/test_spp_verified_public_links.py",
 }
 
 
@@ -36,7 +37,7 @@ def ensure_scope(base: str) -> None:
     forbidden = changed - ALLOWED
     if forbidden:
         raise AssertionError("Unrelated change detected: " + ", ".join(sorted(forbidden)))
-    expected = {"automation/news/pipeline_headlines.py", "automation/news/pipeline_feeds.json"}
+    expected = {"automation/news/pipeline_feeds.json", "automation/news/tests/test_spp_verified_public_links.py"}
     if not expected <= changed:
         raise AssertionError("Expected additive collector/config changes missing")
 
@@ -59,21 +60,26 @@ def ensure_sources_are_additive(base: str) -> None:
         raise AssertionError("Existing publisher feeds, order, labels or flags modified")
     if new.get("source_release_id") != "20261121-global-context-v1":
         raise AssertionError("Unexpected source edition")
-    if len(feeds) <= len(legacy):
-        raise AssertionError("No new sources")
-    urls = [feed["url"] for feed in feeds]
-    if len(set(urls)) != len(urls):
-        raise AssertionError("Duplicate publisher endpoint")
+    if len(feeds) != len(legacy) + 4:
+        raise AssertionError("Only four directly verified public link leads may be appended")
+    if new.get("source_patch_id") != "20261121-spp-verified-links-v1":
+        raise AssertionError("Unapproved source patch ID")
+    if new.get("source_release_id") != old.get("source_release_id"):
+        raise AssertionError("Source release ID must not change")
+    if len({f["url"] for f in feeds}) != len(feeds):
+        raise AssertionError("Duplicate article/source URLs")
+    from urllib.parse import urlsplit
+    allowed_prefixes = ("/battery-storage/", "/solar-finance/",
+                        "/energy-policy/", "/colocation/")
     for feed in feeds[len(legacy):]:
-        if feed.get("lane") != "global_context" or feed.get("focus") not in ("energy_research", "macro_policy"):
-            raise AssertionError("New sources must stay in isolated world-context lane")
-        if not feed["url"].startswith("https://"):
-            raise AssertionError("Only HTTPS acquisition allowed")
-        if feed.get("kind", "rss") not in ("rss", "rss1", "html_index", "curated"):
-            raise AssertionError("Unexpected source ingestion kind")
-        if feed.get("kind") == "curated" and not feed.get("title"):
-            raise AssertionError("Curated lead without attributable title")
-    print(f"PASS: {len(legacy)} existing sources unchanged; {len(feeds)-len(legacy)} new isolated sources")
+        url = urlsplit(feed["url"])
+        if (feed.get("kind") != "curated" or feed.get("source") != "Solar Power Portal"
+                or feed.get("uk_only") is not True or feed.get("date")
+                or not feed.get("title") or not feed.get("reason")
+                or url.scheme != "https" or url.hostname != "www.solarpowerportal.co.uk"
+                or not url.path.startswith(allowed_prefixes)):
+            raise AssertionError("Only attributed, verified, direct public Solar Power Portal links accepted")
+    print(f"PASS: {len(legacy)} existing source configurations unchanged; four direct source links only")
 
 
 def main() -> None:

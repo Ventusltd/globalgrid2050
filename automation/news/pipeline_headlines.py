@@ -182,7 +182,7 @@ RESEARCH_ENERGY = _rx(r"solar|wind (?:power|energy|capacity)|batter(?:y|ies) (?:
                       r"renewables?|power (?:generation|markets?|prices?)|electricity|energy transition")
 
 
-def lane_label(title, lane):
+def lane_label(title, lane, focus=None):
     """World context is attributed discovery, never a REPD fact or implied UK event."""
     if lane == "datacentre_money":
         return ("datacentre", None, None) if AI_INFRA.search(title) and MONEY.search(title) else None
@@ -197,7 +197,7 @@ def lane_label(title, lane):
             return ("grid", None, None)
         if RESEARCH_ENERGY.search(title):
             return ("policy" if POLICY.search(title) else "other", technology_of(title), None)
-        if RESEARCH_MACRO.search(title):
+        if RESEARCH_MACRO.search(title) and focus != "energy_research":
             return ("finance", None, None)
     return None
 
@@ -442,6 +442,8 @@ def collect(feeds, fetch, repd, now_iso):
             else:
                 body = fetch(url)
                 entries = R.index_entries(body, feed) if kind == "html_index" else D.parse_feed(body)
+                if kind == "html_index" and not entries:
+                    raise ValueError("No eligible index links (possible JS rendering, path mismatch or access block)")
         except Exception as error:  # one feed failing never stops the run
             health.append({"url": url, "source": source, "status": "failed",
                            "error": (type(error).__name__ + ": " + str(error))[:200]})
@@ -459,7 +461,7 @@ def collect(feeds, fetch, repd, now_iso):
                 continue
             lane = feed.get("lane")
             if lane in WORLD_LANES:
-                verdict = lane_label(title, lane)
+                verdict = lane_label(title, lane, feed.get("focus"))
             else:
                 if FOREIGN.search(title) and not UK_WORDS.search(title):
                     continue
@@ -573,13 +575,14 @@ def dedupe_titles(items):
     return [{f: k.get(f) for f in ITEM_FIELDS} for k in kept]
 
 
-def merge(previous, incoming, repd, now_iso, cap=MAX_ITEMS, max_age_days=MAX_AGE_DAYS, lanes=None):
+def merge(previous, incoming, repd, now_iso, cap=MAX_ITEMS, max_age_days=MAX_AGE_DAYS, lanes=None, focuses=None):
     """Earlier items are kept (a rolling feed must not make a story vanish) and re-labelled with today's rules.
     Link merge and first_seen are datacentre_feed.merge; then age limit, title dedupe, newest first, cap.
     lanes: {source: lane} from the feed list. A keywords-lane item that was kept on its feed summary keeps the
     labels it was given then, because the summary is not stored and cannot be read again. Each world lane is
     cut to its newest LANE_CAP items."""
     lanes = lanes or {}
+    focuses = focuses or {}
     fresh = {i["link"]: i for i in incoming}
     by_link = D.merge(previous, incoming, cap=10 ** 6)
     cutoff = _shift(now_iso, days=-max_age_days)
@@ -587,7 +590,7 @@ def merge(previous, incoming, repd, now_iso, cap=MAX_ITEMS, max_age_days=MAX_AGE
     for item in by_link:
         lane = lanes.get(item.get("source"))
         if lane in WORLD_LANES:
-            verdict = lane_label(item.get("title", ""), lane)
+            verdict = lane_label(item.get("title", ""), lane, focuses.get(item.get("source")))
         else:
             verdict = label(item.get("title", ""), repd)
         if verdict is None and lane not in WORLD_LANES and (item["link"] in fresh or lane == "keywords") \
@@ -611,8 +614,8 @@ def merge(previous, incoming, repd, now_iso, cap=MAX_ITEMS, max_age_days=MAX_AGE
     return capped[:cap]
 
 
-def build(previous, items, health, repd, now_iso, cap=MAX_ITEMS, lanes=None):
-    merged = merge(previous.get("items", []), items, repd, now_iso, cap, lanes=lanes)
+def build(previous, items, health, repd, now_iso, cap=MAX_ITEMS, lanes=None, focuses=None):
+    merged = merge(previous.get("items", []), items, repd, now_iso, cap, lanes=lanes, focuses=focuses)
     ok = sum(h["status"] == "ok" for h in health)
     by_category = {c: n for c in CATEGORIES if (n := sum(i["category"] == c for i in merged))}
     return {
@@ -691,10 +694,11 @@ def main(argv=None):
 
     feeds.sort(key=lambda f: not f.get("primary"))         # primary sources first; otherwise the order of the list
     lanes = {f["source"]: f["lane"] for f in feeds if f.get("lane")}
+    focuses = {f["source"]: f["focus"] for f in feeds if f.get("focus")}
     primary = list(dict.fromkeys(f["source"] for f in feeds if f.get("primary")))
     items, health = collect(feeds, fetch, repd, now_iso)
     if args.probe:
-        report = probe_report(items, merge([], items, repd, now_iso, args.max_items, lanes=lanes), health, now_iso,
+        report = probe_report(items, merge([], items, repd, now_iso, args.max_items, lanes=lanes, focuses=focuses), health, now_iso,
                               primary, lanes)
         Path(args.probe).write_text(report, encoding="utf-8")
         print(report)
@@ -709,7 +713,7 @@ def main(argv=None):
                 previous = {}
         except ValueError:
             previous = {}
-    result = build(previous, items, health, repd, now_iso, args.max_items, lanes)
+    result = build(previous, items, health, repd, now_iso, args.max_items, lanes, focuses=focuses)
     out.parent.mkdir(parents=True, exist_ok=True)
     tmp = out.with_suffix(".tmp")
     tmp.write_text(json.dumps(result, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")

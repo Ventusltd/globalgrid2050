@@ -1,46 +1,47 @@
 {
  "schema": "globalgrid2050.news.pipeline-headlines.v1",
- "generated_at": "2026-11-21T12:58:22Z",
+ "generated_at": "2026-11-21T21:09:36Z",
  "status": "partial",
  "counts": {
-  "items": 93,
+  "items": 119,
   "with_possible_match": 3,
-  "feeds_ok": 49,
-  "feeds_failed": 1,
+  "feeds_ok": 67,
+  "feeds_failed": 2,
   "by_category": {
    "planning_decision": 6,
    "consent": 10,
    "refusal": 3,
    "dco": 6,
-   "finance": 18,
+   "finance": 34,
    "construction": 9,
    "energisation": 5,
+   "grid": 2,
    "policy": 6,
-   "datacentre": 19,
-   "other": 11
+   "datacentre": 25,
+   "other": 13
   }
  },
  "limits": {
   "max_items": 200,
   "max_age_days": 120
  },
- "scope": "Headlines and links from public RSS and Atom feeds; no article text is stored. Category and technology are labels read from the headline. A possible match is a name coincidence for review, not a confirmed link to a REPD project. Data-centre market headlines and China solar headlines are world news, not UK project news.",
+ "scope": "Headlines and links from public RSS/Atom, English-language institutional indexes and explicitly curated primary-source leads; no article text is stored. Category and technology are labels read from the headline. A possible match is a name coincidence for review, not a confirmed link to a REPD project. Data-centre, China solar and institutional research headlines are world news, not UK project news.",
  "feeds": [
   {
    "url": "https://feeds.bbci.co.uk/news/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 26,
+   "entries": 34,
    "kept": 0,
-   "newest": "2026-11-21T12:52:00Z"
+   "newest": "2026-11-21T19:59:35Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/uk/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 25,
+   "entries": 22,
    "kept": 1,
-   "newest": "2026-11-21T12:52:00Z"
+   "newest": "2026-11-21T19:51:08Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
@@ -64,7 +65,7 @@
    "status": "ok",
    "entries": 42,
    "kept": 0,
-   "newest": "2026-11-21T12:18:55Z"
+   "newest": "2026-11-21T19:33:49Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
@@ -72,39 +73,39 @@
    "status": "ok",
    "entries": 61,
    "kept": 0,
-   "newest": "2026-11-21T10:53:21Z"
+   "newest": "2026-11-21T19:33:49Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 21,
+   "entries": 23,
    "kept": 0,
-   "newest": "2026-11-21T12:24:33Z"
+   "newest": "2026-11-21T20:56:51Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/scotland/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 28,
+   "entries": 23,
    "kept": 0,
-   "newest": "2026-11-21T11:46:46Z"
+   "newest": "2026-11-21T17:44:20Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/wales/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 29,
-   "kept": 1,
-   "newest": "2026-11-21T12:18:35Z"
+   "entries": 26,
+   "kept": 0,
+   "newest": "2026-11-21T18:50:09Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/northern_ireland/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 32,
+   "entries": 33,
    "kept": 0,
-   "newest": "2026-11-21T10:50:48Z"
+   "newest": "2026-11-21T18:46:29Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/oxford/rss.xml",
@@ -112,15 +113,15 @@
    "status": "ok",
    "entries": 28,
    "kept": 0,
-   "newest": "2026-11-21T07:13:50Z"
+   "newest": "2026-11-21T20:07:17Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/lincolnshire/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 17,
+   "entries": 18,
    "kept": 0,
-   "newest": "2026-11-21T10:33:35Z"
+   "newest": "2026-11-21T20:36:43Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/norfolk/rss.xml",
@@ -134,9 +135,9 @@
    "url": "https://feeds.bbci.co.uk/news/england/suffolk/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 19,
+   "entries": 22,
    "kept": 0,
-   "newest": "2026-11-21T12:17:46Z"
+   "newest": "2026-11-21T19:59:02Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/scotland/highlands_and_islands/rss.xml",
@@ -160,7 +161,7 @@
    "status": "ok",
    "entries": 26,
    "kept": 0,
-   "newest": "2026-11-21T09:00:07Z"
+   "newest": "2026-11-21T18:31:49Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/essex/rss.xml",
@@ -176,15 +177,15 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "newest": "2026-11-21T08:59:05Z"
+   "newest": "2026-11-21T19:42:33Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/devon/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 22,
+   "entries": 20,
    "kept": 0,
-   "newest": "2026-11-21T12:24:31Z"
+   "newest": "2026-11-21T19:57:31Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/cornwall/rss.xml",
@@ -192,7 +193,7 @@
    "status": "ok",
    "entries": 17,
    "kept": 0,
-   "newest": "2026-11-21T12:24:31Z"
+   "newest": "2026-11-21T18:02:39Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/somerset/rss.xml",
@@ -200,15 +201,15 @@
    "status": "ok",
    "entries": 36,
    "kept": 0,
-   "newest": "2026-11-21T07:35:11Z"
+   "newest": "2026-11-21T18:43:03Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/gloucestershire/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 42,
+   "entries": 43,
    "kept": 0,
-   "newest": "2026-11-21T07:35:11Z"
+   "newest": "2026-11-21T19:57:31Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/wiltshire/rss.xml",
@@ -216,7 +217,7 @@
    "status": "ok",
    "entries": 33,
    "kept": 0,
-   "newest": "2026-11-21T10:54:41Z"
+   "newest": "2026-11-21T19:25:00Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/york_and_north_yorkshire/rss.xml",
@@ -232,21 +233,21 @@
    "status": "ok",
    "entries": 23,
    "kept": 0,
-   "newest": "2026-11-21T07:16:24Z"
+   "newest": "2026-11-21T14:28:24Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/northamptonshire/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 23,
+   "entries": 24,
    "kept": 0,
-   "newest": "2026-11-21T11:36:24Z"
+   "newest": "2026-11-21T19:57:31Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/leicester/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 23,
+   "entries": 24,
    "kept": 0,
    "newest": "2026-11-21T11:35:44Z"
   },
@@ -254,17 +255,17 @@
    "url": "https://feeds.bbci.co.uk/news/england/hereford_and_worcester/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 28,
+   "entries": 27,
    "kept": 0,
-   "newest": "2026-11-21T11:48:43Z"
+   "newest": "2026-11-21T12:58:00Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/shropshire/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 24,
+   "entries": 25,
    "kept": 0,
-   "newest": "2026-11-21T11:48:43Z"
+   "newest": "2026-11-21T12:58:00Z"
   },
   {
    "url": "https://www.solarpowerportal.co.uk/rss.xml?content_types=article",
@@ -342,7 +343,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "newest": "2026-11-21T09:47:57Z"
+   "newest": "2026-11-21T19:43:52Z"
   },
   {
    "url": "https://www.theguardian.com/environment/windpower/rss",
@@ -382,7 +383,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "newest": "2026-11-21T11:00:28Z"
+   "newest": "2026-11-21T16:00:00Z"
   },
   {
    "url": "https://datacentrereview.com/feed/",
@@ -398,7 +399,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "newest": "2026-11-21T10:11:29Z"
+   "newest": "2026-11-21T19:02:24Z"
   },
   {
    "url": "https://www.bloomberg.com/feeds/markets/news.rss",
@@ -406,15 +407,15 @@
    "status": "ok",
    "entries": 20,
    "kept": 1,
-   "newest": "2026-11-21T11:44:46Z"
+   "newest": "2026-11-21T17:01:32Z"
   },
   {
    "url": "https://www.bloomberg.com/feeds/industries/news.rss",
    "source": "Bloomberg",
    "status": "ok",
-   "entries": 19,
+   "entries": 12,
    "kept": 0,
-   "newest": "2026-11-21T06:20:08Z"
+   "newest": "2026-11-21T16:00:00Z"
   },
   {
    "url": "https://www.pv-magazine.com/feed/",
@@ -423,9 +424,229 @@
    "entries": 10,
    "kept": 0,
    "newest": "2026-11-21T09:30:00Z"
+  },
+  {
+   "url": "https://www.bankofengland.co.uk/rss/news",
+   "source": "Bank of England",
+   "status": "ok",
+   "entries": 50,
+   "kept": 6,
+   "newest": "2026-11-19T08:00:00Z"
+  },
+  {
+   "url": "https://www.federalreserve.gov/feeds/press_all.xml",
+   "source": "Federal Reserve",
+   "status": "ok",
+   "entries": 20,
+   "kept": 0,
+   "newest": "2026-11-20T21:15:00Z"
+  },
+  {
+   "url": "https://www.gov.uk/government/organisations/hm-treasury.atom",
+   "source": "HM Treasury",
+   "status": "ok",
+   "entries": 20,
+   "kept": 0,
+   "newest": "2026-11-20T13:09:59Z"
+  },
+  {
+   "url": "https://www.cnbc.com/id/20910258/device/rss/rss.html",
+   "source": "CNBC Economy",
+   "status": "ok",
+   "entries": 30,
+   "kept": 9,
+   "newest": "2026-11-21T15:04:56Z"
+  },
+  {
+   "url": "https://feeds.content.dowjones.io/public/rss/RSSMarketsMain",
+   "source": "Wall Street Journal Markets",
+   "status": "ok",
+   "entries": 61,
+   "kept": 3,
+   "newest": "2026-11-21T20:45:00Z"
+  },
+  {
+   "url": "https://www.deloitte.com/ch/en/about/press-room.html",
+   "source": "Deloitte Switzerland",
+   "status": "failed",
+   "error": "ValueError: No eligible index links (possible JS rendering, path mismatch or access block)"
+  },
+  {
+   "url": "https://www.deloitte.com/ch/en/Industries/energy.html",
+   "source": "Deloitte Switzerland Energy",
+   "status": "ok",
+   "entries": 2,
+   "kept": 0,
+   "newest": null
+  },
+  {
+   "url": "https://www.swissgrid.ch/swissgrid/en/home/newsroom/newsfeed.html",
+   "source": "Swissgrid",
+   "status": "ok",
+   "entries": 3,
+   "kept": 1,
+   "newest": null
+  },
+  {
+   "url": "https://cdn.prod.swi-services.ch/rss/eng/rssxml/latest-news/rss",
+   "source": "SWI swissinfo.ch",
+   "status": "ok",
+   "entries": 30,
+   "kept": 1,
+   "newest": "2026-11-21T12:42:23Z"
+  },
+  {
+   "url": "https://www.dnv.com/energy/news/",
+   "source": "DNV Energy",
+   "status": "ok",
+   "entries": 1,
+   "kept": 0,
+   "newest": null
+  },
+  {
+   "url": "https://www.dnv.com/news/",
+   "source": "DNV",
+   "status": "ok",
+   "entries": 9,
+   "kept": 0,
+   "newest": null
+  },
+  {
+   "url": "https://feeds.feedburner.com/GlobalPressRoom",
+   "source": "PwC Global Press Room",
+   "status": "ok",
+   "entries": 197,
+   "kept": 2,
+   "newest": "2024-03-19T04:16:00Z"
+  },
+  {
+   "url": "https://www.ey.com/en_gl/industries/industrials-energy",
+   "source": "EY",
+   "status": "ok",
+   "entries": 23,
+   "kept": 0,
+   "newest": null
+  },
+  {
+   "url": "https://kpmg.com/uk/en/insights/energy.html",
+   "source": "KPMG",
+   "status": "ok",
+   "entries": 8,
+   "kept": 0,
+   "newest": null
+  },
+  {
+   "url": "https://www.deloitte.com/ch/en/about/press-room/studie-zu-rechenzentren-zeigt-der-eigentliche-engpass-liegt-im-netz.html",
+   "source": "Deloitte Switzerland (curated; not fetched)",
+   "status": "ok",
+   "entries": 1,
+   "kept": 1,
+   "newest": null
+  },
+  {
+   "url": "https://www.deloitte.com/ch/en/Industries/energy/perspectives/rechenzentren-in-der-schweiz.html",
+   "source": "Deloitte Switzerland Study (curated; not fetched)",
+   "status": "ok",
+   "entries": 1,
+   "kept": 1,
+   "newest": null
+  },
+  {
+   "url": "https://www.snb.ch/public/rss/en/mopo",
+   "source": "Swiss National Bank",
+   "status": "ok",
+   "entries": 15,
+   "kept": 8,
+   "newest": "2026-09-30T13:00:00Z"
+  },
+  {
+   "url": "https://www.snb.ch/public/rss/en/pressrel",
+   "source": "Swiss National Bank",
+   "status": "ok",
+   "entries": 20,
+   "kept": 3,
+   "newest": "2026-10-30T06:15:00Z"
+  },
+  {
+   "url": "https://www.strom.ch/en/perspective/articles",
+   "source": "Swiss Electricity Association (VSE)",
+   "status": "ok",
+   "entries": 12,
+   "kept": 3,
+   "newest": null
   }
  ],
  "items": [
+  {
+   "title": "1 October 2026 | Media release First half of 2026: Less control energy deployed, procurement costs halved In the first half of 2026, the Swiss electricity system benefited from lower procurement costs thanks to a new imbalance energy price mechanism. Read article",
+   "link": "https://www.swissgrid.ch/en/home/newsroom/newsfeed/20261001-01.html",
+   "source": "Swissgrid",
+   "date": null,
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "other",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Switzerland's energy transition is entering the era of conductors",
+   "link": "https://www.strom.ch/en/perspective/switzerlands-energy-transition-entering-era-conductors",
+   "source": "Swiss Electricity Association (VSE)",
+   "date": null,
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "grid",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "ICT minimum standard for electricity: from individual checks to reliable skills",
+   "link": "https://www.strom.ch/en/perspective/ict-minimum-standard-electricity-individual-checks-reliable-skills",
+   "source": "Swiss Electricity Association (VSE)",
+   "date": null,
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "other",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Flexibility management: From grid operator to systems integrator",
+   "link": "https://www.strom.ch/en/perspective/flexibility-management-grid-operator-systems-integrator",
+   "source": "Swiss Electricity Association (VSE)",
+   "date": null,
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "grid",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "A study on data centres shows that the real bottleneck lies in the grid",
+   "link": "https://www.deloitte.com/ch/en/about/press-room/studie-zu-rechenzentren-zeigt-der-eigentliche-engpass-liegt-im-netz.html",
+   "source": "Deloitte Switzerland",
+   "date": null,
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Data centres in Switzerland: electricity grids and digital sovereignty",
+   "link": "https://www.deloitte.com/ch/en/Industries/energy/perspectives/rechenzentren-in-der-schweiz.html",
+   "source": "Deloitte Switzerland Study",
+   "date": null,
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Goldman Sachs, Apollo Price $32 Billion SpaceX Bonds to Fund AI Chip Purchases",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-21/goldman-s-spacex-pitch-helps-solve-ai-debt-puzzle-credit-weekly",
+   "source": "Bloomberg",
+   "date": "2026-11-21T15:31:22Z",
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
   {
    "title": "MP opposing data centre joins government committee",
    "link": "https://www.bbc.co.uk/news/articles/c6j9m2rg42n2o",
@@ -487,6 +708,26 @@
    "possible_match": null
   },
   {
+   "title": "Data Centers Are the Growth Engine of America’s Power Grid",
+   "link": "https://www.wsj.com/finance/investing/data-centers-are-the-growth-engine-of-americas-power-grid-e16e0eaa?mod=rss_markets_main",
+   "source": "Wall Street Journal Markets",
+   "date": "2026-11-20T11:25:00Z",
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Grabbing Inflation Protection Now Is a No-Brainer",
+   "link": "https://www.wsj.com/finance/investing/grabbing-inflation-protection-now-is-a-no-brainer-45a6364e?mod=rss_markets_main",
+   "source": "Wall Street Journal Markets",
+   "date": "2026-11-20T11:16:00Z",
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "finance",
+   "technology": null,
+   "possible_match": null
+  },
+  {
    "title": "Nexalus and Renda launch liquid-cooled AI server for data center retrofit market",
    "link": "https://www.datacenterdynamics.com/en/news/nexalus-and-renda-launch-liquid-cooled-ai-server-for-data-center-retrofit-market/",
    "source": "DatacenterDynamics",
@@ -537,6 +778,16 @@
    "possible_match": null
   },
   {
+   "title": "Data centres will need 10% of Swiss electricity by 2050",
+   "link": "https://www.swissinfo.ch/eng/swiss-ai/data-centres-will-account-for-10-per-cent-of-switzerlands-electricity-consumption/92411117",
+   "source": "SWI swissinfo.ch",
+   "date": "2026-11-20T07:50:56Z",
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
    "title": "Watchdog calls for pause on AI data centres in Wales",
    "link": "https://www.bbc.co.uk/news/articles/c6q8lyv85d80o",
    "source": "BBC News",
@@ -553,6 +804,16 @@
    "date": "2026-11-20T01:49:55Z",
    "first_seen": "2026-11-20T13:32:23Z",
    "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Japan core inflation soars to highest this year as energy subsidy expiry pushes up consumer prices",
+   "link": "https://www.cnbc.com/2026/11/20/japan-inflation-cpi-october.html",
+   "source": "CNBC Economy",
+   "date": "2026-11-20T01:49:03Z",
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "finance",
    "technology": null,
    "possible_match": null
   },
@@ -617,16 +878,6 @@
    "possible_match": null
   },
   {
-   "title": "European Stocks Flat as Anthropic IPO Revives the AI Trade",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-19/european-stocks-rebound-as-anthropic-ipo-revives-the-ai-trade",
-   "source": "Bloomberg",
-   "date": "2026-11-19T08:17:24Z",
-   "first_seen": "2026-11-19T13:50:45Z",
-   "category": "datacentre",
-   "technology": null,
-   "possible_match": null
-  },
-  {
    "title": "Plan to store wind farm parts at Skye's Broadford Aerodrome",
    "link": "https://www.bbc.co.uk/news/articles/c6g7lznk1z1po",
    "source": "BBC News",
@@ -657,12 +908,32 @@
    "possible_match": null
   },
   {
+   "title": "Southeast Asia’s data center boom leaned on Chinese demand. New U.S. rules put that pipeline at risk",
+   "link": "https://www.cnbc.com/2026/11/18/nvidia-us-ai-chip-export-controls-data-centers-.html",
+   "source": "CNBC Economy",
+   "date": "2026-11-18T14:09:26Z",
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
    "title": "Council gets most representations ever over data centre",
    "link": "https://www.bbc.co.uk/news/articles/cm930l51d387o",
    "source": "BBC News",
    "date": "2026-11-18T09:32:48Z",
    "first_seen": "2026-11-18T13:23:36Z",
    "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Record diesel prices drive UK inflation to 1-year high of 3.6%",
+   "link": "https://www.cnbc.com/2026/11/18/uk-inflation-cpi-fuel-prices.html",
+   "source": "CNBC Economy",
+   "date": "2026-11-18T07:57:37Z",
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "finance",
    "technology": null,
    "possible_match": null
   },
@@ -764,6 +1035,16 @@
    "first_seen": "2026-11-16T18:08:01Z",
    "category": "planning_decision",
    "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Big Tech Needs to Spread Its Bets on Data Centers",
+   "link": "https://www.wsj.com/tech/ai/big-tech-needs-to-spread-its-bets-on-data-centers-7550357f?mod=rss_markets_main",
+   "source": "Wall Street Journal Markets",
+   "date": "2026-11-16T10:30:00Z",
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "datacentre",
+   "technology": null,
    "possible_match": null
   },
   {
@@ -971,6 +1252,16 @@
    "possible_match": null
   },
   {
+   "title": "Consumer prices rose 0.4% in October, more than expected, complicating Fed's inflation fight",
+   "link": "https://www.cnbc.com/2026/11/10/cpi-inflation-report-october-2026.html",
+   "source": "CNBC Economy",
+   "date": "2026-11-10T23:53:58Z",
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "finance",
+   "technology": null,
+   "possible_match": null
+  },
+  {
    "title": "Karpowership acquires UK 100MWh BESS site for development",
    "link": "https://www.solarpowerportal.co.uk/solar-finance/karpowership-acquires-inland-uk-100mwh-bess-site-for-development",
    "source": "Solar Power Portal",
@@ -988,6 +1279,26 @@
    "first_seen": "2026-11-14T10:47:43Z",
    "category": "finance",
    "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "A key report for where inflation stood in October comes out Tuesday. Here's what to expect",
+   "link": "https://www.cnbc.com/2026/11/09/october-cpi-report-2026-inflation.html",
+   "source": "CNBC Economy",
+   "date": "2026-11-09T21:03:55Z",
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "finance",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "China wholesale inflation hits highest in more than four years as consumer measure slows",
+   "link": "https://www.cnbc.com/2026/11/09/china-wholesale-inflation-rises-consumer.html",
+   "source": "CNBC Economy",
+   "date": "2026-11-09T02:50:22Z",
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "finance",
+   "technology": null,
    "possible_match": null
   },
   {
@@ -1011,6 +1322,16 @@
    "possible_match": null
   },
   {
+   "title": "Bank of England hikes interest rate for the first time since Iran war, warns inflation will near 5%",
+   "link": "https://www.cnbc.com/2026/11/05/interest-rates-inflation-uk.html",
+   "source": "CNBC Economy",
+   "date": "2026-11-05T16:01:47Z",
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "finance",
+   "technology": null,
+   "possible_match": null
+  },
+  {
    "title": "How delay to next CfD auction affects UK solar",
    "link": "https://www.solarpowerportal.co.uk/energy-policy/how-delay-to-next-cfd-auction-affects-uk-solar",
    "source": "Solar Power Portal",
@@ -1021,6 +1342,16 @@
    "possible_match": null
   },
   {
+   "title": "Bank rate increased to 4% - November 2026 Monetary Policy Summary and Minutes",
+   "link": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/november-2026",
+   "source": "Bank of England",
+   "date": "2026-11-05T12:00:00Z",
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "finance",
+   "technology": null,
+   "possible_match": null
+  },
+  {
    "title": "Energy Independence Bill to mandate community benefit funds for UK solar",
    "link": "https://www.solarpowerportal.co.uk/energy-policy/energy-independence-bill-to-mandate-community-benefit-funds-for-uk-solar",
    "source": "Solar Power Portal",
@@ -1028,6 +1359,16 @@
    "first_seen": "2026-11-14T10:47:43Z",
    "category": "policy",
    "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Euro zone inflation hits 4% for first time in three years as interest rate hike looms",
+   "link": "https://www.cnbc.com/2026/11/04/euro-zone-cpi-inflation-october-ecb-rate-hike.html",
+   "source": "CNBC Economy",
+   "date": "2026-11-04T10:47:30Z",
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "finance",
+   "technology": null,
    "possible_match": null
   },
   {
@@ -1058,6 +1399,16 @@
    "first_seen": "2026-11-14T10:47:43Z",
    "category": "energisation",
    "technology": "battery",
+   "possible_match": null
+  },
+  {
+   "title": "Australia hikes rates to 18-year high to fight inflation",
+   "link": "https://www.cnbc.com/2026/11/03/australia-hikes-rates-18-year-high-finflation.html",
+   "source": "CNBC Economy",
+   "date": "2026-11-03T03:46:20Z",
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "finance",
+   "technology": null,
    "possible_match": null
   },
   {
@@ -1111,6 +1462,16 @@
    "date": "2026-10-30T16:32:23Z",
    "first_seen": "2026-11-14T10:47:43Z",
    "category": "consent",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Remit for the Monetary Policy Committee - October 2026",
+   "link": "https://www.bankofengland.co.uk/letter/2026/mpc-remit-2026",
+   "source": "Bank of England",
+   "date": "2026-10-28T14:16:49Z",
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "finance",
    "technology": null,
    "possible_match": null
   },
@@ -1339,6 +1700,46 @@
    "possible_match": null
   },
   {
+   "title": "2026-09-24 - Monetary policy assessment of 24 September 2026",
+   "link": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
+   "source": "Swiss National Bank",
+   "date": "2026-09-24T07:30:00Z",
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "finance",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Monetary Policy Committee dates for 2027",
+   "link": "https://www.bankofengland.co.uk/news/2026/september/mpc-dates-for-2027",
+   "source": "Bank of England",
+   "date": "2026-09-17T13:30:00Z",
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "finance",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Bank rate maintained at 3.75% - September 2026 Monetary Policy Summary and Minutes",
+   "link": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
+   "source": "Bank of England",
+   "date": "2026-09-17T11:00:00Z",
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "finance",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Exchange of letters between the Governor and the Chancellor regarding CPI Inflation - September 2026",
+   "link": "https://www.bankofengland.co.uk/letter/2026/cpi-inflation-september-2026",
+   "source": "Bank of England",
+   "date": "2026-09-17T11:00:00Z",
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "finance",
+   "technology": null,
+   "possible_match": null
+  },
+  {
    "title": "Morgan and Morecambe Offshore Wind Farms Transmission Assets development consent decision announced",
    "link": "https://www.gov.uk/government/news/morgan-and-morecambe-offshore-wind-farms-transmission-assets-development-consent-decision-announced",
    "source": "GOV.UK Planning Inspectorate",
@@ -1365,6 +1766,16 @@
    "date": "2026-08-21T13:34:45Z",
    "first_seen": "2026-11-14T10:47:43Z",
    "category": "dco",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Bank Rate maintained at 3.75% - July 2026 Monetary Policy Summary and Minutes",
+   "link": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/july-2026",
+   "source": "Bank of England",
+   "date": "2026-07-30T11:00:00Z",
+   "first_seen": "2026-11-21T21:09:36Z",
+   "category": "finance",
    "technology": null,
    "possible_match": null
   }

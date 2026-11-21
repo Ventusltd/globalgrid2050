@@ -1,26 +1,26 @@
 {
  "schema": "project-signals.v2",
- "generated_at": "2026-11-21T13:39:23Z",
- "run_at": "2026-11-21T14:07:23Z",
+ "generated_at": "2026-11-21T22:19:26Z",
+ "run_at": "2026-11-21T22:46:45Z",
  "stale": false,
  "scope": "200 largest Solar Photovoltaics rows, REPD October 2026",
  "recent_days": 90,
  "parts": {
   "official": {
    "status": "ok",
-   "collected_at": "2026-11-21T13:34:52Z",
+   "collected_at": "2026-11-21T22:14:50Z",
    "items": 109,
    "note": ""
   },
   "trade": {
    "status": "ok",
-   "collected_at": "2026-11-21T13:39:10Z",
+   "collected_at": "2026-11-21T22:19:08Z",
    "items": 192,
    "note": ""
   },
   "index": {
    "status": "ok",
-   "collected_at": "2026-11-21T13:39:23Z",
+   "collected_at": "2026-11-21T22:19:26Z",
    "items": 17,
    "note": ""
   },
@@ -32,7 +32,7 @@
   },
   "planning": {
    "status": "ok",
-   "collected_at": "2026-11-21T14:01:24Z",
+   "collected_at": "2026-11-21T22:40:47Z",
    "items": 200,
    "note": ""
   }
@@ -228,8 +228,8 @@
    "id": "gdelt-doc",
    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
    "status": "partial",
-   "requests": 54,
-   "failures": 42,
+   "requests": 53,
+   "failures": 43,
    "items": 13,
    "error": "time budget for GDELT reached; the rest are asked on later runs; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   }
@@ -7199,7 +7199,7 @@
     "link_type": "search",
     "authority": "South Kesteven",
     "reference": "S21/1018",
-    "url": "https://pa.southkesteven.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+    "url": "https://www.southkesteven.gov.uk/",
     "kind": "search_page",
     "verified": false,
     "note": "Search the register for S21/1018."
@@ -8412,7 +8412,7 @@
     "link_type": "search",
     "authority": "South Kesteven",
     "reference": "S20/1433",
-    "url": "https://pa.southkesteven.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+    "url": "https://www.southkesteven.gov.uk/",
     "kind": "search_page",
     "verified": false,
     "note": "Search the register for S20/1433."

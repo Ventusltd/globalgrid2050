@@ -441,7 +441,8 @@ def collect(feeds, fetch, repd, now_iso):
                 entries = [(feed["title"], url, feed.get("date"), "")]
             else:
                 body = fetch(url)
-                entries = R.index_entries(body, feed) if kind == "html_index" else D.parse_feed(body)
+                entries = (R.index_entries(body, feed) if kind == "html_index" else
+                           R.rss1_entries(body) if kind == "rss1" else D.parse_feed(body))
                 if kind == "html_index" and not entries:
                     raise ValueError("No eligible index links (possible JS rendering, path mismatch or access block)")
         except Exception as error:  # one feed failing never stops the run

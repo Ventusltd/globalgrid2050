@@ -473,7 +473,7 @@ def collect(feeds, fetch, repd, now_iso):
             items.append({"_feed": url, "title": title, "link": link, "source": source, "date": date, "first_seen": now_iso,
                           "category": verdict[0], "technology": verdict[1], "possible_match": verdict[2]})
             kept += 1
-        health.append({"url": url, "source": source, "status": "ok", "entries": len(entries), "kept": kept,
+        health.append({"url": url, "source": source + (" (curated; not fetched)" if kind == "curated" else ""), "status": "ok", "entries": len(entries), "kept": kept,
                        "newest": newest})
     return items, health
 

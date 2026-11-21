@@ -1,73 +1,472 @@
 {
- "note": "Feeds read by automation/news/pipeline_headlines.py, fetched in this order: BBC News first, Solar Power Portal second (primary true), then the rest. Edit this list to add or drop a feed; no code change is needed. lane keywords (BBC News) = an item whose title or feed summary says solar or data centre is kept even without an event word. lane datacentre_money and lane china_solar = narrow world-news lanes, newest 10 each. No lane = the event-word rule. uk_only true = no UK word is required in the headline (a headline naming another country is still dropped). A source label belongs to one lane only. The original 50 feeds were tested on 14 November 2026; added sources need their own live probe.",
- "feeds": [
-  {"url": "https://feeds.bbci.co.uk/news/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/uk/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/business/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/technology/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/politics/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/england/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/scotland/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/wales/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/northern_ireland/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/england/oxford/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/england/lincolnshire/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/england/norfolk/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/england/suffolk/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/scotland/highlands_and_islands/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/england/cambridgeshire/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/england/nottingham/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/england/essex/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/england/kent/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/england/devon/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/england/cornwall/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/england/somerset/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/england/gloucestershire/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/england/wiltshire/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/england/york_and_north_yorkshire/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/england/humberside/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/england/northamptonshire/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/england/leicester/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/england/hereford_and_worcester/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://feeds.bbci.co.uk/news/england/shropshire/rss.xml", "source": "BBC News", "uk_only": true, "lane": "keywords", "primary": true},
-  {"url": "https://www.solarpowerportal.co.uk/rss.xml?content_types=article", "source": "Solar Power Portal", "uk_only": true, "primary": true},
-  {"url": "https://www.gov.uk/search/news-and-communications.atom?organisations%5B%5D=planning-inspectorate", "source": "GOV.UK Planning Inspectorate", "uk_only": true},
-  {"url": "https://www.gov.uk/search/news-and-communications.atom?organisations%5B%5D=department-for-energy-security-and-net-zero", "source": "GOV.UK DESNZ", "uk_only": true},
-  {"url": "https://www.gov.uk/search/news-and-communications.atom?keywords=solar+farm&order=updated-newest", "source": "GOV.UK", "uk_only": true},
-  {"url": "https://www.gov.uk/search/news-and-communications.atom?keywords=data+centre", "source": "GOV.UK", "uk_only": true},
-  {"url": "https://www.energy-storage.news/feed/", "source": "Energy-Storage.news", "uk_only": false},
-  {"url": "https://www.pv-tech.org/feed/", "source": "PV Tech", "uk_only": false},
-  {"url": "https://feeds.feedburner.com/Renews-RenewableEnergyNews", "source": "reNEWS", "uk_only": false},
-  {"url": "https://www.offshorewind.biz/feed/", "source": "offshoreWIND.biz", "uk_only": false},
-  {"url": "https://www.theguardian.com/environment/energy/rss", "source": "The Guardian", "uk_only": false},
-  {"url": "https://www.theguardian.com/environment/windpower/rss", "source": "The Guardian", "uk_only": false},
-  {"url": "https://www.lincolnshire.gov.uk/rss/news", "source": "Lincolnshire County Council", "uk_only": true},
-  {"url": "https://www.constructionenquirer.com/feed/", "source": "Construction Enquirer", "uk_only": true},
-  {"url": "https://www.planningresource.co.uk/rss/news", "source": "Planning Resource", "uk_only": true},
-  {"url": "https://www.datacenterdynamics.com/rss/", "source": "DatacenterDynamics", "uk_only": false, "lane": "datacentre_money"},
-  {"url": "https://datacentrereview.com/feed/", "source": "Data Centre Review", "uk_only": false, "lane": "datacentre_money"},
-  {"url": "https://www.bloomberg.com/feeds/technology/news.rss", "source": "Bloomberg", "uk_only": false, "lane": "datacentre_money"},
-  {"url": "https://www.bloomberg.com/feeds/markets/news.rss", "source": "Bloomberg", "uk_only": false, "lane": "datacentre_money"},
-  {"url": "https://www.bloomberg.com/feeds/industries/news.rss", "source": "Bloomberg", "uk_only": false, "lane": "datacentre_money"},
-  {"url": "https://www.pv-magazine.com/feed/", "source": "pv magazine", "uk_only": false, "lane": "china_solar"},
-  {"url":"https://www.bankofengland.co.uk/rss/news","source":"Bank of England","uk_only":false,"lane":"global_context"},
-  {"url":"https://www.federalreserve.gov/feeds/press_all.xml","source":"Federal Reserve","uk_only":false,"lane":"global_context"},
-  {"url":"https://www.gov.uk/government/organisations/hm-treasury.atom","source":"HM Treasury","uk_only":false,"lane":"global_context"},
-  {"url":"https://www.cnbc.com/id/20910258/device/rss/rss.html","source":"CNBC Economy","uk_only":false,"lane":"global_context"},
-  {"url":"https://feeds.content.dowjones.io/public/rss/RSSMarketsMain","source":"Wall Street Journal Markets","uk_only":false,"lane":"global_context"},
-  {"url":"https://www.deloitte.com/ch/en/about/press-room.html","source":"Deloitte Switzerland","uk_only":false,"lane":"global_context","kind":"html_index","article_prefixes":["/ch/en/about/press-room/"],"english_only":true},
-  {"url":"https://www.deloitte.com/ch/en/Industries/energy.html","source":"Deloitte Switzerland Energy","uk_only":false,"lane":"global_context","kind":"html_index","article_prefixes":["/ch/en/Industries/energy/"],"english_only":true},
-  {"url":"https://www.swissgrid.ch/swissgrid/en/home/newsroom/newsfeed.html","source":"Swissgrid","uk_only":false,"lane":"global_context","kind":"html_index","article_prefixes":["/swissgrid/en/home/newsroom/newsfeed/","/en/home/newsroom/newsfeed/"],"english_only":true},
-  {"url":"https://www.swissinfo.ch/eng/","source":"SWI swissinfo.ch","uk_only":false,"lane":"global_context","kind":"html_index","article_prefixes":["/eng/"],"english_only":true},
-  {"url":"https://www.dnv.com/energy/news/","source":"DNV Energy","uk_only":false,"lane":"global_context","kind":"html_index","article_prefixes":["/energy/news/"],"english_only":false},
-  {"url":"https://www.dnv.com/news/","source":"DNV","uk_only":false,"lane":"global_context","kind":"html_index","article_prefixes":["/news/"],"english_only":false},
-  {"url":"https://www.pwc.com/gx/en/industries/energy-utilities-resources.html","source":"PwC","uk_only":false,"lane":"global_context","kind":"html_index","article_prefixes":["/gx/en/industries/energy-utilities-resources/","/gx/en/issues/"],"english_only":true},
-  {"url":"https://www.ey.com/en_gl/industries/industrials-energy","source":"EY","uk_only":false,"lane":"global_context","kind":"html_index","article_prefixes":["/en_gl/insights/","/en_gl/industries/"],"english_only":true},
-  {"url":"https://kpmg.com/uk/en/insights/energy.html","source":"KPMG","uk_only":false,"lane":"global_context","kind":"html_index","article_prefixes":["/uk/en/insights/"],"english_only":true},
-  {"url":"https://www.deloitte.com/ch/en/about/press-room/studie-zu-rechenzentren-zeigt-der-eigentliche-engpass-liegt-im-netz.html","source":"Deloitte Switzerland","title":"A study on data centres shows that the real bottleneck lies in the grid","uk_only":false,"lane":"global_context","kind":"curated"},
-  {"url":"https://www.dnv.com/energy-transition-outlook/2026/","source":"DNV","title":"Energy Transition Outlook 2026: grid, storage and renewable power investment","uk_only":false,"lane":"global_context","kind":"curated"},
-  {"url":"https://kpmg.com/xx/en/our-insights/ai-and-technology/powering-the-ai-revolution.html","source":"KPMG","title":"Future forward: Powering the AI revolution and data centre grid connections","uk_only":false,"lane":"global_context","kind":"curated"},
-  {"url":"https://www.swissinfo.ch/eng/swiss-ai/data-centres-will-account-for-10-per-cent-of-switzerlands-electricity-consumption/92411117","source":"SWI swissinfo.ch","title":"Data centres will need 10% of Swiss electricity by 2050","uk_only":false,"lane":"global_context","kind":"curated"}
- ]
+  "note": "Feeds read by automation/news/pipeline_headlines.py, fetched in this order: BBC News first, Solar Power Portal second (primary true), then the rest. Edit this list to add or drop a feed; no code change is needed. lane keywords (BBC News) = an item whose title or feed summary says solar or data centre is kept even without an event word. lane datacentre_money and lane china_solar = narrow world-news lanes, newest 10 each. No lane = the event-word rule. uk_only true = no UK word is required in the headline (a headline naming another country is still dropped). A source label belongs to one lane only. The original 50 feeds were tested on 14 November 2026; added sources need their own live probe.",
+  "feeds": [
+    {
+      "url": "https://feeds.bbci.co.uk/news/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/uk/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/technology/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/scotland/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/wales/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/northern_ireland/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/oxford/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/lincolnshire/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/norfolk/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/suffolk/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/scotland/highlands_and_islands/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/cambridgeshire/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/nottingham/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/essex/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/kent/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/devon/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/cornwall/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/somerset/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/gloucestershire/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/wiltshire/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/york_and_north_yorkshire/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/humberside/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/northamptonshire/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/leicester/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/hereford_and_worcester/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/england/shropshire/rss.xml",
+      "source": "BBC News",
+      "uk_only": true,
+      "lane": "keywords",
+      "primary": true
+    },
+    {
+      "url": "https://www.solarpowerportal.co.uk/rss.xml?content_types=article",
+      "source": "Solar Power Portal",
+      "uk_only": true,
+      "primary": true
+    },
+    {
+      "url": "https://www.gov.uk/search/news-and-communications.atom?organisations%5B%5D=planning-inspectorate",
+      "source": "GOV.UK Planning Inspectorate",
+      "uk_only": true
+    },
+    {
+      "url": "https://www.gov.uk/search/news-and-communications.atom?organisations%5B%5D=department-for-energy-security-and-net-zero",
+      "source": "GOV.UK DESNZ",
+      "uk_only": true
+    },
+    {
+      "url": "https://www.gov.uk/search/news-and-communications.atom?keywords=solar+farm&order=updated-newest",
+      "source": "GOV.UK",
+      "uk_only": true
+    },
+    {
+      "url": "https://www.gov.uk/search/news-and-communications.atom?keywords=data+centre",
+      "source": "GOV.UK",
+      "uk_only": true
+    },
+    {
+      "url": "https://www.energy-storage.news/feed/",
+      "source": "Energy-Storage.news",
+      "uk_only": false
+    },
+    {
+      "url": "https://www.pv-tech.org/feed/",
+      "source": "PV Tech",
+      "uk_only": false
+    },
+    {
+      "url": "https://feeds.feedburner.com/Renews-RenewableEnergyNews",
+      "source": "reNEWS",
+      "uk_only": false
+    },
+    {
+      "url": "https://www.offshorewind.biz/feed/",
+      "source": "offshoreWIND.biz",
+      "uk_only": false
+    },
+    {
+      "url": "https://www.theguardian.com/environment/energy/rss",
+      "source": "The Guardian",
+      "uk_only": false
+    },
+    {
+      "url": "https://www.theguardian.com/environment/windpower/rss",
+      "source": "The Guardian",
+      "uk_only": false
+    },
+    {
+      "url": "https://www.lincolnshire.gov.uk/rss/news",
+      "source": "Lincolnshire County Council",
+      "uk_only": true
+    },
+    {
+      "url": "https://www.constructionenquirer.com/feed/",
+      "source": "Construction Enquirer",
+      "uk_only": true
+    },
+    {
+      "url": "https://www.planningresource.co.uk/rss/news",
+      "source": "Planning Resource",
+      "uk_only": true
+    },
+    {
+      "url": "https://www.datacenterdynamics.com/rss/",
+      "source": "DatacenterDynamics",
+      "uk_only": false,
+      "lane": "datacentre_money"
+    },
+    {
+      "url": "https://datacentrereview.com/feed/",
+      "source": "Data Centre Review",
+      "uk_only": false,
+      "lane": "datacentre_money"
+    },
+    {
+      "url": "https://www.bloomberg.com/feeds/technology/news.rss",
+      "source": "Bloomberg",
+      "uk_only": false,
+      "lane": "datacentre_money"
+    },
+    {
+      "url": "https://www.bloomberg.com/feeds/markets/news.rss",
+      "source": "Bloomberg",
+      "uk_only": false,
+      "lane": "datacentre_money"
+    },
+    {
+      "url": "https://www.bloomberg.com/feeds/industries/news.rss",
+      "source": "Bloomberg",
+      "uk_only": false,
+      "lane": "datacentre_money"
+    },
+    {
+      "url": "https://www.pv-magazine.com/feed/",
+      "source": "pv magazine",
+      "uk_only": false,
+      "lane": "china_solar"
+    },
+    {
+      "url": "https://www.bankofengland.co.uk/rss/news",
+      "source": "Bank of England",
+      "uk_only": false,
+      "lane": "global_context"
+    },
+    {
+      "url": "https://www.federalreserve.gov/feeds/press_all.xml",
+      "source": "Federal Reserve",
+      "uk_only": false,
+      "lane": "global_context"
+    },
+    {
+      "url": "https://www.gov.uk/government/organisations/hm-treasury.atom",
+      "source": "HM Treasury",
+      "uk_only": false,
+      "lane": "global_context"
+    },
+    {
+      "url": "https://www.cnbc.com/id/20910258/device/rss/rss.html",
+      "source": "CNBC Economy",
+      "uk_only": false,
+      "lane": "global_context"
+    },
+    {
+      "url": "https://feeds.content.dowjones.io/public/rss/RSSMarketsMain",
+      "source": "Wall Street Journal Markets",
+      "uk_only": false,
+      "lane": "global_context"
+    },
+    {
+      "url": "https://www.deloitte.com/ch/en/about/press-room.html",
+      "source": "Deloitte Switzerland",
+      "uk_only": false,
+      "lane": "global_context",
+      "kind": "html_index",
+      "article_prefixes": [
+        "/ch/en/about/press-room/"
+      ],
+      "english_only": true,
+      "focus": "energy_research"
+    },
+    {
+      "url": "https://www.deloitte.com/ch/en/Industries/energy.html",
+      "source": "Deloitte Switzerland Energy",
+      "uk_only": false,
+      "lane": "global_context",
+      "kind": "html_index",
+      "article_prefixes": [
+        "/ch/en/Industries/energy/"
+      ],
+      "english_only": true,
+      "focus": "energy_research"
+    },
+    {
+      "url": "https://www.swissgrid.ch/swissgrid/en/home/newsroom/newsfeed.html",
+      "source": "Swissgrid",
+      "uk_only": false,
+      "lane": "global_context",
+      "kind": "html_index",
+      "article_prefixes": [
+        "/swissgrid/en/home/newsroom/newsfeed/",
+        "/en/home/newsroom/newsfeed/"
+      ],
+      "english_only": true,
+      "focus": "energy_research"
+    },
+    {
+      "url": "https://www.swissinfo.ch/eng/",
+      "source": "SWI swissinfo.ch",
+      "uk_only": false,
+      "lane": "global_context",
+      "kind": "html_index",
+      "article_prefixes": [
+        "/eng/"
+      ],
+      "english_only": true,
+      "focus": "energy_research"
+    },
+    {
+      "url": "https://www.dnv.com/energy/news/",
+      "source": "DNV Energy",
+      "uk_only": false,
+      "lane": "global_context",
+      "kind": "html_index",
+      "article_prefixes": [
+        "/energy/news/"
+      ],
+      "english_only": false,
+      "focus": "energy_research"
+    },
+    {
+      "url": "https://www.dnv.com/news/",
+      "source": "DNV",
+      "uk_only": false,
+      "lane": "global_context",
+      "kind": "html_index",
+      "article_prefixes": [
+        "/news/"
+      ],
+      "english_only": false,
+      "focus": "energy_research"
+    },
+    {
+      "url": "https://www.pwc.com/gx/en/industries/energy-utilities-resources.html",
+      "source": "PwC",
+      "uk_only": false,
+      "lane": "global_context",
+      "kind": "html_index",
+      "article_prefixes": [
+        "/gx/en/industries/energy-utilities-resources/",
+        "/gx/en/issues/"
+      ],
+      "english_only": true,
+      "focus": "energy_research"
+    },
+    {
+      "url": "https://www.ey.com/en_gl/industries/industrials-energy",
+      "source": "EY",
+      "uk_only": false,
+      "lane": "global_context",
+      "kind": "html_index",
+      "article_prefixes": [
+        "/en_gl/insights/",
+        "/en_gl/industries/"
+      ],
+      "english_only": true,
+      "focus": "energy_research"
+    },
+    {
+      "url": "https://kpmg.com/uk/en/insights/energy.html",
+      "source": "KPMG",
+      "uk_only": false,
+      "lane": "global_context",
+      "kind": "html_index",
+      "article_prefixes": [
+        "/uk/en/insights/"
+      ],
+      "english_only": true,
+      "focus": "energy_research"
+    },
+    {
+      "url": "https://www.deloitte.com/ch/en/about/press-room/studie-zu-rechenzentren-zeigt-der-eigentliche-engpass-liegt-im-netz.html",
+      "source": "Deloitte Switzerland",
+      "title": "Deloitte Switzerland study: the data-centre bottleneck is the electricity grid (translated headline)",
+      "uk_only": false,
+      "lane": "global_context",
+      "kind": "curated",
+      "focus": "energy_research"
+    }
+  ]
 }

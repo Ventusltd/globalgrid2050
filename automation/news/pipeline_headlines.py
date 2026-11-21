@@ -53,6 +53,7 @@ if str(HERE) not in sys.path:
 import datacentre_feed as D  # noqa: E402  fetch, parse, dates, links, sponsored filter, merge
 import names as N  # noqa: E402  the shared REPD name normalisation
 import research_indexes as R  # noqa: E402  bounded HTML index source discovery
+import original_article_links as O  # noqa: E402  original publisher links from third-party index
 
 SCHEMA = "globalgrid2050.news.pipeline-headlines.v1"
 MAX_ITEMS = 200
@@ -441,10 +442,13 @@ def collect(feeds, fetch, repd, now_iso):
                 entries = [(feed["title"], url, feed.get("date"), "")]
             else:
                 body = fetch(url)
-                entries = (R.index_entries(body, feed) if kind == "html_index" else
+                entries = (O.index_entries(body, feed) if kind == "public_article_index" else
+                           R.index_entries(body, feed) if kind == "html_index" else
                            R.rss1_entries(body) if kind == "rss1" else D.parse_feed(body))
                 if kind == "html_index" and not entries:
                     raise ValueError("No eligible index links (possible JS rendering, path mismatch or access block)")
+                if kind == "public_article_index" and not entries:
+                    raise ValueError("Index returned no eligible direct publisher links")
         except Exception as error:  # one feed failing never stops the run
             health.append({"url": url, "source": source, "status": "failed",
                            "error": (type(error).__name__ + ": " + str(error))[:200]})
@@ -476,7 +480,9 @@ def collect(feeds, fetch, repd, now_iso):
             items.append({"_feed": url, "title": title, "link": link, "source": source, "date": date, "first_seen": now_iso,
                           "category": verdict[0], "technology": verdict[1], "possible_match": verdict[2]})
             kept += 1
-        health.append({"url": url, "source": source + (" (curated; not fetched)" if kind == "curated" else ""), "status": "ok", "entries": len(entries), "kept": kept,
+        health.append({"url": url, "source": source + (" (curated; not fetched)" if kind == "curated" else
+                   " (discovered via GDELT; publisher not fetched)" if kind == "public_article_index" else ""),
+                       "status": "ok", "entries": len(entries), "kept": kept,
                        "newest": newest})
     return items, health
 

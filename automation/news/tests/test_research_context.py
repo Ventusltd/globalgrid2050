@@ -137,3 +137,14 @@ def test_swiss_national_bank_rdf_rss1_is_parsed_without_legacy_feed_changes():
 def test_rss1_rejects_unsafe_entities():
     with pytest.raises(ValueError):
         R.rss1_entries(b'<!DOCTYPE rdf:RDF [<!ENTITY x "wrong">]><rdf:RDF/>')
+
+def test_publisher_rss1_label_may_serve_valid_rss2_without_legacy_parser_change():
+    feed = b"""<?xml version="1.0"?>
+      <rss version="2.0"><channel><item>
+        <title>Swiss National Bank monetary policy assessment</title>
+        <link>https://www.snb.ch/en/release/monetary</link>
+        <pubDate>Thu, 19 Nov 2026 10:00:00 GMT</pubDate>
+      </item></channel></rss>"""
+    entries = R.rss1_entries(feed)
+    assert entries[0][0] == "Swiss National Bank monetary policy assessment"
+    assert len(entries) == 1

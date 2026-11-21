@@ -1,5 +1,5 @@
 {
-  "note": "Feeds read by automation/news/pipeline_headlines.py, fetched in this order: BBC News first, Solar Power Portal second (primary true), then the rest. Edit this list to add or drop a feed; no code change is needed. lane keywords (BBC News) = an item whose title or feed summary says solar or data centre is kept even without an event word. lane datacentre_money and lane china_solar = narrow world-news lanes, newest 10 each. No lane = the event-word rule. uk_only true = no UK word is required in the headline (a headline naming another country is still dropped). A source label belongs to one lane only. The original 50 feeds were tested on 14 November 2026; added sources need their own live probe.",
+  "note": "Feeds read by automation/news/pipeline_headlines.py, fetched in this order: BBC News first, Solar Power Portal second (primary true), then the rest. Edit this list to add or drop a feed; no code change is needed. lane keywords (BBC News) = an item whose title or feed summary says solar or data centre is kept even without an event word. lane datacentre_money and lane china_solar = narrow world-news lanes, newest 10 each. No lane = the event-word rule. uk_only true = no UK word is required in the headline (a headline naming another country is still dropped). A source label belongs to one lane only. The original 50 feeds were tested on 14 November 2026; added sources need their own live probe (PwC and SWI RSS endpoints are supplied by public publisher/feed listings).",
   "feeds": [
     {
       "url": "https://feeds.bbci.co.uk/news/rss.xml",
@@ -386,15 +386,11 @@
       "focus": "energy_research"
     },
     {
-      "url": "https://www.swissinfo.ch/eng/",
+      "url": "https://cdn.prod.swi-services.ch/rss/eng/rssxml/latest-news/rss",
       "source": "SWI swissinfo.ch",
       "uk_only": false,
       "lane": "global_context",
-      "kind": "html_index",
-      "article_prefixes": [
-        "/eng/"
-      ],
-      "english_only": true,
+      "kind": "rss",
       "focus": "energy_research"
     },
     {
@@ -422,16 +418,11 @@
       "focus": "energy_research"
     },
     {
-      "url": "https://www.pwc.com/gx/en/industries/energy-utilities-resources.html",
-      "source": "PwC",
+      "url": "https://feeds.feedburner.com/GlobalPressRoom",
+      "source": "PwC Global Press Room",
       "uk_only": false,
       "lane": "global_context",
-      "kind": "html_index",
-      "article_prefixes": [
-        "/gx/en/industries/energy-utilities-resources/",
-        "/gx/en/issues/"
-      ],
-      "english_only": true,
+      "kind": "rss",
       "focus": "energy_research"
     },
     {
@@ -462,10 +453,19 @@
     {
       "url": "https://www.deloitte.com/ch/en/about/press-room/studie-zu-rechenzentren-zeigt-der-eigentliche-engpass-liegt-im-netz.html",
       "source": "Deloitte Switzerland",
-      "title": "Deloitte Switzerland study: the data-centre bottleneck is the electricity grid (translated headline)",
+      "title": "A study on data centres shows that the real bottleneck lies in the grid",
       "uk_only": false,
       "lane": "global_context",
       "kind": "curated",
+      "focus": "energy_research"
+    },
+    {
+      "url": "https://www.deloitte.com/ch/en/Industries/energy/perspectives/rechenzentren-in-der-schweiz.html",
+      "source": "Deloitte Switzerland Study",
+      "kind": "curated",
+      "lane": "global_context",
+      "uk_only": false,
+      "title": "Data centres in Switzerland: electricity grids and digital sovereignty",
       "focus": "energy_research"
     }
   ]

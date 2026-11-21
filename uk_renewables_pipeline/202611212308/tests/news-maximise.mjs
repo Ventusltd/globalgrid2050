@@ -68,10 +68,15 @@ for (const [engine, launcher] of [['chromium',chromium],['webkit',webkit]]) {
         assert.ok(Math.abs(full.w-full.innerWidth)<3,JSON.stringify(full));
         assert.ok(Math.abs(full.h-full.innerHeight)<3,JSON.stringify(full));
         assert.ok(full.ticker>0,'ticker remains visible');
-        assert.equal(full.scrollTop,expected.scrollTop,'news scroll state preserved');
+        assert.ok(full.scrollTop>=0 && full.scrollTop<=expected.scrollTop,'expanded viewport may have less overflow');
         assert.equal(expected.ticker,true);
         await page.screenshot({path:folder+'/'+label+'-max.png'});
         await page.locator('#pnNewsMaximise').click();
+        await page.waitForFunction(target => {
+          return !document.querySelector('.main>.newspaper').classList.contains('pn-news-maximised')
+            && Math.abs(window.scrollY-target.y)<3
+            && document.getElementById('liveNews').scrollTop===target.newsTop;
+        }, {y:expected.y,newsTop:expected.scrollTop}, {timeout:10000});
         const restored=await page.evaluate(()=>({
           isFull:document.querySelector('.main>.newspaper').classList.contains('pn-news-maximised'),
           bodyPos:document.body.style.position, y:scrollY,

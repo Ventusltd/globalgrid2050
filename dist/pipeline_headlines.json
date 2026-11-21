@@ -1,22 +1,22 @@
 {
  "schema": "globalgrid2050.news.pipeline-headlines.v1",
- "generated_at": "2026-11-21T21:51:37Z",
+ "generated_at": "2026-11-21T22:21:41Z",
  "status": "partial",
  "counts": {
-  "items": 119,
+  "items": 123,
   "with_possible_match": 3,
-  "feeds_ok": 67,
+  "feeds_ok": 71,
   "feeds_failed": 2,
   "by_category": {
    "planning_decision": 6,
    "consent": 10,
    "refusal": 3,
    "dco": 6,
-   "finance": 34,
+   "finance": 36,
    "construction": 9,
-   "energisation": 5,
+   "energisation": 6,
    "grid": 2,
-   "policy": 6,
+   "policy": 7,
    "datacentre": 25,
    "other": 13
   }
@@ -31,9 +31,9 @@
    "url": "https://feeds.bbci.co.uk/news/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 33,
+   "entries": 34,
    "kept": 0,
-   "newest": "2026-11-21T21:39:22Z"
+   "newest": "2026-11-22T09:00:00Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/uk/rss.xml",
@@ -65,7 +65,7 @@
    "status": "ok",
    "entries": 42,
    "kept": 0,
-   "newest": "2026-11-21T19:33:49Z"
+   "newest": "2026-11-21T22:19:43Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
@@ -87,9 +87,9 @@
    "url": "https://feeds.bbci.co.uk/news/scotland/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 23,
+   "entries": 24,
    "kept": 0,
-   "newest": "2026-11-21T17:44:20Z"
+   "newest": "2026-11-21T23:52:45Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/wales/rss.xml",
@@ -97,15 +97,15 @@
    "status": "ok",
    "entries": 26,
    "kept": 0,
-   "newest": "2026-11-21T18:50:09Z"
+   "newest": "2026-11-21T22:09:26Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/northern_ireland/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 33,
+   "entries": 34,
    "kept": 0,
-   "newest": "2026-11-21T18:46:29Z"
+   "newest": "2026-11-21T21:56:56Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/oxford/rss.xml",
@@ -397,7 +397,7 @@
    "url": "https://www.bloomberg.com/feeds/technology/news.rss",
    "source": "Bloomberg",
    "status": "ok",
-   "entries": 17,
+   "entries": 16,
    "kept": 0,
    "newest": "2026-11-21T19:02:24Z"
   },
@@ -413,7 +413,7 @@
    "url": "https://www.bloomberg.com/feeds/industries/news.rss",
    "source": "Bloomberg",
    "status": "ok",
-   "entries": 11,
+   "entries": 7,
    "kept": 0,
    "newest": "2026-11-21T16:00:00Z"
   },
@@ -493,7 +493,7 @@
    "status": "ok",
    "entries": 30,
    "kept": 1,
-   "newest": "2026-11-21T12:42:23Z"
+   "newest": "2026-11-21T09:34:52Z"
   },
   {
    "url": "https://www.dnv.com/energy/news/",
@@ -574,9 +574,81 @@
    "entries": 12,
    "kept": 3,
    "newest": null
+  },
+  {
+   "url": "https://www.solarpowerportal.co.uk/battery-storage/national-wealth-fund-backs-nationally-significant-1gw-2gwh-of-scottish-bess",
+   "source": "Solar Power Portal (curated; not fetched)",
+   "status": "ok",
+   "entries": 1,
+   "kept": 1,
+   "newest": null
+  },
+  {
+   "url": "https://www.solarpowerportal.co.uk/solar-finance/pace-68-million-140mw-solar-pv-55mwh-bess-portfolio-funding",
+   "source": "Solar Power Portal (curated; not fetched)",
+   "status": "ok",
+   "entries": 1,
+   "kept": 1,
+   "newest": null
+  },
+  {
+   "url": "https://www.solarpowerportal.co.uk/energy-policy/desnz-sets-nominal-1-budget-for-ar8-separates-solar-and-wind-into-separate-pots",
+   "source": "Solar Power Portal (curated; not fetched)",
+   "status": "ok",
+   "entries": 1,
+   "kept": 1,
+   "newest": null
+  },
+  {
+   "url": "https://www.solarpowerportal.co.uk/colocation/low-carbon-brings-65mw-bess-into-commercial-operation-in-uk",
+   "source": "Solar Power Portal (curated; not fetched)",
+   "status": "ok",
+   "entries": 1,
+   "kept": 1,
+   "newest": null
   }
  ],
  "items": [
+  {
+   "title": "PACE secures £68m financing for a UK solar PV and BESS portfolio",
+   "link": "https://www.solarpowerportal.co.uk/solar-finance/pace-68-million-140mw-solar-pv-55mwh-bess-portfolio-funding",
+   "source": "Solar Power Portal",
+   "date": null,
+   "first_seen": "2026-11-21T22:21:41Z",
+   "category": "finance",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "DESNZ announces new UK solar and wind CfD auction funding policy",
+   "link": "https://www.solarpowerportal.co.uk/energy-policy/desnz-sets-nominal-1-budget-for-ar8-separates-solar-and-wind-into-separate-pots",
+   "source": "Solar Power Portal",
+   "date": null,
+   "first_seen": "2026-11-21T22:21:41Z",
+   "category": "policy",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "Low Carbon begins commercial operations at UK BESS projects colocated with solar",
+   "link": "https://www.solarpowerportal.co.uk/colocation/low-carbon-brings-65mw-bess-into-commercial-operation-in-uk",
+   "source": "Solar Power Portal",
+   "date": null,
+   "first_seen": "2026-11-21T22:21:41Z",
+   "category": "energisation",
+   "technology": "solar",
+   "possible_match": null
+  },
+  {
+   "title": "National Wealth Fund invests in Scottish battery storage projects totalling 1GW and 2GWh",
+   "link": "https://www.solarpowerportal.co.uk/battery-storage/national-wealth-fund-backs-nationally-significant-1gw-2gwh-of-scottish-bess",
+   "source": "Solar Power Portal",
+   "date": null,
+   "first_seen": "2026-11-21T22:21:41Z",
+   "category": "finance",
+   "technology": "battery",
+   "possible_match": null
+  },
   {
    "title": "1 October 2026 | Media release First half of 2026: Less control energy deployed, procurement costs halved In the first half of 2026, the Swiss electricity system benefited from lower procurement costs thanks to a new imbalance energy price mechanism. Read article",
    "link": "https://www.swissgrid.ch/en/home/newsroom/newsfeed/20261001-01.html",

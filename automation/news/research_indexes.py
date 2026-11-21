@@ -90,7 +90,10 @@ def rss1_entries(body):
         raise ValueError("Unsafe RSS1 XML")
     root = ET.fromstring(body)
     if root.tag != RDF:
-        raise ValueError("Not an RSS 1.0 RDF feed")
+        # Swiss publishers may serve conventional RSS2/Atom despite an
+        # RSS1 catalogue label. Delegate, without modifying the legacy parser.
+        from datacentre_feed import parse_feed
+        return parse_feed(body)
     result = []
     for node in root.findall(RSS1 + "item")[:250]:
         title = node.findtext(RSS1 + "title")

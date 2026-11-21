@@ -32,7 +32,22 @@ def test_global_context_keep(title, category):
     "Sponsored feature: data centre grid investments",
 ])
 def test_global_context_reject(title):
-    assert P.lane_label(title, "global_context") is None
+    assert P.lane_label(title, "global_context", "energy_research") is None
+
+def test_institutional_research_rejects_general_financial_marketing():
+    assert P.lane_label("Banking & Capital Markets", "global_context", "energy_research") is None
+    assert P.lane_label("Deloitte confirms interest rates rise", "global_context", "energy_research") is None
+    assert P.lane_label("Data centres face electricity-grid bottleneck", "global_context", "energy_research") == ("datacentre", None, None)
+    assert P.lane_label("Federal Reserve says interest rates rise", "global_context", "macro_policy") == ("finance", None, None)
+
+def test_no_eligible_html_index_is_reported_unavailable_not_healthy():
+    feed = {"url": "https://www.dnv.com/news/", "source": "DNV", "kind": "html_index",
+            "lane": "global_context", "focus": "energy_research", "article_prefixes": ["/news/"]}
+    items, health = P.collect([feed], lambda url: b"<html><body>No relevant links</body></html>",
+                              P.Repd([]), NOW)
+    assert items == []
+    assert health[0]["status"] == "failed"
+    assert "No eligible index links" in health[0]["error"]
 
 def test_uk_standard_lane_still_rejects_swiss_non_uk_context():
     repd = P.Repd([])

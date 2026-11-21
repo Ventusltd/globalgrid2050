@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Agent 4 P2 editorial iteration 09 — single-stream preview, not published</title>
+  <style>
+    :root{color-scheme:light;--bg:#f5f6f8;--ink:#132539;--muted:#50647a;--border:#d8e0e7;--accent:#16466d;--white:#fff;--light:#ebf1f5}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    a{color:#164b78;text-underline-offset:3px}
+    :focus-visible{outline:3px solid #176aa7;outline-offset:2px}
+    .limit{max-width:1180px;margin:auto;padding:0 22px}
+    .skip-link{position:absolute;left:12px;top:-80px;z-index:100;background:#fff;color:#123c61;padding:12px 16px;border:2px solid #123c61;border-radius:6px}
+    .skip-link:focus{top:8px}
+    .status-key{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0 26px}
+    .status-key article{background:#fff;border:1px solid var(--border);border-radius:9px;padding:13px;min-width:0}
+    .status-key strong{display:block;font-size:.88rem}
+    .status-key p{font-size:.8rem;color:var(--muted);margin:5px 0 0}
+    .time-note{font-size:.8rem;color:var(--muted);margin-top:8px}
+    header{background:var(--ink);color:#fff;padding:15px 0}
+    header .limit{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+    .brand{font-size:1rem;letter-spacing:.05em;font-weight:750}
+    .sub{color:#cad8e3;font-size:.8rem}
+    .preview{background:#fff1d9;color:#563c06;border-bottom:1px solid #e6d49f;font-size:.84rem;font-weight:600;padding:9px 0}
+    nav{display:flex;gap:16px;flex-wrap:wrap}
+    nav a{color:white;font-size:.83rem}
+    main{padding-top:32px;padding-bottom:50px}
+    h1{font-size:clamp(1.7rem,3.5vw,2.6rem);line-height:1.15;margin:0 0 12px}
+    h2{font-size:clamp(1.25rem,2.5vw,1.6rem);margin:0 0 14px}
+    h3{margin:0 0 6px;font-size:1rem}
+    p{margin:0 0 12px}
+    .lede{max-width:68ch;color:var(--muted)}
+    .meta{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 25px;font-size:.78rem;color:var(--muted)}
+    .meta span{border:1px solid var(--border);padding:5px 10px;border-radius:18px;background:#fff}
+    .columns{display:grid;grid-template-columns:minmax(0,2fr) minmax(240px,1fr);gap:22px;align-items:start}
+    section{margin-bottom:25px}
+    .panel{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:22px;box-shadow:0 2px 5px rgba(20,45,65,.025)}
+    .panel+.panel{margin-top:15px}
+    .eyebrow{font-weight:750;letter-spacing:.09em;color:var(--accent);text-transform:uppercase;font-size:.71rem;margin-bottom:8px}
+    .quiet{color:var(--muted);font-size:.91rem}
+    .empty{border:1px dashed #aebdca;border-radius:10px;padding:28px 18px;background:#f8fafc;text-align:center}
+    .empty strong{display:block;font-size:1.1rem;margin-bottom:8px}
+    .pill{font-size:.73rem;padding:4px 9px;display:inline-block;border-radius:12px;background:var(--light);color:var(--accent);font-weight:650}
+    .divider{height:1px;background:var(--border);margin:17px 0}
+    .tier{border-left:4px solid var(--accent);padding-left:14px}
+    .tier--reports{border-left-color:#56748d}
+    .tier--archive{border-left-color:#8999a5}
+    .evidence-time{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
+    .evidence-time div{border-top:1px solid var(--border);padding-top:8px;overflow-wrap:anywhere}
+    .evidence-time dt{font-size:.75rem;font-weight:700;color:var(--muted)}
+    .evidence-time dd{margin:0;font-size:.88rem}
+    ul{margin:7px 0 0;padding-left:20px}
+    li{margin:7px 0}
+    .fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+    .field{border-top:1px solid var(--border);padding-top:9px}
+    .field b{display:block;text-transform:uppercase;font-size:.7rem;letter-spacing:.04em;color:var(--muted)}
+    .field span{font-size:.9rem}
+    details{background:white;border:1px solid var(--border);border-radius:10px;margin:10px 0;padding:14px 16px}
+    summary{cursor:pointer;font-weight:650}
+    .template{border-left:3px solid #9aaebb;padding:0 0 0 14px;margin:18px 0 4px}
+    .template p{color:var(--muted);font-size:.9rem}
+    .small{font-size:.78rem;color:var(--muted)}
+    footer{border-top:1px solid var(--border);padding:22px 0 35px;font-size:.8rem;color:var(--muted)}
+    @media(max-width:720px){.status-key{grid-template-columns:1fr}.columns{grid-template-columns:1fr}.limit{padding:0 15px}main{padding-top:22px}.panel{padding:18px}nav{gap:12px}nav a{font-size:.78rem}}
+    @media(max-width:390px){.fields,.evidence-time{grid-template-columns:1fr}.brand{font-size:.87rem}nav{gap:9px}.meta{gap:5px}}
+    /* Iteration 09: one editorial stream; no unverified item can enter the headline list. */
+    .source-check{border:1px solid var(--border);border-radius:8px;padding:12px 14px;background:#f8fafc;margin:12px 0}.source-check strong{display:block;margin-bottom:6px}.source-check ul{margin:0;padding-left:20px}.source-check li{margin:4px 0}.source-check .missing{font-weight:700;color:#7b3d22}.source-check .eligible{font-weight:700;color:#245b48}
+    /* N09: narrow viewport overflow containment and touch-visible evidence navigation. */
+    html,body{max-width:100%;overflow-x:clip}
+    .limit,.panel,.disclosure,.stream{min-width:0}
+    .stream-heading,.evidence-time,.source-check{overflow-wrap:anywhere}
+    nav a{display:inline-flex;align-items:center;min-height:44px;padding:4px 0}
+    @media(max-width:390px){nav{width:100%;gap:12px}nav a{min-height:44px}.meta span{overflow-wrap:anywhere}}
+    .stream-key{display:flex;gap:8px 12px;flex-wrap:wrap;margin:0 0 18px;color:var(--muted);font-size:.83rem}
+    .stream-key span{border-left:2px solid var(--border);padding-left:10px}
+    .stream{max-width:900px;margin:0 auto 18px}
+    summary{min-height:44px;display:flex;align-items:center;overflow-wrap:anywhere}
+    .map-state{border-left:3px solid var(--accent);padding:10px 14px;margin:12px 0;background:#f4f8fb}
+    .map-state strong{display:block}
+    .map-state p{margin:4px 0 0;font-size:.86rem}
+    .stream-heading{display:flex;justify-content:space-between;gap:18px;align-items:start}
+    .stream-heading .quiet{max-width:260px;font-size:.83rem}
+    .stream-heading h2{margin-bottom:20px}
+    .stream-details{margin:18px 0 0}
+    .disclosure{max-width:900px;margin:12px auto;background:var(--white)}
+    .empty{padding:24px 16px}
+    @media(max-width:720px){.stream-heading{display:block}.stream-heading .quiet{max-width:none}.stream-key{gap:6px 8px}.stream-key span{padding-left:7px}}
+    @media(max-width:390px){.stream-key{font-size:.77rem}.stream{padding:15px}.disclosure{padding:12px}}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to news evidence</a>
+  <header>
+    <div class="limit">
+      <div><div class="brand">GLOBALGRID2050 · PIPELINE NEWS</div><div class="sub">Agent 4 iteration 09 · evidence-first solar preview</div></div>
+      <nav aria-label="Page navigation"><a href="#headlines">Headlines</a><a href="#evidence">Evidence policy</a></nav>
+    </div>
+  </header>
+  <div class="preview"><div class="limit">DESIGN PREVIEW ONLY · NOT LIVE, NOT A RELEASE, NO SOURCE ARTICLES OR PROJECT EVENTS LOADED</div></div>
+  <main class="limit" id="main-content">
+    <h1>UK solar project intelligence</h1>
+    <p class="lede">Decisions and material infrastructure events, linked to the correct REPD project and backed by independently checked sources. The searchable project catalogue remains available even when no article qualifies as verified news.</p>
+    <div class="meta" aria-label="Dataset context">
+      <span>REPD October 2026 · authoritative Ref IDs</span>
+      <span>News last verified: not available</span>
+      <span>Source fetch: not available</span>
+      <span>Data centres: excluded from this candidate</span>
+    </div>
+
+    <p class="stream-key" aria-label="Evidence categories"><strong>Evidence:</strong> <span>Official decision</span> <span>Attributed report</span> <span>Historical archive</span> <span>Planning search</span> <span>Unverified queue — not a headline</span></p>
+    <section id="headlines" class="panel stream" aria-labelledby="headlines-heading">
+      <div class="stream-heading">
+        <div><div class="eyebrow">One chronological feed · solar-only · source-verified</div><h2 id="headlines-heading">Pipeline News headlines</h2></div>
+        <p class="quiet">Official decisions and attributed reports must be labelled separately. Order by independently evidenced event date only; when an event date is unknown, show “Event date unknown” in a separate undated group, never assign crawl or publication time as the event date.</p>
+      </div>
+      <div class="empty" role="status">
+        <strong>No verified solar project headlines are loaded</strong>
+        <p class="quiet">This is a static design preview, not a live source feed. Events appear here only after their original publisher, event date, REPD identity, article bytes and reuse rights have been independently checked.</p>
+      </div>
+      <details class="stream-details">
+        <summary>What each headline card will show</summary>
+        <p class="quiet">A card records its event category and verification tier, original headline and publisher, attributed article URL, original event date (if evidenced), publisher date, REPD project identity and a MAP link only where an independently verified project location exists.</p>
+        <dl class="evidence-time" aria-label="Time fields for an eligible headline">
+          <div><dt>Event date</dt><dd>Verified event date, or “Unknown” — never inferred from fetch or publication</dd></div>
+          <div><dt>Publisher date</dt><dd>Publisher-stated publication time, with timezone where available; not the event date</dd></div>
+          <div><dt>Last fetched</dt><dd>UTC response retrieval time; source health only, not evidence of new news</dd></div>
+          <div><dt>Evidence reviewed</dt><dd>Independent identity, article and rights verification time; otherwise “Not verified”</dd></div>
+        </dl>
+        <div class="source-check" aria-label="Release-facing evidence checklist"><strong>Card eligibility — all required, none supplied in this preview</strong><ul><li>Exact REPD Ref and separately evidenced project-to-original-article match</li><li>Original publisher URL, successful HTML response, response-byte SHA and source retrieval time</li><li>Publisher rights independently cleared; article attribution retained</li><li>Event date and publication date shown separately, with unknown explicitly labelled</li><li>Official decision document or attributed reporting identified without upgrading a report to an official decision</li></ul><p class="missing">Eligibility: NOT VERIFIED — do not render a live headline</p></div>
+      </details>
+    </section>
+    <details id="history" class="disclosure"><summary>Historical archive</summary>
+      <p class="quiet">Older original reporting is available for context but never promoted as newly occurring because of a fresh crawl or changed article headline. No archived articles are loaded in this preview.</p>
+    </details>
+    <details id="planning" class="disclosure"><summary>Planning register search — not a decision</summary>
+      <p class="quiet">A planning register search or application listing does not establish that permission was granted, refused or varied. Only an independently checked, dated official decision may appear in the verified decision tier. No search results are loaded in this preview.</p>
+    </details>
+    <details id="review" class="disclosure"><summary>Unverified project and article review queue — not headlines</summary>
+      <p class="quiet">Potential matches, future-dated items, summary-only claims, unsupported second-project associations, unknown event dates and unlicensed articles remain withheld. This preview shows no queue records and makes no claim that a reviewed URL establishes a project event.</p>
+    </details>
+    <details id="mobile-acceptance" class="disclosure"><summary>Mobile and desktop acceptance — not yet executed</summary>
+      <p class="quiet">At 390px: inspect all cards, navigation, evidence timestamps and disclosure summaries at 100% zoom; verify no clipped words or horizontal document scrolling, minimum 44px tap targets, and keyboard focus visibility. At 1440px: check reading width, full source attribution, keyboard traversal and stable layout. A passing static preview is not a substitute for live MAP, CSV or Grid Engine browser acceptance.</p>
+    </details>
+    <details id="map-journey" class="disclosure"><summary>MAP and Grid Engine — proposed visible status</summary>
+      <div class="map-state" role="note"><strong>Map opened — calculation not yet confirmed</strong><p>Opening a destination is not evidence that the correct REPD identity loaded or that a nearest-grid calculation completed. The live candidate must distinguish destination opened, identity unavailable, engine result visible, and distant offshore constrained. Any nearby infrastructure is geographic context only, never a grid connection offer.</p></div>
+      <p class="quiet">For the actual release, test 390px touch visibility and 1440px mouse/keyboard interaction, horizontal scroll and sticky action columns, iOS new-tab delays, correct Ref, and a visible result after the destination opens. This preview contains no working MAP button.</p>
+    </details>
+    <details id="evidence" class="disclosure"><summary>Evidence and release requirements</summary>
+      <p class="quiet">Every public card requires an independently supported REPD-to-article binding, original response hash, independently checked publisher rights, dated evidence and a clear official-versus-attributed tier. This solar-only successor excludes uncleared data-centre payloads. Search, export CSV and clickable MAP-to-engine journeys must pass on the actual staged build at 390px and 1440px, followed by served-byte SHA and rollback. No public-release acceptance is claimed here.</p>
+      <p class="small">Unknown event dates are displayed as unknown; a year-only document does not supply a specific day. Two projects named in one article require two separately evidenced identity bindings. An article's URL alone does not prove an electrical grid connection.</p>
+    </details>
+  </main>
+  <footer><div class="limit">Agent 4 iteration 09 (15 Nov 2026) · static HTML · no live requests, third-party assets, attached source records, or publication authority. See P2-AGENT4-SOLAR-EDITORIAL-ACCEPTANCE.md.</div></footer>
+</body>
+</html>

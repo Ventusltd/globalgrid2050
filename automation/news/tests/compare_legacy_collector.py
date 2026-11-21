@@ -69,7 +69,7 @@ def ensure_sources_are_additive(base: str) -> None:
             raise AssertionError("New sources must stay in isolated world-context lane")
         if not feed["url"].startswith("https://"):
             raise AssertionError("Only HTTPS acquisition allowed")
-        if feed.get("kind", "rss") not in ("rss", "html_index", "curated"):
+        if feed.get("kind", "rss") not in ("rss", "rss1", "html_index", "curated"):
             raise AssertionError("Unexpected source ingestion kind")
         if feed.get("kind") == "curated" and not feed.get("title"):
             raise AssertionError("Curated lead without attributable title")

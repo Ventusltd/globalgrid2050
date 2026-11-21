@@ -61,9 +61,10 @@ CATEGORIES = ("planning_decision", "consent", "refusal", "dco", "finance", "cons
               "grid", "policy", "datacentre", "other")
 TECHNOLOGIES = ("solar", "wind", "offshore_wind", "battery", "hydro", "tidal")
 ITEM_FIELDS = ("title", "link", "source", "date", "first_seen", "category", "technology", "possible_match")
-SCOPE = ("Headlines and links from public RSS and Atom feeds; no article text is stored. Category and technology "
+SCOPE = ("Headlines and links from public RSS/Atom, English-language institutional indexes and explicitly curated "
+         "primary-source leads; no article text is stored. Category and technology "
          "are labels read from the headline. A possible match is a name coincidence for review, not a confirmed "
-         "link to a REPD project. Data-centre market headlines and China solar headlines are world news, not UK "
+         "link to a REPD project. Data-centre, China solar and institutional research headlines are world news, not UK "
          "project news.")
 WORLD_LANES = ("datacentre_money", "china_solar", "global_context")
 LANE_CAP = 10

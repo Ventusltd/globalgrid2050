@@ -1,0 +1,62 @@
+name: Pipeline News V9.67 all-column exact-colour regression
+on:
+  pull_request:
+    paths:
+      - 'uk_renewables_pipeline/202611221625/**'
+      - '.github/workflows/pn-v967-native-columns.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-columns:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify inherited application and A4/PDF are unchanged
+        run: |
+          python3 - <<'PY'
+          import subprocess,json,difflib
+          def listing(ver):
+            out=subprocess.check_output(['git','ls-tree','-r','-z','HEAD:uk_renewables_pipeline/'+ver])
+            return {p.decode():m.split()[2].decode() for m,p in (r.split(b'\t',1) for r in out.split(b'\0') if r)}
+          base=listing('202611221330')
+          new=listing('202611221625')
+          changed={p for p in set(base)|set(new) if base.get(p)!=new.get(p)}
+          expected={'index.html','repd-expanded.mjs','styles/repd-expanded.css',
+            'tests/repd-expanded.mjs','README.md','CHANGES.md'}
+          assert changed==expected,(changed,expected)
+          old=listing('202611220220')
+          for f in ('report-a4.mjs','report-model.mjs','report-pdf.mjs','styles/report-a4.css'):
+            assert base[f]==new[f]==old[f],f
+          for group in ('scripts/','data/','news/','vendor/','gridatlas/','solar1000/'):
+            assert {k:v for k,v in base.items() if k.startswith(group)}=={
+              k:v for k,v in new.items() if k.startswith(group)},group
+          add=remove=0
+          for f in changed:
+            a=subprocess.check_output(['git','show','HEAD:uk_renewables_pipeline/202611221330/'+f]).decode().splitlines()
+            b=subprocess.check_output(['git','show','HEAD:uk_renewables_pipeline/202611221625/'+f]).decode().splitlines()
+            for op,i,j,k,l in difflib.SequenceMatcher(None,a,b,autojunk=False).get_opcodes():
+              if op in ('replace','insert'):add+=l-k
+              if op in ('replace','delete'):remove+=j-i
+          print(json.dumps({'files_changed':len(changed),'inherited_identical_files':len(base)-len(changed),
+                            'new_lines':add,'removed_lines':remove,'base':'V9.65','rollback':'V9.66/V9.65/V9.63'}))
+          PY
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser engines
+        working-directory: uk_renewables_pipeline/202611221625
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+      - name: Verify original MAP/A4 positions, colours, all columns on mobile
+        run: |
+          python3 -m http.server 8765 > /tmp/pipeline-v967-http.log 2>&1 &
+          node uk_renewables_pipeline/202611221625/tests/repd-expanded.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pipeline-v967-native-mobile-webkit-chromium
+          path: /tmp/pn-v967-all-columns/
+          retention-days: 14

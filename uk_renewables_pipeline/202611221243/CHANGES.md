@@ -1,5 +1,5 @@
-# V9.63 report clarification — location only
+# V9.64 — A3/A4 liquid HTML register overview
 
-The owner clarified that 'area' meant **geographic project location**, not land area. A4 and PDF now place existing project location and MAP beside capacity and name. Removed the former proposed land-area HTML, area source fetch, model, PDF text, tests and `data/report-area.v1.json` sidecar.
+An independent, native HTML A3/A4 overview of the **whole filtered REPD table**, with virtualised rows, sticky sortable headers, sticky Project column, two-dimensional mobile scrolling, fit/zoom/pinch and original MAP/notes integration. Added `repd-liquid.mjs`, `styles/repd-liquid.css`, `tests/repd-liquid.mjs`, and dedicated browser/byte-identity CI. Updated only release title and new imports in `index.html`.
 
-Pre-existing data and REPD models, prospect scanning, news, gauges, MAP routing and homepage pointer remain unchanged.
+The V9.63 individual-project A4 report **remains exactly intact**, including original PDF functionality and all report source files. Original REPD data, news, gauges, filters and map code are untouched. No homepage publication.

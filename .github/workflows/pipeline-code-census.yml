@@ -6,6 +6,11 @@ on:
       - 'uk_renewables_pipeline/**'
       - 'automation/pipeline_release/code_census.py'
       - '.github/workflows/pipeline-code-census.yml'
+  pull_request:
+    paths:
+      - 'uk_renewables_pipeline/**'
+      - 'automation/pipeline_release/code_census.py'
+      - '.github/workflows/pipeline-code-census.yml'
   workflow_dispatch:
     inputs:
       release:

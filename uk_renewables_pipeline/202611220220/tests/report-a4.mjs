@@ -5,12 +5,12 @@ import {reportData} from '../report-model.mjs';
 import {buildA4Pdf} from '../report-pdf.mjs';
 const project={repd_ref:'123',name:'Example Solar',operator:'Operator A',capacity_mw:50,technology:'solar',
  country:'England',county:'County A',region:'South',status:'Application Submitted'};
-const url='https://ventusltd.github.io/gridatlas/atlas/?repd=123';
-const report=reportData(project,url);
+const sourceMap='https://ventusltd.github.io/gridatlas/atlas/?repd=123';
+const report=reportData(project,sourceMap);
 assert.equal(report.operator,'Operator A');
 assert.equal(report.developer,'Developer not separately reported');
 assert.equal(report.location,'County A · South · England');
-assert.equal(report.mapUrl,url);
+assert.equal(report.mapUrl,sourceMap);
 assert.equal(Object.hasOwn(report,'area'),false);
 const raw=Buffer.from(buildA4Pdf(report)).toString('latin1');
 assert.ok(raw.includes('/Subtype /Link')&&raw.includes('/URI'));

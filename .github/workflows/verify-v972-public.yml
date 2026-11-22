@@ -1,4 +1,4 @@
-name: Verify V9.72 public homepage, REPD MAP, A4 and PDF delivery
+name: Verify V9.72 archived MAP/A4/PDF after V9.73 publication
 on:
   push:
     branches: [main]
@@ -23,7 +23,7 @@ jobs:
           import hashlib,json,os,time
           pin=json.loads(Path('catalogue/homepage-owner.json').read_text())
           assert pin['repository']=='Ventusltd/globalgrid2050-homepage'
-          assert pin['commit']=='ba9a0451bb850d2b5353aac95c71f14be789e51a'
+          assert pin['commit']=='fcb63da01d49ebeaa470222dc8ae1bdb541f06ce'
           def get(u):
               req=Request(u,headers={'Cache-Control':'no-cache','Accept-Encoding':'identity','User-Agent':'Ventus-V972-served-byte-verifier'})
               with urlopen(req,timeout=25) as res:
@@ -37,9 +37,8 @@ jobs:
           assert digest(owner_json)==pin['files']['data/homepage.json']
           model=json.loads(owner_json)
           entity=next(e for e in model['entities'] if e['id']=='pipeline-news')
-          assert entity['operative_release_id']=='202611222222'
-          assert entity['releases'][-1]['id']=='202611222222'
-          assert entity['releases'][-2]['id']=='202611221930'
+          assert entity['operative_release_id']=='202611222330'
+          assert [x['id'] for x in entity['releases'][-3:]]==['202611221930','202611222222','202611222330']
           html=owner_html.decode('utf-8-sig')
           for file in ('versioned-homepage.css','versioned-homepage.js'):
               old='./assets/'+file
@@ -65,7 +64,7 @@ jobs:
                       if digest(get(url))!=digest(content):bad.append(name+' SHA256 mismatch')
                   except Exception as ex:bad.append(name+': '+str(ex))
               if not bad:
-                  print('PASS',len(expected),'public SHA256 proofs: V9.72 homepage and A4/PDF source, V9.71 rollback unchanged',flush=True)
+                  print('PASS',len(expected),'public SHA256 proofs: V9.72 archived A4/PDF source, V9.71 rollback and V9.73 homepage unchanged',flush=True)
                   break
               if attempt==48:raise SystemExit('FAILED: V9.72 not fully served: '+repr(bad))
               print('Attempt',attempt,'/',48,':',bad[:4],flush=True)

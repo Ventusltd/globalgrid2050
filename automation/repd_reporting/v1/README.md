@@ -16,7 +16,8 @@ Source `capacity_unit` differences must remain visible. A power sum is not energ
 
 ## Remaining integration work
 
-1. Add a small embedded responsive reports tablet to a **new immutable PipelineNews successor**, preserving existing dark/background, technology and red-ticker colours. Buttons: Operator MW, Status MW, Region MW, Operational by Year, Energy; Month/Quarter/Year and technology/region/operator/status filters, with charts, table, CSV and drillback to native REPD row/MAP/A4.
+1. **Additive UI scaffold now present**: `panel.mjs` exports `mountRepdReports(host, projects, { asOf, sourceLabel, onSelectProjects })` and `panel.css` reuses the established PipelineNews `:root` colour variables (`--bg`, `--panel`, `--accent`, `--ok`, etc), without overriding any existing UI. It has report buttons [Operator MW, Status MW, Region MW, Operational by Year, Energy Scenario], period buttons [Month, Quarter, Year], optional operational trend, technology/status/region/operator filter dropdowns, table, bar chart, CSV and explicit user-entered scenario capacity factors. **It is NOT mounted into any dated PipelineNews release**.
+2. Integrate this scaffold into a **new immutable PipelineNews successor** after current live version and other agent ownership are verified. Wire the click callback to the original REPD table and MAP/A4 actions. The chart is simple and deliberately not a replacement for the existing three speedometer gauges.
 2. For actual monthly/quarterly **metered** energy, integrate a licensed meter/source dataset with precise dates and provenance. Until then label scenario as estimated or display unavailable.
 3. Add full browser tests (Chromium/WebKit iPhone-like portrait, landscape and desktop), canonical 7,775 rows count/sum identity, exact downstream MAP/A4/PDF/engine regression, unchanged Solar-1000 and previous edition checks, independent served-byte publication proof. Physical handset acceptance is separate.
 

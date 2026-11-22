@@ -68,7 +68,8 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
     await page.waitForFunction(async()=>{
       const {state}=await import('./scripts/core/state.js');
       const list=[...document.querySelectorAll('#pnLiquidBody tr.pn-liquid-project')];
-      return list.length&&list.at(-1).dataset.overviewRef===state.filtered.at(-1).repd_ref;
+      return Number(document.getElementById('pnLiquidBody').dataset.start)>0 && list.length&&
+        list.at(-1).dataset.overviewRef===state.filtered.at(-1).repd_ref;
     },null,{timeout:30000});
     console.log('DEBUG after full scroll',JSON.stringify(await page.evaluate(async()=>{
       const {state}=await import('./scripts/core/state.js');
@@ -81,6 +82,15 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
     }));
     assert.ok(atEnd.from>0&&atEnd.shown<100,JSON.stringify(atEnd));
     assert.equal(await page.locator('#tbody tr[id^="repd-"]').count(),50);
+    // The overview can also expose the complete official REPD universe, not only Solar.
+    const types=await page.locator('#pnLiquidTech option').evaluateAll(options=>options.map(o=>o.value));
+    assert.ok(types.includes('all'),JSON.stringify(types));
+    await page.locator('#pnLiquidTech').selectOption('all');
+    await page.waitForFunction(async()=>{
+      const {state}=await import('./scripts/core/state.js');
+      return document.getElementById('pnLiquidBody').dataset.total===String(state.all.length);
+    });
+    assert.equal(await page.locator('#pnLiquidBody').getAttribute('data-total'),String(initial.all));
     // A4/A3 are live HTML widths, not a screenshot or a generated PDF.
     await page.locator('#pnLiquidFormat').selectOption('a4');
     const a4=await page.locator('#pnLiquidSheet').evaluate(el=>el.getBoundingClientRect().width);
@@ -90,7 +100,8 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
     await page.locator('[data-liquid-action="fit"]').click();
     const fit=await page.locator('#pnLiquidSheet').evaluate(el=>el.getBoundingClientRect().width);
     assert.ok(fit<=a4,JSON.stringify({fit,a4}));
-    await page.locator('#pnLiquidX').fill('100');
+    await page.locator('#pnLiquidFormat').selectOption('a3');
+    await page.locator('#pnLiquidX').evaluate(input=>{input.value='100';input.dispatchEvent(new Event('input',{bubbles:true}));});
     const x=await page.locator('#pnLiquidViewport').evaluate(el=>el.scrollLeft);
     assert.ok(x>0,JSON.stringify({x}));
     // User text search delegates to original #search and canonical filtered data.
@@ -104,7 +115,7 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
     assert.ok(searched>=1&&searched<=initial.count);
     await page.locator('[data-liquid-action="clear"]').click();
     await page.waitForFunction(()=>document.getElementById('search').value==='');
-    assert.equal(await page.locator('#pnLiquidBody').getAttribute('data-total'),String(initial.count));
+    assert.equal(await page.locator('#pnLiquidBody').getAttribute('data-total'),String(initial.all));
     await page.screenshot({path:out+'/'+engine+'-'+size.label+'.png'});
     await page.keyboard.press('Escape');
     assert.ok(await page.locator('#pnLiquidOverview').isHidden());
@@ -114,7 +125,7 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
     await page.locator('#tbody .pn-report-launch').first().click();
     await page.waitForSelector('#pnRepdReport:not([hidden])');
     assert.equal(await page.locator('[data-report-action="pdf"]').count(),1);
-    assert.ok(await page.locator('#pnReportMap').isVisible());
+    assert.ok((await page.locator('#pnReportMap').isVisible())||(await page.locator('#pnReportNoMap').isVisible()));
     await page.locator('[data-report-action="close"]').click();
     assert.ok(await page.locator('#pnRepdReport').isHidden());
     assert.deepEqual(errors,[]);

@@ -274,3 +274,13 @@ html.pn-expanded-open{overflow:hidden!important}
   min-width:0!important;min-height:30px!important;height:30px!important;
   padding:2px!important;font-size:10px!important;
 }
+
+
+/* Match the original Pipeline News left-aligned project presentation. */
+#pnExpandedHost #repdPanel #repdScroll #tbody .project-record>summary,
+#pnExpandedHost #repdPanel #repdScroll #tbody .phone-project-label{
+  text-align:left!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #projectPager{
+  grid-template-columns:61px minmax(0,1fr) 65px!important;
+}

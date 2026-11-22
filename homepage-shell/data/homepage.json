@@ -180,9 +180,9 @@
       "id": "gridatlas",
       "title": "GridAtlas",
       "subtitle": "Explore the electricity network",
-      "description": "Optional UK lightning overlay (observed optical flashes, 12-month history) with the nearest substations and REPD projects, plus a Potential offtakers layer (industry, power stations, data centres) linked to the 15 nearest REPD projects.",
+      "description": "Explore nearby grid and energy assets, search 5,800 mapped substations, and draw clearly labelled learning journeys with session-only proposed connection concepts.",
       "launch_label": "Open GridAtlas",
-      "operative_release_id": "202611132345",
+      "operative_release_id": "202611180026",
       "releases": [
         {
           "id": "202609241334",
@@ -232,6 +232,36 @@
           "status": "available",
           "source_ref": "https://github.com/Ventusltd/gridatlas/commit/b0a3a93835739bf9a4987a2f4916938fa37ad124",
           "archive_url": "https://ventusltd.github.io/gridatlas/atlas/v/202611132345/",
+          "archive_kind": "app"
+        },
+        {
+          "id": "202611161720",
+          "label": "V9.191 - 16 November 2026 generation",
+          "url": "https://ventusltd.github.io/gridatlas/atlas/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/gridatlas/commit/1de35f9eca360a5d80d81542230fef546917f5c5",
+          "archive_url": "https://ventusltd.github.io/gridatlas/atlas/v/202611161720/",
+          "archive_kind": "app"
+        },
+        {
+          "id": "202611172355",
+          "label": "V9.192 - 18 November 2026",
+          "url": "https://ventusltd.github.io/gridatlas/atlas/",
+          "published_at": "2026-11-18T00:23:06Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/gridatlas/commit/b52693aaf513e63240acd8ab99a698df5b738cc6",
+          "archive_url": "https://ventusltd.github.io/gridatlas/atlas/v/202611172355/",
+          "archive_kind": "app"
+        },
+        {
+          "id": "202611180026",
+          "label": "V9.193 - 18 November 2026",
+          "url": "https://ventusltd.github.io/gridatlas/atlas/",
+          "published_at": "2026-11-18T03:57:37Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/gridatlas/commit/9db8a027a6d15256d4be501707c36d1934c6e2ef",
+          "archive_url": "https://ventusltd.github.io/gridatlas/atlas/v/202611180026/",
           "archive_kind": "app"
         }
       ]
@@ -336,7 +366,7 @@
       "subtitle": "Follow renewable energy projects",
       "description": "Explore the project register and follow the renewable energy pipeline.",
       "launch_label": "Open Pipeline News",
-      "operative_release_id": "202611151300",
+      "operative_release_id": "202611220220",
       "releases": [
         {
           "id": "202609082224",
@@ -377,6 +407,206 @@
           "published_at": "2026-11-15T22:33:00Z",
           "status": "available",
           "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/0719ddc28f2a418281594549d4667c9916ff6b20/uk_renewables_pipeline/202611151300"
+        },
+        {
+          "id": "202611160020",
+          "label": "V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611160020/",
+          "published_at": "2026-11-16T08:02:54Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/1559f40e73a4e454c39b23d5172cf4c5e96ef3ea/uk_renewables_pipeline/202611160020"
+        },
+        {
+          "id": "202611161244",
+          "label": "V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611161244/",
+          "published_at": "2026-11-16T12:48:38Z",
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/6d019006d2d091e45f7b30eeafd756126230e9d7/uk_renewables_pipeline/202611161244"
+        },
+        {
+          "id": "202611161757",
+          "label": "V9.28 ? October 2026 REPD ? Headlines and Pipeline",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611161757/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/84c739ad711b3ce8476acdfab219c8f8b67f102d/uk_renewables_pipeline/202611161757"
+        },
+        {
+          "id": "202611162354",
+          "label": "V9.29 - full-width pipeline and Android rotation",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611162354/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/bc8ba03b74dc88cd1fa9d181eb40eb45045b1291/uk_renewables_pipeline/202611162354"
+        },
+        {
+          "id": "202611170147",
+          "label": "V9.30 - data-centre address screening",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611170147/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/ed7b972435dc11c2aa99c69226719c31d822ed21/uk_renewables_pipeline/202611170147"
+        },
+        {
+          "id": "202611170243",
+          "label": "V9.31 - daily historical system-sell prices",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611170243/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/a7641774faf9bde8862a5dc8c59f3b83805f4c96/uk_renewables_pipeline/202611170243"
+        },
+        {
+          "id": "202611170324",
+          "label": "V9.32 - primary planning decision note",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611170324/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/ba57b59447c4c7619262d440f6d4cac449dac8a2/uk_renewables_pipeline/202611170324"
+        },
+        {
+          "id": "202611170512",
+          "label": "V9.33 - reviewed development consent notes",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611170512/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/e68a760bf41e98167cf5f3e86de474ed9e7bcfda/uk_renewables_pipeline/202611170512"
+        },
+        {
+          "id": "202611171141",
+          "label": "V9.34 - planning dates, year filters and expanded analytics",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611171141/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/56af4746ffc8781621b03dfedbf5ca1685a245ae/uk_renewables_pipeline/202611171141"
+        },
+        {
+          "id": "202611171217",
+          "label": "V9.35 - Operational dates, sorting and year filters",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611171217/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/2499e91704a24f1586ba4bf1b85a3f5beca5cb6a/uk_renewables_pipeline/202611171217"
+        },
+        {
+          "id": "202611171507",
+          "label": "V9.36 - searchable static headlines, up to 100 available",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611171507/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/de175b28076ca3115ecb026174b7dc6bb1fd9e8c/uk_renewables_pipeline/202611171507"
+        },
+        {
+          "id": "202611171526",
+          "label": "V9.37 - news filters and source provenance",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611171526/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/aca34ce9ff2e76e56f4c1a6c564870a35b8815dd/uk_renewables_pipeline/202611171526"
+        },
+        {
+          "id": "202611171710",
+          "label": "V9.40 - flowing neon headlines with source-qualified grid and document facts",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611171710/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/5e17571d634bd4f298ff4c73a1f84beaa1a09e37/uk_renewables_pipeline/202611171710"
+        },
+        {
+          "id": "202611171940",
+          "label": "V9.41 - crisp red ticker",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611171940/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/f975a982619d55f28d9091e11d73279fe826ae1f/uk_renewables_pipeline/202611171940"
+        },
+        {
+          "id": "202611172355",
+          "label": "V9.42 - mobile MAP handoff",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611172355/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/33da7796caf6d9db6eacb1893d52ef8c89666ad8/uk_renewables_pipeline/202611172355"
+        },
+        {
+          "id": "202611180451",
+          "label": "V9.44 - Grid Journey entry and exact Back filters",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611180451/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/b7c5f44fca32fe107eaa5f5e80a535b18f8b490f/uk_renewables_pipeline/202611180451"
+        },
+        {
+          "id": "202611180633",
+          "label": "V9.46 - Energy news context and retained Grid Journey return",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611180633/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/169fe4e196741971c3cb380ddb49344977026b82/uk_renewables_pipeline/202611180633"
+        },
+        {
+          "id": "202611191418",
+          "label": "V9.56 - Compact register and responsive gauges",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611191418/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/9648b09863e40092ddc653468b573a720b2f1ed9/uk_renewables_pipeline/202611191418"
+        },
+        {
+          "id": "202611201709",
+          "label": "V9.57 - REPD project identity correction",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611201709/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/577233737689e1289c89436d76ae50a272fb3677/uk_renewables_pipeline/202611201709"
+        },
+        {
+          "id": "202611212308",
+          "label": "V9.58 - Full-screen news reader",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611212308/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/6e958cef7da74f042f75f7d2a6c19f3ebc7a2f89/uk_renewables_pipeline/202611212308"
+        },
+        {
+          "id": "202611212340",
+          "label": "V9.59 - Compact non-obscuring news maximise control",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611212340/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/78915774f690996dd4a745ce8af4fcdd59187a0a/uk_renewables_pipeline/202611212340"
+        },
+        {
+          "id": "202611212344",
+          "label": "V9.60 - Landscape-only REPD analytics and projects",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611212344/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/3b9716e13c93c5e3ee84038339701279c79a90a5/uk_renewables_pipeline/202611212344"
+        },
+        {
+          "id": "202611220100",
+          "label": "V9.61 - Compact REPD mobile register and landscape density",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611220100/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/f01902f5751cb412e950663a1903641fa8ffa456/uk_renewables_pipeline/202611220100"
+        },
+        {
+          "id": "202611220125",
+          "label": "V9.62 - Project, capacity and MAP prospect scan",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611220125/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/f01902f5751cb412e950663a1903641fa8ffa456/uk_renewables_pipeline/202611220125"
+        },
+        {
+          "id": "202611220220",
+          "label": "V9.63 - A4 project location report with clickable MAP",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611220220/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/f01902f5751cb412e950663a1903641fa8ffa456/uk_renewables_pipeline/202611220220"
         }
       ]
     },
@@ -533,7 +763,7 @@
       "id": "energy-transition-simulator",
       "title": "Energy Transition Simulator",
       "subtitle": "Solar farming with power grids, on real UK ground (preview)",
-      "description": "Walk and fly anywhere in the UK over measured Environment Agency LiDAR, streamed where you arrive. Tables, trenches, lines and stations are modelled on the satellite and labelled as measured, documented or estimated. A preview, not a surveyed site or an approved engineering design.",
+      "description": "Walk and fly anywhere in the UK over Environment Agency LiDAR, streamed where you arrive. Tables, trenches, lines and stations are modelled on the satellite, with source data, documentation and estimates distinguished. A preview, not a surveyed site or an approved engineering design.",
       "launch_label": "Open the simulator preview",
       "operative_release_id": "ets-202609282123",
       "parent_id": "solar-design-studio",
@@ -764,7 +994,7 @@
     {
       "id": "cyber-resilience-log",
       "title": "Cyber Resilience Log",
-      "subtitle": "Cloud outages, supply-chain risk and independent recovery",
+      "subtitle": "Cloud outages, supplier dependencies and independent recovery",
       "description": "A dated research log on operational failures, security incidents and the risks of relying on too few providers for critical systems.",
       "launch_label": "Open Cyber Resilience Log",
       "operative_release_id": "20261113",
@@ -1004,6 +1234,167 @@
       "to_release_id": "202611151300",
       "reason": "Direct owner authorisation 15 November 2026: Agent9 publish V9.22 now as an iterative known-issues release, preserve V9.21/V9.20 rollback, leave GridAtlas intermittent mobile first-restoration defect and further work to V9.23; 7775 official REPD IDs kept, speculative news links possible matches only.",
       "promoted_at": "2026-11-15T22:33:00Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611151300",
+      "to_release_id": "202611160020",
+      "reason": "Owner direct 16 Nov 2026 publish V9.23 now as iterative release; preserve immutable V9.22 and predecessors, show short unverified candidate project news notes, simplify feed. External GridAtlas 390px visible MAP still failed 2/3 in real three-project sample; does not claim fix. 7,775 official REPD records and publisher source rights subject to independent verification.",
+      "promoted_at": "2026-11-16T08:02:54Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611160020",
+      "to_release_id": "202611161244",
+      "reason": "Owner explicitly directed 16 November 2026 to publish V9.24 as-is, without waiting for unrelated research. Separate version adds deterministic numeric REPD Solar-1000 pilot with 2 source candidates, 998 unresearched and 0 independently verified. Official 7,775 REPD records, original MAP links and CSV unchanged; inherited external GridAtlas mobile first-restore issue documented. V9.23 and prior immutable releases retained for rollback.",
+      "promoted_at": "2026-11-16T12:48:38Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611161244",
+      "to_release_id": "202611161757",
+      "reason": "Owner explicitly instructed publication of corrected V9.28 on 16 November 2026. Pin exact product source 84c739ad711b3ce8476acdfab219c8f8b67f102d; retain all 7,775 REPD rows and immutable Solar-1000, provisional-only context and unassessed source rights. V9.24 remains available for rollback. Prepared for merge only after exact-source CI and product served-byte checks; no independent project evidence or rights approval is inferred.",
+      "promoted_at": "2026-11-16T23:09:31Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611161757",
+      "to_release_id": "202611162354",
+      "reason": "Owner-requested sidebar removal and Android rotation fixes, pinned to product source 7f0d26f4343d5d223781a7231e7655e5df1f5ff2. Prepare the compact full-width V9.29 with two blocks and six tabs while preserving source snapshots, unknown capacity, possibly stale original Prices, zero new VERIFIED claims and all prior releases. ROOT must verify exact-source CI and the public dated release before merge; V9.28 remains available for rollback.",
+      "promoted_at": "2026-11-17T00:41:47Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611162354",
+      "to_release_id": "202611170147",
+      "reason": "Prepare source-pinned V9.30 data-centre address screening at product source ed7b972435dc11c2aa99c69226719c31d822ed21. Preserve unknown capacity, unverified operating status and entity identity, possibly stale original Prices and zero independently verified Solar-1000 evidence. ROOT must verify exact-source CI and actual dated-release browser and receiver acceptance before merge; V9.29 and every older release remain available for rollback.",
+      "promoted_at": "2026-11-17T02:19:45Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611170147",
+      "to_release_id": "202611170243",
+      "reason": "Prepare daily historical system-sell Prices at product source a7641774faf9bde8862a5dc8c59f3b83805f4c96. Retain source-declared day groups and coverage, negative prices, gaps, partial markers and legacy UTC disagreements through 31 October 2026; no live quote, forecast or intraday certification. ROOT must verify exact-source CI and actual dated-release source, graph and public-flow acceptance before merge; V9.30 and every older release remain available for rollback.",
+      "promoted_at": "2026-11-17T03:13:50Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611170243",
+      "to_release_id": "202611170324",
+      "reason": "Prepare one narrowly reviewed government decision note in existing Machine Read Notes at product source ba57b59447c4c7619262d440f6d4cac449dac8a2. EN010147 to REPD12588 remains a PROVISIONAL association with zero VERIFIED claims and zero Solar-1000 verified delta. Frozen REPD status, original application capacity and distinct source dates remain unchanged. ROOT must verify all exact-source CI and actual dated-release note, source and browser acceptance before merge; V9.31 and every older release remain available for rollback.",
+      "promoted_at": "2026-11-17T04:11:16Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611170324",
+      "to_release_id": "202611170512",
+      "reason": "Prepare four narrowly scoped primary-source notes at product source e68a760bf41e98167cf5f3e86de474ed9e7bcfda: the unchanged Botley government decision and three government development-consent records. All project associations remain PROVISIONAL, with zero VERIFIED claims and zero Solar-1000 verified delta. Preserve distinct source clocks and document types, frozen REPD data, whole-development scope, separate Battery identities and unknown current capacities and operating status. ROOT must verify all exact-source CI and actual dated-release four-note, source and browser acceptance before merge; V9.32 and every older release remain available for rollback.",
+      "promoted_at": "2026-11-17T05:54:37Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611170512",
+      "to_release_id": "202611171141",
+      "reason": "Owner explicitly approved publication after all checks pass on 17 November 2026. V9.34 source 56af4746ffc8781621b03dfedbf5ca1685a245ae adds existing official planning submission dates, independent date/year controls and reviewed mobile expansion. All 7775 canonical rows and original source data remain unchanged. Independent Agent B reviews passed; merge only after final exact-source CI and dated public source acceptance. Preserve V9.33 and every earlier rollback.",
+      "promoted_at": "2026-11-17T12:10:12Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611171141",
+      "to_release_id": "202611171217",
+      "reason": "Owner explicitly instructed publish V9.35 on 17 November 2026 after all five source workflows and independent Agent B review passed. Exact source 2499e91704a24f1586ba4bf1b85a3f5beca5cb6a adds official Operational dates with sorting/year selection, preserving all 7775 canonical rows, null dates, source statuses and original CSV. Merge only after actual dated public acceptance and homepage checks. Preserve V9.34 and all prior rollback releases.",
+      "promoted_at": "2026-11-17T12:40:11Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611171217",
+      "to_release_id": "202611171507",
+      "reason": "Owner-directed three-hour implementation/publication window 17 November 2026. PN-TICKER exact source de175b28076ca3115ecb026174b7dc6bb1fd9e8c adds bounded20-item static browsing/search across up to100 actual source headlines with original attribution/clocks, no Pause/motion and unchanged collector/main12-item list. Independent Agent B review passed. Merge only after all exact-source gates and dated public acceptance; retain V9.35 and all older releases.",
+      "promoted_at": "2026-11-17T15:32:24Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611171507",
+      "to_release_id": "202611171526",
+      "reason": "Owner-directed three-hour implementation/publication scope17November2026. PN-NEWS exactsourceaca34ce9ff2e76e56f4c1a6c564870a35b8815dd adds stable title/publisher/topic/category/current-exact-ranking-source-type filters and honest lazy collection/source provenance, preserving full original document, V936 ticker and main12 batches. Merge only after all exact-source gates, independent review and dated public acceptance. Retain V936 and all prior immutable releases.",
+      "promoted_at": "2026-11-17T16:11:32Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611171526",
+      "to_release_id": "202611171710",
+      "reason": "Root-accepted exact source combines continuously flowing restrained red-neon headlines and compact main news search with inherited source-qualified government grid notices and six precisely located HTML document facts. Canonical data and original source clocks remain unchanged. CI and named Pixel 7/Galaxy S9+ Chromium emulation support acceptance; physical handset and assistive-technology acceptance remain unknown. Promotion from the accepted V9.37 operative remains gated on root validation of actual public bytes and controls.",
+      "promoted_at": "2026-11-17T17:52:56Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611171710",
+      "to_release_id": "202611171940",
+      "reason": "Owner-requested crisp red headlines on solid black, with glow and glass removed and slightly faster continuous motion; existing controls, original links, source policy and data retained.",
+      "promoted_at": "2026-11-17T19:58:55Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611171940",
+      "to_release_id": "202611172355",
+      "reason": "Owner-authorized overnight mobile MAP reliability improvement. Exact source33da7796caf6d9db6eacb1893d52ef8c89666ad8 preserves all REPD data and links, retains desktop behaviour and uses native visible touch navigation with Back filter recovery. Merge only after exact source CI, independent review, actual dated source acceptance and separately served Atlas receiver repair. Preserve V9.41 and all older versions; physical handset acceptance remains unproved.",
+      "promoted_at": "2026-11-18T00:04:45Z"
+    },
+    {
+      "entity_id": "gridatlas",
+      "from_release_id": "202611132345",
+      "to_release_id": "202611172355",
+      "reason": "Owner-authorized overnight Atlas1; independent Android/mobile reviews and all applicable CI passed; canonical live pointer and 129 served paths verified 18 November 2026 00:23 UTC. Historical editions retained.",
+      "promoted_at": "2026-11-18T00:31:01Z"
+    },
+    {
+      "entity_id": "gridatlas",
+      "from_release_id": "202611172355",
+      "to_release_id": "202611180026",
+      "reason": "Reviewed G193 source promoted under the existing session-owner authorization; public Chromium and WebKit checks and exact live artifact readback passed. Catalog history retained.",
+      "promoted_at": "2026-11-18T03:59:06Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611172355",
+      "to_release_id": "202611180451",
+      "reason": "Owner-authorized overnight Grid Journey entry for REPD, data centres and substations with exact Back filter restoration. Accepted source b7c5f44fca32fe107eaa5f5e80a535b18f8b490f, all five source workflows and four cold-return regressions passed. Actual served V9.44/G193 proof comprises eleven passing hosted cases plus one independently reviewed targeted desktop manual case after correcting a touch-only harness threshold; the original failed job remains retained. Preserve V9.42 and all historical reader-visible versions, with no physical handset claim.",
+      "promoted_at": "2026-11-18T05:58:27Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611180451",
+      "to_release_id": "202611180633",
+      "reason": "Owner-authorized overnight V9.46 energy-transition, AI-demand and grid-upgrade news context with retained Journey origin and filters across cold returns. Exact source169fe4e196741971c3cb380ddb49344977026b82 passed all five source workflows and independent review;39 actual HTTPS source files matched their pins. Preserve all21 older Pipeline records and every Atlas record; no physical handset claim.",
+      "promoted_at": "2026-11-18T07:04:15Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611180633",
+      "to_release_id": "202611191418",
+      "reason": "Owner approved V9.56 after the dated release passed two public Chromium and WebKit runs and an exact served-byte check.",
+      "promoted_at": "2026-11-19T16:16:20Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611191418",
+      "to_release_id": "202611201709",
+      "reason": "Owner explicitly approved V9.57 homepage promotion after full Chromium and WebKit regression and public byte verification (run 44780797932).",
+      "promoted_at": "2026-11-20T17:40:22Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611201709",
+      "to_release_id": "202611212344",
+      "reason": "Owner instruction 22 November 2026: serve the newer Pipeline News controls from the homepage. V9.58 news maximise, V9.59 compact button and V9.60 independent landscape-only REPD dashboard passed isolated Chromium/WebKit and inherited release checks. V9.57 retained for rollback; public served-byte check required before deployment.",
+      "promoted_at": "2026-11-22T00:12:00Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611212344",
+      "to_release_id": "202611220220",
+      "reason": "Owner explicitly instructed publication on 22 November 2026. V9.61 density, V9.62 facts-first prospect scan and V9.63 location-first A4 report all passed dedicated Chromium/WebKit acceptance and full version regression. No land area or automated Signal ranking. Preserve V9.60 for rollback; verify live homepage bytes after deployment.",
+      "promoted_at": "2026-11-22T09:07:50.212Z"
     }
   ]
 }

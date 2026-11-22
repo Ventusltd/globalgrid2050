@@ -1,0 +1,16 @@
+{
+  "schema": "globalgrid2050.news-quality.v937",
+  "shared_reader": "automation/news_quality_ui/20261117-v937/",
+  "sha256": {
+    "model.mjs": "71242947cd33a15c21a57965cba1717c57fb0ee5981b457eb817f9153c0208a5",
+    "view.mjs": "8f350a0e4ee3a8c9a9c20b259a3cede9daa7d4213f56d1d4e7d90141cd8d3960",
+    "styles.css": "759f44e7a74b709d951162203c5f7d437903a7a883417adb6355613c834dea71"
+  },
+  "source": "Existing 50-feed headline collector and original pipeline-feed-loaded document; no collection change or data copy",
+  "view": "Title/source/topic/category and accepted-ranking-source-type filters on a derived view; initial12 and ShowMore12 retained; original doc/ticker input never mutated",
+  "health": "Derived from unique safe full feed-health records and coherent recorded counts; missing, duplicate or inconsistent metadata unavailable; credited publisher labels distinct from feeds",
+  "clocks": "Collection clock, publisher date and first-collected are separately labelled; impossible clocks unknown",
+  "ranking": "Only current accepted exact-input private priority wrappers classify source type; raw item kinds, stale/snapshot/rejected ranks are Unclassified; classification is not verification; no raw scores",
+  "claims": "Possible match remains unverified; source facts are not commissioning, connection, capacity or ownership proof",
+  "preserve": "Existing rights, collector/binder/evidence ledger, all7775 REPD records, dates, CSV/MAP, frozen Solar1000 and V936 ticker"
+}

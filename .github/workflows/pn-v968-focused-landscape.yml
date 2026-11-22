@@ -1,0 +1,49 @@
+name: Pipeline News V9.68 landscape reading view QA
+on:
+  pull_request:
+    paths:
+      - 'uk_renewables_pipeline/202611221705/**'
+      - '.github/workflows/pn-v968-focused-landscape.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Inspect original register and new focused view
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          base=Path('uk_renewables_pipeline/202611221705')
+          html=(base/'index.html').read_text()
+          css=(base/'styles/repd-expanded.css').read_text()
+          js=(base/'repd-expanded.mjs').read_text()
+          assert 'V9.68' in html
+          assert 'setExpandedPageRows(true)' in js
+          assert 'pendingLandscape' in js
+          assert 'th:nth-child(5)' in css and 'th:nth-child(8)' in css and 'th:nth-child(12)' in css
+          assert (base/'report-a4.mjs').read_bytes()==Path('uk_renewables_pipeline/202611221625/report-a4.mjs').read_bytes()
+          assert (base/'report-pdf.mjs').read_bytes()==Path('uk_renewables_pipeline/202611221625/report-pdf.mjs').read_bytes()
+          print('Source contract and inherited A4/PDF verified')
+          PY
+      - name: Install browser engines
+        working-directory: uk_renewables_pipeline/202611221705
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+      - name: Start local release server
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pn-http.log 2>&1 &
+          for i in $(seq 1 20); do
+            if curl -fsS -o /dev/null http://127.0.0.1:8765/uk_renewables_pipeline/202611221705/; then break; fi
+            sleep 1
+          done
+      - name: Test Chromium and WebKit portrait/landscape, sorting, MAP, A4 and restoration
+        working-directory: uk_renewables_pipeline/202611221705
+        run: node tests/repd-expanded.mjs

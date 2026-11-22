@@ -1,26 +1,26 @@
 {
  "schema": "project-signals.v2",
- "generated_at": "2026-11-21T22:19:26Z",
- "run_at": "2026-11-21T22:46:45Z",
+ "generated_at": "2026-11-22T13:32:21Z",
+ "run_at": "2026-11-22T14:00:04Z",
  "stale": false,
  "scope": "200 largest Solar Photovoltaics rows, REPD October 2026",
  "recent_days": 90,
  "parts": {
   "official": {
    "status": "ok",
-   "collected_at": "2026-11-21T22:14:50Z",
+   "collected_at": "2026-11-22T13:27:48Z",
    "items": 109,
    "note": ""
   },
   "trade": {
    "status": "ok",
-   "collected_at": "2026-11-21T22:19:08Z",
+   "collected_at": "2026-11-22T13:32:08Z",
    "items": 192,
    "note": ""
   },
   "index": {
    "status": "ok",
-   "collected_at": "2026-11-21T22:19:26Z",
+   "collected_at": "2026-11-22T13:32:21Z",
    "items": 17,
    "note": ""
   },
@@ -32,7 +32,7 @@
   },
   "planning": {
    "status": "ok",
-   "collected_at": "2026-11-21T22:40:47Z",
+   "collected_at": "2026-11-22T13:54:03Z",
    "items": 200,
    "note": ""
   }
@@ -228,9 +228,9 @@
    "id": "gdelt-doc",
    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
    "status": "partial",
-   "requests": 53,
-   "failures": 43,
-   "items": 13,
+   "requests": 52,
+   "failures": 42,
+   "items": 9,
    "error": "time budget for GDELT reached; the rest are asked on later runs; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   }
  ],
@@ -7199,7 +7199,7 @@
     "link_type": "search",
     "authority": "South Kesteven",
     "reference": "S21/1018",
-    "url": "https://www.southkesteven.gov.uk/",
+    "url": "https://pa.southkesteven.gov.uk/online-applications/search.do?action=simple&searchType=Application",
     "kind": "search_page",
     "verified": false,
     "note": "Search the register for S21/1018."
@@ -8412,7 +8412,7 @@
     "link_type": "search",
     "authority": "South Kesteven",
     "reference": "S20/1433",
-    "url": "https://www.southkesteven.gov.uk/",
+    "url": "https://pa.southkesteven.gov.uk/online-applications/search.do?action=simple&searchType=Application",
     "kind": "search_page",
     "verified": false,
     "note": "Search the register for S20/1433."
@@ -12820,7 +12820,7 @@
     "link_type": "search",
     "authority": "Canterbury",
     "reference": "CA/25/00570",
-    "url": "https://pa.canterbury.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+    "url": "https://www.canterbury.gov.uk/",
     "kind": "search_page",
     "verified": false,
     "note": "Search the register for CA/25/00570."

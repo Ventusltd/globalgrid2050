@@ -7,7 +7,7 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
  const browser=await driver.launch({headless:true});
  try{
   for(const vp of [{label:'portrait',width:393,height:852},{label:'landscape',width:852,height:393}]){
-   const page=await browser.newPage({viewport:{width:vp.width,height:vp.height},reducedMotion:'reduce'});
+   const page=await browser.newPage({viewport:{width:vp.width,height:vp.height},hasTouch:true,reducedMotion:'reduce'});
    const errors=[];page.on('pageerror',e=>errors.push(e.message));
    try{
     await page.route('https://raw.githubusercontent.com/**',r=>r.abort());
@@ -43,6 +43,12 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
     });
     await page.locator('#pnLiquidLaunch').click();
     await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length===100);
+    // Same 13 columns, presented as a fit-to-screen overview before pinch.
+    await page.waitForFunction(()=>{
+      const el=document.querySelector('#repdScroll');
+      return !!el?.dataset.zoom&&el.querySelector('table').getBoundingClientRect().width<=el.clientWidth+5;
+    },null,{timeout:15000});
+
     const info=await page.evaluate(()=>{
       const v=document.getElementById('repdScroll');
       const td=document.querySelector('#tbody tr[id^="repd-"]>td:nth-child(4)');
@@ -98,7 +104,34 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
     assert.ok(Math.abs(gaugesBefore.y-gaugesAfter.y)<=3,
       'Expanded REPD table scroll must not displace the cockpit: '+
       JSON.stringify({gaugesBefore,gaugesAfter}));
-    assert.ok(info.scrollWidth>info.clientWidth,JSON.stringify(info));
+    assert.ok(info.scrollWidth<=info.clientWidth+5,
+      'At initial fit zoom every REPD column must be in view: '+JSON.stringify(info));
+    // Exercise a real two-finger pinch TouchEvent on the REPD viewport.
+    const pinch=await page.evaluate(()=>{
+      const el=document.getElementById('repdScroll');
+      const before=Number(el.dataset.zoom);
+      const rect=el.getBoundingClientRect();
+      const midX=rect.left+rect.width/2,midY=rect.top+Math.min(150,rect.height/2);
+      const touch=(id,x,y)=>new Touch({identifier:id,target:el,clientX:x,clientY:y,
+        pageX:x,pageY:y,screenX:x,screenY:y});
+      const start=[touch(1,midX-32,midY),touch(2,midX+32,midY)];
+      const end=[touch(1,midX-156,midY),touch(2,midX+156,midY)];
+      el.dispatchEvent(new TouchEvent('touchstart',{touches:start,targetTouches:start,
+        changedTouches:start,bubbles:true,cancelable:true}));
+      el.dispatchEvent(new TouchEvent('touchmove',{touches:end,targetTouches:end,
+        changedTouches:end,bubbles:true,cancelable:true}));
+      el.dispatchEvent(new TouchEvent('touchend',{touches:[],targetTouches:[],
+        changedTouches:end,bubbles:true,cancelable:true}));
+      return {before,after:Number(el.dataset.zoom),
+        width:el.querySelector('table').getBoundingClientRect().width,
+        viewport:el.clientWidth,scrollWidth:el.scrollWidth};
+    });
+    assert.ok(pinch.before>0&&pinch.before<.5,
+      'Initial preview must fit all 13 columns on a phone: '+JSON.stringify(pinch));
+    assert.ok(pinch.after>pinch.before*3,
+      'Two-finger pinch must magnify the actual REPD table: '+JSON.stringify(pinch));
+    assert.ok(pinch.scrollWidth>pinch.viewport,
+      'At close zoom the user must have horizontal navigation: '+JSON.stringify(pinch));
     assert.notEqual(info.firstPosition,'sticky',JSON.stringify(info));
     assert.ok(info.rowHeight<=43,'Expanded rows must stay compact: '+JSON.stringify(info));
     assert.ok(info.gaugeOverflow<=4,'Speedometer canvas must stay in card: '+JSON.stringify(info));
@@ -134,6 +167,8 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
     await page.locator('[data-report-action="close"]').click();
     await page.locator('#pnExpandedClose').click();
     assert.ok(await page.locator('#pnExpandedHost').isHidden());
+    assert.equal(await page.locator('#repdScroll table').evaluate(el=>el.style.zoom),'',
+      'Closing the preview must fully reset the original dashboard zoom');
     assert.equal(await page.locator('#tbody tr[id^="repd-"]').count(),50);
     assert.equal(await page.locator('#tbody tr[id^="repd-"] td:last-child .project-actions').count(),50,
       'Normal dashboard MAP/A4 column must be preserved');

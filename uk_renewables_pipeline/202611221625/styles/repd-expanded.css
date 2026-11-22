@@ -1,0 +1,446 @@
+/* V9.65: exact native Pipeline News REPD, made full viewport; no new sheet/table or palette. */
+#pnScanToolbar #pnLiquidLaunch{
+  flex:0 0 auto;min-height:34px;padding:5px 9px;
+  border:1px solid #425f64;background:#05090c;color:#75edf3;
+  font:700 11px/1.2 'Courier New',monospace;cursor:pointer;
+}
+#pnExpandedHost[hidden],#pnExpandedFilter[hidden]{display:none!important}
+html.pn-expanded-open{overflow:hidden!important}
+#pnExpandedHost{
+  position:fixed!important;inset:0!important;z-index:2147483200!important;
+  display:flex;flex-direction:column;box-sizing:border-box;
+  width:100vw;height:100vh;height:100dvh;max-width:none;
+  min-width:0;min-height:0;overflow:hidden;
+  background:#000;color:#e8edf3;font:11px/1.2 'Courier New',monospace;
+}
+#pnExpandedHost .pn-expanded-top{
+  display:flex;gap:9px;align-items:center;flex:0 0 auto;min-height:37px;
+  padding:max(4px,env(safe-area-inset-top,0px)) max(8px,env(safe-area-inset-right,0px)) 4px;
+  border-bottom:1px solid #253a40;background:#030709;box-sizing:border-box;
+}
+#pnExpandedHost .pn-expanded-top strong{font-size:12px;color:#7cf5f8;letter-spacing:.3px}
+#pnExpandedHost .pn-expanded-subtitle{color:#81979c;font-size:10px}
+#pnExpandedClose{
+  margin-left:auto;min-height:31px;padding:5px 9px;white-space:nowrap;
+  border:1px solid #4b646a;background:#090f12;color:#7eeaf0;
+  font:700 11px 'Courier New',monospace;cursor:pointer;
+}
+#pnExpandedHost #officialRegister{
+  position:relative!important;flex:1 1 auto!important;min-width:0!important;
+  min-height:0!important;width:100%!important;max-width:none!important;
+  height:auto!important;max-height:none!important;display:flex!important;
+  flex-direction:column!important;overflow:hidden!important;
+  box-sizing:border-box!important;padding:2px 7px 4px!important;margin:0!important;
+  border:0!important;border-radius:0!important;background:#000!important;
+}
+#pnExpandedHost #officialRegister>:not(#pipelineHeading):not(#repdPanel){display:none!important}
+#pnExpandedHost #officialRegister #pipelineHeading{
+  flex:0 0 auto;margin:1px 0 2px!important;font-size:11px!important;line-height:1.2!important;
+}
+#pnExpandedHost #officialRegister #repdPanel{
+  display:flex!important;flex:1 1 auto!important;flex-direction:column!important;
+  min-height:0!important;min-width:0!important;overflow:hidden!important;
+}
+#pnExpandedHost #repdPanel>:not(.hud-gauges):not(#tech):not(#repdScroll){display:none!important}
+#pnExpandedHost #repdPanel>.hud-gauges{
+  display:grid!important;flex:0 0 auto!important;
+  width:100%!important;max-width:760px!important;margin:1px auto 4px!important;
+  gap:5px!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+}
+#pnExpandedHost #repdPanel>.hud-gauges>.card{
+  padding:3px 5px!important;min-width:0!important;background:#080b10!important;
+}
+#pnExpandedHost #repdPanel>.hud-gauges h3{
+  min-height:0!important;font-size:9px!important;line-height:1.1!important;margin-bottom:0!important;
+}
+#pnExpandedHost #repdPanel>.hud-gauges .chart{height:clamp(48px,10dvh,84px)!important}
+#pnExpandedHost #repdPanel>.hud-gauges .value{font-size:clamp(12px,2vw,18px)!important}
+#pnExpandedHost #repdPanel #tech{
+  display:flex!important;flex:0 0 auto!important;flex-wrap:wrap!important;
+  align-items:center!important;gap:3px 5px!important;margin:0 0 4px!important;
+  padding:0!important;background:#000!important;
+}
+#pnExpandedHost #repdPanel #tech .btn{
+  min-height:29px!important;padding:4px 8px!important;
+  font:700 10px 'Courier New',monospace!important;cursor:pointer;
+}
+#pnExpandedHost #repdPanel #repdScroll{
+  display:block!important;flex:1 1 auto!important;min-width:0!important;min-height:0!important;
+  width:100%!important;max-width:none!important;max-height:none!important;
+  height:auto!important;overflow:auto!important;scrollbar-width:auto!important;
+  touch-action:pan-x pan-y;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+  background:#05070a!important;--first-col:190px!important;--mw-col:88px!important;
+}
+#pnExpandedHost #repdPanel #repdScroll table{
+  display:table!important;width:1512px!important;min-width:1512px!important;
+  max-width:none!important;table-layout:fixed!important;
+  border-collapse:separate!important;border-spacing:0!important;
+  background:#05070a!important;color:#e2e8ef!important;
+}
+#pnExpandedHost #repdPanel #repdScroll thead{display:table-header-group!important}
+#pnExpandedHost #repdPanel #repdScroll tbody{display:table-row-group!important}
+#pnExpandedHost #repdPanel #repdScroll :is(thead,tbody) tr{display:table-row!important}
+#pnExpandedHost #repdPanel #repdScroll :is(thead,tbody) tr>:is(th,td){
+  display:table-cell!important;box-sizing:border-box!important;
+  position:static;min-width:0!important;max-width:none!important;
+  border-bottom:1px solid #242a33!important;vertical-align:middle!important;
+  color:inherit!important;
+}
+#pnExpandedHost #repdPanel #repdScroll thead th{
+  position:sticky!important;top:0!important;z-index:7!important;
+  height:34px!important;max-height:34px!important;
+  background:#06090d!important;color:#7be7ee!important;
+  padding:3px 20px 3px 5px!important;
+  font:700 10px/1.1 'Courier New',monospace!important;
+  white-space:normal!important;overflow:visible!important;
+}
+#pnExpandedHost #repdPanel #repdScroll thead th:first-child{
+  position:sticky!important;left:auto!important;z-index:7!important;
+}
+#pnExpandedHost #repdPanel #repdScroll thead th .column-sort,
+#pnExpandedHost #repdPanel #repdScroll thead th :is(#sortUpdated,#sortSubmitted,#sortOperational){
+  font:700 10px/1.1 'Courier New',monospace!important;
+  height:27px!important;min-height:0!important;padding:0!important;
+  color:#7be7ee!important;cursor:pointer;
+}
+#pnExpandedHost #repdPanel #repdScroll thead .date-options{display:none!important}
+#pnExpandedHost #repdPanel #repdScroll thead th:nth-child(1){width:190px!important}
+#pnExpandedHost #repdPanel #repdScroll thead th:nth-child(2){width:88px!important;text-align:center!important}
+#pnExpandedHost #repdPanel #repdScroll thead th:nth-child(3){width:120px!important}
+#pnExpandedHost #repdPanel #repdScroll thead th:nth-child(4){width:96px!important}
+#pnExpandedHost #repdPanel #repdScroll thead th:nth-child(5){width:90px!important}
+#pnExpandedHost #repdPanel #repdScroll thead th:nth-child(6){width:142px!important}
+#pnExpandedHost #repdPanel #repdScroll thead th:nth-child(7){width:85px!important}
+#pnExpandedHost #repdPanel #repdScroll thead th:nth-child(8){width:125px!important}
+#pnExpandedHost #repdPanel #repdScroll thead th:nth-child(9){width:110px!important}
+#pnExpandedHost #repdPanel #repdScroll thead th:nth-child(10){width:110px!important}
+#pnExpandedHost #repdPanel #repdScroll thead th:nth-child(11){width:110px!important}
+#pnExpandedHost #repdPanel #repdScroll thead th:nth-child(12){width:124px!important}
+#pnExpandedHost #repdPanel #repdScroll thead th:nth-child(13){width:122px!important}
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]{
+  display:table-row!important;height:35px!important;max-height:35px!important;
+  padding:0!important;background:#070b10!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]:nth-child(even){
+  background:#0a0e14!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]>td{
+  display:table-cell!important;position:static!important;left:auto!important;
+  height:35px!important;max-height:35px!important;
+  padding:3px 5px!important;border:0!important;border-bottom:1px solid #212833!important;
+  font:11px/1.12 'Courier New',monospace!important;
+  overflow:hidden!important;text-overflow:ellipsis;white-space:nowrap!important;
+  background:transparent!important;box-shadow:none!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]>td.mw{
+  color:#38f58c!important;text-align:center!important;font-variant-numeric:tabular-nums;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]>td:nth-child(4){
+  width:96px!important;min-width:0!important;max-width:96px!important;
+  white-space:normal!important;font-size:10px!important;
+}
+#pnExpandedHost #repdPanel #repdScroll .pn-expanded-operator{
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  line-clamp:2;max-height:27px;line-height:1.18!important;
+  overflow:hidden;text-overflow:ellipsis;overflow-wrap:anywhere;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody td.site{overflow:visible!important}
+#pnExpandedHost #repdPanel #repdScroll #tbody .compact-project-name,
+#pnExpandedHost #repdPanel #repdScroll #tbody .desktop-details-label,
+#pnExpandedHost #repdPanel #repdScroll #tbody .phone-project-status{display:none!important}
+#pnExpandedHost #repdPanel #repdScroll #tbody .project-record{position:relative!important;margin:0!important}
+#pnExpandedHost #repdPanel #repdScroll #tbody .project-record>summary{
+  display:block!important;box-sizing:border-box!important;height:34px!important;
+  min-height:34px!important;max-height:34px!important;
+  padding:9px 3px 2px!important;overflow:hidden!important;
+  cursor:pointer;white-space:nowrap!important;text-overflow:ellipsis;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody .phone-project-label{
+  display:block!important;overflow:hidden!important;max-width:100%!important;
+  font-size:11px!important;line-height:1.15!important;
+  white-space:nowrap!important;text-overflow:ellipsis!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody .project-record[open] .record-grid{
+  position:absolute!important;top:100%!important;left:0!important;z-index:20!important;
+  display:grid!important;width:min(380px,calc(100vw - 24px))!important;
+  max-height:60dvh!important;overflow:auto!important;padding:10px!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  background:#081116!important;color:#f1f4f5!important;
+  border:1px solid #4d666d;box-shadow:0 7px 20px #000c;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody .machine-note-button{
+  display:inline-block!important;min-height:27px!important;height:27px!important;
+  max-width:100%;padding:3px 5px!important;font-size:10px!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody .project-actions{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  flex-wrap:nowrap!important;gap:3px!important;min-height:31px!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody .project-actions :is(.action-link,.pn-report-launch,.action-disabled){
+  min-height:27px!important;height:27px!important;padding:4px!important;font-size:10px!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody .pn-report-launch{width:34px!important;min-width:34px!important}
+#pnExpandedHost #repdPanel #repdScroll #projectPager{
+  display:flex!important;position:sticky!important;bottom:0!important;z-index:10;
+  justify-content:center;align-items:center;gap:10px;
+  min-height:38px;background:#04090c!important;border-top:1px solid #344750;
+  padding:4px 6px;box-sizing:border-box;
+}
+#pnExpandedHost .pn-expanded-column-filter{
+  display:inline-grid!important;place-items:center!important;position:absolute!important;
+  top:3px;right:2px;width:18px;height:25px;min-height:25px;padding:0!important;
+  background:transparent!important;border:0!important;color:#81f6ee!important;
+  font:700 13px/1 'Courier New',monospace!important;cursor:pointer;
+}
+#repdScroll .pn-expanded-column-filter{display:none}
+#pnExpandedHost .pn-expanded-column-filter:focus-visible,
+#pnExpandedHost :is(button,select,input):focus-visible{
+  outline:2px solid #78e8ee;outline-offset:1px;
+}
+#pnExpandedHost #repdPanel #repdScroll thead th{position:sticky!important}
+#pnExpandedHost #repdPanel #repdScroll thead th:first-child{left:auto!important}
+#pnExpandedFilter{
+  position:fixed;z-index:2147483299;box-sizing:border-box;
+  width:232px;max-width:calc(100vw - 12px);
+  display:grid;gap:8px;padding:11px;background:#070f14;color:#e1ecef;
+  border:1px solid #56757b;box-shadow:0 12px 28px #000e;
+  font:11px/1.3 'Courier New',monospace;
+}
+#pnExpandedFilter strong{color:#7be7ee}
+#pnExpandedFilter label{display:grid;gap:5px;color:#c6d4d6}
+#pnExpandedFilter :is(select,input,button){
+  box-sizing:border-box;min-height:32px;min-width:0;width:100%;
+  padding:4px 7px;background:#090e13;border:1px solid #47626a;
+  color:#e0f6f7;font:11px 'Courier New',monospace;
+}
+#pnExpandedFilter .pn-expanded-range{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+@media(max-width:600px){
+  #pnExpandedHost .pn-expanded-top{min-height:35px}
+  #pnExpandedHost .pn-expanded-subtitle{display:none}
+  #pnExpandedHost #officialRegister{padding-inline:3px!important}
+  #pnExpandedHost #repdPanel>.hud-gauges .chart{height:56px!important}
+  #pnExpandedHost #repdPanel #tech .btn{min-height:27px!important;padding:3px 5px!important;font-size:9px!important}
+}
+@media(prefers-reduced-motion:reduce){#pnExpandedHost *{scroll-behavior:auto!important}}
+
+
+/* Physical-sized WebKit visual QA: compact row cells, correctly scaled gauges and pager. */
+#pnExpandedHost #repdPanel>.hud-gauges .chart{
+  width:min(100%,120px)!important;max-width:120px!important;
+  height:60px!important;max-height:60px!important;
+  overflow:hidden!important;margin-inline:auto!important;
+}
+#pnExpandedHost #repdPanel>.hud-gauges .chart canvas{
+  max-width:100%!important;max-height:100%!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]{
+  min-height:35px!important;height:35px!important;max-height:35px!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]>td{
+  min-height:35px!important;height:35px!important;max-height:35px!important;
+  padding:2px 5px!important;line-height:1.1!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody .project-record>summary{
+  box-sizing:border-box!important;display:flex!important;align-items:center!important;
+  height:34px!important;min-height:34px!important;max-height:34px!important;
+  padding:2px 5px!important;gap:0!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody .project-record>summary::before,
+#pnExpandedHost #repdPanel #repdScroll #tbody .project-record>summary::after{
+  display:none!important;content:none!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody .phone-project-label{
+  min-width:0!important;flex:1 1 auto!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]>td:last-child .project-actions{
+  min-height:28px!important;height:28px!important;max-height:28px!important;
+  align-items:center!important;flex-wrap:nowrap!important;overflow:hidden!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]>td:last-child .project-actions
+:is(.pn-journey-action,.action-link,.action-disabled,.pn-journey-unavailable,.pn-report-launch,.atlaslink){
+  box-sizing:border-box!important;min-height:27px!important;height:27px!important;max-height:27px!important;
+  font-size:10px!important;line-height:1!important;padding:3px!important;
+}
+#pnExpandedHost #repdPanel #repdScroll thead .project-head .phone-sort{display:none!important}
+#pnExpandedHost #repdPanel #repdScroll #projectPager{
+  display:grid!important;grid-template-columns:72px minmax(0,1fr) 72px!important;
+  height:42px!important;min-height:42px!important;gap:4px!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #projectPager .pager-meta{
+  min-width:0!important;text-align:center;white-space:nowrap!important;
+  overflow:hidden!important;text-overflow:ellipsis!important;font-size:9px!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #projectPager .pager-btn{
+  min-width:0!important;min-height:30px!important;height:30px!important;
+  padding:2px!important;font-size:10px!important;
+}
+
+
+/* Match the original Pipeline News left-aligned project presentation. */
+#pnExpandedHost #repdPanel #repdScroll #tbody .project-record>summary,
+#pnExpandedHost #repdPanel #repdScroll #tbody .phone-project-label{
+  text-align:left!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #projectPager{
+  grid-template-columns:61px minmax(0,1fr) 65px!important;
+}
+
+
+/* Original mobile REPD uses a left-aligned, bold project identity. */
+#pnExpandedHost #repdPanel #repdScroll #tbody td.site{
+  text-align:left!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody td.site .project-record{
+  display:block!important;width:100%!important;max-width:100%!important;
+  margin:0!important;text-align:left!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody td.site .project-record>summary{
+  width:100%!important;justify-content:flex-start!important;text-align:left!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody td.site .phone-project-label{
+  display:block!important;width:100%!important;margin:0!important;
+  text-align:left!important;color:#ecf4f8!important;font-weight:700!important;
+}
+
+
+/* The inherited pager visually reorders its children on mobile. Keep the
+   native Prev | complete range/page number | Next in their source order. */
+#pnExpandedHost #repdPanel #repdScroll #projectPager>*{order:0!important;grid-row:1!important}
+#pnExpandedHost #repdPanel #repdScroll #projectPager .pager-btn[data-page-step="-1"]{
+  grid-column:1!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #projectPager .pager-meta{
+  grid-column:2!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #projectPager .pager-btn[data-page-step="1"]{
+  grid-column:3!important;
+}
+
+
+/* V9.65 cockpit contract: the original three live REPD gauges remain in sight
+   as rows move vertically. No copies, no values recalculated, and no HUD on
+   top of the full-screen news reading window. */
+#officialRegister #repdPanel > .hud-gauges {
+  position:sticky!important;
+  top:max(0px,env(safe-area-inset-top,0px))!important;
+  z-index:31!important;
+  padding:3px 0 5px!important;
+  background:#000!important;
+  box-shadow:0 6px 12px #000b;
+}
+#pnExpandedHost #repdPanel > .hud-gauges {
+  top:0!important;
+  z-index:15!important;
+  flex:0 0 auto!important;
+}
+html.pn-news-max-open #officialRegister #repdPanel > .hud-gauges{
+  visibility:hidden!important;
+}
+
+
+/* V9.67: zero rebranding. Fullscreen mode preserves the SAME native Pipeline
+   palette, gauges, columns and MAP/A4 action styling as the standard dashboard.
+   This file is based on V9.65, deliberately excluding V9.66's ticker-red,
+   52px operator and relocation/column-hiding rules. */
+#pnExpandedHost{--pn-expanded-accent:var(--accent,#00ffff)}
+#pnExpandedHost .pn-expanded-top{
+  background:#000!important;border-bottom:1px solid var(--line,#2f343d)!important;
+}
+#pnExpandedHost .pn-expanded-top strong,
+#pnExpandedHost #repdPanel #repdScroll thead th,
+#pnExpandedHost #repdPanel #repdScroll thead th .column-sort,
+#pnExpandedHost #repdPanel #repdScroll thead th #sortUpdated,
+#pnExpandedHost #repdPanel #repdScroll thead th #sortSubmitted,
+#pnExpandedHost #repdPanel #repdScroll thead th #sortOperational,
+#pnExpandedHost #repdPanel #repdScroll .pn-expanded-column-filter,
+#pnExpandedClose,#pnExpandedFilter strong{
+  color:var(--accent,#00ffff)!important;
+}
+#pnExpandedHost #repdPanel #repdScroll thead th{
+  background:#050505!important;border-bottom:1px solid var(--line,#2f343d)!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]>td{
+  border-bottom-color:var(--soft,#222)!important;
+}
+/* Keep all 13 original REPD columns. Restrict width sensibly, rather than
+   hiding records or truncating the original action controls. */
+#pnExpandedHost #repdPanel #repdScroll table{
+  width:1640px!important;min-width:1640px!important;max-width:none!important;
+  table-layout:fixed!important;
+}
+#pnExpandedHost #repdPanel #repdScroll thead th:nth-child(4){
+  width:116px!important;min-width:116px!important;max-width:116px!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]>td:nth-child(4){
+  width:116px!important;min-width:116px!important;max-width:116px!important;
+  padding:4px 5px!important;white-space:normal!important;
+}
+#pnExpandedHost #repdPanel #repdScroll .pn-expanded-operator{
+  -webkit-line-clamp:3!important;line-clamp:3!important;max-height:42px!important;
+  overflow-wrap:anywhere!important;line-height:1.2!important;
+}
+#pnExpandedHost #repdPanel #repdScroll thead th:nth-child(12){
+  width:132px!important;max-width:132px!important;
+}
+#pnExpandedHost #repdPanel #repdScroll thead th:nth-child(13){
+  width:188px!important;max-width:188px!important;text-align:center!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]>td:nth-child(13){
+  display:table-cell!important;width:188px!important;
+  min-width:188px!important;max-width:188px!important;
+  padding:3px 5px!important;vertical-align:middle!important;
+  overflow:visible!important;text-align:center!important;
+}
+/* The exact original links and report buttons remain in the original MAP
+   cell, side by side: no regenerated targets, no moved controls. */
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]>td:nth-child(13) .project-actions{
+  box-sizing:border-box!important;display:flex!important;
+  flex-flow:row nowrap!important;justify-content:center!important;align-items:center!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  height:48px!important;min-height:48px!important;max-height:48px!important;
+  gap:8px!important;padding:0!important;margin:0!important;overflow:visible!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]>td:nth-child(13) .project-actions
+  :is(.pn-journey-link,.pn-report-launch){
+  box-sizing:border-box!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  flex:0 0 auto!important;height:44px!important;min-height:44px!important;
+  max-height:44px!important;padding:6px!important;
+  margin:0!important;text-decoration:none!important;
+  white-space:nowrap!important;overflow:visible!important;
+  font:700 11px/1.15 'Courier New',monospace!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]>td:nth-child(13) .pn-journey-link{
+  width:90px!important;min-width:90px!important;max-width:90px!important;
+  background:#000!important;border:1px solid var(--accent,#00ffff)!important;
+  color:var(--accent,#00ffff)!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]>td:nth-child(13) .pn-report-launch{
+  width:52px!important;min-width:52px!important;max-width:52px!important;
+  background:#090d11!important;border:1px solid #516674!important;color:#71f6fa!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]>td:nth-child(13) .pn-journey-unavailable{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  min-width:66px!important;max-width:66px!important;
+  font:9px/1.1 monospace!important;
+}
+#pnExpandedHost #repdPanel #repdScroll :is(a,button):focus-visible{
+  outline:2px solid var(--accent,#00ffff)!important;
+  outline-offset:1px!important;
+}
+
+/* Keep the actual MAP and A4 touch targets the same size as the normal
+   mobile REPD view; scale the entire table for overview instead of shrinking
+   its controls independently. */
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"],
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]>td{
+  height:54px!important;min-height:54px!important;max-height:54px!important;
+}
+#pnExpandedHost #repdPanel #repdScroll{touch-action:pan-x pan-y!important}
+
+
+/* Override the inherited td/th color:inherit rule with sufficient selector
+   specificity to match the EXACT normal-table cyan headings, not grey. */
+#pnExpandedHost #repdPanel #repdScroll table thead tr>th{
+  color:var(--accent,#00ffff)!important;
+}

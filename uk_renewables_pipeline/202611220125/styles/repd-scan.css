@@ -1,0 +1,129 @@
+/* V9.62 prospect scan: facts-first Project / MW / MAP, with optional County and Operator in wide view.
+   No signal, AI lead scoring or state inference. Official data/model unchanged. */
+#repdPanel .pn-scan-toolbar{
+  display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:4px 0 6px;
+  color:#a8b6c4;font:11px/1.2 'Courier New',monospace;
+}
+#repdPanel .pn-scan-toolbar select,
+#repdPanel .pn-scan-toolbar button,
+#repdPanel .pn-scan-dates>summary{
+  box-sizing:border-box;min-height:34px;height:34px;min-width:0;
+  padding:5px 7px;border:1px solid #3c5058;border-radius:3px;
+  background:#05090c;color:#e4f2f4;font:11px/1.3 'Courier New',monospace;
+  text-transform:none;
+}
+#repdPanel .pn-scan-status{display:flex;align-items:center;gap:4px;flex:1 1 130px;min-width:0}
+#repdPanel #pnScanStatus{width:100%;max-width:164px}
+#repdPanel .pn-scan-dates{position:relative;flex:0 0 auto}
+#repdPanel .pn-scan-dates>summary{list-style:none;display:flex;gap:4px;align-items:center;cursor:pointer}
+#repdPanel .pn-scan-dates>summary::-webkit-details-marker{display:none}
+#repdPanel .pn-scan-dates>summary::after{content:"▾";color:#72e6ec}
+#repdPanel .pn-scan-dates[open]>summary::after{content:"▴"}
+#repdPanel #pnScanDateCount:empty{display:none}
+#repdPanel #pnScanDateCount{font-size:10px;color:#65eec7}
+#repdPanel .pn-scan-date-fields{
+  position:absolute;z-index:22;right:0;top:38px;
+  display:grid;gap:8px;width:min(288px,calc(100vw - 28px));
+  padding:10px;border:1px solid #405962;background:#070b0f;
+  box-shadow:0 8px 22px #000b;
+}
+#repdPanel .pn-scan-date-fields>label{display:grid;gap:4px;font-size:10px;color:#a8b6c4}
+#repdPanel .pn-scan-date-fields select{width:100%;max-width:100%}
+#repdPanel #pnScanModeToggle{
+  flex:0 0 auto;cursor:pointer;padding-inline:9px;color:#71e6ed;
+}
+#repdPanel .pn-scan-toolbar :is(button,summary,select):focus-visible{
+  outline:2px solid #72eef7;outline-offset:2px;
+}
+/* By default no sideways scrolling is needed to view the three key fields. */
+#repdPanel:has(#repdScroll.pn-scan-mode) .column-scroll-tools{display:none!important}
+#repdPanel #repdScroll.pn-scan-mode{overflow-x:hidden!important;overflow-y:auto!important;--first-col:auto!important;--mw-col:80px!important}
+#repdPanel #repdScroll.pn-scan-mode table{
+  display:table!important;table-layout:fixed!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+}
+#repdPanel #repdScroll.pn-scan-mode thead th:nth-child(n+3):not(:last-child),
+#repdPanel #repdScroll.pn-scan-mode tbody td:nth-child(n+3):not(:last-child){
+  display:none!important;
+}
+#repdPanel #repdScroll.pn-scan-mode thead th:first-child{
+  width:calc(100% - 152px)!important;min-width:0!important;
+}
+#repdPanel #repdScroll.pn-scan-mode thead th:nth-child(2){width:82px!important}
+#repdPanel #repdScroll.pn-scan-mode thead th:last-child{width:70px!important}
+#repdPanel #repdScroll.pn-scan-mode thead th{
+  height:34px!important;padding:2px 5px!important;
+  font-size:10px!important;line-height:1!important;white-space:nowrap!important;
+}
+#repdPanel #repdScroll.pn-scan-mode .project-head .phone-sort{display:none!important}
+#repdPanel #repdScroll.pn-scan-mode tbody tr>td{
+  height:36px!important;max-height:36px!important;
+  padding:2px 5px!important;line-height:1.1!important;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap!important;
+}
+#repdPanel #repdScroll.pn-scan-mode tbody tr>td.site{
+  padding:0!important;overflow:visible!important;
+}
+#repdPanel #repdScroll.pn-scan-mode tbody .desktop-details-label,
+#repdPanel #repdScroll.pn-scan-mode tbody .compact-project-name,
+#repdPanel #repdScroll.pn-scan-mode tbody .phone-project-status{
+  display:none!important;
+}
+#repdPanel #repdScroll.pn-scan-mode tbody .project-record>summary{
+  display:flex!important;flex-direction:column!important;
+  align-items:stretch;justify-content:center!important;
+  min-height:36px!important;height:36px!important;max-height:36px!important;
+  padding:3px 7px!important;overflow:hidden!important;white-space:nowrap!important;
+}
+#repdPanel #repdScroll.pn-scan-mode tbody .phone-project-label{
+  display:block!important;max-width:100%;min-width:0;
+  overflow:hidden!important;text-overflow:ellipsis!important;
+  white-space:nowrap!important;font-size:12px!important;line-height:1.3!important;
+}
+#repdPanel #repdScroll.pn-scan-mode tbody td.mw{
+  color:#38f58c!important;text-align:right!important;font-size:12px!important;
+  font-variant-numeric:tabular-nums;
+}
+#repdPanel #repdScroll.pn-scan-mode thead th:nth-child(2) .column-sort{text-align:right!important}
+#repdPanel #repdScroll.pn-scan-mode tbody tr>td:last-child{
+  display:table-cell!important;text-align:center!important;padding:2px!important;
+}
+#repdPanel #repdScroll.pn-scan-mode tbody tr>td:last-child .project-actions{
+  min-height:32px!important;justify-content:center!important;
+}
+#repdPanel #repdScroll.pn-scan-mode tbody tr>td:last-child :is(.action-link,.action-disabled,.pn-journey-unavailable){
+  min-height:32px!important;height:32px!important;min-width:54px!important;
+  max-width:68px!important;padding:4px 3px!important;font-size:10px!important;
+}
+/* The full record remains reachable through the existing project-name detail control. */
+#repdPanel #repdScroll.pn-scan-mode tbody .project-record[open] .record-grid{
+  position:absolute;z-index:18;left:2px;top:100%;
+  display:grid!important;width:min(430px,calc(100vw - 26px));
+  max-height:55dvh;overflow-y:auto;padding:10px;
+  border:1px solid #405962;background:#080e13;
+  box-shadow:0 8px 22px #000c;white-space:normal!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+}
+#repdPanel #repdScroll.pn-scan-mode tbody tr>td.site:has(.project-record[open]){position:sticky!important;z-index:16!important}
+#repdPanel #repdScroll.pn-scan-mode tbody .project-record[open]{position:relative}
+@media (orientation:landscape) and (min-width:600px){
+  #officialRegister #repdPanel #repdScroll.pn-scan-mode thead th:is(:nth-child(3),:nth-child(4)),
+  #officialRegister #repdPanel #repdScroll.pn-scan-mode tbody td:is(:nth-child(3),:nth-child(4)){
+    display:table-cell!important;
+  }
+  #repdPanel #repdScroll.pn-scan-mode thead th:first-child{
+    width:calc(100% - 405px)!important;
+  }
+  #repdPanel #repdScroll.pn-scan-mode thead th:nth-child(2){width:80px!important}
+  #repdPanel #repdScroll.pn-scan-mode thead th:nth-child(3){width:125px!important}
+  #repdPanel #repdScroll.pn-scan-mode thead th:nth-child(4){width:130px!important}
+  #repdPanel #repdScroll.pn-scan-mode thead th:last-child{width:70px!important}
+}
+@media(max-width:359px){
+  #repdPanel #repdScroll.pn-scan-mode thead th:first-child{width:calc(100% - 136px)!important}
+  #repdPanel #repdScroll.pn-scan-mode thead th:nth-child(2){width:72px!important}
+  #repdPanel #repdScroll.pn-scan-mode thead th:last-child{width:64px!important}
+  #repdPanel .pn-scan-toolbar select,
+  #repdPanel .pn-scan-toolbar button,
+  #repdPanel .pn-scan-dates>summary{font-size:10px!important}
+}

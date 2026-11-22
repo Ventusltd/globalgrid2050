@@ -1,0 +1,8 @@
+{
+  "schema": "globalgrid2050.static-headline-ticker.v936",
+  "limit": 100,
+  "selection": "Latest distinct safe public HTTPS URLs with valid non-future publisher dates, or explicitly labelled first-collected fallback; display only available records",
+  "presentation": "One canonical static horizontal scroll list, at most20 visible links; title/publisher search across all eligible<=100 records; bounded Previous/Next pages, accurate filtered/total/range counts; same normalized data retain nodes/focus/query/range/scroll; changed feed retains query and resets matching range safely; keyboard/touch, no animation, cloned links or Pause",
+  "source": "Existing pipeline-feed-loaded document from the unchanged live/saved feed loader; original title, attribution and clock semantics retained",
+  "unchanged": "Collector, main headline list pagination/priority/rights, canonical REPD data, dates, CSV and MAP routes"
+}

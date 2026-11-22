@@ -50,6 +50,19 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
       return {first:state.filtered[0].repd_ref,name:state.filtered[0].name,last:state.filtered.at(-1).repd_ref};
     });
     assert.equal(await page.locator('#pnLiquidBody tr.pn-liquid-project').first().getAttribute('data-overview-ref'),sorted.first);
+    console.log('DEBUG before full scroll',JSON.stringify(await page.evaluate(async()=>{
+      const {state}=await import('./scripts/core/state.js');
+      const w=document.getElementById('pnLiquidViewport'),b=document.getElementById('pnLiquidBody');
+      const last=b.lastElementChild;
+      return {n:state.filtered.length,all:state.all.length,
+        search:document.getElementById('search')?.value,status:document.getElementById('pnScanStatus')?.value,
+        tech:[...document.querySelectorAll('#tech [data-technology]')].filter(x=>x.getAttribute('aria-pressed')==='true').map(x=>x.dataset.technology),
+        scrollTop:w.scrollTop,scrollHeight:w.scrollHeight,clientHeight:w.clientHeight,
+        bodyHeight:b.getBoundingClientRect().height,lastHeight:last?.getBoundingClientRect().height,
+        lastDivHeight:last?.querySelector('div')?.getBoundingClientRect().height,
+        rendered:b.dataset.rendered,start:b.dataset.start,end:b.dataset.end,
+        url:location.href};
+    })));
     // Scroll the complete canonical filtered source, not merely its original first 50 rows.
     await page.locator('#pnLiquidViewport').evaluate(el=>{el.scrollTop=el.scrollHeight;});
     await page.waitForFunction(async()=>{
@@ -57,6 +70,12 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
       const list=[...document.querySelectorAll('#pnLiquidBody tr.pn-liquid-project')];
       return list.length&&list.at(-1).dataset.overviewRef===state.filtered.at(-1).repd_ref;
     },null,{timeout:30000});
+    console.log('DEBUG after full scroll',JSON.stringify(await page.evaluate(async()=>{
+      const {state}=await import('./scripts/core/state.js');
+      const w=document.getElementById('pnLiquidViewport'),b=document.getElementById('pnLiquidBody');
+      return {n:state.filtered.length,scrollTop:w.scrollTop,scrollHeight:w.scrollHeight,
+        clientHeight:w.clientHeight,rendered:b.dataset.rendered,start:b.dataset.start,end:b.dataset.end};
+    })));
     const atEnd=await page.locator('#pnLiquidBody').evaluate(el=>({
       shown:Number(el.dataset.rendered),from:Number(el.dataset.start),to:Number(el.dataset.end)
     }));

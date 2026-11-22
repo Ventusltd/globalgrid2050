@@ -25,3 +25,24 @@ jobs:
           node --check automation/repd_reporting/v1/panel.mjs
       - name: Verify source aggregation, period, unit and energy scenarios
         run: node --test automation/repd_reporting/v1/tests/aggregate.test.mjs
+
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            automation/repd_reporting/v1
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright for isolated mobile/desktop tests
+        run: |
+          npm install --no-save --no-package-lock playwright@1.58.0
+          npx playwright install --with-deps chromium webkit
+      - name: Browser QA with real buttons, source refs and scenario controls
+        run: node automation/repd_reporting/v1/tests/browser.mjs

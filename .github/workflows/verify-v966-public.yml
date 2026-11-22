@@ -1,0 +1,130 @@
+name: Verify V9.66 live red Expanded REPD and retained rollbacks
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-v966-public.yml'
+      - 'index.html'
+      - 'homepage-shell/**'
+      - 'uk_renewables_pipeline/202611221500/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  served:
+    runs-on: ubuntu-latest
+    timeout-minutes: 27
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify source invariance and public HTTPS file SHA256s
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request,urlopen
+          import hashlib,json,os,time
+          root=Path('.')
+          new='uk_renewables_pipeline/202611221500/'
+          old='uk_renewables_pipeline/202611221330/'
+          a4='uk_renewables_pipeline/202611220220/'
+          catalog=json.loads((root/'homepage-shell/data/homepage.json').read_text(encoding='utf-8'))
+          e=next(v for v in catalog['entities'] if v['id']=='pipeline-news')
+          assert e['operative_release_id']=='202611221500','V9.66 not active in homepage'
+          assert len(e['releases'])==33, 'Missing release history'
+          assert all(any(v['id']==rid and v['status']=='available' for v in e['releases'])
+                     for rid in ['202611221500','202611221330','202611221243','202611220220','202611212344']), 'Rollback release missing'
+          source='https://github.com/Ventusltd/globalgrid2050/tree/9d88781aa89ccfbd6ad4ade4fecf6cf4889d7b1b/uk_renewables_pipeline/202611221500'
+          assert next(v for v in e['releases'] if v['id']=='202611221500')['source_ref']==source
+          assert '202611221500' in (root/'index.html').read_text(), 'Homepage link unchanged'
+          assert 'repd-expanded.mjs' in (root/(new+'index.html')).read_text()
+          script=(root/(new+'repd-expanded.mjs')).read_text()
+          css=(root/(new+'styles/repd-expanded.css')).read_text()
+          assert 'holder.append(actions)' in script and '52px' in css and '#f33' in css,'Operator fast-action missing'
+          for f in ('report-a4.mjs','report-model.mjs','report-pdf.mjs','styles/report-a4.css'):
+              assert (root/(new+f)).read_bytes()==(root/(old+f)).read_bytes()==(root/(a4+f)).read_bytes(), 'A4 changed: '+f
+          files=['index.html','homepage-shell/data/homepage.json',
+                 'homepage-shell/assets/versioned-homepage.js',
+                 new+'index.html',new+'repd-expanded.mjs',new+'styles/repd-expanded.css',
+                 new+'scripts/plugins/projects-v9-8.js',new+'report-a4.mjs',new+'report-pdf.mjs',
+                 old+'index.html',old+'repd-expanded.mjs',old+'report-a4.mjs',
+                 'uk_renewables_pipeline/202611221243/index.html',
+                 a4+'index.html',a4+'report-a4.mjs']
+          hashes={p:hashlib.sha256((root/p).read_bytes()).hexdigest() for p in files}
+          tag=os.environ.get('GITHUB_SHA','unknown')[:12]
+          for attempt in range(1,76):
+              bad=[]
+              subset=files if attempt==1 else files[:2]
+              def probe(path):
+                  url='https://globalgrid2050.com/'+path+'?v966='+tag+'-'+str(attempt)
+                  req=Request(url,headers={'Cache-Control':'no-cache','Pragma':'no-cache',
+                  'Accept-Encoding':'identity','User-Agent':'GlobalGrid2050-V966-CI/1.0'})
+                  with urlopen(req,timeout=16) as response:
+                      payload=response.read(2500000)
+                      return response.status,hashlib.sha256(payload).hexdigest()
+              for path in subset:
+                  try:
+                      status,digest=probe(path)
+                      if status!=200 or digest!=hashes[path]:bad.append(path+f' HTTP {status} hash mismatch')
+                  except Exception as err:bad.append(path+' '+repr(err))
+              if not bad and subset!=files:
+                  for path in files[2:]:
+                      try:
+                          status,digest=probe(path)
+                          if status!=200 or digest!=hashes[path]:bad.append(path+' hash mismatch')
+                      except Exception as err:bad.append(path+' '+repr(err))
+              if not bad:
+                  print('PASS: all 15/15 served files SHA256 match V9.66 and immutable V9.65/V9.64/V9.63 rollback',flush=True)
+                  break
+              print('Attempt',attempt,'/',75,':',len(bad),'mismatches:',bad[:3],flush=True)
+              if attempt==75:raise SystemExit('Live V9.66 bytes not confirmed')
+              time.sleep(12)
+          PY
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install public browser engines
+        working-directory: uk_renewables_pipeline/202611221500
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+      - name: Cross-version live Chromium/WebKit interaction acceptance
+        working-directory: uk_renewables_pipeline/202611221500
+        run: |
+          node --input-type=module <<'JS'
+          import {chromium,webkit} from 'playwright';
+          const routes=['202611221500','202611221330','202611221243','202611220220'];
+          for(const [name,driver] of [['Chromium',chromium],['WebKit',webkit]]){
+            const browser=await driver.launch({headless:true});
+            try{
+              for(const version of routes){
+                const page=await browser.newPage({viewport:{width:393,height:852}});
+                try{
+                  await page.route('https://raw.githubusercontent.com/**',route=>route.abort());
+                  await page.goto('https://globalgrid2050.com/uk_renewables_pipeline/'+version+'/?public-v966',{waitUntil:'domcontentloaded',timeout:90000});
+                  await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length===50,null,{timeout:90000});
+                  if(version==='202611221500'){
+                    await page.locator('#pnLiquidLaunch').click();
+                    await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length===100);
+                    const result=await page.evaluate(()=>{
+                      const row=document.querySelector('#tbody tr[id^="repd-"]');
+                      return {notes:getComputedStyle(document.querySelector('#repdScroll th:nth-child(12)')).display,
+                        map:getComputedStyle(document.querySelector('#repdScroll th:nth-child(13)')).display,
+                        operator:row.cells[3].getBoundingClientRect().width,
+                        link:row.cells[3].querySelector('.pn-journey-link')?.href,
+                        a4:!!row.cells[3].querySelector('.pn-report-launch'),
+                        gauges:document.querySelectorAll('#repdPanel>.hud-gauges canvas').length};
+                    });
+                    if(result.notes!=='none'||result.map!=='none'||result.operator>54||!result.a4||result.gauges!==3)throw Error('Expanded V9.66 UI incorrect '+JSON.stringify(result));
+                    await page.locator('#tbody tr[id^="repd-"] td:nth-child(4) .pn-report-launch').first().click();
+                    await page.waitForSelector('#pnRepdReport:not([hidden])',{timeout:15000});
+                    await page.locator('[data-report-action="close"]').click();
+                    await page.locator('#pnExpandedClose').click();
+                    if(await page.locator('#tbody tr[id^="repd-"] td:last-child .project-actions').count()!==50)throw Error('Normal actions missing on restore');
+                  }else if(await page.locator('#tbody .pn-report-launch').count()!==50){
+                    throw Error('Archive V9.65/V9.64/V9.63 A4 controls missing');
+                  }
+                  console.log('PASS public browser',name,version);
+                }finally{await page.close();}
+              }
+            }finally{await browser.close();}
+          }
+          JS

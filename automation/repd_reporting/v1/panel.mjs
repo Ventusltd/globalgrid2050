@@ -250,7 +250,7 @@ export function mountRepdReports(host, projects, {
     scroller.replaceChildren();
     const table = el("table", "repd-report-table");
     const thead = el("thead"); const top = el("tr");
-    for (const [key, header] of [["label", "PERIOD / GROUP"], ["projects", "PROJECTS"], ["value", isEnergy ? "ENERGY (MWh)" : "CAPACITY"], ["other", "OTHER UNIT / ENERGY"], ["cumulative", "CUMULATIVE"], ["change", "Δ VS PREVIOUS"], ["notes", "NOTES"]]) {
+    for (const [key, header] of [["label", "PERIOD / GROUP"], ["projects", isEnergy ? "PROJECT-MONTHS" : "PROJECTS"], ["value", isEnergy ? "ESTIMATED MWh" : "CAPACITY BY UNIT"], ["cumulative", isEnergy ? "CUMULATIVE MWh" : "CUMULATIVE PROJECTS"], ["change", "Δ VS PREVIOUS"], ["notes", "NOTES"]]) {
       const th = el("th", "", ""); th.scope = "col";
       if (["label", "projects", "value"].includes(key)) {
         const btn = el("button", "repd-report-sort", header);
@@ -282,7 +282,6 @@ export function mountRepdReports(host, projects, {
       }
       cell(fmt.format(row.projects));
       cell(isEnergy ? row.energy : row.capacity, "repd-report-capacity");
-      cell(isEnergy ? "—" : row.energy, "repd-report-capacity");
       cell(row.cumulative, "repd-report-capacity");
       cell(row.change);
       cell(row.caveat);

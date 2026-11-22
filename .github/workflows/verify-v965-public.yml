@@ -1,4 +1,4 @@
-name: Verify V9.65 public Expanded REPD, homepage and immutable rollback bytes
+name: Verify V9.65 archived Expanded REPD and public rollback bytes
 on:
   push:
     branches: [main]
@@ -28,13 +28,13 @@ jobs:
           a4='uk_renewables_pipeline/202611220220/'
           catalog=json.loads((root/'homepage-shell/data/homepage.json').read_text(encoding='utf-8'))
           entry=next(x for x in catalog['entities'] if x['id']=='pipeline-news')
-          assert entry['operative_release_id']=='202611221330','Homepage pointer is not V9.65'
-          assert len(entry['releases'])==32,'Release catalogue must retain all 32 versions'
+          assert entry['operative_release_id'] in ('202611221330','202611221500'),'Unexpected newer Pipeline News pointer'
+          assert len(entry['releases']) in (32,33),'Release history was truncated'
           assert all(any(x['id']==rid and x['status']=='available' for x in entry['releases'])
                      for rid in ['202611221330','202611221243','202611220220','202611212344']), 'Missing rollback'
           source='https://github.com/Ventusltd/globalgrid2050/tree/0a393cd1d5415b560daa96933ab8a3b5b834b550/uk_renewables_pipeline/202611221330'
           assert next(x for x in entry['releases'] if x['id']=='202611221330')['source_ref']==source,'Wrong source pin'
-          assert '202611221330' in (root/'index.html').read_text(),'Homepage root not promoted'
+          assert '202611221330' in (root/'index.html').read_text(),'V9.65 rollback link disappeared'
           assert 'repd-expanded.mjs' in (root/(current+'index.html')).read_text(),'Expanded entry absent'
           assert 'EXPANDED REPD VIEW' in (root/(current+'repd-expanded.mjs')).read_text(),'Native control missing'
           for path in ['report-a4.mjs','report-model.mjs','report-pdf.mjs','styles/report-a4.css']:

@@ -366,7 +366,7 @@
       "subtitle": "Follow renewable energy projects",
       "description": "Explore the project register and follow the renewable energy pipeline.",
       "launch_label": "Open Pipeline News",
-      "operative_release_id": "202611221330",
+      "operative_release_id": "202611221500",
       "releases": [
         {
           "id": "202609082224",
@@ -623,6 +623,14 @@
           "published_at": null,
           "status": "available",
           "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/0a393cd1d5415b560daa96933ab8a3b5b834b550/uk_renewables_pipeline/202611221330"
+        },
+        {
+          "id": "202611221500",
+          "label": "V9.66 - Red Expanded REPD with Operator MAP and A4",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611221500/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/9d88781aa89ccfbd6ad4ade4fecf6cf4889d7b1b/uk_renewables_pipeline/202611221500"
         }
       ]
     },
@@ -1425,6 +1433,13 @@
       "to_release_id": "202611221330",
       "reason": "Owner authorised publication of V9.65 Expanded REPD View on 22 Nov 2026. Chromium and WebKit portrait/landscape native table tests passed, with original speedometer gauges sticky in REPD, technology filters, 100-row expanded pager, sortable headings, MAP and A4 retained. Compared against V9.64: 717 added and 18 deleted lines in 7 changed files; 328 inherited files byte-identical, and V9.63 A4/PDF unchanged. V9.64 and V9.63 remain available for rollback. Public served-byte verification is a separate deployment gate.",
       "promoted_at": "2026-11-22T14:17:57.450Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611221330",
+      "to_release_id": "202611221500",
+      "reason": "Owner requested compact red Expanded REPD: hide Notes/MAP columns in expanded view, put original MAP and A4 actions inside half-width wrapped Operator (52px), preserve original three gauges and all prior Pipeline releases. Dedicated Chromium/WebKit mobile and landscape QA passed including original MAP click and A4, sorted 100-row pagination, normal 50-row restoration. Exactly 196 lines added/34 removed in 6 changed files; 329 inherited files unchanged. Rollback V9.65/V9.64/V9.63 retained; public served-byte verification follows publication.",
+      "promoted_at": "2026-11-22T14:56:55.984Z"
     }
   ]
 }

@@ -1,0 +1,119 @@
+name: Verify V9.67 public native Expanded REPD and rollbacks
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'homepage-shell/**'
+      - 'uk_renewables_pipeline/202611221625/**'
+      - '.github/workflows/verify-v967-public.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  served:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify source SHA256 and immutable A4/REPD rollbacks on public CDN
+        run: |
+          python3 - <<'PY'
+          import json,hashlib,time,os
+          from pathlib import Path
+          from urllib.request import urlopen,Request
+          root=Path('.')
+          curr='uk_renewables_pipeline/202611221625/'
+          prev='uk_renewables_pipeline/202611221500/'
+          old='uk_renewables_pipeline/202611221330/'
+          a4='uk_renewables_pipeline/202611220220/'
+          entries=json.loads((root/'homepage-shell/data/homepage.json').read_text())
+          e=next(x for x in entries['entities'] if x['id']=='pipeline-news')
+          assert e['operative_release_id']=='202611221625'
+          assert len(e['releases'])==34
+          assert all(any(y['id']==x and y['status']=='available' for y in e['releases'])
+                     for x in ['202611221625','202611221500','202611221330','202611221243','202611220220'])
+          expected_src='https://github.com/Ventusltd/globalgrid2050/tree/b474a304c07982f25fc43dfa8ec40f9fbd8c3bc3/uk_renewables_pipeline/202611221625'
+          assert next(x for x in e['releases'] if x['id']=='202611221625')['source_ref']==expected_src
+          assert '202611221625' in (root/'index.html').read_text()
+          ui=(root/(curr+'repd-expanded.mjs')).read_text()
+          assert 'fitAllColumns()' in ui and 'setExpandedPageRows(true)' in ui
+          for path in ('report-a4.mjs','report-model.mjs','report-pdf.mjs','styles/report-a4.css'):
+              assert (root/(curr+path)).read_bytes()==(root/(old+path)).read_bytes()==(root/(a4+path)).read_bytes(),path
+          files=['index.html','homepage-shell/data/homepage.json',
+                 curr+'index.html',curr+'repd-expanded.mjs',
+                 curr+'styles/repd-expanded.css',curr+'scripts/plugins/projects-v9-8.js',
+                 curr+'report-a4.mjs',curr+'report-pdf.mjs',
+                 prev+'index.html',prev+'repd-expanded.mjs',
+                 old+'index.html',old+'report-a4.mjs',
+                 'uk_renewables_pipeline/202611221243/index.html',
+                 a4+'index.html',a4+'report-a4.mjs']
+          expect={p:hashlib.sha256((root/p).read_bytes()).hexdigest() for p in files}
+          version=os.environ.get('GITHUB_SHA','v967')[:12]
+          for attempt in range(1,71):
+              bad=[]
+              for p in files:
+                  req=Request('https://globalgrid2050.com/'+p+f'?verify967={version}-{attempt}',
+                          headers={'User-Agent':'GlobalGrid2050-v967-verifier/1.0',
+                                   'Cache-Control':'no-cache','Accept-Encoding':'identity'})
+                  try:
+                      with urlopen(req,timeout=18) as response:
+                          actual=hashlib.sha256(response.read(3000000)).hexdigest()
+                          if response.status!=200 or actual!=expect[p]:
+                              bad.append(p+' status or byte mismatch')
+                  except Exception as error:
+                      bad.append(p+': '+str(error))
+              if not bad:
+                  print('PASS 15/15 public files exact SHA256; V9.67 homepage and V9.66/V9.65/V9.64/V9.63 rollback intact',flush=True)
+                  break
+              print(f'Attempt {attempt}/70: {len(bad)} mismatches: {bad[:3]}',flush=True)
+              if attempt==70:raise SystemExit('V9.67 not proven publicly served: '+repr(bad))
+              time.sleep(10)
+          PY
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium and WebKit
+        working-directory: uk_renewables_pipeline/202611221625
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+      - name: Test real public V9.67 and previous A4 controls in browsers
+        working-directory: uk_renewables_pipeline/202611221625
+        run: |
+          node --input-type=module <<'JS'
+          import {chromium,webkit} from 'playwright';
+          for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
+            const browser=await driver.launch({headless:true});
+            try{
+              const page=await browser.newPage({viewport:{width:393,height:852},hasTouch:true});
+              await page.route('https://raw.githubusercontent.com/**',route=>route.abort());
+              try{
+                await page.goto('https://globalgrid2050.com/uk_renewables_pipeline/202611221625/?verify=967',{waitUntil:'domcontentloaded',timeout:90000});
+                await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length===50,{timeout:90000});
+                await page.locator('#pnLiquidLaunch').click();
+                await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length===100 &&
+                  Number(document.querySelector('#repdScroll')?.dataset.zoom)>0,{timeout:90000});
+                const out=await page.evaluate(()=>{
+                  const el=document.getElementById('repdScroll');
+                  const row=document.querySelector('#tbody tr[id^="repd-"]');
+                  return {columns:document.querySelectorAll('#repdScroll thead th').length,
+                    tableWidth:el.querySelector('table').getBoundingClientRect().width,
+                    viewportWidth:el.clientWidth,
+                    gauges:document.querySelectorAll('#repdPanel>.hud-gauges canvas').length,
+                    map:!!row.cells[12].querySelector('.pn-journey-link'),
+                    report:!!row.cells[12].querySelector('.pn-report-launch')};
+                });
+                if(out.columns!==13||out.tableWidth>out.viewportWidth+5||out.gauges!==3||!out.map||!out.report){
+                  throw Error('V9.67 actual expanded layout invalid '+JSON.stringify(out));
+                }
+                await page.locator('#tbody tr[id^="repd-"] td:nth-child(13) .pn-report-launch').first().click();
+                await page.waitForSelector('#pnRepdReport:not([hidden])',{timeout:15000});
+                await page.locator('[data-report-action="close"]').click();
+                await page.locator('#pnExpandedClose').click();
+                if(await page.locator('#tbody tr[id^="repd-"]').count()!==50)throw Error('Normal page not restored');
+                console.log('PASS PUBLIC',engine,JSON.stringify(out));
+              }finally{await page.close();}
+            }finally{await browser.close();}
+          }
+          JS

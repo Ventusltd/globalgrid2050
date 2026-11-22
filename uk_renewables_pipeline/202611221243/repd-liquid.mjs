@@ -57,6 +57,7 @@ import {buildAtlasInterconnectorLinkV9_8} from './scripts/core/atlas-interconnec
   const names={solar:'Solar',bess:'Battery Storage',wind_onshore:'Onshore Wind',
     wind_offshore:'Offshore Wind',interconnector:'Interconnector'};
   let format='a3',zoom=1,open=false,lastStart=-1,lastEnd=-1,lastData=null,raf=0,gesture=null,saved=null,focusBack=null;
+  let publishingRows=false;
   const esc=value=>escapeHtml(String(value??''));
   const date=value=>{
     if(!value)return '—';
@@ -124,12 +125,16 @@ import {buildAtlasInterconnectorLinkV9_8} from './scripts/core/atlas-interconnec
     if(!force&&start===lastStart&&end===lastEnd&&data===lastData)return;
     lastStart=start;lastEnd=end;lastData=data;
     const gap=px=>'<tr class="pn-liquid-gap" aria-hidden="true"><td colspan="13"><div style="height:'+Math.max(0,px)+'px"></div></td></tr>';
+    const originalScrollY=viewport.scrollTop;
     body.innerHTML=gap(start*rh)+data.slice(start,end).map((record,i)=>rowHtml(record,start+i)).join('')+gap((n-end)*rh);
+    if(Math.abs(viewport.scrollTop-originalScrollY)>1)viewport.scrollTop=originalScrollY;
     body.dataset.total=String(n);body.dataset.rendered=String(end-start);
     body.dataset.start=String(start);body.dataset.end=String(end);
     $('pnLiquidCount').textContent=n.toLocaleString('en-GB')+' projects · '+(n?start+1:0)+'–'+end+' visible · all matches scrollable';
     decorate();updateSlider();
-    window.dispatchEvent(new Event('pipeline-projects-rendered'));
+    publishingRows=true;
+    try{window.dispatchEvent(new Event('pipeline-projects-rendered'));}
+    finally{publishingRows=false;}
   }
   function requestDraw(){
     if(!open||raf)return;
@@ -240,7 +245,7 @@ import {buildAtlasInterconnectorLinkV9_8} from './scripts/core/atlas-interconnec
   viewport.addEventListener('scroll',()=>{requestDraw();updateSlider();},{passive:true});
   xslider.addEventListener('input',()=>{viewport.scrollLeft=Number(xslider.value)/100*
     Math.max(0,viewport.scrollWidth-viewport.clientWidth);});
-  window.addEventListener('pipeline-projects-rendered',()=>{if(open){sync();requestDraw();}});
+  window.addEventListener('pipeline-projects-rendered',()=>{if(open&&!publishingRows){sync();requestDraw();}});
   window.addEventListener('resize',()=>{if(open){lastStart=-1;draw(true);}},{passive:true});
   document.addEventListener('keydown',event=>{
     if(event.key==='Escape'&&open){event.preventDefault();event.stopImmediatePropagation();close();}

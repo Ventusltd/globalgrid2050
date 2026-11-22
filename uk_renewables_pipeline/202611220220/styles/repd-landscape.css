@@ -1,0 +1,70 @@
+/* V9.60: independent REPD landscape reading dashboard; inline layout unchanged. */
+#officialRegister{position:relative}
+#pnRepdWideToggle{
+  position:absolute;right:7px;top:8px;z-index:20;
+  width:34px;height:34px;min-width:34px;min-height:34px;
+  padding:0;display:grid;place-items:center;
+  border:1px solid #4c5a65;border-radius:4px;
+  background:#070b0e;color:#71f6fa;
+  font:normal 19px/1 system-ui,sans-serif;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+#pnRepdWideToggle::before{content:"";position:absolute;inset:-5px}
+#pnRepdWideToggle:hover{border-color:#71f6fa}
+#pnRepdWideToggle:focus-visible{outline:2px solid #71f6fa;outline-offset:3px}
+#pnRepdWideToggle .pn-repd-icon{display:block;transform:translateY(-1px)}
+#pnRepdWidePrompt[hidden]{display:none!important}
+#pnRepdWidePrompt{
+  position:absolute;z-index:25;top:48px;right:6px;
+  max-width:min(310px,calc(100vw - 24px));padding:12px;
+  background:#090d11;color:#f1f4f5;
+  border:1px solid #4c5a65;border-radius:5px;
+  box-shadow:0 6px 20px #000a;font:12px/1.5 'Courier New',monospace;
+}
+#pnRepdWidePrompt button{
+  display:block;margin-top:10px;min-height:38px;padding:6px 14px;
+  border:1px solid #516674;border-radius:4px;background:#000;color:#71f6fa;
+  cursor:pointer;
+}
+html.pn-repd-wide-open{overflow:hidden!important}
+@media (orientation: landscape){
+  #officialRegister.pn-repd-wide{
+    position:fixed!important;inset:0!important;z-index:2147483000!important;
+    box-sizing:border-box!important;width:100vw!important;max-width:none!important;
+    height:100vh!important;height:100dvh!important;max-height:none!important;
+    min-height:0!important;margin:0!important;
+    padding:max(42px,env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px))
+      max(14px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))!important;
+    border:0!important;border-radius:0!important;
+    overflow-x:hidden!important;overflow-y:auto!important;
+    overscroll-behavior:contain;scrollbar-width:thin;
+    background:#000!important;-webkit-overflow-scrolling:touch;
+  }
+  #officialRegister.pn-repd-wide #pnRepdWideToggle{
+    position:fixed!important;top:max(5px,env(safe-area-inset-top,0px))!important;
+    right:max(9px,env(safe-area-inset-right,0px))!important;
+    z-index:2147483001!important;
+  }
+  #officialRegister.pn-repd-wide #repdPanel>.hud-gauges{width:100%!important;max-width:960px!important}
+  #officialRegister.pn-repd-wide #repdPanel #repdScroll{
+    --first-col:220px;--mw-col:100px;
+    max-height:65dvh!important;overflow:auto!important;
+    overscroll-behavior:contain;
+  }
+  #officialRegister.pn-repd-wide #repdPanel #repdScroll .column-sort{cursor:pointer}
+}
+@media (orientation: landscape) and (max-width:768px){
+  /* Reveal the real status column and headings rather than a portrait-only summary. */
+  #officialRegister.pn-repd-wide #repdPanel #repdScroll tr>th[data-column-heading="status"],
+  #officialRegister.pn-repd-wide #repdPanel #repdScroll #tbody tr[id^="repd-"]>td:nth-child(6){
+    display:table-cell!important;
+  }
+  #officialRegister.pn-repd-wide #repdPanel #repdScroll{--first-col:200px;--mw-col:100px}
+}
+@media (orientation:portrait){
+  /* Fail closed if JS is temporarily delayed during a physical rotation. */
+  #officialRegister.pn-repd-wide{position:relative!important;height:auto!important;max-height:none!important;overflow:visible!important}
+}
+@media (prefers-reduced-motion:reduce){
+  #pnRepdWideToggle,#pnRepdWidePrompt{animation:none!important;transition:none!important}
+}

@@ -12,6 +12,10 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            automation/repd_reporting/v1
+          sparse-checkout-cone-mode: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22'

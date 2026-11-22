@@ -1,0 +1,87 @@
+name: PipelineNews V9.73 REPD Operator Status Region Capacity Reports
+on:
+  pull_request:
+    paths:
+      - 'uk_renewables_pipeline/202611222330/**'
+      - '.github/workflows/pn-v973-capacity-reports.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preserve-and-reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Guarantee V9.72 preservation and exact V9.73 scope
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          old=Path('uk_renewables_pipeline/202611222222')
+          new=Path('uk_renewables_pipeline/202611222330')
+          x={str(p.relative_to(old)):p for p in old.rglob('*') if p.is_file()}
+          y={str(p.relative_to(new)):p for p in new.rglob('*') if p.is_file()}
+          missing=set(x)-set(y)
+          added=set(y)-set(x)
+          changed={p for p in x if p in y and x[p].read_bytes()!=y[p].read_bytes()}
+          expected_added={'repd-reports-model.mjs','repd-reports.mjs','styles/repd-reports.css','tests/v973-repd-reports.mjs','tests/v973-repd-reports-browser.mjs'}
+          expected_changed={'index.html','README.md','CHANGES.md'}
+          assert not missing, f'Dropped {len(missing)} V9.72 files: {sorted(missing)}'
+          assert added==expected_added, f'Unreviewed additions: {sorted(added^expected_added)}'
+          assert changed==expected_changed, f'Unreviewed changes: {sorted(changed^expected_changed)}'
+          for protected in ['report-model.mjs','report-a4.mjs','report-pdf.mjs','map-entry.mjs',
+                            'scripts/plugins/projects-v9-8.js','repd-expanded.mjs',
+                            'data/v9.1/build_manifest.json','tests/v972-vicinity-a4-pdf.mjs']:
+              assert x[protected].read_bytes()==y[protected].read_bytes(), protected
+          html=y['index.html'].read_text()
+          for token in ['V9.73','202611222330','OPERATOR MW','STATUS MW','REGION MW',
+                        'repd-reports.mjs','repd-reports.css','repdReportsPanel']:
+              assert token in html,token
+          print('PASS',len(x),'inherited files, zero missing, exactly',len(changed),
+                'modified and',len(added),'additive source files')
+          PY
+      - name: Node syntax and full source REPD model reconciliations
+        working-directory: uk_renewables_pipeline/202611222330
+        run: |
+          node --check repd-reports-model.mjs
+          node --check repd-reports.mjs
+          node --check tests/v973-repd-reports.mjs
+          node --check tests/v973-repd-reports-browser.mjs
+          node --test tests/v973-repd-reports.mjs
+  browser-acceptance:
+    needs: preserve-and-reconcile
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser dependencies
+        working-directory: uk_renewables_pipeline/202611222330
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+      - name: Serve candidate and original immutable release
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pn-v973.log 2>&1 &
+          for i in $(seq 1 45); do
+            if curl -fsS -o /dev/null http://127.0.0.1:8765/uk_renewables_pipeline/202611222330/; then exit 0; fi
+            sleep 1
+          done
+          exit 1
+      - name: Chromium + WebKit portrait and landscape report acceptance
+        working-directory: uk_renewables_pipeline/202611222330
+        run: node tests/v973-repd-reports-browser.mjs
+      - name: Inherited V9.72 native and expanded MAP, A4 HTML and PDF link parity
+        working-directory: uk_renewables_pipeline/202611222330
+        run: |
+          sed 's#202611222222#202611222330#g' tests/v972-vicinity-a4-pdf.mjs > tests/.v973-vicinity-a4-pdf.mjs
+          node tests/.v973-vicinity-a4-pdf.mjs
+      - name: Inherited original REPD expanded and native navigation regression
+        working-directory: uk_renewables_pipeline/202611222330
+        run: |
+          sed 's#202611221930#202611222330#g' tests/repd-expanded.mjs > tests/.v973-expanded.mjs
+          node tests/.v973-expanded.mjs
+          sed 's#202611221930#202611222330#g' tests/map-navigation-v970.mjs > tests/.v973-map-navigation.mjs
+          node tests/.v973-map-navigation.mjs

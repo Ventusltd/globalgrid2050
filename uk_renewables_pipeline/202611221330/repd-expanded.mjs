@@ -32,6 +32,17 @@ import {setExpandedPageRows} from './scripts/plugins/projects-v9-8.js';
   const closeButton=document.getElementById('pnExpandedClose');
   let expanded=false,rootMark=null,techMark=null,snapshot=null,hadScan=false;
   let lastFocus=null;
+  // Chart.js keeps its old measured canvas after its actual REPD node is moved.
+  // Resize the three real gauges once the expanded container has laid out.
+  function resizeLiveGauges(){
+    if(!window.Chart?.getChart)return;
+    for(const canvas of gauges.querySelectorAll('canvas')){
+      window.Chart.getChart(canvas)?.resize();
+    }
+  }
+  function scheduleGaugeResize(){
+    requestAnimationFrame(()=>{resizeLiveGauges();requestAnimationFrame(resizeLiveGauges);});
+  }
   const columns=['name','capacity','county','operator','technology','status','repd',null,
                  'updated','submitted','operational',null,null];
   // Every filter lives inside its own column heading. Existing heading sort buttons remain native.
@@ -168,6 +179,7 @@ import {setExpandedPageRows} from './scripts/plugins/projects-v9-8.js';
     setExpandedPageRows(true);
     wrap.scrollLeft=0;wrap.scrollTop=0;
     paintOperators();
+    scheduleGaugeResize();
     closeButton.focus({preventScroll:true});
   }
   function close(){
@@ -185,6 +197,7 @@ import {setExpandedPageRows} from './scripts/plugins/projects-v9-8.js';
       document.documentElement.style.overflow=s.htmlOverflow;
       requestAnimationFrame(()=>{
         wrap.scrollLeft=s.scrollX;wrap.scrollTop=s.scrollY;window.scrollTo(0,s.pageY);
+        resizeLiveGauges();
       });
     }
     (lastFocus||launch).focus({preventScroll:true});
@@ -202,5 +215,6 @@ import {setExpandedPageRows} from './scripts/plugins/projects-v9-8.js';
     if(!filter.hidden)dismissFilter();else close();
   },true);
   window.addEventListener('pipeline-projects-rendered',paintOperators);
+  window.addEventListener('resize',()=>{if(expanded)scheduleGaugeResize();},{passive:true});
   window.addEventListener('pagehide',()=>{if(expanded)close();});
 })();

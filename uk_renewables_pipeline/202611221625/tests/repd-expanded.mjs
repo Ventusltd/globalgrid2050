@@ -49,6 +49,7 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
       return !!el?.dataset.zoom&&el.querySelector('table').getBoundingClientRect().width<=el.clientWidth+5;
     },null,{timeout:15000});
 
+    await page.screenshot({path:'/tmp/pn-v967-all-columns/'+engine+'-'+vp.label+'-fit-all-13.png'});
     const info=await page.evaluate(()=>{
       const v=document.getElementById('repdScroll');
       const td=document.querySelector('#tbody tr[id^="repd-"]>td:nth-child(4)');

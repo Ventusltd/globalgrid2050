@@ -220,3 +220,56 @@ export function estimatedGeneration(projects, {
     excludedUnknownOperationalDateRefs: [...excludedNoDate].sort(),
   };
 }
+
+
+function previousPeriod(periodKeyValue, period) {
+  if (period === "year") return String(Number(periodKeyValue) - 1);
+  if (period === "quarter") {
+    const year = Number(periodKeyValue.slice(0, 4));
+    const q = Number(periodKeyValue.slice(-1));
+    return q === 1 ? String(year - 1) + "-Q4" : String(year) + "-Q" + (q - 1);
+  }
+  const year = Number(periodKeyValue.slice(0, 4));
+  const month = Number(periodKeyValue.slice(5, 7));
+  return month === 1 ? String(year - 1) + "-12"
+    : String(year) + "-" + String(month - 1).padStart(2, "0");
+}
+/**
+ * Enrich REPD operational cohort rows with MoM/QoQ/YoY comparison and
+ * cumulative RECORDED current-operational project cohorts, not verified
+ * historical grid energisations or a decommission-adjusted capacity stock.
+ * No gaps are silently treated as missing data: absent previous-period
+ * cohorts count as zero, with percentage undefined for zero denominators.
+ */
+export function operationalTrend(projects, options = {}) {
+  const report = operationalReport(projects, options);
+  const period = report.period;
+  const lookup = new Map();
+  const accumulators = new Map();
+  const rows = report.rows.map(row => {
+    if (!/^\d{4}(?:-Q[1-4]|-\d{2})?$/.test(row.period)) {
+      return { ...row, cumulativeProjects: null, projectsChange: null,
+        projectsChangePct: null, previousPeriod: null, cumulativeCapacityByUnit: null };
+    }
+    const group = row.group;
+    const id = row.period + "\u0000" + group;
+    const previous = previousPeriod(row.period, period);
+    lookup.set(id, row);
+    const prior = lookup.get(previous + "\u0000" + group);
+    const priorCount = prior?.projects ?? 0;
+    const running = accumulators.get(group) ?? { projects: 0, capacityByUnit: {} };
+    running.projects += row.projects;
+    for (const [unit, value] of Object.entries(row.capacityByUnit)) {
+      running.capacityByUnit[unit] = (running.capacityByUnit[unit] ?? 0) + value;
+    }
+    accumulators.set(group, running);
+    return { ...row, previousPeriod: previous,
+      projectsChange: row.projects - priorCount,
+      projectsChangePct: priorCount > 0 ? 100 * (row.projects - priorCount) / priorCount : null,
+      cumulativeProjects: running.projects,
+      cumulativeCapacityByUnit: { ...running.capacityByUnit },
+    };
+  });
+  return { ...report, kind: "repd-operational-cohort-trend", rows,
+    comparison: period === "month" ? "MoM" : period === "quarter" ? "QoQ" : "YoY" };
+}

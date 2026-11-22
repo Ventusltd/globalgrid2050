@@ -1,0 +1,22 @@
+.repd-updated-heading button {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-weight: bold;
+  padding: 0;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.repd-updated-heading button:hover,
+.repd-updated-heading button:focus-visible {
+  color: #fff;
+  outline: 1px solid #00ffff;
+  outline-offset: 4px;
+}
+
+#updatedSortIndicator {
+  color: #ffcc00;
+}

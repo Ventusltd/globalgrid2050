@@ -1,0 +1,60 @@
+name: Pipeline News V9.64 A3/A4 full REPD HTML overview acceptance
+on:
+  pull_request:
+    paths:
+      - 'uk_renewables_pipeline/202611221243/**'
+      - '.github/workflows/pn-v964-liquid-overview.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  liquid:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Guard original V9.63 individual A4 report and all source data
+        run: |
+          python3 - <<'PY'
+          import subprocess
+          root='uk_renewables_pipeline/'
+          def entries(version):
+              data=subprocess.check_output(['git','ls-tree','-r','-z','HEAD:'+root+version])
+              return {path.decode():meta.split()[2].decode() for meta,path in (
+                  obj.split(b'\t',1) for obj in data.split(b'\0') if obj)}
+          old,new=entries('202611220220'),entries('202611221243')
+          changed={path for path in old.keys()|new.keys() if old.get(path)!=new.get(path)}
+          allowed={'index.html','README.md','CHANGES.md','repd-liquid.mjs',
+                   'styles/repd-liquid.css','tests/repd-liquid.mjs'}
+          assert changed==allowed,(changed,allowed)
+          for path in ['report-a4.mjs','report-model.mjs','report-pdf.mjs',
+                       'styles/report-a4.css','tests/report-a4.mjs',
+                       'repd-scan.mjs','repd-density.mjs','repd-landscape.mjs',
+                       'styles/repd-scan.css','styles/repd-density.css']:
+              assert old[path]==new[path], 'Inherited V9.63 changed: '+path
+          for prefix in ['scripts/','data/','news/','solar1000/','gridatlas/','vendor/']:
+              before={p:h for p,h in old.items() if p.startswith(prefix)}
+              after={p:h for p,h in new.items() if p.startswith(prefix)}
+              assert before==after,'Existing source changed: '+prefix
+          assert 'report-a4.mjs' in old and 'report-a4.mjs' in new
+          print('PASS: whole V9.63 A4/PDF and original REPD models, data, news and maps byte-identical')
+          PY
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned Chromium and WebKit
+        working-directory: uk_renewables_pipeline/202611221243
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+      - name: Test REPD entire-source virtual scrolling and original A4 regression
+        run: |
+          python3 -m http.server 8765 >/tmp/pn-v964-http.log 2>&1 &
+          node uk_renewables_pipeline/202611221243/tests/repd-liquid.mjs
+      - name: Preserve screenshots and browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pn-v964-liquid-a3-a4-html-browser-evidence
+          path: /tmp/pn-v964-liquid/
+          retention-days: 14

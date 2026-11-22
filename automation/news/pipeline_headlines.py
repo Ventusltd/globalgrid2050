@@ -65,8 +65,8 @@ ITEM_FIELDS = ("title", "link", "source", "date", "first_seen", "category", "tec
 SCOPE = ("Headlines and links from public RSS/Atom, English-language institutional indexes and explicitly curated "
          "primary-source leads; no article text is stored. Category and technology "
          "are labels read from the headline. A possible match is a name coincidence for review, not a confirmed "
-         "link to a REPD project. Data-centre, China solar and institutional research headlines are world news, not UK "
-         "project news.")
+         "link to a REPD project. COP31 and substantive global climate-policy headlines are world policy news "
+         "with no REPD identity inference. Data-centre, China solar and institutional research headlines are world news.")
 WORLD_LANES = ("datacentre_money", "china_solar", "global_context")
 LANE_CAP = 10
 WORLD_LANE_CAPS = {"datacentre_money": 10, "china_solar": 10, "global_context": 35}
@@ -109,6 +109,32 @@ TOPICS = {
     "datacentre": _rx(r"data[\s-]?cent(?:re|er)s?|hyperscal(?:e|er|ers)|AI growth zones?"),
 }
 ENERGY_TOPICS = ("solar", "wind", "storage", "grid", "renewables")
+
+# Global climate diplomacy is a bounded policy lane, not REPD project evidence.
+# COP31 gets first research priority; other COP coverage needs a concrete
+# international energy/climate-policy cue. Generic weather/climate is excluded.
+COP31 = _rx(r"COP[\s-]?31")
+COP_SUMMIT = _rx(r"COP[\s-]?\d{2}|UN climate (?:summit|talks|conference)")
+CLIMATE_POLICY_CUE = _rx(r"climate|fossil[\s-]?fuels?|coal|oil|gas|emissions?|net[\s-]?zero|"
+                         r"global warming|carbon|agreement|deal|treaty|negotiat(?:e|ion|ions|ing)|"
+                         r"phase[\s-]?out|transition|adaptation|finance|funding|summit|talks")
+CLIMATE_POLICY_EVENT = _rx(r"deal|negotiat(?:e|ion|ions|ing)|agreement|deadlock|talks|"
+                           r"draft|reject|phase[\s-]?out|funding|finance|pledge|"
+                           r"fossil[\s-]?fuels?|emissions?|coal|oil|gas|policy|commitment|summit")
+
+
+def climate_policy_priority(title):
+    """2: COP31 policy, 1: other substantive UN COP climate-policy news, else 0.
+
+    This title-only, publisher-neutral rule cannot create a REPD association.
+    """
+    if not title or EXCLUDE.search(title):
+        return 0
+    if COP31.search(title) and CLIMATE_POLICY_CUE.search(title):
+        return 2
+    if COP_SUMMIT.search(title) and CLIMATE_POLICY_CUE.search(title) and CLIMATE_POLICY_EVENT.search(title):
+        return 1
+    return 0
 
 # ---------------------------------------------------------------- event words (title only)
 
@@ -238,7 +264,11 @@ def category_of(title, topics=None):
     """One category from CATEGORIES for an in-scope title, or None when it carries no event word.
     topics: given by the priority lane when the topic was found in the feed summary, not the title."""
     topics = topics or topics_of(title)
-    if not topics or EXCLUDE.search(title):
+    if EXCLUDE.search(title):
+        return None
+    if climate_policy_priority(title):
+        return "policy"
+    if not topics:
         return None
     if topics == ["datacentre"]:
         if any(rx.search(title) for rx in (REFUSAL, CONSENT, FINANCE, CONSTRUCTION, DECISION, POLICY, DC_EXTRA, WEAK)):
@@ -420,6 +450,8 @@ def is_uk(title, repd):
 
 def label(title, repd):
     """(category, technology, possible_match) for a kept title, or None when the title is out of scope."""
+    if climate_policy_priority(title):
+        return "policy", None, None  # World policy cannot identify an REPD project.
     category = category_of(title)
     if category is None:
         return None
@@ -483,12 +515,13 @@ def collect(feeds, fetch, repd, now_iso):
             if lane in WORLD_LANES:
                 verdict = lane_label(title, lane, feed.get("focus"))
             else:
-                if FOREIGN.search(title) and not UK_WORDS.search(title):
+                if FOREIGN.search(title) and not UK_WORDS.search(title) and not climate_policy_priority(title):
                     continue
                 verdict = label(title, repd)
                 if verdict is None and lane == "keywords":
                     verdict = priority_label(title, D.clean_text(summary, 2000), repd)   # summary read, never stored
-                if verdict is not None and not feed.get("uk_only") and not is_uk(title, repd):
+                if verdict is not None and not feed.get("uk_only") and not is_uk(title, repd) \
+                        and not climate_policy_priority(title):
                     verdict = None
             if verdict is None:
                 continue

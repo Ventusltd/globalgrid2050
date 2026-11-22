@@ -185,8 +185,9 @@ def rank_headlines(items, *, as_of, source_policies=(), originality=(), diversit
         host = urlsplit(url).hostname
         title = P.D.clean_text(item["title"], 300)
         topics = [] if P.EXCLUDE.search(title) else P.topics_of(title)
+        climate_level = P.climate_policy_priority(title)
         topic_points = max((PROFILE["topic"][t] for t in topics), default=0)
-        category = P.category_of(title) if topics else None
+        category = P.category_of(title) if topics or climate_level else None
         context_only = bool(_GENRE.search(urlsplit(url).path) or P.D.SPONSORED_RE.search(title) or P.BRANDED.search(title))
         source = _source(host, policies.get(host))
         freshness = _publication(item.get("date"), now)
@@ -201,7 +202,12 @@ def rank_headlines(items, *, as_of, source_policies=(), originality=(), diversit
         }
         # Irrelevant, promotional and future-dated items stay available as
         # context; display diversity never pushes them ahead of current topics.
-        bucket = 0 if topics and not context_only and freshness["state"] not in ("stale", "future") else 1
+        # Existing v1 signed weight profile remains byte-identical for published UI.
+        # COP31 and other substantive COP coverage receive an explicit priority
+        # ordering bucket, never a fabricated source/evidence/REPD association.
+        current_policy = not context_only and freshness["state"] not in ("stale", "future")
+        bucket = (-2 if climate_level == 2 else -1 if climate_level == 1 else
+                  0 if topics else 1) if current_policy else 1
         metadata = {field: copy.deepcopy(item.get(field)) for field in P.ITEM_FIELDS}
         metadata.update(title=title, link=url)
         metadata["editorial"] = {

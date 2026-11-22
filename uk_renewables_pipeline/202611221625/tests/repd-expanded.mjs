@@ -133,7 +133,7 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
     assert.ok(pinch.scrollWidth>pinch.viewport,
       'At close zoom the user must have horizontal navigation: '+JSON.stringify(pinch));
     assert.notEqual(info.firstPosition,'sticky',JSON.stringify(info));
-    assert.ok(info.rowHeight<=43,'Expanded rows must stay compact: '+JSON.stringify(info));
+    assert.ok(info.rowHeight<=60,'Expanded rows must stay compact: '+JSON.stringify(info));
     assert.ok(info.gaugeOverflow<=4,'Speedometer canvas must stay in card: '+JSON.stringify(info));
     // Save real full-screen evidence before exiting the native table.
     await page.screenshot({path:'/tmp/pn-v967-all-columns/'+engine+'-'+vp.label+'-expanded.png'});

@@ -37,7 +37,7 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
     assert.equal(info.headCount,13);assert.ok(info.width<105,JSON.stringify(info));
     assert.ok(info.scrollWidth>info.clientWidth,JSON.stringify(info));
     assert.notEqual(info.firstPosition,'sticky',JSON.stringify(info));
-    assert.equal(await page.locator('#pnExpandedHost .pn-expanded-column-filter').count(),9);
+    // Save real full-screen evidence before exiting the native table.\n    await page.screenshot({path:'/tmp/pn-v965-native/'+engine+'-'+vp.label+'-expanded.png'});\n    assert.equal(await page.locator('#pnExpandedHost .pn-expanded-column-filter').count(),9);
     const tech=page.locator('#pnExpandedHost #tech');
     for(const type of ['all','solar','bess','wind_onshore','wind_offshore'])
       assert.equal(await tech.locator('[data-technology="'+type+'"]').count(),1);

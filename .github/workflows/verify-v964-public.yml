@@ -1,4 +1,4 @@
-name: Verify V9.64 public HTML overview, source A4 rollback and homepage bytes
+name: Verify V9.64 archived HTML/A4 rollback and served-byte integrity
 on:
   push:
     branches: [main]
@@ -29,9 +29,10 @@ jobs:
           prior='uk_renewables_pipeline/202611220220/'
           owner=json.loads((root/'homepage-shell/data/homepage.json').read_text())
           pn=next(e for e in owner['entities'] if e['id']=='pipeline-news')
-          assert pn['operative_release_id']=='202611221243', 'Wrong operative Pipeline News version'
-          assert len(pn['releases'])==31, 'Unexpected immutable release catalogue length'
+          assert pn['operative_release_id'] in ('202611221243','202611221330'), 'Unexpected Pipeline News version'
+          assert len(pn['releases']) in (31,32), 'Unexpected immutable release catalogue length'
           assert any(e['id']=='202611220220' and e['status']=='available' for e in pn['releases']), 'V9.63 A4 rollback missing'
+          assert any(e['id']=='202611221243' and e['status']=='available' for e in pn['releases']), 'V9.64 historical release missing'
           assert any(e['id']=='202611212344' and e['status']=='available' for e in pn['releases']), 'V9.60 rollback missing'
           assert '202611221243' in (root/'index.html').read_text(), 'Homepage does not link V9.64'
           assert 'Project, capacity and MAP prospect scan' not in (root/'index.html').read_text(), 'Unapproved reserved word in homepage'

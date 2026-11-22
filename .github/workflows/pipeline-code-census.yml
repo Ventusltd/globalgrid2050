@@ -1,32 +1,73 @@
-name: Pipeline News code census
+name: Pipeline News code-line delta and manual full census
 on:
   push:
     branches: [main]
     paths:
-      - 'automation/pipeline_release/code_census.py'
+      - 'uk_renewables_pipeline/**'
+      - 'automation/pipeline_release/code_line_delta.py'
+      - '.github/workflows/pipeline-code-census.yml'
+  pull_request:
+    paths:
+      - 'uk_renewables_pipeline/**'
+      - 'automation/pipeline_release/code_line_delta.py'
       - '.github/workflows/pipeline-code-census.yml'
   workflow_dispatch:
     inputs:
       release:
-        description: Current dated application folder
-        default: '202611201709'
+        description: Dated release for manual full census
+        default: '202611221330'
         required: true
 permissions:
   contents: read
 jobs:
+  delta:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+          sparse-checkout: |
+            automation/pipeline_release
+          sparse-checkout-cone-mode: true
+      - name: Report latest immutable release source additions/deletions
+        run: |
+          python3 automation/pipeline_release/code_line_delta.py --output /tmp/pipeline-release-delta
+          cat /tmp/pipeline-release-delta/summary.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Check V9.65 known source delta against independent prior CI
+        run: |
+          python3 - <<'PY'
+          import json
+          r=json.load(open('/tmp/pipeline-release-delta/delta.json'))
+          if r['current']=='202611221330':
+              assert r['previous']=='202611221243',r
+              assert r['all_text']['added']==717,r
+              assert r['all_text']['deleted']==18,r
+              assert r['changed_files']==7,r
+              assert r['identical_inherited_files']==328,r
+          assert r['all_text']['added']>=0 and r['all_text']['deleted']>=0
+          print('PASS code-line delta provenance',r['previous'],r['current'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-release-line-delta
+          path: /tmp/pipeline-release-delta/
   census:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
+          persist-credentials: false
           fetch-depth: 1
           sparse-checkout: |
             automation/pipeline_release
           sparse-checkout-cone-mode: true
-      - name: Count and deduplicate committed code
+      - name: Full historical deduplicated code census on explicit request
         env:
-          RELEASE: ${{ inputs.release || '202611201709' }}
+          RELEASE: ${{ inputs.release }}
         run: |
           python3 automation/pipeline_release/code_census.py --current "$RELEASE" --output /tmp/pipeline-code-census
           cat /tmp/pipeline-code-census/summary.md >> "$GITHUB_STEP_SUMMARY"

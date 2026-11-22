@@ -1,0 +1,62 @@
+name: Pipeline News V9.66 compact operator actions acceptance
+on:
+  pull_request:
+    paths:
+      - 'uk_renewables_pipeline/202611221500/**'
+      - '.github/workflows/pn-v966-operator-actions.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  operator-actions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Source-byte guard and delta versus V9.65
+        run: |
+          python3 - <<'PY'
+          import subprocess,difflib,json
+          def listing(v):
+            raw=subprocess.check_output(['git','ls-tree','-r','-z','HEAD:uk_renewables_pipeline/'+v])
+            return {p.decode():m.split()[2].decode() for m,p in (r.split(b'\t',1) for r in raw.split(b'\0') if r)}
+          a=listing('202611221330');b=listing('202611221500')
+          changed=sorted(k for k in set(a)|set(b) if a.get(k)!=b.get(k))
+          assert changed==sorted(['index.html','repd-expanded.mjs','styles/repd-expanded.css',
+                                 'tests/repd-expanded.mjs','README.md','CHANGES.md']), changed
+          for old in ('202611221243','202611220220'):
+            prior=listing(old)
+            for f in ('report-a4.mjs','report-model.mjs','report-pdf.mjs','styles/report-a4.css'):
+              assert a[f]==b[f]==prior[f],f
+          for prefix in ('data/','news/','vendor/','gridatlas/','solar1000/','scripts/'):
+            assert {k:v for k,v in a.items() if k.startswith(prefix)}=={
+              k:v for k,v in b.items() if k.startswith(prefix)},prefix
+          summary={'changed_files':changed,'unchanged_files':len(a)-len(changed)}
+          for side in ('added','deleted'): summary[side]=0
+          for name in changed:
+            old=subprocess.check_output(['git','show','HEAD:uk_renewables_pipeline/202611221330/'+name]).decode().splitlines()
+            new=subprocess.check_output(['git','show','HEAD:uk_renewables_pipeline/202611221500/'+name]).decode().splitlines()
+            for op,i1,i2,j1,j2 in difflib.SequenceMatcher(None,old,new,autojunk=False).get_opcodes():
+              if op in ('insert','replace'):summary['added']+=j2-j1
+              if op in ('delete','replace'):summary['deleted']+=i2-i1
+          print('V9.66 LINE DELTA',json.dumps(summary))
+          PY
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium and WebKit
+        working-directory: uk_renewables_pipeline/202611221500
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+      - name: Real original REPD DOM and operator action tests
+        run: |
+          python3 -m http.server 8765 >/tmp/pn-v966-http.log 2>&1 &
+          node uk_renewables_pipeline/202611221500/tests/repd-expanded.mjs
+      - name: Upload portrait and landscape evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pn-v966-operator-actions
+          path: /tmp/pn-v966-operator-actions/
+          retention-days: 14

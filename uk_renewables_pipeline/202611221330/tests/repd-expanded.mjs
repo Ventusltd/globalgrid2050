@@ -31,12 +31,18 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
         sameGauges:window.__originalREPD.gauges.every(el=>el.closest('#pnExpandedHost')!==null),
         width:td.getBoundingClientRect().width,scrollWidth:v.scrollWidth,clientWidth:v.clientWidth,
         firstPosition:getComputedStyle(document.querySelector('#tbody tr[id^="repd-"]>td:first-child')).position,
+        rowHeight:document.querySelector('#tbody tr[id^="repd-"]').getBoundingClientRect().height,
+        gaugeOverflow:Math.max(...[...document.querySelectorAll('#repdPanel>.hud-gauges>.card')]
+          .map(card=>Math.max(0,card.querySelector('canvas').getBoundingClientRect().bottom-
+            card.getBoundingClientRect().bottom))),
         headCount:document.querySelectorAll('#repdScroll thead th').length};
     });
     assert.ok(info.sameRoot&&info.sameTable&&info.sameGauges,JSON.stringify(info));
     assert.equal(info.headCount,13);assert.ok(info.width<105,JSON.stringify(info));
     assert.ok(info.scrollWidth>info.clientWidth,JSON.stringify(info));
     assert.notEqual(info.firstPosition,'sticky',JSON.stringify(info));
+    assert.ok(info.rowHeight<=43,'Expanded rows must stay compact: '+JSON.stringify(info));
+    assert.ok(info.gaugeOverflow<=4,'Speedometer canvas must stay in card: '+JSON.stringify(info));
     // Save real full-screen evidence before exiting the native table.
     await page.screenshot({path:'/tmp/pn-v965-native/'+engine+'-'+vp.label+'-expanded.png'});
     assert.equal(await page.locator('#pnExpandedHost .pn-expanded-column-filter').count(),9);

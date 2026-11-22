@@ -151,3 +151,19 @@
   box-sizing:border-box!important;min-height:32px!important;height:32px!important;
   line-height:1.05!important;
 }
+
+/* Correct a cascade conflict with legacy #tbody display:table-cell!important.
+   Hidden source columns must truly be removed from the scan layout, not just its headings. */
+#repdPanel #repdScroll.pn-scan-mode #tbody tr[id^="repd-"]>td:nth-child(n+3):not(:last-child){
+  display:none!important;width:0!important;min-width:0!important;
+  height:0!important;max-height:0!important;padding:0!important;border:0!important;
+}
+#repdPanel #repdScroll.pn-scan-mode #tbody tr[id^="repd-"]>td:last-child{
+  display:table-cell!important;
+}
+@media(orientation:landscape) and (min-width:600px){
+  #officialRegister #repdPanel #repdScroll.pn-scan-mode #tbody tr[id^="repd-"]>td:is(:nth-child(3),:nth-child(4)){
+    display:table-cell!important;
+    height:36px!important;max-height:36px!important;padding:2px 5px!important;
+  }
+}

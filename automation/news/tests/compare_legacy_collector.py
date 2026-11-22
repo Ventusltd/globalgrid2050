@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Fail-closed exact legacy replay excluding an owner-rejected publisher.
+"""Fail-closed legacy replay and exact source guard for the BBC COP31 priority lane.
 
-All other publishers, records, REPD matches and counts must remain equivalent.
-No existing UI, REPD, publication, or version file may be changed by this PR.
+Every pre-existing publisher, UK planning record, REPD match and output must
+remain equivalent on the original fixture. No homepage or version edits.
 """
 from __future__ import annotations
 import argparse
@@ -23,6 +23,8 @@ ALLOWED = {
     "automation/news/tests/test_spp_verified_public_links.py",
     "automation/news/tests/test_spp_excluded.py",
     "automation/news/tests/compare_legacy_collector.py",
+    "automation/news/news_algorithm.py",
+    "automation/news/tests/test_cop31_climate_priority.py",
 }
 
 
@@ -36,7 +38,8 @@ def ensure_scope(base: str) -> None:
     forbidden = changed - ALLOWED
     if forbidden:
         raise AssertionError("Unrelated change detected: " + ", ".join(sorted(forbidden)))
-    expected = {"automation/news/pipeline_headlines.py", "automation/news/pipeline_feeds.json", "automation/news/tests/test_spp_excluded.py"}
+    expected = {"automation/news/pipeline_headlines.py", "automation/news/pipeline_feeds.json",
+                "automation/news/news_algorithm.py", "automation/news/tests/test_cop31_climate_priority.py"}
     if not expected <= changed:
         raise AssertionError("Expected additive collector/config changes missing")
 
@@ -50,26 +53,26 @@ def run_once(script: Path, feeds: Path, fixtures: Path, repd: Path, dest: Path) 
     return json.loads(dest.read_text(encoding="utf-8"))
 
 
-def ensure_only_owner_rejected_publisher_removed(base: str) -> None:
+def ensure_only_cop31_bbc_added(base: str) -> None:
     old = json.loads(git("show", f"{base}:automation/news/pipeline_feeds.json"))
     new = json.loads((ROOT / "automation/news/pipeline_feeds.json").read_text(encoding="utf-8"))
     legacy = old["feeds"]
-    excluded = [f for f in legacy if f.get("source") == "Solar Power Portal"]
-    remaining = [f for f in legacy if f.get("source") != "Solar Power Portal"]
-    if len(excluded) != 5:
-        raise AssertionError("Expected five Solar Power Portal original entries")
-    if new["feeds"] != remaining:
-        raise AssertionError("Unrelated source records, order, flags or dates changed")
-    if new.get("excluded_sources") != ["Solar Power Portal"]:
-        raise AssertionError("Publisher exclusion policy missing")
-    if new.get("source_patch_id") != "20261121-exclude-solar-power-portal-v1":
-        raise AssertionError("Unexpected exclusion source patch")
-    if new.get("source_release_id") != old.get("source_release_id"):
-        raise AssertionError("Prior source edition must not change")
-    if any(f.get("url", "").startswith("https://www.solarpowerportal.co.uk/")
-           for f in new["feeds"]):
-        raise AssertionError("Excluded publisher endpoint still in active catalogue")
-    print(f"PASS: {len(remaining)} original nonexcluded sources unchanged; 5 blocked entries removed")
+    feeds = new["feeds"]
+    assert len(feeds) == len(legacy) + 1, "Exactly one curated BBC link expected"
+    assert feeds[:len(legacy)] == legacy, "Prior feeds, source order and flags must not change"
+    addition = feeds[-1]
+    assert addition.get("url") == "https://www.bbc.co.uk/news/articles/c6ly5w40eg07o"
+    assert addition.get("source") == "BBC News"
+    assert addition.get("kind") == "curated"
+    assert addition.get("uk_only") is False
+    assert addition.get("title") == "COP31 fossil-fuel negotiations reach a deadlock"
+    assert addition.get("date") == "2026-11-21T07:31:05Z"
+    assert new.get("climate_policy_patch_id") == "20261122-cop31-priority-v1"
+    assert new.get("source_patch_id") == old.get("source_patch_id")
+    assert new.get("excluded_sources") == old.get("excluded_sources") == ["Solar Power Portal"]
+    assert new.get("source_release_id") == old.get("source_release_id")
+    assert len({f["url"] for f in feeds}) == len(feeds), "Duplicate URLs forbidden"
+    print(f"PASS: {len(legacy)} prior feeds byte-equivalent, exactly one BBC COP31 link")
 
 
 def main() -> None:
@@ -78,7 +81,7 @@ def main() -> None:
     args = ap.parse_args()
     base = args.base
     ensure_scope(base)
-    ensure_only_owner_rejected_publisher_removed(base)
+    ensure_only_cop31_bbc_added(base)
     fixtures = ROOT / "automation/news/tests/fixtures/pipeline"
     with tempfile.TemporaryDirectory(prefix="pn-legacy-comparison-") as tmp:
         tmp = Path(tmp)

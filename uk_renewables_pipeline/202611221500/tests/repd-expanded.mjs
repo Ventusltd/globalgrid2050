@@ -112,6 +112,20 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
     const actualMapHref=await workingMap.getAttribute('href');
     assert.ok(actualMapHref.startsWith('https://ventusltd.github.io/gridatlas/atlas/'),
       'Operator MAP must keep the actual GridAtlas journey URL');
+    // Prove the relocated MAP element receives a real pointer click.
+    // Prevent external navigation only inside this browser acceptance test.
+    await page.evaluate(()=>{
+      window.__operatorMapClicked=false;
+      document.addEventListener('click',event=>{
+        if(event.target.closest('.pn-expanded-actions .pn-journey-link')){
+          event.preventDefault();
+          window.__operatorMapClicked=true;
+        }
+      },{once:true});
+    });
+    await workingMap.click();
+    assert.ok(await page.evaluate(()=>window.__operatorMapClicked),
+      'Operator MAP click did not reach original live link');
     await first.locator('td:nth-child(4) .pn-report-launch').click();
     await page.waitForSelector('#pnRepdReport:not([hidden])');
     assert.equal(await page.locator('[data-report-action="pdf"]').count(),1);

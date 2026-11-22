@@ -1,0 +1,77 @@
+name: Verify V9.72 public homepage, REPD MAP, A4 and PDF delivery
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'catalogue/homepage-owner.json'
+      - 'uk_renewables_pipeline/202611222222/**'
+      - '.github/workflows/verify-v972-public.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  served:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Confirm current owner pin and public homepage/REPD SHA-256 bytes
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request,urlopen
+          import hashlib,json,os,time
+          pin=json.loads(Path('catalogue/homepage-owner.json').read_text())
+          assert pin['repository']=='Ventusltd/globalgrid2050-homepage'
+          assert pin['commit']=='ba9a0451bb850d2b5353aac95c71f14be789e51a'
+          def get(u):
+              req=Request(u,headers={'Cache-Control':'no-cache','Accept-Encoding':'identity','User-Agent':'Ventus-V972-served-byte-verifier'})
+              with urlopen(req,timeout=25) as res:
+                  if res.status!=200:raise ValueError('HTTP '+str(res.status))
+                  return res.read(4_000_000)
+          def digest(value):return hashlib.sha256(value).hexdigest()
+          owner='https://raw.githubusercontent.com/'+pin['repository']+'/'+pin['commit']+'/'
+          owner_html=get(owner+'index.html')
+          owner_json=get(owner+'data/homepage.json')
+          assert digest(owner_html)==pin['files']['index.html']
+          assert digest(owner_json)==pin['files']['data/homepage.json']
+          model=json.loads(owner_json)
+          entity=next(e for e in model['entities'] if e['id']=='pipeline-news')
+          assert entity['operative_release_id']=='202611222222'
+          assert entity['releases'][-1]['id']=='202611222222'
+          assert entity['releases'][-2]['id']=='202611221930'
+          html=owner_html.decode('utf-8-sig')
+          for file in ('versioned-homepage.css','versioned-homepage.js'):
+              old='./assets/'+file
+              assert html.count(old)==1
+              html=html.replace(old,'./homepage-shell/assets/'+file)
+          old='href="data/homepage.json"'
+          assert html.count(old)==1
+          html=html.replace(old,'href="./homepage-shell/data/homepage.json"')
+          expected={'index.html':(html.rstrip()+'\n').encode('utf-8'),'homepage-shell/data/homepage.json':owner_json}
+          now='uk_renewables_pipeline/202611222222/'
+          prev='uk_renewables_pipeline/202611221930/'
+          for file in ('index.html','map-entry.mjs','report-a4.mjs','report-model.mjs','report-pdf.mjs','repd-expanded.mjs'):
+              expected[now+file]=Path(now+file).read_bytes()
+          for file in ('index.html','report-a4.mjs','report-model.mjs','report-pdf.mjs'):
+              expected[prev+file]=Path(prev+file).read_bytes()
+          assert b'V9.72' in expected[now+'index.html']
+          assert expected[now+'report-pdf.mjs']==expected[prev+'report-pdf.mjs']
+          for attempt in range(1,49):
+              bad=[]
+              for name,content in expected.items():
+                  url='https://globalgrid2050.com/'+name+'?v972_sha='+os.getenv('GITHUB_SHA','')[:8]+'-'+str(attempt)
+                  try:
+                      if digest(get(url))!=digest(content):bad.append(name+' SHA256 mismatch')
+                  except Exception as ex:bad.append(name+': '+str(ex))
+              if not bad:
+                  print('PASS',len(expected),'public SHA256 proofs: V9.72 homepage and A4/PDF source, V9.71 rollback unchanged',flush=True)
+                  break
+              if attempt==48:raise SystemExit('FAILED: V9.72 not fully served: '+repr(bad))
+              print('Attempt',attempt,'/',48,':',bad[:4],flush=True)
+              time.sleep(10)
+          g=json.loads(get('https://ventusltd.github.io/gridatlas/atlas/current.json'))
+          assert g['generation']=='202611222130',g.get('generation')
+          assert {'pipeline-vicinity-button','vicinity-focus','sld-sandbox'}<=set(g['cartridge_order'])
+          print('PASS: canonical GridAtlas V9.195 VICINITY receiver with exact live release',flush=True)
+          PY

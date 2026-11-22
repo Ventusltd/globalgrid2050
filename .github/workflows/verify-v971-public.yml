@@ -1,4 +1,4 @@
-name: Verify V9.71 public homepage and retired REPD maximise
+name: Verify V9.71 rollback after V9.72 homepage promotion
 on:
   push:
     branches: [main]
@@ -22,7 +22,7 @@ jobs:
           import hashlib,json,os,time
           from urllib.request import Request,urlopen
           pin=json.loads(Path('catalogue/homepage-owner.json').read_text())
-          assert pin['commit']=='272f167e4fb330c797e212f296da829306d762ae'
+          assert pin['commit']=='ba9a0451bb850d2b5353aac95c71f14be789e51a'
           def get(url):
               req=Request(url,headers={'Cache-Control':'no-cache','Accept-Encoding':'identity','User-Agent':'Ventus-V971-retired-button-verifier'})
               with urlopen(req,timeout=25) as r:
@@ -36,8 +36,8 @@ jobs:
           assert digest(owner_json)==pin['files']['data/homepage.json']
           data=json.loads(owner_json)
           e=next(x for x in data['entities'] if x['id']=='pipeline-news')
-          assert e['operative_release_id']=='202611221930'
-          assert e['releases'][-2]['id']=='202611221900' and e['releases'][-1]['id']=='202611221930'
+          assert e['operative_release_id']=='202611222222'
+          assert e['releases'][-2]['id']=='202611221930' and e['releases'][-1]['id']=='202611222222'
           html=owner_html.decode('utf-8-sig')
           for file in ('versioned-homepage.css','versioned-homepage.js'):
               old='./assets/'+file
@@ -68,7 +68,7 @@ jobs:
                       if digest(get(url))!=digest(content):bad.append(name+' byte mismatch')
                   except Exception as exc:bad.append(name+': '+str(exc))
               if not bad:
-                  print('PASS',len(expected),'public SHA256s: V9.71 operative; no old maximise; V9.70 and A4 rollback preserved')
+                  print('PASS',len(expected),'public SHA256s: V9.71 archived rollback; no old maximise; V9.70 and A4 rollback preserved')
                   break
               if attempt==48:raise SystemExit('Public V9.71 unverified: '+repr(bad))
               print('Attempt',attempt,'of 48:',bad[:3],flush=True)

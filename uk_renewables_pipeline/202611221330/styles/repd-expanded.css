@@ -222,3 +222,55 @@ html.pn-expanded-open{overflow:hidden!important}
   #pnExpandedHost #repdPanel #tech .btn{min-height:27px!important;padding:3px 5px!important;font-size:9px!important}
 }
 @media(prefers-reduced-motion:reduce){#pnExpandedHost *{scroll-behavior:auto!important}}
+
+
+/* Physical-sized WebKit visual QA: compact row cells, correctly scaled gauges and pager. */
+#pnExpandedHost #repdPanel>.hud-gauges .chart{
+  width:min(100%,120px)!important;max-width:120px!important;
+  height:60px!important;max-height:60px!important;
+  overflow:hidden!important;margin-inline:auto!important;
+}
+#pnExpandedHost #repdPanel>.hud-gauges .chart canvas{
+  max-width:100%!important;max-height:100%!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]{
+  min-height:35px!important;height:35px!important;max-height:35px!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]>td{
+  min-height:35px!important;height:35px!important;max-height:35px!important;
+  padding:2px 5px!important;line-height:1.1!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody .project-record>summary{
+  box-sizing:border-box!important;display:flex!important;align-items:center!important;
+  height:34px!important;min-height:34px!important;max-height:34px!important;
+  padding:2px 5px!important;gap:0!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody .project-record>summary::before,
+#pnExpandedHost #repdPanel #repdScroll #tbody .project-record>summary::after{
+  display:none!important;content:none!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody .phone-project-label{
+  min-width:0!important;flex:1 1 auto!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]>td:last-child .project-actions{
+  min-height:28px!important;height:28px!important;max-height:28px!important;
+  align-items:center!important;flex-wrap:nowrap!important;overflow:hidden!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody tr[id^="repd-"]>td:last-child .project-actions
+:is(.pn-journey-action,.action-link,.action-disabled,.pn-journey-unavailable,.pn-report-launch,.atlaslink){
+  box-sizing:border-box!important;min-height:27px!important;height:27px!important;max-height:27px!important;
+  font-size:10px!important;line-height:1!important;padding:3px!important;
+}
+#pnExpandedHost #repdPanel #repdScroll thead .project-head .phone-sort{display:none!important}
+#pnExpandedHost #repdPanel #repdScroll #projectPager{
+  display:grid!important;grid-template-columns:72px minmax(0,1fr) 72px!important;
+  height:42px!important;min-height:42px!important;gap:4px!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #projectPager .pager-meta{
+  min-width:0!important;text-align:center;white-space:nowrap!important;
+  overflow:hidden!important;text-overflow:ellipsis!important;font-size:9px!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #projectPager .pager-btn{
+  min-width:0!important;min-height:30px!important;height:30px!important;
+  padding:2px!important;font-size:10px!important;
+}

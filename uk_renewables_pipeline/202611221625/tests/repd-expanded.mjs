@@ -114,16 +114,21 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
       const before=Number(el.dataset.zoom);
       const rect=el.getBoundingClientRect();
       const midX=rect.left+rect.width/2,midY=rect.top+Math.min(150,rect.height/2);
-      const touch=(id,x,y)=>new Touch({identifier:id,target:el,clientX:x,clientY:y,
+      // WebKit's Linux runner does not expose an independently constructible
+      // Touch object; dispatch the same native touch event names with touch
+      // coordinates so the actual browser handlers execute in both engines.
+      const touch=(id,x,y)=>({identifier:id,target:el,clientX:x,clientY:y,
         pageX:x,pageY:y,screenX:x,screenY:y});
-      const start=[touch(1,midX-32,midY),touch(2,midX+32,midY)];
-      const end=[touch(1,midX-156,midY),touch(2,midX+156,midY)];
-      el.dispatchEvent(new TouchEvent('touchstart',{touches:start,targetTouches:start,
-        changedTouches:start,bubbles:true,cancelable:true}));
-      el.dispatchEvent(new TouchEvent('touchmove',{touches:end,targetTouches:end,
-        changedTouches:end,bubbles:true,cancelable:true}));
-      el.dispatchEvent(new TouchEvent('touchend',{touches:[],targetTouches:[],
-        changedTouches:end,bubbles:true,cancelable:true}));
+      const send=(type,touches)=>{
+        const ev=new Event(type,{bubbles:true,cancelable:true});
+        Object.defineProperty(ev,'touches',{value:touches});
+        el.dispatchEvent(ev);
+      };
+      const a=[touch(1,midX-32,midY),touch(2,midX+32,midY)];
+      const b=[touch(1,midX-156,midY),touch(2,midX+156,midY)];
+      send('touchstart',a);
+      send('touchmove',b);
+      send('touchend',[]);
       return {before,after:Number(el.dataset.zoom),
         width:el.querySelector('table').getBoundingClientRect().width,
         viewport:el.clientWidth,scrollWidth:el.scrollWidth};

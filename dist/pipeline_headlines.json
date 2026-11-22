@@ -1,11 +1,11 @@
 {
  "schema": "globalgrid2050.news.pipeline-headlines.v1",
- "generated_at": "2026-11-21T22:33:42Z",
+ "generated_at": "2026-11-22T00:42:33Z",
  "status": "partial",
  "counts": {
-  "items": 90,
+  "items": 98,
   "with_possible_match": 2,
-  "feeds_ok": 67,
+  "feeds_ok": 68,
   "feeds_failed": 1,
   "by_category": {
    "planning_decision": 6,
@@ -16,7 +16,7 @@
    "construction": 7,
    "energisation": 2,
    "grid": 2,
-   "policy": 4,
+   "policy": 12,
    "datacentre": 25,
    "other": 13
   }
@@ -25,15 +25,15 @@
   "max_items": 200,
   "max_age_days": 120
  },
- "scope": "Headlines and links from public RSS/Atom, English-language institutional indexes and explicitly curated primary-source leads; no article text is stored. Category and technology are labels read from the headline. A possible match is a name coincidence for review, not a confirmed link to a REPD project. Data-centre, China solar and institutional research headlines are world news, not UK project news.",
+ "scope": "Headlines and links from public RSS/Atom, English-language institutional indexes and explicitly curated primary-source leads; no article text is stored. Category and technology are labels read from the headline. A possible match is a name coincidence for review, not a confirmed link to a REPD project. COP31 and substantive global climate-policy headlines are world policy news with no REPD identity inference. Data-centre, China solar and institutional research headlines are world news.",
  "feeds": [
   {
    "url": "https://feeds.bbci.co.uk/news/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 36,
-   "kept": 0,
-   "newest": "2026-11-22T09:00:00Z"
+   "entries": 37,
+   "kept": 1,
+   "newest": "2026-11-22T00:09:58Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/uk/rss.xml",
@@ -64,8 +64,8 @@
    "source": "BBC News",
    "status": "ok",
    "entries": 42,
-   "kept": 0,
-   "newest": "2026-11-21T22:19:43Z"
+   "kept": 4,
+   "newest": "2026-11-21T22:44:52Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
@@ -87,15 +87,15 @@
    "url": "https://feeds.bbci.co.uk/news/scotland/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 24,
+   "entries": 25,
    "kept": 0,
-   "newest": "2026-11-21T23:52:45Z"
+   "newest": "2026-11-22T00:01:31Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/wales/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 26,
+   "entries": 27,
    "kept": 0,
    "newest": "2026-11-21T22:25:36Z"
   },
@@ -105,7 +105,7 @@
    "status": "ok",
    "entries": 34,
    "kept": 0,
-   "newest": "2026-11-21T21:56:56Z"
+   "newest": "2026-11-22T00:01:18Z"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/oxford/rss.xml",
@@ -304,7 +304,7 @@
    "source": "Energy-Storage.news",
    "status": "ok",
    "entries": 300,
-   "kept": 3,
+   "kept": 4,
    "newest": "2026-11-20T12:53:38Z"
   },
   {
@@ -336,7 +336,7 @@
    "source": "The Guardian",
    "status": "ok",
    "entries": 20,
-   "kept": 0,
+   "kept": 5,
    "newest": "2026-11-21T19:43:52Z"
   },
   {
@@ -391,7 +391,7 @@
    "url": "https://www.bloomberg.com/feeds/technology/news.rss",
    "source": "Bloomberg",
    "status": "ok",
-   "entries": 16,
+   "entries": 9,
    "kept": 0,
    "newest": "2026-11-21T19:02:24Z"
   },
@@ -407,7 +407,7 @@
    "url": "https://www.bloomberg.com/feeds/industries/news.rss",
    "source": "Bloomberg",
    "status": "ok",
-   "entries": 7,
+   "entries": 6,
    "kept": 0,
    "newest": "2026-11-21T16:00:00Z"
   },
@@ -568,9 +568,27 @@
    "entries": 12,
    "kept": 3,
    "newest": null
+  },
+  {
+   "url": "https://www.bbc.co.uk/news/articles/c6ly5w40eg07o",
+   "source": "BBC News (curated; not fetched)",
+   "status": "ok",
+   "entries": 1,
+   "kept": 1,
+   "newest": "2026-11-21T07:31:05Z"
   }
  ],
  "items": [
+  {
+   "title": "Will COP31 end with a new global climate deal?",
+   "link": "https://www.bbc.co.uk/news/videos/cqn0dwrewrwxo",
+   "source": "BBC News",
+   "date": "2026-11-21T22:44:52Z",
+   "first_seen": "2026-11-22T00:42:33Z",
+   "category": "policy",
+   "technology": null,
+   "possible_match": null
+  },
   {
    "title": "1 October 2026 | Media release First half of 2026: Less control energy deployed, procurement costs halved In the first half of 2026, the Swiss electricity system benefited from lower procurement costs thanks to a new imbalance energy price mechanism. Read article",
    "link": "https://www.swissgrid.ch/en/home/newsroom/newsfeed/20261001-01.html",
@@ -642,6 +660,16 @@
    "possible_match": null
   },
   {
+   "title": "COP31 fossil-fuel negotiations reach a deadlock",
+   "link": "https://www.bbc.co.uk/news/articles/c6ly5w40eg07o",
+   "source": "BBC News",
+   "date": "2026-11-21T07:31:05Z",
+   "first_seen": "2026-11-22T00:42:33Z",
+   "category": "policy",
+   "technology": null,
+   "possible_match": null
+  },
+  {
    "title": "MP opposing data centre joins government committee",
    "link": "https://www.bbc.co.uk/news/articles/c6j9m2rg42n2o",
    "source": "BBC News",
@@ -668,6 +696,16 @@
    "date": "2026-11-20T21:35:36Z",
    "first_seen": "2026-11-20T22:48:42Z",
    "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Cop31 talks go into overtime as debate rages over lack of fossil fuels in draft deal",
+   "link": "https://www.theguardian.com/environment/2026/nov/20/cop31-talks-overtime-fossil-fuels-vanish-from-draft-deal",
+   "source": "The Guardian",
+   "date": "2026-11-20T20:04:46Z",
+   "first_seen": "2026-11-22T00:42:33Z",
+   "category": "policy",
    "technology": null,
    "possible_match": null
   },
@@ -792,6 +830,16 @@
    "possible_match": null
   },
   {
+   "title": "Pacific islanders face a ‘sickening disconnect’ between Cop31 and the climate devastation at their doorstep",
+   "link": "https://www.theguardian.com/environment/2026/nov/20/pacific-cop31-summit-climate-devastation",
+   "source": "The Guardian",
+   "date": "2026-11-20T05:00:23Z",
+   "first_seen": "2026-11-22T00:42:33Z",
+   "category": "policy",
+   "technology": null,
+   "possible_match": null
+  },
+  {
    "title": "Global AI Trade Buckles as Anthropic Slides Following Record IPO",
    "link": "https://www.bloomberg.com/news/articles/2026-11-20/asian-chip-stocks-slide-as-anthropic-ipo-fails-to-dispel-ai-woes",
    "source": "Bloomberg",
@@ -818,6 +866,16 @@
    "date": "2026-11-19T21:52:08Z",
    "first_seen": "2026-11-19T23:12:54Z",
    "category": "datacentre",
+   "technology": null,
+   "possible_match": null
+  },
+  {
+   "title": "Cop31 told it risks being ‘ghost’ summit as all mentions of fossil fuels removed from draft text",
+   "link": "https://www.theguardian.com/environment/2026/nov/19/cop31-risks-becoming-ghost-summit-after-all-mentions-of-fossil-fuels-removed-from-draft-text",
+   "source": "The Guardian",
+   "date": "2026-11-19T17:58:21Z",
+   "first_seen": "2026-11-22T00:42:33Z",
+   "category": "policy",
    "technology": null,
    "possible_match": null
   },
@@ -952,6 +1010,16 @@
    "possible_match": null
   },
   {
+   "title": "Global Energy Storage Alliance launches at COP31, aims to address persistent energy transition challenges",
+   "link": "https://www.energy-storage.news/global-energy-storage-alliance-launches-at-cop31-aims-to-address-persistent-energy-transition-challenges/",
+   "source": "Energy-Storage.news",
+   "date": "2026-11-17T10:05:41Z",
+   "first_seen": "2026-11-22T00:42:33Z",
+   "category": "policy",
+   "technology": null,
+   "possible_match": null
+  },
+  {
    "title": "Satellite imagery reveals vegetation recovery at solar plant in semi-arid region of China",
    "link": "https://www.pv-magazine.com/2026/11/17/satellite-imagery-reveals-vegetation-recovery-at-solar-plant-in-semi-arid-region-of-china/",
    "source": "pv magazine",
@@ -982,6 +1050,16 @@
    "possible_match": null
   },
   {
+   "title": "Australia’s climate change minister Chris Bowen announces first draft of Cop31 deal – video",
+   "link": "https://www.theguardian.com/environment/video/2026/nov/17/australias-climate-change-minister-chris-bowen-announces-first-draft-of-cop31-deal-video",
+   "source": "The Guardian",
+   "date": "2026-11-17T00:29:42Z",
+   "first_seen": "2026-11-22T00:42:33Z",
+   "category": "policy",
+   "technology": null,
+   "possible_match": null
+  },
+  {
    "title": "Low Carbon energises 65MW UK battery portfolio",
    "link": "https://www.renews.biz/other-news/energy-storage/low-carbon-energises-65mw-uk-battery-portfolio/",
    "source": "reNEWS",
@@ -989,6 +1067,16 @@
    "first_seen": "2026-11-17T13:48:13Z",
    "category": "energisation",
    "technology": "battery",
+   "possible_match": null
+  },
+  {
+   "title": "Cop31 draft text is attempt to ‘draw out parties’ to find agreement, president of talks says",
+   "link": "https://www.theguardian.com/environment/2026/nov/16/cop31-draft-text-draw-out-parties-find-agreement-president-talks-says",
+   "source": "The Guardian",
+   "date": "2026-11-16T16:54:42Z",
+   "first_seen": "2026-11-22T00:42:33Z",
+   "category": "policy",
+   "technology": null,
    "possible_match": null
   },
   {

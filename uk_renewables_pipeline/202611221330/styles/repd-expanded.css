@@ -301,3 +301,17 @@ html.pn-expanded-open{overflow:hidden!important}
   display:block!important;width:100%!important;margin:0!important;
   text-align:left!important;color:#ecf4f8!important;font-weight:700!important;
 }
+
+
+/* The inherited pager visually reorders its children on mobile. Keep the
+   native Prev | complete range/page number | Next in their source order. */
+#pnExpandedHost #repdPanel #repdScroll #projectPager>*{order:0!important;grid-row:1!important}
+#pnExpandedHost #repdPanel #repdScroll #projectPager .pager-btn[data-page-step="-1"]{
+  grid-column:1!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #projectPager .pager-meta{
+  grid-column:2!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #projectPager .pager-btn[data-page-step="1"]{
+  grid-column:3!important;
+}

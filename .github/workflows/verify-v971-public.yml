@@ -1,0 +1,76 @@
+name: Verify V9.71 public homepage and retired REPD maximise
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'catalogue/homepage-owner.json'
+      - 'uk_renewables_pipeline/202611221930/**'
+      - '.github/workflows/verify-v971-public.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  served:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare public HTTPS homepage and REPD V9.71 with SHA256
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,json,os,time
+          from urllib.request import Request,urlopen
+          pin=json.loads(Path('catalogue/homepage-owner.json').read_text())
+          assert pin['commit']=='272f167e4fb330c797e212f296da829306d762ae'
+          def get(url):
+              req=Request(url,headers={'Cache-Control':'no-cache','Accept-Encoding':'identity','User-Agent':'Ventus-V971-retired-button-verifier'})
+              with urlopen(req,timeout=25) as r:
+                  if r.status!=200:raise ValueError('HTTP '+str(r.status))
+                  return r.read(4_000_000)
+          def digest(b):return hashlib.sha256(b).hexdigest()
+          owner='https://raw.githubusercontent.com/'+pin['repository']+'/'+pin['commit']+'/'
+          owner_html=get(owner+'index.html')
+          owner_json=get(owner+'data/homepage.json')
+          assert digest(owner_html)==pin['files']['index.html']
+          assert digest(owner_json)==pin['files']['data/homepage.json']
+          data=json.loads(owner_json)
+          e=next(x for x in data['entities'] if x['id']=='pipeline-news')
+          assert e['operative_release_id']=='202611221930'
+          assert e['releases'][-2]['id']=='202611221900' and e['releases'][-1]['id']=='202611221930'
+          html=owner_html.decode('utf-8-sig')
+          for file in ('versioned-homepage.css','versioned-homepage.js'):
+              old='./assets/'+file
+              assert html.count(old)==1
+              html=html.replace(old,'./homepage-shell/assets/'+file)
+          old='href="data/homepage.json"'
+          assert html.count(old)==1
+          html=html.replace(old,'href="./homepage-shell/data/homepage.json"')
+          expected={'index.html':(html.rstrip()+'\n').encode('utf-8'),'homepage-shell/data/homepage.json':owner_json}
+          now='uk_renewables_pipeline/202611221930/'
+          old='uk_renewables_pipeline/202611221900/'
+          for f in ('index.html','repd-expanded.mjs','tests/repd-expanded.mjs','map-entry.mjs'):
+              expected[now+f]=Path(now+f).read_bytes()
+          for f in ('index.html','repd-expanded.mjs','report-a4.mjs'):
+              expected[old+f]=Path(old+f).read_bytes()
+          new_html=expected[now+'index.html']
+          assert b'src="repd-landscape.mjs"' not in new_html
+          assert b'href="styles/repd-landscape.css"' not in new_html
+          assert b'src="repd-expanded.mjs"' in new_html
+          for f in ('repd-expanded.mjs','map-entry.mjs','report-a4.mjs','report-pdf.mjs'):
+              assert Path(now+f).read_bytes()==Path(old+f).read_bytes(),f+' unexpectedly changed'
+          assert b'202611221930' in expected['index.html']
+          for attempt in range(1,49):
+              bad=[]
+              for name,content in expected.items():
+                  url='https://globalgrid2050.com/'+name+'?v971_sha='+os.getenv('GITHUB_SHA','')[:8]+'-'+str(attempt)
+                  try:
+                      if digest(get(url))!=digest(content):bad.append(name+' byte mismatch')
+                  except Exception as exc:bad.append(name+': '+str(exc))
+              if not bad:
+                  print('PASS',len(expected),'public SHA256s: V9.71 operative; no old maximise; V9.70 and A4 rollback preserved')
+                  break
+              if attempt==48:raise SystemExit('Public V9.71 unverified: '+repr(bad))
+              print('Attempt',attempt,'of 48:',bad[:3],flush=True)
+              time.sleep(10)
+          PY

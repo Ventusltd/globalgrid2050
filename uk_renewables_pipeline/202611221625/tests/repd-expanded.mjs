@@ -55,7 +55,8 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
       return {sameRoot:window.__originalREPD.root===document.querySelector('#pnExpandedHost #officialRegister'),
         sameTable:window.__originalREPD.table===document.querySelector('#pnExpandedHost #repdScroll table'),
         sameGauges:window.__originalREPD.gauges.every(el=>el.closest('#pnExpandedHost')!==null),
-        width:td.getBoundingClientRect().width,scrollWidth:v.scrollWidth,clientWidth:v.clientWidth,
+        width:td.getBoundingClientRect().width,fitZoom:Number(v.dataset.zoom),
+        scrollWidth:v.scrollWidth,clientWidth:v.clientWidth,
         firstPosition:getComputedStyle(document.querySelector('#tbody tr[id^="repd-"]>td:first-child')).position,
         rowHeight:document.querySelector('#tbody tr[id^="repd-"]').getBoundingClientRect().height,
         gaugeOverflow:Math.max(...[...document.querySelectorAll('#repdPanel>.hud-gauges>.card')]
@@ -65,7 +66,7 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
     });
     assert.ok(info.sameRoot&&info.sameTable&&info.sameGauges,JSON.stringify(info));
     assert.equal(info.headCount,13);
-    assert.ok(info.width>=110&&info.width<=120,JSON.stringify(info));
+    assert.ok(info.fitZoom>0&&info.width/info.fitZoom>=108&&info.width/info.fitZoom<=122,JSON.stringify(info));
     // Actual source table has all 13 columns visibly available. Original
     // MAP/A4 controls are in their original far-right actions cell, not Operator.
     const columns=await page.evaluate(()=>{

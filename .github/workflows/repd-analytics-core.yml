@@ -15,5 +15,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Validate self-contained reporting modules
+        run: |
+          node --check automation/repd_reporting/v1/aggregate.mjs
+          node --check automation/repd_reporting/v1/panel.mjs
       - name: Verify source aggregation, period, unit and energy scenarios
         run: node --test automation/repd_reporting/v1/tests/aggregate.test.mjs

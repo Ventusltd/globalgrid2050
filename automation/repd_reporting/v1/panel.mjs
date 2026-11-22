@@ -83,7 +83,7 @@ export function mountRepdReports(host, projects, {
     report: "operator", period: "year", trend: false, metric: "capacity",
     dimension: "technology", technology: "All", status: "All",
     region: "All", operator: "All", year: String(new Date(asOf + "T00:00:00Z").getUTCFullYear()),
-    factors: {}, seasonality: {}, assumptionsOpen: false, sortKey: null, sortDescending: false,
+    factors: {}, seasonality: {}, assumptionsOpen: false, sortKey: null, sortDescending: false, rowLimit: 100,
   };
   const years = unique(projects, p => {
     const d = p.operational ?? p.operational_date;
@@ -140,9 +140,11 @@ export function mountRepdReports(host, projects, {
     assumptions.hidden = !state.assumptionsOpen;
     toggleAssumptions.setAttribute("aria-pressed", String(state.assumptionsOpen));
   });
+  const limitBar = buttonBar([[100, "100 ROWS"], [250, "250 ROWS"], ["all", "ALL ROWS"]], () => state.rowLimit,
+    key => { state.rowLimit = key; render(); }, "repd-report-limits");
   const exportButton = el("button", "repd-report-btn", "EXPORT CSV");
   exportButton.type = "button";
-  buttons.append(toggleAssumptions, exportButton);
+  buttons.append(limitBar, toggleAssumptions, exportButton);
   const chart = el("div", "repd-report-chart");
   chart.setAttribute("aria-label", "Report bar chart");
   const scroller = el("div", "repd-report-scroll");
@@ -268,8 +270,9 @@ export function mountRepdReports(host, projects, {
     }
     thead.append(top); table.append(thead);
     const tbody = el("tbody");
-    const max = Math.max(0, ...visible.map(r => Number.isFinite(r.value) ? r.value : 0));
-    for (const row of visible) {
+    const displayed = state.rowLimit === "all" ? visible : visible.slice(0, Number(state.rowLimit));
+    const max = Math.max(0, ...displayed.map(r => Number.isFinite(r.value) ? r.value : 0));
+    for (const row of displayed) {
       const tr = el("tr");
       const cell = (content, klass = "") => { const td = el("td", klass, String(content)); tr.append(td); return td; };
       const first = cell(row.label, "repd-report-source");
@@ -309,8 +312,8 @@ export function mountRepdReports(host, projects, {
         ["unit_breakdown", "Capacity by original REPD units"], ["missing_capacity", "Missing capacity rows"],
         ["cumulative_projects", "Cumulative REPD-recorded operational cohorts"], ["change_projects", "Change vs prior period"], ["repd_refs", "REPD References"], ["basis", "Basis"]];
     }
-    summary.textContent = fmt.format(visible.length) + " report groups • " + fmt.format(projects.length) +
-      " canonical REPD records loaded • " + (isEnergy ? "Assumptions explicit; not metered" : "Source-unit conservation");
+    summary.textContent = fmt.format(displayed.length) + " of " + fmt.format(visible.length) + " report groups displayed • " + fmt.format(projects.length) +
+      " canonical REPD records loaded • all groups included in CSV export • " + (isEnergy ? "Assumptions explicit; not metered" : "Source-unit conservation");
   }
   render();
   return { render, destroy() { host.replaceChildren(); host.classList.remove("repd-periodic-reports"); } };

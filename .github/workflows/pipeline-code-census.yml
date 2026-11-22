@@ -1,15 +1,16 @@
-name: Pipeline News code census
+name: Pipeline News code census and release-line delta
 on:
   push:
     branches: [main]
     paths:
+      - 'uk_renewables_pipeline/**'
       - 'automation/pipeline_release/code_census.py'
       - '.github/workflows/pipeline-code-census.yml'
   workflow_dispatch:
     inputs:
       release:
         description: Current dated application folder
-        default: '202611201709'
+        default: 'latest'
         required: true
 permissions:
   contents: read
@@ -24,12 +25,24 @@ jobs:
           sparse-checkout: |
             automation/pipeline_release
           sparse-checkout-cone-mode: true
-      - name: Count and deduplicate committed code
+      - name: Count and deduplicate committed code and compare releases
         env:
-          RELEASE: ${{ inputs.release || '202611201709' }}
+          RELEASE: ${{ inputs.release || 'latest' }}
         run: |
           python3 automation/pipeline_release/code_census.py --current "$RELEASE" --output /tmp/pipeline-code-census
           cat /tmp/pipeline-code-census/summary.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Assert delta ledger produced for the latest version
+        run: |
+          python3 - <<'PY'
+          import json
+          data=json.load(open('/tmp/pipeline-code-census/summary.json'))
+          d=data['line_delta']
+          assert d['current_release']==data['release']
+          assert d['previous_release'] and d['current_release']>d['previous_release']
+          assert d['added_lines']>=0 and d['deleted_lines']>=0
+          print('PASS monitored',d['previous_release'],'→',d['current_release'],
+                '+',d['added_lines'],'-',d['deleted_lines'],'lines')
+          PY
       - uses: actions/upload-artifact@v4
         with:
           name: pipeline-code-census

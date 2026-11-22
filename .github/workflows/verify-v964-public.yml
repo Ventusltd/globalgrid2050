@@ -1,4 +1,4 @@
-name: Verify V9.64 archived HTML/A4 rollback and served-byte integrity
+name: Verify V9.64 immutable archive and A4 public rollback bytes
 on:
   push:
     branches: [main]
@@ -29,8 +29,8 @@ jobs:
           prior='uk_renewables_pipeline/202611220220/'
           owner=json.loads((root/'homepage-shell/data/homepage.json').read_text())
           pn=next(e for e in owner['entities'] if e['id']=='pipeline-news')
-          assert pn['operative_release_id'] in ('202611221243','202611221330'), 'Unexpected Pipeline News version'
-          assert len(pn['releases']) in (31,32), 'Unexpected immutable release catalogue length'
+          assert pn['operative_release_id'] in ('202611221243','202611221330','202611221500'), 'Unexpected Pipeline News version'
+          assert len(pn['releases']) in (31,32,33), 'Unexpected immutable release catalogue length'
           assert any(e['id']=='202611220220' and e['status']=='available' for e in pn['releases']), 'V9.63 A4 rollback missing'
           assert any(e['id']=='202611221243' and e['status']=='available' for e in pn['releases']), 'V9.64 historical release missing'
           assert any(e['id']=='202611212344' and e['status']=='available' for e in pn['releases']), 'V9.60 rollback missing'

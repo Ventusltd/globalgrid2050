@@ -1,6 +1,6 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-22T13:26:40Z",
+ "generated_at": "2026-11-22T22:32:44Z",
  "status": "ok",
  "counts": {
   "items": 33,
@@ -28,7 +28,7 @@
    "status": "ok",
    "entries": 21,
    "kept": 1,
-   "sha256": "a65331fc340e241372df136c6f9d09fb26c26e931eabd225939e8828541bcf55"
+   "sha256": "94bec60e3f6e1e5f19a2e3efe6849899b10b301b99f5ddf71b98ff5362e1b923"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
@@ -36,7 +36,7 @@
    "status": "ok",
    "entries": 58,
    "kept": 1,
-   "sha256": "a65c148aa0bef358115c21d1018aff7803db226621456a7fa772da49d5c3838e"
+   "sha256": "7d553e478af08fd979f144c262834952c1af161599f04228b9daa2b501d20301"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
@@ -44,7 +44,7 @@
    "status": "ok",
    "entries": 61,
    "kept": 0,
-   "sha256": "322d7bd7b28a7c2ccee42c2c6b258daa6071c2d18f5f37269496a450c83a5ccd"
+   "sha256": "2f034cd8fd3c10812fa722f5320ac5b7a9d72cdbc4f3805727cfdb35fd10a7ee"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 42,
    "kept": 0,
-   "sha256": "25edf70c4254089076f81a21e43adc47fe925ad62c47b84f6e99f4bd106a1d9f"
+   "sha256": "6e5da6bbd7c3b9d90d95986b74a1c1d270d39edbe73ceba296368229ac7ff839"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -84,7 +84,7 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "e2c64e8ed27afccb8f968fd4372b762f09fd8fcd102474727cbecf960f837afe"
+   "sha256": "b14f99f37c199c1ba82520a64b9c18151b142f9da1d8f87a3b54f0e562cd15ea"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
@@ -92,7 +92,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 6,
-   "sha256": "9edabe46fbd3a94796af6339b768af257a97e50d3de5f251935c097c6d8ef563"
+   "sha256": "7612696d3ed99652cb03150fe988ff624666862d5e5b361616c1380f6b7943cf"
   }
  ],
  "items": [

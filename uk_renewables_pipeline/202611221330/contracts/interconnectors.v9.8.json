@@ -1,0 +1,40 @@
+{
+ "schema": "globalgrid2050.uk-renewables.interconnectors.v9.8",
+ "release": "9.8",
+ "feature": "interconnectors-as-a-tab-outside-the-repd-spine",
+ "frozen_parent": {
+  "release": "9.7",
+  "directory": "uk_renewables_pipeline/202609061329",
+  "tree": "42f0ebde853eb84236593ac7d455107e069ddeeb"
+ },
+ "canonical_receiver": "https://ventusltd.github.io/gridatlas/atlas/",
+ "sources": {
+  "cables_csv": "Ventusltd/data-interconnectors reference/interconnector_cables.csv @ 1e00d0e4d7bf3ddbc86224b3b6be5c2f3eaabf86",
+  "endpoints": "Ventusltd/gridatlas atlas/data/interconnector-endpoints.json @ 7910d92d0f44c5248695e8eaf02aa3c7db961eee",
+  "geojson": "Ventusltd/gridatlas atlas/data/interconnectors.geojson @ 7910d92d0f44c5248695e8eaf02aa3c7db961eee"
+ },
+ "scope": {
+  "technology": "interconnector",
+  "counted_in_all_tech": false,
+  "repd_spine_unchanged": true,
+  "repd_project_count": 7680,
+  "midpoint_is": "label anchor, never a location",
+  "link_identity": "interconnector=<BMRS code>; never repd_ref"
+ },
+ "expected": {
+  "record_count": 16,
+  "operational": 10,
+  "future": 6,
+  "capacity_mw": 17950,
+  "largest_mw": 2000,
+  "geometry_valid": 2,
+  "geometry_gb_end_only": 8,
+  "geometry_missing": 6
+ },
+ "ui_contract": {
+  "technology_filters": ["all", "solar", "bess", "wind_onshore", "wind_offshore", "interconnector"],
+  "interconnector_tab_rows": 16,
+  "interconnector_map_links": 10,
+  "interconnector_no_map": 6
+ }
+}

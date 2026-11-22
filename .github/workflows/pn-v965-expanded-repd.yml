@@ -1,0 +1,52 @@
+name: Pipeline News V9.65 native expanded REPD acceptance
+on:
+  pull_request:
+    paths:
+      - 'uk_renewables_pipeline/202611221330/**'
+      - '.github/workflows/pn-v965-expanded-repd.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  expanded-repd:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify original V9.64 source and V9.63 A4 byte identity
+        run: |
+          python3 - <<'PY'
+          import subprocess
+          root='uk_renewables_pipeline/'
+          def entries(v):
+            raw=subprocess.check_output(['git','ls-tree','-r','-z','HEAD:'+root+v])
+            return {p.decode():a.split()[2].decode() for a,p in (obj.split(b'\t',1) for obj in raw.split(b'\0') if obj)}
+          old=entries('202611221243');new=entries('202611221330')
+          changed={x for x in old.keys()|new.keys() if old.get(x)!=new.get(x)}
+          permitted={'index.html','scripts/plugins/projects-v9-8.js','README.md','CHANGES.md','repd-expanded.mjs','styles/repd-expanded.css','tests/repd-expanded.mjs'}
+          assert changed==permitted,(changed,permitted)
+          for name in ['report-a4.mjs','report-model.mjs','report-pdf.mjs','styles/report-a4.css','repd-scan.mjs','repd-density.mjs','repd-landscape.mjs']:
+            assert old[name]==new[name],name
+          for section in ['data/','news/','vendor/','gridatlas/','solar1000/']:
+            assert {k:v for k,v in old.items() if k.startswith(section)}=={k:v for k,v in new.items() if k.startswith(section)},section
+          print('PASS native source-byte guard; inherited A4/PDF/data/map/notes/analytics kept')
+          PY
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium and WebKit
+        working-directory: uk_renewables_pipeline/202611221330
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+      - name: Browser test native table and A4 restoration
+        run: |
+          python3 -m http.server 8765 >/tmp/pn-v965-http.log 2>&1 &
+          node uk_renewables_pipeline/202611221330/tests/repd-expanded.mjs
+      - name: Retain browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pn-v965-native-expanded-REPD
+          path: /tmp/pn-v965-native/
+          retention-days: 14

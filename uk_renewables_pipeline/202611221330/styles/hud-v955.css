@@ -1,0 +1,41 @@
+/* V9.55: keep the original real Chart.js gauges visible, centred and above the register controls. */
+.main{width:100%;max-width:1360px;margin-inline:auto!important;padding:12px 24px!important;min-width:0}
+.main>.newspaper{height:auto!important;min-height:0!important;max-height:none!important;margin:0 0 8px!important;overflow:visible!important}
+.newspaper #liveNews{flex:none;height:clamp(128px,24vh,220px);max-height:none!important;overflow:auto!important;scrollbar-color:#383d44 #000;scrollbar-width:thin}
+.newspaper #liveNews .ln-item{padding:8px 8px 9px}
+.newspaper #liveNews .ln-title{font-size:15px;line-height:1.35}
+.newspaper #liveNews .ln-brief{color:#a6adbb;font-size:11px}
+.newspaper .pn-news-quality{order:2}
+.newspaper #headlineTicker{order:3;margin:4px 0 0!important;min-width:0;overflow:hidden!important}
+#headlineTicker .pn-ticker-title,#headlineTicker a{color:#ff3038!important;text-shadow:0 0 4px #ff2029b3,0 0 9px #ff20294d!important;font-weight:700!important;font-size:11px!important}
+#headlineTicker .pn-ticker-item{min-height:30px!important}
+#officialRegister{min-width:0}
+#officialRegister #pipelineHeading{text-align:center;margin:8px 0 6px}
+#officialRegister .pipeline-tabs{justify-content:center;margin-bottom:8px;gap:5px;padding-bottom:6px}
+#officialRegister .repd-expand-launcher{margin:0 0 5px}
+#repdPanel>.hud-gauges{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px;width:100%;max-width:960px;margin:4px auto 12px!important;align-items:stretch}
+#repdPanel>.hud-gauges>.card{min-width:0;background:#080b10;border:1px solid #202731;border-radius:5px;padding:10px 8px 12px}
+#repdPanel>.hud-gauges h3{font-size:11px;line-height:1.25;min-height:2.5em;display:flex;justify-content:center;align-items:center;text-align:center;margin:0 0 3px;color:#b0b8c5}
+#repdPanel>.hud-gauges .chart{height:clamp(86px,11vw,140px);max-width:260px;margin-inline:auto;min-width:0}
+#repdPanel>.hud-gauges .value{font-size:clamp(19px,2vw,29px);bottom:0;white-space:nowrap;color:#fff;line-height:1.1;font-variant-numeric:tabular-nums}
+@media(max-width:768px){
+.main{padding:6px 9px!important}
+.newspaper #liveNews{height:clamp(90px,16svh,145px)}
+.newspaper #liveNews .ln-item{padding:6px 3px}
+.newspaper #liveNews .ln-title{font-size:13px}
+.newspaper #liveNews .ln-brief{font-size:10px}
+#officialRegister .pipeline-tabs{gap:3px;margin-bottom:5px;padding-bottom:5px}
+#officialRegister .pipeline-tabs button{padding:5px 7px;min-height:33px;font-size:10px}
+#repdPanel>.hud-gauges{gap:4px;margin:3px auto 8px!important}
+#repdPanel>.hud-gauges>.card{padding:6px 2px 7px;border-radius:3px}
+#repdPanel>.hud-gauges h3{font-size:9px;min-height:2.5em;margin-bottom:2px}
+#repdPanel>.hud-gauges .chart{height:clamp(56px,16vw,88px)}
+#repdPanel>.hud-gauges .value{font-size:clamp(13px,4vw,20px)}
+}
+
+/* Keep the instrument cluster in view on short desktop and rotated phones. */
+.gauge-warning{color:#ff535c;text-align:center;font-size:11px}
+@media(max-height:500px){
+  .newspaper #liveNews{height:clamp(56px,15svh,78px)}
+  #repdPanel>.hud-gauges .chart{height:clamp(48px,15svh,72px)}
+}

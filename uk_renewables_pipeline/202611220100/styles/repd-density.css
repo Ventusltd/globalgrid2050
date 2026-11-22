@@ -1,0 +1,113 @@
+/* V9.61: readable compact REPD grid. All underlying records, column order, links and sort controls are retained. */
+#repdProjectWidth{
+  width:126px!important;min-width:126px!important;max-width:126px!important;
+  min-height:34px!important;height:34px!important;padding:3px 6px!important;
+  background:#05090c;color:#74eef1;border:1px solid #415360;
+  font:11px/1.2 'Courier New',monospace!important;text-transform:none;
+}
+#repdProjectWidth:focus-visible{outline:2px solid #00ffff;outline-offset:2px}
+.column-scroll-tools:has(#repdProjectWidth){gap:6px;flex-wrap:nowrap}
+.column-scroll-tools:has(#repdProjectWidth)>label{flex:0 0 auto}
+.column-scroll-tools:has(#repdProjectWidth)>input[type=range]{flex:1 1 auto;min-width:48px}
+@media(min-width:1025px){#repdProjectWidth{display:none}}
+@media(max-width:1024px){
+  #repdPanel #repdScroll{
+    --first-col:clamp(128px,35vw,164px)!important;
+    --mw-col:78px!important;
+  }
+  #repdPanel #repdScroll.pn-project-mini{--first-col:54px!important}
+  #repdPanel #repdScroll.pn-project-full{--first-col:clamp(225px,62vw,390px)!important}
+  #repdPanel #repdScroll table{
+    width:calc(var(--first-col) + 1234px)!important;
+    min-width:100%!important;table-layout:fixed!important;
+  }
+  #repdPanel #repdScroll th[data-column-heading="capacity"]{width:78px!important}
+  #repdPanel #repdScroll th[data-column-heading="county"]{width:116px!important}
+  #repdPanel #repdScroll th[data-column-heading="operator"]{width:138px!important}
+  #repdPanel #repdScroll th[data-column-heading="technology"]{width:88px!important}
+  #repdPanel #repdScroll th[data-column-heading="status"]{width:126px!important}
+  #repdPanel #repdScroll th[data-column-heading="repd"]{width:84px!important}
+  #repdPanel #repdScroll th[data-column-heading="globalgrid"]{width:110px!important}
+  #repdPanel #repdScroll #repdUpdatedHeader{width:108px!important}
+  #repdPanel #repdScroll #planningSubmittedHeader,
+  #repdPanel #repdScroll #operationalHeader{width:108px!important}
+  #repdPanel #repdScroll th:nth-last-child(2){width:98px!important}
+  #repdPanel #repdScroll th:last-child{width:72px!important}
+  #repdPanel #repdScroll thead th{
+    height:38px;padding:3px 4px!important;font-size:10px;line-height:1.1;
+    vertical-align:middle;
+  }
+  #repdPanel #repdScroll .column-sort{
+    min-height:28px!important;font-size:10px!important;line-height:1.1!important;
+    padding:2px 0!important;
+  }
+  #repdPanel #repdScroll #tbody tr[id^="repd-"]>td{
+    padding:3px 4px!important;height:40px;line-height:1.1!important;
+    vertical-align:middle;
+  }
+  #repdPanel #repdScroll #tbody tr[id^="repd-"]>td:not(.site){
+    white-space:nowrap!important;overflow:hidden;text-overflow:ellipsis;
+  }
+  #repdPanel #repdScroll #tbody tr[id^="repd-"]>td.site{
+    overflow:visible!important;padding:0!important;
+  }
+  #repdPanel #repdScroll #tbody .project-record>summary{
+    display:flex!important;flex-direction:column!important;
+    justify-content:center;align-items:stretch;gap:1px!important;
+    box-sizing:border-box;height:40px!important;min-height:40px!important;
+    padding:3px 5px!important;white-space:nowrap!important;overflow:hidden;
+  }
+  #repdPanel #repdScroll #tbody .phone-project-label,
+  #repdPanel #repdScroll #tbody .phone-project-status{
+    display:block!important;flex:0 0 auto;max-width:100%;min-width:0;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap!important;
+    line-height:1.15!important;
+  }
+  #repdPanel #repdScroll #tbody .phone-project-label{font-size:11px!important}
+  #repdPanel #repdScroll #tbody .phone-project-status{font-size:9px!important}
+  #repdPanel #repdScroll.pn-project-mini #tbody .project-record>summary{
+    align-items:center!important;padding-inline:2px!important;
+  }
+  #repdPanel #repdScroll.pn-project-mini #tbody .phone-project-label{
+    font-size:0!important;text-align:center;
+  }
+  #repdPanel #repdScroll.pn-project-mini #tbody .phone-project-label::after{
+    content:attr(data-mini);font-size:12px!important;font-weight:700;color:#e5f3f4;
+  }
+  #repdPanel #repdScroll.pn-project-mini #tbody .phone-project-status{display:none!important}
+  #repdPanel #repdScroll #tbody .badge{font-size:9px;padding:2px 3px}
+  #repdPanel #repdScroll #tbody .project-actions .action-link{
+    min-width:44px;min-height:36px!important;height:36px!important;
+  }
+  #repdPanel #repdScroll #tbody .project-record[open] .record-grid{
+    white-space:normal;overflow-wrap:anywhere;
+  }
+}
+@media(max-width:768px){
+  /* The standalone Status column is hidden here because official status remains inside the project summary. */
+  #repdPanel #repdScroll table{width:calc(var(--first-col) + 1108px)!important}
+}
+@media(orientation:landscape) and (max-width:768px){
+  /* V9.60 reveals the real Status column in the landscape dashboard. Account for its width. */
+  #officialRegister.pn-repd-wide #repdPanel #repdScroll table{
+    width:calc(var(--first-col) + 1234px)!important;
+  }
+}
+@media(orientation:landscape) and (max-width:1024px) and (max-height:500px){
+  /* Keep all three actual gauges, but use less of the scarce vertical viewport. */
+  #officialRegister.pn-repd-wide #pipelineHeading{margin:1px 0 2px!important;font-size:11px}
+  #officialRegister.pn-repd-wide .pipeline-tabs{margin-bottom:2px!important;padding-bottom:2px!important}
+  #officialRegister.pn-repd-wide #repdPanel>.hud-gauges{gap:4px!important;margin:2px auto 4px!important}
+  #officialRegister.pn-repd-wide #repdPanel>.hud-gauges>.card{padding:2px 3px!important}
+  #officialRegister.pn-repd-wide #repdPanel>.hud-gauges h3{
+    font-size:8px!important;min-height:0!important;line-height:1.1!important;margin:0!important;
+  }
+  #officialRegister.pn-repd-wide #repdPanel>.hud-gauges .chart{height:40px!important}
+  #officialRegister.pn-repd-wide #repdPanel>.hud-gauges .value{font-size:14px!important;bottom:0!important}
+  #officialRegister.pn-repd-wide #repdPanel .compact-mw-filter{margin:2px 0 3px!important}
+  #officialRegister.pn-repd-wide #repdPanel .mw-bound,
+  #officialRegister.pn-repd-wide #repdPanel #applyMW{height:30px!important;min-height:30px!important}
+  #officialRegister.pn-repd-wide #repdPanel .mw-bound input{height:28px!important}
+  #officialRegister.pn-repd-wide #repdPanel .compact-sort select{min-height:32px!important;padding:3px 6px!important}
+  #officialRegister.pn-repd-wide #repdPanel #repdScroll{max-height:74dvh!important}
+}

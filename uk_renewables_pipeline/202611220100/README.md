@@ -1,0 +1,3 @@
+# Pipeline News V9.61 — dense responsive REPD columns
+
+Immutable successor to V9.60. On portrait phones and landscape tablets/phones the default REPD grid now uses a compact single-line presentation, shorter rows, smaller data-column widths, and a Project-name selector with compact, minimised and full modes. Column headings and sorting, sticky name/identity, MW, source data, gauges, filters, Notes, MAP, and the landscape dashboard all remain. Tapping a project name in minimised mode restores a readable full-width name before expanding existing details. Desktop above 1024px is unchanged. No homepage pointer is changed.

@@ -1,0 +1,69 @@
+name: Verify V9.63 actual public served bytes and V9.60 rollback
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-v963-public.yml'
+      - 'index.html'
+      - 'homepage-shell/**'
+      - 'uk_renewables_pipeline/202611220220/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  served:
+    runs-on: ubuntu-latest
+    timeout-minutes: 27
+    steps:
+      - uses: actions/checkout@v4
+      - name: Confirm source promotion and test public HTTP bytes
+        env:
+          SHA: ${{ github.sha }}
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request,urlopen
+          import hashlib,json,os,time
+          root=Path('.')
+          files=[
+            'index.html',
+            'homepage-shell/data/homepage.json',
+            'homepage-shell/assets/versioned-homepage.js',
+            'uk_renewables_pipeline/202611220220/index.html',
+            'uk_renewables_pipeline/202611220220/report-a4.mjs',
+            'uk_renewables_pipeline/202611220220/report-model.mjs',
+            'uk_renewables_pipeline/202611220220/report-pdf.mjs',
+            'uk_renewables_pipeline/202611212344/index.html',
+          ]
+          owner=json.loads((root/'homepage-shell/data/homepage.json').read_text())
+          pn=next(x for x in owner['entities'] if x['id']=='pipeline-news')
+          assert pn['operative_release_id']=='202611220220'
+          assert any(x['id']=='202611212344' and x['status']=='available' for x in pn['releases'])
+          assert len(pn['releases'])==30
+          assert '202611220220' in (root/'index.html').read_text()
+          assert '202611212344' in (root/'index.html').read_text()
+          assert 'Area not reported' not in (root/'uk_renewables_pipeline/202611220220/report-a4.mjs').read_text()
+          expected={p:hashlib.sha256((root/p).read_bytes()).hexdigest() for p in files}
+          sha=os.environ.get('SHA','unknown')[:12]
+          for attempt in range(1,46):
+              bad=[]
+              for path in files:
+                  url='https://globalgrid2050.com/'+path+'?release='+sha+'-'+str(attempt)
+                  req=Request(url,headers={'Cache-Control':'no-cache','Pragma':'no-cache','Accept-Encoding':'identity','User-Agent':'GlobalGrid2050-V963-Public-CI/1.0'})
+                  try:
+                      with urlopen(req,timeout=18) as response:
+                          data=response.read(2000000)
+                          status=response.status
+                      digest=hashlib.sha256(data).hexdigest()
+                      if status!=200 or digest!=expected[path]:
+                          bad.append(f'{path}: HTTP {status}; SHA256 {digest}, want {expected[path]}')
+                  except Exception as exc:
+                      bad.append(f'{path}: {type(exc).__name__}: {exc}')
+              if not bad:
+                  print('PASS: all '+str(len(files))+' public served files match the exact approved Git tree including homepage, V9.63 report and V9.60 rollback',flush=True)
+                  break
+              print(f'Attempt {attempt}/45: {len(bad)} mismatch(es); '+str(bad[:3]),flush=True)
+              if attempt==45:
+                  raise SystemExit('FAIL public V9.63 served-byte verification: '+str(bad))
+              time.sleep(20)
+          PY

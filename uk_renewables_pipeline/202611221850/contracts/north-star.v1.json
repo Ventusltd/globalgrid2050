@@ -1,0 +1,208 @@
+{
+  "schema": "globalgrid2050.v7.north-star.v1",
+  "target_release": "7.1",
+  "feature": "modular-v5-parity",
+  "governing_readme": {
+    "path": "uk_renewables_pipeline/v7/README.md",
+    "sha256": "f5018607ca5c2cb8cdce65a72f882611e2e94294f4d6044b6f74d98395c1d90d"
+  },
+  "required_readme_phrases": [
+    "V7.1 is the current live release",
+    "inherited V5 NEWS SIGNAL is part of the MVP",
+    "V7.1 — Modular V5 parity",
+    "V7.9 — Bulletproof operations",
+    "North Star anti-hallucination and anti-truncation gate",
+    "Every build begins by",
+    "Every build ends by",
+    "after V7.9 development moves to V8.0",
+    "A local pass is not publication proof",
+    "V4, V5 and V6 automatic `schedule`, `push` and `issues` triggers are therefore retired immediately",
+    "Frozen regression fixtures, edition contracts and rolling operational metrics are three different gate classes.",
+    "Blocking, evidence scoring and publication decisions are separate stages.",
+    "Browser DuckDB-WASM is deferred until an end-to-end Pages and iPhone benchmark"
+  ],
+  "research_decisions": {
+    "documented_for_release": "7.3",
+    "must_not_change_v7_2": true,
+    "gate_classes": [
+      "frozen_regression_fixture",
+      "named_edition_contract",
+      "rolling_operational_metric"
+    ],
+    "matching_pipeline": [
+      "recall_safe_blocking",
+      "evidence_scoring",
+      "publish_quarantine_reject"
+    ],
+    "blocking_metrics": [
+      "pair_completeness",
+      "pair_quality",
+      "reduction_ratio"
+    ],
+    "frozen_positive_pair_completeness": 1.0,
+    "hard_vetoes": [
+      "canonical_identity",
+      "positive_uk_location",
+      "technology",
+      "foreign_location",
+      "inactive_record_without_proven_continuity",
+      "ambiguity"
+    ],
+    "assertion_times": [
+      "occurred_at",
+      "published_at",
+      "observed_at",
+      "recorded_at"
+    ],
+    "browser_delivery": {
+      "v7_2": "same_origin_json",
+      "duckdb_wasm": "deferred_until_end_to_end_benchmark"
+    },
+    "deferred_methods": [
+      "transformer_matcher",
+      "weak_supervision",
+      "conformal_error_guarantee",
+      "sql2011_temporal_database",
+      "custom_merkle_dag",
+      "learned_event_coreference"
+    ]
+  },
+  "release_baseline": {
+    "index_path": "uk_renewables_pipeline/v7/index.html",
+    "index_sha256": "3ecd1f04695aeb457593eff4e9dba32c6ae9d6d200bcdaa6e21bd9a2a8ad27b2",
+    "news_count": 125,
+    "legacy_geojson_features": 10784
+  },
+  "historical_files": {
+    "uk_renewables_pipeline/dashboard.html": "341da90d9c4de1ad2535ad82622bea14cdaaea7524e57f2cf69714f9b2ec879a",
+    "uk_renewables_pipeline/dashboard_v2_2026-08-22.html": "4b43797175c02680f23d459ccc8971f6356af5864696915f5a6aab923d8ba738",
+    "uk_renewables_pipeline/dashboard_v3_live_2026-08-22.html": "23a6e4d23927538c1f2d98bec097aee2b5ff5940ae6bffa60cdd9e7e695c8f13",
+    "uk_renewables_pipeline/dashboard_v4_live.html": "94b126a89ca5bf125b785900fc57a713adfd0fe9074510a76b34c05c1af00c51",
+    "uk_renewables_pipeline/dashboard_v5_live.html": "af7045b3fd09435bcbc2dc5e6f63654c34ec1ee202c908eb156a93c1ae9f5bfc",
+    "uk_renewables_pipeline/dashboard_v6_live.html": "2cdb541622a8c0a587af30c1ef600b1c77dc8e151a3c412bc444ec9ba1cc636d"
+  },
+  "immutable_fixture_files": {
+    "uk_renewables_pipeline/v7/fixtures/v5/major_project_news_v5.json": "0268087daab2a69bddff4167b2e38d5c89ff70bf36a6c4495ae8becca8c7bd87",
+    "uk_renewables_pipeline/v7/fixtures/v5/repd_master.json": "ca5da437ddb832f7e4e8d84bba1f2f6d40df6285089a43156452fdda7eebe0fe",
+    "uk_renewables_pipeline/v7/fixtures/v6/project_identity_v6.json": "d614084c05c0380862cf2d9da58309c43cdb128d6917458db4dc53717062ea95",
+    "uk_renewables_pipeline/v7/fixtures/v6/major_projects_v6.json": "ad04f772189868b27e8ba6c2330350794786735d854d01a3c3698cd7422760a7"
+  },
+  "fixture_roles": {
+    "v5_news": "uk_renewables_pipeline/v7/fixtures/v5/major_project_news_v5.json",
+    "v5_geojson": "uk_renewables_pipeline/v7/fixtures/v5/repd_master.json",
+    "v6_identity": "uk_renewables_pipeline/v7/fixtures/v6/project_identity_v6.json",
+    "v6_projects": "uk_renewables_pipeline/v7/fixtures/v6/major_projects_v6.json"
+  },
+  "runtime_data_paths": [
+    "dist/major_project_news_v5.json",
+    "dist/repd_master.json",
+    "dist/project_identity_v6.json",
+    "dist/major_projects_v6.json"
+  ],
+  "manual_only_legacy_workflows": [
+    ".github/workflows/major_project_news_v4.yml",
+    ".github/workflows/major_project_news_v5.yml",
+    ".github/workflows/major_project_news_v6.yml"
+  ],
+  "hash_semantics": {
+    "major_projects_v6_file_sha256": "ad04f772189868b27e8ba6c2330350794786735d854d01a3c3698cd7422760a7",
+    "major_projects_v6_projects_array_sha256": "48281b1d14364b7c4fd74f1e8b8e6c8e0c1f9515b21fa57d5b37bd1af498b15d"
+  },
+  "universe_fixtures": {
+    "legacy_features": 10784,
+    "legacy_display_total": 5210,
+    "legacy_display_solar": 2667,
+    "legacy_display_bess": 1271,
+    "legacy_display_wind": 1272,
+    "v5_raw_solar_gt49": 321,
+    "v5_raw_bess_gt99": 328,
+    "v5_raw_bess_gt100": 239,
+    "v5_bess_gt99_minus_gt100": 89,
+    "v5_eligible_projects": 559,
+    "v5_headlines": 125,
+    "v5_lookback_days": 366,
+    "v6_identity_records": 14657,
+    "v6_project_records": 3714,
+    "v6_solar_records": 3445,
+    "v6_bess_records": 269,
+    "v7_q2_solar_gt49": 384,
+    "v7_q2_bess_gt99": 382,
+    "v7_q2_bess_gt100": 269,
+    "v7_q2_bess_gt99_minus_gt100": 113,
+    "v7_q2_records": 766,
+    "v7_q2_developments": 718,
+    "v7_q2_solar_mwp": 34073.49,
+    "v7_q2_bess_mw": 106338.18
+  },
+  "canonical_sentinel_counts": {
+    "repd_records": 14,
+    "developments": 10
+  },
+  "canonical_sentinels": [
+    {"repd_ref":"13599","site_name":"Beacon Fen Energy Park","technology":"Solar Photovoltaics","capacity_mw":400.0,"status":"Application Submitted","gg_development_id":"GG2050-DEV-E13842D4D80DEC","planning_reference":"EN010151"},
+    {"repd_ref":"13600","site_name":"Beacon Fen Energy Park","technology":"Battery","capacity_mw":600.0,"status":"Application Submitted","gg_development_id":"GG2050-DEV-E13842D4D80DEC","planning_reference":"EN010151"},
+    {"repd_ref":"14550","site_name":"Dean Moor Solar Farm & Battery Storage","technology":"Solar Photovoltaics","capacity_mw":150.0,"status":"Awaiting Construction","gg_development_id":"GG2050-DEV-DF8A23D9E62EA8","planning_reference":"EN010155"},
+    {"repd_ref":"10085","site_name":"Stonestreet Green - Solar Farm & Battery Storage","technology":"Solar Photovoltaics","capacity_mw":99.9,"status":"Awaiting Construction","gg_development_id":"GG2050-DEV-BAF7E2396D59FC","planning_reference":"EN010135"},
+    {"repd_ref":"6502","site_name":"Cleve Hill Solar Project","technology":"Solar Photovoltaics","capacity_mw":373.0,"status":"Operational","gg_development_id":"GG2050-DEV-2ADB0F2D626ABD","planning_reference":"EN010085"},
+    {"repd_ref":"7856","site_name":"Cleve Hill Solar Project","technology":"Battery","capacity_mw":150.0,"status":"Operational","gg_development_id":"GG2050-DEV-2ADB0F2D626ABD","planning_reference":"EN010085"},
+    {"repd_ref":"11928","site_name":"West Burton Power Station, North Road - Battery Storage","technology":"Battery","capacity_mw":500.0,"status":"Awaiting Construction","gg_development_id":"GG2050-DEV-AEB36E1ABA4E03","planning_reference":"22/01713/FUL"},
+    {"repd_ref":"9427","site_name":"Hams Hall - Battery Energy Storage System","technology":"Battery","capacity_mw":400.0,"status":"Under Construction","gg_development_id":"GG2050-DEV-13408969AF918A","planning_reference":"PAP/2021/0473"},
+    {"repd_ref":"12926","site_name":"The Tween Bridge Solar Farm","technology":"Solar Photovoltaics","capacity_mw":800.0,"status":"Application Submitted","gg_development_id":"GG2050-DEV-81C5A835AFC865","planning_reference":"EN010148"},
+    {"repd_ref":"19574","site_name":"The Tween Bridge Solar Farm","technology":"Battery","capacity_mw":400.0,"status":"Application Submitted","gg_development_id":"GG2050-DEV-81C5A835AFC865","planning_reference":"EN010148"},
+    {"repd_ref":"15793","site_name":"Green Hill Solar Farm & Battery Storage","technology":"Solar Photovoltaics","capacity_mw":600.0,"status":"Application Submitted","gg_development_id":"GG2050-DEV-36DE7073A7E4D2","planning_reference":"EN010170"},
+    {"repd_ref":"15794","site_name":"Green Hill Solar Farm & Battery Storage","technology":"Battery","capacity_mw":600.0,"status":"Application Submitted","gg_development_id":"GG2050-DEV-36DE7073A7E4D2","planning_reference":"EN010170"},
+    {"repd_ref":"11034","site_name":"Coalburn Energy - Battery Storage","technology":"Battery","capacity_mw":500.0,"status":"Under Construction","gg_development_id":"GG2050-DEV-8AFE67BBE335AE","planning_reference":"ECU00003458"},
+    {"repd_ref":"12206","site_name":"Coalburn II Energy Storage Facility - Battery Storage Facility","technology":"Battery","capacity_mw":1000.0,"status":"Under Construction","gg_development_id":"GG2050-DEV-56744AC757C748","planning_reference":"ECU00004698"}
+  ],
+  "negative_sentinels": [
+    "australia-to-stonestreet",
+    "us-fund-to-cleve-hill",
+    "greece-or-germany-to-tween-bridge",
+    "avonmouth-incidents",
+    "witney-high-street-roadworks",
+    "offshore-wind",
+    "healthcare-or-care-home",
+    "foreign-project",
+    "generic-capacity",
+    "common-word-name"
+  ],
+  "v7_1_required_files": [
+    "uk_renewables_pipeline/v7/index.html",
+    "uk_renewables_pipeline/v7/package.json",
+    "uk_renewables_pipeline/v7/package-lock.json",
+    "uk_renewables_pipeline/v7/styles/v7.css",
+    "uk_renewables_pipeline/v7/styles/mobile.css",
+    "uk_renewables_pipeline/v7/fixtures/README.md",
+    "uk_renewables_pipeline/v7/scripts/app.js",
+    "uk_renewables_pipeline/v7/scripts/core/plugin-host.js",
+    "uk_renewables_pipeline/v7/scripts/core/project-state.js",
+    "uk_renewables_pipeline/v7/scripts/core/state.js",
+    "uk_renewables_pipeline/v7/scripts/core/utils.js",
+    "uk_renewables_pipeline/v7/scripts/plugins/gauges.js",
+    "uk_renewables_pipeline/v7/scripts/plugins/canonical-project-controls.js",
+    "uk_renewables_pipeline/v7/scripts/plugins/canonical-project-table.js",
+    "uk_renewables_pipeline/v7/scripts/plugins/canonical-project-export.js",
+    "uk_renewables_pipeline/v7/scripts/plugins/newspaper.js",
+    "uk_renewables_pipeline/v7/scripts/plugins/project-export.js",
+    "uk_renewables_pipeline/v7/scripts/plugins/project-filters.js",
+    "uk_renewables_pipeline/v7/scripts/plugins/project-table.js",
+    "uk_renewables_pipeline/v7/scripts/plugins/projects.js",
+    "uk_renewables_pipeline/v7/scripts/data/canonical-projects.js",
+    "uk_renewables_pipeline/v7/contracts/plugin.v1.json",
+    "uk_renewables_pipeline/v7/contracts/projects-plugin.v7.2.json",
+    "uk_renewables_pipeline/v7/docs/08-v7.2-project-interface.md",
+    "uk_renewables_pipeline/v7/data/build_manifest.json",
+    "uk_renewables_pipeline/v7/data/plugin_manifest.json",
+    "uk_renewables_pipeline/v7/data/build_reports/7.1-change-accounting.json",
+    "uk_renewables_pipeline/v7/tests/browser_smoke.mjs",
+    "uk_renewables_pipeline/v7/tests/check_modules.mjs",
+    "uk_renewables_pipeline/v7/tests/check_v7_2_project_model.mjs",
+    "uk_renewables_pipeline/v7/tests/check_v7_2_project_controls.mjs",
+    "uk_renewables_pipeline/v7/tests/check_v7_2_project_table_export.mjs",
+    "uk_renewables_pipeline/v7/tests/check_v5_parity.py",
+    "uk_renewables_pipeline/v7/tests/validate_projects_plugin_v7_2.py",
+    "uk_renewables_pipeline/v7/tests/run_v7_1.sh",
+    ".github/workflows/v7-north-star.yml",
+    "uk_renewables_pipeline/v7/docs/releases/7.1.md"
+  ]
+}

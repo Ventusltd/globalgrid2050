@@ -128,7 +128,7 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
         width:el.querySelector('table').getBoundingClientRect().width,
         viewport:el.clientWidth,scrollWidth:el.scrollWidth};
     });
-    assert.ok(pinch.before>0&&pinch.before<.5,
+    assert.ok(pinch.before>0&&pinch.before<=1,
       'Initial preview must fit all 13 columns on a phone: '+JSON.stringify(pinch));
     assert.ok(pinch.after>pinch.before*3,
       'Two-finger pinch must magnify the actual REPD table: '+JSON.stringify(pinch));

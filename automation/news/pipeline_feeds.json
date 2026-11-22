@@ -494,11 +494,21 @@
         "/en/perspective/"
       ],
       "english_only": true
+    },
+    {
+      "url": "https://www.bbc.co.uk/news/articles/c6ly5w40eg07o",
+      "source": "BBC News",
+      "kind": "curated",
+      "title": "COP31 fossil-fuel negotiations reach a deadlock",
+      "date": "2026-11-21T07:31:05Z",
+      "uk_only": false,
+      "discovery": "Owner-supplied public BBC article link, publisher RSS date from BBC-sourced syndication; headline label independently authored; article body not fetched."
     }
   ],
   "source_release_id": "20261121-global-context-v1",
   "source_patch_id": "20261121-exclude-solar-power-portal-v1",
   "excluded_sources": [
     "Solar Power Portal"
-  ]
+  ],
+  "climate_policy_patch_id": "20261122-cop31-priority-v1"
 }

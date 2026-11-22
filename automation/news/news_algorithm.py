@@ -18,14 +18,14 @@ from automation.news import pipeline_headlines as P
 
 SCHEMA = "globalgrid2050.news.editorial-priority.v1"
 PROFILE = {
-    "id": "uk-transition-global-context.v1",
+    "id": "uk-transition-global-context-cop31.v2",
     "topic": {"solar": 20, "storage": 20, "grid": 20, "datacentre": 20,
               "wind": 10, "renewables": 10},
     "authority": {"government": 18, "regulator": 18, "institution": 16,
                   "listed_parent": 14, "reporting": 8, "discovery": 2},
     "actionability": 8, "original_reporting": 6, "freshness": 10, "uk_context": 5,
     "freshness_half_life_days": 14, "current_days": 120,
-    "publisher_diversity_penalty": 8,
+    "publisher_diversity_penalty": 8, "cop31_policy_priority": 75, "other_cop_policy_priority": 24,
 }
 PROFILE_SHA256 = hashlib.sha256(json.dumps(PROFILE, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 _GOV_SUFFIXES = ("gov.uk", "gov.scot", "gov.wales", "gov")
@@ -185,14 +185,17 @@ def rank_headlines(items, *, as_of, source_policies=(), originality=(), diversit
         host = urlsplit(url).hostname
         title = P.D.clean_text(item["title"], 300)
         topics = [] if P.EXCLUDE.search(title) else P.topics_of(title)
+        climate_level = P.climate_policy_priority(title)
         topic_points = max((PROFILE["topic"][t] for t in topics), default=0)
-        category = P.category_of(title) if topics else None
+        category = P.category_of(title) if topics or climate_level else None
         context_only = bool(_GENRE.search(urlsplit(url).path) or P.D.SPONSORED_RE.search(title) or P.BRANDED.search(title))
         source = _source(host, policies.get(host))
         freshness = _publication(item.get("date"), now)
         review = reviews.get(url)
         components = {
             "topic": topic_points,
+            "cop31_climate_policy": (PROFILE["cop31_policy_priority"] if climate_level == 2 else
+                                    PROFILE["other_cop_policy_priority"] if climate_level == 1 else 0),
             "primary_source_preference": PROFILE["authority"][source["kind"]],
             "headline_event_cue": PROFILE["actionability"] if category and not context_only else 0,
             "uk_headline_context": PROFILE["uk_context"] if _UK_CONTEXT.search(title) and topics else 0,
@@ -201,7 +204,7 @@ def rank_headlines(items, *, as_of, source_policies=(), originality=(), diversit
         }
         # Irrelevant, promotional and future-dated items stay available as
         # context; display diversity never pushes them ahead of current topics.
-        bucket = 0 if topics and not context_only and freshness["state"] not in ("stale", "future") else 1
+        bucket = 0 if (topics or climate_level) and not context_only and freshness["state"] not in ("stale", "future") else 1
         metadata = {field: copy.deepcopy(item.get(field)) for field in P.ITEM_FIELDS}
         metadata.update(title=title, link=url)
         metadata["editorial"] = {

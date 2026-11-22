@@ -43,10 +43,12 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
       document.querySelectorAll('#tbody .pn-report-launch').length===50,null,{timeout:90000});
     const row=page.locator('#tbody tr[id^="repd-"]').first();
     const expected={
-      name:await row.locator('.phone-project-label').textContent(),
+      name:await row.locator('.record-grid > div:first-child span').textContent(),
       operator:(await row.locator('td:nth-child(4)').textContent()).trim(),
       mw:await row.locator('td.mw').textContent(),
-      map:await row.locator('td:last-child a.atlaslink').first().getAttribute('href'),
+      map:await row.evaluate(el=>{const links=[...el.querySelectorAll('td:last-child a[href]')];
+        const selected=links.find(a=>getComputedStyle(a).display!=='none'&&getComputedStyle(a).visibility!=='hidden'&&a.href.startsWith('https://'))||el.querySelector('td:last-child a.atlaslink[href]');
+        return selected?.getAttribute('href')||'';}),
     };
     const prior=await page.evaluate(()=>({url:location.href,x:document.getElementById('repdScroll').scrollLeft,
       n:document.querySelectorAll('#tbody tr[id^="repd-"]').length}));

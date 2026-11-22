@@ -437,3 +437,10 @@ html.pn-news-max-open #officialRegister #repdPanel > .hud-gauges{
   height:54px!important;min-height:54px!important;max-height:54px!important;
 }
 #pnExpandedHost #repdPanel #repdScroll{touch-action:pan-x pan-y!important}
+
+
+/* Override the inherited td/th color:inherit rule with sufficient selector
+   specificity to match the EXACT normal-table cyan headings, not grey. */
+#pnExpandedHost #repdPanel #repdScroll table thead tr>th{
+  color:var(--accent,#00ffff)!important;
+}

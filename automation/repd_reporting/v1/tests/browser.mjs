@@ -12,7 +12,7 @@ const server = createServer(async (req, res) => {
     const path = resolve(root, "." + route);
     if (!path.startsWith(root + "/")) throw new Error("Bad path");
     const bytes = await readFile(path);
-    res.writeHead(200, { "Content-Type": extname(path) === ".html" ? "text/html" : "text/javascript" });
+    res.writeHead(200, { "Content-Type": extname(path) === ".html" ? "text/html" : extname(path) === ".css" ? "text/css" : "text/javascript" });
     res.end(bytes);
   } catch {
     res.writeHead(404); res.end("Not found");

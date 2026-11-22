@@ -21,6 +21,22 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
       gauges:[...document.querySelectorAll('#repdPanel .hud-gauges canvas')]
     };return window.__originalREPD.gauges.length;});
     assert.equal(originals,3);
+    // The original gauges are the persistent REPD cockpit, also in the normal dashboard.
+    assert.equal(await page.locator('#repdPanel > .hud-gauges').evaluate(
+      el=>getComputedStyle(el).position),'sticky');
+    const normalPin=await page.evaluate(()=>{
+      const g=document.querySelector('#repdPanel > .hud-gauges');
+      const panel=document.getElementById('repdPanel');
+      const initialY=window.scrollY;
+      const panelTop=window.scrollY+panel.getBoundingClientRect().top;
+      window.scrollTo(0,panelTop+420);
+      return {initialY,scrollY:window.scrollY};
+    });
+    await page.waitForTimeout(80);
+    const normalGauge=await page.locator('#repdPanel > .hud-gauges').boundingBox();
+    assert.ok(normalGauge.y>=-3&&normalGauge.y<80,
+      'Real cockpit must remain visible over normal REPD scrolling: '+JSON.stringify({normalPin,normalGauge}));
+    await page.evaluate(()=>window.scrollTo(0,0));
     await page.locator('#pnLiquidLaunch').click();
     await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length===100);
     const info=await page.evaluate(()=>{
@@ -39,6 +55,13 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
     });
     assert.ok(info.sameRoot&&info.sameTable&&info.sameGauges,JSON.stringify(info));
     assert.equal(info.headCount,13);assert.ok(info.width<105,JSON.stringify(info));
+    const gaugesBefore=await page.locator('#pnExpandedHost #repdPanel > .hud-gauges').boundingBox();
+    await page.locator('#pnExpandedHost #repdScroll').evaluate(el=>{el.scrollTop=600;});
+    await page.waitForTimeout(60);
+    const gaugesAfter=await page.locator('#pnExpandedHost #repdPanel > .hud-gauges').boundingBox();
+    assert.ok(Math.abs(gaugesBefore.y-gaugesAfter.y)<=3,
+      'Expanded REPD table scroll must not displace the cockpit: '+
+      JSON.stringify({gaugesBefore,gaugesAfter}));
     assert.ok(info.scrollWidth>info.clientWidth,JSON.stringify(info));
     assert.notEqual(info.firstPosition,'sticky',JSON.stringify(info));
     assert.ok(info.rowHeight<=43,'Expanded rows must stay compact: '+JSON.stringify(info));
@@ -70,6 +93,15 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
     assert.equal(await page.locator('#tbody tr[id^="repd-"]').count(),50);
     assert.ok(await page.evaluate(()=>document.getElementById('officialRegister').closest('main')!==null));
     assert.ok(await page.evaluate(()=>document.getElementById('tech').closest('.compact-register-filters')!==null));
+    // Full-screen news reading is the intentional exception to the cockpit.
+    if(await page.locator('#pnNewsMaximise').count()){
+      await page.locator('#pnNewsMaximise').click();
+      await page.waitForFunction(()=>document.documentElement.classList.contains('pn-news-max-open'));
+      assert.equal(await page.locator('#repdPanel > .hud-gauges').evaluate(
+        el=>getComputedStyle(el).visibility),'hidden');
+      await page.locator('#pnNewsMaximise').click();
+      assert.ok(!(await page.evaluate(()=>document.documentElement.classList.contains('pn-news-max-open'))));
+    }
     assert.deepEqual(errors,[]);
     await page.screenshot({path:'/tmp/pn-v965-native/'+engine+'-'+vp.label+'.png'});
     console.log('PASS native expanded REPD',engine,vp.label,JSON.stringify(info));

@@ -315,3 +315,24 @@ html.pn-expanded-open{overflow:hidden!important}
 #pnExpandedHost #repdPanel #repdScroll #projectPager .pager-btn[data-page-step="1"]{
   grid-column:3!important;
 }
+
+
+/* V9.65 cockpit contract: the original three live REPD gauges remain in sight
+   as rows move vertically. No copies, no values recalculated, and no HUD on
+   top of the full-screen news reading window. */
+#officialRegister #repdPanel > .hud-gauges {
+  position:sticky!important;
+  top:max(0px,env(safe-area-inset-top,0px))!important;
+  z-index:31!important;
+  padding:3px 0 5px!important;
+  background:#000!important;
+  box-shadow:0 6px 12px #000b;
+}
+#pnExpandedHost #repdPanel > .hud-gauges {
+  top:0!important;
+  z-index:15!important;
+  flex:0 0 auto!important;
+}
+html.pn-news-max-open #officialRegister #repdPanel > .hud-gauges{
+  visibility:hidden!important;
+}

@@ -1,0 +1,61 @@
+{
+  "schema": "globalgrid2050.pipeline-layer-import.v1",
+  "source_repository": "Ventusltd/globalgrid2050",
+  "source_commit": "8f94299afc8628908dc8bf461cb5ea607560332b",
+  "source_pr": 136,
+  "files": [
+    {
+      "path": "automation/news/layers/catalogue.mjs",
+      "git_blob": "c9054e0a51382e64bc4cccb9091c216329006db8",
+      "sha256": "59af6c38a6a53765fa8e6ee52d9504695e610458940239537c40babce988bd6c",
+      "bytes": 1783
+    },
+    {
+      "path": "automation/news/layers/registry.mjs",
+      "git_blob": "226fe5c5ad13c5535e587b85356a49948bf2fecb",
+      "sha256": "e46584d1c019125dc0abadaa7adc6aef358fd75c524603f6fbc606110d734117",
+      "bytes": 4772
+    },
+    {
+      "path": "automation/news/layers/model.mjs",
+      "git_blob": "80d9f3b5956e9974b5c0b92b847c72e5d3bebf7b",
+      "sha256": "760157fec42fd7a7254bb5590f6221ba728766adae70cf2b4d29555168826880",
+      "bytes": 3944
+    },
+    {
+      "path": "automation/news/layers/views.mjs",
+      "git_blob": "2f5fd51b43fbb2ed6f9fa0022a284b424cf481fa",
+      "sha256": "d5b477cc2ef67461458b8318ce976a313908a78ce09846b24a28591843d5ec2e",
+      "bytes": 9983
+    },
+    {
+      "path": "automation/news/layers/controls.mjs",
+      "git_blob": "d973753af6361858232623a206fa575b20d21839",
+      "sha256": "ffe076dc5f8e2ac44621a602b61464c87ba14bfe1f0a86ed26af134ae109588a",
+      "bytes": 4462
+    },
+    {
+      "path": "automation/news/layers/ticker.mjs",
+      "git_blob": "287b80b5e8fba3930b1286ffca6c3be9a0f2b924",
+      "sha256": "9034928c351c36580881af731d9bb55a89ab68e526b9af2e97bc1a2ca6d35569",
+      "bytes": 1677
+    },
+    {
+      "path": "automation/news/layers/url-policy.mjs",
+      "git_blob": "fbec1bfab8c13325b0229c51aa2515665be2f6bb",
+      "sha256": "17a2712ad0beea2b9c471962a8cbb7cf6fe7ab2a4ab41a405b030778d868f8f4",
+      "bytes": 781
+    },
+    {
+      "path": "automation/news/layers/pipeline-layers.css",
+      "git_blob": "249d10afe4411ffcb63b9392a28f5b3b5dcfd427",
+      "sha256": "c6cf64741fcb8c21e438ee38db4281008c521f2502b5379fa92a58483485fb55",
+      "bytes": 3659
+    }
+  ],
+  "limitations": [
+    "Component integration only; no final V9.29 page, public bytes, native-phone or source-rights acceptance.",
+    "MAP is generic coordinate arrival, not typed substation identity or grid-connection confirmation.",
+    "Prices original workspace can be indicative or stale; iframe success is not fresh actual-price acceptance."
+  ]
+}

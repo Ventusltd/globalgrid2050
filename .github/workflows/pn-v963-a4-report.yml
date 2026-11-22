@@ -1,0 +1,73 @@
+name: Pipeline News V9.63 A4 report and PDF-link acceptance
+on:
+  pull_request:
+    paths:
+      - 'uk_renewables_pipeline/202611220220/**'
+      - '.github/workflows/pn-v963-a4-report.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Guard V9.62 inheritance
+        run: |
+          python3 - <<'PY'
+          import subprocess
+          def tree(release):
+              raw=subprocess.check_output(['git','ls-tree','-r','-z','HEAD:uk_renewables_pipeline/'+release])
+              return {p.decode():m.split()[2].decode() for m,p in
+                      (item.split(b'\t',1) for item in raw.split(b'\0') if item)}
+          a,b=tree('202611220125'),tree('202611220220')
+          changed={p for p in a.keys()|b.keys() if a.get(p)!=b.get(p)}
+          allowed={'index.html','README.md','CHANGES.md','report-a4.mjs','report-model.mjs',
+                   'report-pdf.mjs','styles/report-a4.css','tests/report-a4.mjs'}
+          assert changed==allowed,(changed,allowed)
+          for path in ['scripts','news','solar1000','vendor','gridatlas','repd-scan.mjs',
+                       'repd-density.mjs','repd-landscape.mjs','column-scroll.mjs',
+                       'styles/repd-scan.css','styles/repd-density.css']:
+              assert subprocess.check_output(['git','rev-parse','HEAD:uk_renewables_pipeline/202611220125/'+path])==subprocess.check_output(
+                ['git','rev-parse','HEAD:uk_renewables_pipeline/202611220220/'+path]),path
+          print('PASS source models and existing UI unchanged')
+          PY
+      - name: Install pinned Playwright
+        working-directory: uk_renewables_pipeline/202611220220
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+      - name: Run A4 report and direct PDF browser tests
+        run: |
+          python3 -m http.server 8765 >/tmp/pn-v963-http.log 2>&1 &
+          node uk_renewables_pipeline/202611220220/tests/report-a4.mjs
+      - name: Validate hyperlinks and one-page A4 geometry in exported PDFs
+        run: |
+          python3 -m pip install --disable-pip-version-check pypdf==5.9.0
+          python3 - <<'PY'
+          from pypdf import PdfReader
+          from pathlib import Path
+          files=list(Path('/tmp/pn-v963-report').glob('*.pdf'))
+          assert files,'No exported A4 PDFs'
+          for path in files:
+              doc=PdfReader(str(path))
+              assert len(doc.pages)==1,(str(path),len(doc.pages))
+              page=doc.pages[0]
+              w,h=float(page.mediabox.width),float(page.mediabox.height)
+              assert (abs(w-595.28)<1 and abs(h-841.89)<1) or (abs(w-841.89)<1 and abs(h-595.28)<1),(str(path),w,h)
+              annots=[a.get_object().get('/A') for a in page.get('/Annots',[])]
+              links=[str(a.get('/URI')) for a in annots if a and a.get('/S')=='/URI']
+              assert links and all(u.startswith('https://') for u in links),(str(path),links)
+              print('PASS',path.name,'A4',w,h,'MAP URI',links[:1])
+          PY
+      - name: Preserve screenshots and PDF evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pn-v963-a4-preview-print-pdf
+          path: /tmp/pn-v963-report/
+          retention-days: 14

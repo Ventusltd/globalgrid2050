@@ -1,0 +1,3 @@
+# Pipeline News V9.62 — facts-first Prospect Scan
+
+Immutable successor to V9.61. The default REPD table now displays Project, actual MW/MWp and an immediately visible MAP action in portrait, plus County and Operator in landscape. No Signal column, lead score, prioritisation or AI advice is displayed. A single button restores the unchanged full 13-column table. The new directly accessible status selector delegates to the existing status-button filter; Submitted, Operational and REPD Updated year (including missing year) use the original REPD date engine and remain independent. All source data, statuses, dates, headings/sorting, gauges, maps, notes and records remain intact. Homepage pointer untouched.

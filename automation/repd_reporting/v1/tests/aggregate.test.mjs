@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { periodKey, validateIdentity, snapshotReport, operationalReport, estimatedGeneration } from "../aggregate.mjs";
+import { periodKey, validateIdentity, snapshotReport, operationalReport, estimatedGeneration, operationalTrend } from "../aggregate.mjs";
 
 const base = [
   { repd_ref: "1", repd_technology: "Solar Photovoltaics", capacity_mw: 10, capacity_unit: "MWp", status: "Operational", operational: "2024-01-15", operator: "Alpha", region: "South East" },
@@ -82,4 +82,25 @@ test("storage excluded even if user supplies a factor", () => {
 });
 test("invalid seasonality profile fails closed", () => {
   assert.throws(() => estimatedGeneration([base[0]], { year: 2024, asOf: "2024-01-31", factors: { "Solar Photovoltaics": 0.1 }, seasonality: { "Solar Photovoltaics": [1,2] } }), /twelve-month/);
+});
+
+
+test("operational trend compares adjacent quarters and preserves source-cohort cumulative records", () => {
+  const samples = [
+    { repd_ref: "101", repd_technology: "Solar", capacity_mw: 5, capacity_unit: "MWp", status: "Operational", operational: "2024-03-31" },
+    { repd_ref: "102", repd_technology: "Solar", capacity_mw: 6, capacity_unit: "MWp", status: "Operational", operational: "2024-04-01" },
+    { repd_ref: "103", repd_technology: "Solar", capacity_mw: 7, capacity_unit: "MWp", status: "Operational", operational: "2024-10-01" },
+  ];
+  const q = operationalTrend(samples, { period: "quarter", asOf: "2026-11-22" }).rows;
+  const q1 = q.find(x => x.period === "2024-Q1");
+  const q2 = q.find(x => x.period === "2024-Q2");
+  const q4 = q.find(x => x.period === "2024-Q4");
+  assert.equal(q1.projectsChange, 1);
+  assert.equal(q1.projectsChangePct, null);
+  assert.equal(q2.projectsChange, 0);
+  assert.equal(q2.projectsChangePct, 0);
+  assert.equal(q2.cumulativeProjects, 2);
+  assert.equal(q4.projectsChange, 1); // no Q3 projects: comparison denominator zero
+  assert.equal(q4.projectsChangePct, null);
+  assert.equal(q4.cumulativeCapacityByUnit.MWp, 18);
 });

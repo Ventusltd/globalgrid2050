@@ -1,9 +1,11 @@
-# Pipeline News V9.63 — A4 project location report
+# Pipeline News V9.64 — liquid REPD HTML overview (A3/A4)
 
-Corrected scope: **project location, not land area**. This immutable V9.62 successor adds an A4 report action beside the original per-row MAP button.
+**The V9.63 individual-project A4 report is kept exactly as it is.** Its HTML preview, PDF exporter, source model, styles and tests have not been modified or removed.
 
-The A4 sheet highlights full official project name, REPD operator, actual capacity (MW/MWp), **location (county, region, country) and the existing clickable project-specific MAP link**. It also includes status, application submitted, operational and REPD-updated dates, planning consent, authority and reference. Developer remains separately labelled when not independently reported.
+This version adds a separate **A3 OVERVIEW** action. It opens an A3 or A4 landscape-sized **live HTML table of the entire filtered and sorted REPD register**, rather than one project's PDF or only the original 50 displayed rows. On iPhone, you can swipe horizontally and vertically, use the bottom column slider, pinch or tap to zoom, or fit the sheet to screen width. The Project column and sortable headers are sticky.
 
-Thumb pan, pinch zoom, fit width/page, portrait/landscape, print and a direct PDF download with embedded MAP URI annotation remain. Closing restores list filter/sort/scroll state.
+All 13 source-backed fields remain accessible: project name, MW/MWp, county, operator, technology, official status, REPD reference, GlobalGrid reference, REPD updated, submitted, operational, Machine Read Notes and working GridAtlas MAP links. The search, status, county and technology controls delegate to the original canonical REPD engine; date filters remain available in the normal register. The user determines which projects matter — no Signal column, inferred area or automated lead scores.
 
-**No land-area fields, hectare/acre calculations, estimated area, or area evidence catalogue.** No Signal or lead scoring. Existing REPD models, news, filters, map engine and homepage are unchanged; release requires CI and physical Safari acceptance.
+**Performance:** a bounded virtual row window is rendered from the full source list (which can hold thousands of projects). Scrolling traverses all matching records without inserting them into the DOM simultaneously. Closing returns to the unchanged 50-row source register; the original per-project A4 remains available as before.
+
+**Release discipline:** no homepage pointer change. Independent Chromium and WebKit portrait and landscape tests must pass; all V9.63 source/model/report byte hashes and official REPD data remain immutable. The owner should review the real iPhone Safari layout before promotion.

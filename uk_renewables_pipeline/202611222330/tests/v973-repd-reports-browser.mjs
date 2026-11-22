@@ -56,7 +56,12 @@ for (const [name, engine] of [["chromium", chromium], ["webkit", webkit]]) {
         const filtered = await page.locator("#repdReportsSummary").textContent();
         assert.ok(filtered.includes("Current REPD table filters"));
         await page.locator("#repdReportsClose").click();
-        assert.ok(await page.locator("#tbody .pn-journey-link.atlaslink[href]").count() > 0);
+        // The ≥1000 MW subset can legitimately lack coordinates: never assert MAP for every row.
+        await page.locator("#minMW").fill("");
+        await page.locator("#applyMW").click();
+        await page.waitForFunction(() => !!document.querySelector("#tbody .pn-journey-link.atlaslink[href]"));
+        assert.equal(await page.locator("#tbody .pn-journey-link.atlaslink[href]").first().getAttribute("href"), initialMap,
+          "Restored native REPD MAP must remain unchanged after report filtering");
         assert.deepEqual(errors, [], "No uncaught errors in REPD/report integration");
         console.log("PASS V9.73",name,viewport.width+"x"+viewport.height,"operator,status,region,drilldown,filtered,MAP");
       } finally { await context.close(); }

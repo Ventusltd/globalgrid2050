@@ -366,7 +366,7 @@
       "subtitle": "Follow renewable energy projects",
       "description": "Explore the project register and follow the renewable energy pipeline.",
       "launch_label": "Open Pipeline News",
-      "operative_release_id": "202611220220",
+      "operative_release_id": "202611221243",
       "releases": [
         {
           "id": "202609082224",
@@ -594,7 +594,7 @@
         },
         {
           "id": "202611220125",
-          "label": "V9.62 - Project, capacity and MAP prospect scan",
+          "label": "V9.62 - Project, MW/MWp and MAP prospect scan",
           "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611220125/",
           "published_at": null,
           "status": "available",
@@ -607,6 +607,14 @@
           "published_at": null,
           "status": "available",
           "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/f01902f5751cb412e950663a1903641fa8ffa456/uk_renewables_pipeline/202611220220"
+        },
+        {
+          "id": "202611221243",
+          "label": "V9.64 - A3/A4 live REPD HTML table overview",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611221243/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/f9c55e56de3f56de2aa9ca8156ff09e1dcceaa1c/uk_renewables_pipeline/202611221243"
         }
       ]
     },
@@ -1395,6 +1403,13 @@
       "to_release_id": "202611220220",
       "reason": "Owner explicitly instructed publication on 22 November 2026. V9.61 density, V9.62 facts-first prospect scan and V9.63 location-first A4 report all passed dedicated Chromium/WebKit acceptance and full version regression. No land area or automated Signal ranking. Preserve V9.60 for rollback; verify live homepage bytes after deployment.",
       "promoted_at": "2026-11-22T09:07:50.212Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611220220",
+      "to_release_id": "202611221243",
+      "reason": "Owner requested publication 22 Nov 2026 of the independently accepted V9.64 A3/A4 live HTML whole-REPD overview. Dedicated Chromium/WebKit portrait and landscape tests passed; per-project V9.63 A4/PDF and REPD data byte-identical. V9.63 retained as rollback. Correct archived V9.62 homepage descriptor to MW/MWp to satisfy published-surface language rules.",
+      "promoted_at": "2026-11-22T13:09:07.195Z"
     }
   ]
 }

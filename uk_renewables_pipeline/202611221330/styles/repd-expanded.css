@@ -284,3 +284,20 @@ html.pn-expanded-open{overflow:hidden!important}
 #pnExpandedHost #repdPanel #repdScroll #projectPager{
   grid-template-columns:61px minmax(0,1fr) 65px!important;
 }
+
+
+/* Original mobile REPD uses a left-aligned, bold project identity. */
+#pnExpandedHost #repdPanel #repdScroll #tbody td.site{
+  text-align:left!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody td.site .project-record{
+  display:block!important;width:100%!important;max-width:100%!important;
+  margin:0!important;text-align:left!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody td.site .project-record>summary{
+  width:100%!important;justify-content:flex-start!important;text-align:left!important;
+}
+#pnExpandedHost #repdPanel #repdScroll #tbody td.site .phone-project-label{
+  display:block!important;width:100%!important;margin:0!important;
+  text-align:left!important;color:#ecf4f8!important;font-weight:700!important;
+}

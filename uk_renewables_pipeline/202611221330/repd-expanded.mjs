@@ -66,6 +66,21 @@ import {setExpandedPageRows} from './scripts/plugins/projects-v9-8.js';
       s.textContent=full;td.textContent='';td.append(s);td.title=full;
     }
   }
+  function updateExpandedPager(){
+    if(!expanded)return;
+    const nav=document.getElementById('projectPager');
+    const meta=nav?.querySelector('.pager-meta');
+    if(!meta||!nav.dataset.page)return;
+    const n=Number(tbody.dataset.total)||0;
+    const start=Number(nav.dataset.from)||0;
+    const end=Number(nav.dataset.to)||0;
+    const current=Number(nav.dataset.page)||1;
+    const pages=Number(nav.dataset.pages)||1;
+    meta.title=start.toLocaleString('en-GB')+'–'+end.toLocaleString('en-GB')+
+      ' of '+n.toLocaleString('en-GB')+' records, page '+current+' of '+pages;
+    meta.textContent=start.toLocaleString('en-GB')+'–'+end.toLocaleString('en-GB')+
+      ' / '+n.toLocaleString('en-GB')+' · '+current+'/'+pages;
+  }
   function dismissFilter(){filter.hidden=true;filter.replaceChildren();}
   const make=(tag,text,cls)=>{
     const node=document.createElement(tag);
@@ -179,6 +194,7 @@ import {setExpandedPageRows} from './scripts/plugins/projects-v9-8.js';
     setExpandedPageRows(true);
     wrap.scrollLeft=0;wrap.scrollTop=0;
     paintOperators();
+    requestAnimationFrame(updateExpandedPager);
     scheduleGaugeResize();
     closeButton.focus({preventScroll:true});
   }
@@ -214,7 +230,9 @@ import {setExpandedPageRows} from './scripts/plugins/projects-v9-8.js';
     event.preventDefault();event.stopImmediatePropagation();
     if(!filter.hidden)dismissFilter();else close();
   },true);
-  window.addEventListener('pipeline-projects-rendered',paintOperators);
+  window.addEventListener('pipeline-projects-rendered',()=>{
+    paintOperators();requestAnimationFrame(updateExpandedPager);
+  });
   window.addEventListener('resize',()=>{if(expanded)scheduleGaugeResize();},{passive:true});
   window.addEventListener('pagehide',()=>{if(expanded)close();});
 })();

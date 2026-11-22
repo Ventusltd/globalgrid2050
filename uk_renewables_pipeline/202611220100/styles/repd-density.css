@@ -111,3 +111,14 @@
   #officialRegister.pn-repd-wide #repdPanel .compact-sort select{min-height:32px!important;padding:3px 6px!important}
   #officialRegister.pn-repd-wide #repdPanel #repdScroll{max-height:74dvh!important}
 }
+
+/* At tablet landscape widths the inherited desktop Details label and duplicate name
+   would otherwise turn one row into several lines. */
+@media(min-width:769px) and (max-width:1024px){
+  #repdPanel #repdScroll #tbody .desktop-details-label,
+  #repdPanel #repdScroll #tbody .compact-project-name,
+  #repdPanel #repdScroll #tbody .phone-project-status{display:none!important}
+}
+@media(orientation:landscape) and (max-width:768px){
+  #officialRegister.pn-repd-wide #repdPanel #repdScroll #tbody .phone-project-status{display:none!important}
+}

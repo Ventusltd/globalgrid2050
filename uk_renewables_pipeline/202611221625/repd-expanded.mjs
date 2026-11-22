@@ -306,9 +306,9 @@ import {setExpandedPageRows} from './scripts/plugins/projects-v9-8.js';
   window.addEventListener('resize',()=>{
     if(!expanded)return;
     const wasFit=Math.abs(scale-fitScale)<.01;
-    const oldFit=fitScale;
+    const priorScale=scale,oldFit=fitScale;
     fitAllColumns();
-    if(!wasFit)setTableScale(scale*(oldFit?fitScale/oldFit:1));
+    if(!wasFit)setTableScale(priorScale*(oldFit?fitScale/oldFit:1));
     scheduleGaugeResize();
   },{passive:true});
   window.addEventListener('pagehide',()=>{if(expanded)close();});

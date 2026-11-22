@@ -35,8 +35,8 @@ jobs:
           assert any(e['id']=='202611212344' and e['status']=='available' for e in pn['releases']), 'V9.60 rollback missing'
           assert '202611221243' in (root/'index.html').read_text(), 'Homepage does not link V9.64'
           assert 'Project, capacity and MAP prospect scan' not in (root/'index.html').read_text(), 'Unapproved reserved word in homepage'
-          assert (root/new+'repd-liquid.mjs').is_file()
-          assert (root/new+'styles/repd-liquid.css').is_file()
+          assert (root/(new+'repd-liquid.mjs')).is_file()
+          assert (root/(new+'styles/repd-liquid.css')).is_file()
           for name in ['report-a4.mjs','report-model.mjs','report-pdf.mjs','styles/report-a4.css']:
               assert (root/(new+name)).read_bytes()==(root/(prior+name)).read_bytes(), 'V9.63 original A4 was modified: '+name
           files=[

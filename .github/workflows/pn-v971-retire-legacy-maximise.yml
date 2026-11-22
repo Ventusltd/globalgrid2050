@@ -1,0 +1,54 @@
+name: V9.71 remove obsolete REPD maximise, retain modern expanded view
+on:
+  pull_request:
+    paths:
+      - 'uk_renewables_pipeline/202611221930/**'
+      - '.github/workflows/pn-v971-retire-legacy-maximise.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  ui:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Confirm new HTML removes ONLY obsolete launcher and keeps original source
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          old=Path('uk_renewables_pipeline/202611221900')
+          new=Path('uk_renewables_pipeline/202611221930')
+          a=(old/'index.html').read_text()
+          b=(new/'index.html').read_text()
+          assert 'src="repd-landscape.mjs"' in a
+          assert 'href="styles/repd-landscape.css"' in a
+          assert 'src="repd-landscape.mjs"' not in b
+          assert 'href="styles/repd-landscape.css"' not in b
+          assert 'src="repd-expanded.mjs"' in b
+          assert 'href="styles/repd-expanded.css"' in b
+          for f in ['repd-expanded.mjs','map-entry.mjs','report-a4.mjs','report-model.mjs','report-pdf.mjs','styles/repd-expanded.css','scripts/plugins/projects-v9-8.js']:
+              assert (old/f).read_bytes()==(new/f).read_bytes(), f
+          print('PASS: one modern launcher, no legacy bootstrap; all original MAP/A4/data untouched')
+          PY
+      - name: Install Chromium and WebKit
+        working-directory: uk_renewables_pipeline/202611221930
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+      - name: Start local HTTP
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pn-v971-http.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -fsS -o /dev/null http://127.0.0.1:8765/uk_renewables_pipeline/202611221930/; then break; fi
+            sleep 1
+          done
+      - name: Real Chromium and WebKit expanded-view, A4, MAP and no legacy button
+        working-directory: uk_renewables_pipeline/202611221930
+        run: node tests/repd-expanded.mjs
+      - name: Native vs expanded real GridAtlas navigation remains correct
+        working-directory: uk_renewables_pipeline/202611221930
+        run: node tests/map-navigation-v970.mjs

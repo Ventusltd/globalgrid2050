@@ -1,0 +1,46 @@
+name: V9.70 real native and expanded MAP navigation parity
+on:
+  pull_request:
+    paths:
+      - 'uk_renewables_pipeline/202611221900/**'
+      - '.github/workflows/pn-v970-map-parity.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Assert A4 / producer immutable across V9.69 and V9.70
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          a=Path('uk_renewables_pipeline/202611221850')
+          b=Path('uk_renewables_pipeline/202611221900')
+          for name in ['report-a4.mjs','report-model.mjs','report-pdf.mjs','styles/report-a4.css','scripts/plugins/projects-v9-8.js','map-entry.mjs']:
+              assert (a/name).read_bytes()==(b/name).read_bytes(),name
+          print('PASS original MAP producer, A4 and REPD untouched')
+          PY
+      - name: Install Chromium and WebKit
+        working-directory: uk_renewables_pipeline/202611221900
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+      - name: Launch source HTTP
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pn-v970-http.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -fsS -o /dev/null http://127.0.0.1:8765/uk_renewables_pipeline/202611221900/; then break; fi
+            sleep 1
+          done
+      - name: Full V9.69 layout and report regression
+        working-directory: uk_renewables_pipeline/202611221900
+        run: node tests/repd-expanded.mjs
+      - name: REAL native vs expanded GridAtlas navigation (6 profiles)
+        working-directory: uk_renewables_pipeline/202611221900
+        run: node tests/map-navigation-v970.mjs

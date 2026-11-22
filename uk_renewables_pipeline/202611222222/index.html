@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GlobalGrid2050 | Pipeline News V9.72 · 202611222222</title>
+<link rel="preconnect" href="https://ventusltd.github.io" crossorigin>
+<link rel="stylesheet" href="styles/v7.css?v=9.8">
+<link rel="stylesheet" href="styles/mobile.css?v=9.8">
+<link rel="stylesheet" href="styles/v9-3.css?v=9.8">
+<link rel="stylesheet" href="styles/v9-4.css?v=9.8">
+<style>#planningSubmittedHeader>button{white-space:normal;max-width:160px}.date-options{display:inline-block}.date-options summary{cursor:pointer}.date-options[open]>div{position:absolute;background:#050505;border:1px solid #00ffff;padding:10px;z-index:10;display:grid;gap:8px;min-width:180px;right:0}.date-options button{color:#00ffff!important}</style>
+<link rel="stylesheet" href="styles/v9-5-1.css?v=9.8">
+<link rel="stylesheet" href="styles/v9-6-1.css?v=9.8">
+<link rel="stylesheet" href="styles/v9-10.css?v=9.10">
+<link rel="stylesheet" href="styles/v9-21.css?v=9.21">
+<link rel="stylesheet" href="styles/v9-22.css?v=9.22">
+<link rel="stylesheet" href="styles/v9-23.css?v=9.23">
+<link rel="stylesheet" href="styles/v9-24.css?v=9.24">
+<script src="vendor/chart.umd.min.js" integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="styles/preview-v928.css">
+<link rel="stylesheet" href="../../automation/repd_expand_ui/expand.css">
+<link rel="stylesheet" href="scripts/layers/pipeline-layers.css">
+<link rel="stylesheet" href="../../automation/price_daily_ui/78d5360239e1a5fcffa83fcb30d5937c5521acb9/styles.css" integrity="sha256-OMuIlBvYlrxro2QuNOO2Dwnl5q062jUsxNjMxxPaaVw=">
+<link rel="stylesheet" href="../../automation/dc_location_ui/83e7c36d08ef98f3665f7f35b8637405391dc4be/actions.css" integrity="sha256-CvhvasdWUaC+1UCWzKtAPnq7XLWLAjI43Hnli4o8oDk=">
+<link rel="stylesheet" href="../../automation/news/datacentre-ui/styles.css">
+<link rel="stylesheet" href="../../automation/v928_context/preview/context.css">
+<link rel="stylesheet" href="../../automation/v928_context/preview/figures/b460cb7f76172691b5ffb6d2a7f1a8e12057ba20/figures.css">
+<link rel="stylesheet" href="../../automation/news_quality_ui/20261117-v937/styles.css" integrity="sha256-dZ9E56dLcJ2VEWIgPF99Q3kDp6iDQXrbY1VhPINN6nE=">
+<link rel="stylesheet" href="../../automation/grid_notice_ui/20261117-v938/styles.css" integrity="sha256-ZDlBQKCGuLdyrS3J7VA09B3/ij4CABHMA1Sz1MDzRg8=">
+<link rel="stylesheet" href="../../automation/document_facts_ui/20261117-v939/styles.css" integrity="sha256-meIm9EvalMpaR7WKu/dmO8ZKd3iOirU9Ea1zCeDaQDE=">
+<link rel="stylesheet" href="../../automation/ticker_neon_ui/20261117-v940/styles.css" integrity="sha256-msZMqYWacyY6Uy72XxIcen6HYnQA5avObSNdRvSuDbQ=">
+<link rel="stylesheet" href="../../automation/ticker_crisp_ui/20261117-v941/styles.css" integrity="sha256-C564xoAwHSpzZlFkm9wYA2BTXOaKle7VC+MBG7Rx4wA=">
+<script type="module" src="../../automation/ticker_neon_ui/20261117-v940/header.mjs" integrity="sha256-F/u7+UiM6t/Ua67viEmj83hi0wJhkWmR+lb4XrCjuU0="></script>
+<link rel="stylesheet" href="../../automation/journey_entry_ui/20261118/styles.css" integrity="sha256-XVi2KkTENwlxsaeRIgY1VVvCci+AIL6/dc2NeDyDivE=">
+<link rel="stylesheet" href="styles/news-compact.css">
+<link rel="stylesheet" href="styles/compact-register.css">
+<link rel="stylesheet" href="styles/hud-v955.css">
+<link rel="stylesheet" href="styles/news-maximise.css">
+<link rel="stylesheet" href="styles/repd-density.css">
+<link rel="stylesheet" href="styles/repd-scan.css">
+<link rel="stylesheet" href="styles/report-a4.css">
+<link rel="stylesheet" href="styles/repd-expanded.css">
+</head>
+<body>
+<main class="main">
+
+<section class="newspaper" aria-label="News headlines">
+<div class="masthead">
+<h2 id="headlinesHeading">HEADLINES</h2>
+<div class="strap">
+<span id="newsStatus" data-state="loading">Loading headlines…</span>
+<span>UK renewables, storage and grid headlines from public feeds, newest first · headlines and links only · a "possible match" is a name coincidence for review, not a confirmed link to a project</span>
+</div>
+</div>
+<noscript><p>JavaScript is unavailable. <a href="news/pipeline_headlines.snapshot.json">Read the saved headline snapshot with publisher dates</a> or <a href="data/v9.1/build_manifest.json">open the unchanged register data manifest</a>.</p></noscript>
+<div class="live-news" id="liveNews"></div>
+<div id="headlineTicker" aria-label="Latest available headlines"></div>
+<details class="news-archive" id="newsArchive" hidden>
+<summary>ARCHIVE · PROJECT HEADLINES COLLECTED UP TO AUGUST 2026 · NOT UPDATED</summary>
+<div class="strap">
+<span id="newsMeta">loading archive…</span>
+</div>
+<div class="news-tools" id="newsTools">
+<button class="active" data-news="ALL">ALL</button>
+<button data-news="UK">UK</button>
+<button data-news="INTERNATIONAL">INTERNATIONAL</button>
+<button data-news="US">US</button>
+<button data-news="EUROPE">EUROPE</button>
+<button data-news="SOLAR">SOLAR</button>
+<button data-news="BESS">BESS</button>
+<button data-news="CONSENT">CONSENT</button>
+<button data-news="CONSTRUCTION">CONSTRUCTION</button>
+<button data-news="OPERATIONAL">OPERATIONAL</button>
+<button data-news="FINANCE">FINANCE / M&amp;A</button>
+<input id="newsSearch" placeholder="SEARCH HEADLINES / PROJECT / OPERATOR">
+</div>
+<div class="paper">
+<div class="stories" id="stories">
+<div class="news-empty">Loading the archive…</div>
+</div>
+</div>
+</details>
+</section>
+<section id="officialRegister" aria-labelledby="pipelineHeading" data-register-changes="inline-only">
+<h2 class="section-title" id="pipelineHeading">REPD PIPELINE <span id="repdReportDate"></span><small id="repdDataDate"></small></h2>
+<div class="pipeline-tabs" role="tablist" aria-label="Pipeline categories">
+<button id="solarTab" role="tab" aria-selected="true" aria-controls="repdPanel" tabindex="0" data-view="solar">Solar</button>
+<button id="bessTab" role="tab" aria-selected="false" aria-controls="repdPanel" tabindex="-1" data-view="bess">BESS</button>
+<button id="gridTab" role="tab" aria-selected="false" aria-controls="gridPanel" tabindex="-1" data-view="grid">Grid</button>
+<button id="datacentreTab" role="tab" aria-selected="false" aria-controls="datacentrePanel" tabindex="-1" data-view="datacentre">Data Centres</button>
+<button id="offtakersTab" role="tab" aria-selected="false" aria-controls="offtakersPanel" tabindex="-1" data-view="offtakers">Offtakers</button>
+<button id="pricesTab" role="tab" aria-selected="false" aria-controls="pricesPanel" tabindex="-1" data-view="prices">Prices</button>
+</div>
+<div id="repdPanel" role="tabpanel" aria-labelledby="solarTab"><span id="releaseMeta" hidden></span>
+<p class="gauge-warning" id="gaugeWarning" role="status" hidden>Gauge visualisation unavailable.</p>
+<div class="gauges hud-gauges" aria-label="Filtered REPD capacity dashboard">
+<div class="card">
+<h3>CAPACITY (MW)</h3>
+<div class="chart"><canvas id="g1"></canvas><div class="value" id="v1">0</div></div>
+</div>
+<div class="card">
+<h3>PROJECTS (≥1MW)</h3>
+<div class="chart"><canvas id="g2"></canvas><div class="value" id="v2">0</div></div>
+</div>
+<div class="card">
+<h3>LARGEST SITE (MW)</h3>
+<div class="chart"><canvas id="g3"></canvas><div class="value" id="v3">0</div></div>
+</div>
+</div>
+<p class="category-scope">Canonical DESNZ REPD Q3 2026: 7,775 solar, BESS and wind records at ≥1 MW from 14,967 source rows. Use All Tech for this full qualifying register; interconnectors retain their separate identities.</p>
+<div class="filters compact-mw-filter" aria-label="Capacity range">
+<label class="mw-bound" for="minMW"><span>Min MW</span><input id="minMW" type="number" min="0" step="any" inputmode="decimal" placeholder="Any"></label>
+<label class="mw-bound" for="maxMW"><span>Max MW</span><input id="maxMW" type="number" min="0" step="any" inputmode="decimal" placeholder="Any"></label>
+<button type="button" id="applyMW" class="btn">APPLY</button><span id="mwRangeError" role="alert"></span>
+</div>
+<div class="compact-sort"><select id="sortProjects" aria-label="Sort projects">
+<option value="capacity_desc">SORT: CAPACITY (DEFAULT)</option>
+<option value="capacity_asc">SORT: CAPACITY — LOWEST</option>
+<option value="name_asc">SORT: PROJECT — ASCENDING</option>
+<option value="name_desc">SORT: PROJECT — DESCENDING</option>
+<option value="county_asc">SORT: COUNTY — ASCENDING</option>
+<option value="county_desc">SORT: COUNTY — DESCENDING</option>
+<option value="operator_asc">SORT: OPERATOR — ASCENDING</option>
+<option value="operator_desc">SORT: OPERATOR — DESCENDING</option>
+<option value="technology_asc">SORT: TECHNOLOGY — ASCENDING</option>
+<option value="technology_desc">SORT: TECHNOLOGY — DESCENDING</option>
+<option value="status_asc">SORT: STATUS — ASCENDING</option>
+<option value="status_desc">SORT: STATUS — DESCENDING</option>
+<option value="repd_asc">SORT: REPD REF — ASCENDING</option>
+<option value="repd_desc">SORT: REPD REF — DESCENDING</option>
+<option value="globalgrid_asc">SORT: GLOBALGRID REF — ASCENDING</option>
+<option value="globalgrid_desc">SORT: GLOBALGRID REF — DESCENDING</option>
+<option value="updated_desc">SORT: REPD UPDATED — NEWEST</option>
+<option value="updated_asc">SORT: REPD UPDATED — OLDEST</option>
+<option value="submitted_desc">SORT: APPLICATION SUBMITTED - NEWEST</option>
+<option value="submitted_asc">SORT: APPLICATION SUBMITTED - OLDEST</option>
+<option value="operational_desc">SORT: OPERATIONAL - NEWEST</option>
+<option value="operational_asc">SORT: OPERATIONAL - OLDEST</option>
+</select></div>
+<details class="compact-register-filters"><summary>More project filters</summary>
+<div class="filters" id="tech">
+<button class="btn active" data-technology="all" aria-pressed="true">ALL TECH</button>
+<button class="btn" data-technology="solar" aria-pressed="false">SOLAR</button>
+<button class="btn" data-technology="bess" aria-pressed="false">BATTERY</button>
+<button class="btn" data-technology="wind_onshore" aria-pressed="false">ONSHORE</button>
+<button class="btn" data-technology="wind_offshore" aria-pressed="false">OFFSHORE</button>
+<button class="btn" data-technology="interconnector" aria-pressed="false">INTERCONNECTORS</button>
+</div>
+<div class="filters" id="status">
+<button class="btn active" data-official-status="All" aria-pressed="true">ALL STATUS</button>
+<button class="btn" data-official-status="Operational" aria-pressed="false">OPERATIONAL</button>
+<button class="btn" data-official-status="Under Construction" aria-pressed="false">CONSTRUCTING</button>
+<button class="btn" data-official-status="Awaiting Construction" aria-pressed="false">AWAITING</button>
+<button class="btn" data-official-status="Application Submitted" aria-pressed="false">SUBMITTED</button>
+</div>
+
+
+<div class="filters">
+<select id="county"><option value="All">🌍 ALL COUNTIES</option></select>
+
+<label>REPD updated year <select data-year-filter="updatedYear" aria-label="REPD updated year"></select></label>
+<label>Application submitted year <select data-year-filter="submittedYear" aria-label="Application submitted year"></select></label>
+<label>Operational year <select data-year-filter="operationalYear" aria-label="Operational year"></select></label>
+<input id="search" class="asset-search" placeholder="🔍 SEARCH PROJECT / REPD / GLOBALGRID / PLANNING..." autocomplete="off">
+<button class="btn clear-filters" id="clearFilters">CLEAR FILTERS</button>
+<button class="btn export-inline" id="exportInline">EXPORT FILTERED CSV</button>
+
+<span id="exportMeta" class="export-meta">CSV contains the current filtered rows only</span>
+</div>
+</details>
+<span id="resultsMeta" class="results-meta">Loading all qualifying records…</span>
+<details class="scope-notes compact-register-scope"><summary>Register scope and MAP guidance</summary><div class="meta">
+<strong>STATUS DISCIPLINE</strong>
+<span><b>DEFAULT:</b> every qualifying ≥1 MW record is loaded. Filters are user controls; they never redefine or truncate the pipeline.</span>
+<span><b>NEWS:</b> relevance scores are algorithmic screening only and never change an official REPD fact.</span>
+<span><b>ATLAS:</b> valid geometry resolves the exact REPD Ref. Missing geometry remains in search and CSV and is labelled NO MAP.</span>
+<span><b>MAP ON A PHONE:</b> GridAtlas can open its project result card minimised so the map remains visible. Expand the card to read the nearest-substation screening. A distance is not available grid capacity or a connection offer.</span>
+<span><b>DATES:</b> Application submitted is the planning submission event. REPD updated is the database record update, not necessarily an application amendment. Operational is the recorded REPD historical milestone, not independent proof of current operation, commissioning or capacity. Status and dates remain separate. Year filters combine; missing dates stay unknown and sort last.</span>
+<span id="gaStateSummary" hidden></span>
+<span><b>INTERCONNECTORS:</b> not REPD records and never counted in ALL TECH. Their MAP link carries the link's own identity; a midpoint is a label anchor, not a location.</span>
+</div>
+</details>
+
+<div class="pn-scan-toolbar" id="pnScanToolbar" aria-label="Fast prospect filters">
+  <label class="pn-scan-status" for="pnScanStatus">Status <select id="pnScanStatus" aria-label="Filter by official project status">
+    <option value="All">All</option>
+    <option value="Application Submitted">Submitted</option>
+    <option value="Awaiting Construction">Awaiting</option>
+    <option value="Under Construction">Constructing</option>
+    <option value="Operational">Operational</option>
+  </select></label>
+  <details class="pn-scan-dates" id="pnScanDates">
+    <summary>Dates <span id="pnScanDateCount" aria-live="polite"></span></summary>
+    <div class="pn-scan-date-fields">
+      <label>Submitted <select data-year-filter="submittedYear" aria-label="Application submitted year fast filter"></select></label>
+      <label>Operational <select data-year-filter="operationalYear" aria-label="Operational year fast filter"></select></label>
+      <label>REPD updated <select data-year-filter="updatedYear" aria-label="REPD updated year fast filter"></select></label>
+    </div>
+  </details>
+  <button type="button" id="pnScanModeToggle" aria-controls="repdScroll" aria-pressed="true">All columns</button>
+</div>
+<div class="column-scroll-tools"><label for="columnScroll">Columns ↔</label><input type="range" id="columnScroll" min="0" max="100" value="0" step="0.1" aria-label="Scroll project table horizontally"></div>
+<div class="tablewrap" id="repdScroll" tabindex="0" aria-label="Scrollable project register">
+<table>
+<thead>
+<tr>
+<th data-column-heading="name" aria-sort="none"><div class="project-head"><button type="button" class="column-sort " data-column-sort="name" aria-label="Sort by Project">Project <span aria-hidden="true">↕</span></button><button type="button" class="column-sort phone-sort" data-column-sort="status" aria-label="Sort by Status">Status <span aria-hidden="true">↕</span></button></div></th>
+<th class="" data-column-heading="capacity" aria-sort="none"><button type="button" class="column-sort " data-column-sort="capacity" aria-label="Sort by MW / MWp">MW / MWp <span aria-hidden="true">↕</span></button></th>
+<th class="hide-mobile" data-column-heading="county" aria-sort="none"><button type="button" class="column-sort " data-column-sort="county" aria-label="Sort by County">County <span aria-hidden="true">↕</span></button></th>
+<th class="hide-mobile" data-column-heading="operator" aria-sort="none"><button type="button" class="column-sort " data-column-sort="operator" aria-label="Sort by Operator">Operator <span aria-hidden="true">↕</span></button></th>
+<th class="" data-column-heading="technology" aria-sort="none"><button type="button" class="column-sort " data-column-sort="technology" aria-label="Sort by Technology">Technology <span aria-hidden="true">↕</span></button></th>
+<th class="" data-column-heading="status" aria-sort="none"><button type="button" class="column-sort " data-column-sort="status" aria-label="Sort by Status">Status <span aria-hidden="true">↕</span></button></th>
+
+<th class="hide-mobile" data-column-heading="repd" aria-sort="none"><button type="button" class="column-sort " data-column-sort="repd" aria-label="Sort by REPD ref">REPD ref <span aria-hidden="true">↕</span></button></th>
+<th class="hide-mobile" data-column-heading="globalgrid" aria-sort="none"><button type="button" class="column-sort " data-column-sort="globalgrid" aria-label="Sort by GlobalGrid ref">GlobalGrid ref <span aria-hidden="true">↕</span></button></th>
+<th class="hide-mobile repd-updated-heading" id="repdUpdatedHeader" aria-sort="none">
+<button id="sortUpdated" type="button" aria-label="Sort by REPD updated date, newest first">
+REPD UPDATED <span id="updatedSortIndicator" aria-hidden="true">↕</span>
+</button>
+<details class="date-options"><summary aria-label="REPD updated sort and year options">&#9881;</summary><div><button type="button" data-date-sort="updated_asc">&#9650; Ascending</button><button type="button" data-date-sort="updated_desc">&#9660; Descending</button><label>Year <select data-year-filter="updatedYear" aria-label="REPD updated year menu"></select></label></div></details></th>
+<th class="hide-mobile repd-updated-heading" id="planningSubmittedHeader" aria-sort="none"><button id="sortSubmitted" type="button">Submitted <span id="submittedSortIndicator" aria-hidden="true">&#8597;</span></button><details class="date-options"><summary aria-label="Application submitted sort and year options">&#9881;</summary><div><button type="button" data-date-sort="submitted_asc">&#9650; Ascending</button><button type="button" data-date-sort="submitted_desc">&#9660; Descending</button><label>Year <select data-year-filter="submittedYear" aria-label="Application submitted year menu"></select></label></div></details></th>
+<th class="hide-mobile repd-updated-heading" id="operationalHeader" aria-sort="none"><button id="sortOperational" type="button">Operational <span id="operationalSortIndicator" aria-hidden="true">&#8597;</span></button><details class="date-options"><summary aria-label="Operational sort and year options">&#9881;</summary><div><button type="button" data-date-sort="operational_asc">&#9650; Ascending</button><button type="button" data-date-sort="operational_desc">&#9660; Descending</button><label>Year <select data-year-filter="operationalYear" aria-label="Operational year menu"></select></label></div></details></th>
+<th>MACHINE READ NOTES</th>
+<th aria-label="Map">MAP</th>
+</tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+</div>
+<div id="gridPanel" role="tabpanel" aria-labelledby="gridTab" hidden>
+<div id="gridLayerHost">Select Grid to load the existing substation snapshot.</div>
+<details class="scope-notes"><summary>Official grid information sources · 0 approved project updates</summary>
+<div id="gridDirectory" aria-live="polite">Source directory unavailable.</div>
+</details>
+</div>
+<div id="datacentrePanel" role="tabpanel" aria-labelledby="datacentreTab" hidden>
+<div id="datacentreHost" aria-live="polite">Loading source-indexed leads…</div>
+</div>
+<div id="offtakersPanel" role="tabpanel" aria-labelledby="offtakersTab" hidden>
+<div id="offtakersLayerHost">Select Offtakers to load the existing source snapshot.</div>
+</div>
+<div id="pricesPanel" role="tabpanel" aria-labelledby="pricesTab" hidden>
+<div id="pricesLayerHost"></div>
+<p class="category-scope"><a href="https://globalgrid2050.com/uk_energy_tracking_v6/" target="_blank" rel="noopener noreferrer">Open the original electricity workspace</a></p>
+</div>
+<details id="contextDisclosure" class="scope-notes" hidden>
+<summary>Energy and data-centre context · historical and provisional</summary>
+<p class="category-scope">Dated provisional source context. It establishes no UK project association, current capacity or publication-rights approval.</p>
+<div id="contextHost" data-pipeline-context-host>Context unavailable.</div>
+</details>
+<details class="scope-notes" id="evidenceCoverage" data-evidence-pointer="https://raw.githubusercontent.com/Ventusltd/globalgrid2050/pipeline-evidence-data/dist/news/evidence/latest.json"><summary>Sources and research coverage</summary>
+<p class="category-scope" data-evidence-selection>Loading the unchanged 1,000-project research selection…</p>
+<p class="category-scope" data-evidence-status>Research evidence unavailable until source validation completes.</p>
+<p class="category-scope">7,775 official REPD records; 3,604 solar. The unchanged 1,000-project research selection has zero independently verified findings. Missing research is not evidence that no development exists.</p>
+<div class="meta" id="dataSources">
+<strong>DATA SOURCES AND LICENCES</strong>
+<span><b>REPD:</b> Renewable Energy Planning Database, Department for Energy Security and Net Zero. Contains public sector information licensed under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" target="_blank" rel="noopener">Open Government Licence v3.0</a>.</span>
+<span><b>HEADLINES:</b> One public energy-infrastructure feed, with no content from the UK data-centre register. Machine Read Notes are candidate screening interpretations; original evidence and official REPD status remain separate.</span>
+</div>
+</details>
+</section>
+<details class="minimal-page-tools"><summary>Site tools</summary><nav class="release-links" aria-label="Pipeline navigation">
+        <a class="active" href="#" aria-current="page">V9.67 · PIPELINE NEWS</a>
+        <a href="../versions.html">ALL VERSIONS · CI VERDICTS</a>
+        <a href="../202611221705/">V9.68 · PREVIOUS EDITION</a><a href="../202611221625/">V9.67 · ARCHIVE</a><a href="../202611221500/">V9.66 · ARCHIVE</a><a href="../202611221330/">V9.65 · ORIGINAL COLOURS</a><a href="../202611221243/">V9.64 · ARCHIVE</a><a href="../202611220220/">V9.63 · A4 ROLLBACK</a>
+        <a href="https://ventusltd.github.io/gridatlas/atlas/" id="mapAtlasNav">MAP ATLAS</a>
+        <a href="#" id="export">EXPORT CSV</a>
+        <a href="../../index.html">DIRECTORY</a>
+      </nav><p>REPD October 2026 · V9.69</p></details>
+</main>
+<script type="module" src="scripts/app-v9-8.js?v=9.28"></script>
+<script type="module" src="scripts/plugins/capacity-presentation-v9-3.js?v=9.8"></script>
+<script defer src="scripts/plugins/live-news.js?v=9.28"></script>
+<script defer src="scripts/plugins/machine-notes-v923.js?v=9.23"></script>
+<script type="module" src="scripts/plugins/solar1000-v924.js?v=9.28"></script>
+<script defer src="scripts/plugins/gridatlas-state.js?v=1"></script>
+<script defer src="scripts/plugins/register-changes.js?v=9.28"></script>
+<script src="../../automation/news/datacentre-ui/model.js"></script>
+<script src="../../automation/news/datacentre-ui/view.js"></script>
+<script type="module" src="scripts/plugins/preview-v928.js"></script>
+<script type="module" src="scripts/plugins/layers-v929.mjs"></script>
+<script type="module" src="scripts/plugins/dc-locations-v930.mjs"></script>
+<script type="module" src="scripts/plugins/prices-v931.mjs"></script>
+<script type="module" src="scripts/plugins/primary-notes-v932.mjs"></script>
+<script type="module" src="../../automation/repd_expand_ui/expand.mjs"></script>
+<script type="module" src="../../automation/news_quality_ui/20261117-v937/view.mjs" integrity="sha256-jzUKDk7jqMmpwgslmjzt6dqn1CE/VtHU59kBQc2NOWA="></script>
+<script type="module" src="../../automation/grid_notice_ui/20261117-v938/view.mjs" integrity="sha256-JRp4cvecPrT5/+DFO/V1HLodKeD128bNx7q2z9UkuWk="></script>
+<script type="module" src="../../automation/document_facts_ui/20261117-v939/view.mjs" integrity="sha256-6fGzTXO/spIGMQH6b9g/5wPk8b5332aVgsV9uO7hQG4="></script>
+<script type="module" src="../../automation/mobile_map_ui/20261118-v942/navigation.mjs" integrity="sha256-RN3HOmLcOg57gbewd/XP0tQgb6I2FucByVv0i3yVe+Q="></script>
+<script type="module" src="map-entry.mjs"></script>
+<link rel="stylesheet" href="../../automation/energy_context_ui/20261118/styles.css" integrity="sha256-Ez3H84FIfGpkoS24sDSnlrbb5nBSYJeDW4GFYtZ9ts4=">
+<script type="module" src="../../automation/energy_context_ui/20261118/view.mjs" integrity="sha256-dIXic4fx7jf9EpVmBzVH1J55WWrsQAXcPT+p6FdkZlA="></script>
+<script type="module" src="news-compact.mjs"></script>
+<script type="module" src="news-maximise.mjs"></script>
+<script type="module" src="column-scroll.mjs"></script>
+<script type="module" src="repd-density.mjs"></script>
+<script type="module" src="repd-scan.mjs"></script>
+<script type="module" src="report-a4.mjs"></script>
+<script type="module" src="repd-expanded.mjs"></script>
+</body>
+</html>

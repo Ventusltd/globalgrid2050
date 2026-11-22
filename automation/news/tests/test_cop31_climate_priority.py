@@ -96,12 +96,13 @@ def test_cop31_ranks_above_standard_news_without_inventing_verification():
     ]
     rows=N.rank_headlines(items,as_of=NOW)["items"]
     assert rows[0]["link"]==BBC
-    assert rows[0]["editorial"]["components"]["cop31_climate_policy"]==75
+    assert rows[0]["editorial"]["context_bucket"]==-2
     assert rows[0]["editorial"]["category_hint"]=="policy"
     assert rows[0]["editorial"]["topics"]==[]
     assert rows[0]["editorial"]["verification_status"]=="NOT_VERIFIED"
     assert rows[0]["possible_match"] is None
-    assert rows[1]["editorial"]["components"]["cop31_climate_policy"]==0
+    assert rows[1]["editorial"]["context_bucket"]==0
+    assert N.PROFILE["id"]=="uk-transition-global-context.v1"  # published UI accepts profile
 
 
 def test_rejected_publisher_and_general_climate_headlines_remain_rejected():

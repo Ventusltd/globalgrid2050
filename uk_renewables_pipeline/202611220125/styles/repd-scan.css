@@ -127,3 +127,27 @@
   #repdPanel .pn-scan-toolbar button,
   #repdPanel .pn-scan-dates>summary{font-size:10px!important}
 }
+
+/* V9.62 WebKit parity: override inherited #tbody-based dense row rules explicitly.
+   A lesser-specificity override allowed WebKit rows to expand to ~55px. */
+#repdPanel #repdScroll.pn-scan-mode #tbody tr[id^="repd-"]>td{
+  box-sizing:border-box!important;height:36px!important;
+  padding:2px 5px!important;vertical-align:middle!important;
+  border-bottom:1px solid #29323b!important;
+}
+#repdPanel #repdScroll.pn-scan-mode #tbody tr[id^="repd-"]>td.site{
+  padding:0!important;height:36px!important;
+}
+#repdPanel #repdScroll.pn-scan-mode #tbody .project-record>summary{
+  box-sizing:border-box!important;height:36px!important;
+  min-height:36px!important;max-height:36px!important;
+  padding:2px 7px!important;line-height:1.1!important;
+}
+#repdPanel #repdScroll.pn-scan-mode #tbody tr[id^="repd-"]>td:last-child .project-actions{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  gap:2px!important;min-height:32px!important;height:32px!important;
+}
+#repdPanel #repdScroll.pn-scan-mode #tbody tr[id^="repd-"]>td:last-child :is(.action-link,.action-disabled,.pn-journey-unavailable){
+  box-sizing:border-box!important;min-height:32px!important;height:32px!important;
+  line-height:1.05!important;
+}

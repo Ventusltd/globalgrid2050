@@ -29,8 +29,8 @@ jobs:
           a4='uk_renewables_pipeline/202611220220/'
           entries=json.loads((root/'homepage-shell/data/homepage.json').read_text())
           e=next(x for x in entries['entities'] if x['id']=='pipeline-news')
-          assert e['operative_release_id']=='202611221625'
-          assert len(e['releases'])==34
+          assert e['operative_release_id'] in ('202611221625','202611221705')
+          assert len(e['releases']) in (34,35)
           assert all(any(y['id']==x and y['status']=='available' for y in e['releases'])
                      for x in ['202611221625','202611221500','202611221330','202611221243','202611220220'])
           expected_src='https://github.com/Ventusltd/globalgrid2050/tree/b474a304c07982f25fc43dfa8ec40f9fbd8c3bc3/uk_renewables_pipeline/202611221625'

@@ -366,7 +366,7 @@
       "subtitle": "Follow renewable energy projects",
       "description": "Explore the project register and follow the renewable energy pipeline.",
       "launch_label": "Open Pipeline News",
-      "operative_release_id": "202611221625",
+      "operative_release_id": "202611221705",
       "releases": [
         {
           "id": "202609082224",
@@ -639,6 +639,14 @@
           "published_at": null,
           "status": "available",
           "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/b474a304c07982f25fc43dfa8ec40f9fbd8c3bc3/uk_renewables_pipeline/202611221625"
+        },
+        {
+          "id": "202611221705",
+          "label": "V9.68 - Landscape REPD reading view",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611221705/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/704318e6037985044ee47b1d86d314dd77797826/uk_renewables_pipeline/202611221705"
         }
       ]
     },
@@ -1455,6 +1463,13 @@
       "to_release_id": "202611221625",
       "reason": "Owner approved publishing V9.67. Same native Pipeline News colours, all 13 columns and original MAP/A4 action locations. Entire table initially fits across phone; pinch/trackpad zoom and swipe to explore. 100 rows per expanded page, original live gauges. Four passing portrait/landscape Chromium and WebKit source and interaction tests. V9.66/V9.65/V9.64/V9.63 rollback records and byte-identical A4/PDF retained. Public served bytes to be independently verified.",
       "promoted_at": "2026-11-22T16:46:23.109Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611221625",
+      "to_release_id": "202611221705",
+      "reason": "Owner requested publishing V9.68 as operative after Chromium/WebKit landscape, sorting, MAP and A4 browser tests passed. Focused landscape-only cyan/black full-screen REPD table, 10 visible columns (Technology, GlobalGrid reference and Machine Read Notes hidden only expanded), 100 rows, native header sorting and original MAP/A4. Previous V9.67 and all A4/PDF models retained as rollback. Public served-byte verification required.",
+      "promoted_at": "2026-11-22T17:27:13.268Z"
     }
   ]
 }

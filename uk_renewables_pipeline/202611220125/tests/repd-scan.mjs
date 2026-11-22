@@ -42,6 +42,7 @@ for(const [name,engine] of [['chromium',chromium],['webkit',webkit]]){
     assert.equal(await page.locator('#pnScanStatus').inputValue(),'Application Submitted');
     await page.locator('#pnScanStatus').selectOption('All');
     await page.waitForFunction(()=>!new URL(location.href).searchParams.has('status'));
+    await page.locator('#pnScanDates > summary').click();
     const fast=page.locator('#pnScanDates select[data-year-filter="updatedYear"]');
     const options=await fast.locator('option').allTextContents();
     assert.ok(options.includes('Not supplied')&&options.length>2,JSON.stringify(options));
@@ -50,6 +51,7 @@ for(const [name,engine] of [['chromium',chromium],['webkit',webkit]]){
     assert.equal(await page.locator('#pnScanDateCount').textContent(),'1');
     await fast.selectOption('All');
     await page.waitForFunction(()=>!new URL(location.href).searchParams.has('updated_year'));
+    await page.locator('#pnScanDates > summary').click();
     await page.locator('#pnScanModeToggle').click();
     const full=await sample();
     assert.equal(full.scan,false);

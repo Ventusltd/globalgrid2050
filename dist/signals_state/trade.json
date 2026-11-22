@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "trade",
- "generated_at": "2026-11-22T13:32:08Z",
+ "generated_at": "2026-11-22T22:37:42Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -2011,7 +2011,7 @@
    "id": "pv-magazine",
    "url": "https://www.pv-magazine.com",
    "status": "ok",
-   "requests": 3,
+   "requests": 48,
    "failures": 0,
    "items": 9,
    "error": "",
@@ -2039,8 +2039,8 @@
      "newest": "2026-11-21"
     }
    ],
-   "searched": 0,
-   "cached": 45,
+   "searched": 45,
+   "cached": 0,
    "skipped": 0,
    "notes": []
   },
@@ -2116,7 +2116,7 @@
      "url": "https://www.current-news.co.uk/?s=solar+farm",
      "status": "not search results (0 of 21 links say solar)",
      "content_type": "text/html",
-     "bytes": 513625,
+     "bytes": 514753,
      "results": 21,
      "dated": 1,
      "summaries": 0,
@@ -2148,7 +2148,7 @@
    "id": "renews",
    "url": "https://renews.biz",
    "status": "ok",
-   "requests": 4,
+   "requests": 49,
    "failures": 0,
    "items": 78,
    "error": "",
@@ -2176,8 +2176,8 @@
      "newest": "2026-11-20"
     }
    ],
-   "searched": 0,
-   "cached": 45,
+   "searched": 45,
+   "cached": 0,
    "skipped": 0,
    "notes": []
   },
@@ -2208,7 +2208,7 @@
      "url": "https://www.planningresource.co.uk/search?q=solar+farm",
      "status": "not search results (0 of 8 links say solar)",
      "content_type": "text/html",
-     "bytes": 42422,
+     "bytes": 41713,
      "results": 8,
      "dated": 0,
      "summaries": 0,
@@ -2234,7 +2234,7 @@
    "id": "construction-enquirer",
    "url": "https://www.constructionenquirer.com",
    "status": "ok",
-   "requests": 3,
+   "requests": 48,
    "failures": 0,
    "items": 0,
    "error": "",
@@ -2262,8 +2262,8 @@
      "newest": "2026-11-20"
     }
    ],
-   "searched": 0,
-   "cached": 45,
+   "searched": 45,
+   "cached": 0,
    "skipped": 0,
    "notes": []
   },
@@ -2271,7 +2271,7 @@
    "id": "solar-energy-uk",
    "url": "https://solarenergyuk.org",
    "status": "ok",
-   "requests": 2,
+   "requests": 47,
    "failures": 0,
    "items": 0,
    "error": "",
@@ -2297,8 +2297,8 @@
      "error": "refused by robots.txt"
     }
    ],
-   "searched": 0,
-   "cached": 45,
+   "searched": 45,
+   "cached": 0,
    "skipped": 0,
    "notes": []
   }

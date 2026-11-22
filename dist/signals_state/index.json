@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "index",
- "generated_at": "2026-11-22T13:32:21Z",
+ "generated_at": "2026-11-22T22:40:40Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -200,7 +200,7 @@
    "requests": 52,
    "failures": 42,
    "items": 9,
-   "error": "time budget for GDELT reached; the rest are asked on later runs; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
+   "error": "time budget for GDELT reached; the rest are asked on later runs; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho; HTTP 0"
   }
  ],
  "coverage": {
@@ -220,7 +220,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/rss.xml",
    "status": "ok",
-   "entries": 32,
+   "entries": 30,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-22",
@@ -229,7 +229,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/uk/rss.xml",
    "status": "ok",
-   "entries": 24,
+   "entries": 25,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-22",
@@ -265,7 +265,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/rss.xml",
    "status": "ok",
-   "entries": 22,
+   "entries": 23,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-22",
@@ -274,7 +274,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/scotland/rss.xml",
    "status": "ok",
-   "entries": 30,
+   "entries": 29,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-22",
@@ -283,7 +283,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/wales/rss.xml",
    "status": "ok",
-   "entries": 31,
+   "entries": 32,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-22",
@@ -292,7 +292,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/northern_ireland/rss.xml",
    "status": "ok",
-   "entries": 31,
+   "entries": 33,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-22",
@@ -319,7 +319,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/lincolnshire/rss.xml",
    "status": "ok",
-   "entries": 18,
+   "entries": 19,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-22",
@@ -328,7 +328,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/humberside/rss.xml",
    "status": "ok",
-   "entries": 23,
+   "entries": 24,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-22",
@@ -346,7 +346,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/cambridgeshire/rss.xml",
    "status": "ok",
-   "entries": 45,
+   "entries": 41,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-22",
@@ -355,7 +355,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/essex/rss.xml",
    "status": "ok",
-   "entries": 40,
+   "entries": 37,
    "solar": 1,
    "kept": 0,
    "newest": "2026-11-22",
@@ -364,7 +364,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/beds_bucks_and_herts/rss.xml",
    "status": "ok",
-   "entries": 19,
+   "entries": 17,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-22",
@@ -373,7 +373,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/northamptonshire/rss.xml",
    "status": "ok",
-   "entries": 26,
+   "entries": 24,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-22",
@@ -391,7 +391,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/norfolk/rss.xml",
    "status": "ok",
-   "entries": 26,
+   "entries": 20,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-22",
@@ -427,7 +427,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/tees/rss.xml",
    "status": "ok",
-   "entries": 25,
+   "entries": 21,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-22",
@@ -490,7 +490,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/merseyside/rss.xml",
    "status": "ok",
-   "entries": 20,
+   "entries": 19,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-22",
@@ -499,7 +499,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/manchester/rss.xml",
    "status": "ok",
-   "entries": 22,
+   "entries": 23,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-22",
@@ -508,7 +508,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/stoke_and_staffordshire/rss.xml",
    "status": "ok",
-   "entries": 27,
+   "entries": 26,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-22",
@@ -520,7 +520,7 @@
    "entries": 5,
    "solar": 0,
    "kept": 0,
-   "newest": "2026-11-21",
+   "newest": "2026-11-22",
    "error": ""
   },
   {
@@ -562,7 +562,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/london/rss.xml",
    "status": "ok",
-   "entries": 36,
+   "entries": 34,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-22",
@@ -571,7 +571,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/scotland/north_east_orkney_and_shetland/rss.xml",
    "status": "ok",
-   "entries": 18,
+   "entries": 19,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-22",
@@ -634,7 +634,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/suffolk/rss.xml",
    "status": "ok",
-   "entries": 26,
+   "entries": 21,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-22",
@@ -670,7 +670,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/birmingham_and_black_country/rss.xml",
    "status": "ok",
-   "entries": 27,
+   "entries": 28,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-22",
@@ -688,7 +688,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/shropshire/rss.xml",
    "status": "ok",
-   "entries": 28,
+   "entries": 26,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-22",
@@ -718,16 +718,16 @@
    "entries": 20,
    "solar": 4,
    "kept": 0,
-   "newest": "2026-11-21",
+   "newest": "2026-11-22",
    "error": ""
   },
   {
    "url": "https://www.theguardian.com/environment/energy/rss",
    "status": "ok",
    "entries": 20,
-   "solar": 2,
+   "solar": 0,
    "kept": 0,
-   "newest": "2026-11-21",
+   "newest": "2026-11-22",
    "error": ""
   },
   {
@@ -752,28 +752,29 @@
  "gdelt": {
   "requests": 52,
   "answered": 10,
-  "cache_hits": 99,
-  "http_429": 42,
-  "errors": 0,
-  "empty": 9,
-  "articles": 3,
+  "cache_hits": 108,
+  "http_429": 40,
+  "errors": 2,
+  "empty": 8,
+  "articles": 7,
   "stopped": "time budget for GDELT reached; the rest are asked on later runs",
   "window": "since 2017",
   "error_samples": [
-   "HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
+   "HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho",
+   "HTTP 0"
   ],
-  "not_asked": 107,
+  "not_asked": 99,
   "refused_queries": 20,
   "dropped": {
    "no title or link": 0,
    "excluded source": 0,
    "exclude phrase": 0,
-   "headline has neither the name nor solar": 28,
-   "headline says solar but neither the name nor the county": 12,
+   "headline has neither the name nor solar": 35,
+   "headline says solar but neither the name nor the county": 11,
    "headline names another of the 200": 0
   },
-  "projects_asked": 99,
-  "projects_with_articles": 17,
+  "projects_asked": 107,
+  "projects_with_articles": 18,
   "projects_with_kept": 4,
   "projects_with_strong": 4,
   "domains": [
@@ -807,69 +808,57 @@
    ]
   ],
   "per_project": {
-   "15551": {
-    "phrase": "Mynydd Ty talwyn",
+   "19975": {
+    "phrase": "North Ray",
     "returned": 0,
     "kept": 0,
     "strong": 0
    },
-   "9240": {
-    "phrase": "Stargoose",
+   "9441": {
+    "phrase": "Ashorne Hill",
     "returned": 0,
     "kept": 0,
     "strong": 0
    },
-   "9394": {
-    "phrase": "Crimscote",
+   "12017": {
+    "phrase": "Carlton",
+    "returned": 2,
+    "kept": 0,
+    "strong": 0
+   },
+   "18174": {
+    "phrase": "Red House Solar Farm",
     "returned": 0,
     "kept": 0,
     "strong": 0
    },
-   "11691": {
-    "phrase": "Gately Moor",
+   "19452": {
+    "phrase": "Yew Tree",
+    "returned": 5,
+    "kept": 0,
+    "strong": 0
+   },
+   "5186": {
+    "phrase": "Awre Peninsula",
     "returned": 0,
     "kept": 0,
     "strong": 0
    },
-   "13339": {
-    "phrase": "Bluestone",
+   "6561": {
+    "phrase": "Cayton",
     "returned": 0,
     "kept": 0,
     "strong": 0
    },
-   "15072": {
-    "phrase": "Rookery",
+   "7425": {
+    "phrase": "Hatherden",
     "returned": 0,
     "kept": 0,
     "strong": 0
    },
-   "15452": {
-    "phrase": "Pilmoor",
+   "7561": {
+    "phrase": "Tiln Solar Farm",
     "returned": 0,
-    "kept": 0,
-    "strong": 0
-   },
-   "19007": {
-    "phrase": "Thornton",
-    "returned": 3,
-    "kept": 0,
-    "strong": 0
-   },
-   "19635": {
-    "phrase": "Tewes",
-    "returned": 0,
-    "kept": 0,
-    "strong": 0
-   },
-   "11927": {
-    "phrase": "Lark Hill",
-    "returned": 0,
-    "kept": 0,
-    "strong": 0
-   },
-   "17699": {
-    "phrase": "Whitestone",
-    "returned": 1,
     "kept": 0,
     "strong": 0
    },
@@ -1397,6 +1386,66 @@
    },
    "15247": {
     "phrase": "Worset Lane",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "15551": {
+    "phrase": "Mynydd Ty talwyn",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "9240": {
+    "phrase": "Stargoose",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "9394": {
+    "phrase": "Crimscote",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "11691": {
+    "phrase": "Gately Moor",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "13339": {
+    "phrase": "Bluestone",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "15072": {
+    "phrase": "Rookery",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "15452": {
+    "phrase": "Pilmoor",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "19007": {
+    "phrase": "Thornton",
+    "returned": 3,
+    "kept": 0,
+    "strong": 0
+   },
+   "19635": {
+    "phrase": "Tewes",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "11927": {
+    "phrase": "Lark Hill",
     "returned": 0,
     "kept": 0,
     "strong": 0

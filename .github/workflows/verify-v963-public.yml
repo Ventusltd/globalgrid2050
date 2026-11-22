@@ -1,12 +1,5 @@
-name: Verify V9.63 actual public served bytes and V9.60 rollback
+name: Verify archived V9.63 A4 report and V9.60 rollback bytes
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/verify-v963-public.yml'
-      - 'index.html'
-      - 'homepage-shell/**'
-      - 'uk_renewables_pipeline/202611220220/**'
   workflow_dispatch:
 permissions:
   contents: read
@@ -26,9 +19,6 @@ jobs:
           import hashlib,json,os,time
           root=Path('.')
           files=[
-            'index.html',
-            'homepage-shell/data/homepage.json',
-            'homepage-shell/assets/versioned-homepage.js',
             'uk_renewables_pipeline/202611220220/index.html',
             'uk_renewables_pipeline/202611220220/report-a4.mjs',
             'uk_renewables_pipeline/202611220220/report-model.mjs',
@@ -37,11 +27,8 @@ jobs:
           ]
           owner=json.loads((root/'homepage-shell/data/homepage.json').read_text())
           pn=next(x for x in owner['entities'] if x['id']=='pipeline-news')
-          assert pn['operative_release_id']=='202611220220'
-          assert any(x['id']=='202611212344' and x['status']=='available' for x in pn['releases'])
-          assert len(pn['releases'])==30
-          assert '202611220220' in (root/'index.html').read_text()
-          assert '202611212344' in (root/'index.html').read_text()
+          assert any(x['id']=='202611220220' and x['status']=='available' for x in pn['releases']), 'V9.63 rollback removed'
+          assert any(x['id']=='202611212344' and x['status']=='available' for x in pn['releases']), 'V9.60 rollback removed'
           assert 'Area not reported' not in (root/'uk_renewables_pipeline/202611220220/report-a4.mjs').read_text()
           expected={p:hashlib.sha256((root/p).read_bytes()).hexdigest() for p in files}
           sha=os.environ.get('SHA','unknown')[:12]
@@ -60,7 +47,7 @@ jobs:
                   except Exception as exc:
                       bad.append(f'{path}: {type(exc).__name__}: {exc}')
               if not bad:
-                  print('PASS: all '+str(len(files))+' public served files match the exact approved Git tree including homepage, V9.63 report and V9.60 rollback',flush=True)
+                  print('PASS: all '+str(len(files))+' archived V9.63 A4 and V9.60 public bytes match the immutable Git source',flush=True)
                   break
               print(f'Attempt {attempt}/45: {len(bad)} mismatch(es); '+str(bad[:3]),flush=True)
               if attempt==45:

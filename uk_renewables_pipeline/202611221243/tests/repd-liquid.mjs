@@ -77,6 +77,7 @@ for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
       return {n:state.filtered.length,scrollTop:w.scrollTop,scrollHeight:w.scrollHeight,
         clientHeight:w.clientHeight,rendered:b.dataset.rendered,start:b.dataset.start,end:b.dataset.end};
     })));
+    await page.waitForTimeout(120); // assert rows remain at the destination after rendering settles
     const atEnd=await page.locator('#pnLiquidBody').evaluate(el=>({
       shown:Number(el.dataset.rendered),from:Number(el.dataset.start),to:Number(el.dataset.end)
     }));

@@ -24,7 +24,7 @@ def test_config_omits_all_blocked_publisher_feeds():
     config = json.loads((PKG / "pipeline_feeds.json").read_text(encoding="utf-8"))
     assert config["excluded_sources"] == ["Solar Power Portal"]
     assert config["source_patch_id"] == "20261121-exclude-solar-power-portal-v1"
-    assert len(config["feeds"]) == 68
+    assert len(config["feeds"]) == 69  # 68 unchanged + independent BBC COP31 link
     assert all(not P.excluded_publisher(f.get("source"), f.get("url")) for f in config["feeds"])
     assert not any(f["url"].startswith("https://www.solarpowerportal.co.uk/") for f in config["feeds"])
 

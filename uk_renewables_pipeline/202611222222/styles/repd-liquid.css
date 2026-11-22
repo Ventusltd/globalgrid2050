@@ -1,0 +1,185 @@
+/* V9.64: A3/A4 liquid HTML overview. V9.63 individual A4/PDF remains unchanged. */
+#pnScanToolbar #pnLiquidLaunch{
+  flex:0 0 auto!important;min-height:34px!important;padding:5px 10px!important;
+  background:#123039!important;color:#c4ffff!important;border:1px solid #6caeb4!important;
+  border-radius:3px;font:700 11px/1.2 'Courier New',monospace!important;cursor:pointer;
+}
+#pnLiquidOverview[hidden]{display:none!important}
+#pnLiquidOverview{
+  position:fixed!important;inset:0!important;z-index:2147483400!important;
+  box-sizing:border-box;width:100%;max-width:none;height:100vh;height:100dvh;
+  background:#061017;color:#dbeef2;display:flex;flex-direction:column;overflow:hidden;
+  font:12px/1.3 system-ui,-apple-system,sans-serif;isolation:isolate;
+}
+#pnLiquidOverview .pn-liquid-controls,
+#pnLiquidOverview .pn-liquid-filters,
+#pnLiquidOverview .pn-liquid-bottom{
+  box-sizing:border-box;display:flex;flex:0 0 auto;align-items:center;gap:7px;
+  padding:6px 10px;background:#061017;border-bottom:1px solid #35505e;
+}
+#pnLiquidOverview .pn-liquid-controls{
+  overflow-x:auto;white-space:nowrap;min-height:46px;
+  padding-top:max(6px,env(safe-area-inset-top));
+}
+#pnLiquidOverview .pn-liquid-controls strong{
+  letter-spacing:.6px;font:700 12px/1.2 'Courier New',monospace;
+}
+#pnLiquidOverview :is(button,select,input){
+  box-sizing:border-box;border:1px solid #45616d;border-radius:3px;
+  background:#101e26;color:#eaf5f7;font:12px/1.3 system-ui,sans-serif;
+}
+#pnLiquidOverview button{
+  flex:0 0 auto;min-height:31px;padding:5px 9px;cursor:pointer;
+}
+#pnLiquidOverview :is(button,select,input):focus-visible{
+  outline:2px solid #50ebed;outline-offset:2px;
+}
+#pnLiquidOverview .pn-liquid-controls select{
+  flex:0 0 auto;min-height:33px;max-width:175px;
+}
+#pnLiquidOverview #pnLiquidZoom{
+  min-width:38px;text-align:center;font-variant-numeric:tabular-nums;color:#85d9e8;
+}
+#pnLiquidOverview .pn-liquid-filters{
+  flex-wrap:wrap;row-gap:5px;padding:7px 10px;background:#0b1c23;min-height:42px;
+}
+#pnLiquidOverview .pn-liquid-filters label{
+  display:flex;flex:0 1 auto;align-items:center;gap:5px;
+  font:700 10px/1.2 'Courier New',monospace;color:#a3bdc6;
+}
+#pnLiquidOverview .pn-liquid-filters input{
+  width:min(26vw,235px);min-width:90px;height:33px;padding:4px 7px;
+}
+#pnLiquidOverview .pn-liquid-filters select{
+  max-width:150px;height:33px;padding:4px;
+}
+#pnLiquidOverview #pnLiquidCount{
+  font:11px/1.2 system-ui,sans-serif;color:#9bdadf;white-space:nowrap;
+}
+#pnLiquidViewport{
+  flex:1 1 auto;min-height:0;box-sizing:border-box;position:relative;
+  overflow:auto!important;-webkit-overflow-scrolling:touch;
+  touch-action:pan-x pan-y;overscroll-behavior:contain;
+  padding:12px 10px 28px;background:#1a272c;scrollbar-width:auto;
+}
+#pnLiquidSheet{
+  --pn-liquid-sheet-width:1587px;--pn-liquid-row-height:40px;
+  --pn-liquid-head-height:43px;--pn-liquid-font:12px;
+  width:var(--pn-liquid-sheet-width)!important;max-width:none!important;
+  min-height:100%;box-sizing:border-box;background:#f2f5f6;color:#1c303b;
+  box-shadow:0 5px 27px #0007;padding:0 8px 12px;overflow:visible;
+}
+#pnLiquidOverview .pn-liquid-masthead{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  height:38px;box-sizing:border-box;padding:0 10px;
+  background:#e2eaed;color:#233d49;border-bottom:2px solid #416979;
+  font:700 11px/1.2 'Courier New',monospace;
+}
+#pnLiquidTable{
+  display:table!important;width:100%!important;min-width:0!important;
+  max-width:none!important;table-layout:fixed!important;
+  border-collapse:separate!important;border-spacing:0!important;
+  color:#19303c;background:#fff;margin:0!important;padding:0!important;
+  font:var(--pn-liquid-font)/1.25 Arial,Helvetica,sans-serif;
+}
+#pnLiquidTable :is(thead,tbody,tr){display:revert!important}
+#pnLiquidTable :is(th,td){
+  box-sizing:border-box!important;display:table-cell!important;
+  border:0!important;border-bottom:1px solid #d4dde1!important;
+  border-right:1px solid #e2e8eb!important;
+  padding:4px 6px!important;max-width:0!important;
+  white-space:nowrap!important;overflow:hidden!important;
+  text-overflow:ellipsis!important;vertical-align:middle!important;
+  color:inherit!important;text-align:left!important;background:inherit!important;
+}
+#pnLiquidTable thead{background:#d7e2e6!important}
+#pnLiquidTable thead th{
+  height:var(--pn-liquid-head-height)!important;position:sticky!important;
+  top:0!important;z-index:5!important;background:#d7e2e6!important;
+  border-bottom:2px solid #3c6c7c!important;
+}
+#pnLiquidTable thead th button{
+  display:flex!important;align-items:center;justify-content:space-between;
+  gap:3px;width:100%;max-width:100%;height:100%;min-height:28px;
+  border:0!important;background:transparent!important;color:#234252!important;
+  padding:2px 1px!important;margin:0!important;
+  font:700 10px/1.2 Arial,sans-serif!important;
+  overflow:hidden;white-space:normal;text-align:left;
+}
+#pnLiquidTable th[aria-sort="ascending"] button,
+#pnLiquidTable th[aria-sort="descending"] button{color:#00647e!important}
+#pnLiquidTable thead th:first-child{
+  position:sticky!important;left:0!important;z-index:8!important;
+}
+#pnLiquidTable .pn-liquid-project{
+  height:var(--pn-liquid-row-height)!important;max-height:var(--pn-liquid-row-height)!important;
+  background:#fff!important;
+}
+#pnLiquidTable .pn-liquid-project:nth-child(even){background:#f0f5f7!important}
+#pnLiquidTable .pn-liquid-project td{
+  height:var(--pn-liquid-row-height)!important;
+  max-height:var(--pn-liquid-row-height)!important;line-height:1.2!important;
+}
+#pnLiquidTable .pn-liquid-project td:first-child{
+  position:sticky!important;left:0!important;z-index:3!important;
+  font-weight:700!important;background:#fff!important;box-shadow:1px 0 3px #9eabb08c;
+}
+#pnLiquidTable .pn-liquid-project:nth-child(even) td:first-child{
+  background:#f0f5f7!important;
+}
+#pnLiquidTable .pn-liquid-row-no{
+  color:#6b8087;font-size:.83em;margin-right:2px;font-weight:400;
+}
+#pnLiquidTable .pn-liquid-gap{background:#fff!important}
+#pnLiquidTable .pn-liquid-gap td{
+  height:auto!important;max-height:none!important;padding:0!important;
+  border:none!important;line-height:0!important;overflow:hidden!important;
+  position:static!important;box-shadow:none!important;
+}
+#pnLiquidTable .pn-liquid-gap div{
+  display:block;width:1px;min-height:0;padding:0!important;margin:0!important;
+}
+#pnLiquidTable :is(.pn-liquid-map,.pn-liquid-note){
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  height:calc(var(--pn-liquid-row-height) - 10px)!important;
+  min-height:0!important;max-height:32px!important;max-width:100%;
+  padding:2px 4px!important;border:1px solid #7ca5b6!important;border-radius:2px!important;
+  color:#005e77!important;background:#eef8f9!important;
+  text-decoration:underline!important;
+  font:700 .94em/1.1 'Courier New',monospace!important;
+  cursor:pointer;white-space:nowrap;
+}
+#pnLiquidTable .pn-liquid-map-unavailable{
+  color:#7e858a;font:9px/1 Arial,sans-serif;
+}
+#pnLiquidOverview .pn-liquid-bottom{
+  min-height:43px;border-top:1px solid #35505e;border-bottom:0;
+  padding-bottom:max(6px,env(safe-area-inset-bottom));
+}
+#pnLiquidOverview .pn-liquid-bottom label{
+  font:700 10px 'Courier New',monospace;color:#a6cbd2;white-space:nowrap;
+}
+#pnLiquidOverview #pnLiquidX{
+  flex:1 1 auto;min-width:60px;max-width:none;
+  border:0;background:transparent;accent-color:#71dbe0;height:28px;
+}
+#pnLiquidOverview .pn-liquid-bottom span{
+  flex:0 0 auto;color:#9caeb7;font:10px/1.2 Arial,sans-serif;
+}
+@media(max-width:700px){
+  #pnLiquidOverview .pn-liquid-filters{gap:5px;padding:5px 7px}
+  #pnLiquidOverview .pn-liquid-filters input{width:115px}
+  #pnLiquidOverview .pn-liquid-filters select{max-width:100px}
+  #pnLiquidOverview #pnLiquidCount{width:100%}
+  #pnLiquidOverview .pn-liquid-controls{gap:5px;padding-left:7px;padding-right:7px}
+  #pnLiquidOverview .pn-liquid-controls strong{font-size:10px}
+  #pnLiquidOverview .pn-liquid-bottom span{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  #pnLiquidOverview *{scroll-behavior:auto!important}
+}
+
+/* Recycled virtual rows must never re-anchor the user's thumb scroll position. */
+#pnLiquidViewport,#pnLiquidSheet,#pnLiquidTable,#pnLiquidTable tbody{
+  overflow-anchor:none!important;
+}

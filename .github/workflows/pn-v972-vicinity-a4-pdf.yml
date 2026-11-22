@@ -1,0 +1,88 @@
+name: PipelineNews V9.72 GridAtlas VICINITY / A4 PDF parity
+on:
+  pull_request:
+    paths:
+      - 'uk_renewables_pipeline/202611222222/**'
+      - '.github/workflows/pn-v972-vicinity-a4-pdf.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-preservation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prove immutable V9.71 is unchanged and V9.72 is an exact copy except allowlist
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          old=Path('uk_renewables_pipeline/202611221930')
+          new=Path('uk_renewables_pipeline/202611222222')
+          old_files={str(p.relative_to(old)):p for p in old.rglob('*') if p.is_file()}
+          new_files={str(p.relative_to(new)):p for p in new.rglob('*') if p.is_file()}
+          added=set(new_files)-set(old_files)
+          missing=set(old_files)-set(new_files)
+          assert missing==set(),f'Unexpected dropped files: {sorted(missing)}'
+          assert added=={'tests/v972-vicinity-a4-pdf.mjs'},f'Unexpected additions: {sorted(added)}'
+          changed={p for p in old_files if old_files[p].read_bytes()!=new_files[p].read_bytes()}
+          expected={'index.html','report-a4.mjs','report-model.mjs','README.md','CHANGES.md'}
+          assert changed==expected,f'Changed files: {sorted(changed ^ expected)}'
+          assert old_files['report-pdf.mjs'].read_bytes()==new_files['report-pdf.mjs'].read_bytes()
+          assert 'V9.72' in (new/'index.html').read_text()
+          assert '202611222222' in (new/'index.html').read_text()
+          assert 'V9.71' in (old/'index.html').read_text()
+          print('PASS:',len(old_files),'inherited files; no deletions; only',sorted(changed),'modified; one isolated test added')
+          PY
+      - name: Verify Node syntax for changed source and regression
+        run: |
+          node --check uk_renewables_pipeline/202611222222/report-a4.mjs
+          node --check uk_renewables_pipeline/202611222222/report-model.mjs
+          node --check uk_renewables_pipeline/202611222222/tests/v972-vicinity-a4-pdf.mjs
+  browser-integration:
+    needs: source-preservation
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Confirm public canonical GridAtlas VICINITY generation
+        run: |
+          python3 - <<'PY'
+          import urllib.request,json
+          u='https://ventusltd.github.io/gridatlas/atlas/current.json'
+          with urllib.request.urlopen(urllib.request.Request(u,headers={'Cache-Control':'no-cache'}),timeout=25) as response:
+              data=json.load(response)
+          assert data['generation']=='202611222130',f"Unexpected GridAtlas public generation: {data.get('generation')}"
+          ids={x['id'] for x in data['cartridges']}
+          assert {'pipeline-vicinity-button','vicinity-focus','sld-sandbox'}<=ids,ids
+          print('PASS: public GridAtlas V9.195 VICINITY receiver',u)
+          PY
+      - name: Install Chromium and WebKit
+        working-directory: uk_renewables_pipeline/202611222222
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+      - name: Start local candidate HTTP origin
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pn-v972-http.log 2>&1 &
+          for i in $(seq 1 45); do
+            if curl -fsS -o /dev/null http://127.0.0.1:8765/uk_renewables_pipeline/202611222222/; then exit 0; fi
+            sleep 1
+          done
+          exit 1
+      - name: Test actual Chromium/WebKit REPD MAP, expanded MAP, A4 HTML and PDF URI parity
+        working-directory: uk_renewables_pipeline/202611222222
+        run: node tests/v972-vicinity-a4-pdf.mjs
+      - name: Rerun inherited native navigation regression on successor
+        working-directory: uk_renewables_pipeline/202611222222
+        run: |
+          sed 's#202611221930#202611222222#g' tests/map-navigation-v970.mjs > tests/.v972-map-navigation.mjs
+          node tests/.v972-map-navigation.mjs
+      - name: Rerun inherited REPD expanded view regression on successor
+        working-directory: uk_renewables_pipeline/202611222222
+        run: |
+          sed 's#202611221930#202611222222#g' tests/repd-expanded.mjs > tests/.v972-expanded.mjs
+          node tests/.v972-expanded.mjs

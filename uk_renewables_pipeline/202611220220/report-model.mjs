@@ -1,45 +1,12 @@
-// V9.63 report model: canonical REPD identity and strictly provenance-backed area only.
-export const HA_TO_ACRES = 2.471053814671653;
-export const AREA_KINDS = Object.freeze({
-  site_area:'Site area',
-  development_area:'Development area',
-  land_take:'Land take',
-  red_line_boundary:'Red-line boundary area'
-});
-const s = value => typeof value==='string' ? value.trim() : '';
-const reportedDate = value => s(value) || 'Not reported';
-export function areaFromEvidence(project, catalogue) {
-  const unknown = Object.freeze({reported:false,display:'Area not reported',
-    kind:'',sourceLabel:'No verified project-area record is available',sourceUrl:''});
-  if(!project?.repd_ref || catalogue?.schema!=='globalgrid2050.repd-area-evidence.v1')return unknown;
-  const entry=catalogue.records?.[String(project.repd_ref)];
-  if(!entry || entry.verified!==true || String(entry.repd_ref)!==String(project.repd_ref))return unknown;
-  const unit=s(entry.unit).toLowerCase();
-  const area=entry.value;
-  const areaKind=s(entry.area_kind);
-  const sourceUrl=s(entry.source_url);
-  const sourceTitle=s(entry.source_title);
-  if(!Number.isFinite(area)||area<=0|| !['ha','acres','m2'].includes(unit) ||
-    !Object.hasOwn(AREA_KINDS,areaKind)||!sourceTitle||!/^https:\/\//i.test(sourceUrl))return unknown;
-  const hectares=unit==='ha'?area:unit==='acres'?area/HA_TO_ACRES:area/10000;
-  const acres=hectares*HA_TO_ACRES;
-  if(!Number.isFinite(hectares)||hectares<=0)return unknown;
-  return Object.freeze({
-    reported:true,
-    display:hectares.toLocaleString('en-GB',{maximumFractionDigits:2})+' ha · '+
-      acres.toLocaleString('en-GB',{maximumFractionDigits:2})+' acres',
-    kind:AREA_KINDS[areaKind],
-    sourceLabel:sourceTitle,
-    sourceUrl,
-  });
-}
-export function reportData(project,mapHref,areaCatalogue,metadata={}) {
-  if(!project || typeof project.repd_ref!=='string')return null;
-  // A MAP link must be taken from this project's own existing, validated row anchor.
+// V9.63 A4 report: official REPD identity and existing source location. No land area.
+const s=v=>typeof v==='string'?v.trim():'';
+const date=v=>s(v)||'Not reported';
+export function reportData(project,mapHref,metadata={}){
+  if(!project||typeof project.repd_ref!=='string')return null;
   let mapUrl='';
-  try{const u=new URL(mapHref);if(u.protocol==='https:')mapUrl=u.href;}catch{}
-  const area=areaFromEvidence(project,areaCatalogue);
+  try{const url=new URL(mapHref);if(url.protocol==='https:')mapUrl=url.href;}catch{}
   const isRePD=project.technology!=='interconnector';
+  const location=[project.county,project.region,project.country].map(s).filter(Boolean).join(' · ')||'Location not reported';
   return Object.freeze({
     reference:String(project.repd_ref),
     name:s(project.name)||'Project name not reported',
@@ -50,15 +17,15 @@ export function reportData(project,mapHref,areaCatalogue,metadata={}) {
     county:s(project.county)||'Not reported',
     region:s(project.region)||'Not reported',
     country:s(project.country)||'Not reported',
+    location,
     status:s(project.status)||'Not reported',
-    submitted:reportedDate(project.planning_application_submitted),
-    operational:reportedDate(project.operational),
-    updated:reportedDate(project.repd_record_updated),
-    consent:reportedDate(project.planning_permission_granted),
+    submitted:date(project.planning_application_submitted),
+    operational:date(project.operational),
+    updated:date(project.repd_record_updated),
+    consent:date(project.planning_permission_granted),
     planningAuthority:s(project.planning_authority)||'Not reported',
     planningReference:s(project.planning_application_reference)||'Not reported',
     dataSource:isRePD?(s(metadata.source_dataset)||'DESNZ Renewable Energy Planning Database'):'Separate interconnector dataset - not REPD',
-    mapUrl,area,
-    isRePD
+    mapUrl,isRePD
   });
 }

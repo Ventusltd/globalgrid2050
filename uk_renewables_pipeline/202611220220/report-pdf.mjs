@@ -32,11 +32,8 @@ export function buildA4Pdf(details,{landscape=false}={}){
   const fields=[
     ['OPERATOR (REPD)',details.operator],
     ['DEVELOPER',details.developer],
+    ['LOCATION',details.location],
     ['CAPACITY',details.capacity+' '+details.capacityUnit],
-    ['PROJECT AREA',details.area.display],
-    ['AREA DEFINITION',details.area.reported?details.area.kind:'Not reported'],
-    ['AREA EVIDENCE',details.area.sourceLabel],
-    ['LOCATION',[details.county,details.region,details.country].join(' / ')],
     ['OFFICIAL STATUS',details.status],
     ['APPLICATION SUBMITTED',details.submitted],
     ['OPERATIONAL DATE',details.operational],

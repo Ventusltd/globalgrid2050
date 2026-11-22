@@ -1,9 +1,9 @@
-# Pipeline News V9.63 - verified-area A4 project reports
+# Pipeline News V9.63 — A4 project location report
 
-Independent immutable successor to V9.62. Each project row gets an A4 button beside the one-click MAP action. A4 previews allow thumb pan, two-finger pinch zoom, fit-width, fit-page, portrait/landscape, print and direct PDF download with embedded clickable per-project MAP annotations. Closing restores filter/sort/scroll state.
+Corrected scope: **project location, not land area**. This immutable V9.62 successor adds an A4 report action beside the original per-row MAP button.
 
-Reports show the REPD project name, operator (separately from developer), MW/MWp, land area (hectares and acres), source and area definition, location, MAP, official status, submitted/operational/REPD-updated dates, consent, planning authority and reference.
+The A4 sheet highlights full official project name, REPD operator, actual capacity (MW/MWp), **location (county, region, country) and the existing clickable project-specific MAP link**. It also includes status, application submitted, operational and REPD-updated dates, planning consent, authority and reference. Developer remains separately labelled when not independently reported.
 
-The official Q3 REPD canonical records contain no verified project land area. A separate evidence register begins EMPTY. All reports therefore explicitly say Area not reported. No MW-based, image-derived or geometry-proxy estimates are permitted. The evidence contract accepts only independently verified records keyed to the correct REPD identity, area definition, unit and HTTPS source.
+Thumb pan, pinch zoom, fit width/page, portrait/landscape, print and a direct PDF download with embedded MAP URI annotation remain. Closing restores list filter/sort/scroll state.
 
-No Signal or prospect scores. No homepage promotion. Browsers may differ when printing hyperlinks: the direct PDF export carries real URI annotations regardless of native print behaviour. Physical Safari acceptance remains necessary.
+**No land-area fields, hectare/acre calculations, estimated area, or area evidence catalogue.** No Signal or lead scoring. Existing REPD models, news, filters, map engine and homepage are unchanged; release requires CI and physical Safari acceptance.

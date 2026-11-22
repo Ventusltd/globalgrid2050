@@ -8,12 +8,6 @@ import {buildA4Pdf} from './report-pdf.mjs';
   const table=document.getElementById('repdScroll');
   const tbody=document.getElementById('tbody');
   if(!table||!tbody||document.getElementById('pnRepdReport'))return;
-  let areaCatalogue={schema:'globalgrid2050.repd-area-evidence.v1',records:{}};
-  const areaReady=fetch('data/report-area.v1.json',{cache:'default'})
-    .then(r=>{if(!r.ok)throw Error('area evidence HTTP '+r.status);return r.json();})
-    .then(json=>{if(json?.schema==='globalgrid2050.repd-area-evidence.v1'&&json.records&&
-      !Array.isArray(json.records)&&typeof json.records==='object')areaCatalogue=json;})
-    .catch(error=>console.warn('Report area evidence unavailable; will show Area not reported',error));
   const root=document.createElement('aside');
   root.id='pnRepdReport';root.hidden=true;
   root.setAttribute('role','dialog');root.setAttribute('aria-modal','true');
@@ -41,17 +35,13 @@ import {buildA4Pdf} from './report-pdf.mjs';
             '<div><h2>REPD OPERATOR</h2><p id="pnReportOperator"></p></div>'+
             '<div><h2>DEVELOPER</h2><p id="pnReportDeveloper"></p></div>'+
           '</section>'+
-          '<section class="pn-report-primary" aria-label="Project size and land area">'+
+          '<section class="pn-report-primary" aria-label="Project capacity and location">'+
             '<div><h2>PROJECT CAPACITY</h2><strong id="pnReportCapacity"></strong></div>'+
-            '<div><h2>PROJECT LAND AREA</h2><strong id="pnReportArea"></strong>'+
-              '<p class="pn-report-area-basis" id="pnReportAreaKind"></p>'+
-              '<a id="pnReportAreaSource" href="#" target="_blank" rel="noopener" hidden></a>'+
+            '<div class="pn-report-location"><h2>PROJECT LOCATION</h2>'+
+              '<p id="pnReportLocation"></p>'+
+              '<a id="pnReportMap" href="#" target="_blank" rel="noopener">OPEN PROJECT MAP</a>'+
+              '<strong id="pnReportNoMap" hidden>MAP not available for this record</strong>'+
             '</div>'+
-          '</section>'+
-          '<section class="pn-report-location">'+
-            '<h2>PROJECT LOCATION</h2><p id="pnReportLocation"></p>'+
-            '<a id="pnReportMap" href="#" target="_blank" rel="noopener">OPEN PROJECT MAP</a>'+
-            '<strong id="pnReportNoMap" hidden>MAP not available for this record</strong>'+
           '</section>'+
           '<section class="pn-report-facts">'+
             '<div><h2>OFFICIAL STATUS</h2><p id="pnReportStatus"></p></div>'+
@@ -64,7 +54,7 @@ import {buildA4Pdf} from './report-pdf.mjs';
           '</section>'+
           '<footer class="pn-report-footer">'+
             '<p id="pnReportSource"></p>'+
-            '<p>Capacity, status and dates are source fields; missing project area is not estimated from capacity or map dimensions.</p>'+
+            '<p>Project location, capacity, status and dates come from the existing REPD record. MAP is the project-specific map link.</p>'+
           '</footer>'+
         '</article>'+
       '</div>'+
@@ -100,13 +90,7 @@ import {buildA4Pdf} from './report-pdf.mjs';
     set('pnReportName',data.name);set('pnReportRef',(data.isRePD?'REPD REF ':'REFERENCE ')+data.reference);
     set('pnReportOperator',data.operator);set('pnReportDeveloper',data.developer);
     set('pnReportCapacity',data.capacity+' '+data.capacityUnit);
-    set('pnReportArea',data.area.display);
-    set('pnReportAreaKind',data.area.reported?data.area.kind:data.area.sourceLabel);
-    const areaSource=$('pnReportAreaSource');
-    areaSource.hidden=!data.area.reported;
-    areaSource.removeAttribute('href');
-    if(data.area.reported){areaSource.href=data.area.sourceUrl;areaSource.textContent='Area evidence: '+data.area.sourceLabel;}
-    set('pnReportLocation',[data.county,data.region,data.country].filter(Boolean).join(' · '));
+    set('pnReportLocation',data.location);
     const map=$('pnReportMap');map.hidden=!data.mapUrl;map.removeAttribute('href');
     if(data.mapUrl)map.href=data.mapUrl;
     $('pnReportNoMap').hidden=!!data.mapUrl;
@@ -136,13 +120,12 @@ import {buildA4Pdf} from './report-pdf.mjs';
     const project=(state.all||[]).find(x=>String(x.repd_ref)===ref)||
       (state.interconnectors||[]).find(x=>String(x.repd_ref)===ref);
     if(!project)return;
-    await areaReady;
     const links=[...row.querySelectorAll('td:last-child a[href]')];
     const originalMap=links.find(anchor=>{const style=getComputedStyle(anchor);
       return style.display!=='none'&&style.visibility!=='hidden'&&anchor.href.startsWith('https://');}) ||
       row.querySelector('td:last-child a.atlaslink[href]');
     const href=originalMap?originalMap.href:'';
-    model=reportData(project,href,areaCatalogue,state.canonicalModel?.metadata||{});
+    model=reportData(project,href,state.canonicalModel?.metadata||{});
     if(!model)return;
     render(model);
     restore={bodyOverflow:document.body.style.overflow,

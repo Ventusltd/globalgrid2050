@@ -78,11 +78,9 @@
 #pnRepdReport .pn-report-primary{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin:3mm 0 7mm}
 #pnRepdReport .pn-report-primary>div{min-height:36mm;padding:5mm;background:#eef3f5;border-left:3px solid #177084}
 #pnRepdReport .pn-report-primary strong{display:block;font-size:20pt;line-height:1.2;overflow-wrap:anywhere}
-#pnRepdReport .pn-report-area-basis{font-size:9pt;color:#58676f;margin:3mm 0 1mm}
-#pnRepdReport .pn-report-primary a{display:block;font-size:8pt;overflow-wrap:anywhere}
-#pnRepdReport .pn-report-location{padding:5mm 0;border-top:1px solid #cbd6da;border-bottom:1px solid #cbd6da}
-#pnRepdReport .pn-report-location p{font-size:12pt;font-weight:600;margin-bottom:3mm}
-#pnRepdReport #pnReportMap{display:inline-block;padding:2.5mm 4mm;color:#005c79;text-decoration:underline;border:1px solid #7eacb8;font-size:11pt}
+#pnRepdReport .pn-report-location{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:3mm;min-width:0}
+#pnRepdReport .pn-report-location p{font-size:15pt;line-height:1.2;font-weight:600;margin:0;overflow-wrap:anywhere}
+#pnRepdReport #pnReportMap{display:inline-block;padding:2.5mm 4mm;color:#005c79;text-decoration:underline;border:1px solid #7eacb8;font-size:11pt;max-width:100%;overflow-wrap:anywhere}
 #pnRepdReport #pnReportNoMap{display:block;color:#626d71;font-size:10pt}
 #pnRepdReport :is(#pnReportMap,#pnReportAreaSource)[hidden],
 #pnRepdReport #pnReportNoMap[hidden]{display:none!important}
@@ -125,3 +123,5 @@
   }
   #pnRepdReport a{color:#005c79!important;text-decoration:underline!important}
 }
+
+#pnRepdReport .pn-report-landscape .pn-report-location p{font-size:13pt}

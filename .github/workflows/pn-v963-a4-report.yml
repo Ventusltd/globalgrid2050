@@ -27,7 +27,7 @@ jobs:
           a,b=tree('202611220125'),tree('202611220220')
           changed={p for p in a.keys()|b.keys() if a.get(p)!=b.get(p)}
           allowed={'index.html','README.md','CHANGES.md','report-a4.mjs','report-model.mjs',
-                   'report-pdf.mjs','styles/report-a4.css','data/report-area.v1.json','tests/report-a4.mjs'}
+                   'report-pdf.mjs','styles/report-a4.css','tests/report-a4.mjs'}
           assert changed==allowed,(changed,allowed)
           for path in ['scripts','news','solar1000','vendor','gridatlas','repd-scan.mjs',
                        'repd-density.mjs','repd-landscape.mjs','column-scroll.mjs',
@@ -35,13 +35,6 @@ jobs:
               assert subprocess.check_output(['git','rev-parse','HEAD:uk_renewables_pipeline/202611220125/'+path])==subprocess.check_output(
                 ['git','rev-parse','HEAD:uk_renewables_pipeline/202611220220/'+path]),path
           print('PASS source models and existing UI unchanged')
-          PY
-      - name: Verify area sidecar is empty
-        run: |
-          python3 - <<'PY'
-          import json
-          x=json.load(open('uk_renewables_pipeline/202611220220/data/report-area.v1.json'))
-          assert x['records']=={},'Unknown project areas must not be populated'
           PY
       - name: Install pinned Playwright
         working-directory: uk_renewables_pipeline/202611220220

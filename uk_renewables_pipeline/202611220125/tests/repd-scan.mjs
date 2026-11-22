@@ -33,6 +33,21 @@ for(const [name,engine] of [['chromium',chromium],['webkit',webkit]]){
     assert.deepEqual(baseline.columns,viewport.visible);
     assert.equal(baseline.notesHidden,true);
     assert.equal(baseline.gauges,3);
+    if(baseline.rowHeight>=50){
+      const heights=await page.evaluate(()=>{
+        const row=document.querySelector('#tbody tr[id^="repd-"]');
+        const selectors=['td.site','.project-record','.project-record>summary','.phone-project-label',
+          'td.mw','td:last-child','td:last-child .project-actions',
+          'td:last-child a.atlaslink','td:last-child .action-link'];
+        return {rowStyle:getComputedStyle(row).cssText,cells:selectors.map(sel=>{
+          const el=row.querySelector(sel),c=el&&getComputedStyle(el);
+          return {sel,height:el?.getBoundingClientRect().height,display:c?.display,
+            minHeight:c?.minHeight,maxHeight:c?.maxHeight,padding:c?.padding,
+            boxSizing:c?.boxSizing,margin:c?.margin,whiteSpace:c?.whiteSpace};
+        })};
+      });
+      console.log('ROW HEIGHT DIAGNOSTIC',JSON.stringify(heights));
+    }
     assert.ok(baseline.rowHeight<50,JSON.stringify(baseline));
     assert.equal(baseline.horizontalScroll,false,JSON.stringify(baseline));
     assert.ok(baseline.name&&baseline.mw&&baseline.map,JSON.stringify(baseline));

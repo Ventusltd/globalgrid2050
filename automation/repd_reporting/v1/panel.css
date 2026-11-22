@@ -1,0 +1,67 @@
+/* Additive UI: reuse PipelineNews existing :root palette. No override of gauges,
+   ticker, native REPD table, MAP/A4 or full-screen controls. */
+.repd-periodic-reports{
+  --repd-rpt-bg:var(--bg,#000);
+  --repd-rpt-panel:var(--panel,#0b0e14);
+  --repd-rpt-line:var(--line,#2f343d);
+  --repd-rpt-accent:var(--accent,#00ffff);
+  --repd-rpt-capacity:var(--ok,#00ff88);
+  --repd-rpt-text:var(--text,#fff);
+  --repd-rpt-muted:var(--muted,#a6adbb);
+  margin:10px 0;padding:10px 8px;background:var(--repd-rpt-bg);
+  color:var(--repd-rpt-text);border:1px solid var(--repd-rpt-line);
+  font:12px/1.4 'Courier New',monospace;
+}
+.repd-periodic-reports [hidden]{display:none!important}
+.repd-report-heading{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.repd-report-heading strong{color:var(--repd-rpt-accent);letter-spacing:1px}
+.repd-report-heading small,.repd-report-summary{color:var(--repd-rpt-muted)}
+.repd-report-tools{display:grid;gap:6px}
+.repd-report-buttons,.repd-report-secondary,.repd-report-filters,.repd-report-actions{
+  display:flex;align-items:center;flex-wrap:wrap;gap:5px
+}
+.repd-report-secondary{border-top:1px solid var(--repd-rpt-line);padding-top:6px}
+.repd-periodic-reports .repd-report-btn,.repd-periodic-reports .repd-report-link{
+  background:#000;color:var(--repd-rpt-muted);border:1px solid var(--repd-rpt-line);
+  font:700 11px 'Courier New',monospace;min-height:36px;padding:7px 9px;
+  cursor:pointer;touch-action:manipulation
+}
+.repd-periodic-reports .repd-report-btn[aria-pressed=true]{
+  border-color:var(--repd-rpt-accent);color:var(--repd-rpt-accent);
+  box-shadow:inset 0 -2px var(--repd-rpt-accent)
+}
+.repd-periodic-reports .repd-report-btn:focus-visible,
+.repd-periodic-reports .repd-report-link:focus-visible,
+.repd-periodic-reports select:focus-visible{outline:2px solid var(--repd-rpt-accent);outline-offset:2px}
+.repd-report-select{display:grid;gap:3px;color:var(--repd-rpt-muted);font-size:10px;min-width:85px;flex:1 1 110px;max-width:220px}
+.repd-periodic-reports .repd-report-select select,
+.repd-periodic-reports .repd-report-factor input{
+  min-height:34px;min-width:0;width:100%;padding:5px 6px;
+  color:var(--repd-rpt-text);background:#000;border:1px solid var(--repd-rpt-line)
+}
+.repd-report-note{color:var(--repd-rpt-muted);font-size:11px;padding:8px 0}
+.repd-report-actions{justify-content:flex-end;margin-bottom:6px}
+.repd-report-assumptions{display:flex;gap:6px;flex-wrap:wrap;align-items:end;padding:8px;background:var(--repd-rpt-panel)}
+.repd-report-assumptions p{flex:1 0 100%}
+.repd-report-factor{display:grid;gap:4px;max-width:220px;min-width:130px;font-size:11px}
+.repd-report-chart{display:grid;gap:5px;max-height:240px;overflow:auto;margin-bottom:8px;padding:4px;border:1px solid var(--repd-rpt-line)}
+.repd-report-bar-row{display:grid;align-items:center;grid-template-columns:minmax(92px,2fr) minmax(80px,5fr) minmax(60px,1fr);gap:7px;font-size:10px}
+.repd-report-bar-row>span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.repd-report-bar-track{height:10px;background:#0b1518;display:block}
+.repd-report-bar-fill{height:100%;display:block;background:var(--repd-rpt-capacity)}
+.repd-report-scroll{overflow:auto;max-height:340px;scrollbar-width:thin}
+.repd-report-table{width:100%;min-width:620px;border-collapse:collapse;text-align:left;font-size:11px}
+.repd-report-table th{position:sticky;top:0;background:#050505;color:var(--repd-rpt-accent);z-index:1}
+.repd-report-table td,.repd-report-table th{padding:7px;border-bottom:1px solid var(--repd-rpt-line)}
+.repd-report-table td{color:var(--repd-rpt-muted)}
+.repd-report-table .repd-report-capacity{color:var(--repd-rpt-capacity)}
+.repd-report-table .repd-report-link{border:0;padding:0;text-align:left;color:var(--repd-rpt-text)}
+.repd-report-summary{padding-top:8px;font-size:10px}
+@media(max-width:480px){
+  .repd-periodic-reports{padding:6px}
+  .repd-periodic-reports .repd-report-btn{min-height:40px;font-size:10px}
+  .repd-report-heading{gap:4px}
+  .repd-report-chart{max-height:170px}
+  .repd-report-filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .repd-report-select{max-width:none;min-width:0}
+}

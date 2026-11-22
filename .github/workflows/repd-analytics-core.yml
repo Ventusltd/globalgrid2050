@@ -27,7 +27,7 @@ jobs:
         run: node --test automation/repd_reporting/v1/tests/aggregate.test.mjs
 
   browser:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     permissions:
       contents: read

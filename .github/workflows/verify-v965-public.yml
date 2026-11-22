@@ -1,0 +1,136 @@
+name: Verify V9.65 public Expanded REPD, homepage and immutable rollback bytes
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-v965-public.yml'
+      - 'index.html'
+      - 'homepage-shell/**'
+      - 'uk_renewables_pipeline/202611221330/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  served:
+    runs-on: ubuntu-latest
+    timeout-minutes: 27
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify source inheritance and SHA256 of public URL bytes
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request,urlopen
+          import hashlib,json,os,time
+          root=Path('.')
+          current='uk_renewables_pipeline/202611221330/'
+          old='uk_renewables_pipeline/202611221243/'
+          a4='uk_renewables_pipeline/202611220220/'
+          catalog=json.loads((root/'homepage-shell/data/homepage.json').read_text(encoding='utf-8'))
+          entry=next(x for x in catalog['entities'] if x['id']=='pipeline-news')
+          assert entry['operative_release_id']=='202611221330','Homepage pointer is not V9.65'
+          assert len(entry['releases'])==32,'Release catalogue must retain all 32 versions'
+          assert all(any(x['id']==rid and x['status']=='available' for x in entry['releases'])
+                     for rid in ['202611221330','202611221243','202611220220','202611212344']), 'Missing rollback'
+          source='https://github.com/Ventusltd/globalgrid2050/tree/0a393cd1d5415b560daa96933ab8a3b5b834b550/uk_renewables_pipeline/202611221330'
+          assert next(x for x in entry['releases'] if x['id']=='202611221330')['source_ref']==source,'Wrong source pin'
+          assert '202611221330' in (root/'index.html').read_text(),'Homepage root not promoted'
+          assert 'repd-expanded.mjs' in (root/(current+'index.html')).read_text(),'Expanded entry absent'
+          assert 'EXPANDED REPD VIEW' in (root/(current+'repd-expanded.mjs')).read_text(),'Native control missing'
+          for path in ['report-a4.mjs','report-model.mjs','report-pdf.mjs','styles/report-a4.css']:
+              assert (root/(current+path)).read_bytes()==(root/(old+path)).read_bytes()==(root/(a4+path)).read_bytes(), 'A4/PDF changed: '+path
+          files=[
+            'index.html',
+            'homepage-shell/data/homepage.json',
+            'homepage-shell/assets/versioned-homepage.js',
+            current+'index.html',
+            current+'repd-expanded.mjs',
+            current+'styles/repd-expanded.css',
+            current+'scripts/plugins/projects-v9-8.js',
+            current+'report-a4.mjs',
+            current+'report-pdf.mjs',
+            old+'index.html',
+            old+'repd-liquid.mjs',
+            old+'report-a4.mjs',
+            a4+'index.html',
+            a4+'report-a4.mjs',
+            'uk_renewables_pipeline/202611212344/index.html',
+          ]
+          hashes={p:hashlib.sha256((root/p).read_bytes()).hexdigest() for p in files}
+          suffix=os.environ.get('GITHUB_SHA','sha')[:12]
+          for attempt in range(1,76):
+              bad=[]
+              paths=files if attempt==1 else files[:2]
+              for path in paths:
+                  url='https://globalgrid2050.com/'+path+'?v965='+suffix+'-'+str(attempt)
+                  req=Request(url,headers={'Cache-Control':'no-cache','Pragma':'no-cache',
+                              'Accept-Encoding':'identity','User-Agent':'GlobalGrid2050-V965-Public-CI/1.0'})
+                  try:
+                      with urlopen(req,timeout=17) as response:
+                          payload=response.read(2500000)
+                          status=response.status
+                      digest=hashlib.sha256(payload).hexdigest()
+                      if status!=200 or digest!=hashes[path]:
+                          bad.append(f'{path}: HTTP {status}, SHA256 {digest}, expected {hashes[path]}')
+                  except Exception as exc:
+                      bad.append(f'{path}: {type(exc).__name__}: {exc}')
+              if not bad and paths!=files:
+                  for path in files[2:]:
+                      url='https://globalgrid2050.com/'+path+'?v965='+suffix+'-'+str(attempt)
+                      req=Request(url,headers={'Cache-Control':'no-cache','Pragma':'no-cache',
+                                  'Accept-Encoding':'identity','User-Agent':'GlobalGrid2050-V965-Public-CI/1.0'})
+                      try:
+                          with urlopen(req,timeout=17) as response:
+                              payload=response.read(2500000)
+                              status=response.status
+                          if status!=200 or hashlib.sha256(payload).hexdigest()!=hashes[path]:
+                              bad.append(f'{path}: HTTP {status} or SHA256 mismatched')
+                      except Exception as exc:
+                          bad.append(f'{path}: {type(exc).__name__}: {exc}')
+              if not bad:
+                  print(f'PASS: {len(files)}/{len(files)} public files match the immutable V9.65 / V9.64 / V9.63 / V9.60 source bytes',flush=True)
+                  break
+              print(f'Attempt {attempt}/75: {len(bad)} mismatches {bad[:3]}',flush=True)
+              if attempt==75:raise SystemExit('Public V9.65 serving did not converge: '+str(bad))
+              time.sleep(12)
+          PY
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install real Chromium and WebKit
+        working-directory: uk_renewables_pipeline/202611221330
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+      - name: Cross-version live browser integration with public Pages
+        working-directory: uk_renewables_pipeline/202611221330
+        run: |
+          node --input-type=module <<'JS'
+          import {chromium,webkit} from 'playwright';
+          const routes=['202611221330','202611221243','202611220220'];
+          for(const [name,driver] of [['Chromium',chromium],['WebKit',webkit]]){
+            const browser=await driver.launch({headless:true});
+            try{
+              for(const version of routes){
+                const page=await browser.newPage({viewport:{width:393,height:852}});
+                try{
+                  await page.route('https://raw.githubusercontent.com/**',r=>r.abort());
+                  await page.goto('https://globalgrid2050.com/uk_renewables_pipeline/'+version+'/?live-verification=965',{waitUntil:'domcontentloaded',timeout:90000});
+                  await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length===50,{timeout:90000});
+                  if(version==='202611221330'){
+                    await page.locator('#pnLiquidLaunch').click();
+                    await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length===100,{timeout:60000});
+                    if(await page.locator('#repdPanel>.hud-gauges canvas').count()!==3)throw Error('Actual three gauges missing');
+                    if(await page.locator('#repdScroll thead th').count()!==13)throw Error('13 REPD headings missing');
+                    if(await page.locator('.pn-report-launch').count()!==100)throw Error('100 A4 report links missing');
+                    await page.locator('#pnExpandedClose').click();
+                    if(await page.locator('#tbody tr[id^="repd-"]').count()!==50)throw Error('Normal view not restored');
+                  }else if(await page.locator('#tbody .pn-report-launch').count()!==50){
+                    throw Error('V9.64/V9.63 A4 rollback missing');
+                  }
+                  console.log('PASS public live browser',name,version);
+                }finally{await page.close();}
+              }
+            }finally{await browser.close();}
+          }
+          JS

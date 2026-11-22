@@ -113,14 +113,14 @@ ENERGY_TOPICS = ("solar", "wind", "storage", "grid", "renewables")
 # Global climate diplomacy is a bounded policy lane, not REPD project evidence.
 # COP31 gets first research priority; other COP coverage needs a concrete
 # international energy/climate-policy cue. Generic weather/climate is excluded.
-COP31 = _rx(r"COP[\\s-]?31")
-COP_SUMMIT = _rx(r"COP[\\s-]?\\d{2}|UN climate (?:summit|talks|conference)")
-CLIMATE_POLICY_CUE = _rx(r"climate|fossil[\\s-]?fuels?|coal|oil|gas|emissions?|net[\\s-]?zero|"
+COP31 = _rx(r"COP[\s-]?31")
+COP_SUMMIT = _rx(r"COP[\s-]?\d{2}|UN climate (?:summit|talks|conference)")
+CLIMATE_POLICY_CUE = _rx(r"climate|fossil[\s-]?fuels?|coal|oil|gas|emissions?|net[\s-]?zero|"
                          r"global warming|carbon|agreement|deal|treaty|negotiat(?:e|ion|ions|ing)|"
-                         r"phase[\\s-]?out|transition|adaptation|finance|funding|summit|talks")
+                         r"phase[\s-]?out|transition|adaptation|finance|funding|summit|talks")
 CLIMATE_POLICY_EVENT = _rx(r"deal|negotiat(?:e|ion|ions|ing)|agreement|deadlock|talks|"
-                           r"draft|reject|phase[\\s-]?out|funding|finance|pledge|"
-                           r"fossil[\\s-]?fuels?|emissions?|coal|oil|gas|policy|commitment|summit")
+                           r"draft|reject|phase[\s-]?out|funding|finance|pledge|"
+                           r"fossil[\s-]?fuels?|emissions?|coal|oil|gas|policy|commitment|summit")
 
 
 def climate_policy_priority(title):

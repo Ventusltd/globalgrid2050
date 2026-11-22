@@ -178,3 +178,8 @@
 @media(prefers-reduced-motion:reduce){
   #pnLiquidOverview *{scroll-behavior:auto!important}
 }
+
+/* Recycled virtual rows must never re-anchor the user's thumb scroll position. */
+#pnLiquidViewport,#pnLiquidSheet,#pnLiquidTable,#pnLiquidTable tbody{
+  overflow-anchor:none!important;
+}

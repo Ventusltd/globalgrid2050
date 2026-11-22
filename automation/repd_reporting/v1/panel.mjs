@@ -1,4 +1,4 @@
-import { snapshotReport, operationalReport, estimatedGeneration, validateIdentity } from "./aggregate.mjs";
+import { snapshotReport, operationalTrend, estimatedGeneration, validateIdentity } from "./aggregate.mjs";
 
 const REPORTS = Object.freeze([
   ["operator", "OPERATOR MW"],
@@ -83,7 +83,7 @@ export function mountRepdReports(host, projects, {
     report: "operator", period: "year", trend: false, metric: "capacity",
     dimension: "technology", technology: "All", status: "All",
     region: "All", operator: "All", year: String(new Date(asOf + "T00:00:00Z").getUTCFullYear()),
-    factors: {}, seasonality: {}, assumptionsOpen: false,
+    factors: {}, seasonality: {}, assumptionsOpen: false, sortKey: null, sortDescending: false,
   };
   const years = unique(projects, p => {
     const d = p.operational ?? p.operational_date;
@@ -196,13 +196,13 @@ export function mountRepdReports(host, projects, {
       visible = data.rows.map(r => ({
         label: r.period, projects: r.contributingProjectMonths,
         capacity: "—", energy: r.mwh === null ? "Not available" : fmt.format(r.mwh) + " MWh",
-        value: r.mwh, refs: [],
+        value: r.mwh, refs: [], cumulative: "—", change: "—",
         caveat: r.availability === "SCENARIO_ONLY" ? "Scenario estimate" : r.availability,
       }));
       note.textContent = "ENERGY SCENARIO — MWh, NOT METERED. User-defined capacity factors; BESS excluded. Missing assumptions and future periods show Not available.";
     } else {
       data = isOperational
-        ? operationalReport(projects, { dimension, period: state.period, filters: filtersNow(), asOf })
+        ? operationalTrend(projects, { dimension, period: state.period, filters: filtersNow(), asOf })
         : snapshotReport(projects, { dimension, filters: filtersNow() });
       visible = data.rows.map(r => {
         const capacities = Object.entries(r.capacityByUnit);
@@ -211,6 +211,8 @@ export function mountRepdReports(host, projects, {
           label: r.period === "SNAPSHOT" ? r.group : r.period + " · " + r.group,
           projects: r.projects, capacity: groupUnitText(r.capacityByUnit),
           energy: "—", value: metric, refs: r.repdRefs,
+          cumulative: r.cumulativeProjects === undefined || r.cumulativeProjects === null ? "—" : fmt.format(r.cumulativeProjects),
+          change: r.projectsChange === undefined || r.projectsChange === null ? "—" : (r.projectsChange > 0 ? "+" : "") + fmt.format(r.projectsChange),
           caveat: r.missingCapacity ? String(r.missingCapacity) + " missing MW" : "",
         };
       });
@@ -218,12 +220,51 @@ export function mountRepdReports(host, projects, {
         ? "REPD-REPORTED OPERATIONAL MILESTONES — not independently verified energisation. Dates missing or conflicting with the snapshot are separated."
         : "OFFICIAL REPD STATUS AND CAPACITY SNAPSHOT — preserves technology-specific MW and MWp units and all application statuses.";
     }
+    // Cumulative energy is only complete while every preceding source period has
+    // explicit scenario assumptions. Unknown periods never become fake zeros.
+    if (isEnergy) {
+      let running = 0, prior = null, complete = true;
+      for (const row of visible) {
+        if (row.value === null) {
+          complete = false;
+          row.cumulative = "Not available";
+          row.change = "—";
+        } else {
+          running += row.value;
+          row.cumulative = complete ? fmt.format(running) + " MWh" : "Not available";
+          row.change = prior === null ? "—" : (row.value - prior >= 0 ? "+" : "") + fmt.format(row.value - prior) + " MWh";
+        }
+        prior = row.value;
+      }
+    }
+    const sortKey = state.sortKey ?? (isOperational || isEnergy ? "label" : "projects");
+    const reverse = state.sortKey ? state.sortDescending : sortKey === "projects";
+    visible.sort((a, b) => {
+      if (sortKey === "label") return (reverse ? -1 : 1) * a.label.localeCompare(b.label);
+      const left = sortKey === "projects" ? a.projects : a.value;
+      const right = sortKey === "projects" ? b.projects : b.value;
+      if (left === null || right === null) return left === null && right === null ? 0 : left === null ? 1 : -1;
+      return (reverse ? -1 : 1) * (left - right);
+    });
     chart.replaceChildren();
     scroller.replaceChildren();
     const table = el("table", "repd-report-table");
     const thead = el("thead"); const top = el("tr");
-    for (const header of ["PERIOD / GROUP", "PROJECTS", "CAPACITY", "ENERGY", "NOTES"]) {
-      const th = el("th", "", header); th.scope = "col"; top.append(th);
+    for (const [key, header] of [["label", "PERIOD / GROUP"], ["projects", "PROJECTS"], ["value", isEnergy ? "ENERGY (MWh)" : "CAPACITY"], ["other", "OTHER UNIT / ENERGY"], ["cumulative", "CUMULATIVE"], ["change", "Δ VS PREVIOUS"], ["notes", "NOTES"]]) {
+      const th = el("th", "", ""); th.scope = "col";
+      if (["label", "projects", "value"].includes(key)) {
+        const btn = el("button", "repd-report-sort", header);
+        btn.type = "button";
+        btn.setAttribute("aria-label", "Sort by " + header);
+        btn.setAttribute("aria-pressed", String(sortKey === key));
+        btn.addEventListener("click", () => {
+          state.sortDescending = state.sortKey === key ? !state.sortDescending : key !== "label";
+          state.sortKey = key;
+          render();
+        });
+        th.append(btn);
+      } else th.textContent = header;
+      top.append(th);
     }
     thead.append(top); table.append(thead);
     const tbody = el("tbody");
@@ -240,8 +281,10 @@ export function mountRepdReports(host, projects, {
         first.append(link);
       }
       cell(fmt.format(row.projects));
-      cell(row.capacity, "repd-report-capacity");
-      cell(row.energy, "repd-report-capacity");
+      cell(isEnergy ? row.energy : row.capacity, "repd-report-capacity");
+      cell(isEnergy ? "—" : row.energy, "repd-report-capacity");
+      cell(row.cumulative, "repd-report-capacity");
+      cell(row.change);
       cell(row.caveat);
       tbody.append(tr);
       const bar = el("div", "repd-report-bar-row");
@@ -256,16 +299,16 @@ export function mountRepdReports(host, projects, {
     }
     table.append(tbody); scroller.append(table);
     if (isEnergy) {
-      exportRows = visible.map(r => ({ period: r.label, scenario_mwh: r.value, availability: r.caveat, notes: note.textContent }));
-      exportCols = [["period", "Period"], ["scenario_mwh", "Scenario MWh (not metered)"], ["availability", "Availability"], ["notes", "Basis"]];
+      exportRows = visible.map(r => ({ period: r.label, scenario_mwh: r.value, cumulative: r.cumulative, change: r.change, availability: r.caveat, notes: note.textContent }));
+      exportCols = [["period", "Period"], ["scenario_mwh", "Scenario MWh (not metered)"], ["cumulative", "Cumulative scenario"], ["change", "Period change"], ["availability", "Availability"], ["notes", "Basis"]];
     } else {
       exportRows = data.rows.map(r => ({
         period: r.period, group: r.group, projects: r.projects, unit_breakdown: groupUnitText(r.capacityByUnit),
-        missing_capacity: r.missingCapacity, repd_refs: r.repdRefs.join("|"), basis: note.textContent,
+        missing_capacity: r.missingCapacity, cumulative_projects: r.cumulativeProjects, change_projects: r.projectsChange, repd_refs: r.repdRefs.join("|"), basis: note.textContent,
       }));
       exportCols = [["period", "Period"], ["group", "Group"], ["projects", "Projects"],
         ["unit_breakdown", "Capacity by original REPD units"], ["missing_capacity", "Missing capacity rows"],
-        ["repd_refs", "REPD References"], ["basis", "Basis"]];
+        ["cumulative_projects", "Cumulative REPD-recorded operational cohorts"], ["change_projects", "Change vs prior period"], ["repd_refs", "REPD References"], ["basis", "Basis"]];
     }
     summary.textContent = fmt.format(visible.length) + " report groups • " + fmt.format(projects.length) +
       " canonical REPD records loaded • " + (isEnergy ? "Assumptions explicit; not metered" : "Source-unit conservation");

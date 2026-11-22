@@ -3,6 +3,7 @@
 import argparse
 from collections import defaultdict
 import csv
+import difflib
 import json
 from pathlib import Path, PurePosixPath
 import re
@@ -19,7 +20,7 @@ def git(*args):
 def group(path):
     p=PurePosixPath(path)
     if p.parts[0]=='uk_renewables_pipeline':
-        return 'Current V9.57' if p.parts[1]==current else 'Historical application versions'
+        return 'Current release' if p.parts[1]==current else 'Historical application versions'
     if p.parts[0]=='automation' and len(p.parts)>2:
         folder=p.parts[1]
         if folder=='news': return 'News intelligence engine'
@@ -46,10 +47,19 @@ def kind(path):
 
 parser=argparse.ArgumentParser()
 parser.add_argument('--ref',default='HEAD')
-parser.add_argument('--current',default='202611201709')
+parser.add_argument('--current',default='latest',help='Dated release ID or latest')
 parser.add_argument('--output',default='pipeline-code-census')
 args=parser.parse_args()
-current=args.current
+release_candidates=[]
+for row in git('ls-tree',args.ref+':uk_renewables_pipeline').decode().splitlines():
+    meta,_,name=row.partition('\t')
+    if meta.split()[1]=='tree' and re.fullmatch(r'20\d{10}',name):
+        release_candidates.append(name)
+release_candidates.sort()
+current=release_candidates[-1] if args.current=='latest' else args.current
+if current not in release_candidates:
+    raise SystemExit(f'Unknown immutable Pipeline News release {current}')
+previous=release_candidates[release_candidates.index(current)-1] if release_candidates.index(current)>0 else None
 commit=git('rev-parse',args.ref).decode().strip()
 root=Path(args.output);root.mkdir(parents=True,exist_ok=True)
 entries=[]
@@ -91,10 +101,44 @@ for s in sorted({e['scope'] for e in entries}):
     scopes[s]={k:summarise([e for e in items if e['category']==k]) for k in sorted({e['category'] for e in items})}
 categories={k:summarise([e for e in entries if e['category']==k]) for k in sorted({e['category'] for e in entries})}
 source=[e for e in entries if e['category']=='Application/automation source']
-current_source=[e for e in source if e['scope']=='Current V9.57']
+current_source=[e for e in source if e['scope']=='Current release']
 current_ids={e['blob'] for e in current_source}
 historical_extra=[e for e in source if e['scope']=='Historical application versions' and e['blob'] not in current_ids]
 report={'commit':commit,'release':current,'method':'Physical and nonblank lines of UTF-8 text; exact content deduplication by Git blob. Comments included, near-duplicates not collapsed. Source is a path/extension classification, not reachability or authorship proof. Data and docs counted as files and bytes, not LOC. Scope excludes external repositories and untracked files. Category and scope totals may overlap by content; estate-wide total deduplicates across scopes.','scopes':scopes,'estate_categories':categories,'historical_source_not_in_current':summarise(historical_extra),'all_source':summarise(source),'all_files':summarise(entries)}
+# One immutable version-to-version change ledger rather than reporting copied
+# source as 35,000 lines of novel development.
+def snapshot(version):
+    if not version:return {}
+    raw=git('ls-tree','-rz',f'{args.ref}:uk_renewables_pipeline/{version}')
+    return {path.decode('utf-8','surrogateescape'):metadata.split()[2].decode()
+            for metadata,path in (item.split(b'\t',1) for item in raw.split(b'\0') if item)}
+old,new=snapshot(previous),snapshot(current)
+records=[]
+for path in sorted(set(old)|set(new)):
+    if old.get(path)==new.get(path):continue
+    extension=PurePosixPath(path).suffix.lower()
+    if extension not in CODE and extension not in DOC and extension not in {'.yml','.yaml'}:
+        continue
+    def read(version,lookup):
+        if path not in lookup:return []
+        payload=git('show',f'{args.ref}:uk_renewables_pipeline/{version}/{path}')
+        if b'\0' in payload or len(payload)>1000000:return []
+        try:return payload.decode('utf-8').splitlines()
+        except UnicodeDecodeError:return []
+    before,after=read(previous,old),read(current,new)
+    hunks=difflib.SequenceMatcher(a=before,b=after,autojunk=False).get_opcodes()
+    added=sum(j2-j1 for op,i1,i2,j1,j2 in hunks if op in ('replace','insert'))
+    deleted=sum(i2-i1 for op,i1,i2,j1,j2 in hunks if op in ('replace','delete'))
+    records.append({'file':path,'added_lines':added,'deleted_lines':deleted,
+                    'old_sha':old.get(path),'new_sha':new.get(path)})
+delta={'previous_release':previous,'current_release':current,
+       'changed_text_files':len(records),
+       'added_lines':sum(r['added_lines'] for r in records),
+       'deleted_lines':sum(r['deleted_lines'] for r in records),
+       'inherited_identical_files':sum(old.get(p)==new.get(p) for p in set(old)|set(new)),
+       'files':records}
+report['line_delta']=delta
+(root/'release-line-delta.json').write_text(json.dumps(delta,indent=2)+'\n')
 (root/'summary.json').write_text(json.dumps(report,indent=2)+'\n')
 with (root/'files.csv').open('w',newline='',encoding='utf-8') as f:
     w=csv.DictWriter(f,fieldnames=['path','scope','category','blob','bytes','lines','nonblank_lines']);w.writeheader();w.writerows(entries)
@@ -103,5 +147,10 @@ for s,cats in scopes.items():
     for k,m in cats.items():
         values=[m['files'],m['unique_blobs']]+([m['physical_lines'],m['unique_physical_lines'],m['unique_nonblank_lines']] if m['line_counted_files'] else ['—']*3)+[m['unique_bytes']]
         lines.append('| '+s+' | '+k+' | '+' | '.join(f'{v:,}' if isinstance(v,int) else v for v in values)+' |')
-lines+=['','## Deduplicated estate-wide totals','',f"Application/automation source: {report['all_source']['unique_physical_lines']:,} physical lines; {report['all_source']['unique_nonblank_lines']:,} nonblank lines; {report['all_source']['unique_blobs']:,} unique files.",f"Historical source absent as exact content from current V9.57: {report['historical_source_not_in_current']['unique_physical_lines']:,} unique physical lines.",'','Detailed file ledger: files.csv. Machine-readable results: summary.json.']
+lines+=['','## Deduplicated estate-wide totals','',f"Application/automation source: {report['all_source']['unique_physical_lines']:,} physical lines; {report['all_source']['unique_nonblank_lines']:,} nonblank lines; {report['all_source']['unique_blobs']:,} unique files.",f"Historical source absent as exact content from current release: {report['historical_source_not_in_current']['unique_physical_lines']:,} unique physical lines.",'','Detailed file ledger: files.csv. Machine-readable results: summary.json.']
+lines+=['',f'## Release delta: {previous} to {current}','',
+        f"Changed UTF-8 source/docs: {delta['changed_text_files']} files; {delta['added_lines']:,} added lines, {delta['deleted_lines']:,} removed lines.",
+        f"Exact inherited blobs unchanged: {sum(old.get(p)==new.get(p) for p in set(old)|set(new)):,} files.",
+        'The delta counts only changed text; immutable copies and data bytes are not counted as new source.',
+        'Full ledger: release-line-delta.json.']
 md='\n'.join(lines)+'\n';(root/'summary.md').write_text(md);print(md)

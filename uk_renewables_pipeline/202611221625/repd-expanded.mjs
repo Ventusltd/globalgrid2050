@@ -32,6 +32,71 @@ import {setExpandedPageRows} from './scripts/plugins/projects-v9-8.js';
   const closeButton=document.getElementById('pnExpandedClose');
   let expanded=false,rootMark=null,techMark=null,snapshot=null,hadScan=false;
   let lastFocus=null;
+  // Full native REPD table fits the available width on entry; only the table
+  // zooms, so the genuine Chart.js cockpit remains full-size and always visible.
+  // Safari and Chromium understand CSS zoom, which also preserves scroll extents
+  // and native anchor/button hit targets (unlike a visual-only transform).
+  let fitScale=1,scale=1,pinch=null,gesture=null;
+  const scaleClamp=value=>Math.min(2.2,Math.max(Math.min(.15,fitScale),value));
+  function setTableScale(next,clientX=null,clientY=null){
+    if(!expanded)return;
+    const bounds=wrap.getBoundingClientRect();
+    const x=clientX===null?bounds.width/2:clientX-bounds.left;
+    const y=clientY===null?bounds.height/2:clientY-bounds.top;
+    const prior=Math.max(.001,scale);
+    const baseX=(wrap.scrollLeft+x)/prior,baseY=(wrap.scrollTop+y)/prior;
+    scale=scaleClamp(next);
+    table.style.zoom=String(scale);
+    wrap.dataset.zoom=String(scale);
+    wrap.scrollLeft=Math.max(0,baseX*scale-x);
+    wrap.scrollTop=Math.max(0,baseY*scale-y);
+  }
+  function fitAllColumns(){
+    if(!expanded)return;
+    const width=parseFloat(getComputedStyle(table).width)||1590;
+    fitScale=Math.min(1,Math.max(.15,(wrap.clientWidth-4)/Math.max(1,width)));
+    // Reset the viewing position, like opening a printed overview.
+    scale=fitScale;
+    table.style.zoom=String(scale);
+    wrap.dataset.zoom=String(scale);
+    wrap.scrollLeft=0;wrap.scrollTop=0;
+  }
+  function distance(a,b){return Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);}
+  function centre(a,b){return {x:(a.clientX+b.clientX)/2,y:(a.clientY+b.clientY)/2};}
+  wrap.addEventListener('touchstart',event=>{
+    if(!expanded||event.touches.length!==2)return;
+    const [a,b]=event.touches;
+    const mid=centre(a,b);
+    pinch={distance:Math.max(1,distance(a,b)),startScale:scale};
+    pinch.mid=mid;
+  },{passive:true});
+  wrap.addEventListener('touchmove',event=>{
+    if(!expanded||!pinch||event.touches.length!==2)return;
+    if(event.cancelable)event.preventDefault();
+    const [a,b]=event.touches,mid=centre(a,b);
+    setTableScale(pinch.startScale*distance(a,b)/pinch.distance,mid.x,mid.y);
+  },{passive:false});
+  const endPinch=event=>{if(event.touches.length<2)pinch=null;};
+  wrap.addEventListener('touchend',endPinch,{passive:true});
+  wrap.addEventListener('touchcancel',()=>{pinch=null;},{passive:true});
+  // Trackpad pinch gestures also zoom the TABLE, not the browser or gauges.
+  wrap.addEventListener('wheel',event=>{
+    if(!expanded||!event.ctrlKey)return;
+    event.preventDefault();
+    setTableScale(scale*Math.exp(-event.deltaY*.013),event.clientX,event.clientY);
+  },{passive:false});
+  // Safari's GestureEvent is a fallback for iOS browser-host pinch variants.
+  wrap.addEventListener('gesturestart',event=>{
+    if(!expanded)return;
+    event.preventDefault();
+    gesture={startScale:scale};
+  },{passive:false});
+  wrap.addEventListener('gesturechange',event=>{
+    if(!expanded||!gesture)return;
+    event.preventDefault();
+    setTableScale(gesture.startScale*event.scale,event.clientX,event.clientY);
+  },{passive:false});
+  wrap.addEventListener('gestureend',()=>{gesture=null;},{passive:true});
   // Chart.js keeps its old measured canvas after its actual REPD node is moved.
   // Resize the three real gauges once the expanded container has laid out.
   function resizeLiveGauges(){
@@ -192,7 +257,8 @@ import {setExpandedPageRows} from './scripts/plugins/projects-v9-8.js';
     document.body.style.overflow='hidden';html.style.overflow='hidden';
     wrap.classList.add('pn-expanded-grid');
     setExpandedPageRows(true);
-    wrap.scrollLeft=0;wrap.scrollTop=0;
+    // A single frame ensures the full-viewport table has its final dimensions.
+    requestAnimationFrame(fitAllColumns);
     paintOperators();
     requestAnimationFrame(updateExpandedPager);
     scheduleGaugeResize();
@@ -200,7 +266,11 @@ import {setExpandedPageRows} from './scripts/plugins/projects-v9-8.js';
   }
   function close(){
     if(!expanded)return;
-    dismissFilter();setExpandedPageRows(false);
+    dismissFilter();
+    // Clear view-only zoom BEFORE restoring the standard REPD dashboard.
+    pinch=null;gesture=null;table.style.removeProperty('zoom');delete wrap.dataset.zoom;
+    scale=1;fitScale=1;
+    setExpandedPageRows(false);
     if(hadScan&&!wrap.classList.contains('pn-scan-mode'))document.getElementById('pnScanModeToggle')?.click();
     techMark?.replaceWith(tech);techMark=null;
     rootMark?.replaceWith(root);rootMark=null;
@@ -233,6 +303,13 @@ import {setExpandedPageRows} from './scripts/plugins/projects-v9-8.js';
   window.addEventListener('pipeline-projects-rendered',()=>{
     paintOperators();requestAnimationFrame(updateExpandedPager);
   });
-  window.addEventListener('resize',()=>{if(expanded)scheduleGaugeResize();},{passive:true});
+  window.addEventListener('resize',()=>{
+    if(!expanded)return;
+    const wasFit=Math.abs(scale-fitScale)<.01;
+    const oldFit=fitScale;
+    fitAllColumns();
+    if(!wasFit)setTableScale(scale*(oldFit?fitScale/oldFit:1));
+    scheduleGaugeResize();
+  },{passive:true});
   window.addEventListener('pagehide',()=>{if(expanded)close();});
 })();

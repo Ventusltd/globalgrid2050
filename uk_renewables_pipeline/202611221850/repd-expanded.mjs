@@ -124,16 +124,23 @@ import {setExpandedPageRows} from './scripts/plugins/projects-v9-8.js';
     for(const row of tbody.querySelectorAll('tr[id^="repd-"]')){
       if(row.querySelector(':scope > .pn-expanded-map-cell'))continue;
       const actions=row.cells[row.cells.length-1]?.querySelector('.project-actions');
-      const link=actions?.querySelector('a.pn-journey-link[href], a.atlaslink[href], a.action-link[href]');
+      // map-entry.mjs hides the original Atlas link once it adds the live
+      // journey link. Prefer that live link and never copy hidden attributes.
+      const candidates=[...(actions?.querySelectorAll('a.pn-journey-link[href],a.atlaslink[href],a.action-link[href]')||[])];
+      const link=candidates.find(a=>!a.hidden&&getComputedStyle(a).display!=='none')||candidates[0];
       const unavailable=actions?.querySelector('.pn-journey-unavailable,.action-disabled');
       const cell=document.createElement('td');
       cell.className='pn-expanded-map-cell';
       if(link){
-        const a=link.cloneNode(true);
-        a.classList.add('pn-expanded-map-launch');
-        a.removeAttribute('id');
+        const a=document.createElement('a');
+        a.className='action-link atlaslink pn-journey-link pn-expanded-map-launch';
+        a.href=link.href;
+        a.target=link.target||'_blank';
+        a.rel=link.rel||'noopener noreferrer';
         a.textContent='MAP';
+        a.title=link.title||'Open project map';
         a.setAttribute('aria-label','Open project map');
+        if(link.dataset.mapNavigation)a.dataset.mapNavigation=link.dataset.mapNavigation;
         cell.append(a);
       }else if(unavailable){
         const span=document.createElement('span');

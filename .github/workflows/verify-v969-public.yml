@@ -1,0 +1,55 @@
+name: Verify V9.69 active REPD public bytes and A4 rollback
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'homepage-shell/data/homepage.json'
+      - 'catalogue/homepage-owner.json'
+      - '.github/workflows/verify-v969-public.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  served:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect V9.69 homepage, original A4 and exact HTTPS bytes
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request,urlopen
+          import hashlib,json,time,os
+          root=Path('.')
+          catalog=json.loads((root/'homepage-shell/data/homepage.json').read_text())
+          entity=next(x for x in catalog['entities'] if x['id']=='pipeline-news')
+          assert entity['operative_release_id']=='202611221850' and len(entity['releases'])==36
+          assert catalog['promotions'][-1]['to_release_id']=='202611221850'
+          assert '202611221850' in (root/'index.html').read_text()
+          fresh='uk_renewables_pipeline/202611221850/'
+          old='uk_renewables_pipeline/202611221705/'
+          for file in ['report-a4.mjs','report-model.mjs','report-pdf.mjs','styles/report-a4.css']:
+              assert (root/(fresh+file)).read_bytes()==(root/(old+file)).read_bytes(),file
+          files=['index.html','homepage-shell/data/homepage.json',
+                 fresh+'index.html',fresh+'repd-expanded.mjs',fresh+'styles/repd-expanded.css',
+                 fresh+'report-a4.mjs',fresh+'report-pdf.mjs',
+                 old+'index.html',old+'report-a4.mjs']
+          expected={file:hashlib.sha256((root/file).read_bytes()).hexdigest() for file in files}
+          for attempt in range(1,49):
+              bad=[]
+              for file,digest in expected.items():
+                  url='https://globalgrid2050.com/'+file+'?verify969='+os.getenv('GITHUB_SHA','local')[:8]+'-'+str(attempt)
+                  try:
+                      with urlopen(Request(url,headers={'Cache-Control':'no-cache','Accept-Encoding':'identity','User-Agent':'Ventus-v969-release-verifier'}),timeout=20) as response:
+                          if response.status!=200 or hashlib.sha256(response.read(4000000)).hexdigest()!=digest:
+                              bad.append(file+' public byte mismatch')
+                  except Exception as exc:bad.append(file+': '+str(exc))
+              if not bad:
+                  print('PASS 9/9 public SHA256 and HTTP200; V9.69 homepage and V9.68 original A4 rollback',flush=True)
+                  break
+              print(f'Attempt {attempt}/48: {len(bad)} issues: {bad[:3]}',flush=True)
+              if attempt==48:raise SystemExit('Failed public publication: '+repr(bad))
+              time.sleep(10)
+          PY

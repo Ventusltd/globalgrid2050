@@ -25,7 +25,7 @@ jobs:
           root=Path('.')
           cfg=json.loads((root/'homepage-shell/data/homepage.json').read_text())
           p=next(e for e in cfg['entities'] if e['id']=='pipeline-news')
-          assert p['operative_release_id']=='202611221705' and len(p['releases'])==35
+          assert p['operative_release_id'] in ('202611221705','202611221850') and len(p['releases']) in (35,36)
           assert p['releases'][-1]['id']=='202611221705'
           assert p['releases'][-2]['id']=='202611221625'
           assert cfg['promotions'][-1]['to_release_id']=='202611221705'

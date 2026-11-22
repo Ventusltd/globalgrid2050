@@ -366,7 +366,7 @@
       "subtitle": "Follow renewable energy projects",
       "description": "Explore the project register and follow the renewable energy pipeline.",
       "launch_label": "Open Pipeline News",
-      "operative_release_id": "202611221705",
+      "operative_release_id": "202611221850",
       "releases": [
         {
           "id": "202609082224",
@@ -647,6 +647,14 @@
           "published_at": null,
           "status": "available",
           "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/704318e6037985044ee47b1d86d314dd77797826/uk_renewables_pipeline/202611221705"
+        },
+        {
+          "id": "202611221850",
+          "label": "V9.69 - Full-height REPD with MAP after Project",
+          "url": "https://globalgrid2050.com/uk_renewables_pipeline/202611221850/",
+          "published_at": null,
+          "status": "available",
+          "source_ref": "https://github.com/Ventusltd/globalgrid2050/tree/cd5704c2443606b484d57e7667c05d8fd409a9e8/uk_renewables_pipeline/202611221850"
         }
       ]
     },
@@ -1470,6 +1478,13 @@
       "to_release_id": "202611221705",
       "reason": "Owner requested publishing V9.68 as operative after Chromium/WebKit landscape, sorting, MAP and A4 browser tests passed. Focused landscape-only cyan/black full-screen REPD table, 10 visible columns (Technology, GlobalGrid reference and Machine Read Notes hidden only expanded), 100 rows, native header sorting and original MAP/A4. Previous V9.67 and all A4/PDF models retained as rollback. Public served-byte verification required.",
       "promoted_at": "2026-11-22T17:27:13.268Z"
+    },
+    {
+      "entity_id": "pipeline-news",
+      "from_release_id": "202611221705",
+      "to_release_id": "202611221850",
+      "reason": "Owner requested MAP alone in second expanded column, A4 unchanged in the original far-right column, and expanded view in portrait and landscape with no title header. Chromium and WebKit tests passed for both orientations, click-through MAP and A4, sorting and normal restoration. All previous releases and A4/PDF model unchanged.",
+      "promoted_at": "2026-11-22T17:44:49.915Z"
     }
   ]
 }

@@ -28,8 +28,8 @@ jobs:
           a4='uk_renewables_pipeline/202611220220/'
           catalog=json.loads((root/'homepage-shell/data/homepage.json').read_text(encoding='utf-8'))
           e=next(v for v in catalog['entities'] if v['id']=='pipeline-news')
-          assert e['operative_release_id'] in ('202611221500','202611221625','202611221705'),'V9.66 archival rollback missing'
-          assert len(e['releases']) in (33,34,35), 'Missing release history'
+          assert e['operative_release_id'] in ('202611221500','202611221625','202611221705','202611221850'),'V9.66 archival rollback missing'
+          assert len(e['releases']) in (33,34,35,36), 'Missing release history'
           assert all(any(v['id']==rid and v['status']=='available' for v in e['releases'])
                      for rid in ['202611221500','202611221330','202611221243','202611220220','202611212344']), 'Rollback release missing'
           source='https://github.com/Ventusltd/globalgrid2050/tree/9d88781aa89ccfbd6ad4ade4fecf6cf4889d7b1b/uk_renewables_pipeline/202611221500'

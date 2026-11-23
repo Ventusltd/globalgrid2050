@@ -61,7 +61,7 @@ assert(hasAll(index, indexes), "MISSING NATIVE V9.73 TECHNOLOGY/REPORT/MAP-A4 DO
 assert(hasAll(liveReports, ['import { state }', 'buildRepdCapacityReport',
   'atlasUrlV9_5_1', 'state.filtered', 'state.all']), "MISSING NATIVE REPORT DATA/MAP CONTRACT");
 assert(hasAll(projectControls, ['state.filtered = filtered', 'updateGaugesV9_2(filtered)',
-  'pipeline-projects-rendered', 'data.technology']), "MISSING NATIVE FILTER/GAUGE/RENDER HOOK");
+  'pipeline-projects-rendered', 'dataset.technology']), "MISSING NATIVE FILTER/GAUGE/RENDER HOOK");
 assert(hasAll(facets, ['buildCockpitReport', 'cockpitSelection', 'sourceProjects',
   'interconnector', 'SOURCE_UNAVAILABLE', 'verifyInventory']),
   "MISSING ISOLATED CROSS-FILTER EXPORT OR SOURCE SEPARATION");

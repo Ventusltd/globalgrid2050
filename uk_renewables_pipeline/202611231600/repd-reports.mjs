@@ -1,13 +1,11 @@
-// PipelineNews V9.74 candidate: same REPD cockpit with source-faithful cross-filters; original visual styles untouched.
+// PipelineNews V9.75: reports use the existing filtered REPD table and gauges.
 import { state } from "./scripts/core/state.js";
 import { atlasUrlV9_5_1 } from "./scripts/plugins/projects-v9-8.js";
 import { buildRepdCapacityReport } from "./repd-reports-model.mjs";
-import { buildCockpitReport, SOURCE_UNAVAILABLE } from "../../automation/repd_reporting/v2/cockpit-facets.mjs";
 import { buildAtlasInterconnectorLinkV9_8 } from "./scripts/core/atlas-interconnector-link-v9-8.js";
 
 const panel = document.getElementById("repdReportsPanel");
 const reportButtons = [...document.querySelectorAll("[data-repd-report]")];
-const reportScope = document.getElementById("repdReportScope");
 const reportBody = document.getElementById("repdReportsBody");
 const reportSummary = document.getElementById("repdReportsSummary");
 const csvButton = document.getElementById("repdReportCsv");
@@ -24,70 +22,14 @@ function el(tag, className, value) {
   if (value !== undefined) result.textContent = String(value);
   return result;
 }
-// All facets live inside the existing REPD report tablet, never a second dashboard.
-function makeFacet(key, title) {
-  const label = document.createElement("label");
-  label.className = "repd-cockpit-facet";
-  const span = document.createElement("span");
-  span.textContent = title;
-  const select = document.createElement("select");
-  select.id = "repdFacet" + key[0].toUpperCase() + key.slice(1);
-  select.setAttribute("aria-label", "Cockpit report " + title);
-  label.append(span, select);
-  if (csvButton?.parentElement) csvButton.parentElement.insertBefore(label, csvButton);
-  select.addEventListener("change", render);
-  return select;
-}
-const statusFacet = panel ? makeFacet("status", "STATUS") : null;
-const operatorFacet = panel ? makeFacet("operator", "OPERATOR") : null;
-const regionFacet = panel ? makeFacet("region", "REGION") : null;
-if (reportScope?.options?.[0]) reportScope.options[0].textContent = "COCKPIT TECHNOLOGY + STATUS";
-if (reportScope?.options?.[1]) reportScope.options[1].textContent = "CURRENT TABLE FILTERS + COCKPIT";
-function selections(select, values, initialLabel, initialValue = "All") {
-  if (!select) return;
-  const previous = select.value || initialValue;
-  const options = [new Option(initialLabel, initialValue)];
-  for (const value of values) {
-    if (value === initialValue) continue;
-    options.push(new Option(value, value));
-  }
-  if (![...options].some(option => option.value === previous)) options.push(new Option(previous, previous));
-  select.replaceChildren(...options);
-  select.value = previous;
-}
 function nativeTechnology() {
-  const active = document.querySelector('#tech [data-technology][aria-pressed="true"]');
-  return active?.dataset.technology || new URL(window.location.href).searchParams.get("technology") || "all";
-}
-function nativeStatus() {
-  const active = document.querySelector('#status [data-official-status][aria-pressed="true"]');
-  return active?.dataset.officialStatus || "All";
+  return document.querySelector('#tech [data-technology][aria-pressed="true"]')?.dataset.technology||"all";
 }
 function chosenFilter() {
-  return {
-    technology: nativeTechnology(),
-    status: statusFacet?.value === "FOLLOW" || !statusFacet?.value ? nativeStatus() : statusFacet.value,
-    operator: operatorFacet?.value || "All",
-    region: regionFacet?.value || "All",
-  };
-}
-function refreshChoices(report) {
-  const unique = (items) => [...new Set(items)].sort((a,b) => a.localeCompare(b,"en-GB"));
-  const statusValues = unique([...state.all, ...(Array.isArray(state.interconnectors) ? state.interconnectors : [])]
-    .map(row => String(row.status || "Not reported").trim() || "Not reported"));
-  const previous = statusFacet?.value || "FOLLOW";
-  selections(statusFacet, ["All", ...statusValues], "FOLLOW TABLE STATUS", "FOLLOW");
-  if (statusFacet) {
-    if (![...statusFacet.options].some(option => option.value === "All")) {
-      statusFacet.add(new Option("ALL OFFICIAL STATUSES", "All"));
-    }
-    const all = [...statusFacet.options].find(option => option.value === "All");
-    if (all) all.textContent = "ALL OFFICIAL STATUSES";
-    statusFacet.value = previous;
-  }
-  const values = (key) => report.facets?.[key]?.map(item => item.value) || [];
-  selections(operatorFacet, values("operator"), "ALL OPERATORS");
-  selections(regionFacet, values("region"), "ALL REGIONS");
+  return {technology:nativeTechnology(),
+    status:document.getElementById("repdNativeStatus")?.value||"All",
+    operator:document.getElementById("repdNativeOperator")?.value||"All",
+    region:document.getElementById("repdNativeRegion")?.value||"All"};
 }
 function buildInterconnectorCapacityReport(projects, dimension) {
   // Separate, explicitly labelled interconnector inventory; no REPD ID dedupe or mixing.
@@ -234,66 +176,72 @@ function makeGroup(group, maximum, index) {
   return details;
 }
 function sourceRows() {
-  if (!Array.isArray(state.all) || !state.all.length) return null;
-  const filters = chosenFilter();
-  const usesTable = reportScope.value === "filtered";
-  const inRepd = filters.technology !== "interconnector";
-  const selectedRows = usesTable && inRepd ? state.filtered : state.all;
-  if (!Array.isArray(selectedRows)) return null;
-  const interconnectors = usesTable && !inRepd ? state.filtered : state.interconnectors;
-  const snapshot = buildCockpitReport(selectedRows, {
-    dimension:active, filters, interconnectors
-  });
-  lastSnapshot = snapshot;
-  lastSelection = filters;
-  if (snapshot.availability === SOURCE_UNAVAILABLE) {
-    throw new Error(snapshot.message);
+  if(!Array.isArray(state.all)||!state.all.length)return null;
+  lastSelection=chosenFilter();
+  const ic=lastSelection.technology==="interconnector";
+  const rows=state.filtered||[];
+  lastSnapshot={source:ic?"interconnector":"repd",
+    sourceProjects:ic?(state.interconnectors||[]).length:state.all.length,
+    matchingProjects:rows.length};
+  return rows;
+}
+function renderNativeSummary(report) {
+  const wrap=el("div","tablewrap"), table=el("table","repd-native-report-table");
+  wrap.setAttribute("aria-label","Ranked grouping of the original REPD table filters");
+  const head=el("thead"),heading=el("tr");
+  for(const name of ["Group","Projects","Solar MWp","Other MW","Recorded MW/MWp"])
+    heading.append(el("th","",name));
+  head.append(heading);
+  const body=el("tbody");
+  for(const group of report.groups) {
+    const row=el("tr"),name=el("td","site"),action=el("button","btn",group.name);
+    action.type="button";
+    action.title="Apply this exact group to the original REPD table and gauges";
+    action.addEventListener("click",()=>{
+      const id=active==="operator"?"repdNativeOperator":active==="status"?"repdNativeStatus":"repdNativeRegion";
+      const select=document.getElementById(id);
+      if(!select||![...select.options].some(o=>o.value===group.name)) {
+        reportSummary.textContent="No matching source filter for "+group.name;return;
+      }
+      select.value=group.name;
+      select.dispatchEvent(new Event("change",{bubbles:true}));
+      document.getElementById("repdScroll")?.scrollIntoView({block:"nearest"});
+    });
+    name.append(action);row.append(name);
+    for(const [value,css] of [[group.count,""],[group.solarMwp,"mw"],[group.otherMw,"mw"],[group.recordedCapacity,"mw"]])
+      row.append(el("td",css,css?formatCapacity(value):formatCount(value)));
+    body.append(row);
   }
-  // Preserve all original status names, even if the REPD table has only four
-  // fast status buttons. The report's STATUS facet exposes the complete source.
-  refreshChoices(snapshot);
-  return snapshot.rows;
+  table.append(head,body);wrap.append(table);reportBody.append(wrap);
 }
 function render() {
-  if (!active || panel.hidden) return;
+  if(!active||panel.hidden)return;
   reportBody.replaceChildren();
   try {
-    const rows = sourceRows();
-    if (!rows) {
-      lastReport = null;
-      reportSummary.textContent = "Loading the canonical REPD records…";
-      return;
-    }
-    const report = lastSnapshot?.source === "interconnector"
-      ? buildInterconnectorCapacityReport(rows, active)
-      : buildRepdCapacityReport(rows, active);
-    lastReport = report;
-    const scope = lastSnapshot?.source === "interconnector"
-      ? "Separate interconnector inventory · not REPD" : reportScope.value === "filtered"
-      ? "Current REPD table filters + cockpit" : "Cockpit-filtered official REPD register";
-    const techLabel = lastSelection?.technology === "all" ? "ALL REPD TECHNOLOGIES" : String(lastSelection?.technology || "all").replaceAll("_"," ").toUpperCase();
-    const statusLabel = lastSelection?.status === "All" ? "ALL OFFICIAL STATUSES" : String(lastSelection?.status);
-    reportSummary.textContent = titles[active] + " · " + techLabel + " · " + statusLabel + " · " + scope +
-      " · SOURCE " + formatCount(lastSnapshot?.sourceProjects || 0) + " · SELECTED " + formatCount(lastSnapshot?.matchingProjects || 0) + " · " +
-      formatCount(report.total.count) + " projects · " +
-      formatCount(report.groups.length) + " groups · " +
-      capacityDescription(report.total) +
-      (report.total.missingCapacity ? " · " + report.total.missingCapacity + " without a reported capacity" : "");
-    const heading = el("div", "repd-report-row repd-report-columns");
-    for (const name of ["Group", "Recorded MW/MWp", "Solar MWp", "Other MW", "Projects"]) {
-      heading.append(el("span", "", name));
-    }
-    heading.append(el("span", "", ""));
-    reportBody.append(heading);
-    const maximum = report.groups.length ? report.groups[0].recordedCapacity : 0;
-    const fragment = document.createDocumentFragment();
-    for (const [index, group] of report.groups.entries()) fragment.append(makeGroup(group, maximum, index));
-    reportBody.append(fragment);
-    if (!report.groups.length) reportBody.append(el("p", "", "No projects match the chosen technology, status, operator and region."));
-  } catch (error) {
-    lastReport = null;
-    lastSnapshot = null;
-    reportSummary.textContent = "Report validation failed: " + String(error?.message || error);
+    const rows=sourceRows();
+    if(!rows){lastReport=null;reportSummary.textContent="Loading original REPD register…";return;}
+    const ic=lastSnapshot.source==="interconnector";
+    const report=ic?buildInterconnectorCapacityReport(rows,active):buildRepdCapacityReport(rows,active);
+    lastReport=report;
+    const selection=lastSelection;
+    const tech=selection.technology==="all"?"ALL REPD TECHNOLOGIES":selection.technology.replaceAll("_"," ").toUpperCase();
+    reportSummary.textContent=titles[active]+" · "+tech+" · "+selection.status+
+      " · CURRENT REPD TABLE FILTERS · SOURCE "+formatCount(lastSnapshot.sourceProjects)+
+      " · SELECTED "+formatCount(rows.length)+" · "+formatCount(report.groups.length)+
+      " groups · "+capacityDescription(report.total)+
+      (ic?" · Separate interconnector inventory, not REPD":" · Select a group to filter the original table and gauges");
+    if(ic) {
+      const heading=el("div","repd-report-row repd-report-columns");
+      for(const name of ["Group","Recorded MW","Solar MWp","Other MW","Projects"])heading.append(el("span","",name));
+      heading.append(el("span","",""));
+      reportBody.append(heading);
+      const maximum=report.groups.length?report.groups[0].recordedCapacity:0;
+      for(const [index,group] of report.groups.entries())reportBody.append(makeGroup(group,maximum,index));
+    } else renderNativeSummary(report);
+    if(!report.groups.length)reportBody.append(el("p","","No matching projects in the original REPD table."));
+  } catch(error){
+    lastReport=null;lastSnapshot=null;
+    reportSummary.textContent="Report validation failed: "+String(error?.message||error);
   }
 }
 function selectReport(dimension) {
@@ -329,9 +277,8 @@ function downloadCsv() {
   a.remove();
   URL.revokeObjectURL(url);
 }
-if (panel && reportScope && reportSummary && reportBody) {
+if (panel && reportSummary && reportBody) {
   for (const button of reportButtons) button.addEventListener("click", () => selectReport(button.dataset.repdReport));
-  reportScope.addEventListener("change", render);
   closeButton?.addEventListener("click", () => {
     panel.hidden = true;
     active = "";

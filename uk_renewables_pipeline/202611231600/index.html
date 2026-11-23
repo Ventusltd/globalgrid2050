@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GlobalGrid2050 | Pipeline News V9.74 · 202611231400</title>
+<title>GlobalGrid2050 | Pipeline News V9.75 · 202611231600</title>
 <link rel="preconnect" href="https://ventusltd.github.io" crossorigin>
 <link rel="stylesheet" href="styles/v7.css?v=9.8">
 <link rel="stylesheet" href="styles/mobile.css?v=9.8">
@@ -111,6 +111,18 @@
 </div>
 <p class="category-scope">Canonical DESNZ REPD Q3 2026: 7,775 solar, BESS and wind records at ≥1 MW from 14,967 source rows. Use All Tech for this full qualifying register; interconnectors retain their separate identities.</p>
 
+<div class="filters" id="repdNativeFilters" aria-label="REPD source table filters">
+<label for="repdNativeStatus">STATUS <select id="repdNativeStatus" aria-label="Filter official REPD status"><option value="All">ALL OFFICIAL STATUSES</option></select></label>
+<label for="repdNativeOperator">OPERATOR <select id="repdNativeOperator" aria-label="Filter original REPD table by operator"><option value="All">ALL OPERATORS</option></select></label>
+<label for="repdNativeRegion">REGION <select id="repdNativeRegion" aria-label="Filter original REPD table by region"><option value="All">ALL REGIONS</option></select></label>
+</div>
+<div class="filters" id="status">
+<button class="btn active" data-official-status="All" aria-pressed="true">ALL STATUS</button>
+<button class="btn" data-official-status="Operational" aria-pressed="false">OPERATIONAL</button>
+<button class="btn" data-official-status="Under Construction" aria-pressed="false">CONSTRUCTING</button>
+<button class="btn" data-official-status="Awaiting Construction" aria-pressed="false">AWAITING</button>
+<button class="btn" data-official-status="Application Submitted" aria-pressed="false">SUBMITTED</button>
+</div>
 <div class="repd-report-launch" role="group" aria-label="REPD capacity reports">
 <button type="button" data-repd-report="operator" aria-controls="repdReportsPanel" aria-pressed="false" aria-expanded="false">OPERATOR MW</button>
 <button type="button" data-repd-report="status" aria-controls="repdReportsPanel" aria-pressed="false" aria-expanded="false">STATUS MW</button>
@@ -118,15 +130,12 @@
 </div>
 <section id="repdReportsPanel" aria-label="REPD capacity intelligence reports" hidden>
 <div class="repd-report-head">
-<label for="repdReportScope">REPORT DATA <select id="repdReportScope" aria-label="Report project scope">
-<option value="all">ALL OFFICIAL REPD STATUSES</option>
-<option value="filtered">CURRENT TABLE FILTERS</option>
-</select></label>
+<span class="repd-report-context">CURRENT REPD TABLE FILTERS</span>
 <button type="button" id="repdReportCsv">EXPORT REPORT CSV</button>
 <button type="button" id="repdReportsClose" class="repd-report-close">CLOSE</button>
 </div>
 <p id="repdReportsSummary" role="status" aria-live="polite"></p>
-<p class="category-scope">Source-reported REPD capacity: solar MWp is shown separately from other MW. Combined recorded MW/MWp is a database aggregation, not commissioned, available or future generation. Operator entities are not inferred. Refused, withdrawn and missing statuses are retained. Offshore is a source region label.</p>
+<p class="category-scope">Source-reported REPD capacity: solar MWp is shown separately from other MW. Combined recorded MW/MWp is a database aggregation, not commissioned, available or future generation. Conservative operator spelling variants are grouped for reporting only; source labels remain unchanged. Refused, withdrawn and missing statuses are retained. Offshore is a source region label.</p>
 <div id="repdReportsBody" aria-label="Capacity group detail"></div>
 </section>
 <div class="filters compact-mw-filter" aria-label="Capacity range">
@@ -167,13 +176,7 @@
 <button class="btn" data-technology="wind_offshore" aria-pressed="false">OFFSHORE</button>
 <button class="btn" data-technology="interconnector" aria-pressed="false">INTERCONNECTORS</button>
 </div>
-<div class="filters" id="status">
-<button class="btn active" data-official-status="All" aria-pressed="true">ALL STATUS</button>
-<button class="btn" data-official-status="Operational" aria-pressed="false">OPERATIONAL</button>
-<button class="btn" data-official-status="Under Construction" aria-pressed="false">CONSTRUCTING</button>
-<button class="btn" data-official-status="Awaiting Construction" aria-pressed="false">AWAITING</button>
-<button class="btn" data-official-status="Application Submitted" aria-pressed="false">SUBMITTED</button>
-</div>
+
 
 
 <div class="filters">
@@ -203,7 +206,7 @@
 </details>
 
 <div class="pn-scan-toolbar" id="pnScanToolbar" aria-label="Fast prospect filters">
-  <label class="pn-scan-status" for="pnScanStatus">Status <select id="pnScanStatus" aria-label="Filter by official project status">
+  <label class="pn-scan-status" for="pnScanStatus" hidden style="display:none" aria-hidden="true">Status <select id="pnScanStatus" aria-label="Filter by official project status">
     <option value="All">All</option>
     <option value="Application Submitted">Submitted</option>
     <option value="Awaiting Construction">Awaiting</option>

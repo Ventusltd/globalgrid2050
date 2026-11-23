@@ -7,6 +7,7 @@ buildAtlasDeepLinkV9_7,
 verifyAtlasReceiverV9_7,
 } from "../core/atlas-receiver-v9-7.js";
 import { state } from "../core/state.js";
+import { canonicalOperator } from "../../../../automation/repd_reporting/v3/operator-aliases.mjs";
 import {
 buildProjectSearchTextV9_2,
 projectMatchesV9_2,
@@ -63,6 +64,7 @@ let searchIndex = new Map();
 let technology = "all";
 let status = "All";
 let county = "All";
+let operatorFilter = "All", regionFilter = "All";
 let query = "";
 let sortMode = "capacity_desc";
 let controlsBound = false;
@@ -279,10 +281,12 @@ element.dataset.totalCount = String(universe.length);
 }
 function syncFilterUrl() {
 const url = new URL(window.location.href);
-for (const parameter of ["technology", "status", "county", "q", "sort", "submitted_year", "updated_year", "operational_year", "min_mw", "max_mw"]) url.searchParams.delete(parameter);
+for (const parameter of ["technology", "status", "county", "operator", "region", "q", "sort", "submitted_year", "updated_year", "operational_year", "min_mw", "max_mw"]) url.searchParams.delete(parameter);
 if (technology !== "all" || submittedYear !== "All" || updatedYear !== "All" || operationalYear !== "All" || sortMode !== "capacity_desc") url.searchParams.set("technology", technology);
 if (status !== "All") url.searchParams.set("status", status);
 if (county !== "All") url.searchParams.set("county", county);
+if (operatorFilter !== "All") url.searchParams.set("operator", operatorFilter);
+if (regionFilter !== "All") url.searchParams.set("region", regionFilter);
 if (query) url.searchParams.set("q", query);
 if (sortMode !== "capacity_desc") url.searchParams.set("sort", sortMode);
 if(submittedYear!=="All")url.searchParams.set("submitted_year",submittedYear);
@@ -296,10 +300,10 @@ function apply({ syncUrl = true } = {}) {
 const tokens = tokeniseSearchV9_2(query);
 filtered = universeFor().filter((project) => projectMatchesV9_2(project, {
 technology,
-status,
+status: "All",
 county,
 tokens,
-}, searchIndex.get(project.repd_ref)) && matchesYear(project.planning_application_submitted,submittedYear) && matchesYear(project.repd_record_updated,updatedYear) && matchesYear(project.operational,operationalYear) && capacityWithinMW(project.capacity_mw,minMW,maxMW));
+}, searchIndex.get(project.repd_ref)) && (status === "All" || (String(project.status || "").trim() || "Not reported") === status) && (operatorFilter === "All" || canonicalOperator(project.operator) === operatorFilter) && (regionFilter === "All" || (String(project.region || "").trim() || "Not reported") === regionFilter) && matchesYear(project.planning_application_submitted,submittedYear) && matchesYear(project.repd_record_updated,updatedYear) && matchesYear(project.operational,operationalYear) && capacityWithinMW(project.capacity_mw,minMW,maxMW));
 const [column,direction]=sortMode.split("_");
 if(Object.hasOwn(COLUMN_FIELDS,column))filtered.sort((a,b)=>compareRegisterColumns(a,b,column,direction));
 if (sortMode === "updated_desc") filtered.sort((left, right) => compareProjectUpdatesV9_5_1(left, right, "desc"));
@@ -313,6 +317,31 @@ renderTable();
 updateResultSummary();
 updateSortHeader();
 if (syncUrl) syncFilterUrl();
+}
+function populateNativeFilters() {
+  const inventory = [...all, ...interconnectors];
+  const labels = key => [...new Set(inventory.map(row=>String(row[key]||"").trim()||"Not reported"))]
+    .sort((a,b)=>a.localeCompare(b,"en-GB"));
+  const statuses=labels("status");
+  for(const value of statuses) ALLOWED_STATUSES.add(value);
+  for(const [id, values, title] of [
+    ["repdNativeStatus", statuses, "ALL OFFICIAL STATUSES"],
+    ["repdNativeOperator", [...new Set(inventory.map(row=>canonicalOperator(row.operator)))].sort((a,b)=>a.localeCompare(b,"en-GB")), "ALL OPERATORS"],
+    ["repdNativeRegion", labels("region"), "ALL REGIONS"]
+  ]) {
+    const select=document.getElementById(id);
+    select.replaceChildren(new Option(title,"All"),...values.filter(v=>v!=="All").map(v=>new Option(v,v)));
+  }
+  const scan=document.getElementById("pnScanStatus");
+  if(scan) for(const value of statuses) {
+    if(![...scan.options].some(o=>o.value===value)) scan.add(new Option(value,value));
+  }
+}
+function syncNativeFilters() {
+  for(const [id,value] of [["repdNativeStatus",status],["repdNativeOperator",operatorFilter],["repdNativeRegion",regionFilter],["pnScanStatus",status]]) {
+    const select=document.getElementById(id);
+    if(select && [...select.options].some(o=>o.value===value)) select.value=value;
+  }
 }
 function populateCounties() {
 const select = document.getElementById("county");
@@ -335,18 +364,23 @@ if(minMW!==null&&maxMW!==null&&minMW>maxMW){minMW=null;maxMW=null;}syncMWControl
 const requestedTechnology = parameters.get("technology") || "all";
 const requestedStatus = parameters.get("status") || "All";
 const requestedCounty = parameters.get("county") || "All";
+const requestedOperator = parameters.get("operator") || "All";
+const requestedRegion = parameters.get("region") || "All";
 const requestedSort = parameters.get("sort") || "capacity_desc";
 technology = ALLOWED_TECHNOLOGIES.has(requestedTechnology) ? requestedTechnology : "all";
 status = ALLOWED_STATUSES.has(requestedStatus) ? requestedStatus : "All";
 county = [...document.getElementById("county").options].some((option) => option.value === requestedCounty)
 ? requestedCounty
 : "All";
+operatorFilter = [...document.getElementById("repdNativeOperator").options].some(o=>o.value===requestedOperator) ? requestedOperator : "All";
+regionFilter = [...document.getElementById("repdNativeRegion").options].some(o=>o.value===requestedRegion) ? requestedRegion : "All";
 query = parameters.get("q") || "";
 sortMode = ALLOWED_SORTS.has(requestedSort) ? requestedSort : "capacity_desc";
 for(const [param,id] of [["submitted_year","submittedYear"],["updated_year","updatedYear"],["operational_year","operationalYear"]]){const v=parameters.get(param)||"All";const valid=[...document.querySelector('[data-year-filter="'+id+'"]').options].some(o=>o.value===v);if(id==="submittedYear")submittedYear=valid?v:"All";else if(id==="updatedYear")updatedYear=valid?v:"All";else operationalYear=valid?v:"All";}
 syncYearControls();
 setButtonState("#tech", "technology", technology);
 setButtonState("#status", "officialStatus", status);
+syncNativeFilters();
 document.getElementById("county").value = county;
 document.getElementById("search").value = query;
 document.getElementById("sortProjects").value = sortMode;
@@ -382,12 +416,14 @@ event.preventDefault();
 technology = "all";
 status = "All";
 county = "All";
+operatorFilter = "All"; regionFilter = "All";
 submittedYear = updatedYear = operationalYear = "All";syncYearControls();
 minMW=maxMW=null;syncMWControls();document.getElementById("mwRangeError").textContent="";
 query = "";
 sortMode = "capacity_desc";
 setButtonState("#tech", "technology", technology);
 setButtonState("#status", "officialStatus", status);
+syncNativeFilters();
 document.getElementById("county").value = county;
 document.getElementById("search").value = "";
 document.getElementById("sortProjects").value = sortMode;
@@ -449,6 +485,7 @@ state.filtered = filtered;
 state.canonicalModel = model;
 setGaugeUniverseV9_2(all);
 populateCounties();
+populateNativeFilters();
 populateDateYears();
 hydrateFiltersFromUrl();
 apply({ syncUrl: false });
@@ -486,9 +523,13 @@ document.querySelectorAll("#status .btn").forEach((button) => {
 button.onclick = () => {
 status = button.dataset.officialStatus;
 setButtonState("#status", "officialStatus", status);
+syncNativeFilters();
 apply();
 };
 });
+document.getElementById("repdNativeStatus").onchange = event => { status=event.target.value;setButtonState("#status","officialStatus",status);syncNativeFilters();apply(); };
+document.getElementById("repdNativeOperator").onchange = event => { operatorFilter=event.target.value;apply(); };
+document.getElementById("repdNativeRegion").onchange = event => { regionFilter=event.target.value;apply(); };
 document.getElementById("county").onchange = (event) => { county = event.target.value; apply(); };
 document.getElementById("sortProjects").onchange = (event) => { sortMode = event.target.value; apply(); };
 document.getElementById("sortUpdated").onclick = () => {

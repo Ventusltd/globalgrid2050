@@ -24,10 +24,13 @@
     const selected=[...document.querySelectorAll('#status [data-official-status]')]
       .find(button=>button.dataset.officialStatus===statusSelect.value);
     if(selected)selected.click();
+    else { const native=document.getElementById("repdNativeStatus"); if(native) {native.value=statusSelect.value;native.dispatchEvent(new Event("change",{bubbles:true}));} }
   });
   const sync=()=>{
     const active=document.querySelector('#status [data-official-status][aria-pressed="true"]');
-    if(active&&statusSelect.value!==active.dataset.officialStatus)statusSelect.value=active.dataset.officialStatus;
+    const native=document.getElementById("repdNativeStatus");
+    const current=native?.value || active?.dataset.officialStatus || "All";
+    if(statusSelect.value!==current)statusSelect.value=current;
     const count=[...years].filter(select=>select.value&&select.value!=='All').length;
     dateCount.textContent=count?String(count):'';
   };

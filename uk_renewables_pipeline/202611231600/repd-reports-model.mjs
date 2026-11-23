@@ -1,4 +1,5 @@
 // PipelineNews V9.73: pure, source-fidelity REPD capacity reporting.
+import { canonicalOperator } from "../../automation/repd_reporting/v3/operator-aliases.mjs";
 export const REPORT_DIMENSIONS = Object.freeze(["operator", "status", "region"]);
 export const NOT_REPORTED = "Not reported";
 
@@ -32,7 +33,7 @@ export function buildRepdCapacityReport(projects, dimension) {
     if (!ref) throw new Error("Missing REPD identity");
     if (seen.has(ref)) throw new Error("Duplicate REPD identity: " + ref);
     seen.add(ref);
-    const name = label(project[dimension]);
+    const name = dimension === "operator" ? canonicalOperator(project.operator) : label(project[dimension]);
     let group = grouped.get(name);
     if (!group) {
       group = { name, ...emptySummary(), projects: [], statuses: new Map() };

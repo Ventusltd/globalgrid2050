@@ -73,7 +73,8 @@ function chosenFilter() {
 }
 function refreshChoices(report) {
   const unique = (items) => [...new Set(items)].sort((a,b) => a.localeCompare(b,"en-GB"));
-  const statusValues = unique(state.all.map(row => String(row.status || "Not reported").trim() || "Not reported"));
+  const statusValues = unique([...state.all, ...(Array.isArray(state.interconnectors) ? state.interconnectors : [])]
+    .map(row => String(row.status || "Not reported").trim() || "Not reported"));
   const previous = statusFacet?.value || "FOLLOW";
   selections(statusFacet, ["All", ...statusValues], "FOLLOW TABLE STATUS", "FOLLOW");
   if (statusFacet) {
@@ -172,7 +173,7 @@ function projectRow(project) {
   row.append(link);
   row.append(el("span", "", project.technology === "interconnector" ? "INTERCONNECTOR " + (project.bmrs_code || project.gg_project_id || "") : "REPD " + project.repd_ref));
   row.append(el("span", "", String(project.status || "Not reported")));
-  row.append(el("span", "", formatCapacity(project.capacity_mw) +
+  row.append(el("span", "", (typeof project.capacity_mw === "number" && Number.isFinite(project.capacity_mw) ? formatCapacity(project.capacity_mw) : "Not reported") +
     (project.technology === "solar" ? " MWp" : " MW")));
   const mapHref = projectMapLink(project);
   if (mapHref) {
@@ -208,10 +209,10 @@ function projectDetails(group, destination) {
   add();
   destination.append(more);
 }
-function makeGroup(group, maximum) {
+function makeGroup(group, maximum, index) {
   const details = el("details", "repd-report-group");
   const heading = el("summary", "repd-report-row");
-  heading.append(el("span", "repd-report-name", (active === "operator" ? "#" + String(lastReport?.groups?.indexOf(group) + 1 || 1) + "  " : "") + group.name));
+  heading.append(el("span", "repd-report-name", (active === "operator" ? "#" + String(index + 1) + "  " : "") + group.name));
   heading.append(el("span", "", formatCapacity(group.recordedCapacity)));
   heading.append(el("span", "", formatCapacity(group.solarMwp)));
   heading.append(el("span", "", formatCapacity(group.otherMw)));
@@ -255,19 +256,21 @@ function sourceRows() {
 }
 function render() {
   if (!active || panel.hidden) return;
-  const rows = sourceRows();
   reportBody.replaceChildren();
-  if (!rows) {
-    lastReport = null;
-    reportSummary.textContent = "Loading the canonical REPD records…";
-    return;
-  }
   try {
+    const rows = sourceRows();
+    if (!rows) {
+      lastReport = null;
+      reportSummary.textContent = "Loading the canonical REPD records…";
+      return;
+    }
     const report = lastSnapshot?.source === "interconnector"
       ? buildInterconnectorCapacityReport(rows, active)
       : buildRepdCapacityReport(rows, active);
     lastReport = report;
-    const scope = reportScope.value === "filtered" ? "Current REPD table filters + cockpit" : "Cockpit-filtered official REPD register";
+    const scope = lastSnapshot?.source === "interconnector"
+      ? "Separate interconnector inventory · not REPD" : reportScope.value === "filtered"
+      ? "Current REPD table filters + cockpit" : "Cockpit-filtered official REPD register";
     const techLabel = lastSelection?.technology === "all" ? "ALL REPD TECHNOLOGIES" : String(lastSelection?.technology || "all").replaceAll("_"," ").toUpperCase();
     const statusLabel = lastSelection?.status === "All" ? "ALL OFFICIAL STATUSES" : String(lastSelection?.status);
     reportSummary.textContent = titles[active] + " · " + techLabel + " · " + statusLabel + " · " + scope +
@@ -284,9 +287,9 @@ function render() {
     reportBody.append(heading);
     const maximum = report.groups.length ? report.groups[0].recordedCapacity : 0;
     const fragment = document.createDocumentFragment();
-    for (const group of report.groups) fragment.append(makeGroup(group, maximum));
+    for (const [index, group] of report.groups.entries()) fragment.append(makeGroup(group, maximum, index));
     reportBody.append(fragment);
-    if (!report.groups.length) reportBody.append(el("p", "", "No REPD projects match the chosen scope."));
+    if (!report.groups.length) reportBody.append(el("p", "", "No projects match the chosen technology, status, operator and region."));
   } catch (error) {
     lastReport = null;
     lastSnapshot = null;
@@ -310,7 +313,7 @@ function selectReport(dimension) {
 }
 function downloadCsv() {
   if (!lastReport) return;
-  const quote = value => '"' + String(value ?? "").replaceAll('"', '""') + '"';
+  const quote = value => { const text = String(value ?? ""); const safe = /^[=+@\-\t\r\n]/.test(text) ? "'" + text : text; return '"' + safe.replaceAll('"', '""') + '"'; };
   const rows = [["dimension", "technology selection", "status selection", "operator filter", "region filter", "group", "projects", "recorded MW/MWp", "solar MWp", "other MW", "missing capacity"]];
   for (const group of lastReport.groups) {
     rows.push([active, lastSelection?.technology, lastSelection?.status, lastSelection?.operator, lastSelection?.region,

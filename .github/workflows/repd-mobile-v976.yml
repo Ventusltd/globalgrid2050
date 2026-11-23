@@ -1,0 +1,74 @@
+name: PipelineNews V9.76 iPhone report regression and immutable source QA
+on:
+  push:
+    branches: [agent/repd-mobile-reports-v976-20261123]
+    paths:
+      - 'automation/repd_mobile/v976/**'
+      - 'uk_renewables_pipeline/202611232245/**'
+      - '.github/workflows/repd-mobile-v976.yml'
+  pull_request:
+    paths:
+      - 'automation/repd_mobile/v976/**'
+      - 'uk_renewables_pipeline/202611232245/**'
+      - '.github/workflows/repd-mobile-v976.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  mobile-v976:
+    runs-on: ubuntu-24.04
+    container:
+      image: mcr.microsoft.com/playwright:v1.62.1-noble
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Python complete frozen-tree comparison and REPD/SCADA protection
+        run: python3 automation/repd_mobile/v976/verify_v976.py
+      - name: Retain actual 7,775-source and conservative operator alias tests
+        run: |
+          node --check uk_renewables_pipeline/202611232245/tests/v976-mobile-browser.mjs
+          node --test automation/repd_reporting/v3/operator-aliases.test.mjs
+          node --test automation/repd_reporting/v3/real_v975.test.mjs
+          cd uk_renewables_pipeline/202611231400
+          node --test tests/v973-repd-reports.mjs
+      - name: Install pinned Chromium and WebKit without changing original source
+        working-directory: uk_renewables_pipeline/202611232245
+        run: |
+          npm ci
+          npx playwright install chromium webkit
+      - name: Start real REPD app and historical live-data fixtures, never mock source
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/repd-v976.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -fsS -o /dev/null http://127.0.0.1:8765/uk_renewables_pipeline/202611232245/; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/repd-v976.log
+          exit 1
+      - name: Mobile failure reproduction fixed on 320, 393, 430, 852, 1280 Chromium and WebKit
+        working-directory: uk_renewables_pipeline/202611232245
+        run: node tests/v976-mobile-browser.mjs
+      - name: Original V9.75 desktop/mobile dataset and filter/browser acceptance unchanged
+        working-directory: uk_renewables_pipeline/202611231600
+        run: node tests/v975-native-browser.mjs
+      - name: Re-run 16 historical MAP A4 PDF VICINITY and expanded-view compatibility cases
+        working-directory: uk_renewables_pipeline/202611232245
+        run: |
+          sed 's#202611222222#202611232245#g' tests/v972-vicinity-a4-pdf.mjs > tests/.v976-vicinity-a4-pdf.mjs
+          node tests/.v976-vicinity-a4-pdf.mjs
+          rm tests/.v976-vicinity-a4-pdf.mjs
+          sed 's#202611221930#202611232245#g' tests/repd-expanded.mjs > tests/.v976-expanded.mjs
+          node tests/.v976-expanded.mjs
+          rm tests/.v976-expanded.mjs
+          sed 's#202611221930#202611232245#g' tests/map-navigation-v970.mjs > tests/.v976-map-navigation.mjs
+          node tests/.v976-map-navigation.mjs
+          rm tests/.v976-map-navigation.mjs
+      - name: Clean npm and reconfirm no source or palette truncation
+        run: |
+          rm -rf uk_renewables_pipeline/202611232245/node_modules
+          python3 automation/repd_mobile/v976/verify_v976.py

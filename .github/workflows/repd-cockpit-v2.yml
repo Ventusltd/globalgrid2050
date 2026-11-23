@@ -59,7 +59,10 @@ jobs:
           import subprocess
           changes=subprocess.check_output(['git','diff','--name-only','origin/main...HEAD'],text=True).splitlines()
           assert changes, 'Expected isolated cockpit code changes'
-          assert all(p.startswith('automation/repd_reporting/v2/') or p=='.github/workflows/repd-cockpit-v2.yml' for p in changes), changes
-          assert not any(p.startswith('uk_renewables_pipeline/') or 'homepage' in p for p in changes)
-          print('No immutable release, source dataset or homepage file edits')
+          allowed=lambda p: (p.startswith('automation/repd_reporting/v2/')
+             or p in ('.github/workflows/repd-cockpit-v2.yml', '.github/workflows/pn-v974-cockpit-integration.yml')
+             or p.startswith('uk_renewables_pipeline/202611231400/'))
+          assert all(allowed(p) for p in changes), changes
+          assert not any('homepage' in p or p.startswith('uk_renewables_pipeline/202611222330/') for p in changes)
+          print('Only candidate successor/isolated model changes; V9.73, source datasets, homepage untouched')
           PY

@@ -220,7 +220,7 @@ def main():
     original={str(p.relative_to(OLD)):p.read_bytes() for p in OLD.rglob("*") if p.is_file()}
     staged={str(p.relative_to(NEW)):p.read_bytes() for p in NEW.rglob("*") if p.is_file()}
     if (NEW/"README.md").read_text().startswith("# PipelineNews V9.75"):
-        assert set(original)==set(staged), "Already-built successor must retain every inherited file"
+        assert set(original).issubset(set(staged)) and set(staged)-set(original)=={"tests/v975-native-browser.mjs"}, "Already-built successor lost source files or gained unapproved files"
         assert all(original[p]==staged[p] for p in original if p.startswith(("styles/","data/")) or p in ("map-entry.mjs","report-a4.mjs","report-pdf.mjs","repd-expanded.mjs")), "Immutable source/colour/Atlas changed"
         assert "repdNativeOperator" in (NEW/"index.html").read_text()
         print("V9.75 existing successor: source, CSS, MAP/A4/PDF closure PASS")
@@ -231,6 +231,7 @@ def main():
         ("repd-scan.mjs",scan_patch),("repd-reports-model.mjs",model_patch),
         ("repd-reports.mjs",report_patch)]:
         patch(path,fn)
+    (NEW/"tests/v975-native-browser.mjs").write_text((ROOT/"automation/repd_reporting/v3/browser_v975.mjs").read_text())
     (NEW/"README.md").write_text("""# PipelineNews V9.75 — REPD native filters and ranked reports
 Single source filtered REPD register drives gauges, project table, CSV and reports.
 Native status buttons near gauges; all official statuses, operator, region exposed above.

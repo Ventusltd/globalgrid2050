@@ -54,8 +54,11 @@ jobs:
         working-directory: uk_renewables_pipeline/202611232245
         run: node tests/v976-mobile-browser.mjs
       - name: Original V9.75 desktop/mobile dataset and filter/browser acceptance unchanged
-        working-directory: uk_renewables_pipeline/202611231600
-        run: node tests/v975-native-browser.mjs
+        working-directory: uk_renewables_pipeline/202611232245
+        run: |
+          cp ../202611231600/tests/v975-native-browser.mjs tests/.v975-baseline-browser.mjs
+          node tests/.v975-baseline-browser.mjs
+          rm tests/.v975-baseline-browser.mjs
       - name: Re-run 16 historical MAP A4 PDF VICINITY and expanded-view compatibility cases
         working-directory: uk_renewables_pipeline/202611232245
         run: |

@@ -80,7 +80,7 @@ jobs:
           assert b'OPERATOR MW' in expected[current+'index.html']
           assert b'STATUS MW' in expected[current+'index.html']
           assert b'REGION MW' in expected[current+'index.html']
-          assert b'repdFacetOperator' in expected[current+'repd-reports.mjs']
+          assert b'makeFacet("operator", "OPERATOR")' in expected[current+'repd-reports.mjs'], 'operator facet constructor missing'
           assert b'buildCockpitReport' in expected[current+'repd-reports.mjs']
           assert expected[prev+'styles/v7.css']==expected[current+'styles/v7.css']
           assert expected[prev+'styles/repd-reports.css']==expected[current+'styles/repd-reports.css']

@@ -1,0 +1,104 @@
+name: Verify V9.74 public REPD cockpit, homepage pointer and V9.73 rollback
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'catalogue/homepage-owner.json'
+      - 'uk_renewables_pipeline/202611231400/**'
+      - '.github/workflows/verify-v974-public.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  served:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify exact owner SHA, served bytes, canonical cross-filters and historical rollback
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, os, time
+          from pathlib import Path
+          from urllib.request import urlopen, Request
+          pin=json.loads(Path('catalogue/homepage-owner.json').read_text())
+          assert pin['repository']=='Ventusltd/globalgrid2050-homepage'
+          assert pin['commit']=='156b7eefa4d2703775faba3cc28f9daa0db5bb27'
+          def digest(v): return hashlib.sha256(v).hexdigest()
+          def fetch(url):
+              request=Request(url,headers={'Cache-Control':'no-cache','Accept-Encoding':'identity','User-Agent':'Ventus-V974-public-byte-verifier'})
+              with urlopen(request,timeout=35) as response:
+                  if response.status!=200: raise ValueError('HTTP '+str(response.status))
+                  data=response.read(4_500_000)
+                  if not data: raise ValueError('empty response')
+                  return data
+          source='https://raw.githubusercontent.com/'+pin['repository']+'/'+pin['commit']+'/'
+          owner_html=fetch(source+'index.html')
+          owner_json=fetch(source+'data/homepage.json')
+          assert digest(owner_html)==pin['files']['index.html'], 'owner HTML pin drift'
+          assert digest(owner_json)==pin['files']['data/homepage.json'], 'owner catalogue pin drift'
+          data=json.loads(owner_json)
+          entity=next(x for x in data['entities'] if x['id']=='pipeline-news')
+          assert entity['operative_release_id']=='202611231400'
+          assert [x['id'] for x in entity['releases'][-3:]]==['202611222222','202611222330','202611231400']
+          assert entity['releases'][-1]['url']=='https://globalgrid2050.com/uk_renewables_pipeline/202611231400/'
+          assert entity['releases'][-1]['source_ref']=='https://github.com/Ventusltd/globalgrid2050/tree/a7f49fa4af3c69944cede29f90837f1f7877e8ef/uk_renewables_pipeline/202611231400'
+          assert data['promotions'][-1]['from_release_id']=='202611222330'
+          assert data['promotions'][-1]['to_release_id']=='202611231400'
+          homepage=owner_html.decode('utf-8-sig')
+          for filename in ('versioned-homepage.css','versioned-homepage.js'):
+              old='./assets/'+filename
+              assert homepage.count(old)==1, 'unexpected homepage asset source'
+              homepage=homepage.replace(old,'./homepage-shell/assets/'+filename)
+          old='href="data/homepage.json"'
+          assert homepage.count(old)==1, 'unexpected homepage JSON source'
+          homepage=homepage.replace(old,'href="./homepage-shell/data/homepage.json"')
+          expected={
+              'index.html':(homepage.rstrip()+'\n').encode('utf-8'),
+              'homepage-shell/data/homepage.json':owner_json,
+              'homepage-shell/assets/versioned-homepage.css':fetch(source+'assets/versioned-homepage.css'),
+              'homepage-shell/assets/versioned-homepage.js':fetch(source+'assets/versioned-homepage.js'),
+          }
+          current='uk_renewables_pipeline/202611231400/'
+          prev='uk_renewables_pipeline/202611222330/'
+          rollback='uk_renewables_pipeline/202611222222/'
+          for f in ('index.html','repd-reports.mjs','repd-reports-model.mjs',
+              'styles/v7.css','styles/repd-reports.css','scripts/core/state.js',
+              'scripts/plugins/projects-v9-8.js','map-entry.mjs','report-a4.mjs',
+              'report-model.mjs','report-pdf.mjs','repd-expanded.mjs'):
+              expected[current+f]=Path(current+f).read_bytes()
+          expected['automation/repd_reporting/v2/cockpit-facets.mjs']=Path('automation/repd_reporting/v2/cockpit-facets.mjs').read_bytes()
+          for f in ('index.html','repd-reports.mjs','styles/v7.css','styles/repd-reports.css',
+                    'map-entry.mjs','report-a4.mjs','report-pdf.mjs'):
+              expected[prev+f]=Path(prev+f).read_bytes()
+          for f in ('index.html','report-a4.mjs','report-pdf.mjs'):
+              expected[rollback+f]=Path(rollback+f).read_bytes()
+          assert b'OPERATOR MW' in expected[current+'index.html']
+          assert b'STATUS MW' in expected[current+'index.html']
+          assert b'REGION MW' in expected[current+'index.html']
+          assert b'repdFacetOperator' in expected[current+'repd-reports.mjs']
+          assert b'buildCockpitReport' in expected[current+'repd-reports.mjs']
+          assert expected[prev+'styles/v7.css']==expected[current+'styles/v7.css']
+          assert expected[prev+'styles/repd-reports.css']==expected[current+'styles/repd-reports.css']
+          for f in ('scripts/core/state.js','scripts/plugins/projects-v9-8.js',
+                    'map-entry.mjs','report-a4.mjs','report-model.mjs','report-pdf.mjs','repd-expanded.mjs'):
+              assert expected[current+f]==Path(prev+f).read_bytes(), 'Native regression: '+f
+          for attempt in range(1,49):
+              differences=[]
+              for name,content in expected.items():
+                  url='https://globalgrid2050.com/'+name+'?v974_sha='+os.getenv('GITHUB_SHA','')[:8]+'-'+str(attempt)
+                  try:
+                      actual=fetch(url)
+                      if digest(actual)!=digest(content): differences.append(name+' mismatch')
+                  except Exception as e: differences.append(name+': '+repr(e))
+              if not differences:
+                  print('PASS',len(expected),'exact public HTTPS SHA256 proofs, immutable V9.74, homepage, REPD colours, V9.73/V9.72 rollback',flush=True)
+                  break
+              if attempt==48:raise SystemExit('V9.74 PUBLIC NOT VERIFIED: '+str(differences))
+              print('Attempt',attempt,'/48; not yet served',differences[:5],flush=True)
+              time.sleep(10)
+          receiver=json.loads(fetch('https://ventusltd.github.io/gridatlas/atlas/current.json'))
+          assert receiver.get('live_route')=='/gridatlas/atlas/'
+          assert {'pipeline-vicinity-button','vicinity-focus'}<=set(receiver.get('cartridge_order',[]))
+          print('PASS canonical GridAtlas VICINITY contract; physical Safari remains owner-device check',flush=True)
+          PY

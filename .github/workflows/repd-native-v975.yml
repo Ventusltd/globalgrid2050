@@ -38,7 +38,8 @@ jobs:
           node --check uk_renewables_pipeline/202611231600/repd-reports-model.mjs
           node --check uk_renewables_pipeline/202611231600/repd-scan.mjs
           node --test automation/repd_reporting/v3/operator-aliases.test.mjs
-          cd uk_renewables_pipeline/202611231600
+          node --test automation/repd_reporting/v3/real_v975.test.mjs
+          cd uk_renewables_pipeline/202611231400
           node --test tests/v973-repd-reports.mjs
       - name: Install original pinned Chromium/WebKit test dependencies
         working-directory: uk_renewables_pipeline/202611231600

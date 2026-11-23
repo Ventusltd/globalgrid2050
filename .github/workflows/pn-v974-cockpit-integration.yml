@@ -75,6 +75,11 @@ jobs:
           sed 's#202611221930#202611231400#g' tests/map-navigation-v970.mjs > tests/.v974-map-navigation.mjs
           node tests/.v974-map-navigation.mjs
           rm tests/.v974-map-navigation.mjs
+      - name: Remove ephemeral Playwright dependencies before proving immutable file closure
+        run: |
+          test -f uk_renewables_pipeline/202611231400/COCKPIT-BUILD-RECEIPT.json
+          rm -rf uk_renewables_pipeline/202611231400/node_modules
+          test ! -e uk_renewables_pipeline/202611231400/node_modules
       - name: Verify no CSS, GridAtlas or source data changes in candidate release
         run: |
           python3 - <<'PY'

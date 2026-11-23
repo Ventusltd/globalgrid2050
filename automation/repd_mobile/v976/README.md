@@ -1,0 +1,7 @@
+# V9.76 — mobile REPD capacity report horizontal scrolling
+
+Owner's live iPhone Safari screenshot of V9.75 on 23 November 2026 shows numerical MW values wrapping each digit vertically. This is caused by the existing `#repdPanel .tablewrap table{min-width:0!important;table-layout:fixed}` and `overflow-wrap:anywhere` inherited by the five-column summary. Status action buttons also wrap, leaving SUBMITTED orphaned on a separate row.
+
+V9.76 clones all 345 complete V9.75 source files with identical Git objects. Only HTML version/link/swipe hint are changed, plus one CSS file and browser test. Scoped `@media(max-width:768px)` overrides report table width to 760px inside an independently swipeable `.tablewrap`, forces numerical cells to `white-space:nowrap`, preserves a sticky operator column, makes official status actions one-line horizontally scrollable, and bounds native status/operator/region controls to phone width. No desktop CSS, original SCADA palette, REPD data, gauge/filter logic, MAP/A4/PDF/VICINITY or baseline V9.75 is edited. Grouping aliases are still restricted to explicit source-spelling variants, never inferred ownership.
+
+CI: Python full tree comparison and SHA256, real frozen 7,775 REPD data, 10 actual mobile/desktop Playwright cases (Chromium and WebKit, widths 320/393/430/852/1280), 6 original V9.75 browser cases and historical MAP/A4/PDF/VICINITY/expanded regressions. Do NOT promote homepage until all CI gates and independent public served-byte verification pass.

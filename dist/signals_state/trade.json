@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "trade",
- "generated_at": "2026-11-22T22:37:42Z",
+ "generated_at": "2026-11-23T16:14:45Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -1974,7 +1974,7 @@
    "id": "pv-tech",
    "url": "https://www.pv-tech.org",
    "status": "ok",
-   "requests": 3,
+   "requests": 48,
    "failures": 0,
    "items": 1,
    "error": "",
@@ -1999,11 +1999,11 @@
      "status": "ok",
      "entries": 300,
      "matched": 0,
-     "newest": "2026-11-20"
+     "newest": "2026-11-23"
     }
    ],
-   "searched": 0,
-   "cached": 45,
+   "searched": 45,
+   "cached": 0,
    "skipped": 0,
    "notes": []
   },
@@ -2011,7 +2011,7 @@
    "id": "pv-magazine",
    "url": "https://www.pv-magazine.com",
    "status": "ok",
-   "requests": 48,
+   "requests": 3,
    "failures": 0,
    "items": 9,
    "error": "",
@@ -2036,11 +2036,11 @@
      "status": "ok",
      "entries": 10,
      "matched": 0,
-     "newest": "2026-11-21"
+     "newest": "2026-11-23"
     }
    ],
-   "searched": 45,
-   "cached": 0,
+   "searched": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": []
   },
@@ -2048,7 +2048,7 @@
    "id": "energy-storage-news",
    "url": "https://www.energy-storage.news",
    "status": "ok",
-   "requests": 3,
+   "requests": 48,
    "failures": 0,
    "items": 2,
    "error": "",
@@ -2073,11 +2073,11 @@
      "status": "ok",
      "entries": 300,
      "matched": 0,
-     "newest": "2026-11-20"
+     "newest": "2026-11-23"
     }
    ],
-   "searched": 0,
-   "cached": 45,
+   "searched": 45,
+   "cached": 0,
    "skipped": 0,
    "notes": [
     "robots.txt www.energy-storage.news: HTTP 403 (treated as no rules)"
@@ -2116,12 +2116,12 @@
      "url": "https://www.current-news.co.uk/?s=solar+farm",
      "status": "not search results (0 of 21 links say solar)",
      "content_type": "text/html",
-     "bytes": 514753,
+     "bytes": 513194,
      "results": 21,
      "dated": 1,
      "summaries": 0,
      "relevant": 0,
-     "sample": "China's EV charging network passes 25 million connectors, private charging surges 42.5%"
+     "sample": "Grattan Institute calls for AU$1.1 billion public charging network for Australia's electric trucks"
     },
     {
      "route": "wp_search",
@@ -2148,7 +2148,7 @@
    "id": "renews",
    "url": "https://renews.biz",
    "status": "ok",
-   "requests": 49,
+   "requests": 4,
    "failures": 0,
    "items": 78,
    "error": "",
@@ -2173,11 +2173,11 @@
      "status": "ok",
      "entries": 30,
      "matched": 0,
-     "newest": "2026-11-20"
+     "newest": "2026-11-23"
     }
    ],
-   "searched": 45,
-   "cached": 0,
+   "searched": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": []
   },
@@ -2222,7 +2222,7 @@
      "status": "ok",
      "entries": 20,
      "matched": 0,
-     "newest": "2026-11-20"
+     "newest": "2026-11-23"
     }
    ],
    "searched": 0,
@@ -2234,7 +2234,7 @@
    "id": "construction-enquirer",
    "url": "https://www.constructionenquirer.com",
    "status": "ok",
-   "requests": 48,
+   "requests": 3,
    "failures": 0,
    "items": 0,
    "error": "",
@@ -2259,11 +2259,11 @@
      "status": "ok",
      "entries": 10,
      "matched": 0,
-     "newest": "2026-11-20"
+     "newest": "2026-11-23"
     }
    ],
-   "searched": 45,
-   "cached": 0,
+   "searched": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": []
   },
@@ -2271,7 +2271,7 @@
    "id": "solar-energy-uk",
    "url": "https://solarenergyuk.org",
    "status": "ok",
-   "requests": 47,
+   "requests": 2,
    "failures": 0,
    "items": 0,
    "error": "",
@@ -2297,8 +2297,8 @@
      "error": "refused by robots.txt"
     }
    ],
-   "searched": 45,
-   "cached": 0,
+   "searched": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": []
   }

@@ -1,26 +1,26 @@
 {
  "schema": "project-signals.v2",
- "generated_at": "2026-11-22T22:40:40Z",
- "run_at": "2026-11-22T23:06:50Z",
+ "generated_at": "2026-11-23T16:17:43Z",
+ "run_at": "2026-11-23T16:45:21Z",
  "stale": false,
  "scope": "200 largest Solar Photovoltaics rows, REPD October 2026",
  "recent_days": 90,
  "parts": {
   "official": {
    "status": "ok",
-   "collected_at": "2026-11-22T22:33:26Z",
+   "collected_at": "2026-11-23T16:10:26Z",
    "items": 109,
    "note": ""
   },
   "trade": {
    "status": "ok",
-   "collected_at": "2026-11-22T22:37:42Z",
+   "collected_at": "2026-11-23T16:14:45Z",
    "items": 192,
    "note": ""
   },
   "index": {
    "status": "ok",
-   "collected_at": "2026-11-22T22:40:40Z",
+   "collected_at": "2026-11-23T16:17:43Z",
    "items": 17,
    "note": ""
   },
@@ -32,7 +32,7 @@
   },
   "planning": {
    "status": "ok",
-   "collected_at": "2026-11-22T23:01:44Z",
+   "collected_at": "2026-11-23T16:39:22Z",
    "items": 200,
    "note": ""
   }
@@ -41,20 +41,20 @@
   "projects": 200,
   "headline": {
    "label": "projects with recent candidate news (independent evidence pending)",
-   "value": 11
+   "value": 10
   },
   "by_tier": {
-   "recent_news": 11,
-   "official": 41,
+   "recent_news": 10,
+   "official": 42,
    "archive_only": 114,
    "planning_file_only": 34,
    "nothing": 0
   },
   "possible_only": 65,
-  "with_recent_news": 11,
+  "with_recent_news": 10,
   "with_official": 49,
   "with_archive": 156,
-  "with_possible_recent_news": 3,
+  "with_possible_recent_news": 4,
   "items": {
    "recent_news": 22,
    "official": 120,
@@ -128,7 +128,7 @@
    "id": "pv-tech",
    "url": "https://www.pv-tech.org",
    "status": "ok",
-   "requests": 3,
+   "requests": 48,
    "failures": 0,
    "items": 1,
    "error": ""
@@ -138,7 +138,7 @@
    "id": "pv-magazine",
    "url": "https://www.pv-magazine.com",
    "status": "ok",
-   "requests": 48,
+   "requests": 3,
    "failures": 0,
    "items": 9,
    "error": ""
@@ -148,7 +148,7 @@
    "id": "energy-storage-news",
    "url": "https://www.energy-storage.news",
    "status": "ok",
-   "requests": 3,
+   "requests": 48,
    "failures": 0,
    "items": 2,
    "error": ""
@@ -168,7 +168,7 @@
    "id": "renews",
    "url": "https://renews.biz",
    "status": "ok",
-   "requests": 49,
+   "requests": 4,
    "failures": 0,
    "items": 78,
    "error": ""
@@ -188,7 +188,7 @@
    "id": "construction-enquirer",
    "url": "https://www.constructionenquirer.com",
    "status": "ok",
-   "requests": 48,
+   "requests": 3,
    "failures": 0,
    "items": 0,
    "error": ""
@@ -198,7 +198,7 @@
    "id": "solar-energy-uk",
    "url": "https://solarenergyuk.org",
    "status": "ok",
-   "requests": 47,
+   "requests": 2,
    "failures": 0,
    "items": 0,
    "error": ""
@@ -228,10 +228,10 @@
    "id": "gdelt-doc",
    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
    "status": "partial",
-   "requests": 52,
-   "failures": 42,
-   "items": 9,
-   "error": "time budget for GDELT reached; the rest are asked on later runs; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho; HTTP 0"
+   "requests": 49,
+   "failures": 40,
+   "items": 7,
+   "error": "time budget for GDELT reached; the rest are asked on later runs; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   }
  ],
  "projects": {
@@ -2149,10 +2149,10 @@
    "recent_news": [],
    "official": [
     {
-     "title": "Rosefield Solar Farm: examination closed (stage: Recommendation)",
+     "title": "Rosefield Solar Farm: recommendation (stage: Decision)",
      "link": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN010158",
      "publisher": "Planning Inspectorate",
-     "date": "2026-08-24",
+     "date": "2026-11-23",
      "year": 2026,
      "tier": "official",
      "event": null,
@@ -2162,7 +2162,7 @@
      "collected_at": "2026-11-15T21:53:55Z",
      "confidence": "confirmed",
      "freshness": "recent",
-     "basis": "Planning Inspectorate project list, reference EN010158; title composed from the list's 'Date Examination closed' and stage"
+     "basis": "Planning Inspectorate project list, reference EN010158; title composed from the list's 'Date of recommendation' and stage"
     }
    ],
    "archive": [
@@ -3349,13 +3349,13 @@
    "site_name": "Beacon Fen Energy Park",
    "alias": "Beacon Fen Energy Park",
    "alias_standing": "confirmed",
-   "tier": "recent_news",
+   "tier": "official",
    "recent_news": [
     {
-     "title": "Government greenlights Low Carbon’s 400MW Beacon Fen solar-plus-storage, first DCO under new energy minister",
-     "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/government-greenlights-low-carbons-400mw-beacon-fen-solar-plus-storage-first-dco-under-new-energy-minister",
-     "publisher": "Solar Power Portal",
-     "date": "2026-08-24",
+     "title": "UK approves 400 MW solar project with 600 MW co-located battery",
+     "link": "https://www.pv-magazine.com/2026/08/25/uk-approves-400-mw-solar-project-with-600-mw-co-located-battery/",
+     "publisher": "pv magazine",
+     "date": "2026-08-25",
      "year": 2026,
      "tier": "recent_news",
      "event": "consent",
@@ -3363,18 +3363,9 @@
      "source": "trade",
      "family": "trade",
      "collected_at": "2026-11-15T21:57:52Z",
-     "confidence": "confirmed",
+     "confidence": "possible",
      "freshness": "recent",
-     "basis": "Solar Power Portal feed archive: alias phrase 'Beacon Fen' in title with developer 'Low Carbon'",
-     "cluster": "13599:consent:2026-08-24",
-     "sources": [
-      {
-       "publisher": "pv magazine",
-       "link": "https://www.pv-magazine.com/2026/08/25/uk-approves-400-mw-solar-project-with-600-mw-co-located-battery/",
-       "date": "2026-08-25",
-       "title": "UK approves 400 MW solar project with 600 MW co-located battery"
-      }
-     ]
+     "basis": "pv magazine search: alias phrase 'Beacon Fen' in the summary with capacity '400MW'; the headline does not name the project"
     }
    ],
    "official": [
@@ -3445,10 +3436,10 @@
    ],
    "archive": [
     {
-     "title": "Low Carbon wins permit for 400MW UK solar farm",
-     "link": "https://www.renews.biz/solar/low-carbon-wins-permit-for-400mw-uk-solar-farm/",
-     "publisher": "reNEWS",
-     "date": "2026-08-21",
+     "title": "Government greenlights Low Carbon’s 400MW Beacon Fen solar-plus-storage, first DCO under new energy minister",
+     "link": "https://www.solarpowerportal.co.uk/utility-scale-solar/government-greenlights-low-carbons-400mw-beacon-fen-solar-plus-storage-first-dco-under-new-energy-minister",
+     "publisher": "Solar Power Portal",
+     "date": "2026-08-24",
      "year": 2026,
      "tier": "archive",
      "event": "consent",
@@ -3456,9 +3447,18 @@
      "source": "trade",
      "family": "trade",
      "collected_at": "2026-11-15T21:57:52Z",
-     "confidence": "possible",
+     "confidence": "confirmed",
      "freshness": "older",
-     "basis": "reNEWS search: alias phrase 'Beacon Fen' in the summary with developer 'Low Carbon'; the headline does not name the project"
+     "basis": "Solar Power Portal feed archive: alias phrase 'Beacon Fen' in title with developer 'Low Carbon'",
+     "cluster": "13599:consent:2026-08-21",
+     "sources": [
+      {
+       "publisher": "reNEWS",
+       "link": "https://www.renews.biz/solar/low-carbon-wins-permit-for-400mw-uk-solar-farm/",
+       "date": "2026-08-21",
+       "title": "Low Carbon wins permit for 400MW UK solar farm"
+      }
+     ]
     },
     {
      "title": "Low Carbon submits NSIP application for Beacon Fen Energy Park",
@@ -12820,7 +12820,7 @@
     "link_type": "search",
     "authority": "Canterbury",
     "reference": "CA/25/00570",
-    "url": "https://www.canterbury.gov.uk/",
+    "url": "https://pa.canterbury.gov.uk/online-applications/search.do?action=simple&searchType=Application",
     "kind": "search_page",
     "verified": false,
     "note": "Search the register for CA/25/00570."

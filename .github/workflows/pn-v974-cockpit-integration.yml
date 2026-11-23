@@ -36,10 +36,10 @@ jobs:
       - name: Compose immutable full V9.74 successor from accepted V9.73
         run: |
           if test -e uk_renewables_pipeline/202611231400; then
-            echo "V9.74 candidate already exists: cannot overwrite immutable bytes" >&2
-            exit 1
+            echo "V9.74 candidate exists; leave its bytes unchanged and run full acceptance"
+          else
+            node automation/repd_reporting/v2/build-v974.mjs
           fi
-          node automation/repd_reporting/v2/build-v974.mjs
           node --check uk_renewables_pipeline/202611231400/repd-reports.mjs
           node --check uk_renewables_pipeline/202611231400/tests/v974-cockpit-browser.mjs
       - name: Verify exact canonical production REPD source and original grouping
@@ -102,13 +102,27 @@ jobs:
               assert a[rel].read_bytes()==b[rel].read_bytes(),rel
           print('PASS inherited',len(a),'files, zero missing, all styling/data/MAP/A4/PDF unchanged')
           PY
-      - name: Commit candidate release to isolated branch ONLY after full gates
-        if: github.event_name == 'push' && github.ref == 'refs/heads/agent/repd-cockpit-crossfilter-20261123'
+      - name: Commit candidate release to reserved branch ONLY after full gates
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/agent/repd-cockpit-crossfilter-20261123') || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'agent/repd-cockpit-crossfilter-20261123')
+        env:
+          EXPECTED_PR_HEAD: ${{ github.event.pull_request.head.sha }}
         run: |
+          branch='agent/repd-cockpit-crossfilter-20261123'
+          expected="${EXPECTED_PR_HEAD:-${GITHUB_SHA}}"
+          git fetch origin "$branch"
+          current="$(git rev-parse FETCH_HEAD)"
+          if test "$current" != "$expected"; then
+            echo "Source branch moved during acceptance; require fresh exact-head CI" >&2
+            exit 1
+          fi
+          git checkout -B "$branch" FETCH_HEAD
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add uk_renewables_pipeline/202611231400/
-          git diff --cached --quiet && { echo "Nothing to commit"; exit 0; }
-          git diff --cached --name-only | grep -v '^uk_renewables_pipeline/202611231400/' && exit 1 || :
-          git commit -m 'Candidate PN V9.74: integrated cross-filtered operator cockpit, fully inherited V9.73'
-          git push origin HEAD:refs/heads/agent/repd-cockpit-crossfilter-20261123
+          if git diff --cached --quiet; then echo 'Candidate already committed with unchanged bytes'; exit 0; fi
+          if git diff --cached --name-only | grep -v '^uk_renewables_pipeline/202611231400/'; then
+            echo 'Refusing to commit outside immutable candidate' >&2
+            exit 1
+          fi
+          git commit -m 'Candidate PN V9.74: integrated operator cockpit, full V9.73 preservation'
+          git push origin HEAD:"refs/heads/$branch"

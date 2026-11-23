@@ -1,4 +1,4 @@
-name: Verify V9.74 public REPD cockpit, homepage pointer and V9.73 rollback
+name: Verify archived V9.74 public REPD and current homepage plus V9.73 rollback
 on:
   push:
     branches: [main]
@@ -27,7 +27,7 @@ jobs:
           from urllib.request import urlopen, Request
           pin=json.loads(Path('catalogue/homepage-owner.json').read_text())
           assert pin['repository']=='Ventusltd/globalgrid2050-homepage'
-          assert pin['commit']=='156b7eefa4d2703775faba3cc28f9daa0db5bb27'
+          assert pin['commit']=='7c760569433df9c484f0db982b06d1baaced3a13'
           def digest(v): return hashlib.sha256(v).hexdigest()
           def fetch(url):
               request=Request(url,headers={'Cache-Control':'no-cache','Accept-Encoding':'identity','User-Agent':'Ventus-V974-public-byte-verifier'})
@@ -43,12 +43,12 @@ jobs:
           assert digest(owner_json)==pin['files']['data/homepage.json'], 'owner catalogue pin drift'
           data=json.loads(owner_json)
           entity=next(x for x in data['entities'] if x['id']=='pipeline-news')
-          assert entity['operative_release_id']=='202611231400'
-          assert [x['id'] for x in entity['releases'][-3:]]==['202611222222','202611222330','202611231400']
-          assert entity['releases'][-1]['url']=='https://globalgrid2050.com/uk_renewables_pipeline/202611231400/'
-          assert entity['releases'][-1]['source_ref']=='https://github.com/Ventusltd/globalgrid2050/tree/a7f49fa4af3c69944cede29f90837f1f7877e8ef/uk_renewables_pipeline/202611231400'
-          assert data['promotions'][-1]['from_release_id']=='202611222330'
-          assert data['promotions'][-1]['to_release_id']=='202611231400'
+          assert entity['operative_release_id']=='202611231600'
+          assert [x['id'] for x in entity['releases'][-3:]]==['202611222330','202611231400','202611231600']
+          assert entity['releases'][-2]['url']=='https://globalgrid2050.com/uk_renewables_pipeline/202611231400/'
+          assert entity['releases'][-2]['source_ref']=='https://github.com/Ventusltd/globalgrid2050/tree/a7f49fa4af3c69944cede29f90837f1f7877e8ef/uk_renewables_pipeline/202611231400'
+          assert data['promotions'][-1]['from_release_id']=='202611231400'
+          assert data['promotions'][-1]['to_release_id']=='202611231600'
           homepage=owner_html.decode('utf-8-sig')
           for filename in ('versioned-homepage.css','versioned-homepage.js'):
               old='./assets/'+filename
@@ -96,7 +96,7 @@ jobs:
                       if digest(actual)!=digest(content): differences.append(name+' mismatch')
                   except Exception as e: differences.append(name+': '+repr(e))
               if not differences:
-                  print('PASS',len(expected),'exact public HTTPS SHA256 proofs, immutable V9.74, homepage, REPD colours, V9.73/V9.72 rollback',flush=True)
+                  print('PASS',len(expected),'exact public HTTPS SHA256 proofs, archived immutable V9.74, current homepage, V9.73/V9.72 rollback',flush=True)
                   break
               if attempt==48:raise SystemExit('V9.74 PUBLIC NOT VERIFIED: '+str(differences))
               print('Attempt',attempt,'/48; not yet served',differences[:5],flush=True)

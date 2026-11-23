@@ -1,0 +1,128 @@
+name: PN V9.74 technology-aware cockpit integration
+on:
+  push:
+    branches:
+      - agent/repd-cockpit-crossfilter-20261123
+    paths:
+      - 'automation/repd_reporting/v2/**'
+      - '.github/workflows/pn-v974-cockpit-integration.yml'
+  pull_request:
+    paths:
+      - 'automation/repd_reporting/v2/**'
+      - 'uk_renewables_pipeline/202611231400/**'
+      - '.github/workflows/pn-v974-cockpit-integration.yml'
+permissions:
+  contents: write
+jobs:
+  source-and-browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Pure JS syntax and cross-filter data contracts
+        run: |
+          node --check automation/repd_reporting/v2/cockpit-facets.mjs
+          node --check automation/repd_reporting/v2/repd-reports-integrated.mjs
+          node --check automation/repd_reporting/v2/build-v974.mjs
+          node --check automation/repd_reporting/v2/tests/v974-cockpit-browser.mjs
+          node --test automation/repd_reporting/v2/tests/cockpit-facets.test.mjs automation/repd_reporting/v2/tests/cockpit-skin.test.mjs
+      - name: Spider/TestCode offline input-closure before any network gate
+        run: node automation/repd_reporting/v2/spider-audit.mjs
+      - name: Compose immutable full V9.74 successor from accepted V9.73
+        run: |
+          if test -e uk_renewables_pipeline/202611231400; then
+            echo "V9.74 candidate exists; leave its bytes unchanged and run full acceptance"
+          else
+            node automation/repd_reporting/v2/build-v974.mjs
+          fi
+          node --check uk_renewables_pipeline/202611231400/repd-reports.mjs
+          node --check uk_renewables_pipeline/202611231400/tests/v974-cockpit-browser.mjs
+      - name: Verify exact canonical production REPD source and original grouping
+        run: |
+          cd uk_renewables_pipeline/202611231400
+          node --test tests/v973-repd-reports.mjs
+      - name: Install browser engines for production 7,775-record UI acceptance
+        working-directory: uk_renewables_pipeline/202611231400
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+      - name: Start local exact candidate server
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/v974-http.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -fsS -o /dev/null http://127.0.0.1:8765/uk_renewables_pipeline/202611231400/; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/v974-http.log
+          exit 1
+      - name: Chromium and WebKit real cockpit solar/BESS/wind operator acceptance
+        working-directory: uk_renewables_pipeline/202611231400
+        run: node tests/v974-cockpit-browser.mjs
+      - name: Inherited A4, PDF, Vicinity and expanded table regression
+        working-directory: uk_renewables_pipeline/202611231400
+        run: |
+          sed 's#202611222222#202611231400#g' tests/v972-vicinity-a4-pdf.mjs > tests/.v974-vicinity-a4-pdf.mjs
+          node tests/.v974-vicinity-a4-pdf.mjs
+          rm tests/.v974-vicinity-a4-pdf.mjs
+          sed 's#202611221930#202611231400#g' tests/repd-expanded.mjs > tests/.v974-expanded.mjs
+          node tests/.v974-expanded.mjs
+          rm tests/.v974-expanded.mjs
+          sed 's#202611221930#202611231400#g' tests/map-navigation-v970.mjs > tests/.v974-map-navigation.mjs
+          node tests/.v974-map-navigation.mjs
+          rm tests/.v974-map-navigation.mjs
+      - name: Remove ephemeral Playwright dependencies before proving immutable file closure
+        run: |
+          test -f uk_renewables_pipeline/202611231400/COCKPIT-BUILD-RECEIPT.json
+          rm -rf uk_renewables_pipeline/202611231400/node_modules
+          test ! -e uk_renewables_pipeline/202611231400/node_modules
+      - name: Verify no CSS, GridAtlas or source data changes in candidate release
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib
+          old=Path('uk_renewables_pipeline/202611222330')
+          new=Path('uk_renewables_pipeline/202611231400')
+          a={str(p.relative_to(old)):p for p in old.rglob('*') if p.is_file()}
+          b={str(p.relative_to(new)):p for p in new.rglob('*') if p.is_file()}
+          changed={rel for rel in a if rel in b and a[rel].read_bytes()!=b[rel].read_bytes()}
+          missing=set(a)-set(b)
+          allowed={'index.html','repd-reports.mjs','README.md','CHANGES.md'}
+          assert not missing,sorted(missing)
+          assert changed==allowed,(changed,allowed)
+          added=set(b)-set(a)
+          assert added=={'tests/v974-cockpit-browser.mjs','COCKPIT-BUILD-RECEIPT.json'},sorted(added)
+          for rel in a:
+            if rel.startswith(('styles/','data/')) or rel in (
+              'map-entry.mjs','report-a4.mjs','report-pdf.mjs','repd-expanded.mjs'):
+              assert a[rel].read_bytes()==b[rel].read_bytes(),rel
+          print('PASS inherited',len(a),'files, zero missing, all styling/data/MAP/A4/PDF unchanged')
+          PY
+      - name: Commit candidate release to reserved branch ONLY after full gates
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/agent/repd-cockpit-crossfilter-20261123') || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'agent/repd-cockpit-crossfilter-20261123')
+        env:
+          EXPECTED_PR_HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          branch='agent/repd-cockpit-crossfilter-20261123'
+          expected="${EXPECTED_PR_HEAD:-${GITHUB_SHA}}"
+          git fetch origin "$branch"
+          current="$(git rev-parse FETCH_HEAD)"
+          if test "$current" != "$expected"; then
+            echo "Source branch moved during acceptance; require fresh exact-head CI" >&2
+            exit 1
+          fi
+          git checkout -B "$branch" FETCH_HEAD
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add uk_renewables_pipeline/202611231400/
+          if git diff --cached --quiet; then echo 'Candidate already committed with unchanged bytes'; exit 0; fi
+          if git diff --cached --name-only | grep -v '^uk_renewables_pipeline/202611231400/'; then
+            echo 'Refusing to commit outside immutable candidate' >&2
+            exit 1
+          fi
+          git commit -m 'Candidate PN V9.74: integrated operator cockpit, full V9.73 preservation'
+          git push origin HEAD:"refs/heads/$branch"

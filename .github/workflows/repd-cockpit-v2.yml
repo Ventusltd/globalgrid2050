@@ -1,0 +1,70 @@
+name: REPD cockpit v2 Spider offline gate
+on:
+  push:
+    branches:
+      - agent/repd-cockpit-crossfilter-20261123
+    paths:
+      - 'automation/repd_reporting/v2/**'
+      - '.github/workflows/repd-cockpit-v2.yml'
+  pull_request:
+    paths:
+      - 'automation/repd_reporting/v2/**'
+      - '.github/workflows/repd-cockpit-v2.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - name: Checkout exact candidate with inherited published V9.73 bytes
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax all standalone code and tests
+        run: |
+          node --check automation/repd_reporting/v2/cockpit-facets.mjs
+          node --check automation/repd_reporting/v2/cockpit-skin.mjs
+          node --check automation/repd_reporting/v2/spider-audit.mjs
+          node --check automation/repd_reporting/v2/tests/cockpit-facets.test.mjs
+          node --check automation/repd_reporting/v2/tests/cockpit-skin.test.mjs
+      - name: Test technology x status x region x operator and exact REPD skin
+        run: node --test automation/repd_reporting/v2/tests/cockpit-facets.test.mjs automation/repd_reporting/v2/tests/cockpit-skin.test.mjs
+      - name: Spider closed input graph and two mutation guards
+        run: node automation/repd_reporting/v2/spider-audit.mjs
+      - name: Ensure CSS is scoped to new cockpit and references only source palette variables
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          source=Path('automation/repd_reporting/v2/cockpit-skin.css').read_text()
+          text=re.sub(r'/\*.*?\*/','',source,flags=re.S)
+          rules=re.findall(r'([^{}]+)\{[^{}]*\}',text)
+          assert rules, 'No CSS rules'
+          for selector in rules:
+            s=selector.strip()
+            if s.startswith('@media'): continue
+            assert '[data-repd-cockpit-v2]' in s, f'Unscoped CSS: {s}'
+          assert not re.search(r'#[0-9a-fA-F]{3,8}\b',text), 'New literal colour found; source REPD variables required'
+          assert 'var(--pn-cockpit-solar)' in text
+          assert 'var(--pn-cockpit-mw)' in text
+          print(f'{len(rules)} scoped cockpit rules; no literal colour overrides')
+          PY
+      - name: Strict no-publication guard
+        run: |
+          python3 - <<'PY'
+          import subprocess
+          changes=subprocess.check_output(['git','diff','--name-only','origin/main...HEAD'],text=True).splitlines()
+          assert changes, 'Expected isolated cockpit code changes'
+          allowed=lambda p: (p.startswith('automation/repd_reporting/v2/')
+             or p in ('.github/workflows/repd-cockpit-v2.yml', '.github/workflows/pn-v974-cockpit-integration.yml')
+             or p.startswith('uk_renewables_pipeline/202611231400/'))
+          assert all(allowed(p) for p in changes), changes
+          assert not any('homepage' in p or p.startswith('uk_renewables_pipeline/202611222330/') for p in changes)
+          print('Only candidate successor/isolated model changes; V9.73, source datasets, homepage untouched')
+          PY

@@ -58,7 +58,7 @@ def html_patch(s):
     return s
 
 def project_patch(s):
-    s=replace(s,'import { state } from "../core/state.js";','import { state } from "../core/state.js";\nimport { canonicalOperator } from "../../../automation/repd_reporting/v3/operator-aliases.mjs";',"import explicit operator aliases")
+    s=replace(s,'import { state } from "../core/state.js";','import { state } from "../core/state.js";\nimport { canonicalOperator } from "../../../../automation/repd_reporting/v3/operator-aliases.mjs";',"import explicit operator aliases")
     s=replace(s,'let county = "All";\nlet query = "";','let county = "All";\nlet operatorFilter = "All", regionFilter = "All";\nlet query = "";',"source filters")
     s=replace(s,'["technology", "status", "county", "q", "sort",','["technology", "status", "county", "operator", "region", "q", "sort",',"url clear")
     s=replace(s,'if (county !== "All") url.searchParams.set("county", county);','if (county !== "All") url.searchParams.set("county", county);\nif (operatorFilter !== "All") url.searchParams.set("operator", operatorFilter);\nif (regionFilter !== "All") url.searchParams.set("region", regionFilter);',"url set")

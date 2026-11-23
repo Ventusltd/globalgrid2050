@@ -1,0 +1,88 @@
+name: PipelineNews V9.75 native REPD Python + browser acceptance
+on:
+  push:
+    branches:
+      - agent/repd-native-filters-v975-20261123
+    paths:
+      - 'automation/repd_reporting/v3/**'
+      - '.github/workflows/repd-native-v975.yml'
+      - 'uk_renewables_pipeline/202611231600/**'
+  pull_request:
+    paths:
+      - 'automation/repd_reporting/v3/**'
+      - '.github/workflows/repd-native-v975.yml'
+      - 'uk_renewables_pipeline/202611231600/**'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  python-and-browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Python deterministic successor patcher
+        run: python3 automation/repd_reporting/v3/build_v975.py
+      - name: Python full-tree source integrity, colour and map protection
+        run: python3 automation/repd_reporting/v3/verify_v975.py
+      - name: JS source syntax and operator alias reporting reconciliation
+        run: |
+          node --check automation/repd_reporting/v3/operator-aliases.mjs
+          node --check uk_renewables_pipeline/202611231600/repd-reports.mjs
+          node --check uk_renewables_pipeline/202611231600/scripts/plugins/projects-v9-8.js
+          node --check uk_renewables_pipeline/202611231600/repd-reports-model.mjs
+          node --check uk_renewables_pipeline/202611231600/repd-scan.mjs
+          node --test automation/repd_reporting/v3/operator-aliases.test.mjs
+          cd uk_renewables_pipeline/202611231600
+          node --test tests/v973-repd-reports.mjs
+      - name: Install original pinned Chromium/WebKit test dependencies
+        working-directory: uk_renewables_pipeline/202611231600
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+      - name: Start full original site, no fixture replacement
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pn-v975-http.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -fsS -o /dev/null http://127.0.0.1:8765/uk_renewables_pipeline/202611231600/; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/pn-v975-http.log
+          exit 1
+      - name: Six native user-interface test matrices: 2 browsers x 3 viewports
+        working-directory: uk_renewables_pipeline/202611231600
+        run: node tests/v975-native-browser.mjs
+      - name: Previous MAP A4 PDF VICINITY and expanded-view regression
+        working-directory: uk_renewables_pipeline/202611231600
+        run: |
+          sed 's#202611222222#202611231600#g' tests/v972-vicinity-a4-pdf.mjs > tests/.v975-vicinity-a4-pdf.mjs
+          node tests/.v975-vicinity-a4-pdf.mjs
+          rm tests/.v975-vicinity-a4-pdf.mjs
+          sed 's#202611221930#202611231600#g' tests/repd-expanded.mjs > tests/.v975-expanded.mjs
+          node tests/.v975-expanded.mjs
+          rm tests/.v975-expanded.mjs
+          sed 's#202611221930#202611231600#g' tests/map-navigation-v970.mjs > tests/.v975-map-navigation.mjs
+          node tests/.v975-map-navigation.mjs
+          rm tests/.v975-map-navigation.mjs
+      - name: Clean ephemeral browser dependencies and verify no truncation again
+        run: |
+          rm -rf uk_renewables_pipeline/202611231600/node_modules
+          python3 automation/repd_reporting/v3/verify_v975.py
+      - name: Commit fully-tested immutable successor to isolated branch ONLY
+        if: github.event_name == 'push' && github.ref == 'refs/heads/agent/repd-native-filters-v975-20261123'
+        run: |
+          branch='agent/repd-native-filters-v975-20261123'
+          git fetch origin "$branch"
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA" || { echo 'Branch moved: refuse stale commit'; exit 1; }
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add uk_renewables_pipeline/202611231600/
+          if git diff --cached --quiet; then echo 'Already committed and clean'; exit 0; fi
+          git diff --cached --name-only | grep -v '^uk_renewables_pipeline/202611231600/' && { echo 'Unsafe staged files'; exit 1; } || true
+          git commit -m 'V9.75 candidate: native REPD filters, Python-verified full source preservation'
+          git push origin HEAD:"refs/heads/$branch"

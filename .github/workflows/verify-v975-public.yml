@@ -6,10 +6,6 @@ on:
       - 'catalogue/homepage-owner.json'
       - 'uk_renewables_pipeline/202611231600/**'
       - '.github/workflows/verify-v975-public.yml'
-  pull_request:
-    paths:
-      - 'catalogue/homepage-owner.json'
-      - '.github/workflows/verify-v975-public.yml'
   workflow_dispatch:
 permissions:
   contents: read

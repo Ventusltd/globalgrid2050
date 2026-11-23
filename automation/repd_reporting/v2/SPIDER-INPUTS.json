@@ -1,0 +1,82 @@
+{
+  "schema": "ventus.pipeline.cockpit-spider-closure.v1",
+  "purpose": "Read-only dependency closure and offline regression proof for REPD cockpit facets; not a certification of deployment.",
+  "releaseBaseline": "V9.73",
+  "sourceRepository": "Ventusltd/globalgrid2050",
+  "observedSourceHead": "51aebaae5e0b4e2b8335588c8a215540b6e006b6",
+  "data": {
+    "name": "DESNZ REPD October 2026 Q3 qualifying register",
+    "repdRecords": 7775,
+    "identity": "repd_ref",
+    "mixedUnitWarning": true
+  },
+  "referenceGates": [
+    {
+      "repository": "Ventusltd/spiders",
+      "file": "AGENTS.md",
+      "principle": "Declare ownership and observed dependency closure; no migration without provenance"
+    },
+    {
+      "repository": "Ventusltd/testcode",
+      "file": "README.md",
+      "principle": "offline -> network -> publish; fail closed on missing input; test composed bytes, not only parts"
+    }
+  ],
+  "sources": [
+    {
+      "path": "uk_renewables_pipeline/202611222330/index.html",
+      "gitBlob": "ca2dd3a2bf03f7ef524b6a8506ad29f493875205",
+      "role": "published V9.73 DOM and module wiring"
+    },
+    {
+      "path": "uk_renewables_pipeline/202611222330/scripts/core/state.js",
+      "gitBlob": "ff9ef4ba413534b75c3ac51e064071bbbb4b2eea",
+      "role": "shared canonical REPD application state"
+    },
+    {
+      "path": "uk_renewables_pipeline/202611222330/scripts/plugins/projects-v9-8.js",
+      "gitBlob": "fe89a842b5d34db6695131c851b6baebfa3bfc72",
+      "role": "existing technology/status filtering; gauges, MAP and native table"
+    },
+    {
+      "path": "uk_renewables_pipeline/202611222330/repd-reports.mjs",
+      "gitBlob": "3d2e5c22c0a19d99f3ab279127facc976b5c09b4",
+      "role": "existing Operator, Status and Region report panel"
+    },
+    {
+      "path": "uk_renewables_pipeline/202611222330/repd-reports-model.mjs",
+      "gitBlob": "f372b9b0454d65f555412f630fa3ad87f161288e",
+      "role": "existing canonical reports grouping"
+    },
+    {
+      "path": "uk_renewables_pipeline/202611222330/styles/repd-reports.css",
+      "gitBlob": "526a069ffbbabdd6a62044542e8adb68fc9c4a3e",
+      "role": "current colour scheme and responsive report styles"
+    },
+    {
+      "path": "uk_renewables_pipeline/202611222330/scripts/data/canonical-projects-v9-5-1.js",
+      "gitBlob": "b632ccdf34f2ae41a2ddf39c3ed415726bee265a",
+      "role": "source register contract adapter"
+    }
+  ],
+  "candidate": [
+    {
+      "path": "automation/repd_reporting/v2/cockpit-facets.mjs",
+      "role": "pure aggregation, intersects technology, status, region and operator"
+    },
+    {
+      "path": "automation/repd_reporting/v2/tests/cockpit-facets.test.mjs",
+      "role": "test source fidelity and selection cross-filter invariants"
+    }
+  ],
+  "regression": [
+    "V9.73 immutable files retain original Git blob identities",
+    "Original REPD table/gauges/MAP/A4 receiver and actions remain as-is",
+    "All official REPD statuses retained and each technology filters grouped reports",
+    "Interconnectors remain separate; grid marked not available until verified",
+    "Actual production 7,775 source reconciliation and browser parity pending integration",
+    "No standalone release or homepage publication"
+  ],
+  "integrationStatus": "ISOLATED_ONLY",
+  "proofStage": "OFFLINE"
+}

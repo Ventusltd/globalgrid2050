@@ -1,0 +1,25 @@
+{
+  "schema": "ventus.pipeline.cockpit-v974-receipt.v1",
+  "originalRelease": "202611222330",
+  "newRelease": "202611231400",
+  "originalFileCount": 342,
+  "inheritedUnchangedCount": 338,
+  "missingFiles": [],
+  "changedFiles": [
+    "CHANGES.md",
+    "README.md",
+    "index.html",
+    "repd-reports.mjs"
+  ],
+  "addedFiles": [
+    "tests/v974-cockpit-browser.mjs"
+  ],
+  "inheritedManifestSha256": "87a79e2ac1dfa7d98eee7907f561942b43d8db8ed5ad8c35a0d79bfedadc224a",
+  "sourceCssSha256": "036dbfe43ef1ffb2c55ba277d49dec57ab7c7be976289226a5d568e1f1be319d",
+  "candidateCssSha256": "036dbfe43ef1ffb2c55ba277d49dec57ab7c7be976289226a5d568e1f1be319d",
+  "sourceReportCssSha256": "373684c4fedb5c4bf00fb8c9f25b794d26acb0d9934f4a7dd2eb92a394e8dddb",
+  "candidateReportCssSha256": "373684c4fedb5c4bf00fb8c9f25b794d26acb0d9934f4a7dd2eb92a394e8dddb",
+  "releaseAccepted": false,
+  "published": false,
+  "status": "ISOLATED_UNVERIFIED_BROWSER_AND_PUBLIC"
+}

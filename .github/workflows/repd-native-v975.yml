@@ -80,6 +80,7 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/agent/repd-native-filters-v975-20261123'
         run: |
           branch='agent/repd-native-filters-v975-20261123'
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git fetch origin "$branch"
           test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA" || { echo 'Branch moved: refuse stale commit'; exit 1; }
           git config user.name 'github-actions[bot]'

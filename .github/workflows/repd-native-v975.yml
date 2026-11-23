@@ -54,7 +54,7 @@ jobs:
           done
           cat /tmp/pn-v975-http.log
           exit 1
-      - name: Six native user-interface test matrices: 2 browsers x 3 viewports
+      - name: 'Six native user-interface test matrices - 2 browsers x 3 viewports'
         working-directory: uk_renewables_pipeline/202611231600
         run: node tests/v975-native-browser.mjs
       - name: Previous MAP A4 PDF VICINITY and expanded-view regression

@@ -63,6 +63,7 @@ def project_patch(s):
     s=replace(s,'["technology", "status", "county", "q", "sort",','["technology", "status", "county", "operator", "region", "q", "sort",',"url clear")
     s=replace(s,'if (county !== "All") url.searchParams.set("county", county);','if (county !== "All") url.searchParams.set("county", county);\nif (operatorFilter !== "All") url.searchParams.set("operator", operatorFilter);\nif (regionFilter !== "All") url.searchParams.set("region", regionFilter);',"url set")
     s=replace(s,'county,\ntokens,\n}, searchIndex.get(project.repd_ref)) && matchesYear','county,\ntokens,\n}, searchIndex.get(project.repd_ref)) && (status !== "Not reported" || !String(project.status || "").trim()) && (operatorFilter === "All" || canonicalOperator(project.operator) === operatorFilter) && (regionFilter === "All" || (String(project.region || "").trim() || "Not reported") === regionFilter) && matchesYear',"single native filter, table plus gauges")
+    s=replace(s,'technology,\nstatus,\ncounty,\ntokens,\n}, searchIndex.get(project.repd_ref))','technology,\nstatus: status === "Not reported" ? "All" : status,\ncounty,\ntokens,\n}, searchIndex.get(project.repd_ref))',"include official missing statuses")
     funcs='''function populateNativeFilters() {
   const inventory = [...all, ...interconnectors];
   const labels = key => [...new Set(inventory.map(row=>String(row[key]||"").trim()||"Not reported"))]
@@ -218,6 +219,12 @@ def main():
     assert OLD.is_dir() and NEW.is_dir()
     original={str(p.relative_to(OLD)):p.read_bytes() for p in OLD.rglob("*") if p.is_file()}
     staged={str(p.relative_to(NEW)):p.read_bytes() for p in NEW.rglob("*") if p.is_file()}
+    if (NEW/"README.md").read_text().startswith("# PipelineNews V9.75"):
+        assert set(original)==set(staged), "Already-built successor must retain every inherited file"
+        assert all(original[p]==staged[p] for p in original if p.startswith(("styles/","data/")) or p in ("map-entry.mjs","report-a4.mjs","report-pdf.mjs","repd-expanded.mjs")), "Immutable source/colour/Atlas changed"
+        assert "repdNativeOperator" in (NEW/"index.html").read_text()
+        print("V9.75 existing successor: source, CSS, MAP/A4/PDF closure PASS")
+        return
     assert len(original)>300 and original==staged, "Unsafe or incomplete cloned V9.75 tree"
     for path,fn in [
         ("index.html",html_patch),("scripts/plugins/projects-v9-8.js",project_patch),

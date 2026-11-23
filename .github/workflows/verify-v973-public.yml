@@ -23,7 +23,7 @@ jobs:
           import hashlib,json,os,time
           pin=json.loads(Path('catalogue/homepage-owner.json').read_text())
           assert pin['repository']=='Ventusltd/globalgrid2050-homepage'
-          assert pin['commit']=='fcb63da01d49ebeaa470222dc8ae1bdb541f06ce'
+          assert pin['commit'] in {'fcb63da01d49ebeaa470222dc8ae1bdb541f06ce','156b7eefa4d2703775faba3cc28f9daa0db5bb27'}, 'Unexpected homepage owner pin'
           def digest(value):return hashlib.sha256(value).hexdigest()
           def get(url):
               request=Request(url,headers={'Cache-Control':'no-cache','Accept-Encoding':'identity','User-Agent':'Ventus-V973-served-byte-verifier'})
@@ -37,9 +37,9 @@ jobs:
           assert digest(owner_json)==pin['files']['data/homepage.json']
           data=json.loads(owner_json)
           e=next(x for x in data['entities'] if x['id']=='pipeline-news')
-          assert e['operative_release_id']=='202611222330'
-          assert [x['id'] for x in e['releases'][-3:]]==['202611221930','202611222222','202611222330']
-          now=e['releases'][-1]
+          assert e['operative_release_id'] in {'202611222330','202611231400'}, 'V9.73 should be operative or retained as rollback'
+          assert [x['id'] for x in e['releases'] if x['id'] in ('202611221930','202611222222','202611222330')]==['202611221930','202611222222','202611222330']
+          now=next(x for x in e['releases'] if x['id']=='202611222330')
           assert now['source_ref']=='https://github.com/Ventusltd/globalgrid2050/tree/477e8fa8ec4986c1b525f5c29e5b11decee991fa/uk_renewables_pipeline/202611222330'
           assert now['url']=='https://globalgrid2050.com/uk_renewables_pipeline/202611222330/'
           html=owner_html.decode('utf-8-sig')
@@ -50,7 +50,7 @@ jobs:
           old='href="data/homepage.json"'
           assert html.count(old)==1
           html=html.replace(old,'href="./homepage-shell/data/homepage.json"')
-          expected={'index.html':(html.rstrip()+'\n').encode('utf-8'),'homepage-shell/data/homepage.json':owner_json}
+          expected={'index.html':(html.rstrip()+'\n').encode('utf-8'),'homepage-shell/data/homepage.json':owner_json} if pin['commit']=='fcb63da01d49ebeaa470222dc8ae1bdb541f06ce' else {}
           current='uk_renewables_pipeline/202611222330/'
           previous='uk_renewables_pipeline/202611222222/'
           for f in ('index.html','repd-reports-model.mjs','repd-reports.mjs','styles/repd-reports.css','scripts/core/state.js','scripts/plugins/projects-v9-8.js','map-entry.mjs','report-model.mjs','report-a4.mjs','report-pdf.mjs','repd-expanded.mjs'):
@@ -70,7 +70,7 @@ jobs:
                       if digest(get(url))!=digest(content):differences.append(name+' mismatch')
                   except Exception as exc:differences.append(name+': '+str(exc))
               if not differences:
-                  print('PASS',len(expected),'public SHA256 proofs for homepage, V9.73 reports, native MAP/A4 and immutable V9.72',flush=True)
+                  print('PASS',len(expected),'public SHA256 proofs for V9.73 archived reports, native MAP/A4 and immutable V9.72 (historical homepage if operative)',flush=True)
                   break
               if attempt==48:raise SystemExit('V9.73 public serving UNVERIFIED: '+repr(differences))
               print('Attempt',attempt,'/48, differences',differences[:5],flush=True)

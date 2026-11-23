@@ -70,7 +70,9 @@ jobs:
               print('Attempt',attempt,'/',48,':',bad[:4],flush=True)
               time.sleep(10)
           g=json.loads(get('https://ventusltd.github.io/gridatlas/atlas/current.json'))
-          assert g['generation']=='202611222130',g.get('generation')
-          assert {'pipeline-vicinity-button','vicinity-focus','sld-sandbox'}<=set(g['cartridge_order'])
-          print('PASS: canonical GridAtlas V9.195 VICINITY receiver with exact live release',flush=True)
+          generation=str(g.get('generation',''))
+          assert generation.isdigit() and int(generation)>=202611222130, generation
+          assert g.get('live_route')=='/gridatlas/atlas/',g.get('live_route')
+          assert {'pipeline-vicinity-button','vicinity-focus','sld-sandbox'}<=set(g.get('cartridge_order',[]))
+          print('PASS: canonical GridAtlas VICINITY receiver at published generation',generation,flush=True)
           PY

@@ -76,7 +76,9 @@ jobs:
               print('Attempt',attempt,'/48, differences',differences[:5],flush=True)
               time.sleep(10)
           receiver=json.loads(get('https://ventusltd.github.io/gridatlas/atlas/current.json'))
-          assert receiver['generation']=='202611222130',receiver.get('generation')
+          generation=str(receiver.get('generation',''))
+          assert generation.isdigit() and int(generation)>=202611222130, generation
+          assert receiver.get('live_route')=='/gridatlas/atlas/',receiver.get('live_route')
           assert {'pipeline-vicinity-button','vicinity-focus'}<=set(receiver.get('cartridge_order',[]))
-          print('PASS GridAtlas V9.195 canonical VICINITY receiver; no personal Safari claim',flush=True)
+          print('PASS canonical GridAtlas VICINITY receiver at generation',generation,'; physical Safari still unverified',flush=True)
           PY

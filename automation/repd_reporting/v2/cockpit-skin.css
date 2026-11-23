@@ -1,0 +1,52 @@
+/* REPD cockpit v2 SKIN CONTRACT — source-derived from V9.73, not a new theme.
+   Has no effect until a future immutable release mounts [data-repd-cockpit-v2]
+   and calls applyRepdCockpitSkin() from cockpit-skin.mjs.
+   Do not change .mw, th, .badge, gauges, ticker or existing reports. */
+[data-repd-cockpit-v2] {
+  background:var(--pn-cockpit-panel);
+  color:var(--pn-cockpit-text);
+  border:1px solid var(--pn-cockpit-line);
+  font-family:"Courier New",monospace;
+  min-width:0;
+}
+[data-repd-cockpit-v2] :is(button,select,input) {
+  background:var(--pn-cockpit-bg);
+  color:var(--pn-cockpit-muted);
+  border:1px solid var(--pn-cockpit-line);
+  font:700 11px/1.3 "Courier New",monospace;
+  min-height:34px;
+}
+[data-repd-cockpit-v2] :is(button,select,input):focus-visible {
+  outline:2px solid var(--pn-cockpit-accent);
+  outline-offset:2px;
+}
+[data-repd-cockpit-v2] :is(button,select):hover,
+[data-repd-cockpit-v2] button[aria-pressed="true"] {
+  color:var(--pn-cockpit-text);
+  border-color:var(--pn-cockpit-accent);
+}
+[data-repd-cockpit-v2] [data-repd-role="heading"] {
+  color:var(--pn-cockpit-accent);
+}
+[data-repd-cockpit-v2] [data-repd-role="mw"] {
+  color:var(--pn-cockpit-mw);
+  font-weight:700;
+  font-variant-numeric:tabular-nums;
+}
+[data-repd-cockpit-v2] [data-technology="solar"] { --pn-cockpit-technology-colour:var(--pn-cockpit-solar) }
+[data-repd-cockpit-v2] [data-technology="bess"] { --pn-cockpit-technology-colour:var(--pn-cockpit-bess) }
+[data-repd-cockpit-v2] [data-technology="wind_onshore"] { --pn-cockpit-technology-colour:var(--pn-cockpit-onshore) }
+[data-repd-cockpit-v2] [data-technology="wind_offshore"],
+[data-repd-cockpit-v2] [data-technology="interconnector"] { --pn-cockpit-technology-colour:var(--pn-cockpit-offshore) }
+[data-repd-cockpit-v2] [data-repd-role="technology"] {
+  background:var(--pn-cockpit-technology-colour);
+  color:var(--pn-cockpit-bg);
+  font-weight:700;
+}
+[data-repd-cockpit-v2] [data-repd-role="row"] {
+  border-bottom:1px solid var(--pn-cockpit-soft);
+}
+[data-repd-cockpit-v2] [data-repd-role="muted"] { color:var(--pn-cockpit-muted) }
+@media(max-width:680px) {
+  [data-repd-cockpit-v2] :is(button,select) { min-height:36px;max-width:100% }
+}

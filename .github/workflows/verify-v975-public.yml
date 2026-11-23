@@ -1,4 +1,4 @@
-name: Verify V9.75 public native REPD, owner homepage and V9.74 rollback
+name: Verify archived V9.75 public native REPD, current owner homepage and V9.74 rollback
 on:
   push:
     branches: [main]
@@ -23,7 +23,7 @@ jobs:
           from urllib.request import urlopen, Request
           pin=json.loads(Path('catalogue/homepage-owner.json').read_text())
           assert pin['repository']=='Ventusltd/globalgrid2050-homepage'
-          assert pin['commit']=='7c760569433df9c484f0db982b06d1baaced3a13', 'owner SHA mismatch'
+          assert pin['commit']=='63c5e2bfcb56695c0269d4172611e93c062d8ccd', 'owner SHA mismatch'
           expected_owner_files={'index.html','assets/versioned-homepage.css','assets/versioned-homepage.js',
             'data/homepage.json','data/active-pages.json','data/presentation.json','data/entity-types.json'}
           assert set(pin['files'])==expected_owner_files, 'Owner file list modified'
@@ -43,15 +43,15 @@ jobs:
               assert digest(data)==pin['files'][p], 'owner pinned hash drift: '+p
           data=json.loads(owner['data/homepage.json'])
           entity=next(x for x in data['entities'] if x['id']=='pipeline-news')
-          assert entity['operative_release_id']=='202611231600'
+          assert entity['operative_release_id']=='202611232245'
           assert [x['id'] for x in entity['releases'][-3:]]==[
-            '202611222330','202611231400','202611231600']
-          assert entity['releases'][-1]['url']=='https://globalgrid2050.com/uk_renewables_pipeline/202611231600/'
-          assert entity['releases'][-1]['source_ref']==(
+            '202611231400','202611231600','202611232245']
+          assert entity['releases'][-2]['url']=='https://globalgrid2050.com/uk_renewables_pipeline/202611231600/'
+          assert entity['releases'][-2]['source_ref']==(
             'https://github.com/Ventusltd/globalgrid2050/tree/'
             '5cb111911073a149dd4a69992a02ff52b61f55bb/uk_renewables_pipeline/202611231600')
-          assert data['promotions'][-1]['from_release_id']=='202611231400'
-          assert data['promotions'][-1]['to_release_id']=='202611231600'
+          assert data['promotions'][-1]['from_release_id']=='202611231600'
+          assert data['promotions'][-1]['to_release_id']=='202611232245'
           homepage=owner['index.html'].decode('utf-8-sig')
           for name in ('versioned-homepage.css','versioned-homepage.js'):
               source_path='./assets/'+name

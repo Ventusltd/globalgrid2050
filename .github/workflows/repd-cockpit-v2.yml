@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Checkout exact candidate with inherited published V9.73 bytes
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Node 22
         uses: actions/setup-node@v4
         with:

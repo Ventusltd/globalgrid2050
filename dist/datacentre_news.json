@@ -1,11 +1,11 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-22T22:32:44Z",
+ "generated_at": "2026-11-23T16:09:03Z",
  "status": "ok",
  "counts": {
-  "items": 33,
-  "capex": 26,
-  "politics": 7,
+  "items": 37,
+  "capex": 29,
+  "politics": 8,
   "with_register_site": 0,
   "feeds_ok": 9,
   "feeds_failed": 0
@@ -28,23 +28,23 @@
    "status": "ok",
    "entries": 21,
    "kept": 1,
-   "sha256": "94bec60e3f6e1e5f19a2e3efe6849899b10b301b99f5ddf71b98ff5362e1b923"
+   "sha256": "3de93bba87129bff5bb926e0090226a21e4161ef4f6ef563e5e5586a8f267d97"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 58,
+   "entries": 53,
    "kept": 1,
-   "sha256": "7d553e478af08fd979f144c262834952c1af161599f04228b9daa2b501d20301"
+   "sha256": "aa757149ce263249e56123dd21a318165949ac9319638cc7f625c13c1aa069ba"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 61,
+   "entries": 60,
    "kept": 0,
-   "sha256": "2f034cd8fd3c10812fa722f5320ac5b7a9d72cdbc4f3805727cfdb35fd10a7ee"
+   "sha256": "c1dcb16c38220aab770e540bb03ce429e880f29f93a1e8af6e524c6727f3fa80"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 42,
    "kept": 0,
-   "sha256": "6e5da6bbd7c3b9d90d95986b74a1c1d270d39edbe73ceba296368229ac7ff839"
+   "sha256": "5c96b0268cbc2eb3563c6e9be2ad719a9f3e38ce47c20c4c87385c07df9aed9a"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -68,7 +68,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "726361e21b90d477e34aa4ef5678493f055d4749dc2fd1fb16d5e060bd41d26c"
+   "sha256": "fe7b604bed5fe373f50d2b31dbc852caf3713d22cde5722ca2e390087bf83aa7"
   },
   {
    "url": "https://www.gov.uk/search/news-and-communications.atom?keywords=data+centre",
@@ -76,7 +76,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "e1823e4026d147467611e8306a7f72ade473a5c79f0669229cf226441280a474"
+   "sha256": "1dc16b23f5fe29615feb782a6333125bb9ade1e4dab73b6505516aabca998f0e"
   },
   {
    "url": "https://bills.parliament.uk/rss/allbills.rss",
@@ -84,18 +84,115 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "b14f99f37c199c1ba82520a64b9c18151b142f9da1d8f87a3b54f0e562cd15ea"
+   "sha256": "a638a9f379b0573178d1f5116a4f92ad54940b5dbb992fc0f8a17eceeeeb3ae7"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
    "source": "DatacenterDynamics",
    "status": "ok",
    "entries": 20,
-   "kept": 6,
-   "sha256": "7612696d3ed99652cb03150fe988ff624666862d5e5b361616c1380f6b7943cf"
+   "kept": 4,
+   "sha256": "8a374ba088fe9f67383aab8e4d80c03a56e1c882b7f4dc8e25ad22c95e2f651a"
   }
  ],
  "items": [
+  {
+   "title": "Spain approves decree on data centers to curb electricity costs",
+   "link": "https://www.datacenterdynamics.com/en/news/spain-approves-decree-on-data-centers-to-curb-electricity-costs/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-23T16:00:20Z",
+   "first_seen": "2026-11-23T16:09:03Z",
+   "lanes": [
+    "politics"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [],
+    "politics": [
+     "energy price",
+     "minister"
+    ]
+   },
+   "capex_basis": null,
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "CtrlS moves forward with 150MW data center project in Bihar, India",
+   "link": "https://www.datacenterdynamics.com/en/news/ctrls-moves-forward-with-150mw-data-center-project-in-bihar-india/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-23T15:49:53Z",
+   "first_seen": "2026-11-23T16:09:03Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "billion"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Frux Capital to provide €20m funding for Proxity data center campus in Lisbon",
+   "link": "https://www.datacenterdynamics.com/en/news/frux-provides-20-million-euros-in-financing-for-the-proxity-campus-in-lisbon/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-23T13:41:21Z",
+   "first_seen": "2026-11-23T16:09:03Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "funding"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "DOE’s Argonne National Laboratory expands its Inference Service compute capacity with two new supercomputers",
+   "link": "https://www.datacenterdynamics.com/en/news/does-argonne-national-laboratory-expands-its-inference-service-compute-capacity-with-two-new-supercomputers/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-23T12:09:04Z",
+   "first_seen": "2026-11-23T16:09:03Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "compute"
+    ],
+    "capex": [
+     "expansion"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
   {
    "title": "Trump threatens ban on US firms building AI data centres overseas",
    "link": "https://www.bbc.co.uk/news/articles/cmde1lw9y54ko",

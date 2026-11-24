@@ -1,10 +1,10 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-23T16:09:03Z",
+ "generated_at": "2026-11-24T03:22:55Z",
  "status": "ok",
  "counts": {
-  "items": 37,
-  "capex": 29,
+  "items": 38,
+  "capex": 30,
   "politics": 8,
   "with_register_site": 0,
   "feeds_ok": 9,
@@ -28,23 +28,23 @@
    "status": "ok",
    "entries": 21,
    "kept": 1,
-   "sha256": "3de93bba87129bff5bb926e0090226a21e4161ef4f6ef563e5e5586a8f267d97"
+   "sha256": "166a40d06bfcdb00244b45e0b6a6f03b4ea34e8fefe54a161a677aeaa132b3a7"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 53,
+   "entries": 56,
    "kept": 1,
-   "sha256": "aa757149ce263249e56123dd21a318165949ac9319638cc7f625c13c1aa069ba"
+   "sha256": "0eb459c1312c8db7560bea41c9681ae559067cc3aa8b13a4e940bb0817ada49c"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 60,
+   "entries": 61,
    "kept": 0,
-   "sha256": "c1dcb16c38220aab770e540bb03ce429e880f29f93a1e8af6e524c6727f3fa80"
+   "sha256": "d48e82f8e722ba38c9b903e523985847683cfcba725df264a74e18e48e1ceb24"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 42,
    "kept": 0,
-   "sha256": "5c96b0268cbc2eb3563c6e9be2ad719a9f3e38ce47c20c4c87385c07df9aed9a"
+   "sha256": "b79cc9a7aee40c7dc276430ad1e0817eadf1f9b5db082f9f998addc43ba61f8b"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -60,7 +60,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "cddb84a08ac3437490a91b5a21eb25b0d7e6dfe33fbb5ad768c18ceb68572537"
+   "sha256": "2a317256a37d213486299d24e5d45b1070bd6c52a112d647523d073f69b9d7a0"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-energy-security-and-net-zero.atom",
@@ -68,7 +68,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "fe7b604bed5fe373f50d2b31dbc852caf3713d22cde5722ca2e390087bf83aa7"
+   "sha256": "701aff0db379aabcb7051e1863de80a10b067c3686463bdd3cddb37a551111d0"
   },
   {
    "url": "https://www.gov.uk/search/news-and-communications.atom?keywords=data+centre",
@@ -76,7 +76,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "1dc16b23f5fe29615feb782a6333125bb9ade1e4dab73b6505516aabca998f0e"
+   "sha256": "9f3f975bb9562edfb3477c7642d47f99a37013c0c29c99e114a0d9a8d7be6b4d"
   },
   {
    "url": "https://bills.parliament.uk/rss/allbills.rss",
@@ -84,7 +84,7 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "a638a9f379b0573178d1f5116a4f92ad54940b5dbb992fc0f8a17eceeeeb3ae7"
+   "sha256": "03109f5cec63af5e3e327ecfe364586f935583e46d5beb7f8ebc17d35f9a6f66"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
@@ -92,15 +92,39 @@
    "status": "ok",
    "entries": 20,
    "kept": 4,
-   "sha256": "8a374ba088fe9f67383aab8e4d80c03a56e1c882b7f4dc8e25ad22c95e2f651a"
+   "sha256": "2ba87f2e3747b587002f94805fd322af52dcf00ab65d0e03867919252fdabbe1"
   }
  ],
  "items": [
   {
+   "title": "Cogent sells three data centers to I Squared Capital's Saragon",
+   "link": "https://www.datacenterdynamics.com/en/news/cogent-sells-three-data-centers-to-i-squared-capitals-saragon/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-23T17:09:13Z",
+   "first_seen": "2026-11-24T03:22:55Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "million"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
    "title": "Spain approves decree on data centers to curb electricity costs",
    "link": "https://www.datacenterdynamics.com/en/news/spain-approves-decree-on-data-centers-to-curb-electricity-costs/",
    "source": "DatacenterDynamics",
-   "date": "2026-11-23T16:00:20Z",
+   "date": "2026-11-23T16:00:00Z",
    "first_seen": "2026-11-23T16:09:03Z",
    "lanes": [
     "politics"

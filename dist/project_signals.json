@@ -1,26 +1,26 @@
 {
  "schema": "project-signals.v2",
- "generated_at": "2026-11-24T03:27:56Z",
- "run_at": "2026-11-24T03:56:21Z",
+ "generated_at": "2026-11-24T16:04:12Z",
+ "run_at": "2026-11-24T16:18:55Z",
  "stale": false,
  "scope": "200 largest Solar Photovoltaics rows, REPD October 2026",
  "recent_days": 90,
  "parts": {
   "official": {
    "status": "ok",
-   "collected_at": "2026-11-24T03:23:27Z",
+   "collected_at": "2026-11-24T15:59:42Z",
    "items": 109,
    "note": ""
   },
   "trade": {
    "status": "ok",
-   "collected_at": "2026-11-24T03:27:44Z",
+   "collected_at": "2026-11-24T16:03:58Z",
    "items": 192,
    "note": ""
   },
   "index": {
    "status": "ok",
-   "collected_at": "2026-11-24T03:27:56Z",
+   "collected_at": "2026-11-24T16:04:12Z",
    "items": 17,
    "note": ""
   },
@@ -32,7 +32,7 @@
   },
   "planning": {
    "status": "ok",
-   "collected_at": "2026-11-24T03:49:47Z",
+   "collected_at": "2026-11-24T16:13:31Z",
    "items": 200,
    "note": ""
   }
@@ -79,7 +79,7 @@
  "downgraded": {
   "alias without recorded evidence": 11,
   "weak alias without a second term": 4,
-  "title gate": 198,
+  "title gate": 199,
   "shared link that names no project": 0
  },
  "sources": [
@@ -161,7 +161,7 @@
    "requests": 7,
    "failures": 0,
    "items": 0,
-   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (0 of 21 links say solar); wp_search not JSON"
+   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 24 links say solar); wp_search not JSON"
   },
   {
    "team": "trade",
@@ -228,10 +228,10 @@
    "id": "gdelt-doc",
    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
    "status": "partial",
-   "requests": 50,
-   "failures": 42,
-   "items": 1,
-   "error": "time budget for GDELT reached; the rest are asked on later runs; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
+   "requests": 21,
+   "failures": 17,
+   "items": 0,
+   "error": "HTTP 429 on 6 queries running, each retried once; GDELT left alone for the rest of this run; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   }
  ],
  "projects": {

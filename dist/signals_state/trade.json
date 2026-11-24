@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "trade",
- "generated_at": "2026-11-24T03:27:44Z",
+ "generated_at": "2026-11-24T16:03:58Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -1999,7 +1999,7 @@
      "status": "ok",
      "entries": 300,
      "matched": 0,
-     "newest": "2026-11-23"
+     "newest": "2026-11-24"
     }
    ],
    "searched": 0,
@@ -2036,7 +2036,7 @@
      "status": "ok",
      "entries": 10,
      "matched": 0,
-     "newest": "2026-11-23"
+     "newest": "2026-11-24"
     }
    ],
    "searched": 0,
@@ -2079,9 +2079,7 @@
    "searched": 0,
    "cached": 45,
    "skipped": 0,
-   "notes": [
-    "robots.txt www.energy-storage.news: HTTP 403 (treated as no rules)"
-   ]
+   "notes": []
   },
   {
    "id": "current",
@@ -2090,7 +2088,7 @@
    "requests": 7,
    "failures": 0,
    "items": 0,
-   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (0 of 21 links say solar); wp_search not JSON",
+   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 24 links say solar); wp_search not JSON",
    "route": "",
    "routes": [
     {
@@ -2114,14 +2112,14 @@
     {
      "route": "html",
      "url": "https://www.current-news.co.uk/?s=solar+farm",
-     "status": "not search results (0 of 21 links say solar)",
+     "status": "not search results (1 of 24 links say solar)",
      "content_type": "text/html",
-     "bytes": 514322,
-     "results": 21,
+     "bytes": 516326,
+     "results": 24,
      "dated": 1,
      "summaries": 0,
-     "relevant": 0,
-     "sample": "Grattan Institute calls for AU$1.1 billion public charging network for Australia's electric trucks"
+     "relevant": 1,
+     "sample": "Aptera completes first customer solar EV, plans export to Indonesia"
     },
     {
      "route": "wp_search",
@@ -2196,7 +2194,7 @@
      "url": "https://www.planningresource.co.uk/search/articles?KeyWords=solar+farm",
      "status": "not search results (0 of 8 links say solar)",
      "content_type": "text/html",
-     "bytes": 41713,
+     "bytes": 42422,
      "results": 8,
      "dated": 0,
      "summaries": 0,
@@ -2222,7 +2220,7 @@
      "status": "ok",
      "entries": 20,
      "matched": 0,
-     "newest": "2026-11-23"
+     "newest": "2026-11-24"
     }
    ],
    "searched": 0,
@@ -2259,7 +2257,7 @@
      "status": "ok",
      "entries": 10,
      "matched": 0,
-     "newest": "2026-11-23"
+     "newest": "2026-11-24"
     }
    ],
    "searched": 0,

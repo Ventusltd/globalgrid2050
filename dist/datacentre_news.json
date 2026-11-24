@@ -1,10 +1,10 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-24T03:22:55Z",
+ "generated_at": "2026-11-24T15:59:02Z",
  "status": "ok",
  "counts": {
-  "items": 38,
-  "capex": 30,
+  "items": 42,
+  "capex": 34,
   "politics": 8,
   "with_register_site": 0,
   "feeds_ok": 9,
@@ -28,31 +28,31 @@
    "status": "ok",
    "entries": 21,
    "kept": 1,
-   "sha256": "166a40d06bfcdb00244b45e0b6a6f03b4ea34e8fefe54a161a677aeaa132b3a7"
+   "sha256": "0279c54aebaf0d87d20c6117f0ca789797264798e6c0f90c606f796314288951"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 56,
+   "entries": 58,
    "kept": 1,
-   "sha256": "0eb459c1312c8db7560bea41c9681ae559067cc3aa8b13a4e940bb0817ada49c"
+   "sha256": "8b26194f30eb734795f7ffe967dfc84a576cc92f3eaece96eb5e38f00c1d76b8"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 61,
+   "entries": 60,
    "kept": 0,
-   "sha256": "d48e82f8e722ba38c9b903e523985847683cfcba725df264a74e18e48e1ceb24"
+   "sha256": "6e6789dbbf33aadd2219eda2fbd62a1ebff52bab4df09df66cb3876c5a04a960"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
    "source": "BBC News",
    "status": "ok",
    "entries": 42,
-   "kept": 0,
-   "sha256": "b79cc9a7aee40c7dc276430ad1e0817eadf1f9b5db082f9f998addc43ba61f8b"
+   "kept": 1,
+   "sha256": "71cbfe3652edc66e464ff0f96ad51e4d3c03fda42471b084e774795ae5c19b47"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -60,7 +60,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "2a317256a37d213486299d24e5d45b1070bd6c52a112d647523d073f69b9d7a0"
+   "sha256": "4677f071f4bd18d65fd73f7b535e365f6cd3e70e78bbf8ee968a394439cbedbe"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-energy-security-and-net-zero.atom",
@@ -68,7 +68,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "701aff0db379aabcb7051e1863de80a10b067c3686463bdd3cddb37a551111d0"
+   "sha256": "ccf768bb546e1f96b59203d94a8d11042ccb4da0b21bc11ba259936f0c85d8c8"
   },
   {
    "url": "https://www.gov.uk/search/news-and-communications.atom?keywords=data+centre",
@@ -76,7 +76,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "9f3f975bb9562edfb3477c7642d47f99a37013c0c29c99e114a0d9a8d7be6b4d"
+   "sha256": "530f4aa7434a3e28fc7b29443598306510e9673c39bb432c946f6f543d279162"
   },
   {
    "url": "https://bills.parliament.uk/rss/allbills.rss",
@@ -84,7 +84,7 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "03109f5cec63af5e3e327ecfe364586f935583e46d5beb7f8ebc17d35f9a6f66"
+   "sha256": "c0ed764202a1470bd65791d0f9cbb24ef495a5f590de16788b5f0588df78212a"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
@@ -92,15 +92,113 @@
    "status": "ok",
    "entries": 20,
    "kept": 4,
-   "sha256": "2ba87f2e3747b587002f94805fd322af52dcf00ab65d0e03867919252fdabbe1"
+   "sha256": "1b82cce1878e060612afb005593eb372495c28c71d0c3cef7e30611def74e987"
   }
  ],
  "items": [
   {
+   "title": "Applied Digital signs $5.4bn 18-year lease with unnamed hyperscaler",
+   "link": "https://www.datacenterdynamics.com/en/news/applied-digital-signs-54bn-18-year-lease-with-unnamed-hyperscaler/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-24T14:53:30Z",
+   "first_seen": "2026-11-24T15:59:02Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "hyperscale"
+    ],
+    "capex": [
+     "billion"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Taiwanese AI infrastructure firm Nocera takes $22m stake in Canadian AI data center developer BitRock",
+   "link": "https://www.datacenterdynamics.com/en/news/taiwanese-ai-infrastructure-firm-nocera-takes-22m-stake-in-canadian-ai-data-center-developer-bitrock/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-24T13:53:02Z",
+   "first_seen": "2026-11-24T15:59:02Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "AI infrastructure",
+     "data centre"
+    ],
+    "capex": [
+     "funding",
+     "million"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "NewYork GreenCloud submits application to build 14.4MW biomass powered data center in Ione, California",
+   "link": "https://www.datacenterdynamics.com/en/news/newyork-greencloud-submits-application-to-build-144mw-biomass-powered-data-center-in-ione-california/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-24T13:20:40Z",
+   "first_seen": "2026-11-24T15:59:02Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Delia Smith joins opponents of £1.2bn data centre",
+   "link": "https://www.bbc.co.uk/news/articles/c678200xklgzo",
+   "source": "BBC News",
+   "date": "2026-11-24T11:04:36Z",
+   "first_seen": "2026-11-24T15:59:02Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "billion"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
    "title": "Cogent sells three data centers to I Squared Capital's Saragon",
    "link": "https://www.datacenterdynamics.com/en/news/cogent-sells-three-data-centers-to-i-squared-capitals-saragon/",
    "source": "DatacenterDynamics",
-   "date": "2026-11-23T17:09:13Z",
+   "date": "2026-11-23T17:09:00Z",
    "first_seen": "2026-11-24T03:22:55Z",
    "lanes": [
     "capex"

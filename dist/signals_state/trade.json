@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "trade",
- "generated_at": "2026-11-23T16:14:45Z",
+ "generated_at": "2026-11-24T03:27:44Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -1974,7 +1974,7 @@
    "id": "pv-tech",
    "url": "https://www.pv-tech.org",
    "status": "ok",
-   "requests": 48,
+   "requests": 3,
    "failures": 0,
    "items": 1,
    "error": "",
@@ -2002,8 +2002,8 @@
      "newest": "2026-11-23"
     }
    ],
-   "searched": 45,
-   "cached": 0,
+   "searched": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": []
   },
@@ -2048,7 +2048,7 @@
    "id": "energy-storage-news",
    "url": "https://www.energy-storage.news",
    "status": "ok",
-   "requests": 48,
+   "requests": 3,
    "failures": 0,
    "items": 2,
    "error": "",
@@ -2073,11 +2073,11 @@
      "status": "ok",
      "entries": 300,
      "matched": 0,
-     "newest": "2026-11-23"
+     "newest": "2026-11-24"
     }
    ],
-   "searched": 45,
-   "cached": 0,
+   "searched": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": [
     "robots.txt www.energy-storage.news: HTTP 403 (treated as no rules)"
@@ -2116,7 +2116,7 @@
      "url": "https://www.current-news.co.uk/?s=solar+farm",
      "status": "not search results (0 of 21 links say solar)",
      "content_type": "text/html",
-     "bytes": 513194,
+     "bytes": 514322,
      "results": 21,
      "dated": 1,
      "summaries": 0,
@@ -2173,7 +2173,7 @@
      "status": "ok",
      "entries": 30,
      "matched": 0,
-     "newest": "2026-11-23"
+     "newest": "2026-11-24"
     }
    ],
    "searched": 0,

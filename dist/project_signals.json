@@ -1,26 +1,26 @@
 {
  "schema": "project-signals.v2",
- "generated_at": "2026-11-23T16:17:43Z",
- "run_at": "2026-11-23T16:45:21Z",
+ "generated_at": "2026-11-24T03:27:56Z",
+ "run_at": "2026-11-24T03:56:21Z",
  "stale": false,
  "scope": "200 largest Solar Photovoltaics rows, REPD October 2026",
  "recent_days": 90,
  "parts": {
   "official": {
    "status": "ok",
-   "collected_at": "2026-11-23T16:10:26Z",
+   "collected_at": "2026-11-24T03:23:27Z",
    "items": 109,
    "note": ""
   },
   "trade": {
    "status": "ok",
-   "collected_at": "2026-11-23T16:14:45Z",
+   "collected_at": "2026-11-24T03:27:44Z",
    "items": 192,
    "note": ""
   },
   "index": {
    "status": "ok",
-   "collected_at": "2026-11-23T16:17:43Z",
+   "collected_at": "2026-11-24T03:27:56Z",
    "items": 17,
    "note": ""
   },
@@ -32,7 +32,7 @@
   },
   "planning": {
    "status": "ok",
-   "collected_at": "2026-11-23T16:39:22Z",
+   "collected_at": "2026-11-24T03:49:47Z",
    "items": 200,
    "note": ""
   }
@@ -41,22 +41,22 @@
   "projects": 200,
   "headline": {
    "label": "projects with recent candidate news (independent evidence pending)",
-   "value": 10
+   "value": 9
   },
   "by_tier": {
-   "recent_news": 10,
-   "official": 42,
+   "recent_news": 9,
+   "official": 43,
    "archive_only": 114,
    "planning_file_only": 34,
    "nothing": 0
   },
   "possible_only": 65,
-  "with_recent_news": 10,
+  "with_recent_news": 9,
   "with_official": 49,
   "with_archive": 156,
   "with_possible_recent_news": 4,
   "items": {
-   "recent_news": 22,
+   "recent_news": 20,
    "official": 120,
    "archive": 364
   },
@@ -128,7 +128,7 @@
    "id": "pv-tech",
    "url": "https://www.pv-tech.org",
    "status": "ok",
-   "requests": 48,
+   "requests": 3,
    "failures": 0,
    "items": 1,
    "error": ""
@@ -148,7 +148,7 @@
    "id": "energy-storage-news",
    "url": "https://www.energy-storage.news",
    "status": "ok",
-   "requests": 48,
+   "requests": 3,
    "failures": 0,
    "items": 2,
    "error": ""
@@ -228,9 +228,9 @@
    "id": "gdelt-doc",
    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
    "status": "partial",
-   "requests": 49,
-   "failures": 40,
-   "items": 7,
+   "requests": 50,
+   "failures": 42,
+   "items": 1,
    "error": "time budget for GDELT reached; the rest are asked on later runs; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   }
  ],
@@ -2488,7 +2488,7 @@
    "site_name": "East Pye Solar Farm",
    "alias": "East Pye Solar",
    "alias_standing": "confirmed",
-   "tier": "recent_news",
+   "tier": "official",
    "recent_news": [
     {
      "title": "Huge data centre solar farm plan revealed for west Norfolk",
@@ -2537,22 +2537,6 @@
      "confidence": "possible",
      "freshness": "recent",
      "basis": "GDELT index, UK sources: phrase 'East Pye' and 'solar' in the article text per GDELT; headline says solar and Norfolk but not the name"
-    },
-    {
-     "title": "East Pye solar farm - which could be built near Long Stratton",
-     "link": "https://www.dissexpress.co.uk/news/astronomical-price-for-proposed-solar-farm-revealed-9479967/",
-     "publisher": "dissexpress.co.uk",
-     "date": "2026-08-25",
-     "year": 2026,
-     "tier": "recent_news",
-     "event": null,
-     "obtained": "fetched",
-     "source": "index",
-     "family": "regional",
-     "collected_at": "2026-11-15T21:59:31Z",
-     "confidence": "confirmed",
-     "freshness": "recent",
-     "basis": "GDELT index, UK sources: alias 'East Pye Solar' in title"
     }
    ],
    "official": [
@@ -2574,6 +2558,22 @@
     }
    ],
    "archive": [
+    {
+     "title": "East Pye solar farm - which could be built near Long Stratton",
+     "link": "https://www.dissexpress.co.uk/news/astronomical-price-for-proposed-solar-farm-revealed-9479967/",
+     "publisher": "dissexpress.co.uk",
+     "date": "2026-08-25",
+     "year": 2026,
+     "tier": "archive",
+     "event": null,
+     "obtained": "fetched",
+     "source": "index",
+     "family": "regional",
+     "collected_at": "2026-11-15T21:59:31Z",
+     "confidence": "confirmed",
+     "freshness": "older",
+     "basis": "GDELT index, UK sources: alias 'East Pye Solar' in title"
+    },
     {
      "title": "One of UK's largest ever proposed solar farms moves forwards",
      "link": "https://www.hellorayo.co.uk/greatest-hits/norfolk/news/one-uk-largest-proposed-solar-farms-forwards",
@@ -2637,22 +2637,6 @@
      "confidence": "possible",
      "freshness": "older",
      "basis": "Solar Power Portal feed archive: alias phrase 'East Pye' in the summary with developer 'Island Green'; the headline does not name the project"
-    },
-    {
-     "title": "Island Green Power opens East Pye Solar consultation",
-     "link": "https://www.renews.biz/solar/island-green-power-opens-east-pye-solar-consultation/",
-     "publisher": "reNEWS",
-     "date": "2025-06-18",
-     "year": 2025,
-     "tier": "archive",
-     "event": null,
-     "obtained": "fetched",
-     "source": "trade",
-     "family": "trade",
-     "collected_at": "2026-11-16T13:52:14Z",
-     "confidence": "confirmed",
-     "freshness": "older",
-     "basis": "reNEWS search: alias phrase 'East Pye' in title with developer 'Island Green'"
     }
    ],
    "planning_file": {
@@ -3350,24 +3334,7 @@
    "alias": "Beacon Fen Energy Park",
    "alias_standing": "confirmed",
    "tier": "official",
-   "recent_news": [
-    {
-     "title": "UK approves 400 MW solar project with 600 MW co-located battery",
-     "link": "https://www.pv-magazine.com/2026/08/25/uk-approves-400-mw-solar-project-with-600-mw-co-located-battery/",
-     "publisher": "pv magazine",
-     "date": "2026-08-25",
-     "year": 2026,
-     "tier": "recent_news",
-     "event": "consent",
-     "obtained": "fetched",
-     "source": "trade",
-     "family": "trade",
-     "collected_at": "2026-11-15T21:57:52Z",
-     "confidence": "possible",
-     "freshness": "recent",
-     "basis": "pv magazine search: alias phrase 'Beacon Fen' in the summary with capacity '400MW'; the headline does not name the project"
-    }
-   ],
+   "recent_news": [],
    "official": [
     {
      "title": "Beacon Fen Energy Park: decision (stage: Post-decision)",
@@ -3452,6 +3419,12 @@
      "basis": "Solar Power Portal feed archive: alias phrase 'Beacon Fen' in title with developer 'Low Carbon'",
      "cluster": "13599:consent:2026-08-21",
      "sources": [
+      {
+       "publisher": "pv magazine",
+       "link": "https://www.pv-magazine.com/2026/08/25/uk-approves-400-mw-solar-project-with-600-mw-co-located-battery/",
+       "date": "2026-08-25",
+       "title": "UK approves 400 MW solar project with 600 MW co-located battery"
+      },
       {
        "publisher": "reNEWS",
        "link": "https://www.renews.biz/solar/low-carbon-wins-permit-for-400mw-uk-solar-farm/",

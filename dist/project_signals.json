@@ -1,26 +1,26 @@
 {
  "schema": "project-signals.v2",
- "generated_at": "2026-11-24T16:04:12Z",
- "run_at": "2026-11-24T16:18:55Z",
+ "generated_at": "2026-11-25T01:33:46Z",
+ "run_at": "2026-11-25T01:48:47Z",
  "stale": false,
  "scope": "200 largest Solar Photovoltaics rows, REPD October 2026",
  "recent_days": 90,
  "parts": {
   "official": {
    "status": "ok",
-   "collected_at": "2026-11-24T15:59:42Z",
+   "collected_at": "2026-11-25T01:29:12Z",
    "items": 109,
    "note": ""
   },
   "trade": {
    "status": "ok",
-   "collected_at": "2026-11-24T16:03:58Z",
+   "collected_at": "2026-11-25T01:33:31Z",
    "items": 192,
    "note": ""
   },
   "index": {
    "status": "ok",
-   "collected_at": "2026-11-24T16:04:12Z",
+   "collected_at": "2026-11-25T01:33:46Z",
    "items": 17,
    "note": ""
   },
@@ -32,7 +32,7 @@
   },
   "planning": {
    "status": "ok",
-   "collected_at": "2026-11-24T16:13:31Z",
+   "collected_at": "2026-11-25T01:42:30Z",
    "items": 200,
    "note": ""
   }
@@ -61,8 +61,8 @@
    "archive": 364
   },
   "planning_file": {
-   "verified_direct": 60,
-   "unverified_direct": 11,
+   "verified_direct": 62,
+   "unverified_direct": 9,
    "register_search": 129,
    "register_finder": 0
   }
@@ -228,8 +228,8 @@
    "id": "gdelt-doc",
    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
    "status": "partial",
-   "requests": 21,
-   "failures": 17,
+   "requests": 19,
+   "failures": 18,
    "items": 0,
    "error": "HTTP 429 on 6 queries running, each retried once; GDELT left alone for the rest of this run; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   }
@@ -7674,13 +7674,13 @@
    "official": [],
    "archive": [],
    "planning_file": {
-    "label": "planning file (unverified link)",
+    "label": "planning file (verified link)",
     "link_type": "direct",
     "authority": "North Lincolnshire",
     "reference": "PA/2018/2140",
     "url": "https://apps.northlincs.gov.uk/application/pa-2018-2140",
     "kind": "application",
-    "verified": false,
+    "verified": true,
     "note": ""
    }
   },
@@ -9110,13 +9110,13 @@
    "official": [],
    "archive": [],
    "planning_file": {
-    "label": "planning file (unverified link)",
+    "label": "planning file (verified link)",
     "link_type": "direct",
     "authority": "North Lincolnshire",
     "reference": "PA/2024/129",
     "url": "https://apps.northlincs.gov.uk/application/pa-2024-129",
     "kind": "application",
-    "verified": false,
+    "verified": true,
     "note": ""
    }
   },

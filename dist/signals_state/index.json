@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "index",
- "generated_at": "2026-11-24T16:04:12Z",
+ "generated_at": "2026-11-25T01:33:46Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -197,8 +197,8 @@
    "id": "gdelt-doc",
    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
    "status": "partial",
-   "requests": 21,
-   "failures": 17,
+   "requests": 19,
+   "failures": 18,
    "items": 0,
    "error": "HTTP 429 on 6 queries running, each retried once; GDELT left alone for the rest of this run; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   }
@@ -220,28 +220,28 @@
   {
    "url": "https://feeds.bbci.co.uk/news/rss.xml",
    "status": "ok",
-   "entries": 32,
+   "entries": 30,
    "solar": 0,
    "kept": 0,
-   "newest": "2026-11-24",
+   "newest": "2026-11-25",
    "error": ""
   },
   {
    "url": "https://feeds.bbci.co.uk/news/uk/rss.xml",
    "status": "ok",
-   "entries": 33,
+   "entries": 27,
    "solar": 0,
    "kept": 0,
-   "newest": "2026-11-24",
+   "newest": "2026-11-25",
    "error": ""
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
    "status": "ok",
-   "entries": 58,
+   "entries": 60,
    "solar": 1,
    "kept": 0,
-   "newest": "2026-11-24",
+   "newest": "2026-11-25",
    "error": ""
   },
   {
@@ -250,13 +250,13 @@
    "entries": 42,
    "solar": 0,
    "kept": 0,
-   "newest": "2026-11-24",
+   "newest": "2026-11-25",
    "error": ""
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
    "status": "ok",
-   "entries": 60,
+   "entries": 62,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-24",
@@ -265,7 +265,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/rss.xml",
    "status": "ok",
-   "entries": 25,
+   "entries": 20,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-24",
@@ -274,10 +274,10 @@
   {
    "url": "https://feeds.bbci.co.uk/news/scotland/rss.xml",
    "status": "ok",
-   "entries": 36,
+   "entries": 30,
    "solar": 0,
    "kept": 0,
-   "newest": "2026-11-24",
+   "newest": "2026-11-25",
    "error": ""
   },
   {
@@ -292,10 +292,10 @@
   {
    "url": "https://feeds.bbci.co.uk/news/northern_ireland/rss.xml",
    "status": "ok",
-   "entries": 37,
+   "entries": 33,
    "solar": 0,
    "kept": 0,
-   "newest": "2026-11-24",
+   "newest": "2026-11-25",
    "error": ""
   },
   {
@@ -319,7 +319,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/lincolnshire/rss.xml",
    "status": "ok",
-   "entries": 18,
+   "entries": 17,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-24",
@@ -328,7 +328,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/humberside/rss.xml",
    "status": "ok",
-   "entries": 23,
+   "entries": 24,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-24",
@@ -346,7 +346,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/cambridgeshire/rss.xml",
    "status": "ok",
-   "entries": 42,
+   "entries": 41,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-24",
@@ -355,7 +355,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/essex/rss.xml",
    "status": "ok",
-   "entries": 17,
+   "entries": 19,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-24",
@@ -373,7 +373,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/northamptonshire/rss.xml",
    "status": "ok",
-   "entries": 25,
+   "entries": 20,
    "solar": 1,
    "kept": 0,
    "newest": "2026-11-24",
@@ -400,7 +400,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/leeds_and_west_yorkshire/rss.xml",
    "status": "ok",
-   "entries": 24,
+   "entries": 23,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-24",
@@ -445,7 +445,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/scotland/south_scotland/rss.xml",
    "status": "ok",
-   "entries": 22,
+   "entries": 23,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-24",
@@ -481,7 +481,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/cumbria/rss.xml",
    "status": "ok",
-   "entries": 24,
+   "entries": 22,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-24",
@@ -499,7 +499,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/manchester/rss.xml",
    "status": "ok",
-   "entries": 30,
+   "entries": 25,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-24",
@@ -508,7 +508,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/stoke_and_staffordshire/rss.xml",
    "status": "ok",
-   "entries": 35,
+   "entries": 22,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-24",
@@ -562,7 +562,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/london/rss.xml",
    "status": "ok",
-   "entries": 41,
+   "entries": 42,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-24",
@@ -589,7 +589,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/cornwall/rss.xml",
    "status": "ok",
-   "entries": 18,
+   "entries": 17,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-24",
@@ -598,7 +598,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/scotland/highlands_and_islands/rss.xml",
    "status": "ok",
-   "entries": 21,
+   "entries": 22,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-24",
@@ -616,7 +616,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/coventry_and_warwickshire/rss.xml",
    "status": "ok",
-   "entries": 30,
+   "entries": 26,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-24",
@@ -634,7 +634,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/suffolk/rss.xml",
    "status": "ok",
-   "entries": 21,
+   "entries": 22,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-24",
@@ -670,7 +670,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/birmingham_and_black_country/rss.xml",
    "status": "ok",
-   "entries": 27,
+   "entries": 24,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-24",
@@ -727,7 +727,7 @@
    "entries": 20,
    "solar": 0,
    "kept": 0,
-   "newest": "2026-11-23",
+   "newest": "2026-11-24",
    "error": ""
   },
   {
@@ -750,20 +750,20 @@
   }
  ],
  "gdelt": {
-  "requests": 21,
-  "answered": 4,
+  "requests": 19,
+  "answered": 1,
   "cache_hits": 120,
-  "http_429": 17,
+  "http_429": 18,
   "errors": 0,
-  "empty": 3,
-  "articles": 16,
+  "empty": 1,
+  "articles": 0,
   "stopped": "HTTP 429 on 6 queries running, each retried once; GDELT left alone for the rest of this run",
   "window": "since 2017",
   "error_samples": [
    "HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   ],
   "not_asked": 112,
-  "refused_queries": 8,
+  "refused_queries": 9,
   "dropped": {
    "no title or link": 0,
    "excluded source": 0,
@@ -772,44 +772,14 @@
    "headline says solar but neither the name nor the county": 6,
    "headline names another of the 200": 0
   },
-  "projects_asked": 110,
+  "projects_asked": 108,
   "projects_with_articles": 13,
   "projects_with_kept": 0,
   "projects_with_strong": 0,
   "domains": [],
   "per_project": {
-   "17757": {
-    "phrase": "Anchor Lane",
-    "returned": 0,
-    "kept": 0,
-    "strong": 0
-   },
-   "2088": {
-    "phrase": "West Raynham",
-    "returned": 0,
-    "kept": 0,
-    "strong": 0
-   },
-   "5521": {
-    "phrase": "Cambridge",
-    "returned": 16,
-    "kept": 0,
-    "strong": 0
-   },
-   "14100": {
-    "phrase": "Fosse",
-    "returned": 0,
-    "kept": 0,
-    "strong": 0
-   },
-   "19016": {
-    "phrase": "Springfield Solar Farm",
-    "returned": 0,
-    "kept": 0,
-    "strong": 0
-   },
-   "9546": {
-    "phrase": "Oaklands Farm Solar Park",
+   "7388": {
+    "phrase": "Winkburn",
     "returned": 0,
     "kept": 0,
     "strong": 0
@@ -1435,6 +1405,24 @@
    "7960": {
     "phrase": "Barnstaples",
     "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "17757": {
+    "phrase": "Anchor Lane",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "2088": {
+    "phrase": "West Raynham",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "5521": {
+    "phrase": "Cambridge",
+    "returned": 16,
     "kept": 0,
     "strong": 0
    }

@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "trade",
- "generated_at": "2026-11-25T01:33:31Z",
+ "generated_at": "2026-11-25T15:51:32Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -1999,7 +1999,7 @@
      "status": "ok",
      "entries": 300,
      "matched": 0,
-     "newest": "2026-11-24"
+     "newest": "2026-11-25"
     }
    ],
    "searched": 0,
@@ -2036,7 +2036,7 @@
      "status": "ok",
      "entries": 10,
      "matched": 0,
-     "newest": "2026-11-24"
+     "newest": "2026-11-25"
     }
    ],
    "searched": 0,
@@ -2073,7 +2073,7 @@
      "status": "ok",
      "entries": 300,
      "matched": 0,
-     "newest": "2026-11-24"
+     "newest": "2026-11-25"
     }
    ],
    "searched": 0,
@@ -2090,7 +2090,7 @@
    "requests": 7,
    "failures": 0,
    "items": 0,
-   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 24 links say solar); wp_search not JSON",
+   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 25 links say solar); wp_search not JSON",
    "route": "",
    "routes": [
     {
@@ -2114,10 +2114,10 @@
     {
      "route": "html",
      "url": "https://www.current-news.co.uk/?s=solar+farm",
-     "status": "not search results (1 of 24 links say solar)",
+     "status": "not search results (1 of 25 links say solar)",
      "content_type": "text/html",
-     "bytes": 514320,
-     "results": 24,
+     "bytes": 516870,
+     "results": 25,
      "dated": 1,
      "summaries": 0,
      "relevant": 1,
@@ -2222,7 +2222,7 @@
      "status": "ok",
      "entries": 20,
      "matched": 0,
-     "newest": "2026-11-24"
+     "newest": "2026-11-25"
     }
    ],
    "searched": 0,
@@ -2259,7 +2259,7 @@
      "status": "ok",
      "entries": 10,
      "matched": 0,
-     "newest": "2026-11-24"
+     "newest": "2026-11-25"
     }
    ],
    "searched": 0,

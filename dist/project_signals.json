@@ -1,26 +1,26 @@
 {
  "schema": "project-signals.v2",
- "generated_at": "2026-11-25T01:33:46Z",
- "run_at": "2026-11-25T01:48:47Z",
+ "generated_at": "2026-11-25T15:51:51Z",
+ "run_at": "2026-11-25T16:13:30Z",
  "stale": false,
  "scope": "200 largest Solar Photovoltaics rows, REPD October 2026",
  "recent_days": 90,
  "parts": {
   "official": {
    "status": "ok",
-   "collected_at": "2026-11-25T01:29:12Z",
+   "collected_at": "2026-11-25T15:47:16Z",
    "items": 109,
    "note": ""
   },
   "trade": {
    "status": "ok",
-   "collected_at": "2026-11-25T01:33:31Z",
+   "collected_at": "2026-11-25T15:51:32Z",
    "items": 192,
    "note": ""
   },
   "index": {
    "status": "ok",
-   "collected_at": "2026-11-25T01:33:46Z",
+   "collected_at": "2026-11-25T15:51:51Z",
    "items": 17,
    "note": ""
   },
@@ -32,7 +32,7 @@
   },
   "planning": {
    "status": "ok",
-   "collected_at": "2026-11-25T01:42:30Z",
+   "collected_at": "2026-11-25T16:08:21Z",
    "items": 200,
    "note": ""
   }
@@ -161,7 +161,7 @@
    "requests": 7,
    "failures": 0,
    "items": 0,
-   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 24 links say solar); wp_search not JSON"
+   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 25 links say solar); wp_search not JSON"
   },
   {
    "team": "trade",
@@ -228,8 +228,8 @@
    "id": "gdelt-doc",
    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
    "status": "partial",
-   "requests": 19,
-   "failures": 18,
+   "requests": 39,
+   "failures": 30,
    "items": 0,
    "error": "HTTP 429 on 6 queries running, each retried once; GDELT left alone for the rest of this run; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   }

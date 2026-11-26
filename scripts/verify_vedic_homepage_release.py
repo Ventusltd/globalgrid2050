@@ -53,6 +53,35 @@ def verify_release(release):
             match(release["root_alias"]+f,wanted)
     if release.get("root_alias"):
         match(release["root_alias"]+"release.json",manifest_raw)
+def check_evidence_only(v2_payload,v3_payload):
+    """V3 may add public prose, never a producer module or executable package."""
+    assert set(v2_payload)==set(v3_payload)==PUBLIC_FILES
+    for name in PUBLIC_FILES-{"index.html"}:
+        assert v2_payload[name]==v3_payload[name],(name,"historical dictionary/metadata changed")
+    before=v2_payload["index.html"]
+    after=v3_payload["index.html"]
+    import re
+    scripts=lambda raw: re.findall(rb"<script\b[^>]*>.*?</script\s*>",raw,re.I|re.S)
+    assert scripts(before)==scripts(after),"executable dashboard scripts changed"
+    assert after.count(b'id="package-evidence"')==1
+    section=after.split(b'id="package-evidence"',1)[1].split(b"</section>",1)[0]
+    assert b"Source redistribution remains blocked" in section
+    assert b"not engineering approval or independently accepted software" in section
+    assert b"Package download unavailable" in section
+    assert not re.search(rb"<(?:script|iframe|object|embed|form|link)\b|\son[a-z]+\s*=|\sdownload\b",section,re.I),"active or download markup in evidence section"
+    links=re.findall(rb'href="([^"]+)"',section)
+    assert len(links)==5 and all(re.fullmatch(rb"https://github\.com/Ventusltd/vedic-/actions/runs/[0-9]+",link) for link in links),"non-evidence link"
+    # Remove just the approved register and version label, and require the exact V2 bytes.
+    start=after.index(b'<section class="panel" id="package-evidence">')
+    end=after.index(b"</section>",start)+len(b"</section>")
+    restored=(after[:start]+after[end:]).replace(b"VEDIC V3 / 50 meanings + package capability register",b"VEDIC V2 / 202611261351 / 50 meanings")
+    assert restored==before,"unexpected dashboard changes outside evidence register"
+def verify_evidence_only(m):
+    def payload(release):
+        base="https://raw.githubusercontent.com/Ventusltd/vedic-/"+release["source_commit"]+"/"
+        return {name:read(base+name) for name in PUBLIC_FILES}
+    check_evidence_only(payload(m["v2"]),payload(m["v3"]))
+    print("PASS: V3 evidence-only delta, no package bytes, identical dictionary and executable scripts",flush=True)
 def import_bundle(root,pin_bytes):
     (root/"catalogue").mkdir(parents=True,exist_ok=True)
     (root/"scripts").mkdir(parents=True,exist_ok=True)
@@ -96,6 +125,7 @@ def main():
     if "v3" in m:
         assert not m["v2"].get("root_alias"),"V2 must remain immutable, not current alias"
         verify_release(m["v3"])
+        verify_evidence_only(m)
     with tempfile.TemporaryDirectory() as tmp:
         root=pathlib.Path(tmp)
         previous,current=root/"previous",root/"current"

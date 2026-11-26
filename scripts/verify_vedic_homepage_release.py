@@ -68,7 +68,7 @@ def check_evidence_only(v2_payload,v3_payload):
     assert b"Source redistribution remains blocked" in section
     assert b"not engineering approval or independently accepted software" in section
     assert b"Package download unavailable" in section
-    assert not re.search(rb"<(?:script|iframe|object|embed|form|link)\b|\son[a-z]+\s*=|\sdownload\b",section,re.I),"active or download markup in evidence section"
+    assert not re.search(rb"<(?:script|iframe|object|embed|form|link)\b|<[^>]+\s(?:on[a-z]+\s*=|download(?:\s|=|>))",section,re.I),"active or download markup in evidence section"
     links=re.findall(rb'href="([^"]+)"',section)
     assert len(links)==5 and all(re.fullmatch(rb"https://github\.com/Ventusltd/vedic-/actions/runs/[0-9]+",link) for link in links),"non-evidence link"
     # Remove just the approved register and version label, and require the exact V2 bytes.

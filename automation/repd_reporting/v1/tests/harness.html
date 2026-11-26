@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Isolated REPD analytics button QA — no live release</title>
+  <style>
+    :root{--bg:#000;--panel:#0b0e14;--line:#2f343d;--text:#fff;--muted:#a6adbb;--accent:#00ffff;--ok:#00ff88;--solar:#ffff00;--bess:#ffae00;--off:#0066ff}
+    *{box-sizing:border-box}html,body{margin:0;background:#000;color:#fff;font:12px 'Courier New',monospace}
+  </style>
+  <link rel="stylesheet" href="../panel.css">
+</head>
+<body>
+  <main id="host"></main>
+  <script type="module">
+    import { mountRepdReports } from "../panel.mjs";
+    const projects = [
+      {repd_ref:"1",repd_technology:"Solar Photovoltaics",capacity_mw:10,capacity_unit:"MWp",status:"Operational",operational:"2024-01-15",operator:"Alpha",region:"South East"},
+      {repd_ref:"2",repd_technology:"Wind Onshore",capacity_mw:20,capacity_unit:"MW",status:"Operational",operational:"2024-03-31",operator:"Beta",region:"Scotland"},
+      {repd_ref:"3",repd_technology:"Battery",capacity_mw:50,capacity_unit:"MW",status:"Operational",operational:"2024-04-01",operator:"Alpha",region:"South East"},
+      {repd_ref:"4",repd_technology:"Solar Photovoltaics",capacity_mw:10,capacity_unit:"MWp",status:"Application Submitted",operational:"2024-02-01",operator:"Gamma",region:"Wales"},
+      {repd_ref:"5",repd_technology:"Solar Photovoltaics",capacity_mw:null,capacity_unit:"MWp",status:"Operational",operational:null,operator:null,region:null},
+      {repd_ref:"6",repd_technology:"Solar Photovoltaics",capacity_mw:8,capacity_unit:"MWp",status:"Operational",operational:"2027-01-01",operator:"Delta",region:"Wales"},
+    ];
+    window.openedRefs = [];
+    mountRepdReports(document.querySelector("#host"), projects, {
+      asOf:"2024-12-31",sourceLabel:"Official REPD fixture, not live production",
+      onSelectProjects(refs){window.openedRefs=refs;}
+    });
+    window.reportingReady = true;
+  </script>
+</body>
+</html>

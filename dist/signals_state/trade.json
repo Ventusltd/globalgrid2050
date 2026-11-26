@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "trade",
- "generated_at": "2026-11-26T01:07:21Z",
+ "generated_at": "2026-11-26T15:32:32Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -781,6 +781,16 @@
    "date": "2021-09-01",
    "family": "trade",
    "basis": "Solar Power Portal feed archive: alias phrase 'West Burton' in title; kept as uncertain: a distinctive name in a planning or energy headline, but no solar term",
+   "confidence": "uncertain"
+  },
+  {
+   "repd_ref": "15252",
+   "title": "TotalEnergies acquires UK solar and battery project",
+   "link": "https://www.renews.biz/other-news/energy-storage/totalenergies-acquires-uk-solar-and-battery-project/",
+   "publisher": "reNEWS",
+   "date": "2026-11-26",
+   "family": "trade",
+   "basis": "reNEWS feed: alias phrase 'Steeple' in the summary with capacity '450MW'; the headline does not name the project",
    "confidence": "uncertain"
   },
   {
@@ -1999,7 +2009,7 @@
      "status": "ok",
      "entries": 300,
      "matched": 0,
-     "newest": "2026-11-25"
+     "newest": "2026-11-26"
     }
    ],
    "searched": 0,
@@ -2036,7 +2046,7 @@
      "status": "ok",
      "entries": 10,
      "matched": 0,
-     "newest": "2026-11-25"
+     "newest": "2026-11-26"
     }
    ],
    "searched": 0,
@@ -2073,7 +2083,7 @@
      "status": "ok",
      "entries": 300,
      "matched": 0,
-     "newest": "2026-11-25"
+     "newest": "2026-11-26"
     }
    ],
    "searched": 0,
@@ -2090,7 +2100,7 @@
    "requests": 7,
    "failures": 0,
    "items": 0,
-   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 24 links say solar); wp_search not JSON",
+   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (0 of 20 links say solar); wp_search not JSON",
    "route": "",
    "routes": [
     {
@@ -2114,14 +2124,14 @@
     {
      "route": "html",
      "url": "https://www.current-news.co.uk/?s=solar+farm",
-     "status": "not search results (1 of 24 links say solar)",
+     "status": "not search results (0 of 20 links say solar)",
      "content_type": "text/html",
-     "bytes": 516472,
-     "results": 24,
-     "dated": 0,
+     "bytes": 512857,
+     "results": 20,
+     "dated": 1,
      "summaries": 0,
-     "relevant": 1,
-     "sample": "Aptera completes first customer solar EV, plans export to Indonesia"
+     "relevant": 0,
+     "sample": "Exicom board approves Tritium sale at US$85 million valuation"
     },
     {
      "route": "wp_search",
@@ -2150,7 +2160,7 @@
    "status": "ok",
    "requests": 4,
    "failures": 0,
-   "items": 78,
+   "items": 79,
    "error": "",
    "route": "wp_posts /wp-json/wp/v2/posts?search={q}&per_page=20&orderby=relevance&_fields=title,link,date,excerpt",
    "routes": [
@@ -2159,12 +2169,12 @@
      "url": "https://renews.biz/wp-json/wp/v2/posts?search=solar+farm&per_page=20&orderby=relevance&_fields=title,link,date,excerpt",
      "status": "ok",
      "content_type": "application/json",
-     "bytes": 6016,
+     "bytes": 6039,
      "results": 20,
      "dated": 20,
      "summaries": 20,
      "relevant": 20,
-     "sample": "UK rejects 840MW Botley West solar farm"
+     "sample": "GreenIT starts building 131MW Italian solar farm"
     }
    ],
    "feeds": [
@@ -2172,8 +2182,8 @@
      "url": "https://feeds.feedburner.com/Renews-RenewableEnergyNews",
      "status": "ok",
      "entries": 30,
-     "matched": 0,
-     "newest": "2026-11-25"
+     "matched": 1,
+     "newest": "2026-11-26"
     }
    ],
    "searched": 0,
@@ -2222,7 +2232,7 @@
      "status": "ok",
      "entries": 20,
      "matched": 0,
-     "newest": "2026-11-25"
+     "newest": "2026-11-26"
     }
    ],
    "searched": 0,
@@ -2259,7 +2269,7 @@
      "status": "ok",
      "entries": 10,
      "matched": 0,
-     "newest": "2026-11-25"
+     "newest": "2026-11-26"
     }
    ],
    "searched": 0,

@@ -69,18 +69,32 @@ jobs:
           origin='https://globalgrid2050.com'
           target=origin+'/uk_renewables_pipeline/202611232245/'
           with sync_playwright() as p:
-              browser=p.chromium.launch()
+              browser=p.chromium.launch(args=['--enable-webgl','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
               page=browser.new_page()
               def route(r):
                   path=r.request.url.split('?')[0].replace(origin,'')
                   local=Path('.')/path.lstrip('/')
                   if path=='/': local=Path('index.html')
+                  if path=='/kuiper/': local=Path('kuiper/index.html')
                   if path=='/uk_renewables_pipeline/': local=Path('uk_renewables_pipeline/index.html')
                   if local.is_file(): r.fulfill(path=str(local))
                   else: r.continue_()
-              page.route(origin+'/**',route)
+              page.context.route(origin+'/**',route)
               page.goto(origin+'/',wait_until='domcontentloaded')
               assert page.locator('#pipeline-news a.launch').get_attribute('href')==target
+              page.goto(origin+'/kuiper/',wait_until='domcontentloaded')
+              button=page.locator('#apps button[data-app="pipelinenews"]')
+              button.wait_for(state='visible',timeout=60000)
+              button.click()
+              tile=page.locator('a.cc-app[data-app="pipelinenews"]:not(.cc-page)')
+              tile.wait_for(state='visible',timeout=60000)
+              assert tile.get_attribute('href')==origin+'/uk_renewables_pipeline/'
+              with page.expect_popup(timeout=60000) as popup:
+                  tile.click()
+              dest=popup.value
+              dest.wait_for_url(target,timeout=60000)
+              print('Kuiper application tile opened real target',dest.url)
+              dest.close()
               page.goto(origin+'/uk_renewables_pipeline/',wait_until='domcontentloaded')
               page.wait_for_url(target,timeout=60000)
               print('Stable route opened real target',page.url)

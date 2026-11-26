@@ -1,10 +1,10 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-25T01:29:08Z",
+ "generated_at": "2026-11-26T01:02:44Z",
  "status": "ok",
  "counts": {
-  "items": 43,
-  "capex": 35,
+  "items": 48,
+  "capex": 40,
   "politics": 8,
   "with_register_site": 0,
   "feeds_ok": 9,
@@ -28,23 +28,23 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "sha256": "aa110483d10d21486b9160b6edb6634b7b62d9cc2453ce76a7ba3c0e8375a11e"
+   "sha256": "71cb6337c51183ddd357e617c1966b204c788103146a4370d32e17b247b8dce9"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 60,
+   "entries": 49,
    "kept": 0,
-   "sha256": "194619c749d4a5958b09d578d55484dde19f2d22f83a468e340d123b24fa2e47"
+   "sha256": "aba12937700d3d0286be557dd51405f1457f2e82508d2f1446824e698baa7bed"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 62,
+   "entries": 61,
    "kept": 0,
-   "sha256": "be09cc69c8bbae597bfff193b89d06f9799b8b1f8b4fef36ee227bf5072a988b"
+   "sha256": "b551dd87f7c11fe6868e285cddfb9369824a2a883af04caecdd3c174b68366e6"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 42,
    "kept": 1,
-   "sha256": "5579a788cc7027a172c75a69e813bfe750ada2e90921c626d8468c5cac8e7222"
+   "sha256": "0330b2525cb15a38aeeb1a6f1574cefc0100275d9a7c749b73c1635a1e213ee3"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -60,7 +60,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "4677f071f4bd18d65fd73f7b535e365f6cd3e70e78bbf8ee968a394439cbedbe"
+   "sha256": "db26b52e057592978a335d87f0aad5c263f5ab000436342b1951ef84b9fc1cae"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-energy-security-and-net-zero.atom",
@@ -68,7 +68,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "255a726c454898f5ec6065d6dfd8f99b867fcf8d0a149fee2f45ff847e83d5f7"
+   "sha256": "8eb5d2a64232e1cf7da7d4b30829bc91c4fc9a17bd3b333fc2deb053d92bb809"
   },
   {
    "url": "https://www.gov.uk/search/news-and-communications.atom?keywords=data+centre",
@@ -76,7 +76,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "1ea3c61b62cbdc536c90b97547199b7229846ed716fc4af15c71b8677e6b8b1e"
+   "sha256": "090f0c2a3a5e0b3407b590b335a5c9e3ad13068dfd00849925ea1087cf72c862"
   },
   {
    "url": "https://bills.parliament.uk/rss/allbills.rss",
@@ -84,18 +84,140 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "a37c95918af80cd2191e03b5a9afe4b7132bf23aee462ceea5a10d942d4c1b9f"
+   "sha256": "8da04130d2679f506aa0c53231aab1215b17a165018182c90710e392840bb770"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
    "source": "DatacenterDynamics",
    "status": "ok",
    "entries": 20,
-   "kept": 4,
-   "sha256": "35050fc3a1091d0b2ac0db4edda141c6dfc199b260ee13178a22ca68137e94ba"
+   "kept": 5,
+   "sha256": "c606b25ce86bf3c64eb1dca3d96fb504e380e5bfc4549222cd4567879ba88b5e"
   }
  ],
  "items": [
+  {
+   "title": "Trio of Japanese real estate developers invest in 15MW Hokkaido data center development",
+   "link": "https://www.datacenterdynamics.com/en/news/trio-of-japanese-real-estate-developers-invest-in-15mw-hokkaido-data-center-development/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-25T16:53:02Z",
+   "first_seen": "2026-11-26T01:02:44Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build",
+     "investment"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Nexent Capital launches $1 billion AI and energy infrastructure fund",
+   "link": "https://www.datacenterdynamics.com/en/news/nexent-capital-launches-1-billion-ai-and-energy-infrastructure-fund/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-25T14:20:36Z",
+   "first_seen": "2026-11-26T01:02:44Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "AI infrastructure"
+    ],
+    "capex": [
+     "billion",
+     "funding"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Promera acquires Irish electrical contractor B&G to expand data center offering",
+   "link": "https://www.datacenterdynamics.com/en/news/promera-acquires-irish-electrical-contractor-bg-to-expand-data-center-offering/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-25T14:10:39Z",
+   "first_seen": "2026-11-26T01:02:44Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "expansion"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Quant trading firm XTX Markets launches 22.5MW data center in Kajaani, Finland",
+   "link": "https://www.datacenterdynamics.com/en/news/quant-trading-firm-xtx-markets-launches-225mw-data-center-in-kajaani-finland/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-25T12:01:00Z",
+   "first_seen": "2026-11-26T01:02:44Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Applied Digital brings online 25MW data hall at Polaris Forge 2 data center in North Dakota",
+   "link": "https://www.datacenterdynamics.com/en/news/applied-digital-brings-online-25mw-data-hall-at-polaris-forge-2-data-center-in-north-dakota/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-25T11:46:00Z",
+   "first_seen": "2026-11-26T01:02:44Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
   {
    "title": "ABB to acquire cooling fan company Ziehl-Abegg for $2.65bn",
    "link": "https://www.datacenterdynamics.com/en/news/ziehl-abegg-is-a-growing-technology-leader-with-a-compelling-portfolio-and-a-significant-presence-in-some-of-the-worlds-most-dynamic-markets-at-the-heart-of-our-success-are-our-employees-whose-expertise-dedication-and-innovative-spirit-have-made-us/",

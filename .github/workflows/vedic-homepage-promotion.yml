@@ -1,0 +1,99 @@
+name: VEDIC homepage promotion verification
+on:
+  pull_request:
+    paths:
+      - catalogue/homepage-owner.json
+      - homepage_versions/homepage_v161*
+      - .github/workflows/vedic-homepage-promotion.yml
+  workflow_run:
+    workflows: ["Deploy GlobalGrid2050 Pages"]
+    types: [completed]
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout: |
+            catalogue
+            scripts
+            homepage_versions
+            homepage-shell
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Restore point, additive catalogue, and exact public destination
+        env:
+          EVENT: ${{ github.event_name }}
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, os, pathlib, shutil, subprocess, sys, tempfile, time
+          from urllib.request import urlopen, Request
+          root=pathlib.Path.cwd()
+          pin=json.loads((root/"catalogue/homepage-owner.json").read_text())
+          if pin["commit"]!="a348303645e963908c472f8da299f7ae938e225e":
+              print("Not the VEDIC owner pin; no action")
+              sys.exit(0)
+          def sha(b): return hashlib.sha256(b).hexdigest()
+          def read(url):
+              with urlopen(Request(url,headers={"User-Agent":"GlobalGrid2050-release-verifier","Cache-Control":"no-cache"}),timeout=30) as r:
+                  assert r.status==200, url
+                  return r.read(1000001)
+          def match(url,body):
+              for i in range(6):
+                  try:
+                      data=read(url+("?release-check=161-"+str(i) if "?" not in url else "&release-check=161-"+str(i)))
+                      if data==body:
+                          print("MATCH",url,sha(data))
+                          return
+                  except Exception as exc:
+                      print("Retry",url,type(exc).__name__)
+                  time.sleep(5)
+              raise AssertionError("Public bytes not verified: "+url)
+          m=json.loads((root/"homepage_versions/homepage_v161-metrics.json").read_text())
+          snapshot=root/"homepage_versions/homepage_v161.html"
+          measured=json.loads(subprocess.check_output([sys.executable,"scripts/measure_homepage_version.py",str(snapshot)]))[0]
+          for k in ("lines","words","characters","bytes","sha256"):
+              assert measured[k]==m[k],(k,measured[k],m[k])
+          with tempfile.TemporaryDirectory() as tmp:
+              prior=pathlib.Path(tmp)
+              (prior/"scripts").mkdir()
+              (prior/"catalogue").mkdir()
+              shutil.copyfile(root/"scripts/import_homepage_owner.py",prior/"scripts/import_homepage_owner.py")
+              old_pin=subprocess.check_output(["git","show",m["source_commit"]+":catalogue/homepage-owner.json"])
+              (prior/"catalogue/homepage-owner.json").write_bytes(old_pin)
+              subprocess.run([sys.executable,str(prior/"scripts/import_homepage_owner.py")],check=True)
+              assert (prior/"index.html").read_bytes()==snapshot.read_bytes(),"restore point differs from actual importer"
+              previous=json.loads((prior/"homepage-shell/data/homepage.json").read_text())
+              if os.environ["EVENT"]=="pull_request":
+                  match("https://globalgrid2050.com/",snapshot.read_bytes())
+              subprocess.run([sys.executable,"scripts/import_homepage_owner.py"],check=True)
+              current=json.loads((root/"homepage-shell/data/homepage.json").read_text())
+              assert [e for e in current["entities"] if e["id"]!="vedic"]==previous["entities"],"prior entities changed"
+              assert [e for e in current["view"]["items"] if e["entity_id"]!="vedic"]==previous["view"]["items"],"prior nests changed"
+              v=[e for e in current["entities"] if e["id"]=="vedic"]
+              assert len(v)==1
+              url=next(r["url"] for r in v[0]["releases"] if r["id"]==v[0]["operative_release_id"])
+              assert url=="https://ventusltd.github.io/vedic-/"
+              assert sha((root/"index.html").read_bytes())==m["proposed_root_sha256"]
+              assert (root/"index.html").read_text().count('id="vedic"')==1
+              if os.environ["EVENT"]=="workflow_run":
+                  match("https://globalgrid2050.com/",(root/"index.html").read_bytes())
+                  for f in pin["files"]:
+                      if f!="index.html":
+                          match("https://globalgrid2050.com/homepage-shell/"+f,(root/"homepage-shell"/f).read_bytes())
+              # Verify the exact 39-entry successor, not just an HTTP 200.
+              vedic="https://raw.githubusercontent.com/Ventusltd/vedic-/a6699e574e36eac2894c001cc2b4e25a125b0fa2/"
+              for f in ("index.html","data/dictionary.json"):
+                  wanted=read(vedic+f)
+                  if f.endswith(".json"):
+                      assert len(json.loads(wanted)["entries"])==39
+                  match(url+f,wanted)
+              print("PASS: restore metrics, importer, prior entities, VEDIC destination and release bytes")
+          PY

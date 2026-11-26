@@ -1,0 +1,15 @@
+{
+  "file": "homepage_v161.html",
+  "source_commit": "b25a3387b31c7bb5a635bf029c47336bf834ecfb",
+  "source_owner_commit": "7acae9d2cd2b6c3f174c36b9e3ebfcb8a09d5683",
+  "homepage_versions_entries_before": 281,
+  "lines": 70,
+  "words": 4035,
+  "characters": 64399,
+  "bytes": 64412,
+  "sha256": "2c712ca5a74ac8f43b4f0713908c181daedc3f45a92fbea22795f8f3e5be2070",
+  "proposed_owner_commit": "a348303645e963908c472f8da299f7ae938e225e",
+  "proposed_root_sha256": "5eacc207dadddc67e7a8c66b2e6f6e15b13691620897364599f912b5c34923ff",
+  "intention": "Add VEDIC section only; all prior entities and release pointers preserved. Roll back by restoring previous catalogue/homepage-owner.json.",
+  "verification": "Reconstructed prior root from seven hash-verified owner files using existing importer transformations. Native manual measurement dispatch unavailable through connector; pre-merge CI must independently replay measurement and import, and compare live bytes."
+}

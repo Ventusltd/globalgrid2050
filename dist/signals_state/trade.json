@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "trade",
- "generated_at": "2026-11-25T15:51:32Z",
+ "generated_at": "2026-11-26T01:07:21Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -2090,7 +2090,7 @@
    "requests": 7,
    "failures": 0,
    "items": 0,
-   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 25 links say solar); wp_search not JSON",
+   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 24 links say solar); wp_search not JSON",
    "route": "",
    "routes": [
     {
@@ -2114,11 +2114,11 @@
     {
      "route": "html",
      "url": "https://www.current-news.co.uk/?s=solar+farm",
-     "status": "not search results (1 of 25 links say solar)",
+     "status": "not search results (1 of 24 links say solar)",
      "content_type": "text/html",
-     "bytes": 516870,
-     "results": 25,
-     "dated": 1,
+     "bytes": 516472,
+     "results": 24,
+     "dated": 0,
      "summaries": 0,
      "relevant": 1,
      "sample": "Aptera completes first customer solar EV, plans export to Indonesia"

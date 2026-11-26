@@ -1,27 +1,27 @@
 {
  "schema": "project-signals.v2",
- "generated_at": "2026-11-25T15:51:51Z",
- "run_at": "2026-11-25T16:13:30Z",
+ "generated_at": "2026-11-26T01:07:40Z",
+ "run_at": "2026-11-26T01:35:06Z",
  "stale": false,
  "scope": "200 largest Solar Photovoltaics rows, REPD October 2026",
  "recent_days": 90,
  "parts": {
   "official": {
    "status": "ok",
-   "collected_at": "2026-11-25T15:47:16Z",
+   "collected_at": "2026-11-26T01:03:03Z",
    "items": 109,
    "note": ""
   },
   "trade": {
    "status": "ok",
-   "collected_at": "2026-11-25T15:51:32Z",
+   "collected_at": "2026-11-26T01:07:21Z",
    "items": 192,
    "note": ""
   },
   "index": {
    "status": "ok",
-   "collected_at": "2026-11-25T15:51:51Z",
-   "items": 17,
+   "collected_at": "2026-11-26T01:07:40Z",
+   "items": 18,
    "note": ""
   },
   "reviewed": {
@@ -32,7 +32,7 @@
   },
   "planning": {
    "status": "ok",
-   "collected_at": "2026-11-25T16:08:21Z",
+   "collected_at": "2026-11-26T01:28:47Z",
    "items": 200,
    "note": ""
   }
@@ -46,19 +46,19 @@
   "by_tier": {
    "recent_news": 9,
    "official": 43,
-   "archive_only": 114,
-   "planning_file_only": 34,
+   "archive_only": 115,
+   "planning_file_only": 33,
    "nothing": 0
   },
-  "possible_only": 65,
+  "possible_only": 66,
   "with_recent_news": 9,
   "with_official": 49,
-  "with_archive": 156,
+  "with_archive": 157,
   "with_possible_recent_news": 4,
   "items": {
    "recent_news": 20,
    "official": 120,
-   "archive": 364
+   "archive": 365
   },
   "planning_file": {
    "verified_direct": 62,
@@ -161,7 +161,7 @@
    "requests": 7,
    "failures": 0,
    "items": 0,
-   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 25 links say solar); wp_search not JSON"
+   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (1 of 24 links say solar); wp_search not JSON"
   },
   {
    "team": "trade",
@@ -228,10 +228,10 @@
    "id": "gdelt-doc",
    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
    "status": "partial",
-   "requests": 39,
-   "failures": 30,
-   "items": 0,
-   "error": "HTTP 429 on 6 queries running, each retried once; GDELT left alone for the rest of this run; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
+   "requests": 54,
+   "failures": 37,
+   "items": 2,
+   "error": "time budget for GDELT reached; the rest are asked on later runs; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   }
  ],
  "projects": {
@@ -11038,10 +11038,27 @@
    "site_name": "Bramford Solar Farm",
    "alias": "Bramford Solar Farm",
    "alias_standing": "possible",
-   "tier": "planning_file_only",
+   "tier": "archive_only",
    "recent_news": [],
    "official": [],
-   "archive": [],
+   "archive": [
+    {
+     "title": "How floating solar panels cut Suffolk Fresh energy use",
+     "link": "https://www.eadt.co.uk/news/26567329.ipswich-floating-solar-array-generates-500mwh-10-months/",
+     "publisher": "eadt.co.uk",
+     "date": null,
+     "year": null,
+     "tier": "archive",
+     "event": null,
+     "obtained": "fetched",
+     "source": "index",
+     "family": "regional",
+     "collected_at": "2026-11-26T01:07:40Z",
+     "confidence": "possible",
+     "freshness": "undated",
+     "basis": "GDELT index, UK sources: phrase 'Bramford' and 'solar' in the article text per GDELT; headline says solar and Suffolk but not the name (alias uncertain)"
+    }
+   ],
    "planning_file": {
     "label": "planning register search",
     "link_type": "search",

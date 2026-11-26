@@ -1,8 +1,18 @@
 {
  "schema": "project-signals-part.v1",
  "team": "index",
- "generated_at": "2026-11-25T15:51:51Z",
+ "generated_at": "2026-11-26T01:07:40Z",
  "items": [
+  {
+   "repd_ref": "8007",
+   "title": "How floating solar panels cut Suffolk Fresh energy use",
+   "link": "https://www.eadt.co.uk/news/26567329.ipswich-floating-solar-array-generates-500mwh-10-months/",
+   "publisher": "eadt.co.uk",
+   "date": null,
+   "family": "regional",
+   "basis": "GDELT index, UK sources: phrase 'Bramford' and 'solar' in the article text per GDELT; headline says solar and Suffolk but not the name (alias uncertain)",
+   "confidence": "uncertain"
+  },
   {
    "repd_ref": "12588",
    "title": "Botley West campaigners delighted as solar farm refused",
@@ -197,51 +207,51 @@
    "id": "gdelt-doc",
    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
    "status": "partial",
-   "requests": 39,
-   "failures": 30,
-   "items": 0,
-   "error": "HTTP 429 on 6 queries running, each retried once; GDELT left alone for the rest of this run; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
+   "requests": 54,
+   "failures": 37,
+   "items": 2,
+   "error": "time budget for GDELT reached; the rest are asked on later runs; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   }
  ],
  "coverage": {
   "projects": 200,
-  "with_signal": 6,
+  "with_signal": 7,
   "with_confirmed_signal": 4,
   "with_signal_by_family": {
    "official": 0,
    "bbc": 0,
    "trade": 1,
    "national": 0,
-   "regional": 5
+   "regional": 6
   },
-  "items": 17
+  "items": 18
  },
  "feeds": [
   {
    "url": "https://feeds.bbci.co.uk/news/rss.xml",
    "status": "ok",
-   "entries": 37,
+   "entries": 34,
    "solar": 0,
    "kept": 0,
-   "newest": "2026-11-25",
+   "newest": "2026-11-26",
    "error": ""
   },
   {
    "url": "https://feeds.bbci.co.uk/news/uk/rss.xml",
    "status": "ok",
-   "entries": 23,
+   "entries": 29,
    "solar": 0,
    "kept": 0,
-   "newest": "2026-11-25",
+   "newest": "2026-11-26",
    "error": ""
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
    "status": "ok",
-   "entries": 52,
+   "entries": 49,
    "solar": 1,
    "kept": 0,
-   "newest": "2026-11-25",
+   "newest": "2026-11-26",
    "error": ""
   },
   {
@@ -250,7 +260,7 @@
    "entries": 42,
    "solar": 0,
    "kept": 0,
-   "newest": "2026-11-25",
+   "newest": "2026-11-26",
    "error": ""
   },
   {
@@ -265,7 +275,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/rss.xml",
    "status": "ok",
-   "entries": 24,
+   "entries": 22,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-25",
@@ -274,7 +284,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/scotland/rss.xml",
    "status": "ok",
-   "entries": 36,
+   "entries": 35,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-25",
@@ -283,7 +293,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/wales/rss.xml",
    "status": "ok",
-   "entries": 28,
+   "entries": 30,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-25",
@@ -295,13 +305,13 @@
    "entries": 38,
    "solar": 0,
    "kept": 0,
-   "newest": "2026-11-25",
+   "newest": "2026-11-26",
    "error": ""
   },
   {
    "url": "https://feeds.bbci.co.uk/news/england/oxford/rss.xml",
    "status": "ok",
-   "entries": 27,
+   "entries": 28,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-25",
@@ -310,7 +320,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/south_yorkshire/rss.xml",
    "status": "ok",
-   "entries": 20,
+   "entries": 21,
    "solar": 1,
    "kept": 0,
    "newest": "2026-11-25",
@@ -337,7 +347,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/nottingham/rss.xml",
    "status": "ok",
-   "entries": 26,
+   "entries": 27,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-25",
@@ -355,7 +365,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/essex/rss.xml",
    "status": "ok",
-   "entries": 18,
+   "entries": 19,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-25",
@@ -364,7 +374,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/beds_bucks_and_herts/rss.xml",
    "status": "ok",
-   "entries": 22,
+   "entries": 21,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-25",
@@ -400,7 +410,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/leeds_and_west_yorkshire/rss.xml",
    "status": "ok",
-   "entries": 24,
+   "entries": 25,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-25",
@@ -409,7 +419,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/kent/rss.xml",
    "status": "ok",
-   "entries": 20,
+   "entries": 21,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-25",
@@ -472,7 +482,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/derbyshire/rss.xml",
    "status": "ok",
-   "entries": 21,
+   "entries": 22,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-25",
@@ -490,7 +500,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/merseyside/rss.xml",
    "status": "ok",
-   "entries": 21,
+   "entries": 23,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-25",
@@ -499,7 +509,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/manchester/rss.xml",
    "status": "ok",
-   "entries": 29,
+   "entries": 30,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-25",
@@ -508,7 +518,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/stoke_and_staffordshire/rss.xml",
    "status": "ok",
-   "entries": 23,
+   "entries": 25,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-25",
@@ -544,7 +554,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/leicester/rss.xml",
    "status": "ok",
-   "entries": 21,
+   "entries": 23,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-25",
@@ -553,7 +563,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/scotland/glasgow_and_west/rss.xml",
    "status": "ok",
-   "entries": 20,
+   "entries": 22,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-25",
@@ -562,7 +572,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/london/rss.xml",
    "status": "ok",
-   "entries": 36,
+   "entries": 37,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-25",
@@ -571,7 +581,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/scotland/north_east_orkney_and_shetland/rss.xml",
    "status": "ok",
-   "entries": 21,
+   "entries": 20,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-25",
@@ -625,7 +635,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/devon/rss.xml",
    "status": "ok",
-   "entries": 23,
+   "entries": 24,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-25",
@@ -634,7 +644,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/suffolk/rss.xml",
    "status": "ok",
-   "entries": 21,
+   "entries": 24,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-25",
@@ -643,7 +653,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/somerset/rss.xml",
    "status": "ok",
-   "entries": 35,
+   "entries": 36,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-25",
@@ -670,7 +680,7 @@
   {
    "url": "https://feeds.bbci.co.uk/news/england/birmingham_and_black_country/rss.xml",
    "status": "ok",
-   "entries": 24,
+   "entries": 27,
    "solar": 0,
    "kept": 0,
    "newest": "2026-11-25",
@@ -750,85 +760,124 @@
   }
  ],
  "gdelt": {
-  "requests": 39,
-  "answered": 9,
-  "cache_hits": 108,
-  "http_429": 30,
+  "requests": 54,
+  "answered": 17,
+  "cache_hits": 117,
+  "http_429": 37,
   "errors": 0,
-  "empty": 8,
-  "articles": 2,
-  "stopped": "HTTP 429 on 6 queries running, each retried once; GDELT left alone for the rest of this run",
+  "empty": 15,
+  "articles": 8,
+  "stopped": "time budget for GDELT reached; the rest are asked on later runs",
   "window": "since 2017",
   "error_samples": [
    "HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   ],
-  "not_asked": 109,
-  "refused_queries": 13,
+  "not_asked": 95,
+  "refused_queries": 15,
   "dropped": {
    "no title or link": 0,
    "excluded source": 0,
    "exclude phrase": 0,
-   "headline has neither the name nor solar": 44,
-   "headline says solar but neither the name nor the county": 5,
+   "headline has neither the name nor solar": 49,
+   "headline says solar but neither the name nor the county": 6,
    "headline names another of the 200": 0
   },
-  "projects_asked": 106,
-  "projects_with_articles": 12,
-  "projects_with_kept": 0,
+  "projects_asked": 120,
+  "projects_with_articles": 14,
+  "projects_with_kept": 1,
   "projects_with_strong": 0,
-  "domains": [],
+  "domains": [
+   [
+    "eadt.co.uk",
+    1
+   ],
+   [
+    "ipswichstar.co.uk",
+    1
+   ]
+  ],
   "per_project": {
-   "6071": {
-    "phrase": "Porth Wen",
+   "14994": {
+    "phrase": "Stirling",
+    "returned": 6,
+    "kept": 0,
+    "strong": 0
+   },
+   "7486": {
+    "phrase": "South Lowfield",
     "returned": 0,
     "kept": 0,
     "strong": 0
    },
-   "7519": {
-    "phrase": "Corner Copse",
+   "7840": {
+    "phrase": "Croome Airfield",
     "returned": 0,
     "kept": 0,
     "strong": 0
    },
-   "7802": {
-    "phrase": "Chosley",
-    "returned": 0,
-    "kept": 0,
-    "strong": 0
-   },
-   "7944": {
-    "phrase": "Perrinpit",
-    "returned": 0,
-    "kept": 0,
-    "strong": 0
-   },
-   "7945": {
-    "phrase": "Cornwell",
-    "returned": 0,
-    "kept": 0,
-    "strong": 0
-   },
-   "7954": {
-    "phrase": "Crick Road",
-    "returned": 0,
-    "kept": 0,
-    "strong": 0
-   },
-   "7956": {
-    "phrase": "Harlesford",
-    "returned": 0,
-    "kept": 0,
-    "strong": 0
-   },
-   "8026": {
-    "phrase": "Bulphan Fen",
-    "returned": 0,
-    "kept": 0,
-    "strong": 0
-   },
-   "8038": {
-    "phrase": "Claydon",
+   "8007": {
+    "phrase": "Bramford",
     "returned": 2,
+    "kept": 2,
+    "strong": 0
+   },
+   "8053": {
+    "phrase": "Low Farm Solar Farm",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "8062": {
+    "phrase": "Wick Solar Farm",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "8068": {
+    "phrase": "Copse Close",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "8091": {
+    "phrase": "Cowley House",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "8100": {
+    "phrase": "Camblesforth",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "8101": {
+    "phrase": "Litchardon Cross",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "8149": {
+    "phrase": "Bunkers Hill",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "8254": {
+    "phrase": "Sheraton Hall",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "8308": {
+    "phrase": "Bloy s Grove",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "8323": {
+    "phrase": "Stowey",
+    "returned": 0,
     "kept": 0,
     "strong": 0
    },
@@ -1411,6 +1460,60 @@
    "7388": {
     "phrase": "Winkburn",
     "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "6071": {
+    "phrase": "Porth Wen",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "7519": {
+    "phrase": "Corner Copse",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "7802": {
+    "phrase": "Chosley",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "7944": {
+    "phrase": "Perrinpit",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "7945": {
+    "phrase": "Cornwell",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "7954": {
+    "phrase": "Crick Road",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "7956": {
+    "phrase": "Harlesford",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "8026": {
+    "phrase": "Bulphan Fen",
+    "returned": 0,
+    "kept": 0,
+    "strong": 0
+   },
+   "8038": {
+    "phrase": "Claydon",
+    "returned": 2,
     "kept": 0,
     "strong": 0
    }

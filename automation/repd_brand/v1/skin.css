@@ -1,0 +1,97 @@
+/*
+ * V9.73 native-REPD visual parity for separate Grid / Data Centres /
+ * Offtakers / Prices panels. Scoped donor, NOT a live V9.73 CSS file.
+ * Runtime variables are derived from the computed REPD table by skin.mjs.
+ * Do not paint GridAtlas network/voltage markers, chart series or status colours.
+ */
+:is(#gridPanel,#datacentrePanel,#offtakersPanel,#pricesPanel).pn-repd-native-skin{
+  background:var(--pn-repd-surface,#000);
+  color:var(--pn-repd-row-text,#a6adbb);
+  font-family:'Courier New',monospace;
+}
+/* Shared table and control grammar -- no global selectors. */
+:is(#gridPanel,#offtakersPanel).pn-repd-native-skin .pn-layers,
+#datacentrePanel.pn-repd-native-skin .ggdc-component,
+#pricesPanel.pn-repd-native-skin .pn-daily-prices{
+  background:var(--pn-repd-panel,#0b0e14);
+  color:var(--pn-repd-row-text,#a6adbb);
+  border-radius:3px;
+  font-family:'Courier New',monospace;
+  box-shadow:none;
+}
+:is(#gridPanel,#offtakersPanel).pn-repd-native-skin .pn-layers :is(th,.pn-count),
+#datacentrePanel.pn-repd-native-skin :is(.ggdc-table th,.ggdc-title),
+#pricesPanel.pn-repd-native-skin :is(.pnd-table th,.pn-daily-prices h3){
+  color:var(--pn-repd-table-head-text,#00ffff);
+}
+:is(#gridPanel,#offtakersPanel).pn-repd-native-skin .pn-layers th,
+#datacentrePanel.pn-repd-native-skin .ggdc-table th,
+#pricesPanel.pn-repd-native-skin .pnd-table th{
+  background:var(--pn-repd-table-head-background,#050505);
+  border-bottom:1px solid var(--pn-repd-border,#2f343d);
+  font-family:'Courier New',monospace;
+}
+:is(#gridPanel,#offtakersPanel).pn-repd-native-skin .pn-layers td,
+#datacentrePanel.pn-repd-native-skin .ggdc-table td,
+#pricesPanel.pn-repd-native-skin .pnd-table td{
+  color:var(--pn-repd-row-text,#a6adbb);
+  border-bottom:1px solid var(--pn-repd-border,#2f343d);
+  font-family:'Courier New',monospace;
+}
+:is(#gridPanel,#offtakersPanel).pn-repd-native-skin .pn-layers :is(button,input,select),
+#datacentrePanel.pn-repd-native-skin .ggdc-component :is(button,input,select),
+#pricesPanel.pn-repd-native-skin .pnd-tools :is(input,select){
+  background:var(--pn-repd-surface,#000);
+  color:var(--pn-repd-row-text,#a6adbb);
+  border:1px solid var(--pn-repd-border,#2f343d);
+  border-radius:3px;
+  box-shadow:none;
+  font-family:'Courier New',monospace;
+}
+:is(#gridPanel,#offtakersPanel).pn-repd-native-skin .pn-layers button[aria-pressed='true'],
+:is(#gridPanel,#offtakersPanel).pn-repd-native-skin .pn-layers button[aria-selected='true'],
+#datacentrePanel.pn-repd-native-skin .ggdc-component button[aria-pressed='true']{
+  background:var(--pn-repd-panel,#0b0e14);
+  color:var(--pn-repd-active,#00ffff);
+  border-color:var(--pn-repd-active,#00ffff);
+}
+:is(#gridPanel,#offtakersPanel).pn-repd-native-skin .pn-layers :focus-visible,
+#datacentrePanel.pn-repd-native-skin .ggdc-component :focus-visible,
+#pricesPanel.pn-repd-native-skin .pn-daily-prices :focus-visible{
+  outline:2px solid var(--pn-repd-active,#00ffff);
+  outline-offset:2px;
+}
+/* A data-centre source header and ordinary introductory copy are not warning states. */
+#datacentrePanel.pn-repd-native-skin .ggdc-intro{
+  color:var(--pn-repd-row-text,#a6adbb);
+}
+#datacentrePanel.pn-repd-native-skin .ggdc-table tbody tr:hover{
+  background:var(--pn-repd-panel,#0b0e14);
+}
+#datacentrePanel.pn-repd-native-skin .ggdc-identity{
+  color:var(--pn-repd-project-text,#fff);
+}
+#datacentrePanel.pn-repd-native-skin .ggdc-source{
+  color:var(--pn-repd-active,#00ffff);
+}
+/* Prices: remove decorative rounding and glow, not true price/data context. */
+#pricesPanel.pn-repd-native-skin .pn-daily-prices,
+#pricesPanel.pn-repd-native-skin :is(.pnd-stats,.pnd-tools select,.pnd-tools input,.pn-daily-prices canvas){
+  border-radius:3px;
+  box-shadow:none;
+}
+#pricesPanel.pn-repd-native-skin .pnd-stats{
+  border:1px solid var(--pn-repd-border,#2f343d);
+  background:var(--pn-repd-panel,#0b0e14);
+}
+#pricesPanel.pn-repd-native-skin .pnd-stats dt{
+  color:var(--pn-repd-muted,#a6adbb);
+}
+#pricesPanel.pn-repd-native-skin .pnd-stats dd{
+  color:var(--pn-repd-project-text,#fff);
+}
+#pricesPanel.pn-repd-native-skin .pn-daily-prices a,
+#pricesPanel.pn-repd-native-skin .pn-daily-prices summary{
+  color:var(--pn-repd-active,#00ffff);
+}
+/* Purposeful series colours, grid kV legends, real alerts and news ticker untouched. */

@@ -1,0 +1,41 @@
+{
+  "schema": "vedic.homepage.release.v3",
+  "prior_domain_commit": "2f4b7cb82ee154fa3c684cba634d45f2183c6e7d",
+  "prior_owner_commit": "2dcdf62b7fcbc8cb0e1525cd0b795cea50db74c8",
+  "owner_commit": "aa9228844a588daeea0ed8dd7de965baaf86908d",
+  "owner_files": {
+    "index.html": "d45f1c28366cfa2dbd2e14d9bed3501e730fec94453bbd8cf7bd5fafcfc6e697",
+    "assets/versioned-homepage.css": "0c405224efa71f262011db49c5c7a559a265801ec98609c8c9b16a5d83df35d2",
+    "assets/versioned-homepage.js": "691df697ba930eab95ba67251ca3bee673ebb8c4174e010d8f6bb73ab24ea0f1",
+    "data/homepage.json": "59fe2390915b4004b7c899466b5f37ce32a39bc7f8b94370d918c29e79bc9d33",
+    "data/active-pages.json": "4ee017277a6e0a7a5e92b5320486cdf908300ac34629d71249d53b0e4d31fdeb",
+    "data/presentation.json": "66285dafe5369cfb991030e80ffdf8c7893de279efb5aa15a86493434d9fed11",
+    "data/entity-types.json": "36ab454c57594ec83157fb4c003696fb1fa19b495c5ef81fd98e7ddb52f740b8"
+  },
+  "snapshot": "homepage_versions/homepage_v163.html",
+  "metrics": "homepage_versions/homepage_v163-metrics.json",
+  "release_id": "20261126-v3",
+  "vedic_deployment_run": 45859699709,
+  "v1": {
+    "version": "202611260135-v1",
+    "url": "https://ventusltd.github.io/vedic-/releases/202611260135-v1/",
+    "source_commit": "b17a153a6c0698902bfa89516a34ec8a956c11e7",
+    "row_count": 39,
+    "manifest_sha256": "2830814b0deee302adfb7f9cf2d0d2d497bfb16fac9d1df6c9432a4756ea3208"
+  },
+  "v2": {
+    "version": "202611261351",
+    "url": "https://ventusltd.github.io/vedic-/releases/202611261351/",
+    "source_commit": "55ff568b378acff4adae02fb5c758b4f4f8c6bcd",
+    "row_count": 50,
+    "manifest_sha256": "cde6ebf6b26d28945e63e2bd8b530268619bee736095d77bfa9b080891f607d3"
+  },
+  "v3": {
+    "version": "20261126-v3",
+    "url": "https://ventusltd.github.io/vedic-/releases/20261126-v3/",
+    "source_commit": "9d6a3a35b12fc4709f4b65965ca1f17a87277a2d",
+    "row_count": 50,
+    "manifest_sha256": "293284eab045aab71b3747bb603d1ea1bfb43b5a08766d2aaa7d6e57e8c4fda5",
+    "root_alias": "https://ventusltd.github.io/vedic-/"
+  }
+}

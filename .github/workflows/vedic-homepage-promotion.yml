@@ -5,7 +5,9 @@ on:
       - catalogue/homepage-owner.json
       - homepage_versions/homepage_v161*
       - homepage_versions/homepage_v162*
+      - homepage_versions/homepage_v163*
       - catalogue/vedic-v2-release.json
+      - catalogue/vedic-v3-release.json
       - scripts/verify_vedic_homepage_release.py
       - .github/workflows/vedic-homepage-promotion.yml
   workflow_run:

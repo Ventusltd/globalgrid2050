@@ -1,0 +1,15 @@
+{
+  "file": "homepage_v163.html",
+  "source_commit": "2f4b7cb82ee154fa3c684cba634d45f2183c6e7d",
+  "source_owner_commit": "2dcdf62b7fcbc8cb0e1525cd0b795cea50db74c8",
+  "homepage_versions_entries_before": 285,
+  "lines": 71,
+  "words": 4073,
+  "characters": 64903,
+  "bytes": 64916,
+  "sha256": "4dd7e466ce246d7153b03ea044761d4c0798ceb578d722e9cea31c25f370ce36",
+  "proposed_owner_commit": "aa9228844a588daeea0ed8dd7de965baaf86908d",
+  "proposed_root_sha256": "81d6a86119370ee9a2ccc5dc241632d41e05aa4a3db475aa9246b4cf956d0ec6",
+  "intention": "Promote exact verified VEDIC V3 while preserving V1/V2 and every other homepage entry.",
+  "verification": "Exact prior root reconstructed from pinned owner; pre-merge CI independently imports both owner bundles, measures snapshot and verifies served bytes."
+}

@@ -1,0 +1,15 @@
+{
+  "file": "homepage_v162.html",
+  "source_commit": "ce03ce920f303e3457ad9c7cc232cd0aa64818e3",
+  "source_owner_commit": "a348303645e963908c472f8da299f7ae938e225e",
+  "homepage_versions_entries_before": 283,
+  "lines": 71,
+  "words": 4073,
+  "characters": 64881,
+  "bytes": 64894,
+  "sha256": "5eacc207dadddc67e7a8c66b2e6f6e15b13691620897364599f912b5c34923ff",
+  "proposed_owner_commit": "2dcdf62b7fcbc8cb0e1525cd0b795cea50db74c8",
+  "proposed_root_sha256": "4dd7e466ce246d7153b03ea044761d4c0798ceb578d722e9cea31c25f370ce36",
+  "intention": "Promote exact VEDIC V2 release; retain V1 archive and every other homepage entry. Roll back by restoring previous owner pin.",
+  "verification": "Reconstruct prior root from exact owner file; pre-merge CI independently imports both owner bundles, measures snapshot and verifies current served prior bytes. Manual measurement dispatch unavailable through connector."
+}

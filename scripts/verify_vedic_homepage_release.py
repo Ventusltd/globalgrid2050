@@ -65,26 +65,37 @@ def compare_catalogues(previous,current,m):
     assert [e for e in current["entities"] if e["id"]!="vedic"]==[e for e in previous["entities"] if e["id"]!="vedic"]
     assert {k:v for k,v in current.items() if k not in ("entities","promotions")}=={k:v for k,v in previous.items() if k not in ("entities","promotions")}
     assert {k:v for k,v in q.items() if k not in ("releases","operative_release_id")}=={k:v for k,v in p.items() if k not in ("releases","operative_release_id")}
-    assert p["operative_release_id"]=="v1" and q["operative_release_id"]==m["release_id"]
-    assert len(p["releases"])==1 and len(q["releases"])==2
-    old,new=q["releases"]
-    assert old=={**p["releases"][0],"archive_url":m["v1"]["url"],"archive_kind":"app"}
-    assert new["id"]==m["release_id"] and new["url"]==m["v2"]["url"] and new["status"]=="available"
-    assert new["source_ref"]=="https://github.com/Ventusltd/vedic-/tree/"+m["v2"]["source_commit"]
+    target=m.get("v3",m["v2"])
+    old_id=m["v2"]["version"] if "v3" in m else "v1"
+    assert p["operative_release_id"]==old_id and q["operative_release_id"]==m["release_id"]
+    assert len(q["releases"])==len(p["releases"])+1
+    if "v3" in m:
+        assert q["releases"][:-1]==p["releases"]
+    else:
+        assert len(p["releases"])==1
+        assert q["releases"][0]=={**p["releases"][0],"archive_url":m["v1"]["url"],"archive_kind":"app"}
+    new=q["releases"][-1]
+    assert new["id"]==m["release_id"] and new["url"]==target["url"] and new["status"]=="available"
+    assert new["source_ref"]=="https://github.com/Ventusltd/vedic-/tree/"+target["source_commit"]
     promos=previous.get("promotions",[])
     assert current["promotions"][:-1]==promos
     promotion=current["promotions"][-1]
-    assert (promotion["entity_id"],promotion["from_release_id"],promotion["to_release_id"])==("vedic","v1",m["release_id"])
+    assert (promotion["entity_id"],promotion["from_release_id"],promotion["to_release_id"])==("vedic",old_id,m["release_id"])
 def main():
-    m=json.loads((ROOT/"catalogue/vedic-v2-release.json").read_bytes())
+    v3=ROOT/"catalogue/vedic-v3-release.json"
+    m=json.loads((v3 if v3.exists() else ROOT/"catalogue/vedic-v2-release.json").read_bytes())
+    target=m.get("v3",m["v2"])
     pin_bytes=(ROOT/"catalogue/homepage-owner.json").read_bytes()
     pin=json.loads(pin_bytes)
-    assert m["schema"]=="vedic.homepage.release.v2"
+    assert m["schema"]==("vedic.homepage.release.v3" if "v3" in m else "vedic.homepage.release.v2")
     event=os.environ["EVENT"]
     if event=="workflow_run":
         assert os.environ["DEPLOY_CONCLUSION"]=="success","Domain deploy not successful"
     verify_release(m["v1"])
     verify_release(m["v2"])
+    if "v3" in m:
+        assert not m["v2"].get("root_alias"),"V2 must remain immutable, not current alias"
+        verify_release(m["v3"])
     with tempfile.TemporaryDirectory() as tmp:
         root=pathlib.Path(tmp)
         previous,current=root/"previous",root/"current"
@@ -117,9 +128,12 @@ def main():
             assert e["operative_release_id"]==m["release_id"],"VEDIC successor requires explicit manifest update"
             old=next(r for r in e["releases"] if r["id"]=="v1")
             new=next(r for r in e["releases"] if r["id"]==m["release_id"])
-            assert old["archive_url"]==m["v1"]["url"] and new["url"]==m["v2"]["url"]
+            assert old["archive_url"]==m["v1"]["url"] and new["url"]==target["url"]
         assert (current/"index.html").read_text().count('id="vedic"')==1
-        assert m["v2"]["url"] in (current/"index.html").read_text()
+        assert target["url"] in (current/"index.html").read_text()
+        if "v3" in m:
+            e=next(x for x in current_doc["entities"] if x["id"]=="vedic")
+            assert next(r for r in e["releases"] if r["id"]==m["v2"]["version"])["url"]==m["v2"]["url"]
         if event=="workflow_run":
             match(DOMAIN,(current/"index.html").read_bytes())
             for f in pin["files"]:

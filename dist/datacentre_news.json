@@ -1,11 +1,11 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-26T01:02:44Z",
+ "generated_at": "2026-11-26T15:27:28Z",
  "status": "ok",
  "counts": {
-  "items": 48,
-  "capex": 40,
-  "politics": 8,
+  "items": 54,
+  "capex": 45,
+  "politics": 10,
   "with_register_site": 0,
   "feeds_ok": 9,
   "feeds_failed": 0
@@ -28,23 +28,23 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "sha256": "71cb6337c51183ddd357e617c1966b204c788103146a4370d32e17b247b8dce9"
+   "sha256": "20bb8d02fec0ecda12c59b0ac372e40c663bec2e7658e4b72a40cc4346444d66"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 49,
+   "entries": 56,
    "kept": 0,
-   "sha256": "aba12937700d3d0286be557dd51405f1457f2e82508d2f1446824e698baa7bed"
+   "sha256": "e30cc4731cbdc62483e7cfc260cc88aa0f56019a893babf8cd3caeb4e3927df8"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 61,
+   "entries": 60,
    "kept": 0,
-   "sha256": "b551dd87f7c11fe6868e285cddfb9369824a2a883af04caecdd3c174b68366e6"
+   "sha256": "109bfbd907a1970d33aa864fe012d73f52b5b6e1be4e9a1da03ab90a026cfa93"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 42,
    "kept": 1,
-   "sha256": "0330b2525cb15a38aeeb1a6f1574cefc0100275d9a7c749b73c1635a1e213ee3"
+   "sha256": "238617c0c73f2ac0ffe0e33c5b2604f0d2947e795f7611e01bcfb2d7a972de6d"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -60,7 +60,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "db26b52e057592978a335d87f0aad5c263f5ab000436342b1951ef84b9fc1cae"
+   "sha256": "f48c5be616fa1302bacd6dd303d94ad3657c64771f63deaf4e74d623a2d97ff6"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-energy-security-and-net-zero.atom",
@@ -68,7 +68,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "8eb5d2a64232e1cf7da7d4b30829bc91c4fc9a17bd3b333fc2deb053d92bb809"
+   "sha256": "302ec4abb33932d8ad501dd906425a4bcf39ee44274fa09b3f1e01119858e73b"
   },
   {
    "url": "https://www.gov.uk/search/news-and-communications.atom?keywords=data+centre",
@@ -76,7 +76,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "090f0c2a3a5e0b3407b590b335a5c9e3ad13068dfd00849925ea1087cf72c862"
+   "sha256": "b07e358aca601cf61e923b05f77476440aba8f7aca80ed7f78e2b7bda2797387"
   },
   {
    "url": "https://bills.parliament.uk/rss/allbills.rss",
@@ -84,18 +84,182 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "8da04130d2679f506aa0c53231aab1215b17a165018182c90710e392840bb770"
+   "sha256": "5600f9e28eef6a91437a21e81932f0b9b6036a4e44f86519a3372d66caf98610"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
    "source": "DatacenterDynamics",
    "status": "ok",
    "entries": 20,
-   "kept": 5,
-   "sha256": "c606b25ce86bf3c64eb1dca3d96fb504e380e5bfc4549222cd4567879ba88b5e"
+   "kept": 6,
+   "sha256": "afed39135894a5c6c8b3ffb8b1e5ca36ee85f7b9fecc4434db2f23642f87d7c9"
   }
  ],
  "items": [
+  {
+   "title": "Pennsylvania police arrest suspects over threats to Olyphant council after controversial data center vote",
+   "link": "https://www.datacenterdynamics.com/en/news/pennsylvania-police-arrest-suspects-over-threats-to-olyphant-council-after-controversial-data-center-vote/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-26T14:49:01Z",
+   "first_seen": "2026-11-26T15:27:28Z",
+   "lanes": [
+    "politics"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [],
+    "politics": [
+     "planning"
+    ]
+   },
+   "capex_basis": null,
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Prologis sells industrial facility to Fluidstack for data center in Pennsylvania",
+   "link": "https://www.datacenterdynamics.com/en/news/prologis-sells-industrial-facility-to-fluidstack-for-data-center-in-pennsylvania/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-26T14:30:36Z",
+   "first_seen": "2026-11-26T15:27:28Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "million"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "India's state-owned natural gas company seeks investment partner for data center project",
+   "link": "https://www.datacenterdynamics.com/en/news/indias-state-owned-natural-gas-company-seeks-investment-partner-for-data-center-project/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-26T12:45:09Z",
+   "first_seen": "2026-11-26T15:27:28Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "investment"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Vertiv expands 800VDC power portfolio for AI data center market",
+   "link": "https://www.datacenterdynamics.com/en/news/vertiv-expands-800vdc-power-portfolio-for-ai-data-center-market/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-26T12:28:40Z",
+   "first_seen": "2026-11-26T15:27:28Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "compute",
+     "data centre"
+    ],
+    "capex": [
+     "expansion"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Fortitude Capital plans 202MW AI data center campus in Sines, Portugal",
+   "link": "https://www.datacenterdynamics.com/en/news/fortitude-capital-plans-a-202-mw-ai-campus-in-sines/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-26T12:25:00Z",
+   "first_seen": "2026-11-26T15:27:28Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "expansion",
+     "investment"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Cheyenne Light applies to build transmission infrastructure for three Microsoft data centers in Wyoming",
+   "link": "https://www.datacenterdynamics.com/en/news/cheyenne-light-applies-to-build-transmission-infrastructure-for-three-microsoft-data-centers-in-wyoming/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-26T11:49:48Z",
+   "first_seen": "2026-11-26T15:27:28Z",
+   "lanes": [
+    "capex",
+    "politics"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": [
+     "bill"
+    ]
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [
+    {
+     "id": "dcuk-0da224822f07a7c8",
+     "name": "Microsoft Ireland",
+     "status": "operational",
+     "matched_on": "operator",
+     "matched_text": "Microsoft"
+    },
+    {
+     "id": "dcuk-9c6c76a0ecec3baf",
+     "name": "Microsoft Newport data centre",
+     "status": "operational",
+     "matched_on": "operator",
+     "matched_text": "Microsoft"
+    }
+   ],
+   "site_matches": 2
+  },
   {
    "title": "Trio of Japanese real estate developers invest in 15MW Hokkaido data center development",
    "link": "https://www.datacenterdynamics.com/en/news/trio-of-japanese-real-estate-developers-invest-in-15mw-hokkaido-data-center-development/",

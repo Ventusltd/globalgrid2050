@@ -1966,3 +1966,12 @@ To roll back, restore the prior owner pin through the importer and Pages, then v
 ## V160 — before Pipeline News V9.57 promotion
 
 Preserves the previous V9.56 homepage reconstructed from the verified seven-file owner bundle at d91a4b131cf06ace060626ccaaa2e23855573e6f. Snapshot `homepage_v160.html`, metrics `homepage_v160-metrics.json`. Only Pipeline News launch and catalogue archive change. To roll back restore the previous owner pin from 577233737689e1289c89436d76ae50a272fb3677. The previous public bytes were not independently measured in this session.
+
+## Version 164 — pre-navigation repair restore point
+Source: `5556e09813b4f0c7cf70f0ee97260f7ebb99cc85` root index, before homepage-owner pin changes. Exact bytes preserved in homepage_v164.html.
+- SHA-256: 12f1446e980793ec219ee21dccf32a3bcd9524686b2efc9263b8212f35c6c74f
+- Lines: 69
+- Words (whitespace-separated): 3924
+- Characters: 62204
+- Folder entries before snapshot: 287 (includes directories; CI measures regular files).
+- Intent: import validated homepage owner 0c28f579562edae7e63ec53e21f9d7cf6aa74205, restore its already-operative V9.76, preserve archive links. No app promotion or direct edit of generated root.

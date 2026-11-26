@@ -1,0 +1,113 @@
+name: Kuiper and homepage navigation candidate
+on:
+  push:
+    branches: [agent/kuiper-a-pipeline-navigation-20261126]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+          sparse-checkout: |
+            catalogue
+            homepage_versions
+            homepage-shell
+            scripts
+            kuiper
+            uk_renewables_pipeline/index.html
+            index.html
+          sparse-checkout-cone-mode: false
+      - name: Measure and verify restore point
+        run: |
+          git show 5556e09813b4f0c7cf70f0ee97260f7ebb99cc85:index.html > /tmp/before.html
+          cmp /tmp/before.html homepage_versions/homepage_v164.html
+          python3 scripts/measure_homepage_version.py /tmp/before.html homepage_versions/homepage_v164.html
+          find homepage_versions -maxdepth 1 -type f | wc -l
+          sha256sum /tmp/before.html homepage_versions/homepage_v164.html
+          git show 5556e09813b4f0c7cf70f0ee97260f7ebb99cc85:kuiper/current.json | cmp - kuiper/state/202611261810-before.json
+      - name: Assemble verified homepage owner bundle
+        run: python3 scripts/import_homepage_owner.py
+      - name: Verify seals, archive and operative link
+        run: |
+          python3 - <<'PY'
+          import json, hashlib, pathlib, subprocess, urllib.request
+          root=pathlib.Path('.'); p=json.loads((root/'kuiper/current.json').read_text())
+          old=json.loads((root/'kuiper/state/202611261810-before.json').read_text())
+          assert p['shell']==old['shell'] and p['cartridge_order']==old['cartridge_order']
+          def check(path, sha, size=None):
+              data=path.read_bytes(); assert hashlib.sha256(data).hexdigest()==sha, str(path)
+              if size is not None: assert len(data)==size, str(path)
+          check(root/'kuiper'/p['shell']['index'],p['shell']['sha256'])
+          for c in p['cartridges']: check(root/'kuiper'/c['path'],c['sha256'],c['bytes'])
+          assert all(a==b for a,b in zip(p['cartridges'],old['cartridges']) if a['id'] not in ['kuiper-card','kuiper-programs'])
+          changed=subprocess.check_output(['git','diff','--name-only','5556e09813b4f0c7cf70f0ee97260f7ebb99cc85','HEAD']).decode().splitlines()
+          assert not any(x.startswith('kuiper/releases/') for x in changed)
+          cfg=json.loads((root/'homepage-shell/data/homepage.json').read_text())
+          entity=next(x for x in cfg['entities'] if x['id']=='pipeline-news')
+          target=next(x for x in entity['releases'] if x['id']==entity['operative_release_id'])
+          assert target['id']=='202611232245' and target['status']=='available'
+          assert target['url'] in (root/'index.html').read_text()
+          assert '202609082224' in (root/'index.html').read_text()
+          with urllib.request.urlopen(target['url'],timeout=45) as r:
+              assert r.status==200 and 'REPD' in r.read().decode('utf-8','replace')
+          print('Verified target:',target['url'])
+          PY
+          node --check kuiper/cartridges/202611261810-kuiper-card.js
+          node --check kuiper/cartridges/202611261810-kuiper-programs.js
+      - name: Browser staged navigation and live target
+        run: |
+          pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+          python - <<'PY'
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          origin='https://globalgrid2050.com'
+          target=origin+'/uk_renewables_pipeline/202611232245/'
+          with sync_playwright() as p:
+              browser=p.chromium.launch(args=['--enable-webgl','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
+              page=browser.new_page()
+              def route(r):
+                  path=r.request.url.split('?')[0].replace(origin,'')
+                  local=Path('.')/path.lstrip('/')
+                  if path=='/': local=Path('index.html')
+                  if path=='/kuiper/': local=Path('kuiper/index.html')
+                  if path=='/uk_renewables_pipeline/': local=Path('uk_renewables_pipeline/index.html')
+                  if local.is_file(): r.fulfill(path=str(local))
+                  else: r.continue_()
+              page.context.route(origin+'/**',route)
+              page.goto(origin+'/',wait_until='domcontentloaded')
+              assert page.locator('#pipeline-news a.launch').get_attribute('href')==target
+              page.goto(origin+'/kuiper/',wait_until='domcontentloaded')
+              button=page.locator('#apps button[data-app="pipelinenews"]')
+              button.wait_for(state='visible',timeout=60000)
+              button.click()
+              tile=page.locator('a.cc-app[data-app="pipelinenews"]:not(.cc-page)')
+              tile.wait_for(state='visible',timeout=60000)
+              assert tile.get_attribute('href')==origin+'/uk_renewables_pipeline/'
+              with page.expect_popup(timeout=60000) as popup:
+                  tile.click()
+              dest=popup.value
+              dest.wait_for_url(target,timeout=60000)
+              print('Kuiper application tile opened real target',dest.url)
+              dest.close()
+              page.goto(origin+'/uk_renewables_pipeline/',wait_until='domcontentloaded')
+              page.wait_for_url(target,timeout=60000)
+              print('Stable route opened real target',page.url)
+              page.screenshot(path='/tmp/pipeline-target.png')
+              page.route(origin+'/homepage-shell/data/homepage.json',lambda r:r.fulfill(status=200,json={'schema_version':1,'entities':[]}))
+              page.goto(origin+'/uk_renewables_pipeline/',wait_until='domcontentloaded')
+              page.get_by_text('The operative release could not be verified.',exact=False).wait_for()
+              assert page.url==origin+'/uk_renewables_pipeline/'
+              browser.close()
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: navigation-evidence
+          path: /tmp/pipeline-target.png
+          if-no-files-found: warn

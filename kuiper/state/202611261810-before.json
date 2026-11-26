@@ -1,0 +1,88 @@
+{
+ "schema": "globalgrid.current.v1",
+ "generation": "202609200300",
+ "previous_generation": "202609200232",
+ "architecture": "IMMUTABLE_SHELL_PLUS_HASHED_CARTRIDGES",
+ "live_route": "/kuiper/",
+ "release_id": "202609192301-kuiper-shell",
+ "shell": {
+  "release_id": "202609192301-kuiper-shell",
+  "index": "./releases/202609192301-kuiper-shell/index.html",
+  "base": "./releases/202609192301-kuiper-shell/",
+  "sha256": "5b59979c093d0713d05e6ab3d2c36395e5edcefaa7e5a0336c9fdb3b7f6e1e30"
+ },
+ "cartridge_order": [
+  "kuiper-chrome",
+  "kuiper-programs",
+  "kuiper-tests",
+  "kuiper-work",
+  "kuiper-card"
+ ],
+ "cartridges": [
+  {
+   "id": "kuiper-work",
+   "generation": "202609192355",
+   "type": "script",
+   "slot": "import-map",
+   "replaces": "kuiper-work.mjs",
+   "path": "./cartridges/202609192355-kuiper-work.mjs",
+   "sha256": "29fac46b6a7796597c7c23188316966087fe3d65d173c02c2d30391358ebf111",
+   "bytes": 1195864,
+   "release": "k0035",
+   "job": "what every piece of public work changed"
+  },
+  {
+   "id": "kuiper-programs",
+   "generation": "202609200009",
+   "type": "script",
+   "slot": "replace-script",
+   "replaces": "kuiper-programs.js",
+   "path": "./cartridges/202609200009-kuiper-programs.js",
+   "sha256": "a9675c6b9c3e20969c3847ff230eaa3c1d90fbed6366bf23ec068b47999132ed",
+   "bytes": 17738,
+   "release": "k0036",
+   "job": "the programs: isolate an application, the small Kuiper, its name"
+  },
+  {
+   "id": "kuiper-card",
+   "generation": "202609200104",
+   "type": "script",
+   "slot": "replace-script",
+   "replaces": "kuiper-card.js",
+   "path": "./cartridges/202609200104-kuiper-card.js",
+   "sha256": "704370dd2bf1fd85a14e0b4b5793f6482e9ce6e754436e34177226633922e70d",
+   "bytes": 21403,
+   "release": "k0040",
+   "job": "what a tap opens: the tile, the brand block, the code window"
+  },
+  {
+   "id": "kuiper-tests",
+   "generation": "202609200118",
+   "type": "script",
+   "slot": "replace-script",
+   "replaces": "kuiper-tests.js",
+   "path": "./cartridges/202609200118-kuiper-tests.js",
+   "sha256": "fefa0a309b92da778bc2c92fcc837ecf2521826d189a666019b8c2a470f82693",
+   "bytes": 78353,
+   "release": "k0041",
+   "job": "the page's own checks"
+  },
+  {
+   "id": "kuiper-chrome",
+   "generation": "202609200300",
+   "type": "script",
+   "slot": "replace-script",
+   "replaces": "kuiper-chrome.js",
+   "path": "./cartridges/202609200300-kuiper-chrome.js",
+   "sha256": "1f68f73470709b022a1d78e7299f009215b5920c06ad54db1b4e74a9c2bf9f30",
+   "bytes": 2678,
+   "release": "k0044",
+   "job": "how the page is dressed"
+  }
+ ],
+ "last_known_green": {
+  "generation": "202609200300",
+  "release": "k0044",
+  "proved": "minimal face: top left box gone, one grey footnote"
+ }
+}

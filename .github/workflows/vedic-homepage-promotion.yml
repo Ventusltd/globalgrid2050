@@ -8,6 +8,8 @@ on:
       - homepage_versions/homepage_v163*
       - catalogue/vedic-v2-release.json
       - catalogue/vedic-v3-release.json
+      - catalogue/vedic-commands-release.json
+      - homepage_versions/homepage_v164*
       - scripts/verify_vedic_homepage_release.py
       - .github/workflows/vedic-homepage-promotion.yml
   workflow_run:

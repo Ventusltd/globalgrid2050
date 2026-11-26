@@ -110,7 +110,74 @@ def compare_catalogues(previous,current,m):
     assert current["promotions"][:-1]==promos
     promotion=current["promotions"][-1]
     assert (promotion["entity_id"],promotion["from_release_id"],promotion["to_release_id"])==("vedic",old_id,m["release_id"])
+def verify_command_successor(manifest):
+    assert manifest["schema"] == "vedic.homepage.commands.v1"
+    target = manifest["commands"]
+    assert target["url"] == "https://ventusltd.github.io/vedic-/"
+    assert target["row_count"] > 50
+    event = os.environ["EVENT"]
+    if event == "workflow_run":
+        assert os.environ["DEPLOY_CONCLUSION"] == "success", "Domain deploy not successful"
+    history = json.loads((ROOT/"catalogue/vedic-v3-release.json").read_bytes())
+    for name in ("v1", "v2", "v3"):
+        prior_release = dict(history[name])
+        prior_release.pop("root_alias", None)
+        verify_release(prior_release)
+    verify_evidence_only(history)
+    verify_release(target)
+    pin_bytes = (ROOT/"catalogue/homepage-owner.json").read_bytes()
+    pin = json.loads(pin_bytes)
+    assert pin["commit"] == manifest["owner_commit"]
+    previous_pin = subprocess.check_output(["git", "show",
+        manifest["prior_domain_commit"] + ":catalogue/homepage-owner.json"])
+    old_pin = json.loads(previous_pin)
+    assert old_pin["commit"] == manifest["prior_owner_commit"]
+    assert {k:v for k,v in pin["files"].items() if k not in {"index.html", "data/homepage.json"}} == {
+        k:v for k,v in old_pin["files"].items() if k not in {"index.html", "data/homepage.json"}}
+    with tempfile.TemporaryDirectory() as tmp:
+        scratch = pathlib.Path(tmp)
+        previous, current = scratch/"previous", scratch/"current"
+        import_bundle(previous, previous_pin)
+        import_bundle(current, pin_bytes)
+        old = json.loads((previous/"homepage-shell/data/homepage.json").read_bytes())
+        new = json.loads((current/"homepage-shell/data/homepage.json").read_bytes())
+        old_vedic = next(row for row in old["entities"] if row["id"] == "vedic")
+        new_vedic = next(row for row in new["entities"] if row["id"] == "vedic")
+        assert [row for row in old["entities"] if row["id"] != "vedic"] == [
+            row for row in new["entities"] if row["id"] != "vedic"]
+        exclude = {"releases", "operative_release_id"}
+        assert {k:v for k,v in old_vedic.items() if k not in exclude} == {
+            k:v for k,v in new_vedic.items() if k not in exclude}
+        assert new_vedic["releases"][:-1] == old_vedic["releases"]
+        command = new_vedic["releases"][-1]
+        assert command["id"] == new_vedic["operative_release_id"] == target["version"]
+        assert command["url"] == target["url"] and command["status"] == "available"
+        assert command["source_ref"] == "https://github.com/Ventusltd/vedic-/tree/" + target["source_commit"]
+        assert {k:v for k,v in old.items() if k not in {"entities", "promotions"}} == {
+            k:v for k,v in new.items() if k not in {"entities", "promotions"}}
+        assert new["promotions"][:-1] == old["promotions"]
+        promotion = new["promotions"][-1]
+        assert (promotion["entity_id"], promotion["from_release_id"], promotion["to_release_id"]) == (
+            "vedic", old_vedic["operative_release_id"], target["version"])
+        original = (previous/"index.html").read_bytes()
+        proposed = (current/"index.html").read_bytes()
+        snapshot = ROOT/manifest["snapshot"]
+        assert snapshot.read_bytes() == original and sha(original) == manifest["snapshot_sha256"]
+        assert original.replace(history["v3"]["url"].encode(), target["url"].encode(), 1) == proposed
+        assert (b'href="' + target["url"].encode() + b'">Open VEDIC') in proposed
+        observed = previous if event == "pull_request" else current
+        match(DOMAIN, (observed/"index.html").read_bytes())
+        for path in pin["files"]:
+            if path != "index.html":
+                match(DOMAIN + "homepage-shell/" + path, (observed/"homepage-shell"/path).read_bytes())
+    print("PASS: exact VEDIC command release and navigation-only homepage successor", flush=True)
+
+
 def main():
+    successor = ROOT/"catalogue/vedic-commands-release.json"
+    if successor.exists():
+        verify_command_successor(json.loads(successor.read_bytes()))
+        return
     v3=ROOT/"catalogue/vedic-v3-release.json"
     m=json.loads((v3 if v3.exists() else ROOT/"catalogue/vedic-v2-release.json").read_bytes())
     target=m.get("v3",m["v2"])

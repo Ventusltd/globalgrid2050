@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pipeline News — operative release</title><style>body{background:#0b0d12;color:#d8dee9;font:16px system-ui;max-width:38rem;margin:4rem auto;padding:1rem}a{color:#5ec8f2}</style></head>
+<body><h1>Pipeline News</h1><p id="status" role="status">Opening the operative release from the GlobalGrid2050 homepage catalogue.</p><p><a id="fallback" href="/">Return to the GlobalGrid2050 homepage</a></p>
+<script type="module">
+try {
+  const response=await fetch('/homepage-shell/data/homepage.json',{cache:'no-store'});
+  if(!response.ok) throw Error('catalogue unavailable');
+  const catalogue=await response.json();
+  if(catalogue.schema_version!==1) throw Error('catalogue schema');
+  const entities=catalogue.entities.filter(x=>x.id==='pipeline-news');
+  if(entities.length!==1) throw Error('ambiguous product');
+  const product=entities[0], matches=product.releases.filter(x=>x.id===product.operative_release_id);
+  if(matches.length!==1||matches[0].status!=='available'||!(/^\d{12}$/).test(matches[0].id)) throw Error('no admitted release');
+  const url=new URL(matches[0].url);
+  if(url.origin!=='https://globalgrid2050.com'||url.pathname!=='/uk_renewables_pipeline/'+matches[0].id+'/'||url.search||url.hash) throw Error('invalid destination');
+  location.replace(url.href);
+} catch(e) { document.querySelector('#status').textContent='The operative release could not be verified. Use the homepage catalogue; no archived version has been substituted.'; }
+</script></body></html>

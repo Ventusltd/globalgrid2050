@@ -1,7 +1,7 @@
 {
  "schema": "globalgrid.current.v1",
- "generation": "202609200300",
- "previous_generation": "202609200232",
+ "generation": "202611261810",
+ "previous_generation": "202609200300",
  "architecture": "IMMUTABLE_SHELL_PLUS_HASHED_CARTRIDGES",
  "live_route": "/kuiper/",
  "release_id": "202609192301-kuiper-shell",
@@ -33,27 +33,27 @@
   },
   {
    "id": "kuiper-programs",
-   "generation": "202609200009",
+   "generation": "202611261810",
    "type": "script",
    "slot": "replace-script",
    "replaces": "kuiper-programs.js",
-   "path": "./cartridges/202609200009-kuiper-programs.js",
-   "sha256": "a9675c6b9c3e20969c3847ff230eaa3c1d90fbed6366bf23ec068b47999132ed",
-   "bytes": 17738,
-   "release": "k0036",
-   "job": "the programs: isolate an application, the small Kuiper, its name"
+   "path": "./cartridges/202611261810-kuiper-programs.js",
+   "sha256": "c8d8247b5ed2c3f0bf16dbb679c101a9dd856c76e846aaaced72568f173a166c",
+   "bytes": 17825,
+   "release": "navigation-202611261810",
+   "job": "Open operative Pipeline News via stable catalogue route; archived pages untouched"
   },
   {
    "id": "kuiper-card",
-   "generation": "202609200104",
+   "generation": "202611261810",
    "type": "script",
    "slot": "replace-script",
    "replaces": "kuiper-card.js",
-   "path": "./cartridges/202609200104-kuiper-card.js",
-   "sha256": "704370dd2bf1fd85a14e0b4b5793f6482e9ce6e754436e34177226633922e70d",
-   "bytes": 21403,
-   "release": "k0040",
-   "job": "what a tap opens: the tile, the brand block, the code window"
+   "path": "./cartridges/202611261810-kuiper-card.js",
+   "sha256": "8db8bbf1e75064e0f77f205e285d946d8a04b7f8ed93edb35fb39562072e1aa1",
+   "bytes": 21493,
+   "release": "navigation-202611261810",
+   "job": "Open operative Pipeline News via stable catalogue route; archived pages untouched"
   },
   {
    "id": "kuiper-tests",

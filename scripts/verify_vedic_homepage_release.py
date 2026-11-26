@@ -3,6 +3,7 @@ import hashlib
 import json
 import os
 import pathlib
+import re
 import shutil
 import subprocess
 import sys
@@ -53,6 +54,45 @@ def verify_release(release):
             match(release["root_alias"]+f,wanted)
     if release.get("root_alias"):
         match(release["root_alias"]+"release.json",manifest_raw)
+def verify_command_root(target):
+    """Retain the original promotion evidence while checking the stable destination."""
+    git_base = "https://raw.githubusercontent.com/Ventusltd/vedic-/"
+    baseline_pin = target["source_commit"]
+    assert re.fullmatch(r"[0-9a-f]{40}", baseline_pin)
+    baseline = {path: read(git_base + baseline_pin + "/" + path) for path in PUBLIC_FILES}
+    rows = json.loads(baseline["data/dictionary.json"])["entries"]
+    assert len(rows) == target["row_count"]
+    original = {"schema": "vedic.pages.release.v1", "version": target["version"],
+                "source_commit": baseline_pin, "row_count": len(rows),
+                "files": {path: sha(data) for path, data in baseline.items()}}
+    encoded = (json.dumps(original, sort_keys=True, indent=2) + "\n").encode("utf-8")
+    assert sha(encoded) == target["manifest_sha256"], "historical command release evidence changed"
+
+    url = target["url"]
+    current = json.loads(read(url + "release.json"))
+    source = current["source_commit"]
+    assert current["schema"] == original["schema"] and re.fullmatch(r"[0-9a-f]{40}", source)
+    assert "prose_count" not in current
+    files = current["files"]
+    generated = set(files) - PUBLIC_FILES
+    assert PUBLIC_FILES <= files.keys()
+    assert all(path == "data/command-index.json" or re.fullmatch(r"data/command-pages/\d{6}\.json", path)
+               for path in generated)
+    assert not generated or "data/command-index.json" in generated
+
+    for path in PUBLIC_FILES:
+        committed = read(git_base + source + "/" + path)
+        assert sha(committed) == files[path], (path, "source/manifest mismatch")
+        match(url + path, committed)
+        if path == "data/dictionary.json":
+            entries = json.loads(committed)["entries"]
+            assert len(entries) == current["row_count"] == len({row["gg_id"] for row in entries})
+            assert entries[:len(rows)] == rows, "original 69 command records changed"
+    for path in sorted(generated):
+        assert sha(read(url + path)) == files[path], (path, "generated file/manifest mismatch")
+    print("PASS: stable VEDIC command root", source, current["row_count"], flush=True)
+
+
 def check_evidence_only(v2_payload,v3_payload):
     """V3 may add public prose, never a producer module or executable package."""
     assert set(v2_payload)==set(v3_payload)==PUBLIC_FILES
@@ -124,7 +164,7 @@ def verify_command_successor(manifest):
         prior_release.pop("root_alias", None)
         verify_release(prior_release)
     verify_evidence_only(history)
-    verify_release(target)
+    verify_command_root(target)
     pin_bytes = (ROOT/"catalogue/homepage-owner.json").read_bytes()
     pin = json.loads(pin_bytes)
     assert pin["commit"] == manifest["owner_commit"]
@@ -165,7 +205,8 @@ def verify_command_successor(manifest):
         assert snapshot.read_bytes() == original and sha(original) == manifest["snapshot_sha256"]
         assert original.replace(history["v3"]["url"].encode(), target["url"].encode(), 1) == proposed
         assert (b'href="' + target["url"].encode() + b'">Open VEDIC') in proposed
-        observed = previous if event == "pull_request" else current
+        # This successor is already the active homepage promotion.
+        observed = current
         match(DOMAIN, (observed/"index.html").read_bytes())
         for path in pin["files"]:
             if path != "index.html":

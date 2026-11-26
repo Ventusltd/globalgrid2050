@@ -12,7 +12,9 @@ function attachEvidence() {
     const id = row.id.slice(5), project = projects.get(id);
     const details = row.querySelector('.project-record');
     if (!project || !details || details.querySelector('[data-integrated-evidence]')) continue;
-    details.querySelector('summary').textContent = 'PROJECT RECORD · SOURCES';
+    // Preserve the renderer-owned project name and status (mobile summary).
+    const desktopLabel = details.querySelector('summary .desktop-details-label');
+    if (desktopLabel) desktopLabel.textContent = 'PROJECT RECORD · SOURCES';
     const host = document.createElement('div');
     host.dataset.integratedEvidence = id;
     details.appendChild(host);

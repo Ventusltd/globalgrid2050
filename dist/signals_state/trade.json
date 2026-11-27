@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "trade",
- "generated_at": "2026-11-26T15:32:32Z",
+ "generated_at": "2026-11-27T01:08:07Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -790,7 +790,7 @@
    "publisher": "reNEWS",
    "date": "2026-11-26",
    "family": "trade",
-   "basis": "reNEWS feed: alias phrase 'Steeple' in the summary with capacity '450MW'; the headline does not name the project",
+   "basis": "reNEWS search: alias phrase 'Steeple' in the summary with capacity '450MW'; the headline does not name the project",
    "confidence": "uncertain"
   },
   {
@@ -2021,7 +2021,7 @@
    "id": "pv-magazine",
    "url": "https://www.pv-magazine.com",
    "status": "ok",
-   "requests": 3,
+   "requests": 48,
    "failures": 0,
    "items": 9,
    "error": "",
@@ -2049,8 +2049,8 @@
      "newest": "2026-11-26"
     }
    ],
-   "searched": 0,
-   "cached": 45,
+   "searched": 45,
+   "cached": 0,
    "skipped": 0,
    "notes": []
   },
@@ -2126,7 +2126,7 @@
      "url": "https://www.current-news.co.uk/?s=solar+farm",
      "status": "not search results (0 of 20 links say solar)",
      "content_type": "text/html",
-     "bytes": 512857,
+     "bytes": 512855,
      "results": 20,
      "dated": 1,
      "summaries": 0,
@@ -2158,7 +2158,7 @@
    "id": "renews",
    "url": "https://renews.biz",
    "status": "ok",
-   "requests": 4,
+   "requests": 49,
    "failures": 0,
    "items": 79,
    "error": "",
@@ -2186,8 +2186,8 @@
      "newest": "2026-11-26"
     }
    ],
-   "searched": 0,
-   "cached": 45,
+   "searched": 45,
+   "cached": 0,
    "skipped": 0,
    "notes": []
   },
@@ -2244,7 +2244,7 @@
    "id": "construction-enquirer",
    "url": "https://www.constructionenquirer.com",
    "status": "ok",
-   "requests": 3,
+   "requests": 48,
    "failures": 0,
    "items": 0,
    "error": "",
@@ -2272,8 +2272,8 @@
      "newest": "2026-11-26"
     }
    ],
-   "searched": 0,
-   "cached": 45,
+   "searched": 45,
+   "cached": 0,
    "skipped": 0,
    "notes": []
   },
@@ -2281,7 +2281,7 @@
    "id": "solar-energy-uk",
    "url": "https://solarenergyuk.org",
    "status": "ok",
-   "requests": 2,
+   "requests": 47,
    "failures": 0,
    "items": 0,
    "error": "",
@@ -2307,8 +2307,8 @@
      "error": "refused by robots.txt"
     }
    ],
-   "searched": 0,
-   "cached": 45,
+   "searched": 45,
+   "cached": 0,
    "skipped": 0,
    "notes": []
   }

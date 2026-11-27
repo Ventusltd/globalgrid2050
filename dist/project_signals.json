@@ -1,26 +1,26 @@
 {
  "schema": "project-signals.v2",
- "generated_at": "2026-11-26T15:32:47Z",
- "run_at": "2026-11-26T16:00:11Z",
+ "generated_at": "2026-11-27T01:11:09Z",
+ "run_at": "2026-11-27T01:30:42Z",
  "stale": false,
  "scope": "200 largest Solar Photovoltaics rows, REPD October 2026",
  "recent_days": 90,
  "parts": {
   "official": {
    "status": "ok",
-   "collected_at": "2026-11-26T15:28:14Z",
+   "collected_at": "2026-11-27T01:03:51Z",
    "items": 109,
    "note": ""
   },
   "trade": {
    "status": "ok",
-   "collected_at": "2026-11-26T15:32:32Z",
+   "collected_at": "2026-11-27T01:08:07Z",
    "items": 193,
    "note": ""
   },
   "index": {
    "status": "ok",
-   "collected_at": "2026-11-26T15:32:47Z",
+   "collected_at": "2026-11-27T01:11:09Z",
    "items": 18,
    "note": ""
   },
@@ -32,7 +32,7 @@
   },
   "planning": {
    "status": "ok",
-   "collected_at": "2026-11-26T15:54:08Z",
+   "collected_at": "2026-11-27T01:24:46Z",
    "items": 200,
    "note": ""
   }
@@ -138,7 +138,7 @@
    "id": "pv-magazine",
    "url": "https://www.pv-magazine.com",
    "status": "ok",
-   "requests": 3,
+   "requests": 48,
    "failures": 0,
    "items": 9,
    "error": ""
@@ -168,7 +168,7 @@
    "id": "renews",
    "url": "https://renews.biz",
    "status": "ok",
-   "requests": 4,
+   "requests": 49,
    "failures": 0,
    "items": 79,
    "error": ""
@@ -188,7 +188,7 @@
    "id": "construction-enquirer",
    "url": "https://www.constructionenquirer.com",
    "status": "ok",
-   "requests": 3,
+   "requests": 48,
    "failures": 0,
    "items": 0,
    "error": ""
@@ -198,7 +198,7 @@
    "id": "solar-energy-uk",
    "url": "https://solarenergyuk.org",
    "status": "ok",
-   "requests": 2,
+   "requests": 47,
    "failures": 0,
    "items": 0,
    "error": ""
@@ -228,10 +228,10 @@
    "id": "gdelt-doc",
    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
    "status": "partial",
-   "requests": 50,
-   "failures": 40,
+   "requests": 31,
+   "failures": 26,
    "items": 2,
-   "error": "time budget for GDELT reached; the rest are asked on later runs; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
+   "error": "HTTP 429 on 6 queries running, each retried once; GDELT left alone for the rest of this run; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   }
  ],
  "projects": {
@@ -3016,7 +3016,7 @@
      "collected_at": "2026-11-26T15:32:32Z",
      "confidence": "possible",
      "freshness": "recent",
-     "basis": "reNEWS feed: alias phrase 'Steeple' in the summary with capacity '450MW'; the headline does not name the project",
+     "basis": "reNEWS search: alias phrase 'Steeple' in the summary with capacity '450MW'; the headline does not name the project",
      "cluster": "15252:sale:2026-11-13",
      "sources": [
       {
@@ -3528,10 +3528,10 @@
    "recent_news": [],
    "official": [
     {
-     "title": "East Park Energy: examination closed (stage: Recommendation)",
+     "title": "East Park Energy: recommendation (stage: Decision)",
      "link": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN010141",
      "publisher": "Planning Inspectorate",
-     "date": "2026-09-16",
+     "date": "2026-11-26",
      "year": 2026,
      "tier": "official",
      "event": null,
@@ -3541,7 +3541,7 @@
      "collected_at": "2026-11-15T21:53:55Z",
      "confidence": "confirmed",
      "freshness": "recent",
-     "basis": "Planning Inspectorate project list, reference EN010141; title composed from the list's 'Date Examination closed' and stage"
+     "basis": "Planning Inspectorate project list, reference EN010141; title composed from the list's 'Date of recommendation' and stage"
     }
    ],
    "archive": [
@@ -7181,7 +7181,7 @@
     "link_type": "search",
     "authority": "South Kesteven",
     "reference": "S21/1018",
-    "url": "https://pa.southkesteven.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+    "url": "https://www.southkesteven.gov.uk/",
     "kind": "search_page",
     "verified": false,
     "note": "Search the register for S21/1018."
@@ -8394,7 +8394,7 @@
     "link_type": "search",
     "authority": "South Kesteven",
     "reference": "S20/1433",
-    "url": "https://pa.southkesteven.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+    "url": "https://www.southkesteven.gov.uk/",
     "kind": "search_page",
     "verified": false,
     "note": "Search the register for S20/1433."

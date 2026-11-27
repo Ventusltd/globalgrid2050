@@ -1,11 +1,11 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-27T01:03:16Z",
+ "generated_at": "2026-11-27T15:16:04Z",
  "status": "ok",
  "counts": {
-  "items": 55,
-  "capex": 46,
-  "politics": 10,
+  "items": 64,
+  "capex": 55,
+  "politics": 11,
   "with_register_site": 0,
   "feeds_ok": 9,
   "feeds_failed": 0
@@ -28,15 +28,15 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "sha256": "996f41401f906d623610665ac7e7cdb4c9c6fb4022deea4518451e8968375351"
+   "sha256": "171dcacada5dfb7adb857f16d92dcc753d69bd1b4b5b3dee9c3d5c063b002374"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 52,
+   "entries": 53,
    "kept": 0,
-   "sha256": "b22e1992798a9f3adf6cad6ba450bdf8c30581de933a5655d0063ef07836e936"
+   "sha256": "28a867b4165de634e6b84038bb81662576131dd89b543f7ea85a3ee833df89ae"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
@@ -44,7 +44,7 @@
    "status": "ok",
    "entries": 61,
    "kept": 0,
-   "sha256": "c1dbd34527e0d911ccfb6e4c05ef204d8f237a7800618c063d04574176572d2b"
+   "sha256": "366d2af09b71bff933d686e44250e7f0ded6daefc8ae85f0758bef34a605bb4a"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 42,
    "kept": 0,
-   "sha256": "d273ad117c93222b15c87b5c513487a08e605b27244ada4e1c7b447c5c2b1525"
+   "sha256": "0303cfe8cade4a925333fdbb1c6ad985e07e7f7314f47a18bd227123976aba2d"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -76,7 +76,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "9f1c26129ab02dafc54d1da2b831065f6ac3e034e65d863654d506b30adb63c4"
+   "sha256": "7b5b82dc877091a3cacf2b252145f46cbb21b0cf856681410296da7e33b3c1ca"
   },
   {
    "url": "https://bills.parliament.uk/rss/allbills.rss",
@@ -84,18 +84,247 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "40da75ac6d8e286a7c4a9fe5525bccfc2ff22ed83efea90126cc2dd2a15c2bd0"
+   "sha256": "3ae8ec54403bb4cf2a0eb2fcf8b2f89fd109205ca352eb43991405be516324a5"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
    "source": "DatacenterDynamics",
    "status": "ok",
    "entries": 20,
-   "kept": 6,
-   "sha256": "98b58cff81f88128bce8c2046b2156def141453bcf9b66fd777af10bc053fe73"
+   "kept": 9,
+   "sha256": "97c4bf03e5fd19a362025be788d3b35a06ea501217e26982f86a37f7946b2af4"
   }
  ],
  "items": [
+  {
+   "title": "Nexus DC files to build two data center buildings at site in Hubbard, Texas",
+   "link": "https://www.datacenterdynamics.com/en/news/nexus-dc-files-to-build-two-data-center-buildings-at-site-in-hubbard-texas/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-27T14:30:41Z",
+   "first_seen": "2026-11-27T15:16:04Z",
+   "lanes": [
+    "capex",
+    "politics"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": [
+     "planning"
+    ]
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "SpaceX installs $250m worth of Tesla Megapack batteries at Starbase data center site in Texas - report",
+   "link": "https://www.datacenterdynamics.com/en/news/spacex-installs-250m-worth-of-tesla-megapack-batteries-at-starbase-data-center-site-in-texas-report/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-27T14:00:38Z",
+   "first_seen": "2026-11-27T15:16:04Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "billion",
+     "million"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Galaxy Digital files for next phase of development at Helios data center campus in Texas",
+   "link": "https://www.datacenterdynamics.com/en/news/galaxy-digital-files-for-next-phase-of-development-at-helios-data-center-campus-in-texas/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-27T13:40:40Z",
+   "first_seen": "2026-11-27T15:16:04Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "NeuralSat raises $3.2m pre-seed on 72-satellite 50Gbps data relay & processing constellation",
+   "link": "https://www.datacenterdynamics.com/en/news/neuralsat-raises-32m-pre-seed-on-72-satellite-50gbps-data-relay-processing-constellation/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-27T13:30:57Z",
+   "first_seen": "2026-11-27T15:16:04Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "compute"
+    ],
+    "capex": [
+     "million"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "FCC approves SpaceX application to deploy one million satellites for data centers in space",
+   "link": "https://www.datacenterdynamics.com/en/news/fcc-approves-spacex-application-to-deploy-one-million-satellites-for-data-centers-in-space/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-27T13:00:53Z",
+   "first_seen": "2026-11-27T15:16:04Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "million"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Kuwait wealth fund-backed investment firm purchases GIC’s majority stake in xScale",
+   "link": "https://www.datacenterdynamics.com/en/news/kuwait-wealth-fund-backed-investment-firm-purchases-gics-majority-stake-in-xscale/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-27T12:00:29Z",
+   "first_seen": "2026-11-27T15:16:04Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "funding",
+     "investment"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Construction paused at Google data center in Farciennes, Belgium",
+   "link": "https://www.datacenterdynamics.com/en/news/construction-paused-at-google-data-center-in-farciennes-belgium/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-27T11:50:37Z",
+   "first_seen": "2026-11-27T15:16:04Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [
+    {
+     "id": "dcuk-ca20866e219f01c0",
+     "name": "Google data centre, Waltham Cross",
+     "status": "operational",
+     "matched_on": "operator",
+     "matched_text": "Google"
+    }
+   ],
+   "site_matches": 1
+  },
+  {
+   "title": "Tract plans second data center campus in the UK",
+   "link": "https://www.datacenterdynamics.com/en/news/tract-plans-second-data-center-campus-in-the-uk/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-27T11:26:59Z",
+   "first_seen": "2026-11-27T15:16:04Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "build"
+    ],
+    "politics": []
+   },
+   "capex_basis": "build",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
+  {
+   "title": "Ramon.Space raises $124m Series B after claiming “Earth-grade” computing in space",
+   "link": "https://www.datacenterdynamics.com/en/news/ramonspace-raises-124m-series-b-after-claiming-earth-grade-computing-in-space/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-27T10:19:12Z",
+   "first_seen": "2026-11-27T15:16:04Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "compute"
+    ],
+    "capex": [
+     "million"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
   {
    "title": "Nvidia backs startup developing chiller-free data center cooling system",
    "link": "https://www.datacenterdynamics.com/en/news/nvidia-backs-startup-developing-chiller-free-data-center-cooling-system/",

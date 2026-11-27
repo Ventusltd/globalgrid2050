@@ -1,26 +1,26 @@
 {
  "schema": "project-signals.v2",
- "generated_at": "2026-11-27T01:11:09Z",
- "run_at": "2026-11-27T01:30:42Z",
+ "generated_at": "2026-11-27T15:22:41Z",
+ "run_at": "2026-11-27T15:42:35Z",
  "stale": false,
  "scope": "200 largest Solar Photovoltaics rows, REPD October 2026",
  "recent_days": 90,
  "parts": {
   "official": {
    "status": "ok",
-   "collected_at": "2026-11-27T01:03:51Z",
+   "collected_at": "2026-11-27T15:18:10Z",
    "items": 109,
    "note": ""
   },
   "trade": {
    "status": "ok",
-   "collected_at": "2026-11-27T01:08:07Z",
+   "collected_at": "2026-11-27T15:22:26Z",
    "items": 193,
    "note": ""
   },
   "index": {
    "status": "ok",
-   "collected_at": "2026-11-27T01:11:09Z",
+   "collected_at": "2026-11-27T15:22:41Z",
    "items": 18,
    "note": ""
   },
@@ -32,7 +32,7 @@
   },
   "planning": {
    "status": "ok",
-   "collected_at": "2026-11-27T01:24:46Z",
+   "collected_at": "2026-11-27T15:37:11Z",
    "items": 200,
    "note": ""
   }
@@ -138,7 +138,7 @@
    "id": "pv-magazine",
    "url": "https://www.pv-magazine.com",
    "status": "ok",
-   "requests": 48,
+   "requests": 3,
    "failures": 0,
    "items": 9,
    "error": ""
@@ -161,14 +161,14 @@
    "requests": 7,
    "failures": 0,
    "items": 0,
-   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (0 of 20 links say solar); wp_search not JSON"
+   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (0 of 21 links say solar); wp_search not JSON"
   },
   {
    "team": "trade",
    "id": "renews",
    "url": "https://renews.biz",
    "status": "ok",
-   "requests": 49,
+   "requests": 4,
    "failures": 0,
    "items": 79,
    "error": ""
@@ -188,7 +188,7 @@
    "id": "construction-enquirer",
    "url": "https://www.constructionenquirer.com",
    "status": "ok",
-   "requests": 48,
+   "requests": 3,
    "failures": 0,
    "items": 0,
    "error": ""
@@ -198,7 +198,7 @@
    "id": "solar-energy-uk",
    "url": "https://solarenergyuk.org",
    "status": "ok",
-   "requests": 47,
+   "requests": 2,
    "failures": 0,
    "items": 0,
    "error": ""
@@ -228,10 +228,10 @@
    "id": "gdelt-doc",
    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
    "status": "partial",
-   "requests": 31,
-   "failures": 26,
+   "requests": 32,
+   "failures": 29,
    "items": 2,
-   "error": "HTTP 429 on 6 queries running, each retried once; GDELT left alone for the rest of this run; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
+   "error": "HTTP 429 on 6 queries running, each retried once; GDELT left alone for the rest of this run; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho; HTTP 0"
   }
  ],
  "projects": {
@@ -7181,7 +7181,7 @@
     "link_type": "search",
     "authority": "South Kesteven",
     "reference": "S21/1018",
-    "url": "https://www.southkesteven.gov.uk/",
+    "url": "https://pa.southkesteven.gov.uk/online-applications/search.do?action=simple&searchType=Application",
     "kind": "search_page",
     "verified": false,
     "note": "Search the register for S21/1018."
@@ -8394,7 +8394,7 @@
     "link_type": "search",
     "authority": "South Kesteven",
     "reference": "S20/1433",
-    "url": "https://www.southkesteven.gov.uk/",
+    "url": "https://pa.southkesteven.gov.uk/online-applications/search.do?action=simple&searchType=Application",
     "kind": "search_page",
     "verified": false,
     "note": "Search the register for S20/1433."

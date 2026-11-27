@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "trade",
- "generated_at": "2026-11-27T01:08:07Z",
+ "generated_at": "2026-11-27T15:22:26Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -2009,7 +2009,7 @@
      "status": "ok",
      "entries": 300,
      "matched": 0,
-     "newest": "2026-11-26"
+     "newest": "2026-11-27"
     }
    ],
    "searched": 0,
@@ -2021,7 +2021,7 @@
    "id": "pv-magazine",
    "url": "https://www.pv-magazine.com",
    "status": "ok",
-   "requests": 48,
+   "requests": 3,
    "failures": 0,
    "items": 9,
    "error": "",
@@ -2046,11 +2046,11 @@
      "status": "ok",
      "entries": 10,
      "matched": 0,
-     "newest": "2026-11-26"
+     "newest": "2026-11-27"
     }
    ],
-   "searched": 45,
-   "cached": 0,
+   "searched": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": []
   },
@@ -2083,7 +2083,7 @@
      "status": "ok",
      "entries": 300,
      "matched": 0,
-     "newest": "2026-11-26"
+     "newest": "2026-11-27"
     }
    ],
    "searched": 0,
@@ -2100,7 +2100,7 @@
    "requests": 7,
    "failures": 0,
    "items": 0,
-   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (0 of 20 links say solar); wp_search not JSON",
+   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (0 of 21 links say solar); wp_search not JSON",
    "route": "",
    "routes": [
     {
@@ -2124,11 +2124,11 @@
     {
      "route": "html",
      "url": "https://www.current-news.co.uk/?s=solar+farm",
-     "status": "not search results (0 of 20 links say solar)",
+     "status": "not search results (0 of 21 links say solar)",
      "content_type": "text/html",
-     "bytes": 512855,
-     "results": 20,
-     "dated": 1,
+     "bytes": 514381,
+     "results": 21,
+     "dated": 2,
      "summaries": 0,
      "relevant": 0,
      "sample": "Exicom board approves Tritium sale at US$85 million valuation"
@@ -2158,7 +2158,7 @@
    "id": "renews",
    "url": "https://renews.biz",
    "status": "ok",
-   "requests": 49,
+   "requests": 4,
    "failures": 0,
    "items": 79,
    "error": "",
@@ -2183,11 +2183,11 @@
      "status": "ok",
      "entries": 30,
      "matched": 1,
-     "newest": "2026-11-26"
+     "newest": "2026-11-27"
     }
    ],
-   "searched": 45,
-   "cached": 0,
+   "searched": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": []
   },
@@ -2206,7 +2206,7 @@
      "url": "https://www.planningresource.co.uk/search/articles?KeyWords=solar+farm",
      "status": "not search results (0 of 8 links say solar)",
      "content_type": "text/html",
-     "bytes": 41713,
+     "bytes": 42422,
      "results": 8,
      "dated": 0,
      "summaries": 0,
@@ -2218,7 +2218,7 @@
      "url": "https://www.planningresource.co.uk/search?q=solar+farm",
      "status": "not search results (0 of 8 links say solar)",
      "content_type": "text/html",
-     "bytes": 41713,
+     "bytes": 42432,
      "results": 8,
      "dated": 0,
      "summaries": 0,
@@ -2232,7 +2232,7 @@
      "status": "ok",
      "entries": 20,
      "matched": 0,
-     "newest": "2026-11-26"
+     "newest": "2026-11-27"
     }
    ],
    "searched": 0,
@@ -2244,7 +2244,7 @@
    "id": "construction-enquirer",
    "url": "https://www.constructionenquirer.com",
    "status": "ok",
-   "requests": 48,
+   "requests": 3,
    "failures": 0,
    "items": 0,
    "error": "",
@@ -2269,11 +2269,11 @@
      "status": "ok",
      "entries": 10,
      "matched": 0,
-     "newest": "2026-11-26"
+     "newest": "2026-11-27"
     }
    ],
-   "searched": 45,
-   "cached": 0,
+   "searched": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": []
   },
@@ -2281,7 +2281,7 @@
    "id": "solar-energy-uk",
    "url": "https://solarenergyuk.org",
    "status": "ok",
-   "requests": 47,
+   "requests": 2,
    "failures": 0,
    "items": 0,
    "error": "",
@@ -2307,8 +2307,8 @@
      "error": "refused by robots.txt"
     }
    ],
-   "searched": 45,
-   "cached": 0,
+   "searched": 0,
+   "cached": 45,
    "skipped": 0,
    "notes": []
   }

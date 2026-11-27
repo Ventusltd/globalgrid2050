@@ -1,10 +1,10 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-26T15:27:28Z",
+ "generated_at": "2026-11-27T01:03:16Z",
  "status": "ok",
  "counts": {
-  "items": 54,
-  "capex": 45,
+  "items": 55,
+  "capex": 46,
   "politics": 10,
   "with_register_site": 0,
   "feeds_ok": 9,
@@ -28,31 +28,31 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "sha256": "20bb8d02fec0ecda12c59b0ac372e40c663bec2e7658e4b72a40cc4346444d66"
+   "sha256": "996f41401f906d623610665ac7e7cdb4c9c6fb4022deea4518451e8968375351"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 56,
+   "entries": 52,
    "kept": 0,
-   "sha256": "e30cc4731cbdc62483e7cfc260cc88aa0f56019a893babf8cd3caeb4e3927df8"
+   "sha256": "b22e1992798a9f3adf6cad6ba450bdf8c30581de933a5655d0063ef07836e936"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
    "source": "BBC News",
    "status": "ok",
-   "entries": 60,
+   "entries": 61,
    "kept": 0,
-   "sha256": "109bfbd907a1970d33aa864fe012d73f52b5b6e1be4e9a1da03ab90a026cfa93"
+   "sha256": "c1dbd34527e0d911ccfb6e4c05ef204d8f237a7800618c063d04574176572d2b"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
    "source": "BBC News",
    "status": "ok",
    "entries": 42,
-   "kept": 1,
-   "sha256": "238617c0c73f2ac0ffe0e33c5b2604f0d2947e795f7611e01bcfb2d7a972de6d"
+   "kept": 0,
+   "sha256": "d273ad117c93222b15c87b5c513487a08e605b27244ada4e1c7b447c5c2b1525"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -76,7 +76,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "b07e358aca601cf61e923b05f77476440aba8f7aca80ed7f78e2b7bda2797387"
+   "sha256": "9f1c26129ab02dafc54d1da2b831065f6ac3e034e65d863654d506b30adb63c4"
   },
   {
    "url": "https://bills.parliament.uk/rss/allbills.rss",
@@ -84,7 +84,7 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "5600f9e28eef6a91437a21e81932f0b9b6036a4e44f86519a3372d66caf98610"
+   "sha256": "40da75ac6d8e286a7c4a9fe5525bccfc2ff22ed83efea90126cc2dd2a15c2bd0"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
@@ -92,10 +92,34 @@
    "status": "ok",
    "entries": 20,
    "kept": 6,
-   "sha256": "afed39135894a5c6c8b3ffb8b1e5ca36ee85f7b9fecc4434db2f23642f87d7c9"
+   "sha256": "98b58cff81f88128bce8c2046b2156def141453bcf9b66fd777af10bc053fe73"
   }
  ],
  "items": [
+  {
+   "title": "Nvidia backs startup developing chiller-free data center cooling system",
+   "link": "https://www.datacenterdynamics.com/en/news/nvidia-backs-startup-developing-chiller-free-data-center-cooling-system/",
+   "source": "DatacenterDynamics",
+   "date": "2026-11-26T17:07:51Z",
+   "first_seen": "2026-11-27T01:03:16Z",
+   "lanes": [
+    "capex"
+   ],
+   "matched_terms": {
+    "datacentre": [
+     "data centre"
+    ],
+    "capex": [
+     "funding"
+    ],
+    "politics": []
+   },
+   "capex_basis": "financing",
+   "pinned": false,
+   "sites": [],
+   "operator_sites": [],
+   "site_matches": 0
+  },
   {
    "title": "Pennsylvania police arrest suspects over threats to Olyphant council after controversial data center vote",
    "link": "https://www.datacenterdynamics.com/en/news/pennsylvania-police-arrest-suspects-over-threats-to-olyphant-council-after-controversial-data-center-vote/",

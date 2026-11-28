@@ -1,6 +1,6 @@
 {
  "schema": "globalgrid2050.news.datacentre-capex-politics.v1",
- "generated_at": "2026-11-28T00:35:32Z",
+ "generated_at": "2026-11-28T14:21:15Z",
  "status": "ok",
  "counts": {
   "items": 65,
@@ -28,7 +28,7 @@
    "status": "ok",
    "entries": 21,
    "kept": 0,
-   "sha256": "7774b46e1270efb79d49831f12f9273bf054f7649bd5e7900d5666e91a764aff"
+   "sha256": "cd208e6ce16b3963bd323c5bb3e0543cb196d29a995048009078c8bb5a436471"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
@@ -36,7 +36,7 @@
    "status": "ok",
    "entries": 53,
    "kept": 0,
-   "sha256": "eb91ca19bd8f0beeac0afd1051bb4798221394494ce37dc2fcf7f7ca52226c17"
+   "sha256": "031f669fb179bf10adac9446f280afd2a5c39b11c322e305117cd6070a1f465c"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/politics/rss.xml",
@@ -44,7 +44,7 @@
    "status": "ok",
    "entries": 62,
    "kept": 0,
-   "sha256": "4de75e172d89d95c71ad1560a3fd521b013c79efef8ca557ba431168bd5526bd"
+   "sha256": "de055c7b09f5a7bc54d3ee87d9a459cb743ea33dc09acecde80c39571b4317b0"
   },
   {
    "url": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
@@ -52,7 +52,7 @@
    "status": "ok",
    "entries": 42,
    "kept": 0,
-   "sha256": "b7b868d0d3bdc36237b1806e352e0a3110cdb172158bd89f333483fb0b64edf3"
+   "sha256": "dfe8482514e7cd2663f9e4a8b30bc58b8ba87d84de7baa9e93d3a50031eed720"
   },
   {
    "url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
@@ -76,7 +76,7 @@
    "status": "ok",
    "entries": 20,
    "kept": 0,
-   "sha256": "a3cae3e620d790e22a7384ab931589b5b0192c89cc1ab066f170e774f381ba5e"
+   "sha256": "9da8e61f1115d8c70cef66ba2bbcbff0434b50c9501128c9c8ceb2e8639e5fd1"
   },
   {
    "url": "https://bills.parliament.uk/rss/allbills.rss",
@@ -84,15 +84,15 @@
    "status": "ok",
    "entries": 50,
    "kept": 0,
-   "sha256": "c4633881d7eb36843eb6176e541b96f98e89868fa472f813be7287ee33e30095"
+   "sha256": "0ee500ef9bf15f2c9e79d354cd365a83962d57a4521eaf9d7e81638a7e893218"
   },
   {
    "url": "https://www.datacenterdynamics.com/rss/",
    "source": "DatacenterDynamics",
    "status": "ok",
    "entries": 20,
-   "kept": 6,
-   "sha256": "2c6ce91a13cc1b0f0f6913e73a950d5c5126c2729f14733351faf831183ee30f"
+   "kept": 5,
+   "sha256": "0f5a83fc59265c13344a4c413b2ed9543d5e3ffad0d3a9f5c5f96295c83cdaaa"
   }
  ],
  "items": [

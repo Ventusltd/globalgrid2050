@@ -23,5 +23,5 @@ export function legalEvidenceURL(project, pathname = globalThis.location?.pathna
 
 export function legalEvidenceAction(project) {
   const href = legalEvidenceURL(project);
-  return href ? '<div><a class="action-link" href="' + href.replaceAll("&", "&amp;") + '">Legal evidence</a></div>' : "";
+  return href ? '<div style="grid-column:1/-1"><a class="action-link" href="' + href.replaceAll("&", "&amp;") + '">Legal evidence</a></div>' : "";
 }

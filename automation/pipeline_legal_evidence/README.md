@@ -1,6 +1,6 @@
 # REPD project detail action
 
-The candidate renderer adds a **Legal evidence** link inside each REPD project's existing detail section beside its planning reference. The helper uses the canonical record that the app already holds. It validates the project identity and passes the country as a search hint when recognised. The receiving LEGISLATION reader interprets this as project context. Interconnector reference rows stay outside the REPD adapter.
+The candidate renderer adds a **Legal evidence** link inside each REPD project's existing detail section under its project name. The helper uses the canonical record that the app already holds. It validates the project identity and passes the country as a search hint when recognised. The receiving LEGISLATION reader interprets this as project context. Interconnector reference rows stay outside the REPD adapter.
 
 To assemble a candidate, run `python automation/pipeline_legal_evidence/install.py <parent>/scripts/plugins/projects-v9-8.js <new-output-file>`. Install the output as `scripts/plugins/projects-v9-8.js` in the next unpublished PipelineNews edition. The existing renderer file is read only. The helper is resolved from the shared automation directory at the same relative depth as the current operator-aliases dependency.
 

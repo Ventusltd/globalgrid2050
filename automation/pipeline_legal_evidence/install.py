@@ -3,7 +3,7 @@ import argparse
 from pathlib import Path
 
 IMPORT = 'import { legalEvidenceAction } from "../../../../automation/pipeline_legal_evidence/link.mjs";'
-MARKER = '<div><b>PLANNING REF</b><span>${escapeHtml(planning)}</span></div>'
+MARKER = '<div><b>PROJECT NAME</b><span>${escapeHtml(project.name)}</span></div>'
 
 
 def patch(source):

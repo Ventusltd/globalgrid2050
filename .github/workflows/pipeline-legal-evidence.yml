@@ -1,0 +1,50 @@
+name: Pipeline legal evidence candidate
+on:
+  pull_request:
+    paths:
+      - 'automation/pipeline_legal_evidence/**'
+      - '.github/workflows/pipeline-legal-evidence.yml'
+permissions:
+  contents: read
+jobs:
+  project-link:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            automation/pipeline_legal_evidence
+            uk_renewables_pipeline/202611232245/scripts/plugins
+      - run: node --test automation/pipeline_legal_evidence/link.test.mjs
+      - run: |
+          python automation/pipeline_legal_evidence/install.py uk_renewables_pipeline/202611232245/scripts/plugins/projects-v9-8.js "$RUNNER_TEMP/candidate.mjs"
+          node --check "$RUNNER_TEMP/candidate.mjs"
+  browser-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            automation
+            uk_renewables_pipeline/202611232245
+      - name: Package runnable preview
+        run: |
+          mkdir -p preview
+          cp automation/pipeline_legal_evidence/{README.md,link.mjs,install.py,preview.py} preview/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PipelineNews-legal-evidence-preview
+          path: preview/
+      - run: python -m pip install 'playwright==1.56.0'
+      - name: Click the project link and check the public legal reader
+        env:
+          PIPELINE_CHECKOUT: ${{ github.workspace }}
+          CHROME_BIN: /usr/bin/google-chrome
+        run: python automation/pipeline_legal_evidence/browser.py acceptance/
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: PipelineNews-browser-acceptance
+          path: acceptance/
+          if-no-files-found: ignore

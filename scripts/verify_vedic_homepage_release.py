@@ -165,7 +165,10 @@ def verify_command_successor(manifest):
         verify_release(prior_release)
     verify_evidence_only(history)
     verify_command_root(target)
-    pin_bytes = (ROOT/"catalogue/homepage-owner.json").read_bytes()
+    live_pin = (ROOT/"catalogue/homepage-owner.json").read_bytes()
+    # Replay the VEDIC-only promotion against its original publisher commit.
+    pin_bytes = subprocess.check_output(["git", "show",
+        "013ced3cb5c022e3f44add74763b52e98e89f543:catalogue/homepage-owner.json"])
     pin = json.loads(pin_bytes)
     assert pin["commit"] == manifest["owner_commit"]
     previous_pin = subprocess.check_output(["git", "show",
@@ -205,8 +208,14 @@ def verify_command_successor(manifest):
         assert snapshot.read_bytes() == original and sha(original) == manifest["snapshot_sha256"]
         assert original.replace(history["v3"]["url"].encode(), target["url"].encode(), 1) == proposed
         assert (b'href="' + target["url"].encode() + b'">Open VEDIC') in proposed
-        # This successor is already the active homepage promotion.
         observed = current
+        if live_pin != pin_bytes:
+            observed = scratch/"live"
+            import_bundle(observed, live_pin)
+            catalogue = json.loads((observed/"homepage-shell/data/homepage.json").read_bytes())
+            active = next(row for row in catalogue["entities"] if row["id"] == "vedic")
+            assert active == new_vedic, "VEDIC source, release or navigation changed"
+            assert (b'href="' + target["url"].encode() + b'">Open VEDIC') in (observed/"index.html").read_bytes()
         match(DOMAIN, (observed/"index.html").read_bytes())
         for path in pin["files"]:
             if path != "index.html":

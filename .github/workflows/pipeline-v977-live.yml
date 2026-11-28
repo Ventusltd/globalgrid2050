@@ -1,0 +1,28 @@
+name: Published PipelineNews V9.77 legal evidence
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Deploy GlobalGrid2050 Pages"]
+    types: [completed]
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  browser:
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && startsWith(github.event.workflow_run.head_commit.message, 'Promote PipelineNews V9.77'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          sparse-checkout: automation/pipeline_legal_evidence
+      - run: python -m pip install 'playwright==1.56.0'
+      - run: python automation/pipeline_legal_evidence/live_v977.py
+        env:
+          CHROME_BIN: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: published-v977-mobile-desktop-legal-evidence
+          path: acceptance/

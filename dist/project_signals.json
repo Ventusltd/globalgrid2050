@@ -1,26 +1,26 @@
 {
  "schema": "project-signals.v2",
- "generated_at": "2026-11-27T15:22:41Z",
- "run_at": "2026-11-27T15:42:35Z",
+ "generated_at": "2026-11-28T00:43:03Z",
+ "run_at": "2026-11-28T01:03:02Z",
  "stale": false,
  "scope": "200 largest Solar Photovoltaics rows, REPD October 2026",
  "recent_days": 90,
  "parts": {
   "official": {
    "status": "ok",
-   "collected_at": "2026-11-27T15:18:10Z",
+   "collected_at": "2026-11-28T00:36:03Z",
    "items": 109,
    "note": ""
   },
   "trade": {
    "status": "ok",
-   "collected_at": "2026-11-27T15:22:26Z",
+   "collected_at": "2026-11-28T00:40:20Z",
    "items": 193,
    "note": ""
   },
   "index": {
    "status": "ok",
-   "collected_at": "2026-11-27T15:22:41Z",
+   "collected_at": "2026-11-28T00:43:03Z",
    "items": 18,
    "note": ""
   },
@@ -32,7 +32,7 @@
   },
   "planning": {
    "status": "ok",
-   "collected_at": "2026-11-27T15:37:11Z",
+   "collected_at": "2026-11-28T00:56:58Z",
    "items": 200,
    "note": ""
   }
@@ -128,7 +128,7 @@
    "id": "pv-tech",
    "url": "https://www.pv-tech.org",
    "status": "ok",
-   "requests": 3,
+   "requests": 48,
    "failures": 0,
    "items": 1,
    "error": ""
@@ -148,7 +148,7 @@
    "id": "energy-storage-news",
    "url": "https://www.energy-storage.news",
    "status": "ok",
-   "requests": 3,
+   "requests": 48,
    "failures": 0,
    "items": 2,
    "error": ""
@@ -161,7 +161,7 @@
    "requests": 7,
    "failures": 0,
    "items": 0,
-   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (0 of 21 links say solar); wp_search not JSON"
+   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (0 of 22 links say solar); wp_search not JSON"
   },
   {
    "team": "trade",
@@ -228,10 +228,10 @@
    "id": "gdelt-doc",
    "url": "https://api.gdeltproject.org/api/v2/doc/doc",
    "status": "partial",
-   "requests": 32,
+   "requests": 31,
    "failures": 29,
    "items": 2,
-   "error": "HTTP 429 on 6 queries running, each retried once; GDELT left alone for the rest of this run; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho; HTTP 0"
+   "error": "HTTP 429 on 6 queries running, each retried once; GDELT left alone for the rest of this run; HTTP 429: Please limit requests to one every 5 seconds or contact (address removed) for larger queries. All high-traffic users sho"
   }
  ],
  "projects": {
@@ -7181,7 +7181,7 @@
     "link_type": "search",
     "authority": "South Kesteven",
     "reference": "S21/1018",
-    "url": "https://pa.southkesteven.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+    "url": "https://www.southkesteven.gov.uk/",
     "kind": "search_page",
     "verified": false,
     "note": "Search the register for S21/1018."
@@ -8394,7 +8394,7 @@
     "link_type": "search",
     "authority": "South Kesteven",
     "reference": "S20/1433",
-    "url": "https://pa.southkesteven.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+    "url": "https://www.southkesteven.gov.uk/",
     "kind": "search_page",
     "verified": false,
     "note": "Search the register for S20/1433."

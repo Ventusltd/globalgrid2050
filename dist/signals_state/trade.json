@@ -1,7 +1,7 @@
 {
  "schema": "project-signals-part.v1",
  "team": "trade",
- "generated_at": "2026-11-27T15:22:26Z",
+ "generated_at": "2026-11-28T00:40:20Z",
  "items": [
   {
    "repd_ref": "12588",
@@ -1984,7 +1984,7 @@
    "id": "pv-tech",
    "url": "https://www.pv-tech.org",
    "status": "ok",
-   "requests": 3,
+   "requests": 48,
    "failures": 0,
    "items": 1,
    "error": "",
@@ -2012,8 +2012,8 @@
      "newest": "2026-11-27"
     }
    ],
-   "searched": 0,
-   "cached": 45,
+   "searched": 45,
+   "cached": 0,
    "skipped": 0,
    "notes": []
   },
@@ -2058,7 +2058,7 @@
    "id": "energy-storage-news",
    "url": "https://www.energy-storage.news",
    "status": "ok",
-   "requests": 3,
+   "requests": 48,
    "failures": 0,
    "items": 2,
    "error": "",
@@ -2086,8 +2086,8 @@
      "newest": "2026-11-27"
     }
    ],
-   "searched": 0,
-   "cached": 45,
+   "searched": 45,
+   "cached": 0,
    "skipped": 0,
    "notes": [
     "robots.txt www.energy-storage.news: HTTP 403 (treated as no rules)"
@@ -2100,7 +2100,7 @@
    "requests": 7,
    "failures": 0,
    "items": 0,
-   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (0 of 21 links say solar); wp_search not JSON",
+   "error": "no search route usable: wp_posts not JSON; wp_rss DTD or entity declaration rejected; wp_rss DTD or entity declaration rejected; html not search results (0 of 22 links say solar); wp_search not JSON",
    "route": "",
    "routes": [
     {
@@ -2124,14 +2124,14 @@
     {
      "route": "html",
      "url": "https://www.current-news.co.uk/?s=solar+farm",
-     "status": "not search results (0 of 21 links say solar)",
+     "status": "not search results (0 of 22 links say solar)",
      "content_type": "text/html",
-     "bytes": 514381,
-     "results": 21,
-     "dated": 2,
+     "bytes": 514181,
+     "results": 22,
+     "dated": 1,
      "summaries": 0,
      "relevant": 0,
-     "sample": "Exicom board approves Tritium sale at US$85 million valuation"
+     "sample": "Polestar shifts to SUV market after Q3 contraction and repercussions from BIS decision"
     },
     {
      "route": "wp_search",
@@ -2206,7 +2206,7 @@
      "url": "https://www.planningresource.co.uk/search/articles?KeyWords=solar+farm",
      "status": "not search results (0 of 8 links say solar)",
      "content_type": "text/html",
-     "bytes": 42422,
+     "bytes": 41713,
      "results": 8,
      "dated": 0,
      "summaries": 0,
@@ -2218,7 +2218,7 @@
      "url": "https://www.planningresource.co.uk/search?q=solar+farm",
      "status": "not search results (0 of 8 links say solar)",
      "content_type": "text/html",
-     "bytes": 42432,
+     "bytes": 41713,
      "results": 8,
      "dated": 0,
      "summaries": 0,

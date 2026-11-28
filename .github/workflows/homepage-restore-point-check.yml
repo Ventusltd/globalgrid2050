@@ -5,7 +5,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'uk_renewables_pipeline/202611280048/index.html'
+      - 'uk_renewables_pipeline/20*/index.html'
 
 permissions:
   contents: read

@@ -16,3 +16,9 @@ test("unknown and mismatched records", () => {
   assert.equal(url.searchParams.has("jurisdiction"),false);
   assert.equal(url.searchParams.has("mw"),false);
 });
+
+test("retain the edition identity of this rendered project", () => {
+  const pathname = "/uk_renewables_pipeline/202611232245/";
+  assert.equal(new URL(legalEvidenceURL(fixture, pathname)).searchParams.get("source_release"), "202611232245");
+  assert.equal(new URL(legalEvidenceURL(fixture, "/unexpected/")).searchParams.has("source_release"), false);
+});

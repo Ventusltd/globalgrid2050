@@ -74,7 +74,9 @@ def verify_command_root(target):
     assert current["schema"] == original["schema"] and re.fullmatch(r"[0-9a-f]{40}", source)
     assert "prose_count" not in current
     files = current["files"]
-    generated = set(files) - PUBLIC_FILES
+    receipt_pattern = r"data/accelerator-loop-([0-9]{6})\.json"
+    receipts = {path for path in files if re.fullmatch(receipt_pattern, path)}
+    generated = set(files) - PUBLIC_FILES - receipts
     assert PUBLIC_FILES <= files.keys()
     assert all(path == "data/command-index.json" or re.fullmatch(r"data/command-pages/\d{6}\.json", path)
                for path in generated)
@@ -88,6 +90,14 @@ def verify_command_root(target):
             entries = json.loads(committed)["entries"]
             assert len(entries) == current["row_count"] == len({row["gg_id"] for row in entries})
             assert entries[:len(rows)] == rows, "original 69 command records changed"
+    for path in sorted(receipts):
+        committed = read(git_base + source + "/" + path)
+        assert sha(committed) == files[path], (path, "source/manifest mismatch")
+        receipt = json.loads(committed)
+        assert receipt["schema"] == "vedic.accelerator.loop-public.v1", path
+        seed = int(re.fullmatch(receipt_pattern, path)[1])
+        assert receipt["seeds"]["element"] == seed, path
+        match(url + path, committed)
     for path in sorted(generated):
         assert sha(read(url + path)) == files[path], (path, "generated file/manifest mismatch")
     print("PASS: stable VEDIC command root", source, current["row_count"], flush=True)
@@ -216,6 +226,16 @@ def verify_command_successor(manifest):
             active = next(row for row in catalogue["entities"] if row["id"] == "vedic")
             assert active == new_vedic, "VEDIC source, release or navigation changed"
             assert (b'href="' + target["url"].encode() + b'">Open VEDIC') in (observed/"index.html").read_bytes()
+        # Before merge, compare the public site with the PR base. The deployment
+        # event checks the candidate bytes after Pages switches the live site.
+        if event == "pull_request":
+            payload = json.loads(pathlib.Path(os.environ["GITHUB_EVENT_PATH"]).read_bytes())
+            base_sha = payload["pull_request"]["base"]["sha"]
+            assert re.fullmatch(r"[0-9a-f]{40}", base_sha)
+            base_pin = subprocess.check_output(["git", "show", base_sha + ":catalogue/homepage-owner.json"])
+            if base_pin != live_pin:
+                observed = scratch/"deployed-base"
+                import_bundle(observed, base_pin)
         match(DOMAIN, (observed/"index.html").read_bytes())
         for path in pin["files"]:
             if path != "index.html":

@@ -34,6 +34,8 @@ def run(output):
         parsed = urlsplit(page.url)
         assert (parsed.scheme, parsed.netloc, parsed.path) == ("https", "ventusltd.github.io", "/legislation/legal-evidence/")
         assert parse_qs(parsed.query)["repd_ref"] == ["9873"]
+        expect(page.locator("#pipeline")).to_have_attribute("href", edition + "?technology=all&q=9873", timeout=60000)
+        expect(page.locator("#source-edition")).to_have_attribute("href", edition + "?technology=all&q=9873", timeout=60000)
         return_url = page.locator("#pipeline").get_attribute("href")
         assert urlsplit(return_url).netloc == "globalgrid2050.com"
         assert parse_qs(urlsplit(return_url).query) == {"technology":["all"], "q":["9873"]}

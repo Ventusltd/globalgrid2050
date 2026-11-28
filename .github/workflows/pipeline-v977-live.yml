@@ -1,6 +1,9 @@
 name: Published PipelineNews V9.77 legal evidence
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [automation/pipeline_legal_evidence/live_v977.py]
   workflow_run:
     workflows: ["Deploy GlobalGrid2050 Pages"]
     types: [completed]
@@ -9,7 +12,7 @@ permissions:
   contents: read
 jobs:
   browser:
-    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && startsWith(github.event.workflow_run.head_commit.message, 'Promote PipelineNews V9.77'))
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && startsWith(github.event.workflow_run.head_commit.message, 'Promote PipelineNews V9.77'))
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

@@ -1,0 +1,27 @@
+/* V9.22 staging: accessible source-health states and 44px desktop MAP hit targets.
+   The mobile 44px target was inherited; desktop was not and failed real Chromium. */
+#newsStatus[data-state="partial"],
+#newsStatus[data-state="overdue-partial"],
+#newsStatus[data-state="failed"] { color: var(--bess, #ffae00); }
+.ln-empty {
+  margin: 0;
+  padding: 16px 14px;
+  color: var(--muted, #a6adbb);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.project-actions .action-link,
+.project-actions .action-disabled,
+.project-actions .copy-id {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  box-sizing: border-box;
+}
+.project-actions a:focus-visible,
+.project-actions button:focus-visible {
+  outline: 2px solid var(--accent, #0ff);
+  outline-offset: 2px;
+}

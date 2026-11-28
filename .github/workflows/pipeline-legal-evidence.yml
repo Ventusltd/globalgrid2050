@@ -1,25 +1,14 @@
-name: Pipeline legal evidence candidate
+name: Pipeline project A4 legal evidence
 on:
   pull_request:
     paths:
       - 'automation/pipeline_legal_evidence/**'
+      - 'uk_renewables_pipeline/202611280922/**'
       - '.github/workflows/pipeline-legal-evidence.yml'
 permissions:
   contents: read
 jobs:
-  project-link:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          sparse-checkout: |
-            automation/pipeline_legal_evidence
-            uk_renewables_pipeline/202611232245/scripts/plugins
-      - run: node --test automation/pipeline_legal_evidence/link.test.mjs
-      - run: |
-          python automation/pipeline_legal_evidence/install.py uk_renewables_pipeline/202611232245/scripts/plugins/projects-v9-8.js "$RUNNER_TEMP/candidate.mjs"
-          node --check "$RUNNER_TEMP/candidate.mjs"
-  browser-preview:
+  project-a4:
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
@@ -27,24 +16,13 @@ jobs:
         with:
           sparse-checkout: |
             automation
-            uk_renewables_pipeline/202611232245
-      - name: Package runnable preview
+            uk_renewables_pipeline/202611280922
+      - name: Check canonical project identities and PDF exclusions
         run: |
-          mkdir -p preview
-          cp automation/pipeline_legal_evidence/{README.md,link.mjs,install.py,preview.py} preview/
-      - uses: actions/upload-artifact@v4
-        with:
-          name: PipelineNews-legal-evidence-preview
-          path: preview/
-      - run: python -m pip install 'playwright==1.56.0'
-      - name: Click the project link and check the public legal reader
+          node --test automation/pipeline_legal_evidence/link.test.mjs
+          node uk_renewables_pipeline/202611280922/tests/a4-legal-model.mjs
+      - run: python -m pip install 'playwright==1.56.0' 'pypdf>=5,<7'
+      - name: Test A4-only placement and both PDF outputs on desktop and mobile
         env:
-          PIPELINE_CHECKOUT: ${{ github.workspace }}
           CHROME_BIN: /usr/bin/google-chrome
-        run: python automation/pipeline_legal_evidence/browser.py acceptance/
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: PipelineNews-browser-acceptance
-          path: acceptance/
-          if-no-files-found: ignore
+        run: python uk_renewables_pipeline/202611280922/tests/a4-legal-evidence.py

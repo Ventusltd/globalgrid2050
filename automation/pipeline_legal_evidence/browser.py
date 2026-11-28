@@ -17,7 +17,7 @@ def run(output):
         with driver.chromium.launch(executable_path=os.getenv("CHROME_BIN")) as browser:
             page = browser.new_page(viewport={"width": 1280, "height": 850})
             base = f"http://127.0.0.1:{server.server_port}"
-            page.goto(base + EDITION + "?q=9873", wait_until="domcontentloaded", timeout=180000)
+            page.goto(base + EDITION + "?technology=all&q=9873", wait_until="domcontentloaded", timeout=180000)
             row = page.locator("#repd-9873")
             expect(row).to_be_visible(timeout=240000)
             expected_name = row.locator(".compact-project-name").text_content().strip()
@@ -41,7 +41,7 @@ def run(output):
             action.click(timeout=60000)
             expect(page.locator("#context")).to_contain_text(expected_name, timeout=60000)
             expect(page.locator("#context")).to_contain_text("202611232245")
-            return_url = "https://globalgrid2050.com" + EDITION + "?q=9873"
+            return_url = "https://globalgrid2050.com" + EDITION + "?technology=all&q=9873"
             expect(page.locator("#pipeline")).to_have_attribute("href", return_url)
             page.screenshot(path=output / "legal-reader.png")
             report.update(receiver=parsed.scheme + "://" + parsed.netloc + parsed.path, return_url=return_url)

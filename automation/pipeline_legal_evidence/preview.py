@@ -22,7 +22,7 @@ class Preview(BaseHTTPRequestHandler):
         path = urlsplit(self.path).path
         if path == "/":
             self.send_response(302)
-            self.send_header("Location", EDITION + "?q=9873")
+            self.send_header("Location", EDITION + "?technology=all&q=9873")
             self.end_headers()
             return
         if path == HELPER:

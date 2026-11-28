@@ -2,6 +2,10 @@ name: Homepage restore point check
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'uk_renewables_pipeline/202611280048/index.html'
 
 permissions:
   contents: read

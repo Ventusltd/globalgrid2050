@@ -1,0 +1,21 @@
+name: Pipeline legal evidence candidate
+on:
+  pull_request:
+    paths:
+      - 'automation/pipeline_legal_evidence/**'
+      - '.github/workflows/pipeline-legal-evidence.yml'
+permissions:
+  contents: read
+jobs:
+  project-link:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            automation/pipeline_legal_evidence
+            uk_renewables_pipeline/202611232245/scripts/plugins
+      - run: node --test automation/pipeline_legal_evidence/link.test.mjs
+      - run: |
+          python automation/pipeline_legal_evidence/install.py uk_renewables_pipeline/202611232245/scripts/plugins/projects-v9-8.js "$RUNNER_TEMP/candidate.mjs"
+          node --check "$RUNNER_TEMP/candidate.mjs"

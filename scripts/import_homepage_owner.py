@@ -3,6 +3,7 @@ import hashlib
 import json
 import re
 import urllib.request
+from html import escape
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -39,6 +40,24 @@ def main():
     if index.count(source) != 1:
         raise ValueError('Unexpected catalogue fallback reference')
     index = index.replace(source, 'href="./homepage-shell/data/homepage.json"')
+    # The short phone link follows the same release as the homepage. Earlier
+    # catalogue pins still have the original SatNav section to fall back to.
+    satnav_url = '/#satnav-concept'
+    for entity in config['entities']:
+        if entity['id'] == 'satnav-concept':
+            release = next(row for row in entity['releases'] if row['id'] == entity['operative_release_id'])
+            satnav_url = release['url']
+            if release['status'] != 'available' or not satnav_url.startswith('https://'):
+                raise ValueError('SatNav needs a published HTTPS destination')
+            break
+    destination = escape(satnav_url, quote=True)
+    satnav_page = (
+        '<!doctype html>\n<html lang="en"><head><meta charset="utf-8">\n'
+        '<meta name="viewport" content="width=device-width,initial-scale=1">\n'
+        f'<meta http-equiv="refresh" content="0;url={destination}">\n'
+        '<title>Ventus SatNav</title></head>\n'
+        f'<body><p><a href="{destination}">Open Ventus SatNav</a></p></body></html>\n'
+    )
     # All remote inputs are verified before any output changes. Site promotion is
     # performed by Pages after the complete build, not while these files write.
     for name, data in bundle.items():
@@ -46,6 +65,8 @@ def main():
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(data)
     (ROOT/'index.html').write_text(index.rstrip() + '\n', encoding='utf-8', newline='\n')
+    (ROOT/'satnav').mkdir(exist_ok=True)
+    (ROOT/'satnav/index.html').write_text(satnav_page, encoding='utf-8', newline='\n')
     print(f'Imported verified homepage {pin["commit"]}: {len(FILES)} files')
 
 if __name__ == '__main__':
